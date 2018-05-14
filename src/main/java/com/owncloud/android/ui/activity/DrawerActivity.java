@@ -648,8 +648,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     View accountEndView = findNavigationViewChildById(R.id.drawer_account_end);
                     accountEndView.setTag(mAvatars[1].name);
 
-                    DisplayUtils.setAvatar(mAvatars[1], this,
-                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountEndView);
+                    DisplayUtils.setAvatar(mAvatars[1], this, mOtherAccountAvatarRadiusDimension, getResources(),
+                            getStorageManager(), accountEndView, this);
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
@@ -660,8 +660,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     View accountMiddleView = findNavigationViewChildById(R.id.drawer_account_middle);
                     accountMiddleView.setTag(mAvatars[2].name);
 
-                    DisplayUtils.setAvatar(mAvatars[2], this,
-                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountMiddleView);
+                    DisplayUtils.setAvatar(mAvatars[2], this, mOtherAccountAvatarRadiusDimension, getResources(),
+                            getStorageManager(), accountMiddleView, this);
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -695,7 +695,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             account.name)
                             .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
                     DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
-                            getStorageManager(), accountMenuItem);
+                            getStorageManager(), accountMenuItem, this);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
@@ -761,7 +761,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             currentAccountView.setTag(account.name);
 
             DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                    getStorageManager(), currentAccountView);
+                    getStorageManager(), currentAccountView, this);
 
             // check and show quota info if available
             getAndDisplayUserQuota();
