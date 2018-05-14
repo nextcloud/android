@@ -87,7 +87,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
     }
 
-    protected void setupToolbar() {
+    public void setupToolbar() {
         setupToolbar(false);
     }
 
