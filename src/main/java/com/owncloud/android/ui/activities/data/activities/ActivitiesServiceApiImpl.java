@@ -68,8 +68,8 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
             final Context context = MainApp.getAppContext();
+            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
             OwnCloudAccount ocAccount;
             try {
                 ocAccount = new OwnCloudAccount(currentAccount, context);
