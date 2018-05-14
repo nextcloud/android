@@ -346,7 +346,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if(activity != null) {
             activity.setPreviewImageVisibility(View.GONE);
             activity.setProgressBarVisibility(View.VISIBLE);
-            ThemeUtils.setStatusBarColor(activity, ThemeUtils.primaryColor(getContext()));
+            activity.setupToolbar();
         }
 
         super.onStop();
