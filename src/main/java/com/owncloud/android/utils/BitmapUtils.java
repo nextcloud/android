@@ -35,7 +35,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import org.apache.commons.codec.binary.Hex;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 /**
