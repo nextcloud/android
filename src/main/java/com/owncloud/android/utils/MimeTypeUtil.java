@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
  * based on its mime type and file extension.</p>
@@ -94,6 +96,7 @@ public class MimeTypeUtil {
      * @param account account which color should be used
      * @return Drawable of an image resource.
      */
+    @Nullable
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
