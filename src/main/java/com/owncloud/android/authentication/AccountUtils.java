@@ -167,15 +167,12 @@ public class AccountUtils {
                     appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
 
                     // update credentials
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                                    context.getContentResolver());
-                            GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
-                            RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
-                            Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
-                        }
+                    Thread t = new Thread(() -> {
+                        FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                                context.getContentResolver());
+                        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                        RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
+                        Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
                     });
 
                     t.start();
