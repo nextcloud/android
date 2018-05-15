@@ -106,13 +106,13 @@ public class AccountUtils {
         Account[] ocAccounts = getAccounts(context);
 
         if (account != null && account.name != null) {
-            int lastAtPos = account.name.lastIndexOf("@");
+            int lastAtPos = account.name.lastIndexOf('@');
             String hostAndPort = account.name.substring(lastAtPos + 1);
             String username = account.name.substring(0, lastAtPos);
             String otherHostAndPort;
             String otherUsername;
             for (Account otherAccount : ocAccounts) {
-                lastAtPos = otherAccount.name.lastIndexOf("@");
+                lastAtPos = otherAccount.name.lastIndexOf('@');
                 otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
                 otherUsername = otherAccount.name.substring(0, lastAtPos);
                 if (otherHostAndPort.equals(hostAndPort) &&
