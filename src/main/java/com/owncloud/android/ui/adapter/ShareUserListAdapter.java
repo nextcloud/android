@@ -105,6 +105,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
             /// bind listener to unshare
             unshareButton.setOnClickListener(v -> mListener.unshareButtonPressed(mShares.get(position)));
+
         }
         return view;
     }
