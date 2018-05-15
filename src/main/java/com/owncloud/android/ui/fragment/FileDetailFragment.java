@@ -238,57 +238,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             emptyProgressBar.setVisibility(View.GONE);
         }
     }
-    // TODO use whenever we switch to use glide for preview images
-    /*
-    private void setHeaderImage() {
-        if (mContainerActivity.getStorageManager().getCapability(account.name)
-                .getServerBackground() != null && previewImage != null) {
-
-            String background = mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground();
-
-            int primaryColor = ThemeUtils.primaryColor(account, getContext());
-
-            if (URLUtil.isValidUrl(background)) {
-                // background image
-                SimpleTarget target = new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
-                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                        previewImage.setImageDrawable(layerDrawable);
-                        previewImage.setVisibility(View.VISIBLE);
-                        ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
-                        ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
-                        toolbarProgressBar.setVisibility(View.GONE);
-                        previewLoaded = true;
-                    }
-
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        previewImage.setVisibility(View.GONE);
-                        toolbarProgressBar.setVisibility(View.VISIBLE);
-                    }
-                };
-
-                Glide.with(this)
-                        .load(background)
-                        .centerCrop()
-                        .placeholder(R.drawable.background)
-                        .error(R.drawable.background)
-                        .crossFade()
-                        .into(target);
-            } else {
-                // hide image
-                previewImage.setVisibility(View.GONE);
-                toolbarProgressBar.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-    */
 
     public void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.file_actions_menu);
+        popup.inflate(R.menu.file_details_actions_menu);
         prepareOptionsMenu(popup.getMenu());
 
         popup.setOnMenuItemClickListener(this::optionsItemSelected);
@@ -392,41 +345,22 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mf.filter(menu, true);
         }
 
-        // restriction for this fragment
-        FileMenuFilter.hideMenuItems(
-                menu.findItem(R.id.action_see_details),
-                menu.findItem(R.id.action_select_all),
-                menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_copy),
-                menu.findItem(R.id.action_favorite),
-                menu.findItem(R.id.action_unset_favorite),
-                menu.findItem(R.id.action_search)
-        );
-
         // dual pane restrictions
         if (!getResources().getBoolean(R.bool.large_land_layout)){
             FileMenuFilter.hideMenuItems(
-                    menu.findItem(R.id.action_switch_view),
-                    menu.findItem(R.id.action_sync_account),
-                    menu.findItem(R.id.action_sort)
+                    menu.findItem(R.id.action_sync_account)
             );
-        }
-
-        // share restrictions
-        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_share_file));
         }
     }
 
     public boolean optionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_send_share_file: {
+            case R.id.action_send_file: {
                 if(getFile().isSharedWithMe() && !getFile().canReshare()){
                     Snackbar.make(getView(),
                             R.string.resharing_is_not_allowed,
                             Snackbar.LENGTH_LONG
-                    )
-                            .show();
+                    ).show();
                 } else {
                     mContainerActivity.getFileOperationsHelper().sendShareFile(getFile());
                 }
@@ -461,6 +395,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             case R.id.action_unset_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
+                return true;
+            }
+            case R.id.action_encrypted: {
+                // TODO implement or remove
+                return true;
+            }
+            case R.id.action_unset_encrypted: {
+                // TODO implement or remove
                 return true;
             }
             default:
@@ -544,7 +486,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 fileName.setVisibility(View.GONE);
             }
             fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-            fileModifiedTimestamp.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+            fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), file.getModificationTimestamp()));
             setFilePreview(file);
             setFavoriteIconStatus(file.getIsFavorite());
 
