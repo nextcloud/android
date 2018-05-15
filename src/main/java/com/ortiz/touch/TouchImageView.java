@@ -61,9 +61,10 @@ public class TouchImageView extends AppCompatImageView {
     // MTRANS_X and MTRANS_Y are the other values used. prevMatrix is the matrix
     // saved prior to the screen rotating.
     //
-	private Matrix matrix, prevMatrix;
+	private Matrix matrix;
+    private Matrix prevMatrix;
 
-    private static enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM };
+    private enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM }
     private State state;
 
     private float minScale;
@@ -477,7 +478,8 @@ public class TouchImageView extends AppCompatImageView {
     }
 
     private float getFixTrans(float trans, float viewSize, float contentSize) {
-        float minTrans, maxTrans;
+        float minTrans;
+        float maxTrans;
 
         if (contentSize <= viewSize) {
             minTrans = 0;
