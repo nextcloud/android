@@ -57,6 +57,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java.util.ArrayList;
 
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
