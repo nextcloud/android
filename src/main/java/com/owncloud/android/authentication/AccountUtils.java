@@ -42,6 +42,7 @@ import java.util.Locale;
 
 public class AccountUtils {
     private static final String TAG = AccountUtils.class.getSimpleName();
+    private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     public static final int ACCOUNT_VERSION = 1;
     public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
@@ -67,7 +68,7 @@ public class AccountUtils {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String accountName = appPreferences.getString("select_oc_account", null);
+        String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);
 
         // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
         if (accountName != null) {
@@ -165,7 +166,7 @@ public class AccountUtils {
                 found = (account.name.equals(accountName));
                 if (found) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString("select_oc_account", accountName);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
 
                     // update credentials
                     Thread t = new Thread(new Runnable() {
@@ -192,7 +193,7 @@ public class AccountUtils {
 
     public static void resetOwnCloudAccount(Context context) {
         SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        appPrefs.putString("select_oc_account", null);
+        appPrefs.putString(PREF_SELECT_OC_ACCOUNT, null);
 
         appPrefs.apply();
     }
