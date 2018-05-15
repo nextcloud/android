@@ -615,15 +615,19 @@ public class FileOperationsHelper {
         return false;
     }
 
-    public void sendShareFile(OCFile file) {
+    public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog
         FragmentManager fm = mFileActivity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file);
+        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions);
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+    }
+
+    public void sendShareFile(OCFile file) {
+        sendShareFile(file, false);
     }
 
     public void syncFiles(Collection<OCFile> files) {

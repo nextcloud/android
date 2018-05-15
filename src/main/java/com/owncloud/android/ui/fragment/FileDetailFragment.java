@@ -27,7 +27,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -345,6 +344,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mf.filter(menu, true);
         }
 
+        if (getFile().isFolder()) {
+            FileMenuFilter.hideMenuItems(
+                    menu.findItem(R.id.action_send_file)
+            );
+        }
+
         // dual pane restrictions
         if (!getResources().getBoolean(R.bool.large_land_layout)){
             FileMenuFilter.hideMenuItems(
@@ -353,17 +358,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-    public boolean optionsItemSelected(MenuItem item) {
+    private boolean optionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_file: {
-                if(getFile().isSharedWithMe() && !getFile().canReshare()){
-                    Snackbar.make(getView(),
-                            R.string.resharing_is_not_allowed,
-                            Snackbar.LENGTH_LONG
-                    ).show();
-                } else {
-                    mContainerActivity.getFileOperationsHelper().sendShareFile(getFile());
-                }
+                mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
                 return true;
             }
             case R.id.action_open_file_with: {
