@@ -111,14 +111,12 @@ public class AccountUtils {
             String username = account.name.substring(0, lastAtPos);
             String otherHostAndPort;
             String otherUsername;
-            Locale currentLocale = context.getResources().getConfiguration().locale;
             for (Account otherAccount : ocAccounts) {
                 lastAtPos = otherAccount.name.lastIndexOf("@");
                 otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
                 otherUsername = otherAccount.name.substring(0, lastAtPos);
                 if (otherHostAndPort.equals(hostAndPort) &&
-                        otherUsername.toLowerCase(currentLocale).
-                            equals(username.toLowerCase(currentLocale))) {
+                        otherUsername.equalsIgnoreCase(username)) {
                     return true;
                 }
             }
