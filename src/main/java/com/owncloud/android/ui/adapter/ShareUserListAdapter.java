@@ -34,8 +34,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.TextDrawable;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -93,24 +91,12 @@ public class ShareUserListAdapter extends ArrayAdapter {
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_group);
-                }
+                icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
             } else if (share.getShareType() == ShareType.EMAIL) {
                 name = getContext().getString(R.string.share_email_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_email);
-                }
+                icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
             } else {
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_user);
-                }
+                icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
             }
             userName.setText(name);
 
