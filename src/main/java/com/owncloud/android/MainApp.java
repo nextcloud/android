@@ -110,6 +110,7 @@ public class MainApp extends MultiDexApplication {
     private boolean mBound;
 
     @SuppressFBWarnings("ST")
+    @Override
     public void onCreate() {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
