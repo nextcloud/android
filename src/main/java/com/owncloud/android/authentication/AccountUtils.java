@@ -47,6 +47,10 @@ public class AccountUtils {
     public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
     public static final String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
 
+    private AccountUtils() {
+        // Required empty constructor
+    }
+
     /**
      * Can be used to get the currently selected ownCloud {@link Account} in the
      * application preferences.
