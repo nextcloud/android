@@ -27,7 +27,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -111,6 +110,7 @@ public class MainApp extends MultiDexApplication {
     private boolean mBound;
 
     @SuppressFBWarnings("ST")
+    @Override
     public void onCreate() {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
