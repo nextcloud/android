@@ -1,20 +1,20 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   Copyright (C) 2018 Edvard Holst
+ * Copyright (C) 2018 Edvard Holst
  *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activities;
@@ -37,9 +37,9 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     private final FilesRepository filesRepository;
 
 
-    public ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
-                               @NonNull FilesRepository filesRepository,
-                               @NonNull ActivitiesContract.View activitiesView) {
+    ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
+                        @NonNull FilesRepository filesRepository,
+                        @NonNull ActivitiesContract.View activitiesView) {
         this.activitiesRepository = activitiesRepository;
         this.activitiesView = activitiesView;
         this.filesRepository = filesRepository;
@@ -51,7 +51,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
         activitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
             public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
-                                          String nextPageUrl) {
+                                           String nextPageUrl) {
                 activitiesView.setProgressIndicatorState(false);
                 activitiesView.showActivities(activities, client, nextPageUrl);
             }
@@ -62,8 +62,6 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
                 activitiesView.showActivitiesLoadError(error);
             }
         });
-
-
     }
 
     @Override
@@ -88,5 +86,4 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
                     }
                 });
     }
-
 }
