@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -55,7 +56,6 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private final ActivitiesServiceCallback<List<Object>> callback;
         private List<Object> activities;
         private String pageUrl;
-        private String noResultsMessage = "no results";
         private String errorMessage;
         private OwnCloudClient ownCloudClient;
 
@@ -68,8 +68,8 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
             final Context context = MainApp.getAppContext();
+            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
             OwnCloudAccount ocAccount;
             try {
                 ocAccount = new OwnCloudAccount(currentAccount, context);
@@ -95,7 +95,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     // show error
                     errorMessage = result.getLogMessage();
                     if (result.getHttpCode() == 304) {
-                        errorMessage = noResultsMessage;
+                        errorMessage = context.getString(R.string.file_list_empty_headline_server_search);
                     }
                     return false;
 
