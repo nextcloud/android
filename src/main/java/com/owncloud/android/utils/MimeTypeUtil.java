@@ -22,6 +22,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -36,6 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
@@ -93,15 +96,20 @@ public class MimeTypeUtil {
      * @param account account which color should be used
      * @return Drawable of an image resource.
      */
+    @Nullable
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
-        int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
-        Drawable icon = context.getResources().getDrawable(iconId);
+        if (context != null) {
+            int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
+            Drawable icon = ContextCompat.getDrawable(context, iconId);
 
-        if(R.drawable.file_zip == iconId) {
-            ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, context));
+            if (R.drawable.file_zip == iconId) {
+                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, context));
+            }
+
+            return icon;
+        } else {
+            return null;
         }
-
-        return icon;
     }
 
     /**
