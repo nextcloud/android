@@ -28,58 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/standard_padding">
-
-        <TextView
-            android:id="@+id/fdShareTitle"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/common_share"
-            android:textColor="@color/color_accent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/fdShareLinkIcon"
-                android:layout_width="@dimen/shared_list_icon_width"
-                android:layout_height="@dimen/shared_list_icon_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginRight="@dimen/standard_half_margin"
-                android:contentDescription="@string/shared_icon"
-                android:src="@drawable/shared_via_link"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/fdSharebyLink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="@string/filedetails_share_link_disable" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/fdShareWithUsersTitle"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/filedetails_share_users_with_access"
-            android:textColor="@color/color_accent" />
+        android:paddingTop="@dimen/standard_half_padding">
 
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
@@ -87,6 +36,56 @@
             android:id="@+id/searchView"
             android:hint="@string/share_search"
             style="@style/ownCloud.SearchView"/>
+
+        <LinearLayout
+            android:id="@+id/share_by_link_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding">
+
+            <CheckBox
+                android:id="@+id/share_by_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/share_link_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:textSize="@dimen/two_line_secondary_text_size"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:text="@string/share_via_link_section_title" />
+
+            <CheckBox
+                android:id="@+id/share_by_link_allow_editing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/share_via_link_edit_permission_label"/>
+
+            <ImageView
+                android:id="@+id/overflow_menu_share_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:contentDescription="@string/overflow_menu"
+                android:paddingEnd="@dimen/zero"
+                android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingRight="@dimen/zero"
+                android:paddingStart="@dimen/standard_half_padding"
+                android:src="@drawable/ic_dots_vertical" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/fdshareUsersList"
@@ -99,7 +98,7 @@
             android:id="@+id/fdShareNoUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
             android:text="@string/share_no_users"

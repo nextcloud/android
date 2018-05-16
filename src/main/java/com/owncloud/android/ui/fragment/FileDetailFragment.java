@@ -163,6 +163,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         progressListener = null;
     }
 
+    /**
+     * return the reference to the file detail sharing fragment to communicate with it.
+     *
+     * @return reference to the {@link FileDetailSharingFragment}
+     */
+    public FileDetailSharingFragment getFileDetailSharingFragment() {
+        return ((FileDetailTabAdapter)viewPager.getAdapter()).getFileDetailSharingFragment();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -345,16 +354,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         if (getFile().isFolder()) {
-            FileMenuFilter.hideMenuItems(
-                    menu.findItem(R.id.action_send_file)
-            );
+            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_file));
         }
 
         // dual pane restrictions
         if (!getResources().getBoolean(R.bool.large_land_layout)){
-            FileMenuFilter.hideMenuItems(
-                    menu.findItem(R.id.action_sync_account)
-            );
+            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_sync_account));
         }
     }
 

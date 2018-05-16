@@ -23,17 +23,26 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -42,14 +51,21 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener {
@@ -63,20 +79,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private OCFile file;
     private Account account;
+    private OCCapability capabilities;
+    private OCShare publicShare;
 
     private Unbinder unbinder;
-
-    @BindView(R.id.fdShareTitle)
-    TextView shareTitle;
-
-    @BindView(R.id.fdShareWithUsersTitle)
-    TextView shareWithUsersTitle;
-
-    @BindView(R.id.fdSharebyLink)
-    TextView sharebyLink;
-
-    @BindView(R.id.fdShareLinkIcon)
-    ImageView linkIcon;
 
     @BindView(R.id.searchView)
     SearchView searchView;
@@ -87,6 +93,19 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @BindView(R.id.fdShareNoUsers)
     TextView noList;
 
+    @BindView(R.id.share_by_link)
+    CheckBox shareByLink;
+
+    @BindView(R.id.overflow_menu_share_link)
+    ImageView overflowMenuShareLink;
+
+    @BindView(R.id.share_by_link_allow_editing)
+    CheckBox shareByLinkAllowEditing;
+
+    @BindView(R.id.share_by_link_container)
+    LinearLayout shareByLinkContainer;
+
+
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
         Bundle args = new Bundle();
@@ -94,6 +113,15 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         args.putParcelable(ARG_ACCOUNT, account);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log_OC.d(TAG, "onActivityCreated");
+
+        // Load known capabilities of the server from DB
+        refreshCapabilitiesFromDB();
     }
 
     @Override
@@ -132,9 +160,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void setupView() {
-        shareTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        shareWithUsersTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-
         setShareByLinkInfo(file.isSharedViaLink());
         setShareWithUserInfo();
         setupSearchView();
@@ -170,15 +195,23 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     /**
-     * Updates Share by link data
+     * Updates Share by link UI
      *
      * @param isShareByLink flag is share by link is enable
      */
     private void setShareByLinkInfo(boolean isShareByLink) {
-        sharebyLink.setText(isShareByLink ? R.string.filedetails_share_link_enable :
-                    R.string.filedetails_share_link_disable);
+        shareByLink.setChecked(isShareByLink);
+        setLinkDetailVisible(isShareByLink);
+    }
 
-        linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
+    private void setLinkDetailVisible(boolean visible) {
+        if (visible) {
+            shareByLinkAllowEditing.setVisibility(View.VISIBLE);
+            overflowMenuShareLink.setVisibility(View.VISIBLE);
+        } else {
+            shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
+            overflowMenuShareLink.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
@@ -187,7 +220,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private void setShareWithUserInfo(){
         // Get Users and Groups
         if (((FileActivity) getActivity()).getStorageManager() != null) {
-            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
+            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity())
+                    .getStorageManager();
             mShares = fileDataStorageManager.getSharesWithForAFile(
                     file.getRemotePath(),account.name
             );
@@ -241,6 +275,99 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         listView.requestLayout();
     }
 
+    @OnClick(R.id.share_by_link)
+    public void toggleShareByLink() {
+        if (shareByLink.isChecked()) {
+            if (capabilities != null &&
+                    capabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
+                // password enforced by server, request to the user before trying to create
+                requestPasswordForShareViaLink(true);
+
+            } else {
+                // create without password if not enforced by server or we don't know if enforced;
+                ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
+
+                // ShareActivity#onCreateShareViaLinkOperationFinish will take care if password
+                // is enforced by the server but app doesn't know, or if server version is
+                // older than OwnCloudVersion#MINIMUM_VERSION_CAPABILITIES_API
+            }
+
+        } else {
+            ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(file);
+        }
+    }
+
+    @OnClick(R.id.share_link_label)
+    public void showSendLinkTo() {
+        if (file.isSharedViaLink()) {
+            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+        }
+    }
+
+    @OnClick(R.id.share_by_link_allow_editing)
+    public void toggleShareLinkAllowEditing() {
+        if (file.isSharedViaLink()) {
+            ((FileActivity) getActivity()).getFileOperationsHelper().setUploadPermissionsToShare(file, shareByLinkAllowEditing.isChecked());
+        }
+    }
+
+    @OnClick(R.id.overflow_menu_share_link)
+    public void showLinkOverflowMenu() {
+        PopupMenu popup = new PopupMenu(getActivity(), overflowMenuShareLink);
+        popup.inflate(R.menu.file_detail_sharing_menu);
+        prepareOptionsMenu(popup.getMenu());
+        popup.setOnMenuItemClickListener(this::optionsItemSelected);
+        popup.show();
+    }
+
+    private void prepareOptionsMenu(Menu menu) {
+        // TODO implement setting the correct menu item titles based on the share/permissions info
+        Resources res = getResources();
+        setupExpirationDateMenuItem(menu.findItem(R.id.action_share_link_expiration_date), res);
+    }
+
+    private void setupExpirationDateMenuItem(MenuItem expirationDate, Resources res) {
+        long expirationDateValue = publicShare.getExpirationDate();
+        if (expirationDateValue > 0) {
+            String formattedDate =
+                    SimpleDateFormat.getDateInstance().format(
+                            new Date(expirationDateValue)
+                    );
+            expirationDate.setTitle(res.getString(
+                    R.string.share_via_link_menu_expiration_date_label,
+                    formattedDate
+            ));
+        } else {
+            expirationDate.setTitle(res.getString(
+                    R.string.share_via_link_menu_expiration_date_label,
+                    res.getString(R.string.share_via_link_menu_expiration_date_never)
+            ));
+        }
+    }
+
+    private boolean optionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share_link_permissions: {
+                return true;
+            }
+            case R.id.action_share_link_password: {
+                requestPasswordForShareViaLink(false);
+                return true;
+            }
+            case R.id.action_share_link_expiration_date: {
+                // TODO extend date picker to allow for clearing/unsetting a date
+                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
+                dialog.show(
+                        getActivity().getSupportFragmentManager(),
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                );
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public void unshareWith(OCShare share) {
         ((FileActivity)getActivity()).getFileOperationsHelper()
@@ -270,5 +397,84 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         ;
 
         return permissions;
+    }
+
+    /**
+     * Starts a dialog that requests a password to the user to protect a share link.
+     *
+     * @param createShare When 'true', the request for password will be followed by the creation of a new
+     *                    public link; when 'false', a public share is assumed to exist, and the password
+     *                    is bound to it.
+     */
+    public void requestPasswordForShareViaLink(boolean createShare) {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file, createShare);
+        dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    }
+
+    /**
+     * Get known server capabilities from DB
+     * <p/>
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshCapabilitiesFromDB() {
+        if (((FileActivity) getActivity()).getStorageManager() != null) {
+            capabilities = ((FileActivity) getActivity()).getStorageManager().getCapability(account.name);
+        }
+    }
+
+    /**
+     * Get public link from the DB to fill in the "Share link" section in the UI.
+     *
+     * Takes into account server capabilities before reading database.
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshPublicShareFromDB() {
+        if (isPublicShareDisabled()) {
+            hidePublicShare();
+        } else if (((FileActivity) getActivity()).getStorageManager() != null) {
+            // Get public share
+            publicShare = ((FileActivity) getActivity()).getStorageManager().getFirstShareByPathAndType(
+                    file.getRemotePath(),
+                    ShareType.PUBLIC_LINK,
+                    ""
+            );
+
+            // Update public share section
+            updatePublicShareSection();
+        }
+    }
+
+    /**
+     * Updates in the UI the section about public share with the information in the current public share bound to
+     * mFile, if any.
+     */
+    private void updatePublicShareSection() {
+        if (publicShare != null && ShareType.PUBLIC_LINK.equals(publicShare.getShareType())) {
+            shareByLink.setChecked(true);
+
+            if (publicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
+                shareByLinkAllowEditing.setChecked(true);
+            } else {
+                shareByLinkAllowEditing.setChecked(false);
+            }
+        }
+    }
+
+    /**
+     * @return 'True' when public share is disabled in the server.
+     */
+    private boolean isPublicShareDisabled() {
+        return (capabilities != null && capabilities.getFilesSharingPublicEnabled().isFalse()
+        );
+    }
+
+    /**
+     * Hides all the UI elements related to public share.
+     */
+    private void hidePublicShare() {
+        shareByLinkContainer.setVisibility(View.GONE);
     }
 }

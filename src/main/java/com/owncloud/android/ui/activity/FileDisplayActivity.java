@@ -47,6 +47,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -73,6 +74,8 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -83,6 +86,7 @@ import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -92,13 +96,16 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SendShareDialog;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -145,6 +152,9 @@ public class FileDisplayActivity extends HookActivity
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
+
+    private static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -1694,8 +1704,9 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (operation instanceof CopyFileOperation) {
             onCopyFileOperationFinish((CopyFileOperation) operation, result);
+        } else if (operation instanceof CreateShareViaLinkOperation) {
+            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         }
-
     }
 
     private void refreshShowDetails() {
@@ -1786,6 +1797,98 @@ public class FileDisplayActivity extends HookActivity
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
         }
+    }
+
+    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
+                                                     RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            updateFileFromDB();
+
+            // Create dialog to allow the user choose an app to send the link
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+
+            // if share to user and share via link multiple ocshares are returned,
+            // therefore filtering for public_link
+            String link = "";
+            for (Object object : result.getData()) {
+                OCShare shareLink = (OCShare) object;
+                if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
+                    link = shareLink.getShareLink();
+                    break;
+                }
+            }
+
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+            intentToShareLink.setType("text/plain");
+
+            String username;
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
+                if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                    username = oca.getDisplayName();
+                } else {
+                    username = AccountUtils.getUsernameForAccount(getAccount());
+                }
+            } catch (Exception e) {
+                username = AccountUtils.getUsernameForAccount(getAccount());
+            }
+
+            if (username != null) {
+                intentToShareLink.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_user_shared_with_you,
+                                username,
+                                getFile().getFileName()
+                        )
+                );
+            } else {
+                intentToShareLink.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_shared_with_you,
+                                getFile().getFileName()
+                        )
+                );
+            }
+
+            String[] packagesToExclude = new String[]{getPackageName()};
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+
+        } else {
+            // Detect Failure (403) --> maybe needs password
+            String password = operation.getPassword();
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN    &&
+                    (password == null || password.length() == 0)                        &&
+                    getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
+                // Was tried without password, but not sure that it's optional.
+
+                // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
+                FileDetailFragment fileDetailFragment = getShareFileFragment();
+                if (fileDetailFragment != null
+                        && fileDetailFragment.isAdded()) {   // only if added to the view hierarchy!!
+
+                    fileDetailFragment.getFileDetailSharingFragment().requestPasswordForShareViaLink(true);
+                }
+
+            } else {
+                Snackbar.make(
+                        findViewById(android.R.id.content),
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Snackbar.LENGTH_LONG
+                ).show();
+            }
+        }
+    }
+
+    /**
+     * Shortcut to get access to the {@link FileDetailFragment} instance, if any
+     *
+     * @return A {@link FileDetailFragment} instance, or null
+     */
+    private FileDetailFragment getShareFileFragment() {
+        return (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
     }
 
     /**

@@ -143,25 +143,20 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         fetchAndSetData(null);
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> {
-                    setLoadingMessage();
-                    if (swipeListRefreshLayout != null && swipeListRefreshLayout.isRefreshing()) {
-                        swipeListRefreshLayout.setRefreshing(false);
-                    }
-                    fetchAndSetData(null);
-                }
-        );
-
-        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
-                    setLoadingMessage();
-                    if (swipeEmptyListRefreshLayout != null && swipeEmptyListRefreshLayout.isRefreshing()) {
-                        swipeEmptyListRefreshLayout.setRefreshing(false);
-                    }
-                    fetchAndSetData(null);
-                }
-        );
+        swipeListRefreshLayout.setOnRefreshListener(
+                () -> onRefreshListLayout(swipeListRefreshLayout));
+        swipeEmptyListRefreshLayout.setOnRefreshListener(
+                () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
         return view;
+    }
+
+    private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
+        setLoadingMessage();
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
+        fetchAndSetData(null);
     }
 
     private void setLoadingMessage() {
