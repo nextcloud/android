@@ -42,10 +42,15 @@ import java.util.Locale;
 
 public class AccountUtils {
     private static final String TAG = AccountUtils.class.getSimpleName();
+    private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     public static final int ACCOUNT_VERSION = 1;
     public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
     public static final String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
+
+    private AccountUtils() {
+        // Required empty constructor
+    }
 
     /**
      * Can be used to get the currently selected ownCloud {@link Account} in the
@@ -63,7 +68,7 @@ public class AccountUtils {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String accountName = appPreferences.getString("select_oc_account", null);
+        String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);
 
         // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
         if (accountName != null) {
@@ -101,19 +106,17 @@ public class AccountUtils {
         Account[] ocAccounts = getAccounts(context);
 
         if (account != null && account.name != null) {
-            int lastAtPos = account.name.lastIndexOf("@");
+            int lastAtPos = account.name.lastIndexOf('@');
             String hostAndPort = account.name.substring(lastAtPos + 1);
             String username = account.name.substring(0, lastAtPos);
             String otherHostAndPort;
             String otherUsername;
-            Locale currentLocale = context.getResources().getConfiguration().locale;
             for (Account otherAccount : ocAccounts) {
-                lastAtPos = otherAccount.name.lastIndexOf("@");
+                lastAtPos = otherAccount.name.lastIndexOf('@');
                 otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
                 otherUsername = otherAccount.name.substring(0, lastAtPos);
                 if (otherHostAndPort.equals(hostAndPort) &&
-                        otherUsername.toLowerCase(currentLocale).
-                            equals(username.toLowerCase(currentLocale))) {
+                        otherUsername.equalsIgnoreCase(username)) {
                     return true;
                 }
             }
@@ -161,18 +164,15 @@ public class AccountUtils {
                 found = (account.name.equals(accountName));
                 if (found) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString("select_oc_account", accountName);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
 
                     // update credentials
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                                    context.getContentResolver());
-                            GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
-                            RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
-                            Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
-                        }
+                    Thread t = new Thread(() -> {
+                        FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                                context.getContentResolver());
+                        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                        RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
+                        Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
                     });
 
                     t.start();
@@ -188,7 +188,7 @@ public class AccountUtils {
 
     public static void resetOwnCloudAccount(Context context) {
         SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        appPrefs.putString("select_oc_account", null);
+        appPrefs.putString(PREF_SELECT_OC_ACCOUNT, null);
 
         appPrefs.apply();
     }
