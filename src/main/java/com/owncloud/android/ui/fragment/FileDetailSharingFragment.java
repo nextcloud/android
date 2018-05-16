@@ -118,10 +118,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log_OC.d(TAG, "onActivityCreated");
 
-        // Load known capabilities of the server from DB
         refreshCapabilitiesFromDB();
+        refreshPublicShareFromDB();
     }
 
     @Override
@@ -314,7 +313,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @OnClick(R.id.overflow_menu_share_link)
     public void showLinkOverflowMenu() {
         PopupMenu popup = new PopupMenu(getActivity(), overflowMenuShareLink);
-        popup.inflate(R.menu.file_detail_sharing_menu);
+        popup.inflate(R.menu.file_detail_sharing_link_menu);
         prepareOptionsMenu(popup.getMenu());
         popup.setOnMenuItemClickListener(this::optionsItemSelected);
         popup.show();
@@ -351,11 +350,14 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 return true;
             }
             case R.id.action_share_link_password: {
+                // TODO extend password dialog to allow for clearing/unsetting a password
+                // TODO refresh share object after password has been set
                 requestPasswordForShareViaLink(false);
                 return true;
             }
             case R.id.action_share_link_expiration_date: {
                 // TODO extend date picker to allow for clearing/unsetting a date
+                // TODO refresh share object after new exp. date has been set
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
