@@ -7,7 +7,7 @@
     <string name="actionbar_upload_from_apps">他アプリからのコンテンツ</string>
     <string name="actionbar_upload_files">ファイル</string>
     <string name="actionbar_open_with">次で開く</string>
-    <string name="actionbar_mkdir">新しいフォルダー</string>
+    <string name="actionbar_mkdir">新しいフォルダ</string>
     <string name="actionbar_settings">設定</string>
     <string name="actionbar_see_details">詳細</string>
     <string name="actionbar_send_file">送信</string>
@@ -192,60 +192,98 @@
     <string name="sync_current_folder_was_removed">フォルダ %1$s はもう存在しません</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_success">全ファイル移動済</string>
-    <string name="foreign_files_fail">いくつかのファイルは移動できません</string>
+    <string name="foreign_files_fail">いくつかのファイルが移動できません</string>
     <string name="foreign_files_local_text">ローカル: %1$s</string>
     <string name="foreign_files_remote_text">リモート: %1$s</string>
+    <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
     <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
+    <string name="pass_code_remove_your_pass_code">パスコードを削除</string>
     <string name="pass_code_mismatch">パスコードが一致しません</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
+    <string name="pass_code_removed">パスコードは削除されました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     
+    <string name="media_notif_ticker">%1$s ミュージックプレイヤー</string>
+    <string name="media_state_playing">%1$s (再生中)</string>
+    <string name="media_state_loading">%1$s (読み込み中)</string>
+    <string name="media_event_done">%1$s 再生終了</string>
     <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
     <string name="media_err_no_account">アカウントが提供されていません</string>
-    <string name="media_err_unsupported">サポートされていないメディアコーデック</string>
+    <string name="media_err_not_in_owncloud">ファイルが有効なアカウントにありません</string>
+    <string name="media_err_unsupported">サポートされていないメディアコーデックです</string>
+    <string name="media_err_io">メディアファイルを読み込めません</string>
+    <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>
+    <string name="media_err_timeout">再生試行がタイムアウトしました</string>
+    <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
+    <string name="media_err_unknown">ビルトインのメディアプレーヤーはこのメディアファイルを再生できません</string>
+    <string name="media_err_security_ex">%1$s の再生時にセキュリティエラーが発生しました</string>
+    <string name="media_err_io_ex">%1$s の再生中に入力エラーが発生しました</string>
+    <string name="media_err_unexpected">%1$s の再生時に予期しないエラーが発生しました</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
 
-    <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
+    <string name="auth_getting_authorization">承認を受ける...</string>
+    <string name="auth_trying_to_login">ログインする...</string>
+	<string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
 	<string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
 	<string name="auth_connection_established">接続が確立しました</string>
 	<string name="auth_testing_connection">接続のテスト中</string>
-	<string name="auth_not_configured_title">サーバー設定が間違っています</string>
+	<string name="auth_not_configured_title">サーバ設定が間違っています</string>
+	<string name="auth_account_not_new">同じユーザーとサーバのアカウントが既にデバイスにあります</string>
 	<string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
+	<string name="auth_unknown_error_http_title">不明な HTTP エラーが発生しました</string>
 	<string name="auth_unknown_error_title">不明なエラーに発生しました</string>
+	<string name="auth_unknown_error_exception_title">不明なエラー: %1$s</string>
 	<string name="auth_unknown_host_title">ホストを見つけられませんでした。</string>
-	<string name="auth_timeout_title">サーバーからの反応がありません</string>
+	<string name="auth_incorrect_path_title">サーバが見つかりません</string>
+	<string name="auth_timeout_title">サーバからの応答がありません</string>
+	<string name="auth_incorrect_address_title">サーバアドレスの書式が違います</string>
 	<string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
-	<string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
+	<string name="auth_ssl_unverified_server_title">SSLサーバーのIDを確認できませんでした</string>
+	<string name="auth_bad_oc_version_title">認識できないサーバのバージョンです</string>
+	<string name="auth_wrong_connection_title">接続を確立できませんでした</string>
 	<string name="auth_secure_connection">暗号化通信を確立しました</string>
 	<string name="auth_unauthorized">ユーザー名もしくはパスワードが間違っています</string>
 	<string name="auth_oauth_error">認証失敗</string>
-	<string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
+	<string name="auth_oauth_error_access_denied">認証サーバによってアクセスが拒否されました</string>
+	<string name="auth_wtf_reenter_URL">予期しない状態です。サーバアドレスをもう一度入力してください</string>
 	<string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
 	<string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
 	<string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
-    <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
-	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
+    <string name="auth_connecting_auth_server">認証サーバに接続しています...</string>
+	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
+	<string name="auth_fail_get_user_name">サーバが正しいユーザーIDを返さない場合は、管理者に連絡してください</string>
+	<string name="auth_can_not_auth_against_server">認証サーバに接続できません</string>
+    <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
+    <string name="auth_access_failed">アクセス失敗</string>
+
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="favorite_real">お気に入りとして登録</string>
     <string name="unset_favorite_real">お気に入りの登録解除</string>
+    <string name="encrypted">暗号化設定</string>
+    <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
+    <string name="common_remove">削除</string>
+    <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
+    <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
+    <string name="remove_success_msg">削除済み</string>
+    <string name="remove_fail_msg">削除失敗</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
     <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
-    <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
-    <string name="ssl_validator_reason_cert_expired">- サーバー証明書は有効期限切れです</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- サーバー証明書の有効期限は未来のものです</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- サーバ証明書は信頼されていません</string>
+    <string name="ssl_validator_reason_cert_expired">- サーバ証明書は有効期限切れです</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- サーバ証明書の有効期限は未来のものです</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLは証明書内のホスト名と一致しません</string>
     <string name="ssl_validator_question">この証明書を信頼してもよろしいですか？</string>
     <string name="ssl_validator_btn_details_see">詳細</string>
@@ -278,17 +316,17 @@
     <string name="conflict_title">ファイルが競合</string>
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
-    <string name="conflict_use_server_version">サーバーのもの</string>
+    <string name="conflict_use_server_version">サーバのもの</string>
 
     <string name="preview_image_description">イメージプレビュー</string>
-    <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
+    <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダ %2$s  にコピーできませんでした。</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
 	<string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
-	<string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
+	<string name="share_link_file_error">このファイルまたはフォルダを共有する際にエラーが発生しました</string>
 	<string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
-	<string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
+	<string name="unshare_link_file_error">このファイルまたはフォルダの共有を解除する際にエラーが発生しました</string>
     <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
     <string name="update_link_file_error">共有を更新する際にエラーが発生しました</string>
     <string name="share_link_password_title">パスワードを入力</string>
@@ -306,7 +344,7 @@
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
     <string name="update_link_forbidden_permissions">共有を更新</string>
-    <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
+    <string name="downloader_download_file_not_found">ファイルはサーバ上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_ok_finished">完了</string>
@@ -320,12 +358,12 @@
     <string name="actionbar_copy">コピー</string>
 	<string name="folder_picker_choose_button_text">選択</string>
 
-    <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
+    <string name="move_file_error">このファイルまたはフォルダを移動する際にエラーが発生しました</string>
     <string name="forbidden_permissions_move">このファイルを移動</string>
 
 
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
-    <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
+    <string name="copy_file_error">このファイルまたはフォルダをコピーする際にエラーが発生しました</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
 
     <string name="prefs_category_details">詳細</string>
@@ -334,7 +372,7 @@
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
 
     <string name="auth_refresh_button">再接続中</string>
-    <string name="auth_host_address">サーバーアドレス</string>
+    <string name="auth_host_address">サーバアドレス</string>
     <string name="common_error_out_memory">十分なメモリがありません</string>
 
     <string name="username">ユーザー名</string>
