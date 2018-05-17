@@ -345,11 +345,13 @@
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>
         <item quantity="few">%1$d priečinky</item>
+        <item quantity="many">%1$d priečinkov</item>
         <item quantity="other">%1$d priečinkov</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d súbor</item>
         <item quantity="few">%1$d súbory</item>
+        <item quantity="many">%1$d súborov</item>
         <item quantity="other">%1$d súborov</item>
     </plurals>
     <string name="set_picture_as">Použiť obrázok ako</string>
@@ -407,6 +409,7 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>
+        <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
     </plurals>
 
