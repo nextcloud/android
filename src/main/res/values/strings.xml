@@ -791,4 +791,5 @@
     <string name="create_new_folder">Create new folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
+    <string name="sharee_add_failed">Adding sharee failed</string>
 </resources>
