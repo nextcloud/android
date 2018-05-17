@@ -87,6 +87,7 @@ import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -102,10 +103,8 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -515,11 +514,7 @@ public class FileDisplayActivity extends HookActivity
                 }
 
                 if (!shareeNames.contains(shareWith)) {
-
-                    doShareWith(
-                            shareWith,
-                            data.getAuthority()
-                    );
+                    doShareWith(shareWith, data.getAuthority());
                 }
 
             } else {
@@ -1689,23 +1684,20 @@ public class FileDisplayActivity extends HookActivity
 
         if (operation instanceof RemoveFileOperation) {
             onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
-
         } else if (operation instanceof RenameFileOperation) {
             onRenameFileOperationFinish((RenameFileOperation) operation, result);
-
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
-
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
-
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
-
         } else if (operation instanceof CopyFileOperation) {
             onCopyFileOperationFinish((CopyFileOperation) operation, result);
         } else if (operation instanceof CreateShareViaLinkOperation) {
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
+        } else if (operation instanceof CreateShareWithShareeOperation) {
+            onCreateShareWithShareeOperationFinish(result);
         }
     }
 
@@ -1879,6 +1871,19 @@ public class FileDisplayActivity extends HookActivity
                         Snackbar.LENGTH_LONG
                 ).show();
             }
+        }
+    }
+
+    private void onCreateShareWithShareeOperationFinish(RemoteOperationResult result) {
+
+        Fragment fileDetailFragment = getSecondFragment();
+
+        if (result.isSuccess()) {
+            if (fileDetailFragment instanceof FileDetailFragment) {
+                ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment().setShareWithUserInfo();
+            }
+        } else {
+            Snackbar.make(fileDetailFragment.getView(), R.string.sharee_add_failed, Snackbar.LENGTH_LONG).show();
         }
     }
 

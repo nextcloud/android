@@ -24,13 +24,10 @@ import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +54,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -216,14 +212,12 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     /**
      * Update Share With data
      */
-    private void setShareWithUserInfo(){
+    public void setShareWithUserInfo() {
         // Get Users and Groups
         if (((FileActivity) getActivity()).getStorageManager() != null) {
-            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity())
-                    .getStorageManager();
-            mShares = fileDataStorageManager.getSharesWithForAFile(
-                    file.getRemotePath(),account.name
-            );
+            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
+
+            mShares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), account.name);
 
             // Update list of users/groups
             updateListOfUserGroups();
@@ -233,10 +227,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private void updateListOfUserGroups() {
         // Update list of users/groups
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        UserListAdapter mUserGroupsAdapter = new UserListAdapter(
-                getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares, account, file,this
-        );
+        UserListAdapter mUserGroupsAdapter = new UserListAdapter(getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares, account, file, this);
 
         if (mShares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
