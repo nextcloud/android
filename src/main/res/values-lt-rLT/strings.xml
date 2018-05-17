@@ -444,6 +444,7 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d pasirinktas</item>
         <item quantity="few">%d pasirinkti</item>
+        <item quantity="many">%d pasirinktos</item>
         <item quantity="other">%d pasirinktos</item>
     </plurals>
 
