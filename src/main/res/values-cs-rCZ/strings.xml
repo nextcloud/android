@@ -384,11 +384,13 @@
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d adresář</item>
         <item quantity="few">%1$d adresář</item>
+        <item quantity="many">%1$d adresářů</item>
         <item quantity="other">%1$d adresářů</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d soubor</item>
         <item quantity="few">%1$d soubory</item>
+        <item quantity="many">%1$d souborů</item>
         <item quantity="other">%1$d souborů</item>
     </plurals>
     <string name="set_picture_as">Použít obrázek jako</string>
@@ -480,6 +482,7 @@
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
+        <item quantity="many">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
 

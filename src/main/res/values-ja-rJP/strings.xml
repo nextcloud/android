@@ -276,16 +276,29 @@
     <string name="remove_success_msg">削除済み</string>
     <string name="remove_fail_msg">削除失敗</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
+    <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
+    <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
+    <string name="create_dir_fail_msg">フォルダを作成できません</string>
     <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">ファイル名に使用できない文字が含まれています</string>
+    <string name="filename_empty">ファイル名は空にできません</string>
+    <string name="wait_a_moment">少々お待ちください...</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
+    <string name="filedisplay_no_file_selected">ファイル未選択</string>
+    <string name="activity_chooser_title">リンク送信...</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
+    <string name="oauth_check_onoff">OAuth 2.0 でログインする</string>
+    <string name="oauth_login_connection">OAuth 2.0 サーバに接続する</string>
+        
+    <string name="ssl_validator_header">サーバIDを確認できません</string>
     <string name="ssl_validator_reason_cert_not_trusted">- サーバ証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_expired">- サーバ証明書は有効期限切れです</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- サーバ証明書の有効期限は未来のものです</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLは証明書内のホスト名と一致しません</string>
     <string name="ssl_validator_question">この証明書を信頼してもよろしいですか？</string>
+    <string name="ssl_validator_not_saved">証明書を保存できません</string>
     <string name="ssl_validator_btn_details_see">詳細</string>
     <string name="ssl_validator_btn_details_hide">非表示</string>
     <string name="ssl_validator_label_subject">発行先:</string>
@@ -294,7 +307,7 @@
     <string name="ssl_validator_label_O">組織:</string>
     <string name="ssl_validator_label_OU">部門:</string>
     <string name="ssl_validator_label_C">国:</string>
-    <string name="ssl_validator_label_ST">州:</string>
+    <string name="ssl_validator_label_ST">県:</string>
     <string name="ssl_validator_label_L">市区町村:</string>
     <string name="ssl_validator_label_validity">有効期限:</string>
     <string name="ssl_validator_label_validity_from">元:</string>
@@ -305,15 +318,19 @@
     <string name="ssl_validator_label_certificate_fingerprint">フィンガープリント:</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="ssl_validator_null_cert">証明書が表示できません。</string>
-    <string name="ssl_validator_no_info_about_error">-エラーについての詳細情報はありません</string>
+    <string name="ssl_validator_no_info_about_error">- エラーについての詳細情報はありません</string>
 
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
+    <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="conflict_title">ファイルが競合</string>
+    <string name="auto_upload_path">/AutoUpload</string>
+    <string name="conflict_title">ファイル競合</string>
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバのもの</string>
@@ -465,4 +482,17 @@
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
-    </resources>
+    <string name="notification_channel_push_name">プッシュ通知</string>
+    <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
+    <string name="sendbutton_description">送信ボタンアイコン</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">認証エンドポイントアドレス</string>
+    <string name="oauth_2_0_access_end_point_address_hint">アクセスエンドポイントアドレス</string>
+    <string name="hint_name">名前</string>
+    <string name="hint_password">パスワード</string>
+    <string name="add_to_cloud">%1$s に追加</string>
+    <string name="upload_files">アップロードファイル</string>
+    <string name="upload_content_from_other_apps">他のアプリからコンテンツをアップロードする</string>
+    <string name="create_new_folder">新規フォルダ作成</string>
+    <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
+    <string name="tags">タグ</string>
+</resources>
