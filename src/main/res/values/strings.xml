@@ -480,7 +480,10 @@
     <string name="share_with_user_section_title">Share with users and groups</string>
     <string name="share_no_users">No data shared with users yet</string>
     <string name="share_add_user_or_group">Add user or group</string>
-    <string name="share_via_link_menu_permissions_label">Permissions (%1$s)</string>
+    <string name="share_via_link_menu_permission_label">Permissions (%1$s)</string>
+    <string name="share_via_link_menu_permissions_label">Permissions (%1$s, %2$s)</string>
+    <string name="share_via_link_menu_permissions_read_only_label">read-only</string>
+    <string name="share_via_link_menu_permissions_upload_only_label">upload-only</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_via_link_menu_expiration_date_label">Set expiration date (%1$s)</string>
     <string name="share_via_link_menu_expiration_date_never">never</string>
@@ -488,6 +491,7 @@
     <string name="share_via_link_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_password_label">Protect with password</string>
     <string name="share_via_link_password_title">Secured</string>
+    <string name="share_via_link_no_password_title">none</string>
     <string name="share_via_link_edit_permission_label">Allow editing</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_get_public_link_button">Get link</string>
