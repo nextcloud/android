@@ -846,7 +846,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     }
 
 
-    /// BEWARE: next methods will failed with NullPointerException if called before onCreateView() finishes
+    // BEWARE: next methods will failed with NullPointerException if called before onCreateView() finishes
 
     private SwitchCompat getShareViaLinkSwitch() {
         return (SwitchCompat) getView().findViewById(R.id.shareViaLinkSectionSwitch);

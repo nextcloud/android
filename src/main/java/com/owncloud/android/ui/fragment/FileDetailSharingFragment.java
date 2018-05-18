@@ -312,9 +312,46 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void prepareOptionsMenu(Menu menu) {
-        // TODO implement setting the correct menu item titles based on the share/permissions info
         Resources res = getResources();
+        setupPermissionsMenuItem(menu.findItem(R.id.action_share_link_permissions), res);
+        setupPasswordMenuItem(menu.findItem(R.id.action_share_link_password), res);
         setupExpirationDateMenuItem(menu.findItem(R.id.action_share_link_expiration_date), res);
+    }
+
+    private void setupPermissionsMenuItem(MenuItem permission, Resources res) {
+        if (publicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
+            boolean uploadOnly = (publicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
+            if (uploadOnly) {
+                permission.setTitle(res.getString(
+                        R.string.share_via_link_menu_permissions_label,
+                        res.getString(R.string.share_privilege_can_edit),
+                        res.getString(R.string.share_via_link_menu_permissions_upload_only_label)
+                ));
+            } else {
+                permission.setTitle(res.getString(
+                        R.string.share_via_link_menu_permission_label,
+                        res.getString(R.string.share_privilege_can_edit)));
+            }
+        } else {
+            // read only
+            permission.setTitle(res.getString(
+                    R.string.share_via_link_menu_permission_label,
+                    res.getString(R.string.share_via_link_menu_permissions_read_only_label)));
+        }
+    }
+
+    private void setupPasswordMenuItem(MenuItem password, Resources res) {
+        if (publicShare.isPasswordProtected()) {
+            password.setTitle(res.getString(
+                    R.string.share_via_link_menu_password_label,
+                    res.getString(R.string.share_via_link_password_title)
+            ));
+        } else {
+            password.setTitle(res.getString(
+                    R.string.share_via_link_menu_password_label,
+                    res.getString(R.string.share_via_link_no_password_title)
+            ));
+        }
     }
 
     private void setupExpirationDateMenuItem(MenuItem expirationDate, Resources res) {
@@ -342,7 +379,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 return true;
             }
             case R.id.action_share_link_password: {
-                // TODO extend password dialog to allow for clearing/unsetting a password
                 // TODO refresh share object after password has been set
                 requestPasswordForShareViaLink(false);
                 return true;

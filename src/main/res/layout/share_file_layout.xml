@@ -169,7 +169,6 @@
                     android:id="@+id/shareViaLinkEditPermissionSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
                     android:layout_marginBottom="@dimen/standard_half_margin"
                     >
 
@@ -204,7 +203,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:visibility="invisible"
                     >
 
                     <android.support.v7.widget.SwitchCompat
