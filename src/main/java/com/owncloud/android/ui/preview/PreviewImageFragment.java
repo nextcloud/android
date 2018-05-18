@@ -54,6 +54,7 @@ import android.widget.TextView;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -73,7 +74,6 @@ import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import third_parties.michaelOrtiz.TouchImageViewCustom;
 
 
 /**
@@ -94,7 +94,7 @@ public class PreviewImageFragment extends FileFragment {
     private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
     private static final String SCREEN_NAME = "Image Preview";
 
-    private TouchImageViewCustom mImageView;
+    private PhotoView mImageView;
     private RelativeLayout mMultiView;
 
     protected LinearLayout mMultiListContainer;
@@ -180,7 +180,6 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = view.findViewById(R.id.image);
-        mImageView.setPreviewImageFragment(this);
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(new OnClickListener() {
@@ -508,7 +507,7 @@ public class PreviewImageFragment extends FileFragment {
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
-        private final WeakReference<ImageViewCustom> mImageViewRef;
+        private final WeakReference<PhotoView> mImageViewRef;
 
         /**
          * Error message to show when a load fails
@@ -521,7 +520,7 @@ public class PreviewImageFragment extends FileFragment {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(ImageViewCustom imageView) {
+        public LoadBitmapTask(PhotoView imageView) {
             mImageViewRef = new WeakReference<>(imageView);
         }
 
@@ -641,7 +640,7 @@ public class PreviewImageFragment extends FileFragment {
         }
 
         private void showLoadedImage(LoadImage result) {
-            final ImageViewCustom imageView = mImageViewRef.get();
+            final PhotoView imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
 
 
@@ -652,6 +651,7 @@ public class PreviewImageFragment extends FileFragment {
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
+                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif") ||
                         result.ocFile.getMimetype().equals("image/svg+xml")) {
                     if (getResources() != null) {
                         Resources r = getResources();
@@ -687,12 +687,7 @@ public class PreviewImageFragment extends FileFragment {
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
-                }
-
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
-                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
-                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png") &&
-                        !result.ocFile.getMimetype().equals("image/svg+xml")) {
+                } else {
                     imageView.setImageBitmap(bitmap);
                 }
 
@@ -815,7 +810,7 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    public TouchImageViewCustom getImageView() {
+    public PhotoView getImageView() {
         return mImageView;
     }
 
