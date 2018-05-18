@@ -41,7 +41,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to input the password for sharing a file/folder.
- *
+ * <p>
  * Triggers the share when the password is introduced.
  */
 public class SharePasswordDialogFragment extends DialogFragment
@@ -51,27 +51,30 @@ public class SharePasswordDialogFragment extends DialogFragment
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
-    private OCFile mFile;
-    private boolean mCreateShare;
+    private OCFile file;
+    private boolean createShare;
 
     @Override
     public void onStart() {
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+                .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
     }
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
-     * @param   file            OCFile bound to the public share that which password will be set or updated
-     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
-     *                          public link; when 'false', a public share is assumed to exist, and the password
-     *                          is bound to it.
-     * @return                  Dialog ready to show.
+     * @param file        OCFile bound to the public share that which password will be set or updated
+     * @param createShare When 'true', the request for password will be followed by the creation of a new
+     *                    public link; when 'false', a public share is assumed to exist, and the password
+     *                    is bound to it.
+     * @return Dialog ready to show.
      */
     public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
@@ -85,8 +88,8 @@ public class SharePasswordDialogFragment extends DialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mFile = getArguments().getParcelable(ARG_FILE);
-        mCreateShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
+        file = getArguments().getParcelable(ARG_FILE);
+        createShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -94,7 +97,10 @@ public class SharePasswordDialogFragment extends DialogFragment
 
         // Setup layout
         EditText inputText = v.findViewById(R.id.share_password);
-        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()), PorterDuff.Mode.SRC_ATOP);
+        inputText.getBackground().setColorFilter(
+                ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP
+        );
         inputText.setText("");
         inputText.requestFocus();
 
@@ -115,8 +121,8 @@ public class SharePasswordDialogFragment extends DialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String password =
-                    ((TextView)(getDialog().findViewById(R.id.share_password)))
-                        .getText().toString();
+                    ((TextView) (getDialog().findViewById(R.id.share_password)))
+                            .getText().toString();
 
             if (password.length() <= 0) {
                 Snackbar.make(
@@ -127,9 +133,9 @@ public class SharePasswordDialogFragment extends DialogFragment
                 return;
             }
 
-            setPassword(mCreateShare, mFile, password);
+            setPassword(createShare, file, password);
         } else if (which == AlertDialog.BUTTON_NEUTRAL) {
-            setPassword(mCreateShare, mFile, null);
+            setPassword(createShare, file, null);
         }
     }
 
