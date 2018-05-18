@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -84,7 +84,7 @@ public class PassCodeManager {
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         }
 
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(activity) &&
                 !DeviceCredentialUtils.tryEncrypt(activity)) {
             Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
@@ -112,7 +112,10 @@ public class PassCodeManager {
     }
 
     private boolean passCodeShouldBeRequested() {
-        return (passCodeIsEnabled() && hasAuthenticationTimeoutExpired());
+        if ((System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0) {
+            return passCodeIsEnabled();
+        }
+        return false;
     }
 
     private boolean passCodeIsEnabled() {
@@ -121,7 +124,7 @@ public class PassCodeManager {
     }
 
     private boolean deviceCredentialsShouldBeRequested(Activity activity) {
-        if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0) {
+        if ((System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0) {
             return deviceCredentialsAreEnabled(activity);
         }
         return false;
