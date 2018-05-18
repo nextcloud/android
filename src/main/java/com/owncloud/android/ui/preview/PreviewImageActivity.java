@@ -154,7 +154,7 @@ public class PreviewImageActivity extends FileActivity implements
         position = (position >= 0) ? position : 0;
 
         mViewPager.setAdapter(mPreviewImagePagerAdapter);
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
 
         if (position == 0 && !getFile().isDown()) {
