@@ -493,6 +493,7 @@
     <string name="share_get_public_link_button">Get link</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_with_edit_title">Share with %1$s</string>
+    <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, federated cloud ID or email address…</string>
 

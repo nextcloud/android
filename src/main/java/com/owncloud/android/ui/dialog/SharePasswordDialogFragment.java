@@ -1,7 +1,10 @@
-/**
+/*
  *   ownCloud Android client application
+ *
  *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
+ *   @author Andy Scherzinger
+ *   Copyright (C) 2015 ownCloud GmbH.
+ *   Copyright (C) 2018 Andy Scherzinger
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -14,7 +17,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 package com.owncloud.android.ui.dialog;
 
@@ -42,7 +44,6 @@ import com.owncloud.android.utils.ThemeUtils;
  *
  * Triggers the share when the password is introduced.
  */
-
 public class SharePasswordDialogFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
@@ -60,6 +61,7 @@ public class SharePasswordDialogFragment extends DialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
     }
 
     /**
@@ -102,12 +104,12 @@ public class SharePasswordDialogFragment extends DialogFragment
         builder.setView(v)
                 .setPositiveButton(R.string.common_ok, this)
                 .setNegativeButton(R.string.common_cancel, this)
+                .setNeutralButton(R.string.common_delete, this)
                 .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
@@ -125,16 +127,19 @@ public class SharePasswordDialogFragment extends DialogFragment
                 return;
             }
 
-            if (mCreateShare) {
-                // Share the file
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        shareFileViaLink(mFile, password);
+            setPassword(mCreateShare, mFile, password);
+        } else if (which == AlertDialog.BUTTON_NEUTRAL) {
+            setPassword(mCreateShare, mFile, null);
+        }
+    }
 
-            } else {
-                // updat existing link
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPasswordToShareViaLink(mFile, password);
-            }
+    private void setPassword(boolean createShare, OCFile file, String password) {
+        if (createShare) {
+            ((FileActivity) getActivity()).getFileOperationsHelper().
+                    shareFileViaLink(file, password);
+        } else {
+            ((FileActivity) getActivity()).getFileOperationsHelper().
+                    setPasswordToShareViaLink(file, password);
         }
     }
 }
