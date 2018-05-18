@@ -210,6 +210,7 @@
 	<string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
 	<string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
 	<string name="auth_unknown_error_title">Nastala neznámá chyba</string>
+	<string name="auth_unknown_error_exception_title">Neznámá chyba: %1$s</string>
 	<string name="auth_unknown_host_title">Nelze najít hostitele</string>
 	<string name="auth_incorrect_path_title">Server nenalezen</string>
 	<string name="auth_timeout_title">Serveru trvalo příliš dlouho odpovědět</string>
@@ -583,6 +584,8 @@
     <string name="shared_icon">Ikona Sdíleno</string>
     <string name="overflow_menu">Vysouvací menu</string>
     <string name="share_file_icon">Ikona Sdílet soubor</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Tlačítko Stav synchronizace</string>
     <string name="synced_folder_settings_button">Tlačítko Nastavení</string>
@@ -602,6 +605,9 @@
 
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba při rozšifrovávání. Chybné heslo?</string>
+    <string name="end_to_end_encryption_password">Heslo...</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
+    <string name="hint_name">Jméno</string>
+    <string name="hint_password">Heslo</string>
     </resources>
