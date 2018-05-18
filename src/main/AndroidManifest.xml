@@ -65,7 +65,26 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <!--
     <permission android:name="com.owncloud.android.sso" android:protectionLevel="signature" />
+    -->
+
+    <permission-group android:name="com.owncloud.android"
+        android:label="@string/permission_group" />
+    <permission
+        android:name="com.owncloud.android.sso"
+        android:permissionGroup="com.owncloud.android"
+        android:protectionLevel="normal"
+        android:label="@string/permission_label"
+        android:description="@string/permission_desc">
+    </permission>
+
+    <!--
+    <uses-permission android:name="com.owncloud.android.sso" />
+    -->
+
+
+
 
     <application
         android:name=".MainApp"

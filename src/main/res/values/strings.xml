@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="permission_label">nextcloud sso</string>
+    <string name="permission_desc">nextcloud sso</string>
+    <string name="permission_group">nextcloud login</string>
+
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
