@@ -651,8 +651,7 @@ public class PreviewImageFragment extends FileFragment {
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
-                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif") ||
-                        result.ocFile.getMimetype().equals("image/svg+xml")) {
+                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     if (getResources() != null) {
                         Resources r = getResources();
                         Drawable[] layers = new Drawable[2];
@@ -685,6 +684,8 @@ public class PreviewImageFragment extends FileFragment {
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
+                } else if (result.ocFile.getMimetype().equals("image/svg+xml")) {
+                    imageView.setImageDrawable(result.drawable);
                 } else {
                     imageView.setImageBitmap(bitmap);
                 }
