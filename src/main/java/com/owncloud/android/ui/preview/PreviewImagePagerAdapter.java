@@ -21,6 +21,7 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.Matrix;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -241,9 +242,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public void resetZoom() {
         for (int i = 0; i < mCachedFragments.size(); i++) {
             FileFragment fileFragment = mCachedFragments.valueAt(i);
-            
+
             if (fileFragment instanceof PreviewImageFragment) {
-                ((PreviewImageFragment) fileFragment).getImageView().resetZoom();
+                ((PreviewImageFragment) fileFragment).getImageView().setDisplayMatrix(new Matrix());
+                ((PreviewImageFragment) fileFragment).getImageView().setSuppMatrix(new Matrix());
             }
         }
     }

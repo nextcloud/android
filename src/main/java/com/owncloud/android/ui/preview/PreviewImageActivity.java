@@ -34,7 +34,6 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -74,7 +73,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
 
-    private ExtendedViewPager mViewPager;
+    private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
     private int mSavedPosition = 0;
     private boolean mHasSavedPosition = false;
@@ -155,7 +154,7 @@ public class PreviewImageActivity extends FileActivity implements
         position = (position >= 0) ? position : 0;
 
         mViewPager.setAdapter(mPreviewImagePagerAdapter);
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
 
         if (position == 0 && !getFile().isDown()) {
