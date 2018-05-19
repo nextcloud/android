@@ -658,11 +658,9 @@ public class PreviewImageFragment extends FileFragment {
                         Drawable[] layers = new Drawable[2];
                         layers[0] = r.getDrawable(R.color.white);
                         Drawable bitmapDrawable;
-                        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ) {
-                            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-                        } else {
-                            bitmapDrawable = result.drawable;
-                        }
+
+                        bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+
                         layers[1] = bitmapDrawable;
                         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
