@@ -16,6 +16,12 @@
         <ignore path="**/values-ka-rGE/strings.xml"/>
     </issue>
 
+    <issue id="UnusedQuantity">
+        <ignore path="**/values-sk-rSK/strings.xml"/>
+        <ignore path="**/values-cs-rCZ/strings.xml"/>
+        <ignore path="**/values-lt-rLT/strings.xml"/>
+    </issue>
+
     <issue id="ExtraTranslation">
         <ignore path="**/strings.xml"/>
         <ignore path="**/values-b+en+001/strings.xml"/>
