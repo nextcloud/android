@@ -71,9 +71,11 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import pl.droidsonroids.gif.GifDrawable;
 
 
 /**
@@ -650,8 +652,7 @@ public class PreviewImageFragment extends FileFragment {
                             bitmap.getHeight());
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
-                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     if (getResources() != null) {
                         Resources r = getResources();
                         Drawable[] layers = new Drawable[2];
@@ -680,12 +681,19 @@ public class PreviewImageFragment extends FileFragment {
                                         getActivity()));
                             }
                         }
-                        imageView.setImageDrawable(layerDrawable);
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
                 } else if (result.ocFile.getMimetype().equals("image/svg+xml")) {
                     imageView.setImageDrawable(result.drawable);
+                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                    GifDrawable gif;
+                    try {
+                        gif = new GifDrawable(result.ocFile.getStoragePath());
+                        imageView.setImageDrawable(gif);
+                    } catch (IOException ex) {
+                        imageView.setImageDrawable(result.drawable);
+                    }
                 } else {
                     imageView.setImageBitmap(bitmap);
                 }
