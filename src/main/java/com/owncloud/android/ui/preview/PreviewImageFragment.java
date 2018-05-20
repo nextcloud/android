@@ -684,7 +684,7 @@ public class PreviewImageFragment extends FileFragment {
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
-                } else if (result.ocFile.getMimetype().equals("image/svg+xml")) {
+                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
                     imageView.setImageDrawable(result.drawable);
                 } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     GifDrawable gif;
