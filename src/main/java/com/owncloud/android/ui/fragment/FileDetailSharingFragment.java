@@ -329,8 +329,12 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         if (!file.isFolder()) {
             fileListing.setVisible(false);
         } else {
-            boolean readOnly = (publicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
-            fileListing.setChecked(!readOnly);
+            if(shareByLinkAllowEditing.isChecked()) {
+                boolean readOnly = (publicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
+                fileListing.setChecked(!readOnly);
+            } else {
+                fileListing.setVisible(false);
+            }
         }
     }
 
@@ -359,10 +363,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 // TODO refresh share object after file listing has been set
                 if (capabilities.getFilesFileDrop().isTrue()) {
                     ((FileActivity) getActivity()).getFileOperationsHelper().
-                            setHideFileListingPermissionsToShare(
-                                    publicShare,
-                                    item.isChecked()
-                            );
+                            setHideFileListingPermissionsToShare(publicShare, item.isChecked());
                 } else {
                     // not supported in ownCloud
                     Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
