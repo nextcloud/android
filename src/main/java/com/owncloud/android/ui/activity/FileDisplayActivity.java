@@ -93,6 +93,8 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
@@ -1698,6 +1700,9 @@ public class FileDisplayActivity extends HookActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onCreateShareWithShareeOperationFinish(result);
+        } else if (operation instanceof UpdateSharePermissionsOperation
+                || operation instanceof UpdateShareViaLinkOperation) {
+            onUpdateSharePermissionsFinished(result);
         }
     }
 
@@ -1884,6 +1889,17 @@ public class FileDisplayActivity extends HookActivity
             }
         } else {
             Snackbar.make(fileDetailFragment.getView(), R.string.sharee_add_failed, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
+        Fragment fileDetailFragment = getSecondFragment();
+
+        if (result.isSuccess()) {
+            if (fileDetailFragment instanceof FileDetailFragment) {
+                ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
+                        .onUpdateSharePermissionsFinished(result);
+            }
         }
     }
 
