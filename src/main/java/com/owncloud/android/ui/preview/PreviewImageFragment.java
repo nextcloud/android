@@ -653,20 +653,7 @@ public class PreviewImageFragment extends FileFragment {
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     if (getResources() != null) {
-                        Resources r = getResources();
-                        Drawable[] layers = new Drawable[2];
-                        layers[0] = r.getDrawable(R.color.white);
-                        Drawable bitmapDrawable;
-
-                        bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-
-                        layers[1] = bitmapDrawable;
-                        LayerDrawable layerDrawable = new LayerDrawable(layers);
-
-                        setLayerDrawableBounds(layerDrawable, result, bitmap, bitmapDrawable);
-
-                        imageView.setImageDrawable(layerDrawable);
-
+                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
@@ -697,8 +684,15 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    private void setLayerDrawableBounds(LayerDrawable layerDrawable, LoadImage result,
-                                        Bitmap bitmap, Drawable bitmapDrawable) {
+    private LayerDrawable generateCheckerboardLayeredDrawable (LoadImage result, Bitmap bitmap) {
+        Resources r = getResources();
+        Drawable[] layers = new Drawable[2];
+        layers[0] = r.getDrawable(R.color.white);
+        Drawable bitmapDrawable;
+        bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        layers[1] = bitmapDrawable;
+        LayerDrawable layerDrawable = new LayerDrawable(layers);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                 layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
@@ -716,6 +710,8 @@ public class PreviewImageFragment extends FileFragment {
                         getActivity()));
             }
         }
+
+        return layerDrawable;
     }
 
     private void showErrorMessage(@StringRes int errorMessageId) {
