@@ -18,14 +18,6 @@
   
 -->
 
-<!--
-     ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fdScrollView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_color" 
-    android:gravity="center_horizontal"
--->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/top"
     android:layout_width="match_parent"
