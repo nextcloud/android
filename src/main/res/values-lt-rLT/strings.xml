@@ -56,6 +56,7 @@
     <string name="prefs_imprint">Spaudas, antspaudas</string>
 
 	<string name="auth_check_server">Patikrinti serverį</string>
+    <string name="auth_host_url">Serverio adresas https://…</string>
     <string name="auth_username">Naudotojo vardas</string>
     <string name="auth_password">Slaptažodis</string>
     <string name="sync_string_files">Failai</string>
@@ -82,6 +83,7 @@
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorites_filter_list">Čia bus rodomi failai ir aplankai, kuriuos pažymėsite kaip mėgstamus</string>
     <string name="file_list_empty_favorites_filter">Pagal Jūsų pateiktą užklausą neradome šių failų.</string>
+    <string name="file_list_loading">Įkeliama…</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
