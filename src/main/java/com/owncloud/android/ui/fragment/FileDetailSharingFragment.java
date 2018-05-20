@@ -57,6 +57,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,34 +158,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private void setupView() {
         setShareByLinkInfo(file.isSharedViaLink());
         setShareWithUserInfo();
-        setupSearchView();
-    }
-
-    private void setupSearchView() {
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        // assumes parent activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-        // do not iconify the widget; expand it by default
-        searchView.setIconifiedByDefault(false);
-
-        // avoid fullscreen with softkeyboard
-        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log_OC.v(TAG, "onQueryTextSubmit intercepted, query: " + query);
-                // return true to prevent the query is processed to be queried;
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // leave it for the parent listener in the hierarchy / default behaviour
-                return false;
-            }
-        });
+        FileDetailSharingFragmentHelper.setupSearchView(
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE),
+                searchView,
+                getActivity().getComponentName()
+        );
     }
 
     /**
@@ -231,36 +209,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
             noList.setVisibility(View.GONE);
-            setListViewHeightBasedOnChildren(usersList);
+            FileDetailSharingFragmentHelper.setListViewHeightBasedOnChildren(usersList);
         } else {
             usersList.setVisibility(View.GONE);
             noList.setVisibility(View.VISIBLE);
         }
-    }
-
-    /**
-     * Fix scroll in ListView when the parent is a ScrollView
-     */
-    private static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0) {
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-            }
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
 
     @OnClick(R.id.share_by_link)
@@ -306,55 +259,22 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void prepareOptionsMenu(Menu menu) {
         Resources res = getResources();
-        setupHideFileListingMenuItem(menu.findItem(R.id.action_share_link_hide_file_listing));
-        setupPasswordMenuItem(menu.findItem(R.id.action_share_link_password), res);
-        setupExpirationDateMenuItem(menu.findItem(R.id.action_share_link_expiration_date), res);
-    }
-
-    private void setupPasswordMenuItem(MenuItem password, Resources res) {
-        if (publicShare.isPasswordProtected()) {
-            password.setTitle(res.getString(
-                    R.string.share_via_link_menu_password_label,
-                    res.getString(R.string.share_via_link_password_title)
-            ));
-        } else {
-            password.setTitle(res.getString(
-                    R.string.share_via_link_menu_password_label,
-                    res.getString(R.string.share_via_link_no_password_title)
-            ));
-        }
-    }
-
-    private void setupHideFileListingMenuItem(MenuItem fileListing) {
-        if (!file.isFolder()) {
-            fileListing.setVisible(false);
-        } else {
-            if(shareByLinkAllowEditing.isChecked()) {
-                boolean readOnly = (publicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
-                fileListing.setChecked(!readOnly);
-            } else {
-                fileListing.setVisible(false);
-            }
-        }
-    }
-
-    private void setupExpirationDateMenuItem(MenuItem expirationDate, Resources res) {
-        long expirationDateValue = publicShare.getExpirationDate();
-        if (expirationDateValue > 0) {
-            String formattedDate =
-                    SimpleDateFormat.getDateInstance().format(
-                            new Date(expirationDateValue)
-                    );
-            expirationDate.setTitle(res.getString(
-                    R.string.share_via_link_menu_expiration_date_label,
-                    formattedDate
-            ));
-        } else {
-            expirationDate.setTitle(res.getString(
-                    R.string.share_via_link_menu_expiration_date_label,
-                    res.getString(R.string.share_via_link_menu_expiration_date_never)
-            ));
-        }
+        FileDetailSharingFragmentHelper.setupHideFileListingMenuItem(
+                menu.findItem(R.id.action_share_link_hide_file_listing),
+                file.isFolder(),
+                shareByLinkAllowEditing.isChecked(),
+                publicShare.getPermissions()
+        );
+        FileDetailSharingFragmentHelper.setupPasswordMenuItem(
+                menu.findItem(R.id.action_share_link_password),
+                publicShare.isPasswordProtected(),
+                res
+        );
+        FileDetailSharingFragmentHelper.setupExpirationDateMenuItem(
+                menu.findItem(R.id.action_share_link_expiration_date),
+                publicShare.getExpirationDate(),
+                res
+        );
     }
 
     private boolean optionsItemSelected(MenuItem item) {
@@ -459,8 +379,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshPublicShareFromDB() {
-        if (isPublicShareDisabled()) {
-            hidePublicShare();
+        if (FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
+            shareByLinkContainer.setVisibility(View.GONE);
         } else if (((FileActivity) getActivity()).getStorageManager() != null) {
             // Get public share
             publicShare = ((FileActivity) getActivity()).getStorageManager().getFirstShareByPathAndType(
@@ -475,8 +395,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     /**
-     * Updates in the UI the section about public share with the information in the current public share bound to
-     * mFile, if any.
+     * Updates in the UI the section about public share with the information
+     * in the current public share bound to, if any.
      */
     private void updatePublicShareSection() {
         if (publicShare != null && ShareType.PUBLIC_LINK.equals(publicShare.getShareType())) {
@@ -488,19 +408,5 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 shareByLinkAllowEditing.setChecked(false);
             }
         }
-    }
-
-    /**
-     * @return 'True' when public share is disabled in the server.
-     */
-    private boolean isPublicShareDisabled() {
-        return (capabilities != null && capabilities.getFilesSharingPublicEnabled().isFalse());
-    }
-
-    /**
-     * Hides all the UI elements related to public share.
-     */
-    private void hidePublicShare() {
-        shareByLinkContainer.setVisibility(View.GONE);
     }
 }
