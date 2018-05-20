@@ -77,6 +77,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_ACTIVE_TAB = "TAB";
 
     @Nullable @BindView(R.id.fdProgressBlock)
     View downloadProgressContainer;
@@ -131,6 +132,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     public ProgressListener progressListener;
     private ToolbarActivity activity;
+    private int activeTab;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -146,6 +148,26 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToDetail);
         args.putParcelable(ARG_ACCOUNT, account);
+        frag.setArguments(args);
+        return frag;
+    }
+
+    /**
+     * Public factory method to create new FileDetailFragment instances.
+     *
+     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
+     *
+     * @param fileToDetail      An {@link OCFile} to show in the fragment
+     * @param account           An ownCloud account; needed to start downloads
+     *                          @param activeTab to be active tab
+     * @return New fragment with arguments set
+     */
+    public static FileDetailFragment newInstance(OCFile fileToDetail, Account account, int activeTab) {
+        FileDetailFragment frag = new FileDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, fileToDetail);
+        args.putParcelable(ARG_ACCOUNT, account);
+        args.putInt(ARG_ACTIVE_TAB, activeTab);
         frag.setArguments(args);
         return frag;
     }
@@ -205,6 +227,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
         setFile(getArguments().getParcelable(ARG_FILE));
         account = getArguments().getParcelable(ARG_ACCOUNT);
+        activeTab = getArguments().getInt(ARG_ACTIVE_TAB, 0);
 
         if (savedInstanceState != null) {
             setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
@@ -229,12 +252,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             cancelButton.setOnClickListener(this);
             favoriteIcon.setOnClickListener(this);
             overflowMenu.setOnClickListener(this);
-            // TODO use whenever we switch to use glide for preview images
-            /*
-            if (MimeTypeUtil.isImage(getFile())) {
-                setHeaderImage();
-            }
-             */
 
             updateFileDetails(false, false);
         } else {
@@ -285,6 +302,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 // unused at the moment
             }
         });
+
+        tabLayout.getTabAt(activeTab).select();
     }
 
     @Override

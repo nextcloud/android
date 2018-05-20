@@ -393,7 +393,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onShareIconClick(OCFile file) {
-        mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+        if (file.isFolder()) {
+            mContainerActivity.showDetails(file, 1);
+        } else {
+            mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+        }
     }
 
     @Override
