@@ -665,6 +665,8 @@ public class PreviewImageFragment extends FileFragment {
 
                         setLayerDrawableBounds(layerDrawable, result, bitmap, bitmapDrawable);
 
+                        imageView.setImageDrawable(layerDrawable);
+
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
