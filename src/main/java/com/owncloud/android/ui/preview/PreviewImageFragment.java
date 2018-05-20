@@ -403,10 +403,10 @@ public class PreviewImageFragment extends FileFragment {
             item.setEnabled(false);
         }
 
-        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             // additional restriction for this fragment
             item = menu.findItem(R.id.action_send_share_file);
-            if(item != null){
+            if (item != null) {
                 item.setVisible(false);
                 item.setEnabled(false);
             }
@@ -422,7 +422,7 @@ public class PreviewImageFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_share_file:
-                if(getFile().isSharedWithMe() && !getFile().canReshare()){
+                if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                     Snackbar.make(getView(),
                             R.string.resharing_is_not_allowed,
                             Snackbar.LENGTH_LONG
@@ -645,7 +645,6 @@ public class PreviewImageFragment extends FileFragment {
             final PhotoView imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
 
-
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
@@ -664,23 +663,8 @@ public class PreviewImageFragment extends FileFragment {
                         layers[1] = bitmapDrawable;
                         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
-                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                            } else {
-                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                        getActivity()));
-                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                        getActivity()));
-                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                        getActivity()));
-                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                        getActivity()));
-                            }
-                        }
+                        setLayerDrawableBounds(layerDrawable, result, bitmap, bitmapDrawable);
+
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
@@ -708,6 +692,27 @@ public class PreviewImageFragment extends FileFragment {
             }
             mImageView.setVisibility(View.VISIBLE);
 
+        }
+    }
+
+    private void setLayerDrawableBounds(LayerDrawable layerDrawable, LoadImage result,
+                                        Bitmap bitmap, Drawable bitmapDrawable) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+            } else {
+                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                        getActivity()));
+                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                        getActivity()));
+                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                        getActivity()));
+                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                        getActivity()));
+            }
         }
     }
 
