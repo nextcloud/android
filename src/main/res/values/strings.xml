@@ -485,7 +485,7 @@
     <string name="share_via_link_menu_permissions_read_only_label">read-only</string>
     <string name="share_via_link_menu_permissions_upload_only_label">upload-only</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
-    <string name="share_via_link_menu_expiration_date_label">Set expiration date (%1$s)</string>
+    <string name="share_expiration_date_label">Set expiration date (%1$s)</string>
     <string name="share_via_link_menu_expiration_date_never">never</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_expiration_date_label">Set expiration date</string>

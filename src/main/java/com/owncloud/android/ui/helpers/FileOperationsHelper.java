@@ -537,6 +537,25 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * Updates a public share on a file to set its expiration date.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                  {@link OCShare} instance which permissions will be updated.
+     * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration
+     *                               date, leaving the link unrestricted. Zero makes no change.
+     */
+    public void setExpirationDateToShare(OCShare share, long expirationTimeInMillis) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
+                expirationTimeInMillis
+        );
+        queueShareIntent(updateShareIntent);
+    }
 
     /**
      * Updates a share on a file to set its access permissions.

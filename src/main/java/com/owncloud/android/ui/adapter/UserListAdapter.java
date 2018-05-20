@@ -21,9 +21,11 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +45,8 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
+import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -56,6 +60,7 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
 
     private ShareeListAdapterListener listener;
     private OCCapability capabilities;
+    private FragmentManager fragmentManager;
     private Context context;
     private ArrayList<OCShare> shares;
     private float avatarRadiusDimension;
@@ -63,10 +68,11 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
     private OCFile file;
     private FileDataStorageManager storageManager;
 
-    public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares,
+    public UserListAdapter(FragmentManager fragmentManager, Context context, int resource, ArrayList<OCShare> shares,
                            Account account, OCFile file, ShareeListAdapterListener listener) {
         super(context, resource);
         this.context = context;
+        this.fragmentManager = fragmentManager;
         this.shares = shares;
         this.listener = listener;
         this.account = account;
@@ -185,6 +191,9 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
             editChangeItem.setVisible(false);
             editDeleteItem.setVisible(false);
         }
+
+        FileDetailSharingFragmentHelper.setupExpirationDateMenuItem(
+                menu.findItem(R.id.action_expiration_date), share.getExpirationDate(), context.getResources());
     }
 
     private boolean optionsItemSelected(Menu menu, MenuItem item, OCShare share) {
@@ -218,6 +227,14 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
                 listener.unshareWith(share);
                 shares.remove(share);
                 notifyDataSetChanged();
+                return true;
+            }
+            case R.id.action_expiration_date: {
+                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(share, -1);
+                dialog.show(
+                        fragmentManager,
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                );
                 return true;
             }
             default:

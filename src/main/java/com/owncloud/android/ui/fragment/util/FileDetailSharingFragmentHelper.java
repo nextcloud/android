@@ -80,12 +80,12 @@ public class FileDetailSharingFragmentHelper {
                             new Date(expirationDateValue)
                     );
             expirationDate.setTitle(res.getString(
-                    R.string.share_via_link_menu_expiration_date_label,
+                    R.string.share_expiration_date_label,
                     formattedDate
             ));
         } else {
             expirationDate.setTitle(res.getString(
-                    R.string.share_via_link_menu_expiration_date_label,
+                    R.string.share_expiration_date_label,
                     res.getString(R.string.share_via_link_menu_expiration_date_never)
             ));
         }
