@@ -131,6 +131,14 @@ public class FileFragment extends Fragment {
          */
         void showDetails(OCFile file);
 
+        /**
+         * Request the parent activity to show the details of an {@link OCFile}.
+         *
+         * @param file      File to show details
+         * @param activeTab the active tab
+         */
+        void showDetails(OCFile file, int activeTab);
+
         
         ///// TO UNIFY IN A SINGLE CALLBACK METHOD - EVENT NOTIFICATIONs  -> something happened
         // inside the fragment, MAYBE activity is interested --> unify in notification method

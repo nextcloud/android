@@ -1560,7 +1560,18 @@ public class FileDisplayActivity extends HookActivity
      */
     @Override
     public void showDetails(OCFile file) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
+        showDetails(file, 0);
+    }
+
+    /**
+     * Shows the information of the {@link OCFile} received as a
+     * parameter in the second fragment.
+     *
+     * @param file {@link OCFile} whose details will be shown
+     * @param activeTab the active tab in the details view
+     */
+    public void showDetails(OCFile file, int activeTab) {
+        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
