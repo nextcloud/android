@@ -23,9 +23,10 @@
     tools:ignore="AppCompatResource">
 
     <item
-        android:id="@+id/action_share_link_permissions"
+        android:id="@+id/action_share_link_hide_file_listing"
         android:showAsAction="never"
-        android:title="@string/share_via_link_menu_permissions_label"
+        android:title="@string/share_via_link_hide_file_listing_permission_label"
+        android:checkable="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_share_link_password"

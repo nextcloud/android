@@ -25,11 +25,13 @@ import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,11 +43,10 @@ import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to input the password for sharing a file/folder.
- * <p>
+ *
  * Triggers the share when the password is introduced.
  */
-public class SharePasswordDialogFragment extends DialogFragment
-        implements DialogInterface.OnClickListener {
+public class SharePasswordDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
@@ -85,6 +86,12 @@ public class SharePasswordDialogFragment extends DialogFragment
         return frag;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -120,9 +127,7 @@ public class SharePasswordDialogFragment extends DialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String password =
-                    ((TextView) (getDialog().findViewById(R.id.share_password)))
-                            .getText().toString();
+            String password = ((TextView) (getDialog().findViewById(R.id.share_password))).getText().toString();
 
             if (password.length() <= 0) {
                 Snackbar.make(
@@ -141,11 +146,9 @@ public class SharePasswordDialogFragment extends DialogFragment
 
     private void setPassword(boolean createShare, OCFile file, String password) {
         if (createShare) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().
-                    shareFileViaLink(file, password);
+            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, password);
         } else {
-            ((FileActivity) getActivity()).getFileOperationsHelper().
-                    setPasswordToShareViaLink(file, password);
+            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShareViaLink(file, password);
         }
     }
 }
