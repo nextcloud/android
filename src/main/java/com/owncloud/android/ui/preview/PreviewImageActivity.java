@@ -106,17 +106,14 @@ public class PreviewImageActivity extends FileActivity implements
         mFullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility
         mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
-                (new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int flags) {
-                        boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                        if (visible) {
-                            actionBar.show();
-                            setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                        } else {
-                            actionBar.hide();
-                            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                        }
+                (flags -> {
+                    boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                    if (visible) {
+                        actionBar.show();
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    } else {
+                        actionBar.hide();
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     }
                 });
          
