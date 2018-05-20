@@ -31,6 +31,7 @@ import android.widget.DatePicker;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 
 import java.util.Calendar;
@@ -48,11 +49,17 @@ public class ExpirationDatePickerDialogFragment
     /** Parameter constant for {@link OCFile} instance to set the expiration date */
     private static final String ARG_FILE = "FILE";
 
+    /** Parameter constant for {@link OCShare} instance to set the expiration date */
+    private static final String ARG_SHARE = "SHARE";
+
     /** Parameter constant for date chosen initially */
     private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
     /** File to bind an expiration date */
     private OCFile file;
+
+    /** Share to bind an expiration date */
+    private OCShare share;
 
     /**
      *  Factory method to create new instances
@@ -72,6 +79,23 @@ public class ExpirationDatePickerDialogFragment
     }
 
     /**
+     *  Factory method to create new instances
+     *
+     *  @param share                 share to bind an expiration date
+     *  @param chosenDateInMillis   Date chosen when the dialog appears
+     *  @return New dialog instance
+     */
+    public static ExpirationDatePickerDialogFragment newInstance(OCShare share, long chosenDateInMillis) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(ARG_SHARE, share);
+        arguments.putLong(ARG_CHOSEN_DATE_IN_MILLIS, chosenDateInMillis);
+
+        ExpirationDatePickerDialogFragment dialog = new ExpirationDatePickerDialogFragment();
+        dialog.setArguments(arguments);
+        return dialog;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @return A new dialog to let the user choose an expiration date that will be bound to a share link.
@@ -81,6 +105,7 @@ public class ExpirationDatePickerDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Load arguments
         file = getArguments().getParcelable(ARG_FILE);
+        share = getArguments().getParcelable(ARG_SHARE);
 
         // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
         final Calendar chosenDate = Calendar.getInstance();
@@ -104,8 +129,12 @@ public class ExpirationDatePickerDialogFragment
                 Dialog.BUTTON_NEUTRAL,
                 getText(R.string.share_via_link_unset_password),
                 (dialog1, which) -> {
-                    ((FileActivity) getActivity()).getFileOperationsHelper()
-                            .setExpirationDateToShareViaLink(file, -1);
+                    if (file != null) {
+                        ((FileActivity) getActivity()).getFileOperationsHelper()
+                                .setExpirationDateToShareViaLink(file, -1);
+                    } else if (share != null) {
+                        ((FileActivity) getActivity()).getFileOperationsHelper().setExpirationDateToShare(share,-1);
+                    }
                 });
 
         // Prevent days in the past may be chosen
@@ -137,7 +166,11 @@ public class ExpirationDatePickerDialogFragment
         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         long chosenDateInMillis = chosenDate.getTimeInMillis();
 
-        ((FileActivity) getActivity()).getFileOperationsHelper()
-                .setExpirationDateToShareViaLink(file, chosenDateInMillis);
+        if (file != null) {
+            ((FileActivity) getActivity()).getFileOperationsHelper()
+                    .setExpirationDateToShareViaLink(file, chosenDateInMillis);
+        } else if (share != null) {
+            ((FileActivity) getActivity()).getFileOperationsHelper().setExpirationDateToShare(share,chosenDateInMillis);
+        }
     }
 }

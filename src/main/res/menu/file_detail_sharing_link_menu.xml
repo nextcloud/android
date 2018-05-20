@@ -36,7 +36,7 @@
     <item
         android:id="@+id/action_share_link_expiration_date"
         android:showAsAction="never"
-        android:title="@string/share_via_link_menu_expiration_date_label"
+        android:title="@string/share_expiration_date_label"
         app:showAsAction="never" />
 
 </menu>

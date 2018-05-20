@@ -201,7 +201,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void updateListOfUserGroups() {
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        UserListAdapter mUserGroupsAdapter = new UserListAdapter(getActivity().getApplicationContext(),
+        UserListAdapter mUserGroupsAdapter = new UserListAdapter(getActivity().getSupportFragmentManager(),getActivity().getApplicationContext(),
                 R.layout.share_user_item, shares, account, file, this);
 
         if (shares.size() > 0) {
