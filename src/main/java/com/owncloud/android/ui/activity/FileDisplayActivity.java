@@ -1895,11 +1895,9 @@ public class FileDisplayActivity extends HookActivity
     private void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
         Fragment fileDetailFragment = getSecondFragment();
 
-        if (result.isSuccess()) {
-            if (fileDetailFragment instanceof FileDetailFragment) {
-                ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
-                        .onUpdateSharePermissionsFinished(result);
-            }
+        if (result.isSuccess() && fileDetailFragment instanceof FileDetailFragment) {
+            ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
+                    .onUpdateSharePermissionsFinished(result);
         }
     }
 

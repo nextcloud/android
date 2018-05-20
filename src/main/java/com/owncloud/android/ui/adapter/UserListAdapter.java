@@ -45,6 +45,8 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -109,10 +111,18 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
-                icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                try {
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    icon.setImageResource(R.drawable.ic_group);
+                }
             } else if (share.getShareType() == ShareType.EMAIL) {
                 name = getContext().getString(R.string.share_email_clarification, name);
-                icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                try {
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    icon.setImageResource(R.drawable.ic_email);
+                }
             } else {
                 icon.setTag(share.getShareWith());
                 DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,

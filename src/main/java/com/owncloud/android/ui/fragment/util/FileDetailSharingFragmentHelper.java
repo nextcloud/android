@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment.util;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
@@ -33,7 +32,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
