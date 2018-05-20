@@ -361,7 +361,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                     ((FileActivity) getActivity()).getFileOperationsHelper().
                             setHideFileListingPermissionsToShare(
                                     publicShare,
-                                    shareByLinkAllowEditing.isChecked()
+                                    item.isChecked()
                             );
                 } else {
                     // not supported in ownCloud
