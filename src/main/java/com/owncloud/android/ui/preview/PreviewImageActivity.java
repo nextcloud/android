@@ -216,8 +216,6 @@ public class PreviewImageActivity extends FileActivity implements
                     FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
-            } else {
-                return;
             }
             
         }
