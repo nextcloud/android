@@ -132,7 +132,6 @@
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
-    <string name="common_share">Share</string>
     <string name="common_send">Send</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
@@ -480,10 +479,6 @@
     <string name="share_with_user_section_title">Share with users and groups</string>
     <string name="share_no_users">No data shared with users yet</string>
     <string name="share_add_user_or_group">Add user or group</string>
-    <string name="share_via_link_menu_permission_label">Permissions (%1$s)</string>
-    <string name="share_via_link_menu_permissions_label">Permissions (%1$s, %2$s)</string>
-    <string name="share_via_link_menu_permissions_read_only_label">read-only</string>
-    <string name="share_via_link_menu_permissions_upload_only_label">upload-only</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_expiration_date_label">Set expiration date (%1$s)</string>
     <string name="share_via_link_menu_expiration_date_never">never</string>
@@ -508,9 +503,6 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Upgrade the server version to allow sharing between users from within their clients.\nPlease contact your admin</string>
-    <string name="filedetails_share_link_enable">Share by link enabled</string>
-    <string name="filedetails_share_link_disable">Not shared by link</string>
-    <string name="filedetails_share_users_with_access">Users and groups with access</string>
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit">can edit</string>
