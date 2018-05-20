@@ -30,7 +30,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,18 +48,22 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,7 +183,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void setLinkDetailVisible(boolean visible) {
         if (visible) {
-            shareByLinkAllowEditing.setVisibility(View.VISIBLE);
+            if (file.isFolder()) {
+                shareByLinkAllowEditing.setVisibility(View.VISIBLE);
+            } else {
+                shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
+            }
             overflowMenuShareLink.setVisibility(View.VISIBLE);
         } else {
             shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
@@ -244,7 +254,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @OnClick(R.id.share_by_link_allow_editing)
     public void toggleShareLinkAllowEditing() {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().setUploadPermissionsToShare(file, shareByLinkAllowEditing.isChecked());
+            ((FileActivity) getActivity()).getFileOperationsHelper()
+                    .setUploadPermissionsToShare(file, shareByLinkAllowEditing.isChecked());
         }
     }
 
@@ -280,7 +291,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private boolean optionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_link_hide_file_listing: {
-                // TODO refresh share object after file listing has been set
+                item.setChecked(!item.isChecked());
                 if (capabilities.getFilesFileDrop().isTrue()) {
                     ((FileActivity) getActivity()).getFileOperationsHelper().
                             setHideFileListingPermissionsToShare(publicShare, item.isChecked());
@@ -297,12 +308,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 return true;
             }
             case R.id.action_share_link_password: {
-                // TODO refresh share object after password has been set
                 requestPasswordForShareViaLink(false);
                 return true;
             }
             case R.id.action_share_link_expiration_date: {
-                // TODO refresh share object after new exp. date has been set
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
@@ -312,6 +321,36 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             }
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Updates the UI after the result of an update operation on the edited {@link OCShare} permissions.
+     *
+     * @param result Result of an update on the edited {@link OCShare} permissions.
+     */
+    public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            refreshUiFromDB();
+        } else {
+            setupView();
+        }
+    }
+
+    /**
+     * Get {@link OCShare} instance from DB and updates the UI.
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    private void refreshUiFromDB() {
+        FileDataStorageManager storageManager = ((FileActivity) getActivity()).getStorageManager();
+        if (storageManager != null) {
+            // Get edited share
+            publicShare = storageManager.getShareById(publicShare.getId());
+
+            // Updates UI with new state
+            setupView();
         }
     }
 

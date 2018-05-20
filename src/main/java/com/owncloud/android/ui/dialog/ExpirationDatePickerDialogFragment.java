@@ -105,7 +105,7 @@ public class ExpirationDatePickerDialogFragment
                 getText(R.string.share_via_link_unset_password),
                 (dialog1, which) -> {
                     ((FileActivity) getActivity()).getFileOperationsHelper()
-                            .setExpirationDateToShareViaLink(file, 0);
+                            .setExpirationDateToShareViaLink(file, -1);
                 });
 
         // Prevent days in the past may be chosen
