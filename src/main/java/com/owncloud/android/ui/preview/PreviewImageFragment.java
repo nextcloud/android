@@ -95,6 +95,9 @@ public class PreviewImageFragment extends FileFragment {
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
     private static final String SCREEN_NAME = "Image Preview";
+    private static final String MIME_TYPE_PNG = "image/png";
+    private static final String MIME_TYPE_GIF = "image/gif";
+    private static final String MIME_TYPE_SVG = "image/svg+xml";
 
     private PhotoView mImageView;
     private RelativeLayout mMultiView;
@@ -546,7 +549,7 @@ public class PreviewImageFragment extends FileFragment {
                 int minHeight = screenSize.y;
                 for (int i = 0; i < maxDownScale && bitmapResult == null && drawableResult == null; i++) {
 
-                    if (ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+                    if (ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) {
                         if (isCancelled()) {
                             return null;
                         }
@@ -651,9 +654,9 @@ public class PreviewImageFragment extends FileFragment {
                             bitmap.getHeight());
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
-                        result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml") ||
-                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
+                        result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG) ||
+                        result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_GIF)) {
                     if (getResources() != null) {
                         imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
                     } else {
@@ -682,11 +685,11 @@ public class PreviewImageFragment extends FileFragment {
         layers[0] = r.getDrawable(R.color.white);
         Drawable bitmapDrawable;
 
-        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+        if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
             bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-        } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) {
             bitmapDrawable = result.drawable;
-        } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_GIF)) {
             try {
                 bitmapDrawable = new GifDrawable(result.ocFile.getStoragePath());
             } catch (IOException exception) {
@@ -700,7 +703,7 @@ public class PreviewImageFragment extends FileFragment {
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+            if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
                 layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
                 layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
                 layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
@@ -794,8 +797,8 @@ public class PreviewImageFragment extends FileFragment {
 
     private void toggleImageBackground() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-                && (getFile().getMimetype().equalsIgnoreCase("image/png") ||
-                getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
+                && (getFile().getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
+                getFile().getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
