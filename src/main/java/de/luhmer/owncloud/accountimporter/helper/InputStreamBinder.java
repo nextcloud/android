@@ -112,22 +112,17 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
 
 
+        // Validate Auth-Token
         if(!client.getCredentials().getAuthToken().equals(request.token)) {
             throw new IllegalStateException("Provided authentication token does not match!");
         }
 
-        //OwnCloudVersion version = AccountUtils.getServerVersion(account);
-        //client.setOwnCloudVersion(version);
-
+        // Validate URL
         if(!request.url.startsWith("/")) {
             throw new IllegalStateException("URL need to start with a /");
         }
 
-        // TODO do some checks if url is correct!! (prevent ../ in url etc..
         request.url = client.getBaseUri() + request.url;
-
-        //AccountManagerService.INetworkInterface network = (stream) ? new AccountManagerService.StreamingRequest(port) : new AccountManagerService.PlainRequest();
-
         HttpMethodBase method;
 
         switch (request.method) {
