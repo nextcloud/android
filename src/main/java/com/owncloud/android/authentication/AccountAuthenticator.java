@@ -170,8 +170,15 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType());
             result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
             result.putString("username",                       username);
+
+            // TODO consider returning here some kind of "token" instead of the "real" password
+            // those tokens have to stored in this (nextcloud) app to verify if a client is allowed to
+            // make a request (see AccountManagerService.java#L117 -> request.token)
             result.putString("password",                       am.getPassword(account));
+
+            // TODO return the correct url protocol here (http vs https)
             result.putString("server_url",                     "https://" + server);
+
             result.putBoolean("disable_hostname_verification", false);
 
             return result;
