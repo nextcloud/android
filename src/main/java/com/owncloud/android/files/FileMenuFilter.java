@@ -156,97 +156,35 @@ public class FileMenuFilter {
      */
     private void filter(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
         boolean synchronizing = anyFileSynchronizing();
+        OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
+        boolean endToEndEncryptionEnabled = capability != null && capability.getEndToEndEncryption().isTrue();
 
-        /// decision is taken for each possible action on a file in the menu
+        filterDownload(toShow, toHide, synchronizing);
+        filterRename(toShow, toHide, synchronizing);
+        filterMoveCopy(toShow, toHide, synchronizing);
+        filterRemove(toShow, toHide, synchronizing);
+        filterSelectAll(toShow, toHide, inSingleFileFragment);
+        filterDeselectAll(toShow, toHide, inSingleFileFragment);
+        filterOpenWith(toShow, toHide, synchronizing);
+        filterCancelSync(toShow, toHide, synchronizing);
+        filterSync(toShow, toHide, synchronizing);
+        filterShareFile(toShow, toHide, capability);
+        filterDetails(toShow, toHide);
+        filterKeepAvailableOffline(toShow, toHide, synchronizing);
+        filterDontKeepAvalableOffline(toShow, toHide, synchronizing);
+        filterFavorite(toShow, toHide, synchronizing);
+        filterUnfavorite(toShow, toHide, synchronizing);
+        filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
+        filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
+        filterSetPictureAs(toShow, toHide);
+    }
 
-        // DOWNLOAD 
-        if (mFiles.isEmpty() || containsFolder() || anyFileDown() || synchronizing) {
-            toHide.add(R.id.action_download_file);
-
-        } else {
-            toShow.add(R.id.action_download_file);
-        }
-
-        // RENAME
-        if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
-            toHide.add(R.id.action_rename_file);
-
-        } else {
-            toShow.add(R.id.action_rename_file);
-        }
-
-        // MOVE & COPY
-        if (mFiles.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
-            toHide.add(R.id.action_move);
-            toHide.add(R.id.action_copy);
-        } else {
-            toShow.add(R.id.action_move);
-            toShow.add(R.id.action_copy);
-        }
-
-        // REMOVE
-        if (mFiles.isEmpty() || synchronizing || containsEncryptedFolder()) {
-            toHide.add(R.id.action_remove_file);
-        } else {
-            toShow.add(R.id.action_remove_file);
-        }
-
-        // SELECT ALL
-        if (!inSingleFileFragment) {
-            // Show only if at least one item isn't selected.
-            if (mFiles.size() >= mNumberOfAllFiles || mOverflowMenu) {
-                toHide.add(R.id.action_select_all_action_menu);
-            } else {
-                toShow.add(R.id.action_select_all_action_menu);
-            }
-        } else {
-            // Always hide in single file fragments
-            toHide.add(R.id.action_select_all_action_menu);
-        }
-
-        // DESELECT ALL
-        if (!inSingleFileFragment) {
-            // Show only if at least one item is selected.
-            if (mFiles.isEmpty() || mOverflowMenu) {
-                toHide.add(R.id.action_deselect_all_action_menu);
-            } else {
-                toShow.add(R.id.action_deselect_all_action_menu);
-            }
-        }else {
-            // Always hide in single file fragments
-            toHide.add(R.id.action_deselect_all_action_menu);
-        }
-
-        // OPEN WITH (different to preview!)
-        if (!isSingleFile() || !anyFileDown() || synchronizing) {
-            toHide.add(R.id.action_open_file_with);
-        } else {
-            toShow.add(R.id.action_open_file_with);
-        }
-
-        // CANCEL SYNCHRONIZATION
-        if (mFiles.isEmpty() || !synchronizing) {
-            toHide.add(R.id.action_cancel_sync);
-
-        } else {
-            toShow.add(R.id.action_cancel_sync);
-        }
-
-        // SYNC CONTENTS (BOTH FILE AND FOLDER)
-        if (mFiles.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing) {
-            toHide.add(R.id.action_sync_file);
-
-        } else {
-            toShow.add(R.id.action_sync_file);
-        }
-
-        // SHARE FILE
+    private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
         boolean shareViaLinkAllowed = (mContext != null &&
                 mContext.getResources().getBoolean(R.bool.share_via_link_feature));
         boolean shareWithUsersAllowed = (mContext != null &&
                 mContext.getResources().getBoolean(R.bool.share_with_users_feature));
 
-        OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean shareApiEnabled = capability != null &&
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
@@ -258,64 +196,161 @@ public class FileMenuFilter {
         } else {
             toShow.add(R.id.action_send_share_file);
         }
+    }
 
-        // SEE DETAILS
+    private void filterDetails(List<Integer> toShow, List<Integer> toHide) {
         if (!isSingleSelection()) {
             toHide.add(R.id.action_see_details);
         } else {
             toShow.add(R.id.action_see_details);
         }
+    }
 
-        // Kept available offline
+    private void filterKeepAvailableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (!allFiles() || synchronizing || allKeptAvailableOffline()) {
             toHide.add(R.id.action_keep_files_offline);
         } else {
             toShow.add(R.id.action_keep_files_offline);
         }
+    }
 
-        // Not kept available offline
+    private void filterDontKeepAvalableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (!allFiles() || synchronizing || allNotKeptAvailableOffline()) {
             toHide.add(R.id.action_unset_keep_files_offline);
         } else {
             toShow.add(R.id.action_unset_keep_files_offline);
         }
+    }
 
-        // Favorite
+    private void filterFavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (mFiles.isEmpty() || synchronizing || allFavorites()) {
             toHide.add(R.id.action_favorite);
         } else {
             toShow.add(R.id.action_favorite);
         }
+    }
 
-        // Unfavorite
+    private void filterUnfavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (mFiles.isEmpty() || synchronizing || allNotFavorites()) {
             toHide.add(R.id.action_unset_favorite);
         } else {
             toShow.add(R.id.action_unset_favorite);
         }
+    }
 
-        // Encryption
-        boolean endToEndEncryptionEnabled = capability != null && capability.getEndToEndEncryption().isTrue();
+    private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
                 || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_encrypted);
         } else {
             toShow.add(R.id.action_encrypted);
         }
+    }
 
-        // Un-encrypt
+    private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
                 || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_unset_encrypted);
         } else {
             toShow.add(R.id.action_unset_encrypted);
         }
+    }
 
-        // SET PICTURE AS
+    private void filterSetPictureAs(List<Integer> toShow, List<Integer> toHide) {
         if (isSingleImage() && !MimeTypeUtil.isSVG(mFiles.iterator().next())) {
             toShow.add(R.id.action_set_as_wallpaper);
         } else {
             toHide.add(R.id.action_set_as_wallpaper);
+        }
+    }
+
+    private void filterSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (mFiles.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing) {
+            toHide.add(R.id.action_sync_file);
+
+        } else {
+            toShow.add(R.id.action_sync_file);
+        }
+    }
+
+    private void filterCancelSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (mFiles.isEmpty() || !synchronizing) {
+            toHide.add(R.id.action_cancel_sync);
+
+        } else {
+            toShow.add(R.id.action_cancel_sync);
+        }
+    }
+
+    private void filterOpenWith(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (!isSingleFile() || !anyFileDown() || synchronizing) {
+            toHide.add(R.id.action_open_file_with);
+        } else {
+            toShow.add(R.id.action_open_file_with);
+        }
+    }
+
+    private void filterDeselectAll(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
+        if (!inSingleFileFragment) {
+            // Show only if at least one item is selected.
+            if (mFiles.isEmpty() || mOverflowMenu) {
+                toHide.add(R.id.action_deselect_all_action_menu);
+            } else {
+                toShow.add(R.id.action_deselect_all_action_menu);
+            }
+        }else {
+            // Always hide in single file fragments
+            toHide.add(R.id.action_deselect_all_action_menu);
+        }
+    }
+
+    private void filterSelectAll(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
+        if (!inSingleFileFragment) {
+            // Show only if at least one item isn't selected.
+            if (mFiles.size() >= mNumberOfAllFiles || mOverflowMenu) {
+                toHide.add(R.id.action_select_all_action_menu);
+            } else {
+                toShow.add(R.id.action_select_all_action_menu);
+            }
+        } else {
+            // Always hide in single file fragments
+            toHide.add(R.id.action_select_all_action_menu);
+        }
+    }
+
+    private void filterRemove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (mFiles.isEmpty() || synchronizing || containsEncryptedFolder()) {
+            toHide.add(R.id.action_remove_file);
+        } else {
+            toShow.add(R.id.action_remove_file);
+        }
+    }
+
+    private void filterMoveCopy(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (mFiles.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+            toHide.add(R.id.action_move);
+            toHide.add(R.id.action_copy);
+        } else {
+            toShow.add(R.id.action_move);
+            toShow.add(R.id.action_copy);
+        }
+    }
+
+    private void filterRename(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+            toHide.add(R.id.action_rename_file);
+
+        } else {
+            toShow.add(R.id.action_rename_file);
+        }
+    }
+
+    private void filterDownload(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (mFiles.isEmpty() || containsFolder() || anyFileDown() || synchronizing) {
+            toHide.add(R.id.action_download_file);
+
+        } else {
+            toShow.add(R.id.action_download_file);
         }
     }
 
