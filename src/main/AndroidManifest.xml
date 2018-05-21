@@ -71,6 +71,15 @@
 
     <permission-group android:name="com.owncloud.android"
         android:label="@string/permission_group" />
+
+    <!--
+        TODO review protection level again..
+        see: https://developer.android.com/guide/topics/manifest/permission-element
+
+        I think we can't use the signature based one since our apps will be signed with different keys
+        Therefore if you want to test the security features, you'll have to sign this app with a different key than the client app (e.g. nextcloud news app)
+    -->
+
     <permission
         android:name="com.owncloud.android.sso"
         android:permissionGroup="com.owncloud.android"
@@ -78,10 +87,6 @@
         android:label="@string/permission_label"
         android:description="@string/permission_desc">
     </permission>
-
-    <!--
-    <uses-permission android:name="com.owncloud.android.sso" />
-    -->
 
 
 
