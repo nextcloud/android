@@ -187,20 +187,14 @@ public class PreviewImageFragment extends FileFragment {
         mImageView = view.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
 
-        view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
-                toggleImageBackground();
-            }
+        view.setOnClickListener(v -> {
+            ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            toggleImageBackground();
         });
 
-        mImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
-                toggleImageBackground();
-            }
+        mImageView.setOnClickListener(v -> {
+            ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            toggleImageBackground();
         });
 
         mMultiView = view.findViewById(R.id.multi_view);
