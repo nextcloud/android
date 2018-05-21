@@ -651,21 +651,13 @@ public class PreviewImageFragment extends FileFragment {
                             bitmap.getHeight());
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
+                        result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml") ||
+                        result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     if (getResources() != null) {
                         imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
                     } else {
                         imageView.setImageBitmap(bitmap);
-                    }
-                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
-                    imageView.setImageDrawable(result.drawable);
-                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
-                    GifDrawable gif;
-                    try {
-                        gif = new GifDrawable(result.ocFile.getStoragePath());
-                        imageView.setImageDrawable(gif);
-                    } catch (IOException ex) {
-                        imageView.setImageDrawable(result.drawable);
                     }
                 } else {
                     imageView.setImageBitmap(bitmap);
@@ -684,12 +676,26 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    private LayerDrawable generateCheckerboardLayeredDrawable (LoadImage result, Bitmap bitmap) {
+    private LayerDrawable generateCheckerboardLayeredDrawable(LoadImage result, Bitmap bitmap) {
         Resources r = getResources();
         Drawable[] layers = new Drawable[2];
         layers[0] = r.getDrawable(R.color.white);
         Drawable bitmapDrawable;
-        bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+
+        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+            bitmapDrawable = result.drawable;
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+            try {
+                bitmapDrawable = new GifDrawable(result.ocFile.getStoragePath());
+            } catch (IOException exception) {
+                bitmapDrawable = result.drawable;
+            }
+        } else {
+            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        }
+
         layers[1] = bitmapDrawable;
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
