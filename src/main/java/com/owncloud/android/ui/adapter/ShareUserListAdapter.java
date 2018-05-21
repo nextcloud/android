@@ -21,7 +21,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,21 +115,10 @@ public class ShareUserListAdapter extends ArrayAdapter {
             userName.setText(name);
 
             /// bind listener to edit privileges
-            editShareButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.editShare(mShares.get(position));
-                }
-            });
+            editShareButton.setOnClickListener(v -> mListener.editShare(mShares.get(position)));
 
             /// bind listener to unshare
-            unshareButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.unshareButtonPressed(mShares.get(position));
-                }
-            });
-
+            unshareButton.setOnClickListener(v -> mListener.unshareButtonPressed(mShares.get(position)));
         }
         return view;
     }
