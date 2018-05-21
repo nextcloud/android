@@ -89,7 +89,7 @@ import pl.droidsonroids.gif.GifDrawable;
  */
 public class PreviewImageFragment extends FileFragment {
 
-    public static final String EXTRA_FILE = "FILE";
+    private static final String EXTRA_FILE = "FILE";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
@@ -102,15 +102,15 @@ public class PreviewImageFragment extends FileFragment {
     private PhotoView mImageView;
     private RelativeLayout mMultiView;
 
-    protected LinearLayout mMultiListContainer;
-    protected TextView mMultiListMessage;
-    protected TextView mMultiListHeadline;
-    protected ImageView mMultiListIcon;
-    protected ProgressBar mMultiListProgress;
+    private LinearLayout mMultiListContainer;
+    private TextView mMultiListMessage;
+    private TextView mMultiListHeadline;
+    private ImageView mMultiListIcon;
+    private ProgressBar mMultiListProgress;
 
     private Boolean mShowResizedImage = false;
 
-    public Bitmap mBitmap = null;
+    private Bitmap mBitmap = null;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
@@ -215,11 +215,11 @@ public class PreviewImageFragment extends FileFragment {
         ((PreviewImageActivity) getActivity()).switchToFullScreen();
     }
 
-    public void downloadFile() {
+    private void downloadFile() {
         ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
     }
 
-    protected void setupMultiView(View view) {
+    private void setupMultiView(View view) {
         mMultiListContainer = view.findViewById(R.id.empty_list_view);
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
@@ -525,7 +525,7 @@ public class PreviewImageFragment extends FileFragment {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(PhotoView imageView) {
+        LoadBitmapTask(PhotoView imageView) {
             mImageViewRef = new WeakReference<>(imageView);
         }
 
@@ -738,7 +738,7 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    public void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
+    private void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
         if (mMultiListContainer != null && mMultiListMessage != null) {
             mMultiListHeadline.setText(headline);
             mMultiListMessage.setText(message);
@@ -837,7 +837,7 @@ public class PreviewImageFragment extends FileFragment {
         private Drawable drawable;
         private OCFile ocFile;
 
-        public LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
+        LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
             this.bitmap = bitmap;
             this.drawable = drawable;
             this.ocFile = ocFile;
