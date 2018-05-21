@@ -54,6 +54,7 @@ import android.widget.TextView;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -70,10 +71,11 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import third_parties.michaelOrtiz.TouchImageViewCustom;
+import pl.droidsonroids.gif.GifDrawable;
 
 
 /**
@@ -93,8 +95,11 @@ public class PreviewImageFragment extends FileFragment {
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
     private static final String SCREEN_NAME = "Image Preview";
+    private static final String MIME_TYPE_PNG = "image/png";
+    private static final String MIME_TYPE_GIF = "image/gif";
+    private static final String MIME_TYPE_SVG = "image/svg+xml";
 
-    private TouchImageViewCustom mImageView;
+    private PhotoView mImageView;
     private RelativeLayout mMultiView;
 
     protected LinearLayout mMultiListContainer;
@@ -180,7 +185,6 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = view.findViewById(R.id.image);
-        mImageView.setPreviewImageFragment(this);
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(new OnClickListener() {
@@ -402,10 +406,10 @@ public class PreviewImageFragment extends FileFragment {
             item.setEnabled(false);
         }
 
-        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             // additional restriction for this fragment
             item = menu.findItem(R.id.action_send_share_file);
-            if(item != null){
+            if (item != null) {
                 item.setVisible(false);
                 item.setEnabled(false);
             }
@@ -421,7 +425,7 @@ public class PreviewImageFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_share_file:
-                if(getFile().isSharedWithMe() && !getFile().canReshare()){
+                if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                     Snackbar.make(getView(),
                             R.string.resharing_is_not_allowed,
                             Snackbar.LENGTH_LONG
@@ -508,7 +512,7 @@ public class PreviewImageFragment extends FileFragment {
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
-        private final WeakReference<ImageViewCustom> mImageViewRef;
+        private final WeakReference<PhotoView> mImageViewRef;
 
         /**
          * Error message to show when a load fails
@@ -521,7 +525,7 @@ public class PreviewImageFragment extends FileFragment {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(ImageViewCustom imageView) {
+        public LoadBitmapTask(PhotoView imageView) {
             mImageViewRef = new WeakReference<>(imageView);
         }
 
@@ -545,7 +549,7 @@ public class PreviewImageFragment extends FileFragment {
                 int minHeight = screenSize.y;
                 for (int i = 0; i < maxDownScale && bitmapResult == null && drawableResult == null; i++) {
 
-                    if (ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+                    if (ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) {
                         if (isCancelled()) {
                             return null;
                         }
@@ -641,9 +645,8 @@ public class PreviewImageFragment extends FileFragment {
         }
 
         private void showLoadedImage(LoadImage result) {
-            final ImageViewCustom imageView = mImageViewRef.get();
+            final PhotoView imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
-
 
             if (imageView != null) {
                 if (bitmap != null) {
@@ -651,48 +654,15 @@ public class PreviewImageFragment extends FileFragment {
                             bitmap.getHeight());
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
-                        result.ocFile.getMimetype().equals("image/svg+xml")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
+                        result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG) ||
+                        result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_GIF)) {
                     if (getResources() != null) {
-                        Resources r = getResources();
-                        Drawable[] layers = new Drawable[2];
-                        layers[0] = r.getDrawable(R.color.white);
-                        Drawable bitmapDrawable;
-                        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ) {
-                            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-                        } else {
-                            bitmapDrawable = result.drawable;
-                        }
-                        layers[1] = bitmapDrawable;
-                        LayerDrawable layerDrawable = new LayerDrawable(layers);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
-                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                            } else {
-                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                        getActivity()));
-                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                        getActivity()));
-                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                        getActivity()));
-                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                        getActivity()));
-                            }
-                        }
-                        imageView.setImageDrawable(layerDrawable);
+                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
-                }
-
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
-                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
-                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png") &&
-                        !result.ocFile.getMimetype().equals("image/svg+xml")) {
+                } else {
                     imageView.setImageBitmap(bitmap);
                 }
 
@@ -707,6 +677,50 @@ public class PreviewImageFragment extends FileFragment {
             mImageView.setVisibility(View.VISIBLE);
 
         }
+    }
+
+    private LayerDrawable generateCheckerboardLayeredDrawable(LoadImage result, Bitmap bitmap) {
+        Resources r = getResources();
+        Drawable[] layers = new Drawable[2];
+        layers[0] = r.getDrawable(R.color.white);
+        Drawable bitmapDrawable;
+
+        if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
+            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) {
+            bitmapDrawable = result.drawable;
+        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_GIF)) {
+            try {
+                bitmapDrawable = new GifDrawable(result.ocFile.getStoragePath());
+            } catch (IOException exception) {
+                bitmapDrawable = result.drawable;
+            }
+        } else {
+            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        }
+
+        layers[1] = bitmapDrawable;
+        LayerDrawable layerDrawable = new LayerDrawable(layers);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
+                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+            } else {
+                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                        getActivity()));
+                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                        getActivity()));
+                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                        getActivity()));
+                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                        getActivity()));
+            }
+        }
+
+        return layerDrawable;
     }
 
     private void showErrorMessage(@StringRes int errorMessageId) {
@@ -783,8 +797,8 @@ public class PreviewImageFragment extends FileFragment {
 
     private void toggleImageBackground() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-                && (getFile().getMimetype().equalsIgnoreCase("image/png") ||
-                getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
+                && (getFile().getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
+                getFile().getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
@@ -815,7 +829,7 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    public TouchImageViewCustom getImageView() {
+    public PhotoView getImageView() {
         return mImageView;
     }
 
