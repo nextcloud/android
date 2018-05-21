@@ -476,11 +476,6 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     @SuppressFBWarnings("Dm")
     @Override
     public void onDestroy() {
