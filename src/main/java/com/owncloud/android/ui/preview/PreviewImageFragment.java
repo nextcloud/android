@@ -704,19 +704,17 @@ public class PreviewImageFragment extends FileFragment {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
-                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                layerDrawable.setLayerSize(0, convertDpToPixel(bitmap.getWidth(),
+                        getActivity()), convertDpToPixel(bitmap.getHeight(), getActivity()));
+                layerDrawable.setLayerSize(1, convertDpToPixel(bitmap.getWidth(),
+                        getActivity()), convertDpToPixel(bitmap.getHeight(), getActivity()));
             } else {
-                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                        getActivity()));
-                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                        getActivity()));
-                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                        getActivity()));
-                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                        getActivity()));
+                layerDrawable.setLayerSize(0,
+                        convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity()),
+                        convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity()));
+                layerDrawable.setLayerSize(1,
+                        convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity()),
+                        convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity()));
             }
         }
 
