@@ -18,23 +18,14 @@
   
 -->
 
-<!--
-     ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fdScrollView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_color" 
-    android:gravity="center_horizontal"
--->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
 
-    <third_parties.michaelOrtiz.TouchImageViewCustom
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
