@@ -814,9 +814,9 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     private class LoadImage {
-        private Bitmap bitmap;
-        private Drawable drawable;
-        private OCFile ocFile;
+        private final Bitmap bitmap;
+        private final Drawable drawable;
+        private final OCFile ocFile;
 
         LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
             this.bitmap = bitmap;
