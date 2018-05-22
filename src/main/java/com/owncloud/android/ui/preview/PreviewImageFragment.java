@@ -601,11 +601,11 @@ public class PreviewImageFragment extends FileFragment {
         layers[0] = r.getDrawable(R.color.white);
         Drawable bitmapDrawable;
 
-        if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
+        if (result.ocFile.getMimeType().equalsIgnoreCase(MIME_TYPE_PNG)) {
             bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG)) {
+        } else if (result.ocFile.getMimeType().equalsIgnoreCase(MIME_TYPE_SVG)) {
             bitmapDrawable = result.drawable;
-        } else if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_GIF)) {
+        } else if (result.ocFile.getMimeType().equalsIgnoreCase(MIME_TYPE_GIF)) {
             try {
                 bitmapDrawable = new GifDrawable(result.ocFile.getStoragePath());
             } catch (IOException exception) {
@@ -624,7 +624,7 @@ public class PreviewImageFragment extends FileFragment {
                 int bitmapWidth;
                 int bitmapHeight;
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
+                if (result.ocFile.getMimeType().equalsIgnoreCase(MIME_TYPE_PNG)) {
                     bitmapWidth = convertDpToPixel(bitmap.getWidth(),
                             getActivity());
                     bitmapHeight = convertDpToPixel(bitmap.getHeight(),
