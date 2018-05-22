@@ -705,22 +705,25 @@ public class PreviewImageFragment extends FileFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Activity activity = getActivity();
             if (activity != null) {
+                int bitmapWidth;
+                int bitmapHeight;
+
                 if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
-                    int bitmapWidth = convertDpToPixel(bitmap.getWidth(),
+                    bitmapWidth = convertDpToPixel(bitmap.getWidth(),
                             getActivity());
-                    int bitmapHeight = convertDpToPixel(bitmap.getHeight(),
+                    bitmapHeight = convertDpToPixel(bitmap.getHeight(),
                             getActivity());
                     layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
                     layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
                 } else {
-                    int bitmapIntrinsicWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                    bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
                             getActivity());
-                    int bitmapIntrinsicHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                    bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
                             getActivity());
-                    layerDrawable.setLayerSize(0, bitmapIntrinsicWidth,
-                            bitmapIntrinsicHeight);
-                    layerDrawable.setLayerSize(1, bitmapIntrinsicWidth,
-                            bitmapIntrinsicHeight);
+                    layerDrawable.setLayerSize(0, bitmapWidth,
+                            bitmapHeight);
+                    layerDrawable.setLayerSize(1, bitmapWidth,
+                            bitmapHeight);
                 }
             }
         }
