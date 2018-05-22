@@ -1404,6 +1404,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
 
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+
         final RemoteOperation remoteOperation;
         if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
             boolean searchOnlyFolders = false;
@@ -1411,12 +1413,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 searchOnlyFolders = true;
             }
 
-            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType(), searchOnlyFolders);
+            String userId = AccountManager.get(MainApp.getAppContext()).getUserData(currentAccount,
+                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType(), searchOnlyFolders,
+                    userId);
         } else {
             remoteOperation = new GetRemoteSharesOperation();
         }
-
-        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         remoteOperationAsyncTask = new AsyncTask() {
             @Override
