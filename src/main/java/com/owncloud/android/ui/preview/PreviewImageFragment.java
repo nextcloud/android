@@ -706,17 +706,21 @@ public class PreviewImageFragment extends FileFragment {
             Activity activity = getActivity();
             if (activity != null) {
                 if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
-                    layerDrawable.setLayerSize(0, convertDpToPixel(bitmap.getWidth(),
-                            getActivity()), convertDpToPixel(bitmap.getHeight(), getActivity()));
-                    layerDrawable.setLayerSize(1, convertDpToPixel(bitmap.getWidth(),
-                            getActivity()), convertDpToPixel(bitmap.getHeight(), getActivity()));
+                    int bitmapWidth = convertDpToPixel(bitmap.getWidth(),
+                            getActivity());
+                    int bitmapHeight = convertDpToPixel(bitmap.getHeight(),
+                            getActivity());
+                    layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+                    layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
                 } else {
-                    layerDrawable.setLayerSize(0,
-                            convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity()),
-                            convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity()));
-                    layerDrawable.setLayerSize(1,
-                            convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity()),
-                            convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity()));
+                    int bitmapIntrinsicWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                            getActivity());
+                    int bitmapIntrinsicHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                            getActivity());
+                    layerDrawable.setLayerSize(0, bitmapIntrinsicWidth,
+                            bitmapIntrinsicHeight);
+                    layerDrawable.setLayerSize(1, bitmapIntrinsicWidth,
+                            bitmapIntrinsicHeight);
                 }
             }
         }
