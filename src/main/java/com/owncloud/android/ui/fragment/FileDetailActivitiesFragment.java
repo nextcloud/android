@@ -235,7 +235,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
-
+                
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
                     final ArrayList<Object> activities = (ArrayList) data.get(0);
@@ -262,7 +262,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                     }
                     final String finalLogMessage = logMessage;
                     activity.runOnUiThread(() -> {
-                        setEmptyContent(noResultsHeadline, finalLogMessage);
+                        setErrorContent(finalLogMessage);
                         isLoadingActivities = false;
                     });
                 }
@@ -289,9 +289,23 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     private void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
 
+            emptyContentMessage.setVisibility(View.VISIBLE);
+            emptyContentProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setErrorContent(String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(R.string.common_error);
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentMessage.setText(message);
+
+            emptyContentMessage.setVisibility(View.VISIBLE);
             emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
