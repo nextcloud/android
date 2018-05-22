@@ -28,6 +28,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,6 +51,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
@@ -210,6 +212,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void fetchAndSetData(String pageUrl) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
+        final FragmentActivity activity = getActivity();
+
+        final SwipeRefreshLayout empty = swipeEmptyListRefreshLayout;
+        final SwipeRefreshLayout list = swipeListRefreshLayout;
+
 
         Thread t = new Thread(() -> {
             OwnCloudAccount ocAccount;
@@ -235,15 +242,15 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                     final ArrayList<Object> activities = (ArrayList) data.get(0);
                     nextPageUrl = (String) data.get(1);
 
-                    getActivity().runOnUiThread(() -> {
+                    activity.runOnUiThread(() -> {
                         populateList(activities, ownCloudClient, pageUrl == null);
                         if (activities.size() > 0) {
-                            swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                            swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                            empty.setVisibility(View.GONE);
+                            list.setVisibility(View.VISIBLE);
                         } else {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
-                            swipeListRefreshLayout.setVisibility(View.GONE);
-                            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+                            list.setVisibility(View.GONE);
+                            empty.setVisibility(View.VISIBLE);
                         }
                         isLoadingActivities = false;
                     });
@@ -255,14 +262,13 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                         logMessage = noResultsMessage;
                     }
                     final String finalLogMessage = logMessage;
-                    getActivity().runOnUiThread(() -> {
+                    activity.runOnUiThread(() -> {
                         setEmptyContent(noResultsHeadline, finalLogMessage);
                         isLoadingActivities = false;
-                        //setIndeterminate(isLoadingActivities);
                     });
                 }
 
-                hideRefreshLayoutLoader();
+                hideRefreshLayoutLoader(activity);
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.e(TAG, "Account not found", e);
             } catch (IOException e) {
@@ -292,8 +298,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         }
     }
 
-    private void hideRefreshLayoutLoader() {
-        getActivity().runOnUiThread(() -> {
+    private void hideRefreshLayoutLoader(FragmentActivity activity) {
+        activity.runOnUiThread(() -> {
             if (swipeListRefreshLayout != null) {
                 swipeListRefreshLayout.setRefreshing(false);
             }
@@ -301,7 +307,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 swipeEmptyListRefreshLayout.setRefreshing(false);
             }
             isLoadingActivities = false;
-            //setIndeterminate(isLoadingActivities);
         });
     }
 
