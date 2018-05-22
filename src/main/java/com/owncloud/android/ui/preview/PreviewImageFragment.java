@@ -203,10 +203,6 @@ public class PreviewImageFragment extends FileFragment {
         return view;
     }
 
-    public void switchToFullScreen() {
-        ((PreviewImageActivity) getActivity()).switchToFullScreen();
-    }
-
     private void downloadFile() {
         ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
     }
