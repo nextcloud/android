@@ -70,6 +70,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import third_parties.daveKoeller.AlphanumComparator;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
@@ -241,6 +242,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                     List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
                             .getFolderContent(backupFolder, false);
+
+                    Collections.sort(backupFiles, new AlphanumComparator<>());
 
                     if (backupFiles == null || backupFiles.size() == 0) {
                         contactsDatePickerBtn.setVisibility(View.GONE);
