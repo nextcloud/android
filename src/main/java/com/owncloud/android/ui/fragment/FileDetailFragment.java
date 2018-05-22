@@ -112,18 +112,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Nullable @BindView(R.id.pager)
     ViewPager viewPager;
 
-    @Nullable @BindView(R.id.empty_list_view_text)
-    protected TextView emptyContentMessage;
-
-    @Nullable @BindView(R.id.empty_list_view_headline)
-    protected TextView emptyContentHeadline;
-
-    @Nullable @BindView(R.id.empty_list_icon)
-    protected ImageView emptyContentIcon;
-
-    @Nullable @BindView(R.id.empty_list_progress)
-    protected ProgressBar emptyProgressBar;
-
     private int layout;
     private View view;
     private boolean previewLoaded;
@@ -222,8 +210,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         setFile(getArguments().getParcelable(ARG_FILE));
         account = getArguments().getParcelable(ARG_ACCOUNT);
@@ -254,13 +241,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             overflowMenu.setOnClickListener(this);
 
             updateFileDetails(false, false);
-        } else {
-            emptyContentMessage.setText(R.string.filedetails_select_file);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
-            emptyContentIcon.setVisibility(View.VISIBLE);
-            emptyProgressBar.setVisibility(View.GONE);
         }
     }
 
