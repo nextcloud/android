@@ -203,10 +203,6 @@ public class PreviewImageFragment extends FileFragment {
         return view;
     }
 
-    private void downloadFile() {
-        ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
-    }
-
     private void setupMultiView(View view) {
         mMultiListContainer = view.findViewById(R.id.empty_list_view);
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
@@ -741,7 +737,9 @@ public class PreviewImageFragment extends FileFragment {
         try {
             if (getActivity() != null) {
                 Snackbar.make(mMultiView, R.string.resized_image_not_possible_download, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_yes, v -> downloadFile()).show();
+                        .setAction(R.string.common_yes, v ->
+                                ((PreviewImageActivity) getActivity())
+                                        .requestForDownload(getFile())).show();
             } else {
                 Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE).show();
             }
