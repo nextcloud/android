@@ -44,7 +44,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -89,7 +88,7 @@ import pl.droidsonroids.gif.GifDrawable;
  */
 public class PreviewImageFragment extends FileFragment {
 
-    public static final String EXTRA_FILE = "FILE";
+    private static final String EXTRA_FILE = "FILE";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
@@ -102,15 +101,15 @@ public class PreviewImageFragment extends FileFragment {
     private PhotoView mImageView;
     private RelativeLayout mMultiView;
 
-    protected LinearLayout mMultiListContainer;
-    protected TextView mMultiListMessage;
-    protected TextView mMultiListHeadline;
-    protected ImageView mMultiListIcon;
-    protected ProgressBar mMultiListProgress;
+    private LinearLayout mMultiListContainer;
+    private TextView mMultiListMessage;
+    private TextView mMultiListHeadline;
+    private ImageView mMultiListIcon;
+    private ProgressBar mMultiListProgress;
 
     private Boolean mShowResizedImage = false;
 
-    public Bitmap mBitmap = null;
+    private Bitmap mBitmap = null;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
@@ -187,21 +186,9 @@ public class PreviewImageFragment extends FileFragment {
         mImageView = view.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
 
-        view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
-                toggleImageBackground();
-            }
-        });
+        view.setOnClickListener(v -> togglePreviewImageFullScreen());
 
-        mImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
-                toggleImageBackground();
-            }
-        });
+        mImageView.setOnClickListener(v -> togglePreviewImageFullScreen());
 
         mMultiView = view.findViewById(R.id.multi_view);
 
@@ -211,15 +198,7 @@ public class PreviewImageFragment extends FileFragment {
         return view;
     }
 
-    public void switchToFullScreen() {
-        ((PreviewImageActivity) getActivity()).switchToFullScreen();
-    }
-
-    public void downloadFile() {
-        ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
-    }
-
-    protected void setupMultiView(View view) {
+    private void setupMultiView(View view) {
         mMultiListContainer = view.findViewById(R.id.empty_list_view);
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
@@ -476,17 +455,11 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     @SuppressFBWarnings("Dm")
     @Override
     public void onDestroy() {
         if (mBitmap != null) {
             mBitmap.recycle();
-            System.gc();
             // putting this in onStop() is just the same; the fragment is always destroyed by
             // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
             // valid offscreen distance, and onStop() is never called before than that
@@ -525,7 +498,7 @@ public class PreviewImageFragment extends FileFragment {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(PhotoView imageView) {
+        LoadBitmapTask(PhotoView imageView) {
             mImageViewRef = new WeakReference<>(imageView);
         }
 
@@ -746,7 +719,7 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    public void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
+    private void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
         if (mMultiListContainer != null && mMultiListMessage != null) {
             mMultiListHeadline.setText(headline);
             mMultiListMessage.setText(message);
@@ -766,7 +739,9 @@ public class PreviewImageFragment extends FileFragment {
         try {
             if (getActivity() != null) {
                 Snackbar.make(mMultiView, R.string.resized_image_not_possible_download, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_yes, v -> downloadFile()).show();
+                        .setAction(R.string.common_yes, v ->
+                                ((PreviewImageActivity) getActivity())
+                                        .requestForDownload(getFile())).show();
             } else {
                 Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE).show();
             }
@@ -803,6 +778,11 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
 
+    private void togglePreviewImageFullScreen() {
+        ((PreviewImageActivity) getActivity()).toggleFullScreen();
+        toggleImageBackground();
+    }
+
     private void toggleImageBackground() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
                 && (getFile().getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
@@ -832,8 +812,7 @@ public class PreviewImageFragment extends FileFragment {
     private static int convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+        return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 
@@ -842,11 +821,11 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     private class LoadImage {
-        private Bitmap bitmap;
-        private Drawable drawable;
-        private OCFile ocFile;
+        private final Bitmap bitmap;
+        private final Drawable drawable;
+        private final OCFile ocFile;
 
-        public LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
+        LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
             this.bitmap = bitmap;
             this.drawable = drawable;
             this.ocFile = ocFile;
