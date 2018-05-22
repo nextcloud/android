@@ -460,7 +460,6 @@ public class PreviewImageFragment extends FileFragment {
     public void onDestroy() {
         if (mBitmap != null) {
             mBitmap.recycle();
-            System.gc();
             // putting this in onStop() is just the same; the fragment is always destroyed by
             // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
             // valid offscreen distance, and onStop() is never called before than that
