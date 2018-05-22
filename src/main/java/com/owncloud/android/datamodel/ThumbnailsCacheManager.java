@@ -245,8 +245,7 @@ public class ThumbnailsCacheManager {
                 }
 
             } catch (OutOfMemoryError oome) {
-                System.gc();
-                Log_OC.e(TAG, "Out of memory -> garbage collector called");
+                Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + file + " failed", t);
@@ -467,7 +466,7 @@ public class ThumbnailsCacheManager {
                 }
 
             } catch(OutOfMemoryError oome) {
-                System.gc();
+                Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
@@ -672,7 +671,7 @@ public class ThumbnailsCacheManager {
             } // the app should never break due to a problem with thumbnails
             catch (OutOfMemoryError t) {
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile.getAbsolutePath() + " failed", t);
-                System.gc();
+                Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile.getAbsolutePath() + " failed", t);
@@ -807,7 +806,7 @@ public class ThumbnailsCacheManager {
                 thumbnail = doAvatarInBackground();
 
             } catch(OutOfMemoryError oome) {
-                System.gc(); // todo, does this really make sense?
+                Log_OC.e(TAG, "Out of memory");
             } catch(Throwable t){
                 // the app should never break due to a problem with avatars
                 Log_OC.e(TAG, "Generation of avatar for " + mUsername + " failed", t);
