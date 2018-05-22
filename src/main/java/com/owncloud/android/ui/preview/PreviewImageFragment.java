@@ -703,20 +703,28 @@ public class PreviewImageFragment extends FileFragment {
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
-                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
-            } else {
-                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                        getActivity()));
-                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                        getActivity()));
-                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                        getActivity()));
-                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                        getActivity()));
+            Activity activity = getActivity();
+            if (activity != null) {
+                int bitmapWidth;
+                int bitmapHeight;
+
+                if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG)) {
+                    bitmapWidth = convertDpToPixel(bitmap.getWidth(),
+                            getActivity());
+                    bitmapHeight = convertDpToPixel(bitmap.getHeight(),
+                            getActivity());
+                    layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+                    layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
+                } else {
+                    bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                            getActivity());
+                    bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                            getActivity());
+                    layerDrawable.setLayerSize(0, bitmapWidth,
+                            bitmapHeight);
+                    layerDrawable.setLayerSize(1, bitmapWidth,
+                            bitmapHeight);
+                }
             }
         }
 
