@@ -188,13 +188,11 @@ public class PreviewImageFragment extends FileFragment {
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(v -> {
-            ((PreviewImageActivity) getActivity()).toggleFullScreen();
-            toggleImageBackground();
+            togglePreviewImageFullScreen();
         });
 
         mImageView.setOnClickListener(v -> {
-            ((PreviewImageActivity) getActivity()).toggleFullScreen();
-            toggleImageBackground();
+            togglePreviewImageFullScreen();
         });
 
         mMultiView = view.findViewById(R.id.multi_view);
@@ -782,6 +780,11 @@ public class PreviewImageFragment extends FileFragment {
     private void finish() {
         Activity container = getActivity();
         container.finish();
+    }
+
+    private void togglePreviewImageFullScreen() {
+        ((PreviewImageActivity) getActivity()).toggleFullScreen();
+        toggleImageBackground();
     }
 
     private void toggleImageBackground() {
