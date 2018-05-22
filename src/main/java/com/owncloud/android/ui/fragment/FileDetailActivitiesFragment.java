@@ -235,7 +235,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
-                
+
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
                     final ArrayList<Object> activities = (ArrayList) data.get(0);
