@@ -352,12 +352,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_videos);
         }
 
-        if (getAccount() != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            OCCapability capability = storageManager.getCapability(getAccount().name);
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+            OCCapability capability = storageManager.getCapability(account.name);
             
-            if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_14) < 0 && 
-                    (capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown())) {
+            if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_14) < 0 || 
+                    capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
                 navigationView.getMenu().removeItem(R.id.nav_trashbin);
             }
         }
