@@ -32,7 +32,7 @@ public interface TrashbinContract {
     interface View {
         void showTrashbinFolder(List<Object> trashbinFiles);
 
-        void showError(int message, TrashbinFile file);
+        void showSnackbarError(int message, TrashbinFile file);
 
         void showError(int message);
 

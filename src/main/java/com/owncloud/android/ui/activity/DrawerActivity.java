@@ -336,6 +336,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+        OwnCloudVersion ownCloudVersion = AccountUtils.getServerVersion(getAccount());
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
@@ -354,7 +355,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         if (getAccount() != null) {
             FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             OCCapability capability = storageManager.getCapability(getAccount().name);
-            if (capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
+            
+            if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_14) < 0 && 
+                    (capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown())) {
                 navigationView.getMenu().removeItem(R.id.nav_trashbin);
             }
         }

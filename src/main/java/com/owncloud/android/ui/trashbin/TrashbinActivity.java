@@ -267,14 +267,22 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     }
 
     @Override
-    public void showError(int message) {
+    public void showSnackbarError(int message, TrashbinFile file) {
         swipeListRefreshLayout.setRefreshing(false);
-        Snackbar.make(recyclerView, getString(message), Snackbar.LENGTH_LONG).show();
+        Snackbar.make(recyclerView, String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
-    public void showError(int message, TrashbinFile file) {
+    public void showError(int message) {
         swipeListRefreshLayout.setRefreshing(false);
-        Snackbar.make(recyclerView, String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG).show();
+        
+        if (emptyContentMessage != null) {
+            emptyContentHeadline.setText(R.string.common_error);
+            emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
+            emptyContentMessage.setText(message);
+
+            emptyContentMessage.setVisibility(View.VISIBLE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+        }
     }
 }
