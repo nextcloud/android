@@ -30,13 +30,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,6 +56,7 @@ import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
@@ -89,13 +90,13 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     TextView noList;
 
     @BindView(R.id.share_by_link)
-    CheckBox shareByLink;
+    AppCompatCheckBox shareByLink;
 
     @BindView(R.id.overflow_menu_share_link)
     ImageView overflowMenuShareLink;
 
     @BindView(R.id.share_by_link_allow_editing)
-    CheckBox shareByLinkAllowEditing;
+    AppCompatCheckBox shareByLinkAllowEditing;
 
     @BindView(R.id.share_by_link_container)
     LinearLayout shareByLinkContainer;
@@ -167,6 +168,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      */
     private void setShareByLinkInfo(boolean isShareByLink) {
         shareByLink.setChecked(isShareByLink);
+        ThemeUtils.tintCheckbox(shareByLink, ThemeUtils.primaryAccentColor(getContext()));
+        ThemeUtils.tintCheckbox(shareByLinkAllowEditing, ThemeUtils.primaryAccentColor(getContext()));
         setLinkDetailVisible(isShareByLink);
     }
 

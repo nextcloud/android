@@ -47,7 +47,7 @@
             android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding">
 
-            <CheckBox
+            <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:paddingBottom="@dimen/standard_half_padding"
                 android:text="@string/share_via_link_section_title" />
 
-            <CheckBox
+            <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link_allow_editing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
