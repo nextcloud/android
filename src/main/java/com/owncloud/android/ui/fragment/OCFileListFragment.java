@@ -331,9 +331,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
         prepareCurrentSearch(searchEvent);
-        if (searchEvent != null && savedInstanceState == null) {
-            onMessageEvent(searchEvent);
-        }
 
         if (isGridViewPreferred(getCurrentFile())) {
             switchToGridView();
