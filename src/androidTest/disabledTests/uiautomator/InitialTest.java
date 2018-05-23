@@ -65,51 +65,51 @@ public class InitialTest {
     /**
      * Start Nextcloud app
      */
-//    @Test
-//    public void startAppFromHomeScreen() {
-//        // Perform a short press on the HOME button
-//        mDevice.pressHome();
-//
-//        // Wait for launcher
-//        final String launcherPackage = getLauncherPackageName();
-//        assertThat(launcherPackage, notNullValue());
-//        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
-//
-//        // Launch the app
-//        Context context = InstrumentationRegistry.getContext();
-//        final Intent intent = context.getPackageManager()
-//                .getLaunchIntentForPackage(OWNCLOUD_APP_PACKAGE);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        context.startActivity(intent);
-//
-//        // Wait for the app to appear
-//        mDevice.wait(Until.hasObject(By.pkg(OWNCLOUD_APP_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
-//    }
+    @Test
+    public void startAppFromHomeScreen() {
+        // Perform a short press on the HOME button
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(OWNCLOUD_APP_PACKAGE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(OWNCLOUD_APP_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
+    }
 
     /**
      * Start Settings app
      *
      * @throws UiObjectNotFoundException
      */
-//    @Test
-//    public void startSettingsFromHomeScreen() throws UiObjectNotFoundException {
-//
-//        mDevice.pressHome();
-//
-//        // Wait for launcher
-//        final String launcherPackage = getLauncherPackageName();
-//        assertThat(launcherPackage, notNullValue());
-//        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
-//
-//        // Launch the app
-//        Context context = InstrumentationRegistry.getContext();
-//        final Intent intent = context.getPackageManager()
-//                .getLaunchIntentForPackage(ANDROID_SETTINGS_PACKAGE);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        context.startActivity(intent);
-//
-//        clickByText(SETTINGS_DATA_USAGE_OPTION);
-//    }
+    @Test
+    public void startSettingsFromHomeScreen() throws UiObjectNotFoundException {
+
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(ANDROID_SETTINGS_PACKAGE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        clickByText(SETTINGS_DATA_USAGE_OPTION);
+    }
 
     /**
      * Uses package manager to find the package name of the device launcher. Usually this package
