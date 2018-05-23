@@ -557,12 +557,11 @@ public class ThumbnailsCacheManager {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
                                             pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                 } else {
-                                    uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/ajax/preview.php?x="
-                                            + pxW + "&y=" + pxH + "&file=" + Uri.encode(file.getRemotePath());
+                                    uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
+                                            file.getLocalId() + "x="+ pxW + "&y=" + pxH;
                                 }
                                 
-                                Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() +
-                                        " URI: " + uri);
+                                Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
                                 getMethod = new GetMethod(uri);
                                 getMethod.setRequestHeader("Cookie",
                                         "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
