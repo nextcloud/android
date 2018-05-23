@@ -51,7 +51,7 @@ public class ScreenshotsIT {
     @Test
     public void gridViewScreenshot() throws InterruptedException {
         fileDisplayRule.launchActivity(new Intent());
-        
+
         Espresso.openContextualActionModeOverflowMenu();
         onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.action_switch_view))).perform(click());
 
@@ -68,7 +68,7 @@ public class ScreenshotsIT {
     @Test
     public void listViewScreenshot() throws InterruptedException {
         fileDisplayRule.launchActivity(new Intent());
-        
+
         // go into work folder
         onData(anything()).inAdapterView(withId(R.id.list_root)).atPosition(0).perform(click());
 
@@ -123,7 +123,7 @@ public class ScreenshotsIT {
         onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
 
         Thread.sleep(1000);
-        
+
         Screengrab.screenshot("06_davdroid");
 
         Assert.assertTrue(true); // if we reach this, everything is ok

@@ -1,35 +1,34 @@
 pipeline:
-  test:
+  compile:
     image: nextcloudci/android:android-35
     commands:
-      # uncomment gplay for Gplay, Modified only
-      - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
+      # uncomment gplay for Gplay
+      - sh -c "if [ '${FLAVOR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
+      # build app and assemble APK
+      - sh -c "if [ '${FLAVOR}' != 'Lint' ]; then ./gradlew assemble${FLAVOR}; fi"
+    when:
+      matrix:
+        FLAVOR: [Generic, Gplay]
 
-      # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
-      # - emulator -avd test -no-window &
-      # - ./wait_for_emulator.sh
-
-      # build app and assemble APK, in debug mode
-      - sh -c "if [ '$FLAVOUR' != 'Lint' ]; then ./gradlew assemble${FLAVOUR}; fi"
-
-      # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
-      # - ./gradlew connectedDebugAndroidTest --info
-
-      # install app, then assemble and install instrumented tests of app module
-      # - ./gradlew :install${FLAVOUR}Debug
-      # - ./gradlew :install${FLAVOUR}DebugAndroidTest
-
-      # run sample instrumented unit test
-      # TODO fails because test runner is not available
-      #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
-
-    environment:
-      - ANDROID_TARGET=android-32
-      - ANDROID_ABI=armeabi-v7a
-      - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
+  test:
+    image: nextcloudci/android:android-35
+    privileged: true
+    commands:
+      - emulator -avd android-27 -no-window -no-audio &
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit"
+      - ./gradlew assembleGplayDebug installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
+      - ./gradlew combinedTestReport
+      - curl -o codecov.sh https://codecov.io/bash
+      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+    secrets: [ LOG_USERNAME, LOG_PASSWORD ]
+    when:
+      matrix:
+        FLAVOR: Gplay
 
   lint:
-    image: nextcloudci/android:android-32
+    image: nextcloudci/android:android-35
     commands:
       # needs gplay
       - sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle
@@ -38,7 +37,7 @@ pipeline:
     secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
     when:
       matrix:
-        FLAVOUR: Lint
+        FLAVOR: Lint
         
   notify:
       image: drillster/drone-email
@@ -56,9 +55,16 @@ pipeline:
         branch: master
 
 matrix:
-  FLAVOUR:
+  FLAVOR:
     - Generic
     - Gplay
     - Lint
+
+services:
+  server:
+    image: nextcloudci/server:server-1
+    when:
+      matrix:
+        FLAVOR: Gplay
 
 branches: master
