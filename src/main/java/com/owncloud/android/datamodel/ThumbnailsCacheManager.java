@@ -558,7 +558,7 @@ public class ThumbnailsCacheManager {
                                             pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                 } else {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
-                                            file.getLocalId() + "x="+ pxW + "&y=" + pxH;
+                                            file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
                                 }
                                 
                                 Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
