@@ -85,7 +85,7 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
             if (success) {
                 trashbinView.removeFile(file);
             } else {
-                trashbinView.showError(R.string.trashbin_file_not_restored, file);
+                trashbinView.showSnackbarError(R.string.trashbin_file_not_restored, file);
             }
         });
     }
@@ -96,7 +96,7 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
             if (success) {
                 trashbinView.removeFile(file);
             } else {
-                trashbinView.showError(R.string.trashbin_file_not_deleted, file);
+                trashbinView.showSnackbarError(R.string.trashbin_file_not_deleted, file);
             }
         });
     }
