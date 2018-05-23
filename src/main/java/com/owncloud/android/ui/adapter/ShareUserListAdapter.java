@@ -107,7 +107,6 @@ public class ShareUserListAdapter extends ArrayAdapter {
                 }
             } else {
                 try {
-
                     icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
                 } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
                     icon.setImageResource(R.drawable.ic_user);
@@ -120,7 +119,6 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
             /// bind listener to unshare
             unshareButton.setOnClickListener(v -> mListener.unshareButtonPressed(mShares.get(position)));
-
         }
         return view;
     }

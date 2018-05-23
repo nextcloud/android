@@ -98,7 +98,6 @@ public class FileMenuFilter {
     public void filter(Menu menu, boolean inSingleFileFragment) {
         if (mFiles == null || mFiles.size() <= 0) {
             hideAll(menu);
-
         } else {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
@@ -171,7 +170,7 @@ public class FileMenuFilter {
         filterShareFile(toShow, toHide, capability);
         filterDetails(toShow, toHide);
         filterKeepAvailableOffline(toShow, toHide, synchronizing);
-        filterDontKeepAvalableOffline(toShow, toHide, synchronizing);
+        filterDontKeepAvailableOffline(toShow, toHide, synchronizing);
         filterFavorite(toShow, toHide, synchronizing);
         filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
@@ -214,7 +213,7 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterDontKeepAvalableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+    private void filterDontKeepAvailableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (!allFiles() || synchronizing || allNotKeptAvailableOffline()) {
             toHide.add(R.id.action_unset_keep_files_offline);
         } else {
@@ -267,7 +266,6 @@ public class FileMenuFilter {
     private void filterSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (mFiles.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing) {
             toHide.add(R.id.action_sync_file);
-
         } else {
             toShow.add(R.id.action_sync_file);
         }
@@ -276,7 +274,6 @@ public class FileMenuFilter {
     private void filterCancelSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (mFiles.isEmpty() || !synchronizing) {
             toHide.add(R.id.action_cancel_sync);
-
         } else {
             toShow.add(R.id.action_cancel_sync);
         }
@@ -298,7 +295,7 @@ public class FileMenuFilter {
             } else {
                 toShow.add(R.id.action_deselect_all_action_menu);
             }
-        }else {
+        } else {
             // Always hide in single file fragments
             toHide.add(R.id.action_deselect_all_action_menu);
         }
@@ -339,7 +336,6 @@ public class FileMenuFilter {
     private void filterRename(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_rename_file);
-
         } else {
             toShow.add(R.id.action_rename_file);
         }
@@ -348,7 +344,6 @@ public class FileMenuFilter {
     private void filterDownload(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
         if (mFiles.isEmpty() || containsFolder() || anyFileDown() || synchronizing) {
             toHide.add(R.id.action_download_file);
-
         } else {
             toShow.add(R.id.action_download_file);
         }

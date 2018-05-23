@@ -60,10 +60,8 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
     }
