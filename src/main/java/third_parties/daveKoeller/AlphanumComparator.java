@@ -105,6 +105,11 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
     }
 
     public int compare(String s1, String s2) {
+        if ((s1 == null) || (s2 == null))
+        {
+            return 0;
+        }
+        
         int thisMarker = 0;
         int thatMarker = 0;
         int s1Length = s1.length();
