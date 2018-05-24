@@ -762,4 +762,5 @@
     <string name="hint_password">Wachtwoord</string>
     <string name="upload_files">Bestanden uploaden</string>
     <string name="create_new_folder">Nieuwe map aanmaken</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     </resources>

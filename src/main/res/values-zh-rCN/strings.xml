@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
+    <string name="auth_host_url">服务器地址 https://...</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
     <string name="auth_register">还没有使用过 Nextcloud ？\n点击这里查看供应商</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_message_source_file_not_copied">无法拷贝文件到临时文件夹。请尝试重新发送。</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到%1$s文件夹</string>
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorites_filter_list">你收藏的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_favorites_filter">搜索结果中没有你收藏的文件。</string>
+    <string name="file_list_loading">加载中</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
     <string name="local_folder_list_empty">没有其他文件夹。</string>
@@ -124,6 +127,7 @@
     <string name="common_back">返回</string>
     <string name="common_save">保存</string>
     <string name="common_error">错误</string>
+    <string name="common_loading">加载中</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知错误</string>
     <string name="common_pending">等待</string>
