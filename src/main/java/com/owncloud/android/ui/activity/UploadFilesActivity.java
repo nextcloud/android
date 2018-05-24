@@ -54,7 +54,6 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -86,8 +85,6 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
-
-    private static final String SCREEN_NAME = "Choose local files to upload";
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
@@ -331,12 +328,6 @@ public class UploadFilesActivity extends FileActivity implements
             outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         }
         Log_OC.d(TAG, "onSaveInstanceState() end");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

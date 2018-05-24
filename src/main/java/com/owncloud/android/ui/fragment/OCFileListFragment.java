@@ -33,6 +33,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
@@ -97,7 +98,6 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -148,8 +148,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
-
-    private static final String SCREEN_NAME = "Remote/Server file browser";
 
     private FileFragment.ContainerActivity mContainerActivity;
 
@@ -270,15 +268,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
     }
 
     @Override
@@ -445,12 +434,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         private HashSet<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
 
         @Override
-        public void onDrawerSlide(View drawerView, float slideOffset) {
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
             // nothing to do
         }
 
         @Override
-        public void onDrawerOpened(View drawerView) {
+        public void onDrawerOpened(@NonNull View drawerView) {
             // nothing to do
         }
 
@@ -461,7 +450,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
          * @param drawerView Navigation drawer just closed.
          */
         @Override
-        public void onDrawerClosed(View drawerView) {
+        public void onDrawerClosed(@NonNull View drawerView) {
             if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
                 FragmentActivity actionBarActivity = getActivity();
                 actionBarActivity.startActionMode(mMultiChoiceModeListener);

@@ -232,9 +232,7 @@ dependencies {
 
     // uncomment for gplay
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
     // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
-    // implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation ('com.github.bumptech.glide:glide:3.7.0') {
@@ -308,5 +306,5 @@ task combinedTestReport(type: JacocoReport) {
     ])
 }
 
-// uncomment for gplay (must be at the bottom)
-//apply plugin: 'com.google.gms.google-services'
+    // uncomment for gplay (must be at the bottom)
+    // apply plugin: 'com.google.gms.google-services'
