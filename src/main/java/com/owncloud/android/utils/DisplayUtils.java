@@ -467,7 +467,7 @@ public class DisplayUtils {
                                  float avatarRadius, Resources resources, FileDataStorageManager storageManager,
                                  Object callContext, Context context) {
         if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(userId);
+            ((View) callContext).setContentDescription(account.name);
         }
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
