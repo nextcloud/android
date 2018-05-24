@@ -56,7 +56,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -358,11 +357,4 @@ public class NotificationsActivity extends FileActivity {
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-    }
-
 }

@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SwitchCompat;
@@ -45,7 +46,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 public class EditShareFragment extends Fragment {
@@ -56,8 +56,6 @@ public class EditShareFragment extends Fragment {
     private static final String ARG_SHARE = "SHARE";
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
-
-    private static final String SCREEN_NAME = "Share with Sharee";
 
     /** Ids of CheckBoxes depending on R.id.canEdit CheckBox */
     private static final int sSubordinateCheckBoxIds[] = {
@@ -133,8 +131,7 @@ public class EditShareFragment extends Fragment {
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
         // Inflate the layout for this fragment
@@ -421,15 +418,6 @@ public class EditShareFragment extends Fragment {
             refreshUiFromDB(getView());
         } else {
             refreshUiFromState(getView());
-        }
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 
