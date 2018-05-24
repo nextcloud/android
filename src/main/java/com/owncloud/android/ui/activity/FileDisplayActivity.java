@@ -144,6 +144,8 @@ public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
         SendShareDialog.SendShareDialogDownloader {
+
+    public static final String RESTART = "RESTART";
  
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -500,6 +502,9 @@ public class FileDisplayActivity extends HookActivity
         if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+        } else if (RESTART.equals(intent.getAction())) {
+            finish();
+            startActivity(intent);
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 String query = intent.getStringExtra(SearchManager.QUERY);
