@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author masensio
@@ -28,6 +28,7 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -56,7 +57,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -87,8 +87,6 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      */
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
-
-    private static final String SCREEN_NAME = "Share file/folder";
 
 //    /** Tag for dialog */
 //    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
@@ -175,16 +173,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
         // use grey as fallback for elements where custom theming is not available

@@ -56,7 +56,6 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -84,8 +83,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
-
-    private static final String SCREEN_NAME = "File details";
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -121,9 +118,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
 
         if (previewImage != null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
             activatePreviewImage();

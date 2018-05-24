@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
@@ -49,8 +48,6 @@ import java.util.Arrays;
 public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Passcode lock";
 
     public final static String ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT";
     public final static String ACTION_CHECK_WITH_RESULT = "ACTION_CHECK_WITH_RESULT";
@@ -156,12 +153,6 @@ public class PassCodeActivity extends AppCompatActivity {
         }
 
         setTextListeners();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**
