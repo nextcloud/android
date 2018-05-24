@@ -139,9 +139,6 @@
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
 
-    <!-- analytics enabled -->
-    <bool name="analytics_enabled">false</bool>
-
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
 

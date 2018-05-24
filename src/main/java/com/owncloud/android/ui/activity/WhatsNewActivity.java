@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -58,7 +59,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.features.FeatureList;
 import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
@@ -67,8 +67,6 @@ import com.owncloud.android.utils.ThemeUtils;
 public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     public static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
-
-    private static final String SCREEN_NAME = "What's new";
 
     private static final String TAG = WhatsNewActivity.class.getSimpleName();
 
@@ -159,12 +157,6 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         }
 
         updateNextButtonIfNeeded();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override
@@ -277,8 +269,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater,
-                                 @Nullable ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_webview_element, container, false);
 
@@ -332,8 +323,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater,
-                                 @Nullable ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
             int fontColor = ThemeUtils.fontColor(getContext());

@@ -70,13 +70,10 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 
 ### 4. App flavours
 
-The app is currently equipped to be built with two flavours:
-* generic - the regular build, released as a Nextcloud Android app on the Play store
-* custom - a customized build, to be used by people who need features we can't or
-  won't include into the traditional build (like Firebase Analytics)
-
-When building the *generic*, you will *not* get the dependencies imposed by the *custom*
-build.
+The app is currently equipped to be built with three flavours:
+* generic - the regular build, released as Nextcloud Android app on FDroid
+* gplay - with Google Stuff (Push notification), used for Google Play Store
+* versionDev - based on master and library master, available as direct download and FDroid
 
 [0]: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md
 [1]: https://git-scm.com/

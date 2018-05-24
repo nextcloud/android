@@ -33,7 +33,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
@@ -60,14 +59,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
     }
 
     /**

@@ -48,7 +48,6 @@ import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -61,7 +60,6 @@ import butterknife.Unbinder;
 
 public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
-    private static final String SCREEN_NAME = "Activities";
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
@@ -232,8 +230,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         super.onResume();
 
         setupContent();
-
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override

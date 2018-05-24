@@ -60,7 +60,6 @@ import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -158,12 +157,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**
