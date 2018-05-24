@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s eða %2$s</string>
 
     <string name="auth_check_server">Athuga með þjón</string>
+    <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_username">Notandanafn</string>
     <string name="auth_password">Lykilorð</string>
     <string name="auth_register">Ertu ekki enn með Nextcloud skýjaþjón?\nSmelltu hér til að fá þér einn frá þjónustuaðila</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Skrá sem valin var til sendingar fannst ekki. Athugaðu hvort skráin sé til</string>
     <string name="uploader_error_message_source_file_not_copied">Gat ekki afritað skrá í bráðabirgðamöppu. Prófaðu að endursenda hana.</string>
     <string name="uploader_upload_files_behaviour">Valkostir innsendingar:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytja skrá í %1$s-möppu</string>
     <string name="uploader_upload_files_behaviour_only_upload">Halda skrá í upprunamöppu</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek. síðan</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín.</string>
     <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
     <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
+    <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Til baka</string>
     <string name="common_save">Vista</string>
     <string name="common_error">Villa</string>
+    <string name="common_loading">Hleð inn…</string>
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_pending">Í bið</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
     <string name="avatar">Persónutákn</string>
     <string name="active_user">Virkur notandi</string>
+    <string name="upload_chooser_title">Senda inn frá…</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
+    <string name="uploader_upload_in_progress_ticker">Sendi inn …</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Sendi inn %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Sent inn</string>
     <string name="uploader_upload_succeeded_content_single">%1$s sent inn</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir Wi-Fi tengingu</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Bíð eftir að hætt sé í orkusparnaðarham</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
+    <string name="downloader_download_in_progress_ticker">Sæki…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sæki %2$s</string>
     <string name="downloader_download_succeeded_ticker">Þegar sótt</string>
     <string name="downloader_download_succeeded_content">%1$s niðurhalað</string>
@@ -222,14 +229,18 @@
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
 
-    <string name="auth_no_net_conn_title">Engin nettenging</string>
+    <string name="auth_getting_authorization">Fæ heimild…</string>
+    <string name="auth_trying_to_login">Reyni að skrá inn…</string>
+	<string name="auth_no_net_conn_title">Engin nettenging</string>
 	<string name="auth_nossl_plain_ok_title">Örugg tenging ekki tiltæk.</string>
 	<string name="auth_connection_established">Tengingu komið á</string>
 	<string name="auth_testing_connection">Prófa tengingu</string>
 	<string name="auth_not_configured_title">Gölluð uppsetning þjóns</string>
 	<string name="auth_account_not_new">Aðgangur fyrir sama notanda og vefþjón er þegar til staðar á tækinu</string>
 	<string name="auth_account_not_the_same">Notandanafnið sem sett var inn samsvarar ekki notanda þessa aðgangs</string>
+	<string name="auth_unknown_error_http_title">Óþekkt HTTP-villa kom upp!</string>
 	<string name="auth_unknown_error_title">Óþekkt villa kom upp!</string>
+	<string name="auth_unknown_error_exception_title">Óþekkt villa: %1$s</string>
 	<string name="auth_unknown_host_title">Gat ekki fundið hýsilvél</string>
 	<string name="auth_incorrect_path_title">Þjónn finnst ekki</string>
 	<string name="auth_timeout_title">Þjónninn var of lengi að svara</string>
@@ -246,7 +257,8 @@
 	<string name="auth_expired_oauth_token_toast">Heimild þín er útrunnin. Skráðu þig aftur inn.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
-    <string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
+    <string name="auth_connecting_auth_server">Tengist við auðkenningarþjón …</string>
+	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -273,11 +285,15 @@
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
+    <string name="wait_a_moment">Bíddu augnablik…</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
+    <string name="activity_chooser_title">Senda tengil til…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
     <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string>
+    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>
+        
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
     <string name="ssl_validator_reason_cert_expired">- Skilríki þjónsins er útrunnið</string>
@@ -369,6 +385,14 @@
     <string name="downloader_download_file_not_found">Skráin er ekki lengur tiltæk á þjóninum</string>
 
     <string name="file_migration_dialog_title">Uppfæri slóð á gagnageymslu</string>
+    <string name="file_migration_preparing">Undirbý yfirfærslu…</string>
+    <string name="file_migration_checking_destination">Athuga áfangastað…</string>
+    <string name="file_migration_saving_accounts_configuration">Vista aðgangsuppsetningar…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Bíð eftir fullri samstillingu…</string>
+    <string name="file_migration_migrating">Færi gögn…</string>
+    <string name="file_migration_updating_index">Uppfæri atriðaskrá…</string>
+    <string name="file_migration_cleaning">Hreinsa…</string>
+    <string name="file_migration_restoring_accounts_configuration">Endurheimti aðgangsuppsetningar…</string>
     <string name="file_migration_ok_finished">Lokið</string>
     <string name="file_migration_failed_not_enough_space">Þarf meira geymslupláss</string>
     <string name="file_migration_failed_not_writable">Gat ekki skrifað í úttaksskrá</string>
@@ -392,7 +416,9 @@
 	<string name="log_send_history_button">Ferill sendinga</string>
 	<string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
 	<string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
-    <string name="saml_authentication_required_text">Lykilorðs er krafist</string>
+    <string name="log_progress_dialog_text">Hleð inn gögnum…</string>
+
+	<string name="saml_authentication_required_text">Lykilorðs er krafist</string>
 	<string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
 	<string name="actionbar_move">Færa</string>
     <string name="actionbar_copy">Afrita</string>
@@ -436,6 +462,8 @@
     <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_as">Setja sem</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður...</string>
+    <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður...</string>
     <string name="select_all">Velja allt</string>
     <string name="deselect_all">Afvelja allt</string>
 
@@ -456,6 +484,7 @@
     <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
+    <string name="share_with_title">Deila með...</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
 
     <string name="share_search">Leita</string>
@@ -519,6 +548,11 @@
     <string name="participate_rc_fdroid">Náðu í forútgáfu í f-Droid forritasafninu</string>
     <string name="participate_dev_fdroid">Náðu í þróunarútgáfu í f-Droid forritasafninu</string>
     <string name="participate_dev_direct_download">Náðu í þróunarútgáfu sem beint niðurhal</string>
+    <string name="move_to">Færa í…</string>
+    <string name="copy_to">Afrita í…</string>
+    <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
+    <string name="choose_local_folder">Veldu staðværa möppu…</string>
+    <string name="synced_folders_loading_folders">Hleð inn möppum…</string>
     <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust.</string>
     <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
@@ -528,6 +562,7 @@
         <item quantity="other">%d valið</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Hleð inn tilkynningum…</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
 
@@ -611,6 +646,9 @@
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="fallback_weblogin_back">Til baka</string>
     <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
+
+    <string name="foreground_service_upload">Sendi inn skrár…</string>
+    <string name="foreground_service_download">Sæki skrár…</string>
 
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
     <string name="prefs_license">Notkunarleyfi</string>
@@ -701,13 +739,17 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Þessi mappa er ekki tóm.</string>
     <string name="end_to_end_encryption_wrong_password">Villa kom upp við afkóðun. Rangt lykilorð?</string>
+    <string name="end_to_end_encryption_decrypting">Afkóða…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Sæki dulritunarlykla…</string>
     <string name="end_to_end_encryption_enter_password">Settu inn lykilorðið til að afkóða einkalykil.</string>
+    <string name="end_to_end_encryption_generating_keys">Útbý nýja dulritunarlykla…</string>
     <string name="end_to_end_encryption_keywords_description">Öll 12 orðin saman gera mjög sterkt lykilorð, þannig að einungis þú getur skoðað og notað dulrituðu skrárnar þínar. Endilega skrifaðu þau niður og geymdu á öruggum stað.</string>
     <string name="end_to_end_encryption_title">Setja upp dulritun</string>
     <string name="end_to_end_encryption_passphrase_title">Skrifaðu niður 12 orða dulritunarlykilorðið þitt</string>
     <string name="end_to_end_encryption_not_supported">Dulritun virkar aðeins á KitKat(4.4) og nýrra.</string>
     <string name="end_to_end_encryption_not_enabled">Enda-í-enda dulritun óvirk á þjóni.</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
+    <string name="end_to_end_encryption_password">Lykilorð…</string>
     <string name="end_to_end_encryption_unsuccessful">Gat ekki vistað dulritunarlykla, reyndu aftur.</string>
     <string name="end_to_end_encryption_dialog_close">Loka</string>
     <string name="end_to_end_encryption_storing_keys">Geymi dulritunarlykla</string>
@@ -716,6 +758,14 @@
     <string name="notification_channel_push_name">Ýtitilkynningar</string>
     <string name="notification_channel_push_description">Birta tilkynningar sem ýtt er út frá þjóninum: Ummæli (mentions) í athugasemdum, móttaka nýrra sameigna, tilkynningar sendar inn af stjórnendum, o.fl.</string>
     <string name="sendbutton_description">Táknmynd á sendihnappi</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Endavistfang auðkenningar</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Endavistfang aðgangs</string>
     <string name="hint_name">Nafn</string>
     <string name="hint_password">Lykilorð</string>
-    </resources>
+    <string name="add_to_cloud">Bæta við %1$s</string>
+    <string name="upload_files">Senda inn skrár</string>
+    <string name="upload_content_from_other_apps">Senda inn efni frá öðrum forritum</string>
+    <string name="create_new_folder">Búa til nýja möppu</string>
+    <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
+    <string name="tags">Merki</string>
+</resources>

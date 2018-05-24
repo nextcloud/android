@@ -161,6 +161,8 @@
     <string name="common_choose_account">Vybrat účet</string>
     <string name="common_switch_account">Přepnout účet</string>
     <string name="sync_fail_ticker">Synchronizace selhala</string>
+    <string name="sync_fail_ticker_unauthorized">Synchronizace se nezdařila, přihlaste se znovu</string>
+    <string name="sync_fail_content">Nepodařilo se synchronizovat %1$s</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů selhala</string>
@@ -209,6 +211,7 @@
 	<string name="auth_not_configured_title">Neplatné nastavení serveru</string>
 	<string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
 	<string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
+	<string name="auth_unknown_error_http_title">Došlo k neznámé HTTP chybě!</string>
 	<string name="auth_unknown_error_title">Nastala neznámá chyba</string>
 	<string name="auth_unknown_error_exception_title">Neznámá chyba: %1$s</string>
 	<string name="auth_unknown_host_title">Nelze najít hostitele</string>
@@ -246,6 +249,7 @@
     <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Soubor je třeba nějak nazvat</string>
     <string name="wait_a_moment">Počkej chvíli…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
@@ -338,7 +342,10 @@
     <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
+    <string name="file_migration_migrating">Přesouvání dat…</string>
+    <string name="file_migration_cleaning">Čištění…</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
+    <string name="file_migration_failed_not_enough_space">Je třeba více místa</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
     <string name="file_migration_use_data_folder">Použít</string>
 
@@ -352,7 +359,9 @@
 	<string name="log_send_history_button">Historie odesílání</string>
 	<string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání protokolů. Prosím, nainstalujte e-mailového klienta.</string>
 	<string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
-    <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
+    <string name="log_progress_dialog_text">Načítání dat…</string>
+
+	<string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
 	<string name="actionbar_move">Přesunout</string>
     <string name="actionbar_copy">Kopírovat</string>
 	<string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
@@ -417,6 +426,7 @@
     <string name="share_via_link_edit_permission_label">Umožnit úpravy</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
+    <string name="share_with_title">Sdílet s…</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>
 
     <string name="share_search">Hledat</string>
@@ -449,12 +459,14 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
+    <string name="local_file_not_found_message">Soubor nebyl nalezen na souborovém systému</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
+    <string name="files_drop_not_supported">Toto je funkce Nextcloud, prosím přejděte na něj.</string>
     <string name="learn_more">Více</string>
     <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="drawer_participate">Zúčastnit se</string>
@@ -476,6 +488,11 @@
     <string name="participate_rc_fdroid">Získat kandidáta na vydání z aplikace F-Droid</string>
     <string name="participate_dev_fdroid">Získat vývojové vydání z aplikace F-Droid</string>
     <string name="participate_dev_direct_download">Stáhnout vývojové vydání přímo</string>
+    <string name="move_to">Přesunout do…</string>
+    <string name="copy_to">Zkopírovat do…</string>
+    <string name="choose_remote_folder">Zvolte složku na protějšku…</string>
+    <string name="choose_local_folder">Zvolte zdejší složku…</string>
+    <string name="synced_folders_loading_folders">Načítání složek…</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
     <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
@@ -487,6 +504,7 @@
         <item quantity="other">vybráno %d</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Načítání oznámení…</string>
     <string name="notifications_no_results_headline">Žádné oznámení</string>
     <string name="notifications_no_results_message">Prosíme, vraťte se později.</string>
 
@@ -498,6 +516,9 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Soubor zkratky pro Google mapy(%s)</string>
 
     <string name="storage_description_default">Výchozí</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nově v %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>
@@ -547,6 +568,7 @@
     <!-- Notifications -->
     <string name="drawer_logout">Odhlásit se</string>
     <string name="privacy">Soukromí</string>
+    <string name="file_not_found">Soubor nenalezen</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
     <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
@@ -556,6 +578,8 @@
     <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
+
+    <string name="foreground_service_download">Stahování souborů…</string>
 
     <string name="prefs_sourcecode">Získat zdrojový kód</string>
     <string name="prefs_license">Licence</string>
@@ -597,17 +621,31 @@
     <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="folder_icon">Ikona adresáře</string>
+    <string name="dev_version_new_version_available">Je k dispozici novější verze</string>
     <string name="version_dev_download">Stáhnout</string>
 
     <string name="send">Odeslat</string>
     <string name="share">Sdílet</string>
     <string name="link">Odkaz</string>
 
+    <string name="notification_channel_media_name">Přehrávač médií</string>
+    <string name="account_not_found">Účet nenalezen!</string>
+
+    <string name="account_icon">Ikona účtu</string>
+    
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba při rozšifrovávání. Chybné heslo?</string>
+    <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
+    <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>
     <string name="end_to_end_encryption_password">Heslo...</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
     <string name="hint_name">Jméno</string>
     <string name="hint_password">Heslo</string>
-    </resources>
+    <string name="add_to_cloud">Přidat k %1$s</string>
+    <string name="upload_files">Nahrát soubory</string>
+    <string name="upload_content_from_other_apps">Nahrát obsah z jiných aplikací</string>
+    <string name="create_new_folder">Vytvořit novou složku</string>
+    <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
+    <string name="tags">Štítky</string>
+</resources>
