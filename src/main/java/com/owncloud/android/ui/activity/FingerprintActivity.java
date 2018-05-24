@@ -48,7 +48,6 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -157,7 +156,6 @@ public class FingerprintActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         startFingerprint();
         ImageView imageView = findViewById(R.id.fingerprinticon);
         imageView.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_fingerprint, ThemeUtils.primaryColor(this)));

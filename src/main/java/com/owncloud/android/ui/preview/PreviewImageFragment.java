@@ -63,7 +63,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -93,7 +92,6 @@ public class PreviewImageFragment extends FileFragment {
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
-    private static final String SCREEN_NAME = "Image Preview";
     private static final String MIME_TYPE_PNG = "image/png";
     private static final String MIME_TYPE_GIF = "image/gif";
     private static final String MIME_TYPE_SVG = "image/svg+xml";
@@ -179,8 +177,7 @@ public class PreviewImageFragment extends FileFragment {
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = view.findViewById(R.id.image);
@@ -226,7 +223,7 @@ public class PreviewImageFragment extends FileFragment {
      * {@inheritDoc}
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
     }
@@ -445,14 +442,6 @@ public class PreviewImageFragment extends FileFragment {
 
     private void seeDetails() {
         mContainerActivity.showDetails(getFile());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
     }
 
     @SuppressFBWarnings("Dm")

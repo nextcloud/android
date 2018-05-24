@@ -22,6 +22,7 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +44,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -62,8 +62,6 @@ public class PreviewTextFragment extends FileFragment {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Text Preview";
 
     private Account mAccount;
     private TextView mTextPreview;
@@ -96,7 +94,7 @@ public class PreviewTextFragment extends FileFragment {
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         Log_OC.e(TAG, "onCreateView");
@@ -428,27 +426,6 @@ public class PreviewTextFragment extends FileFragment {
 
     private void seeDetails() {
         mContainerActivity.showDetails(getFile());
-    }
-
-    @Override
-    public void onPause() {
-        Log_OC.e(TAG, "onPause");
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
-        Log_OC.e(TAG, "onResume");
-    }
-
-    @Override
-    public void onDestroy() {
-        Log_OC.e(TAG, "onDestroy");
-        super.onDestroy();
     }
 
     @Override
