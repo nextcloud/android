@@ -46,6 +46,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -68,7 +69,6 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -87,8 +87,6 @@ public class Preferences extends PreferenceActivity
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
-
-    private static final String SCREEN_NAME = "Settings";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
@@ -823,10 +821,8 @@ public class Preferences extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
         pCode.setChecked(state);
     }
@@ -869,6 +865,7 @@ public class Preferences extends PreferenceActivity
         }
     }
 
+    @NonNull
     @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();

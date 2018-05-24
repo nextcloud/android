@@ -99,8 +99,8 @@ Our formatter setup is rather simple:
 ### Build variants
 There are three build variants
 * generic: no Google Stuff, used for FDroid
-* gplay: with Google Stuff (Push notification) and Analytics disabled, used for Google Play Store
-* modified: custom, with Google Stuff and Analytics enabled, used for branded releases
+* gplay: with Google Stuff (Push notification), used for Google Play Store
+* versionDev: based on master and library master, available as direct download and FDroid
 
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.

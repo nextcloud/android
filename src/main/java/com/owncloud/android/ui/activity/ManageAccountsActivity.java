@@ -56,7 +56,6 @@ import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -93,7 +92,6 @@ public class ManageAccountsActivity extends FileActivity
     String mOriginalCurrentAccount;
     private Drawable mTintedCheck;
 
-    private static final String SCREEN_NAME = "Logs";
     private ArbitraryDataProvider arbitraryDataProvider;
 
     @Override
@@ -152,7 +150,6 @@ public class ManageAccountsActivity extends FileActivity
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override
