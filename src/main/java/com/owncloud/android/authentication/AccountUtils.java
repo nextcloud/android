@@ -38,7 +38,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 
-import java.util.Locale;
 
 public class AccountUtils {
     private static final String TAG = AccountUtils.class.getSimpleName();

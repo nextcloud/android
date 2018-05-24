@@ -267,8 +267,8 @@
 
     <string name="favorite">Set as available offline</string>
     <string name="unfavorite">Unset as available offline</string>
-    <string name="favorite_real">Set as favorite</string>
-    <string name="unset_favorite_real">Unset favorite</string>
+    <string name="favorite_real">Add to favorites</string>
+    <string name="unset_favorite_real">Remove from favourites</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
