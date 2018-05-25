@@ -180,7 +180,6 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
                 OCShare.DELETE_PERMISSION_FLAG;
         boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
         editItem.setChecked(canEdit);
-        ThemeUtils.tintMenuItemIcon(editItem, accentColor);
 
         OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
         boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
