@@ -253,7 +253,15 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @OnClick(R.id.overflow_menu_share_link)
     public void showLinkOverflowMenu() {
-        PopupMenu popup = new PopupMenu(getActivity(), overflowMenuShareLink);
+        Context context = getContext();
+        if (context != null && ThemeUtils.themingEnabled(context)) {
+            // use grey as fallback for elements where custom theming is not available
+            context.getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+        } else {
+            context = getActivity();
+        }
+
+        PopupMenu popup = new PopupMenu(context, overflowMenuShareLink);
         popup.inflate(R.menu.file_detail_sharing_link_menu);
         prepareOptionsMenu(popup.getMenu());
         popup.setOnMenuItemClickListener(this::optionsItemSelected);

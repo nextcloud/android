@@ -48,6 +48,7 @@ import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -143,6 +144,10 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
     }
 
     private void onOverflowIconClicked(View view, OCShare share) {
+        // use grey as fallback for elements where custom theming is not available
+        if (ThemeUtils.themingEnabled(context)) {
+            context.getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+        }
         PopupMenu popup = new PopupMenu(context, view);
         popup.inflate(R.menu.file_detail_sharing_menu);
 
@@ -161,6 +166,7 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
     private void prepareOptionsMenu(Menu menu, OCShare share) {
         int sharePermissions = share.getPermissions();
         boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
+        int accentColor = ThemeUtils.primaryAccentColor(context);
 
         MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
         if (isFederated ||
@@ -174,6 +180,7 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
                 OCShare.DELETE_PERMISSION_FLAG;
         boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
         editItem.setChecked(canEdit);
+        ThemeUtils.tintMenuItemIcon(editItem, accentColor);
 
         OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
         boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
