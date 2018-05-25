@@ -14,3 +14,4 @@ comment:
 
 ignore:
   - "src/main/res/values*/*"
+  
