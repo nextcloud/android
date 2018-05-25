@@ -264,8 +264,6 @@
 
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
-    <string name="favorite_real">Beállítás kedvenként</string>
-    <string name="unset_favorite_real">Eltávolítás a kedvence közül</string>
     <string name="encrypted">Titkosítottra állítás</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>

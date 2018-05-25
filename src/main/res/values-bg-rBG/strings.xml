@@ -259,8 +259,6 @@
 
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
-    <string name="favorite_real">Сложи като любим</string>
-    <string name="unset_favorite_real">Премахни от любими</string>
     <string name="encrypted">Включване на криптиране</string>
     <string name="unset_encrypted">Премахни криптиране</string>
     <string name="common_rename">Преименуване</string>

@@ -208,8 +208,7 @@
 	<string name="auth_expired_oauth_token_toast">Sinu autoriseerimine aegus. Palun autoriseeri uuesti</string>
 	<string name="auth_expired_saml_sso_token_toast">Sinu sessioon aegus. Palun ühenda uuesti</string>
     <string name="auth_unsupported_multiaccount">%1$s ei toeta mitme konto kasutamist</string>
-	<string name="favorite_real">Lisa lemmikuks</string>
-    <string name="common_rename">Nimeta ümber</string>
+	<string name="common_rename">Nimeta ümber</string>
     <string name="common_remove">Kustuta</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
     <string name="remove_success_msg">Kustutatud</string>

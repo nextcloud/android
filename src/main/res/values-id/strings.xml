@@ -205,8 +205,6 @@
 
     <string name="favorite">Atur untuk tersedia luring</string>
     <string name="unfavorite">Batal atur untuk tersedia luring</string>
-    <string name="favorite_real">Disukai</string>
-    <string name="unset_favorite_real">Hapus tanda suka</string>
     <string name="common_rename">Ubah nama</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>

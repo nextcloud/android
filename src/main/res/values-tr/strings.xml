@@ -266,8 +266,6 @@
 
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
-    <string name="favorite_real">Sık Kullanılanlara Ekle</string>
-    <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>

@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
-    <string name="auth_host_url">服务器地址 https://...</string>
+    <string name="auth_host_url">服务器地址 https://…</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
     <string name="auth_register">还没有使用过 Nextcloud ？\n点击这里查看供应商</string>
@@ -138,6 +138,7 @@
     <string name="avatar">头像</string>
     <string name="active_user">活跃用户</string>
     <string name="uploader_info_dirname">文件夹名称</string>
+    <string name="uploader_upload_in_progress_ticker">正在上传…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 正在上传 %2$s</string>
     <string name="uploader_upload_succeeded_ticker">已上传</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 已上传</string>
@@ -163,6 +164,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">等待 Wi-Fi 连接</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出省电模式</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
+    <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">已下载</string>
     <string name="downloader_download_succeeded_content">%1$s 已下载</string>
@@ -231,6 +233,7 @@
 	<string name="auth_account_not_new">设备上已经存在相同用户和服务器的帐户</string>
 	<string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
 	<string name="auth_unknown_error_title">发生未知错误！</string>
+	<string name="auth_unknown_error_exception_title">未知错误：%1$s</string>
 	<string name="auth_unknown_host_title">找不到主机</string>
 	<string name="auth_incorrect_path_title">找不到服务器</string>
 	<string name="auth_timeout_title">看起来服务器不太给力</string>
@@ -255,8 +258,6 @@
 
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
-    <string name="favorite_real">加入收藏</string>
-    <string name="unset_favorite_real">取消收藏</string>
     <string name="encrypted">设置为加密</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="common_rename">重命名</string>
@@ -274,8 +275,10 @@
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_empty">文件名不能为空。</string>
+    <string name="wait_a_moment">请稍等…</string>
     <string name="wait_checking_credentials">检查保存的证书</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
+    <string name="activity_chooser_title">发送链接到…</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
     <string name="oauth_check_onoff">使用OAuth 2.0登录</string>
@@ -393,7 +396,9 @@
 	<string name="log_send_history_button">发送历史日志</string>
 	<string name="log_send_no_mail_app">没有应用程序发送发送日志。 请安装电子邮件客户端。</string>
 	<string name="log_send_mail_subject">%1$s Android 程序日志</string>
-    <string name="saml_authentication_required_text">需要密码</string>
+    <string name="log_progress_dialog_text">数据加载中…</string>
+
+	<string name="saml_authentication_required_text">需要密码</string>
 	<string name="saml_authentication_wrong_pass">错误密码</string>
 	<string name="actionbar_move">移动</string>
     <string name="actionbar_copy">复制</string>
@@ -518,6 +523,11 @@
     <string name="participate_rc_fdroid">从F-Droid应用商店获取候选版本</string>
     <string name="participate_dev_fdroid">从F-Droid应用商店获取开发版本</string>
     <string name="participate_dev_direct_download">直接下载开发版本</string>
+    <string name="move_to">移动到…</string>
+    <string name="copy_to">复制到…</string>
+    <string name="choose_remote_folder">选择远程文件夹…</string>
+    <string name="choose_local_folder">选择本地文件夹…</string>
+    <string name="synced_folders_loading_folders">正在加载文件夹…</string>
     <string name="synced_folders_no_results">没有发现媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
     <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
@@ -605,6 +615,9 @@
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
+
+    <string name="foreground_service_upload">文件上传中…</string>
+    <string name="foreground_service_download">文件下载中…</string>
 
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_license">许可证</string>
@@ -694,10 +707,14 @@
     <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_not_supported">加密仅适用于KitKat(4.4)及更高版本。</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
+    <string name="end_to_end_encryption_password">密码…</string>
     <string name="end_to_end_encryption_unsuccessful">无法保存密钥. 请再次尝试</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>
     <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
+    <string name="notification_channel_push_name">推送通知</string>
     <string name="hint_password">密码</string>
+    <string name="add_to_cloud">添加到%1$s</string>
+    <string name="create_new_folder">创建新文件夹</string>
     </resources>

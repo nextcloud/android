@@ -257,8 +257,6 @@
 
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
-    <string name="favorite_real">Ustaw jako ulubione</string>
-    <string name="unset_favorite_real">Usuń ustawienie jako ulubione</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="common_rename">Zmień nazwę</string>

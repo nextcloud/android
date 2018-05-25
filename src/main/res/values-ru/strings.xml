@@ -270,8 +270,6 @@
 
     <string name="favorite">Сделать доступным автономно</string>
     <string name="unfavorite">Убрать автономную доступность</string>
-    <string name="favorite_real">Добавить в избранное</string>
-    <string name="unset_favorite_real">Убрать из избранного</string>
     <string name="encrypted">Зашифровать</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="common_rename">Переименовать</string>

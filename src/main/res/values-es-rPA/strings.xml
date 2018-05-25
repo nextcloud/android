@@ -225,8 +225,6 @@
 
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
-    <string name="favorite_real">Establecer como favorito</string>
-    <string name="unset_favorite_real">Quitar de los favoritos</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Eliminar</string>
     <string name="confirmation_remove_file_alert">¿Realmente deseas elminiar %1$s?</string>

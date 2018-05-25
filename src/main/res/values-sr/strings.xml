@@ -268,8 +268,6 @@
 
     <string name="favorite">Постави као доступно и ван мреже</string>
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
-    <string name="favorite_real">Постави као омиљено</string>
-    <string name="unset_favorite_real">Склони као омиљено</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="common_rename">Преименуј</string>

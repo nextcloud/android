@@ -241,8 +241,6 @@
 
     <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
-    <string name="favorite_real">Ορισμός ως αγαπημένο</string>
-    <string name="unset_favorite_real">Αναίρεση ορισμού ως αγαπημένο</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Διαγραφή</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>

@@ -266,8 +266,6 @@
 
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
-    <string name="favorite_real">Als Favorit markieren</string>
-    <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="common_rename">Umbenennen</string>

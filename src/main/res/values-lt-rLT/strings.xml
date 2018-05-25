@@ -217,8 +217,6 @@
 
     <string name="favorite">Nustatykite prieinamumą (statusą)</string>
     <string name="unfavorite">Išjungti kaip neprieinamą (statusą)</string>
-    <string name="favorite_real">Pridėta prie mėgstamųjų</string>
-    <string name="unset_favorite_real">Panaikinti iš mėgstamųjų</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_remove">Ištrinti</string>
     <string name="confirmation_remove_file_alert">Ar tikrai norite ištrinti %1$s?</string>

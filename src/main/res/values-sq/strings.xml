@@ -264,8 +264,6 @@
 
     <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
-    <string name="favorite_real">Vendose si të preferuar</string>
-    <string name="unset_favorite_real">Hiqe si të preferuar</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="common_rename">Riemërtojeni</string>

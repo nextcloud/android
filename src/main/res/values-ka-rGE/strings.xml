@@ -254,8 +254,6 @@
 
     <string name="favorite">გახადეთ კავშირს გარეთ ხელმისაწვდომი</string>
     <string name="unfavorite">გახადეთ კავშირს გარეთ ხელმიუწვდომელი</string>
-    <string name="favorite_real">გახადეთ რჩეული</string>
-    <string name="unset_favorite_real">ჩამოაშორეთ რჩეულებს</string>
     <string name="encrypted">დააყენეთ როგორც დაშიფრული</string>
     <string name="unset_encrypted">შიფრაციის გაუქმება</string>
     <string name="common_rename">გადარქმევა</string>

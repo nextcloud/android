@@ -251,8 +251,6 @@
 
     <string name="favorite">오프라인 사용 가능으로 설정</string>
     <string name="unfavorite">오프라인 사용 불가능으로 설정</string>
-    <string name="favorite_real">즐겨찾기 등록</string>
-    <string name="unset_favorite_real">즐겨찾기 해제</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="common_rename">이름 바꾸기</string>
