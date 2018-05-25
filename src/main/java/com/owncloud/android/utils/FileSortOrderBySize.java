@@ -35,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FileSortOrderBySize extends FileSortOrder {
 
-    public FileSortOrderBySize(String name, boolean ascending) {
+    FileSortOrderBySize(String name, boolean ascending) {
         super(name, ascending);
     }
 
