@@ -2,7 +2,9 @@
  * ownCloud Android client application
  *
  * @author David A. Velasco
+ * @author Andy Scherzinger
  * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
