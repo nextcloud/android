@@ -333,64 +333,20 @@ public class PreviewImageFragment extends FileFragment {
 
         // additional restriction for this fragment 
         // TODO allow renaming in PreviewImageFragment
-        MenuItem item = menu.findItem(R.id.action_rename_file);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment 
         // TODO allow refresh file in PreviewImageFragment
-        item = menu.findItem(R.id.action_sync_file);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_select_all);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_move);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_copy);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_unset_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
+        FileMenuFilter.hideMenuItems(
+                menu.findItem(R.id.action_rename_file),
+                menu.findItem(R.id.action_sync_file),
+                menu.findItem(R.id.action_select_all),
+                menu.findItem(R.id.action_move),
+                menu.findItem(R.id.action_copy),
+                menu.findItem(R.id.action_favorite),
+                menu.findItem(R.id.action_unset_favorite)
+        );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            // additional restriction for this fragment
-            item = menu.findItem(R.id.action_send_share_file);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
+            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
-
     }
 
 
