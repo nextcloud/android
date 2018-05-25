@@ -354,6 +354,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
         if (getFile().isFolder()) {
             FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_file));
+            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_sync_file));
         }
 
         // dual pane restrictions
