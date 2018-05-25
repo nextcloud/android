@@ -75,8 +75,6 @@ public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
-    private static final String SCREEN_NAME = "Uploads";
-
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     private Menu menu;

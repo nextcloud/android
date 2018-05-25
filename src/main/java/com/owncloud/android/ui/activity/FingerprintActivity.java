@@ -72,7 +72,6 @@ import javax.crypto.SecretKey;
 public class FingerprintActivity extends AppCompatActivity {
 
     private static final String TAG = FingerprintActivity.class.getSimpleName();
-    private static final String SCREEN_NAME = "Fingerprint";
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 

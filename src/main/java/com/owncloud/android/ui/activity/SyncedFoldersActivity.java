@@ -89,8 +89,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     public static final String[] PRIORITIZED_FOLDERS = new String[] { "Camera", "Screenshots" };
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
 
-    private static final String SCREEN_NAME = "Auto upload";
-
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
 
     private RecyclerView mRecyclerView;

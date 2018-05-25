@@ -53,8 +53,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
 
-    private static final String SCREEN_NAME = "Local file browser";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
