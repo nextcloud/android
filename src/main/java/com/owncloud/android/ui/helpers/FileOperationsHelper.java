@@ -85,7 +85,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Helper implementation for file operations localy and remote.
  */
 public class FileOperationsHelper {
 
