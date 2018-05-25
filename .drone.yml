@@ -4,6 +4,7 @@ pipeline:
     commands:
       # uncomment gplay for Gplay
       - sh -c "if [ '${FLAVOR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
+      - sed -i '/.*mobilesdk.*/s/""/"1:111111111111:android:aaaaaaaaaaaaaaaa"/g' src/*/google-services.json
       # build app and assemble APK
       - sh -c "if [ '${FLAVOR}' != 'Lint' ]; then ./gradlew assemble${FLAVOR}; fi"
     when:
