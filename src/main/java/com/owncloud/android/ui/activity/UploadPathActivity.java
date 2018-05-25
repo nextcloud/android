@@ -32,10 +32,6 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
     public static final String KEY_INSTANT_UPLOAD_PATH = "INSTANT_UPLOAD_PATH";
 
-    private static final String SCREEN_NAME = "Set upload path";
-
-    private static final String TAG = FolderPickerActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
