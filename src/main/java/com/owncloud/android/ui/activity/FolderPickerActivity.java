@@ -75,8 +75,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
     private static final String TAG = FolderPickerActivity.class.getSimpleName();
 
-    private static final String SCREEN_NAME = "Choose upload folder";
-
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
     private boolean mSyncInProgress = false;

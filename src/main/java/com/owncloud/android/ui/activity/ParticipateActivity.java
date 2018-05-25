@@ -40,8 +40,6 @@ import com.owncloud.android.utils.ThemeUtils;
  */
 public class ParticipateActivity extends FileActivity {
 
-    private static final String TAG = ParticipateActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

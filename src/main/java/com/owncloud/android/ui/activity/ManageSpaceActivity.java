@@ -43,8 +43,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
     private static final String LIB_FOLDER = "lib";
 
-    private static final String SCREEN_NAME = "Manage space";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -68,8 +68,6 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     public static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
-    private static final String TAG = WhatsNewActivity.class.getSimpleName();
-
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;
     private ProgressIndicator mProgress;

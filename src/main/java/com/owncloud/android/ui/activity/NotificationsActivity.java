@@ -74,7 +74,6 @@ import butterknife.Unbinder;
 public class NotificationsActivity extends FileActivity {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
-    private static final String SCREEN_NAME = "Notifications";
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
