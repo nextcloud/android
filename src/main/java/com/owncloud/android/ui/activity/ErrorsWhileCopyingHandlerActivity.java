@@ -151,7 +151,6 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         /**
          * {@inheritDoc}
          */
-        @NonNull
         @Override
         public View getView (int position, View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
