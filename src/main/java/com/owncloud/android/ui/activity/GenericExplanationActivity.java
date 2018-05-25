@@ -50,8 +50,6 @@ public class GenericExplanationActivity  extends AppCompatActivity {
     public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST_2";
     public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() + ".MESSAGE";
 
-    private static final String TAG = GenericExplanationActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

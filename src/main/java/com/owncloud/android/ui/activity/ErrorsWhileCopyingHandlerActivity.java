@@ -66,8 +66,6 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
 
-    private static final String SCREEN_NAME = "Error while copying";
-
     public static final String EXTRA_ACCOUNT =
             ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
     public static final String EXTRA_LOCAL_PATHS =

@@ -60,8 +60,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
-    private static final String SCREEN_NAME = "Video Preview";
-
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private VideoView mVideoPlayer;             // view to play the file; both performs and show the playback
