@@ -82,7 +82,7 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
         storageManager = new FileDataStorageManager(account, getContext().getContentResolver());
         capabilities = storageManager.getCapability(account.name);
 
-        avatarRadiusDimension = context.getResources().getDimension(R.dimen.standard_padding);
+        avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 
     @Override
@@ -166,7 +166,6 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
     private void prepareOptionsMenu(Menu menu, OCShare share) {
         int sharePermissions = share.getPermissions();
         boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
-        int accentColor = ThemeUtils.primaryAccentColor(context);
 
         MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
         if (isFederated ||
