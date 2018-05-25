@@ -36,7 +36,7 @@ import third_parties.daveKoeller.AlphanumComparator;
  */
 public class FileSortOrderByName extends FileSortOrder {
 
-    public FileSortOrderByName(String name, boolean ascending) {
+    FileSortOrderByName(String name, boolean ascending) {
         super(name, ascending);
     }
 
