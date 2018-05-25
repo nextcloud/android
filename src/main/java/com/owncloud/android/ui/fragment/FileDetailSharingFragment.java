@@ -317,11 +317,12 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     /**
-     * Updates the UI after the result of an update operation on the edited {@link OCShare} permissions.
+     * Updates the UI after the result of an update operation on the edited {@link OCFile}.
      *
-     * @param result Result of an update on the edited {@link OCShare} permissions.
+     * @param result {@link RemoteOperationResult} of an update on the edited {@link OCFile} sharing information.
+     * @param file   the edited {@link OCFile}
      */
-    public void onUpdateShareInformations(RemoteOperationResult result, OCFile file) {
+    public void onUpdateShareInformation(RemoteOperationResult result, OCFile file) {
         this.file = file;
 
         if (result.isSuccess()) {

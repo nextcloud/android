@@ -1912,7 +1912,7 @@ public class FileDisplayActivity extends HookActivity
 
         if (fileDetailFragment!=null && fileDetailFragment instanceof FileDetailFragment) {
             ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
-                    .onUpdateShareInformations(result, getFile());
+                    .onUpdateShareInformation(result, getFile());
         }
     }
 
