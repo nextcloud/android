@@ -321,14 +321,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      *
      * @param result Result of an update on the edited {@link OCShare} permissions.
      */
-    public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            refreshUiFromDB();
-        } else {
-            setupView();
-        }
-    }
-
     public void onUpdateShareInformations(RemoteOperationResult result, OCFile file) {
         this.file = file;
 
