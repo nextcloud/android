@@ -166,7 +166,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      *
      * @param isShareByLink flag is share by link is enable
      */
-    private void setShareByLinkInfo(boolean isShareByLink) {
+    public void setShareByLinkInfo(boolean isShareByLink) {
         shareByLink.setChecked(isShareByLink);
         ThemeUtils.tintCheckbox(shareByLink, ThemeUtils.primaryAccentColor(getContext()));
         ThemeUtils.tintCheckbox(shareByLinkAllowEditing, ThemeUtils.primaryAccentColor(getContext()));
@@ -329,6 +329,16 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         }
     }
 
+    public void onUpdateShareInformations(RemoteOperationResult result, OCFile file) {
+        this.file = file;
+
+        if (result.isSuccess()) {
+            refreshUiFromDB();
+        } else {
+            setupView();
+        }
+    }
+
     /**
      * Get {@link OCShare} instance from DB and updates the UI.
      *
@@ -338,8 +348,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private void refreshUiFromDB() {
         FileDataStorageManager storageManager = ((FileActivity) getActivity()).getStorageManager();
         if (storageManager != null) {
-            // Get edited share
-            publicShare = storageManager.getShareById(publicShare.getId());
+            if (publicShare != null) {
+                // Get edited shared by link
+                publicShare = storageManager.getShareById(publicShare.getId());
+            }
 
             // Updates UI with new state
             setupView();
@@ -438,6 +450,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             } else {
                 shareByLinkAllowEditing.setChecked(false);
             }
+
+            setShareByLinkInfo(true);
+        } else {
+            setShareByLinkInfo(false);
         }
     }
 }

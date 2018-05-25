@@ -45,6 +45,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -93,6 +94,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -1715,10 +1717,12 @@ public class FileDisplayActivity extends HookActivity
         } else if (operation instanceof CreateShareViaLinkOperation) {
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
-            onCreateShareWithShareeOperationFinish(result);
+            onUpdateShareInformation(result, R.string.sharee_add_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation
                 || operation instanceof UpdateShareViaLinkOperation) {
-            onUpdateSharePermissionsFinished(result);
+            onUpdateShareInformation(result, R.string.updating_share_failed);
+        } else if (operation instanceof UnshareOperation) {
+            onUpdateShareInformation(result, R.string.unsharing_failed);
         }
     }
 
@@ -1814,6 +1818,7 @@ public class FileDisplayActivity extends HookActivity
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
+        FileDetailFragment fileDetailFragment = getShareFileFragment();
         if (result.isSuccess()) {
             updateFileFromDB();
 
@@ -1869,6 +1874,7 @@ public class FileDisplayActivity extends HookActivity
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
+            fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
@@ -1878,7 +1884,6 @@ public class FileDisplayActivity extends HookActivity
                 // Was tried without password, but not sure that it's optional.
 
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
-                FileDetailFragment fileDetailFragment = getShareFileFragment();
                 if (fileDetailFragment != null
                         && fileDetailFragment.isAdded()) {   // only if added to the view hierarchy!!
 
@@ -1886,6 +1891,7 @@ public class FileDisplayActivity extends HookActivity
                 }
 
             } else {
+                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
                 Snackbar.make(
                         findViewById(android.R.id.content),
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1895,25 +1901,18 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void onCreateShareWithShareeOperationFinish(RemoteOperationResult result) {
-
+    private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int errorString) {
         Fragment fileDetailFragment = getSecondFragment();
 
         if (result.isSuccess()) {
-            if (fileDetailFragment instanceof FileDetailFragment) {
-                ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment().setShareWithUserInfo();
-            }
-        } else {
-            Snackbar.make(fileDetailFragment.getView(), R.string.sharee_add_failed, Snackbar.LENGTH_LONG).show();
+            updateFileFromDB();
+        } else if (fileDetailFragment.getView() != null){
+            Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG).show();
         }
-    }
 
-    private void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
-        Fragment fileDetailFragment = getSecondFragment();
-
-        if (result.isSuccess() && fileDetailFragment instanceof FileDetailFragment) {
+        if (fileDetailFragment!=null && fileDetailFragment instanceof FileDetailFragment) {
             ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
-                    .onUpdateSharePermissionsFinished(result);
+                    .onUpdateShareInformations(result, getFile());
         }
     }
 

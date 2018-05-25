@@ -109,4 +109,8 @@ public class UnshareOperation extends SyncOperation {
         return result.isSuccess();
     }
 
+    public ShareType getShareType() {
+        return mShareType;
+    }
+
 }
