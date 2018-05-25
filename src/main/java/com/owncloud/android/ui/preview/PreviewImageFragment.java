@@ -610,11 +610,9 @@ public class PreviewImageFragment extends FileFragment {
             final PhotoView imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
 
-            if (imageView != null) {
-                if (bitmap != null) {
-                    Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                            bitmap.getHeight());
-                }
+            if (imageView != null && bitmap != null) {
+                Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
+                        bitmap.getHeight());
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_PNG) ||
                         result.ocFile.getMimetype().equalsIgnoreCase(MIME_TYPE_SVG) ||
