@@ -23,8 +23,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="1"
-    android:paddingTop="@dimen/standard_eigth_padding"
-    android:paddingBottom="@dimen/standard_eigth_padding"
     tools:ignore="UseCompoundDrawables">
 
         <ImageView

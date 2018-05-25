@@ -18,7 +18,6 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1">
@@ -28,13 +27,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/standard_half_padding">
+        android:paddingTop="@dimen/standard_eigth_padding">
 
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/searchView"
             android:hint="@string/share_search"
+            android:layout_marginStart="@dimen/standard_eighth_margin"
+            android:layout_marginLeft="@dimen/standard_eighth_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
             style="@style/ownCloud.SearchView"/>
 
         <LinearLayout
@@ -45,7 +48,7 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_half_padding">
+            android:paddingTop="@dimen/standard_padding">
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link"
@@ -92,7 +95,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:divider="@drawable/divider"
+            android:dividerHeight="1dp"/>
 
         <TextView
             android:id="@+id/fdShareNoUsers"
