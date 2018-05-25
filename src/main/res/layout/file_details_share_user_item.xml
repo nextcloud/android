@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/userIcon"
-            android:layout_width="@dimen/file_details_user_icon_layout_width"
-            android:layout_height="@dimen/file_details_user_icon_layout_height"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
             android:src="@drawable/ic_user"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="@dimen/standard_half_margin"
