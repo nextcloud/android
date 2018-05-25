@@ -3,8 +3,10 @@
  *
  * @author Bartek Przybylski
  * @author David A. Velasco
+ * @author Andy Scherzinger
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -1718,8 +1720,9 @@ public class FileDisplayActivity extends HookActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateSharePermissionsOperation
-                || operation instanceof UpdateShareViaLinkOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation) {
+            onUpdateShareInformation(result, R.string.updating_share_failed);
+        } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UnshareOperation) {
             onUpdateShareInformation(result, R.string.unsharing_failed);

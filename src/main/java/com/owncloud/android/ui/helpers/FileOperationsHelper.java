@@ -556,6 +556,10 @@ public class FileOperationsHelper {
                 OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
                 expirationTimeInMillis
         );
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PERMISSIONS,
+                0
+        );
         queueShareIntent(updateShareIntent);
     }
 
