@@ -168,8 +168,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      */
     public void setShareByLinkInfo(boolean isShareByLink) {
         shareByLink.setChecked(isShareByLink);
-        ThemeUtils.tintCheckbox(shareByLink, ThemeUtils.primaryAccentColor(getContext()));
-        ThemeUtils.tintCheckbox(shareByLinkAllowEditing, ThemeUtils.primaryAccentColor(getContext()));
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        ThemeUtils.tintCheckbox(shareByLink, accentColor);
+        ThemeUtils.tintCheckbox(shareByLinkAllowEditing, accentColor);
         setLinkDetailVisible(isShareByLink);
     }
 
