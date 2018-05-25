@@ -124,7 +124,12 @@ public class FileMenuFilter {
         }
     }
 
-    private static void hideMenuItem(MenuItem item) {
+    /**
+     * hides a given {@link MenuItem}.
+     *
+     * @param item the {@link MenuItem} to be hidden
+     */
+    public static void hideMenuItem(MenuItem item) {
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
