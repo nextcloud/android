@@ -3,8 +3,10 @@
  *
  *   @author Bartek Przybylski
  *   @author David A. Velasco
+ *   @author Andy Scherzinger
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2018 Andy Scherzinger
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,7 +19,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 package com.owncloud.android.ui.fragment;
 
