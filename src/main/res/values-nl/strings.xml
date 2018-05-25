@@ -266,8 +266,6 @@
 
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
-    <string name="favorite_real">Instellen als favoriet</string>
-    <string name="unset_favorite_real">Weghalen als favoriet</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="common_rename">Hernoemen</string>

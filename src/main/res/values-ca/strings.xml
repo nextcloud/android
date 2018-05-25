@@ -231,8 +231,6 @@
 
     <string name="favorite">Marca com a disponible fora de línia</string>
     <string name="unfavorite">Desmarca com a disponible fora de línia</string>
-    <string name="favorite_real">Estableix com a favorit</string>
-    <string name="unset_favorite_real">Desfés el favorit</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>
     <string name="common_rename">Reanomena</string>

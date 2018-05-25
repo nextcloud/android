@@ -204,8 +204,6 @@
 
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
-    <string name="favorite_real">Nastavi kot priljubljeno</string>
-    <string name="unset_favorite_real">Ni več priljubljeno</string>
     <string name="common_rename">Preimenuj</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>

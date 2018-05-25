@@ -203,8 +203,6 @@
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
-    <string name="favorite_real">Establecer como favorito</string>
-    <string name="unset_favorite_real">Quitar de los favoritos</string>
     <string name="common_rename">Renombrar</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="rename_dialog_title">Ingrese un nombre nuevo</string>

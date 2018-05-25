@@ -266,8 +266,6 @@
 
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
-    <string name="favorite_real">Favoritar</string>
-    <string name="unset_favorite_real">Desfavoritar</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
     <string name="common_rename">Renomear</string>

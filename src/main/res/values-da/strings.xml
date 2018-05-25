@@ -193,8 +193,6 @@
 
     <string name="favorite">Gør tilgængelig unden internet</string>
     <string name="unfavorite">Afmarker offline tilgængelighed</string>
-    <string name="favorite_real">Angiv som favorit</string>
-    <string name="unset_favorite_real">Fjern som favorit</string>
     <string name="common_rename">Omdøb</string>
     <string name="common_remove">Slet</string>
     <string name="confirmation_remove_local">Kun lokal</string>

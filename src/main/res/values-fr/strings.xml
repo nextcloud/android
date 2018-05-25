@@ -268,8 +268,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
-    <string name="favorite_real">Ajouter aux favoris</string>
-    <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="common_rename">Renommer</string>

@@ -264,8 +264,6 @@
 
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
-    <string name="favorite_real">お気に入りとして登録</string>
-    <string name="unset_favorite_real">お気に入りの登録解除</string>
     <string name="encrypted">暗号化設定</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
