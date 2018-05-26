@@ -7,7 +7,7 @@
     <string name="actionbar_upload_from_apps">Obsah z ostatních aplikací</string>
     <string name="actionbar_upload_files">Soubory</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
-    <string name="actionbar_mkdir">Nový adresář</string>
+    <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_settings">Nastavení</string>
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odeslat</string>
@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_date_newest_first">První nejnovější</string>
-    <string name="menu_item_sort_by_date_oldest_first">První nejstarší</string>
+    <string name="menu_item_sort_by_date_oldest_first">Nejstarší jako první</string>
     <string name="menu_item_sort_by_size_biggest_first">První největší</string>
     <string name="menu_item_sort_by_size_smallest_first">Nejprve nejmenší</string>
 

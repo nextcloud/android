@@ -268,6 +268,8 @@ Attention la suppression est irréversible.</string>
 
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
+    <string name="favorite_real">Ajouter aux favoris</string>
+    <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="common_rename">Renommer</string>
@@ -759,6 +761,8 @@ Veuillez contacter votre administrateur</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresse du point de terminaison d\'authentification</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresse du point de terminaison d\'accès</string>
     <string name="hint_name">Nom</string>
     <string name="hint_password">Mot de passe</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
