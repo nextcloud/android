@@ -26,12 +26,13 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -43,7 +44,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
@@ -52,26 +52,30 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
-public class UserListAdapter extends ArrayAdapter implements DisplayUtils.AvatarGenerationListener {
+public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder>
+        implements DisplayUtils.AvatarGenerationListener {
 
     private ShareeListAdapterListener listener;
     private OCCapability capabilities;
     private FragmentManager fragmentManager;
     private Context context;
-    private ArrayList<OCShare> shares;
+    private int accentColor;
+    private List<OCShare> shares;
     private float avatarRadiusDimension;
     private Account account;
     private OCFile file;
     private FileDataStorageManager storageManager;
 
-    public UserListAdapter(FragmentManager fragmentManager, Context context, int resource, ArrayList<OCShare> shares,
-                           Account account, OCFile file, ShareeListAdapterListener listener) {
-        super(context, resource);
+    public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
+                           OCFile file, ShareeListAdapterListener listener) {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.shares = shares;
@@ -79,71 +83,88 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
         this.account = account;
         this.file = file;
 
-        storageManager = new FileDataStorageManager(account, getContext().getContentResolver());
+        accentColor = ThemeUtils.primaryAccentColor(context);
+        storageManager = new FileDataStorageManager(account, context.getContentResolver());
         capabilities = storageManager.getCapability(account.name);
-
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-        return shares.size();
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_details_share_user_item, parent, false);
+        return new UserViewHolder(v);
     }
 
     @Override
-    public Object getItem(int position) {
-        return shares.get(position);
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+        if (shares != null && shares.size() > position) {
+            final OCShare share = shares.get(position);
+
+            String name = share.getSharedWithDisplayName();
+            if (share.getShareType() == ShareType.GROUP) {
+                name = context.getString(R.string.share_group_clarification, name);
+                try {
+                    holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    holder.avatar.setImageResource(R.drawable.ic_group);
+                }
+            } else if (share.getShareType() == ShareType.EMAIL) {
+                name = context.getString(R.string.share_email_clarification, name);
+                try {
+                    holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    holder.avatar.setImageResource(R.drawable.ic_email);
+                }
+            } else {
+                holder.avatar.setTag(share.getShareWith());
+                DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,
+                        context.getResources(), storageManager, holder.avatar, context);
+            }
+            holder.name.setText(name);
+
+            ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
+            holder.allowEditing.setChecked(canEdit(share));
+            holder.allowEditing.setOnClickListener(v -> allowEditClick(holder.allowEditing, share));
+
+            // bind listener to edit privileges
+            holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
+        }
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return shares.get(position).getId();
     }
 
     @Override
-    public @NonNull
-    View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.file_details_share_user_item, parent, false);
-        }
-
-        if (shares != null && shares.size() > position) {
-            OCShare share = shares.get(position);
-
-            TextView userName = view.findViewById(R.id.userOrGroupName);
-            final ImageView editShareButton = view.findViewById(R.id.editShareButton);
-            ImageView icon = view.findViewById(R.id.userIcon);
-            String name = share.getSharedWithDisplayName();
-            if (share.getShareType() == ShareType.GROUP) {
-                name = getContext().getString(R.string.share_group_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_group);
-                }
-            } else if (share.getShareType() == ShareType.EMAIL) {
-                name = getContext().getString(R.string.share_email_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_email);
-                }
-            } else {
-                icon.setTag(share.getShareWith());
-                DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,
-                        context.getResources(), storageManager, icon, context);
-            }
-            userName.setText(name);
-
-            /// bind listener to edit privileges
-            editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, shares.get(position)));
-        }
-        return view;
+    public int getItemCount() {
+        return shares.size();
     }
 
-    private void onOverflowIconClicked(View view, OCShare share) {
+    private void allowEditClick(AppCompatCheckBox checkBox, @NonNull OCShare share) {
+        if (!share.isFolder()) {
+            share.setPermissions(listener.updatePermissionsToShare(
+                    share,
+                    canReshare(share),
+                    checkBox.isChecked(),
+                    false,
+                    false,
+                    false
+            ));
+        } else {
+            share.setPermissions(listener.updatePermissionsToShare(
+                    share,
+                    canReshare(share),
+                    checkBox.isChecked(),
+                    checkBox.isChecked(),
+                    checkBox.isChecked(),
+                    checkBox.isChecked()
+            ));
+        }
+    }
+
+    private void onOverflowIconClicked(View view, AppCompatCheckBox allowEditsCheckBox, OCShare share) {
         // use grey as fallback for elements where custom theming is not available
         if (ThemeUtils.themingEnabled(context)) {
             context.getTheme().applyStyle(R.style.FallbackThemingTheme, true);
@@ -153,7 +174,7 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
 
         prepareOptionsMenu(popup.getMenu(), share);
 
-        popup.setOnMenuItemClickListener(item -> optionsItemSelected(popup.getMenu(), item, share));
+        popup.setOnMenuItemClickListener(item -> optionsItemSelected(popup.getMenu(), item, allowEditsCheckBox, share));
         popup.show();
     }
 
@@ -164,33 +185,21 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
      * @param share the shared file
      */
     private void prepareOptionsMenu(Menu menu, OCShare share) {
-        int sharePermissions = share.getPermissions();
-        boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
 
         MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
-        if (isFederated ||
-                (capabilities != null && capabilities.getFilesSharingResharing().isFalse())) {
+        if (isReshareForbidden(share)) {
             reshareItem.setVisible(false);
         }
-        reshareItem.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
+        reshareItem.setChecked(canReshare(share));
 
-        MenuItem editItem = menu.findItem(R.id.action_can_edit);
-        int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
-                OCShare.DELETE_PERMISSION_FLAG;
-        boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
-        editItem.setChecked(canEdit);
-
-        OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
-        boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
-        boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
         MenuItem editCreateItem = menu.findItem(R.id.action_can_edit_create);
         MenuItem editChangeItem = menu.findItem(R.id.action_can_edit_change);
         MenuItem editDeleteItem = menu.findItem(R.id.action_can_edit_delete);
-        if (file.isFolder() && areEditOptionsAvailable) {
+        if (file.isFolder() && isEditOptionsAvailable(share)) {
             /// TODO change areEditOptionsAvailable in order to delete !isFederated
-            editCreateItem.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-            editChangeItem.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-            editDeleteItem.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
+            editCreateItem.setChecked(canCreate(share));
+            editChangeItem.setChecked(canUpdate(share));
+            editDeleteItem.setChecked(canDelete(share));
         } else {
             editCreateItem.setVisible(false);
             editChangeItem.setVisible(false);
@@ -201,31 +210,68 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
                 menu.findItem(R.id.action_expiration_date), share.getExpirationDate(), context.getResources());
     }
 
-    private boolean optionsItemSelected(Menu menu, MenuItem item, OCShare share) {
+    private boolean isEditOptionsAvailable(OCShare share) {
+        return !ShareType.FEDERATED.equals(share.getShareType())
+                || AccountUtils.getServerVersion(account).isNotReshareableFederatedSupported();
+    }
+
+    private boolean isReshareForbidden(OCShare share) {
+        return ShareType.FEDERATED.equals(share.getShareType()) ||
+                (capabilities != null && capabilities.getFilesSharingResharing().isFalse());
+    }
+
+    private boolean canEdit(OCShare share) {
+        return (share.getPermissions() &
+                (OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG | OCShare.DELETE_PERMISSION_FLAG)) > 0;
+    }
+
+    private boolean canCreate(OCShare share) {
+        return (share.getPermissions() & OCShare.CREATE_PERMISSION_FLAG) > 0;
+    }
+
+    private boolean canUpdate(OCShare share) {
+        return (share.getPermissions() & OCShare.UPDATE_PERMISSION_FLAG) > 0;
+    }
+
+    private boolean canDelete(OCShare share) {
+        return (share.getPermissions() & OCShare.DELETE_PERMISSION_FLAG) > 0;
+    }
+
+    private boolean canReshare(OCShare share) {
+        return (share.getPermissions() & OCShare.SHARE_PERMISSION_FLAG) > 0;
+    }
+
+    private boolean optionsItemSelected(Menu menu, MenuItem item, AppCompatCheckBox allowEditsCheckBox, OCShare share) {
         switch (item.getItemId()) {
-            case R.id.action_can_edit: {
-                item.setChecked(!item.isChecked());
-                if (file.isFolder() && !item.isChecked()) {
-                    menu.findItem(R.id.action_can_edit_create).setChecked(false);
-                    menu.findItem(R.id.action_can_edit_change).setChecked(false);
-                    menu.findItem(R.id.action_can_edit_delete).setChecked(false);
-                }
-                share.setPermissions(updatePermissionsToShare(share, menu));
-                return true;
-            }
             case R.id.action_can_edit_create:
             case R.id.action_can_edit_change:
             case R.id.action_can_edit_delete: {
                 item.setChecked(!item.isChecked());
-                if (item.isChecked() && !menu.findItem(R.id.action_can_edit).isChecked()) {
-                    menu.findItem(R.id.action_can_edit).setChecked(true);
+                if (item.isChecked() && !allowEditsCheckBox.isChecked()) {
+                    allowEditsCheckBox.setChecked(true);
                 }
-                share.setPermissions(updatePermissionsToShare(share, menu));
+                share.setPermissions(
+                        updatePermissionsToShare(
+                                share,
+                                menu.findItem(R.id.action_can_reshare).isChecked(),
+                                allowEditsCheckBox.isChecked(),
+                                menu.findItem(R.id.action_can_edit_create).isChecked(),
+                                menu.findItem(R.id.action_can_edit_change).isChecked(),
+                                menu.findItem(R.id.action_can_edit_delete).isChecked())
+                );
                 return true;
             }
             case R.id.action_can_reshare: {
                 item.setChecked(!item.isChecked());
-                share.setPermissions(updatePermissionsToShare(share, menu));
+                share.setPermissions(
+                        updatePermissionsToShare(
+                                share,
+                                menu.findItem(R.id.action_can_reshare).isChecked(),
+                                allowEditsCheckBox.isChecked(),
+                                menu.findItem(R.id.action_can_edit_create).isChecked(),
+                                menu.findItem(R.id.action_can_edit_change).isChecked(),
+                                menu.findItem(R.id.action_can_edit_delete).isChecked())
+                );
                 return true;
             }
             case R.id.action_unshare: {
@@ -247,14 +293,15 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
         }
     }
 
-    private int updatePermissionsToShare(OCShare share, Menu menu) {
+    private int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate,
+                                         boolean canEditChange, boolean canEditDelete) {
         return listener.updatePermissionsToShare(
                 share,
-                menu.findItem(R.id.action_can_reshare).isChecked(),
-                menu.findItem(R.id.action_can_edit).isChecked(),
-                menu.findItem(R.id.action_can_edit_create).isChecked(),
-                menu.findItem(R.id.action_can_edit_change).isChecked(),
-                menu.findItem(R.id.action_can_edit_delete).isChecked()
+                canReshare,
+                canEdit,
+                canEditCreate,
+                canEditChange,
+                canEditDelete
         );
     }
 
@@ -273,6 +320,22 @@ public class UserListAdapter extends ArrayAdapter implements DisplayUtils.Avatar
             return String.valueOf(iv.getTag()).equals(tag);
         }
         return false;
+    }
+
+    class UserViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.userIcon)
+        ImageView avatar;
+        @BindView(R.id.userOrGroupName)
+        TextView name;
+        @BindView(R.id.allow_editing)
+        AppCompatCheckBox allowEditing;
+        @BindView(R.id.editShareButton)
+        ImageView editShareButton;
+
+        UserViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     public interface ShareeListAdapterListener {

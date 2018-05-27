@@ -29,38 +29,47 @@
             android:id="@+id/userIcon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
-            android:src="@drawable/ic_user"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
-            android:contentDescription="@string/user_icon"/>
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:contentDescription="@string/user_icon"
+            android:src="@drawable/ic_user" />
 
         <TextView
+            android:id="@+id/userOrGroupName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
+            android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_weight="1"
-            android:textSize="@dimen/file_details_username_text_size"
-            android:text="@string/username"
-            android:id="@+id/userOrGroupName"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:singleLine="true"
-            android:ellipsize="middle"
+            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+            android:singleLine="true"
+            android:text="@string/username"
+            android:textColor="@color/black"
+            android:textSize="@dimen/file_details_username_text_size" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/allow_editing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/share_via_link_edit_permission_label" />
+
+        <ImageView
             android:id="@+id/editShareButton"
-            android:src="@drawable/ic_dots_vertical"
-            android:padding="@dimen/standard_half_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_marginRight="@dimen/standard_half_margin"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/overflow_menu"/>
+            android:contentDescription="@string/overflow_menu"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_dots_vertical" />
 </LinearLayout>

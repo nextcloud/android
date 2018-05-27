@@ -25,11 +25,7 @@ import android.content.ComponentName;
 import android.content.res.Resources;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -121,30 +117,5 @@ public class FileDetailSharingFragmentHelper {
      */
     public static boolean isPublicShareDisabled(OCCapability capabilities) {
         return (capabilities != null && capabilities.getFilesSharingPublicEnabled().isFalse());
-    }
-
-    /**
-     * Fix scroll in ListView when the parent is a ScrollView
-     */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0) {
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-            }
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
 }

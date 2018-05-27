@@ -31,6 +31,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,6 +55,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
@@ -84,7 +87,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     SearchView searchView;
 
     @BindView(R.id.fdshareUsersList)
-    ListView usersList;
+    RecyclerView usersList;
 
     @BindView(R.id.fdShareNoUsers)
     TextView noList;
@@ -205,14 +208,14 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void updateListOfUserGroups() {
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        UserListAdapter mUserGroupsAdapter = new UserListAdapter(getActivity().getSupportFragmentManager(),getActivity().getApplicationContext(),
-                R.layout.share_user_item, shares, account, file, this);
 
         if (shares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(mUserGroupsAdapter);
+            usersList.setAdapter(new UserListAdapter(getActivity().getSupportFragmentManager(),
+                    getActivity().getApplicationContext(), shares, account, file, this));
+            usersList.setLayoutManager(new LinearLayoutManager(getContext()));
+            usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);
-            FileDetailSharingFragmentHelper.setListViewHeightBasedOnChildren(usersList);
         } else {
             usersList.setVisibility(View.GONE);
             noList.setVisibility(View.VISIBLE);
