@@ -653,7 +653,6 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             noShares.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
-            FileDetailSharingFragmentHelper.setListViewHeightBasedOnChildren(usersList);
         } else {
             noShares.setVisibility(View.VISIBLE);
             usersList.setVisibility(View.GONE);
