@@ -323,11 +323,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.userIcon)
+        @BindView(R.id.avatar)
         ImageView avatar;
-        @BindView(R.id.userOrGroupName)
+        @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.allow_editing)
+        @BindView(R.id.allowEditing)
         AppCompatCheckBox allowEditing;
         @BindView(R.id.editShareButton)
         ImageView editShareButton;
