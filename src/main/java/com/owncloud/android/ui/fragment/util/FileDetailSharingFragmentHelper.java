@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment.util;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -39,6 +40,14 @@ import java.util.Date;
  */
 public class FileDetailSharingFragmentHelper {
 
+    /**
+     * Sets checked/visiblity state on the given {@link MenuItem} based on the given criteria.
+     *
+     * @param fileListing            the {@link MenuItem} to be setup
+     * @param isFolder               flag if it is a folder
+     * @param isEditingAllowed       flag if editing is allowed
+     * @param publicSharePermissions share permissions of the link
+     */
     public static void setupHideFileListingMenuItem(MenuItem fileListing,
                                                     boolean isFolder,
                                                     boolean isEditingAllowed,
@@ -55,20 +64,35 @@ public class FileDetailSharingFragmentHelper {
         }
     }
 
+    /**
+     * sets up the password {@link MenuItem}'s title based on the fact if a password is present.
+     *
+     * @param password            the password {@link MenuItem}
+     * @param isPasswordProtected flag is a password is present
+     * @param res                 Resources to load the corresponding strings.
+     */
     public static void setupPasswordMenuItem(MenuItem password, boolean isPasswordProtected, Resources res) {
         if (isPasswordProtected) {
-            password.setTitle(res.getString(
-                    R.string.share_via_link_menu_password_label,
-                    res.getString(R.string.share_via_link_password_title)
-            ));
+            password.setTitle(getPasswordTitle(res, R.string.share_via_link_password_title));
         } else {
-            password.setTitle(res.getString(
-                    R.string.share_via_link_menu_password_label,
-                    res.getString(R.string.share_via_link_no_password_title)
-            ));
+            password.setTitle(getPasswordTitle(res, R.string.share_via_link_no_password_title));
         }
     }
 
+    private static String getPasswordTitle(Resources res, @StringRes int passwordValue) {
+        return res.getString(
+                R.string.share_via_link_menu_password_label,
+                res.getString(passwordValue)
+        );
+    }
+
+    /**
+     * sets up the expiration date {@link MenuItem}'s title based on the fact if an expiration date is present.
+     *
+     * @param expirationDate      the expiration date {@link MenuItem}
+     * @param expirationDateValue the expiration date
+     * @param res                 Resources to load the corresponding strings.
+     */
     public static void setupExpirationDateMenuItem(MenuItem expirationDate, long expirationDateValue, Resources res) {
         if (expirationDateValue > 0) {
             String formattedDate =
@@ -87,6 +111,13 @@ public class FileDetailSharingFragmentHelper {
         }
     }
 
+    /**
+     * sets up the {@link SearchView}.
+     *
+     * @param searchManager the {@link SearchManager}
+     * @param searchView    the {@link SearchView}
+     * @param componentName the {@link ComponentName}
+     */
     public static void setupSearchView(SearchManager searchManager, SearchView searchView, ComponentName componentName) {
         // assumes parent activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
