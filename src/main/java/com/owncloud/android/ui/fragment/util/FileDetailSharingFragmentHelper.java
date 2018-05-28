@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment.util;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.res.Resources;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
