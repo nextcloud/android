@@ -362,6 +362,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (!getResources().getBoolean(R.bool.large_land_layout)){
             FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_sync_account));
         }
+
+
     }
 
     private boolean optionsItemSelected(MenuItem item) {

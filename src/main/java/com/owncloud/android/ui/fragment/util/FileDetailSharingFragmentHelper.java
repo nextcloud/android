@@ -95,13 +95,9 @@ public class FileDetailSharingFragmentHelper {
      */
     public static void setupExpirationDateMenuItem(MenuItem expirationDate, long expirationDateValue, Resources res) {
         if (expirationDateValue > 0) {
-            String formattedDate =
-                    SimpleDateFormat.getDateInstance().format(
-                            new Date(expirationDateValue)
-                    );
             expirationDate.setTitle(res.getString(
                     R.string.share_expiration_date_label,
-                    formattedDate
+                    SimpleDateFormat.getDateInstance().format(new Date(expirationDateValue))
             ));
         } else {
             expirationDate.setTitle(res.getString(
