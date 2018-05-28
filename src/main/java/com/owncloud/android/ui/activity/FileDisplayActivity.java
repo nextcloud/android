@@ -1878,6 +1878,7 @@ public class FileDisplayActivity extends HookActivity
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
             fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+            refreshListOfFilesFragment(false);
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
@@ -1909,11 +1910,12 @@ public class FileDisplayActivity extends HookActivity
 
         if (result.isSuccess()) {
             updateFileFromDB();
-        } else if (fileDetailFragment.getView() != null){
+            refreshListOfFilesFragment(false);
+        } else if (fileDetailFragment.getView() != null) {
             Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG).show();
         }
 
-        if (fileDetailFragment!=null && fileDetailFragment instanceof FileDetailFragment) {
+        if (fileDetailFragment != null && fileDetailFragment instanceof FileDetailFragment) {
             ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
                     .onUpdateShareInformation(result, getFile());
         }
