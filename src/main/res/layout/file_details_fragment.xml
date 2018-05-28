@@ -52,6 +52,7 @@
                     android:ellipsize="middle"
                     android:text="@string/placeholder_filename"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -186,6 +187,7 @@
             android:layout_height="wrap_content"
             app:tabGravity="center"
             app:tabMode="fixed"
+            app:tabTextAppearance="@style/AppTabTextAppearance"
             android:background="@color/white" />
 
         <android.support.v4.view.ViewPager
