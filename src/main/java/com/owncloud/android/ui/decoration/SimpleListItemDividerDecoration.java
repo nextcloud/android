@@ -45,9 +45,10 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
      */
     public SimpleListItemDividerDecoration(Context context) {
         super(context, DividerItemDecoration.VERTICAL);
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        divider = a.getDrawable(0);
+        final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
+        divider = styledAttributes.getDrawable(0);
         leftPadding = Math.round(72 * (context.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        styledAttributes.recycle();
     }
 
     @Override
