@@ -281,8 +281,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         );
         FileDetailSharingFragmentHelper.setupPasswordMenuItem(
                 menu.findItem(R.id.action_share_link_password),
-                publicShare.isPasswordProtected(),
-                res
+                publicShare.isPasswordProtected()
         );
         FileDetailSharingFragmentHelper.setupExpirationDateMenuItem(
                 menu.findItem(R.id.action_share_link_expiration_date),

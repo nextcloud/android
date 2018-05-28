@@ -69,21 +69,13 @@ public class FileDetailSharingFragmentHelper {
      *
      * @param password            the password {@link MenuItem}
      * @param isPasswordProtected flag is a password is present
-     * @param res                 Resources to load the corresponding strings.
      */
-    public static void setupPasswordMenuItem(MenuItem password, boolean isPasswordProtected, Resources res) {
+    public static void setupPasswordMenuItem(MenuItem password, boolean isPasswordProtected) {
         if (isPasswordProtected) {
-            password.setTitle(getPasswordTitle(res, R.string.share_via_link_password_title));
+            password.setTitle(R.string.share_password_title);
         } else {
-            password.setTitle(getPasswordTitle(res, R.string.share_via_link_no_password_title));
+            password.setTitle(R.string.share_no_password_title);
         }
-    }
-
-    private static String getPasswordTitle(Resources res, @StringRes int passwordValue) {
-        return res.getString(
-                R.string.share_via_link_menu_password_label,
-                res.getString(passwordValue)
-        );
     }
 
     /**
@@ -100,10 +92,7 @@ public class FileDetailSharingFragmentHelper {
                     SimpleDateFormat.getDateInstance().format(new Date(expirationDateValue))
             ));
         } else {
-            expirationDate.setTitle(res.getString(
-                    R.string.share_expiration_date_label,
-                    res.getString(R.string.share_via_link_menu_expiration_date_never)
-            ));
+            expirationDate.setTitle(R.string.share_no_expiration_date_label);
         }
     }
 

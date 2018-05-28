@@ -250,4 +250,9 @@
 		<item name="colorControlNormal">@color/login_text_color</item>
 		<item name="android:textColorHint">@color/login_text_color</item>
 	</style>
+
+	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
+		<item name="android:textSize">16sp</item>
+		<item name="textAllCaps">false</item>
+	</style>
 </resources>

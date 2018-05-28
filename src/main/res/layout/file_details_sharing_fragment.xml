@@ -63,7 +63,7 @@
                 android:layout_gravity="start|center"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:textSize="@dimen/two_line_secondary_text_size"
+                android:textSize="16sp"
                 android:paddingTop="@dimen/standard_half_padding"
                 android:paddingBottom="@dimen/standard_half_padding"
                 android:text="@string/share_via_link_section_title" />
@@ -73,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:textSize="16sp"
                 android:text="@string/edit_permission_label"/>
 
             <ImageView
@@ -106,7 +107,7 @@
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
             android:text="@string/share_no_users"
-            android:textSize="@dimen/share_no_users_text_size" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
