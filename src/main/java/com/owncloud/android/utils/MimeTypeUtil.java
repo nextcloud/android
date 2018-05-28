@@ -98,7 +98,7 @@ public class MimeTypeUtil {
         Drawable icon = MainApp.getAppContext().getResources().getDrawable(iconId);
 
         if(R.drawable.file_zip == iconId) {
-            ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account));
+            ThemeUtils.tintDrawable(icon, ThemeUtils.elementColor(account));
         }
 
         return icon;
