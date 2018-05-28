@@ -266,6 +266,8 @@
 
     <string name="favorite">Imposta come disponibile non in linea</string>
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
+    <string name="favorite_real">Aggiungi ai preferiti</string>
+    <string name="unset_favorite_real">Rimuovi dai preferiti</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="common_rename">Rinomina</string>
