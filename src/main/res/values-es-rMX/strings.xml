@@ -266,6 +266,8 @@
 
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
+    <string name="favorite_real">Agregar a favoritos</string>
+    <string name="unset_favorite_real">Eliminar de favoritos</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="common_rename">Renombrar</string>
