@@ -532,14 +532,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
     }
 
-    /**
-     * Shows the information of the {@link OCFile} received as a
-     * parameter in the second fragment.
-     *
-     * @param file          {@link OCFile} whose details will be shown
-     */
     @Override
     public void showDetails(OCFile file) {
+        // not used at the moment
+    }
+
+    @Override
+    public void showDetails(OCFile file, int activeTab) {
         // not used at the moment
     }
 

@@ -22,7 +22,6 @@
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -773,12 +772,14 @@ public class ThumbnailsCacheManager {
         private final Resources mResources;
         private final float mAvatarRadius;
         private Account mAccount;
-        private String mUsername;
+        private String mUserId;
+        private String mServerName;
+        private Context mContext;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
                                     FileDataStorageManager storageManager, Account account, Resources resources,
-                                    float avatarRadius) {
+                                    float avatarRadius, String userId, String serverName, Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
             if (storageManager == null) {
@@ -787,6 +788,9 @@ public class ThumbnailsCacheManager {
             mAccount = account;
             mResources = resources;
             mAvatarRadius = avatarRadius;
+            mUserId = userId;
+            mServerName = serverName;
+            mContext = context;
         }
 
         @SuppressFBWarnings("Dm")
@@ -796,20 +800,17 @@ public class ThumbnailsCacheManager {
 
             try {
                 if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
-                            MainApp.getAppContext());
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, MainApp.getAppContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
+                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
                 }
 
-                mUsername = params[0];
                 thumbnail = doAvatarInBackground();
 
             } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
             } catch(Throwable t){
                 // the app should never break due to a problem with avatars
-                Log_OC.e(TAG, "Generation of avatar for " + mUsername + " failed", t);
+                Log_OC.e(TAG, "Generation of avatar for " + mUserId + " failed", t);
             }
 
             return thumbnail;
@@ -820,7 +821,7 @@ public class ThumbnailsCacheManager {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
                 AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
 
-                if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
+                if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
                     listener.avatarGenerated(drawable, mCallContext);
                 }
             }
@@ -830,7 +831,7 @@ public class ThumbnailsCacheManager {
          * Converts size of file icon from dp to pixel
          * @return int
          */
-        private int getAvatarDimension(){
+        private int getAvatarDimension() {
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
@@ -839,13 +840,14 @@ public class ThumbnailsCacheManager {
         private @Nullable
         Drawable doAvatarInBackground() {
             Bitmap avatar = null;
-            String username = mUsername;
 
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                    MainApp.getAppContext().getContentResolver());
+            String accountName = mUserId + "@" + mServerName;
 
-            String eTag = arbitraryDataProvider.getValue(mAccount, AVATAR);
-            final String imageKey = "a_" + username + "_" + eTag;
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+
+            String eTag = arbitraryDataProvider.getValue(accountName, ThumbnailsCacheManager.AVATAR);
+            String avatarKey = "a_" + mUserId + "_" + mServerName + "_" + eTag;
+
             int px = getAvatarDimension();
 
             // Download avatar from server
@@ -854,18 +856,13 @@ public class ThumbnailsCacheManager {
                 if (serverOCVersion.supportsRemoteThumbnails()) {
                     GetMethod get = null;
                     try {
-                        String userId = AccountManager.get(MainApp.getAppContext()).getUserData(mAccount,
-                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-                        if (TextUtils.isEmpty(userId)) {
-                            userId = AccountUtils.getAccountUsername(username);
-                        }
-
-                        String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(userId) + "/" + px;
+                        String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
                         Log_OC.d("Avatar", "URI: " + uri);
                         get = new GetMethod(uri);
 
-                        if (!eTag.isEmpty()) {
+                        // only use eTag if available and corresponding avatar is still there 
+                        // (might be deleted from cache)
+                        if (!eTag.isEmpty() && getBitmapFromDiskCache(avatarKey) != null) {
                             get.setRequestHeader("If-None-Match", eTag);
                         }
 
@@ -877,18 +874,19 @@ public class ThumbnailsCacheManager {
                                 // new avatar
                                 InputStream inputStream = get.getResponseBodyAsStream();
 
+                                String newETag = null;
                                 if (get.getResponseHeader(ETAG) != null) {
-                                    eTag = get.getResponseHeader(ETAG).getValue().replace("\"", "");
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, AVATAR, eTag);
+                                    newETag = get.getResponseHeader(ETAG).getValue().replace("\"", "");
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(accountName, AVATAR, newETag);
                                 }
 
                                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                 avatar = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
                                 // Add avatar to cache
-                                if (avatar != null) {
+                                if (avatar != null && !TextUtils.isEmpty(newETag)) {
                                     avatar = handlePNG(avatar, px, px);
-                                    String newImageKey = "a_" + username + "_" + eTag;
+                                    String newImageKey = "a_" + mUserId + "_" + mServerName + "_" + newETag;
                                     addBitmapToCache(newImageKey, avatar);
                                 } else {
                                     return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
@@ -897,7 +895,7 @@ public class ThumbnailsCacheManager {
 
                             case HttpStatus.SC_NOT_MODIFIED:
                                 // old avatar
-                                avatar = getBitmapFromDiskCache(imageKey);
+                                avatar = getBitmapFromDiskCache(avatarKey);
                                 mClient.exhaustResponse(get.getResponseBodyAsStream());
                                 break;
 
@@ -965,7 +963,7 @@ public class ThumbnailsCacheManager {
         final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(imageView);
 
         if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUsername;
+            final Object usernameData = avatarWorkerTask.mUserId;
             // If usernameData is not yet set or it differs from the new data
             if (usernameData == null || !usernameData.equals(file)) {
                 // Cancel previous task
@@ -984,7 +982,7 @@ public class ThumbnailsCacheManager {
         final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(menuItem);
 
         if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUsername;
+            final Object usernameData = avatarWorkerTask.mUserId;
             // If usernameData is not yet set or it differs from the new data
             if (usernameData == null || !usernameData.equals(file)) {
                 // Cancel previous task

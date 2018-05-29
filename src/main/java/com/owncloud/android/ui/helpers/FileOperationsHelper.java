@@ -4,7 +4,9 @@
  * @author masensio
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
+ * @author Andy Scherzinger
  * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2018 Andy Scherzinger
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -83,7 +85,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Helper implementation for file operations locally and remote.
  */
 public class FileOperationsHelper {
 
@@ -537,6 +539,29 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * Updates a public share on a file to set its expiration date.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                  {@link OCShare} instance which permissions will be updated.
+     * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration
+     *                               date, leaving the link unrestricted. Zero makes no change.
+     */
+    public void setExpirationDateToShare(OCShare share, long expirationTimeInMillis) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
+                expirationTimeInMillis
+        );
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PERMISSIONS,
+                0
+        );
+        queueShareIntent(updateShareIntent);
+    }
 
     /**
      * Updates a share on a file to set its access permissions.
@@ -615,15 +640,19 @@ public class FileOperationsHelper {
         return false;
     }
 
-    public void sendShareFile(OCFile file) {
+    public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog
         FragmentManager fm = mFileActivity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file);
+        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions);
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+    }
+
+    public void sendShareFile(OCFile file) {
+        sendShareFile(file, false);
     }
 
     public void syncFiles(Collection<OCFile> files) {
@@ -709,7 +738,6 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
-
         }
     }
 

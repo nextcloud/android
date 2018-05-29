@@ -4,6 +4,7 @@
 
   Copyright (C) 2012 Bartek Przybylski
   Copyright (C) 2017 ownCloud GmbH.
+  Copyright (C) 2018 Andy Scherzinger
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -19,7 +20,7 @@
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fdScrollView"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -29,27 +30,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/fdIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:contentDescription="@string/file_icon"
-            android:src="@drawable/file" />
-
-        <View
-            android:id="@+id/fdIcon_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/standard_padding"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_padding"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -59,23 +46,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/fdFilename"
+                    android:id="@+id/filename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
                     android:text="@string/placeholder_filename"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
                 <LinearLayout
-                    android:id="@+id/fdFiledetails"
+                    android:id="@+id/filedetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/fdFavorite"
+                        android:id="@+id/favorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/standard_eighth_margin"
@@ -86,7 +74,7 @@
                         android:src="@drawable/ic_star_outline" />
 
                     <TextView
-                        android:id="@+id/fdSize"
+                        android:id="@+id/size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/placeholder_fileSize"
@@ -106,7 +94,7 @@
                         android:textSize="@dimen/two_line_secondary_text_size" />
 
                     <TextView
-                        android:id="@+id/fdModified"
+                        android:id="@+id/modified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -144,6 +132,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/progressBlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/standard_padding"
@@ -152,13 +141,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/fdProgressText"
+                android:id="@+id/progressText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/downloader_download_in_progress_ticker" />
 
             <LinearLayout
-                android:id="@+id/fdProgressBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_quarter_margin"
@@ -166,7 +154,7 @@
                 android:orientation="horizontal">
 
                 <ProgressBar
-                    android:id="@+id/fdProgressBar"
+                    android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -175,7 +163,7 @@
                     android:indeterminateOnly="false" />
 
                 <ImageButton
-                    android:id="@+id/fdCancelBtn"
+                    android:id="@+id/cancelBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/standard_half_margin"
@@ -199,6 +187,7 @@
             android:layout_height="wrap_content"
             app:tabGravity="center"
             app:tabMode="fixed"
+            app:tabTextAppearance="@style/AppTabTextAppearance"
             android:background="@color/white" />
 
         <android.support.v4.view.ViewPager

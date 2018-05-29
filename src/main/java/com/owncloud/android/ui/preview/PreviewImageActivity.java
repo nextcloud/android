@@ -312,6 +312,11 @@ public class PreviewImageActivity extends FileActivity implements
         finish();
     }
 
+    @Override
+    public void showDetails(OCFile file, int activeTab) {
+        showDetails(file);
+    }
+
     public void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");

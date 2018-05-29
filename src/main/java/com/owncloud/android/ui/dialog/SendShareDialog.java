@@ -16,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -34,8 +36,10 @@ import java.util.List;
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Andy Scherzinger
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -53,20 +57,23 @@ import java.util.List;
 public class SendShareDialog extends BottomSheetDialogFragment {
 
     private static final String KEY_OCFILE = "KEY_OCFILE";
+    private static final String KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS";
     private static final String TAG = SendShareDialog.class.getSimpleName();
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
     public static final String ACTIVITY_NAME = "ACTIVITY_NAME";
 
     private View view;
     private OCFile file;
+    private boolean hideNcSharingOptions;
     private FileOperationsHelper fileOperationsHelper;
 
-    public static SendShareDialog newInstance(OCFile file) {
+    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions) {
 
         SendShareDialog dialogFragment = new SendShareDialog();
 
         Bundle args = new Bundle();
         args.putParcelable(KEY_OCFILE, file);
+        args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions);
         dialogFragment.setArguments(args);
 
         return dialogFragment;
@@ -81,6 +88,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         view = null;
 
         file = getArguments().getParcelable(KEY_OCFILE);
+        hideNcSharingOptions = getArguments().getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false);
     }
 
     @Nullable
@@ -88,6 +96,9 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.send_share_fragment, container, false);
+
+        LinearLayout sendShareButtons = view.findViewById(R.id.send_share_buttons);
+        View divider = view.findViewById(R.id.divider);
 
         // Share with people
         TextView sharePeopleText = view.findViewById(R.id.share_people_button);
@@ -105,7 +116,10 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         themeShareButtonImage(shareLinkImageView);
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
-        if (file.isSharedWithMe() && !file.canReshare()) {
+        if (hideNcSharingOptions) {
+            sendShareButtons.setVisibility(View.GONE);
+            divider.setVisibility(View.GONE);
+        } else if (file.isSharedWithMe() && !file.canReshare()) {
             showResharingNotAllowedSnackbar();
 
             if (file.isFolder()) {
@@ -216,7 +230,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void shareFile(OCFile file) {
-        fileOperationsHelper.showShareFile(file);
+        if (getActivity() instanceof FileDisplayActivity) {
+            ((FileDisplayActivity) getActivity()).showDetails(file, 1);
+        } else {
+            fileOperationsHelper.showShareFile(file);
+        }
         dismiss();
     }
 

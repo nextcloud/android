@@ -263,7 +263,7 @@ public class UserInfoActivity extends FileActivity {
         userName.setText(account.name);
         avatar.setTag(account.name);
         DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                getStorageManager(), avatar);
+                getStorageManager(), avatar, this);
 
         int tint = ThemeUtils.primaryColor(account, this);
 

@@ -28,6 +28,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -143,31 +144,25 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         fetchAndSetData(null);
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> {
-                    setLoadingMessage();
-                    if (swipeListRefreshLayout != null && swipeListRefreshLayout.isRefreshing()) {
-                        swipeListRefreshLayout.setRefreshing(false);
-                    }
-                    fetchAndSetData(null);
-                }
-        );
-
-        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
-                    setLoadingMessage();
-                    if (swipeEmptyListRefreshLayout != null && swipeEmptyListRefreshLayout.isRefreshing()) {
-                        swipeEmptyListRefreshLayout.setRefreshing(false);
-                    }
-                    fetchAndSetData(null);
-                }
-        );
+        swipeListRefreshLayout.setOnRefreshListener(
+                () -> onRefreshListLayout(swipeListRefreshLayout));
+        swipeEmptyListRefreshLayout.setOnRefreshListener(
+                () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
         return view;
+    }
+
+    private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
+        setLoadingMessage();
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
+        fetchAndSetData(null);
     }
 
     private void setLoadingMessage() {
         emptyContentHeadline.setText(R.string.file_list_loading);
         emptyContentMessage.setText("");
-
         emptyContentIcon.setVisibility(View.GONE);
         emptyContentProgressBar.setVisibility(View.VISIBLE);
     }
@@ -216,6 +211,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void fetchAndSetData(String pageUrl) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
+        final FragmentActivity activity = getActivity();
+
+        final SwipeRefreshLayout empty = swipeEmptyListRefreshLayout;
+        final SwipeRefreshLayout list = swipeListRefreshLayout;
+
 
         Thread t = new Thread(() -> {
             OwnCloudAccount ocAccount;
@@ -241,15 +241,15 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                     final ArrayList<Object> activities = (ArrayList) data.get(0);
                     nextPageUrl = (String) data.get(1);
 
-                    getActivity().runOnUiThread(() -> {
+                    activity.runOnUiThread(() -> {
                         populateList(activities, ownCloudClient, pageUrl == null);
                         if (activities.size() > 0) {
-                            swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                            swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                            empty.setVisibility(View.GONE);
+                            list.setVisibility(View.VISIBLE);
                         } else {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
-                            swipeListRefreshLayout.setVisibility(View.GONE);
-                            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+                            list.setVisibility(View.GONE);
+                            empty.setVisibility(View.VISIBLE);
                         }
                         isLoadingActivities = false;
                     });
@@ -261,14 +261,13 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                         logMessage = noResultsMessage;
                     }
                     final String finalLogMessage = logMessage;
-                    getActivity().runOnUiThread(() -> {
-                        setEmptyContent(noResultsHeadline, finalLogMessage);
+                    activity.runOnUiThread(() -> {
+                        setErrorContent(finalLogMessage);
                         isLoadingActivities = false;
-                        //setIndeterminate(isLoadingActivities);
                     });
                 }
 
-                hideRefreshLayoutLoader();
+                hideRefreshLayoutLoader(activity);
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.e(TAG, "Account not found", e);
             } catch (IOException e) {
@@ -290,16 +289,30 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     private void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
 
+            emptyContentMessage.setVisibility(View.VISIBLE);
             emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
 
-    private void hideRefreshLayoutLoader() {
-        getActivity().runOnUiThread(() -> {
+    private void setErrorContent(String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(R.string.common_error);
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentMessage.setText(message);
+
+            emptyContentMessage.setVisibility(View.VISIBLE);
+            emptyContentProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideRefreshLayoutLoader(FragmentActivity activity) {
+        activity.runOnUiThread(() -> {
             if (swipeListRefreshLayout != null) {
                 swipeListRefreshLayout.setRefreshing(false);
             }
@@ -307,7 +320,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 swipeEmptyListRefreshLayout.setRefreshing(false);
             }
             isLoadingActivities = false;
-            //setIndeterminate(isLoadingActivities);
         });
     }
 

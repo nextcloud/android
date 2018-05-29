@@ -4,8 +4,8 @@
  * @author Tobias Kaminsky
  * @author Andy Scherzinger
  * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Andy Scherzinger
- * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2017 Nextcloud GmbH
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -209,6 +210,12 @@ public class ThemeUtils {
             return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
         } else {
             return capability.getServerName();
+        }
+    }
+
+    public static void setStatusBarColor(Activity activity, @ColorInt int color) {
+        if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(color);
         }
     }
 
