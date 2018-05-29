@@ -24,6 +24,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -34,6 +35,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Calendar;
 
@@ -121,6 +123,7 @@ public class ExpirationDatePickerDialogFragment
         // Create a new instance of DatePickerDialog
         DatePickerDialog dialog = new DatePickerDialog(
                 getActivity(),
+                R.style.FallbackDatePickerDialogTheme,
                 this,
                 chosenDate.get(Calendar.YEAR),
                 chosenDate.get(Calendar.MONTH),
