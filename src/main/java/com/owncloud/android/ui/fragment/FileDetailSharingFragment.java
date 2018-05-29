@@ -85,10 +85,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @BindView(R.id.searchView)
     SearchView searchView;
 
-    @BindView(R.id.fdshareUsersList)
+    @BindView(R.id.shareUsersList)
     RecyclerView usersList;
 
-    @BindView(R.id.fdShareNoUsers)
+    @BindView(R.id.shareNoUsers)
     TextView noList;
 
     @BindView(R.id.share_by_link)

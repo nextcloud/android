@@ -115,7 +115,7 @@ public class FileDetailSharingFragmentHelper {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // return true to prevent the query is processed to be queried;
+                // return true to prevent the query from being processed;
                 return true;
             }
 

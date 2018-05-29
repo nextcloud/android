@@ -80,28 +80,28 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private static final String ARG_ACCOUNT = "ACCOUNT";
     private static final String ARG_ACTIVE_TAB = "TAB";
 
-    @Nullable @BindView(R.id.fdProgressBlock)
+    @Nullable @BindView(R.id.progressBlock)
     View downloadProgressContainer;
 
-    @Nullable @BindView(R.id.fdCancelBtn)
+    @Nullable @BindView(R.id.cancelBtn)
     ImageButton cancelButton;
 
-    @Nullable @BindView(R.id.fdProgressBar)
+    @Nullable @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    @Nullable @BindView(R.id.fdProgressText)
+    @Nullable @BindView(R.id.progressText)
     TextView progressText;
 
-    @Nullable @BindView(R.id.fdFilename)
+    @Nullable @BindView(R.id.filename)
     TextView fileName;
 
-    @Nullable @BindView(R.id.fdSize)
+    @Nullable @BindView(R.id.size)
     TextView fileSize;
 
-    @Nullable @BindView(R.id.fdModified)
+    @Nullable @BindView(R.id.modified)
     TextView fileModifiedTimestamp;
 
-    @Nullable @BindView(R.id.fdFavorite)
+    @Nullable @BindView(R.id.favorite)
     ImageView favoriteIcon;
 
     @Nullable @BindView(R.id.overflow_menu)
@@ -419,11 +419,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fdCancelBtn: {
+            case R.id.cancelBtn: {
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
                 break;
             }
-            case R.id.fdFavorite: {
+            case R.id.favorite: {
                 if (getFile().getIsFavorite()) {
                     mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
                 } else {
