@@ -112,7 +112,6 @@
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
-    <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
     <string name="filedetails_download">Last ned</string>
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
@@ -473,17 +472,10 @@
     <string name="share_no_users">Ingen data delt med brukere ennå</string>
     <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
     <string name="share_via_link_section_title">Del lenke</string>
-    <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
-    <string name="share_via_link_password_label">Passordbeskyttet</string>
-    <string name="share_via_link_password_title">Sikret</string>
-    <string name="share_via_link_edit_permission_label">Tillat redigering</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med…</string>
     <string name="share_with_edit_title">Del med %1$s</string>
-
-    <string name="share_search">Søk</string>
-
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
@@ -491,15 +483,8 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Oppgrader tjenerversjonen for å tillatte deling mellom brukere ifra klientene.\nVennligst kontakt din administrator</string>
-    <string name="filedetails_share_link_enable">Deling med lenke påskrudd</string>
-    <string name="filedetails_share_link_disable">Ikke delt med lenke</string>
-    <string name="filedetails_share_users_with_access">Brukere og grupper med tilgang</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
-    <string name="share_privilege_can_edit_create">opprette</string>
-    <string name="share_privilege_can_edit_change">endre</string>
-    <string name="share_privilege_can_edit_delete">slett</string>
-
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
     <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>

@@ -110,7 +110,6 @@
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
-    <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="filedetails_renamed_in_upload_msg">Zmieniono nazwę pliku %1$s podczas wysyłania</string>
@@ -442,31 +441,17 @@
     <string name="share_no_users">Brak danych współdzielonych z użytkownikami</string>
     <string name="share_add_user_or_group">Dodaj użytkownika lub grupę</string>
     <string name="share_via_link_section_title">Udostępnij link</string>
-    <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
-    <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
-    <string name="share_via_link_password_title">Zabezpieczone</string>
-    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
-
-    <string name="share_search">Wyszukaj</string>
-
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
-    <string name="filedetails_share_link_enable">Udostępnianie linkiem włączone</string>
-    <string name="filedetails_share_link_disable">Nie udostępniane linkiem</string>
-    <string name="filedetails_share_users_with_access">Użytkownicy i grupy z dostępem</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
-    <string name="share_privilege_can_edit_create">utwórz</string>
-    <string name="share_privilege_can_edit_change">zmiany</string>
-    <string name="share_privilege_can_edit_delete">usuń</string>
-
     <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
     <string name="action_clear_successful_uploads">Wyczyść udane wysyłanie</string>

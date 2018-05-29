@@ -105,7 +105,6 @@
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carrega algun contingut o activa la càrrega automàtica.</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
     <string name="filedetails_download">Baixa</string>
     <string name="filedetails_sync_file">Sincronitza</string>
     <string name="list_layout">Disposició llistada</string>
@@ -385,14 +384,9 @@
     <string name="share_no_users">No s\'han compartit dades amb usuaris encara</string>
     <string name="share_add_user_or_group">Afegeix usuari o group</string>
     <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
-    <string name="share_via_link_expiration_date_label">Estableix la data de venciment</string>
-    <string name="share_via_link_password_title">Assegurat</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
     <string name="share_get_public_link_button">Obtén l\'enllaç</string>
     <string name="share_with_edit_title">Comparteix amb %1$s</string>
-
-    <string name="share_search">Cerca</string>
-
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
@@ -401,10 +395,6 @@
 
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
-    <string name="share_privilege_can_edit_create">crear</string>
-    <string name="share_privilege_can_edit_change">canviar</string>
-    <string name="share_privilege_can_edit_delete">eliminar</string>
-
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
 

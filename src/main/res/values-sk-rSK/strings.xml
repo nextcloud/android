@@ -103,7 +103,6 @@
     <string name="file_list_empty_text_videos_filter">Žiadne videá.</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="file_list_folder">priečinok</string>
-    <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
@@ -366,17 +365,10 @@
     <string name="share_no_users">Používateľom nesprístupňujete zatiaľ žiaden obsah</string>
     <string name="share_add_user_or_group">Pridaj používateľa alebo skupinu</string>
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
-    <string name="share_via_link_expiration_date_label">Nastaviť dátum expirácie</string>
-    <string name="share_via_link_password_label">Chrániť heslom</string>
-    <string name="share_via_link_password_title">Zabezpečené</string>
-    <string name="share_via_link_edit_permission_label">Povoliť úpravy</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
     <string name="share_with_title">Zdieľať s…</string>
     <string name="share_with_edit_title">Sprístupniť pre %1$s</string>
-
-    <string name="share_search">Hľadať</string>
-
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
@@ -385,10 +377,6 @@
 
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
-    <string name="share_privilege_can_edit_create">vytvoriť</string>
-    <string name="share_privilege_can_edit_change">zmeniť</string>
-    <string name="share_privilege_can_edit_delete">vymazať</string>
-
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
 

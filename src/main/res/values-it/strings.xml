@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="file_list_folder">cartella</string>
-    <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
     <string name="filedetails_download">Scarica</string>
     <string name="filedetails_sync_file">Sincronizzazione</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato %1$s durante il caricamento</string>
@@ -478,17 +477,10 @@
     <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
     <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
     <string name="share_via_link_section_title">Condividi collegamento</string>
-    <string name="share_via_link_expiration_date_label">Imposta data di scadenza</string>
-    <string name="share_via_link_password_label">Proteggi con password</string>
-    <string name="share_via_link_password_title">Protetto</string>
-    <string name="share_via_link_edit_permission_label">Consenti modifiche</string>
     <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_with_title">Condividi con…</string>
     <string name="share_with_edit_title">Condividi con %1$s</string>
-
-    <string name="share_search">Cerca</string>
-
     <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
@@ -496,15 +488,8 @@
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
     <string name="share_sharee_unavailable">Aggiorna la versione del server per consentire la condivisione tra utenti dai loro client.\nContatta il tuo amministratore</string>
-    <string name="filedetails_share_link_enable">Condivisi tramite collegamento abilitata</string>
-    <string name="filedetails_share_link_disable">Non condivisi tramite collegamento</string>
-    <string name="filedetails_share_users_with_access">Utenti e gruppi con accesso</string>
     <string name="share_privilege_can_share">può condividere</string>
     <string name="share_privilege_can_edit">può modificare</string>
-    <string name="share_privilege_can_edit_create">crea</string>
-    <string name="share_privilege_can_edit_change">cambia</string>
-    <string name="share_privilege_can_edit_delete">elimina</string>
-
     <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
     <string name="action_clear_successful_uploads">Cancella i caricamenti completati</string>
@@ -768,4 +753,4 @@
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="uploads_view_upload_status_virus_detected">Virus rilevato! Impossibile caricare il file!</string>
     <string name="tags">Etichette</string>
-</resources>
+    </resources>

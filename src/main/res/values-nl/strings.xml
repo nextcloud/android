@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
-    <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd %1$s tijdens upload</string>
@@ -476,17 +475,10 @@
     <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
     <string name="share_add_user_or_group">Voeg gebruiker of groep toe</string>
     <string name="share_via_link_section_title">Deel link</string>
-    <string name="share_via_link_expiration_date_label">Stel vervaldatum in</string>
-    <string name="share_via_link_password_label">Beveilig met wachtwoord</string>
-    <string name="share_via_link_password_title">Beveiligd</string>
-    <string name="share_via_link_edit_permission_label">Bewerken toestaan</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met…</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
-
-    <string name="share_search">Zoeken</string>
-
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
@@ -494,15 +486,8 @@
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met andere gebruikers.\nNeem contact op met je server beheerder</string>
-    <string name="filedetails_share_link_enable">Delen via een link ingeschakeld</string>
-    <string name="filedetails_share_link_disable">Niet gedeeld met een link</string>
-    <string name="filedetails_share_users_with_access">Gebruikers en groepen met toegang</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan bewerken</string>
-    <string name="share_privilege_can_edit_create">creëer</string>
-    <string name="share_privilege_can_edit_change">wijzig</string>
-    <string name="share_privilege_can_edit_delete">verwijderen</string>
-
     <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_clear_successful_uploads">Wis gelukte uploads</string>

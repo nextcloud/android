@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
-    <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
@@ -480,17 +479,10 @@ Attention la suppression est irréversible.</string>
     <string name="share_no_users">Vous n\'avez partagé aucune donnée avec des utilisateurs pour l\'instant.</string>
     <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
-    <string name="share_via_link_expiration_date_label">Définir une date d\'expiration</string>
-    <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
-    <string name="share_via_link_password_title">Sécurisé</string>
-    <string name="share_via_link_edit_permission_label">Autoriser les modifications</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec…</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
-
-    <string name="share_search">Rechercher</string>
-
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
@@ -499,15 +491,8 @@ Attention la suppression est irréversible.</string>
 
     <string name="share_sharee_unavailable">Désolé, la version du serveur n\'autorise pas le partage entre utilisateurs depuis leur client.
 Veuillez contacter votre administrateur</string>
-    <string name="filedetails_share_link_enable">Partage par lien activé</string>
-    <string name="filedetails_share_link_disable">Aucun partage par lien</string>
-    <string name="filedetails_share_users_with_access">Utilisateurs et groupes ayant accès</string>
     <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_can_edit">peut modifier</string>
-    <string name="share_privilege_can_edit_create">création</string>
-    <string name="share_privilege_can_edit_change">modification</string>
-    <string name="share_privilege_can_edit_delete">suppression</string>
-
     <string name="action_retry_uploads">Relancer les envois échoués</string>
     <string name="action_clear_failed_uploads">Effacer les envois échoués</string>
     <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
@@ -771,4 +756,4 @@ Veuillez contacter votre administrateur</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
     <string name="tags">Étiquettes</string>
-</resources>
+    </resources>

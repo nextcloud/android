@@ -111,7 +111,6 @@
     <string name="upload_list_empty_headline">Няма качвания на разположение</string>
     <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматично качване.</string>
     <string name="file_list_folder">папка</string>
-    <string name="filedetails_select_file">Натиснете върху файл, за да видите допълнителна информация.</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
     <string name="filedetails_renamed_in_upload_msg">Файлът е преименуван на %1$s по време на качването</string>
@@ -456,16 +455,9 @@
     <string name="share_no_users">Все още няма споделени данни</string>
     <string name="share_add_user_or_group">Добавете потребител или група</string>
     <string name="share_via_link_section_title">Връзка за споделяне</string>
-    <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
-    <string name="share_via_link_password_label">Защитете с парола</string>
-    <string name="share_via_link_password_title">Подсигурен</string>
-    <string name="share_via_link_edit_permission_label">Позволяване на редактиране</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_get_public_link_button">Вземи връзка</string>
     <string name="share_with_edit_title">Споделете с %1$s</string>
-
-    <string name="share_search">Търсене</string>
-
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
@@ -473,15 +465,8 @@
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента. \nМоля, уведомете системния админинстратор</string>
-    <string name="filedetails_share_link_enable">Споделена връзка активирана</string>
-    <string name="filedetails_share_link_disable">Няма споделена връзка</string>
-    <string name="filedetails_share_users_with_access">Потребители и групи с достъп</string>
     <string name="share_privilege_can_share">може да споделя</string>
     <string name="share_privilege_can_edit">може да променя</string>
-    <string name="share_privilege_can_edit_create">създаване</string>
-    <string name="share_privilege_can_edit_change">промяна</string>
-    <string name="share_privilege_can_edit_delete">изтриване</string>
-
     <string name="action_retry_uploads">Новият опит се провали</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
     <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>

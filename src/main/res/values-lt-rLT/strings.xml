@@ -103,7 +103,6 @@
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="file_list_folder">aplankas</string>
-    <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="common_yes">Taip</string>
@@ -379,30 +378,17 @@
     <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
     <string name="share_add_user_or_group">Pridėti vartotoją ar grupę</string>
     <string name="share_via_link_section_title">Dalintis nuoroda</string>
-    <string name="share_via_link_expiration_date_label">Nustatykite galiojimo laiką</string>
-    <string name="share_via_link_password_label">Apsaugotas slaptažodžiu</string>
-    <string name="share_via_link_password_title">Apsaugota</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
     <string name="share_get_public_link_button">Gauti nuorodą</string>
     <string name="share_with_edit_title">Dalintis su %1$s</string>
-
-    <string name="share_search">Ieškoti</string>
-
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_email_clarification">%1$s (el. paštas)</string>
     <string name="share_known_remote_clarification">%1$s (šiame %2$s)</string>
 
-    <string name="filedetails_share_link_enable">Bendrinama per nuorodą</string>
-    <string name="filedetails_share_link_disable">Nėra bendrinamų nuorodų</string>
-    <string name="filedetails_share_users_with_access">Vartotojų grupės su prieiga</string>
     <string name="share_privilege_can_share">gali dalintis</string>
     <string name="share_privilege_can_edit">gali redaguoti</string>
-    <string name="share_privilege_can_edit_create">sukurti</string>
-    <string name="share_privilege_can_edit_change">keisti</string>
-    <string name="share_privilege_can_edit_delete">ištrinti</string>
-
     <string name="action_retry_uploads">Pabandyti iš naujo nepavykusius įkėlimus</string>
     <string name="action_clear_failed_uploads">Išvalyti baigtus įkėlimus</string>
     <string name="action_clear_successful_uploads">Išvalyti sėkmingus įkėlimus</string>

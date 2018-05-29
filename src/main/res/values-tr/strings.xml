@@ -64,7 +64,7 @@
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
-    <string name="auth_register">Henüz Nextcloud kullanmıyor musunuz?\Hizmet sağlayıcılardan yararlanabilirsiniz</string>
+    <string name="auth_register">Henüz Nextcloud kullanmıyor musunuz?\Listeden bir hizmet sağlayıcısı seçebilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
-    <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
     <string name="filedetails_download">İndir</string>
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
@@ -266,8 +265,8 @@
 
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
-    <string name="favorite_real">Favorilere ekle</string>
-    <string name="unset_favorite_real">Favorilerden kaldır</string>
+    <string name="favorite_real">Sık kullanılanlara ekle</string>
+    <string name="unset_favorite_real">Sık kullanılanlardan kaldır</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>
@@ -478,17 +477,10 @@
     <string name="share_no_users">Henüz kullanıcılara paylaşılan bir veri yok</string>
     <string name="share_add_user_or_group">Kullanıcı ya da grup ekle</string>
     <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
-    <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
-    <string name="share_via_link_password_label">Parola ile korunsun</string>
-    <string name="share_via_link_password_title">Güvenli</string>
-    <string name="share_via_link_edit_permission_label">Düzenlenebilsin</string>
     <string name="share_via_link_hide_file_listing_permission_label">Dosya listeleme gizlensin</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
     <string name="share_with_title">Şununla paylaş…</string>
     <string name="share_with_edit_title">%1$s ile paylaş</string>
-
-    <string name="share_search">Arama</string>
-
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
@@ -496,15 +488,8 @@
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>
-    <string name="filedetails_share_link_enable">Bağlantı ile paylaşım etkin</string>
-    <string name="filedetails_share_link_disable">Bağlantı ile paylaşılmamış</string>
-    <string name="filedetails_share_users_with_access">Erişim izni olan kullanıcı ve gruplar</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
-    <string name="share_privilege_can_edit_create">oluştur</string>
-    <string name="share_privilege_can_edit_change">değiştir</string>
-    <string name="share_privilege_can_edit_delete">sil</string>
-
     <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
     <string name="action_clear_successful_uploads">Sorunsuz yüklemeler temizlensin</string>
@@ -768,4 +753,4 @@
     <string name="create_new_folder">Yeni klasör ekle</string>
     <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
     <string name="tags">Etiketler</string>
-</resources>
+    </resources>

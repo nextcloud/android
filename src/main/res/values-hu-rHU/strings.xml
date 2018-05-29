@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
@@ -475,17 +474,10 @@
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
     <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
-    <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
-    <string name="share_via_link_password_label">Jelszóval védés</string>
-    <string name="share_via_link_password_title">Biztonságos</string>
-    <string name="share_via_link_edit_permission_label">Szerkesztések engedélyezése</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fájl lista elrejtése</string>
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_with_title">Megosztás vele…</string>
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
-
-    <string name="share_search">Keresés</string>
-
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
@@ -494,15 +486,8 @@
 
     <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
 Lépj kapcsolatba a rendszergazdával</string>
-    <string name="filedetails_share_link_enable">Linkben megosztás engedélyezése</string>
-    <string name="filedetails_share_link_disable">Nincs linkkel megosztva</string>
-    <string name="filedetails_share_users_with_access">Hozzáféréssel rendelkező felhasználók és csoportok</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
-    <string name="share_privilege_can_edit_create">létrehoz</string>
-    <string name="share_privilege_can_edit_change">változtatás</string>
-    <string name="share_privilege_can_edit_delete">törlés</string>
-
     <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>

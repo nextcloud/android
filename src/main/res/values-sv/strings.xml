@@ -112,7 +112,6 @@
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
-    <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
     <string name="filedetails_download">Ladda ned</string>
     <string name="filedetails_sync_file">Synk</string>
     <string name="filedetails_renamed_in_upload_msg">Filen fick nytt namn %1$s under uppladdning</string>
@@ -415,31 +414,17 @@
     <string name="share_no_users">Ingen data delar med användare än</string>
     <string name="share_add_user_or_group">Lägg till användare eller grupp</string>
     <string name="share_via_link_section_title">Dela länk</string>
-    <string name="share_via_link_expiration_date_label">Sätt utgångsdatum</string>
-    <string name="share_via_link_password_label">Skydda med lösenord</string>
-    <string name="share_via_link_password_title">Säkrad</string>
-    <string name="share_via_link_edit_permission_label">Tillåt ändringar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_with_edit_title">Dela med %1$s</string>
-
-    <string name="share_search">Sök</string>
-
     <string name="search_users_and_groups_hint">Sök användare och grupper</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
 
-    <string name="filedetails_share_link_enable">Dela med länk aktiverat</string>
-    <string name="filedetails_share_link_disable">Inte delad med länk</string>
-    <string name="filedetails_share_users_with_access">Användare och grupper med tillgång</string>
     <string name="share_privilege_can_share">får dela</string>
     <string name="share_privilege_can_edit">kan redigera</string>
-    <string name="share_privilege_can_edit_create">skapa</string>
-    <string name="share_privilege_can_edit_change">ändra</string>
-    <string name="share_privilege_can_edit_delete">radera</string>
-
     <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
     <string name="action_clear_successful_uploads">Ta bort lyckade uppladdningar</string>

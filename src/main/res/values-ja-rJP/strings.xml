@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダ</string>
-    <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">同期</string>
     <string name="filedetails_renamed_in_upload_msg">ファイルはアップロード処理で %1$s に変更されましした</string>
@@ -404,14 +403,9 @@
     <string name="share_no_users">ユーザーと共有されているデータはありません</string>
     <string name="share_add_user_or_group">ユーザーかグループを追加</string>
     <string name="share_via_link_section_title">URLで共有</string>
-    <string name="share_via_link_expiration_date_label">有効期限を設定</string>
-    <string name="share_via_link_password_title">セキュア</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
     <string name="share_with_edit_title">%1$s と共有</string>
-
-    <string name="share_search">検索</string>
-
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
@@ -420,10 +414,6 @@
 
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
-    <string name="share_privilege_can_edit_create">作成</string>
-    <string name="share_privilege_can_edit_change">更新</string>
-    <string name="share_privilege_can_edit_delete">削除</string>
-
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
@@ -493,4 +483,4 @@
     <string name="create_new_folder">新規フォルダ作成</string>
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="tags">タグ</string>
-</resources>
+    </resources>
