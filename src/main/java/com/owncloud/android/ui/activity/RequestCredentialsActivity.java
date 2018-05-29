@@ -40,7 +40,6 @@ import com.owncloud.android.utils.DisplayUtils;
 public class RequestCredentialsActivity extends Activity {
 
     private static final String TAG = RequestCredentialsActivity.class.getSimpleName();
-    private static final String SCREEN_NAME = "Device credentials";
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
     public final static int KEY_CHECK_RESULT_TRUE = 1;
