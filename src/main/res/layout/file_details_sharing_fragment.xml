@@ -23,7 +23,7 @@
     android:layout_weight="1">
 
     <LinearLayout
-        android:id="@+id/fdShareContainer"
+        android:id="@+id/shareContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -92,7 +92,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/fdshareUsersList"
+            android:id="@+id/shareUsersList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -100,7 +100,7 @@
             android:dividerHeight="1dp"/>
 
         <TextView
-            android:id="@+id/fdShareNoUsers"
+            android:id="@+id/shareNoUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/standard_half_padding"
