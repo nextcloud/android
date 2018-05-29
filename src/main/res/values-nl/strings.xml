@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Onbekende fout</string>
     <string name="common_pending">In behandeling</string>
     <string name="common_delete">Verwijderen</string>
+    <string name="common_send">Versturen</string>
     <string name="about_title">Over</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
@@ -265,6 +266,8 @@
 
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
+    <string name="favorite_real">Aan favorieten toevoegen</string>
+    <string name="unset_favorite_real">Verwijderen uit favorieten</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="common_rename">Hernoemen</string>
@@ -474,11 +477,22 @@
     <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
     <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
     <string name="share_add_user_or_group">Voeg gebruiker of groep toe</string>
+    <string name="share_via_link_edit_permission_label">Toestaan bewerken</string>
+    <string name="share_via_link_password_label">Beveilig met wachtwoord</string>
+    <string name="share_via_link_password_title">Beveiligd</string>
+    <string name="share_via_link_expiration_date_label">Stel vervaldatum in</string>
+    <string name="share_via_link_menu_password_label">Wachtwoord beveiligd (%1$s)</string>
+    <string name="share_expiration_date_label">Vervalt op %1$s</string>
+    <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_via_link_section_title">Deel link</string>
+    <string name="share_password_title">Wachtwoord beveiligd</string>
+    <string name="share_no_password_title">Instellen wachtwoord</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met…</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
+    <string name="share_search">Naam, gefedereerde Cloud ID of een e-mailadres…</string>
+
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
@@ -486,8 +500,13 @@
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met andere gebruikers.\nNeem contact op met je server beheerder</string>
+    <string name="share_privilege_unshare">Stop met delen</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan bewerken</string>
+    <string name="share_privilege_can_edit_create">kan creëren</string>
+    <string name="share_privilege_can_edit_change">kan wijzigen</string>
+    <string name="share_privilege_can_edit_delete">kan verwijderen</string>
+
     <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_clear_successful_uploads">Wis gelukte uploads</string>
@@ -743,7 +762,9 @@
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="hint_name">Naam</string>
     <string name="hint_password">Wachtwoord</string>
+    <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="upload_files">Bestanden uploaden</string>
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
+    <string name="tags">Labels</string>
     </resources>

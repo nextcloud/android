@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_pending">Í bið</string>
     <string name="common_delete">Eyða</string>
+    <string name="common_send">Senda</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
@@ -265,6 +266,8 @@
 
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
+    <string name="favorite_real">Bæta í eftirlæti</string>
+    <string name="unset_favorite_real">Fjarlægja úr eftirlætum</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="common_rename">Endurnefna</string>
@@ -474,11 +477,22 @@
     <string name="share_with_user_section_title">Deila með notendum eða hópum</string>
     <string name="share_no_users">Engum gögnum ennþá deilt með notendum</string>
     <string name="share_add_user_or_group">Bæta við notanda eða hóp</string>
+    <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
+    <string name="share_via_link_password_label">Verja með lykilorði</string>
+    <string name="share_via_link_password_title">Öruggt</string>
+    <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
+    <string name="share_via_link_menu_password_label">Verja með lykilorði (%1$s)</string>
+    <string name="share_expiration_date_label">Rennur út %1$s</string>
+    <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_section_title">Deilitengill</string>
+    <string name="share_password_title">Verja með lykilorði</string>
+    <string name="share_no_password_title">Stilltu lykilorð</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með…</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
+    <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang…</string>
+
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
     <string name="share_group_clarification">%1$s (hópur)</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
@@ -486,8 +500,13 @@
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
     <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
+    <string name="share_privilege_unshare">Hætta deilingu</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
+    <string name="share_privilege_can_edit_create">getur búið til</string>
+    <string name="share_privilege_can_edit_change">getur breytt</string>
+    <string name="share_privilege_can_edit_delete">getur eytt</string>
+
     <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
