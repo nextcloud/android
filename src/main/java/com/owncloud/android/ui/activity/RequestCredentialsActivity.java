@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -66,7 +65,6 @@ public class RequestCredentialsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
             DeviceCredentialUtils.createKey(getApplicationContext());
