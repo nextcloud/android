@@ -123,6 +123,7 @@
     <string name="common_error_unknown">Neznámá chyba</string>
     <string name="common_pending">Čekající</string>
     <string name="common_delete">Smazat</string>
+    <string name="common_send">Odeslat</string>
     <string name="about_title">O aplikaci</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Odebrat účet %s a smazat všechny místní soubory?\n\nTuto akci nelze vzít zpět.</string>
@@ -240,6 +241,8 @@
 
     <string name="favorite">Nastavit jako dostupné offline</string>
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
+    <string name="favorite_real">Přidat do oblíbených</string>
+    <string name="unset_favorite_real">Odebrat z oblíbených</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
@@ -435,19 +438,35 @@
     <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
     <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>
     <string name="share_add_user_or_group">Přidat uživatele nebo skupinu</string>
+    <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
+    <string name="share_via_link_password_label">Chránit heslem</string>
+    <string name="share_via_link_password_title">Zabezpečeno</string>
+    <string name="share_via_link_expiration_date_label">Nastavit datum vypršení</string>
+    <string name="share_via_link_menu_password_label">Chránit heslem (%1$s)</string>
+    <string name="share_expiration_date_label">Platnost skončí %1$s</string>
+    <string name="share_no_expiration_date_label">Nastavit datum vypršení</string>
     <string name="share_via_link_section_title">Sdílet odkaz</string>
+    <string name="share_password_title">Chráněno heslem</string>
+    <string name="share_no_password_title">Nastavit heslo</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s…</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>
+    <string name="share_search">Jméno, sdružené cloud ID, nebo e-mailová adresa…</string>
+
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
+    <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
+    <string name="share_privilege_can_edit_create">může vytvořit</string>
+    <string name="share_privilege_can_edit_change">může měnit</string>
+    <string name="share_privilege_can_edit_delete">může smazat</string>
+
     <string name="action_retry_uploads">Zkusit znovu selhavší nahrání</string>
     <string name="action_clear_failed_uploads">Vyčistit selhaná nahrávání</string>
     <string name="action_clear_successful_uploads">Vyčistit úspěšná nahrání</string>

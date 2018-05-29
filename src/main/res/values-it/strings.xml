@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Errore sconosciuto</string>
     <string name="common_pending">In corso</string>
     <string name="common_delete">Elimina</string>
+    <string name="common_send">Invia</string>
     <string name="about_title">Informazioni</string>
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
@@ -476,11 +477,22 @@
     <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
     <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
     <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
+    <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
+    <string name="share_via_link_password_label">Protetto con password</string>
+    <string name="share_via_link_password_title">Protetto</string>
+    <string name="share_via_link_expiration_date_label">Imposta data di scadenza</string>
+    <string name="share_via_link_menu_password_label">Proteggi con password (%1$s)</string>
+    <string name="share_expiration_date_label">Scade il %1$s</string>
+    <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_via_link_section_title">Condividi collegamento</string>
+    <string name="share_password_title">Protetta da password</string>
+    <string name="share_no_password_title">Imposta password</string>
     <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_with_title">Condividi con…</string>
     <string name="share_with_edit_title">Condividi con %1$s</string>
+    <string name="share_search">Nome, ID di cloud federata o indirizzo email…</string>
+
     <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
@@ -488,8 +500,13 @@
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
     <string name="share_sharee_unavailable">Aggiorna la versione del server per consentire la condivisione tra utenti dai loro client.\nContatta il tuo amministratore</string>
+    <string name="share_privilege_unshare">Rimuovi condivisione</string>
     <string name="share_privilege_can_share">può condividere</string>
     <string name="share_privilege_can_edit">può modificare</string>
+    <string name="share_privilege_can_edit_create">può creare</string>
+    <string name="share_privilege_can_edit_change">può cambiare</string>
+    <string name="share_privilege_can_edit_delete">può eliminare</string>
+
     <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
     <string name="action_clear_successful_uploads">Cancella i caricamenti completati</string>

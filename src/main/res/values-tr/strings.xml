@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Bilinmeyen sorun</string>
     <string name="common_pending">Bekleyen</string>
     <string name="common_delete">Sil</string>
+    <string name="common_send">Gönder</string>
     <string name="about_title">Hakkında</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
@@ -476,11 +477,18 @@
     <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
     <string name="share_no_users">Henüz kullanıcılara paylaşılan bir veri yok</string>
     <string name="share_add_user_or_group">Kullanıcı ya da grup ekle</string>
+    <string name="share_via_link_edit_permission_label">Düzenleme yapılabilsin</string>
+    <string name="share_via_link_password_label">Parola ile koru</string>
+    <string name="share_via_link_password_title">Güvenli</string>
+    <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
+    <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
     <string name="share_via_link_hide_file_listing_permission_label">Dosya listeleme gizlensin</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
     <string name="share_with_title">Şununla paylaş…</string>
     <string name="share_with_edit_title">%1$s ile paylaş</string>
+    <string name="share_search">Ad, birleşmiş bulut kodu ya da e-posta adresi...</string>
+
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
@@ -488,6 +496,7 @@
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>
+    <string name="share_privilege_unshare">Paylaşımı Kaldır</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
     <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
