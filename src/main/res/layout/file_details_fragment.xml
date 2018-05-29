@@ -53,7 +53,7 @@
                     android:text="@string/placeholder_filename"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:id="@+id/fdFiledetails"
