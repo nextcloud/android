@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -396,9 +397,12 @@ public class UploadFilesActivity extends FileActivity implements
 
         public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
-    
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
+
+            int color = ThemeUtils.fontColor(getContext());
+            ColorStateList colorStateList = ColorStateList.valueOf(color);
+
+            ((AppCompatSpinner) parent).setSupportBackgroundTintList(colorStateList);
+            ((TextView) v).setTextColor(colorStateList);
             return v;
         }
     
