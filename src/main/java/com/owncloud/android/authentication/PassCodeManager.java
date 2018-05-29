@@ -44,7 +44,7 @@ public class PassCodeManager {
     public static final int PASSCODE_ACTIVITY = 9999;
 
     static {
-        exemptOfPasscodeActivities = new HashSet<Class>();
+        exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
         exemptOfPasscodeActivities.add(RequestCredentialsActivity.class);
         // other activities may be exempted, if needed
@@ -65,7 +65,7 @@ public class PassCodeManager {
         return passCodeManagerInstance;
     }
 
-    protected PassCodeManager() {}
+    private PassCodeManager() {}
 
     public void onActivityCreated(Activity activity) {
         if (passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) {
@@ -112,10 +112,8 @@ public class PassCodeManager {
     }
 
     private boolean passCodeShouldBeRequested() {
-        if ((System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0) {
-            return passCodeIsEnabled();
-        }
-        return false;
+        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT &&
+                visibleActivitiesCounter <= 0 && passCodeIsEnabled();
     }
 
     private boolean passCodeIsEnabled() {
@@ -124,20 +122,8 @@ public class PassCodeManager {
     }
 
     private boolean deviceCredentialsShouldBeRequested(Activity activity) {
-        if ((System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0) {
-            return deviceCredentialsAreEnabled(activity);
-        }
-        return false;
-    }
-
-    private boolean hasAuthenticationTimeoutExpired() {
-        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0;
-    }
-
-    private boolean fingerprintIsEnabled() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false);
+        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 &&
+                deviceCredentialsAreEnabled(activity);
     }
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
