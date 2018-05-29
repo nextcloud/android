@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -36,6 +37,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -380,8 +382,11 @@ public class UploadFilesActivity extends FileActivity implements
         public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
-            ((TextView) v).setTextColor(getResources().getColorStateList(ThemeUtils.darkTheme(getContext()) ?
-                    android.R.color.white : android.R.color.black));
+            int color = ThemeUtils.fontColor(getContext());
+            ColorStateList colorStateList = ColorStateList.valueOf(color);
+
+            ((AppCompatSpinner) parent).setSupportBackgroundTintList(colorStateList);
+            ((TextView) v).setTextColor(colorStateList);
             return v;
         }
     
