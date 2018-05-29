@@ -51,7 +51,6 @@ import java.util.Set;
 /**
  * This activity shows all settings for contact backup/restore
  */
-
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
 
@@ -168,6 +167,11 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
     @Override
     public void showDetails(OCFile file) {
+        // not needed
+    }
+
+    @Override
+    public void showDetails(OCFile file, int activeTab) {
         // not needed
     }
 

@@ -270,7 +270,7 @@ public class BitmapUtils {
      * @param name The name
      * @return corresponding RGB color
      * @throws UnsupportedEncodingException if the charset is not supported
-     * @throws NoSuchAlgorithmException if the specified algorithm is not available
+     * @throws NoSuchAlgorithmException     if the specified algorithm is not available
      */
     public static int[] calculateHSL(String name) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         // using adapted algorithm from https://github.com/nextcloud/server/blob/master/core/js/placeholder.js#L126
@@ -375,6 +375,10 @@ public class BitmapUtils {
      * @return the circular bitmap
      */
     public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+        
         RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
         roundedBitmap.setCircular(true);
         return roundedBitmap;

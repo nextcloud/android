@@ -3,8 +3,10 @@
  *
  * @author Bartek Przybylski
  * @author David A. Velasco
+ * @author Andy Scherzinger
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -26,6 +28,7 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -38,13 +41,16 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -71,22 +77,33 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SendShareDialog;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
@@ -131,6 +148,8 @@ public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
         SendShareDialog.SendShareDialogDownloader {
+
+    public static final String RESTART = "RESTART";
  
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -140,6 +159,9 @@ public class FileDisplayActivity extends HookActivity
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
+
+    private static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -484,6 +506,65 @@ public class FileDisplayActivity extends HookActivity
         if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+        } else if (RESTART.equals(intent.getAction())) {
+            finish();
+            startActivity(intent);
+        } else // Verify the action and get the query
+            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+                String query = intent.getStringExtra(SearchManager.QUERY);
+                Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
+
+            } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
+                Uri data = intent.getData();
+                String dataString = intent.getDataString();
+                String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
+
+                ArrayList<String> shareeNames = new ArrayList<>();
+                for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(), getAccount().name)) {
+                    shareeNames.add(share.getShareWith());
+                }
+
+                if (!shareeNames.contains(shareWith)) {
+                    doShareWith(shareWith, data.getAuthority());
+                }
+
+            } else {
+                Log_OC.e(TAG, "Unexpected intent " + intent.toString());
+            }
+    }
+
+    private void doShareWith(String shareeName, String dataAuthority) {
+
+        ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
+
+        getFileOperationsHelper().shareFileWithSharee(
+                getFile(),
+                shareeName,
+                shareType,
+                getAppropiatePermissions(shareType)
+        );
+    }
+
+    private int getAppropiatePermissions(ShareType shareType) {
+
+        // check if the Share is FEDERATED
+        boolean isFederated = ShareType.FEDERATED.equals(shareType);
+
+        if (getFile().isSharedWithMe()) {
+            return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
+
+        } else if (isFederated) {
+            if (com.owncloud.android.authentication.AccountUtils
+                    .getServerVersion(getAccount()).isNotReshareableFederatedSupported()) {
+                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
+            } else {
+                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9 :
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_UP_TO_OC9);
+            }
+        } else {
+            return (getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE);
         }
     }
 
@@ -1488,7 +1569,18 @@ public class FileDisplayActivity extends HookActivity
      */
     @Override
     public void showDetails(OCFile file) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
+        showDetails(file, 0);
+    }
+
+    /**
+     * Shows the information of the {@link OCFile} received as a
+     * parameter in the second fragment.
+     *
+     * @param file {@link OCFile} whose details will be shown
+     * @param activeTab the active tab in the details view
+     */
+    public void showDetails(OCFile file, int activeTab) {
+        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
@@ -1614,23 +1706,27 @@ public class FileDisplayActivity extends HookActivity
 
         if (operation instanceof RemoveFileOperation) {
             onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
-
         } else if (operation instanceof RenameFileOperation) {
             onRenameFileOperationFinish((RenameFileOperation) operation, result);
-
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
-
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
-
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
-
         } else if (operation instanceof CopyFileOperation) {
             onCopyFileOperationFinish((CopyFileOperation) operation, result);
+        } else if (operation instanceof CreateShareViaLinkOperation) {
+            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
+        } else if (operation instanceof CreateShareWithShareeOperation) {
+            onUpdateShareInformation(result, R.string.sharee_add_failed);
+        } else if (operation instanceof UpdateShareViaLinkOperation) {
+            onUpdateShareInformation(result, R.string.updating_share_failed);
+        } else if (operation instanceof UpdateSharePermissionsOperation) {
+            onUpdateShareInformation(result, R.string.updating_share_failed);
+        } else if (operation instanceof UnshareOperation) {
+            onUpdateShareInformation(result, R.string.unsharing_failed);
         }
-
     }
 
     private void refreshShowDetails() {
@@ -1721,6 +1817,117 @@ public class FileDisplayActivity extends HookActivity
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
         }
+    }
+
+    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
+                                                     RemoteOperationResult result) {
+        FileDetailFragment fileDetailFragment = getShareFileFragment();
+        if (result.isSuccess()) {
+            updateFileFromDB();
+
+            // Create dialog to allow the user choose an app to send the link
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+
+            // if share to user and share via link multiple ocshares are returned,
+            // therefore filtering for public_link
+            String link = "";
+            for (Object object : result.getData()) {
+                OCShare shareLink = (OCShare) object;
+                if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
+                    link = shareLink.getShareLink();
+                    break;
+                }
+            }
+
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+            intentToShareLink.setType("text/plain");
+
+            String username;
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
+                if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                    username = oca.getDisplayName();
+                } else {
+                    username = AccountUtils.getUsernameForAccount(getAccount());
+                }
+            } catch (Exception e) {
+                username = AccountUtils.getUsernameForAccount(getAccount());
+            }
+
+            if (username != null) {
+                intentToShareLink.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_user_shared_with_you,
+                                username,
+                                getFile().getFileName()
+                        )
+                );
+            } else {
+                intentToShareLink.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_shared_with_you,
+                                getFile().getFileName()
+                        )
+                );
+            }
+
+            String[] packagesToExclude = new String[]{getPackageName()};
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+
+            fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+            refreshListOfFilesFragment(false);
+        } else {
+            // Detect Failure (403) --> maybe needs password
+            String password = operation.getPassword();
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN    &&
+                    (password == null || password.length() == 0)                        &&
+                    getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
+                // Was tried without password, but not sure that it's optional.
+
+                // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
+                if (fileDetailFragment != null
+                        && fileDetailFragment.isAdded()) {   // only if added to the view hierarchy!!
+
+                    fileDetailFragment.getFileDetailSharingFragment().requestPasswordForShareViaLink(true);
+                }
+
+            } else {
+                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                Snackbar.make(
+                        findViewById(android.R.id.content),
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Snackbar.LENGTH_LONG
+                ).show();
+            }
+        }
+    }
+
+    private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int errorString) {
+        Fragment fileDetailFragment = getSecondFragment();
+
+        if (result.isSuccess()) {
+            updateFileFromDB();
+            refreshListOfFilesFragment(false);
+        } else if (fileDetailFragment.getView() != null) {
+            Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG).show();
+        }
+
+        if (fileDetailFragment != null && fileDetailFragment instanceof FileDetailFragment) {
+            ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
+                    .onUpdateShareInformation(result, getFile());
+        }
+    }
+
+    /**
+     * Shortcut to get access to the {@link FileDetailFragment} instance, if any
+     *
+     * @return A {@link FileDetailFragment} instance, or null
+     */
+    private FileDetailFragment getShareFileFragment() {
+        return (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
     }
 
     /**

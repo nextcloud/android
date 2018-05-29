@@ -53,6 +53,7 @@
     <dimen name="zero">0dp</dimen>
     <dimen name="account_item_layout_height">72dp</dimen>
     <dimen name="user_icon_size">40dp</dimen>
+    <dimen name="user_icon_radius">20dp</dimen>
     <dimen name="share_icon_size">56dp</dimen>
     <dimen name="alternate_margin">10dp</dimen>
     <dimen name="alternate_half_margin">5dp</dimen>
@@ -101,9 +102,6 @@
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
     <dimen name="empty_list_progress_layout_width">72dp</dimen>
     <dimen name="empty_list_progress_layout_height">72dp</dimen>
-    <dimen name="shared_list_icon_width">14dp</dimen>
-    <dimen name="shared_list_icon_height">14dp</dimen>
-    <dimen name="share_no_users_text_size">14sp</dimen>
     <dimen name="file_details_user_icon_layout_width">32dp</dimen>
     <dimen name="file_details_user_icon_layout_height">32dp</dimen>
     <dimen name="file_details_username_text_size">16sp</dimen>

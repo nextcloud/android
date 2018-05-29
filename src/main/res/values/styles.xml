@@ -39,6 +39,12 @@
 		<item name="colorAccent">#757575</item>
 	</style>
 
+	<style name="FallbackDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorPrimary">#424242</item>
+		<item name="colorPrimaryDark">#212121</item>
+		<item name="colorAccent">#757575</item>
+	</style>
+
 	<!-- seperate action bar style for activities without an action bar -->
 	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
@@ -249,5 +255,10 @@
 		<item name="colorControlActivated">@color/login_text_color</item>
 		<item name="colorControlNormal">@color/login_text_color</item>
 		<item name="android:textColorHint">@color/login_text_color</item>
+	</style>
+
+	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
+		<item name="android:textSize">16sp</item>
+		<item name="textAllCaps">false</item>
 	</style>
 </resources>
