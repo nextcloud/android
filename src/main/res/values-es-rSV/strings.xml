@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Syncronizar</string>
     <string name="filedetails_renamed_in_upload_msg">El archivo se renombró com %1$s durante la carga</string>
@@ -476,17 +475,10 @@
     <string name="share_no_users">Aún no se ha compartido información con los usuarios</string>
     <string name="share_add_user_or_group">Agregar usuario o grupo</string>
     <string name="share_via_link_section_title">Compartir liga</string>
-    <string name="share_via_link_expiration_date_label">Establecer fecha de expiración</string>
-    <string name="share_via_link_password_label">Proteger con contraseña</string>
-    <string name="share_via_link_password_title">Asegurado</string>
-    <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
     <string name="share_with_title">Compartir con...</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
-
-    <string name="share_search">Buscar</string>
-
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
@@ -494,15 +486,8 @@
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
 
     <string name="share_sharee_unavailable">Actualiza la versión del servidor para permitir compartir entre usuarios desde sus clientes.\nPor favor contacta a tu administrador</string>
-    <string name="filedetails_share_link_enable">Compartir por liga habilitado</string>
-    <string name="filedetails_share_link_disable">No compartido por liga</string>
-    <string name="filedetails_share_users_with_access">Usuarios y grupos con accesos</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
-    <string name="share_privilege_can_edit_create">crear</string>
-    <string name="share_privilege_can_edit_change">cambiar</string>
-    <string name="share_privilege_can_edit_delete">borrar</string>
-
     <string name="action_retry_uploads">Reintentar cargas fallidas</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_clear_successful_uploads">Borrar cargas exitosas</string>
@@ -766,4 +751,4 @@
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
     <string name="tags">Etiquetas</string>
-</resources>
+    </resources>

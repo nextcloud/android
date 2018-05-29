@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
-    <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
     <string name="filedetails_download">Преузми</string>
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
@@ -482,17 +481,10 @@
     <string name="share_no_users">Још нема података подељених са корисницима</string>
     <string name="share_add_user_or_group">Додај корисника или групу</string>
     <string name="share_via_link_section_title">Веза дељења</string>
-    <string name="share_via_link_expiration_date_label">Постави датум истека</string>
-    <string name="share_via_link_password_label">Заштити лозинком</string>
-    <string name="share_via_link_password_title">Обезбеђен</string>
-    <string name="share_via_link_edit_permission_label">Дозволи измене</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_with_title">Подели са…</string>
     <string name="share_with_edit_title">Подели са %1$s</string>
-
-    <string name="share_search">Тражи</string>
-
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
@@ -500,15 +492,8 @@
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
 
     <string name="share_sharee_unavailable">Ажурирајте верзију сервера да дозвољава дељење између корисника из њихових клијената.\nКонтактирајте администратора</string>
-    <string name="filedetails_share_link_enable">Дељење преко везе омогућено</string>
-    <string name="filedetails_share_link_disable">Није дељено</string>
-    <string name="filedetails_share_users_with_access">Корисници и групе са приступом</string>
     <string name="share_privilege_can_share">може да дели</string>
     <string name="share_privilege_can_edit">може да мења</string>
-    <string name="share_privilege_can_edit_create">направи</string>
-    <string name="share_privilege_can_edit_change">измени</string>
-    <string name="share_privilege_can_edit_delete">обрише</string>
-
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
     <string name="action_clear_successful_uploads">Очисти успела отпремања</string>
@@ -773,4 +758,4 @@
     <string name="create_new_folder">Направи нову фасциклу</string>
     <string name="uploads_view_upload_status_virus_detected">Вирус примећен. Отпремање не може да се заврши!</string>
     <string name="tags">Ознаке</string>
-</resources>
+    </resources>

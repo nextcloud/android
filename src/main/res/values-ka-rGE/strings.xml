@@ -110,7 +110,6 @@
     <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომი.</string>
     <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="file_list_folder">დირექტორია</string>
-    <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
     <string name="filedetails_download">ჩამოტვირთვა</string>
     <string name="filedetails_sync_file">სინქ</string>
     <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
@@ -448,16 +447,9 @@
     <string name="share_no_users">მომხმარებლებთან მონაცემები ჯერ არ გაზიარებულა</string>
     <string name="share_add_user_or_group">მომხმარებლის ან ჯგუფის დამატება</string>
     <string name="share_via_link_section_title">ბმულის გაზიარება</string>
-    <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
-    <string name="share_via_link_password_label">დაცვა პაროლით</string>
-    <string name="share_via_link_password_title">დაცულია</string>
-    <string name="share_via_link_edit_permission_label">ცვლილების ნების დართვა</string>
     <string name="share_via_link_hide_file_listing_permission_label">ფაილის ჩამონათვლის დამალვა</string>
     <string name="share_get_public_link_button">ბმულის მიღება</string>
     <string name="share_with_edit_title">%1$s-სთან გაზიარება</string>
-
-    <string name="share_search">ძებნა</string>
-
     <string name="search_users_and_groups_hint">მომხმარებლების და ჯგუფების ძიება</string>
     <string name="share_group_clarification">%1$s (ჯგუფი)</string>
     <string name="share_remote_clarification">%1$s (დისტანციური)</string>
@@ -465,15 +457,8 @@
     <string name="share_known_remote_clarification">%1$s ( %2$s-ზე )</string>
 
     <string name="share_sharee_unavailable">მომხმარებლებს შორის, საკუთარი კლიენტების გამოყენებით, გაზიარების დასაშვებად განაახლეთ სერვერის ვერსია.\nგთხოვთ დაუკავშირდეთ თქვენს ადმინისტრატორს</string>
-    <string name="filedetails_share_link_enable">ბმულით გაზიარება ნებადართულია</string>
-    <string name="filedetails_share_link_disable">ბმულით გაზიარებული არაა </string>
-    <string name="filedetails_share_users_with_access">მომხმარებლები და ჯგუფები წვდომის უფლებით</string>
     <string name="share_privilege_can_share">შეუძლიათ გაზიარება</string>
     <string name="share_privilege_can_edit">შეგიძლია შეცვლა</string>
-    <string name="share_privilege_can_edit_create">შექმნა</string>
-    <string name="share_privilege_can_edit_change">შეცვლა</string>
-    <string name="share_privilege_can_edit_delete">წაშლა</string>
-
     <string name="action_retry_uploads">წარუმატებლად დასრულებული ატვირთების ხელახლა გაშვება</string>
     <string name="action_clear_failed_uploads">წარუმატებლად დასრულებული ატვირთების გასუფთავება</string>
     <string name="action_clear_successful_uploads">წარმატებით დასრულებული ატვირთების გასუფთავება</string>

@@ -112,7 +112,6 @@
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些聯絡人或者啟用自動上傳</string>
     <string name="file_list_folder">資料夾</string>
-    <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊</string>
     <string name="filedetails_download">下載</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">檔案%1$s在上傳過程中被重新命名</string>
@@ -422,31 +421,17 @@
     <string name="share_no_users">目前沒有任何您分享的內容</string>
     <string name="share_add_user_or_group">加入使用者或群組</string>
     <string name="share_via_link_section_title">分享連結</string>
-    <string name="share_via_link_expiration_date_label">指定到期日</string>
-    <string name="share_via_link_password_label">使用密碼保護</string>
-    <string name="share_via_link_password_title">安全</string>
-    <string name="share_via_link_edit_permission_label">允許編輯</string>
     <string name="share_via_link_hide_file_listing_permission_label">隱藏檔案列表</string>
     <string name="share_get_public_link_button">取得連結</string>
     <string name="share_with_edit_title">與 %1$s 分享</string>
-
-    <string name="share_search">搜尋</string>
-
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
 
-    <string name="filedetails_share_link_enable">已啟用分享連結</string>
-    <string name="filedetails_share_link_disable">尚未透過連結分享</string>
-    <string name="filedetails_share_users_with_access">使用者與群組存取 </string>
     <string name="share_privilege_can_share">可分享</string>
     <string name="share_privilege_can_edit">可編輯</string>
-    <string name="share_privilege_can_edit_create">建立</string>
-    <string name="share_privilege_can_edit_change">更動</string>
-    <string name="share_privilege_can_edit_delete">刪除</string>
-
     <string name="action_retry_uploads">重試失敗的上傳</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
     <string name="action_clear_successful_uploads">清除成功的上傳</string>

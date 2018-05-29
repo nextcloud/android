@@ -104,7 +104,6 @@
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="file_list_folder">مجلد</string>
-    <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
     <string name="filedetails_download">تحميل</string>
     <string name="filedetails_sync_file">زامن</string>
     <string name="action_send_share">إرسال/مشاركة</string>
@@ -321,27 +320,14 @@
     <string name="share_with_user_section_title">شارك مع مستخدمين أو مجموعات</string>
     <string name="share_add_user_or_group">إضافة مستخدم أو فريق</string>
     <string name="share_via_link_section_title">شارك الرابط</string>
-    <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
-    <string name="share_via_link_password_label">التأمين بكلمة سرية</string>
-    <string name="share_via_link_password_title">مؤَمَّن</string>
-    <string name="share_via_link_edit_permission_label">السماح بإدخال تعديلات</string>
     <string name="share_get_public_link_button">تحصل على رابط</string>
     <string name="share_with_title">شارك مع…</string>
     <string name="share_with_edit_title">شارك مع %1$s</string>
-
-    <string name="share_search">البحث</string>
-
     <string name="search_users_and_groups_hint">إبحث عن مستخدمين أو مجموعات</string>
     <string name="share_group_clarification">%1$s(مجموعة)</string>
     <string name="share_email_clarification">%1$s(بريد)</string>
-    <string name="filedetails_share_link_disable">لم يتم مشاركته بعد بواسطة رابط</string>
-    <string name="filedetails_share_users_with_access">المجموعات و المستخدمون المرخص لهم</string>
     <string name="share_privilege_can_share">يمكن المشاركة</string>
     <string name="share_privilege_can_edit">يمكن التحرير</string>
-    <string name="share_privilege_can_edit_create">إنشاء</string>
-    <string name="share_privilege_can_edit_change">تغيير</string>
-    <string name="share_privilege_can_edit_delete">حذف</string>
-
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
 

@@ -110,7 +110,6 @@
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="upload_list_empty_text_auto_upload">Lähetä sisältöä tai aktivoi automaattinen lähetys.</string>
     <string name="file_list_folder">kansio</string>
-    <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
     <string name="filedetails_download">Lataa</string>
     <string name="filedetails_sync_file">Synkronoi</string>
     <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s lähetyksen aikana</string>
@@ -435,30 +434,16 @@
     <string name="share_no_users">Dataa ei ole jaettu vielä käyttäjien kesken</string>
     <string name="share_add_user_or_group">Lisää käyttäjä tai ryhmä</string>
     <string name="share_via_link_section_title">Jaa linkki</string>
-    <string name="share_via_link_expiration_date_label">Aseta vanhenemispäivä</string>
-    <string name="share_via_link_password_label">Suojaa salasanalla</string>
-    <string name="share_via_link_password_title">Turvattu</string>
-    <string name="share_via_link_edit_permission_label">Salli muokkaukset</string>
     <string name="share_via_link_hide_file_listing_permission_label">Piilota tiedostolistaus</string>
     <string name="share_get_public_link_button">Hanki linkki</string>
     <string name="share_with_edit_title">Jaa käyttäjän %1$s kanssa</string>
-
-    <string name="share_search">Etsi</string>
-
     <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
     <string name="share_sharee_unavailable">Päivitä uudempaan versioon salliaksesi jakamisen käyttäjien välillä suoraan työpöydältä tai kännykästä.\nOta yhteyttä ylläpitoon</string>
-    <string name="filedetails_share_link_enable">Jaa linkillä -käytössä</string>
-    <string name="filedetails_share_link_disable">Ei jaettu linkillä</string>
-    <string name="filedetails_share_users_with_access">Käyttäjät ja ryhmät, joilla on pääsy</string>
     <string name="share_privilege_can_share">voi jakaa</string>
     <string name="share_privilege_can_edit">voi muokata</string>
-    <string name="share_privilege_can_edit_create">luo</string>
-    <string name="share_privilege_can_edit_change">muuta</string>
-    <string name="share_privilege_can_edit_delete">poista</string>
-
     <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>

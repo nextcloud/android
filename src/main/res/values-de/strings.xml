@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload!</string>
     <string name="file_list_folder">Ordner</string>
-    <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
@@ -478,17 +477,10 @@
     <string name="share_no_users">Es wurden noch keine Dateien mit Benutzern geteilt</string>
     <string name="share_add_user_or_group">Füge Benutzer oder Gruppe hinzu</string>
     <string name="share_via_link_section_title">Link teilen</string>
-    <string name="share_via_link_expiration_date_label">Setze ein Ablaufdatum</string>
-    <string name="share_via_link_password_label">Passwortschutz</string>
-    <string name="share_via_link_password_title">Gesichert</string>
-    <string name="share_via_link_edit_permission_label"> Bearbeitung erlauben </string>
     <string name="share_via_link_hide_file_listing_permission_label">Dateiliste verbergen</string>
     <string name="share_get_public_link_button">Link erhalten</string>
     <string name="share_with_title">Teilen mit…</string>
     <string name="share_with_edit_title">Teile mit %1$s</string>
-
-    <string name="share_search">Suche</string>
-
     <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
@@ -496,15 +488,8 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktieren Sie Ihren Administrator</string>
-    <string name="filedetails_share_link_enable">Über einen Link geteilt aktiviert</string>
-    <string name="filedetails_share_link_disable">Nicht über einen Link geteilt</string>
-    <string name="filedetails_share_users_with_access">Nutzer und Gruppen mit Zugriff</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
-    <string name="share_privilege_can_edit_create">erstellen</string>
-    <string name="share_privilege_can_edit_change">Ändern</string>
-    <string name="share_privilege_can_edit_delete">löschen</string>
-
     <string name="action_retry_uploads">Gescheiterte Uploads neu starten</string>
     <string name="action_clear_failed_uploads">Gescheiterte Uploads entfernen</string>
     <string name="action_clear_successful_uploads">Lösche erfolgreich hochgeladene Dateien</string>
@@ -768,4 +753,4 @@
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
     <string name="tags">Schlagworte</string>
-</resources>
+    </resources>

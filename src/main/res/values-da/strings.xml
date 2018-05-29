@@ -90,7 +90,6 @@
     <string name="file_list_empty_recently_added">Fandt ikke nogen nylig tilføjet filer</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="file_list_folder">mappe</string>
-    <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
     <string name="filedetails_download">Hent</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
@@ -319,24 +318,14 @@
     <string name="share_file">Del %1$s</string>
     <string name="share_with_user_section_title">Del med brugere eller grupper</string>
     <string name="share_via_link_section_title">Del link</string>
-    <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
-    <string name="share_via_link_password_label">Beskyt med password</string>
-    <string name="share_via_link_password_title">Sikret</string>
     <string name="share_get_public_link_button">Få link</string>
     <string name="share_with_edit_title">Del med %1$s</string>
-
-    <string name="share_search">Søg</string>
-
     <string name="search_users_and_groups_hint">Søg brugere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
-    <string name="share_privilege_can_edit_create">opret</string>
-    <string name="share_privilege_can_edit_change">tilpas</string>
-    <string name="share_privilege_can_edit_delete">slet</string>
-
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
 

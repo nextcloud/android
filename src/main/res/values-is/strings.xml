@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
     <string name="filedetails_download">Niðurhal</string>
     <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
@@ -476,17 +475,10 @@
     <string name="share_no_users">Engum gögnum ennþá deilt með notendum</string>
     <string name="share_add_user_or_group">Bæta við notanda eða hóp</string>
     <string name="share_via_link_section_title">Deilitengill</string>
-    <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
-    <string name="share_via_link_password_label">Verja með lykilorði</string>
-    <string name="share_via_link_password_title">Öruggt</string>
-    <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með…</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
-
-    <string name="share_search">Leita</string>
-
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
     <string name="share_group_clarification">%1$s (hópur)</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
@@ -494,15 +486,8 @@
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
     <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
-    <string name="filedetails_share_link_enable">Deiling með tengli er virk</string>
-    <string name="filedetails_share_link_disable">Ekki deilt með tengli</string>
-    <string name="filedetails_share_users_with_access">Notendur og hópar með aðgang</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
-    <string name="share_privilege_can_edit_create">búið til</string>
-    <string name="share_privilege_can_edit_change">breytt</string>
-    <string name="share_privilege_can_edit_delete">eytt</string>
-
     <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
@@ -766,4 +751,4 @@
     <string name="create_new_folder">Búa til nýja möppu</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
     <string name="tags">Merki</string>
-</resources>
+    </resources>
