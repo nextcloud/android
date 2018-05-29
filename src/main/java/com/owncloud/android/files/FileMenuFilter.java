@@ -181,18 +181,8 @@ public class FileMenuFilter {
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
-        boolean shareViaLinkAllowed = (mContext != null &&
-                mContext.getResources().getBoolean(R.bool.share_via_link_feature));
-        boolean shareWithUsersAllowed = (mContext != null &&
-                mContext.getResources().getBoolean(R.bool.share_with_users_feature));
-
-        boolean shareApiEnabled = capability != null &&
-                (capability.getFilesSharingApiEnabled().isTrue() ||
-                        capability.getFilesSharingApiEnabled().isUnknown()
-                );
-        if (containsEncryptedFile() || (!shareViaLinkAllowed && !shareWithUsersAllowed) ||
-                !isSingleSelection() ||
-                !shareApiEnabled || mOverflowMenu) {
+        if (containsEncryptedFile() || (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
+                !isSingleSelection() || !isShareApiEnabled(capability) || mOverflowMenu) {
             toHide.add(R.id.action_send_share_file);
         } else {
             toShow.add(R.id.action_send_share_file);
@@ -200,10 +190,10 @@ public class FileMenuFilter {
     }
 
     private void filterDetails(List<Integer> toShow, List<Integer> toHide) {
-        if (!isSingleSelection()) {
-            toHide.add(R.id.action_see_details);
-        } else {
+        if (isSingleSelection()) {
             toShow.add(R.id.action_see_details);
+        } else {
+            toHide.add(R.id.action_see_details);
         }
     }
 
@@ -290,16 +280,16 @@ public class FileMenuFilter {
     }
 
     private void filterDeselectAll(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
-        if (!inSingleFileFragment) {
+        if (inSingleFileFragment) {
+            // Always hide in single file fragments
+            toHide.add(R.id.action_deselect_all_action_menu);
+        } else {
             // Show only if at least one item is selected.
             if (mFiles.isEmpty() || mOverflowMenu) {
                 toHide.add(R.id.action_deselect_all_action_menu);
             } else {
                 toShow.add(R.id.action_deselect_all_action_menu);
             }
-        } else {
-            // Always hide in single file fragments
-            toHide.add(R.id.action_deselect_all_action_menu);
         }
     }
 
@@ -394,6 +384,23 @@ public class FileMenuFilter {
             }
         }
         return uploading;
+    }
+
+    private boolean isShareApiEnabled(OCCapability capability) {
+        return capability != null &&
+                (capability.getFilesSharingApiEnabled().isTrue() ||
+                        capability.getFilesSharingApiEnabled().isUnknown()
+                );
+    }
+
+    private boolean isShareWithUsersAllowed() {
+        return mContext != null &&
+                mContext.getResources().getBoolean(R.bool.share_with_users_feature);
+    }
+
+    private boolean isShareViaLinkAllowed() {
+        return mContext != null &&
+                mContext.getResources().getBoolean(R.bool.share_via_link_feature);
     }
 
     private boolean isSingleSelection() {
