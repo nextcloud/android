@@ -477,6 +477,10 @@
     <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
     <string name="share_no_users">Es wurden noch keine Dateien mit Benutzern geteilt</string>
     <string name="share_add_user_or_group">Füge Benutzer oder Gruppe hinzu</string>
+    <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
+    <string name="share_via_link_password_label">Mit Passwort schützen</string>
+    <string name="share_via_link_password_title">Gesichert</string>
+    <string name="share_via_link_expiration_date_label">Ein Ablaufdatum setzen</string>
     <string name="share_via_link_menu_password_label">Passwortschutz (%1$s)</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
