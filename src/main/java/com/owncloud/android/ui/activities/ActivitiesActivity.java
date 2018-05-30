@@ -318,4 +318,11 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         swipeListRefreshLayout.post(() -> swipeListRefreshLayout.setRefreshing(isActive));
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mActionListener.stopLoadingActivity();
+    }
 }
