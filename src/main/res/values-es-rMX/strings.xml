@@ -480,16 +480,20 @@
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_password_label">Proteger con contraseña</string>
     <string name="share_via_link_password_title">Asegurado</string>
-    <string name="share_via_link_expiration_date_label">Selecciona la vigencia de tu archivo</string>
+    <string name="share_via_link_expiration_date_label">Establece la fecha de expiración</string>
     <string name="share_via_link_menu_password_label">Proteger con contraseña (%1$s)</string>
     <string name="share_expiration_date_label">Expira el %1$s</string>
-    <string name="share_no_expiration_date_label">Selecciona la vigencia de tu archivo</string>
+    <string name="share_no_expiration_date_label">Establece la fecha de expiración</string>
     <string name="share_via_link_section_title">Compartir liga</string>
+    <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_no_password_title">Establecer contraseña</string>
+    <string name="edit_permission_label">editar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
     <string name="share_with_title">Compartir con...</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
+    <string name="share_via_link_unset_password">Desestablecer</string>
+
     <string name="share_search">Nombre o dirección de correo electrónico…</string>
 
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
@@ -502,6 +506,10 @@
     <string name="share_privilege_unshare">Dejar de compartir</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
+    <string name="share_privilege_can_edit_create">puede crear</string>
+    <string name="share_privilege_can_edit_change">puede cambiar</string>
+    <string name="share_privilege_can_edit_delete">pude borrar</string>
+
     <string name="action_retry_uploads">Reintentar cargas fallidas</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_clear_successful_uploads">Borrar cargas exitosas</string>
@@ -765,4 +773,7 @@
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
     <string name="tags">Etiquetas</string>
-    </resources>
+    <string name="sharee_add_failed">Se presentó una falla al agregar una persona para compartir</string>
+    <string name="unsharing_failed">Se presentó una falla al dejar de compartir</string>
+    <string name="updating_share_failed">Se presentó una falla al actualizar el elemento compartido</string>
+</resources>
