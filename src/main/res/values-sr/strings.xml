@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Непозната грешка</string>
     <string name="common_pending">На чекању</string>
     <string name="common_delete">Обриши</string>
+    <string name="common_send">Пошаљи</string>
     <string name="about_title">О програму</string>
     <string name="delete_account">Уклони налог</string>
     <string name="delete_account_warning">Уклоните налог %s и избришите све локалне фајлове?\n\nБрисање не може да се поврати.</string>
@@ -480,11 +481,22 @@
     <string name="share_with_user_section_title">Дељење са корисницима и групама</string>
     <string name="share_no_users">Још нема података подељених са корисницима</string>
     <string name="share_add_user_or_group">Додај корисника или групу</string>
+    <string name="share_via_link_edit_permission_label">Дозволи уређивање</string>
+    <string name="share_via_link_password_label">Заштити лозинком</string>
+    <string name="share_via_link_password_title">Обезбеђен</string>
+    <string name="share_via_link_expiration_date_label">Постави датум истека</string>
+    <string name="share_via_link_menu_password_label">Заштићено лозинком (%1$s)</string>
+    <string name="share_expiration_date_label">Истиче на %1$s</string>
+    <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_via_link_section_title">Веза дељења</string>
+    <string name="share_password_title">Заштићено лозинком</string>
+    <string name="share_no_password_title">Постави лозинку</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_with_title">Подели са…</string>
     <string name="share_with_edit_title">Подели са %1$s</string>
+    <string name="share_search">Име, ID здруженог облака или адреса е-поште…</string>
+
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
@@ -492,8 +504,13 @@
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
 
     <string name="share_sharee_unavailable">Ажурирајте верзију сервера да дозвољава дељење између корисника из њихових клијената.\nКонтактирајте администратора</string>
+    <string name="share_privilege_unshare">Укини дељење</string>
     <string name="share_privilege_can_share">може да дели</string>
     <string name="share_privilege_can_edit">може да мења</string>
+    <string name="share_privilege_can_edit_create">може да направи</string>
+    <string name="share_privilege_can_edit_change">може да мења</string>
+    <string name="share_privilege_can_edit_delete">може да брише</string>
+
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
     <string name="action_clear_successful_uploads">Очисти успела отпремања</string>
