@@ -81,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Fil valgt for opplasting ble ikke funnet. Sjekk hvorvidt filen eksisterer.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunne ikke kopiere fil til midlertidig mappe. Prøv å sende igjen.</string>
     <string name="uploader_upload_files_behaviour">Alternativer for opplasting:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytt filen til %1$s mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
@@ -130,6 +131,7 @@
     <string name="common_error_unknown">Ukjent feil</string>
     <string name="common_pending">Venter</string>
     <string name="common_delete">Slett</string>
+    <string name="common_send">Send</string>
     <string name="about_title">Om</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
@@ -237,6 +239,7 @@
 	<string name="auth_account_not_new">En konto for samme bruker og tjener finnes allerede på enheten</string>
 	<string name="auth_account_not_the_same">Den innskrevne brukeren samsvarer ikke med brukeren av denne kontoen</string>
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
+	<string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
 	<string name="auth_unknown_host_title">Fant ikke vert</string>
 	<string name="auth_incorrect_path_title">Finner ikke tjenerinstans</string>
 	<string name="auth_timeout_title">Tjeneren brukte for lang tid på å svare</string>
@@ -262,6 +265,8 @@
 
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
+    <string name="favorite_real">Legg til i favoritter</string>
+    <string name="unset_favorite_real">Fjern fra favoritter</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="common_rename">Gi nytt navn</string>
@@ -471,11 +476,22 @@
     <string name="share_with_user_section_title">Del med brukere og grupper</string>
     <string name="share_no_users">Ingen data delt med brukere ennå</string>
     <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
+    <string name="share_via_link_edit_permission_label">Tillat redigering</string>
+    <string name="share_via_link_password_label">Beskytt med passord</string>
+    <string name="share_via_link_password_title">Sikret</string>
+    <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
+    <string name="share_via_link_menu_password_label">Passordbeskyttet (%1$s)</string>
+    <string name="share_expiration_date_label">Utløper den %1$s</string>
+    <string name="share_no_expiration_date_label">Sett utløpsdato</string>
     <string name="share_via_link_section_title">Del lenke</string>
+    <string name="share_password_title">Passordbeskyttet</string>
+    <string name="share_no_password_title">Velg passord</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med…</string>
     <string name="share_with_edit_title">Del med %1$s</string>
+    <string name="share_search">Navn, sammenknyttet sky-ID eller e-postadresse…</string>
+
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
@@ -483,8 +499,13 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Oppgrader tjenerversjonen for å tillatte deling mellom brukere ifra klientene.\nVennligst kontakt din administrator</string>
+    <string name="share_privilege_unshare">Avslutt deling</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
+    <string name="share_privilege_can_edit_create">kan opprette</string>
+    <string name="share_privilege_can_edit_change">kan endre</string>
+    <string name="share_privilege_can_edit_delete">kan slette</string>
+
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
     <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
@@ -751,4 +772,9 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="hint_name">Navn</string>
     <string name="hint_password">Passord</string>
+    <string name="add_to_cloud">Legg til %1$s</string>
+    <string name="upload_files">Last opp filer</string>
+    <string name="create_new_folder">Opprett ny mappe</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
+    <string name="tags">Knagger</string>
     </resources>

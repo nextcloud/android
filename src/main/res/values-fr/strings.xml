@@ -487,10 +487,13 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
+    <string name="edit_permission_label">modifier</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec…</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
+    <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
+
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
@@ -499,8 +502,13 @@ Attention la suppression est irréversible.</string>
 
     <string name="share_sharee_unavailable">Désolé, la version du serveur n\'autorise pas le partage entre utilisateurs depuis leur client.
 Veuillez contacter votre administrateur</string>
+    <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_can_edit">peut modifier</string>
+    <string name="share_privilege_can_edit_create">Peut créer</string>
+    <string name="share_privilege_can_edit_change">Peut modifier</string>
+    <string name="share_privilege_can_edit_delete">Peut supprimer</string>
+
     <string name="action_retry_uploads">Relancer les envois échoués</string>
     <string name="action_clear_failed_uploads">Effacer les envois échoués</string>
     <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
@@ -764,4 +772,7 @@ Veuillez contacter votre administrateur</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
     <string name="tags">Étiquettes</string>
-    </resources>
+    <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
+    <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
+    <string name="updating_share_failed">La mise à jour du partage a échoué</string>
+</resources>

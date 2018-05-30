@@ -131,6 +131,7 @@
     <string name="common_error_unknown">Неизвестная ошибка</string>
     <string name="common_pending">В очереди</string>
     <string name="common_delete">Удалить</string>
+    <string name="common_send">Отправить</string>
     <string name="about_title">О программе</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
@@ -269,6 +270,8 @@
 
     <string name="favorite">Сделать доступным автономно</string>
     <string name="unfavorite">Убрать автономную доступность</string>
+    <string name="favorite_real">Добавить в избранное</string>
+    <string name="unset_favorite_real">Удалить из избранного</string>
     <string name="encrypted">Зашифровать</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="common_rename">Переименовать</string>
@@ -482,11 +485,23 @@
     <string name="share_with_user_section_title">Общий доступ пользователям и группам</string>
     <string name="share_no_users">Общий доступ не открыт</string>
     <string name="share_add_user_or_group">Добавить пользователя или группу</string>
+    <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
+    <string name="share_via_link_password_label">Защитить паролем</string>
+    <string name="share_via_link_password_title">Безопасный</string>
+    <string name="share_via_link_expiration_date_label">Установить срок действия</string>
+    <string name="share_via_link_menu_password_label">Защитить паролем (%1$s)</string>
+    <string name="share_expiration_date_label">Истекает %1$s</string>
+    <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_via_link_section_title">Общий доступ по ссылке</string>
+    <string name="share_password_title">Защищено паролем</string>
+    <string name="share_no_password_title">Задать пароль</string>
+    <string name="edit_permission_label">редактировать</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_with_title">Поделиться…</string>
     <string name="share_with_edit_title">Настройки доступа для %1$s</string>
+    <string name="share_search">Имя, ID облачного хранилища или адрес email…</string>
+
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="share_group_clarification">%1$s (группа)</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
@@ -494,8 +509,13 @@
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Установленная на сервере устаревшая версия Nextcloud не позволяет предоставлять общий доступ используя приложения-клиенты. Обратитесь к своему администратору</string>
+    <string name="share_privilege_unshare">Закрыть доступ</string>
     <string name="share_privilege_can_share">разрешить делиться с другими</string>
     <string name="share_privilege_can_edit">разрешить редактировать</string>
+    <string name="share_privilege_can_edit_create">можно создавать</string>
+    <string name="share_privilege_can_edit_change">можно изменять</string>
+    <string name="share_privilege_can_edit_delete">можно удалять</string>
+
     <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
     <string name="action_clear_successful_uploads">Убрать успешные</string>
