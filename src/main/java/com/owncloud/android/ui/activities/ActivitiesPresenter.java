@@ -35,6 +35,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     private final ActivitiesContract.View activitiesView;
     private final ActivitiesRepository activitiesRepository;
     private final FilesRepository filesRepository;
+    private boolean activityStopped = false;
 
 
     ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
@@ -52,14 +53,19 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
             @Override
             public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
                                            String nextPageUrl) {
-                activitiesView.setProgressIndicatorState(false);
-                activitiesView.showActivities(activities, client, nextPageUrl);
+
+                if (!activityStopped) {
+                    activitiesView.setProgressIndicatorState(false);
+                    activitiesView.showActivities(activities, client, nextPageUrl);
+                }
             }
 
             @Override
             public void onActivitiesLoadedError(String error) {
-                activitiesView.setProgressIndicatorState(false);
-                activitiesView.showActivitiesLoadError(error);
+                if (!activityStopped) {
+                    activitiesView.setProgressIndicatorState(false);
+                    activitiesView.showActivitiesLoadError(error);
+                }
             }
         });
     }
@@ -85,5 +91,10 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
                         activitiesView.showActivityDetailError(error);
                     }
                 });
+    }
+
+    @Override
+    public void stopLoadingActivity() {
+        activityStopped = true;
     }
 }
