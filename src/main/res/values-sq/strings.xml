@@ -238,7 +238,9 @@
 	<string name="auth_not_configured_title">Formësim i keqformuar serveri</string>
 	<string name="auth_account_not_new">Në pajisje ka tashmë një llogari për të njëjtin përdorues dhe server</string>
 	<string name="auth_account_not_the_same">Përdoruesi i dhënë s\’përputhet me përdoruesin e kësaj llogarie</string>
+	<string name="auth_unknown_error_http_title">Një gabim i panjohur HTTP ka ndodhur!</string>
 	<string name="auth_unknown_error_title">Ndodhi një gabim i panjohur!</string>
+	<string name="auth_unknown_error_exception_title">Gabim i panjohur:%1$s</string>
 	<string name="auth_unknown_host_title">S’u gjet dot hosti</string>
 	<string name="auth_incorrect_path_title">S’u gjet dot instancë serveri</string>
 	<string name="auth_timeout_title">Serverit iu desh shumë kohë për përgjigje</string>
@@ -326,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
@@ -479,14 +482,18 @@
     <string name="share_via_link_password_title">E siguruar</string>
     <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_via_link_menu_password_label">Mbroje me fjalëkalim (%1$s)</string>
+    <string name="share_expiration_date_label">Skadon%1$s</string>
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_via_link_section_title">Lidhje ndarjeje</string>
     <string name="share_password_title">Mbrojtur me fjalëkalim</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
+    <string name="edit_permission_label">redakto</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_with_title">Ndajeni me…</string>
     <string name="share_with_edit_title">Ndajeni me %1$s</string>
+    <string name="share_via_link_unset_password">E pavendosur</string>
+
     <string name="share_search">Emri, ID e resë të federuar ose adresën e email-it…</string>
 
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
@@ -745,6 +752,7 @@
     <string name="end_to_end_encryption_title">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_passphrase_title">Mbaj shënim për fjalëkalimin tuaj të enkriptimit me 12 fjalë</string>
     <string name="end_to_end_encryption_not_supported">Enkriptimi funksionon vetëm në KitKat(4.4) dhe më pas.</string>
+    <string name="end_to_end_encryption_not_enabled">Enkriptimi end-to-end është i pavendosur në server.</string>
     <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_password">Fjalëkalimi…</string>
     <string name="end_to_end_encryption_unsuccessful">Nuk mund të ruheshin celësat, ju lutem provojeni përsëri.</string>
@@ -752,9 +760,20 @@
     <string name="end_to_end_encryption_storing_keys">Ruaj çelësat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
+    <string name="notification_channel_push_name">Shty njoftimet</string>
+    <string name="notification_channel_push_description">Trego njoftimet e shtyra të dërguara nga serveri: Përmendjet në komentet, marrja e aksioneve të reja të largëta, shpalljet e postuara nga një administrator etj.</string>
+    <string name="sendbutton_description">Ikona e butonit dërgo</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresa e autentifikimit të pikës fundore</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresa e qasjes së pikës fundore</string>
     <string name="hint_name">Emër</string>
     <string name="hint_password">Fjalëkalimi</string>
+    <string name="add_to_cloud">Shtojeni tek %1$s</string>
     <string name="upload_files">Ngarko skedarët</string>
+    <string name="upload_content_from_other_apps">Ngarkoni përmbatje nga aplikacionet e tjera</string>
     <string name="create_new_folder">Krijo një dosje të re</string>
+    <string name="uploads_view_upload_status_virus_detected">U gjet virus. Ngarkimi nuk mund të përfundojë!</string>
     <string name="tags">Etiketë</string>
-    </resources>
+    <string name="sharee_add_failed">Duke shtuar përdëruesit e dështuar</string>
+    <string name="unsharing_failed">Mos ndarja dështoi</string>
+    <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
+</resources>
