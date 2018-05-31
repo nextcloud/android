@@ -487,10 +487,13 @@
     <string name="share_via_link_section_title">Deilitengill</string>
     <string name="share_password_title">Verja með lykilorði</string>
     <string name="share_no_password_title">Stilltu lykilorð</string>
+    <string name="edit_permission_label">breyta</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með…</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
+    <string name="share_via_link_unset_password">Afstilla</string>
+
     <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang…</string>
 
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
@@ -770,4 +773,7 @@
     <string name="create_new_folder">Búa til nýja möppu</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
     <string name="tags">Merki</string>
-    </resources>
+    <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
+    <string name="unsharing_failed">Mistókst að hætta deilingu</string>
+    <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
+</resources>
