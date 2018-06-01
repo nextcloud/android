@@ -35,7 +35,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 /**
  * Updates an existing public share for a given file
  */
-
 public class UpdateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
