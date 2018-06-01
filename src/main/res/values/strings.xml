@@ -797,4 +797,7 @@
     <string name="updating_share_failed">Updating share failed</string>
     <string name="whats_new_device_credentials_title">Use Android device protection</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
+    <string name="restore">Restore file</string>
+    <string name="new_version_was_created">New version was created</string>
+    <string name="file_version_restored_successfully">Successfully restored file version.</string>
 </resources>

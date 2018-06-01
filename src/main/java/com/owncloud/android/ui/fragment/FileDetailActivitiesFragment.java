@@ -21,12 +21,15 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -52,27 +55,32 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileVersion;
+import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.adapter.ActivityListAdapter;
+import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
+import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface {
+public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface, VersionListInterface.View {
     private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
-    private ActivityListAdapter adapter;
+    private ActivityAndVersionListAdapter adapter;
     private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
 
@@ -111,6 +119,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @BindString(R.string.activities_no_results_message)
     public String noResultsMessage;
+    private boolean restoreFileVersionSupported;
+    private String userId;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -149,6 +159,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         swipeEmptyListRefreshLayout.setOnRefreshListener(
                 () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
+        AccountManager accountManager = AccountManager.get(getContext());
+        userId = accountManager.getUserData(account,
+                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+
         return view;
     }
 
@@ -175,11 +190,17 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     private void setupView() {
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+
+        OCCapability capability = storageManager.getCapability(account.name);
+        OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
+        restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
+                serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
+
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityListAdapter(getContext(), this, storageManager);
+        adapter = new ActivityAndVersionListAdapter(getContext(), this, this, storageManager);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -228,7 +249,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation(
                         file.getLocalId());
-                
+
                 if (pageUrl != null) {
                     getRemoteNotificationOperation.setNextUrl(pageUrl);
                 }
@@ -236,14 +257,28 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
 
+                ArrayList<Object> versions = null;
+                if (restoreFileVersionSupported) {
+                    ReadFileVersionsOperation readFileVersionsOperation = new ReadFileVersionsOperation(file.getLocalId(),
+                            userId);
+
+                    RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
+
+                    versions = result1.getData();
+                }
+
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
-                    final ArrayList<Object> activities = (ArrayList) data.get(0);
+                    final ArrayList<Object> activitiesAndVersions = (ArrayList) data.get(0);
+
+                    if (restoreFileVersionSupported && versions != null) {
+                        activitiesAndVersions.addAll(versions);
+                    }
                     nextPageUrl = (String) data.get(1);
 
                     activity.runOnUiThread(() -> {
-                        populateList(activities, ownCloudClient, pageUrl == null);
-                        if (activities.isEmpty()) {
+                        populateList(activitiesAndVersions, pageUrl == null);
+                        if (activitiesAndVersions.isEmpty()) {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
                             list.setVisibility(View.GONE);
                             empty.setVisibility(View.VISIBLE);
@@ -283,8 +318,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         t.start();
     }
 
-    private void populateList(List<Object> activities, OwnCloudClient mClient, boolean clear) {
-        adapter.setActivityItems(activities, mClient, clear);
+    private void populateList(ArrayList<Object> activities, boolean clear) {
+        adapter.setActivityAndVersionItems(activities, clear);
     }
 
     private void setEmptyContent(String headline, String message) {
@@ -343,5 +378,61 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         outState.putParcelable(FileActivity.EXTRA_FILE, file);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+    }
+
+    @Override
+    public void onSuccess(String message) {
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+        fetchAndSetData(null);
+    }
+
+    @Override
+    public void onRestoreClicked(FileVersion fileVersion, VersionListInterface.Callback callback) {
+        new RestoreFileVersionTask(fileVersion, userId, ownCloudClient, callback).execute();
+    }
+
+    // TODO extract according to MVP, will be in following PR
+    private static class RestoreFileVersionTask extends AsyncTask<Void, Void, Boolean> {
+
+        private FileVersion file;
+        private String userId;
+        private OwnCloudClient client;
+        private VersionListInterface.Callback callback;
+
+        private RestoreFileVersionTask(FileVersion file, String userId, OwnCloudClient client,
+                                       VersionListInterface.Callback callback) {
+            this.file = file;
+            this.userId = userId;
+            this.client = client;
+            this.callback = callback;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            RestoreFileVersionOperation restoreFileVersionOperation = new RestoreFileVersionOperation(
+                    file.getRemoteId(), file.getFileName(), userId);
+
+            RemoteOperationResult result = restoreFileVersionOperation.execute(client);
+
+            return result.isSuccess();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+
+            if (success) {
+                callback.onSuccess(file);
+            } else {
+                callback.onError("error");
+
+            }
+
+            // TODO refactor to MVP
+            // if true, delete old local copy && update file list
+
+            // callback.onResult(success);
+        }
     }
 }

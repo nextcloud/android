@@ -24,6 +24,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -77,16 +78,16 @@ import java.util.List;
 
 public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int HEADER_TYPE = 100;
-    private static final int ACTIVITY_TYPE = 101;
-    private final ActivityListInterface activityListInterface;
+    protected static final int HEADER_TYPE = 100;
+    protected static final int ACTIVITY_TYPE = 101;
+    protected final ActivityListInterface activityListInterface;
     private final int px;
     private static final String TAG = ActivityListAdapter.class.getSimpleName();
     private OwnCloudClient mClient;
 
-    private Context context;
+    protected Context context;
     private FileDataStorageManager storageManager;
-    private List<Object> mValues;
+    protected List<Object> mValues;
 
     public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,
                                FileDataStorageManager storageManager) {
@@ -127,8 +128,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == ACTIVITY_TYPE) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
             return new ActivityViewHolder(v);
@@ -136,12 +138,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item_header, parent, false);
             return new ActivityViewHeaderHolder(v);
         }
-
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ActivityViewHolder) {
             final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
             Activity activity = (Activity) mValues.get(position);
@@ -354,7 +354,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return d.intValue();
     }
 
-    private CharSequence getHeaderDateString(Context context, long modificationTimestamp) {
+    protected CharSequence getHeaderDateString(Context context, long modificationTimestamp) {
         if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
             return DisplayUtils.getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS, 0);
@@ -363,7 +363,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private class ActivityViewHolder extends RecyclerView.ViewHolder {
+    protected class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView activityIcon;
         private final TextView subject;
@@ -371,7 +371,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView dateTime;
         private final GridLayout list;
 
-        private ActivityViewHolder(View itemView) {
+        protected ActivityViewHolder(View itemView) {
             super(itemView);
             activityIcon = itemView.findViewById(R.id.activity_icon);
             subject = itemView.findViewById(R.id.activity_subject);
@@ -381,11 +381,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+    protected class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
 
-        private ActivityViewHeaderHolder(View itemView) {
+        protected ActivityViewHeaderHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title_header);
 
