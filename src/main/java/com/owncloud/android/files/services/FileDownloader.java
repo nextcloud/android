@@ -614,7 +614,7 @@ public class FileDownloader extends Service
                     .setProgress(0, 0, false);
 
             if (needsToUpdateCredentials) {
-                configureUpdateCredentialsNotification(download);
+                configureUpdateCredentialsNotification(download.getAccount());
 
             } else {
                 // TODO put something smart in showDetailsIntent
@@ -639,11 +639,10 @@ public class FileDownloader extends Service
         }
     }
 
-    private void configureUpdateCredentialsNotification(DownloadFileOperation download) {
+    private void configureUpdateCredentialsNotification(Account account) {
         // let the user update credentials with one click
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT,
-                download.getAccount());
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
         updateAccountCredentials.putExtra(
                 AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
