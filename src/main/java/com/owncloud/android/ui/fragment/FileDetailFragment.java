@@ -38,7 +38,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -67,10 +66,6 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Optional;
 import butterknife.Unbinder;
 
 /**
@@ -127,60 +122,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public ProgressListener progressListener;
     private ToolbarActivity activity;
     private int activeTab;
-
-    @Nullable @BindView(R.id.fdProgressBlock)
-    View downloadProgressContainer;
-
-    @Nullable @BindView(R.id.fdCancelBtn)
-    ImageButton cancelButton;
-
-    @Nullable @BindView(R.id.fdProgressBar)
-    ProgressBar progressBar;
-
-    @Nullable @BindView(R.id.fdProgressText)
-    TextView progressText;
-
-    @Nullable @BindView(R.id.fdFilename)
-    TextView fileName;
-
-    @Nullable @BindView(R.id.fdSize)
-    TextView fileSize;
-
-    @Nullable @BindView(R.id.fdModified)
-    TextView fileModifiedTimestamp;
-
-    @Nullable @BindView(R.id.fdFavorite)
-    ImageView favoriteIcon;
-
-    @Nullable @BindView(R.id.overflow_menu)
-    ImageView overflowMenu;
-
-    @Nullable @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-
-    @Nullable @BindView(R.id.pager)
-    ViewPager viewPager;
-
-    @Nullable @BindView(R.id.empty_list_view_text)
-    protected TextView emptyContentMessage;
-
-    @Nullable @BindView(R.id.empty_list_view_headline)
-    protected TextView emptyContentHeadline;
-
-    @Nullable @BindView(R.id.empty_list_icon)
-    protected ImageView emptyContentIcon;
-
-    @Nullable @BindView(R.id.empty_list_progress)
-    protected ProgressBar emptyProgressBar;
-
-    private int layout;
-    private View view;
-    private boolean previewLoaded;
-    private Account account;
-    private Unbinder unbinder;
-
-    public ProgressListener progressListener;
-    private ToolbarActivity activity;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
