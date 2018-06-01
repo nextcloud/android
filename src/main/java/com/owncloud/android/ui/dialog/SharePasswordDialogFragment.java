@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -49,10 +50,12 @@ import com.owncloud.android.utils.ThemeUtils;
 public class SharePasswordDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_FILE = "FILE";
+    private static final String ARG_SHARE = "SHARE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     private OCFile file;
+    private OCShare share;
     private boolean createShare;
 
     @Override
@@ -84,6 +87,20 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         return frag;
     }
 
+    /**
+     * Public factory method to create new SharePasswordDialogFragment instances.
+     *
+     * @param share        OCFile bound to the public share that which password will be set or updated
+     * @return Dialog ready to show.
+     */
+    public static SharePasswordDialogFragment newInstance(OCShare share) {
+        SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_SHARE, share);
+        frag.setArguments(args);
+        return frag;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,6 +111,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         file = getArguments().getParcelable(ARG_FILE);
+        share = getArguments().getParcelable(ARG_SHARE);
         createShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
 
         // Inflate the layout for the dialog
@@ -136,9 +154,17 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
                 return;
             }
 
-            setPassword(createShare, file, password);
+            if (share == null) {
+                setPassword(createShare, file, password);
+            } else {
+                setPassword(share, password);
+            }
         } else if (which == AlertDialog.BUTTON_NEUTRAL) {
-            setPassword(createShare, file, null);
+            if (share == null) {
+                setPassword(createShare, file, null);
+            } else {
+                setPassword(share, null);
+            }
         }
     }
 
@@ -148,5 +174,9 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         } else {
             ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShareViaLink(file, password);
         }
+    }
+
+    private void setPassword(OCShare share, String password) {
+        ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShare(share, password);
     }
 }

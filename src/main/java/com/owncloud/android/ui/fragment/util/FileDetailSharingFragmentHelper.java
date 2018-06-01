@@ -38,63 +38,6 @@ import java.util.Date;
  * Helper calls for visibility logic of the sharing fragment.
  */
 public class FileDetailSharingFragmentHelper {
-
-    /**
-     * Sets checked/visiblity state on the given {@link MenuItem} based on the given criteria.
-     *
-     * @param fileListing            the {@link MenuItem} to be setup
-     * @param isFolder               flag if it is a folder
-     * @param isEditingAllowed       flag if editing is allowed
-     * @param publicSharePermissions share permissions of the link
-     */
-    public static void setupHideFileListingMenuItem(MenuItem fileListing,
-                                                    boolean isFolder,
-                                                    boolean isEditingAllowed,
-                                                    int publicSharePermissions) {
-        if (!isFolder) {
-            fileListing.setVisible(false);
-        } else {
-            if (isEditingAllowed) {
-                boolean readOnly = (publicSharePermissions & OCShare.READ_PERMISSION_FLAG) != 0;
-                fileListing.setChecked(!readOnly);
-            } else {
-                fileListing.setVisible(false);
-            }
-        }
-    }
-
-    /**
-     * sets up the password {@link MenuItem}'s title based on the fact if a password is present.
-     *
-     * @param password            the password {@link MenuItem}
-     * @param isPasswordProtected flag is a password is present
-     */
-    public static void setupPasswordMenuItem(MenuItem password, boolean isPasswordProtected) {
-        if (isPasswordProtected) {
-            password.setTitle(R.string.share_password_title);
-        } else {
-            password.setTitle(R.string.share_no_password_title);
-        }
-    }
-
-    /**
-     * sets up the expiration date {@link MenuItem}'s title based on the fact if an expiration date is present.
-     *
-     * @param expirationDate      the expiration date {@link MenuItem}
-     * @param expirationDateValue the expiration date
-     * @param res                 Resources to load the corresponding strings.
-     */
-    public static void setupExpirationDateMenuItem(MenuItem expirationDate, long expirationDateValue, Resources res) {
-        if (expirationDateValue > 0) {
-            expirationDate.setTitle(res.getString(
-                    R.string.share_expiration_date_label,
-                    SimpleDateFormat.getDateInstance().format(new Date(expirationDateValue))
-            ));
-        } else {
-            expirationDate.setTitle(R.string.share_no_expiration_date_label);
-        }
-    }
-
     /**
      * sets up the {@link SearchView}.
      *
