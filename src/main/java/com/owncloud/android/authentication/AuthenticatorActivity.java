@@ -42,6 +42,7 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -355,6 +356,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewLogin(String baseURL) {
         mLoginWebView.setVisibility(View.GONE);
 
