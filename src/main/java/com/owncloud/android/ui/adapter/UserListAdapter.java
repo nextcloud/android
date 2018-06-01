@@ -23,8 +23,11 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
@@ -44,9 +47,11 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
-import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -186,27 +191,52 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
      */
     private void prepareOptionsMenu(Menu menu, OCShare share) {
 
+        MenuItem editCreateItem = menu.findItem(R.id.action_can_edit_create);
+        MenuItem editChangeItem = menu.findItem(R.id.action_can_edit_change);
+        MenuItem editDeleteItem = menu.findItem(R.id.action_can_edit_delete);
+
+        MenuItem hideFileListingItem = menu.findItem(R.id.action_hide_file_listing);
+        MenuItem passwordItem = menu.findItem(R.id.action_password);
+        MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
+
         MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
+
         if (isReshareForbidden(share)) {
             reshareItem.setVisible(false);
         }
         reshareItem.setChecked(canReshare(share));
 
-        MenuItem editCreateItem = menu.findItem(R.id.action_can_edit_create);
-        MenuItem editChangeItem = menu.findItem(R.id.action_can_edit_change);
-        MenuItem editDeleteItem = menu.findItem(R.id.action_can_edit_delete);
-        if (file.isFolder() && isEditOptionsAvailable(share)) {
-            /// TODO change areEditOptionsAvailable in order to delete !isFederated
-            editCreateItem.setChecked(canCreate(share));
-            editChangeItem.setChecked(canUpdate(share));
-            editDeleteItem.setChecked(canDelete(share));
-        } else {
+        if (share.getShareType() == ShareType.EMAIL) {
+            SharingMenuHelper.setupHideFileListingMenuItem(
+                    hideFileListingItem,
+                    file.isFolder(),
+                    canEdit(share),
+                    share.getPermissions()
+            );
+            SharingMenuHelper.setupPasswordMenuItem(passwordItem, share.isPasswordProtected());
+
+            reshareItem.setVisible(false);
             editCreateItem.setVisible(false);
             editChangeItem.setVisible(false);
             editDeleteItem.setVisible(false);
+        } else {
+            if (file.isFolder() && isEditOptionsAvailable(share)) {
+                /// TODO change areEditOptionsAvailable in order to delete !isFederated
+                editCreateItem.setChecked(canCreate(share));
+                editChangeItem.setChecked(canUpdate(share));
+                editDeleteItem.setChecked(canDelete(share));
+            } else {
+                editCreateItem.setVisible(false);
+                editChangeItem.setVisible(false);
+                editDeleteItem.setVisible(false);
+            }
+
+            hideFileListingItem.setVisible(false);
+            passwordItem.setVisible(false);
+            expirationDateItem.setVisible(false);
         }
 
-        FileDetailSharingFragmentHelper.setupExpirationDateMenuItem(
+        SharingMenuHelper.setupExpirationDateMenuItem(
                 menu.findItem(R.id.action_expiration_date), share.getExpirationDate(), context.getResources());
     }
 
@@ -278,6 +308,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 listener.unshareWith(share);
                 shares.remove(share);
                 notifyDataSetChanged();
+                return true;
+            }
+            case R.id.action_hide_file_listing: {
+                item.setChecked(!item.isChecked());
+                if (capabilities.getFilesFileDrop().isTrue()) {
+                    listener.setHideFileListingPermissionsToShare(share, item.isChecked());
+                } else {
+                    // not supported in ownCloud
+                    listener.showNotSupportedByOcMessage();
+                }
+                return true;
+            }
+            case R.id.action_password: {
+                listener.requestPasswordForShare(share);
                 return true;
             }
             case R.id.action_expiration_date: {
@@ -363,5 +407,26 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                                      boolean canEditCreate,
                                      boolean canEditChange,
                                      boolean canEditDelete);
+
+        /**
+         * show a snackbar that this feature is not supported by ownCloud.
+         */
+        void showNotSupportedByOcMessage();
+
+        /**
+         * Starts a dialog that requests a password to the user to protect a share.
+         *
+         * @param share the share for which a password shall be configured/removed
+         */
+        void requestPasswordForShare(OCShare share);
+
+        /**
+         * Updates a public share on a folder to set its hide file listing permission.
+         * Starts a request to do it in {@link OperationsService}
+         *
+         * @param share           {@link OCShare} instance which permissions will be updated.
+         * @param hideFileListing New state of the permission for editing the folder shared via link.
+         */
+        void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing);
     }
 }

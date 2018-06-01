@@ -39,6 +39,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
     private long mShareId;
     private int mPermissions;
     private long mExpirationDateInMillis;
+    private String mPassword;
     private String mPath;
 
     /**
@@ -50,6 +51,18 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         mShareId = shareId;
         mPermissions = -1;
         mExpirationDateInMillis = 0L;
+        mPassword = null;
+    }
+
+    /**
+     * Set password to update in private share.
+     *
+     * @param password      Password to set to the private share.
+     *                      Empty string clears the current password.
+     *                      Null results in no update applied to the password.
+     */
+    public void setPassword(String password) {
+        mPassword = password;
     }
 
     /**
@@ -88,6 +101,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
 
         // Update remote share with password
         UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(share.getRemoteId());
+        updateOp.setPassword(mPassword);
         updateOp.setPermissions(mPermissions);
         updateOp.setExpirationDate(mExpirationDateInMillis);
         RemoteOperationResult result = updateOp.execute(client);
@@ -109,6 +123,10 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         return mPath;
     }
 
+    public String getPassword() {
+        return mPassword;
+    }
+
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(mPath);   // TODO - check if may be moved to UpdateRemoteShareOperation
@@ -117,6 +135,8 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         } else {
             share.setIsFolder(false);
         }
+
+        share.setIsPasswordProtected((mPassword != null && mPassword.length() > 0));
         getStorageManager().saveShare(share);
     }
 

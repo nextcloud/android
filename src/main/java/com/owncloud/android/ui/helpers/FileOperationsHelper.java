@@ -518,6 +518,26 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * Updates a share on a file to set its password.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share    File which share will be protected with a password.
+     * @param password Password to set for the public link; null or empty string to clear
+     *                 the current password
+     */
+    public void setPasswordToShare(OCShare share, String password) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PASSWORD,
+                (password == null) ? "" : password
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
 
     /**
      * Updates a public share on a file to set its expiration date.
