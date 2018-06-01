@@ -18,36 +18,56 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/commentInputField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/new_comment"/>
+
+        <Button
+            android:id="@+id/submitComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"/>
+    </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:footerDividersEnabled="false"
         android:id="@+id/swipe_containing_list"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false"
         android:visibility="visible">
 
         <android.support.v7.widget.RecyclerView
-            android:clipToPadding="false"
             android:id="@android:id/list"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:footerDividersEnabled="false"
         android:id="@+id/swipe_containing_empty"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false"
         android:visibility="visible">
 
-        <include layout="@layout/empty_list" />
+        <include layout="@layout/empty_list"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+</LinearLayout>

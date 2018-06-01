@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,6 +39,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -59,6 +61,7 @@ import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.CommentFileOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
@@ -115,6 +118,12 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.submitComment)
+    public Button submitComment;
+
+    @BindView(R.id.commentInputField)
+    public TextInputEditText commentInput;
+
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
 
@@ -165,8 +174,28 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
+        submitComment.setOnClickListener((l) -> submitComment(new VersionListInterface.CommentCallback() {
+
+            @Override
+            public void onSuccess() {
+                commentInput.getText().clear();
+                fetchAndSetData(null);
+            }
+
+            @Override
+            public void onError(int error) {
+                Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
+            }
+        }));
 
         return view;
+    }
+
+    private void submitComment(VersionListInterface.CommentCallback callback) {
+        String message = commentInput.getText().toString();
+        new RestoreFileVersionTask.SubmitCommentTask(message, userId, file.getLocalId(), callback, ownCloudClient)
+                .execute();
+
     }
 
     private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
@@ -380,6 +409,17 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     @Override
+    public void onSuccess(String message) {
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+        fetchAndSetData(null);
+    }
+
+    @Override
+    public void onSuccess() {
+        fetchAndSetData(null);
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -390,5 +430,44 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @Override
     public void onRestoreClicked(FileVersion fileVersion) {
         operationsHelper.restoreFileVersion(fileVersion, userId);
+    }
+
+    private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
+
+        private String message;
+        private String userId;
+        private String fileId;
+        private VersionListInterface.CommentCallback callback;
+        private OwnCloudClient client;
+
+        private SubmitCommentTask(String message, String userId, String fileId,
+                                  VersionListInterface.CommentCallback callback, OwnCloudClient client) {
+            this.message = message;
+            this.userId = userId;
+            this.fileId = fileId;
+            this.callback = callback;
+            this.client = client;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId, userId);
+
+            RemoteOperationResult result = commentFileOperation.execute(client);
+
+            return result.isSuccess();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+
+            if (success) {
+                callback.onSuccess();
+            } else {
+                callback.onError(R.string.error_comment_file);
+
+            }
+        }
     }
 }
