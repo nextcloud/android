@@ -32,6 +32,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -239,56 +240,12 @@ public class FileOperationsHelper {
 
     public void openFile(OCFile file) {
         if (file != null) {
-            String storagePath = file.getStoragePath();
-
-            String[] officeExtensions = MainApp.getAppContext().getResources().getStringArray(R.array
-                    .ms_office_extensions);
-
-            Uri fileUri;
-
-            if (file.getFileName().contains(".") &&
-                    Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                            lastIndexOf(".") + 1, file.getFileName().length())) &&
-                    !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-                fileUri = file.getLegacyExposedFileUri(mFileActivity);
-            } else {
-                fileUri = file.getExposedFileUri(mFileActivity);
-            }
-
-            Intent openFileWithIntent = null;
-            int lastIndexOfDot = storagePath.lastIndexOf('.');
-            if (lastIndexOfDot >= 0) {
-                String fileExt = storagePath.substring(lastIndexOfDot + 1);
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
-                if (guessedMimeType != null) {
-                    openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                    openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    openFileWithIntent.setDataAndType(
-                            fileUri,
-                            guessedMimeType
-                    );
-                }
-            }
-
-            if (openFileWithIntent == null) {
-                openFileWithIntent = createIntentFromFile(storagePath);
-            }
-
-            if (openFileWithIntent == null) {
-                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setDataAndType(
-                        fileUri,
-                        file.getMimetype()
-                );
-            }
-
-            openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            final Intent openFileWithIntent = createOpenFileIntent(file);
 
             List<ResolveInfo> launchables = mFileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
             mFileActivity.showLoadingDialog(mFileActivity.getResources().getString(R.string.sync_in_progress));
-            Intent finalOpenFileWithIntent = openFileWithIntent;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -324,7 +281,7 @@ public class FileOperationsHelper {
 
                                 mFileActivity.startActivity(
                                         Intent.createChooser(
-                                                finalOpenFileWithIntent,
+                                                openFileWithIntent,
                                                 mFileActivity.getString(R.string.actionbar_open_with)
                                         )
                                 );
@@ -341,6 +298,53 @@ public class FileOperationsHelper {
 
         } else {
             Log_OC.e(TAG, "Trying to open a NULL OCFile");
+        }
+    }
+
+    @NonNull
+    private Intent createOpenFileIntent(OCFile file) {
+        String storagePath = file.getStoragePath();
+        Uri fileUri = getFileUri(file, MainApp.getAppContext().getResources().getStringArray(R.array
+                .ms_office_extensions));
+        Intent openFileWithIntent = null;
+        int lastIndexOfDot = storagePath.lastIndexOf('.');
+        if (lastIndexOfDot >= 0) {
+            String fileExt = storagePath.substring(lastIndexOfDot + 1);
+            String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
+            if (guessedMimeType != null) {
+                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                openFileWithIntent.setDataAndType(
+                        fileUri,
+                        guessedMimeType
+                );
+            }
+        }
+
+        if (openFileWithIntent == null) {
+            openFileWithIntent = createIntentFromFile(storagePath);
+        }
+
+        if (openFileWithIntent == null) {
+            openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+            openFileWithIntent.setDataAndType(
+                    fileUri,
+                    file.getMimetype()
+            );
+        }
+
+        openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        return openFileWithIntent;
+    }
+
+    private Uri getFileUri(OCFile file, String[] officeExtensions) {
+        if (file.getFileName().contains(".") &&
+                Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
+                        lastIndexOf(".") + 1, file.getFileName().length())) &&
+                !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
+            return file.getLegacyExposedFileUri(mFileActivity);
+        } else {
+            return file.getExposedFileUri(mFileActivity);
         }
     }
 
