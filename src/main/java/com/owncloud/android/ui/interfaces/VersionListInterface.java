@@ -28,4 +28,10 @@ public interface VersionListInterface {
     interface View {
         void onRestoreClicked(FileVersion fileVersion);
     }
+
+    interface CommentCallback {
+        void onSuccess();
+
+        void onError(int error);
+    }
 }
