@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
     <string name="prefs_daily_contacts_sync_summary">Denní záloha vašich kontaktů</string>
@@ -79,6 +80,7 @@
     <string name="uploader_error_message_source_file_not_found">Soubor k nahrání nebyl v tomto umístění nalezen. Zkontrolujte prosím zda soubor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Došlo k chybě při kopírování souboru do dočasného adresáře. Zkuste prosím zopakovat odeslání.</string>
     <string name="uploader_upload_files_behaviour">Nahrát možnost:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Přesunout soubor do %1$s adresáře</string>
     <string name="uploader_upload_files_behaviour_only_upload">Jen uploadovat</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
@@ -108,6 +110,7 @@
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
     <string name="filedetails_download">Stáhnout</string>
+    <string name="filedetails_sync_file">Synchronizovat</string>
     <string name="list_layout">Náhled seznamu</string>
     <string name="action_send_share">Poslat/sdílet</string>
     <string name="common_yes">Ano</string>
@@ -209,7 +212,9 @@
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_forward_description">Tlačítko Rychle vpřed</string>
 
-    <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
+    <string name="auth_getting_authorization">Příjem autorizace…</string>
+    <string name="auth_trying_to_login">Pokus o přihlášení…</string>
+	<string name="auth_no_net_conn_title">Žádné síťové spojení</string>
 	<string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
 	<string name="auth_connection_established">Spojení navázáno</string>
 	<string name="auth_testing_connection">Testuje se připojení</string>
@@ -235,7 +240,9 @@
 	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-    <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
+    <string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru…</string>
+	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
+	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_access_failed">Přístup selhal</string>
 
@@ -258,9 +265,12 @@
     <string name="wait_a_moment">Počkej chvíli…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
+    <string name="activity_chooser_title">Odeslat odkaz…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string>
+    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru…</string>
+        
     <string name="ssl_validator_header">Identitu serveru se nepodařilo ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
@@ -349,7 +359,9 @@
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
     <string name="file_migration_preparing">Příprava migrace…</string>
+    <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání natavení účtu…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Čekání na nedokončené synchronizace…</string>
     <string name="file_migration_migrating">Přesouvání dat…</string>
     <string name="file_migration_updating_index">Aktualizace rejstříku…</string>
     <string name="file_migration_cleaning">Čištění…</string>

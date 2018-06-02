@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s lub %2$s</string>
 
     <string name="auth_check_server">Sprawdź serwer</string>
+    <string name="auth_host_url">Adres serwera https://…</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
     <string name="auth_register">Nie masz jeszcze Nextcloud?\nKliknij tutaj, aby znaleźć dostawcę</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Proszę sprawdzić czy plik istnieje.</string>
     <string name="uploader_error_message_source_file_not_copied">Nie udało się skopiować pliku do folderu tymczasowego. Spróbuj ponownie.</string>
     <string name="uploader_upload_files_behaviour">Opcja wysłania:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do folderu %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
+    <string name="file_list_loading">Ładowanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="local_folder_list_empty">Nie ma plików w tym folderze.</string>
@@ -123,16 +126,20 @@
     <string name="common_back">Wróć</string>
     <string name="common_save">Zapisz</string>
     <string name="common_error">Błąd</string>
+    <string name="common_loading">Ładowanie…</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
     <string name="common_pending">Oczekujące</string>
     <string name="common_delete">Usuń</string>
+    <string name="common_send">Wyślij</string>
     <string name="about_title">O aplikacji</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s wraz ze wszystkimi lokalnymi plikami?\n\nUsunięcie nie może być cofnięte.</string>
     <string name="avatar">Awatar</string>
     <string name="active_user">Aktywny użytkownik</string>
+    <string name="upload_chooser_title">Wyślij plik z…</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
+    <string name="uploader_upload_in_progress_ticker">Wysyłanie…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Wysyłanie %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Wysłano</string>
     <string name="uploader_upload_succeeded_content_single">Wysłano %1$s</string>
@@ -158,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Oczekiwanie na połączenie Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Oczekiwanie na wyjście z trybu oszczędzania energii</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuję na przesyłanie</string>
+    <string name="downloader_download_in_progress_ticker">Pobieram…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
     <string name="downloader_download_succeeded_ticker">Pobrano</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
@@ -225,7 +233,9 @@
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
 
-    <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
+    <string name="auth_getting_authorization">Autoryzowanie…</string>
+    <string name="auth_trying_to_login">Próba logowania…</string>
+	<string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
 	<string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
 	<string name="auth_connection_established">Połączenie nawiązane</string>
 	<string name="auth_testing_connection">Testowanie połączenia</string>
@@ -233,6 +243,7 @@
 	<string name="auth_account_not_new">Konto tego samego użytkownika i serwera już istnieje na tym urządzeniu</string>
 	<string name="auth_account_not_the_same">Podany login nie pasuje do użytkowników </string>
 	<string name="auth_unknown_error_title">Wystąpił nieznany błąd!</string>
+	<string name="auth_unknown_error_exception_title">Nieznany błąd: %1$s</string>
 	<string name="auth_unknown_host_title">Nie znaleziono hosta</string>
 	<string name="auth_incorrect_path_title">Nie znaleziono serwera</string>
 	<string name="auth_timeout_title">Serwer zbyt długo nie odpowiadał</string>
@@ -249,13 +260,17 @@
 	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
-    <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
+    <string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania…</string>
+	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
+	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto nie jest jeszcze dodane na tym urządzeniu</string>
     <string name="auth_access_failed">Dostęp nieudany</string>
 
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
+    <string name="favorite_real">Dodaj do ulubionych</string>
+    <string name="unset_favorite_real">Usuń z ulubionych</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="common_rename">Zmień nazwę</string>
@@ -272,11 +287,15 @@
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
+    <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
+    <string name="activity_chooser_title">Wyślij link do…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
+    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0…</string>
+        
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości serwera</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -368,6 +387,14 @@
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
     <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
+    <string name="file_migration_preparing">Przygotowywanie migracji…</string>
+    <string name="file_migration_checking_destination">Sprawdzanie docelowe…</string>
+    <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Oczekuje na pełną synchronizację…</string>
+    <string name="file_migration_migrating">Przenoszenie danych…</string>
+    <string name="file_migration_updating_index">Aktualizacja indeksu…</string>
+    <string name="file_migration_cleaning">Czyszczenie…</string>
+    <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta…</string>
     <string name="file_migration_ok_finished">Skończone</string>
     <string name="file_migration_failed_not_enough_space">Potrzeba więcej miejsca</string>
     <string name="file_migration_failed_not_writable">Nie można zapisać w pliku docelowym</string>
@@ -391,7 +418,9 @@
 	<string name="log_send_history_button">Wyślij historię</string>
 	<string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
 	<string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
-    <string name="saml_authentication_required_text">Wymagane hasło</string>
+    <string name="log_progress_dialog_text">Ładowanie danych…</string>
+
+	<string name="saml_authentication_required_text">Wymagane hasło</string>
 	<string name="saml_authentication_wrong_pass">Złe hasło</string>
 	<string name="actionbar_move">Przenieś</string>
     <string name="actionbar_copy">Skopiuj</string>
@@ -424,9 +453,23 @@
 
     <string name="username">Użytkownik</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d folder</item>
+        <item quantity="few">%1$d folderów</item>
+        <item quantity="many">%1$d folderów</item>
+        <item quantity="other">%1$d folderów</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d file</item>
+        <item quantity="few">%1$d plików</item>
+        <item quantity="many">%1$d plików</item>
+        <item quantity="other">%1$d plików</item>
+    </plurals>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_as">Ustaw jako</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
+    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="deselect_all">Odznacz wszystkie</string>
 
@@ -440,18 +483,35 @@
     <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
     <string name="share_no_users">Brak danych współdzielonych z użytkownikami</string>
     <string name="share_add_user_or_group">Dodaj użytkownika lub grupę</string>
+    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
+    <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
+    <string name="share_via_link_password_title">Zabezpieczone</string>
+    <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
+    <string name="share_via_link_menu_password_label">Zabezpiecz hasłem (%1$s)</string>
+    <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
+    <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_section_title">Udostępnij link</string>
+    <string name="share_password_title">Zabezpieczone hasłem</string>
+    <string name="share_no_password_title">Ustaw hasło</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
+    <string name="share_with_title">Współdziel z…</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
+    <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail...</string>
+
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
+    <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
+    <string name="share_privilege_can_edit_create">może utworzyć</string>
+    <string name="share_privilege_can_edit_change">może zmienić</string>
+    <string name="share_privilege_can_edit_delete">może usunąć</string>
+
     <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
     <string name="action_clear_successful_uploads">Wyczyść udane wysyłanie</string>
@@ -493,6 +553,11 @@
     <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
     <string name="participate_dev_fdroid">Pobierz wersję \"rozwojową\" z F-Droid</string>
     <string name="participate_dev_direct_download">Pobierz wersję \"kandydującą\" bezpośrednio</string>
+    <string name="move_to">Przenieś do…</string>
+    <string name="copy_to">Skopiuj do…</string>
+    <string name="choose_remote_folder">Wybierz zdalny folder…</string>
+    <string name="choose_local_folder">Wybierz lokalny folder…</string>
+    <string name="synced_folders_loading_folders">Pobieram foldery…</string>
     <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego przesyłania</string>
     <string name="synced_folders_new_info">Natychmiastowe przesłanie zostało udoskonalone. Ponownie skonfiguruj automatyczne przesyłanie z menu głównego.\n\nKorzystaj z nowego i rozszerzonego automatycznego przesyłania.</string>
@@ -504,6 +569,7 @@
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Ładuję powiadomienia…</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Proszę sprawdź później</string>
 
@@ -515,6 +581,9 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Skrót Google Maps file(%s)</string>
 
     <string name="storage_description_default">Domyślny</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Co nowego w %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
@@ -576,6 +645,9 @@
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
 
+    <string name="foreground_service_upload">Wysyłanie plików...</string>
+    <string name="foreground_service_download">Pobieranie plików…</string>
+
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_license">Licencja</string>
     <string name="prefs_gpl_v2">Publiczna Licencja GNU, wersja 2</string>
@@ -629,9 +701,18 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
 
     <string name="account_not_found">Nie znaleziono konta</string>
 
+    <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
+    <string name="end_to_end_encryption_decrypting">Odszyfrowywanie...</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
+    <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
+    <string name="hint_name">Nazwa</string>
+    <string name="hint_password">Hasło</string>
+    <string name="add_to_cloud">Dodaj do %1$s</string>
+    <string name="upload_files">Wyślij plik</string>
+    <string name="create_new_folder">Utwórz nowy folder</string>
+    <string name="tags">Tagi</string>
     </resources>
