@@ -35,6 +35,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -64,6 +65,7 @@ import java.util.List;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface {
@@ -105,6 +107,9 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
+
+    @BindView(R.id.comment_input)
+    public EditText comment;
 
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
@@ -330,6 +335,13 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         // Colors in animations
         refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+    }
+
+    @OnClick(R.id.comment_send)
+    public void sendComment() {
+        if (comment.getText() != null && comment.getText().length() > 0) {
+            // TODO send the comment to the server and refresh the activities list
+        }
     }
 
     @Override
