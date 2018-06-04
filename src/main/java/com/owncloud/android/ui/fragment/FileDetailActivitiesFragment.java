@@ -243,7 +243,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                     activity.runOnUiThread(() -> {
                         populateList(activities, ownCloudClient, pageUrl == null);
-                        if (activities.size() > 0) {
+                        if (!activities.isEmpty()) {
                             empty.setVisibility(View.GONE);
                             list.setVisibility(View.VISIBLE);
                         } else {
