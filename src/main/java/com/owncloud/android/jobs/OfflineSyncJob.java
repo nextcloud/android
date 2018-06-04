@@ -93,7 +93,7 @@ public class OfflineSyncJob extends Job {
                         accountName = cursorOnKeptInSync.getString(cursorOnKeptInSync
                                 .getColumnIndex(ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER));
 
-                        account = new Account(accountName, MainApp.getAccountType());
+                        account = new Account(accountName, MainApp.getAccountType(getContext()));
                         if (!AccountUtils.exists(account, context) || localPath == null || localPath.length() <= 0) {
                             continue;
                         }

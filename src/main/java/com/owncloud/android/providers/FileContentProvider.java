@@ -908,8 +908,7 @@ public class FileContentProvider extends ContentProvider {
             // get accounts from AccountManager ;  we can't be sure if accounts in it are updated or not although
             // we know the update was previously done in {link @FileActivity#onCreate} because the changes through
             // AccountManager are not synchronous
-            Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
-                    MainApp.getAccountType());
+            Account[] accounts = AccountManager.get(getContext()).getAccountsByType(MainApp.getAccountType(mContext));
             String serverUrl;
             String username;
             String oldAccountName;
