@@ -70,6 +70,7 @@ public class FileSortOrderByName extends FileSortOrder {
      *
      * @param files files to sort
      */
+    @Override
     public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
