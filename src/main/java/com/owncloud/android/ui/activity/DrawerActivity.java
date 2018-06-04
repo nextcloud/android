@@ -616,7 +616,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * updates the account list in the drawer.
      */
     public void updateAccountList() {
-        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
 
         ArrayList<Account> persistingAccounts = new ArrayList<>();
 
@@ -1281,7 +1281,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private void populateDrawerOwnCloudAccounts() {
         mAvatars = new Account[3];
-        Account[] accountsAll = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accountsAll = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
 
         ArrayList<Account> persistingAccounts = new ArrayList<>();
 

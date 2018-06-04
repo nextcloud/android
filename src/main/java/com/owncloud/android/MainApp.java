@@ -382,8 +382,8 @@ public class MainApp extends MultiDexApplication {
     // Methods to obtain Strings referring app_name 
     //   From AccountAuthenticator 
     //   public static final String ACCOUNT_TYPE = "owncloud";    
-    public static String getAccountType() {
-        return getAppContext().getResources().getString(R.string.account_type);
+    public static String getAccountType(Context context) {
+        return context.getResources().getString(R.string.account_type);
     }
 
     // Non gradle build systems do not provide BuildConfig.VERSION_CODE
