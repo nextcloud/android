@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -42,7 +43,6 @@ import java.io.InputStream;
 /**
  * This activity shows an URL as a web view
  */
-
 public class ExternalSiteWebView extends FileActivity {
     public static final String EXTRA_TITLE = "TITLE";
     public static final String EXTRA_URL = "URL";
@@ -55,6 +55,7 @@ public class ExternalSiteWebView extends FileActivity {
     private int menuItemId;
     private WebView webview;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
