@@ -29,14 +29,57 @@
         android:layout_width="match_parent"
         android:visibility="visible">
 
-        <android.support.v7.widget.RecyclerView
-            android:clipToPadding="false"
-            android:id="@android:id/list"
-            android:layout_height="match_parent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
-            android:visibility="visible" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/standard_half_margin"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/comment_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/zero"
+                    android:layout_marginLeft="@dimen/standard_padding"
+                    android:layout_marginRight="@dimen/zero"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_weight="1"
+                    android:hint="@string/new_comment_hint"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/standard_padding" />
+
+                <ImageButton
+                    android:id="@+id/comment_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/common_send"
+                    android:paddingBottom="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingRight="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingTop="@dimen/standard_padding"
+                    android:src="@drawable/ic_send" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:visibility="visible" />
+
+        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

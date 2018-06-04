@@ -792,4 +792,5 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="new_comment_hint">New comment…</string>
 </resources>
