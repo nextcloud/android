@@ -459,4 +459,12 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             setShareByLinkInfo(false);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(FileActivity.EXTRA_FILE, file);
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+    }
 }

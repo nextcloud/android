@@ -336,4 +336,12 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     public void onActivityClicked(RichObject richObject) {
         // TODO implement activity click
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(FileActivity.EXTRA_FILE, file);
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+    }
 }
