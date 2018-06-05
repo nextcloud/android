@@ -45,7 +45,7 @@ public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
         try {
             context = MainApp.getAppContext();
 
-            Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType());
+            Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType(context));
 
             if (!com.owncloud.android.authentication.AccountUtils.exists(temp, context)) {
                 AccountManager accountManager = AccountManager.get(context);

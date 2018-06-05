@@ -109,7 +109,7 @@ public class ManageAccountsActivity extends FileActivity
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         mOriginalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
         mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
 
@@ -182,7 +182,7 @@ public class ManageAccountsActivity extends FileActivity
      * @return true if account list has changed, false if not
      */
     private boolean hasAccountListChanged() {
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
 
         ArrayList<Account> newList = new ArrayList<>();
         for (Account account : accountList) {
@@ -233,7 +233,7 @@ public class ManageAccountsActivity extends FileActivity
      * @return list of account list items
      */
     private ArrayList<AccountListItem> getAccountListItems() {
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
         for (Account account : accountList) {
             boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account, PENDING_FOR_REMOVAL);
@@ -265,7 +265,7 @@ public class ManageAccountsActivity extends FileActivity
     @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(),
+        am.addAccount(MainApp.getAccountType(this),
                 null,
                 null,
                 null,
@@ -312,7 +312,7 @@ public class ManageAccountsActivity extends FileActivity
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
             // after remove account
-            Account account = new Account(mAccountName, MainApp.getAccountType());
+            Account account = new Account(mAccountName, MainApp.getAccountType(this));
             if (!AccountUtils.exists(account, MainApp.getAppContext())) {
                 // Cancel transfers of the removed account
                 if (mUploaderBinder != null) {
@@ -325,7 +325,7 @@ public class ManageAccountsActivity extends FileActivity
             
             if (AccountUtils.getCurrentOwnCloudAccount(this) == null) {
                 String accountName = "";
-                Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+                Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
                 if (accounts.length != 0) {
                     accountName = accounts[0].name;
                 }
@@ -419,7 +419,7 @@ public class ManageAccountsActivity extends FileActivity
                 .schedule();
 
         // immediately select a new account
-        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
 
         String newAccountName = "";
         for (Account acc: accounts) {
