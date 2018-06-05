@@ -103,7 +103,7 @@ public class MimeTypeUtil {
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                ThemeUtils.tintDrawable(icon, ThemeUtils.elementColor(account, context));
+                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, true, context));
             }
 
             return icon;
