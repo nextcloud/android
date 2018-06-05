@@ -132,7 +132,7 @@ public class FileDownloader extends Service
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(getApplicationContext()));
+                .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
 
         if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);

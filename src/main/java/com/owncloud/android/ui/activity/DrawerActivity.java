@@ -30,6 +30,7 @@ import android.accounts.AccountManagerFuture;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -39,6 +40,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -718,11 +720,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
-        /// set home button properties
+        // set home button properties
         if (mDrawerToggle != null && chosenFile != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
         } else if (mDrawerToggle != null){
             mDrawerToggle.setDrawerIndicatorEnabled(false);
+        }
+
+        if (mDrawerToggle != null) {
+            DrawerArrowDrawable icon = mDrawerToggle.getDrawerArrowDrawable();
+            icon.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
+            mDrawerToggle.setDrawerArrowDrawable(icon);
         }
     }
 
@@ -1059,7 +1067,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 String background = capability.getServerBackground();
                 CapabilityBooleanType backgroundDefault = capability.getServerBackgroundDefault();
                 CapabilityBooleanType backgroundPlain = capability.getServerBackgroundPlain();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), this);
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
 
                 if (backgroundDefault.isTrue() && backgroundPlain.isTrue()) {
                     // use only solid color

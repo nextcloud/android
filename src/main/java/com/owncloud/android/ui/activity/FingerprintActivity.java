@@ -99,7 +99,7 @@ public class FingerprintActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ThemeUtils.fontColor(this));
-        toolbar.setBackground(new ColorDrawable(ThemeUtils.primaryColor(this)));
+        toolbar.setBackground(new ColorDrawable(ThemeUtils.primaryColor(this, false)));
     }
 
     private void startFingerprint() {

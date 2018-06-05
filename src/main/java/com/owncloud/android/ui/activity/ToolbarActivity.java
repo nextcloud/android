@@ -55,7 +55,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * want to use the toolbar.
      */
     protected void setupToolbar(boolean useBackgroundImage) {
-        int primaryColor = ThemeUtils.primaryColor(this);
+        int primaryColor = ThemeUtils.primaryColor(this, false);
         int primaryDarkColor = ThemeUtils.primaryDarkColor(this);
         int fontColor = ThemeUtils.fontColor(this);
 
@@ -67,7 +67,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this));
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this, false));
         }
 
         mPreviewImage = findViewById(R.id.preview_image);

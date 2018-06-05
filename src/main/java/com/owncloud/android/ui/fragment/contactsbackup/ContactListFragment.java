@@ -171,12 +171,14 @@ public class ContactListFragment extends FileFragment {
 
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-        ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.actionbar_contacts_restore);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if (contactsPreferenceActivity != null) {
+            ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
+            if (actionBar != null) {
+                ThemeUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
         }
-        contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
 
         recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
