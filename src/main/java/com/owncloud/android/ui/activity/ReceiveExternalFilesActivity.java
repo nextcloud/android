@@ -196,7 +196,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     protected void setAccount(Account account, boolean savedAccount) {
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
-        Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
+        Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType(this));
         if (accounts.length == 0) {
             Log_OC.i(TAG, "No ownCloud account is available");
             DialogNoAccount dialog = new DialogNoAccount();
@@ -291,8 +291,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
             AlertDialog.Builder builder = new Builder(parent);
 
-            mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
-                    R.drawable.account_circle_white));
+            mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent, R.drawable.account_circle_white));
             int tint = ThemeUtils.primaryColor(getContext());
             DrawableCompat.setTint(mTintedCheck, tint);
 
@@ -301,7 +300,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setTitle(R.string.common_choose_account);
             builder.setAdapter(mAccountListAdapter, (dialog, which) -> {
                 final ReceiveExternalFilesActivity parent1 = (ReceiveExternalFilesActivity) getActivity();
-                parent1.setAccount(parent1.mAccountManager.getAccountsByType(MainApp.getAccountType())[which], false);
+                parent1.setAccount(parent1.mAccountManager.getAccountsByType(
+                        MainApp.getAccountType(getActivity()))[which], false);
                 parent1.onAccountSet(parent1.mAccountWasRestored);
                 dialog.dismiss();
             });
@@ -315,7 +315,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
          * @return list of account list items
          */
         private ArrayList<AccountListItem> getAccountListItems(ReceiveExternalFilesActivity activity) {
-            Account[] accountList = activity.mAccountManager.getAccountsByType(MainApp.getAccountType());
+            Account[] accountList = activity.mAccountManager.getAccountsByType(MainApp.getAccountType(getActivity()));
             ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
             for (Account account : accountList) {
                 adapterAccountList.add(new AccountListItem(account));
@@ -1019,7 +1019,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean isHaveMultipleAccount() {
-        return mAccountManager.getAccountsByType(MainApp.getAccountType()).length > 1;
+        return mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length > 1;
     }
 
     @Override

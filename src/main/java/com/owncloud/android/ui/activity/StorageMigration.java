@@ -183,7 +183,7 @@ public class StorageMigration {
             mListener = listener;
 
             mAuthority = mContext.getString(R.string.authority);
-            mOcAccounts = AccountManager.get(mContext).getAccountsByType(MainApp.getAccountType());
+            mOcAccounts = AccountManager.get(mContext).getAccountsByType(MainApp.getAccountType(context));
         }
 
         @Override
