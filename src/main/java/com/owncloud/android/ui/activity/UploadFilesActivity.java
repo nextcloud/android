@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -393,6 +394,7 @@ public class UploadFilesActivity extends FileActivity implements
             super(ctx, view);
         }
 
+        @SuppressLint("RestrictedApi")
         public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
