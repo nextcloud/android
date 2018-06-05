@@ -73,6 +73,7 @@ public class FileSortOrderBySize extends FileSortOrder {
      *
      * @param files list of files to sort
      */
+    @Override
     public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
