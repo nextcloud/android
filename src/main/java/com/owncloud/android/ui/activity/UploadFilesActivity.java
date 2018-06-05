@@ -197,7 +197,7 @@ public class UploadFilesActivity extends FileActivity implements
         Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
 
         if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
         }
 
         // wait dialog
@@ -237,7 +237,7 @@ public class UploadFilesActivity extends FileActivity implements
         MenuItem switchView = menu.findItem(R.id.action_switch_view);
         switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
 
-        int fontColor = ThemeUtils.fontColor(this);
+        int fontColor = ThemeUtils.fontColor();
         final MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
@@ -405,7 +405,7 @@ public class UploadFilesActivity extends FileActivity implements
         public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
-            int color = ThemeUtils.fontColor(getContext());
+            int color = ThemeUtils.fontColor();
             ColorStateList colorStateList = ColorStateList.valueOf(color);
 
             ((AppCompatSpinner) parent).setSupportBackgroundTintList(colorStateList);

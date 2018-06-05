@@ -116,7 +116,7 @@ implements ConfirmationDialogFragmentListener {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getActivity());
+        int color = ThemeUtils.primaryAccentColor();
 
         android.support.v7.app.AlertDialog alertDialog = (android.support.v7.app.AlertDialog) getDialog();
 

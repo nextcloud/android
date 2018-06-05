@@ -93,7 +93,7 @@ public class PassCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
 
-        int elementColor = ThemeUtils.elementColor(this);
+        int elementColor = ThemeUtils.elementColor();
 
         mBCancel = findViewById(R.id.cancel);
         mBCancel.getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);

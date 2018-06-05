@@ -738,7 +738,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         if (mDrawerToggle != null) {
             DrawerArrowDrawable icon = mDrawerToggle.getDrawerArrowDrawable();
-            icon.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
+            icon.setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_ATOP);
             mDrawerToggle.setDrawerArrowDrawable(icon);
         }
     }
