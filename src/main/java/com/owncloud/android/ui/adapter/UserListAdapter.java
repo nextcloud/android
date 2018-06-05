@@ -50,7 +50,6 @@ import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -106,14 +105,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 name = context.getString(R.string.share_group_clarification, name);
                 try {
                     holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                } catch (NoSuchAlgorithmException e) {
                     holder.avatar.setImageResource(R.drawable.ic_group);
                 }
             } else if (share.getShareType() == ShareType.EMAIL) {
                 name = context.getString(R.string.share_email_clarification, name);
                 try {
                     holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                } catch (NoSuchAlgorithmException e) {
                     holder.avatar.setImageResource(R.drawable.ic_email);
                 }
             } else {
