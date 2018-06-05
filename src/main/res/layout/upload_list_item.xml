@@ -24,6 +24,7 @@
     android:id="@+id/upload_list_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/standard_half_padding"
     android:paddingTop="@dimen/standard_half_padding">

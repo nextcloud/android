@@ -60,7 +60,6 @@ import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -89,8 +88,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     public static final String[] PRIORITIZED_FOLDERS = new String[] { "Camera", "Screenshots" };
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
-
-    private static final String SCREEN_NAME = "Auto upload";
 
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
 
@@ -151,19 +148,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_synced_folders));
+            ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_synced_folders), this);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

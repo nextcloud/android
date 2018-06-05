@@ -63,7 +63,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.lib.common.UserInfo;
@@ -148,7 +147,7 @@ public class UserInfoActivity extends FileActivity {
         setupToolbar(useBackgroundImage);
         updateActionBarTitleAndHomeButtonByString("");
 
-        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount())));
+        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
         mUserInfoList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (userInfo != null) {
@@ -176,9 +175,6 @@ public class UserInfoActivity extends FileActivity {
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.change_password:
-                changeAccountPassword(account);
-                break;
             case R.id.delete_account:
                 openAccountRemovalConfirmationDialog(account, getFragmentManager(), false);
                 break;
@@ -201,7 +197,7 @@ public class UserInfoActivity extends FileActivity {
 
             emptyContentIcon.setVisibility(View.GONE);
             emptyContentMessage.setVisibility(View.GONE);
-            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
@@ -227,7 +223,7 @@ public class UserInfoActivity extends FileActivity {
                 ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
 
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount());
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -267,16 +263,16 @@ public class UserInfoActivity extends FileActivity {
         userName.setText(account.name);
         avatar.setTag(account.name);
         DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                getStorageManager(), avatar);
+                getStorageManager(), avatar, this);
 
-        int tint = ThemeUtils.primaryColor(account);
+        int tint = ThemeUtils.primaryColor(account, true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             fullName.setText(userInfo.getDisplayName());
         }
         
         if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
-                && userInfo.getTwitter() == null & userInfo.getWebsite() == null) {
+                && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
                     getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
@@ -304,21 +300,10 @@ public class UserInfoActivity extends FileActivity {
         return result;
     }
 
-    private void addToListIfNeeded(List<UserInfoDetailsItem> info,
-                                   @DrawableRes int icon,
-                                   String text,
+    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text,
                                    @StringRes int contentDescriptionInt) {
         if (!TextUtils.isEmpty(text))
             info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
-    }
-
-    private void changeAccountPassword(Account account) {
-        // let the user update credentials with one click
-        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-        startActivity(updateAccountCredentials);
     }
 
     public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager,
@@ -355,7 +340,7 @@ public class UserInfoActivity extends FileActivity {
         public void onStart() {
             super.onStart();
 
-            int color = ThemeUtils.primaryAccentColor();
+            int color = ThemeUtils.primaryAccentColor(getActivity());
 
             AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -417,7 +402,6 @@ public class UserInfoActivity extends FileActivity {
                                     Intent start = new Intent(getActivity(), FileDisplayActivity.class);
                                     start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(start);
-
                                 }
 
                             })

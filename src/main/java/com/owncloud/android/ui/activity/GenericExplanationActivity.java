@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -33,7 +34,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 
@@ -46,16 +46,9 @@ import java.util.ArrayList;
  */
 public class GenericExplanationActivity  extends AppCompatActivity {
 
-    public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() +
-            ".EXTRA_LIST";
-    public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() +
-            ".EXTRA_LIST_2";
-    public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() +
-            ".MESSAGE";
-
-    private static final String TAG = GenericExplanationActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Information";
+    public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST";
+    public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST_2";
+    public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() + ".MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +78,6 @@ public class GenericExplanationActivity  extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-    }
-
     public class ExplanationListAdapterView extends ArrayAdapter<String> {
         
         ArrayList<String> mList;
@@ -111,8 +98,9 @@ public class GenericExplanationActivity  extends AppCompatActivity {
         /**
          * {@inheritDoc}
          */
+        @NonNull
         @Override
-        public View getView (int position, View convertView, ViewGroup parent) {
+        public View getView (int position, View convertView, @NonNull ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             if (mList2 != null && mList2.size() > 0 && position >= 0 &&
                     position < mList2.size()) {

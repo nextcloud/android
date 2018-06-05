@@ -37,6 +37,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,7 +67,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 
@@ -109,8 +109,6 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean mPrepared;
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Audio/Video Preview";
 
     private static final String FILE = "FILE";
     private static final String ACCOUNT = "ACCOUNT";
@@ -178,8 +176,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         Log_OC.v(TAG, "onCreateView");
 
@@ -300,7 +297,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log_OC.v(TAG, "onSaveInstanceState");
 
@@ -581,9 +578,6 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onResume();
         mOnResume = !mOnResume;
 
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
         Log_OC.v(TAG, "onResume");
     }
 

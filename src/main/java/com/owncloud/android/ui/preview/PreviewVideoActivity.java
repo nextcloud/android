@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -40,7 +40,6 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 /**
@@ -60,8 +59,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     public static final String EXTRA_START_POSITION = "START_POSITION";
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Video Preview";
 
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
@@ -108,12 +105,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

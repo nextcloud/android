@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Sjekk tjener</string>
-    <string name="auth_host_url">Tjeneradresse https://&#8230;</string>
+    <string name="auth_host_url">Tjeneradresse https://…</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
     <string name="auth_register">Ingen Nextcloud enda?\nTrykk her for å få fra en tilbyder</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
     <string name="file_list_empty_favorites_filter">Din spørring returnerte ingen filer markert som favoritter.</string>
-    <string name="file_list_loading">Laster &#8230;</string>
+    <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Inget program funnet for filtypen.</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
-    <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
     <string name="filedetails_download">Last ned</string>
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
@@ -127,20 +126,20 @@
     <string name="common_back">Tilbake</string>
     <string name="common_save">Lagre</string>
     <string name="common_error">Feil</string>
-    <string name="common_loading">Laster &#8230;</string>
+    <string name="common_loading">Laster…</string>
     <string name="common_unknown">ukjent</string>
     <string name="common_error_unknown">Ukjent feil</string>
     <string name="common_pending">Venter</string>
     <string name="common_delete">Slett</string>
+    <string name="common_send">Send</string>
     <string name="about_title">Om</string>
-    <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiv bruker</string>
-    <string name="upload_chooser_title">Last opp fra &#8230;</string>
+    <string name="upload_chooser_title">Last opp fra…</string>
     <string name="uploader_info_dirname">Mappenavn</string>
-    <string name="uploader_upload_in_progress_ticker">Laster opp &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Laster opp…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Opplastet</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lastet opp</string>
@@ -166,7 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på trådløstilkobling</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
     <string name="uploads_view_later_waiting_to_upload">Venter på å laste opp</string>
-    <string name="downloader_download_in_progress_ticker">Laster ned &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Laster ned…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
     <string name="downloader_download_succeeded_ticker">Nedlastet</string>
     <string name="downloader_download_succeeded_content">%1$s lastet ned</string>
@@ -230,8 +229,8 @@
     <string name="media_play_pause_description">Spill eller pause</string>
     <string name="media_forward_description">Spol fremover</string>
 
-	<string name="auth_getting_authorization">Henter autorisasjon &#8230;</string>
-	<string name="auth_trying_to_login">Prøver å logge inn &#8230;</string>
+    <string name="auth_getting_authorization">Henter autorisasjon…</string>
+    <string name="auth_trying_to_login">Prøver å logge inn…</string>
 	<string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
 	<string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
 	<string name="auth_connection_established">Tilkobling opprettet</string>
@@ -240,6 +239,7 @@
 	<string name="auth_account_not_new">En konto for samme bruker og tjener finnes allerede på enheten</string>
 	<string name="auth_account_not_the_same">Den innskrevne brukeren samsvarer ikke med brukeren av denne kontoen</string>
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
+	<string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
 	<string name="auth_unknown_host_title">Fant ikke vert</string>
 	<string name="auth_incorrect_path_title">Finner ikke tjenerinstans</string>
 	<string name="auth_timeout_title">Tjeneren brukte for lang tid på å svare</string>
@@ -256,7 +256,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
-    <string name="auth_connecting_auth_server">Kobler til autentiseringstjener &#8230;</string>
+    <string name="auth_connecting_auth_server">Kobler til autentiseringstjener…</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator</string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
@@ -265,9 +265,8 @@
 
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
-    <string name="favorite_real">Sett som favoritt</string>
-    <string name="unset_favorite_real">Fjern favorittmarkering</string>
-    <string name="favorite_switch">Tilgjengelig i frakoblet modus</string>
+    <string name="favorite_real">Legg til i favoritter</string>
+    <string name="unset_favorite_real">Fjern fra favoritter</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="common_rename">Gi nytt navn</string>
@@ -285,14 +284,14 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet innehold minst et ugyldig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
-    <string name="wait_a_moment">Vent et øyeblikk &#8230;</string>
+    <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
-    <string name="activity_chooser_title">Send lenke til &#8230;</string>
+    <string name="activity_chooser_title">Send lenke til…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
     <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
-    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener &#8230;</string>
+    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener…</string>
         
     <string name="ssl_validator_header">Tjenerens identitet kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
@@ -328,6 +327,7 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -384,14 +384,14 @@
     <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
     <string name="file_migration_dialog_title">Oppdaterer sti for lagring</string>
-    <string name="file_migration_preparing">Forebereder migrering &#8230;</string>
-    <string name="file_migration_checking_destination">Sjekker mål &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Lagrer konto konfigurasjonen &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering &#8230;</string>
-    <string name="file_migration_migrating">Flytter data &#8230;</string>
-    <string name="file_migration_updating_index">Oppdaterer indeks &#8230;</string>
-    <string name="file_migration_cleaning">Tømmer &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Gjennoppretter konto konfigurasjonen &#8230;</string>
+    <string name="file_migration_preparing">Forebereder migrering…</string>
+    <string name="file_migration_checking_destination">Sjekker mål…</string>
+    <string name="file_migration_saving_accounts_configuration">Lagrer konto konfigurasjonen…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering…</string>
+    <string name="file_migration_migrating">Flytter data…</string>
+    <string name="file_migration_updating_index">Oppdaterer indeks…</string>
+    <string name="file_migration_cleaning">Tømmer…</string>
+    <string name="file_migration_restoring_accounts_configuration">Gjennoppretter konto konfigurasjonen…</string>
     <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">Mer plass trengs</string>
     <string name="file_migration_failed_not_writable">Kunne ikke skrive til målfil</string>
@@ -415,7 +415,7 @@
 	<string name="log_send_history_button">Send historikk </string>
 	<string name="log_send_no_mail_app">Fant inget program til forsendelse av logger. Installer e-post-program.</string>
 	<string name="log_send_mail_subject">%1$s Android program-logger</string>
-	<string name="log_progress_dialog_text">Laster data &#8230;</string>
+    <string name="log_progress_dialog_text">Laster data…</string>
 
 	<string name="saml_authentication_required_text">Passord kreves</string>
 	<string name="saml_authentication_wrong_pass">Feil passord</string>
@@ -461,8 +461,8 @@
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_as">Bruk som</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli &#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli…</string>
+    <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
     <string name="select_all">Velg alle</string>
     <string name="deselect_all">Fjern all markering</string>
 
@@ -476,17 +476,21 @@
     <string name="share_with_user_section_title">Del med brukere og grupper</string>
     <string name="share_no_users">Ingen data delt med brukere ennå</string>
     <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
-    <string name="share_via_link_section_title">Del lenke</string>
-    <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
-    <string name="share_via_link_password_label">Passordbeskyttet</string>
-    <string name="share_via_link_password_title">Sikret</string>
     <string name="share_via_link_edit_permission_label">Tillat redigering</string>
+    <string name="share_via_link_password_label">Beskytt med passord</string>
+    <string name="share_via_link_password_title">Sikret</string>
+    <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
+    <string name="share_via_link_menu_password_label">Passordbeskyttet (%1$s)</string>
+    <string name="share_expiration_date_label">Utløper den %1$s</string>
+    <string name="share_no_expiration_date_label">Sett utløpsdato</string>
+    <string name="share_via_link_section_title">Del lenke</string>
+    <string name="share_password_title">Passordbeskyttet</string>
+    <string name="share_no_password_title">Velg passord</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
-    <string name="share_with_title">Del med &#8230;</string>
+    <string name="share_with_title">Del med…</string>
     <string name="share_with_edit_title">Del med %1$s</string>
-
-    <string name="share_search">Søk</string>
+    <string name="share_search">Navn, sammenknyttet sky-ID eller e-postadresse…</string>
 
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
@@ -495,14 +499,12 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Oppgrader tjenerversjonen for å tillatte deling mellom brukere ifra klientene.\nVennligst kontakt din administrator</string>
-    <string name="filedetails_share_link_enable">Deling med lenke påskrudd</string>
-    <string name="filedetails_share_link_disable">Ikke delt med lenke</string>
-    <string name="filedetails_share_users_with_access">Brukere og grupper med tilgang</string>
+    <string name="share_privilege_unshare">Avslutt deling</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
-    <string name="share_privilege_can_edit_create">opprette</string>
-    <string name="share_privilege_can_edit_change">endre</string>
-    <string name="share_privilege_can_edit_delete">slett</string>
+    <string name="share_privilege_can_edit_create">kan opprette</string>
+    <string name="share_privilege_can_edit_change">kan endre</string>
+    <string name="share_privilege_can_edit_delete">kan slette</string>
 
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
@@ -547,11 +549,11 @@
     <string name="participate_rc_fdroid">Hent lanseringskandidaten via F-Droid -programmet</string>
     <string name="participate_dev_fdroid">Hent utviklingsversjonen via F-Droid -programmet</string>
     <string name="participate_dev_direct_download">Last ned utviklingsversjonen direkte</string>
-    <string name="move_to">Flytt til &#8230;</string>
-    <string name="copy_to">Kopier til &#8230;</string>
-    <string name="choose_remote_folder">Velg mappe annensteds hen &#8230;</string>
-    <string name="choose_local_folder">Velg lokal mappe &#8230;</string>
-    <string name="synced_folders_loading_folders">Laster inn mapper &#8230;</string>
+    <string name="move_to">Flytt til…</string>
+    <string name="copy_to">Kopier til…</string>
+    <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
+    <string name="choose_local_folder">Velg lokal mappe…</string>
+    <string name="synced_folders_loading_folders">Laster inn mapper…</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
@@ -561,7 +563,7 @@
         <item quantity="other">%d valgte</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Laster inn merknader &#8230;</string>
+    <string name="notifications_loading_activity">Laster inn merknader…</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
 
@@ -630,7 +632,6 @@
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Ny melding mottatt</string>
     <string name="drawer_logout">Logg ut</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilde med.</string>
     <string name="privacy">Personvern</string>
@@ -647,8 +648,8 @@
     <string name="fallback_weblogin_back">Tilbake</string>
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
 
-    <string name="foreground_service_upload">Laster opp filer &#8230;</string>
-    <string name="foreground_service_download">Laster ned filer &#8230;</string>
+    <string name="foreground_service_upload">Laster opp filer…</string>
+    <string name="foreground_service_download">Laster ned filer…</string>
 
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_license">Lisens</string>
@@ -751,15 +752,16 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_wrong_password">Feil under dekryptering. Feil passord?</string>
-    <string name="end_to_end_encryption_decrypting">Dekrypterer&#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Henter nøkler&#8230;</string>
+    <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
     <string name="end_to_end_encryption_enter_password">Skriv inn passord for å dekryptere privat nøkkel.</string>
-    <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler&#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_title">Sett opp kryptering</string>
+    <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
     <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på tjeneren.</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
-    <string name="end_to_end_encryption_password">Passord&#8230;</string>
+    <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_unsuccessful">Kunne ikke lagre nøkler, prøv igjen.</string>
     <string name="end_to_end_encryption_dialog_close">Lukk</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
@@ -768,4 +770,11 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
+    <string name="hint_name">Navn</string>
+    <string name="hint_password">Passord</string>
+    <string name="add_to_cloud">Legg til %1$s</string>
+    <string name="upload_files">Last opp filer</string>
+    <string name="create_new_folder">Opprett ny mappe</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
+    <string name="tags">Knagger</string>
     </resources>

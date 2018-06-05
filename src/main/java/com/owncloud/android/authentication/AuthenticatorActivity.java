@@ -42,6 +42,7 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -122,7 +123,6 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
@@ -144,8 +144,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         AuthenticatorAsyncTask.OnAuthenticatorTaskListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Login";
 
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -358,6 +356,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewLogin(String baseURL) {
         mLoginWebView.setVisibility(View.GONE);
 
@@ -433,6 +432,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             @Override
             public void run() {
                 Snackbar.make(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
                         .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -950,8 +950,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         super.onResume();
-
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         if (!webViewLoginMethod) {
             // bound here to avoid spurious changes triggered by Android on device rotations
@@ -1559,8 +1557,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusText = getResources().getString(R.string.auth_oauth_error_access_denied);
                 break;
             case UNHANDLED_HTTP_CODE:
+                mServerStatusText = getResources().getString(R.string.auth_unknown_error_http_title);
+                break;
             case UNKNOWN_ERROR:
-                mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
+                if (result.getException() != null &&
+                        !TextUtils.isEmpty(result.getException().getMessage())) {
+                    mServerStatusText = getResources().getString(
+                            R.string.auth_unknown_error_exception_title,
+                            result.getException().getMessage()
+                    );
+                } else {
+                    mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
+                }
                 break;
             case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
                 mServerStatusIcon = R.drawable.ic_lock_open_white;

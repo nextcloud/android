@@ -93,7 +93,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.title.setText(String.format(mParentActivity.getString(R.string.uploads_view_group_header),
                 group.getGroupName(), group.getGroupItemCount()));
-        headerViewHolder.title.setTextColor(ThemeUtils.primaryAccentColor());
+        headerViewHolder.title.setTextColor(ThemeUtils.primaryAccentColor(mParentActivity));
     }
 
     @Override
@@ -190,7 +190,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                ThemeUtils.colorHorizontalProgressBar(itemViewHolder.progressBar, ThemeUtils.primaryAccentColor());
+                ThemeUtils.colorHorizontalProgressBar(itemViewHolder.progressBar,
+                        ThemeUtils.primaryAccentColor(mParentActivity));
                 itemViewHolder.progressBar.setProgress(0);
                 itemViewHolder.progressBar.setVisibility(View.VISIBLE);
 
@@ -382,7 +383,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             }
         } else {
             itemViewHolder.thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(item.getMimeType(), fileName,
-                    account));
+                    account, mParentActivity));
         }
     }
 
@@ -487,6 +488,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     case DELAYED_IN_POWER_SAVE_MODE:
                         status = mParentActivity.getString(
                                 R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
+                        break;
+                    case VIRUS_DETECTED:
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
                         break;
                     default:
                         status = "New fail result but no description for the user";

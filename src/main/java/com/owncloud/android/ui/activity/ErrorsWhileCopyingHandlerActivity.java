@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -45,7 +46,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -65,8 +65,6 @@ import java.util.ArrayList;
 public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Error while copying";
 
     public static final String EXTRA_ACCOUNT =
             ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
@@ -134,12 +132,6 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         okBtn.setOnClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-    }
-
         /**
          * Customized adapter, showing the local files as main text in two-lines list item and the
          * remote files as the secondary text.
@@ -160,7 +152,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
          * {@inheritDoc}
          */
         @Override
-        public View getView (int position, View convertView, ViewGroup parent) {
+        public View getView (int position, View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
             if (view == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(

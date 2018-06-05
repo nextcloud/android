@@ -34,7 +34,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.File;
 
@@ -43,8 +42,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static final String TAG = ManageSpaceActivity.class.getSimpleName();
 
     private static final String LIB_FOLDER = "lib";
-
-    private static final String SCREEN_NAME = "Manage space";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +63,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 clearDataTask.execute();
             }
         });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override

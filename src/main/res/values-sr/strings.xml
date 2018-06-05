@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Провери сервер</string>
-    <string name="auth_host_url">Адреса сервера https://&#8230;</string>
+    <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
     <string name="auth_register">Још немате Некстклауд?\nКликните овде да направите један код провајдера</string>
@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Одабрани фајл није пронађен. Проверите да ли постоји.</string>
     <string name="uploader_error_message_source_file_not_copied">Не могу да копирам фајл на привремену локацију. Покушајте да га поново пошаљете.</string>
     <string name="uploader_upload_files_behaviour">Опције отпремања:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">%1$s Премести у Некстклауд фасциклу</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Премести фајл у фасциклу %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Остави фајл у изворној фасцикли</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Избриши фајл из изворне фасцикле</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
     <string name="file_list_empty_favorites_filter_list">Фајлови и фасцикле које обележите као омиљене појавиће се овде</string>
     <string name="file_list_empty_favorites_filter">Ваша претрага није нашла ниједан омиљени фајл</string>
-    <string name="file_list_loading">Учитавам &#8230;</string>
+    <string name="file_list_loading">Учитавам…</string>
     <string name="file_list_no_app_for_file_type">Ниједан програм не зна да препозна овај тип фајла.</string>
     <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
     <string name="local_folder_list_empty">Нема више фасцикли</string>
@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
-    <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
     <string name="filedetails_download">Преузми</string>
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
@@ -127,20 +126,20 @@
     <string name="common_back">Назад</string>
     <string name="common_save">Сачувај</string>
     <string name="common_error">Грешка</string>
-    <string name="common_loading">Учитавам &#8230;</string>
+    <string name="common_loading">Учитавам…</string>
     <string name="common_unknown">непознато</string>
     <string name="common_error_unknown">Непозната грешка</string>
     <string name="common_pending">На чекању</string>
     <string name="common_delete">Обриши</string>
+    <string name="common_send">Пошаљи</string>
     <string name="about_title">О програму</string>
-    <string name="change_password">Измени лозинку</string>
     <string name="delete_account">Уклони налог</string>
     <string name="delete_account_warning">Уклоните налог %s и избришите све локалне фајлове?\n\nБрисање не може да се поврати.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активни корисник</string>
-    <string name="upload_chooser_title">Отпреми из &#8230;</string>
+    <string name="upload_chooser_title">Отпреми из…</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
-    <string name="uploader_upload_in_progress_ticker">Отпремам &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Отпремање %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Отпремљено</string>
     <string name="uploader_upload_succeeded_content_single">%1$s отпремљено</string>
@@ -166,7 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекам да телефон изађе из мода очувања енергије</string>
     <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
-    <string name="downloader_download_in_progress_ticker">Преузимам &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Преузимам…</string>
     <string name="downloader_download_in_progress_content">%1$d%% преузимам %2$s</string>
     <string name="downloader_download_succeeded_ticker">Преузето</string>
     <string name="downloader_download_succeeded_content">%1$s преузето</string>
@@ -232,8 +231,8 @@
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>
 
-	<string name="auth_getting_authorization">Тражим ауторизацију &#8230;</string>
-	<string name="auth_trying_to_login">Покушавам пријављивање &#8230;</string>
+    <string name="auth_getting_authorization">Тражим ауторизацију…</string>
+    <string name="auth_trying_to_login">Покушавам пријављивање…</string>
 	<string name="auth_no_net_conn_title">Нема мрежне везе</string>
 	<string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
 	<string name="auth_connection_established">Веза успостављена</string>
@@ -241,7 +240,9 @@
 	<string name="auth_not_configured_title">Лоше подешавање сервера</string>
 	<string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
 	<string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
+	<string name="auth_unknown_error_http_title">Дошло је до непознате HTTP грешке!</string>
 	<string name="auth_unknown_error_title">Дошло је до непознате грешке!</string>
+	<string name="auth_unknown_error_exception_title">Непозната грешка: %1$s</string>
 	<string name="auth_unknown_host_title">Не могу да пронађем рачунар</string>
 	<string name="auth_incorrect_path_title">Сервер није нађен</string>
 	<string name="auth_timeout_title">Серверу је требало предуго да се одазове</string>
@@ -258,7 +259,7 @@
 	<string name="auth_expired_oauth_token_toast">Ауторизација је истекла. Урадите је поново</string>
 	<string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
-    <string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
+    <string name="auth_connecting_auth_server">Повезивање на идентификациони сервер…</string>
 	<string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
 	<string name="auth_fail_get_user_name">Сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
@@ -267,9 +268,8 @@
 
     <string name="favorite">Постави као доступно и ван мреже</string>
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
-    <string name="favorite_real">Постави као омиљено</string>
-    <string name="unset_favorite_real">Склони као омиљено</string>
-    <string name="favorite_switch">Досступно ван мреже</string>
+    <string name="favorite_real">Додај у омиљене</string>
+    <string name="unset_favorite_real">Уклони из омиљених</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="common_rename">Преименуј</string>
@@ -287,14 +287,14 @@
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Назив фајла садржи бар један недозвољен знак</string>
     <string name="filename_empty">Назив фајла не може бити празан</string>
-    <string name="wait_a_moment">Сачекајте мало &#8230;</string>
+    <string name="wait_a_moment">Сачекајте мало…</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
-    <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
+    <string name="activity_chooser_title">Пошаљи везу…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
     
     <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string>
-    <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером &#8230;</string>
+    <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером…</string>
         
     <string name="ssl_validator_header">Идентитет сервера не може да се провери</string>
     <string name="ssl_validator_reason_cert_not_trusted">– Сертификат сервера није од поверења</string>
@@ -387,14 +387,14 @@
     <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
 
     <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
-    <string name="file_migration_preparing">Припремам пребацивање &#8230;</string>
-    <string name="file_migration_checking_destination">Проверавам одредиште &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Чекам пуну синхронизацију &#8230;</string>
-    <string name="file_migration_migrating">Премештам податке &#8230;</string>
-    <string name="file_migration_updating_index">Ажурирам индекс &#8230;</string>
-    <string name="file_migration_cleaning">Чистим &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога &#8230;</string>
+    <string name="file_migration_preparing">Припремам пребацивање…</string>
+    <string name="file_migration_checking_destination">Проверавам одредиште…</string>
+    <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Чекам пуну синхронизацију…</string>
+    <string name="file_migration_migrating">Премештам податке…</string>
+    <string name="file_migration_updating_index">Ажурирам индекс…</string>
+    <string name="file_migration_cleaning">Чистим…</string>
+    <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога…</string>
     <string name="file_migration_ok_finished">Завршено</string>
     <string name="file_migration_failed_not_enough_space">Потребно је више празног места</string>
     <string name="file_migration_failed_not_writable">Не могу да пишем у одредишни фајл </string>
@@ -418,7 +418,7 @@
 	<string name="log_send_history_button">Пошаљи историјат</string>
 	<string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
 	<string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
-	<string name="log_progress_dialog_text">Учитавам податке…</string>
+    <string name="log_progress_dialog_text">Учитавам податке…</string>
 
 	<string name="saml_authentication_required_text">Потребна је лозинка</string>
 	<string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
@@ -466,8 +466,8 @@
     <string name="set_picture_as">Постави слику као</string>
     <string name="set_as">Постави као</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл ће бити &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Оригинални фајл ће бити &#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл ће бити…</string>
+    <string name="prefs_instant_behaviour_title">Оригинални фајл ће бити…</string>
     <string name="select_all">Означи све</string>
     <string name="deselect_all">Поништи цео избор</string>
 
@@ -481,17 +481,21 @@
     <string name="share_with_user_section_title">Дељење са корисницима и групама</string>
     <string name="share_no_users">Још нема података подељених са корисницима</string>
     <string name="share_add_user_or_group">Додај корисника или групу</string>
-    <string name="share_via_link_section_title">Веза дељења</string>
-    <string name="share_via_link_expiration_date_label">Постави датум истека</string>
+    <string name="share_via_link_edit_permission_label">Дозволи уређивање</string>
     <string name="share_via_link_password_label">Заштити лозинком</string>
     <string name="share_via_link_password_title">Обезбеђен</string>
-    <string name="share_via_link_edit_permission_label">Дозволи измене</string>
+    <string name="share_via_link_expiration_date_label">Постави датум истека</string>
+    <string name="share_via_link_menu_password_label">Заштићено лозинком (%1$s)</string>
+    <string name="share_expiration_date_label">Истиче на %1$s</string>
+    <string name="share_no_expiration_date_label">Постави датум истека</string>
+    <string name="share_via_link_section_title">Веза дељења</string>
+    <string name="share_password_title">Заштићено лозинком</string>
+    <string name="share_no_password_title">Постави лозинку</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>
     <string name="share_get_public_link_button">Добави везу</string>
-    <string name="share_with_title">Подели са &#8230;</string>
+    <string name="share_with_title">Подели са…</string>
     <string name="share_with_edit_title">Подели са %1$s</string>
-
-    <string name="share_search">Тражи</string>
+    <string name="share_search">Име, ID здруженог облака или адреса е-поште…</string>
 
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="share_group_clarification">%1$s (група)</string>
@@ -500,14 +504,12 @@
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
 
     <string name="share_sharee_unavailable">Ажурирајте верзију сервера да дозвољава дељење између корисника из њихових клијената.\nКонтактирајте администратора</string>
-    <string name="filedetails_share_link_enable">Дељење преко везе омогућено</string>
-    <string name="filedetails_share_link_disable">Није дељено</string>
-    <string name="filedetails_share_users_with_access">Корисници и групе са приступом</string>
+    <string name="share_privilege_unshare">Укини дељење</string>
     <string name="share_privilege_can_share">може да дели</string>
     <string name="share_privilege_can_edit">може да мења</string>
-    <string name="share_privilege_can_edit_create">направи</string>
-    <string name="share_privilege_can_edit_change">измени</string>
-    <string name="share_privilege_can_edit_delete">обрише</string>
+    <string name="share_privilege_can_edit_create">може да направи</string>
+    <string name="share_privilege_can_edit_change">може да мења</string>
+    <string name="share_privilege_can_edit_delete">може да брише</string>
 
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
@@ -552,11 +554,11 @@
     <string name="participate_rc_fdroid">Преузмите кандидата за нову верзију преко Ф-Дроид продавнице</string>
     <string name="participate_dev_fdroid">Преузмите развојну верзију преко Ф-Дроид продавнице</string>
     <string name="participate_dev_direct_download">Преузмите развојну верзију директним скидањем</string>
-    <string name="move_to">Премести у &#8230;</string>
-    <string name="copy_to">Копирај у &#8230;</string>
-    <string name="choose_remote_folder">Одаберите удаљену фасциклу &#8230;</string>
-    <string name="choose_local_folder">Одаберите локалну фасциклу &#8230;</string>
-    <string name="synced_folders_loading_folders">Учитавам фасцикле &#8230;</string>
+    <string name="move_to">Премести у…</string>
+    <string name="copy_to">Копирај у…</string>
+    <string name="choose_remote_folder">Одаберите удаљену фасциклу…</string>
+    <string name="choose_local_folder">Одаберите локалну фасциклу…</string>
+    <string name="synced_folders_loading_folders">Учитавам фасцикле…</string>
     <string name="synced_folders_no_results">Нису пронађене мултимедијалне фасцикле.</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
     <string name="synced_folders_new_info">Брзо отпремање је скроз редизајнирано. Поново подесите Ваша аутоматска отпремања из главног менија.\n\nУживајте у новом аутоматском отпремању.</string>
@@ -567,7 +569,7 @@
         <item quantity="other">%d одабрано</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Учитавам обавештења &#8230;</string>
+    <string name="notifications_loading_activity">Учитавам обавештења…</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Молимо проверите касније.</string>
 
@@ -636,7 +638,6 @@
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Примљено ново обавештење</string>
     <string name="drawer_logout">Одјава</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена да се са њом постави слика</string>
     <string name="privacy">Приватност</string>
@@ -653,8 +654,8 @@
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
 
-    <string name="foreground_service_upload">Отпремам фајлове &#8230;</string>
-    <string name="foreground_service_download">Скидам фајлове &#8230;</string>
+    <string name="foreground_service_upload">Отпремам фајлове…</string>
+    <string name="foreground_service_download">Скидам фајлове…</string>
 
     <string name="prefs_sourcecode">Узми изворни кôд</string>
     <string name="prefs_license">Лиценца</string>
@@ -745,22 +746,33 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Фасцикла није празна.</string>
     <string name="end_to_end_encryption_wrong_password">Грешка приликом дешифровања. Погрешна лозинка?</string>
-    <string name="end_to_end_encryption_decrypting">Дешифрујем&#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Дохватам кључеве&#8230;</string>
+    <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Дохватам кључеве…</string>
     <string name="end_to_end_encryption_enter_password">Уносите лозинку за дешифрујете приватни кључ.</string>
-    <string name="end_to_end_encryption_generating_keys">Генеришем нове кључеве&#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Генеришем нове кључеве…</string>
     <string name="end_to_end_encryption_keywords_description">Ових 12 речи чини веома јаку лозинку која омогућава да само Ви имате пун приступ гледању и коришћењу шифрованих фајлова. Запишите је и држите је негде на сигурном.</string>
     <string name="end_to_end_encryption_title">Подесите шифровање</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите Вашу 12-оделну лозинку</string>
     <string name="end_to_end_encryption_not_supported">Шифровање ради само на верзијама Андроида KitKat (4.4) и новијим.</string>
+    <string name="end_to_end_encryption_not_enabled">Шифровање с краја на крај је искључено на серверу.</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
-    <string name="end_to_end_encryption_password">Лозинка&#8230;</string>
+    <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_unsuccessful">Не могу да сачувам кључеве, покушајте поново.</string>
     <string name="end_to_end_encryption_dialog_close">Затвори</string>
     <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
-    <string name="upload_list_loading">Учитавам отпремања&#8230;</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
+    <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер: када сте поменути у коментарима, када добијете ново удаљено дељење, када администратор постави неко обавештење итд.</string>
     <string name="sendbutton_description">Икона дугма за слање</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Крајња адреса пријаве</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Крајња адреса приступа</string>
+    <string name="hint_name">Име</string>
+    <string name="hint_password">Лозинка</string>
+    <string name="add_to_cloud">Додај у %1$s</string>
+    <string name="upload_files">Отпреми фајлове</string>
+    <string name="upload_content_from_other_apps">Отпреми садржај из других апликација</string>
+    <string name="create_new_folder">Направи нову фасциклу</string>
+    <string name="uploads_view_upload_status_virus_detected">Вирус примећен. Отпремање не може да се заврши!</string>
+    <string name="tags">Ознаке</string>
     </resources>

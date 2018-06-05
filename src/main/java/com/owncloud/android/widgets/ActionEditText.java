@@ -138,6 +138,7 @@ public class ActionEditText extends AppCompatEditText {
                 0xff0000);
         badgeClickCallback = a
                 .getString(R.styleable.ActionEditText_onBadgeClick);
+        a.recycle();
     }
 
 }

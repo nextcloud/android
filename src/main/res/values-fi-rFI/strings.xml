@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s tai %2$s</string>
 
     <string name="auth_check_server">Tarkista palvelin</string>
-    <string name="auth_host_url">Palvelimen osoite https://&#8230;</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
     <string name="auth_register">Eikö sinulla ole vielä Nextcloudia?\nNapauta tästä saadaksesi omasi palveluntarjoajalta</string>
@@ -81,7 +80,6 @@
     <string name="uploader_error_message_source_file_not_found">Lähetykseen valittua tiedostoa ei löytynyt. Varmista, että tiedosto on olemassa.</string>
     <string name="uploader_error_message_source_file_not_copied">Virhe kopioitaessa tiedostoa väliaikaiseen kansioon. Yritä lähettää se uudelleen.</string>
     <string name="uploader_upload_files_behaviour">Lähetysasetus:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto %1$s kansioon</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Poista tiedosto lähdekansiosta</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
     <string name="file_list_empty_favorites_filter_list">Tiedostot ja kansiot, jotka merkitset suosikeiksesi, ilmestyvät tänne</string>
     <string name="file_list_empty_favorites_filter">Hakusi ei palauttanut suosikkitiedostoja.</string>
-    <string name="file_list_loading">Ladataan &#8230;</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
@@ -113,7 +110,6 @@
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="upload_list_empty_text_auto_upload">Lähetä sisältöä tai aktivoi automaattinen lähetys.</string>
     <string name="file_list_folder">kansio</string>
-    <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
     <string name="filedetails_download">Lataa</string>
     <string name="filedetails_sync_file">Synkronoi</string>
     <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s lähetyksen aikana</string>
@@ -127,20 +123,16 @@
     <string name="common_back">Takaisin</string>
     <string name="common_save">Tallenna</string>
     <string name="common_error">Virhe</string>
-    <string name="common_loading">Ladataan…</string>
     <string name="common_unknown">tuntematon</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
     <string name="common_pending">Odottaa</string>
     <string name="common_delete">Poista</string>
     <string name="about_title">Tietoja</string>
-    <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="avatar">Profiilikuva</string>
     <string name="active_user">Aktiivinen käyttäjä</string>
-    <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
-    <string name="uploader_upload_in_progress_ticker">Lähetetään &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Lähetetty</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lähetetty</string>
@@ -166,7 +158,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifiä</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Odotetaan virransäästötilasta poistumista</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
-    <string name="downloader_download_in_progress_ticker">Ladataan &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ladataan palvelimelta %2$s</string>
     <string name="downloader_download_succeeded_ticker">Ladattu</string>
     <string name="downloader_download_succeeded_content">%1$s ladattu</string>
@@ -224,9 +215,7 @@
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
 
-	<string name="auth_getting_authorization">Hankitaan valtuutus…</string>
-	<string name="auth_trying_to_login">Yritetään kirjautua sisään…</string>
-	<string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
+    <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
 	<string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
 	<string name="auth_connection_established">Yhteys muodostettu</string>
 	<string name="auth_testing_connection">Testataan yhteyttä</string>
@@ -250,17 +239,13 @@
 	<string name="auth_expired_oauth_token_toast">Valtuutus vanhentui. Valtuuta uudelleen</string>
 	<string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
 	<string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
-    <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+    <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
 	<string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_account_does_not_exist">Tälle laitteelle ei ole vielä asennettu tiliä.</string>
     <string name="auth_access_failed">Pääsy epäonnistui</string>
 
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
-    <string name="favorite_real">Aseta suosikiksi</string>
-    <string name="unset_favorite_real">Poista suosikeista</string>
-    <string name="favorite_switch">Aseta saatavaksi offline tilassa</string>
     <string name="encrypted">Salaa</string>
     <string name="unset_encrypted">Poista salaus</string>
     <string name="common_rename">Nimeä uudelleen</string>
@@ -278,15 +263,11 @@
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
     <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
-    <string name="wait_a_moment">Odota hetki &#8230;</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
-    <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     
     <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string>
-    <string name="oauth_login_connection">Yhdistetään OAuth 2.0 -palvelimeen &#8230;</string>
-        
     <string name="ssl_validator_header">Palvelimen identiteettiä ei voitu vahvistaa</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
     <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
@@ -375,12 +356,6 @@
     <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
 
     <string name="file_migration_dialog_title">Päivitetään tallennus polkua</string>
-    <string name="file_migration_checking_destination">Tarkistetaan kohde&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Tallentaan käyttäjän asetuksia&#8230;</string>
-    <string name="file_migration_migrating">Siirretään tietoja &#8230;</string>
-    <string name="file_migration_updating_index">Päivitetään indeksiä &#8230;</string>
-    <string name="file_migration_cleaning">Siivotaan &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Palautetaan käyttäjän asetukset&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
     <string name="file_migration_failed_not_enough_space">Tarvitaan enemmän tilaa</string>
     <string name="file_migration_failed_not_writable">Kohdetiedostoon ei voinut kirjoittaa</string>
@@ -403,9 +378,7 @@
 	<string name="log_send_history_button">Lähetä historia</string>
 	<string name="log_send_no_mail_app">Lokien lähettämiseen soveltuvaa sovellusta ei löytynyt. Asenna sähköpostisovellus.</string>
 	<string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
-	<string name="log_progress_dialog_text">Ladataan tietoja…</string>
-
-	<string name="saml_authentication_required_text">Salasana vaaditaan</string>
+    <string name="saml_authentication_required_text">Salasana vaaditaan</string>
 	<string name="saml_authentication_wrong_pass">Väärä salasana</string>
 	<string name="actionbar_move">Siirrä</string>
     <string name="actionbar_copy">Kopioi</string>
@@ -447,8 +420,6 @@
         <item quantity="other">%1$d tiedostoa</item>
     </plurals>
     <string name="set_picture_as">Käytä kuvaa</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="deselect_all">Poista valinnat</string>
 
@@ -463,31 +434,16 @@
     <string name="share_no_users">Dataa ei ole jaettu vielä käyttäjien kesken</string>
     <string name="share_add_user_or_group">Lisää käyttäjä tai ryhmä</string>
     <string name="share_via_link_section_title">Jaa linkki</string>
-    <string name="share_via_link_expiration_date_label">Aseta vanhenemispäivä</string>
-    <string name="share_via_link_password_label">Suojaa salasanalla</string>
-    <string name="share_via_link_password_title">Turvattu</string>
-    <string name="share_via_link_edit_permission_label">Salli muokkaukset</string>
     <string name="share_via_link_hide_file_listing_permission_label">Piilota tiedostolistaus</string>
     <string name="share_get_public_link_button">Hanki linkki</string>
-    <string name="share_with_title">Jaa…</string>
     <string name="share_with_edit_title">Jaa käyttäjän %1$s kanssa</string>
-
-    <string name="share_search">Etsi</string>
-
     <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
     <string name="share_sharee_unavailable">Päivitä uudempaan versioon salliaksesi jakamisen käyttäjien välillä suoraan työpöydältä tai kännykästä.\nOta yhteyttä ylläpitoon</string>
-    <string name="filedetails_share_link_enable">Jaa linkillä -käytössä</string>
-    <string name="filedetails_share_link_disable">Ei jaettu linkillä</string>
-    <string name="filedetails_share_users_with_access">Käyttäjät ja ryhmät, joilla on pääsy</string>
     <string name="share_privilege_can_share">voi jakaa</string>
     <string name="share_privilege_can_edit">voi muokata</string>
-    <string name="share_privilege_can_edit_create">luo</string>
-    <string name="share_privilege_can_edit_change">muuta</string>
-    <string name="share_privilege_can_edit_delete">poista</string>
-
     <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
@@ -531,11 +487,6 @@
     <string name="participate_rc_fdroid">Lataa julkaisuehdokas F-Droidin äpillä.</string>
     <string name="participate_dev_fdroid">Lataa kehitysjulkaisu F-Droidin äpillä.</string>
     <string name="participate_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
-    <string name="move_to">Siirrä kohteeseen&#8230;</string>
-    <string name="copy_to">Kopio kohteeseen&#8230;</string>
-    <string name="choose_remote_folder">Valitse etäkansio &#8230;</string>
-    <string name="choose_local_folder">Valitse paikallinen kansio &#8230;</string>
-    <string name="synced_folders_loading_folders">Ladataan kansioita &#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <string name="synced_folders_preferences">Automaattisen lähetyksen asetukset</string>
     <string name="synced_folders_new_info">Heti lähetettävien tiedostojen lähetys on uudistettu täysin. Muuta automaattisen lähetyksen asetuksia päävalikossa vastaamaan nykyistä toimintaa.\n\nNauti uudesta ja monipuolisemmasta toiminnosta.</string>
@@ -545,7 +496,6 @@
         <item quantity="other">%d valittu</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Ladataan ilmoituksia &#8230;</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
 
@@ -613,7 +563,6 @@
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Uusi ilmoitus vastaanotettu</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt</string>
@@ -628,9 +577,6 @@
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="fallback_weblogin_back">Takaisin</string>
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
-
-    <string name="foreground_service_upload">Lähetetään tiedostoja &#8230;</string>
-    <string name="foreground_service_download">Ladataan tiedostoja &#8230;</string>
 
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_license">Lisenssi</string>
@@ -670,7 +616,6 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
     <string name="prefs_category_dev">Kehittäjä</string>
-    <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
     <string name="folder_icon">Kansiokuvake</string>
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
@@ -705,15 +650,11 @@ GNU yleinen lisenssi, versio 2</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Kansio ei ole tyhjä.</string>
     <string name="end_to_end_encryption_wrong_password">Virhe salausta purkaessa. Oliko salasana väärä?</string>
-    <string name="end_to_end_encryption_decrypting">Puretaan salausta&#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Noudetaan avaimia&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Anna salasana yksityisen avaimen salauksen purkuun.</string>
-    <string name="end_to_end_encryption_generating_keys">Luodaan uusia vaimia&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
     <string name="end_to_end_encryption_title">Aseta salaus</string>
     <string name="end_to_end_encryption_not_supported">Salaus toimii vain KitKatilla (4.4) ja uudemmilla Android-versioilla.</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
-    <string name="end_to_end_encryption_password">Salasana&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Avaimia ei voitu tallentaa, yritä uudelleen.</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>

@@ -254,13 +254,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         .error(placeholder).into(fileIcon); // using custom fetcher
 
             } else {
-                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), null));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), context));
             }
         } else {
             // Folder
             fileIcon.setImageDrawable(
                     MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                            file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
+                            file.isSharedViaLink(), file.isEncrypted(), file.getMountType(), context));
         }
     }
 

@@ -115,8 +115,7 @@ public class ContactsImportJob extends Job {
         String lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
         VCard vCard = null;
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+        try (InputStream inputStream = getContext().getContentResolver().openInputStream(uri)){
             ArrayList<VCard> vCardList = new ArrayList<>();
             vCardList.addAll(Ezvcard.parse(inputStream).all());
             if (vCardList.size() > 0) {

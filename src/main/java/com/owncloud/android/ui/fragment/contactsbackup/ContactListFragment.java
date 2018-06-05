@@ -171,14 +171,16 @@ public class ContactListFragment extends FileFragment {
 
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-        ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.actionbar_contacts_restore);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if (contactsPreferenceActivity != null) {
+            ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
+            if (actionBar != null) {
+                ThemeUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
         }
-        contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.contactlist_recyclerview);
+        recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
             contactListAdapter = new ContactListAdapter(getContext(), vCards);
@@ -225,7 +227,7 @@ public class ContactListFragment extends FileFragment {
             }
         });
 
-        restoreContacts.setTextColor(ThemeUtils.primaryAccentColor());
+        restoreContacts.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         return view;
     }
@@ -320,8 +322,8 @@ public class ContactListFragment extends FileFragment {
         ContactItemViewHolder(View itemView) {
             super(itemView);
 
-            badge = (ImageView) itemView.findViewById(R.id.contactlist_item_icon);
-            name = (CheckedTextView) itemView.findViewById(R.id.contactlist_item_name);
+            badge = itemView.findViewById(R.id.contactlist_item_icon);
+            name = itemView.findViewById(R.id.contactlist_item_name);
 
 
             itemView.setTag(this);
@@ -629,7 +631,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     holder.getName().getCheckMarkDrawable()
-                            .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                            .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
                 }
             } else {
                 holder.getName().setChecked(false);
@@ -693,7 +695,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     if (holder.getName().isChecked()) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                             holder.getName().getCheckMarkDrawable()
-                                    .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                                    .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
                         }
 
                         if (!checkedVCards.contains(verifiedPosition)) {

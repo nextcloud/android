@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -53,7 +54,6 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -75,8 +75,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
     private static final String TAG = FolderPickerActivity.class.getSimpleName();
-
-    private static final String SCREEN_NAME = "Choose upload folder";
 
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
@@ -117,11 +115,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     mDoNotEnterEncryptedFolder = true;
                     break;
                 default:
-                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
                     break;
             }
         } else {
-            caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+            caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
         }
 
         if (getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER) != null) {
@@ -134,7 +132,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setTitle(caption);
+            ThemeUtils.setColoredTitle(getSupportActionBar(), caption, this);
         }
 
         setIndeterminate(mSyncInProgress);
@@ -265,8 +263,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
 
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-
         // refresh list of files
         refreshListOfFilesFragment(false);
 
@@ -387,7 +383,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);
             actionBar.setDisplayHomeAsUpEnabled(!atRoot);
             actionBar.setHomeButtonEnabled(!atRoot);
-            actionBar.setTitle(atRoot ? caption : currentDir.getFileName());
+
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+
+            ThemeUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }
     }
 
@@ -398,7 +399,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
-        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
     
@@ -537,14 +538,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
     }
 
-    /**
-     * Shows the information of the {@link OCFile} received as a
-     * parameter in the second fragment.
-     *
-     * @param file          {@link OCFile} whose details will be shown
-     */
     @Override
     public void showDetails(OCFile file) {
+        // not used at the moment
+    }
+
+    @Override
+    public void showDetails(OCFile file, int activeTab) {
         // not used at the moment
     }
 

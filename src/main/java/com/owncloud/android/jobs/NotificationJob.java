@@ -119,7 +119,7 @@ public class NotificationJob extends Job {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
+                .setColor(ThemeUtils.primaryColor(context))
                 .setShowWhen(true)
                 .setSubText(account.name)
                 .setContentTitle(contentTitle)

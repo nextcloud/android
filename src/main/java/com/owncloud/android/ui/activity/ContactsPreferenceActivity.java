@@ -51,7 +51,6 @@ import java.util.Set;
 /**
  * This activity shows all settings for contact backup/restore
  */
-
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
 
@@ -93,7 +92,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                     intent.getParcelableExtra(ContactListFragment.ACCOUNT) == null) {
                 ContactsBackupFragment fragment = new ContactsBackupFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(ContactListFragment.ACCOUNT, getAccount());
                 bundle.putBoolean(EXTRA_SHOW_SIDEBAR, showSidebar);
                 fragment.setArguments(bundle);
                 transaction.add(R.id.frame_container, fragment);
@@ -169,6 +167,11 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
     @Override
     public void showDetails(OCFile file) {
+        // not needed
+    }
+
+    @Override
+    public void showDetails(OCFile file, int activeTab) {
         // not needed
     }
 

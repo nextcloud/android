@@ -46,16 +46,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="8dp"
+            android:padding="@dimen/standard_half_padding"
             android:text="@string/fingerprint_scan_finger"
             android:textColor="@android:color/black"
-            android:textSize="32sp"/>
+            android:textSize="@dimen/scan_fingerprint_text_size"/>
 
         <ImageView
             android:id="@+id/fingerprinticon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:padding="@dimen/standard_padding"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_fingerprint"
             android:tint="@color/primary"

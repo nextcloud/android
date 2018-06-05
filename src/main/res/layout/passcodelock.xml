@@ -24,7 +24,6 @@
     android:orientation="vertical"
     android:padding="@dimen/standard_padding" >
 
-
     <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
@@ -56,28 +55,30 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            ><requestFocus/></EditText>
+            android:hint="@string/hidden_character">
+            <requestFocus/>
+        </EditText>
 
         <EditText
             android:id="@+id/txt1"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            />
+            android:hint="@string/hidden_character"/>
 
         <EditText
             android:id="@+id/txt2"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            />
+            android:hint="@string/hidden_character"/>
 
         <EditText
             android:id="@+id/txt3"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            />
+            android:hint="@string/hidden_character"/>
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton

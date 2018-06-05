@@ -4,8 +4,8 @@
  * @author Tobias Kaminsky
  * @author Andy Scherzinger
  * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Andy Scherzinger
- * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2017 Nextcloud GmbH
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -31,6 +32,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -47,7 +50,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -60,57 +62,66 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
  */
 public class ThemeUtils {
 
-    public static int primaryAccentColor() {
-        OCCapability capability = getCapability();
+    public static int primaryAccentColor(Context context) {
+        OCCapability capability = getCapability(context);
 
         try {
             float adjust;
-            if (darkTheme()) {
+            if (darkTheme(context)) {
                 adjust = +0.1f;
             } else {
                 adjust = -0.1f;
             }
             return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.35f);
         } catch (Exception e) {
-            return MainApp.getAppContext().getResources().getColor(R.color.color_accent);
+            return context.getResources().getColor(R.color.color_accent);
         }
     }
 
-    public static int primaryDarkColor() {
-        return primaryDarkColor(null);
+    public static int primaryDarkColor(Context context) {
+        return primaryDarkColor(null, context);
     }
 
-    public static int primaryDarkColor(Account account) {
-        OCCapability capability = getCapability(account);
+    public static int primaryDarkColor(Account account, Context context) {
+        OCCapability capability = getCapability(account, context);
 
         try {
             return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()), -1f);
         } catch (Exception e) {
-            return MainApp.getAppContext().getResources().getColor(R.color.primary_dark);
+            return context.getResources().getColor(R.color.primary_dark);
         }
     }
 
-    public static int primaryColor() {
-        return primaryColor(null);
+    public static int primaryColor(Context context) {
+        return primaryColor(context, false);
     }
 
-    public static int primaryColor(Account account) {
-        OCCapability capability = getCapability(account);
+    public static int primaryColor(Context context, boolean replaceWhite) {
+        return primaryColor(null, replaceWhite, context);
+    }
+
+    public static int primaryColor(Account account, boolean replaceWhite, Context context) {
+        OCCapability capability = getCapability(account, context);
 
         try {
-            return Color.parseColor(capability.getServerColor());
+            int color = Color.parseColor(capability.getServerColor());
+            if (replaceWhite && Color.WHITE == color) {
+                return Color.GRAY;
+            } else {
+                return color;
+            }
         } catch (Exception e) {
-            return MainApp.getAppContext().getResources().getColor(R.color.primary);
+            return context.getResources().getColor(R.color.primary);
         }
     }
 
-    public static int elementColor() {
-        return elementColor(null);
+    public static int elementColor(Context context) {
+        return elementColor(null, context);
     }
 
     @NextcloudServer(max = 12)
-    public static int elementColor(Account account) {
-        OCCapability capability = getCapability(account);
+    public static int elementColor(Account account, Context context) {
+        OCCapability capability = getCapability(account, context);
 
         try {
             return Color.parseColor(capability.getServerElementColor());
@@ -120,32 +131,32 @@ public class ThemeUtils {
             try {
                 primaryColor = Color.parseColor(capability.getServerColor());
             } catch (Exception e1) {
-                primaryColor = MainApp.getAppContext().getResources().getColor(R.color.primary);
+                primaryColor = context.getResources().getColor(R.color.primary);
             }
 
             float[] hsl = colorToHSL(primaryColor);
 
             if (hsl[2] > 0.8) {
-                return MainApp.getAppContext().getResources().getColor(R.color.elementFallbackColor);
+                return context.getResources().getColor(R.color.elementFallbackColor);
             } else {
                 return primaryColor;
             }
         }
     }
 
-    public static boolean themingEnabled() {
-        return getCapability().getServerColor() != null && !getCapability().getServerColor().isEmpty();
+    public static boolean themingEnabled(Context context) {
+        return getCapability(context).getServerColor() != null && !getCapability(context).getServerColor().isEmpty();
     }
 
     /**
      * @return int font color to use
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
-    public static int fontColor() {
+    public static int fontColor(Context context) {
         try {
-            return Color.parseColor(getCapability().getServerTextColor());
+            return Color.parseColor(getCapability(context).getServerTextColor());
         } catch (Exception e) {
-            if (darkTheme()) {
+            if (darkTheme(context)) {
                 return Color.WHITE;
             } else {
                 return Color.BLACK;
@@ -157,8 +168,8 @@ public class ThemeUtils {
      * Tests if dark color is set
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
-    public static boolean darkTheme() {
-        int primaryColor = primaryColor();
+    public static boolean darkTheme(Context context) {
+        int primaryColor = primaryColor(context);
         float[] hsl = colorToHSL(primaryColor);
 
         return hsl[2] <= 0.55;
@@ -170,12 +181,12 @@ public class ThemeUtils {
      * @param actionBar actionBar to be used
      * @param title     title to be shown
      */
-    public static void setColoredTitle(ActionBar actionBar, String title) {
+    public static void setColoredTitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
                 actionBar.setTitle(title);
             } else {
-                String colorHex = colorToHexString(fontColor());
+                String colorHex = colorToHexString(fontColor(context));
                 actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
             }
         }
@@ -192,23 +203,31 @@ public class ThemeUtils {
      * @param actionBar actionBar to be used
      * @param titleId   title to be shown
      */
-    public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            actionBar.setTitle(titleId);
-        } else {
-            String colorHex = colorToHexString(fontColor());
-            String title = context.getString(titleId);
-            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+    public static void setColoredTitle(@Nullable ActionBar actionBar, int titleId, Context context) {
+        if (actionBar != null) {
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                actionBar.setTitle(titleId);
+            } else {
+                String colorHex = colorToHexString(fontColor(context));
+                String title = context.getString(titleId);
+                actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+            }
         }
     }
 
-    public static String getDefaultDisplayNameForRootFolder() {
-        OCCapability capability = getCapability();
+    public static String getDefaultDisplayNameForRootFolder(Context context) {
+        OCCapability capability = getCapability(context);
 
         if (capability.getServerName() == null || capability.getServerName().isEmpty()) {
             return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
         } else {
             return capability.getServerName();
+        }
+    }
+
+    public static void setStatusBarColor(Activity activity, @ColorInt int color) {
+        if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(color);
         }
     }
 
@@ -268,8 +287,8 @@ public class ThemeUtils {
      *
      * @param seekBar the seek bar to be colored
      */
-    public static void colorHorizontalSeekBar(SeekBar seekBar) {
-        int color = ThemeUtils.primaryAccentColor();
+    public static void colorHorizontalSeekBar(SeekBar seekBar, Context context) {
+        int color = ThemeUtils.primaryAccentColor(context);
         colorHorizontalProgressBar(seekBar, color);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -368,23 +387,19 @@ public class ThemeUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
-    public static void tintFloatingActionButton(FloatingActionButton button, int drawable) {
-        button.setColorNormal(ThemeUtils.primaryColor());
-        button.setColorPressed(ThemeUtils.primaryDarkColor());
-        button.setIconDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor()));
+    public static void tintFloatingActionButton(FloatingActionButton button, @DrawableRes int
+            drawable, Context context) {
+        button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
+        button.setRippleColor(ThemeUtils.primaryDarkColor(context));
+        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
     }
 
-    private static OCCapability getCapability() {
-        return getCapability(null);
+    private static OCCapability getCapability(Context context) {
+        return getCapability(null, context);
     }
 
-    private static OCCapability getCapability(Account acc) {
+    private static OCCapability getCapability(Account acc, Context context) {
         Account account;
-        Context context = MainApp.getAppContext();
-
-        if (context == null) {
-            return new OCCapability();
-        }
 
         if (acc != null) {
             account = acc;

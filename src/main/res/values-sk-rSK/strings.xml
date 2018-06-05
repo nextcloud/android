@@ -59,7 +59,7 @@
 	<string name="recommend_urls">%1$s alebo %2$s</string>
 
     <string name="auth_check_server">Skontrolovať server</string>
-    <string name="auth_host_url">Adresa servera https://&#8230;</string>
+    <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
     <string name="sync_string_files">Súbory</string>
@@ -78,7 +78,6 @@
     <string name="uploader_error_message_source_file_not_found">Súbor, ktorý sa pokúšate nahrať nebol nájdený. Overte prosím či súbor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Pri kopírovaní súboru do dočasného priečinka došlo k chybe. Skúste prosím znova.</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presuň súbor do %1$s priečinka</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
@@ -87,6 +86,7 @@
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorites_filter_list"> Tu sa zobrazia súbory a priečinky označené ako obľúbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhľadávanie nenašlo žiadne obľúbené súbory.</string>
+    <string name="file_list_loading">Načítavam…</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
@@ -103,7 +103,6 @@
     <string name="file_list_empty_text_videos_filter">Žiadne videá.</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="file_list_folder">priečinok</string>
-    <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
@@ -116,19 +115,16 @@
     <string name="common_back">Späť</string>
     <string name="common_save">Uložiť</string>
     <string name="common_error">Chyba</string>
-    <string name="common_loading">Načítavam&#8230;</string>
+    <string name="common_loading">Načítavam…</string>
     <string name="common_unknown">neznámy</string>
     <string name="common_error_unknown">Neznáma chyba</string>
     <string name="common_pending">Prebieha</string>
     <string name="common_delete">Zmazať</string>
     <string name="about_title">O</string>
-    <string name="change_password">Zmeniť heslo</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktívny používateľ</string>
-    <string name="upload_chooser_title">Odoslať z &#8230;</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
-    <string name="uploader_upload_in_progress_ticker">Odosielam &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Odoslané</string>
     <string name="uploader_upload_succeeded_content_single">%1$s odoslané</string>
@@ -151,7 +147,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čaká sa na Wi-Fi pripojenie</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čaká sa na ukončenie úsporného režimu</string>
     <string name="uploads_view_later_waiting_to_upload">Čaká sa na nahratie</string>
-    <string name="downloader_download_in_progress_ticker">Sťahujem &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Sťahujem…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sťahovanie %2$s</string>
     <string name="downloader_download_succeeded_ticker">Stiahnuté</string>
     <string name="downloader_download_succeeded_content">%1$s stiahnuté</string>
@@ -195,13 +191,12 @@
     <string name="media_err_malformed">Súbor médií má neplatné kódovanie</string>
     <string name="media_err_timeout">Vypršal čas pri pokuse o prehratie</string>
     <string name="media_err_invalid_progressive_playback">Multimediálny súbor sa nedá streamovať</string>
+    <string name="media_err_unknown">Vstavaný prehrávač médií nedokáže prehrať mediálny súbor</string>
     <string name="media_rewind_description">Tlačidlo pretáčania</string>
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
 
-	<string name="auth_getting_authorization">Získavam autorizáciu &#8230;</string>
-	<string name="auth_trying_to_login">Prihlasujem sa &#8230;</string>
-	<string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
+    <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
 	<string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
 	<string name="auth_connection_established">Pripojenie vytvorené</string>
 	<string name="auth_testing_connection">Testuje sa pripojenie</string>
@@ -212,6 +207,7 @@
 	<string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
 	<string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
 	<string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
+	<string name="auth_wrong_connection_title">Nepodarilo sa nadviazať spojenie</string>
 	<string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
 	<string name="auth_unauthorized">Neprávne používateľské meno alebo heslo</string>
 	<string name="auth_oauth_error">Neúspešná autorizácia</string>
@@ -223,8 +219,6 @@
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
-    <string name="favorite_real">Nastaviť ako obľúbené</string>
-    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_remove">Zmazať</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -233,10 +227,12 @@
     <string name="remove_success_msg">Zmazané</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
+    <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Názov súboru nemôže byť prázdny</string>
+    <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
-    <string name="activity_chooser_title">Odošli link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     
     <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
@@ -271,12 +267,14 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Konflikt súborov</string>
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>
 
+    <string name="preview_sorry">Prepáčte</string>
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
     <string name="prefs_synced_folders_local_path_title">Lokálny priečinok</string>
@@ -308,14 +306,15 @@
 
     <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
     <string name="file_migration_ok_finished">Hotovo</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud priečinok už existuje</string>
     <string name="file_migration_override_data_folder">Nahradiť</string>
+    <string name="file_migration_source_not_readable_title">Zdrojový priečinok nie je čitateľný!</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="drawer_manage_accounts">Správa účtov</string>
     <string name="actionbar_logger">Logy</string>
 	<string name="log_send_history_button">Odoslať históriu</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="log_progress_dialog_text">Načítavam dáta &#8230;</string>
-
+    <string name="saml_authentication_required_text">Vyžaduje sa heslo</string>
 	<string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
 	<string name="actionbar_move">Presunúť</string>
     <string name="actionbar_copy">Kopírovať</string>
@@ -344,11 +343,13 @@
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>
         <item quantity="few">%1$d priečinky</item>
+        <item quantity="many">%1$d priečinkov</item>
         <item quantity="other">%1$d priečinkov</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d súbor</item>
         <item quantity="few">%1$d súbory</item>
+        <item quantity="many">%1$d súborov</item>
         <item quantity="other">%1$d súborov</item>
     </plurals>
     <string name="set_picture_as">Použiť obrázok ako</string>
@@ -364,16 +365,10 @@
     <string name="share_no_users">Používateľom nesprístupňujete zatiaľ žiaden obsah</string>
     <string name="share_add_user_or_group">Pridaj používateľa alebo skupinu</string>
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
-    <string name="share_via_link_expiration_date_label">Nastaviť dátum expirácie</string>
-    <string name="share_via_link_password_label">Chrániť heslom</string>
-    <string name="share_via_link_password_title">Zabezpečené</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
-    <string name="share_with_title">Sprístupniť pre &#8230;</string>
+    <string name="share_with_title">Zdieľať s…</string>
     <string name="share_with_edit_title">Sprístupniť pre %1$s</string>
-
-    <string name="share_search">Hľadať</string>
-
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
@@ -382,28 +377,26 @@
 
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
-    <string name="share_privilege_can_edit_create">vytvoriť</string>
-    <string name="share_privilege_can_edit_change">zmeniť</string>
-    <string name="share_privilege_can_edit_delete">vymazať</string>
-
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
 
     <string name="manage_space_title">Spravovať miesto</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
 
+    <string name="maintenance_mode">Server je v režime údržby</string>
+
     <string name="actionbar_search">Hľadať</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="drawer_participate">Zúčastniť sa</string>
+    <string name="participate_testing_headline">Pomôžte s testovaním</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
-    <string name="move_to">Presunúť do &#8230;</string>
-    <string name="copy_to">Kopírovať do &#8230;</string>
-    <string name="choose_remote_folder">Vyberte vzdialený priečinok &#8230;</string>
-    <string name="choose_local_folder">Vyberte miestny priečinok &#8230;</string>
+    <string name="move_to">Presunúť do…</string>
+    <string name="copy_to">Kopírovať do…</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>
+        <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
     </plurals>
 
@@ -434,10 +427,15 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
     <string name="actionbar_contacts">Zálohovanie kontaktov</string>
+    <string name="actionbar_contacts_restore">Obnoviť kontakty</string>
     <string name="contacts_backup_button">Zálohuj teraz</string>
     <string name="contacts_automatic_backup">Automatické zálohovanie</string>
+    <string name="contacts_last_backup">Posledná záloha</string>
+    <string name="contaclist_restore_selected">Obnoviť vybrané kontakty</string>
+    <string name="contacts_preference_choose_date">Vyberte dátum</string>
     <string name="contacts_preference_backup_never">nikdy</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
+    <!-- Notifications -->
     <string name="drawer_logout">Odhlásiť</string>
     <string name="privacy">Súkromie</string>
     <string name="file_not_found">Súbor nenájdený</string>
@@ -447,11 +445,17 @@
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_name_descending">Z - A</string>
     <string name="synced_folders_type">Typ</string>
+    <string name="dev_version_new_version_available">Je dostupná nová verzia</string>
     <string name="send">Odoslať</string>
     <string name="share">Zdieľať</string>
     <string name="link">Odkaz</string>
 
+    <string name="notification_channel_media_name">Prehrávač médií</string>
     <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
+    <string name="end_to_end_encryption_generating_keys">Vytvárajú sa nové kľúče…</string>
+    <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>
+    <string name="hint_password">Heslo</string>
+    <string name="create_new_folder">Vytvoriť nový priečinok</string>
     </resources>

@@ -55,7 +55,6 @@
     <string name="prefs_imprint">Natis</string>
 
 	<string name="auth_check_server">Preveri strežnik</string>
-    <string name="auth_host_url">Naslov strežnika https://&#8230;</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
     <string name="sync_string_files">Datoteke</string>
@@ -74,7 +73,6 @@
     <string name="uploader_error_message_source_file_not_found">Datoteke določene za nalaganje ne najdem. Prosim preveri, če sploh obstaja.</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusi znova poslati kasneje.</string>
     <string name="uploader_upload_files_behaviour">Nastavitev nalaganja:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Pobriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
@@ -100,7 +98,6 @@
     <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
-    <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
@@ -109,19 +106,15 @@
     <string name="common_cancel">Prekliči</string>
     <string name="common_back">Nazaj</string>
     <string name="common_save">Shrani</string>
-    <string name="common_loading">Nalaganje &#8230;</string>
     <string name="common_unknown">neznano</string>
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_pending">V teku</string>
     <string name="common_delete">Pobriši</string>
     <string name="about_title">O</string>
-    <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Dejavni uporabnik</string>
-    <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
-    <string name="uploader_upload_in_progress_ticker">Pošiljanje &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Poslano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
@@ -142,7 +135,6 @@
     <string name="uploads_view_upload_status_service_interrupted">Aplikacija ukinjena</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
     <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
-    <string name="downloader_download_in_progress_ticker">Prejemanje &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
     <string name="downloader_download_succeeded_ticker">Prenešeno</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
@@ -181,9 +173,7 @@
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
 
-	<string name="auth_getting_authorization">Pridobivanje podatkov overitve &#8230;</string>
-	<string name="auth_trying_to_login">Poteka povezovanje v oblak &#8230;</string>
-	<string name="auth_no_net_conn_title">Ni omrežne povezave</string>
+    <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
 	<string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
 	<string name="auth_connection_established">Povezava je vzpostavljena</string>
 	<string name="auth_testing_connection">Preizkusna povezava</string>
@@ -213,8 +203,6 @@
 
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
-    <string name="favorite_real">Nastavi kot priljubljeno</string>
-    <string name="unset_favorite_real">Ni več priljubljeno</string>
     <string name="common_rename">Preimenuj</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
@@ -223,7 +211,6 @@
     <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
-    <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
     <string name="oauth_check_onoff">Prijava  z oAuth2</string>
@@ -323,9 +310,7 @@
 	<string name="log_send_history_button">Pošlji zgodovino</string>
 	<string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
 	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
-	<string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
-
-	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
+    <string name="saml_authentication_wrong_pass">Napačno geslo</string>
 	<string name="actionbar_move">Premakni</string>
     <string name="actionbar_copy">Kopiraj</string>
 	<string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
@@ -370,31 +355,17 @@
     <string name="share_no_users">Ni datotek, ki bi jih omogočili za souporabo z drugimi</string>
     <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
-    <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
-    <string name="share_via_link_password_label">Zaščiti z geslom</string>
-    <string name="share_via_link_password_title">Varovano</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
-    <string name="share_with_title">Omogoči souporabo z &#8230;</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
-
-    <string name="share_search">Poišči</string>
-
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_email_clarification">%1$s (e-pošta)</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
 
-    <string name="filedetails_share_link_enable">Deljenje s povezavo omogočeno</string>
-    <string name="filedetails_share_link_disable">Ni deljeno s povezavo</string>
-    <string name="filedetails_share_users_with_access">Uporabniki in skupine z dostopom</string>
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
-    <string name="share_privilege_can_edit_create">ustvari</string>
-    <string name="share_privilege_can_edit_change">spremeni</string>
-    <string name="share_privilege_can_edit_delete">izbriši</string>
-
     <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
     <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
     <string name="action_clear_successful_uploads">Pobriši uspela nalaganja</string>

@@ -30,11 +30,11 @@
 
     <ImageView
         android:id="@+id/activity_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/activity_icon_width"
+        android:layout_height="@dimen/activity_icon_height"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginRight="@dimen/activity_icon_layout_right_end_margin"
+        android:layout_marginEnd="@dimen/activity_icon_layout_right_end_margin"
         android:alpha="0.5"
         android:src="@drawable/ic_activity"
         android:contentDescription="@string/activity_icon"/>
@@ -67,9 +67,9 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="-3dp"
-            android:layout_marginStart="-3dp"
+            android:layout_marginTop="@dimen/alternate_half_margin"
+            android:layout_marginLeft="@dimen/activity_list_item_grid_layout_left_start_margin"
+            android:layout_marginStart="@dimen/activity_list_item_grid_layout_left_start_margin"
             android:columnCount="3" />
 
         <TextView

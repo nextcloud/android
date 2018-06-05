@@ -26,12 +26,14 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -68,6 +70,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import third_parties.daveKoeller.AlphanumComparator;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
@@ -83,6 +86,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     @BindView(R.id.contacts_last_backup_timestamp)
     public TextView lastBackup;
+
+    @BindView(R.id.contacts_backup_now)
+    public AppCompatButton backupNow;
 
     private Date selectedDate = null;
     private boolean calendarPickerOpen;
@@ -104,7 +110,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(getContext())) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
         View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
@@ -118,14 +124,21 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-        account = (Account) getArguments().get(ContactListFragment.ACCOUNT);
+        account = contactsPreferenceActivity.getAccount();
 
-        contactsPreferenceActivity.getSupportActionBar().setTitle(R.string.actionbar_contacts);
-        contactsPreferenceActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
+
+        if (actionBar != null) {
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts), getContext());
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(getContext())));
+        }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor(getContext()));
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -162,14 +175,18 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int fontColor = ThemeUtils.fontColor(getContext());
+
+        backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        backupNow.setTextColor(fontColor);
+
         contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        view.findViewById(R.id.contacts_backup_now).getBackground()
-                .setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        contactsDatePickerBtn.setTextColor(fontColor);
 
         AppCompatButton chooseDate = view.findViewById(R.id.contacts_datepicker);
         chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        chooseDate.setTextColor(ThemeUtils.fontColor());
+        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }
@@ -225,6 +242,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                     List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
                             .getFolderContent(backupFolder, false);
+
+                    Collections.sort(backupFiles, new AlphanumComparator<>());
 
                     if (backupFiles == null || backupFiles.size() == 0) {
                         contactsDatePickerBtn.setVisibility(View.GONE);

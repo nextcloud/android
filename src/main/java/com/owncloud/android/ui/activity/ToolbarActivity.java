@@ -22,12 +22,15 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
@@ -40,6 +43,7 @@ import com.owncloud.android.utils.ThemeUtils;
  */
 public abstract class ToolbarActivity extends BaseActivity {
     private ProgressBar mProgressBar;
+    private ImageView mPreviewImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,33 +55,39 @@ public abstract class ToolbarActivity extends BaseActivity {
      * want to use the toolbar.
      */
     protected void setupToolbar(boolean useBackgroundImage) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        int primaryColor = ThemeUtils.primaryColor(this, false);
+        int primaryDarkColor = ThemeUtils.primaryDarkColor(this);
+        int fontColor = ThemeUtils.fontColor(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar = findViewById(R.id.progressBar);
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor());
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this, false));
         }
 
-        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor());
+        mPreviewImage = findViewById(R.id.preview_image);
+
+        ThemeUtils.colorStatusBar(this, primaryDarkColor);
 
         if (toolbar.getOverflowIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
         }
 
         if (toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), fontColor);
         }
 
         if (!useBackgroundImage) {
-            toolbar.setBackgroundColor(ThemeUtils.primaryColor());
+            toolbar.setBackgroundColor(primaryColor);
         }
     }
 
-    protected void setupToolbar() {
+    public void setupToolbar() {
         setupToolbar(false);
     }
 
@@ -85,7 +95,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = ThemeUtils.getDefaultDisplayNameForRootFolder();    // default
+        String title = ThemeUtils.getDefaultDisplayNameForRootFolder(this);    // default
         boolean inRoot;
 
         // choose the appropriate title
@@ -112,7 +122,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        ThemeUtils.setColoredTitle(actionBar, titleToSet);
+        ThemeUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {
@@ -120,9 +130,9 @@ public abstract class ToolbarActivity extends BaseActivity {
             actionBar.setDisplayShowTitleEnabled(true);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null && toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
         }
     }
 
@@ -133,8 +143,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
      */
     public boolean isRoot(OCFile file) {
-        return file == null ||
-                (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+        return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
     }
 
     /**
@@ -143,7 +152,60 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @param indeterminate <code>true</code> to enable the indeterminate mode
      */
     public void setIndeterminate(boolean indeterminate) {
-        mProgressBar.setIndeterminate(indeterminate);
+        if (mProgressBar != null) {
+            mProgressBar.setIndeterminate(indeterminate);
+        }
+    }
+
+    /**
+     * Change the visibility for the toolbar's progress bar.
+     *
+     * @param visibility visibility of the progress bar
+     */
+    public void setProgressBarVisibility(int visibility) {
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(visibility);
+        }
+    }
+
+    /**
+     * Change the visibility for the toolbar's preview image.
+     *
+     * @param visibility visibility of the preview image
+     */
+    public void setPreviewImageVisibility(int visibility) {
+        if (mPreviewImage != null) {
+            mPreviewImage.setVisibility(visibility);
+        }
+    }
+
+    /**
+     * Change the bitmap for the toolbar's preview image.
+     *
+     * @param bitmap bitmap of the preview image
+     */
+    public void setPreviewImageBitmap(Bitmap bitmap) {
+        if (mPreviewImage != null) {
+            mPreviewImage.setImageBitmap(bitmap);
+        }
+    }
+
+    /**
+     * Change the drawable for the toolbar's preview image.
+     *
+     * @param drawable drawable of the preview image
+     */
+    public void setPreviewImageDrawable(Drawable drawable) {
+        if (mPreviewImage != null) {
+            mPreviewImage.setImageDrawable(drawable);
+        }
+    }
+
+    /**
+     * get the toolbar's preview image view.
+     */
+    public ImageView getPreviewImageView() {
+            return mPreviewImage;
     }
 
     /**

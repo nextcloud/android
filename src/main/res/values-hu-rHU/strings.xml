@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s vagy %2$s</string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
-    <string name="auth_host_url">Kiszolgáló cím https://&#8230;</string>
+    <string name="auth_host_url">Kiszolgáló cím https://…</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
     <string name="auth_register">Nincs még szervered?\nKattints ide és szerezz egyet egy szolgáltatótól!</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
     <string name="file_list_empty_favorites_filter_list">Azok a fájlok és mappák, amiket kedvenceknek jelöl meg itt fognak megjelenni.</string>
     <string name="file_list_empty_favorites_filter">A keresés nem talált kedvenc fájlokat.</string>
-    <string name="file_list_loading">Töltés &#8230;</string>
+    <string name="file_list_loading">Töltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs beállított applikáció ehhez a fájltípushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="local_folder_list_empty">Nincs több mappa.</string>
@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
@@ -127,20 +126,19 @@
     <string name="common_back">Vissza</string>
     <string name="common_save">Mentés</string>
     <string name="common_error">Hiba</string>
-    <string name="common_loading">Betöltés &#8230;</string>
+    <string name="common_loading">Betöltés…</string>
     <string name="common_unknown">ismeretlen</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
     <string name="common_pending">Folyamatban</string>
     <string name="common_delete">Törlés</string>
     <string name="about_title">Névjegy</string>
-    <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal egyeütt?\n\nA törlés nem visszavonható.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktív felhasználó</string>
-    <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
+    <string name="upload_chooser_title">Feltöltés innen…</string>
     <string name="uploader_info_dirname">Mappa neve</string>
-    <string name="uploader_upload_in_progress_ticker">Feltöltés &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Feltöltés…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Feltöltve</string>
     <string name="uploader_upload_succeeded_content_single">%1$s feltöltve</string>
@@ -166,7 +164,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi kapcsolatra várakozik</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Energiatakarékos üzemmód elhagyására várunk</string>
     <string name="uploads_view_later_waiting_to_upload">Feltöltésre várakozás</string>
-    <string name="downloader_download_in_progress_ticker">Letöltés &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Letöltés…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
     <string name="downloader_download_succeeded_ticker">Letöltve</string>
     <string name="downloader_download_succeeded_content">%1$s feltöltve</string>
@@ -230,8 +228,8 @@
     <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
     <string name="media_forward_description">Előre gomb</string>
 
-	<string name="auth_getting_authorization">Hozzáférés kérése &#8230;</string>
-	<string name="auth_trying_to_login">Belépés ide &#8230;</string>
+    <string name="auth_getting_authorization">Hozzáférés kérése…</string>
+    <string name="auth_trying_to_login">Belépés ide…</string>
 	<string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
 	<string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
 	<string name="auth_connection_established">A kapcsolat létrejött</string>
@@ -256,7 +254,7 @@
 	<string name="auth_expired_oauth_token_toast">A jogosultsága lejárt. Kérjük jelentkezzen be ismét!</string>
 	<string name="auth_expired_basic_auth_toast">Kérem adja meg a jelenlegi jelszavát</string>
 	<string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
-    <string name="auth_connecting_auth_server">Csatlakozás a hitelesítő szerverhez &#8230;</string>
+    <string name="auth_connecting_auth_server">Csatlakozás a hitelesítő szerverhez…</string>
 	<string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
 	<string name="auth_fail_get_user_name">A szervered nem megfelelő felhasználó azonosítót ad vissza, lépj kapcsolatba egy rendszergazdával</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
@@ -265,9 +263,6 @@
 
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
-    <string name="favorite_real">Beállítás kedvenként</string>
-    <string name="unset_favorite_real">Eltávolítás a kedvence közül</string>
-    <string name="favorite_switch">Elérhető offline</string>
     <string name="encrypted">Titkosítottra állítás</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>
@@ -285,14 +280,14 @@
     <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz!</string>
     <string name="filename_empty">A fájl név nem lehet üres</string>
-    <string name="wait_a_moment">Egy pillanat &#8230;</string>
+    <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
     <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva.</string>
-    <string name="activity_chooser_title">Hivatkozás küldése &#8230;</string>
+    <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl átmásolása a privát tárolóról</string>
     
     <string name="oauth_check_onoff">Bejelentkezés OAuth 2.0 -al</string>
-    <string name="oauth_login_connection">Csatlakozás az OAuth 2.0 szerverhez &#8230;</string>
+    <string name="oauth_login_connection">Csatlakozás az OAuth 2.0 szerverhez…</string>
         
     <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
     <string name="ssl_validator_reason_cert_not_trusted">- A szerver tanúsítványa nem megbízható</string>
@@ -386,14 +381,14 @@
     <string name="downloader_download_file_not_found">A fájl már nem érhető el a szerveren</string>
 
     <string name="file_migration_dialog_title">Tároló útvonal frissítés</string>
-    <string name="file_migration_preparing">Összevonás előkészítése&#8230;</string>
-    <string name="file_migration_checking_destination">Cél ellenőrzése&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">A(z)&#8230;fiókok beállításainak mentése</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Várakozás a(z)&#8230;szinkronizálására</string>
-    <string name="file_migration_migrating">Adatok mozgatása &#8230;</string>
-    <string name="file_migration_updating_index">Index frissítése&#8230;</string>
-    <string name="file_migration_cleaning">Tisztítás &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">A(z)&#8230;fiókok adatainak visszaállítása</string>
+    <string name="file_migration_preparing">Összevonás előkészítése…</string>
+    <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
+    <string name="file_migration_saving_accounts_configuration">A(z)…fiókok beállításainak mentése</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Várakozás a(z)…szinkronizálására</string>
+    <string name="file_migration_migrating">Adatok mozgatása…</string>
+    <string name="file_migration_updating_index">Index frissítése…</string>
+    <string name="file_migration_cleaning">Tisztítás…</string>
+    <string name="file_migration_restoring_accounts_configuration">A(z)…fiókok adatainak visszaállítása</string>
     <string name="file_migration_ok_finished">Kész</string>
     <string name="file_migration_failed_not_enough_space">Hiba: kevés a hely</string>
     <string name="file_migration_failed_not_writable">Hiba: célfájl nem írható</string>
@@ -417,7 +412,7 @@
 	<string name="log_send_history_button">Előzmények elküldése</string>
 	<string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Kérlek telepíts egy e-mail klienst.</string>
 	<string name="log_send_mail_subject">%1$s Android alkalmazás naplók</string>
-	<string name="log_progress_dialog_text">Adatok betöltése &#8230;</string>
+    <string name="log_progress_dialog_text">Adatok betöltése…</string>
 
 	<string name="saml_authentication_required_text">Jelszó szükséges</string>
 	<string name="saml_authentication_wrong_pass">Hibás jelszó</string>
@@ -463,8 +458,8 @@
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_as">Beállítás mint</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Az eredeti fájl&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl…</string>
+    <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
     <string name="select_all">Összes kijelölése</string>
     <string name="deselect_all">Kijelölés megszüntetése</string>
 
@@ -479,17 +474,10 @@
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
     <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
-    <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
-    <string name="share_via_link_password_label">Jelszóval védés</string>
-    <string name="share_via_link_password_title">Biztonságos</string>
-    <string name="share_via_link_edit_permission_label">Szerkesztések engedélyezése</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fájl lista elrejtése</string>
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
-    <string name="share_with_title">Megosztás vele &#8230;</string>
+    <string name="share_with_title">Megosztás vele…</string>
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
-
-    <string name="share_search">Keresés</string>
-
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
@@ -498,15 +486,8 @@
 
     <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
 Lépj kapcsolatba a rendszergazdával</string>
-    <string name="filedetails_share_link_enable">Linkben megosztás engedélyezése</string>
-    <string name="filedetails_share_link_disable">Nincs linkkel megosztva</string>
-    <string name="filedetails_share_users_with_access">Hozzáféréssel rendelkező felhasználók és csoportok</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
-    <string name="share_privilege_can_edit_create">létrehoz</string>
-    <string name="share_privilege_can_edit_change">változtatás</string>
-    <string name="share_privilege_can_edit_delete">törlés</string>
-
     <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>
@@ -550,11 +531,11 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="participate_rc_fdroid">Kiadásra jelölt beszerzése a F-Droid app-ból</string>
     <string name="participate_dev_fdroid">Fejlesztési kiadás beszerzése a F-Droid app-ból</string>
     <string name="participate_dev_direct_download">Fejlesztési kiadás közvetlen letöltése</string>
-    <string name="move_to">Mozgatás ide &#8230;</string>
-    <string name="copy_to">Másolás ide &#8230;</string>
-    <string name="choose_remote_folder">Távoli mappa kiválasztása &#8230;</string>
-    <string name="choose_local_folder">Helyi mappa kiválasztása &#8230;</string>
-    <string name="synced_folders_loading_folders">Mappák betöltése &#8230;</string>
+    <string name="move_to">Mozgatás ide…</string>
+    <string name="copy_to">Másolás ide…</string>
+    <string name="choose_remote_folder">Távoli mappa kiválasztása…</string>
+    <string name="choose_local_folder">Helyi mappa kiválasztása…</string>
+    <string name="synced_folders_loading_folders">Mappák betöltése…</string>
     <string name="synced_folders_no_results">Nincsenek média mappák.</string>
     <string name="synced_folders_preferences">Auto feltöltés beállításai</string>
     <string name="synced_folders_new_info">Instant feltöltés teljesen átdolgozva. A főmenüben állítsd be az automata feltöltést.\n\nÉlvezd az új és kibővített automata feltöltést.</string>
@@ -564,7 +545,7 @@ Lépj kapcsolatba a rendszergazdával</string>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Értesítések betöltése &#8230;</string>
+    <string name="notifications_loading_activity">Értesítések betöltése…</string>
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Kérjük próbáld meg később.</string>
 
@@ -634,7 +615,6 @@ hozzáadások, változások és megosztások</string>
     <string name="contacts_preferences_import_scheduled">Importálás ütemezve és hamarosan indul</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Új értesítés</string>
     <string name="drawer_logout">Kijelentkezés</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
@@ -651,8 +631,8 @@ hozzáadások, változások és megosztások</string>
     <string name="fallback_weblogin_back">Vissza</string>
     <string name="fallback_weblogin_text">Visszatérés az eredeti bejelentkezési módhoz</string>
 
-    <string name="foreground_service_upload">Fájlok felöltése &#8230;</string>
-    <string name="foreground_service_download">Fájlok letöltése &#8230;</string>
+    <string name="foreground_service_upload">Fájlok felöltése…</string>
+    <string name="foreground_service_download">Fájlok letöltése…</string>
 
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
     <string name="prefs_license">Licensz</string>
@@ -724,7 +704,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Nincs információ.</string>
+    <string name="dev_version_no_information_available">Nincs információ</string>
     <string name="dev_version_no_new_version_available">Nincs új verzió.</string>
     <string name="folder_icon">Mappaikon</string>
     <string name="dev_version_new_version_available">Elérhető új verzió</string>
@@ -761,22 +741,27 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Ez a mappa nem üres.</string>
     <string name="end_to_end_encryption_wrong_password">Hiba történt a visszafejtés közben. Rossz jelszó?</string>
-    <string name="end_to_end_encryption_decrypting">Dekódolás&#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése&#8230;</string>
+    <string name="end_to_end_encryption_decrypting">Dekódolás…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése…</string>
     <string name="end_to_end_encryption_enter_password">Kérlek add meg a jelszavad a privát kulcs visszafejtéséhez.</string>
-    <string name="end_to_end_encryption_generating_keys">Új kulcsok generálása&#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Új kulcsok generálása…</string>
     <string name="end_to_end_encryption_keywords_description">Ez a 12 szavas kifejezés egy nagyon erős jelszó ami teljes hozzáférést ad a titkosított fájljaid megtekintéséhez. Kérlek írd le és őrizd biztonságos helyen.</string>
     <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_passphrase_title">Jegyezd fel a 12 szavas titkosítási kulcsot</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás csak KitKat(4.4)-en és felette megy.</string>
     <string name="end_to_end_encryption_not_enabled">Végponti titkosítás letiltva a szerveren.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
-    <string name="end_to_end_encryption_password">Jelszó&#8230;</string>
+    <string name="end_to_end_encryption_password">Jelszó…</string>
     <string name="end_to_end_encryption_unsuccessful">Kulcsok nem menthetők, kérjük próbáld meg ismét.</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
+    <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Autentikációs végpont címe</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Hozzáférési végpont címe</string>
+    <string name="hint_name">Név</string>
+    <string name="hint_password">Jelszó</string>
     </resources>

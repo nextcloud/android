@@ -4,8 +4,10 @@
  * @author Bartek Przybylski
  * @author masensio
  * @author David A. Velasco
+ * @author Andy Scherzinger
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -33,6 +35,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
@@ -55,7 +58,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -98,7 +100,6 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -122,7 +123,8 @@ import java.util.Set;
  * A Fragment that lists all files and folders in a given path.
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
+public class OCFileListFragment extends ExtendedListFragment implements
+        OCFileListFragmentInterface, OCFileListBottomSheetActions {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -149,8 +151,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
-    private static final String SCREEN_NAME = "Remote/Server file browser";
-
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
@@ -163,7 +163,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private int mProgressBarColor;
 
     private boolean mHideFab = true;
-    private boolean miniFabClicked = false;
     private ActionMode mActiveActionMode;
     private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
@@ -188,9 +187,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = ThemeUtils.primaryDarkColor();
+        mSystemBarColor = ThemeUtils.primaryDarkColor(getContext());
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = ThemeUtils.primaryColor();
+        mProgressBarColor = ThemeUtils.primaryColor(getContext());
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -274,15 +273,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        if (getActivity() != null) {
-            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
-        }
-    }
-
-    @Override
     public void onDetach() {
         setOnRefreshListener(null);
         mContainerActivity = null;
@@ -327,26 +317,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             setFabEnabled(false);
         } else {
             setFabEnabled(true);
-            registerFabListeners();
-
-            // detect if a mini FAB has ever been clicked
-            if (PreferenceManager.getFABClicked(getActivity()) > 0) {
-                miniFabClicked = true;
-            }
-
-            // add labels to the min FABs when none of them has ever been clicked on
-            if (!miniFabClicked) {
-                setFabLabels();
-            } else {
-                removeFabLabels();
-            }
+            registerFabListener();
         }
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
         prepareCurrentSearch(searchEvent);
-        if (searchEvent != null && savedInstanceState == null) {
-            onMessageEvent(searchEvent);
-        }
 
         if (isGridViewPreferred(getCurrentFile())) {
             switchToGridView();
@@ -381,143 +356,50 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     /**
-     * adds labels to all mini FABs.
+     * register listener on FAB.
      */
-    private void setFabLabels() {
-        getFabUpload().setTitle(getResources().getString(R.string.actionbar_upload));
-        getFabMkdir().setTitle(getResources().getString(R.string.actionbar_mkdir));
-        getFabUploadFromApp().setTitle(getResources().getString(R.string.actionbar_upload_from_apps));
-    }
-
-    /**
-     * registers all listeners on all mini FABs.
-     */
-    private void registerFabListeners() {
-        registerFabUploadListeners(getActivity());
-        registerFabMkDirListeners(getActivity());
-        registerFabUploadFromAppListeners(getActivity());
-    }
-
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabUploadListeners(final Activity activity) {
-        getFabUpload().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
-                        .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload);
-                return true;
-            }
+    private void registerFabListener() {
+        getFabMain().setOnClickListener(v -> {
+            new OCFileListBottomSheetDialog(getContext(), this).show();
         });
     }
 
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the 'Create Dir' mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabMkDirListeners(final Activity activity) {
-        getFabMkdir().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateFolderDialogFragment dialog =
-                        CreateFolderDialogFragment.newInstance(mFile);
-                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_mkdir);
-                return true;
-            }
-        });
+    @Override
+    public void createFolder() {
+        CreateFolderDialogFragment.newInstance(mFile)
+                .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
     }
 
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload from App mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabUploadFromAppListeners(final Activity activity) {
-        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                }
-                getActivity().startActivityForResult(
-                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                        FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
-                );
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload_from_apps);
-                return true;
-            }
-        });
-    }
-
-    /**
-     * records a click on a mini FAB and thus:
-     * <ol>
-     * <li>persists the click fact</li>
-     * <li>removes the mini FAB labels</li>
-     * </ol>
-     */
-    private void recordMiniFabClick() {
-        // only record if it hasn't been done already at some other time
-        if (!miniFabClicked) {
-            PreferenceManager.setFABClicked(getActivity());
-            miniFabClicked = true;
+    @Override
+    public void uploadFromApp() {
+        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         }
+        getActivity().startActivityForResult(
+                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
+        );
     }
 
-    /**
-     * removes the labels on all known min FABs.
-     */
-    private void removeFabLabels() {
-        getFabUpload().setTitle(null);
-        getFabMkdir().setTitle(null);
-        getFabUploadFromApp().setTitle(null);
-        ((TextView) getFabUpload().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabMkdir().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabUploadFromApp().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+    @Override
+    public void uploadFiles() {
+        UploadFilesActivity.startUploadActivityForResult(
+                getActivity(),
+                ((FileActivity) getActivity()).getAccount(),
+                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+        );
     }
 
     @Override
     public void onShareIconClick(OCFile file) {
-        mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+        if (file.isFolder()) {
+            mContainerActivity.showDetails(file, 1);
+        } else {
+            mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+        }
     }
 
     @Override
@@ -558,12 +440,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         private HashSet<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
 
         @Override
-        public void onDrawerSlide(View drawerView, float slideOffset) {
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
             // nothing to do
         }
 
         @Override
-        public void onDrawerOpened(View drawerView) {
+        public void onDrawerOpened(@NonNull View drawerView) {
             // nothing to do
         }
 
@@ -574,7 +456,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
          * @param drawerView Navigation drawer just closed.
          */
         @Override
-        public void onDrawerClosed(View drawerView) {
+        public void onDrawerClosed(@NonNull View drawerView) {
             if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
                 FragmentActivity actionBarActivity = getActivity();
                 actionBarActivity.startActionMode(mMultiChoiceModeListener);
@@ -1346,7 +1228,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
+                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
                     break;
             }
         }
@@ -1405,10 +1287,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
+        searchFragment = false;
+        
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
+            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1461,6 +1345,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
+        prepareCurrentSearch(event);
         searchFragment = true;
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile);
@@ -1514,6 +1399,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
 
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+
         final RemoteOperation remoteOperation;
         if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
             boolean searchOnlyFolders = false;
@@ -1521,12 +1408,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 searchOnlyFolders = true;
             }
 
-            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType(), searchOnlyFolders);
+            String userId = AccountManager.get(MainApp.getAppContext()).getUserData(currentAccount,
+                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType(), searchOnlyFolders,
+                    userId);
         } else {
             remoteOperation = new GetRemoteSharesOperation();
         }
-
-        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         remoteOperationAsyncTask = new AsyncTask() {
             @Override
@@ -1631,7 +1520,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
 
                     if (actionBar != null) {
-                            ThemeUtils.setColoredTitle(actionBar, title);
+                        ThemeUtils.setColoredTitle(actionBar, title, getContext());
                     }
                 }
             }

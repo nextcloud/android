@@ -50,7 +50,7 @@
                 android:id="@+id/drawer_current_account"
                 android:layout_width="@dimen/nav_drawer_header_avatar"
                 android:layout_height="@dimen/nav_drawer_header_avatar"
-                android:src="@drawable/ic_account_circle"
+                android:src="@drawable/account_circle_white"
                 android:contentDescription="@string/drawer_current_account"/>
 
             <ImageView
@@ -60,7 +60,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/nav_drawer_header_avatar_second_account_margin"
                 android:layout_marginRight="@dimen/nav_drawer_header_avatar_second_account_margin"
-                android:src="@drawable/ic_account_circle"
+                android:src="@drawable/account_circle_white"
                 android:onClick="onAccountDrawerClick"
                 android:contentDescription="@string/drawer_middle_account"/>
 
@@ -69,7 +69,7 @@
                 android:layout_width="@dimen/nav_drawer_header_avatar_other_accounts_size"
                 android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_account_circle"
+                android:src="@drawable/account_circle_white"
                 android:onClick="onAccountDrawerClick"
                 android:contentDescription="@string/drawer_end_account"/>
 

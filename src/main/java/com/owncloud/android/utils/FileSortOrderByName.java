@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Sven R. Kunze
@@ -23,11 +23,10 @@ package com.owncloud.android.utils;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -35,7 +34,6 @@ import third_parties.daveKoeller.AlphanumComparator;
 /**
  * Created by srkunze on 28.08.17.
  */
-
 public class FileSortOrderByName extends FileSortOrder {
 
     public FileSortOrderByName(String name, boolean ascending) {
@@ -70,28 +68,25 @@ public class FileSortOrderByName extends FileSortOrder {
     /**
      * Sorts list by Name.
      *
-     * @param filesArray files to sort
+     * @param files files to sort
      */
-    public File[] sortLocalFiles(File[] filesArray) {
+    public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory() && o2.isDirectory()) {
-                    return multiplier * o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
-                } else if (o1.isDirectory()) {
-                    return -1;
-                } else if (o2.isDirectory()) {
-                    return 1;
-                }
-                return multiplier * new AlphanumComparator().compare(o1.getPath().toLowerCase(),
-                        o2.getPath().toLowerCase());
+        Collections.sort(files, (o1, o2) -> {
+            if (o1.isDirectory() && o2.isDirectory()) {
+                return multiplier * o1.getPath().toLowerCase(Locale.getDefault())
+                        .compareTo(o2.getPath().toLowerCase(Locale.getDefault()));
+            } else if (o1.isDirectory()) {
+                return -1;
+            } else if (o2.isDirectory()) {
+                return 1;
             }
+            return multiplier * new AlphanumComparator().compare(o1.getPath()
+                            .toLowerCase(Locale.getDefault()),
+                    o2.getPath().toLowerCase(Locale.getDefault()));
         });
 
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
+        return files;
     }
 }

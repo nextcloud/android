@@ -19,10 +19,10 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,19 +32,20 @@
             android:id="@+id/send_share_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginLeft="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginRight="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginStart="@dimen/send_share_fragment_layout_margin"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:padding="24dp">
+            android:padding="@dimen/send_share_fragment_layout_padding">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/share_people_icon"
@@ -53,12 +54,12 @@
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/share"
                 android:src="@drawable/shared_via_users"
-                android:paddingTop="12dp"
-                android:paddingRight="12dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp"
+                android:paddingTop="@dimen/share_people_icon_layout_padding"
+                android:paddingRight="@dimen/share_people_icon_layout_padding"
+                android:paddingEnd="@dimen/share_people_icon_layout_padding"
+                android:paddingBottom="@dimen/share_people_icon_layout_padding"
+                android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingStart="@dimen/standard_half_padding"
                 android:background="@drawable/round_bgnd"/>
 
             <TextView
@@ -76,7 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/share_link_icon"

@@ -50,7 +50,7 @@
                 android:id="@+id/drawer_quota_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/alternate_half_padding"
                 />
 
             <ProgressBar
@@ -67,7 +67,7 @@
                 android:id="@+id/drawer_quota_percentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/alternate_half_padding"
                 android:text="@string/drawer_quota"/>
 
         </LinearLayout>

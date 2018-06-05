@@ -38,28 +38,28 @@ import java.util.Set;
 
 public class PassCodeManager {
 
-    private static final Set<Class> sExemptOfPasscodeActivites;
+    private static final Set<Class> exemptOfPasscodeActivities;
 
     static {
-        sExemptOfPasscodeActivites = new HashSet<Class>();
-        sExemptOfPasscodeActivites.add(PassCodeActivity.class);
-        sExemptOfPasscodeActivites.add(FingerprintActivity.class);
+        exemptOfPasscodeActivities = new HashSet<>();
+        exemptOfPasscodeActivities.add(PassCodeActivity.class);
+        exemptOfPasscodeActivities.add(FingerprintActivity.class);
         // other activities may be exempted, if needed
     }
 
     private static final int PASS_CODE_TIMEOUT = 1000;
         // keeping a "low" positive value is the easiest way to prevent the pass code is requested on rotations
 
-    public static PassCodeManager mPassCodeManagerInstance = null;
+    private static PassCodeManager passCodeManagerInstance = null;
 
-    private Long mTimestamp = 0l;
-    private int mVisibleActivitiesCounter = 0;
+    private Long timestamp = 0L;
+    private int visibleActivitiesCounter = 0;
 
     public static PassCodeManager getPassCodeManager() {
-        if (mPassCodeManagerInstance == null) {
-            mPassCodeManagerInstance = new PassCodeManager();
+        if (passCodeManagerInstance == null) {
+            passCodeManagerInstance = new PassCodeManager();
         }
-        return mPassCodeManagerInstance;
+        return passCodeManagerInstance;
     }
 
     protected PassCodeManager() {}
@@ -73,7 +73,7 @@ public class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && passCodeShouldBeRequested()) {
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested()) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
@@ -81,7 +81,7 @@ public class PassCodeManager {
             activity.startActivity(i);
         }
 
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
 
@@ -91,12 +91,12 @@ public class PassCodeManager {
             activity.startActivity(i);
         }
 
-        mVisibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
+        visibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
     }
 
     public void onActivityStopped(Activity activity) {
-        if (mVisibleActivitiesCounter > 0) {
-            mVisibleActivitiesCounter--;
+        if (visibleActivitiesCounter > 0) {
+            visibleActivitiesCounter--;
         }
         setUnlockTimestamp();
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
@@ -106,16 +106,11 @@ public class PassCodeManager {
     }
 
     private void setUnlockTimestamp() {
-        mTimestamp = System.currentTimeMillis();
+        timestamp = System.currentTimeMillis();
     }
 
-    private boolean passCodeShouldBeRequested(){
-        if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT &&
-                mVisibleActivitiesCounter <= 0
-                ){
-            return passCodeIsEnabled();
-        }
-        return false;
+    private boolean passCodeShouldBeRequested() {
+        return (passCodeIsEnabled() && hasAuthenticationTimeoutExpired());
     }
 
     private boolean passCodeIsEnabled() {
@@ -124,10 +119,11 @@ public class PassCodeManager {
     }
 
     private boolean fingerprintShouldBeRequested() {
-        if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT && mVisibleActivitiesCounter <= 0) {
-            return fingerprintIsEnabled();
-        }
-        return false;
+        return (fingerprintIsEnabled() && hasAuthenticationTimeoutExpired());
+    }
+
+    private boolean hasAuthenticationTimeoutExpired() {
+        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0;
     }
 
     private boolean fingerprintIsEnabled() {

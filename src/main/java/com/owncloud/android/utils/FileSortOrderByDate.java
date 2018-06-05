@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Sven R. Kunze
@@ -23,8 +23,6 @@ package com.owncloud.android.utils;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -63,22 +61,16 @@ public class FileSortOrderByDate extends FileSortOrder {
     /**
      * Sorts list by Date.
      *
-     * @param filesArray list of files to sort
+     * @param files list of files to sort
      */
-    public File[] sortLocalFiles(File[] filesArray) {
+    public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx")
-            public int compare(File o1, File o2) {
-                Long obj1 = o1.lastModified();
-                return multiplier * obj1.compareTo(o2.lastModified());
-            }
+        Collections.sort(files, (o1, o2) -> {
+            Long obj1 = o1.lastModified();
+            return multiplier * obj1.compareTo(o2.lastModified());
         });
 
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
+        return files;
     }
 }

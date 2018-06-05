@@ -40,7 +40,6 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.BufferedReader;
@@ -62,8 +61,6 @@ public class LogHistoryActivity extends ToolbarActivity {
 
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
-    private static final String SCREEN_NAME = "Logs";
-
     private String mLogPath = Log_OC.getLogPath();
     private File logDIR = null;
     private String mLogText;
@@ -82,7 +79,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         }
         Button deleteHistoryButton = findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = findViewById(R.id.sendLogHistoryButton);
-        sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         TextView logTV = findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
@@ -120,12 +117,6 @@ public class LogHistoryActivity extends ToolbarActivity {
             mLogText = savedInstanceState.getString(KEY_LOG_TEXT);
             logTV.setText(mLogText);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override

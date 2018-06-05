@@ -206,7 +206,6 @@ public class DownloadFileOperation extends RemoteOperation {
 
                     FileOutputStream fileOutputStream = new FileOutputStream(tmpFile);
                     fileOutputStream.write(decryptedBytes);
-                    fileOutputStream.close();
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }

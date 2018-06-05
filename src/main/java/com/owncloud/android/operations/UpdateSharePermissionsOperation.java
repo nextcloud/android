@@ -1,8 +1,10 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author Andy Scherzinger
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2018 Andy Scherzinger
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,7 +17,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.operations;
@@ -31,25 +32,25 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 
 /**
- * Updates an existing private share for a given file
+ * Updates an existing private share for a given file.
  */
-
 public class UpdateSharePermissionsOperation extends SyncOperation {
 
     private long mShareId;
     private int mPermissions;
+    private long mExpirationDateInMillis;
     private String mPath;
 
     /**
      * Constructor
      *
-     * @param shareId       Private {@link OCShare} to update. Mandatory argument
+     * @param shareId Private {@link OCShare} to update. Mandatory argument
      */
     public UpdateSharePermissionsOperation(long shareId) {
         mShareId = shareId;
         mPermissions = -1;
+        mExpirationDateInMillis = 0L;
     }
-
 
     /**
      * Set permissions to update in private share.
@@ -61,6 +62,17 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         mPermissions = permissions;
     }
 
+    /**
+     * Set expiration date to update private share.
+     *
+     * @param expirationDateInMillis    Expiration date to set to the public link.
+     *                                  A negative value clears the current expiration date.
+     *                                  Zero value (start-of-epoch) results in no update done on
+     *                                  the expiration date.
+     */
+    public void setExpirationDate(long expirationDateInMillis) {
+        mExpirationDateInMillis = expirationDateInMillis;
+    }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -69,18 +81,15 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
 
         if (share == null) {
             // TODO try to get remote share before failing?
-            return new RemoteOperationResult(
-                    RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
-            );
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         mPath = share.getPath();
 
         // Update remote share with password
-        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(
-            share.getRemoteId()
-        );
+        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(share.getRemoteId());
         updateOp.setPermissions(mPermissions);
+        updateOp.setExpirationDate(mExpirationDateInMillis);
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {

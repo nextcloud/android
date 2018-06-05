@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s ose %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
-    <string name="auth_host_url">Adresa e serverit https://&#8230;</string>
+    <string name="auth_host_url">Adresa e serverit https://…</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
     <string name="auth_register">Nuk keni akoma Nextcloud?\nKlikoni këtu për të marrë një nga ofruesit</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_empty_favorites_filter_list">Skedarët dhe direktoritë që i shënoni si të preferuara do të shfaqen këtu</string>
     <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
-    <string name="file_list_loading">Duke u ngarkuar&#8230;</string>
+    <string name="file_list_loading">Duke u ngarkuar…</string>
     <string name="file_list_no_app_for_file_type">Nuk ka asnjë konfigurim për të trajtuar këtë tip skedari</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
@@ -113,7 +113,6 @@
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
-    <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
     <string name="filedetails_download">Shkarkoje</string>
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
@@ -127,20 +126,20 @@
     <string name="common_back">Mbrapsht</string>
     <string name="common_save">Ruaj</string>
     <string name="common_error">Gabim</string>
-    <string name="common_loading">Po ngarkohet &#8230;</string>
+    <string name="common_loading">Po ngarkohet…</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_error_unknown">Gabim i panjohur</string>
     <string name="common_pending">Në pritje</string>
     <string name="common_delete">Fshije</string>
+    <string name="common_send">Dërgojeni</string>
     <string name="about_title">Rreth</string>
-    <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="avatar">Avatari</string>
     <string name="active_user">Përdorues aktiv</string>
-    <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
+    <string name="upload_chooser_title">Ngarkojeni prej…</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
-    <string name="uploader_upload_in_progress_ticker">Po ngarkohet &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Po ngarkohet…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Po ngarkohet %2$s</string>
     <string name="uploader_upload_succeeded_ticker">U ngarkua</string>
     <string name="uploader_upload_succeeded_content_single">%1$s u ngarkua</string>
@@ -166,7 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Duke pritur për Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Duke pritur të dalë nga modaliteti i kursimit të energjisë</string>
     <string name="uploads_view_later_waiting_to_upload">Po pritet për ngarkim</string>
-    <string name="downloader_download_in_progress_ticker">Po shkarkohet &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Po shkarkohet…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Shkarkim %2$s</string>
     <string name="downloader_download_succeeded_ticker">U shkarkua</string>
     <string name="downloader_download_succeeded_content">%1$s u shkarkua</string>
@@ -230,8 +229,8 @@
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
     <string name="media_forward_description">Butoni Përpara</string>
 
-	<string name="auth_getting_authorization">Po merret autorizim &#8230;</string>
-	<string name="auth_trying_to_login">Po provohet hyrja &#8230;</string>
+    <string name="auth_getting_authorization">Po merret autorizim…</string>
+    <string name="auth_trying_to_login">Po provohet hyrja…</string>
 	<string name="auth_no_net_conn_title">Pa lidhje rrjeti</string>
 	<string name="auth_nossl_plain_ok_title">S\’ka lidhje të sigurt.</string>
 	<string name="auth_connection_established">Lidhja u vendos</string>
@@ -239,7 +238,9 @@
 	<string name="auth_not_configured_title">Formësim i keqformuar serveri</string>
 	<string name="auth_account_not_new">Në pajisje ka tashmë një llogari për të njëjtin përdorues dhe server</string>
 	<string name="auth_account_not_the_same">Përdoruesi i dhënë s\’përputhet me përdoruesin e kësaj llogarie</string>
+	<string name="auth_unknown_error_http_title">Një gabim i panjohur HTTP ka ndodhur!</string>
 	<string name="auth_unknown_error_title">Ndodhi një gabim i panjohur!</string>
+	<string name="auth_unknown_error_exception_title">Gabim i panjohur:%1$s</string>
 	<string name="auth_unknown_host_title">S’u gjet dot hosti</string>
 	<string name="auth_incorrect_path_title">S’u gjet dot instancë serveri</string>
 	<string name="auth_timeout_title">Serverit iu desh shumë kohë për përgjigje</string>
@@ -256,7 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-    <string name="auth_connecting_auth_server">Duke u lidhur me serverin e autentifikimit&#8230;</string>
+    <string name="auth_connecting_auth_server">Duke u lidhur me serverin e autentifikimit…</string>
 	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk kthen ID e saktë të përdoruesit, ju lutemi kontaktoni nje administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
@@ -265,9 +266,8 @@
 
     <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
-    <string name="favorite_real">Vendose si të preferuar</string>
-    <string name="unset_favorite_real">Hiqe si të preferuar</string>
-    <string name="favorite_switch">I disponueshëm jo në linjë</string>
+    <string name="favorite_real">U shtua te të parapëlqyerat</string>
+    <string name="unset_favorite_real">U hoq nga të parapëlqyerat</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="common_rename">Riemërtojeni</string>
@@ -285,14 +285,14 @@
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një karakter të pavlefshëm</string>
     <string name="filename_empty">Emri i skedarit nuk mund të jetë i zbrazët</string>
-    <string name="wait_a_moment">Prisni një moment&#8230;</string>
+    <string name="wait_a_moment">Prisni një moment…</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
-    <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
+    <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
-    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0&#8230;</string>
+    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>
         
     <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
@@ -328,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
@@ -384,14 +385,14 @@
     <string name="downloader_download_file_not_found">Skedari s’gjendet më te serveri</string>
 
     <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
-    <string name="file_migration_preparing">Duke përgaditur migrimin&#8230;</string>
-    <string name="file_migration_checking_destination">Duke kontrolluar destinacionin &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin e llogarive &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Duke pritur të gjitha sinkronizimet &#8230;</string>
-    <string name="file_migration_migrating">Duke zhvendosur të dhënave &#8230;</string>
-    <string name="file_migration_updating_index">Përditësimi i indeksit &#8230;</string>
-    <string name="file_migration_cleaning">Duke pastruar &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Rivendosja e konfigurimit të llogarisë &#8230;</string>
+    <string name="file_migration_preparing">Duke përgaditur migrimin…</string>
+    <string name="file_migration_checking_destination">Duke kontrolluar destinacionin…</string>
+    <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin e llogarive…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Duke pritur të gjitha sinkronizimet…</string>
+    <string name="file_migration_migrating">Duke zhvendosur të dhënave…</string>
+    <string name="file_migration_updating_index">Përditësimi i indeksit…</string>
+    <string name="file_migration_cleaning">Duke pastruar…</string>
+    <string name="file_migration_restoring_accounts_configuration">Rivendosja e konfigurimit të llogarisë…</string>
     <string name="file_migration_ok_finished">Përfundoi</string>
     <string name="file_migration_failed_not_enough_space">Ka nevojë për më shumë hapësirë</string>
     <string name="file_migration_failed_not_writable">Nuk mund të shkruhet në skedarin e destinacionit</string>
@@ -415,7 +416,7 @@
 	<string name="log_send_history_button">Historik dërgimesh</string>
 	<string name="log_send_no_mail_app">S’u gjet aplikacion për dërgim regjistrimesh. Ju lutemi, instaloni një aplikacion email-esh.</string>
 	<string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
-	<string name="log_progress_dialog_text">Po ngarkohen të dhëna &#8230;</string>
+    <string name="log_progress_dialog_text">Po ngarkohen të dhëna…</string>
 
 	<string name="saml_authentication_required_text">Kërkohet fjalëkalimi</string>
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
@@ -461,8 +462,8 @@
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë…</string>
+    <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë…</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="deselect_all">Hiqi të gjithë</string>
 
@@ -476,17 +477,24 @@
     <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>
     <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
     <string name="share_add_user_or_group">Shtoni përdorues ose grup</string>
-    <string name="share_via_link_section_title">Lidhje ndarjeje</string>
-    <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
+    <string name="share_via_link_edit_permission_label">Lejo redaktimin</string>
     <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
     <string name="share_via_link_password_title">E siguruar</string>
-    <string name="share_via_link_edit_permission_label">Lejo redaktimin</string>
+    <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
+    <string name="share_via_link_menu_password_label">Mbroje me fjalëkalim (%1$s)</string>
+    <string name="share_expiration_date_label">Skadon%1$s</string>
+    <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
+    <string name="share_via_link_section_title">Lidhje ndarjeje</string>
+    <string name="share_password_title">Mbrojtur me fjalëkalim</string>
+    <string name="share_no_password_title">Vendos fjalëkalimin</string>
+    <string name="edit_permission_label">redakto</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
-    <string name="share_with_title">Ndajeni me &#8230;</string>
+    <string name="share_with_title">Ndajeni me…</string>
     <string name="share_with_edit_title">Ndajeni me %1$s</string>
+    <string name="share_via_link_unset_password">E pavendosur</string>
 
-    <string name="share_search">Kërko</string>
+    <string name="share_search">Emri, ID e resë të federuar ose adresën e email-it…</string>
 
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
     <string name="share_group_clarification">%1$s (grup)</string>
@@ -495,14 +503,12 @@
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
     <string name="share_sharee_unavailable">Përditësoni versionin e serverit për të lejuar ndarjen midis përdoruesve brenda klientëve të tyre.\nJu lutemi të kontaktoni administratorin tuaj</string>
-    <string name="filedetails_share_link_enable">Shpërnda nga lidhja e aktivizuar</string>
-    <string name="filedetails_share_link_disable">Jo e shpërndarë nga lidhja</string>
-    <string name="filedetails_share_users_with_access">Përdoruesit dhe grupet me akses</string>
+    <string name="share_privilege_unshare">Hiqe ndarjen</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
-    <string name="share_privilege_can_edit_create">krijoje</string>
-    <string name="share_privilege_can_edit_change">ndrysho</string>
-    <string name="share_privilege_can_edit_delete">fshi</string>
+    <string name="share_privilege_can_edit_create">mund të krijohet</string>
+    <string name="share_privilege_can_edit_change">mund të ndryshohet</string>
+    <string name="share_privilege_can_edit_delete">mund të fshihet</string>
 
     <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
@@ -517,6 +523,7 @@
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
 
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
+    <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
@@ -546,11 +553,11 @@
     <string name="participate_rc_fdroid">Merni lirimin kandidat nga dyqani F-Droid app</string>
     <string name="participate_dev_fdroid">Merni lirimin e zhvillimit nga dyqani i F-Droid</string>
     <string name="participate_dev_direct_download">Shkarkoni direkt lirimin e zhvillimit</string>
-    <string name="move_to">Lëvizni tek &#8230;</string>
-    <string name="copy_to">Kopjojeni tek&#8230;</string>
-    <string name="choose_remote_folder">Zhgjidhni dosjen remote &#8230;</string>
-    <string name="choose_local_folder">Zgjidhni dosjen lokale &#8230;</string>
-    <string name="synced_folders_loading_folders">Duke ngarkuar dosjet &#8230;</string>
+    <string name="move_to">Lëvizni tek…</string>
+    <string name="copy_to">Kopjojeni tek…</string>
+    <string name="choose_remote_folder">Zhgjidhni dosjen remote…</string>
+    <string name="choose_local_folder">Zgjidhni dosjen lokale…</string>
+    <string name="synced_folders_loading_folders">Duke ngarkuar dosjet…</string>
     <string name="synced_folders_no_results">Nuk u gjet asnjë dosje.</string>
     <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>
     <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
@@ -560,7 +567,7 @@
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Duke ngarkuar njoftimet &#8230;</string>
+    <string name="notifications_loading_activity">Duke ngarkuar njoftimet…</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
 
@@ -629,7 +636,6 @@
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Morët njoftime të reja</string>
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="privacy">Privatësi</string>
@@ -646,8 +652,8 @@
     <string name="fallback_weblogin_back">Prapa</string>
     <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
 
-    <string name="foreground_service_upload">Ngarkimi i skedarëve &#8230;</string>
-    <string name="foreground_service_download">Shkarkimi i skedarëve &#8230;</string>
+    <string name="foreground_service_upload">Ngarkimi i skedarëve…</string>
+    <string name="foreground_service_download">Shkarkimi i skedarëve…</string>
 
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
@@ -738,19 +744,36 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Ky skedar nuk është bosh.</string>
     <string name="end_to_end_encryption_wrong_password">Ndoshi një gabim gjatë dekriptimit. Fjalëkalimi i gabuar?</string>
-    <string name="end_to_end_encryption_decrypting">Duke dekriptuar &#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Rikthimi i çelsave &#8230;</string>
+    <string name="end_to_end_encryption_decrypting">Duke dekriptuar…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Rikthimi i çelsave…</string>
     <string name="end_to_end_encryption_enter_password">Ju lutem fusni fjalëkalimin për të dekriptuar çelësin privat.</string>
-    <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj &#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj…</string>
     <string name="end_to_end_encryption_keywords_description">Të gjitha 12 fjalët së bashku bëjnë një fjalëkalim shumë të fortë, duke lënë vetëm ju të shikoni dhe të përdorni skedarët tuaj të koduar. Ju lutemi shkruani dhe mbajeni diku të sigurt.</string>
     <string name="end_to_end_encryption_title">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_passphrase_title">Mbaj shënim për fjalëkalimin tuaj të enkriptimit me 12 fjalë</string>
     <string name="end_to_end_encryption_not_supported">Enkriptimi funksionon vetëm në KitKat(4.4) dhe më pas.</string>
+    <string name="end_to_end_encryption_not_enabled">Enkriptimi end-to-end është i pavendosur në server.</string>
     <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
-    <string name="end_to_end_encryption_password">Fjalëkalimi &#8230;</string>
+    <string name="end_to_end_encryption_password">Fjalëkalimi…</string>
     <string name="end_to_end_encryption_unsuccessful">Nuk mund të ruheshin celësat, ju lutem provojeni përsëri.</string>
     <string name="end_to_end_encryption_dialog_close">Mbylleni</string>
     <string name="end_to_end_encryption_storing_keys">Ruaj çelësat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
-    </resources>
+    <string name="notification_channel_push_name">Shty njoftimet</string>
+    <string name="notification_channel_push_description">Trego njoftimet e shtyra të dërguara nga serveri: Përmendjet në komentet, marrja e aksioneve të reja të largëta, shpalljet e postuara nga një administrator etj.</string>
+    <string name="sendbutton_description">Ikona e butonit dërgo</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresa e autentifikimit të pikës fundore</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresa e qasjes së pikës fundore</string>
+    <string name="hint_name">Emër</string>
+    <string name="hint_password">Fjalëkalimi</string>
+    <string name="add_to_cloud">Shtojeni tek %1$s</string>
+    <string name="upload_files">Ngarko skedarët</string>
+    <string name="upload_content_from_other_apps">Ngarkoni përmbatje nga aplikacionet e tjera</string>
+    <string name="create_new_folder">Krijo një dosje të re</string>
+    <string name="uploads_view_upload_status_virus_detected">U gjet virus. Ngarkimi nuk mund të përfundojë!</string>
+    <string name="tags">Etiketë</string>
+    <string name="sharee_add_failed">Duke shtuar përdëruesit e dështuar</string>
+    <string name="unsharing_failed">Mos ndarja dështoi</string>
+    <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
+</resources>

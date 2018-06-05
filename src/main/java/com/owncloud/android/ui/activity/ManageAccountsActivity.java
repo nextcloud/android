@@ -56,7 +56,6 @@ import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -93,20 +92,19 @@ public class ManageAccountsActivity extends FileActivity
     String mOriginalCurrentAccount;
     private Drawable mTintedCheck;
 
-    private static final String SCREEN_NAME = "Logs";
     private ArbitraryDataProvider arbitraryDataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_white_18dp));
-        int tint = ThemeUtils.primaryColor();
+        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.account_circle_white));
+        int tint = ThemeUtils.primaryColor(this);
         DrawableCompat.setTint(mTintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
 
-        mListView = (ListView) findViewById(R.id.account_list);
+        mListView = findViewById(R.id.account_list);
 
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
@@ -147,12 +145,6 @@ public class ManageAccountsActivity extends FileActivity
         });
 
         initializeComponentGetters();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override

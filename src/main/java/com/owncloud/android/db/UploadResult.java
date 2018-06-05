@@ -38,7 +38,8 @@ public enum UploadResult {
     MAINTENANCE_MODE(12),
     LOCK_FAILED(13),
     DELAYED_IN_POWER_SAVE_MODE(14),
-    SSL_RECOVERABLE_PEER_UNVERIFIED(15);
+    SSL_RECOVERABLE_PEER_UNVERIFIED(15),
+    VIRUS_DETECTED(16);
 
     private final int value;
 
@@ -86,6 +87,8 @@ public enum UploadResult {
                 return DELAYED_IN_POWER_SAVE_MODE;
             case 15:
                 return SSL_RECOVERABLE_PEER_UNVERIFIED;
+            case 16:
+                return VIRUS_DETECTED;
         }
         return null;
     }
@@ -134,9 +137,10 @@ public enum UploadResult {
                 return UNKNOWN;
             case LOCK_FAILED:
                 return LOCK_FAILED;
+            case VIRUS_DETECTED:
+                return VIRUS_DETECTED;
             default:
                 return UNKNOWN;
         }
-
     }
 }

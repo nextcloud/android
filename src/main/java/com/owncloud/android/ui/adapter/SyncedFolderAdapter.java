@@ -162,7 +162,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
             File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image);
+                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, mContext);
 
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
@@ -249,7 +249,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if (enabled) {
             syncStatusButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
-                    ThemeUtils.primaryColor()));
+                    ThemeUtils.primaryColor(mContext)));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

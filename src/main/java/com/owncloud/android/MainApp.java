@@ -27,7 +27,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -65,7 +64,6 @@ import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -111,6 +109,7 @@ public class MainApp extends MultiDexApplication {
     private boolean mBound;
 
     @SuppressFBWarnings("ST")
+    @Override
     public void onCreate() {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
@@ -118,10 +117,6 @@ public class MainApp extends MultiDexApplication {
 
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();
-
-        if (!getResources().getBoolean(R.bool.analytics_enabled)) {
-            AnalyticsUtils.disableAnalytics();
-        }
 
         appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -489,7 +484,7 @@ public class MainApp extends MultiDexApplication {
     private static void updateToAutoUpload() {
             Context context = getAppContext();
             if (PreferenceManager.instantPictureUploadEnabled(context) ||
-                            PreferenceManager.instantPictureUploadEnabled(context)) {
+                    PreferenceManager.instantVideoUploadEnabled(context)){
 
                 // remove legacy shared preferences
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
@@ -511,20 +506,13 @@ public class MainApp extends MultiDexApplication {
                     new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
                             .setTitle(R.string.drawer_synced_folders)
                             .setMessage(R.string.synced_folders_new_info)
-                            .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // show Auto Upload
-                                    Intent folderSyncIntent = new Intent(context,
-                                            SyncedFoldersActivity.class);
-                                    dialog.dismiss();
-                                    context.startActivity(folderSyncIntent);
-                                }
+                            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                                // show Auto Upload
+                                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
+                                dialog.dismiss();
+                                context.startActivity(folderSyncIntent);
                             })
-                            .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
+                            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
                             .setIcon(R.drawable.nav_synced_folders)
                             .show();
                 } catch (WindowManager.BadTokenException e) {
