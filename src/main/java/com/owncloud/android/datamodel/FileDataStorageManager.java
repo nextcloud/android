@@ -997,7 +997,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
         cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-        cv.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected());
+        cv.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
 
         if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
             overriden = true;
