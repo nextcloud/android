@@ -19,11 +19,12 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -36,6 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
@@ -81,8 +84,8 @@ public class MimeTypeUtil {
      * @param filename Name, with extension.
      * @return Drawable of an image resource.
      */
-    public static Drawable getFileTypeIcon(String mimetype, String filename) {
-        return getFileTypeIcon(mimetype, filename, null);
+    public static Drawable getFileTypeIcon(String mimetype, String filename, Context context) {
+        return getFileTypeIcon(mimetype, filename, null, context);
     }
 
     /**
@@ -93,15 +96,19 @@ public class MimeTypeUtil {
      * @param account account which color should be used
      * @return Drawable of an image resource.
      */
-    public static Drawable getFileTypeIcon(String mimetype, String filename, Account account) {
-        int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
-        Drawable icon = MainApp.getAppContext().getResources().getDrawable(iconId);
+    @Nullable
+    public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
+        if (context != null) {
+            int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
+            Drawable icon = ContextCompat.getDrawable(context, iconId);
 
         if(R.drawable.file_zip == iconId) {
-            ThemeUtils.tintDrawable(icon, ThemeUtils.elementColor());
+            ThemeUtils.tintDrawable(icon, ThemeUtils.elementColor(account, context));
         }
-
-        return icon;
+            return icon;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -130,8 +137,8 @@ public class MimeTypeUtil {
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted,
-                                             WebdavEntry.MountType mountType) {
-        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null, mountType);
+                                             WebdavEntry.MountType mountType, Context context) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null, mountType, context);
     }
 
     /**
@@ -144,7 +151,8 @@ public class MimeTypeUtil {
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType) {
+                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType,
+                                             Context context) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -159,11 +167,11 @@ public class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account));
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account, context));
     }
 
-    public static Drawable getDefaultFolderIcon() {
-        return getFolderTypeIcon(false, false, false, WebdavEntry.MountType.INTERNAL);
+    public static Drawable getDefaultFolderIcon(Context context) {
+        return getFolderTypeIcon(false, false, false, WebdavEntry.MountType.INTERNAL, context);
     }
 
 

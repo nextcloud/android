@@ -201,7 +201,7 @@ public class UserInfoActivity extends FileActivity {
 
             emptyContentIcon.setVisibility(View.GONE);
             emptyContentMessage.setVisibility(View.GONE);
-            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
@@ -353,7 +353,7 @@ public class UserInfoActivity extends FileActivity {
         public void onStart() {
             super.onStart();
 
-            int color = ThemeUtils.primaryAccentColor();
+            int color = ThemeUtils.primaryAccentColor(getContext());
 
             AlertDialog alertDialog = (AlertDialog) getDialog();
 

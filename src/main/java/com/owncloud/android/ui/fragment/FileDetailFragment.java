@@ -153,12 +153,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            int accentColor = ThemeUtils.primaryAccentColor();
+            int accentColor = ThemeUtils.primaryAccentColor(getContext());
             SwitchCompat favoriteToggle = mView.findViewById(R.id.fdFavorite);
             favoriteToggle.setOnCheckedChangeListener(this);
             ThemeUtils.tintSwitch(favoriteToggle, accentColor, false);
             ProgressBar progressBar = mView.findViewById(R.id.fdProgressBar);
-            ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
+            ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
             ((TextView)mView.findViewById(R.id.fdShareTitle)).setTextColor(accentColor);
@@ -295,7 +295,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         item = menu.findItem(R.id.action_send_share_file);
         if (item != null) {
-            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor(getContext()));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                 // additional restriction for this fragment
@@ -478,7 +478,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (iv != null) {
             iv.setTag(file.getFileId());
             // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
+            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount,
+                    getContext()));
 
             Bitmap thumbnail;
 
@@ -509,7 +510,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                     }
                 }
             } else {
-                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
+                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount,
+                        getContext()));
 			}
         }
     }

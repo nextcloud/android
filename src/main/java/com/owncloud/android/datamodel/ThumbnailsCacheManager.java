@@ -639,10 +639,12 @@ public class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey = null;
+        private Context mContext;
 
-        public MediaThumbnailGenerationTask(ImageView imageView) {
+        public MediaThumbnailGenerationTask(ImageView imageView, Context context) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
+            mContext = context;
         }
 
         @Override
@@ -689,12 +691,13 @@ public class ThumbnailsCacheManager {
                 } else {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
-                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon());
+                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext));
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
                             } else {
-                                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, mFile.getName(), null));
+                                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, mFile.getName(),
+                                        mContext));
                             }
                         }
                     }

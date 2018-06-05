@@ -68,7 +68,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 ProgressBar v = (ProgressBar) progressDialog.findViewById(android.R.id.progress);
-                v.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
+                v.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                         android.graphics.PorterDuff.Mode.MULTIPLY);
 
             }

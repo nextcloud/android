@@ -58,7 +58,7 @@ public class NotificationUtils {
      */
     public static NotificationCompat.Builder newNotificationBuilder(Context context) {
         return new NotificationCompat.Builder(context).
-                setColor(ThemeUtils.primaryColor());
+                setColor(ThemeUtils.primaryColor(context));
     }
 
     @SuppressFBWarnings("DMI")

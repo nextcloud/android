@@ -57,8 +57,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor());
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor());
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class SharePasswordDialogFragment extends DialogFragment
 
         // Setup layout
         EditText inputText = ((EditText)v.findViewById(R.id.share_password));
-        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()), PorterDuff.Mode.SRC_ATOP);
         inputText.setText("");
         inputText.requestFocus();
 

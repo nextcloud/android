@@ -226,7 +226,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotificationBuilder = new NotificationCompat.Builder(this);
-        mNotificationBuilder.setColor(ThemeUtils.primaryColor());
+        mNotificationBuilder.setColor(ThemeUtils.primaryColor(this));
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mBinder = new MediaServiceBinder(this);
     }

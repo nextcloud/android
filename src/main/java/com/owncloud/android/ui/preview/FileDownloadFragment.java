@@ -138,7 +138,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
         
         ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
-        ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
+        ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);

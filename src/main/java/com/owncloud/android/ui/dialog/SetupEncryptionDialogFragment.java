@@ -106,7 +106,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor();
+        int color = ThemeUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -122,7 +122,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         account = getArguments().getParcelable(ARG_ACCOUNT);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
@@ -207,7 +207,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                 positiveButton.setVisibility(View.GONE);
                                 negativeButton.setVisibility(View.GONE);
                                 getDialog().setTitle(ThemeUtils.getColoredTitle(getString(
-                                        R.string.end_to_end_encryption_storing_keys), ThemeUtils.primaryColor()));
+                                        R.string.end_to_end_encryption_storing_keys),
+                                        ThemeUtils.primaryColor(getContext())));
 
                                 GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
                                 newKeysTask.execute();
@@ -292,7 +293,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     getDialog().setTitle(ThemeUtils.getColoredTitle(
                             getString(R.string.end_to_end_encryption_passphrase_title),
-                            ThemeUtils.primaryColor()));
+                            ThemeUtils.primaryColor(getContext())));
 
                     textView.setText(R.string.end_to_end_encryption_keywords_description);
 
@@ -418,7 +419,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 keyResult = KEY_FAILED;
 
                 getDialog().setTitle(ThemeUtils.getColoredTitle(
-                        getString(R.string.common_error), ThemeUtils.primaryColor()));
+                        getString(R.string.common_error), ThemeUtils.primaryColor(getContext())));
                 textView.setText(R.string.end_to_end_encryption_unsuccessful);
                 positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
                 positiveButton.setVisibility(View.VISIBLE);

@@ -136,7 +136,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
@@ -383,7 +383,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(ThemeUtils.getColoredTitle(
                 getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
-                ThemeUtils.primaryAccentColor()))
+                ThemeUtils.primaryAccentColor(getContext())))
                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                         mSyncedFolder.getUploadActionInteger(),
                         new

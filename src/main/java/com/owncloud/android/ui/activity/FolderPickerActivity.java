@@ -118,11 +118,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     mDoNotEnterEncryptedFolder = true;
                     break;
                 default:
-                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
                     break;
             }
         } else {
-            caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+            caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
         }
 
         if (getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER) != null) {

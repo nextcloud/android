@@ -65,7 +65,7 @@ public class LoadingDialog extends DialogFragment {
         // set progress wheel color
         ProgressBar progressBar  = (ProgressBar) v.findViewById(R.id.loadingBar);
         progressBar.getIndeterminateDrawable().setColorFilter(
-                ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_IN);
+                ThemeUtils.primaryAccentColor(getContext()), PorterDuff.Mode.SRC_IN);
         
         return v;
     }

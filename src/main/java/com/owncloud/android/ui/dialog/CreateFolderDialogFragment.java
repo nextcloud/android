@@ -72,7 +72,7 @@ public class CreateFolderDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor();
+        int color = ThemeUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -82,7 +82,7 @@ public class CreateFolderDialogFragment
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
         
         // Inflate the layout for the dialog

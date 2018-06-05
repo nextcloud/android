@@ -670,12 +670,12 @@ public class FileDisplayActivity extends HookActivity
         searchView = (SearchView) MenuItemCompat.getActionView(item);
 
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(this);
         EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
         ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-        searchClose.setColorFilter(ThemeUtils.fontColor());
+        searchClose.setColorFilter(ThemeUtils.fontColor(this));
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);

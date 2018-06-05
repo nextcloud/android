@@ -96,7 +96,7 @@ public class FingerprintActivity extends AppCompatActivity {
         setContentView(R.layout.fingerprintlock);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
+            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor(this));
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -160,7 +160,7 @@ public class FingerprintActivity extends AppCompatActivity {
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         startFingerprint();
         ImageView imageView = (ImageView)findViewById(R.id.fingerprinticon);
-        imageView.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_fingerprint, ThemeUtils.primaryColor()));
+        imageView.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_fingerprint, ThemeUtils.primaryColor(this)));
     }
 
     @Override
