@@ -613,7 +613,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
-    <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
     <string name="prefs_category_about">Over</string>
 
     <string name="actionbar_contacts">Maak een backup van de contacten</string>

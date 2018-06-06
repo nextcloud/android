@@ -615,7 +615,6 @@ Veuillez contacter votre administrateur</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
-    <string name="activities_no_results_message">Ce flux liste les événements tels que\nles ajouts, les modifications et les partages</string>
     <string name="prefs_category_about">À propos</string>
 
     <string name="actionbar_contacts">Sauvegarde des contacts</string>

@@ -613,7 +613,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Brak aktywności</string>
-    <string name="activities_no_results_message">Ten strumień pokaże zdarzenia jak\ndodatki, zmiany i udziały</string>
     <string name="prefs_category_about">O aplikacji</string>
 
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>

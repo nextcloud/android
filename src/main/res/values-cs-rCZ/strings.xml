@@ -581,7 +581,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
-    <string name="activities_no_results_message">Datový proud bude zobrazovat události jako přidání, změny a sdílení</string>
     <string name="prefs_category_about">O aplikaci</string>
 
     <string name="actionbar_contacts">Zálohování kontaktů</string>

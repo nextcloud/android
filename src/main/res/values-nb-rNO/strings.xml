@@ -612,7 +612,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet enda</string>
-    <string name="activities_no_results_message">Denne strømmen vil vise hendelser som\nf.eks. innlegging, endring og deling</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>

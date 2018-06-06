@@ -494,7 +494,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aún no hay actividades</string>
-    <string name="activities_no_results_message">Este flujo le mostrará eventos tales como \nagregados, cambios &amp; elementos compartidos</string>
     <string name="prefs_category_about">Acerca de</string>
 
     <string name="actionbar_contacts">Respaldar contactos</string>

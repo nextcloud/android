@@ -566,7 +566,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Няма дейност все още</string>
-    <string name="activities_no_results_message">Този поток ще покаже събития като\n допълнения, промени и споделяния.</string>
     <string name="prefs_category_about">Относно</string>
 
     <string name="actionbar_contacts">Подсигурете контактите си</string>

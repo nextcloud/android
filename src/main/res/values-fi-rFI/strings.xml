@@ -543,7 +543,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
-    <string name="activities_no_results_message">Tähän luetteloon ilmestyy tapahtumia, kuten\nlisäyksiä, muutoksia ja jakamisia</string>
     <string name="prefs_category_about">Tietoja</string>
 
     <string name="actionbar_contacts">Varmuuskopioi yhteystietosi</string>

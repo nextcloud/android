@@ -594,8 +594,6 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nincs még tevékenység</string>
-    <string name="activities_no_results_message">Ez a folyam mutatja az olyan eseményeket mint
-hozzáadások, változások és megosztások</string>
     <string name="prefs_category_about">Névjegy</string>
 
     <string name="actionbar_contacts">Névjegyek biztonsági mentése</string>

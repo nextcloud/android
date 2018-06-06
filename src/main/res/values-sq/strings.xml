@@ -616,7 +616,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
-    <string name="activities_no_results_message">Ky burim do të tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>
     <string name="prefs_category_about">Rreth </string>
 
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>

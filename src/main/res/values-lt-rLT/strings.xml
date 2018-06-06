@@ -472,7 +472,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Kol kas jokių veiksmų</string>
-    <string name="activities_no_results_message">Srautas rodo papildymus, pakeitimus ir bendrinimus</string>
     <string name="prefs_category_about">Apie</string>
 
     <string name="actionbar_contacts">Išsaugoti atsarginę kontaktų kopiją</string>

@@ -618,7 +618,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Још нема активности</string>
-    <string name="activities_no_results_message">Овде ће се приказати догађаји попут\nдодавања, измена или дељења</string>
     <string name="prefs_category_about">О програму</string>
 
     <string name="actionbar_contacts">Направите резервну копију контаката</string>
