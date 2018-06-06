@@ -39,7 +39,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -185,6 +184,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
             }
         };
+
+        commentInput.getBackground().setColorFilter(
+                ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP
+        );
 
         return view;
     }
