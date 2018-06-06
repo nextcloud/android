@@ -836,8 +836,9 @@ public class FileOperationsHelper {
      * @param files         Files to delete
      * @param onlyLocalCopy When 'true' only local copy of the files is removed; otherwise files are also deleted
      *                      in the server.
+     * @param inBackground  When 'true', do not show any loading dialog
      */
-    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy) {
+    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy, boolean inBackground) {
         for (OCFile file : files) {
             // RemoveFile
             Intent service = new Intent(mFileActivity, OperationsService.class);
@@ -848,7 +849,9 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        if (!inBackground) {
+            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        }
     }
 
 
