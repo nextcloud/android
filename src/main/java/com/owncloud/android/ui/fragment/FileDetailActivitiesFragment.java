@@ -60,14 +60,17 @@ import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.RestoreFileVersionOperation;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -121,6 +124,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     public String noResultsMessage;
     private boolean restoreFileVersionSupported;
     private String userId;
+    private FileOperationsHelper operationsHelper;
+    private FileDataStorageManager storageManager;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -189,7 +194,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        operationsHelper = ((ComponentsGetter) getActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(account.name);
         OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
@@ -388,22 +394,31 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @Override
     public void onRestoreClicked(FileVersion fileVersion, VersionListInterface.Callback callback) {
-        new RestoreFileVersionTask(fileVersion, userId, ownCloudClient, callback).execute();
+        new RestoreFileVersionTask(fileVersion, userId, ownCloudClient, storageManager, operationsHelper, file,
+                callback).execute();
     }
 
     // TODO extract according to MVP, will be in following PR
     private static class RestoreFileVersionTask extends AsyncTask<Void, Void, Boolean> {
 
-        private FileVersion file;
+        private FileVersion fileVersion;
         private String userId;
         private OwnCloudClient client;
+        private FileOperationsHelper operationsHelper;
+        private FileDataStorageManager storageManager;
+        private OCFile ocFile;
         private VersionListInterface.Callback callback;
 
-        private RestoreFileVersionTask(FileVersion file, String userId, OwnCloudClient client,
+        private RestoreFileVersionTask(FileVersion fileVersion, String userId, OwnCloudClient client,
+                                       FileDataStorageManager storageManager, FileOperationsHelper operationsHelper,
+                                       OCFile ocFile,
                                        VersionListInterface.Callback callback) {
-            this.file = file;
+            this.fileVersion = fileVersion;
             this.userId = userId;
             this.client = client;
+            this.storageManager = storageManager;
+            this.operationsHelper = operationsHelper;
+            this.ocFile = ocFile;
             this.callback = callback;
         }
 
@@ -411,10 +426,18 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         protected Boolean doInBackground(Void... voids) {
 
             RestoreFileVersionOperation restoreFileVersionOperation = new RestoreFileVersionOperation(
-                    file.getRemoteId(), file.getFileName(), userId);
+                    fileVersion.getRemoteId(), fileVersion.getFileName(), userId);
 
             RemoteOperationResult result = restoreFileVersionOperation.execute(client);
 
+            if (result.isSuccess()) {
+                if (ocFile.isDown()) {
+                    List<OCFile> list = new ArrayList<>();
+                    list.add(ocFile);
+                    operationsHelper.removeFiles(list, true, true);
+                }
+            }
+            
             return result.isSuccess();
         }
 
@@ -423,7 +446,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
             super.onPostExecute(success);
 
             if (success) {
-                callback.onSuccess(file);
+                callback.onSuccess(fileVersion);
             } else {
                 callback.onError("error");
 
