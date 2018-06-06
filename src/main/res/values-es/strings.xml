@@ -616,7 +616,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aun no hay actividad</string>
-    <string name="activities_no_results_message">Esta secuencia le mostrará eventos como\ninclusiones, cambios y archivos compartidos</string>
     <string name="prefs_category_about">Acerca de</string>
 
     <string name="actionbar_contacts">Copia de seguridad de contactos</string>

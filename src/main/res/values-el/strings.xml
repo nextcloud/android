@@ -541,7 +541,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
-    <string name="activities_no_results_message">Σε αυτήν τη ροή θα εμφανιστούν γενονότα όπως\nπροσθήκες, αλλαγές και κοινόχρηστα</string>
     <string name="prefs_category_about">Περί</string>
 
     <string name="actionbar_contacts">Εφεδρικό αντίγραφο επαφών</string>

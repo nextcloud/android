@@ -616,7 +616,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
-    <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen und Freigaben an</string>
     <string name="prefs_category_about">Über</string>
 
     <string name="actionbar_contacts">Kontakte sichern</string>

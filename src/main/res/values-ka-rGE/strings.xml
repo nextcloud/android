@@ -558,7 +558,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">აქტოვობა ჯერ არაა</string>
-    <string name="activities_no_results_message">ეს ნაკადი გამოიტანს ისეთ მოვლენებს როგორებიცაა\nდამატებები, ცვლილებები და გაზიარებები</string>
     <string name="prefs_category_about">ჩვენს შესახებ</string>
 
     <string name="actionbar_contacts">კონტაქტების ბექაფი</string>

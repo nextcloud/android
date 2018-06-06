@@ -565,7 +565,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">暂无动态</string>
-    <string name="activities_no_results_message">此流将显示\ n添加，更改和共享等事件</string>
     <string name="prefs_category_about">关于</string>
 
     <string name="actionbar_contacts">联系人备份</string>

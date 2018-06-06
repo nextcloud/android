@@ -513,7 +513,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet än</string>
-    <string name="activities_no_results_message">Flödet visar aktiviteter så som\ntillägg, ändringar och delningar</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Backa upp kontakter</string>

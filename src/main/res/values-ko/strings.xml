@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s 및 %2$s</string>
 
     <string name="auth_check_server">서버 확인</string>
+    <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_password">암호</string>
     <string name="auth_register">Nextcloud가 없으신가요?\n공급자를 알아보려면 누르십시오</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">업로드하려고 선택한 파일을 찾을 수 없습니다. 파일이 존재하는지 확인하십시오.</string>
     <string name="uploader_error_message_source_file_not_copied">파일을 임시 폴더에 저장할 수 없습니다. 다시 전송을 시도하십시오.</string>
     <string name="uploader_upload_files_behaviour">업로드 설정:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">%1$s폴더로 이동</string>
     <string name="uploader_upload_files_behaviour_only_upload">원본 폴더에 파일 유지</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">원본 폴더에서 파일 삭제</string>
     <string name="file_list_seconds_ago">초 전</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">콘텐츠를 업로드하거나 기기와 동기화 하십시오.</string>
     <string name="file_list_empty_favorites_filter_list">즐겨찾기 표시한 파일과 폴더가 여기에 나타납니다</string>
     <string name="file_list_empty_favorites_filter">검색 결과에 즐겨찾기 항목이 없습니다.</string>
+    <string name="file_list_loading">불러오는 중...</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
@@ -112,6 +115,7 @@
     <string name="file_list_folder">폴더</string>
     <string name="filedetails_download">다운로드</string>
     <string name="filedetails_sync_file">동기화</string>
+    <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름이 %1$s(으)로 변경됨</string>
     <string name="list_layout">목록 보기</string>
     <string name="action_send_share">보내기/공유</string>
     <string name="common_yes">예</string>
@@ -122,16 +126,20 @@
     <string name="common_back">뒤로</string>
     <string name="common_save">저장</string>
     <string name="common_error">오류</string>
+    <string name="common_loading">불러오는 중...</string>
     <string name="common_unknown">알 수 없음</string>
     <string name="common_error_unknown">알 수 없는 오류</string>
     <string name="common_pending">대기 중</string>
     <string name="common_delete">삭제</string>
+    <string name="common_send">전송</string>
     <string name="about_title">정보</string>
     <string name="delete_account">계정 삭제</string>
     <string name="delete_account_warning">%s 계정 및 모든 로컬 파일을 삭제하시겠습니까\n\n삭제 작업은 취소할 수 없습니다.</string>
     <string name="avatar">아바타</string>
     <string name="active_user">활성 사용자</string>
+    <string name="upload_chooser_title">다음에서 업로드...</string>
     <string name="uploader_info_dirname">폴더 이름</string>
+    <string name="uploader_upload_in_progress_ticker">업로드 중...</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s 업로드 중</string>
     <string name="uploader_upload_succeeded_ticker">업로드 완료</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 업로드 완료</string>
@@ -157,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi 대기 중</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">배터리 절약 모드 종료를 기다리는 중</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
+    <string name="downloader_download_in_progress_ticker">다운로드 중...</string>
     <string name="downloader_download_in_progress_content">%1$d%% %2$s 다운로드 중</string>
     <string name="downloader_download_succeeded_ticker">다운로드됨</string>
     <string name="downloader_download_succeeded_content">%1$s 다운로드됨</string>
@@ -218,14 +227,18 @@
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
     <string name="media_forward_description">빨리감기 단추</string>
 
-    <string name="auth_no_net_conn_title">네트워크에 연결할 수 없음</string>
+    <string name="auth_getting_authorization">인증 중...</string>
+    <string name="auth_trying_to_login">로그인 시도 중...</string>
+	<string name="auth_no_net_conn_title">네트워크에 연결할 수 없음</string>
 	<string name="auth_nossl_plain_ok_title">암호화된 연결을 사용할 수 없습니다.</string>
 	<string name="auth_connection_established">연결됨</string>
 	<string name="auth_testing_connection">연결 테스트 중</string>
 	<string name="auth_not_configured_title">서버 설정이 잘못됨</string>
 	<string name="auth_account_not_new">이 장치에 같은 사용자 이름과 서버를 사용하는 계정이 이미 존재합니다</string>
 	<string name="auth_account_not_the_same">입력한 사용자가 이 계정의 사용자와 일치하지 않습니다</string>
+	<string name="auth_unknown_error_http_title">알 수 없는 HTTP오류가 발생했습니다!</string>
 	<string name="auth_unknown_error_title">알 수 없는 오류가 발생했습니다!</string>
+	<string name="auth_unknown_error_exception_title">알 수 없는 오류: %1$s</string>
 	<string name="auth_unknown_host_title">호스트를 찾을 수 없음</string>
 	<string name="auth_incorrect_path_title">서버를 찾을 수 없음</string>
 	<string name="auth_timeout_title">서버 응답 시간이 초과됨</string>
@@ -242,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">인증이 만료되었습니다. 다시 인증하십시오</string>
 	<string name="auth_expired_basic_auth_toast">현재 암호를 입력하십시오</string>
 	<string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속하십시오</string>
-    <string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
+    <string name="auth_connecting_auth_server">인증 서버에 연결 ...</string>
+	<string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
 	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
@@ -250,6 +264,8 @@
 
     <string name="favorite">오프라인 사용 가능으로 설정</string>
     <string name="unfavorite">오프라인 사용 불가능으로 설정</string>
+    <string name="favorite_real">즐겨찾기에 추가</string>
+    <string name="unset_favorite_real">즐겨찾기에서 삭제</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="common_rename">이름 바꾸기</string>
@@ -260,16 +276,22 @@
     <string name="remove_success_msg">삭제함</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
     <string name="rename_dialog_title">새 이름 입력</string>
+    <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
+    <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
     <string name="sync_file_nothing_to_do_msg">파일 내용이 이미 동기화됨</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="filename_forbidden_characters">사용할 수 없는 문자: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">파일 이름에 잘못된 글자가 한 자 이상 있음</string>
     <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
+    <string name="wait_a_moment">잠시 기다려 주십시오...</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
+    <string name="activity_chooser_title">다음으로 링크 보내기...</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
     
     <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string>
+    <string name="oauth_login_connection">OAuth 2.0 서버에 연결 중...</string>
+        
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_expired">- 서버 인증서가 만료되었습니다</string>
@@ -304,6 +326,7 @@
     <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/자동 업로드</string>
@@ -360,6 +383,7 @@
     <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없음</string>
 
     <string name="file_migration_dialog_title">저장소 경로 업데이트 중</string>
+    <string name="file_migration_preparing">이전 준비 중...</string>
     <string name="file_migration_ok_finished">완료됨</string>
     <string name="file_migration_failed_not_enough_space">공간 부족</string>
     <string name="file_migration_failed_not_writable">대상 파일에 기록할 수 없음</string>
@@ -540,7 +564,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">아직 활동 없음</string>
-    <string name="activities_no_results_message">이 스트림은 추가, 변경, 공유 등\n이벤트를 표시합니다</string>
     <string name="prefs_category_about">정보</string>
 
     <string name="actionbar_contacts">주소록 백업</string>

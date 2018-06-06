@@ -616,7 +616,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Engin virkni ennþá</string>
-    <string name="activities_no_results_message">Þetta streymi mun birta atburði á borð við viðbætingar, breytingar og deilingar</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
 
     <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>

@@ -446,7 +446,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Tidak ada aktivitas.</string>
-    <string name="activities_no_results_message">Stream ini akan menampilkan \npenambahan, perubahan atau pembagian.</string>
     <string name="prefs_category_about">Tentang.</string>
 
     <string name="actionbar_contacts">Cadangkan kontak.</string>

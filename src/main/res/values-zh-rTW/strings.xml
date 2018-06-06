@@ -496,7 +496,6 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">目前沒有任何活動</string>
-    <string name="activities_no_results_message">這個串流會顯示檔案的增加、變更、分享等活動</string>
     <string name="prefs_category_about">關於</string>
 
     <string name="actionbar_contacts">備份聯絡人</string>
