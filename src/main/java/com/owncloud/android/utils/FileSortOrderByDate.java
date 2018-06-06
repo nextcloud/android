@@ -62,8 +62,7 @@ public class FileSortOrderByDate extends FileSortOrder {
     public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
-        Collections.sort(files, (o1, o2) ->
-            multiplier * Long.compare(o1.lastModified(),o2.lastModified()));
+        Collections.sort(files, (o1, o2) -> multiplier * Long.compare(o1.lastModified(),o2.lastModified()));
 
         return files;
     }
