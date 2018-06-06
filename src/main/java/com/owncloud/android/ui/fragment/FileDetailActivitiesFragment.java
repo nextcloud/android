@@ -39,7 +39,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -76,6 +76,7 @@ import java.util.ArrayList;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface, VersionListInterface.View {
@@ -118,9 +119,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
-    @BindView(R.id.submitComment)
-    public Button submitComment;
-
     @BindView(R.id.commentInputField)
     public TextInputEditText commentInput;
 
@@ -129,9 +127,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @BindString(R.string.activities_no_results_message)
     public String noResultsMessage;
+
     private boolean restoreFileVersionSupported;
     private String userId;
     private FileOperationsHelper operationsHelper;
+    private VersionListInterface.CommentCallback callback;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -165,16 +165,14 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         fetchAndSetData(null);
 
-        swipeListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeListRefreshLayout));
-        swipeEmptyListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
+        swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
         AccountManager accountManager = AccountManager.get(getContext());
         userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        submitComment.setOnClickListener((l) -> submitComment(new VersionListInterface.CommentCallback() {
+        callback = new VersionListInterface.CommentCallback() {
 
             @Override
             public void onSuccess() {
@@ -186,16 +184,17 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
             public void onError(int error) {
                 Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
             }
-        }));
+        };
 
         return view;
     }
 
-    private void submitComment(VersionListInterface.CommentCallback callback) {
-        String message = commentInput.getText().toString();
-        new RestoreFileVersionTask.SubmitCommentTask(message, userId, file.getLocalId(), callback, ownCloudClient)
-                .execute();
-
+    @OnClick(R.id.submitComment)
+    public void submitComment() {
+        if (commentInput.getText().toString().trim().length() > 0) {
+            new RestoreFileVersionTask.SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
+                    callback, ownCloudClient).execute();
+        }
     }
 
     private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {

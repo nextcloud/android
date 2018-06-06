@@ -26,20 +26,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/zero"
+        android:layout_marginLeft="@dimen/standard_padding"
+        android:layout_marginRight="@dimen/zero"
+        android:layout_marginStart="@dimen/standard_padding"
         android:orientation="horizontal">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/commentInputField"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/new_comment"/>
+            android:hint="@string/new_comment"
+            android:paddingTop="@dimen/standard_padding" />
 
-        <Button
+        <ImageButton
             android:id="@+id/submitComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="→"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/common_send"
+            android:paddingBottom="@dimen/standard_padding"
+            android:paddingEnd="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingStart="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding"
+            android:src="@drawable/ic_send" />
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
