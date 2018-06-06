@@ -242,10 +242,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-    private final String BASIC_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(this));
-    private final String OAUTH_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this));
-    private final String SAML_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
-            MainApp.getAccountType(this));
+    private String basicTokenType;
+    private String oauthTokenType;
+    private String samlTokenType;
 
     private boolean webViewLoginMethod;
     private String webViewUser;
@@ -263,6 +262,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log_OC.e(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
+
+        basicTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(this));
+        oauthTokenType = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this));
+        samlTokenType = AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType(this));
 
         // delete cookies for webView
         deleteCookies();
@@ -561,11 +564,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private String chooseAuthTokenType(boolean oauth, boolean saml) {
         if (saml) {
-            return SAML_TOKEN_TYPE;
+            return samlTokenType;
         } else if (oauth) {
-            return OAUTH_TOKEN_TYPE;
+            return oauthTokenType;
         } else {
-            return BASIC_TOKEN_TYPE;
+            return basicTokenType;
         }
     }
 
@@ -911,10 +914,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String password = savedInstanceState.getString(KEY_PASSWORD);
 
             OwnCloudCredentials credentials = null;
-            if (BASIC_TOKEN_TYPE.equals(mAuthTokenType)) {
+            if (basicTokenType.equals(mAuthTokenType)) {
                 credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
 
-            } else if (OAUTH_TOKEN_TYPE.equals(mAuthTokenType)) {
+            } else if (oauthTokenType.equals(mAuthTokenType)) {
                 credentials = OwnCloudCredentialsFactory.newBearerCredentials(mAuthToken);
 
             }
@@ -1475,11 +1478,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private boolean authSupported(AuthenticationMethod authMethod) {
-        return ((BASIC_TOKEN_TYPE.equals(mAuthTokenType) &&
+        return ((basicTokenType.equals(mAuthTokenType) &&
                 AuthenticationMethod.BASIC_HTTP_AUTH.equals(authMethod)) ||
-                (OAUTH_TOKEN_TYPE.equals(mAuthTokenType) &&
+                (oauthTokenType.equals(mAuthTokenType) &&
                         AuthenticationMethod.BEARER_TOKEN.equals(authMethod)) ||
-                (SAML_TOKEN_TYPE.equals(mAuthTokenType) &&
+                (samlTokenType.equals(mAuthTokenType) &&
                         AuthenticationMethod.SAML_WEB_SSO.equals(authMethod))
         );
     }
@@ -2020,9 +2023,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onCheckClick(View view) {
         CheckBox oAuth2Check = (CheckBox) view;
         if (oAuth2Check.isChecked()) {
-            mAuthTokenType = OAUTH_TOKEN_TYPE;
+            mAuthTokenType = oauthTokenType;
         } else {
-            mAuthTokenType = BASIC_TOKEN_TYPE;
+            mAuthTokenType = basicTokenType;
         }
         updateAuthenticationPreFragmentVisibility();
     }
