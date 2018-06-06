@@ -35,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FileSortOrderByDate extends FileSortOrder {
 
-    public FileSortOrderByDate(String name, boolean ascending) {
+    FileSortOrderByDate(String name, boolean ascending) {
         super(name, ascending);
     }
 
