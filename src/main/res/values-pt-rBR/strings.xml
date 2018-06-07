@@ -616,6 +616,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nenhuma atividade</string>
+    <string name="activities_no_results_message">Ainda não há nenhuma adição, alteração ou compartilhamento</string>
     <string name="prefs_category_about">Sobre</string>
 
     <string name="actionbar_contacts">Fazer cópia dos contatos</string>
