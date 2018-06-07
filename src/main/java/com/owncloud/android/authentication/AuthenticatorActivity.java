@@ -1430,14 +1430,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 checkBasicAuthorization(webViewUser, webViewPassword);
             } else if (webViewLoginMethod) {
                 // hide old login
-                showOldLogin(View.GONE);
+                setOldLoginVisibility(View.GONE);
 
                 setContentView(R.layout.account_setup_webview);
                 mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
             } else {
                 // show old login
-                showOldLogin(View.VISIBLE);
+                setOldLoginVisibility(View.VISIBLE);
             }
 
             if (!authSupported(mServerInfo.mAuthMethod)) {
@@ -1465,7 +1465,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (!mServerIsValid) {
             // hide old login
-            showOldLogin(View.GONE);
+            setOldLoginVisibility(View.GONE);
         }
 
         /// very special case (TODO: move to a common place for all the remote operations)
@@ -1474,7 +1474,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private void showOldLogin(int visible) {
+    private void setOldLoginVisibility(int visible) {
         mOkButton.setVisibility(visible);
         mUsernameInputLayout.setVisibility(visible);
         mPasswordInputLayout.setVisibility(visible);
