@@ -393,6 +393,11 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     @Override
+    public void onError(String message) {
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onRestoreClicked(FileVersion fileVersion, VersionListInterface.Callback callback) {
         new RestoreFileVersionTask(fileVersion, userId, ownCloudClient, storageManager, operationsHelper, file,
                 callback).execute();
@@ -430,12 +435,10 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
             RemoteOperationResult result = restoreFileVersionOperation.execute(client);
 
-            if (result.isSuccess()) {
-                if (ocFile.isDown()) {
-                    List<OCFile> list = new ArrayList<>();
-                    list.add(ocFile);
-                    operationsHelper.removeFiles(list, true, true);
-                }
+            if (result.isSuccess() && ocFile.isDown()) {
+                List<OCFile> list = new ArrayList<>();
+                list.add(ocFile);
+                operationsHelper.removeFiles(list, true, true);
             }
             
             return result.isSuccess();
