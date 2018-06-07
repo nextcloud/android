@@ -616,6 +616,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
+    <string name="activities_no_results_message">Henüz ekleme, değiştirme, paylaşım gibi bir işlem yapılmamış</string>
     <string name="prefs_category_about">Hakkında</string>
 
     <string name="actionbar_contacts">Kişileri yedekle</string>
