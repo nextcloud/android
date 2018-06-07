@@ -123,7 +123,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
 
                         @Override
                         public void onError(String error) {
-
+                            versionListInterface.onError(error);
                         }
                     }));
         } else {
