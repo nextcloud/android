@@ -22,13 +22,12 @@ package com.owncloud.android.authentication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.view.WindowManager;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -117,8 +116,7 @@ public class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_PASSCODE);
+        return PreferenceManager.getLockPreference(MainApp.getAppContext()).equals(Preferences.LOCK_PASSCODE);
     }
 
     private boolean deviceCredentialsShouldBeRequested(Activity activity) {
@@ -127,10 +125,9 @@ public class PassCodeManager {
     }
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        return appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_DEVICE_CREDENTIALS) ||
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        (appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false)
+        return PreferenceManager.getLockPreference(MainApp.getAppContext()).equals(Preferences.LOCK_DEVICE_CREDENTIALS)
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        (PreferenceManager.isUseFingerprint(MainApp.getAppContext())
                                 && DeviceCredentialUtils.areCredentialsAvailable(activity));
     }
 }
