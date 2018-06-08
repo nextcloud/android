@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Nepodarilo sa zistiť adresu účtu pre DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play nie sú nainštalované</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizácia kalendára &amp; kontaktov úspešne dokončená</string>
     <string name="prefs_daily_contacts_sync_summary">Denná záloha vašich kontaktov</string>
@@ -56,12 +57,14 @@
     <string name="prefs_imprint">Podmienky používania</string>
 
 	<string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
-	<string name="recommend_urls">%1$s alebo %2$s</string>
+	<string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
+    <string name="recommend_urls">%1$s alebo %2$s</string>
 
     <string name="auth_check_server">Skontrolovať server</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
+    <string name="auth_register">Ešte nemáte Nextcloud?\nKliknite sem a získajte ho od poskytovateľa</string>
     <string name="sync_string_files">Súbory</string>
     <string name="setup_btn_connect">Pripojiť</string>
     <string name="uploader_btn_upload_text">Nahrať</string>
@@ -78,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Súbor, ktorý sa pokúšate nahrať nebol nájdený. Overte prosím či súbor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Pri kopírovaní súboru do dočasného priečinka došlo k chybe. Skúste prosím znova.</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presunúť súbor do priečinku %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
@@ -98,13 +102,20 @@
     <string name="file_list_empty_headline_server_search_videos">Žiadne videá</string>
     <string name="file_list_empty_headline_server_search_photos">Žiadne fogografie</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
+    <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
+    <string name="file_list_empty_recently_modified_filter">Za posledných 7 dní neboli zmenené žiadne súbory.</string>
+    <string name="file_list_empty_recently_added">Žiadne nedávno pridané súbory</string>
     <string name="file_list_empty_recently_added_filter">Žiadne nedávno pridané súbory.</string>
+    <string name="file_list_empty_text_photos">Nahrajte nejaké fotky alebo si zapnite automatické nahrávanie.</string>
     <string name="file_list_empty_text_photos_filter">Žiadne fotky.</string>
+    <string name="file_list_empty_text_videos">Nahrajte nejaké videá alebo si zapnute automatické nahrávanie.</string>
     <string name="file_list_empty_text_videos_filter">Žiadne videá.</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
+    <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>
     <string name="file_list_folder">priečinok</string>
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
+    <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="common_yes">Áno</string>
@@ -120,6 +131,7 @@
     <string name="common_error_unknown">Neznáma chyba</string>
     <string name="common_pending">Prebieha</string>
     <string name="common_delete">Zmazať</string>
+    <string name="common_send">Odoslať</string>
     <string name="about_title">O</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="avatar">Avatar</string>

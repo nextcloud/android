@@ -616,6 +616,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
+    <string name="activities_no_results_message">Bisher keine Ereignisse wie Hinzugekommenes, Änderungen und Freigaben</string>
     <string name="prefs_category_about">Über</string>
 
     <string name="actionbar_contacts">Kontakte sichern</string>
