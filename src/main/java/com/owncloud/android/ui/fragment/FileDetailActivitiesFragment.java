@@ -122,7 +122,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private boolean restoreFileVersionSupported;
     private String userId;
     private FileOperationsHelper operationsHelper;
-    private FileDataStorageManager storageManager;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -191,7 +190,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     private void setupView() {
-        storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
         operationsHelper = ((ComponentsGetter) getActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(account.name);
@@ -266,8 +265,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
-                    ReadFileVersionsOperation readFileVersionsOperation = new ReadFileVersionsOperation(file.getLocalId(),
-                            userId);
+                    ReadFileVersionsOperation readFileVersionsOperation = new ReadFileVersionsOperation(
+                            file.getLocalId(), userId);
 
                     RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
 
