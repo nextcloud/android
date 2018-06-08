@@ -1812,6 +1812,9 @@ public class FileDisplayActivity extends HookActivity
                 FileDetailFragment fileDetailFragment = (FileDetailFragment) getSecondFragment();
                 fileDetailFragment.getFileDetailActivitiesFragment().reload();
             }
+        } else {
+            Snackbar.make(getSecondFragment().getView(), R.string.file_version_restored_error,
+                    Snackbar.LENGTH_LONG).show();
         }
 
     }
