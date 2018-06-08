@@ -1729,7 +1729,7 @@ public class FileDisplayActivity extends HookActivity
         } else if (operation instanceof UnshareOperation) {
             onUpdateShareInformation(result, R.string.unsharing_failed);
         } else if (operation instanceof RestoreFileVersionOperation) {
-            onRestoreFileVersionOperationFinish((RestoreFileVersionOperation) operation, result);
+            onRestoreFileVersionOperationFinish(result);
         }
     }
 
@@ -1793,9 +1793,7 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void onRestoreFileVersionOperationFinish(RestoreFileVersionOperation operation,
-                                                     RemoteOperationResult result) {
-
+    private void onRestoreFileVersionOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getFile();
 
@@ -1816,7 +1814,6 @@ public class FileDisplayActivity extends HookActivity
             Snackbar.make(getSecondFragment().getView(), R.string.file_version_restored_error,
                     Snackbar.LENGTH_LONG).show();
         }
-
     }
 
     public void setMediaServiceConnection() {
