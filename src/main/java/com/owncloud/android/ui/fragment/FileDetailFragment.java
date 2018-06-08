@@ -183,6 +183,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         return ((FileDetailTabAdapter)viewPager.getAdapter()).getFileDetailSharingFragment();
     }
 
+    /**
+     * return the reference to the file detail activity fragment to communicate with it.
+     *
+     * @return reference to the {@link FileDetailSharingFragment}
+     */
+    public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
+        return ((FileDetailTabAdapter) viewPager.getAdapter()).getFileDetailActivitiesFragment();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
