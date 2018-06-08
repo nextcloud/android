@@ -113,19 +113,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
             versionViewHolder.time.setText(DateFormat.format("HH:mm", new Date(fileVersion.getModifiedTimestamp())
                     .getTime()));
 
-            versionViewHolder.restore.setOnClickListener(v -> versionListInterface.onRestoreClicked(fileVersion,
-                    new VersionListInterface.Callback() {
-                        @Override
-                        public void onSuccess(FileVersion fileVersion) {
-                            versionListInterface.onSuccess(context.getString(
-                                    R.string.file_version_restored_successfully));
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            versionListInterface.onError(error);
-                        }
-                    }));
+            versionViewHolder.restore.setOnClickListener(v -> versionListInterface.onRestoreClicked(fileVersion));
         } else {
             super.onBindViewHolder(holder, position);
         }

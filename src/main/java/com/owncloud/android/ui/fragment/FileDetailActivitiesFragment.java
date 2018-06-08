@@ -26,7 +26,6 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -59,7 +58,6 @@ import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
@@ -70,7 +68,6 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -230,6 +227,10 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 }
             }
         });
+    }
+
+    public void reload() {
+        fetchAndSetData(null);
     }
 
     /**
@@ -398,67 +399,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     @Override
-    public void onRestoreClicked(FileVersion fileVersion, VersionListInterface.Callback callback) {
-        new RestoreFileVersionTask(fileVersion, userId, ownCloudClient, storageManager, operationsHelper, file,
-                callback).execute();
-    }
-
-    // TODO extract according to MVP, will be in following PR
-    private static class RestoreFileVersionTask extends AsyncTask<Void, Void, Boolean> {
-
-        private FileVersion fileVersion;
-        private String userId;
-        private OwnCloudClient client;
-        private FileOperationsHelper operationsHelper;
-        private FileDataStorageManager storageManager;
-        private OCFile ocFile;
-        private VersionListInterface.Callback callback;
-
-        private RestoreFileVersionTask(FileVersion fileVersion, String userId, OwnCloudClient client,
-                                       FileDataStorageManager storageManager, FileOperationsHelper operationsHelper,
-                                       OCFile ocFile,
-                                       VersionListInterface.Callback callback) {
-            this.fileVersion = fileVersion;
-            this.userId = userId;
-            this.client = client;
-            this.storageManager = storageManager;
-            this.operationsHelper = operationsHelper;
-            this.ocFile = ocFile;
-            this.callback = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-
-            RestoreFileVersionOperation restoreFileVersionOperation = new RestoreFileVersionOperation(
-                    fileVersion.getRemoteId(), fileVersion.getFileName(), userId);
-
-            RemoteOperationResult result = restoreFileVersionOperation.execute(client);
-
-            if (result.isSuccess() && ocFile.isDown()) {
-                List<OCFile> list = new ArrayList<>();
-                list.add(ocFile);
-                operationsHelper.removeFiles(list, true, true);
-            }
-            
-            return result.isSuccess();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-
-            if (success) {
-                callback.onSuccess(fileVersion);
-            } else {
-                callback.onError("error");
-
-            }
-
-            // TODO refactor to MVP
-            // if true, delete old local copy && update file list
-
-            // callback.onResult(success);
-        }
+    public void onRestoreClicked(FileVersion fileVersion) {
+        operationsHelper.restoreFileVersion(fileVersion, userId);
     }
 }
