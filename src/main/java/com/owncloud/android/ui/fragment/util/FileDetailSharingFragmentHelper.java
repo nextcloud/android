@@ -39,6 +39,10 @@ import java.util.Date;
  */
 public class FileDetailSharingFragmentHelper {
 
+    private FileDetailSharingFragmentHelper() {
+        // Private empty constructor
+    }
+
     /**
      * Sets checked/visiblity state on the given {@link MenuItem} based on the given criteria.
      *
