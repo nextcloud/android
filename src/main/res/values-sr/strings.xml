@@ -491,10 +491,13 @@
     <string name="share_via_link_section_title">Веза дељења</string>
     <string name="share_password_title">Заштићено лозинком</string>
     <string name="share_no_password_title">Постави лозинку</string>
+    <string name="edit_permission_label">измени</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_with_title">Подели са…</string>
     <string name="share_with_edit_title">Подели са %1$s</string>
+    <string name="share_via_link_unset_password">Уклони</string>
+
     <string name="share_search">Име, ID здруженог облака или адреса е-поште…</string>
 
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
@@ -618,6 +621,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Још нема активности</string>
+    <string name="activities_no_results_message">Још нема догађаја као што су додавања, измене или дељења</string>
     <string name="prefs_category_about">О програму</string>
 
     <string name="actionbar_contacts">Направите резервну копију контаката</string>
@@ -774,4 +778,7 @@
     <string name="create_new_folder">Направи нову фасциклу</string>
     <string name="uploads_view_upload_status_virus_detected">Вирус примећен. Отпремање не може да се заврши!</string>
     <string name="tags">Ознаке</string>
-    </resources>
+    <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
+    <string name="unsharing_failed">Уклањање дељења није успело</string>
+    <string name="updating_share_failed">Ажурирање дељења није успело</string>
+</resources>
