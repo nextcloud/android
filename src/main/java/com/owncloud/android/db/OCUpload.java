@@ -117,6 +117,8 @@ public class OCUpload implements Parcelable {
      */
     private String mFolderUnlockToken;
 
+    private long mSyncedFolderId;
+
     /**
      * Main constructor.
      *
@@ -168,6 +170,7 @@ public class OCUpload implements Parcelable {
         mIsUseWifiOnly = true;
         mIsWhileChargingOnly = false;
         mFolderUnlockToken = "";
+        mSyncedFolderId = -1;
     }
 
     // Getters & Setters
@@ -340,6 +343,14 @@ public class OCUpload implements Parcelable {
         }
     }
 
+    public long getSyncedFolderId() {
+        return mSyncedFolderId;
+    }
+
+    public void setSyncedFolderId(long syncedFolderId) {
+        this.mSyncedFolderId = syncedFolderId;
+    }
+
     /****
      *
      */
@@ -418,6 +429,7 @@ public class OCUpload implements Parcelable {
         mIsUseWifiOnly = (source.readInt() == 1);
         mIsWhileChargingOnly = (source.readInt() == 1);
         mFolderUnlockToken = source.readString();
+        mSyncedFolderId = source.readLong();
     }
 
     @Override
@@ -441,6 +453,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mIsUseWifiOnly ? 1 : 0);
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
         dest.writeString(mFolderUnlockToken);
+        dest.writeLong(mSyncedFolderId);
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}

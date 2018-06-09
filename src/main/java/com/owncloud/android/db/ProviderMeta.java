@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 31;
+    public static final int DB_VERSION = 32;
 
     private ProviderMeta() {
     }
@@ -191,6 +191,7 @@ public class ProviderMeta {
         public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
+        public static final String UPLOADS_SYNCED_FOLDER_ID = "synced_folder_id";
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";
