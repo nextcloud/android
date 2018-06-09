@@ -21,6 +21,8 @@
 
 package com.owncloud.android.operations;
 
+import android.text.TextUtils;
+
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -136,9 +138,8 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
             share.setIsFolder(false);
         }
 
-        share.setIsPasswordProtected((mPassword != null && mPassword.length() > 0));
+        share.setIsPasswordProtected(!TextUtils.isEmpty(mPassword));
         getStorageManager().saveShare(share);
     }
-
 }
 
