@@ -24,15 +24,11 @@ import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Created by srkunze on 28.08.17.
  */
-
 public class FileSortOrderByDate extends FileSortOrder {
 
     FileSortOrderByDate(String name, boolean ascending) {

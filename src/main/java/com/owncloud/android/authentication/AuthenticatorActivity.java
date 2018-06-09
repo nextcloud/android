@@ -168,7 +168,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String AUTH_OPTIONAL = "optional";
 
     public static final byte ACTION_CREATE = 0;
-    public static final byte ACTION_UPDATE_TOKEN = 1;               // requested by the user
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
 
     private static final String UNTRUSTED_CERT_DIALOG_TAG = "UNTRUSTED_CERT_DIALOG";
@@ -195,14 +194,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private Account mAccount;
     private String mAuthTokenType;
 
-
     /// activity-level references / state
     private final Handler mHandler = new Handler();
     private ServiceConnection mOperationsServiceConnection = null;
     private OperationsServiceBinder mOperationsServiceBinder = null;
     private AccountManager mAccountMgr;
     private Uri mNewCapturedUriFromOAuth2Redirection;
-
 
     /// Server PRE-Fragment elements 
     private CustomEditText mHostUrlInput;
@@ -217,7 +214,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean mServerIsValid = false;
 
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
-
 
     /// Authentication PRE-Fragment elements 
     private CheckBox mOAuth2Check;
@@ -274,7 +270,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -590,37 +585,47 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOkButton = findViewById(R.id.buttonOK);
         mOkButton.setOnClickListener(v -> onOkClick());
 
-        /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
-        boolean isWelcomeLinkVisible = getResources().getBoolean(R.bool.show_welcome_link);
-
-        String instructionsMessageText = null;
-        if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this)).equals(mAuthTokenType)) {
-                instructionsMessageText = getString(R.string.auth_expired_oauth_token_toast);
-
-            } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType(this))
-                    .equals(mAuthTokenType)) {
-                instructionsMessageText = getString(R.string.auth_expired_saml_sso_token_toast);
-
-            } else {
-                instructionsMessageText = getString(R.string.auth_expired_basic_auth_toast);
-            }
-        }
-
-        /// step 2 - set properties of UI elements (text, visibility, enabled...)
-        Button welcomeLink = findViewById(R.id.welcome_link);
-        welcomeLink.setVisibility(mAction == ACTION_CREATE && isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
-        welcomeLink.setText(getString(R.string.auth_register));
+        setupWelcomeLink();
+        setupInstructionMessage();
 
         mTestServerButton.setVisibility(mAction == ACTION_CREATE ? View.VISIBLE : View.GONE);
+    }
 
+    private void setupWelcomeLink() {
+        Button welcomeLink = findViewById(R.id.welcome_link);
+        welcomeLink.setVisibility(mAction == ACTION_CREATE &&
+                getResources().getBoolean(R.bool.show_welcome_link) ? View.VISIBLE : View.GONE);
+        welcomeLink.setText(getString(R.string.auth_register));
+    }
+
+    private void setupInstructionMessage() {
+        String instructionsMessageText = calculateInstructionMessageText(mAction, mAuthTokenType);
         TextView instructionsView = findViewById(R.id.instructions_message);
+
         if (instructionsMessageText != null) {
             instructionsView.setVisibility(View.VISIBLE);
             instructionsView.setText(instructionsMessageText);
         } else {
             instructionsView.setVisibility(View.GONE);
         }
+    }
+
+    @Nullable
+    private String calculateInstructionMessageText(byte action, String authTokenType) {
+        if (action == ACTION_UPDATE_EXPIRED_TOKEN) {
+            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this)).equals(authTokenType)) {
+                return getString(R.string.auth_expired_oauth_token_toast);
+
+            } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType(this))
+                    .equals(authTokenType)) {
+                return getString(R.string.auth_expired_saml_sso_token_toast);
+
+            } else {
+                return getString(R.string.auth_expired_basic_auth_toast);
+            }
+        }
+
+        return null;
     }
 
     public void onTestServerConnectionClick(View v) {
@@ -1425,18 +1430,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 checkBasicAuthorization(webViewUser, webViewPassword);
             } else if (webViewLoginMethod) {
                 // hide old login
-                mOkButton.setVisibility(View.GONE);
-                mUsernameInputLayout.setVisibility(View.GONE);
-                mPasswordInputLayout.setVisibility(View.GONE);
+                setOldLoginVisibility(View.GONE);
 
                 setContentView(R.layout.account_setup_webview);
                 mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
             } else {
                 // show old login
-                mOkButton.setVisibility(View.VISIBLE);
-                mUsernameInputLayout.setVisibility(View.VISIBLE);
-                mPasswordInputLayout.setVisibility(View.VISIBLE);
+                setOldLoginVisibility(View.VISIBLE);
             }
 
             if (!authSupported(mServerInfo.mAuthMethod)) {
@@ -1464,11 +1465,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (!mServerIsValid) {
             // hide old login
-            mOkButton.setVisibility(View.GONE);
-            mUsernameInputLayout.setVisibility(View.GONE);
-            mPasswordInputLayout.setVisibility(View.GONE);
+            setOldLoginVisibility(View.GONE);
         }
-
 
         /// very special case (TODO: move to a common place for all the remote operations)
         if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
@@ -1476,6 +1474,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
+    private void setOldLoginVisibility(int visible) {
+        mOkButton.setVisibility(visible);
+        mUsernameInputLayout.setVisibility(visible);
+        mPasswordInputLayout.setVisibility(visible);
+    }
 
     private boolean authSupported(AuthenticationMethod authMethod) {
         return ((basicTokenType.equals(mAuthTokenType) &&

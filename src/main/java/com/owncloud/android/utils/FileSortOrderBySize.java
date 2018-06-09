@@ -24,15 +24,12 @@ import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Sorts files by sizes
  */
-
 public class FileSortOrderBySize extends FileSortOrder {
 
     FileSortOrderBySize(String name, boolean ascending) {
