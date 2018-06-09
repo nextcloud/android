@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.google.gms:google-services:3.2.0'
         classpath 'org.codehaus.groovy:groovy-all:2.4.12' 
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.2') { 
             exclude group: 'org.codehaus.groovy', module: 'groovy-all' 
@@ -244,7 +244,7 @@ dependencies {
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.mockito:mockito-core:2.13.0'
     // dependencies for instrumented tests
     // JUnit4 Rules
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
@@ -260,7 +260,7 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:15.0'
 
-    androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
+    androidTestImplementation 'tools.fastlane:screengrab:1.1.0'
     
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
