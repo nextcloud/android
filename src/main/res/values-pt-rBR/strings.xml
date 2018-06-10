@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
-    <string name="prefs_passcode">Bloqueio de código de acesso</string>
-    <string name="prefs_fingerprint">Bloqueio por impressão digital</string>
-    <string name="prefs_fingerprint_notsetup">Nenhuma impressão digital foi configurada.</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
@@ -602,9 +599,6 @@
 
     <string name="whats_new_skip">Saltar</string>
 
-    <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
-    <string name="fingerprint_unknown">Impressão digital não reconhecida</string>
-
     <!-- User information -->
     <string name="user_info_email">Email</string>
     <string name="user_info_phone">Número do telefone</string>
@@ -679,7 +673,6 @@
     <string name="activity_icon">Ícone de atividade</string>
     <string name="file_icon">Ícone de arquivo</string>
     <string name="user_icon">Ícone de usuário</string>
-    <string name="fingerprint_icon">Ícone de impressão digital</string>
     <string name="favorite_icon">Ícone de favorito</string>
     <string name="shared_via_link_icon">Ícone de compartilhamento via link</string>
     <string name="synced_icon">Ícone de sincronizado</string>

@@ -39,9 +39,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_passcode">Passcode lock</string>
-    <string name="prefs_fingerprint">Fingerprint lock</string>
-    <string name="prefs_fingerprint_notsetup">No fingerprints have been set up.</string>
     <string name="prefs_expert_mode">Expert mode</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
@@ -602,9 +599,6 @@
 
     <string name="whats_new_skip">Skip</string>
 
-    <string name="fingerprint_scan_finger">Please scan your finger</string>
-    <string name="fingerprint_unknown">Finger not recognized</string>
-
     <!-- User information -->
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Phone number</string>
@@ -678,7 +672,6 @@
     <string name="activity_icon">Activity icon</string>
     <string name="file_icon">File icon</string>
     <string name="user_icon">User icon</string>
-    <string name="fingerprint_icon">Fingerprint icon</string>
     <string name="favorite_icon">Favourite icon</string>
     <string name="shared_via_link_icon">Shared via link icon</string>
     <string name="synced_icon">Synced icon</string>

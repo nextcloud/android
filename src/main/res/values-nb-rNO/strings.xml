@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
-    <string name="prefs_passcode">Passordlås</string>
-    <string name="prefs_fingerprint">Fingeravtrykkslås</string>
-    <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
     <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
@@ -598,9 +595,6 @@
 
     <string name="whats_new_skip">Hopp over</string>
 
-    <string name="fingerprint_scan_finger">Skann fingeren din</string>
-    <string name="fingerprint_unknown">Gjenkjenner ikke finger</string>
-
     <!-- User information -->
     <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
@@ -691,7 +685,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Filikon</string>
     <string name="user_icon">Brukerikon</string>
-    <string name="fingerprint_icon">Fingeravtrykksikon</string>
     <string name="favorite_icon">Favorittikon</string>
     <string name="shared_via_link_icon">Delt via lenkeikon</string>
     <string name="synced_icon">Synkronisert-ikon</string>

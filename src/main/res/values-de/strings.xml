@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
-    <string name="prefs_passcode">PIN gesperrt</string>
-    <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
-    <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
@@ -602,8 +599,6 @@
 
     <string name="whats_new_skip">Überspringen</string>
 
-    <string name="fingerprint_scan_finger">Bitte scannen Sie Ihren Finger</string>
-    <string name="fingerprint_unknown">Finger nicht erkannt</string>
 
     <!-- User information -->
     <string name="user_info_email">E-Mail</string>
@@ -679,7 +674,6 @@
     <string name="activity_icon">Aktivitäten-Icon</string>
     <string name="file_icon">Datei-Icon</string>
     <string name="user_icon">Nutzer-Icon</string>
-    <string name="fingerprint_icon">Fingerabdruck-Icon</string>
     <string name="favorite_icon">Favoriten-Icon</string>
     <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
     <string name="synced_icon">Synchronisiert-Icon</string>

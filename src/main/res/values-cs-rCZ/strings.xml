@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
-    <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
     <string name="prefs_fingerprint">Zámek otiskem prstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
@@ -567,9 +566,6 @@
     <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Přeskočit</string>
 
-    <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
-    <string name="fingerprint_unknown">Otisk prstu nerozpoznán</string>
-
     <!-- User information -->
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
@@ -633,7 +629,6 @@
     <string name="activity_icon">Ikona Aktivita</string>
     <string name="file_icon">Ikona Soubor</string>
     <string name="user_icon">Ikona Uživatel</string>
-    <string name="fingerprint_icon">Ikona Otisk prstu</string>
     <string name="favorite_icon">Ikona Oblíbené</string>
     <string name="shared_via_link_icon">Ikona Sdíleno odkazem</string>
     <string name="synced_icon">Ikona Synchronizováno</string>

@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
-    <string name="prefs_passcode">Suojakoodilukitus</string>
-    <string name="prefs_fingerprint">Sormenjälkilukitus</string>
-    <string name="prefs_fingerprint_notsetup">Sormenjälkiä ei ole asetettu</string>
     <string name="prefs_expert_mode">Asiantuntijatila</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
@@ -529,8 +526,6 @@
 
     <string name="whats_new_skip">Ohita</string>
 
-    <string name="fingerprint_scan_finger">Skannaa sormesi.</string>
-    <string name="fingerprint_unknown">Sormea ei tunnistettu</string>
 
     <!-- User information -->
     <string name="user_info_email">Sähköposti</string>
