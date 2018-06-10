@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
-    <string name="prefs_passcode">Toegangscode</string>
-    <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
-    <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -599,9 +596,6 @@
 
     <string name="whats_new_skip">Overslaan</string>
 
-    <string name="fingerprint_scan_finger">Scan je vinger</string>
-    <string name="fingerprint_unknown">Vinger niet herkend</string>
-
     <!-- User information -->
     <string name="user_info_email">Email</string>
     <string name="user_info_phone">Telefoonnummer</string>
@@ -675,7 +669,6 @@
     <string name="activity_icon">Activiteitspictogram</string>
     <string name="file_icon">Bestandpictogram</string>
     <string name="user_icon">Gebruikerspictogram</string>
-    <string name="fingerprint_icon">Vingerafdrukpictogram</string>
     <string name="favorite_icon">Favorietenpictogram</string>
     <string name="shared_via_link_icon">Gedeeld via link icoon</string>
     <string name="synced_icon">Gesynch\'d pictogram</string>

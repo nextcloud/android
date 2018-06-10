@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
-    <string name="prefs_passcode">Blocco con codice di sicurezza</string>
-    <string name="prefs_fingerprint">Blocco con impronta digitale</string>
-    <string name="prefs_fingerprint_notsetup">Non è stata impostata alcuna impronta digitale</string>
     <string name="prefs_expert_mode">Modalità esperta</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
@@ -602,9 +599,6 @@
 
     <string name="whats_new_skip">Salta</string>
 
-    <string name="fingerprint_scan_finger">Esegui la scansione del tuo dito</string>
-    <string name="fingerprint_unknown">Dito non riconosciuto</string>
-
     <!-- User information -->
     <string name="user_info_email">Email</string>
     <string name="user_info_phone">Numero di telefono</string>
@@ -679,7 +673,6 @@
     <string name="activity_icon">Icona attività</string>
     <string name="file_icon">Icona file</string>
     <string name="user_icon">Icona utente</string>
-    <string name="fingerprint_icon">Icona impronta digitale</string>
     <string name="favorite_icon">Icona preferiti</string>
     <string name="shared_via_link_icon">Icona condivisi tramite collegamento</string>
     <string name="synced_icon">Icona sincronizzati</string>

@@ -39,9 +39,6 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
-    <string name="prefs_passcode">密碼鎖</string>
-    <string name="prefs_fingerprint">指紋上鎖</string>
-    <string name="prefs_fingerprint_notsetup">尚未設置任何指紋。</string>
     <string name="prefs_expert_mode">專家模式</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
@@ -482,8 +479,6 @@
 
     <string name="whats_new_skip">略過</string>
 
-    <string name="fingerprint_scan_finger">請掃描您的指紋</string>
-    <string name="fingerprint_unknown">不認識的指紋</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

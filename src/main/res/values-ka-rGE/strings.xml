@@ -39,9 +39,6 @@
     <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
-    <string name="prefs_passcode">ჩაკეტვა პასკოდით</string>
-    <string name="prefs_fingerprint">ჩაკეტვა თითის ანაბეჭდით</string>
-    <string name="prefs_fingerprint_notsetup">თითის ანაბეჭდები არ დაყენებულა.</string>
     <string name="prefs_expert_mode">ექპერტ-რეჟიმი</string>
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>
@@ -544,9 +541,6 @@
 
     <string name="whats_new_skip">გამოტოვება</string>
 
-    <string name="fingerprint_scan_finger">გთხოვთ დაასკანიროთ თქვენი თითი</string>
-    <string name="fingerprint_unknown">თითი ვერ იქნა ამოცნობილი</string>
-
     <!-- User information -->
     <string name="user_info_email">ელ-ფოსტა</string>
     <string name="user_info_phone">ტელეფონის ნომერი</string>
@@ -617,7 +611,6 @@
     <string name="activity_icon">აქტივობის პიქტოგრამა</string>
     <string name="file_icon">ფაილის პიქტოგრამა</string>
     <string name="user_icon">მომხმარებლის პიქტოგრამა</string>
-    <string name="fingerprint_icon">თითის ანაბეჭდის პიქტოგრამა</string>
     <string name="favorite_icon">რჩეულის პიქტოგრამა</string>
     <string name="shared_via_link_icon">გაზიარებულია ბმულის პიქტოგრამით</string>
     <string name="synced_icon">სინქრონიზირებული პიქტოგრამა</string>

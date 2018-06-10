@@ -39,9 +39,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
-    <string name="prefs_passcode">Bloqueo con código de acceso</string>
-    <string name="prefs_fingerprint">Bloqueo con huella dactilar</string>
-    <string name="prefs_fingerprint_notsetup">No se han configurado huellas dactilares</string>
     <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
@@ -602,9 +599,6 @@
 
     <string name="whats_new_skip">Omitir</string>
 
-    <string name="fingerprint_scan_finger">Por favor, escanea tu dedo</string>
-    <string name="fingerprint_unknown">Dedo no reconocido</string>
-
     <!-- User information -->
     <string name="user_info_email">Correo electrónico</string>
     <string name="user_info_phone">Número de teléfono</string>
@@ -678,7 +672,6 @@
     <string name="activity_icon">Icono de actividad</string>
     <string name="file_icon">Icono de archivo</string>
     <string name="user_icon">Icono de usuario</string>
-    <string name="fingerprint_icon">Icono de lector de huellas</string>
     <string name="favorite_icon">Icono de favorito</string>
     <string name="shared_via_link_icon">Icono de compartido vía enlace</string>
     <string name="synced_icon">Icono de sincronizado</string>

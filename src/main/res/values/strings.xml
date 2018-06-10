@@ -39,9 +39,13 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_passcode">Passcode lock</string>
-    <string name="prefs_fingerprint">Fingerprint lock</string>
-    <string name="prefs_fingerprint_notsetup">No fingerprints have been set up.</string>
+    <string name="prefs_lock">Lock</string>
+    <string name="prefs_lock_title">Lock using</string>
+    <string name="prefs_lock_none">None</string>
+    <string name="prefs_lock_using_passcode">Passcode</string>
+    <string name="prefs_lock_using_device_credentials">Device credentials</string>
+    <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
+    <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_expert_mode">Expert mode</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
@@ -200,6 +204,8 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
+    <string name="default_credentials_wrong">Incorrect credentials</string>
+    <string name="credentials_disabled">Credentials disabled</string>
     
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
@@ -615,9 +621,6 @@
 
     <string name="whats_new_skip">Skip</string>
 
-    <string name="fingerprint_scan_finger">Please scan your finger</string>
-    <string name="fingerprint_unknown">Finger not recognized</string>
-
     <!-- User information -->
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Phone number</string>
@@ -694,7 +697,6 @@
     <string name="activity_icon">Activity icon</string>
     <string name="file_icon">File icon</string>
     <string name="user_icon">User icon</string>
-    <string name="fingerprint_icon">Fingerprint icon</string>
     <string name="favorite_icon">Favorite icon</string>
     <string name="shared_via_link_icon">Shared via link icon</string>
     <string name="synced_icon">Synced icon</string>
@@ -792,4 +794,6 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="whats_new_device_credentials_title">Use Android device protection</string>
+    <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
 </resources>
