@@ -30,8 +30,8 @@
     <string name="drawer_item_shared">Jaot</string>
     <string name="drawer_item_videos">Videot</string>
     <string name="drawer_item_settings">Asetukset</string>
-    <string name="drawer_item_uploads_list">Lataukset</string>
-    <string name="drawer_item_activities">Toimet</string>
+    <string name="drawer_item_uploads_list">Lähetykset</string>
+    <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
 	<string name="drawer_close">Sulje</string>
@@ -140,7 +140,7 @@
     <string name="uploader_upload_failed_content_single">Ei voitu lähettää %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Lähettäminen epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ei-luotettu palvelinvarmenne</string>
-    <string name="uploads_view_title">Lataukset</string>
+    <string name="uploads_view_title">Lähetykset</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
     <string name="uploads_view_group_failed_uploads">Epäonnistuneet/odottaa uudelleenlähetystä</string>
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
@@ -467,7 +467,7 @@
     <string name="files_drop_not_supported">Tämä on Nextcloud-ominaisuus, ole hyvä ja päivitä.</string>
     <string name="learn_more">Opi lisää</string>
     <string name="drawer_synced_folders">Automaattinen lähetys</string>
-    <string name="drawer_participate">Osallistu</string>
+    <string name="drawer_participate">Ilmoita ongelmasta!</string>
     <string name="participate_testing_headline">Auta testaamalla</string>
     <string name="participate_testing_bug_text">Löysitkö bugin tai jotain muuta outoa?</string>
     <string name="participate_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
@@ -476,7 +476,7 @@
     <string name="participate_beta_text">Tämä käsittää kaikki tulevat ominaisuudet ja sisältää täysin uutta, jopa testaamatonta, koodia. Bugeja ja virheitä voi löytyä. Jos ja kun niin käy, muista raportoida niistä, jotta ne korjattaisiin. </string>
     <string name="participate_release_candidate_headline">Julkaisuehdokas</string>
     <string name="participate_release_candidate_text">Julkaisuehdokas (RC) on lähes valmis versio virallisesti julkaistavasta versiosta ja on yleensä täysin toimiva. Testaa omat asetukset ja varmista niiden toimivuus. Kirjaudu siis testaajaksi Play storessa tai katso \"Version\" valikosta F-Droid äpissä.</string>
-    <string name="participate_contribute_headline">Osallistu aktiivisesti </string>
+    <string name="participate_contribute_headline">Osallistu kehittämiseen</string>
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
     <string name="participate_contribute_forum_text">Auta muita. Avaa</string>
     <string name="participate_contribute_forum_forum">keskustelupalsta</string>
@@ -543,6 +543,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
+    <string name="activities_no_results_message">Ei vielä tapahtumia</string>
     <string name="prefs_category_about">Tietoja</string>
 
     <string name="actionbar_contacts">Varmuuskopioi yhteystietosi</string>
