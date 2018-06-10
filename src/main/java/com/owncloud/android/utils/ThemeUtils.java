@@ -46,6 +46,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -314,8 +315,9 @@ public class ThemeUtils {
      * @param color            the color
      */
     public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragmentActivity.getWindow().setStatusBarColor(color);
+        Window window = fragmentActivity.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
+            window.setStatusBarColor(color);
         }
     }
 
