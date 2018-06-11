@@ -713,7 +713,7 @@ public class FileOperationsHelper {
 
                 intent.setDataAndType(uri, file.getMimetype());
             } catch (ActivityNotFoundException exception) {
-                Snackbar.make(view, R.string.picture_set_as_no_app, Snackbar.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
