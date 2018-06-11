@@ -141,7 +141,6 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Fjern: %1$s</string>
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
-    
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">Denne passcode vil blive forespurgt hver gang app\'en startes</string>
     <string name="pass_code_reenter_your_pass_code">Indtast venligst dit kodeord igen</string>

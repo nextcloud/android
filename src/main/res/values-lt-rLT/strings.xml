@@ -158,7 +158,6 @@
     <string name="foreign_files_fail">Kai kurių failų nepavyko perkelti</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
-    
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
     <string name="pass_code_configure_your_pass_code_explanation">Užrakto kodas bus reikalaujamas kiekvieną kartą paleidžiant programėlę</string>
     <string name="pass_code_reenter_your_pass_code">Įveskite užraktą</string>

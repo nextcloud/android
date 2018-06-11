@@ -196,7 +196,6 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
-    
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>

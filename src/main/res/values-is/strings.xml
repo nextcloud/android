@@ -196,7 +196,6 @@
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
     <string name="upload_query_move_foreign_files">Ónógt pláss hamlar því að hægt sé að afrita valdar skrár í %1$s möppuna. Viltu færa þær þangað í staðinn?</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
-    
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
@@ -672,7 +671,6 @@
     <string name="activity_icon">Táknmynd fyrir virkni</string>
     <string name="file_icon">Táknmynd fyrir skrá</string>
     <string name="user_icon">Táknmynd fyrir notanda</string>
-    <string name="fingerprint_icon">Táknmynd fyrir fingrafar</string>
     <string name="favorite_icon">Táknmynd fyrir eftirlæti</string>
     <string name="shared_via_link_icon">Deilt með tengiltákni</string>
     <string name="synced_icon">Táknmynd fyrir samstillingu</string>
@@ -769,4 +767,4 @@
     <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
-</resources>
+    </resources>

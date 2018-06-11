@@ -39,8 +39,6 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
-    <string name="prefs_fingerprint">Zámek otiskem prstu</string>
-    <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
@@ -182,7 +180,6 @@
     <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
     <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
-    
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>

@@ -195,7 +195,6 @@
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
     <string name="upload_query_move_foreign_files">Elégtelem hely miatt nem másolhatók a fájlok ebbe a mappába: %1$s. Át akarod inkább mozdítani őket?</string>
     <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
-    
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
     <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
     <string name="pass_code_reenter_your_pass_code">Kérlek add meg újra a számkódot</string>

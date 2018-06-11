@@ -196,7 +196,6 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Ao invés de copiá-los , gostaria de movê-los para lá?</string>
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
-    
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, digite seu código de acesso novamente</string>
@@ -769,4 +768,4 @@
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="unsharing_failed">Falha ao descompartilhar</string>
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
-</resources>
+    </resources>

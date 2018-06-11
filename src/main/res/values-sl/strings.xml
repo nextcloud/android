@@ -147,7 +147,6 @@
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
-    
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo PIN</string>

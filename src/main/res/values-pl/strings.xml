@@ -200,7 +200,6 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
-    
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>

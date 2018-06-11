@@ -181,7 +181,6 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
-    
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
@@ -556,7 +555,6 @@
     <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Fil-ikon</string>
     <string name="user_icon">Användar-ikon</string>
-    <string name="fingerprint_icon">Fingeravtrycks-ikon</string>
     <string name="favorite_icon">Favorit-ikon</string>
     <string name="shared_via_link_icon">Delad via länk-ikon</string>
     <string name="synced_icon">Synkroniserad-ikon</string>

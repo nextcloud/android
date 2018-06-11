@@ -148,7 +148,6 @@
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
     <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya?</string>
     <string name="pass_code_enter_pass_code">Masukkan kode kunci Anda</string>
-    
     <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
     <string name="pass_code_reenter_your_pass_code">Masukkan lagi kode kunci Anda</string>

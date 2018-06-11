@@ -188,7 +188,6 @@
     <string name="foreign_files_remote_text">დისტანციური: %1$s</string>
     <string name="upload_query_move_foreign_files">არასაკმარისი ადგილი აფერხებს არჩეული ფაილების კოპირებას %1$s დირექტორიაში. გსურთ სანაცვლოდ მათი გადატანა?</string>
     <string name="pass_code_enter_pass_code">გთხოვთ შეიყვანოთ თქვენი პასკოდი</string>
-    
     <string name="pass_code_configure_your_pass_code">შეიყვანეთ თქვენი პასკოდი</string>
     <string name="pass_code_configure_your_pass_code_explanation">პასკოდი მოთხოვნილ იქნება აპლიკაციის ყოველი გაშვებისას</string>
     <string name="pass_code_reenter_your_pass_code">გთხოვთ თქვენი პასკოდი შეიყვანოთ ახლიდან</string>
