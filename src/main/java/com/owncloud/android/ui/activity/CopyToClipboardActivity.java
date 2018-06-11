@@ -25,10 +25,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Activity copying the text of the received Intent into the system clibpoard.
@@ -63,13 +63,13 @@ public class CopyToClipboardActivity extends Activity {
                 // clipboardManager.setText(text);
 
                 // alert the user that the text is in the clipboard and we're done
-                Toast.makeText(this, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(this, R.string.clipboard_text_copied);
             } else {
-                Toast.makeText(this, R.string.clipboard_no_text_to_copy, Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(this, R.string.clipboard_no_text_to_copy);
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, R.string.clipboard_uxexpected_error, Toast.LENGTH_SHORT).show();
+            DisplayUtils.showSnackMessage(this, R.string.clipboard_uxexpected_error);
             Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
         }
 

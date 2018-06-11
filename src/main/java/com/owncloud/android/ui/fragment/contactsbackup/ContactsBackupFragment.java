@@ -43,7 +43,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -339,9 +338,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 .build()
                 .schedule();
 
-        Snackbar.make(getView().findViewById(R.id.contacts_linear_layout),
-                R.string.contacts_preferences_backup_scheduled,
-                Snackbar.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
+                R.string.contacts_preferences_backup_scheduled);
     }
 
     private void setAutomaticBackup(final boolean bool) {
@@ -370,16 +368,13 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             if (PermissionUtil.shouldShowRequestPermissionRationale(contactsPreferenceActivity,
                     android.Manifest.permission.READ_CONTACTS)) {
                 // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(getView().findViewById(R.id.contacts_linear_layout),
-                        R.string.contacts_read_permission,
-                        Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                                        PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC);
-                            }
-                        });
+                Snackbar snackbar = DisplayUtils.createSnackbar(
+                        getView().findViewById(R.id.contacts_linear_layout),
+                        R.string.contacts_read_permission, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, v -> requestPermissions(
+                                new String[]{Manifest.permission.READ_CONTACTS},
+                                PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)
+                        );
 
                 ThemeUtils.colorSnackbar(contactsPreferenceActivity, snackbar);
 
@@ -454,8 +449,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
             datePickerDialog.show();
         } else {
-            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_something_strange_happened,
-                    Toast.LENGTH_SHORT).show();
+            DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
+                    R.string.contacts_preferences_something_strange_happened);
         }
     }
 
@@ -532,8 +527,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     .addToBackStack(ContactsPreferenceActivity.BACKUP_TO_LIST)
                     .commit();
         } else {
-            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_no_file_found,
-                    Toast.LENGTH_SHORT).show();
+            DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
+                    R.string.contacts_preferences_no_file_found);
         }
     }
 }
