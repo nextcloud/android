@@ -677,6 +677,26 @@ public class DisplayUtils {
     }
 
     /**
+     * Show a temporary message in a Snackbar bound to the given view.
+     *
+     * @param view the view the Snackbar is bound to.
+     * @param messageResource Message to show.
+     */
+    public static void showSnackMessage(View view, @StringRes int messageResource) {
+        Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * create a temporary message in a Snackbar bound to the given view.
+     *
+     * @param view the view the Snackbar is bound to.
+     * @param messageResource Message to show.
+     */
+    public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
+        return Snackbar.make(view, messageResource, length);
+    }
+
+    /**
      * Show a temporary message in a Snackbar bound to the content view.
      *
      * @param activity        Activity to which's content view the Snackbar is bound.
@@ -684,9 +704,21 @@ public class DisplayUtils {
      * @param formatArgs      The format arguments that will be used for substitution.
      */
     public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
+    }
+
+    /**
+     * Show a temporary message in a Snackbar bound to the content view.
+     *
+     * @param context         to laod resources.
+     * @param view            content view the Snackbar is bound to.
+     * @param messageResource Resource id for the format string - message to show.
+     * @param formatArgs      The format arguments that will be used for substitution.
+     */
+    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
         Snackbar.make(
-                activity.findViewById(android.R.id.content),
-                String.format(activity.getString(messageResource, formatArgs)),
+                view,
+                String.format(context.getString(messageResource, formatArgs)),
                 Snackbar.LENGTH_LONG)
                 .show();
     }
