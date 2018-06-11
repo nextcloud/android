@@ -667,40 +667,50 @@ public class DisplayUtils {
     }
 
     /**
-     * Show a temporary message in a Snackbar bound to the content view.
+     * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
-     * @param activity Activity to which's content view the Snackbar is bound.
-     * @param messageResource Message to show.
+     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
+     * @param messageResource The resource id of the string resource to use. Can be formatted text.
      */
     public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
-        Snackbar.make(activity.findViewById(android.R.id.content), messageResource, Snackbar.LENGTH_LONG).show();
+        showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
     }
 
     /**
-     * Show a temporary message in a Snackbar bound to the given view.
+     * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
-     * @param view the view the Snackbar is bound to.
-     * @param messageResource Message to show.
+     * @param activity The {@link Activity} to which's content view the {@link Snackbar} is bound.
+     * @param message  Message to show.
+     */
+    public static void showSnackMessage(Activity activity, String message) {
+        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * Show a temporary message in a {@link Snackbar} bound to the given view.
+     *
+     * @param view            The view the {@link Snackbar} is bound to.
+     * @param messageResource The resource id of the string resource to use. Can be formatted text.
      */
     public static void showSnackMessage(View view, @StringRes int messageResource) {
         Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG).show();
     }
 
     /**
-     * create a temporary message in a Snackbar bound to the given view.
+     * create a temporary message in a {@link Snackbar} bound to the given view.
      *
-     * @param view the view the Snackbar is bound to.
-     * @param messageResource Message to show.
+     * @param view            The view the {@link Snackbar} is bound to.
+     * @param messageResource The resource id of the string resource to use. Can be formatted text.
      */
     public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
         return Snackbar.make(view, messageResource, length);
     }
 
     /**
-     * Show a temporary message in a Snackbar bound to the content view.
+     * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
-     * @param activity        Activity to which's content view the Snackbar is bound.
-     * @param messageResource Resource id for the format string - message to show.
+     * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
+     * @param messageResource The resource id of the string resource to use. Can be formatted text.
      * @param formatArgs      The format arguments that will be used for substitution.
      */
     public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
@@ -708,11 +718,11 @@ public class DisplayUtils {
     }
 
     /**
-     * Show a temporary message in a Snackbar bound to the content view.
+     * Show a temporary message in a {@link Snackbar} bound to the content view.
      *
-     * @param context         to laod resources.
-     * @param view            content view the Snackbar is bound to.
-     * @param messageResource Resource id for the format string - message to show.
+     * @param context         to load resources.
+     * @param view            The content view the {@link Snackbar} is bound to.
+     * @param messageResource The resource id of the string resource to use. Can be formatted text.
      * @param formatArgs      The format arguments that will be used for substitution.
      */
     public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
@@ -721,16 +731,6 @@ public class DisplayUtils {
                 String.format(context.getString(messageResource, formatArgs)),
                 Snackbar.LENGTH_LONG)
                 .show();
-    }
-
-    /**
-     * Show a temporary message in a Snackbar bound to the content view.
-     *
-     * @param activity Activity to which's content view the Snackbar is bound.
-     * @param message Message to show.
-     */
-    public static void showSnackMessage(Activity activity, String message) {
-        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
