@@ -26,7 +26,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.design.widget.Snackbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -280,9 +279,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         requester.retry(mParentActivity, item);
                         loadUploadItemsFromDb();
                     } else {
-                        Snackbar.make(v.getRootView().findViewById(android.R.id.content),
-                                mParentActivity.getString(R.string.local_file_not_found_message), Snackbar.LENGTH_LONG)
-                                .show();
+                        DisplayUtils.showSnackMessage(
+                                v.getRootView().findViewById(android.R.id.content),
+                                R.string.local_file_not_found_message
+                        );
                     }
                 });
             }
