@@ -194,7 +194,6 @@
     <string name="foreign_files_remote_text">원격: %1$s</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
     <string name="pass_code_enter_pass_code">암호를 입력하십시오</string>
-    
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
     <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
     <string name="pass_code_reenter_your_pass_code">암호를 다시 입력하십시오</string>
@@ -547,9 +546,6 @@
     <string name="whats_new_ipv6_title">IPv6 지원</string>
     <string name="whats_new_skip">건너뛰기</string>
 
-    <string name="fingerprint_scan_finger">지문을 스캔하십시오</string>
-    <string name="fingerprint_unknown">지문을 인식할 수 없음</string>
-
     <!-- User information -->
     <string name="user_info_email">이메일</string>
     <string name="user_info_phone">전화번호</string>
@@ -620,7 +616,6 @@
     <string name="activity_icon">활동 아이콘</string>
     <string name="file_icon">파일 아이콘</string>
     <string name="user_icon">사용자 아이콘</string>
-    <string name="fingerprint_icon">지문 아이콘</string>
     <string name="favorite_icon">즐겨찾기 아이콘</string>
     <string name="shared_via_link_icon">링크로 공유됨 아이콘</string>
     <string name="synced_icon">동기화됨 아이콘</string>

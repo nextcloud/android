@@ -198,7 +198,6 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
-    
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -767,4 +766,4 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
-</resources>
+    </resources>

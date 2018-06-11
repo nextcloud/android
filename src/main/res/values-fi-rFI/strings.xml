@@ -183,7 +183,6 @@
     <string name="foreign_files_remote_text">Etä: %1$s</string>
     <string name="upload_query_move_foreign_files">Riittämätön tila estää tiedostojen kopioinnin %1$s kansioon. Haluatko sen sijaan siirtää ne sinne?</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
-    
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
     <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
     <string name="pass_code_reenter_your_pass_code">Anna suojakoodisi uudelleen</string>
@@ -526,7 +525,6 @@
 
     <string name="whats_new_skip">Ohita</string>
 
-
     <!-- User information -->
     <string name="user_info_email">Sähköposti</string>
     <string name="user_info_phone">Puhelinnumero</string>
@@ -590,7 +588,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="activity_icon">Toimikuvake</string>
     <string name="file_icon">Tiedostokuvake</string>
     <string name="user_icon">Käyttäjäkuvake</string>
-    <string name="fingerprint_icon">Sormenjälkikuvake</string>
     <string name="favorite_icon">Suosikkikuvake</string>
     <string name="shared_via_link_icon">Jaettu linkin kautta -kuvake</string>
     <string name="synced_icon">Synkronoitu-kuvake</string>

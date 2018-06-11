@@ -39,9 +39,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
-    <string name="prefs_passcode">Bloqueo con código de seguridad</string>
-    <string name="prefs_fingerprint">Bloqueo cor huella digital</string>
-    <string name="prefs_fingerprint_notsetup">No se ha establecido alguna huella digital. </string>
     <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
@@ -165,7 +162,6 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
-    
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>
@@ -480,9 +476,6 @@
 
     <string name="whats_new_skip">Saltar</string>
 
-    <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
-    <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
-
     <!-- User information -->
     <string name="user_info_email">Correo electrónico</string>
     <string name="user_info_phone">Número telefónico</string>
@@ -543,7 +536,6 @@
     <string name="activity_icon">Ícono de actividad</string>
     <string name="file_icon">Ícono de archivo</string>
     <string name="user_icon">Ícono de usuario</string>
-    <string name="fingerprint_icon">Ícono de huella digital</string>
     <string name="favorite_icon">Ícono de Favorito</string>
     <string name="shared_via_link_icon">Ícono de compartido por liga</string>
     <string name="synced_icon">Ícono de sincronizado</string>

@@ -198,7 +198,6 @@
     <string name="foreign_files_remote_text">Удаљени: %1$s</string>
     <string name="upload_query_move_foreign_files">Недовољно места да се копирају означени фајлови у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
-    
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
     <string name="pass_code_reenter_your_pass_code">Поново унесите кôд за закључавање</string>
@@ -774,4 +773,4 @@
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="unsharing_failed">Уклањање дељења није успело</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
-</resources>
+    </resources>

@@ -178,7 +178,6 @@
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
-    
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
     <string name="pass_code_configure_your_pass_code_explanation">Heslo bude nutné zadať vždy po štarte aplikácie</string>
     <string name="pass_code_reenter_your_pass_code">Vložte prosím znovu svoje heslo</string>

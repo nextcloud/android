@@ -196,7 +196,6 @@
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
-    
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
     <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang programmet startes</string>
     <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>

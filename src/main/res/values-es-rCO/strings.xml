@@ -195,7 +195,6 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
-    
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>

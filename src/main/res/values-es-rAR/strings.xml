@@ -148,7 +148,6 @@
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Le gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Favor de ingresar su código de seguridad</string>
-    
     <string name="pass_code_configure_your_pass_code">Ingrese su código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Favor de reingresar el código de seguridad</string>

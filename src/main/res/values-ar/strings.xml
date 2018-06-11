@@ -166,7 +166,6 @@
     <string name="foreign_files_local_text">محلّي : %1$s</string>
     <string name="foreign_files_remote_text">عن بعد : %1$s</string>
     <string name="pass_code_enter_pass_code">إدخل رمزك السري من فضلك</string>
-    
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
     <string name="pass_code_reenter_your_pass_code">أعد إدخال رمزك السري</string>
     <string name="pass_code_remove_your_pass_code">إحذف رمز مرورك</string>
@@ -367,9 +366,6 @@
     <string name="whats_new_ipv6_title">دعم IPv6</string>
     <string name="whats_new_skip">تخطى</string>
 
-    <string name="fingerprint_scan_finger">يرجى مسح بصمتك</string>
-    <string name="fingerprint_unknown">تعذر التعرف على بصمتك</string>
-
     <!-- User information -->
     <string name="user_info_email">البريد الإلكتروني</string>
     <string name="user_info_phone"> رقم الهاتف</string>
@@ -410,7 +406,6 @@
     <string name="activity_icon">أيقونة النشاط</string>
     <string name="file_icon">أيقونة الملف</string>
     <string name="user_icon">أيقونة المستخدم</string>
-    <string name="fingerprint_icon">أيقونة بصمة الأصبع</string>
     <string name="favorite_icon">أيقونة المفضلة</string>
     <string name="shared_icon">أيقونة المشاركة</string>
     <string name="sort_by_modification_date_ascending">الأحدث أولا</string>

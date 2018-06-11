@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
-    <string name="prefs_passcode">Parooli lukk</string>
-    <string name="prefs_fingerprint">Sõrmejäljelukk</string>
-    <string name="prefs_fingerprint_notsetup">Sõrmejälgi pole seadistatud.</string>
     <string name="prefs_expert_mode">Edasijõudnute režiim</string>
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>
     <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
@@ -166,7 +163,6 @@
     <string name="foreign_files_local_text">Kohalik: %1$s</string>
     <string name="foreign_files_remote_text">Kaughallatav: %1$s</string>
     <string name="pass_code_enter_pass_code">Palun sisestage oma parool</string>
-    
     <string name="pass_code_configure_your_pass_code">Sisesta oma parool</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parooli küsitakse iga kord, kui sa selle rakenduse käivitad</string>
     <string name="pass_code_reenter_your_pass_code">Palun sisesta parool uuesti</string>
@@ -359,9 +355,6 @@
     <string name="welcome_feature_3_title">Automaatne üleslaadimine</string>
     <string name="whats_new_ipv6_title">IPv6 tugi</string>
     <string name="whats_new_skip">Jäta vahele</string>
-
-    <string name="fingerprint_scan_finger">Palun skaneeri oma sõrm</string>
-    <string name="fingerprint_unknown">Sõrme ei tuntud ära</string>
 
     <!-- User information -->
     <string name="user_info_email">E-post</string>

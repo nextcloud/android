@@ -187,7 +187,6 @@
     <string name="foreign_files_remote_text">遠端： %1$s</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾，是否要改成移動它們？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
-    
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次應用程式開啟時，都需要輸入通行碼</string>
     <string name="pass_code_reenter_your_pass_code">再次輸入通行碼</string>
@@ -478,7 +477,6 @@
     <string name="welcome_feature_3_text">安全保存您的相片</string>
 
     <string name="whats_new_skip">略過</string>
-
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

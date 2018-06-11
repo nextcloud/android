@@ -39,9 +39,6 @@
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
-    <string name="prefs_passcode">Код за достъп</string>
-    <string name="prefs_fingerprint">Заключване с отпечатък</string>
-    <string name="prefs_fingerprint_notsetup">Пръстови отпечатъци не са зададени.</string>
     <string name="prefs_expert_mode">Експертен режим</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
@@ -195,7 +192,6 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
-    
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведи отново кода за достъп</string>
@@ -551,9 +547,6 @@
     <string name="whats_new_ipv6_content">IPv6 когато сървъра го поддържа, IPv4 ако не.</string>
 
     <string name="whats_new_skip">Пропусни</string>
-
-    <string name="fingerprint_scan_finger">Моля, сканирайте пръста си</string>
-    <string name="fingerprint_unknown">Пръстовият отпечатък не е разпознат</string>
 
     <!-- User information -->
     <string name="user_info_email">Е-мейл</string>
