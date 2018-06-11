@@ -90,7 +90,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -430,7 +429,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Snackbar.make(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
                         .setActionTextColor(getResources().getColor(R.color.primary_dark))
                         .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                             @Override
@@ -969,7 +968,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 try {
                     populateLoginFields(dataString);
                 } catch (IllegalArgumentException e) {
-                    Toast.makeText(this, "Illegal login data URL used", Toast.LENGTH_SHORT).show();
+                    DisplayUtils.showSnackMessage(findViewById(R.id.scroll), R.string.auth_illegal_login_used);
                     Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
                 }
             }
@@ -980,10 +979,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (!bindService(new Intent(this, OperationsService.class),
                 mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE)) {
-            Toast.makeText(this,
-                    R.string.error_cant_bind_to_operations_service,
-                    Toast.LENGTH_LONG)
-                    .show();
+            DisplayUtils.showSnackMessage(findViewById(R.id.scroll), R.string.error_cant_bind_to_operations_service);
             finish();
         }
 
@@ -1378,8 +1374,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                     } catch (AccountNotFoundException e) {
                         Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                        Toast.makeText(this, R.string.auth_account_does_not_exist,
-                                Toast.LENGTH_SHORT).show();
+                        DisplayUtils.showSnackMessage(findViewById(R.id.scroll), R.string.auth_account_does_not_exist);
                         finish();
                     }
                 }
@@ -1633,7 +1628,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private void updateStatusIconFailUserName(int failedStatusText){
+    private void updateStatusIconFailUserName(int failedStatusText) {
         mAuthStatusIcon = R.drawable.ic_alert;
         mAuthStatusText = getResources().getString(failedStatusText);
     }
@@ -1706,8 +1701,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 } catch (AccountNotFoundException e) {
                     Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                    Toast.makeText(this, R.string.auth_account_does_not_exist,
-                            Toast.LENGTH_SHORT).show();
+                    DisplayUtils.showSnackMessage(findViewById(R.id.scroll), R.string.auth_account_does_not_exist);
                     finish();
                 }
             }
@@ -1769,8 +1763,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
 
-                Snackbar.make(mLoginWebView, getString(R.string.auth_access_failed) + ": " + result.getLogMessage(),
-                        Snackbar.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(this, mLoginWebView, R.string.auth_access_failed, result.getLogMessage());
             } else {
                 updateAuthStatusIconAndText(result);
                 showAuthStatus();
@@ -2036,7 +2029,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
-     *
+     * 
      * Used to trigger the authentication check when the user presses 'enter' after writing the
      * password, or to throw the server test when the only field on screen is the URL input field.
      */

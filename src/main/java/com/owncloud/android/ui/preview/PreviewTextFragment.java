@@ -23,7 +23,6 @@ import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,6 +43,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -328,11 +328,7 @@ public class PreviewTextFragment extends FileFragment {
         switch (item.getItemId()) {
             case R.id.action_send_share_file: {
                 if(getFile().isSharedWithMe() && !getFile().canReshare()){
-                    Snackbar.make(getView(),
-                            R.string.resharing_is_not_allowed,
-                            Snackbar.LENGTH_LONG
-                    )
-                            .show();
+                    DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
                 } else {
                     mContainerActivity.getFileOperationsHelper().sendShareFile(getFile());
                 }

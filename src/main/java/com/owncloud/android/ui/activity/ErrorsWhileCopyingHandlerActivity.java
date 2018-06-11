@@ -27,7 +27,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
@@ -39,18 +38,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-
 
 
 /**
@@ -252,12 +250,12 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
         /**
          * Updates the activity UI after the movement of local files is tried.
-         * 
+         *
          * If the movement was successful for all the files, finishes the activity immediately.
-         * 
+         *
          * In other case, the list of remaining files is still available to retry the movement.
-         * 
-         * @param result      'True' when the movement was successful.
+         *
+         * @param result 'True' when the movement was successful.
          */
         @Override
         protected void onPostExecute(Boolean result) {
@@ -268,14 +266,10 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             
             if (result) {
                 // nothing else to do in this activity
-                Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
-                        getString(R.string.foreign_files_success), Toast.LENGTH_LONG)
-                        .show();
+                DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_success);
                 finish();
-                
             } else {
-                Snackbar.make(findViewById(android.R.id.content),R.string.foreign_files_fail,Snackbar.LENGTH_LONG)
-                        .show();
+                DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_fail);
             }
         }
     }
