@@ -244,7 +244,7 @@
 	<string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者 ID，請聯繫管理人員</string>
 	<string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
     <string name="auth_account_does_not_exist">此帳號尚未加入到這個裝置</string>
-    <string name="auth_access_failed">存取失敗</string>
+    <string name="auth_access_failed">存取失敗: %1$s</string>
 
     <string name="favorite">設定為離線可用</string>
     <string name="unfavorite">取消離線可用設定</string>
