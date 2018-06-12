@@ -590,6 +590,8 @@ public class OperationsService extends Service {
                         ((UpdateSharePermissionsOperation)operation).setPermissions(permissions);
                         long expirationDateInMillis = operationIntent.getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
                         ((UpdateSharePermissionsOperation)operation).setExpirationDate(expirationDateInMillis);
+                        String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                        ((UpdateSharePermissionsOperation)operation).setPassword(password);
                     }
 
                 } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {
