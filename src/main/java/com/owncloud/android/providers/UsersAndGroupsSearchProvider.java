@@ -110,6 +110,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         sShareTypes.put(DATA_USER, ShareType.USER);
         sShareTypes.put(DATA_GROUP, ShareType.GROUP);
         sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
+        sShareTypes.put(DATA_REMOTE, ShareType.EMAIL);
 
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
@@ -215,6 +216,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         displayName = userName;
                         icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
+                    } else if (ShareType.EMAIL.getValue() == type) {
+                        icon = R.drawable.ic_user;
+                        displayName = getContext().getString(R.string.share_email_clarification, userName);
                     }
 
                     if (displayName != null && dataUri != null) {

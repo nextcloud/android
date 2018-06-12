@@ -55,7 +55,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      */
     public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
         if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)
-            && !ShareType.FEDERATED.equals(shareType)) {
+                && !ShareType.FEDERATED.equals(shareType) && !ShareType.EMAIL.equals(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
         mPath = path;
