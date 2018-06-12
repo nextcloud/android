@@ -19,6 +19,7 @@ public class NextcloudRequest implements Serializable {
     public String requestBody;
     public String url;
     public String token;
+    public String packageName;
     public String accountName;
 
     private NextcloudRequest() {
@@ -66,12 +67,14 @@ public class NextcloudRequest implements Serializable {
             return this;
         }
 
+        public Builder setPackageName(String packageName) {
+            ncr.packageName = packageName;
+            return this;
+        }
+
         public Builder setAccountName(String accountName) {
             ncr.accountName = accountName;
             return this;
         }
     }
-
-
-
 }
