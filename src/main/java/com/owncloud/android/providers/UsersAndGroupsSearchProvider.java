@@ -217,7 +217,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     } else if (ShareType.EMAIL.getValue() == type) {
-                        icon = R.drawable.ic_user;
+                        icon = R.drawable.ic_email;
                         displayName = getContext().getString(R.string.share_email_clarification, userName);
                     }
 
