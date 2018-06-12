@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -28,16 +28,20 @@ import android.accounts.AccountManager;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.UUID;
 
 
 /**
@@ -163,6 +167,25 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             AccountManager accountManager = AccountManager.get(mContext);
             final Bundle result = new Bundle();
 
+            String packageName = options.getString("androidPackageName");
+
+            if (packageName == null) {
+                Log_OC.e(TAG, "No calling package, exit.");
+                return result;
+            }
+
+            // get or create token
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            String token = sharedPreferences.getString(packageName, "");
+
+            if (token.isEmpty()) {
+                token = UUID.randomUUID().toString().replaceAll("-", "");
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(packageName, token);
+                editor.apply();
+            }
+                        
             String serverUrl;
             String userId;
             try {
@@ -179,13 +202,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(mContext));
             result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
             result.putString("username", userId);
-
-            // TODO consider returning here some kind of "token" instead of the "real" password
-            // those tokens have to stored in this (nextcloud) app to verify if a client is allowed to
-            // make a request (see AccountManagerService.java#L117 -> request.token)
-            result.putString("password", accountManager.getPassword(account));
+            result.putString("token", token);
             result.putString("server_url", serverUrl);
-            result.putBoolean("disable_hostname_verification", false);
 
             return result;
         }
