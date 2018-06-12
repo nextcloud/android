@@ -2,10 +2,12 @@ package de.luhmer.owncloud.accountimporter.helper;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -25,6 +27,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -36,6 +40,8 @@ import java.util.Map;
 public class InputStreamBinder extends IInputStreamService.Stub {
     private final static String TAG = "InputStreamBinder";
 
+    private ArrayList<String> validPackages = new ArrayList<>(Arrays.asList("de.luhmer.owncloudnewsreader"));
+    
     private Context context;
     public InputStreamBinder(Context ctxt) {
         this.context = ctxt;
@@ -111,9 +117,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
 
-
-        // Validate Auth-Token
-        if(!client.getCredentials().getAuthToken().equals(request.token)) {
+        // Validate token & package name
+        if (!isValid(request)) {
             throw new IllegalStateException("Provided authentication token does not match!");
         }
 
@@ -172,4 +177,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
     }
 
+    private boolean isValid(NextcloudRequest request) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String storedToken = sharedPreferences.getString(request.packageName, "");
+
+        return validPackages.contains(request.packageName) && request.token.equals(storedToken);
+    }
 }
