@@ -235,8 +235,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Din session har upphört att gälla. Vänligen anslut igen</string>
     <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
-    <string name="auth_access_failed">Åtkomst misslyckades</string>
-
     <string name="favorite">Sätt som tillgänglig offline</string>
     <string name="unfavorite">Ta bort som tillgänglig offline</string>
     <string name="common_rename">Byt namn</string>

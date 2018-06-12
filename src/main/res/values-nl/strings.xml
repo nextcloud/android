@@ -258,8 +258,6 @@
 	<string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
-    <string name="auth_access_failed">Toegang mislukt</string>
-
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
     <string name="favorite_real">Aan favorieten toevoegen</string>

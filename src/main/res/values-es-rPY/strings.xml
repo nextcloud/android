@@ -216,8 +216,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
-    <string name="auth_access_failed">Falla en el acceso</string>
-
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
     <string name="common_rename">Renombrar</string>

@@ -255,8 +255,6 @@
 	<string name="auth_fail_get_user_name">サーバが正しいユーザーIDを返さない場合は、管理者に連絡してください</string>
 	<string name="auth_can_not_auth_against_server">認証サーバに接続できません</string>
     <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
-    <string name="auth_access_failed">アクセス失敗</string>
-
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="encrypted">暗号化設定</string>

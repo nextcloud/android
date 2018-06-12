@@ -184,8 +184,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autorisere forbindelse til denne server</string>
-    <string name="auth_access_failed">Adgang fejlede</string>
-
     <string name="favorite">Gør tilgængelig unden internet</string>
     <string name="unfavorite">Afmarker offline tilgængelighed</string>
     <string name="common_rename">Omdøb</string>

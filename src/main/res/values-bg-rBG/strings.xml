@@ -250,8 +250,6 @@
 	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
-    <string name="auth_access_failed">Влизането беше неуспешно</string>
-
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="encrypted">Включване на криптиране</string>

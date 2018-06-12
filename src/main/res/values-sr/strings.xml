@@ -260,8 +260,6 @@
 	<string name="auth_fail_get_user_name">Сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
     <string name="auth_account_does_not_exist">Налог још није додат на овај уређај</string>
-    <string name="auth_access_failed">Неуспео приступ</string>
-
     <string name="favorite">Постави као доступно и ван мреже</string>
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
     <string name="favorite_real">Додај у омиљене</string>

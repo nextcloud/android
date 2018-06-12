@@ -258,8 +258,6 @@
 	<string name="auth_fail_get_user_name">Serveri juaj nuk kthen ID e saktë të përdoruesit, ju lutemi kontaktoni nje administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Kjo llogari nuk është shtuar në këtë paisje akoma</string>
-    <string name="auth_access_failed">Hyrja dështoi</string>
-
     <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
     <string name="favorite_real">U shtua te të parapëlqyerat</string>

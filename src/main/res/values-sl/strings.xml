@@ -195,8 +195,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
     <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
-    <string name="auth_access_failed">Dostop neuspel</string>
-
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="common_rename">Preimenuj</string>

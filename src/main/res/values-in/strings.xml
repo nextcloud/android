@@ -196,8 +196,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
-    <string name="auth_access_failed">Akses gagal.</string>
-
     <string name="favorite">Atur untuk tersedia luring</string>
     <string name="unfavorite">Batal atur untuk tersedia luring</string>
     <string name="common_rename">Ubah nama</string>

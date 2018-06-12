@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
+    <string name="prefs_lock">Sperren</string>
+    <string name="prefs_lock_title">Sperren mittels</string>
+    <string name="prefs_lock_none">Nichts</string>
+    <string name="prefs_lock_using_passcode">PIN</string>
+    <string name="prefs_lock_using_device_credentials">Geräte-Anmeldedaten</string>
+    <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
+    <string name="prefs_lock_device_credentials_not_setup">Keine Geräte-Anmeldedaten eingerichtet.</string>
     <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
@@ -196,6 +203,9 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
+    <string name="default_credentials_wrong">Zugangsdaten falsch</string>
+    <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
+    
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Ihre PIN nochmals eingeben</string>
@@ -258,8 +268,6 @@
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
 	<string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bislang auf dem Gerät nicht vorhanden</string>
-    <string name="auth_access_failed">Zugriff fehlgeschlagen</string>
-
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="favorite_real">Zu den Favoriten hinzufügen</string>
@@ -768,4 +776,6 @@
     <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Nutze Android Geräteschutz</string>
+    <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
+</resources>

@@ -204,8 +204,6 @@ Mesedez, baimendu berriz</string>
 	<string name="auth_expired_saml_sso_token_toast">Zure saioa iraungitu da. Mesdez konektatu berriro</string>
     <string name="auth_unsupported_multiaccount">%1$s ez du kontu anitzak onartzen</string>
 	<string name="auth_can_not_auth_against_server">Ezin da zerbitzariekin kautotu</string>
-    <string name="auth_access_failed">Sarbidean errorea</string>
-
     <string name="favorite">Offline erabilgarri bezala ezarri</string>
     <string name="unfavorite">Offline erabilgarri bezala ezeztatu</string>
     <string name="common_rename">Berrizendatu</string>
