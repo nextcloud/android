@@ -236,7 +236,7 @@ public class ThemeUtils {
      * Adjust lightness of given color
      *
      * @param lightnessDelta values -1..+1
-     * @param color
+     * @param color original color
      * @param threshold      0..1 as maximum value, -1 to disable
      * @return color adjusted by lightness
      */
@@ -374,15 +374,16 @@ public class ThemeUtils {
         return tintDrawable(drawable, color);
     }
 
+    @Nullable
     public static Drawable tintDrawable(Drawable drawable, int color) {
         if (drawable != null) {
             Drawable wrap = DrawableCompat.wrap(drawable);
             wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
             return wrap;
-        } else {
-            return drawable;
         }
+
+        return null;
     }
 
     public static String colorToHexString(int color) {
