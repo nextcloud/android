@@ -816,5 +816,5 @@
     <string name="trashbin_loading_failed">Loading trashbin failed!</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
-    <string name="trashbin_not_emptied">Trashbin could not emptied!</string>
+    <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
 </resources>
