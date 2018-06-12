@@ -245,8 +245,6 @@
 	<string name="auth_fail_get_user_name">თქვენი სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
 	<string name="auth_can_not_auth_against_server">ამ სერვერთან აუტენტიფიკაცია ვერ ხერხდება</string>
     <string name="auth_account_does_not_exist">ანგარიში ამ მოწყობილობაზე ჯერ არაა დამატებული</string>
-    <string name="auth_access_failed">წვდომა ვერ მოხერხდა</string>
-
     <string name="favorite">გახადეთ კავშირს გარეთ ხელმისაწვდომი</string>
     <string name="unfavorite">გახადეთ კავშირს გარეთ ხელმიუწვდომელი</string>
     <string name="encrypted">დააყენეთ როგორც დაშიფრული</string>

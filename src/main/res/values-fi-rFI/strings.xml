@@ -239,8 +239,6 @@
 	<string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_account_does_not_exist">Tälle laitteelle ei ole vielä asennettu tiliä.</string>
-    <string name="auth_access_failed">Pääsy epäonnistui</string>
-
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="encrypted">Salaa</string>
     <string name="unset_encrypted">Poista salaus</string>

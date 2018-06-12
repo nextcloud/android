@@ -204,9 +204,7 @@
 	<string name="auth_expired_basic_auth_toast">إدخل كلمة المرور الخاصة بك من فضلك</string>
 	<string name="auth_expired_saml_sso_token_toast">مدة الجلسة انتهت , يرجى اعادة الاتصال</string>
     <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
-	<string name="auth_access_failed">فشلت عملية النفاذ</string>
-
-    <string name="favorite">حدد كمتوفر بدون اتصال الانترنت</string>
+	<string name="favorite">حدد كمتوفر بدون اتصال الانترنت</string>
     <string name="unfavorite">الغ التحدد كمتوفر بدون اتصال الانترنت</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_remove">حذف</string>

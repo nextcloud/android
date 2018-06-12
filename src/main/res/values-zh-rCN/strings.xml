@@ -249,8 +249,6 @@
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在本帐户</string>
-    <string name="auth_access_failed">访问失败</string>
-
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
     <string name="encrypted">设置为加密</string>

@@ -256,8 +256,6 @@
 	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
-    <string name="auth_access_failed">접근 실패</string>
-
     <string name="favorite">오프라인 사용 가능으로 설정</string>
     <string name="unfavorite">오프라인 사용 불가능으로 설정</string>
     <string name="favorite_real">즐겨찾기에 추가</string>

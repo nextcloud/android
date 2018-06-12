@@ -255,8 +255,6 @@
 	<string name="auth_fail_get_user_name">A szervered nem megfelelő felhasználó azonosítót ad vissza, lépj kapcsolatba egy rendszergazdával</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
     <string name="auth_account_does_not_exist">Az eszközön még nem létezik fiók</string>
-    <string name="auth_access_failed">Hozzáférés sikertelen</string>
-
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
     <string name="encrypted">Titkosítottra állítás</string>

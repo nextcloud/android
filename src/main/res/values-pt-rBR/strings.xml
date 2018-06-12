@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
+    <string name="prefs_lock">Bloquear</string>
+    <string name="prefs_lock_title">Bloquear usando</string>
+    <string name="prefs_lock_none">Nenhum</string>
+    <string name="prefs_lock_using_passcode">Senha</string>
+    <string name="prefs_lock_using_device_credentials">Credenciais de dispositivo</string>
+    <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
+    <string name="prefs_lock_device_credentials_not_setup">Nenhuma credencial de dispositivo definida</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
@@ -196,6 +203,9 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Ao invés de copiá-los , gostaria de movê-los para lá?</string>
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
+    <string name="default_credentials_wrong">Credenciais incorretas</string>
+    <string name="credentials_disabled">Credenciais desabilitadas</string>
+    
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, digite seu código de acesso novamente</string>
@@ -258,8 +268,6 @@
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando uma ID correta de usuário, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta não está adicionada neste dispositivo ainda</string>
-    <string name="auth_access_failed">Acesso falhou</string>
-
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="favorite_real">Adicionar aos favoritos</string>
@@ -768,4 +776,6 @@
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="unsharing_failed">Falha ao descompartilhar</string>
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
+    <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
+</resources>

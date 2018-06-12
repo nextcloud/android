@@ -258,8 +258,6 @@
 	<string name="auth_fail_get_user_name">Tu servidor no está devolviendo una ID de usuario correcta; por favor, ponte en contacto con un administrador</string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no se ha añadido aún en este dispositivo</string>
-    <string name="auth_access_failed">Acceso fallido</string>
-
     <string name="favorite">Marcar como disponible sin conexión</string>
     <string name="unfavorite">Desmarcar como disponible sin conexión</string>
     <string name="favorite_real">Añadir a favoritos</string>

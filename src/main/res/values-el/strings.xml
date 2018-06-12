@@ -232,8 +232,6 @@
     <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
-    <string name="auth_access_failed">Η πρόσβαση απέτυχε</string>
-
     <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="common_rename">Μετονομασία</string>

@@ -208,8 +208,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Jūsų seanso laikas baigėsi. Prašome prisijungti iš naujo</string>
     <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
 	<string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
-    <string name="auth_access_failed">Prieiga suteikta</string>
-
     <string name="favorite">Nustatykite prieinamumą (statusą)</string>
     <string name="unfavorite">Išjungti kaip neprieinamą (statusą)</string>
     <string name="common_rename">Pervadinti</string>
