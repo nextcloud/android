@@ -33,9 +33,8 @@ class RemoteFilesRepository implements FilesRepository {
 
 
     @Override
-    public void readRemoteFile(String path, BaseActivity activity, boolean isSharingSupported, @NonNull ReadRemoteFileCallback callback) {
-        filesServiceApi.readRemoteFile(path, activity, isSharingSupported,
-                new FilesServiceApi.FilesServiceCallback<OCFile>() {
+    public void readRemoteFile(String path, BaseActivity activity, @NonNull ReadRemoteFileCallback callback) {
+        filesServiceApi.readRemoteFile(path, activity, new FilesServiceApi.FilesServiceCallback<OCFile>() {
                     @Override
                     public void onLoaded(OCFile ocFile) {
                         callback.onFileLoaded(ocFile);
