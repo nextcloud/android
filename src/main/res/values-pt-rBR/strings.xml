@@ -268,6 +268,9 @@
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando uma ID correta de usuário, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta não está adicionada neste dispositivo ainda</string>
+    <string name="auth_access_failed">O acesso falhou: %1$s</string>
+    <string name="auth_illegal_login_used">URL ilegal de dados de login utilizada</string>
+
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="favorite_real">Adicionar aos favoritos</string>
