@@ -33,6 +33,5 @@ public interface FilesRepository {
         void onFileLoadError(String error);
     }
 
-    void readRemoteFile(String path, BaseActivity activity, boolean isSharingSupported,
-                        @NonNull ReadRemoteFileCallback callback);
+    void readRemoteFile(String path, BaseActivity activity, @NonNull ReadRemoteFileCallback callback);
 }

@@ -85,6 +85,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
+import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -1078,14 +1079,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateLayout() {
-        if (!mJustFolders) {
-            updateFooter();
-            // decide grid vs list view
-            if (isGridViewPreferred(mFile)) {
-                switchToGridView();
-            } else {
-                switchToListView();
-            }
+        // decide grid vs list view
+        if (isGridViewPreferred(mFile)) {
+            switchToGridView();
+        } else {
+            switchToListView();
         }
 
         invalidateActionMode();

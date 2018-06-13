@@ -38,7 +38,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -236,8 +235,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     }
 
     private boolean isEditOptionsAvailable(OCShare share) {
-        return !ShareType.FEDERATED.equals(share.getShareType())
-                || AccountUtils.getServerVersion(account).isNotReshareableFederatedSupported();
+        return !ShareType.FEDERATED.equals(share.getShareType());
     }
 
     private boolean isReshareForbidden(OCShare share) {
