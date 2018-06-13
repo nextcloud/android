@@ -1,4 +1,4 @@
-## 3.2.0 
+## 3.2.0 (May, 13, 2018) 
 - Revamped details screen & sharing
 - minor UI/UX improvements
 - many bug fixes
