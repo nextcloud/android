@@ -260,6 +260,7 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
+    <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Ajouter aux favoris</string>

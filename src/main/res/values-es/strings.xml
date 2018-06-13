@@ -39,6 +39,13 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
+    <string name="prefs_lock">Bloquear</string>
+    <string name="prefs_lock_title">Bloquear usando</string>
+    <string name="prefs_lock_none">Ninguno</string>
+    <string name="prefs_lock_using_passcode">Código de acceso</string>
+    <string name="prefs_lock_using_device_credentials">Credenciales del dispositivo</string>
+    <string name="prefs_lock_device_credentials_enabled">Credenciales del dispositivo activadas</string>
+    <string name="prefs_lock_device_credentials_not_setup">No se han configurado las credenciales del dispositivo.</string>
     <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
@@ -196,6 +203,9 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. En su lugar, ¿le gustaría moverlos?</string>
     <string name="pass_code_enter_pass_code">Por favor introduzca su código de acceso</string>
+    <string name="default_credentials_wrong">Credenciales incorrectas</string>
+    <string name="credentials_disabled">Credenciales desactivadas</string>
+    
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
     <string name="pass_code_configure_your_pass_code_explanation">Se solicitará el código de acceso cada vez que se inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelve a introducir tu código de acceso</string>
@@ -258,6 +268,9 @@
 	<string name="auth_fail_get_user_name">Tu servidor no está devolviendo una ID de usuario correcta; por favor, ponte en contacto con un administrador</string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no se ha añadido aún en este dispositivo</string>
+    <string name="auth_access_failed">Acceso fallido: %1$s</string>
+    <string name="auth_illegal_login_used">Se ha usado una URL ilegal de datos de entrada</string>
+
     <string name="favorite">Marcar como disponible sin conexión</string>
     <string name="unfavorite">Desmarcar como disponible sin conexión</string>
     <string name="favorite_real">Añadir a favoritos</string>
@@ -607,6 +620,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aun no hay actividad</string>
+    <string name="activities_no_results_message">No hay eventos como adiciones, cambios y compartidos</string>
     <string name="prefs_category_about">Acerca de</string>
 
     <string name="actionbar_contacts">Copia de seguridad de contactos</string>
@@ -765,4 +779,6 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Usar la protección del dispositivo Android</string>
+    <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
+</resources>

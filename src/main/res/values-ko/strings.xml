@@ -39,6 +39,7 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_manage_accounts">계정 관리</string>
+    <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
     <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_log_delete_history_button">과거 기록 삭제</string>
@@ -256,6 +257,7 @@
 	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
+    <string name="auth_access_failed">접근 실패: %1$s</string>
     <string name="favorite">오프라인 사용 가능으로 설정</string>
     <string name="unfavorite">오프라인 사용 불가능으로 설정</string>
     <string name="favorite_real">즐겨찾기에 추가</string>
@@ -378,6 +380,13 @@
 
     <string name="file_migration_dialog_title">저장소 경로 업데이트 중</string>
     <string name="file_migration_preparing">이전 준비 중...</string>
+    <string name="file_migration_checking_destination">대상 점검 중...</string>
+    <string name="file_migration_saving_accounts_configuration">계정 설정 저장중...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">모든 동기화가 완료되기를 기다리는 중...</string>
+    <string name="file_migration_migrating">데이터 이동 중...</string>
+    <string name="file_migration_updating_index">색인 업데이트 중...</string>
+    <string name="file_migration_cleaning">정리 중...</string>
+    <string name="file_migration_restoring_accounts_configuration">계정 설정 복원 중...</string>
     <string name="file_migration_ok_finished">완료됨</string>
     <string name="file_migration_failed_not_enough_space">공간 부족</string>
     <string name="file_migration_failed_not_writable">대상 파일에 기록할 수 없음</string>
@@ -401,7 +410,9 @@
 	<string name="log_send_history_button">기록 보내기</string>
 	<string name="log_send_no_mail_app">로그를 보내는 데 사용할 수 있는 앱이 없습니다. 이메일 앱을 설치하십시오.</string>
 	<string name="log_send_mail_subject">%1$s Android 앱 로그</string>
-    <string name="saml_authentication_required_text">암호가 필요함</string>
+    <string name="log_progress_dialog_text">데이터 불러오는 중...</string>
+
+	<string name="saml_authentication_required_text">암호가 필요함</string>
 	<string name="saml_authentication_wrong_pass">잘못된 암호</string>
 	<string name="actionbar_move">이동</string>
     <string name="actionbar_copy">복사</string>
@@ -443,6 +454,8 @@
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="set_as">다음으로 설정</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">원래 파일은</string>
+    <string name="prefs_instant_behaviour_title">원래 파일은...</string>
     <string name="select_all">모두 선택</string>
     <string name="deselect_all">모두 선택 해제</string>
 
@@ -456,6 +469,10 @@
     <string name="share_with_user_section_title">사용자와 그룹과 공유하기</string>
     <string name="share_no_users">사용자와 공유한 데이터 없음</string>
     <string name="share_add_user_or_group">사용자 또는 그룹 추가</string>
+    <string name="share_via_link_edit_permission_label">편집 허용</string>
+    <string name="share_via_link_password_label">암호로 보호</string>
+    <string name="share_via_link_password_title">보호됨</string>
+    <string name="share_via_link_expiration_date_label">만료 날짜 설정</string>
     <string name="share_via_link_section_title">링크 공유</string>
     <string name="share_via_link_hide_file_listing_permission_label">파일 목록 숨김</string>
     <string name="share_get_public_link_button">링크 얻기</string>
@@ -541,6 +558,7 @@
     <string name="welcome_feature_3_title">자동 업로드</string>
     <string name="welcome_feature_3_text">내 사진을 안전하게 보관</string>
 
+    <string name="whats_new_end_to_end_encryption_title">종단간 암호화</string>
     <string name="whats_new_ipv6_title">IPv6 지원</string>
     <string name="whats_new_skip">건너뛰기</string>
 
@@ -682,6 +700,7 @@
     <string name="end_to_end_encryption_title">암호화 설정</string>
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
     <string name="end_to_end_encryption_not_supported">암호화 기능은 KitKat(4.4) 이상에서만 지원합니다.</string>
+    <string name="end_to_end_encryption_not_enabled">종단간 암호화가 서버단에서 사용 해제 되어 있습니다.</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_dialog_close">닫기</string>
     <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
