@@ -34,7 +34,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
@@ -93,7 +92,7 @@ public class FileOperationsHelper {
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
     private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
     private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
-    private FileActivity mFileActivity = null;
+    private FileActivity mFileActivity;
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
@@ -432,10 +431,8 @@ public class FileOperationsHelper {
      * @return 'True' if the server supports the Share API
      */
     public boolean isSharedSupported() {
-        if (mFileActivity.getAccount() != null) {
-            return AccountUtils.getServerVersion(mFileActivity.getAccount()).isSharedSupported();
-        }
-        return false;
+        return mFileActivity.getAccount() != null &&
+                AccountUtils.getServerVersion(mFileActivity.getAccount()).isSharedSupported();
     }
 
 
@@ -475,8 +472,7 @@ public class FileOperationsHelper {
     private void queueShareIntent(Intent shareIntent) {
         if (isSharedSupported()) {
             // Unshare the file
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().
-                    queueNewOperation(shareIntent);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
 
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
@@ -943,10 +939,8 @@ public class FileOperationsHelper {
      * @return 'True' if the server doesn't need to check forbidden characters
      */
     public boolean isVersionWithForbiddenCharacters() {
-        if (mFileActivity.getAccount() != null) {
-            return AccountUtils.getServerVersion(mFileActivity.getAccount()).isVersionWithForbiddenCharacters();
-        }
-        return false;
+        return mFileActivity.getAccount() != null &&
+                AccountUtils.getServerVersion(mFileActivity.getAccount()).isVersionWithForbiddenCharacters();
     }
 
     /**
