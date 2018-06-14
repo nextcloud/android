@@ -697,6 +697,16 @@ public class DisplayUtils {
     }
 
     /**
+     * Show a temporary message in a {@link Snackbar} bound to the given view.
+     *
+     * @param view    The view the {@link Snackbar} is bound to.
+     * @param message The message.
+     */
+    public static void showSnackMessage(View view, String message) {
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
      * create a temporary message in a {@link Snackbar} bound to the given view.
      *
      * @param view            The view the {@link Snackbar} is bound to.

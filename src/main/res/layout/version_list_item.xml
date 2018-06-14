@@ -22,6 +22,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -81,7 +82,8 @@
         android:layout_gravity="end"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:text="@string/placeholder_sentence"
+        android:textAlignment="textEnd"
+        tools:text="13:24"
         android:textColor="?android:attr/textColorSecondary"/>
 
 </LinearLayout>

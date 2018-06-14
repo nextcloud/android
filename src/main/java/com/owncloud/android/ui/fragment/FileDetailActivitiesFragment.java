@@ -28,7 +28,6 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -64,6 +63,7 @@ import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -388,13 +388,13 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @Override
     public void onSuccess(String message) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(recyclerView, message);
         fetchAndSetData(null);
     }
 
     @Override
     public void onError(String message) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(recyclerView, message);
     }
 
     @Override

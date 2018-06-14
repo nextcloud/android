@@ -590,7 +590,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Replaces the second fragment managed by the activity with the received as
      * a parameter.
-     * <p/>
+     *
      * Assumes never will be more than two fragments managed at the same time.
      *
      * @param fragment New second Fragment to set.
@@ -1465,7 +1465,7 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     * <p/>
+     *
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
@@ -2113,9 +2113,9 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Starts an operation to refresh the requested folder.
-     * <p/>
+     *
      * The operation is run in a new background thread created on the fly.
-     * <p/>
+     *
      * The refresh updates is a "light sync": properties of regular files in folder are updated (including
      * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
      * synchronized too.
@@ -2130,9 +2130,9 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Starts an operation to refresh the requested folder.
-     * <p/>
+     *
      * The operation is run in a new background thread created on the fly.
-     * <p/>
+     *
      * The refresh updates is a "light sync": properties of regular files in folder are updated (including
      * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
      * synchronized too.
