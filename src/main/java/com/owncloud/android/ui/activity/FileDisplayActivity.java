@@ -1762,9 +1762,11 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        DisplayUtils.showSnackMessage(
-                this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-        );
+
+        if (!operation.isInBackground()) {
+            DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
+                    getResources()));
+        }
 
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
@@ -1797,10 +1799,14 @@ public class FileDisplayActivity extends HookActivity
         if (result.isSuccess()) {
             OCFile file = getFile();
 
+            // delete old local copy
             if (file.isDown()) {
                 List<OCFile> list = new ArrayList<>();
                 list.add(file);
                 getFileOperationsHelper().removeFiles(list, true, true);
+
+                // download new version, only if file was previously download
+                getFileOperationsHelper().syncFile(file);
             }
 
             OCFile parent = getStorageManager().getFileById(file.getParentId());
@@ -1810,9 +1816,10 @@ public class FileDisplayActivity extends HookActivity
                 FileDetailFragment fileDetailFragment = (FileDetailFragment) getSecondFragment();
                 fileDetailFragment.getFileDetailActivitiesFragment().reload();
             }
+
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_successfully);
         } else {
-            Snackbar.make(getSecondFragment().getView(), R.string.file_version_restored_error,
-                    Snackbar.LENGTH_LONG).show();
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error);
         }
     }
 

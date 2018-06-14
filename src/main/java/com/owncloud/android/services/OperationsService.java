@@ -104,6 +104,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_USER_ID = "USER_ID";
+    public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
@@ -656,7 +657,9 @@ public class OperationsService extends Service {
                     // Remove file or folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
-                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy, account, getApplicationContext());
+                    boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
+                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy, account, inBackground,
+                            getApplicationContext());
                     
                 } else if (action.equals(ACTION_CREATE_FOLDER)) {
                     // Create Folder

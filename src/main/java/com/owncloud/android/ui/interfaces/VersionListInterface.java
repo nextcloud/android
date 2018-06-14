@@ -27,9 +27,5 @@ public interface VersionListInterface {
 
     interface View {
         void onRestoreClicked(FileVersion fileVersion);
-
-        void onSuccess(String message);
-
-        void onError(String message);
     }
 }

@@ -799,5 +799,6 @@
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
+    <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
 </resources>
