@@ -75,7 +75,6 @@ import java.util.List;
 /**
  * Adapter for the activity view
  */
-
 public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected static final int HEADER_TYPE = 100;
@@ -391,5 +390,4 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         }
     }
-
 }
