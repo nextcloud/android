@@ -1,4 +1,9 @@
-## 3.1.0 
+## 3.2.0 (May, 13, 2018)
+- Revamped details screen & sharing
+- minor UI/UX improvements
+- many bug fixes
+ 
+## 3.1.0 (Apr, 22, 2018)
 - enhance support for 8.x
 - speed improvements
 - minor UI/UX improvements
