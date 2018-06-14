@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
+    <string name="prefs_lock">Закључавање</string>
+    <string name="prefs_lock_title">Закључај користећи</string>
+    <string name="prefs_lock_none">Ништа</string>
+    <string name="prefs_lock_using_passcode">Код</string>
+    <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
+    <string name="prefs_lock_device_credentials_enabled">Укључени акредитиви уређаја</string>
+    <string name="prefs_lock_device_credentials_not_setup">Нема подешених акредитива уређаја.</string>
     <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
@@ -198,6 +205,9 @@
     <string name="foreign_files_remote_text">Удаљени: %1$s</string>
     <string name="upload_query_move_foreign_files">Недовољно места да се копирају означени фајлови у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
+    <string name="default_credentials_wrong">Неисправни акредитиви</string>
+    <string name="credentials_disabled">Акредитиви искључени</string>
+    
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
     <string name="pass_code_reenter_your_pass_code">Поново унесите кôд за закључавање</string>
@@ -261,6 +271,8 @@
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
     <string name="auth_account_does_not_exist">Налог још није додат на овај уређај</string>
     <string name="auth_access_failed">Неуспео приступ: %1$s</string>
+    <string name="auth_illegal_login_used">Искоришћена неисправна адреса за податке пријаве</string>
+
     <string name="favorite">Постави као доступно и ван мреже</string>
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
     <string name="favorite_real">Додај у омиљене</string>
@@ -772,4 +784,6 @@
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="unsharing_failed">Уклањање дељења није успело</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Користи Андроид заштиту уређаја</string>
+    <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
+</resources>
