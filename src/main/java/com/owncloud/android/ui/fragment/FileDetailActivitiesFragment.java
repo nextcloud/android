@@ -63,7 +63,6 @@ import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -384,17 +383,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         outState.putParcelable(FileActivity.EXTRA_FILE, file);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
-    }
-
-    @Override
-    public void onSuccess(String message) {
-        DisplayUtils.showSnackMessage(recyclerView, message);
-        fetchAndSetData(null);
-    }
-
-    @Override
-    public void onError(String message) {
-        DisplayUtils.showSnackMessage(recyclerView, message);
     }
 
     @Override

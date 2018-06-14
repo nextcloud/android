@@ -869,6 +869,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
+            service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
 
