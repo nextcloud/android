@@ -196,7 +196,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @OnClick(R.id.submitComment)
     public void submitComment() {
         if (commentInput.getText().toString().trim().length() > 0) {
-            new RestoreFileVersionTask.SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
+            new SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
                     callback, ownCloudClient).execute();
         }
     }
@@ -409,17 +409,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @Override
     public void onActivityClicked(RichObject richObject) {
         // TODO implement activity click
-    }
-
-    @Override
-    public void onSuccess(String message) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
-        fetchAndSetData(null);
-    }
-
-    @Override
-    public void onSuccess() {
-        fetchAndSetData(null);
     }
 
     @Override
