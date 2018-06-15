@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
+    <string name="prefs_lock">Блокировка</string>
+    <string name="prefs_lock_title">Способ блокирования</string>
+    <string name="prefs_lock_none">Не использовать</string>
+    <string name="prefs_lock_using_passcode">Блокировка кодом</string>
+    <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
+    <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
+    <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
     <string name="prefs_expert_mode">Экспертный режим</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
@@ -615,6 +622,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Событий ещё нет</string>
+    <string name="activities_no_results_message">Отсутствуют события добавления, изменения и предоставления общего доступа</string>
     <string name="prefs_category_about">О программе</string>
 
     <string name="actionbar_contacts">Резервное копирование контактов</string>
@@ -770,4 +778,8 @@
     <string name="create_new_folder">Создать новую папку</string>
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Загрузка не может быть завершена!</string>
     <string name="tags">Метки</string>
+    <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
+    <string name="unsharing_failed">Не удалось закрыть общий доступ</string>
+    <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
+    <string name="whats_new_device_credentials_title">Использование защитной блокировки Android</string>
     </resources>
