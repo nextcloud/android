@@ -71,7 +71,7 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
                     mClient.exhaustResponse(get.getResponseBodyAsStream());
                 }
             } catch (Exception e) {
-                Log_OC.d(TAG, e.getMessage(), e);
+                Log_OC.e(TAG, e.getMessage(), e);
             }
         }
         return null;
