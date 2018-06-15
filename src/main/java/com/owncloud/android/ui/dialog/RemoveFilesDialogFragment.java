@@ -141,7 +141,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onConfirmation(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false);
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false, false);
     }
     
     /**
@@ -150,7 +150,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true);
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true, false);
     }
 
     @Override

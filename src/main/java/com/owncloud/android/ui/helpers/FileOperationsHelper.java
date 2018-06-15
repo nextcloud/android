@@ -53,6 +53,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagOperation;
+import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -423,6 +424,28 @@ public class FileOperationsHelper {
 
         } else {
             Log_OC.e(TAG, "Trying to share a NULL OCFile");
+        }
+    }
+
+    /**
+     * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
+     *
+     * @param fileVersion The file version to restore
+     * @param userId      userId of current account
+     */
+    public void restoreFileVersion(FileVersion fileVersion, String userId) {
+        if (fileVersion != null) {
+            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                    getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_RESTORE_VERSION);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_FILE_VERSION, fileVersion);
+            service.putExtra(OperationsService.EXTRA_USER_ID, userId);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        } else {
+            Log_OC.e(TAG, "Trying to restore a NULL FileVersion");
         }
     }
 
@@ -836,8 +859,9 @@ public class FileOperationsHelper {
      * @param files         Files to delete
      * @param onlyLocalCopy When 'true' only local copy of the files is removed; otherwise files are also deleted
      *                      in the server.
+     * @param inBackground  When 'true', do not show any loading dialog
      */
-    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy) {
+    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy, boolean inBackground) {
         for (OCFile file : files) {
             // RemoveFile
             Intent service = new Intent(mFileActivity, OperationsService.class);
@@ -845,10 +869,13 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
+            service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        if (!inBackground) {
+            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        }
     }
 
 

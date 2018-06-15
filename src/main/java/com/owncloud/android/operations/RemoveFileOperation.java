@@ -39,14 +39,13 @@ import com.owncloud.android.operations.common.SyncOperation;
  * Remote operation performing the removal of a remote file or folder in the ownCloud server.
  */
 public class RemoveFileOperation extends SyncOperation {
-    
-    // private static final String TAG = RemoveFileOperation.class.getSimpleName();
 
-    private OCFile mFileToRemove;
-    private String mRemotePath;
-    private boolean mOnlyLocalCopy;
-    private Account mAccount;
-    private Context mContext;
+    private OCFile fileToRemove;
+    private String remotePath;
+    private boolean onlyLocalCopy;
+    private Account account;
+    private boolean inBackground;
+    private Context context;
     
     
     /**
@@ -57,11 +56,13 @@ public class RemoveFileOperation extends SyncOperation {
      * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is 
      *                              removed.
      */
-    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy, Account account, Context context) {
-        mRemotePath = remotePath;
-        mOnlyLocalCopy = onlyLocalCopy;
-        mAccount = account;
-        mContext = context;
+    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy, Account account, boolean inBackground,
+                               Context context) {
+        this.remotePath = remotePath;
+        this.onlyLocalCopy = onlyLocalCopy;
+        this.account = account;
+        this.inBackground = inBackground;
+        this.context = context;
     }
     
     
@@ -71,7 +72,11 @@ public class RemoveFileOperation extends SyncOperation {
      * @return      File to remove or already removed.
      */
     public OCFile getFile() {
-        return mFileToRemove;
+        return fileToRemove;
+    }
+
+    public boolean isInBackground() {
+        return inBackground;
     }
     
     /**
@@ -83,30 +88,30 @@ public class RemoveFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         RemoteOperation operation;
-        
-        mFileToRemove = getStorageManager().getFileByPath(mRemotePath);
+
+        fileToRemove = getStorageManager().getFileByPath(remotePath);
 
         // store resized image
-        ThumbnailsCacheManager.generateResizedImage(mFileToRemove);
+        ThumbnailsCacheManager.generateResizedImage(fileToRemove);
 
         boolean localRemovalFailed = false;
-        if (!mOnlyLocalCopy) {
+        if (!onlyLocalCopy) {
 
-            if (mFileToRemove.isEncrypted() &&
+            if (fileToRemove.isEncrypted() &&
                     android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                OCFile parent = getStorageManager().getFileByPath(mFileToRemove.getParentRemotePath());
-                operation = new RemoveRemoteEncryptedFileOperation(mRemotePath, parent.getLocalId(), mAccount, mContext,
-                        mFileToRemove.getEncryptedFileName());
+                OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
+                operation = new RemoveRemoteEncryptedFileOperation(remotePath, parent.getLocalId(), account, context,
+                        fileToRemove.getEncryptedFileName());
             } else {
-                operation = new RemoveRemoteFileOperation(mRemotePath);
+                operation = new RemoveRemoteFileOperation(remotePath);
             }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, true, true));
+                localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
             }
             
         } else {
-            localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, false, true));
+            localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, false, true));
             if (!localRemovalFailed) {
                 result = new RemoteOperationResult(ResultCode.OK);
             }

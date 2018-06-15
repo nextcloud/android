@@ -95,6 +95,7 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
@@ -137,6 +138,7 @@ import org.parceler.Parcels;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
@@ -588,7 +590,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Replaces the second fragment managed by the activity with the received as
      * a parameter.
-     * <p/>
+     *
      * Assumes never will be more than two fragments managed at the same time.
      *
      * @param fragment New second Fragment to set.
@@ -1463,7 +1465,7 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     * <p/>
+     *
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
@@ -1726,6 +1728,8 @@ public class FileDisplayActivity extends HookActivity
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UnshareOperation) {
             onUpdateShareInformation(result, R.string.unsharing_failed);
+        } else if (operation instanceof RestoreFileVersionOperation) {
+            onRestoreFileVersionOperationFinish(result);
         }
     }
 
@@ -1758,15 +1762,21 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        DisplayUtils.showSnackMessage(
-                this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-        );
+
+        if (!operation.isInBackground()) {
+            DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
+                    getResources()));
+        }
 
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
             tryStopPlaying(removedFile);
             FileFragment second = getSecondFragment();
-            if (second != null && removedFile.equals(second.getFile())) {
+
+            // check if file is still available, if so do nothing
+            boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
+
+            if (second != null && !fileAvailable && removedFile.equals(second.getFile())) {
                 if (second instanceof PreviewMediaFragment) {
                     ((PreviewMediaFragment) second).stopPreview(true);
                 }
@@ -1782,6 +1792,34 @@ public class FileDisplayActivity extends HookActivity
                 mLastSslUntrustedServerResult = result;
                 showUntrustedCertDialog(mLastSslUntrustedServerResult);
             }
+        }
+    }
+
+    private void onRestoreFileVersionOperationFinish(RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getFile();
+
+            // delete old local copy
+            if (file.isDown()) {
+                List<OCFile> list = new ArrayList<>();
+                list.add(file);
+                getFileOperationsHelper().removeFiles(list, true, true);
+
+                // download new version, only if file was previously download
+                getFileOperationsHelper().syncFile(file);
+            }
+
+            OCFile parent = getStorageManager().getFileById(file.getParentId());
+            startSyncFolderOperation(parent, true, true);
+
+            if (getSecondFragment() instanceof FileDetailFragment) {
+                FileDetailFragment fileDetailFragment = (FileDetailFragment) getSecondFragment();
+                fileDetailFragment.getFileDetailActivitiesFragment().reload();
+            }
+
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_successfully);
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error);
         }
     }
 
@@ -2082,9 +2120,9 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Starts an operation to refresh the requested folder.
-     * <p/>
+     *
      * The operation is run in a new background thread created on the fly.
-     * <p/>
+     *
      * The refresh updates is a "light sync": properties of regular files in folder are updated (including
      * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
      * synchronized too.
@@ -2093,7 +2131,25 @@ public class FileDisplayActivity extends HookActivity
      * @param ignoreETag If 'true', the data from the server will be fetched and sync'ed even if the eTag
      *                   didn't change.
      */
-    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
+        startSyncFolderOperation(folder, ignoreETag, false);
+    }
+
+    /**
+     * Starts an operation to refresh the requested folder.
+     *
+     * The operation is run in a new background thread created on the fly.
+     *
+     * The refresh updates is a "light sync": properties of regular files in folder are updated (including
+     * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
+     * synchronized too.
+     *
+     * @param folder      Folder to refresh.
+     * @param ignoreETag  If 'true', the data from the server will be fetched and sync'ed even if the eTag
+     *                    didn't change.
+     * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
+     */
+    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag, boolean ignoreFocus) {
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
@@ -2102,7 +2158,7 @@ public class FileDisplayActivity extends HookActivity
                     new Runnable() {
                         @Override
                         public void run() {
-                            if (hasWindowFocus()) {
+                            if (ignoreFocus || hasWindowFocus()) {
                                 long currentSyncTime = System.currentTimeMillis();
                                 mSyncInProgress = true;
 
