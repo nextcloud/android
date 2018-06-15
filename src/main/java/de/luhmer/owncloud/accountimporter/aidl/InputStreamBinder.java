@@ -183,7 +183,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private boolean isValid(NextcloudRequest request) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String storedToken = sharedPreferences.getString(request.packageName, "");
-
         return validPackages.contains(request.packageName) && request.token.equals(storedToken);
     }
 }
