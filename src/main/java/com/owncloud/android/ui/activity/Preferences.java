@@ -384,7 +384,12 @@ public class Preferences extends PreferenceActivity
 
                         intent.setData(Uri.parse(feedbackMail));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        } else {
+                            DisplayUtils.showSnackMessage(Preferences.this, R.string.feedback_no_mail_app);
+                        }
 
                         return true;
                     }
