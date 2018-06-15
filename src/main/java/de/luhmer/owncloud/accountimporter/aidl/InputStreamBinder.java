@@ -3,6 +3,7 @@ package de.luhmer.owncloud.accountimporter.aidl;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -181,6 +182,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
+        if(request.packageName == null) {
+            String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+            request.packageName = callingPackageName;
+        }
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String storedToken = sharedPreferences.getString(request.packageName, "");
         return validPackages.contains(request.packageName) && request.token.equals(storedToken);
