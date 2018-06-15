@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.helper;
+package de.luhmer.owncloud.accountimporter.aidl;
 
 /**
  * Created by david on 29.06.17.

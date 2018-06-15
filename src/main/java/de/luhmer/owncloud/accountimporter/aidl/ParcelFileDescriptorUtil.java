@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.helper;
+package de.luhmer.owncloud.accountimporter.aidl;
 
 import android.os.ParcelFileDescriptor;
 import android.util.Log;

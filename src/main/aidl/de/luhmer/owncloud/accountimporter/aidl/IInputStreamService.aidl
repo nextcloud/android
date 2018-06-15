@@ -15,7 +15,7 @@
 	More information here: https://github.com/abeluck/android-streams-ipc
 */
 
-package de.luhmer.owncloud.accountimporter.helper;
+package de.luhmer.owncloud.accountimporter.aidl;
 
 // Declare the interface.
 interface IInputStreamService {
