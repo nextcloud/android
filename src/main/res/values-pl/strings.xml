@@ -491,7 +491,7 @@
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z…</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
-    <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail...</string>
+    <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail…</string>
 
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
@@ -635,7 +635,7 @@
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
 
-    <string name="foreground_service_upload">Wysyłanie plików...</string>
+    <string name="foreground_service_upload">Wysyłanie plików…</string>
     <string name="foreground_service_download">Pobieranie plików…</string>
 
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
@@ -692,7 +692,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
-    <string name="end_to_end_encryption_decrypting">Odszyfrowywanie...</string>
+    <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>

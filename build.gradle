@@ -59,9 +59,9 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 1
+def versionMinor = 3
 def versionPatch = 0
-def versionBuild = 51 // 0-49=Alpha / 50-98=RC / 99=stable
+def versionBuild = 0 // 0-49=Alpha / 50-98=RC / 99=stable
 
 android {
     lintOptions {
@@ -126,8 +126,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20180612
-                versionName "20180612"
+                versionCode 20180613
+                versionName "20180613"
             }
         }
     }
