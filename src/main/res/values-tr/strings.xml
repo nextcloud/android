@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
+    <string name="prefs_lock">Kilitle</string>
+    <string name="prefs_lock_title">Şununla kilitle</string>
+    <string name="prefs_lock_none">Yok</string>
+    <string name="prefs_lock_using_passcode">Parola</string>
+    <string name="prefs_lock_using_device_credentials">Aygıt kimlik doğrulama bilgileri</string>
+    <string name="prefs_lock_device_credentials_enabled">Aygıt kimlik doğrulama bilgileri kullanılıyor</string>
+    <string name="prefs_lock_device_credentials_not_setup">Herhangi bir aygıt kimliği doğrulama bilgisi ayarlanmamış</string>
     <string name="prefs_expert_mode">Uzman kipi</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
@@ -196,6 +203,9 @@
     <string name="foreign_files_remote_text">Uzak: %1$s</string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
+    <string name="default_credentials_wrong">Kimlik doğrulama bilgileri hatalı</string>
+    <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
+    
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola uygulama her başlatıldığında sorulacak</string>
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
@@ -258,6 +268,9 @@
 	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
     <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
+    <string name="auth_access_failed">Erişilemedi: %1$s</string>
+    <string name="auth_illegal_login_used">Kullanılan veri adresi geçersiz</string>
+
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
     <string name="favorite_real">Sık kullanılanlara ekle</string>
@@ -766,4 +779,6 @@
     <string name="sharee_add_failed">Paylaşım eklenemedi</string>
     <string name="unsharing_failed">Paylaşımdan kaldırılamadı</string>
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
+    <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
+</resources>

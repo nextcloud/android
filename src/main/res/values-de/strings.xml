@@ -268,6 +268,9 @@
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
 	<string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bislang auf dem Gerät nicht vorhanden</string>
+    <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
+    <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
+
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="favorite_real">Zu den Favoriten hinzufügen</string>

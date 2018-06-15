@@ -23,8 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,7 +74,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -789,16 +786,15 @@ public class Preferences extends PreferenceActivity
 
             // For adding content description tag to a title field in the action bar
             int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            window.getDecorView().findViewById(actionBarTitleId).
-                        setContentDescription(getString(R.string.actionbar_settings));
+            View actionBarTitle = window.getDecorView().findViewById(actionBarTitleId);
+
+            if (actionBarTitle != null) {
+                actionBarTitle.setContentDescription(getString(R.string.actionbar_settings));
+            }
         }
     }
 
-    private void launchDavDroidLogin()
-            throws com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
-            OperationCanceledException,
-            AuthenticatorException,
-            IOException {
+    private void launchDavDroidLogin() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
 
         Intent davDroidLoginIntent = new Intent();
