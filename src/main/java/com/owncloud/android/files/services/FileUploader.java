@@ -632,7 +632,6 @@ public class FileUploader extends Service
                             account,
                             files[i],
                             ocUpload,
-                            true,
                             forceOverwrite,
                             localAction,
                             this,
@@ -691,7 +690,6 @@ public class FileUploader extends Service
                     account,
                     null,
                     upload,
-                    true,
                     upload.isForceOverwrite(),  // TODO should be read from DB?
                     upload.getLocalAction(),    // TODO should be read from DB?
                     this,

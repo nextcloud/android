@@ -113,7 +113,6 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile mOldFile;
     private String mRemotePath = null;
     private String mFolderUnlockToken;
-    private boolean mChunked = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
     private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
@@ -175,7 +174,6 @@ public class UploadFileOperation extends SyncOperation {
     public UploadFileOperation(Account account,
                                OCFile file,
                                OCUpload upload,
-                               boolean chunked,
                                boolean forceOverwrite,
                                int localBehaviour,
                                Context context,
@@ -208,7 +206,6 @@ public class UploadFileOperation extends SyncOperation {
         mOnWifiOnly = onWifiOnly;
         mWhileChargingOnly = whileChargingOnly;
         mRemotePath = upload.getRemotePath();
-        mChunked = chunked;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
@@ -340,10 +337,6 @@ public class UploadFileOperation extends SyncOperation {
 
     public void addRenameUploadListener(OnRenameListener listener) {
         mRenameUploadListener = listener;
-    }
-
-    public boolean isChunkedUploadSupported() {
-        return mChunked;
     }
 
     public Context getContext() {
@@ -579,7 +572,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             /// perform the upload
-            if (mChunked && (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
+            if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
                         mFile.getEtagInConflict(), timeStamp);
@@ -820,7 +813,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // perform the upload
-            if (mChunked && (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
+            if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
             } else {
