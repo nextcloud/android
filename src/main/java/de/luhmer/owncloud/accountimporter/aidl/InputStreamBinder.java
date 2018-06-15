@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.helper;
+package de.luhmer.owncloud.accountimporter.aidl;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -114,12 +114,15 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
     private InputStream processRequest(final NextcloudRequest request) throws Exception {
         Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!
+        if(account == null) {
+            throw new IllegalStateException("CE_2"); // Custom Exception 2 (Account not found)
+        }
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
 
         // Validate token & package name
         if (!isValid(request)) {
-            throw new IllegalStateException("Provided authentication token does not match!");
+            throw new IllegalStateException("CE_1"); // Custom Exception 1 (Invalid token or package name)
         }
 
         // Validate URL

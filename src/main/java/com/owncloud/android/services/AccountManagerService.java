@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import de.luhmer.owncloud.accountimporter.helper.InputStreamBinder;
+import de.luhmer.owncloud.accountimporter.aidl.InputStreamBinder;
 
 public class AccountManagerService extends Service {
 
