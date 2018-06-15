@@ -95,7 +95,7 @@ implements ConfirmationDialogFragmentListener {
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(mTargetFile);
-            cg.getFileOperationsHelper().removeFiles(list, false);
+            cg.getFileOperationsHelper().removeFiles(list, false, false);
         }
     }
     
@@ -107,7 +107,7 @@ implements ConfirmationDialogFragmentListener {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
         ArrayList<OCFile> list = new ArrayList<>();
         list.add(mTargetFile);
-        cg.getFileOperationsHelper().removeFiles(list, true);
+        cg.getFileOperationsHelper().removeFiles(list, true, false);
         
         FileDataStorageManager storageManager = cg.getStorageManager();
         

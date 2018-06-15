@@ -88,6 +88,9 @@
     <dimen name="media_grid_spacing">2dp</dimen>
     <dimen name="account_item_layout_user_image_left_start_margin">12dp</dimen>
     <dimen name="account_item_layout_user_image_margin">1dp</dimen>
+    <dimen name="restore_icon_width">24dp</dimen>
+    <dimen name="restore_icon_height">24dp</dimen>
+    <dimen name="restore_icon_layout_right_end_margin">24dp</dimen>
     <dimen name="activity_icon_width">32dp</dimen>
     <dimen name="activity_icon_height">32dp</dimen>
     <dimen name="activity_icon_layout_right_end_margin">24dp</dimen>
