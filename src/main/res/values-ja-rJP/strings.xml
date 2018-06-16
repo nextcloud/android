@@ -243,7 +243,7 @@
 	<string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
 	<string name="auth_wrong_connection_title">接続を確立できませんでした</string>
 	<string name="auth_secure_connection">暗号化通信を確立しました</string>
-	<string name="auth_unauthorized">ユーザー名もしくはパスワードが間違っています</string>
+	<string name="auth_unauthorized">ユーザー名またはパスワードが間違っています</string>
 	<string name="auth_oauth_error">認証失敗</string>
 	<string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
 	<string name="auth_wtf_reenter_URL">予期しない状態です。サーバーアドレスをもう一度入力してください</string>
