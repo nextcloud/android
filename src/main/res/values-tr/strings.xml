@@ -781,4 +781,4 @@
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
     <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
-</resources>
+    </resources>
