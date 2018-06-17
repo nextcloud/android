@@ -48,7 +48,7 @@
     <string name="prefs_lock_device_credentials_not_setup">Nenhuma credencial de dispositivo definida</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
-    <string name="prefs_log_delete_history_button">Eliminar histórico</string>
+    <string name="prefs_log_delete_history_button">Excluir histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser resolvido pelo DAVdroid</string>
@@ -781,4 +781,8 @@
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
     <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
-    </resources>
+    <string name="restore">Recuperar arquivo</string>
+    <string name="new_version_was_created">Nova versão criada</string>
+    <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
+    <string name="file_version_restored_error">Erro recuperando arquivo!</string>
+</resources>
