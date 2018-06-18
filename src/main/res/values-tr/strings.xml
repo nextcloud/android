@@ -781,4 +781,8 @@
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
     <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
-    </resources>
+    <string name="restore">Dosyayı geri yükle</string>
+    <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
+    <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
+    <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
+</resources>

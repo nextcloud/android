@@ -39,6 +39,13 @@
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
+    <string name="prefs_lock">Verrouiller</string>
+    <string name="prefs_lock_title">Verrouillage utilisé</string>
+    <string name="prefs_lock_none">Aucun</string>
+    <string name="prefs_lock_using_passcode">Code de sécurité</string>
+    <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
+    <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
+    <string name="prefs_lock_device_credentials_not_setup">Aucune information d\'identification du terminal n\'a été configurée</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
@@ -148,7 +155,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">En cours</string>
-    <string name="uploads_view_group_failed_uploads">Redémarrerage échoué/en attente</string>
+    <string name="uploads_view_group_failed_uploads">Envoi échoué / Nouvel envoi possible</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
@@ -198,6 +205,9 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
+    <string name="default_credentials_wrong">Informations d\'identification erronées</string>
+    <string name="credentials_disabled">Informations d\'identification désactivées</string>
+    
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -261,6 +271,8 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
+    <string name="auth_illegal_login_used">Utilisation d\'une URL d\'identification non autorisée</string>
+
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Ajouter aux favoris</string>
@@ -477,8 +489,10 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_edit_permission_label">Autoriser la modification</string>
     <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
+    <string name="share_via_link_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_menu_password_label">Protéger par un mot de passe (%1$s)</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
+    <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
@@ -487,6 +501,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec…</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
+    <string name="share_via_link_unset_password">Désactiver</string>
+
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
 
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
@@ -607,6 +623,7 @@ Veuillez contacter votre administrateur</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
+    <string name="activities_no_results_message">Aucun ajout, changement ou un partage à afficher</string>
     <string name="prefs_category_about">À propos</string>
 
     <string name="actionbar_contacts">Sauvegarde des contacts</string>
@@ -765,4 +782,10 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
-    </resources>
+    <string name="whats_new_device_credentials_title">Utiliser la protection Android du terminal</string>
+    <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
+    <string name="restore">Restaurer fichier</string>
+    <string name="new_version_was_created">Une nouvelle version a été créée</string>
+    <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
+    <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+</resources>
