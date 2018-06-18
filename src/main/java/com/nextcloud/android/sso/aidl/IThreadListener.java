@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.aidl;
+package com.nextcloud.android.sso.aidl;
 
 /**
  * Created by david on 29.06.17.
