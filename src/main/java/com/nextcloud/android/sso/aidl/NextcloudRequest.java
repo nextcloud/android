@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.aidl;
+package com.nextcloud.android.sso.aidl;
 
 import java.io.Serializable;
 import java.util.HashMap;

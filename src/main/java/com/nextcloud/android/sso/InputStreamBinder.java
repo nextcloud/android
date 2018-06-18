@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.aidl;
+package com.nextcloud.android.sso;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+import com.nextcloud.android.sso.aidl.IInputStreamService;
+import com.nextcloud.android.sso.aidl.NextcloudRequest;
+import com.nextcloud.android.sso.aidl.ParcelFileDescriptorUtil;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -67,7 +70,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         Exception exception = null;
         InputStream httpStream = new InputStream() {
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return 0;
             }
         };
@@ -84,12 +87,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             // Write exception to the stream followed by the actual network stream
             InputStream exceptionStream = serializeObjectToInputStream(exception);
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, httpStream);
-            return ParcelFileDescriptorUtil.pipeFrom(resultStream, new IThreadListener() {
-                @Override
-                public void onThreadFinished(Thread thread) {
-                    Log.d(TAG, "Done sending result");
-                }
-            });
+            return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
         } catch (IOException e) {
             e.printStackTrace();
         }

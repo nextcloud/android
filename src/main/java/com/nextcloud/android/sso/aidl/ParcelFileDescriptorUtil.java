@@ -1,4 +1,4 @@
-package de.luhmer.owncloud.accountimporter.aidl;
+package com.nextcloud.android.sso.aidl;
 
 import android.os.ParcelFileDescriptor;
 import android.util.Log;

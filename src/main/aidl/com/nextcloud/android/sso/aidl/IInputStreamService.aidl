@@ -15,7 +15,7 @@
 	More information here: https://github.com/abeluck/android-streams-ipc
 */
 
-package de.luhmer.owncloud.accountimporter.aidl;
+package com.nextcloud.android.sso.aidl;
 
 // Declare the interface.
 interface IInputStreamService {
