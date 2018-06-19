@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,7 +46,7 @@ public class CopyToClipboardActivity extends Activity {
         try {
 
             // get the clipboard system service
-            ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+            ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
             // get the text to copy into the clipboard
             Intent intent = getIntent();
