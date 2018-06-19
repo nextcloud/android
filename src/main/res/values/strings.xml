@@ -493,6 +493,7 @@
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
+    <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
     <string name="edit_permission_label">edit</string>

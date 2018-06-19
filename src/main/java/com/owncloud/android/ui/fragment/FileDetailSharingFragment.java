@@ -52,6 +52,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.CopyToClipboardActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
@@ -59,6 +60,7 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -94,6 +96,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @BindView(R.id.share_by_link)
     AppCompatCheckBox shareByLink;
+
+    @BindView(R.id.share_link_copy_icon)
+    ImageView shareLinkCopyIcon;
 
     @BindView(R.id.overflow_menu_share_link)
     ImageView overflowMenuShareLink;
@@ -171,6 +176,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      */
     public void setShareByLinkInfo(boolean isShareByLink) {
         shareByLink.setChecked(isShareByLink);
+        if (isShareByLink) {
+            shareLinkCopyIcon.setVisibility(View.VISIBLE);
+        } else {
+            shareLinkCopyIcon.setVisibility(View.INVISIBLE);
+        }
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
         ThemeUtils.tintCheckbox(shareByLink, accentColor);
         ThemeUtils.tintCheckbox(shareByLinkAllowEditing, accentColor);
@@ -240,10 +250,16 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         }
     }
 
-    @OnClick(R.id.share_link_label)
-    public void showSendLinkTo() {
+    private void showSendLinkTo() {
         if (file.isSharedViaLink()) {
             ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+        }
+    }
+
+    @OnClick({R.id.share_link_label, R.id.share_link_copy_icon})
+    public void copyLinkToClipboard() {
+        if (file.isSharedViaLink()) {
+            ClipboardUtil.copyToClipboard(getActivity(), file.getPublicLink());
         }
     }
 
@@ -307,12 +323,16 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 requestPasswordForShareViaLink(false);
                 return true;
             }
-            case R.id.action_expiration_date: {
+            case R.id.action_share_expiration_date: {
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
                         ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
                 );
+                return true;
+            }
+            case R.id.action_share_send_link: {
+                showSendLinkTo();
                 return true;
             }
             default:
