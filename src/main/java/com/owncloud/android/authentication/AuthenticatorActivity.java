@@ -1418,6 +1418,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      4. we got the authentication method required by the server 
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
+            // show outdated warning
+            if (mServerInfo.mVersion.compareTo(OwnCloudVersion.nextcloud_12) < 0) {
+                DisplayUtils.showServerOutdatedSnackbar(this);
+            }
+
             webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported() && !forceOldLoginMethod;
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
