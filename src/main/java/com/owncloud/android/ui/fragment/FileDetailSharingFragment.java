@@ -34,6 +34,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -258,7 +259,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @OnClick({R.id.share_link_label, R.id.share_link_copy_icon})
     public void copyLinkToClipboard() {
         if (file.isSharedViaLink()) {
-            ClipboardUtil.copyToClipboard(getActivity(), file.getPublicLink());
+            if (TextUtils.isEmpty(file.getPublicLink())) {
+                showSendLinkTo();
+            } else {
+                ClipboardUtil.copyToClipboard(getActivity(), file.getPublicLink());
+            }
         }
     }
 
