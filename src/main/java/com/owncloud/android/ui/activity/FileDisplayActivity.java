@@ -816,6 +816,11 @@ public class FileDisplayActivity extends HookActivity
                     setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     mDrawerToggle.syncState();
+
+                    if (getListOfFilesFragment() != null) {
+                        getListOfFilesFragment().setSearchFragment(false);
+                        getListOfFilesFragment().refreshDirectory();
+                    }
                 } else {
                     searchView.post(new Runnable() {
                         @Override
@@ -1197,7 +1202,7 @@ public class FileDisplayActivity extends HookActivity
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
-        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
+        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()
                 && startFile == null) {
             refreshListOfFilesFragment(false);
         } else {
@@ -1206,7 +1211,7 @@ public class FileDisplayActivity extends HookActivity
         }
 
         // Listen for sync messages
-        if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
+        if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -2425,11 +2430,9 @@ public class FileDisplayActivity extends HookActivity
 
     private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null && !listOfFiles.getIsSearchFragment()) {
+        if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
-                listDirectory(mFile);*/
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
