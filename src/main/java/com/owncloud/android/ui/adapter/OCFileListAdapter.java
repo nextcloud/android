@@ -50,12 +50,14 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -626,6 +628,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             try {
                 ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+
+                // also sync folder content
+                if (ocFile.isFolder()) {
+                    long currentSyncTime = System.currentTimeMillis();
+                    boolean shareSupported = AccountUtils.getServerVersion(mAccount).isSharedSupported();
+                    RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile, currentSyncTime, false,
+                            shareSupported, false, mStorageManager, mAccount, mContext);
+                    refreshFolderOperation.execute(mAccount, mContext);
+                }
 
                 if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
                     mFiles.add(ocFile);
