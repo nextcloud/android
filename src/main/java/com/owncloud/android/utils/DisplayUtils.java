@@ -767,4 +767,11 @@ public class DisplayUtils {
         }
     }
 
+    static public void showServerOutdatedSnackbar(Activity activity) {
+        Snackbar.make(activity.findViewById(android.R.id.content),
+                R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.dismiss, v -> {
+                })
+                .show();
+    }
 }
