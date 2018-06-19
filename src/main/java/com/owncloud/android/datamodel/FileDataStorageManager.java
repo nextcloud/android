@@ -2182,7 +2182,7 @@ public class FileDataStorageManager {
         if (onlyImages) {
             List<OCFile> temp = new ArrayList<>();
 
-            for (OCFile file : temp) {
+            for (OCFile file : ocFiles) {
                 if (MimeTypeUtil.isImage(file)) {
                     temp.add(file);
                 }
