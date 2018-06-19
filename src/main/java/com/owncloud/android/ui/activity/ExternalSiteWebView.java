@@ -88,8 +88,16 @@ public class ExternalSiteWebView extends FileActivity {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            ThemeUtils.setColoredTitle(actionBar, title, this);
+
+            if (showSidebar) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } else {
+                setDrawerIndicatorEnabled(false);
+            }
+        }
 
         // enable zoom
         webSettings.setSupportZoom(true);
@@ -148,8 +156,7 @@ public class ExternalSiteWebView extends FileActivity {
                         openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                    startActivity(settingsIntent);
+                    finish();
                 }
             retval = true;
             break;
