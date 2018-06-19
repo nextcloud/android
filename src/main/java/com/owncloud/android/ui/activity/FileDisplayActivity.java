@@ -365,7 +365,7 @@ public class FileDisplayActivity extends HookActivity
         if (MainApp.getVersionCode() > lastSeenVersion) {
             OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
 
-            if (serverVersion.compareTo(OwnCloudVersion.nextcloud_12) < 0) {
+            if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
                 DisplayUtils.showServerOutdatedSnackbar(this);
             }
 

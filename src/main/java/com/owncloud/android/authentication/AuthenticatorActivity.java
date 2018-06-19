@@ -1419,7 +1419,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
             // show outdated warning
-            if (mServerInfo.mVersion.compareTo(OwnCloudVersion.nextcloud_12) < 0) {
+            if (mServerInfo.mVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
                 DisplayUtils.showServerOutdatedSnackbar(this);
             }
 
