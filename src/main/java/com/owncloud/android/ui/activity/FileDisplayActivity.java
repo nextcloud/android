@@ -1878,6 +1878,7 @@ public class FileDisplayActivity extends HookActivity
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
             fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+            fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
             refreshListOfFilesFragment(false);
         } else {
             // Detect Failure (403) --> maybe needs password
