@@ -801,4 +801,6 @@
     <string name="new_version_was_created">New version was created</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
+    <string name="outdated_server">The server has reached end of life, please upgrade!</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

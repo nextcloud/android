@@ -69,6 +69,7 @@ import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -85,6 +86,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -301,6 +303,7 @@ public class FileDisplayActivity extends HookActivity
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         upgradeNotificationForInstantUpload();
+        checkOutdatedServer();
     }
 
     private Activity getActivity() {
@@ -350,6 +353,24 @@ public class FileDisplayActivity extends HookActivity
                     })
                     .setIcon(R.drawable.nav_synced_folders)
                     .show();
+        }
+    }
+
+    private void checkOutdatedServer() {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        Account account = getAccount();
+
+        int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE);
+
+        if (MainApp.getVersionCode() > lastSeenVersion) {
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
+
+            if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+                DisplayUtils.showServerOutdatedSnackbar(this);
+            }
+
+            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE,
+                    String.valueOf(MainApp.getVersionCode()));
         }
     }
 
