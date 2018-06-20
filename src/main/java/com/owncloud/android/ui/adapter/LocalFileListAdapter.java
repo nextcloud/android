@@ -57,7 +57,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * This Adapter populates a RecyclerView with all files and directories contained in a local directory
+ * This Adapter populates a {@link RecyclerView} with all files and directories contained in a local directory
  */
 public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements FilterableListAdapter {
 
@@ -100,6 +100,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         // not needed
     }
 
+    @Override
     public void unregisterDataSetObserver(DataSetObserver observer) {
         // not needed
     }
