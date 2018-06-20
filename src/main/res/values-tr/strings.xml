@@ -785,4 +785,4 @@
     <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
-</resources>
+    </resources>

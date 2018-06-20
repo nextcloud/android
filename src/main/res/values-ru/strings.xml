@@ -795,4 +795,4 @@
     <string name="new_version_was_created">Новая версия создана</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
-</resources>
+    </resources>
