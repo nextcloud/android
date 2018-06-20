@@ -26,8 +26,11 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -57,6 +60,7 @@ import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.CommentFileOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
@@ -71,6 +75,7 @@ import java.util.ArrayList;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface, VersionListInterface.View {
@@ -113,14 +118,19 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.commentInputField)
+    public TextInputEditText commentInput;
+
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
 
     @BindString(R.string.activities_no_results_message)
     public String noResultsMessage;
+
     private boolean restoreFileVersionSupported;
     private String userId;
     private FileOperationsHelper operationsHelper;
+    private VersionListInterface.CommentCallback callback;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -154,17 +164,41 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         fetchAndSetData(null);
 
-        swipeListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeListRefreshLayout));
-        swipeEmptyListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
+        swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
         AccountManager accountManager = AccountManager.get(getContext());
         userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
+        callback = new VersionListInterface.CommentCallback() {
+
+            @Override
+            public void onSuccess() {
+                commentInput.getText().clear();
+                fetchAndSetData(null);
+            }
+
+            @Override
+            public void onError(int error) {
+                Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
+            }
+        };
+
+        commentInput.getBackground().setColorFilter(
+                ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP
+        );
 
         return view;
+    }
+
+    @OnClick(R.id.submitComment)
+    public void submitComment() {
+        if (commentInput.getText().toString().trim().length() > 0) {
+            new SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
+                    callback, ownCloudClient).execute();
+        }
     }
 
     private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
@@ -388,5 +422,44 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @Override
     public void onRestoreClicked(FileVersion fileVersion) {
         operationsHelper.restoreFileVersion(fileVersion, userId);
+    }
+
+    private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
+
+        private String message;
+        private String userId;
+        private String fileId;
+        private VersionListInterface.CommentCallback callback;
+        private OwnCloudClient client;
+
+        private SubmitCommentTask(String message, String userId, String fileId,
+                                  VersionListInterface.CommentCallback callback, OwnCloudClient client) {
+            this.message = message;
+            this.userId = userId;
+            this.fileId = fileId;
+            this.callback = callback;
+            this.client = client;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId, userId);
+
+            RemoteOperationResult result = commentFileOperation.execute(client);
+
+            return result.isSuccess();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+
+            if (success) {
+                callback.onSuccess();
+            } else {
+                callback.onError(R.string.error_comment_file);
+
+            }
+        }
     }
 }
