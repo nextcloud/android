@@ -365,7 +365,7 @@
     <string name="copy_link">Copy link</string>
     <string name="clipboard_text_copied">Copied to clipboard</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
-    <string name="clipboard_uxexpected_error">Unexpected error while copying to clipboard</string>
+    <string name="clipboard_unexpected_error">Unexpected error while copying to clipboard</string>
     <string name="clipboard_label">Text copied from %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
@@ -486,6 +486,7 @@
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
+    <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
     <string name="edit_permission_label">edit</string>
