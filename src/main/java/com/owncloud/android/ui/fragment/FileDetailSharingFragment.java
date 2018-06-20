@@ -256,7 +256,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         }
     }
 
-    @OnClick({R.id.share_link_label, R.id.share_link_copy_icon})
+    @OnClick({R.id.share_link_copy_icon})
     public void copyLinkToClipboard() {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(file.getPublicLink())) {
