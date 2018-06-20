@@ -206,7 +206,10 @@ public class ExtendedListFragment extends Fragment
                     @Override
                     public void run() {
                         if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
-                            setFabEnabled(!hasFocus);
+
+                            if (!(getActivity() instanceof UploadFilesActivity)) {
+                                setFabEnabled(!hasFocus);
+                            }
 
                             boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                                     getCurrentOwnCloudAccount(MainApp.getAppContext()));
