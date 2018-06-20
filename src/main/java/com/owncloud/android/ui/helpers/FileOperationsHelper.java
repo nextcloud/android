@@ -439,16 +439,6 @@ public class FileOperationsHelper {
         }
     }
 
-
-    /**
-     * @return 'True' if the server supports the Share API
-     */
-    public boolean isSharedSupported() {
-        return mFileActivity.getAccount() != null &&
-                AccountUtils.getServerVersion(mFileActivity.getAccount()).isSharedSupported();
-    }
-
-
     /**
      * Helper method to unshare a file publicly shared via link.
      * Starts a request to do it in {@link OperationsService}

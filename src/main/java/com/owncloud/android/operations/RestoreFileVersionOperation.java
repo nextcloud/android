@@ -69,8 +69,8 @@ public class RestoreFileVersionOperation extends SyncOperation {
 
         RemoteOperationResult result;
         try {
-            String source = client.getNewWebdavUri(false) + "/versions/" + userId + "/versions/" + fileId + "/" + fileName;
-            String target = client.getNewWebdavUri(false) + "/versions/" + userId + "/restore/" + fileId;
+            String source = client.getNewWebdavUri() + "/versions/" + userId + "/versions/" + fileId + "/" + fileName;
+            String target = client.getNewWebdavUri() + "/versions/" + userId + "/restore/" + fileId;
 
             MoveMethod move = new MoveMethod(source, target, true);
             int status = client.executeMethod(move, RESTORE_READ_TIMEOUT, RESTORE_CONNECTION_TIMEOUT);
