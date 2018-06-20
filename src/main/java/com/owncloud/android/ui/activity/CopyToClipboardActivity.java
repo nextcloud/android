@@ -1,8 +1,10 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author Andy Scherzinger
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2018 Andy Scherzinger
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,66 +17,27 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ClipboardUtil;
 
 /**
- * Activity copying the text of the received Intent into the system clibpoard.
+ * Activity copying the text of the received Intent into the system clipboard.
  */
-@SuppressWarnings("deprecation")
 public class CopyToClipboardActivity extends Activity {
-
-    private static final String TAG = CopyToClipboardActivity.class.getName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-
-            // get the clipboard system service
-            ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-
-            // get the text to copy into the clipboard
-            Intent intent = getIntent();
-            CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_TEXT);
-
-            if (text != null && text.length() > 0) {
-                // minimum API level >= 11 -> only modern Clipboard
-                ClipData clip = ClipData.newPlainText(
-                    getString(R.string.clipboard_label, getString(R.string.app_name)),
-                    text
-                );
-                clipboardManager.setPrimaryClip(clip);
-
-                // API level < 11 -> legacy Clipboard - NOT SUPPORTED ANYMORE
-                // clipboardManager.setText(text);
-
-                // alert the user that the text is in the clipboard and we're done
-                DisplayUtils.showSnackMessage(this, R.string.clipboard_text_copied);
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.clipboard_no_text_to_copy);
-            }
-
-        } catch (Exception e) {
-            DisplayUtils.showSnackMessage(this, R.string.clipboard_unexpected_error);
-            Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
-        }
+        ClipboardUtil.copyToClipboard(this, getIntent().getCharSequenceExtra(Intent.EXTRA_TEXT).toString());
 
         finish();
     }
-
 }
