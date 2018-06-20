@@ -27,7 +27,7 @@ public class ClipboardUtil {
 
                 Toast.makeText(activity, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(activity, R.string.clipboard_uxexpected_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.clipboard_unexpected_error, Toast.LENGTH_SHORT).show();
                 Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
             }
         } else {
