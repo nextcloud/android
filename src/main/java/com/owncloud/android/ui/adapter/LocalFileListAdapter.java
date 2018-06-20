@@ -139,7 +139,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public int getItemPosition(File file) {
-        return mFilesAll.indexOf(file);
+        return mFiles.indexOf(file);
     }
 
     public String[] getCheckedFilesPath() {
