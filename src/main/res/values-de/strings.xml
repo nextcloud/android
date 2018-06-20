@@ -785,4 +785,4 @@
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-</resources>
+    </resources>

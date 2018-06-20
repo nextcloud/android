@@ -788,4 +788,4 @@ Veuillez contacter votre administrateur</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
-</resources>
+    </resources>
