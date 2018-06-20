@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * This Adapter populates a RecycylerView with all files and directories contained in a local directory
+ * This Adapter populates a RecyclerView with all files and directories contained in a local directory
  */
 public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements FilterableListAdapter {
 
@@ -160,7 +161,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof LocalFileListFooterViewHolder) {
             ((LocalFileListFooterViewHolder) holder).footerText.setText(getFooterText());
         } else {
@@ -229,9 +230,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             thumbnailView.setImageResource(R.drawable.file);
 
-            /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
+            /* Cancellation needs do be checked and done before changing the drawable in fileIcon, or
              * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
-             **/
+             */
             boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView));
 
 
@@ -281,8 +282,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             default:
             case VIEWTYPE_ITEM:
