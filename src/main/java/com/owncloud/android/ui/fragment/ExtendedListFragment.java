@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -81,7 +82,8 @@ import org.parceler.Parcel;
 import java.util.ArrayList;
 
 public class ExtendedListFragment extends Fragment
-        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
+        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener,
+        SearchView.OnCloseListener {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -176,6 +178,7 @@ public class ExtendedListFragment extends Fragment
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
 
         final Handler handler = new Handler();
 
@@ -336,9 +339,15 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    @Override
+    public boolean onClose() {
+        performSearch("", true);
+
+        return false;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
         View v = inflater.inflate(R.layout.list_fragment, null);
