@@ -70,17 +70,18 @@
             <ImageView
                 android:id="@+id/share_link_copy_icon"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="40dp"
                 android:paddingEnd="@dimen/standard_eighth_margin"
-                android:paddingLeft="@dimen/standard_quarter_margin"
+                android:paddingLeft="@dimen/standard_half_margin"
                 android:paddingRight="@dimen/standard_eighth_margin"
-                android:paddingStart="@dimen/standard_quarter_margin"
+                android:paddingStart="@dimen/standard_half_margin"
                 android:paddingTop="@dimen/standard_half_margin"
                 android:layout_weight="1"
                 android:contentDescription="@string/copy_link"
                 android:paddingBottom="@dimen/standard_half_padding"
                 android:scaleType="fitStart"
-                android:src="@drawable/ic_content_copy" />
+                android:src="@drawable/ic_content_copy"
+                android:layout_gravity="start|center"/>
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link_allow_editing"
