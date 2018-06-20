@@ -70,7 +70,7 @@ public class CopyToClipboardActivity extends Activity {
             }
 
         } catch (Exception e) {
-            DisplayUtils.showSnackMessage(this, R.string.clipboard_uxexpected_error);
+            DisplayUtils.showSnackMessage(this, R.string.clipboard_unexpected_error);
             Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
         }
 
