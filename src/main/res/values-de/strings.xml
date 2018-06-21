@@ -785,5 +785,5 @@
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
-    <string name="dismiss">Schliessen</string>
+    <string name="dismiss">Ausblenden</string>
 </resources>
