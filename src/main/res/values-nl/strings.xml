@@ -39,6 +39,9 @@
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
+    <string name="prefs_lock">Slot</string>
+    <string name="prefs_lock_none">Geen</string>
+    <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -359,6 +362,7 @@
     <string name="copy_link">Link kopiëren</string>
     <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
+    <string name="clipboard_unexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
@@ -479,8 +483,10 @@
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_via_link_section_title">Deel link</string>
+    <string name="share_via_link_send_link_label">Verstuur link</string>
     <string name="share_password_title">Wachtwoord beveiligd</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
+    <string name="edit_permission_label">bewerken</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met…</string>
@@ -756,4 +762,6 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
+    <string name="new_comment">Nieuwe reactie…</string>
+    <string name="dismiss">Weigeren</string>
     </resources>

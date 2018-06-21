@@ -39,6 +39,8 @@
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
+    <string name="prefs_lock_none">Asnjë</string>
+    <string name="prefs_lock_using_passcode">Kodkalimi</string>
     <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
@@ -359,6 +361,7 @@
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="clipboard_text_copied">U kopjua te e papastra</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
+    <string name="clipboard_unexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
@@ -765,4 +768,5 @@
     <string name="sharee_add_failed">Duke shtuar përdëruesit e dështuar</string>
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
+    <string name="new_comment">Koment i ri…</string>
     </resources>

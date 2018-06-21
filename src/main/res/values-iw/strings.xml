@@ -143,6 +143,7 @@
     <string name="uploader_info_dirname">שם התיקייה</string>
     <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">הועלה</string>
     <string name="uploader_upload_succeeded_content_single">%1$s הועלו</string>
     <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
     <string name="uploader_upload_failed_content_single">לא ניתן להעלות %1$s</string>
@@ -167,6 +168,7 @@
     <string name="uploads_view_later_waiting_to_upload">ממתין להעלאה</string>
     <string name="downloader_download_in_progress_ticker">בהורדה…</string>
     <string name="downloader_download_in_progress_content">%1$d%% בהורדה %2$s</string>
+    <string name="downloader_download_succeeded_ticker">הורדה</string>
     <string name="downloader_download_succeeded_content">%1$s הורדו</string>
     <string name="downloader_download_failed_ticker">ההורדה נכשלה</string>
     <string name="downloader_download_failed_content">לא ניתן להוריד את %1$s</string>
@@ -244,7 +246,8 @@
 	<string name="auth_expired_oauth_token_toast">האישור שלך פג. נא לבצע אישור מחדש</string>
 	<string name="auth_expired_basic_auth_toast">יש להכניס את הסיסמא הנוכחית</string>
 	<string name="auth_expired_saml_sso_token_toast">זמן ההתקשרות שלך הסתיים. יש להתחבר מחדש</string>
-    <string name="auth_unsupported_multiaccount">%1$s אינו תומך בריבוי חשבונות</string>
+    <string name="auth_connecting_auth_server">מתחבר לשרת אימות…</string>
+	<string name="auth_unsupported_multiaccount">%1$s אינו תומך בריבוי חשבונות</string>
 	<string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
     <string name="favorite">הגדר כזמין באופן לא מקוון</string>
@@ -687,4 +690,6 @@
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
     <string name="whats_new_device_credentials_title">שימוש באבטחה של התקן ה־Android</string>
     <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
+    <string name="new_comment">תגובה חדשה…</string>
+    <string name="dismiss">התעלמות</string>
     </resources>

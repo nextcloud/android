@@ -375,6 +375,7 @@
     <string name="copy_link">Копировать ссылку</string>
     <string name="clipboard_text_copied">Скопировано в буфер обмена</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
+    <string name="clipboard_unexpected_error">Неожиданная ошибка во время копирования в буфер обмена</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
@@ -790,10 +791,10 @@
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
     <string name="whats_new_device_credentials_title">Использование защитной блокировки Android</string>
     <string name="whats_new_device_credentials_content">Используйте все, что угодно: шаблон, пароль, контакт или отпечаток пальца, чтобы ваши данные были в безопасности.</string>
-    <string name="restore">Восстановить файл</string>
     <string name="new_version_was_created">Новая версия создана</string>
+    <string name="new_comment">Новый комментарий…</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="outdated_server">Сервер достиг окончания поддержки(End Of Live, EOL), пожалуйста, обновите!</string>
     <string name="dismiss">Отклонить</string>
-</resources>
+    </resources>

@@ -39,6 +39,7 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
+    <string name="prefs_lock_none">Žádné</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
@@ -453,6 +454,7 @@
     <string name="share_via_link_section_title">Sdílet odkaz</string>
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_no_password_title">Nastavit heslo</string>
+    <string name="edit_permission_label">upravit</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s…</string>
@@ -556,6 +558,7 @@
     <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Šifrování end-to-end</string>
     <string name="whats_new_resized_images_title">Přizpůsobivé obrázky</string>
     <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Přeskočit</string>
@@ -683,4 +686,6 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
     <string name="tags">Štítky</string>
+    <string name="new_comment">Nový komentář…</string>
+    <string name="dismiss">Zavřít</string>
     </resources>

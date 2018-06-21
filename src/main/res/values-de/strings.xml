@@ -371,6 +371,7 @@
     <string name="copy_link">Link kopieren</string>
     <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
     <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
+    <string name="clipboard_unexpected_error">Unerwarteter Fehler beim Kopieren in die Zwischenablage</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
 
     <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
@@ -491,6 +492,7 @@
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_via_link_section_title">Link teilen</string>
+    <string name="share_via_link_send_link_label">Link teilen</string>
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_no_password_title">Passwort setzen</string>
     <string name="edit_permission_label">bearbeiten</string>
@@ -780,10 +782,11 @@
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
     <string name="whats_new_device_credentials_title">Nutze Android Geräteschutz</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
-    <string name="restore">Datei wiederherstellen</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
+    <string name="new_comment">Neuer Kommentar…</string>
+    <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
-</resources>
+    </resources>
