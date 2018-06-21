@@ -25,7 +25,7 @@ if [ $3 = "master" ]; then
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/findbugs/master.html --upload-file build/reports/findbugs/findbugs.html
     
     summary=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html |head -n-1)
-    curl -u $4:$5 -X PUT -d $summary  http://localhost/nc/remote.php/webdav/findbugs/findbugs.html
+    curl -u $4:$5 -X PUT -d $summary https://nextcloud.kaminsky.me/remote.php/webdav/findbugs/findbugs.html
     
     if [ $lintValue -ne 1 ]; then
         echo "New lint result for master at: https://nextcloud.kaminsky.me/index.php/s/tXwtChzyqMj6I8v"
