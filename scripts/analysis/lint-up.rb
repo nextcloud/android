@@ -21,7 +21,7 @@ TRAVIS_GIT_USERNAME = String.new("Drone CI server")
 LINT_REPORT_FILE = String.new("build/reports/lint/lint.html")
 
 # File name and relative path of previous results of this script.
-PREVIOUS_LINT_RESULTS_FILE=String.new("scripts/lint/lint-results.txt")
+PREVIOUS_LINT_RESULTS_FILE=String.new("scripts/analysis/lint-results.txt")
 
 # Flag to evaluate warnings. true = check warnings; false = ignore warnings
 CHECK_WARNINGS = true
