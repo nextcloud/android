@@ -58,12 +58,9 @@ public class FileSortOrderByDate extends FileSortOrder {
     public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
         final int multiplier = mAscending ? 1 : -1;
 
-        Collections.sort(files, new Comparator<TrashbinFile>() {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
-            public int compare(TrashbinFile o1, TrashbinFile o2) {
-                Long obj1 = o1.getDeletionTimestamp();
-                return multiplier * obj1.compareTo(o2.getDeletionTimestamp());
-            }
+        Collections.sort(files, (o1, o2) -> {
+            Long obj1 = o1.getDeletionTimestamp();
+            return multiplier * obj1.compareTo(o2.getDeletionTimestamp());
         });
 
         return super.sortTrashbinFiles(files);
