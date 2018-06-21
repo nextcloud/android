@@ -56,6 +56,7 @@ import com.owncloud.android.lib.resources.files.CheckEtagOperation;
 import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
@@ -689,7 +690,14 @@ public class FileOperationsHelper {
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions);
+        OCCapability capability = mFileActivity.getStorageManager().getCapability(mFileActivity.getAccount().name);
+        SendShareDialog mSendShareDialog;
+        if (capability != null) {
+            mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions,
+                    capability.getFilesSharingPublicPasswordEnforced().isTrue());
+        } else {
+            mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, false);
+        }
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
