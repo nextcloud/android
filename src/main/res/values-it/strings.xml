@@ -371,7 +371,6 @@
     <string name="copy_link">Copia collegamento</string>
     <string name="clipboard_text_copied">Copiato negli appunti</string>
     <string name="clipboard_no_text_to_copy">Nessun testo ricevuto da copiare negli appunti</string>
-    <string name="clipboard_uxexpected_error">Errore inatteso durante la copia negli appunti</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire operazioni</string>
@@ -785,4 +784,6 @@
     <string name="new_version_was_created">Una nuova versione è stata creata</string>
     <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
     <string name="file_version_restored_error">Errore durante il ripristino della versione del file!</string>
-    </resources>
+    <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
+    <string name="dismiss">Annulla</string>
+</resources>

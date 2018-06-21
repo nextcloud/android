@@ -357,7 +357,6 @@
     <string name="copy_link">Kopier lenke</string>
     <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
-    <string name="clipboard_uxexpected_error">Uventet feil ved kopiering til utklippstavle</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritisk feil: Kan ikke utføre operasjonene</string>

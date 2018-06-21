@@ -311,7 +311,6 @@
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="clipboard_text_copied">S\'ha copiat al porta-retalls</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
-    <string name="clipboard_uxexpected_error">Error inesperat quan es copiava al porta-retalls</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Error crític: no es poden realitzar operacions</string>

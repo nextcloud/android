@@ -321,7 +321,6 @@
     <string name="copy_link">Kopiera länk</string>
     <string name="clipboard_text_copied">Kopierat till urklipp</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
-    <string name="clipboard_uxexpected_error">Oväntat fel vid kopiering till utklipp</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritiskt fel: Oförmögen att utföra operationerna</string>

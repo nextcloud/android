@@ -371,7 +371,6 @@
     <string name="copy_link">Copiar enlace</string>
     <string name="clipboard_text_copied">Copiado al portapapeles</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
-    <string name="clipboard_uxexpected_error">Error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
@@ -785,4 +784,6 @@
     <string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
-    </resources>
+    <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
+    <string name="dismiss">Descartar</string>
+</resources>

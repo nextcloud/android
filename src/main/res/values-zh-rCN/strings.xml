@@ -356,7 +356,6 @@
     <string name="copy_link">复制链接</string>
     <string name="clipboard_text_copied">复制到剪贴板</string>
     <string name="clipboard_no_text_to_copy">收到没有文字复制到剪贴板</string>
-    <string name="clipboard_uxexpected_error">发生未预见的错误当复制到剪贴板</string>
     <string name="clipboard_label">从%1$s复制文本</string>
 
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>

@@ -334,7 +334,6 @@
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="clipboard_text_copied">Zkopírováno do schránky</string>
     <string name="clipboard_no_text_to_copy">Žádný výběr textu pro kopírování do schránky</string>
-    <string name="clipboard_uxexpected_error">Neočekávaná chyba při kopírování do schránky</string>
     <string name="clipboard_label">Text zkopírován z %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>

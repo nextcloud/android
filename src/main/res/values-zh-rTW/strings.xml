@@ -330,7 +330,6 @@
     <string name="copy_link">複製連結</string>
     <string name="clipboard_text_copied">複製至剪貼簿中</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
-    <string name="clipboard_uxexpected_error">在複製的剪貼簿時發生了未知的錯誤</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
 
     <string name="error_cant_bind_to_operations_service">嚴重錯誤：無法執行操作</string>

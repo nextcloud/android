@@ -345,7 +345,6 @@
     <string name="copy_link">Копиране на връзката</string>
     <string name="clipboard_text_copied">Копирана</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
-    <string name="clipboard_uxexpected_error">Неизвеста грешка при опит за копиране в клипборда</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>
