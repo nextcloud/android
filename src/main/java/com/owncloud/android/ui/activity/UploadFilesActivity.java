@@ -85,6 +85,7 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
+    private SearchView mSearchView;
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
@@ -221,6 +222,15 @@ public class UploadFilesActivity extends FileActivity implements
         MenuItem switchView = menu.findItem(R.id.action_switch_view);
         switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
 
+        int fontColor = ThemeUtils.fontColor(this);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        EditText editText = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setHintTextColor(fontColor);
+        editText.setTextColor(fontColor);
+        ImageView searchClose = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter(fontColor);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -290,27 +300,43 @@ public class UploadFilesActivity extends FileActivity implements
         }
         return true;
     }
+
+    private boolean isSearchOpen() {
+        if (mSearchView == null) {
+            return false;
+        } else {
+            View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+            return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+        }
+    }
     
     @Override
     public void onBackPressed() {
-        if (mDirectories.getCount() <= 1) {
-            finish();
-            return;
-        }
-        popDirname();
-        mFileListFragment.onNavigateUp();
-        mCurrentDir = mFileListFragment.getCurrentDirectory();
-
-        if (mCurrentDir.getParentFile() == null) {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
+        if (isSearchOpen() && mSearchView != null) {
+            mSearchView.setQuery("", false);
+            mFileListFragment.onClose();
+            mSearchView.onActionViewCollapsed();
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+        } else {
+            if (mDirectories.getCount() <= 1) {
+                finish();
+                return;
             }
-        }
+            popDirname();
+            mFileListFragment.onNavigateUp();
+            mCurrentDir = mFileListFragment.getCurrentDirectory();
 
-        // invalidate checked state when navigating directories
-        if(!mLocalFolderPickerMode) {
-            setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+            if (mCurrentDir.getParentFile() == null) {
+                ActionBar actionBar = getSupportActionBar();
+                if (actionBar != null) {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
+            }
+
+            // invalidate checked state when navigating directories
+            if (!mLocalFolderPickerMode) {
+                setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+            }
         }
     }
     
