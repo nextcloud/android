@@ -329,58 +329,12 @@ public class FileOperationsHelper {
             openFileWithIntent = new Intent(Intent.ACTION_VIEW);
             openFileWithIntent.setDataAndType(
                     fileUri,
-                    file.getMimetype()
-            );
-        }
-
-        openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        return openFileWithIntent;
-
-
-        String storagePath = file.getStoragePath();
-
-        String[] officeExtensions = MainApp.getAppContext().getResources().getStringArray(R.array
-                .ms_office_extensions);
-
-        Uri fileUri;
-
-        if (file.getFileName().contains(".") &&
-                Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                        lastIndexOf(".") + 1, file.getFileName().length())) &&
-                !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            fileUri = file.getLegacyExposedFileUri(mFileActivity);
-        } else {
-            fileUri = file.getExposedFileUri(mFileActivity);
-        }
-
-        Intent openFileWithIntent = null;
-        int lastIndexOfDot = storagePath.lastIndexOf('.');
-        if (lastIndexOfDot >= 0) {
-            String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
-            if (guessedMimeType != null) {
-                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                openFileWithIntent.setDataAndType(
-                        fileUri,
-                        guessedMimeType
-                );
-            }
-        }
-
-        if (openFileWithIntent == null) {
-            openFileWithIntent = createIntentFromFile(storagePath);
-        }
-
-        if (openFileWithIntent == null) {
-            openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-            openFileWithIntent.setDataAndType(
-                    fileUri,
                     file.getMimeType()
             );
         }
 
         openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        return openFileWithIntent;
     }
 
     private Uri getFileUri(OCFile file, String[] officeExtensions) {

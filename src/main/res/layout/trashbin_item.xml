@@ -123,7 +123,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:clickable="false"
-                android:contentDescription="@string/restore"
+                android:contentDescription="@string/restore_button_description"
                 android:focusable="false"
                 android:paddingEnd="@dimen/list_item_share_right_margin"
                 android:paddingLeft="@dimen/standard_half_padding"
