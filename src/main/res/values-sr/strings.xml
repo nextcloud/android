@@ -373,6 +373,7 @@
     <string name="copy_link">Копирај везу</string>
     <string name="clipboard_text_copied">Копирано у оставу</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у оставу</string>
+    <string name="clipboard_unexpected_error">Неочекивана грешка приликом копирања у оставу</string>
     <string name="clipboard_label">Текст прекопиран са %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да обавим операцију</string>
@@ -785,4 +786,6 @@
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
     <string name="whats_new_device_credentials_title">Користи Андроид заштиту уређаја</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
+    <string name="new_comment">Нови коментар…</string>
+    <string name="dismiss">Одбаци</string>
     </resources>

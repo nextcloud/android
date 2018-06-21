@@ -373,6 +373,7 @@ Attention la suppression est irréversible.</string>
     <string name="copy_link">Copier le lien</string>
     <string name="clipboard_text_copied">Copié dans le presse-papier</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
+    <string name="clipboard_unexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
@@ -783,9 +784,10 @@ Veuillez contacter votre administrateur</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection Android du terminal</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
-    <string name="restore">Restaurer fichier</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
+    <string name="new_comment">Nouveau commentaire…</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+    <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="dismiss">Ignorer</string>
-</resources>
+    </resources>

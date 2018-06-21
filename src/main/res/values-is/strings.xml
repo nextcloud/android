@@ -39,6 +39,9 @@
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
+    <string name="prefs_lock">Læsa</string>
+    <string name="prefs_lock_none">Ekkert</string>
+    <string name="prefs_lock_using_passcode">Lykilkóða</string>
     <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
@@ -359,6 +362,7 @@
     <string name="copy_link">Afrita tengil</string>
     <string name="clipboard_text_copied">Afritað á klippispjaldið</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
+    <string name="clipboard_unexpected_error">Óvænt villa kom upp við afritun á klippispjald</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: Ekki hægt að framkvæma aðgerðir</string>
@@ -765,4 +769,6 @@
     <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
+    <string name="new_comment">Ný ummæli…</string>
+    <string name="dismiss">Hafna</string>
     </resources>

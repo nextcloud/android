@@ -640,7 +640,6 @@
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="tags">Ετικέτες</string>
     <string name="whats_new_device_credentials_title">Χρήση προστασίας συσκευής Android</string>
-    <string name="restore">Επαναφορά αρχείου</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>

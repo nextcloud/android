@@ -371,6 +371,7 @@
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="clipboard_text_copied">Panoya kopyalandı</string>
     <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
+    <string name="clipboard_unexpected_error">Panoya kopyalama sırasında beklenmeyen bir sorun çıktı</string>
     <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
 
     <string name="error_cant_bind_to_operations_service">Ciddi sorun: İşlemler gerçekleştirilemiyor</string>
@@ -780,8 +781,9 @@
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
     <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
-    <string name="restore">Dosyayı geri yükle</string>
     <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
+    <string name="new_comment">Yorum ekle…</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
+    <string name="dismiss">Yoksay</string>
     </resources>

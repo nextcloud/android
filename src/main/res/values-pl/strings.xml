@@ -39,6 +39,7 @@
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
+    <string name="prefs_lock_none">Brak.</string>
     <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
@@ -484,8 +485,10 @@
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_section_title">Udostępnij link</string>
+    <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_no_password_title">Ustaw hasło</string>
+    <string name="edit_permission_label">edytuj</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z…</string>
@@ -703,4 +706,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="upload_files">Wyślij plik</string>
     <string name="create_new_folder">Utwórz nowy folder</string>
     <string name="tags">Tagi</string>
+    <string name="new_comment">Nowy komentarz…</string>
+    <string name="dismiss">Anuluj</string>
     </resources>
