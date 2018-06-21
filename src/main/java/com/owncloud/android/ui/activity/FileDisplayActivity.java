@@ -357,20 +357,24 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void checkOutdatedServer() {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
         Account account = getAccount();
 
-        int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE);
+        if (getResources().getBoolean(R.bool.show_outdated_server_warning) && account != null) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        if (MainApp.getVersionCode() > lastSeenVersion) {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
+            int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account,
+                    WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE);
 
-            if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
-                DisplayUtils.showServerOutdatedSnackbar(this);
+            if (MainApp.getVersionCode() > lastSeenVersion) {
+                OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
+
+                if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+                    DisplayUtils.showServerOutdatedSnackbar(this);
+                }
+
+                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE,
+                        String.valueOf(MainApp.getVersionCode()));
             }
-
-            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE,
-                    String.valueOf(MainApp.getVersionCode()));
         }
     }
 

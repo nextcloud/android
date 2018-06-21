@@ -1419,7 +1419,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
             // show outdated warning
-            if (mServerInfo.mVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+            if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
+                    mServerInfo.mVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
                 DisplayUtils.showServerOutdatedSnackbar(this);
             }
 
