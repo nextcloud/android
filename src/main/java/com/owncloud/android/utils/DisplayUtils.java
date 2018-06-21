@@ -310,7 +310,7 @@ public class DisplayUtils {
      * calculates the relative time string based on the given modification timestamp.
      *
      * @param context the app's context
-     * @param modificationTimestamp the UNIX timestamp of the file modification time.
+     * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
      * @return a relative time string
      */
     public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
