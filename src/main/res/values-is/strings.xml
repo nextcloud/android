@@ -359,7 +359,6 @@
     <string name="copy_link">Afrita tengil</string>
     <string name="clipboard_text_copied">Afritað á klippispjaldið</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
-    <string name="clipboard_uxexpected_error">Óvænt villa kom upp við afritun á klippispjald</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: Ekki hægt að framkvæma aðgerðir</string>

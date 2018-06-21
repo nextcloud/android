@@ -292,7 +292,6 @@
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="clipboard_text_copied">Nukopijuota į iškarpinę</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
-    <string name="clipboard_uxexpected_error">netikėta klaida kopijuojant į iškarpinę</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritinė klaida: negalima įvykdyti operacijos</string>

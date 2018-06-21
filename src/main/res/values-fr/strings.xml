@@ -373,7 +373,6 @@ Attention la suppression est irréversible.</string>
     <string name="copy_link">Copier le lien</string>
     <string name="clipboard_text_copied">Copié dans le presse-papier</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
-    <string name="clipboard_uxexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
@@ -788,4 +787,5 @@ Veuillez contacter votre administrateur</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
-    </resources>
+    <string name="dismiss">Ignorer</string>
+</resources>

@@ -373,7 +373,6 @@
     <string name="copy_link">Копирај везу</string>
     <string name="clipboard_text_copied">Копирано у оставу</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у оставу</string>
-    <string name="clipboard_uxexpected_error">Неочекивана грешка приликом копирања у оставу</string>
     <string name="clipboard_label">Текст прекопиран са %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да обавим операцију</string>

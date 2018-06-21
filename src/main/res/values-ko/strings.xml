@@ -358,7 +358,6 @@
     <string name="copy_link">링크 주소 복사</string>
     <string name="clipboard_text_copied">클립보드로 복사됨</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
-    <string name="clipboard_uxexpected_error">클립보드에 복사하는 중 예기치 않은 오류</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
 
     <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 수행할 수 없음</string>

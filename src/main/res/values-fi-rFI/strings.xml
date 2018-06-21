@@ -329,7 +329,6 @@
 
     <string name="copy_link">Kopioi linkki</string>
     <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
-    <string name="clipboard_uxexpected_error">Odottamaton virhe kopioitaessa leikepöydälle</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>

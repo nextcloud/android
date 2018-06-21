@@ -272,7 +272,6 @@
     <string name="copy_link">Salin tautan</string>
     <string name="clipboard_text_copied">Disalin ke papan klip</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
-    <string name="clipboard_uxexpected_error">Kesalahan tak terduga saat menyalin ke papan klip</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>

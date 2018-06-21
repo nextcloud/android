@@ -354,7 +354,6 @@
     <string name="copy_link">Link másolása</string>
     <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
     <string name="clipboard_no_text_to_copy">Nem kaptam szöveget a vágólapra másoláshoz</string>
-    <string name="clipboard_uxexpected_error">Váratlan hiba történ a vágólapra másolás közben</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritikus hiba: művelet nem végrehajtható</string>

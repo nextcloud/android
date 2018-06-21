@@ -337,7 +337,6 @@
     <string name="copy_link">העתקת קישור</string>
     <string name="clipboard_text_copied">הועתק ללוח הגזירים - clipboard</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
-    <string name="clipboard_uxexpected_error">שגיאה לא צפויה בזמן העתקה ללוח הגזירים</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">שגיאה משמעותית: לא ניתן לבצע פעולות</string>

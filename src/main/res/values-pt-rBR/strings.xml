@@ -371,7 +371,6 @@
     <string name="copy_link">Copiar link</string>
     <string name="clipboard_text_copied">Copiado para área de transferência</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
-    <string name="clipboard_uxexpected_error">Erro inesperado ao copiar para a área de transferência</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Erro crítico: Não foi possível executar as operações</string>
@@ -785,4 +784,6 @@
     <string name="new_version_was_created">Nova versão criada</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
-    </resources>
+    <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
+    <string name="dismiss">Dispensar</string>
+</resources>

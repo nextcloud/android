@@ -359,7 +359,6 @@
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="clipboard_text_copied">U kopjua te e papastra</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
-    <string name="clipboard_uxexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>

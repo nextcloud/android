@@ -302,7 +302,6 @@
 
     <string name="copy_link">Kopíruj odkaz</string>
     <string name="clipboard_text_copied">Skopírované do schránky</string>
-    <string name="clipboard_uxexpected_error">Nečakaná chyba pri kopírovaní do schránky</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
 
     <string name="forbidden_permissions_rename">premenovať tento súbor</string>

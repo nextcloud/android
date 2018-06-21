@@ -359,7 +359,6 @@
     <string name="copy_link">Link kopiëren</string>
     <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
-    <string name="clipboard_uxexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>

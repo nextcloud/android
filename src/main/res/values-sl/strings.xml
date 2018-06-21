@@ -272,7 +272,6 @@
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="clipboard_text_copied">Kopirano v odložišče</string>
     <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
-    <string name="clipboard_uxexpected_error">Prišlo je do napake med kopiranjem v odložišče</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>

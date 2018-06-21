@@ -339,7 +339,6 @@
     <string name="copy_link">ბმულის კოპირება</string>
     <string name="clipboard_text_copied">კოპირებულია ბუფერში</string>
     <string name="clipboard_no_text_to_copy">ბუფერში გადასატანად ტექსტი მიღებული არაა</string>
-    <string name="clipboard_uxexpected_error">ბუფერში გადატანისას  წარმოშვა მოულოდნელი შეცდომა</string>
     <string name="clipboard_label">ტექსტი %1$s-იდან დაკოპირდა</string>
 
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>

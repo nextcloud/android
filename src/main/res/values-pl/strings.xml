@@ -360,7 +360,6 @@
     <string name="copy_link">Skopiuj link</string>
     <string name="clipboard_text_copied">Skopiuj do schowka</string>
     <string name="clipboard_no_text_to_copy">Nie odebrano tekstu, by skopiować go do schowka</string>
-    <string name="clipboard_uxexpected_error">Wystąpił błąd podczas kopiowania do schowka</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Błąd krytyczny: Nie można wykonać operacji</string>

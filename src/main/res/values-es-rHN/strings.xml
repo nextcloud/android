@@ -302,7 +302,6 @@
     <string name="copy_link">Copiar liga</string>
     <string name="clipboard_text_copied">Copiado al portapapeles</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
-    <string name="clipboard_uxexpected_error">Se presentó un error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>

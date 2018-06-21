@@ -371,7 +371,6 @@
     <string name="copy_link">Link kopieren</string>
     <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
     <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
-    <string name="clipboard_uxexpected_error">Unerwarteter Fehler beim Kopieren in die Zwischenablage</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
 
     <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
@@ -785,4 +784,6 @@
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-    </resources>
+    <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
+    <string name="dismiss">Schliessen</string>
+</resources>
