@@ -329,7 +329,7 @@ public class FileOperationsHelper {
             openFileWithIntent = new Intent(Intent.ACTION_VIEW);
             openFileWithIntent.setDataAndType(
                     fileUri,
-                    file.getMimetype()
+                    file.getMimeType()
             );
         }
 
@@ -709,7 +709,7 @@ public class FileOperationsHelper {
             Context context = MainApp.getAppContext();
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
-            sendIntent.setType(file.getMimetype());
+            sendIntent.setType(file.getMimeType());
             sendIntent.setComponent(new ComponentName(packageName, activityName));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
                     context.getResources().getString(R.string.image_cache_provider_authority) +
@@ -746,11 +746,11 @@ public class FileOperationsHelper {
                             file.getRemotePath());
                 }
 
-                intent.setDataAndType(uri, file.getMimetype());
+                intent.setDataAndType(uri, file.getMimeType());
                 mFileActivity.startActivityForResult(Intent.createChooser(intent,
                         mFileActivity.getString(R.string.set_as)), 200);
 
-                intent.setDataAndType(uri, file.getMimetype());
+                intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {
                 DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
             }

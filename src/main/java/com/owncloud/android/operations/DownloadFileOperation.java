@@ -121,7 +121,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getMimeType() {
-        String mimeType = mFile.getMimetype();
+        String mimeType = mFile.getMimeType();
         if (mimeType == null || mimeType.length() <= 0) {
             try {
                 mimeType = MimeTypeMap.getSingleton()
