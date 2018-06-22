@@ -223,8 +223,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
-        operationsHelper = ((ComponentsGetter) getActivity()).getFileOperationsHelper();
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, requireActivity().getContentResolver());
+        operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(account.name);
         OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
@@ -358,12 +358,12 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     private void populateList(ArrayList<Object> activities, boolean clear) {
-        adapter.setActivityAndVersionItems(activities, clear);
+        adapter.setActivityAndVersionItems(activities, ownCloudClient, clear);
     }
 
     private void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
 
@@ -376,7 +376,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void setErrorContent(String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
             emptyContentMessage.setText(message);
 
             emptyContentMessage.setVisibility(View.VISIBLE);

@@ -170,7 +170,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
                 PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-        adapter = new ActivityListAdapter(this, this, storageManager);
+        adapter = new ActivityListAdapter(this, this, storageManager, false);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
