@@ -209,9 +209,10 @@ public class ContactsBackupJob extends Job {
         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
 
         String vCard = "";
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
         try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-            InputStreamReader inputStreamReader;
+            inputStream = getContext().getContentResolver().openInputStream(uri);
             char[] buffer = new char[1024];
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -235,6 +236,17 @@ public class ContactsBackupJob extends Job {
 
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
+                }
+            } catch (IOException e) {
+                Log_OC.e(TAG, "failed to close stream");
+            }
         }
         return vCard;
     }
