@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Nenhuma foto.</string>
     <string name="file_list_empty_text_videos">Enviar alguns vídeos ou ativar o envio automático.</string>
     <string name="file_list_empty_text_videos_filter">Nenhum vídeo.</string>
+    <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
+    <string name="trashbin_empty_message">Você poderá recuperar arquivos apagados daqui</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
     <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
     <string name="file_list_folder">pasta</string>
@@ -782,11 +784,20 @@
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
     <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
-    <string name="new_version_was_created">Nova versão criada</string>
+    <string name="restore_button_description">Restaurar arquivo excluído</string>
+	<string name="new_version_was_created">Nova versão criada</string>
     <string name="new_comment">Novo comentário…</string>
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="dismiss">Dispensar</string>
-    </resources>
+    <string name="feedback_no_mail_app">Sem aplicativo para enviar emails!</string>
+    <string name="drawer_item_trashbin">Arquivos excluídos</string>
+    <string name="trashbin_activity_title">Arquivos excluídos</string>
+    <string name="action_empty_trashbin">Lixeira vazia</string>
+    <string name="trashbin_loading_failed">Falha ao abrir a lixeira!</string>
+    <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
+    <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
+    <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+</resources>

@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Keine Fotos.</string>
     <string name="file_list_empty_text_videos">Laden Sie einige Videos hoch oder aktivieren Sie den Sofortupload.</string>
     <string name="file_list_empty_text_videos_filter">Keine Videos.</string>
+    <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
+    <string name="trashbin_empty_message">Hier können gelöschte Dateien wiederhergestellt werden</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload!</string>
     <string name="file_list_folder">Ordner</string>
@@ -782,11 +784,20 @@
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
     <string name="whats_new_device_credentials_title">Nutze Android Geräteschutz</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
-    <string name="new_version_was_created">Neue Version erstellt</string>
+    <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
+	<string name="new_version_was_created">Neue Version erstellt</string>
     <string name="new_comment">Neuer Kommentar…</string>
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
-    </resources>
+    <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
+    <string name="drawer_item_trashbin">Gelöschte Dateien</string>
+    <string name="trashbin_activity_title">Gelöschte Dateien</string>
+    <string name="action_empty_trashbin">Dateien endgültig löschen</string>
+    <string name="trashbin_loading_failed">Laden der gelöschten Dateien fehlgeschlagen!</string>
+    <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
+    <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
+    <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+</resources>

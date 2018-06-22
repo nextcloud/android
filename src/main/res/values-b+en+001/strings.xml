@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">No photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
+    <string name="trashbin_empty_headline">No deleted files</string>
+    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
@@ -782,11 +784,20 @@
     <string name="updating_share_failed">Updating share failed</string>
     <string name="whats_new_device_credentials_title">Use Android device protection</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
-    <string name="new_version_was_created">New version was created</string>
+    <string name="restore_button_description">Restore deleted file</string>
+	<string name="new_version_was_created">New version was created</string>
     <string name="new_comment">New comment…</string>
     <string name="error_comment_file">Error commenting file</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
-    </resources>
+    <string name="feedback_no_mail_app">No app available to send mails!</string>
+    <string name="drawer_item_trashbin">Deleted files</string>
+    <string name="trashbin_activity_title">Deleted files</string>
+    <string name="action_empty_trashbin">Empty trashbin</string>
+    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
+    <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
+    <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
+    <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+</resources>

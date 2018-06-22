@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">No hay fotos.</string>
     <string name="file_list_empty_text_videos">Sube algunos vídeos o activa la subida automática.</string>
     <string name="file_list_empty_text_videos_filter">No hay vídeos.</string>
+    <string name="trashbin_empty_headline">No hay archivos eliminados</string>
+    <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
@@ -492,6 +494,7 @@
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_no_expiration_date_label">Establecer fecha de caducidad</string>
     <string name="share_via_link_section_title">Compartir enlace</string>
+    <string name="share_via_link_send_link_label">Enviar enlace</string>
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="edit_permission_label">editar</string>
@@ -781,10 +784,20 @@
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
     <string name="whats_new_device_credentials_title">Usar la protección del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
-    <string name="new_version_was_created">Se ha creado una versión nueva</string>
+    <string name="restore_button_description">Restaurar archivo eliminado</string>
+	<string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="new_comment">Comentario nuevo…</string>
+    <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="dismiss">Descartar</string>
-    </resources>
+    <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>
+    <string name="drawer_item_trashbin">Archivos eliminados</string>
+    <string name="trashbin_activity_title">Archivos eliminados</string>
+    <string name="action_empty_trashbin">Vaciar papelera</string>
+    <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
+    <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
+    <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
+    <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
+</resources>
