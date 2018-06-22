@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Herhangi bir fotoğraf bulunamadı.</string>
     <string name="file_list_empty_text_videos">Bazı görüntüler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_empty_text_videos_filter">Herhangi bir görüntü bulunamadı.</string>
+    <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>
+    <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
@@ -492,6 +494,7 @@
     <string name="share_expiration_date_label">%1$s zamanında sona erecek</string>
     <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
+    <string name="share_via_link_send_link_label">Bağlantı gönder</string>
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
     <string name="edit_permission_label">düzenle</string>
@@ -781,9 +784,20 @@
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
     <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
-    <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
+    <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
+	<string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
     <string name="new_comment">Yorum ekle…</string>
+    <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
+    <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="dismiss">Yoksay</string>
-    </resources>
+    <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>
+    <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
+    <string name="trashbin_activity_title">Silinmiş dosyalar</string>
+    <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
+    <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
+    <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
+    <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
+    <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+</resources>
