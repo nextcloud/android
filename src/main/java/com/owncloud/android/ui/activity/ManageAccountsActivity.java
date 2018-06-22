@@ -212,7 +212,7 @@ public class ManageAccountsActivity extends FileActivity
         if (account == null) {
             return true;
         } else {
-            return !mOriginalCurrentAccount.equals(account.name);
+            return !account.name.equals(mOriginalCurrentAccount);
         }
     }
 
