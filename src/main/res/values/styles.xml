@@ -45,7 +45,7 @@
 		<item name="colorAccent">#757575</item>
 	</style>
 
-	<style name="FallbackTheming.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+	<style name="FallbackTheming.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>

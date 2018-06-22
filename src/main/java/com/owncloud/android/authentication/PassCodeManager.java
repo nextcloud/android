@@ -43,8 +43,6 @@ public class PassCodeManager {
 
     public static final int PASSCODE_ACTIVITY = 9999;
 
-    public static final int PASSCODE_ACTIVITY = 9999;
-
     static {
         exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
@@ -135,11 +133,5 @@ public class PassCodeManager {
                 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                         (PreferenceManager.isUseFingerprint(MainApp.getAppContext())
                                 && DeviceCredentialUtils.areCredentialsAvailable(activity));
-    }
-
-    private boolean deviceCredentialsShouldBeRequested() {
-        SharedPreferences appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false));
     }
 }
