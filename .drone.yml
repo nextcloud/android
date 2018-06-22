@@ -1,6 +1,6 @@
 pipeline:
   compile:
-    image: nextcloudci/android:android-36
+    image: nextcloudci/android:android-35
     commands:
       # uncomment gplay for Gplay
       - sh -c "if [ '${FLAVOR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
@@ -11,7 +11,7 @@ pipeline:
         FLAVOR: [Generic, Gplay]
 
   test:
-    image: nextcloudci/android:android-36
+    image: nextcloudci/android:android-35
     privileged: true
     commands:
       - emulator -avd android-27 -no-window -no-audio &
@@ -28,7 +28,7 @@ pipeline:
         FLAVOR: Gplay
 
   analysis:
-    image: nextcloudci/android:android-36
+    image: nextcloudci/android:android-37
     commands:
       # needs gplay
       - sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle
