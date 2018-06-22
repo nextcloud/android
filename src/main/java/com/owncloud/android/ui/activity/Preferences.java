@@ -96,9 +96,6 @@ public class Preferences extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
-
-    public final static String PREFERENCE_USE_DEVICE_CREDENTIALS= "use_device_credentials";
-
     public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
@@ -123,7 +120,7 @@ public class Preferences extends PreferenceActivity
 
     private ListPreference mPrefStoragePath;
     private String mStoragePath;
-    private String mPendingLock;
+    private String pendingLock;
 
     private Account mAccount;
     private ArbitraryDataProvider mArbitraryDataProvider;
@@ -562,8 +559,6 @@ public class Preferences extends PreferenceActivity
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
-        setupDeviceCredentialsPreference(preferenceCategoryDetails, fDeviceCredentialsEnabled);
-
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 
         setupExpertModePreference(preferenceCategoryDetails, fSyncedFolderLightEnabled);
@@ -659,14 +654,14 @@ public class Preferences extends PreferenceActivity
             mLock.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    mPendingLock = LOCK_NONE;
+                    pendingLock = LOCK_NONE;
                     String oldValue = ((ListPreference) preference).getValue();
                     String newValue = (String) o;
                     if (!oldValue.equals(newValue)) {
                         if (oldValue.equals(LOCK_NONE)) {
                             enableLock(newValue);
                         } else {
-                            mPendingLock = newValue;
+                            pendingLock = newValue;
                             disableLock(oldValue);
                         }
                     }
@@ -726,7 +721,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void enableLock(String lock) {
-        mPendingLock = LOCK_NONE;
+        pendingLock = LOCK_NONE;
         if (lock.equals(LOCK_PASSCODE)) {
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
@@ -843,8 +838,6 @@ public class Preferences extends PreferenceActivity
     }
 
     private void launchDavDroidLogin() {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-
         Intent davDroidLoginIntent = new Intent();
         davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
@@ -921,8 +914,8 @@ public class Preferences extends PreferenceActivity
                 mLock.setSummary(mLock.getEntry());
 
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
-                if (!mPendingLock.equals(LOCK_NONE)) {
-                    enableLock(mPendingLock);
+                if (!pendingLock.equals(LOCK_NONE)) {
+                    enableLock(pendingLock);
                 }
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
@@ -935,8 +928,8 @@ public class Preferences extends PreferenceActivity
             mLock.setValue(LOCK_NONE);
             mLock.setSummary(mLock.getEntry());
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
-            if (!mPendingLock.equals(LOCK_NONE)) {
-                enableLock(mPendingLock);
+            if (!pendingLock.equals(LOCK_NONE)) {
+                enableLock(pendingLock);
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
@@ -946,7 +939,7 @@ public class Preferences extends PreferenceActivity
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
             String mnemonic = arbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
 
-            int accentColor = ThemeUtils.primaryAccentColor();
+            int accentColor = ThemeUtils.primaryAccentColor(this);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this,
                     R.style.FallbackTheming_Dialog);
