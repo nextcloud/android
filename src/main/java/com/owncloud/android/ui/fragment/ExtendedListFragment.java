@@ -774,8 +774,6 @@ public class ExtendedListFragment extends Fragment
             maxColumnSize = maxColumnSizeLandscape;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             maxColumnSize = maxColumnSizePortrait;
-        } else {
-            maxColumnSize = maxColumnSizePortrait;
         }
 
         if (isGridEnabled() && getColumnSize() > maxColumnSize) {
