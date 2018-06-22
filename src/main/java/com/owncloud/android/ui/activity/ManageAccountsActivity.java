@@ -111,9 +111,14 @@ public class ManageAccountsActivity extends FileActivity
 
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         mOriginalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
-        mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
 
-        setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+
+        if (currentAccount != null) {
+            mOriginalCurrentAccount = currentAccount.name;
+        }
+
+        setAccount(currentAccount);
         onAccountSet(false);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
