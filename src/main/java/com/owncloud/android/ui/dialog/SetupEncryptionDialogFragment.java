@@ -61,7 +61,6 @@ import java.util.Locale;
 /*
  *  Dialog to setup encryption
  */
-
 public class SetupEncryptionDialogFragment extends DialogFragment {
 
     public static final String SUCCESS = "SUCCESS";
@@ -143,7 +142,11 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         DrawableCompat.setTint(wrappedDrawable, accentColor);
         passwordField.setBackgroundDrawable(wrappedDrawable);
 
-        // Build the dialog  
+        return createDialog(accentColor, v);
+    }
+
+    @NonNull
+    private Dialog createDialog(int accentColor, View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
                 .setNegativeButton(R.string.common_cancel, null)
@@ -224,7 +227,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 });
             }
         });
-
         return dialog;
     }
 
