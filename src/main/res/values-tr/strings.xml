@@ -785,7 +785,8 @@
     <string name="whats_new_device_credentials_title">Android aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
-	<string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
+	<string name="restore">Dosyayı geri yükle</string>
+    <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
     <string name="new_comment">Yorum ekle…</string>
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>

@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
     <string name="file_list_empty_text_videos">Charger des vidéos ou activez le téléversement automatique.</string>
     <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
+    <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
+    <string name="trashbin_empty_message">Ici, vous verrez et pourrez restaurer vos fichiers supprimés</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
@@ -494,6 +496,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
+    <string name="share_via_link_send_link_label">Envoyer le lien</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
     <string name="edit_permission_label">modifier</string>
@@ -784,10 +787,20 @@ Veuillez contacter votre administrateur</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection Android du terminal</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
+    <string name="restore_button_description">Restaurer le fichier supprimé</string>
+	<string name="restore">Restaurer le fichier</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="new_comment">Nouveau commentaire…</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="dismiss">Ignorer</string>
-    </resources>
+    <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
+    <string name="drawer_item_trashbin">Fichiers supprimés</string>
+    <string name="trashbin_activity_title">Fichiers supprimés</string>
+    <string name="action_empty_trashbin">Corbeille vide</string>
+    <string name="trashbin_loading_failed">Erreur du chargement de la corbeille !</string>
+    <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
+    <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
+    <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+</resources>

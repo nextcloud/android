@@ -785,7 +785,8 @@
     <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
-	<string name="new_version_was_created">Nova versão criada</string>
+	<string name="restore">Restaurar arquivo</string>
+    <string name="new_version_was_created">Nova versão criada</string>
     <string name="new_comment">Novo comentário…</string>
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
