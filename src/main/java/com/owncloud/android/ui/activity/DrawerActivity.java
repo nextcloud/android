@@ -225,7 +225,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         setupDrawerToggle();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     /**
@@ -336,76 +338,77 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
-        OwnCloudVersion ownCloudVersion = AccountUtils.getServerVersion(getAccount());
+        filterDrawerMenu(navigationView.getMenu(), account);
+    }
+
+    private void filterDrawerMenu(Menu menu, Account account) {
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
-            navigationView.getMenu().removeItem(R.id.nav_all_files);
-            navigationView.getMenu().removeItem(R.id.nav_settings);
-            navigationView.getMenu().removeItem(R.id.nav_favorites);
-            navigationView.getMenu().removeItem(R.id.nav_photos);
+            menu.removeItem(R.id.nav_all_files);
+            menu.removeItem(R.id.nav_settings);
+            menu.removeItem(R.id.nav_favorites);
+            menu.removeItem(R.id.nav_photos);
         }
 
         if (!searchSupported && account != null) {
-            navigationView.getMenu().removeItem(R.id.nav_photos);
-            navigationView.getMenu().removeItem(R.id.nav_favorites);
-            navigationView.getMenu().removeItem(R.id.nav_videos);
+            menu.removeItem(R.id.nav_photos);
+            menu.removeItem(R.id.nav_favorites);
+            menu.removeItem(R.id.nav_videos);
         }
 
         if (account != null) {
             FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
             OCCapability capability = storageManager.getCapability(account.name);
-            
-            if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_14) < 0 || 
+
+            if (AccountUtils.getServerVersion(getAccount()).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
                     capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
-                navigationView.getMenu().removeItem(R.id.nav_trashbin);
+                menu.removeItem(R.id.nav_trashbin);
             }
         }
 
-        if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
-                null) {
-            navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(getResources().
-                    getString(R.string.drawer_item_home));
-            navigationView.getMenu().findItem(R.id.nav_all_files).setIcon(R.drawable.ic_home);
+        if (getResources().getBoolean(R.bool.use_home) && menu.findItem(R.id.nav_all_files) != null) {
+            menu.findItem(R.id.nav_all_files).setTitle(getResources().getString(R.string.drawer_item_home));
+            menu.findItem(R.id.nav_all_files).setIcon(R.drawable.ic_home);
         }
 
         if (!getResources().getBoolean(R.bool.participate_enabled)) {
-            navigationView.getMenu().removeItem(R.id.nav_participate);
+            menu.removeItem(R.id.nav_participate);
         }
 
         if (!getResources().getBoolean(R.bool.shared_enabled)) {
-            navigationView.getMenu().removeItem(R.id.nav_shared);
+            menu.removeItem(R.id.nav_shared);
         }
 
         if (!getResources().getBoolean(R.bool.contacts_backup)
                 || !getResources().getBoolean(R.bool.show_drawer_contacts_backup)) {
-            navigationView.getMenu().removeItem(R.id.nav_contacts);
+            menu.removeItem(R.id.nav_contacts);
         }
 
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
-            navigationView.getMenu().removeItem(R.id.nav_synced_folders);
+            menu.removeItem(R.id.nav_synced_folders);
         }
 
         if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
-            navigationView.getMenu().removeItem(R.id.nav_logout);
+            menu.removeItem(R.id.nav_logout);
         }
 
         if (AccountUtils.hasSearchSupport(account)) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_recently_added);
+                menu.removeItem(R.id.nav_recently_added);
             }
 
             if (!getResources().getBoolean(R.bool.recently_modified_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_recently_modified);
+                menu.removeItem(R.id.nav_recently_modified);
             }
 
             if (!getResources().getBoolean(R.bool.videos_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_videos);
+                menu.removeItem(R.id.nav_videos);
             }
         } else if (account != null) {
-            navigationView.getMenu().removeItem(R.id.nav_recently_added);
-            navigationView.getMenu().removeItem(R.id.nav_recently_modified);
-            navigationView.getMenu().removeItem(R.id.nav_videos);
+            menu.removeItem(R.id.nav_recently_added);
+            menu.removeItem(R.id.nav_recently_modified);
+            menu.removeItem(R.id.nav_videos);
         }
     }
 
