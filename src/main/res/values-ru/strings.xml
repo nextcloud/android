@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Фотографии отсутствуют.</string>
     <string name="file_list_empty_text_videos">Добавьте видео или включите автоматическую передачу файлов на сервер!</string>
     <string name="file_list_empty_text_videos_filter">Файлы видео отсутствуют.</string>
+    <string name="trashbin_empty_headline">Нет удалённых файлов</string>
+    <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы</string>
     <string name="upload_list_empty_headline">Нет файлов для отправки на сервер</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>
     <string name="file_list_folder">каталог</string>
@@ -500,6 +502,7 @@
     <string name="share_expiration_date_label">Истекает %1$s</string>
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_via_link_section_title">Общий доступ по ссылке</string>
+    <string name="share_via_link_send_link_label">Отправить ссылку</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_no_password_title">Задать пароль</string>
     <string name="edit_permission_label">редактировать</string>
@@ -791,10 +794,21 @@
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
     <string name="whats_new_device_credentials_title">Использование защитной блокировки Android</string>
     <string name="whats_new_device_credentials_content">Используйте все, что угодно: шаблон, пароль, контакт или отпечаток пальца, чтобы ваши данные были в безопасности.</string>
+    <string name="restore_button_description">Восстановить удаленный файл</string>
+	<string name="restore">Восстановить файл</string>
     <string name="new_version_was_created">Новая версия создана</string>
     <string name="new_comment">Новый комментарий…</string>
+    <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="outdated_server">Сервер достиг окончания поддержки(End Of Live, EOL), пожалуйста, обновите!</string>
     <string name="dismiss">Отклонить</string>
-    </resources>
+    <string name="feedback_no_mail_app">Нет приложения для отправки писем!</string>
+    <string name="drawer_item_trashbin">Удаленные файлы</string>
+    <string name="trashbin_activity_title">Удаленные файлы</string>
+    <string name="action_empty_trashbin">Пуская корзина</string>
+    <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
+    <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удален!</string>
+    <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
+    <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+</resources>

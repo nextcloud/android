@@ -785,7 +785,8 @@
     <string name="whats_new_device_credentials_title">Nutze Android Geräteschutz</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
-	<string name="new_version_was_created">Neue Version erstellt</string>
+	<string name="restore">Datei wiederherstellen</string>
+    <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="new_comment">Neuer Kommentar…</string>
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>

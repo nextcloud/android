@@ -785,7 +785,8 @@
     <string name="whats_new_device_credentials_title">Usa protezione del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Utilizza qualcosa come un modello, password, PIN o la tua impronta digitale per tenere al sicuro i tuoi dati.</string>
     <string name="restore_button_description">Ripristina file eliminato</string>
-	<string name="new_version_was_created">Una nuova versione è stata creata</string>
+	<string name="restore">Ripristina file</string>
+    <string name="new_version_was_created">Una nuova versione è stata creata</string>
     <string name="new_comment">Nuovo commento…</string>
     <string name="error_comment_file">Errore di commento del file</string>
     <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
