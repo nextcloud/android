@@ -60,7 +60,7 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 3
 def versionMinor = 2
-def versionPatch = 0
+def versionPatch = 1
 def versionBuild = 99 // 0-49=Alpha / 50-98=RC / 99=stable
 
 android {
