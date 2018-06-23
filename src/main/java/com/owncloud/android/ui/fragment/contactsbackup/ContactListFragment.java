@@ -660,8 +660,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     ImageView badge = holder.getBadge();
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation
-                                glideAnimation) {
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                             holder.getBadge().setImageDrawable(resource);
                         }
 
@@ -687,39 +686,37 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 }
             }
 
-            // Checkbox
-            holder.setVCardListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.getName().setChecked(!holder.getName().isChecked());
+            holder.setVCardListener(v -> toggleVCard(holder, verifiedPosition));
+        }
+    }
 
-                    if (holder.getName().isChecked()) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            holder.getName().getCheckMarkDrawable()
-                                    .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
-                        }
+    private void toggleVCard(ContactListFragment.ContactItemViewHolder holder, int verifiedPosition) {
+        holder.getName().setChecked(!holder.getName().isChecked());
 
-                        if (!checkedVCards.contains(verifiedPosition)) {
-                            checkedVCards.add(verifiedPosition);
-                        }
-                        if (checkedVCards.size() == 1) {
-                            EventBus.getDefault().post(new VCardToggleEvent(true));
-                        }
-                    } else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            holder.getName().getCheckMarkDrawable().clearColorFilter();
-                        }
+        if (holder.getName().isChecked()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.getName().getCheckMarkDrawable()
+                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+            }
 
-                        if (checkedVCards.contains(verifiedPosition)) {
-                            checkedVCards.remove(verifiedPosition);
-                        }
+            if (!checkedVCards.contains(verifiedPosition)) {
+                checkedVCards.add(verifiedPosition);
+            }
+            if (checkedVCards.size() == 1) {
+                EventBus.getDefault().post(new VCardToggleEvent(true));
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.getName().getCheckMarkDrawable().clearColorFilter();
+            }
 
-                        if (checkedVCards.size() == 0) {
-                            EventBus.getDefault().post(new VCardToggleEvent(false));
-                        }
-                    }
-                }
-            });
+            if (checkedVCards.contains(verifiedPosition)) {
+                checkedVCards.remove(verifiedPosition);
+            }
+
+            if (checkedVCards.size() == 0) {
+                EventBus.getDefault().post(new VCardToggleEvent(false));
+            }
         }
     }
 
