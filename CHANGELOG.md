@@ -1,3 +1,9 @@
+## 3.2.1
+- Enhanced file detail/sharing screen for mail-shares
+- Fix local sorting and file selection
+- Fix local filtering
+- Fix back navigation on privacy screen
+
 ## 3.2.0 (May, 13, 2018) 
 - Revamped details screen & sharing
 - minor UI/UX improvements
