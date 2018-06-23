@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -36,6 +37,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.InputStream;
 
@@ -88,8 +90,16 @@ public class ExternalSiteWebView extends FileActivity {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            ThemeUtils.setColoredTitle(actionBar, title, this);
+
+            if (showSidebar) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } else {
+                setDrawerIndicatorEnabled(false);
+            }
+        }
 
         // enable zoom
         webSettings.setSupportZoom(true);
@@ -148,8 +158,7 @@ public class ExternalSiteWebView extends FileActivity {
                         openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                    startActivity(settingsIntent);
+                    finish();
                 }
             retval = true;
             break;
