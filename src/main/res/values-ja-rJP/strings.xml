@@ -282,7 +282,7 @@
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
-    <string name="oauth_check_onoff">OAuth 2.0 でログインする</string>
+    <string name="oauth_check_onoff">OAuth 2.0でログインする</string>
     <string name="oauth_login_connection">OAuth 2.0サーバーに接続中…</string>
         
     <string name="ssl_validator_header">サーバーIDを確認できません</string>
