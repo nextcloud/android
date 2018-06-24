@@ -345,16 +345,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
-            menu.removeItem(R.id.nav_all_files);
-            menu.removeItem(R.id.nav_settings);
-            menu.removeItem(R.id.nav_favorites);
-            menu.removeItem(R.id.nav_photos);
+            filterMenuItems(menu, R.id.nav_all_files, R.id.nav_settings, R.id.nav_favorites, R.id.nav_photos);
         }
 
         if (!searchSupported && account != null) {
-            menu.removeItem(R.id.nav_photos);
-            menu.removeItem(R.id.nav_favorites);
-            menu.removeItem(R.id.nav_videos);
+            filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
         }
 
         if (account != null) {
@@ -363,7 +358,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             if (AccountUtils.getServerVersion(getAccount()).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
                     capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
-                menu.removeItem(R.id.nav_trashbin);
+                filterMenuItems(menu, R.id.nav_trashbin);
             }
         }
 
@@ -406,9 +401,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 menu.removeItem(R.id.nav_videos);
             }
         } else if (account != null) {
-            menu.removeItem(R.id.nav_recently_added);
-            menu.removeItem(R.id.nav_recently_modified);
-            menu.removeItem(R.id.nav_videos);
+            filterMenuItems(menu, R.id.nav_recently_added, R.id.nav_recently_modified, R.id.nav_videos);
+        }
+    }
+
+    private static void filterMenuItems(Menu menu, int... menuIds) {
+        if (menuIds != null) {
+            for (int menuId : menuIds) {
+                menu.removeItem(menuId);
+            }
         }
     }
 
