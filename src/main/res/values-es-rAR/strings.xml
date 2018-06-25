@@ -377,7 +377,7 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="maintenance_mode">El servidor se encuentra en modo mantenimiento</string>
 
-    <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Conozca más</string>
     <string name="drawer_synced_folders">Carga automática</string>
