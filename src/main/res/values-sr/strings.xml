@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Нема слика.</string>
     <string name="file_list_empty_text_videos">Отпремите неке видео записе или укључите аутоматско отпремање.</string>
     <string name="file_list_empty_text_videos_filter">Нема видео снимака.</string>
+    <string name="trashbin_empty_headline">Нема обрисаних фајлова</string>
+    <string name="trashbin_empty_message">Одавде ћете моћи да повратите обрисане фајлове</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
@@ -496,6 +498,7 @@
     <string name="share_expiration_date_label">Истиче на %1$s</string>
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_via_link_section_title">Веза дељења</string>
+    <string name="share_via_link_send_link_label">Пошаљи везу</string>
     <string name="share_password_title">Заштићено лозинком</string>
     <string name="share_no_password_title">Постави лозинку</string>
     <string name="edit_permission_label">измени</string>
@@ -786,6 +789,20 @@
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
     <string name="whats_new_device_credentials_title">Користи Андроид заштиту уређаја</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
+    <string name="restore_button_description">Поврати обрисани фајл</string>
+	<string name="restore">Поврати фајл</string>
+    <string name="new_version_was_created">Направљена је нова верзија</string>
     <string name="new_comment">Нови коментар…</string>
+    <string name="error_comment_file">Грешка приликом коментарисања фајла</string>
+    <string name="file_version_restored_successfully">Успешно повратио верзију фајла.</string>
+    <string name="file_version_restored_error">Грешка приликом враћања верзије фајла!</string>
     <string name="dismiss">Одбаци</string>
-    </resources>
+    <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>
+    <string name="drawer_item_trashbin">Обрисани фајлови</string>
+    <string name="trashbin_activity_title">Обрисани фајлови</string>
+    <string name="action_empty_trashbin">Испразни канту</string>
+    <string name="trashbin_loading_failed">Неуспело учитавање садржаја канте!</string>
+    <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
+    <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
+    <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
+</resources>

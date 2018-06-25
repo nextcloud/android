@@ -169,7 +169,7 @@
     <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando la conexión Wi-Fi</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de baterái</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de batería</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
     <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
@@ -701,10 +701,10 @@
     <string name="sort_by_size_ascending">Más pequeños primero</string>
     <string name="sort_by_name_descending">Z- A</string>
     <string name="sort_by_modification_date_descending">Más antiguos primero</string>
-    <string name="synced_folders_type">ipo</string>
+    <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón de estado de la sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
-    <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
+    <string name="synced_folder_custom_folder_image">Imágen de carpeta personalizada</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
     <string name="forward">Adelante</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
@@ -732,7 +732,7 @@
     <string name="notification_channel_file_sync_name">Sincronización de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
     <string name="notification_channel_file_observer_name">Observador de archivos</string>
-    <string name="notification_channel_file_observer_description">Montoriza los cambios en archivos</string>
+    <string name="notification_channel_file_observer_description">Monitorea los cambios en archivos</string>
   
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
@@ -785,7 +785,8 @@
     <string name="whats_new_device_credentials_title">Usar la protección del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
-	<string name="new_version_was_created">Se ha creado una versión nueva</string>
+	<string name="restore">Restaurar archivo</string>
+    <string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="new_comment">Comentario nuevo…</string>
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
