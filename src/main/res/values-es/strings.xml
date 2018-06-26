@@ -704,7 +704,7 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón de estado de la sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
-    <string name="synced_folder_custom_folder_image">Imágen de carpeta personalizada</string>
+    <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
     <string name="forward">Adelante</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
