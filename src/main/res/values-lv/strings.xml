@@ -55,7 +55,7 @@
     <string name="prefs_imprint">Importēt</string>
 
 	<string name="auth_check_server">Pārbaudīt serveri</string>
-    <string name="auth_host_url">Servera adrese https://...</string>
+    <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_password">Parole</string>
     <string name="auth_register">Nav vēl Nextcloud?\nSpied šeit lai iegūtu vienu no kāda pakalpojumu sniedzēja</string>
@@ -128,9 +128,9 @@
     <string name="delete_account">Noņemt kontu</string>
     <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>
     <string name="active_user">Aktīvais lietotājs</string>
-    <string name="upload_chooser_title">Augšupielādēts no...</string>
+    <string name="upload_chooser_title">Augšupielādēts no…</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
-    <string name="uploader_upload_in_progress_ticker">Augšupielādē...</string>
+    <string name="uploader_upload_in_progress_ticker">Augšupielādē…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Augšupielādēts</string>
     <string name="uploader_upload_succeeded_content_single">%1$s augšupielādēts</string>
@@ -250,10 +250,10 @@
     <string name="filename_forbidden_characters">Aizliegtās rakstzīmes: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Datnes nosaukums satur vismaz vienu nederīgu rakstzīmi</string>
     <string name="filename_empty">Datnes nosaukums nevar būt tukšs</string>
-    <string name="wait_a_moment">Uzgaidiet brītiņu...</string>
+    <string name="wait_a_moment">Uzgaidiet brītiņu…</string>
     <string name="wait_checking_credentials">Pārbauda saglabātos akredācijas datus</string>
     <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>
-    <string name="activity_chooser_title">Sūtīt saiti uz...</string>
+    <string name="activity_chooser_title">Sūtīt saiti uz…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Notiek faila kopēšana no privāta krātuves</string>
     
     <string name="oauth_check_onoff">Pierakstīties izmantojot OAuth 2.0</string>
@@ -341,14 +341,14 @@
     <string name="downloader_download_file_not_found">Fails serverī vairs nav pieejams</string>
 
     <string name="file_migration_dialog_title">Atjauninot saglabāšanas vietu</string>
-    <string name="file_migration_preparing">Sagatavo migrāciju...</string>
-    <string name="file_migration_checking_destination">Pārbauda galamērķi...</string>
-    <string name="file_migration_saving_accounts_configuration">Saglabā konta konfigurāciju...</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Gaida pilnu sinhronizāciju...</string>
-    <string name="file_migration_migrating">Pārvieto datus...</string>
-    <string name="file_migration_updating_index">Atjaunina indkesu...</string>
-    <string name="file_migration_cleaning">Tīra...</string>
-    <string name="file_migration_restoring_accounts_configuration">Atjauno kontu konfigurāciju...</string>
+    <string name="file_migration_preparing">Sagatavo migrāciju…</string>
+    <string name="file_migration_checking_destination">Pārbauda galamērķi…</string>
+    <string name="file_migration_saving_accounts_configuration">Saglabā konta konfigurāciju…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Gaida pilnu sinhronizāciju…</string>
+    <string name="file_migration_migrating">Pārvieto datus…</string>
+    <string name="file_migration_updating_index">Atjaunina indkesu…</string>
+    <string name="file_migration_cleaning">Tīra…</string>
+    <string name="file_migration_restoring_accounts_configuration">Atjauno kontu konfigurāciju…</string>
     <string name="file_migration_ok_finished">Pabeigts</string>
     <string name="file_migration_failed_not_enough_space">Nepieciešams vairāk vietas</string>
     <string name="file_migration_failed_not_writable">Nevarēja rakstīt uz faila galamērķi</string>
@@ -372,7 +372,7 @@
 	<string name="log_send_history_button">Sūtīt vēsturi</string>
 	<string name="log_send_no_mail_app">Nav atrasta neviena lietotne log failu sūtīšanai. Lūdzu instalējiet E-Pasta klientu.</string>
 	<string name="log_send_mail_subject">%1$s Android programmas žurnāli</string>
-    <string name="log_progress_dialog_text">Ielādē datus...</string>
+    <string name="log_progress_dialog_text">Ielādē datus…</string>
 
 	<string name="saml_authentication_required_text">Nepieciešama parole</string>
 	<string name="saml_authentication_wrong_pass">Nepareiza parole</string>
@@ -420,8 +420,8 @@
     <string name="set_picture_as">Izmantot attēlu kā</string>
     <string name="set_as">Saglabāt kā</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Orģinālais fails būs...</string>
-    <string name="prefs_instant_behaviour_title">Orģinālais fails būs...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Orģinālais fails būs…</string>
+    <string name="prefs_instant_behaviour_title">Orģinālais fails būs…</string>
     <string name="select_all">Atzīmēt visu</string>
     <string name="deselect_all">Atcelt atzīmi</string>
 
@@ -449,11 +449,11 @@
     <string name="edit_permission_label">rediģēt</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslēpt datņu sarakstu</string>
     <string name="share_get_public_link_button">Saņemt saiti</string>
-    <string name="share_with_title">Koplietot ar...</string>
+    <string name="share_with_title">Koplietot ar…</string>
     <string name="share_with_edit_title">Koplietots ar %1$s</string>
     <string name="share_via_link_unset_password">Neuzstādīts</string>
 
-    <string name="share_search">Vārds, federated cloud ID vai e-pasta adrese...</string>
+    <string name="share_search">Vārds, federated cloud ID vai e-pasta adrese…</string>
 
     <string name="search_users_and_groups_hint">Meklēt lietotājus un grupas</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
@@ -504,11 +504,11 @@
     <string name="participate_contribute_forum_forum">forums</string>
     <string name="participate_contribute_translate_translate">Tulkot</string>
     <string name="participate_contribute_translate_text">lietotni</string>
-    <string name="move_to">Pārvietot uz...</string>
-    <string name="copy_to">Kopēt uz...</string>
-    <string name="choose_remote_folder">Izvēlies attālināto mapi...</string>
-    <string name="choose_local_folder">Izvēlies lokālo mapi...</string>
-    <string name="synced_folders_loading_folders">Ielādē mapes...</string>
+    <string name="move_to">Pārvietot uz…</string>
+    <string name="copy_to">Kopēt uz…</string>
+    <string name="choose_remote_folder">Izvēlies attālināto mapi…</string>
+    <string name="choose_local_folder">Izvēlies lokālo mapi…</string>
+    <string name="synced_folders_loading_folders">Ielādē mapes…</string>
     <string name="synced_folders_no_results">Nav atrastas multivides mapes.</string>
     <string name="synced_folders_preferences">Iestatījumi automātiskai augšupielādei</string>
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
@@ -518,7 +518,7 @@
         <item quantity="other">%d atlasīts</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Ielādē paziņojumus...</string>
+    <string name="notifications_loading_activity">Ielādē paziņojumus…</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="upload_file_dialog_filename">Faila nosaukums</string>
     <string name="upload_file_dialog_filetype">Faila tips</string>
@@ -604,10 +604,10 @@
 
     <string name="screenshot_01_gridView">Droša vieta visiem jūsu datiem</string>
     <string name="userinfo_no_info_headline">Personiskā informācija nav uzstādīta</string>
-    <string name="end_to_end_encryption_decrypting">Atšifrē...</string>
+    <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
-    <string name="end_to_end_encryption_password">Parole...</string>
+    <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_dialog_close">Aizvērt</string>
     <string name="hint_name">Vārds</string>
     <string name="hint_password">Parole</string>
@@ -621,7 +621,7 @@
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
 	<string name="restore">Atjaunot datni</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
-    <string name="new_comment">Jauns komentārs...</string>
+    <string name="new_comment">Jauns komentārs…</string>
     <string name="dismiss">Atmest</string>
     <string name="drawer_item_trashbin">Dzēstās datnes</string>
     <string name="trashbin_activity_title">Dzēstās datnes</string>

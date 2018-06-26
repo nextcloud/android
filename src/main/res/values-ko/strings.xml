@@ -39,6 +39,7 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_manage_accounts">계정 관리</string>
+    <string name="prefs_lock">잠금</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
     <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
@@ -108,6 +109,7 @@
     <string name="file_list_empty_text_photos_filter">사진이 없습니다.</string>
     <string name="file_list_empty_text_videos">비디오를 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="file_list_empty_text_videos_filter">동영상이 없습니다.</string>
+    <string name="trashbin_empty_message">여기에서 삭제된 파일을 복구할 수 있습니다.</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="file_list_folder">폴더</string>
@@ -358,6 +360,7 @@
     <string name="copy_link">링크 주소 복사</string>
     <string name="clipboard_text_copied">클립보드로 복사됨</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
+    <string name="clipboard_unexpected_error">클립보드에 복사 중 알수없는 오류 발생</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
 
     <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 수행할 수 없음</string>
@@ -472,9 +475,15 @@
     <string name="share_via_link_password_label">암호로 보호</string>
     <string name="share_via_link_password_title">보호됨</string>
     <string name="share_via_link_expiration_date_label">만료 날짜 설정</string>
+    <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_via_link_section_title">링크 공유</string>
+    <string name="share_via_link_send_link_label">링크 보내기</string>
+    <string name="share_password_title">비밀번호로 보호</string>
+    <string name="share_no_password_title">비밀번호 설정</string>
+    <string name="edit_permission_label">편집</string>
     <string name="share_via_link_hide_file_listing_permission_label">파일 목록 숨김</string>
     <string name="share_get_public_link_button">링크 얻기</string>
+    <string name="share_with_title">다음과 공유</string>
     <string name="share_with_edit_title">%1$s 님과 공유</string>
     <string name="search_users_and_groups_hint">사용자와 그룹 검색</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
@@ -485,6 +494,10 @@
     <string name="share_sharee_unavailable">클라이언트에서 사용자간 공유를 사용하려면 서버를 업그레이드해야 합니다.\n시스템 관리자에게 문의하십시오</string>
     <string name="share_privilege_can_share">공유 가능</string>
     <string name="share_privilege_can_edit">편집 가능</string>
+    <string name="share_privilege_can_edit_create">생성가능</string>
+    <string name="share_privilege_can_edit_change">변경가능</string>
+    <string name="share_privilege_can_edit_delete">삭제가능</string>
+
     <string name="action_retry_uploads">실패한 업로드 다시 시도</string>
     <string name="action_clear_failed_uploads">실패한 업로드 삭제</string>
     <string name="action_clear_successful_uploads">성공한 업로드 삭제</string>
@@ -498,6 +511,7 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
 
     <string name="permission_storage_access">파일을 업로드 및 다운로드하려면 추가 권한이 필요합니다.</string>
+    <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>
@@ -527,6 +541,10 @@
     <string name="participate_rc_fdroid">F-Droid 앱에서 릴리스 후보 버전 받기</string>
     <string name="participate_dev_fdroid">F-Droid 앱에서 개발 릴리스 받기</string>
     <string name="participate_dev_direct_download">직접 개발 릴리스 다운로드</string>
+    <string name="move_to">다음으로 이동</string>
+    <string name="copy_to">다음으로 복사</string>
+    <string name="choose_remote_folder">대상 폴더 선택</string>
+    <string name="synced_folders_loading_folders">폴더 불러오는 중...</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없습니다.</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
@@ -535,6 +553,7 @@
         <item quantity="other">%d개 선택됨</item>
     </plurals>
 
+    <string name="notifications_loading_activity">알림 불러오는 중...</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
 
@@ -558,6 +577,7 @@
     <string name="welcome_feature_3_text">내 사진을 안전하게 보관</string>
 
     <string name="whats_new_end_to_end_encryption_title">종단간 암호화</string>
+    <string name="whats_new_resized_images_content">데이터 전송량을 줄이고 다른 사용자와 쉽게 공유할 수 있도록 작은 크기 사진을 기본값으로 표시합니다. 사진을 확대하면 전체 파일을 다운로드합니다.</string>
     <string name="whats_new_ipv6_title">IPv6 지원</string>
     <string name="whats_new_skip">건너뛰기</string>
 
@@ -606,6 +626,9 @@
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="fallback_weblogin_back">뒤로</string>
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
+
+    <string name="foreground_service_upload">파일 업로드 중...</string>
+    <string name="foreground_service_download">파일 다운로드 중...</string>
 
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_license">라이선스</string>
@@ -658,6 +681,7 @@
     <string name="store_full_dev_desc">자유 소프트웨어 Nextcloud Android 앱으로 내 Nextcloud에 있는 파일에 접근할 수 있습니다.\n이 앱은 공식 개발 버전이며, 새로운 기능이 매일 업데이트되기 때문에 불안정할 수도 있으며 데이터가 손실될 수도 있습니다. 이 앱은 사용 중에 발생하는 버그를 테스트하고 보고할 사용자를 대상으로 합니다. 중요한 업무에 사용하지 마십시오!\n\n공식 개발 버전과 일반 버전이 모두 F-Droid에 등록되어 있으며 동시에 설치할 수 있습니다.</string>
 
     <string name="prefs_category_dev">개발</string>
+    <string name="dev_version_no_information_available">정보가 없습니다.</string>
     <string name="dev_version_no_new_version_available">새로운 버전이 없습니다.</string>
     <string name="folder_icon">폴더 아이콘</string>
     <string name="dev_version_new_version_available">새 버전을 사용할 수 있음</string>
@@ -694,14 +718,35 @@
     
     <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
+    <string name="end_to_end_encryption_decrypting">복호화중...</string>
+    <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중...</string>
     <string name="end_to_end_encryption_enter_password">비밀 키를 복호화하려면 암호를 입력하십시오.</string>
+    <string name="end_to_end_encryption_generating_keys">새 키 생성 중...</string>
     <string name="end_to_end_encryption_keywords_description">이 12단어 암구호는 암호화된 파일을 보고 사용하는 매우 강력한 암호입니다. 안전한 곳에 적어서 보관해 두십시오.</string>
     <string name="end_to_end_encryption_title">암호화 설정</string>
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
     <string name="end_to_end_encryption_not_supported">암호화 기능은 KitKat(4.4) 이상에서만 지원합니다.</string>
     <string name="end_to_end_encryption_not_enabled">종단간 암호화가 서버단에서 사용 해제 되어 있습니다.</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
+    <string name="end_to_end_encryption_unsuccessful">키를 저장할 수 없습니다. 다시 시도하십시오.</string>
     <string name="end_to_end_encryption_dialog_close">닫기</string>
     <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
+    <string name="notification_channel_push_name">푸쉬 알림</string>
+    <string name="upload_files">파일 업로드</string>
+    <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
+    <string name="create_new_folder">새 폴더 생성</string>
+    <string name="uploads_view_upload_status_virus_detected">파이러스 탐지됨. 업로드를 완료할 수 없습니다!</string>
+    <string name="whats_new_device_credentials_title">안드로이드 기기 보호 사용</string>
+    <string name="whats_new_device_credentials_content">데이터를 보호하기 위해 패턴, 비밀번호, PIN 또는 지문을 사용합니다</string>
+    <string name="restore_button_description">삭제된 파일 복구</string>
+	<string name="new_version_was_created">새 버전 생성됨</string>
+    <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
+    <string name="feedback_no_mail_app">메일을 보내기 위한 앱이 없습니다!</string>
+    <string name="drawer_item_trashbin">삭제된 파일</string>
+    <string name="trashbin_activity_title">삭제된 파일</string>
+    <string name="action_empty_trashbin">휴지통 비우기</string>
+    <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
+    <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
+    <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
     </resources>
