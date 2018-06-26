@@ -796,6 +796,7 @@
     <string name="error_comment_file">Грешка приликом коментарисања фајла</string>
     <string name="file_version_restored_successfully">Успешно повратио верзију фајла.</string>
     <string name="file_version_restored_error">Грешка приликом враћања верзије фајла!</string>
+    <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
     <string name="dismiss">Одбаци</string>
     <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
