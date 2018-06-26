@@ -181,6 +181,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
         return retval;
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
