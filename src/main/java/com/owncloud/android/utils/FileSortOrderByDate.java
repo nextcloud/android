@@ -55,6 +55,7 @@ public class FileSortOrderByDate extends FileSortOrder {
      *
      * @param files list of files to sort
      */
+    @Override
     public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
         final int multiplier = mAscending ? 1 : -1;
 
