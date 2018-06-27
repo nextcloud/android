@@ -63,6 +63,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
@@ -88,7 +89,6 @@ import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
@@ -225,9 +225,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         setupDrawerToggle();
 
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -338,25 +336,77 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
-        filterDrawerMenu(navigationView.getMenu(), account);
-    }
+        OwnCloudVersion ownCloudVersion = AccountUtils.getServerVersion(getAccount());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
-    private void filterDrawerMenu(Menu menu, Account account) {
-        DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
-        DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItems(menu, account, getContentResolver());
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_all_files);
+            navigationView.getMenu().removeItem(R.id.nav_settings);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
+            navigationView.getMenu().removeItem(R.id.nav_photos);
+        }
 
-        DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
+        if (!searchSupported && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_photos);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
+            navigationView.getMenu().removeItem(R.id.nav_videos);
+        }
 
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_participate,
-                !getResources().getBoolean(R.bool.participate_enabled));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_contacts, !getResources().getBoolean(R.bool.contacts_backup)
-                || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+            OCCapability capability = storageManager.getCapability(account.name);
+            
+            if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_14) < 0 || 
+                    capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
+                navigationView.getMenu().removeItem(R.id.nav_trashbin);
+            }
+        }
 
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders,
-                getResources().getBoolean(R.bool.syncedFolder_light));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
+        if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
+                null) {
+            navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(getResources().
+                    getString(R.string.drawer_item_home));
+            navigationView.getMenu().findItem(R.id.nav_all_files).setIcon(R.drawable.ic_home);
+        }
+
+        if (!getResources().getBoolean(R.bool.participate_enabled)) {
+            navigationView.getMenu().removeItem(R.id.nav_participate);
+        }
+
+        if (!getResources().getBoolean(R.bool.shared_enabled)) {
+            navigationView.getMenu().removeItem(R.id.nav_shared);
+        }
+
+        if (!getResources().getBoolean(R.bool.contacts_backup)
+                || !getResources().getBoolean(R.bool.show_drawer_contacts_backup)) {
+            navigationView.getMenu().removeItem(R.id.nav_contacts);
+        }
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            navigationView.getMenu().removeItem(R.id.nav_synced_folders);
+        }
+
+        if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
+            navigationView.getMenu().removeItem(R.id.nav_logout);
+        }
+
+        if (AccountUtils.hasSearchSupport(account)) {
+            if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_recently_added);
+            }
+
+            if (!getResources().getBoolean(R.bool.recently_modified_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_recently_modified);
+            }
+
+            if (!getResources().getBoolean(R.bool.videos_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_videos);
+            }
+        } else if (account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_recently_added);
+            navigationView.getMenu().removeItem(R.id.nav_recently_modified);
+            navigationView.getMenu().removeItem(R.id.nav_videos);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

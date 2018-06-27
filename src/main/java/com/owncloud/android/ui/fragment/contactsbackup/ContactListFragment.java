@@ -613,27 +613,66 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     }
 
     @Override
-    @NonNull
-    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.contactlist_list_item, parent, false);
 
         return new ContactListFragment.ContactItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ContactListFragment.ContactItemViewHolder holder, final int position) {
+    public void onBindViewHolder(final ContactListFragment.ContactItemViewHolder holder, final int position) {
         final int verifiedPosition = holder.getAdapterPosition();
         final VCard vcard = vCards.get(verifiedPosition);
 
         if (vcard != null) {
 
-            setChecked(checkedVCards.contains(position), holder.getName());
+            if (checkedVCards.contains(position)) {
+                holder.getName().setChecked(true);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.getName().getCheckMarkDrawable()
+                            .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+                }
+            } else {
+                holder.getName().setChecked(false);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.getName().getCheckMarkDrawable().clearColorFilter();
+                }
+            }
 
             holder.getName().setText(getDisplayName(vcard));
 
             // photo
             if (vcard.getPhotos().size() > 0) {
-                setPhoto(holder.getBadge(), vcard.getPhotos().get(0));
+                Photo firstPhoto = vcard.getPhotos().get(0);
+                String url = firstPhoto.getUrl();
+                byte[] data = firstPhoto.getData();
+
+                if (data != null && data.length > 0) {
+                    Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
+                            thumbnail);
+
+                    holder.getBadge().setImageDrawable(drawable);
+                } else if (url != null) {
+                    ImageView badge = holder.getBadge();
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation
+                                glideAnimation) {
+                            holder.getBadge().setImageDrawable(resource);
+                        }
+
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            super.onLoadFailed(e, errorDrawable);
+                            holder.getBadge().setImageDrawable(errorDrawable);
+                        }
+                    };
+                    DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user,
+                            badge.getWidth(), badge.getHeight());
+                }
             } else {
                 try {
                     holder.getBadge().setImageDrawable(
@@ -647,78 +686,39 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 }
             }
 
-            holder.setVCardListener(v -> toggleVCard(holder, verifiedPosition));
-        }
-    }
-
-    private void setPhoto(ImageView imageView, Photo firstPhoto) {
-        String url = firstPhoto.getUrl();
-        byte[] data = firstPhoto.getData();
-
-        if (data != null && data.length > 0) {
-            Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
-            RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
-                    thumbnail);
-
-            imageView.setImageDrawable(drawable);
-        } else if (url != null) {
-            SimpleTarget target = new SimpleTarget<Drawable>() {
+            // Checkbox
+            holder.setVCardListener(new View.OnClickListener() {
                 @Override
-                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                    imageView.setImageDrawable(resource);
+                public void onClick(View v) {
+                    holder.getName().setChecked(!holder.getName().isChecked());
+
+                    if (holder.getName().isChecked()) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.getName().getCheckMarkDrawable()
+                                    .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+                        }
+
+                        if (!checkedVCards.contains(verifiedPosition)) {
+                            checkedVCards.add(verifiedPosition);
+                        }
+                        if (checkedVCards.size() == 1) {
+                            EventBus.getDefault().post(new VCardToggleEvent(true));
+                        }
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.getName().getCheckMarkDrawable().clearColorFilter();
+                        }
+
+                        if (checkedVCards.contains(verifiedPosition)) {
+                            checkedVCards.remove(verifiedPosition);
+                        }
+
+                        if (checkedVCards.size() == 0) {
+                            EventBus.getDefault().post(new VCardToggleEvent(false));
+                        }
+                    }
                 }
-
-                @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                    super.onLoadFailed(e, errorDrawable);
-                    imageView.setImageDrawable(errorDrawable);
-                }
-            };
-            DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user, imageView.getWidth(),
-                    imageView.getHeight());
-        }
-    }
-
-    private void setChecked(boolean checked, CheckedTextView checkedTextView) {
-        checkedTextView.setChecked(checked);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            if (checked) {
-                checkedTextView.getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
-            } else {
-                checkedTextView.getCheckMarkDrawable().clearColorFilter();
-            }
-        }
-    }
-
-    private void toggleVCard(ContactListFragment.ContactItemViewHolder holder, int verifiedPosition) {
-        holder.getName().setChecked(!holder.getName().isChecked());
-
-        if (holder.getName().isChecked()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
-            }
-
-            if (!checkedVCards.contains(verifiedPosition)) {
-                checkedVCards.add(verifiedPosition);
-            }
-            if (checkedVCards.size() == 1) {
-                EventBus.getDefault().post(new VCardToggleEvent(true));
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable().clearColorFilter();
-            }
-
-            if (checkedVCards.contains(verifiedPosition)) {
-                checkedVCards.remove(verifiedPosition);
-            }
-
-            if (checkedVCards.size() == 0) {
-                EventBus.getDefault().post(new VCardToggleEvent(false));
-            }
+            });
         }
     }
 
