@@ -379,47 +379,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mLoginWebView.loadUrl(url, headers);
 
-        setClient(progressBar);
-
-        // show snackbar after 60s to switch back to old login method
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
-                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
-                        .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mLoginWebView.setVisibility(View.INVISIBLE);
-                                webViewLoginMethod = false;
-
-                                setContentView(R.layout.account_setup);
-
-                                // initialize general UI elements
-                                initOverallUi();
-
-                                mPasswordInputLayout.setVisibility(View.VISIBLE);
-                                mUsernameInputLayout.setVisibility(View.VISIBLE);
-                                mUsernameInput.requestFocus();
-                                mOAuth2Check.setVisibility(View.INVISIBLE);
-                                mAuthStatusView.setVisibility(View.INVISIBLE);
-                                mServerStatusView.setVisibility(View.INVISIBLE);
-                                mTestServerButton.setVisibility(View.INVISIBLE);
-                                forceOldLoginMethod = true;
-                                mOkButton.setVisibility(View.VISIBLE);
-
-                                initServerPreFragment(null);
-
-                                mHostUrlInput.setText(baseURL);
-
-                                checkOcServer();
-                            }
-                        }).show();
-            }
-        }, 60000);
-    }
-
-    private void setClient(ProgressBar progressBar) {
         mLoginWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -465,6 +424,43 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
         });
+
+        // show snackbar after 60s to switch back to old login method
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
+                        .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mLoginWebView.setVisibility(View.INVISIBLE);
+                                webViewLoginMethod = false;
+
+                                setContentView(R.layout.account_setup);
+
+                                // initialize general UI elements
+                                initOverallUi();
+
+                                mPasswordInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInput.requestFocus();
+                                mOAuth2Check.setVisibility(View.INVISIBLE);
+                                mAuthStatusView.setVisibility(View.INVISIBLE);
+                                mServerStatusView.setVisibility(View.INVISIBLE);
+                                mTestServerButton.setVisibility(View.INVISIBLE);
+                                forceOldLoginMethod = true;
+                                mOkButton.setVisibility(View.VISIBLE);
+
+                                initServerPreFragment(null);
+
+                                mHostUrlInput.setText(baseURL);
+
+                                checkOcServer();
+                            }
+                        }).show();
+            }
+        }, 60000);
     }
 
     private void parseAndLoginFromWebView(String dataString) {

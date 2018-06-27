@@ -47,7 +47,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -268,13 +267,6 @@ public class ThemeUtils {
     public static void colorImageButton(ImageButton imageButton, @ColorInt int color) {
         if (imageButton != null) {
             imageButton.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        }
-    }
-
-    public static void colorEditText(EditText editText, int elementColor) {
-        if (editText != null) {
-            editText.setTextColor(elementColor);
-            editText.getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);
         }
     }
 
