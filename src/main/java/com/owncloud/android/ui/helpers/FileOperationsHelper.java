@@ -352,28 +352,25 @@ public class FileOperationsHelper {
     public void streamMediaFile(OCFile file) {
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
-                StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-                RemoteOperationResult result = sfo.execute(account, mFileActivity);
+        new Thread(() -> {
+            Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            RemoteOperationResult result = sfo.execute(account, mFileActivity);
 
-                mFileActivity.dismissLoadingDialog();
+            mFileActivity.dismissLoadingDialog();
 
-                if (!result.isSuccess()) {
-                    DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
-                    return;
-                }
-
-                Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                Uri uri = Uri.parse((String) result.getData().get(0));
-
-                openFileWithIntent.setDataAndType(uri, file.getMimetype());
-
-                mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
-                        mFileActivity.getString(R.string.stream)));
+            if (!result.isSuccess()) {
+                DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
+                return;
             }
+
+            Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse((String) result.getData().get(0));
+
+            openFileWithIntent.setDataAndType(uri, file.getMimetype());
+
+            mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
+                    mFileActivity.getString(R.string.stream)));
         }).start();
     }
 
