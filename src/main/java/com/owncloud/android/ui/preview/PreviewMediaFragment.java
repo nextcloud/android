@@ -512,7 +512,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
                 new LoadStreamUrl(this, client).execute(getFile().getLocalId());
             } catch (Exception e) {
-                Log_OC.e(TAG, "Loading stream url not possible: " + e.getMessage());
+                Log_OC.e(TAG, "Loading stream url not possible: " + e);
             }
         }
     }
