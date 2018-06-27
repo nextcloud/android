@@ -184,6 +184,7 @@ public class FileMenuFilter {
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
+        filterStream(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -346,9 +347,8 @@ public class FileMenuFilter {
             toShow.add(R.id.action_download_file);
         }
     }
-    
-    private void filterStream() {
-        // STREAM
+
+    private void filterStream(List<Integer> toShow, List<Integer> toHide) {
         if (mFiles.isEmpty() || !isSingleFile() || !isSingleMedia() ||
                 !AccountUtils.getServerVersion(mAccount).isMediaStreamingSupported()) {
             toHide.add(R.id.action_stream_media);
