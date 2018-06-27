@@ -16,8 +16,9 @@ pipeline:
     commands:
       - emulator -avd android-27 -no-window -no-audio &
       - ./wait_for_emulator.sh
+      - ./gradlew assembleGplayDebug
       - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit"
-      - ./gradlew assembleGplayDebug installGplayDebugAndroidTest
+      - ./gradlew installGplayDebugAndroidTest
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
