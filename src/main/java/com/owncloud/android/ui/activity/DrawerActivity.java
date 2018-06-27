@@ -63,7 +63,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
@@ -349,12 +348,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_participate, !getResources().getBoolean(R.bool.participate_enabled));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_participate,
+                !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_contacts, !getResources().getBoolean(R.bool.contacts_backup)
                 || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
 
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders, getResources().getBoolean(R.bool.syncedFolder_light));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders,
+                getResources().getBoolean(R.bool.syncedFolder_light));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
