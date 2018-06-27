@@ -367,7 +367,7 @@ public class FileOperationsHelper {
             Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.parse((String) result.getData().get(0));
 
-            openFileWithIntent.setDataAndType(uri, file.getMimetype());
+            openFileWithIntent.setDataAndType(uri, file.getMimeType());
 
             mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
                     mFileActivity.getString(R.string.stream)));

@@ -70,7 +70,6 @@ import android.widget.ImageView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -730,7 +729,8 @@ public class FileDisplayActivity extends HookActivity
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
                         
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            boolean streaming = AccountUtils.getServerVersion(getAccount()).isMediaStreamingSupported();
+                            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                    .isMediaStreamingSupported();
                             startMediaPreview(mWaitingToPreview, 0, true, true, streaming);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
@@ -2052,7 +2052,8 @@ public class FileDisplayActivity extends HookActivity
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment) details).getPosition();
-                        boolean streaming = AccountUtils.getServerVersion(getAccount()).isMediaStreamingSupported();
+                        boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                .isMediaStreamingSupported();
                         startMediaPreview(renamedFile, position, true, true, streaming);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
@@ -2463,7 +2464,8 @@ public class FileDisplayActivity extends HookActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
-            boolean streaming = AccountUtils.getServerVersion(getAccount()).isMediaStreamingSupported();
+            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                    .isMediaStreamingSupported();
             startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
                     (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
                     (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, streaming);
