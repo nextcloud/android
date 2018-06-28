@@ -178,10 +178,12 @@ android {
     task findbugs(type: FindBugs) {
         ignoreFailures = false
         effort = "max"
-        reportLevel = "high"
-        classes = files("$project.buildDir/intermediates/classes")
-        excludeFilter = new File("${project.rootDir}/findbugs-filter.xml")
-        source 'src'
+        reportLevel = "medium"
+        classes = fileTree("$project.buildDir/intermediates/classes/gplay/debug/com/owncloud")
+        excludeFilter = file("${project.rootDir}/findbugs-filter.xml")
+        source = fileTree('src/main/java')
+        pluginClasspath = project.configurations.findbugsPlugins
+        classpath = files()
         include '**/*.java'
         exclude '**/gen/**'
 
@@ -189,11 +191,11 @@ android {
             xml.enabled = false
             html.enabled = true
             html {
-                destination  = file("$project.buildDir/reports/findbugs/findbugs.html")
+                destination = file("$project.buildDir/reports/findbugs/findbugs.html")
             }
         }
-        classpath = files()
     }
+
     check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
     compileOptions {
@@ -261,6 +263,9 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
 
     androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
+
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
+    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.2'
     
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
