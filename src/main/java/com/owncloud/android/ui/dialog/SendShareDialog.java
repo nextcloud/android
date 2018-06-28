@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
@@ -57,6 +58,7 @@ import java.util.List;
 public class SendShareDialog extends BottomSheetDialogFragment {
 
     private static final String KEY_OCFILE = "KEY_OCFILE";
+    private static final String KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED";
     private static final String KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS";
     private static final String TAG = SendShareDialog.class.getSimpleName();
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
@@ -65,15 +67,17 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private View view;
     private OCFile file;
     private boolean hideNcSharingOptions;
+    private boolean sharingPublicPasswordEnforced;
     private FileOperationsHelper fileOperationsHelper;
 
-    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions) {
+    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, boolean sharingPublicPasswordEnforced) {
 
         SendShareDialog dialogFragment = new SendShareDialog();
 
         Bundle args = new Bundle();
         args.putParcelable(KEY_OCFILE, file);
         args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions);
+        args.putBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, sharingPublicPasswordEnforced);
         dialogFragment.setArguments(args);
 
         return dialogFragment;
@@ -89,6 +93,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         file = getArguments().getParcelable(KEY_OCFILE);
         hideNcSharingOptions = getArguments().getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false);
+        sharingPublicPasswordEnforced = getArguments().getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false);
     }
 
     @Nullable
@@ -110,11 +115,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         // Share via link button
         TextView shareLinkText = view.findViewById(R.id.share_link_button);
-        shareLinkText.setOnClickListener(v -> shareFile(file));
+        shareLinkText.setOnClickListener(v -> shareByLink());
 
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         themeShareButtonImage(shareLinkImageView);
-        shareLinkImageView.setOnClickListener(v -> shareFile(file));
+        shareLinkImageView.setOnClickListener(v -> shareByLink());
 
         if (hideNcSharingOptions) {
             sendShareButtons.setVisibility(View.GONE);
@@ -157,6 +162,25 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
         return view;
+    }
+
+    private void shareByLink() {
+        if (file.isSharedViaLink()) {
+            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+        } else if (sharingPublicPasswordEnforced) {
+            // password enforced by server, request to the user before trying to create
+            requestPasswordForShareViaLink();
+        } else {
+            // create without password if not enforced by server or we don't know if enforced;
+            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
+        }
+
+        this.dismiss();
+    }
+
+    private void requestPasswordForShareViaLink() {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file, true);
+        dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {

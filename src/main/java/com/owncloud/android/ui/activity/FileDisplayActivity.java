@@ -1940,8 +1940,10 @@ public class FileDisplayActivity extends HookActivity
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
-            fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
-            fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
+            if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
+                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
+            }
             refreshListOfFilesFragment(false);
         } else {
             // Detect Failure (403) --> maybe needs password
@@ -1959,7 +1961,9 @@ public class FileDisplayActivity extends HookActivity
                 }
 
             } else {
-                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
+                    fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                }
                 Snackbar.make(
                         findViewById(android.R.id.content),
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
