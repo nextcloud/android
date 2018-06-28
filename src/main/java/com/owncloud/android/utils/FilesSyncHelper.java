@@ -73,7 +73,7 @@ public class FilesSyncHelper {
     public static final String GLOBAL = "global";
     public static final String SYNCEDFOLDERINITIATED = "syncedFolderIntitiated_";
 
-    public static int ContentSyncJobId = 315;
+    public static final int ContentSyncJobId = 315;
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
@@ -126,7 +126,7 @@ public class FilesSyncHelper {
 
                     Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
-                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
 
                             File file = path.toFile();
                             if (attrs.lastModifiedTime().toMillis() >= Long.parseLong(dateInitiated) * 1000) {

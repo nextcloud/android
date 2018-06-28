@@ -67,7 +67,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     public static final String SUCCESS = "SUCCESS";
     public static final int SETUP_ENCRYPTION_RESULT_CODE = 101;
     public static final int SETUP_ENCRYPTION_REQUEST_CODE = 100;
-    public static String SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG";
+    public static final String SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG";
     public static final String ARG_POSITION = "ARG_POSITION";
 
     private static String ARG_ACCOUNT = "ARG_ACCOUNT";
