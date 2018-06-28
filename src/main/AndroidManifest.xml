@@ -243,7 +243,6 @@
         <activity android:name=".ui.activity.PassCodeActivity" />
         <activity android:name=".ui.activity.RequestCredentialsActivity" />
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
-        <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
         <activity android:name=".ui.activity.LogHistoryActivity"/>

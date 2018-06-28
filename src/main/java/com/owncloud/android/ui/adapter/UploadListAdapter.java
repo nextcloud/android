@@ -26,6 +26,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -413,89 +414,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
 
             case UPLOAD_FAILED:
-                switch (upload.getLastResult()) {
-                    case CREDENTIAL_ERROR:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_credentials_error
-                        );
-                        break;
-                    case FOLDER_ERROR:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_folder_error
-                        );
-                        break;
-                    case FILE_NOT_FOUND:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_localfile_error
-                        );
-                        break;
-                    case FILE_ERROR:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_file_error
-                        );
-                        break;
-                    case PRIVILEDGES_ERROR:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_permission_error
-                        );
-                        break;
-                    case NETWORK_CONNECTION:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed_connection_error
-                        );
-                        break;
-                    case DELAYED_FOR_WIFI:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_waiting_for_wifi
-                        );
-                        break;
-                    case DELAYED_FOR_CHARGING:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_waiting_for_charging);
-                        break;
-                    case CONFLICT_ERROR:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_conflict
-                        );
-                        break;
-                    case SERVICE_INTERRUPTED:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_service_interrupted
-                        );
-                        break;
-                    case CANCELLED:
-                        // should not get here ; cancelled uploads should be wiped out
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_cancelled
-                        );
-                        break;
-                    case UPLOADED:
-                        // should not get here ; status should be UPLOAD_SUCCESS
-                        status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
-                        break;
-                    case MAINTENANCE_MODE:
-                        status = mParentActivity.getString(R.string.maintenance_mode);
-                        break;
-                    case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                        status =
-                                mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-                                );
-                        break;
-                    case UNKNOWN:
-                        status = mParentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
-                        break;
-                    case DELAYED_IN_POWER_SAVE_MODE:
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
-                        break;
-                    case VIRUS_DETECTED:
-                        status = mParentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
-                        break;
-                    default:
-                        status = "New fail result but no description for the user";
-                        break;
-                }
+                status = getUploadFailedStatusText(upload.getLastResult());
                 break;
 
             default:
@@ -504,15 +423,84 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         return status;
     }
 
+    @NonNull
+    private String getUploadFailedStatusText(UploadResult result) {
+        String status;
+        switch (result) {
+            case CREDENTIAL_ERROR:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error);
+                break;
+            case FOLDER_ERROR:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error);
+                break;
+            case FILE_NOT_FOUND:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error);
+                break;
+            case FILE_ERROR:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_file_error);
+                break;
+            case PRIVILEDGES_ERROR:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error);
+                break;
+            case NETWORK_CONNECTION:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
+                break;
+            case DELAYED_FOR_WIFI:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi);
+                break;
+            case DELAYED_FOR_CHARGING:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging);
+                break;
+            case CONFLICT_ERROR:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_conflict);
+                break;
+            case SERVICE_INTERRUPTED:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_service_interrupted);
+                break;
+            case CANCELLED:
+                // should not get here ; cancelled uploads should be wiped out
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
+                break;
+            case UPLOADED:
+                // should not get here ; status should be UPLOAD_SUCCESS
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                break;
+            case MAINTENANCE_MODE:
+                status = mParentActivity.getString(R.string.maintenance_mode);
+                break;
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                status =
+                        mParentActivity.getString(
+                                R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+                        );
+                break;
+            case UNKNOWN:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
+                break;
+            case DELAYED_IN_POWER_SAVE_MODE:
+                status = mParentActivity.getString(
+                        R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
+                break;
+            case VIRUS_DETECTED:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
+                break;
+            default:
+                status = "New fail result but no description for the user";
+                break;
+        }
+
+        return status;
+    }
 
     @Override
-    public SectionedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public SectionedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_HEADER) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_header, parent, false);
-            return new HeaderViewHolder(v);
+            return new HeaderViewHolder(
+                    LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_header, parent, false));
         } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_item, parent, false);
-            return new ItemViewHolder(v);
+            return new ItemViewHolder(
+                    LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_item, parent, false));
         }
     }
 
