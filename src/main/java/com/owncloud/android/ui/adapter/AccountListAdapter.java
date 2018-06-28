@@ -141,7 +141,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     }
 
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
-        if (AccountUtils.getCurrentOwnCloudAccount(getContext()).name.equals(account.name)) {
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getContext());
+        if (currentAccount != null && currentAccount.name.equals(account.name)) {
             viewHolder.checkViewItem.setVisibility(View.VISIBLE);
         } else {
             viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
