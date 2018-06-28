@@ -162,7 +162,7 @@ public class ContactListFragment extends FileFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.contactlist_fragment, container, false);
         ButterKnife.bind(this, view);
@@ -233,7 +233,7 @@ public class ContactListFragment extends FileFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putIntArray(CHECKED_ITEMS_ARRAY_KEY, contactListAdapter.getCheckedIntArray());
     }
@@ -496,11 +496,11 @@ public class ContactListFragment extends FileFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase(FileDownloader.getDownloadFinishMessage())) {
+            if (FileDownloader.getDownloadFinishMessage().equalsIgnoreCase(intent.getAction())) {
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
 
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        getContext().getContentResolver());
+                        context.getContentResolver());
                 ocFile = storageManager.getFileByPath(downloadedRemotePath);
                 loadContactsTask.execute();
             }
@@ -612,15 +612,16 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         }
     }
 
+    @NonNull
     @Override
-    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.contactlist_list_item, parent, false);
 
         return new ContactListFragment.ContactItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ContactListFragment.ContactItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ContactListFragment.ContactItemViewHolder holder, final int position) {
         final int verifiedPosition = holder.getAdapterPosition();
         final VCard vcard = vCards.get(verifiedPosition);
 
