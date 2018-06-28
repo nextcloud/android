@@ -110,65 +110,60 @@ public class ContactsBackupJob extends Job {
 
     private void backupContact(Account account, String backupFolder) {
         ArrayList<String> vCard = new ArrayList<>();
-        try {
 
-            Cursor cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
-                    null, null, null);
+        Cursor cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
+                null, null, null);
 
-            if (cursor != null && cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                for (int i = 0; i < cursor.getCount(); i++) {
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
 
-                    vCard.add(getContactFromCursor(cursor));
-                    cursor.moveToNext();
-                }
+                vCard.add(getContactFromCursor(cursor));
+                cursor.moveToNext();
             }
-
-            String filename = DateFormat.format("yyyy-MM-dd_HH-mm-ss", Calendar.getInstance()).toString() + ".vcf";
-            Log_OC.d(TAG, "Storing: " + filename);
-            File file = new File(getContext().getCacheDir(), filename);
-
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(file);
-
-                for (String card : vCard) {
-                    fw.write(card);
-                }
-
-            } catch (IOException e) {
-                Log_OC.d(TAG, "Error ", e);
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-                
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Error closing file writer ", e);
-                    }
-                }
-            }
-
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
-                    getContext(),
-                    account,
-                    file.getAbsolutePath(),
-                    backupFolder + filename,
-                    FileUploader.LOCAL_BEHAVIOUR_MOVE,
-                    null,
-                    true,
-                    UploadFileOperation.CREATED_BY_USER,
-                    false,
-                    false
-            );
-
-        } catch (Exception e) {
-            Log_OC.d(TAG, e.getMessage());
         }
+
+        String filename = DateFormat.format("yyyy-MM-dd_HH-mm-ss", Calendar.getInstance()).toString() + ".vcf";
+        Log_OC.d(TAG, "Storing: " + filename);
+        File file = new File(getContext().getCacheDir(), filename);
+
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file);
+
+            for (String card : vCard) {
+                fw.write(card);
+            }
+
+        } catch (IOException e) {
+            Log_OC.d(TAG, "Error ", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file writer ", e);
+                }
+            }
+        }
+
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+                getContext(),
+                account,
+                file.getAbsolutePath(),
+                backupFolder + filename,
+                FileUploader.LOCAL_BEHAVIOUR_MOVE,
+                null,
+                true,
+                UploadFileOperation.CREATED_BY_USER,
+                false,
+                false
+        );
     }
 
     private void expireFiles(Integer daysToExpire, String backupFolderString, Account account) {
@@ -209,9 +204,10 @@ public class ContactsBackupJob extends Job {
         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
 
         String vCard = "";
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
         try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-            InputStreamReader inputStreamReader;
+            inputStream = getContext().getContentResolver().openInputStream(uri);
             char[] buffer = new char[1024];
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -235,6 +231,17 @@ public class ContactsBackupJob extends Job {
 
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
+                }
+            } catch (IOException e) {
+                Log_OC.e(TAG, "failed to close stream");
+            }
         }
         return vCard;
     }

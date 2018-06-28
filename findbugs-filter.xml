@@ -5,4 +5,7 @@
     <Match>
         <Class name="~.*\.Manifest\$.*"/>
     </Match>
+    <Match>
+        <Class name="~.*\.R\$.*"/>
+    </Match>
 </FindBugsFilter>
