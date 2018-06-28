@@ -82,27 +82,29 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected final ActivityListInterface activityListInterface;
     private final int px;
     private static final String TAG = ActivityListAdapter.class.getSimpleName();
-    private OwnCloudClient mClient;
+    protected OwnCloudClient client;
 
     protected Context context;
     private FileDataStorageManager storageManager;
-    protected List<Object> mValues;
+    protected List<Object> values;
+    private boolean isDetailView;
 
     public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,
-                               FileDataStorageManager storageManager) {
-        this.mValues = new ArrayList<>();
+                               FileDataStorageManager storageManager, boolean isDetailView) {
+        this.values = new ArrayList<>();
         this.context = context;
         this.activityListInterface = activityListInterface;
         this.storageManager = storageManager;
         px = getThumbnailDimension();
+        this.isDetailView = isDetailView;
     }
 
     public void setActivityItems(List<Object> activityItems, OwnCloudClient client, boolean clear) {
-        this.mClient = client;
+        this.client = client;
         String sTime = "";
         
         if (clear) {
-            mValues.clear();
+            values.clear();
         }
         
         for (Object o : activityItems) {
@@ -117,11 +119,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (sTime.equalsIgnoreCase(time)) {
-                mValues.add(activity);
+                values.add(activity);
             } else {
                 sTime = time;
-                mValues.add(sTime);
-                mValues.add(activity);
+                values.add(sTime);
+                values.add(activity);
             }
         }
         notifyDataSetChanged();
@@ -143,7 +145,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ActivityViewHolder) {
             final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
-            Activity activity = (Activity) mValues.get(position);
+            Activity activity = (Activity) values.get(position);
             if (activity.getDatetime() != null) {
                 activityViewHolder.dateTime.setVisibility(View.VISIBLE);
                 activityViewHolder.dateTime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
@@ -197,7 +199,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
                     if (richObject.getPath() != null) {
-                        ImageView imageView = createThumbnail(richObject);
+                        ImageView imageView = createThumbnail(richObject, isDetailView);
                         activityViewHolder.list.addView(imageView);
                     }
                 }
@@ -208,11 +210,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         } else {
             ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
-            activityViewHeaderHolder.title.setText((String) mValues.get(position));
+            activityViewHeaderHolder.title.setText((String) values.get(position));
         }
     }
 
-    private ImageView createThumbnail(final RichObject richObject) {
+    private ImageView createThumbnail(final RichObject richObject, boolean isDetailView) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
         OCFile file = storageManager.getFileByPath(path);
 
@@ -229,12 +231,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView imageView = new ImageView(context);
         imageView.setLayoutParams(params);
         imageView.setOnClickListener(v -> activityListInterface.onActivityClicked(richObject));
-        setBitmap(file, imageView);
+        setBitmap(file, imageView, isDetailView);
 
         return imageView;
     }
 
-    private void setBitmap(OCFile file, ImageView fileIcon) {
+    private void setBitmap(OCFile file, ImageView fileIcon, boolean isDetailView) {
         // No Folder
         if (!file.isFolder()) {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
@@ -246,20 +248,29 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     placeholder = R.drawable.file_movie;
                 }
 
-                String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
+                String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
                         Uri.encode(file.getRemotePath(), "/");
 
                 Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).placeholder(placeholder)
                         .error(placeholder).into(fileIcon); // using custom fetcher
 
             } else {
-                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context));
+                if (isDetailView) {
+                    fileIcon.setVisibility(View.GONE);
+                } else {
+                    fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
+                            context));
+                }
             }
         } else {
             // Folder
-            fileIcon.setImageDrawable(
-                    MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                            file.isSharedViaLink(), file.isEncrypted(), file.getMountType(), context));
+            if (isDetailView) {
+                fileIcon.setVisibility(View.GONE);
+            } else {
+                fileIcon.setImageDrawable(
+                        MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
+                                file.isSharedViaLink(), file.isEncrypted(), file.getMountType(), context));
+            }
         }
     }
 
@@ -330,7 +341,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        if (mValues.get(position) instanceof Activity)
+        if (values.get(position) instanceof Activity)
             return ACTIVITY_TYPE;
         else
             return HEADER_TYPE;
@@ -338,7 +349,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return values.size();
     }
 
     /**
