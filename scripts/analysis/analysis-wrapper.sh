@@ -24,7 +24,7 @@ if [ $3 = "master" ]; then
     echo "New findbugs result for master at: https://nextcloud.kaminsky.me/index.php/s/fYZa7NeBsnmFZQD"
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/findbugs/master.html --upload-file build/reports/findbugs/findbugs.html
     
-    summary=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html | head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s'/Summary/FindBugs (master)/')
+    summary=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html | head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s'/Summary/FindBugs (master)/' | tr "\"" "\'" | tr -d "\r\n")
     curl -u $4:$5 -X PUT -d $summary https://nextcloud.kaminsky.me/remote.php/webdav/findbugs/findbugs.html
     
     if [ $lintValue -ne 1 ]; then
