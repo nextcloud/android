@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
@@ -33,14 +34,17 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     public ActivityAndVersionListAdapter(Context context, ActivityListInterface activityListInterface,
                                          VersionListInterface.View versionListInterface,
                                          FileDataStorageManager storageManager) {
-        super(context, activityListInterface, storageManager);
+        super(context, activityListInterface, storageManager, true);
 
         this.versionListInterface = versionListInterface;
     }
 
-    public void setActivityAndVersionItems(ArrayList<Object> items, boolean clear) {
+    public void setActivityAndVersionItems(ArrayList<Object> items, OwnCloudClient newClient, boolean clear) {
+        if (client == null) {
+            client = newClient;
+        }
         if (clear) {
-            mValues.clear();
+            values.clear();
             Collections.sort(items, (o1, o2) -> {
                 long o1Date;
                 long o2Date;
@@ -79,11 +83,11 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
             }
 
             if (sTime.equalsIgnoreCase(time)) {
-                mValues.add(item);
+                values.add(item);
             } else {
                 sTime = time;
-                mValues.add(sTime);
-                mValues.add(item);
+                values.add(sTime);
+                values.add(item);
             }
         }
 
@@ -107,7 +111,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof VersionViewHolder) {
             final VersionViewHolder versionViewHolder = (VersionViewHolder) holder;
-            FileVersion fileVersion = (FileVersion) mValues.get(position);
+            FileVersion fileVersion = (FileVersion) values.get(position);
 
             versionViewHolder.size.setText(DisplayUtils.bytesToHumanReadable(fileVersion.getFileLength()));
             versionViewHolder.time.setText(DateFormat.format("HH:mm", new Date(fileVersion.getModifiedTimestamp())
@@ -121,7 +125,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        Object value = mValues.get(position);
+        Object value = values.get(position);
 
         if (value instanceof Activity)
             return ACTIVITY_TYPE;

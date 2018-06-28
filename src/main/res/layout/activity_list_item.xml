@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:text="@string/placeholder_sentence"
-            android:textColor="?android:attr/textColorSecondary"/>
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <GridLayout
             android:id="@+id/list"
