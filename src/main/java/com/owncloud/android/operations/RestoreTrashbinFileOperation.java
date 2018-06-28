@@ -70,8 +70,8 @@ public class RestoreTrashbinFileOperation extends SyncOperation {
 
         RemoteOperationResult result;
         try {
-            String source = client.getNewWebdavUri(false) + WebdavUtils.encodePath(sourcePath);
-            String target = client.getNewWebdavUri(false) + "/trashbin/" + userId + "/restore/" + fileName;
+            String source = client.getNewWebdavUri() + WebdavUtils.encodePath(sourcePath);
+            String target = client.getNewWebdavUri() + "/trashbin/" + userId + "/restore/" + fileName;
 
             MoveMethod move = new MoveMethod(source, target, true);
             int status = client.executeMethod(move, RESTORE_READ_TIMEOUT, RESTORE_CONNECTION_TIMEOUT);
