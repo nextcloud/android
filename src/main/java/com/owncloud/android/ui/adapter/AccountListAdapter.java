@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Andy Scherzinger
@@ -62,8 +62,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         this.mTintedCheck = tintedCheck;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         AccountViewHolderItem viewHolder;
         View view = convertView;
 
@@ -126,12 +127,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
         // bind action listener
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.createAccount();
-            }
-        });
+        actionView.setOnClickListener(v -> mListener.createAccount());
         return actionView;
     }
 
