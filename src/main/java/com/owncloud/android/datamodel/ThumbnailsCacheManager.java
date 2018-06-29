@@ -792,13 +792,10 @@ public class ThumbnailsCacheManager {
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
-                                    FileDataStorageManager storageManager, Account account, Resources resources,
-                                    float avatarRadius, String userId, String serverName, Context context) {
+                                    Account account, Resources resources, float avatarRadius, String userId,
+                                    String serverName, Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
-            if (storageManager == null) {
-                throw new IllegalArgumentException("storageManager must not be NULL");
-            }
             mAccount = account;
             mResources = resources;
             mAvatarRadius = avatarRadius;
