@@ -356,4 +356,11 @@ public class NotificationsActivity extends FileActivity {
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setDrawerMenuItemChecked(R.id.nav_notifications);
+    }
 }
