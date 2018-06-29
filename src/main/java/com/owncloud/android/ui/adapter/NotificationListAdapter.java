@@ -20,8 +20,10 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -48,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This Adapter populates a ListView with all notifications for an account within the app.
+ * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private List<Notification> mValues;
@@ -65,17 +67,26 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
         return new NotificationViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(NotificationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
         Notification notification = mValues.get(position);
         holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context, notification.getDatetime().getTime()));
-        holder.subject.setText(notification.getSubject());
+
+        String subject = notification.getSubject();
+        if (!TextUtils.isEmpty(notification.getLink())) {
+            subject = subject + " ↗";
+
+            holder.subject.setOnClickListener(v -> openLink(notification.getLink()));
+        }
+
+        holder.subject.setText(subject);
         holder.message.setText(notification.getMessage());
 
         // Todo set proper action icon (to be clarified how to pick)
@@ -107,6 +118,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 .into(itemViewType);
     }
 
+    private void openLink(String link) {
+        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+    }
+
     @Override
     public int getItemCount() {
         return mValues.size();
@@ -120,10 +135,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         private NotificationViewHolder(View itemView) {
             super(itemView);
-            activityIcon = (ImageView) itemView.findViewById(R.id.activity_icon);
-            subject = (TextView) itemView.findViewById(R.id.activity_subject);
-            message = (TextView) itemView.findViewById(R.id.activity_message);
-            dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
+            activityIcon = itemView.findViewById(R.id.activity_icon);
+            subject = itemView.findViewById(R.id.activity_subject);
+            message = itemView.findViewById(R.id.activity_message);
+            dateTime = itemView.findViewById(R.id.activity_datetime);
         }
     }
 }
