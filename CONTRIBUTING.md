@@ -127,6 +127,13 @@ To make sure your new pull request does not contain commits which are already co
 * Push branch to server: ```git push -u origin name_of_local_master_branch```
 * Use GitHub to issue PR
 
+### 4. Backport pull request:
+If some pull request is worth to backport to a dot release, label it as "backport-request".
+
+* create a new branch based on latest stable branch
+* git cherry-pick commits from origin pull request
+* create pull request on github with "Backport of #originPullRequest: description"
+* remove label "backport-request" from origin pull request
 
 ## Translations
 We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/). So just request joining the translation team for Android on the site and start translating. All translations will then be automatically pushed to this repository, there is no need for any pull request for translations.
