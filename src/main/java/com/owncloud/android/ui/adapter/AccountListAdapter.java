@@ -62,8 +62,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         this.mTintedCheck = tintedCheck;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         AccountViewHolderItem viewHolder;
         View view = convertView;
 
@@ -152,8 +153,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         try {
             View viewItem = viewHolder.imageViewItem;
             viewItem.setTag(account.name);
-            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(),
-                    mContext.getStorageManager(), viewItem, mContext);
+            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(), viewItem,
+                    mContext);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
             // use user icon as a fallback
