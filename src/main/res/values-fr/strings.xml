@@ -791,6 +791,7 @@ Veuillez contacter votre administrateur</string>
 	<string name="restore">Restaurer le fichier</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="new_comment">Nouveau commentaire…</string>
+    <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
