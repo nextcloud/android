@@ -201,7 +201,7 @@
     <string name="pass_code_remove_your_pass_code">パスコードを削除</string>
     <string name="pass_code_mismatch">パスコードが一致しません</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
-    <string name="pass_code_removed">パスコードは削除されました</string>
+    <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     
     <string name="media_notif_ticker">%1$s ミュージックプレイヤー</string>
@@ -394,7 +394,7 @@
     <string name="select_all">すべて選択</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダーに移動</string>
-    <string name="pref_behaviour_entries_delete_file">削除されました</string>
+    <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="prefs_storage_path">ストレージの場所</string>
 
     <string name="share_dialog_title">共有</string>
@@ -476,6 +476,7 @@
     <string name="foreground_service_download">ファイルをダウンロード中...</string>
 
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
+    <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
