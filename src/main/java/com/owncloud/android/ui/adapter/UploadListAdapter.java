@@ -113,24 +113,21 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
-                setItems(mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
-                Arrays.sort(getItems(), comparator);
+                fixAndSortItems(mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
             }
         };
 
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                setItems(mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
-                Arrays.sort(getItems(), comparator);
+                fixAndSortItems(mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
             }
         };
 
         mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
-                setItems(mUploadsStorageManager.getFinishedUploadsForCurrentAccount());
-                Arrays.sort(getItems(), comparator);
+                fixAndSortItems(mUploadsStorageManager.getFinishedUploadsForCurrentAccount());
             }
         };
         loadUploadItemsFromDb();
@@ -612,6 +609,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             this.items = items;
         }
 
+        void fixAndSortItems(OCUpload[] array) {
+            FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+
+            for (OCUpload upload : array) {
+                upload.setDataFixed(binder);
+            }
+            Arrays.sort(array, comparator);
+
+            setItems(array);
+        }
+
         private int getGroupItemCount() {
             return items == null ? 0 : items.length;
         }
@@ -628,23 +636,20 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 if (upload2 == null) {
                     return 1;
                 }
-                if (UploadStatus.UPLOAD_IN_PROGRESS.equals(upload1.getUploadStatus())) {
-                    if (!UploadStatus.UPLOAD_IN_PROGRESS.equals(upload2.getUploadStatus())) {
+                if (UploadStatus.UPLOAD_IN_PROGRESS.equals(upload1.getFixedUploadStatus())) {
+                    if (!UploadStatus.UPLOAD_IN_PROGRESS.equals(upload2.getFixedUploadStatus())) {
                         return -1;
                     }
                     // both are in progress
-                    FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
-                    if (binder != null) {
-                        if (binder.isUploadingNow(upload1)) {
-                            return -1;
-                        } else if (binder.isUploadingNow(upload2)) {
-                            return 1;
-                        }
+                    if (upload1.isFixedUploadingNow()) {
+                        return -1;
+                    } else if (upload2.isFixedUploadingNow()) {
+                        return 1;
                     }
-                } else if (upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                } else if (upload2.getFixedUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                     return 1;
                 }
-                if (upload1.getUploadEndTimestamp() == 0 || upload2.getUploadEndTimestamp() == 0) {
+                if (upload1.getFixedUploadEndTimestamp() == 0 || upload2.getFixedUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
                     return compareUpdateTime(upload1, upload2);
@@ -653,12 +658,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             @SuppressFBWarnings("Bx")
             private int compareUploadId(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload1.getUploadId()).compareTo(upload2.getUploadId());
+                return Long.valueOf(upload1.getFixedUploadId()).compareTo(upload2.getFixedUploadId());
             }
 
             @SuppressFBWarnings("Bx")
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
+                return Long.valueOf(upload2.getFixedUploadEndTimestamp()).compareTo(upload1.getFixedUploadEndTimestamp());
             }
         };
     }

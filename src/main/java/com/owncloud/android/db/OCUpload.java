@@ -1,10 +1,12 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author LukeOwncloud
  * @author masensio
  * @author David A. Velasco
+ * @author Tobias Kaminsky
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2018 Nextcloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -118,6 +120,14 @@ public class OCUpload implements Parcelable {
     private String mFolderUnlockToken;
 
     /**
+     * temporary values, used for sorting
+     */
+    private UploadStatus mFixedUploadStatus;
+    private boolean mFixedUploadingNow;
+    private long mFixedUploadEndTimeStamp;
+    private long mFixedId;
+
+    /**
      * Main constructor.
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
@@ -168,6 +178,13 @@ public class OCUpload implements Parcelable {
         mIsUseWifiOnly = true;
         mIsWhileChargingOnly = false;
         mFolderUnlockToken = "";
+    }
+
+    public void setDataFixed(FileUploader.FileUploaderBinder binder) {
+        mFixedUploadStatus = mUploadStatus;
+        mFixedUploadingNow = binder != null && binder.isUploadingNow(this);
+        mFixedUploadEndTimeStamp = mUploadEndTimeStamp;
+        mFixedId = mId;
     }
 
     // Getters & Setters
@@ -229,7 +246,7 @@ public class OCUpload implements Parcelable {
     }
 
     /**
-     * @param remotePath
+     * @param remotePath the remotePath
      */
     public void setRemotePath(String remotePath) {
         mRemotePath = remotePath;
@@ -391,11 +408,11 @@ public class OCUpload implements Parcelable {
      *
      * @param source The source parcel
      */
-    protected OCUpload(Parcel source) {
+    private OCUpload(Parcel source) {
         readFromParcel(source);
     }
 
-    public void readFromParcel(Parcel source) {
+    private void readFromParcel(Parcel source) {
         mId = source.readLong();
         mLocalPath = source.readString();
         mRemotePath = source.readString();
@@ -441,6 +458,22 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mIsUseWifiOnly ? 1 : 0);
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
         dest.writeString(mFolderUnlockToken);
+    }
+
+    public UploadStatus getFixedUploadStatus() {
+        return mFixedUploadStatus;
+    }
+
+    public boolean isFixedUploadingNow() {
+        return mFixedUploadingNow;
+    }
+
+    public long getFixedUploadEndTimestamp() {
+        return mFixedUploadEndTimeStamp;
+    }
+
+    public Long getFixedUploadId() {
+        return mFixedId;
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}
