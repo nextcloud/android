@@ -47,85 +47,85 @@ public class OCUpload implements Parcelable {
 
     private static final String TAG = OCUpload.class.getSimpleName();
 
-    private long mId;
+    private long id;
 
     /**
      * Absolute path in the local file system to the file to be uploaded.
      */
-    private String mLocalPath;
+    private String localPath;
 
     /**
      * Absolute path in the remote account to set to the uploaded file (not for its parent folder!)
      */
-    private String mRemotePath;
+    private String remotePath;
 
     /**
      * Name of Owncloud account to upload file to.
      */
-    private String mAccountName;
+    private String accountName;
 
     /**
      * File size.
      */
-    private long mFileSize;
+    private long fileSize;
 
     /**
      * Local action for upload. (0 - COPY, 1 - MOVE, 2 - FORGET)
      */
-    private int mLocalAction;
+    private int localAction;
 
     /**
      * Overwrite destination file?
      */
-    private boolean mForceOverwrite;
+    private boolean forceOverwrite;
 
     /**
      * Create destination folder?
      */
-    private boolean mIsCreateRemoteFolder;
+    private boolean isCreateRemoteFolder;
 
     /**
      * Status of upload (later, in_progress, ...).
      */
-    private UploadStatus mUploadStatus;
+    private UploadStatus uploadStatus;
 
     /**
      * Result from last upload operation. Can be null.
      */
-    private UploadResult mLastResult;
+    private UploadResult lastResult;
 
     /**
      * Defines the origin of the upload; see constants CREATED_ in {@link UploadFileOperation}
      */
-    private int mCreatedBy;
+    private int createdBy;
 
     /**
      * When the upload ended
      */
-    private long mUploadEndTimeStamp;
+    private long uploadEndTimeStamp;
 
     /**
      * Upload only via wifi?
      */
-    private boolean mIsUseWifiOnly;
+    private boolean isUseWifiOnly;
 
     /**
      * Upload only if phone being charged?
      */
-    private boolean mIsWhileChargingOnly;
+    private boolean isWhileChargingOnly;
 
     /**
      * Token to unlock E2E folder
      */
-    private String mFolderUnlockToken;
+    private String folderUnlockToken;
 
     /**
      * temporary values, used for sorting
      */
-    private UploadStatus mFixedUploadStatus;
-    private boolean mFixedUploadingNow;
-    private long mFixedUploadEndTimeStamp;
-    private long mFixedId;
+    private UploadStatus fixedUploadStatus;
+    private boolean fixedUploadingNow;
+    private long fixedUploadEndTimeStamp;
+    private long fixedId;
 
     /**
      * Main constructor.
@@ -145,9 +145,9 @@ public class OCUpload implements Parcelable {
             throw new IllegalArgumentException("Invalid account name");
         }
         resetData();
-        mLocalPath = localPath;
-        mRemotePath = remotePath;
-        mAccountName = accountName;
+        this.localPath = localPath;
+        this.remotePath = remotePath;
+        this.accountName = accountName;
     }
 
     /**
@@ -164,43 +164,43 @@ public class OCUpload implements Parcelable {
      * Reset all the fields to default values.
      */
     private void resetData() {
-        mRemotePath = "";
-        mLocalPath = "";
-        mAccountName = "";
-        mFileSize = -1;
-        mId = -1;
-        mLocalAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
-        mForceOverwrite = false;
-        mIsCreateRemoteFolder = false;
-        mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
-        mLastResult = UploadResult.UNKNOWN;
-        mCreatedBy = UploadFileOperation.CREATED_BY_USER;
-        mIsUseWifiOnly = true;
-        mIsWhileChargingOnly = false;
-        mFolderUnlockToken = "";
+        remotePath = "";
+        localPath = "";
+        accountName = "";
+        fileSize = -1;
+        id = -1;
+        localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
+        forceOverwrite = false;
+        isCreateRemoteFolder = false;
+        uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
+        lastResult = UploadResult.UNKNOWN;
+        createdBy = UploadFileOperation.CREATED_BY_USER;
+        isUseWifiOnly = true;
+        isWhileChargingOnly = false;
+        folderUnlockToken = "";
     }
 
     public void setDataFixed(FileUploader.FileUploaderBinder binder) {
-        mFixedUploadStatus = mUploadStatus;
-        mFixedUploadingNow = binder != null && binder.isUploadingNow(this);
-        mFixedUploadEndTimeStamp = mUploadEndTimeStamp;
-        mFixedId = mId;
+        fixedUploadStatus = uploadStatus;
+        fixedUploadingNow = binder != null && binder.isUploadingNow(this);
+        fixedUploadEndTimeStamp = uploadEndTimeStamp;
+        fixedId = id;
     }
 
     // Getters & Setters
     public void setUploadId(long id) {
-        mId = id;
+        this.id = id;
     }
 
     public long getUploadId() {
-        return mId;
+        return id;
     }
 
     /**
      * @return the uploadStatus
      */
     public UploadStatus getUploadStatus() {
-        return mUploadStatus;
+        return uploadStatus;
     }
 
     /**
@@ -208,7 +208,7 @@ public class OCUpload implements Parcelable {
      * @param uploadStatus the uploadStatus to set
      */
     public void setUploadStatus(UploadStatus uploadStatus) {
-        this.mUploadStatus = uploadStatus;
+        this.uploadStatus = uploadStatus;
         setLastResult(UploadResult.UNKNOWN);
     }
 
@@ -216,14 +216,14 @@ public class OCUpload implements Parcelable {
      * @return the lastResult
      */
     public UploadResult getLastResult() {
-        return mLastResult;
+        return lastResult;
     }
 
     /**
      * @param lastResult the lastResult to set
      */
     public void setLastResult(UploadResult lastResult) {
-        this.mLastResult = ((lastResult != null) ? lastResult : UploadResult.UNKNOWN);
+        this.lastResult = ((lastResult != null) ? lastResult : UploadResult.UNKNOWN);
     }
 
 
@@ -231,25 +231,25 @@ public class OCUpload implements Parcelable {
      * @return the localPath
      */
     public String getLocalPath() {
-        return mLocalPath;
+        return localPath;
     }
 
     public void setLocalPath(String localPath) {
-        mLocalPath = localPath;
+        this.localPath = localPath;
     }
 
     /**
      * @return the remotePath
      */
     public String getRemotePath() {
-        return mRemotePath;
+        return remotePath;
     }
 
     /**
      * @param remotePath the remotePath
      */
     public void setRemotePath(String remotePath) {
-        mRemotePath = remotePath;
+        this.remotePath = remotePath;
     }
 
 
@@ -257,67 +257,67 @@ public class OCUpload implements Parcelable {
      * @return File size
      */
     public long getFileSize() {
-        return mFileSize;
+        return fileSize;
     }
 
     public void setFileSize(long fileSize) {
-        mFileSize = fileSize;
+        this.fileSize = fileSize;
     }
 
     /**
      * @return the mimeType
      */
     public String getMimeType() {
-        return MimeTypeUtil.getBestMimeTypeByFilename(mLocalPath);
+        return MimeTypeUtil.getBestMimeTypeByFilename(localPath);
     }
 
     /**
      * @return the localAction
      */
     public int getLocalAction() {
-        return mLocalAction;
+        return localAction;
     }
 
     /**
      * @param localAction the localAction to set
      */
     public void setLocalAction(int localAction) {
-        this.mLocalAction = localAction;
+        this.localAction = localAction;
     }
 
     /**
      * @return the forceOverwrite
      */
     public boolean isForceOverwrite() {
-        return mForceOverwrite;
+        return forceOverwrite;
     }
 
     /**
      * @param forceOverwrite the forceOverwrite to set
      */
     public void setForceOverwrite(boolean forceOverwrite) {
-        this.mForceOverwrite = forceOverwrite;
+        this.forceOverwrite = forceOverwrite;
     }
 
     /**
      * @return the isCreateRemoteFolder
      */
     public boolean isCreateRemoteFolder() {
-        return mIsCreateRemoteFolder;
+        return isCreateRemoteFolder;
     }
 
     /**
      * @param isCreateRemoteFolder the isCreateRemoteFolder to set
      */
     public void setCreateRemoteFolder(boolean isCreateRemoteFolder) {
-        this.mIsCreateRemoteFolder = isCreateRemoteFolder;
+        this.isCreateRemoteFolder = isCreateRemoteFolder;
     }
 
     /**
      * @return the accountName
      */
     public String getAccountName() {
-        return mAccountName;
+        return accountName;
     }
 
     /**
@@ -328,19 +328,19 @@ public class OCUpload implements Parcelable {
     }
 
     public void setCreatedBy(int createdBy) {
-        mCreatedBy = createdBy;
+        this.createdBy = createdBy;
     }
 
     public int getCreadtedBy() {
-        return mCreatedBy;
+        return createdBy;
     }
 
     public void setUploadEndTimestamp(long uploadEndTimestamp) {
-        mUploadEndTimeStamp = uploadEndTimestamp;
+        uploadEndTimeStamp = uploadEndTimestamp;
     }
 
     public long getUploadEndTimestamp() {
-        return mUploadEndTimeStamp;
+        return uploadEndTimeStamp;
     }
 
     /**
@@ -377,30 +377,30 @@ public class OCUpload implements Parcelable {
      * @return the isUseWifiOnly
      */
     public boolean isUseWifiOnly() {
-        return mIsUseWifiOnly;
+        return isUseWifiOnly;
     }
 
     /**
      * @param isUseWifiOnly the isUseWifiOnly to set
      */
     public void setUseWifiOnly(boolean isUseWifiOnly) {
-        this.mIsUseWifiOnly = isUseWifiOnly;
+        this.isUseWifiOnly = isUseWifiOnly;
     }
 
     public void setWhileChargingOnly(boolean isWhileChargingOnly) {
-        this.mIsWhileChargingOnly = isWhileChargingOnly;
+        this.isWhileChargingOnly = isWhileChargingOnly;
     }
 
     public boolean isWhileChargingOnly() {
-        return mIsWhileChargingOnly;
+        return isWhileChargingOnly;
     }
 
     public void setFolderUnlockToken(String token) {
-        mFolderUnlockToken = token;
+        folderUnlockToken = token;
     }
 
     public String getFolderUnlockToken() {
-        return mFolderUnlockToken;
+        return folderUnlockToken;
     }
 
     /**
@@ -413,28 +413,28 @@ public class OCUpload implements Parcelable {
     }
 
     private void readFromParcel(Parcel source) {
-        mId = source.readLong();
-        mLocalPath = source.readString();
-        mRemotePath = source.readString();
-        mAccountName = source.readString();
-        mLocalAction = source.readInt();
-        mForceOverwrite = source.readInt() == 1;
-        mIsCreateRemoteFolder = source.readInt() == 1;
+        id = source.readLong();
+        localPath = source.readString();
+        remotePath = source.readString();
+        accountName = source.readString();
+        localAction = source.readInt();
+        forceOverwrite = source.readInt() == 1;
+        isCreateRemoteFolder = source.readInt() == 1;
         try {
-            mUploadStatus = UploadStatus.valueOf(source.readString());
+            uploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
-            mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
+            uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         }
-        mUploadEndTimeStamp = source.readLong();
+        uploadEndTimeStamp = source.readLong();
         try {
-            mLastResult = UploadResult.valueOf(source.readString());
+            lastResult = UploadResult.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
-            mLastResult = UploadResult.UNKNOWN;
+            lastResult = UploadResult.UNKNOWN;
         }
-        mCreatedBy = source.readInt();
-        mIsUseWifiOnly = source.readInt() == 1;
-        mIsWhileChargingOnly = source.readInt() == 1;
-        mFolderUnlockToken = source.readString();
+        createdBy = source.readInt();
+        isUseWifiOnly = source.readInt() == 1;
+        isWhileChargingOnly = source.readInt() == 1;
+        folderUnlockToken = source.readString();
     }
 
     @Override
@@ -444,36 +444,36 @@ public class OCUpload implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
-        dest.writeString(mLocalPath);
-        dest.writeString(mRemotePath);
-        dest.writeString(mAccountName);
-        dest.writeInt(mLocalAction);
-        dest.writeInt(mForceOverwrite ? 1 : 0);
-        dest.writeInt(mIsCreateRemoteFolder ? 1 : 0);
-        dest.writeString(mUploadStatus.name());
-        dest.writeLong(mUploadEndTimeStamp);
-        dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
-        dest.writeInt(mCreatedBy);
-        dest.writeInt(mIsUseWifiOnly ? 1 : 0);
-        dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
-        dest.writeString(mFolderUnlockToken);
+        dest.writeLong(id);
+        dest.writeString(localPath);
+        dest.writeString(remotePath);
+        dest.writeString(accountName);
+        dest.writeInt(localAction);
+        dest.writeInt(forceOverwrite ? 1 : 0);
+        dest.writeInt(isCreateRemoteFolder ? 1 : 0);
+        dest.writeString(uploadStatus.name());
+        dest.writeLong(uploadEndTimeStamp);
+        dest.writeString(((lastResult == null) ? "" : lastResult.name()));
+        dest.writeInt(createdBy);
+        dest.writeInt(isUseWifiOnly ? 1 : 0);
+        dest.writeInt(isWhileChargingOnly ? 1 : 0);
+        dest.writeString(folderUnlockToken);
     }
 
     public UploadStatus getFixedUploadStatus() {
-        return mFixedUploadStatus;
+        return fixedUploadStatus;
     }
 
     public boolean isFixedUploadingNow() {
-        return mFixedUploadingNow;
+        return fixedUploadingNow;
     }
 
     public long getFixedUploadEndTimestamp() {
-        return mFixedUploadEndTimeStamp;
+        return fixedUploadEndTimeStamp;
     }
 
     public Long getFixedUploadId() {
-        return mFixedId;
+        return fixedId;
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}
