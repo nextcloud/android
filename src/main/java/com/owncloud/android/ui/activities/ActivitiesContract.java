@@ -39,7 +39,8 @@ public interface ActivitiesContract {
 
     interface ActionListener {
         void loadActivities(String pageUrl);
-        void openActivity(String fileUrl, BaseActivity baseActivity, boolean isSharingSupported);
+
+        void openActivity(String fileUrl, BaseActivity baseActivity);
 
         void stopLoadingActivity();
     }

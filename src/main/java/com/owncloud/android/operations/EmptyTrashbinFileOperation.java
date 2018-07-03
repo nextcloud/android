@@ -63,7 +63,7 @@ public class EmptyTrashbinFileOperation extends SyncOperation {
 
         RemoteOperationResult result;
         try {
-            DeleteMethod delete = new DeleteMethod(client.getNewWebdavUri(false) + "/trashbin/" + userId + "/trash");
+            DeleteMethod delete = new DeleteMethod(client.getNewWebdavUri() + "/trashbin/" + userId + "/trash");
             int status = client.executeMethod(delete, RESTORE_READ_TIMEOUT, RESTORE_CONNECTION_TIMEOUT);
 
             result = new RemoteOperationResult(isSuccess(status), delete);

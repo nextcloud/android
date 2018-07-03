@@ -225,7 +225,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, false, storageManager, account, getContext());
+                            false, false, storageManager, account, getContext());
 
                     RemoteOperationResult result = operation.execute(account, getContext());
                     return result.isSuccess();

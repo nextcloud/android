@@ -47,7 +47,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -227,17 +226,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         addUserGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
-                if (shareWithUsersEnable) {
-                    // Show Search Fragment
-                    mListener.showSearchUsersAndGroups();
-                } else {
-                    Snackbar.make(
-                            getActivity().findViewById(android.R.id.content),
-                            getString(R.string.share_sharee_unavailable),
-                            Snackbar.LENGTH_LONG
-                    ).show();
-                }
+                // Show Search Fragment
+                mListener.showSearchUsersAndGroups();
             }
         });
 

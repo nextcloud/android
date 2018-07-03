@@ -1080,12 +1080,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void updateLayout() {
         // decide grid vs list view
-        if (AccountUtils.getServerVersion(((FileActivity) mContainerActivity).getAccount())
-                .supportsRemoteThumbnails() && isGridViewPreferred(mFile)) {
+        if (isGridViewPreferred(mFile)) {
             switchToGridView();
         } else {
             switchToListView();
-
         }
 
         invalidateActionMode();

@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -57,20 +57,16 @@ public class RemoteFilesRepositoryTest {
 
     @Test
     public void readRemoteFileReturnSuccess() {
-        mFilesRepository.readRemoteFile("path", baseActivity, true,
-                mockedReadRemoteFileCallback);
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), eq(true),
-                filesServiceCallbackCaptor.capture());
+        mFilesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback);
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture());
         filesServiceCallbackCaptor.getValue().onLoaded(mOCFile);
         verify(mockedReadRemoteFileCallback).onFileLoaded(eq(mOCFile));
     }
 
     @Test
     public void readRemoteFileReturnError() {
-        mFilesRepository.readRemoteFile("path", baseActivity, true,
-                mockedReadRemoteFileCallback);
-        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), eq(true),
-                filesServiceCallbackCaptor.capture());
+        mFilesRepository.readRemoteFile("path", baseActivity, mockedReadRemoteFileCallback);
+        verify(serviceApi).readRemoteFile(eq("path"), eq(baseActivity), filesServiceCallbackCaptor.capture());
         filesServiceCallbackCaptor.getValue().onError("error");
         verify(mockedReadRemoteFileCallback).onFileLoadError(eq("error"));
     }

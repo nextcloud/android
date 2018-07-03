@@ -235,8 +235,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     @Override
     public void onActivityClicked(RichObject richObject) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        mActionListener.openActivity(path, this,
-                getFileOperationsHelper().isSharedSupported());
+        mActionListener.openActivity(path, this);
     }
 
     @Override
