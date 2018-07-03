@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -114,11 +114,11 @@ public class ActivitiesPresenterTest {
     @Test
     public void loadRemoteFileFromRepositoryShowDetailUI() {
         // When retrieving remote file from repository...
-        mPresenter.openActivity("null", mBaseActivity, true);
+        mPresenter.openActivity("null", mBaseActivity);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository retrieves remote file
-        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity), eq(true),
+        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity),
                 mReadRemoteFilleCallbackCaptor.capture());
         // Repository returns valid file object
         mReadRemoteFilleCallbackCaptor.getValue().onFileLoaded(mOCFile);
@@ -131,11 +131,11 @@ public class ActivitiesPresenterTest {
     @Test
     public void loadRemoteFileFromRepositoryShowEmptyFile() {
         // When retrieving remote file from repository...
-        mPresenter.openActivity("null", mBaseActivity, true);
+        mPresenter.openActivity("null", mBaseActivity);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository retrieves remote file
-        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity), eq(true),
+        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity),
                 mReadRemoteFilleCallbackCaptor.capture());
         // Repository returns an valid but Null value file object.
         mReadRemoteFilleCallbackCaptor.getValue().onFileLoaded(null);
@@ -148,11 +148,11 @@ public class ActivitiesPresenterTest {
     @Test
     public void loadRemoteFileFromRepositoryShowError() {
         // When retrieving remote file from repository...
-        mPresenter.openActivity("null", mBaseActivity, true);
+        mPresenter.openActivity("null", mBaseActivity);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository retrieves remote file
-        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity), eq(true),
+        verify(mFileRepository).readRemoteFile(eq("null"), eq(mBaseActivity),
                 mReadRemoteFilleCallbackCaptor.capture());
         // Repository returns valid file object
         mReadRemoteFilleCallbackCaptor.getValue().onFileLoadError("error");
