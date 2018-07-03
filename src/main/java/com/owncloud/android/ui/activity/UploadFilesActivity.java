@@ -43,8 +43,8 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.R;
 import com.nextcloud.client.preferences.PreferenceManager;
+import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
@@ -70,7 +70,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -203,15 +202,15 @@ public class UploadFilesActivity extends FileActivity implements
 
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
-        actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(mDirectories, this);
-
-        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
 
         if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
+            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            actionBar.setListNavigationCallbacks(mDirectories, this);
+
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
             actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
         }
 
@@ -696,12 +695,11 @@ public class UploadFilesActivity extends FileActivity implements
     }
 
     private ExtendedListFragment getListOfFilesFragment() {
-        Fragment listOfFiles = mFileListFragment;
-        if (listOfFiles != null) {
-            return (ExtendedListFragment) listOfFiles;
+        if (mFileListFragment == null) {
+            Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         }
-        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
-        return null;
+
+        return mFileListFragment;
     }
 
     @Override

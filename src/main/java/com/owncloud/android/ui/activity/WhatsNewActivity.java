@@ -130,7 +130,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     private void updateNextButtonIfNeeded() {
         if (!mProgress.hasNextStep()) {
-            mForwardFinishButton.setImageResource(R.drawable.ic_done_white);
+            mForwardFinishButton.setImageResource(R.drawable.ic_ok);
             mSkipButton.setVisibility(View.INVISIBLE);
         } else {
             mForwardFinishButton.setImageResource(R.drawable.arrow_right);

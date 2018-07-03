@@ -710,7 +710,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
                         account.name)
-                        .setIcon(R.drawable.ic_user);
+                    .setIcon(R.drawable.ic_user);
             }
         }
 
@@ -720,7 +720,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 getResources().getString(R.string.prefs_add_account)).setIcon(R.drawable.ic_account_plus);
         mNavigationView.getMenu().add(R.id.drawer_menu_accounts, R.id.drawer_menu_account_manage,
                 MENU_ORDER_ACCOUNT_FUNCTION,
-                getResources().getString(R.string.drawer_manage_accounts)).setIcon(R.drawable.ic_settings);
+                getResources().getString(R.string.drawer_manage_accounts)).setIcon(R.drawable.nav_settings);
 
         // adding sets menu group back to visible, so safety check and setting invisible
         showMenu();
@@ -915,7 +915,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         }
                     };
 
-                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link, size, size);
 
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
@@ -1060,7 +1060,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     }
                 };
 
-                DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link, size, size);
             }
 
             setDrawerMenuItemChecked(mCheckedMenuItem);
@@ -1074,7 +1074,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (drawable != null) {
                 menuItem.setIcon(ThemeUtils.tintDrawable(drawable, greyColor));
             } else {
-                menuItem.setIcon(R.drawable.ic_link_grey);
+                menuItem.setIcon(R.drawable.ic_link);
             }
         }
     }
