@@ -77,19 +77,19 @@ import butterknife.ButterKnife;
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String TAG = NotificationListAdapter.class.getSimpleName();
 
-    private List<Notification> notifications;
+    private List<Notification> notificationsList;
     private OwnCloudClient client;
     private NotificationsActivity notificationsActivity;
 
     public NotificationListAdapter(OwnCloudClient client, NotificationsActivity notificationsActivity) {
-        this.notifications = new ArrayList<>();
+        this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
     }
 
     public void setNotificationItems(List<Notification> notificationItems) {
-        notifications.clear();
-        notifications.addAll(notificationItems);
+        notificationsList.clear();
+        notificationsList.addAll(notificationItems);
         notifyDataSetChanged();
     }
 
@@ -102,8 +102,9 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        Notification notification = notifications.get(position);
-        holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity, notification.getDatetime().getTime()));
+        Notification notification = notificationsList.get(position);
+        holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
+                notification.getDatetime().getTime()));
 
         String subject = notification.getSubject();
         if (!TextUtils.isEmpty(notification.getLink())) {
@@ -186,7 +187,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         protected void onPostExecute(Boolean success) {
             if (success) {
                 int position = holder.getAdapterPosition();
-                notifications.remove(position);
+                notificationsList.remove(position);
                 notifyItemRemoved(position);
             } else {
                 DisplayUtils.showSnackMessage(notificationsActivity, "Failed to execute action!");
@@ -222,7 +223,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
     @Override
     public int getItemCount() {
-        return notifications.size();
+        return notificationsList.size();
     }
 
     static class NotificationViewHolder extends RecyclerView.ViewHolder {
