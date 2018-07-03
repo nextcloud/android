@@ -111,6 +111,8 @@
     <string name="file_list_empty_text_photos_filter">没有照片。</string>
     <string name="file_list_empty_text_videos">上传一些视频或启动自动上传</string>
     <string name="file_list_empty_text_videos_filter">没有视频。</string>
+    <string name="trashbin_empty_headline">无已删除文件</string>
+    <string name="trashbin_empty_message">你可以在此处恢复已删除的文件</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
     <string name="file_list_folder">文件夹</string>
@@ -197,6 +199,7 @@
     <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="pass_code_enter_pass_code">请输入安全码</string>
+    <string name="default_credentials_wrong">凭据不正确</string>
     <string name="pass_code_configure_your_pass_code">输入安全码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次启动应用都会要求输入安全码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入安全码</string>
@@ -226,6 +229,7 @@
     <string name="media_play_pause_description">播放暂停按钮</string>
     <string name="media_forward_description">快进按钮</string>
 
+    <string name="auth_getting_authorization">认证中...</string>
     <string name="auth_trying_to_login">尝试登陆…</string>
 	<string name="auth_no_net_conn_title">没有网络连接</string>
 	<string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
@@ -258,6 +262,8 @@
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在本帐户</string>
+    <string name="auth_illegal_login_used">非法登录地址</string>
+
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
     <string name="favorite_real">添加收藏</string>
@@ -286,6 +292,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
     <string name="oauth_check_onoff">使用OAuth 2.0登录</string>
+    <string name="oauth_login_connection">正在连接至 OAuth 2.0 服务器…</string>
+        
     <string name="ssl_validator_header">服务器身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
@@ -356,6 +364,7 @@
     <string name="copy_link">复制链接</string>
     <string name="clipboard_text_copied">复制到剪贴板</string>
     <string name="clipboard_no_text_to_copy">收到没有文字复制到剪贴板</string>
+    <string name="clipboard_unexpected_error">在复制内容到剪贴板时发生了一个预料外的错误</string>
     <string name="clipboard_label">从%1$s复制文本</string>
 
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
@@ -378,6 +387,9 @@
     <string name="file_migration_dialog_title">更新存储路径</string>
     <string name="file_migration_saving_accounts_configuration">账户安全配置</string>
     <string name="file_migration_migrating">数据迁移中...</string>
+    <string name="file_migration_updating_index">更新目录中...</string>
+    <string name="file_migration_cleaning">清除中...</string>
+    <string name="file_migration_restoring_accounts_configuration">正在重新配置账户设置...</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">需要更多空间</string>
     <string name="file_migration_failed_not_writable">无法写入目标文件</string>
@@ -445,6 +457,7 @@
     <string name="set_picture_as">将图片用作</string>
     <string name="set_as">设置</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">原文件将会被...</string>
     <string name="select_all">选择全部</string>
     <string name="deselect_all">全部取消选择</string>
 
@@ -458,12 +471,21 @@
     <string name="share_with_user_section_title">分享给其他用户或组</string>
     <string name="share_no_users">目前没有文件向您分享。</string>
     <string name="share_add_user_or_group">添加用户或组</string>
+    <string name="share_via_link_edit_permission_label">允许编辑</string>
+    <string name="share_via_link_password_label">密码保护</string>
+    <string name="share_via_link_password_title">安全</string>
+    <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_section_title">分享链接</string>
+    <string name="share_via_link_send_link_label">发送链接</string>
+    <string name="share_password_title">密码已受保护</string>
+    <string name="share_no_password_title">设置密码</string>
     <string name="edit_permission_label">编辑</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_with_title">分享给...</string>
     <string name="share_with_edit_title">与 %1$s 分享</string>
+    <string name="share_via_link_unset_password">未安装的</string>
+
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
@@ -474,6 +496,7 @@
     <string name="share_privilege_unshare">未分享</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
+    <string name="share_privilege_can_edit_create">可以创建的</string>
     <string name="share_privilege_can_edit_delete">允许删除</string>
 
     <string name="action_retry_uploads">重试失败上传任务</string>
