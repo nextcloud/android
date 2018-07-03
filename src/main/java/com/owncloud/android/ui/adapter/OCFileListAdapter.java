@@ -632,9 +632,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 // also sync folder content
                 if (ocFile.isFolder()) {
                     long currentSyncTime = System.currentTimeMillis();
-                    boolean shareSupported = AccountUtils.getServerVersion(mAccount).isSharedSupported();
                     RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile, currentSyncTime, false,
-                            shareSupported, false, mStorageManager, mAccount, mContext);
+                            false, mStorageManager, mAccount, mContext);
                     refreshFolderOperation.execute(mAccount, mContext);
                 }
 
