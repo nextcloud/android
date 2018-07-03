@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -128,7 +127,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             Button button = new Button(notificationsActivity);
             button.setText(action.label);
             if (action.primary) {
-                button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true), PorterDuff.Mode.SRC_ATOP);
+                button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true),
+                        PorterDuff.Mode.SRC_ATOP);
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
             }
 
