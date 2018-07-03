@@ -35,7 +35,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -44,7 +43,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -176,8 +174,6 @@ public class EditShareFragment extends Fragment {
 
             int sharePermissions = mShare.getPermissions();
             boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
-            boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
 
             int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
@@ -199,7 +195,7 @@ public class EditShareFragment extends Fragment {
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             switchCompat.setChecked(canEdit);
 
-            boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
+            boolean areEditOptionsAvailable = !isFederated;
 
             if (mFile.isFolder() && areEditOptionsAvailable) {
                 /// TODO change areEditOptionsAvailable in order to delete !isFederated

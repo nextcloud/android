@@ -359,7 +359,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
-	<string name="share_link_no_support_share_api">Sharing is not enabled on your server. Please contact your admin</string>
 	<string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
 	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>

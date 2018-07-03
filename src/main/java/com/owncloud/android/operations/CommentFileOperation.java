@@ -79,7 +79,7 @@ public class CommentFileOperation extends SyncOperation {
 
         RemoteOperationResult result;
         try {
-            String url = client.getNewWebdavUri(false) + "/comments/files/" + fileId;
+            String url = client.getNewWebdavUri() + "/comments/files/" + fileId;
             PostMethod postMethod = new PostMethod(url);
             postMethod.addRequestHeader("Content-type", "application/json");
 

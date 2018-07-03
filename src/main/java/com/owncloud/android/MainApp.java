@@ -35,6 +35,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
@@ -341,6 +342,7 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
                                       int channelDescription, Context context) {

@@ -835,7 +835,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                         currentSyncTime,
                                                                         false,
                                                                         false,
-                                                                        false,
                                                                         getStorageManager(),
                                                                         getAccount(),
                                                                         getApplicationContext()

@@ -250,8 +250,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 
         // perform folder synchronization
         RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false,
-                getFileOperationsHelper().isSharedSupported(), ignoreETag, getStorageManager(), getAccount(),
-                getApplicationContext());
+                ignoreETag, getStorageManager(), getAccount(), getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
         setIndeterminate(true);

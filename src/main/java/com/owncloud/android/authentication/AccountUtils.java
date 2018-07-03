@@ -211,10 +211,6 @@ public class AccountUtils {
         return serverVersion;
     }
 
-    public static boolean hasSearchUsersSupport(Account account) {
-        return getServerVersion(account).isSearchUsersSupported();
-    }
-
     public static boolean hasSearchSupport(Account account) {
         return getServerVersion(account).isSearchSupported();
     }

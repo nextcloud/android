@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -89,7 +90,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
-    private boolean gridView = false;
+    private boolean gridView;
     private boolean multiSelect = false;
     private HashSet<OCFile> checkedFiles;
 
@@ -218,8 +219,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles.size() + 1;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             default:
             case VIEWTYPE_ITEM:
@@ -247,7 +249,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OCFileListFooterViewHolder) {
             ((OCFileListFooterViewHolder) holder).footerText.setText(getFooterText());
         } else {
@@ -632,9 +634,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 // also sync folder content
                 if (ocFile.isFolder()) {
                     long currentSyncTime = System.currentTimeMillis();
-                    boolean shareSupported = AccountUtils.getServerVersion(mAccount).isSharedSupported();
                     RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile, currentSyncTime, false,
-                            shareSupported, false, mStorageManager, mAccount, mContext);
+                            false, mStorageManager, mAccount, mContext);
                     refreshFolderOperation.execute(mAccount, mContext);
                 }
 
