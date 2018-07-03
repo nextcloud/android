@@ -23,7 +23,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/standard_padding"
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
     android:paddingLeft="@dimen/standard_padding">
@@ -33,8 +32,7 @@
         android:layout_width="@dimen/activity_icon_width"
         android:layout_height="@dimen/activity_icon_height"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/activity_icon_layout_right_end_margin"
-        android:layout_marginEnd="@dimen/activity_icon_layout_right_end_margin"
+        android:layout_marginTop="@dimen/standard_margin"
         android:alpha="0.5"
         android:src="@drawable/ic_activity"
         android:contentDescription="@string/activity_icon"/>
@@ -43,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignTop="@id/activity_icon"
         android:layout_toRightOf="@id/activity_icon"
         android:layout_toEndOf="@id/activity_icon">
 
@@ -52,13 +49,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:paddingEnd="@dimen/zero"
+            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
+            android:paddingRight="@dimen/zero"
+            android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
+            android:paddingTop="@dimen/standard_padding"
             android:text="@string/placeholder_filename"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
             android:id="@+id/activity_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/zero"
+            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
+            android:paddingRight="@dimen/zero"
+            android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:ellipsize="end"
             android:text="@string/placeholder_sentence"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
@@ -70,6 +76,10 @@
             android:layout_marginTop="@dimen/alternate_half_margin"
             android:layout_marginLeft="@dimen/activity_list_item_grid_layout_left_start_margin"
             android:layout_marginStart="@dimen/activity_list_item_grid_layout_left_start_margin"
+            android:paddingEnd="@dimen/zero"
+            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
+            android:paddingRight="@dimen/zero"
+            android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:columnCount="3" />
 
         <TextView
@@ -78,6 +88,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:ellipsize="end"
+            android:paddingEnd="@dimen/zero"
+            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
+            android:paddingRight="@dimen/zero"
+            android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
 
