@@ -337,7 +337,7 @@
 
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
-            android:icon="@drawable/copy_link"
+            android:icon="@drawable/shared_via_link"
             android:label="@string/copy_link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"

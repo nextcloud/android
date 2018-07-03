@@ -46,7 +46,7 @@
             android:layout_gravity="top|end"
             android:layout_margin="@dimen/standard_quarter_margin"
             android:contentDescription="@string/favorite_icon"
-            android:src="@drawable/badge_favorite" />
+            android:src="@drawable/favorite"/>
 
         <ImageView
             android:id="@+id/sharedIcon"

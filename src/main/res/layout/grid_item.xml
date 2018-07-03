@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:layout_margin="@dimen/standard_quarter_margin"
-            android:src="@drawable/badge_favorite"
+            android:src="@drawable/favorite"
             android:contentDescription="@string/favorite_icon"/>
 
         <ImageView
