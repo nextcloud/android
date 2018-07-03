@@ -21,6 +21,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -82,7 +83,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         String subject = notification.getSubject();
         if (!TextUtils.isEmpty(notification.getLink())) {
             subject = subject + " ↗";
-
+            holder.subject.setTypeface(holder.subject.getTypeface(), Typeface.BOLD);
             holder.subject.setOnClickListener(v -> openLink(notification.getLink()));
         }
 
