@@ -1489,8 +1489,9 @@ public class FileDisplayActivity extends HookActivity
                 }
 
                 if (mWaitingToSend != null) {
-                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
-                    if (mWaitingToSend.isDown() && downloadBehaviour != null) {
+                    // update file after downloading
+                    mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
+                    if (mWaitingToSend != null && mWaitingToSend.isDown() && downloadBehaviour != null) {
                         switch (downloadBehaviour) {
                             case OCFileListFragment.DOWNLOAD_SEND:
                                 String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
