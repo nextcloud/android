@@ -329,8 +329,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
-	<string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
-Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
 	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
 	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>

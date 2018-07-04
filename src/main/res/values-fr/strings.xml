@@ -360,7 +360,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
 
-	<string name="share_link_no_support_share_api">Le partage n\'est pas activé sur votre serveur. Contactez s\'il vous plait votre administrateur</string>
 	<string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
 	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
 	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>

@@ -346,7 +346,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
-	<string name="share_link_no_support_share_api">Udostępnianie nie jest włączone na twoim serwerze. Skontaktuj się z administratorem</string>
 	<string name="share_link_file_no_exist">Nie można udostępnić. Proszę sprawdzić, czy plik istnieje</string>
 	<string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
 	<string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>

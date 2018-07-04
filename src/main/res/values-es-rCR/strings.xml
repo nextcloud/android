@@ -340,7 +340,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
-	<string name="share_link_no_support_share_api">El compartir no está habilitado en tu servidor. Por favor contacta a tu administrador</string>
 	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
