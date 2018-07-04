@@ -236,7 +236,6 @@ public class FileDisplayActivity extends HookActivity
             setupDrawer(R.id.nav_all_files);
         }
 
-
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
@@ -1166,8 +1165,8 @@ public class FileDisplayActivity extends HookActivity
         }
 
         revertBottomNavigationBarToAllFiles();
-        // refresh list of files
 
+        // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
         } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
@@ -1203,8 +1202,14 @@ public class FileDisplayActivity extends HookActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
+        // setup drawer
+        if (MainApp.isOnlyOnDevice()) {
+            setDrawerMenuItemChecked(R.id.nav_on_device);
+        } else {
+            setDrawerMenuItemChecked(R.id.nav_all_files);
+        }
+        
         Log_OC.v(TAG, "onResume() end");
-
     }
 
 

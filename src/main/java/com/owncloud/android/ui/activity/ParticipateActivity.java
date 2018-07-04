@@ -150,4 +150,11 @@ public class ParticipateActivity extends FileActivity {
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(fileDisplayActivity);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setDrawerMenuItemChecked(R.id.nav_participate);
+    }
 }

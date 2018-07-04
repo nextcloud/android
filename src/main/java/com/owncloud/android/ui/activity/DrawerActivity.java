@@ -1035,6 +1035,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
             }
+
+            setDrawerMenuItemChecked(mCheckedMenuItem);
         }
     }
 

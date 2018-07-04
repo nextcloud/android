@@ -195,6 +195,8 @@ public class UploadListActivity extends FileActivity {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
+        setDrawerMenuItemChecked(R.id.nav_uploads);
+
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
