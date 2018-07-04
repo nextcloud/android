@@ -410,11 +410,11 @@ public class ThemeUtils {
     }
 
     private static OCCapability getCapability(Account acc, Context context) {
-        Account account;
+        Account account = null;
 
         if (acc != null) {
             account = acc;
-        } else {
+        } else if (context != null) {
             account = AccountUtils.getCurrentOwnCloudAccount(context);
         }
 
