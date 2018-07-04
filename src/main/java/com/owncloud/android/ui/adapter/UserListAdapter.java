@@ -120,7 +120,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             } else {
                 holder.avatar.setTag(share.getShareWith());
                 DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,
-                        context.getResources(), storageManager, holder.avatar, context);
+                        context.getResources(), holder.avatar, context);
             }
             holder.name.setText(name);
 
