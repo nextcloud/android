@@ -51,8 +51,11 @@ else
     
     # add comment with results
     lintResultNew=$(grep "Lint Report.* [0-9]* warnings" build/reports/lint/lint.html | cut -f2 -d':' |cut -f1 -d'<')
-    lintResultOld=$(tail -n1 scripts/analysis/lint-results.txt | cut -f2 -d':' |cut -f1 -d'<')
-    lintResult="<h1>Lint</h1><table width='500' cellpadding='5' cellspacing='2'><tr class='tablerow0'><td>This</td><td>"$lintResultNew"</td></tr><tr class='tablerow1'><td>Master</td><td>"$lintResultOld"</td></tr></table>"
+    lintErrorNew=$(echo $lintResultNew | grep  "[0-9]* error" -o | cut -f1 -d" ")
+    lintWarningNew=$(echo $lintResultNew | grep  "[0-9]* warning" -o | cut -f1 -d" ")
+    lintErrorOld=$(grep "[0-9]* error" scripts/analysis/lint-results.txt -o | cut -f1 -d" ")
+    lintWarningOld=$(grep "[0-9]* warning" scripts/analysis/lint-results.txt -o | cut -f1 -d" ")
+    lintResult="<h1>Lint</h1><table width='500' cellpadding='5' cellspacing='2'><tr class='tablerow0'><td>Type</td><td>Master</td><td>PR</td></tr><tr class='tablerow1'><td>Warnings</td><td>"$lintWarningOld"</td><td>"$lintWarningNew"</td></tr><tr class='tablerow0'><td>Errors</td><td>"$lintErrorOld"</td><td>"$lintErrorNew"</td></tr></table>"
     findbugsResultNew=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html |head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s'/Summary/FindBugs (new)/' | tr "\"" "\'" | tr -d "\n")
     findbugsResultOld=$(curl 2>/dev/null https://nextcloud.kaminsky.me/index.php/s/YaHngKMM6ERmBeg/download | tr "\"" "\'" | tr -d "\r\n")
     curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$lintResult $findbugsResultNew $findbugsResultOld \" }"
