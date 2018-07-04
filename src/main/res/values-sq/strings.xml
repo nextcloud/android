@@ -109,6 +109,8 @@
     <string name="file_list_empty_text_photos_filter">Nuk ka foto.</string>
     <string name="file_list_empty_text_videos">Ngarkoni disa video ose aktivizoni ngarkimin direkt.</string>
     <string name="file_list_empty_text_videos_filter">Nuk ka video.</string>
+    <string name="trashbin_empty_headline">Pa kartela të fshira</string>
+    <string name="trashbin_empty_message">Që këtu do të jeni në gjendje të rimerrni kartela të fshira</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
@@ -346,7 +348,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
 
-	<string name="share_link_no_support_share_api">Ndarja nuk është e aktivizuar në serverin tuaj. Ju lutemi kontaktoni administratorin tuaj</string>
 	<string name="share_link_file_no_exist">S’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
 	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
 	<string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston</string>
@@ -769,4 +770,7 @@
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
     <string name="new_comment">Koment i ri…</string>
+    <string name="dismiss">Hiq</string>
+    <string name="drawer_item_trashbin">Kartela të fshira</string>
+    <string name="trashbin_activity_title">Kartela të fshira</string>
     </resources>

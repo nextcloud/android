@@ -342,7 +342,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
 
-	<string name="share_link_no_support_share_api">Tjeneren tillater ikke deling. Ta kontakt med administrator for å slå det på.</string>
 	<string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
 	<string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
 	<string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>

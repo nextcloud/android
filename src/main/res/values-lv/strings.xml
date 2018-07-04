@@ -309,7 +309,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Saglabāt apakšmapēs pēc gada un mēneša</string>
 
-	<string name="share_link_no_support_share_api">Koplietošana nav iespējota jūsu serverī. Lūdzu sazinieties ar savu administrātoru.</string>
 	<string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
 	<string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo failu vai mapi</string>
 	<string name="unshare_link_file_no_exist">Neizdevās beigt koplietošanu. Lūdzu pārbaudiet vai datne eksistē</string>

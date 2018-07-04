@@ -358,7 +358,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas baseado no ano e mês</string>
 
-	<string name="share_link_no_support_share_api">O compartilhamento não está habilitado no servidor. Contacte o administrador</string>
 	<string name="share_link_file_no_exist">Não foi possível compartilhar. Por favor verifique se o arquivo existe</string>
 	<string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
 	<string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Por favor verifique se o arquivo existe</string>

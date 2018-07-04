@@ -347,7 +347,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
-	<string name="share_link_no_support_share_api">Deiling er ekki virk á þjóninum þínum. Hafðu samband við kerfisstjóra</string>
 	<string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
 	<string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
 	<string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til</string>

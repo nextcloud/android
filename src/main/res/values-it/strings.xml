@@ -358,7 +358,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
-	<string name="share_link_no_support_share_api">La condivisione non è abilitata sul tuo server.. Contatta il tuo amministratore.</string>
 	<string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
 	<string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
 	<string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>

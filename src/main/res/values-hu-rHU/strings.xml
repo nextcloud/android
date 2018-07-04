@@ -357,7 +357,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
-	<string name="share_link_no_support_share_api">A megosztás nem engedélyezett a szerveren, lépj kapcsolatban a rendszergazdával</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
 	<string name="unshare_link_file_no_exist">Nem lehet a megosztást kikapcsolni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>

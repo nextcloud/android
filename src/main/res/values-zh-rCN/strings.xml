@@ -349,7 +349,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
-	<string name="share_link_no_support_share_api">您的服务器上未启用共享。 请联系您的管理员。</string>
 	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
 	<string name="share_link_file_error">共享文件或目录出错</string>
 	<string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>

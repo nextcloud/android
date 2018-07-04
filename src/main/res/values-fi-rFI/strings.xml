@@ -337,7 +337,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
-	<string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys ylläpitäjään.</string>
 	<string name="share_link_file_no_exist">Jakaminen epäonnistui. Varmista, että tiedosto on olemassa</string>
 	<string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
 	<string name="unshare_link_file_no_exist">Jakamisen lopettaminen epäonnistui. Tarkista onko tiedosto olemassa</string>

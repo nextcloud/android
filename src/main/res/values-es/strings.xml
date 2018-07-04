@@ -358,7 +358,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
 
-	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacta con tu administrador.</string>
 	<string name="share_link_file_no_exist">No se puede compartir. Revisa si el archivo existe</string>
 	<string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>

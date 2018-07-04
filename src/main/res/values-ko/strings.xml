@@ -345,7 +345,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">연도와 월을 기준으로 하위 폴더에 보관</string>
 
-	<string name="share_link_no_support_share_api">서버에서 공유가 활성화되지 않았습니다. 시스템 관리자에게 연락하십시오.</string>
 	<string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 있는지 확인하십시오</string>
 	<string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
 	<string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>

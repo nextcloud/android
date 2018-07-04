@@ -360,7 +360,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
 
-	<string name="share_link_no_support_share_api">Дељење није укључено на серверу. Контактирајте администратора</string>
 	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
 	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
 	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли фајл постоји</string>
