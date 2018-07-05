@@ -155,32 +155,6 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
-     * de-/activates the maintenance message within the toolbar.
-     *
-     * @param active flag is mode should be de-/activated
-     */
-    protected final void setMaintenanceMode(boolean active) {
-        if (active) {
-            showInfoBox(R.string.maintenance_mode);
-        } else {
-            hideInfoBox();
-        }
-    }
-
-    /**
-     * de-/activates the offline message within the toolbar.
-     *
-     * @param active flag is mode should be de-/activated
-     */
-    protected final void setOfflineMode(boolean active) {
-        if (active) {
-            showInfoBox(R.string.offline_mode);
-        } else {
-            hideInfoBox();
-        }
-    }
-
-    /**
      * shows the toolbar's info box with the given text.
      *
      * @param text the text to be displayed

@@ -1329,7 +1329,7 @@ public class FileDisplayActivity extends HookActivity
                                 synchResult != null) {
 
                             if (synchResult.isSuccess()) {
-                                setMaintenanceMode(false);
+                                hideInfoBox();
                             } else {
                                 // TODO refactor and make common
                                 if (checkForRemoteOperationError(synchResult)) {
@@ -1338,7 +1338,7 @@ public class FileDisplayActivity extends HookActivity
                                         synchResult.getCode())) {
                                     showUntrustedCertDialog(synchResult);
                                 } else if (ResultCode.MAINTENANCE_MODE.equals(synchResult.getCode())) {
-                                    setMaintenanceMode(true);
+                                    showInfoBox(R.string.maintenance_mode);
                                 }
                             }
                         }
