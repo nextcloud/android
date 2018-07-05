@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_information_outline_18dp"/>
+        android:src="@drawable/ic_information_outline"/>
 
     <TextView
         android:id="@+id/info_box_message"
