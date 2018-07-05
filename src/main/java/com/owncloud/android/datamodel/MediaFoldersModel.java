@@ -26,6 +26,12 @@ public class MediaFoldersModel {
     private List<String> imageMediaFolders;
     private List<String> videoMediaFolders;
 
+    /**
+     * default constructor.
+     */
+    public MediaFoldersModel() {
+    }
+
     public MediaFoldersModel(List<String> imageMediaFolders, List<String> videoMediaFolders) {
         this.imageMediaFolders = imageMediaFolders;
         this.videoMediaFolders = videoMediaFolders;
@@ -35,7 +41,15 @@ public class MediaFoldersModel {
         return imageMediaFolders;
     }
 
+    public void setImageMediaFolders(List<String> imageMediaFolders) {
+        this.imageMediaFolders = imageMediaFolders;
+    }
+
     public List<String> getVideoMediaFolders() {
         return videoMediaFolders;
+    }
+
+    public void setVideoMediaFolders(List<String> videoMediaFolders) {
+        this.videoMediaFolders = videoMediaFolders;
     }
 }
