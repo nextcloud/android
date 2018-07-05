@@ -1000,9 +1000,7 @@ public class FileDisplayActivity extends HookActivity
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            // default, as fallback
-            int behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-
+            int behaviour;
             switch (resultCode) {
                 case UploadFilesActivity.RESULT_OK_AND_MOVE:
                     behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
@@ -1013,6 +1011,10 @@ public class FileDisplayActivity extends HookActivity
                     break;
 
                 case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                    break;
+
+                default:
                     behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
                     break;
             }
