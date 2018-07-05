@@ -108,6 +108,24 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         return mSyncFolderItems.get(section);
     }
 
+    /**
+     * returns the section of a synced folder for the given local path and type.
+     *
+     * @param localPath the local path of the synced folder
+     * @param type      the of the synced folder
+     * @return the section index of the looked up synced folder, <code>-1</code> if not present
+     */
+    public int getSectionByLocalPathAndType(String localPath, int type) {
+        for (int i = 0; i < mSyncFolderItems.size(); i++) {
+            if (mSyncFolderItems.get(i).getLocalPath().equalsIgnoreCase(localPath) &&
+                    mSyncFolderItems.get(i).getType().getId().equals(type)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section, boolean expanded) {
         holder.mainHeaderContainer.setVisibility(View.VISIBLE);
