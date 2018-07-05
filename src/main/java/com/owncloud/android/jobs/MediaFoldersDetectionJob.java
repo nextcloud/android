@@ -57,6 +57,9 @@ public class MediaFoldersDetectionJob extends Job {
     public static final String KEY_MEDIA_FOLDER_PATH = "KEY_MEDIA_FOLDER_PATH";
     public static final String KEY_MEDIA_FOLDER_TYPE = "KEY_MEDIA_FOLDER_TYPE";
 
+    private static final String ACCOUNT_NAME_GLOBAL = "global";
+    private static final String KEY_MEDIA_FOLDERS = "media_folders";
+
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
@@ -84,11 +87,12 @@ public class MediaFoldersDetectionJob extends Job {
             imageMediaFolderPaths.add(videoMediaFolder.absolutePath);
         }
 
-        if (!TextUtils.isEmpty(arbitraryDataString = arbitraryDataProvider.getValue("global", "media_folders"))) {
+        arbitraryDataString = arbitraryDataProvider.getValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS);
+        if (!TextUtils.isEmpty(arbitraryDataString)) {
             mediaFoldersModel = gson.fromJson(arbitraryDataString, MediaFoldersModel.class);
 
             // Store updated values
-            arbitraryDataProvider.storeOrUpdateKeyValue("global", "media_folders", gson.toJson(new
+            arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(new
                     MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)));
 
             imageMediaFolderPaths.removeAll(mediaFoldersModel.getImageMediaFolders());
@@ -146,7 +150,8 @@ public class MediaFoldersDetectionJob extends Job {
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
+                context, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
                 .setColor(ThemeUtils.primaryColor(getContext()))
@@ -156,10 +161,6 @@ public class MediaFoldersDetectionJob extends Job {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_GENERAL);
-        }
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
