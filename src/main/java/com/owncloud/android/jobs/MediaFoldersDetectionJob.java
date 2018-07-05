@@ -103,7 +103,6 @@ public class MediaFoldersDetectionJob extends Job {
                     }
                 }
 
-
                 for (Account account : accountList) {
                     for (String imageMediaFolder : imageMediaFolderPaths) {
                         if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder,
@@ -158,7 +157,7 @@ public class MediaFoldersDetectionJob extends Job {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_GENERAL);
         }
 
