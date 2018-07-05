@@ -40,7 +40,7 @@
         android:paddingLeft="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_half_padding"
         android:paddingStart="@dimen/standard_half_margin"
-        android:textColor="@color/standard_gray"
+        android:textColor="@color/standard_grey"
         tools:text="@string/offline_mode" />
 
 </LinearLayout>
