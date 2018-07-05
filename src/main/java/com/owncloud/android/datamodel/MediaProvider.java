@@ -72,8 +72,8 @@ public class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
+        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) || getWithoutActivity) {
             cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null,
                     IMAGES_FOLDER_SORT_ORDER);
         }
