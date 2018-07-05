@@ -1348,6 +1348,9 @@ public class FileDisplayActivity extends HookActivity
                                     showUntrustedCertDialog(synchResult);
                                 } else if (ResultCode.MAINTENANCE_MODE.equals(synchResult.getCode())) {
                                     showInfoBox(R.string.maintenance_mode);
+                                } else if (ResultCode.NO_NETWORK_CONNECTION.equals(synchResult.getCode()) ||
+                                        ResultCode.HOST_NOT_AVAILABLE.equals(synchResult.getCode())) {
+                                    showInfoBox(R.string.offline_mode);
                                 }
                             }
                         }
