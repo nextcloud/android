@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Andy Scherzinger
  * Copyright (C) 2018 Mario Danic
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -71,16 +73,15 @@ public class MediaFoldersDetectionJob extends Job {
         List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null,
                 true);
 
-
         List<String> imageMediaFolderPaths = new ArrayList<>();
         List<String> videoMediaFolderPaths = new ArrayList<>();
 
-        for (int i = 0; i < imageMediaFolders.size(); i++) {
-            imageMediaFolderPaths.add(imageMediaFolders.get(i).absolutePath);
+        for (MediaFolder imageMediaFolder: imageMediaFolders) {
+            imageMediaFolderPaths.add(imageMediaFolder.absolutePath);
         }
 
-        for (int i = 0; i < videoMediaFolders.size(); i++) {
-            videoMediaFolderPaths.add(videoMediaFolders.get(i).absolutePath);
+        for (MediaFolder videoMediaFolder: videoMediaFolders) {
+            imageMediaFolderPaths.add(videoMediaFolder.absolutePath);
         }
 
         if (!TextUtils.isEmpty(arbitraryDataString = arbitraryDataProvider.getValue("global", "media_folders"))) {
@@ -104,32 +105,29 @@ public class MediaFoldersDetectionJob extends Job {
 
 
                 for (Account account : accountList) {
-                    for (int i = 0; i < imageMediaFolderPaths.size(); i++) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolderPaths.get(i),
+                    for (String imageMediaFolder : imageMediaFolderPaths) {
+                        if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder,
                                 account) == null) {
-                            String imageMediaFolder = imageMediaFolderPaths.get(i);
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_photos)),
-                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf("/") + 1,
+                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1,
                                             imageMediaFolder.length()),
                                     account, imageMediaFolder, 1);
                         }
                     }
 
-                    for (int i = 0; i < videoMediaFolderPaths.size(); i++) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolderPaths.get(i),
+                    for (String videoMediaFolder : videoMediaFolderPaths) {
+                        if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder,
                                 account) == null) {
-                            String videoMediaFolder = videoMediaFolderPaths.get(i);
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_videos)),
-                                    videoMediaFolder.substring(videoMediaFolder.lastIndexOf("/") + 1,
+                                    videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1,
                                             videoMediaFolder.length()),
                                     account, videoMediaFolder, 2);
                         }
                     }
                 }
             }
-
 
         } else {
             mediaFoldersModel = new MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths);
