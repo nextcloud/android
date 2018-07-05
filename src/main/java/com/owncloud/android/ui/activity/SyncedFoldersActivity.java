@@ -240,11 +240,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         setListShown(true);
 
         if (!TextUtils.isEmpty(path)) {
-            for(SyncedFolderDisplayItem syncFolderItem : syncFolderItems) {
-                if (syncFolderItem.getLocalPath().equalsIgnoreCase(path) &&
-                        syncFolderItem.getType().getId().equals(type)) {
-                    onSyncFolderSettingsClick(1, syncFolderItem);
-                }
+            int section = mAdapter.getSectionByLocalPathAndType(path, type);
+            if (section >= 0) {
+                onSyncFolderSettingsClick(section, mAdapter.get(section));
             }
         }
     }
