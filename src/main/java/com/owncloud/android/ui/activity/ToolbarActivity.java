@@ -27,13 +27,14 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -47,7 +48,7 @@ import com.owncloud.android.utils.ThemeUtils;
 public abstract class ToolbarActivity extends BaseActivity {
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
-    private RelativeLayout mInfoBox;
+    private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
 
     @Override
@@ -160,10 +161,9 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected final void setMaintenanceMode(boolean active) {
         if (active) {
-            mInfoBox.setVisibility(View.VISIBLE);
-            mInfoBoxMessage.setText(R.string.maintenance_mode);
+            showInfoBox(R.string.maintenance_mode);
         } else {
-            mInfoBox.setVisibility(View.GONE);
+            hideInfoBox();
         }
     }
 
@@ -174,11 +174,27 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected final void setOfflineMode(boolean active) {
         if (active) {
-            mInfoBox.setVisibility(View.VISIBLE);
-            mInfoBoxMessage.setText(R.string.offline_mode);
+            showInfoBox(R.string.offline_mode);
         } else {
-            mInfoBox.setVisibility(View.GONE);
+            hideInfoBox();
         }
+    }
+
+    /**
+     * shows the toolbar's info box with the given text.
+     *
+     * @param text the text to be displayed
+     */
+    protected final void showInfoBox(@StringRes int text) {
+        mInfoBox.setVisibility(View.VISIBLE);
+        mInfoBoxMessage.setText(text);
+    }
+
+    /**
+     * Hides the toolbar's info box.
+     */
+    protected final void hideInfoBox() {
+        mInfoBox.setVisibility(View.GONE);
     }
 
     /**
