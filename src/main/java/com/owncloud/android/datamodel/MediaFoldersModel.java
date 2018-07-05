@@ -30,6 +30,7 @@ public class MediaFoldersModel {
      * default constructor.
      */
     public MediaFoldersModel() {
+        // keep default constructor for GSON
     }
 
     public MediaFoldersModel(List<String> imageMediaFolders, List<String> videoMediaFolders) {

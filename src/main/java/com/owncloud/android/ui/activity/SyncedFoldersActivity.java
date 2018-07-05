@@ -165,9 +165,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         String account;
         Account currentAccount;
         if (getIntent() != null && getIntent().getExtras() != null) {
-            if ((account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
-                    (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
-                    !account.equalsIgnoreCase(currentAccount.name)) {
+            account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
+            currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+            if (account != null && currentAccount != null && !account.equalsIgnoreCase(currentAccount.name)) {
                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
                 setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
             }
@@ -265,9 +266,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
         setListShown(false);
         final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
-                perFolderMediaItemLimit, SyncedFoldersActivity.this, false);
+                perFolderMediaItemLimit, this, false);
         mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit,
-                SyncedFoldersActivity.this, false));
+                this, false));
 
         List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
@@ -286,11 +287,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         setListShown(true);
 
         if (!TextUtils.isEmpty(path)) {
-            for (int i = 0; i < syncFolderItems.size(); i++) {
-                SyncedFolderDisplayItem syncedFolderDisplayItem = syncFolderItems.get(i);
-                if (syncedFolderDisplayItem.getLocalPath().equalsIgnoreCase(path) &&
-                        syncedFolderDisplayItem.getType().getId().equals(type)) {
-                    onSyncFolderSettingsClick(1, syncedFolderDisplayItem);
+            for(SyncedFolderDisplayItem syncFolderItem : syncFolderItems) {
+                if (syncFolderItem.getLocalPath().equalsIgnoreCase(path) &&
+                        syncFolderItem.getType().getId().equals(type)) {
+                    onSyncFolderSettingsClick(1, syncFolderItem);
                 }
             }
         }

@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -46,19 +46,7 @@ public class NContentObserverJob extends JobService {
                     != null && params.getTriggeredContentUris() != null
                     && params.getTriggeredContentUris().length > 0) {
 
-                SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(getContentResolver());
-                if (!PowerUtils.isPowerSaveMode(getApplicationContext()) && syncedFolderProvider
-                        .countEnabledSyncedFolders() > 0) {
-                    PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-                    persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
-
-                    new JobRequest.Builder(FilesSyncJob.TAG)
-                            .startNow()
-                            .setExtras(persistableBundleCompat)
-                            .setUpdateCurrent(false)
-                            .build()
-                            .schedule();
-                }
+                checkAndStartFileSyncJob();
 
                 new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
                         .startNow()
@@ -72,6 +60,21 @@ public class NContentObserverJob extends JobService {
         }
 
         return true;
+    }
+
+    private void checkAndStartFileSyncJob() {
+        if (!PowerUtils.isPowerSaveMode(getApplicationContext()) &&
+                new SyncedFolderProvider(getContentResolver()).countEnabledSyncedFolders() > 0) {
+            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+            persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
+
+            new JobRequest.Builder(FilesSyncJob.TAG)
+                    .startNow()
+                    .setExtras(persistableBundleCompat)
+                    .setUpdateCurrent(false)
+                    .build()
+                    .schedule();
+        }
     }
 
     @Override
