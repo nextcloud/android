@@ -825,4 +825,5 @@
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
+    <string name="folder_already_exists">Folder already exists</string>
 </resources>
