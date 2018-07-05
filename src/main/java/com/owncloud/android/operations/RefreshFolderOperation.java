@@ -292,6 +292,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
                 return result;
             }
+            if (result.getCode() == ResultCode.HOST_NOT_AVAILABLE ||
+                    result.getCode() == ResultCode.NO_NETWORK_CONNECTION) {
+                return result;
+            }
             if (result.isException()) {
                 Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
                         result.getLogMessage(), result.getException());
