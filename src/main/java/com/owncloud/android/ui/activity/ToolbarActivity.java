@@ -30,6 +30,7 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -73,8 +74,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this, false));
         }
-        mInfoBox = (RelativeLayout) findViewById(R.id.info_box);
-        mInfoBoxMessage = (TextView) findViewById(R.id.info_box_message);
+        mInfoBox = findViewById(R.id.info_box);
+        mInfoBoxMessage = findViewById(R.id.info_box_message);
 
         mPreviewImage = findViewById(R.id.preview_image);
 
@@ -158,7 +159,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @param active flag is mode should be de-/activated
      */
     protected final void setMaintenanceMode(boolean active) {
-        if(active) {
+        if (active) {
             mInfoBox.setVisibility(View.VISIBLE);
             mInfoBoxMessage.setText(R.string.maintenance_mode);
         } else {
@@ -172,7 +173,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @param active flag is mode should be de-/activated
      */
     protected final void setOfflineMode(boolean active) {
-        if(active) {
+        if (active) {
             mInfoBox.setVisibility(View.VISIBLE);
             mInfoBoxMessage.setText(R.string.offline_mode);
         } else {

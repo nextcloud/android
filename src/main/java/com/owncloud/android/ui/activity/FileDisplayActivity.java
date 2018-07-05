@@ -1326,21 +1326,21 @@ public class FileDisplayActivity extends HookActivity
                                 !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
-                                synchResult != null && !synchResult.isSuccess()) {
+                                synchResult != null) {
 
-                            /// TODO refactor and make common
-
-                            if (checkForRemoteOperationError(synchResult)) {
-
-                                requestCredentialsUpdate(context);
-
-                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                    synchResult.getCode())) {
-
-                                showUntrustedCertDialog(synchResult);
+                            if (synchResult.isSuccess()) {
+                                setMaintenanceMode(false);
+                            } else {
+                                // TODO refactor and make common
+                                if (checkForRemoteOperationError(synchResult)) {
+                                    requestCredentialsUpdate(context);
+                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
+                                        synchResult.getCode())) {
+                                    showUntrustedCertDialog(synchResult);
+                                } else if (ResultCode.MAINTENANCE_MODE.equals(synchResult.getCode())) {
+                                    setMaintenanceMode(true);
+                                }
                             }
-
-
                         }
                         removeStickyBroadcast(intent);
                         DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
