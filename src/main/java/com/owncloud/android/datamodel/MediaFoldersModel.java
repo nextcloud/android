@@ -16,16 +16,15 @@
  *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */package com.owncloud.android.datamodel;
+ */
+
+package com.owncloud.android.datamodel;
 
 import java.util.List;
 
 public class MediaFoldersModel {
     private List<String> imageMediaFolders;
     private List<String> videoMediaFolders;
-
-    public MediaFoldersModel() {
-    }
 
     public MediaFoldersModel(List<String> imageMediaFolders, List<String> videoMediaFolders) {
         this.imageMediaFolders = imageMediaFolders;
@@ -36,15 +35,7 @@ public class MediaFoldersModel {
         return imageMediaFolders;
     }
 
-    public void setImageMediaFolders(List<String> imageMediaFolders) {
-        this.imageMediaFolders = imageMediaFolders;
-    }
-
     public List<String> getVideoMediaFolders() {
         return videoMediaFolders;
-    }
-
-    public void setVideoMediaFolders(List<String> videoMediaFolders) {
-        this.videoMediaFolders = videoMediaFolders;
     }
 }
