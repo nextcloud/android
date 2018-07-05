@@ -104,53 +104,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private String path;
     private int type;
-    /**
-     * Sorts list of {@link SyncedFolderDisplayItem}s.
-     *
-     * @param syncFolderItemList list of items to be sorted
-     * @return sorted list of items
-     */
-    public static List<SyncedFolderDisplayItem> sortSyncedFolderItems(List<SyncedFolderDisplayItem>
-                                                                              syncFolderItemList) {
-        Collections.sort(syncFolderItemList, new Comparator<SyncedFolderDisplayItem>() {
-            public int compare(SyncedFolderDisplayItem f1, SyncedFolderDisplayItem f2) {
-                if (f1 == null && f2 == null) {
-                    return 0;
-                } else if (f1 == null) {
-                    return -1;
-                } else if (f2 == null) {
-                    return 1;
-                } else if (f1.isEnabled() && f2.isEnabled()) {
-                    return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
-                            f2.getFolderName().toLowerCase(Locale.getDefault()));
-                } else if (f1.isEnabled()) {
-                    return -1;
-                } else if (f2.isEnabled()) {
-                    return 1;
-                } else if (f1.getFolderName() == null && f2.getFolderName() == null) {
-                    return 0;
-                } else if (f1.getFolderName() == null) {
-                    return -1;
-                } else if (f2.getFolderName() == null) {
-                    return 1;
-                }
-                for (String folder : PRIORITIZED_FOLDERS) {
-                    if (folder.equals(f1.getFolderName()) &&
-                            folder.equals(f2.getFolderName())) {
-                        return 0;
-                    } else if (folder.equals(f1.getFolderName())) {
-                        return -1;
-                    } else if (folder.equals(f2.getFolderName())) {
-                        return 1;
-                    }
-                }
-                return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
-                        f2.getFolderName().toLowerCase(Locale.getDefault()));
-            }
-        });
-
-        return syncFolderItemList;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +247,54 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 }
             }
         }
+    }
+
+    /**
+     * Sorts list of {@link SyncedFolderDisplayItem}s.
+     *
+     * @param syncFolderItemList list of items to be sorted
+     * @return sorted list of items
+     */
+    public static List<SyncedFolderDisplayItem> sortSyncedFolderItems(List<SyncedFolderDisplayItem>
+                                                                              syncFolderItemList) {
+        Collections.sort(syncFolderItemList, new Comparator<SyncedFolderDisplayItem>() {
+            public int compare(SyncedFolderDisplayItem f1, SyncedFolderDisplayItem f2) {
+                if (f1 == null && f2 == null) {
+                    return 0;
+                } else if (f1 == null) {
+                    return -1;
+                } else if (f2 == null) {
+                    return 1;
+                } else if (f1.isEnabled() && f2.isEnabled()) {
+                    return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
+                            f2.getFolderName().toLowerCase(Locale.getDefault()));
+                } else if (f1.isEnabled()) {
+                    return -1;
+                } else if (f2.isEnabled()) {
+                    return 1;
+                } else if (f1.getFolderName() == null && f2.getFolderName() == null) {
+                    return 0;
+                } else if (f1.getFolderName() == null) {
+                    return -1;
+                } else if (f2.getFolderName() == null) {
+                    return 1;
+                }
+                for (String folder : PRIORITIZED_FOLDERS) {
+                    if (folder.equals(f1.getFolderName()) &&
+                            folder.equals(f2.getFolderName())) {
+                        return 0;
+                    } else if (folder.equals(f1.getFolderName())) {
+                        return -1;
+                    } else if (folder.equals(f2.getFolderName())) {
+                        return 1;
+                    }
+                }
+                return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
+                        f2.getFolderName().toLowerCase(Locale.getDefault()));
+            }
+        });
+
+        return syncFolderItemList;
     }
 
     /**
