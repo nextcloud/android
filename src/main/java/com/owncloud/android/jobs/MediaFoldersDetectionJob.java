@@ -148,6 +148,7 @@ public class MediaFoldersDetectionJob extends Job {
         intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, account.name);
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path);
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type);
+        intent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
