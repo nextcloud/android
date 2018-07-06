@@ -470,27 +470,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
                 mWifiLock.release();
             }
 
-        } catch (SecurityException e) {
-            Log_OC.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
+        } catch (SecurityException | IOException | IllegalStateException | IllegalArgumentException e) {
+            Log_OC.e(TAG, e.getClass().getSimpleName() + " playing " + mAccount.name + mFile.getRemotePath(), e);
             Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IllegalStateException e) {
-            Log_OC.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IllegalArgumentException e) {
-            Log_OC.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
                     Toast.LENGTH_LONG).show();
             processStopRequest(true);
         }

@@ -612,13 +612,13 @@ public class FileUploader extends Service
             }
             // at this point variable "OCFile[] files" is loaded correctly.
 
-            String uploadKey = null;
-            UploadFileOperation newUpload = null;
+            String uploadKey;
+            UploadFileOperation newUpload;
             try {
-                for (int i = 0; i < files.length; i++) {
+                for (OCFile file : files) {
 
-                    OCUpload ocUpload = new OCUpload(files[i], account);
-                    ocUpload.setFileSize(files[i].getFileLength());
+                    OCUpload ocUpload = new OCUpload(file, account);
+                    ocUpload.setFileSize(file.getFileLength());
                     ocUpload.setForceOverwrite(forceOverwrite);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
@@ -630,7 +630,7 @@ public class FileUploader extends Service
 
                     newUpload = new UploadFileOperation(
                             account,
-                            files[i],
+                            file,
                             ocUpload,
                             forceOverwrite,
                             localAction,
@@ -649,7 +649,7 @@ public class FileUploader extends Service
 
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
-                            files[i].getRemotePath(),
+                            file.getRemotePath(),
                             newUpload
                     );
                     if (putResult != null) {
