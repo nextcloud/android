@@ -697,9 +697,8 @@ public class PreviewImageFragment extends FileFragment {
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && MimeTypeUtil.isImage(file));
+        return file != null && MimeTypeUtil.isImage(file);
     }
-
 
     /**
      * Finishes the preview
@@ -741,13 +740,11 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-
     private static int convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
-
 
     public PhotoView getImageView() {
         return mImageView;
@@ -763,7 +760,5 @@ public class PreviewImageFragment extends FileFragment {
             this.drawable = drawable;
             this.ocFile = ocFile;
         }
-
     }
-
 }

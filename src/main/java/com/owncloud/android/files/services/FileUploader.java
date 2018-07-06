@@ -469,7 +469,7 @@ public class FileUploader extends Service
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
                 .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
         }
 
@@ -601,7 +601,7 @@ public class FileUploader extends Service
                     files[i] = UploadFileOperation.obtainNewOCFileToUpload(
                             remotePaths[i],
                             localPaths[i],
-                            ((mimeTypes != null) ? mimeTypes[i] : null)
+                            mimeTypes != null ? mimeTypes[i] : null
                     );
                     if (files[i] == null) {
                         Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
@@ -1153,7 +1153,7 @@ public class FileUploader extends Service
                         String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
                 );
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
         }
 
@@ -1223,7 +1223,7 @@ public class FileUploader extends Service
             String content;
 
             // check credentials error
-            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(uploadResult.getCode()));
+            boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(uploadResult.getCode());
             tickerId = (needsToUpdateCredentials) ?
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 

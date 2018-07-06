@@ -282,10 +282,9 @@ public class MimeTypeUtil {
      * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
      */
     public static boolean isText(OCFile file) {
-        return (MimeTypeUtil.isText(file.getMimeType())
-                || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath())));
+        return MimeTypeUtil.isText(file.getMimeType())
+                || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath()));
     }
-
 
     /**
      * @param file the file to be analyzed

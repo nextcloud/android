@@ -303,14 +303,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.getLocalPath());
         fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(item.getMimeType());
 
-        boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(
-                fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.thumbnail)
+        boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
+                fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.thumbnail
         );
 
         // TODO this code is duplicated; refactor to a common place
-        if ((MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
+        if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
                 && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
-                item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)) {
+                item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())

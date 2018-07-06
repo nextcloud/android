@@ -38,12 +38,11 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
     //private final static String TAG = SslCertificateViewAdapter.class.getSimpleName();
     
     private SslCertificate mCertificate;
-
     
     /**
      * Constructor
      * 
-     * @param 
+     * @param certificate the SSL certificate
      */
     public SslCertificateViewAdapter(SslCertificate certificate) {
         mCertificate = certificate;
@@ -51,7 +50,7 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
 
     @Override
     public void updateCertificateView(View dialogView) {
-        TextView nullCerView = (TextView) dialogView.findViewById(R.id.null_cert);
+        TextView nullCerView = dialogView.findViewById(R.id.null_cert);
         if (mCertificate != null) {
             nullCerView.setVisibility(View.GONE);
             showSubject(mCertificate.getIssuedTo(), dialogView);
@@ -65,8 +64,8 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
     }
     
     private void showValidity(Date notBefore, Date notAfter, View dialogView) {
-        TextView fromView = ((TextView)dialogView.findViewById(R.id.value_validity_from));
-        TextView toView = ((TextView)dialogView.findViewById(R.id.value_validity_to));
+        TextView fromView = dialogView.findViewById(R.id.value_validity_from);
+        TextView toView = dialogView.findViewById(R.id.value_validity_to);
         DateFormat dateFormat = DateFormat.getDateInstance();
         fromView.setText(dateFormat.format(notBefore));
         toView.setText(dateFormat.format(notAfter));
@@ -74,55 +73,53 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
 
     
     private void showSubject(SslCertificate.DName subject, View dialogView) {
-        TextView cnView = ((TextView)dialogView.findViewById(R.id.value_subject_CN));
+        TextView cnView = dialogView.findViewById(R.id.value_subject_CN);
         cnView.setText(subject.getCName());
         cnView.setVisibility(View.VISIBLE);
         
-        TextView oView = ((TextView)dialogView.findViewById(R.id.value_subject_O));
+        TextView oView = dialogView.findViewById(R.id.value_subject_O);
         oView.setText(subject.getOName());
         oView.setVisibility(View.VISIBLE);
         
-        TextView ouView = ((TextView)dialogView.findViewById(R.id.value_subject_OU));
+        TextView ouView = dialogView.findViewById(R.id.value_subject_OU);
         ouView.setText(subject.getUName());
         ouView.setVisibility(View.VISIBLE);
 
         // SslCertificates don't offer this information
-        ((TextView)dialogView.findViewById(R.id.value_subject_C)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_subject_ST)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_subject_L)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_subject_C)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_subject_ST)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_subject_L)).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_subject_C).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_subject_ST).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_subject_L).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_subject_C).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_subject_ST).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_subject_L).setVisibility(View.GONE);
     }
     
-    
     private void showIssuer(SslCertificate.DName issuer, View dialogView) {
-        TextView cnView = ((TextView)dialogView.findViewById(R.id.value_issuer_CN));
+        TextView cnView = dialogView.findViewById(R.id.value_issuer_CN);
         cnView.setText(issuer.getCName());
         cnView.setVisibility(View.VISIBLE);
         
-        TextView oView = ((TextView)dialogView.findViewById(R.id.value_issuer_O));
+        TextView oView = dialogView.findViewById(R.id.value_issuer_O);
         oView.setText(issuer.getOName());
         oView.setVisibility(View.VISIBLE);
 
-        TextView ouView = ((TextView)dialogView.findViewById(R.id.value_issuer_OU));
+        TextView ouView = dialogView.findViewById(R.id.value_issuer_OU);
         ouView.setText(issuer.getUName());
         ouView.setVisibility(View.VISIBLE);
         
         // SslCertificates don't offer this information
-        ((TextView)dialogView.findViewById(R.id.value_issuer_C)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_issuer_ST)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_issuer_L)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_issuer_C)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_issuer_ST)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_issuer_L)).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_issuer_C).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_issuer_ST).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_issuer_L).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_issuer_C).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_issuer_ST).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_issuer_L).setVisibility(View.GONE);
     }
     
     private void hideSignature(View dialogView) {
-        ((TextView)dialogView.findViewById(R.id.label_signature)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.label_signature_algorithm)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_signature_algorithm)).setVisibility(View.GONE);
-        ((TextView)dialogView.findViewById(R.id.value_signature)).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_signature).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.label_signature_algorithm).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_signature_algorithm).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.value_signature).setVisibility(View.GONE);
     }
-
 }
