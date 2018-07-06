@@ -361,7 +361,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         // check permissions
-        if ((PermissionUtil.checkSelfPermission(contactsPreferenceActivity, Manifest.permission.READ_CONTACTS))) {
+        if (PermissionUtil.checkSelfPermission(contactsPreferenceActivity, Manifest.permission.READ_CONTACTS)) {
             return true;
         } else {
             // Check if we should show an explanation

@@ -538,7 +538,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
         }
 
@@ -575,7 +575,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
         }
 

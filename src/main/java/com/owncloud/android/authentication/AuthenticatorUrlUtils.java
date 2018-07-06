@@ -91,7 +91,7 @@ public abstract class AuthenticatorUrlUtils {
 
             normalizedUrl = normalizeUrlSuffix(normalizedUrl);
         }
-        return (normalizedUrl != null ? normalizedUrl : "");
+        return normalizedUrl != null ? normalizedUrl : "";
     }
 
     public static String trimWebdavSuffix(String url) {

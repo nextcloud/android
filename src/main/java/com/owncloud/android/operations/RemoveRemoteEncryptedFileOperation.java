@@ -126,7 +126,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
 
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-            result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), delete);
+            result = new RemoteOperationResult(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
             Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
 
             // remove file from metadata

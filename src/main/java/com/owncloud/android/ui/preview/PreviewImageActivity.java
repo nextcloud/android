@@ -424,18 +424,13 @@ public class PreviewImageActivity extends FileActivity implements
                 } else {
                     Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
                 }
-                
             }
             removeStickyBroadcast(intent);
         }
-
     }
 
     public boolean getSystemUIVisible() {
-        if (getSupportActionBar() != null) {
-            return (getSupportActionBar().isShowing());
-        }
-        return true;
+        return getSupportActionBar() == null || getSupportActionBar().isShowing();
     }
 
     public void toggleFullScreen() {

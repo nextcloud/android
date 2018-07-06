@@ -57,11 +57,9 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         mService = service;
     }
 
-
     public boolean isPlaying(OCFile mFile) {
-        return (mFile != null && mFile.equals(mService.getCurrentFile()));
+        return mFile != null && mFile.equals(mService.getCurrentFile());
     }
-
 
     @Override
     public boolean canPause() {

@@ -545,7 +545,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthTokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
         if (mAuthTokenType == null) {
             if (mAccount != null) {
-                boolean oAuthRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null);
+                boolean oAuthRequired = mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null;
                 boolean samlWebSsoRequired = (
                         mAccountMgr.getUserData
                                 (mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null

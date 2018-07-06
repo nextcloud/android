@@ -61,10 +61,7 @@ public class ProgressListener implements OnDatatransferProgressListener {
 
     public boolean isWrapping(ProgressBar progressBar) {
         ProgressBar wrappedProgressBar = mProgressBar.get();
-        return (
-                wrappedProgressBar != null &&
-                        wrappedProgressBar == progressBar   // on purpose; don't replace with equals
-        );
+        return wrappedProgressBar != null && wrappedProgressBar == progressBar; // on purpose; don't replace with equals
     }
 
     public OCUpload getUpload() {

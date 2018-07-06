@@ -113,7 +113,6 @@ public class FilesSyncHelper {
 
         } else {
             try {
-
                 if (dryRun) {
                     arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                             currentTimeString);
@@ -157,7 +156,7 @@ public class FilesSyncHelper {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && ((MediaFolderType.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
+            if (syncedFolder.isEnabled() && (MediaFolderType.CUSTOM != syncedFolder.getType() || !skipCustom)) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }

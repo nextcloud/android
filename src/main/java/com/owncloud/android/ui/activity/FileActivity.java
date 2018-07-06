@@ -384,7 +384,7 @@ public abstract class FileActivity extends DrawerActivity
             }
             OwnCloudClient client;
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            client = (OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount));
+            client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
             if (client != null) {
                 OwnCloudCredentials cred = client.getCredentials();
                 if (cred != null) {
