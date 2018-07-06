@@ -32,6 +32,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Represents a custom PopupWindows
  */
@@ -121,6 +123,7 @@ public class CustomPopup {
         showLikeQuickAction(0, 0);
     }
 
+    @SuppressFBWarnings("CLI")
     public void showLikeQuickAction(int x, int y) {
         preShow();
 

@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Tobias Kaminsky
@@ -22,7 +22,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +30,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -43,21 +41,19 @@ import java.util.List;
 import java.util.Map;
 
 public class UploaderAdapter extends SimpleAdapter {
-    
     private Context mContext;
     private Account mAccount;
-    private FileDataStorageManager mStorageManager;
     private LayoutInflater inflater;
+    private OwnCloudClient client;
 
     public UploaderAdapter(Context context,
                            List<? extends Map<String, ?>> data, int resource, String[] from,
-                           int[] to, FileDataStorageManager storageManager, Account account) {
+                           int[] to, Account account) {
         super(context, data, resource, from, to);
         mAccount = account;
-        mStorageManager = storageManager;
         mContext = context;
-        inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        client = AccountUtils.getClientForCurrentAccount(context);
     }
 
     @Override
@@ -74,7 +70,6 @@ public class UploaderAdapter extends SimpleAdapter {
         filename.setText(file.getFileName());
 
         ImageView fileIcon = vi.findViewById(R.id.thumbnail);
-        fileIcon.setTag(file.getFileId());
 
         TextView lastModV = vi.findViewById(R.id.last_mod);
         lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
@@ -97,35 +92,8 @@ public class UploaderAdapter extends SimpleAdapter {
                     file.getMountType(), mContext));
         } else {
             // get Thumbnail if file is image
-            if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
-                // Thumbnail in Cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(file.getRemoteId())
-                );
-                if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                    fileIcon.setImageBitmap(thumbnail);
-                } else {
-                    // generate new Thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
-                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager,
-                                        mAccount);
-                        if (thumbnail == null) {
-                            if (MimeTypeUtil.isVideo(file)) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                            } else {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                            }
-                        }
-                        final AsyncThumbnailDrawable asyncDrawable = new AsyncThumbnailDrawable(
-                                mContext.getResources(),
-                                thumbnail,
-                                task
-                        );
-                        fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
-                    }
-                }
+            if (MimeTypeUtil.isImageOrVideo(file)) {
+                DisplayUtils.downloadThumbnail(file, fileIcon, client, mContext);
             } else {
                 fileIcon.setImageDrawable(
                         MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), mAccount, mContext)
@@ -135,6 +103,4 @@ public class UploaderAdapter extends SimpleAdapter {
 
         return vi;
     }
-
-
 }

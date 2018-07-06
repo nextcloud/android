@@ -36,6 +36,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,39 +51,50 @@ import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.caverock.androidsvg.SVG;
+import com.bumptech.glide.signature.ObjectKey;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
+import com.owncloud.android.utils.glide.GlideApp;
+import com.owncloud.android.utils.glide.GlideAvatar;
+import com.owncloud.android.utils.glide.GlideContainer;
+import com.owncloud.android.utils.glide.GlideKey;
+import com.owncloud.android.utils.glide.GlideOCFileType;
+import com.owncloud.android.utils.glide.GlideOcFile;
+import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -90,6 +102,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.IDN;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -98,6 +111,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A helper class for UI/display related operations.
@@ -117,6 +131,7 @@ public final class DisplayUtils {
     private static final int BYTE_SIZE_DIVIDER = 1024;
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
+    private static final String ETAG = "ETag";
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -433,18 +448,28 @@ public final class DisplayUtils {
      * fetches and sets the avatar of the given account in the passed callContext
      *
      * @param account        the account to be used to connect to server
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
      */
-    public static void setAvatar(@NonNull Account account, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
+//    public static void setAvatar(@NonNull Account account, Context context, SimpleTarget<Drawable> target) {
+//
+//        AccountManager accountManager = AccountManager.get(context);
+//        String userId = accountManager.getUserData(account,
+//                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+//
+//        setAvatar(account, userId, context, target);
+//    }
+
+    /**
+     * fetches and sets the avatar of the given account in the passed callContext
+     *
+     * @param account        the account to be used to connect to server
+     */
+    public static void setAvatar(@NonNull Account account, Context context, Object view, float radius) {
 
         AccountManager accountManager = AccountManager.get(context);
         String userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        setAvatar(account, userId, listener, avatarRadius, resources, callContext, context);
+        setAvatar(account, userId, context, view, radius);
     }
 
     /**
@@ -452,54 +477,158 @@ public final class DisplayUtils {
      *
      * @param account        the account to be used to connect to server
      * @param userId         the userId which avatar should be set
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
+     * @param view           where the image is shown in
      */
-    public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
-        if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(account.name);
+    public static void setAvatar(@NonNull Account account, @NonNull String userId, Context context, Object view,
+                                 float radius) {
+        Drawable placeholder = context.getResources().getDrawable(R.drawable.ic_user);
+
+        Drawable fallback;
+        try {
+            fallback = TextDrawable.createAvatar(account.name, radius);
+        } catch (NoSuchAlgorithmException e) {
+            fallback = placeholder;
         }
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        // show avatar immediately, might be outdated
+        if (view instanceof ImageView) {
+            ImageView imageView = (ImageView) view;
+            imageView.setContentDescription(account.name);
 
-        String serverName = account.name.substring(account.name.lastIndexOf('@') + 1, account.name.length());
-        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-        String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
+            GlideApp.with(context)
+                    .asBitmap()
+                    .load(new GlideAvatar(GlideKey.avatar(account, userId, context), null))
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(placeholder)
+                    .error(fallback)
+                    .onlyRetrieveFromCache(true)
+                    .into(imageView);
+        } else {
+            GlideApp.with(context)
+                    .load(new GlideAvatar(GlideKey.avatar(account, userId, context), null))
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(placeholder)
+                    .error(fallback)
+                    .onlyRetrieveFromCache(true)
+                    .into((SimpleTarget<Drawable>) view);
+        }
+        
+        AsyncTask task = new AsyncTask<Object, Void, InputStream>() {
 
-        // first show old one
-        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+            GetMethod get;
+            ArbitraryDataProvider arbitraryDataProvider;
+            String accountName;
 
-        // if no one exists, show colored icon with initial char
-        if (avatar == null) {
-            try {
-                avatar = TextDrawable.createAvatarByUserId(userId, avatarRadius);
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = resources.getDrawable(R.drawable.account_circle_white);
+            @Override
+            protected InputStream doInBackground(Object[] objects) {
+                InputStream inputStream = null;
+                
+                // we need to create client here, as different servers can be used
+                OwnCloudClient client = AccountUtils.getClientForAccount(account, context);
+
+                int px = getAvatarDimension(context);
+
+                arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+                String serverName = account.name.substring(account.name.lastIndexOf('@') + 1, account.name.length());
+                accountName = userId + "@" + serverName;
+                String eTag = arbitraryDataProvider.getValue(accountName, GlideKey.AVATAR_KEY);
+                Log_OC.d(TAG, "glide: old etag: " + eTag);
+
+                try {
+                    String uri = client.getBaseUri() + "/index.php/avatar/" + Uri.encode(userId) + "/" + px;
+                    Log_OC.d("Avatar", "URI: " + uri);
+                    get = new GetMethod(uri);
+
+                    // only use eTag if available 
+                    if (!eTag.isEmpty()) {
+                        get.setRequestHeader("If-None-Match", eTag);
+                    }
+
+                    int status = client.executeMethod(get);
+
+                    Log_OC.d(TAG, "glide: status: " + status);
+
+                    // we are using eTag to download a new avatar only if it changed
+                    switch (status) {
+                        case HttpStatus.SC_OK:
+                        case HttpStatus.SC_CREATED:
+                            // new avatar
+                            inputStream = get.getResponseBodyAsStream();
+
+                            if (get.getResponseHeader(ETAG) != null) {
+                                String newETag = get.getResponseHeader(ETAG).getValue().replace("\"", "");
+                                Log_OC.d(TAG, "glide: new etag: " + newETag);
+                                arbitraryDataProvider.storeOrUpdateKeyValue(accountName, GlideKey.AVATAR_KEY, newETag);
+                            }
+                            break;
+
+                        case HttpStatus.SC_NOT_MODIFIED:
+                        default:
+                            client.exhaustResponse(get.getResponseBodyAsStream());
+                            break;
+
+                    }
+                } catch (Exception e) {
+                    // do nothing, fallback in glide
+                    if (get != null) {
+                        get.releaseConnection();
+                    }
+                }
+
+                return inputStream;
             }
-        }
 
-        // check for new avatar, eTag is compared, so only new one is downloaded
-        if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
-            final ThumbnailsCacheManager.AvatarGenerationTask task =
-                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
-                            avatarRadius, userId, serverName, context);
+            @Override
+            protected void onPostExecute(InputStream inputStream) {
+                Drawable placeholder = context.getResources().getDrawable(R.drawable.ic_user);
 
-            final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
-            listener.avatarGenerated(asyncDrawable, callContext);
-            task.execute(userId);
-        }
+                Drawable fallback;
+                try {
+                    fallback = TextDrawable.createAvatar(account.name, radius);
+                } catch (NoSuchAlgorithmException e) {
+                    fallback = placeholder;
+                }
+
+                try {
+                    if (view instanceof ImageView) {
+                        ImageView imageView = (ImageView) view;
+                        imageView.setContentDescription(account.name);
+
+                        GlideApp.with(context)
+                                .asBitmap()
+                                .load(new GlideAvatar(GlideKey.avatar(account, userId, context), inputStream))
+                                .apply(RequestOptions.circleCropTransform())
+                                .placeholder(placeholder)
+                                .error(fallback)
+                                .onlyRetrieveFromCache(inputStream == null)
+                                .into(imageView);
+                    } else {
+                        GlideApp.with(context)
+                                .load(new GlideAvatar(GlideKey.avatar(account, userId, context), inputStream))
+                                .apply(RequestOptions.circleCropTransform())
+                                .placeholder(placeholder)
+                                .error(fallback)
+                                .onlyRetrieveFromCache(inputStream == null)
+                                .into((SimpleTarget<Drawable>) view);
+                    }
+                    
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Avatar generation failed", e);
+                    // reset eTag
+                    arbitraryDataProvider.storeOrUpdateKeyValue(accountName, GlideKey.AVATAR_KEY, "");
+                    // context may be null
+                }
+            }
+        };
+
+        task.execute();
     }
 
-    public static void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
-                                    int width, int height) {
+    public static void downloadIcon(Context context, String iconUrl, SimpleTarget<Drawable> imageView, int placeholder,
+                                    int error) {
         try {
             if (iconUrl.endsWith(".svg")) {
-                downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
+                downloadSVG(iconUrl, placeholder, error, imageView, context);
             } else {
                 downloadPNGIcon(context, iconUrl, imageView, placeholder);
             }
@@ -508,44 +637,43 @@ public final class DisplayUtils {
         }
     }
 
-    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
-        Glide
-                .with(context)
+    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget<Drawable> imageView,
+                                        int placeholder) {
+        GlideApp.with(context)
                 .load(iconUrl)
                 .centerCrop()
                 .placeholder(placeholder)
                 .error(placeholder)
-                .crossFade()
                 .into(imageView);
     }
 
-    private static void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
-                                        int width, int height) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
-                .decoder(new SvgDecoder(height, width))
+    public static void downloadSVG(String url, int placeholder, int error, ImageView imageView, Context context) {
+        GlideApp.with(context)
+                .as(PictureDrawable.class)
                 .placeholder(placeholder)
-                .error(placeholder)
-                .animate(android.R.anim.fade_in);
-
-
-        Uri uri = Uri.parse(iconUrl);
-        requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
+                .fitCenter()
+                .error(error)
+                .listener(new SvgSoftwareLayerSetter())
+                .load(url)
                 .into(imageView);
+    }
+
+    private static void downloadSVG(String url, int placeholder, int error, SimpleTarget<Drawable> imageView,
+                                    Context context) {
+        GlideApp.with(context)
+                .as(PictureDrawable.class)
+                .load(url)
+                .placeholder(placeholder)
+                .error(error)
+                .listener(new SvgSoftwareLayerSetter())
+                .into((SimpleTarget) imageView);
     }
 
     public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
         try {
-            return Glide.with(context)
-                    .load(imageUrl)
+            return GlideApp.with(context)
                     .asBitmap()
+                    .load(imageUrl)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -553,6 +681,139 @@ public final class DisplayUtils {
         } catch (Exception e) {
             Log_OC.e(TAG, "Could not download image " + imageUrl);
             return null;
+        }
+    }
+
+    public static void localImage(File file, int placeholder, int error, ImageView view, Key key, Context context) {
+        GlideApp.with(context)
+                .load(file)
+                .placeholder(placeholder)
+                .error(error)
+                .into(view);
+    }
+
+    public static void downloadThumbnail(OCFile file, Object view, OwnCloudClient client, Context context) {
+        GlideContainer container = new GlideContainer();
+
+        int placeholder = MimeTypeUtil.isVideo(file) ? R.drawable.file_movie : R.drawable.file_image;
+        int pxW = DisplayUtils.getThumbnailDimension();
+        int pxH = DisplayUtils.getThumbnailDimension();
+
+        container.url = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + pxW + "/" + pxH +
+                Uri.encode(file.getRemotePath(), "/");
+        container.client = client;
+        container.key = GlideKey.serverThumbnail(file);
+
+        if (view instanceof ImageView) {
+            GlideApp.with(context)
+                    .load(container)
+                    .placeholder(placeholder)
+                    .error(placeholder)
+                    .into((ImageView) view);
+        } else {
+            GlideApp.with(context)
+                    .load(container)
+                    .placeholder(placeholder)
+                    .error(placeholder)
+                    .into((CustomViewTarget<ImageView, Drawable>) view);
+        }
+    }
+
+    public static void downloadActivityThumbnail(OCFile file, ImageView view, OwnCloudClient client, Context context) {
+        GlideContainer container = new GlideContainer();
+
+        int placeholder = MimeTypeUtil.isVideo(file) ? R.drawable.file_movie : R.drawable.file_image;
+        int pxW = DisplayUtils.getThumbnailDimension();
+        int pxH = DisplayUtils.getThumbnailDimension();
+
+        container.url = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + pxW + "/" + pxH +
+                Uri.encode(file.getRemotePath(), "/");
+        container.client = client;
+        container.key = GlideKey.activityThumbnail(file);
+
+        GlideApp.with(context)
+                .load(container)
+                .placeholder(placeholder)
+                .into(view);
+    }
+
+    public static Drawable getThumbnail(OCFile file, ImageView view, OwnCloudClient client, Context context) {
+        GlideContainer container = new GlideContainer();
+
+        int placeholder = MimeTypeUtil.isVideo(file) ? R.drawable.file_movie : R.drawable.file_image;
+        int pxW = DisplayUtils.getThumbnailDimension();
+        int pxH = DisplayUtils.getThumbnailDimension();
+
+        container.url = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + pxW + "/" + pxH +
+                Uri.encode(file.getRemotePath(), "/");
+        container.client = client;
+        container.key = GlideKey.serverThumbnail(file);
+
+        try {
+            return GlideApp.with(context)
+                    .load(container)
+                    .placeholder(placeholder)
+                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log_OC.e(TAG, "Could not download image " + container.url);
+            return context.getResources().getDrawable(placeholder);
+        }
+    }
+
+    public static void downloadImage(String uri, int placeholder, int error, ImageView view, OwnCloudClient client,
+                                     ObjectKey key, Context context) {
+        GlideContainer container = new GlideContainer();
+
+        container.url = uri;
+        container.key = key;
+        container.client = client;
+        
+        GlideApp.with(context)
+                .load(container)
+                .placeholder(placeholder)
+                .error(error)
+                .into(view);
+    }
+
+    public static String getThumbnailUri(OwnCloudClient client, ServerFileInterface file, int size) {
+        return client.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
+                file.getLocalId() + "&x=" + size + "&y=" + size;
+    }
+
+    public static void downloadImage(String uri, int placeholder, int error, SimpleTarget<Drawable> target, Key key,
+                                     Context context) {
+        GlideApp.with(context)
+                .load(uri)
+                .placeholder(placeholder)
+                .error(error)
+                .into(target);
+    }
+
+    public static void generateResizedImage(OCFile file, Context context) {
+        Point p = DisplayUtils.getScreenDimension();
+        int pxW = p.x;
+        int pxH = p.y;
+
+        try {
+            GlideApp.with(context)
+                    .load(new GlideOcFile(file, GlideOCFileType.resizedImage))
+                    .downloadOnly(pxW, pxH).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log_OC.e(TAG, "Thumbnail generation failed", e);
+        }
+    }
+
+    public static void generateThumbnail(OCFile file, String path, Context context) {
+        int pxW = DisplayUtils.getThumbnailDimension();
+        int pxH = DisplayUtils.getThumbnailDimension();
+
+        try {
+            GlideApp.with(context)
+                    .load(new GlideOcFile(file, GlideOCFileType.thumbnail, path))
+                    .downloadOnly(pxW, pxH).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log_OC.e(TAG, "Thumbnail generation failed", e);
         }
     }
 
@@ -772,5 +1033,41 @@ public final class DisplayUtils {
                 .setAction(R.string.dismiss, v -> {
                 })
                 .show();
+    }
+
+    /**
+     * Converts size of file icon from dp to pixel
+     *
+     * @return int
+     */
+    public static int getThumbnailDimension() {
+        // Converts dp to pixel
+        Resources r = MainApp.getAppContext().getResources();
+        return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
+    }
+
+    /**
+     * Converts dimension of screen as point
+     *
+     * @return Point
+     */
+    public static Point getScreenDimension() {
+        WindowManager wm = (WindowManager) MainApp.getAppContext().getSystemService(Context.WINDOW_SERVICE);
+
+        if (wm == null) {
+            // fallback to reasonable size for resized images
+            return new Point(1024, 868);
+        } else {
+            Display display = wm.getDefaultDisplay();
+            Point point = new Point();
+            display.getSize(point);
+            return point;
+        }
+    }
+
+    private static int getAvatarDimension(Context context) {
+        // Converts dp to pixel
+        Resources r = context.getResources();
+        return Math.round(r.getDimension(R.dimen.file_avatar_size));
     }
 }

@@ -39,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -56,9 +57,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -94,6 +94,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.glide.GlideKey;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
@@ -630,11 +631,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 // activate second/end account avatar
                 if (mAvatars[1] != null) {
-                    View accountEndView = findNavigationViewChildById(R.id.drawer_account_end);
-                    accountEndView.setTag(mAvatars[1].name);
-
-                    DisplayUtils.setAvatar(mAvatars[1], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountEndView, this);
+                    ImageView accountEndView = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+                    DisplayUtils.setAvatar(mAvatars[1], this, accountEndView, mOtherAccountAvatarRadiusDimension);
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
@@ -642,11 +640,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 // activate third/middle account avatar
                 if (mAvatars[2] != null) {
-                    View accountMiddleView = findNavigationViewChildById(R.id.drawer_account_middle);
-                    accountMiddleView.setTag(mAvatars[2].name);
-
-                    DisplayUtils.setAvatar(mAvatars[2], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountMiddleView, this);
+                    ImageView accountMiddleView = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
+                    DisplayUtils.setAvatar(mAvatars[2], this, accountMiddleView, mOtherAccountAvatarRadiusDimension);
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -666,12 +661,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void repopulateAccountList(List<Account> accounts) {
         // remove all accounts from list
         mNavigationView.getMenu().removeGroup(R.id.drawer_menu_accounts);
-
+        SimpleTarget<Drawable> menuTarget;
         // add all accounts to list
         for (Account account: accounts) {
             try {
                 // show all accounts except the currently active one and those pending for removal
-
                 if (!getAccount().name.equals(account.name)) {
                     MenuItem accountMenuItem = mNavigationView.getMenu().add(
                             R.id.drawer_menu_accounts,
@@ -679,8 +673,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             MENU_ORDER_ACCOUNT,
                             account.name)
                             .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
-                    DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
-                            accountMenuItem, this);
+
+                    menuTarget = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource,
+                                                    @Nullable Transition<? super Drawable> transition) {
+                            accountMenuItem.setIcon(resource);
+                        }
+                    };
+
+                    DisplayUtils.setAvatar(account, this, menuTarget, mMenuAccountAvatarRadiusDimension);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
@@ -748,11 +750,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 username.setText(AccountUtils.getAccountUsername(account.name));
             }
 
-            View currentAccountView = findNavigationViewChildById(R.id.drawer_current_account);
-            currentAccountView.setTag(account.name);
+            ImageView currentAccountView = (ImageView) findNavigationViewChildById(R.id.drawer_current_account);
 
-            DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                    currentAccountView, this);
+            DisplayUtils.setAvatar(account, this, currentAccountView, mCurrentAccountAvatarRadiusDimension);
 
             // check and show quota info if available
             getAndDisplayUserQuota();
@@ -862,31 +862,26 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     mQuotaTextLink.setText(firstQuota.name);
                     mQuotaTextLink.setClickable(true);
                     mQuotaTextLink.setVisibility(View.VISIBLE);
-                    mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                            startActivity(externalWebViewIntent);
-                        }
+                    mQuotaTextLink.setOnClickListener(v -> {
+                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                        startActivity(externalWebViewIntent);
                     });
 
-
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                    SimpleTarget<Drawable> target = new SimpleTarget<Drawable>() {
                         @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        public void onResourceReady(@NonNull Drawable resource,
+                                                    @Nullable Transition<? super Drawable> transition) {
                             Drawable test = resource.getCurrent();
                             test.setBounds(0, 0, size, size);
                             mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
                         }
 
                         @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            super.onLoadFailed(e, errorDrawable);
-
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
                             Drawable test = errorDrawable.getCurrent();
                             test.setBounds(0, 0, size, size);
 
@@ -894,8 +889,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         }
                     };
 
-                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
-
+                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey,
+                            R.drawable.ic_link_grey);
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
                 }
@@ -1018,28 +1013,28 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
             int greyColor = getResources().getColor(R.color.standard_grey);
+            MenuSimpleTarget<Drawable> target;
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
                         MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
                         .setCheckable(true).getItemId();
 
-                MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
+                target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                    public void onResourceReady(@NonNull Drawable resource,
+                                                @Nullable Transition<? super Drawable> transition) {
                         setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
                     }
 
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
                         setExternalLinkIcon(getIdMenuItem(), errorDrawable, greyColor);
                     }
                 };
 
-                DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, R.drawable.ic_link_grey);
             }
 
             setDrawerMenuItemChecked(mCheckedMenuItem);
@@ -1083,16 +1078,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     // use url 
                     if (URLUtil.isValidUrl(background) || background.isEmpty()) {
                         // background image
-                        SimpleTarget target = new SimpleTarget<Drawable>() {
+                        SimpleTarget<Drawable> target = new SimpleTarget<Drawable>() {
                             @Override
-                            public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            public void onResourceReady(@NonNull Drawable resource,
+                                                        @Nullable Transition<? super Drawable> transition) {
                                 Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
                                 LayerDrawable layerDrawable = new LayerDrawable(drawables);
                                 setNavigationHeaderBackground(layerDrawable, navigationHeader);
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
                                 Drawable[] drawables = {new ColorDrawable(primaryColor), errorDrawable};
                                 LayerDrawable layerDrawable = new LayerDrawable(drawables);
                                 setNavigationHeaderBackground(layerDrawable, navigationHeader);
@@ -1107,13 +1103,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             backgroundResource = R.drawable.background;
                         }
 
-                        Glide.with(this)
-                                .load(background)
-                                .centerCrop()
-                                .placeholder(backgroundResource)
-                                .error(backgroundResource)
-                                .crossFade()
-                                .into(target);
+                        DisplayUtils.downloadImage(background, backgroundResource, backgroundResource, target,
+                                GlideKey.url(background), this);
                     } else {
                         // plain color
                         setNavigationHeaderBackground(new ColorDrawable(primaryColor), navigationHeader);

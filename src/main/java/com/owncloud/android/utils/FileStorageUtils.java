@@ -318,7 +318,7 @@ public final class FileStorageUtils {
         return ret;
     }
 
-    public static boolean moveFile(File sourceFile, File targetFile) throws IOException {
+    public static boolean moveFile(File sourceFile, File targetFile) {
         if (copyFile(sourceFile, targetFile)) {
             return sourceFile.delete();
         } else {

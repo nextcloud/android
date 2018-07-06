@@ -24,7 +24,6 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
@@ -42,17 +41,18 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import java.io.File;
 import java.util.Arrays;
@@ -66,6 +66,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
     private static final String TAG = UploadListAdapter.class.getSimpleName();
+    private OwnCloudClient client;
 
     private ProgressListener mProgressListener;
 
@@ -130,6 +131,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 fixAndSortItems(mUploadsStorageManager.getFinishedUploadsForCurrentAccount());
             }
         };
+
+        client = AccountUtils.getClientForCurrentAccount(mParentActivity);
+        
         loadUploadItemsFromDb();
     }
 
@@ -285,99 +289,30 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 });
             }
         } else {
-            itemViewHolder.itemLayout.setOnClickListener(v ->
-                    onUploadItemClick(item));
+            itemViewHolder.itemLayout.setOnClickListener(v -> onUploadItemClick(item));
         }
 
-        // Set icon or thumbnail
-        itemViewHolder.thumbnail.setImageResource(R.drawable.file);
+        if (MimeTypeUtil.isImageOrVideo(new File(item.getLocalPath()))) {
+            if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
 
-        /*
-         * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-         * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
-         */
-        OCFile fakeFileToCheatThumbnailsCacheManagerInterface = new OCFile(item.getRemotePath());
-        fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.getLocalPath());
-        fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(item.getMimeType());
+                OCFile file = mParentActivity.getStorageManager().getFileByPath(item.getRemotePath());
 
-        boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
-                fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.thumbnail
-        );
-
-        // TODO this code is duplicated; refactor to a common place
-        if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
-                && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
-                item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
-            );
-            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()) {
-                itemViewHolder.thumbnail.setImageBitmap(thumbnail);
-            } else {
-                // generate new Thumbnail
-                if (allowedToCreateNewThumbnail) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                    itemViewHolder.thumbnail, mParentActivity.getStorageManager(), mParentActivity.getAccount()
-                            );
-                    if (thumbnail == null) {
-                        if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                        } else {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                        }
-                    }
-                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mParentActivity.getResources(),
-                                    thumbnail,
-                                    task
-                            );
-                    itemViewHolder.thumbnail.setImageDrawable(asyncDrawable);
-                    task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(
-                            fakeFileToCheatThumbnailsCacheManagerInterface, null));
+                if (file != null) {
+                    DisplayUtils.downloadThumbnail(file, itemViewHolder.thumbnail, client, mParentActivity);
                 }
-            }
 
-            if ("image/png".equals(item.getMimeType())) {
-                itemViewHolder.thumbnail.setBackgroundColor(mParentActivity.getResources()
-                        .getColor(R.color.background_color));
-            }
-
-
-        } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
-            File file = new File(item.getLocalPath());
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    String.valueOf(file.hashCode()));
-            if (thumbnail != null) {
-                itemViewHolder.thumbnail.setImageBitmap(thumbnail);
             } else {
-                // generate new Thumbnail
-                if (allowedToCreateNewThumbnail) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.thumbnail);
+                File file = new File(item.getLocalPath());
 
-                    if (MimeTypeUtil.isVideo(file)) {
-                        thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                    } else {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                    }
+                int placeholder = MimeTypeUtil.isImage(new File(item.getLocalPath())) ?
+                        R.drawable.file_image : R.drawable.file_movie;
+                DisplayUtils.localImage(file, placeholder, placeholder, itemViewHolder.thumbnail,
+                        GlideKey.localFile(file), mParentActivity);
 
-                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(mParentActivity.getResources(), thumbnail,
-                                    task);
-
-                    itemViewHolder.thumbnail.setImageDrawable(asyncDrawable);
-                    task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
-                    Log_OC.v(TAG, "Executing task to generate a new thumbnail");
+                if ("image/png".equalsIgnoreCase(item.getMimeType())) {
+                    itemViewHolder.thumbnail.setBackgroundColor(mParentActivity.getResources()
+                            .getColor(R.color.background_color));
                 }
-            }
-
-            if ("image/png".equalsIgnoreCase(item.getMimeType())) {
-                itemViewHolder.thumbnail.setBackgroundColor(mParentActivity.getResources()
-                        .getColor(R.color.background_color));
             }
         } else {
             itemViewHolder.thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(item.getMimeType(), fileName,

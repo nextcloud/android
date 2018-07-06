@@ -25,8 +25,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,9 +66,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -113,7 +109,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -175,6 +170,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private boolean searchFragment;
     private SearchEvent searchEvent;
     private AsyncTask remoteOperationAsyncTask;
+    private OwnCloudClient client;
 
     private enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
@@ -288,13 +284,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onDetach();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mAdapter.cancelAllPendingTasks();
-    }
-
-
     /**
      * {@inheritDoc}
      */
@@ -312,7 +301,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mOnlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
-        mAdapter = new OCFileListAdapter(getActivity(), mContainerActivity, this, hideItemOptions,
+        client = AccountUtils.getClientForCurrentAccount(getContext());
+
+        mAdapter = new OCFileListAdapter(getActivity(), client, mContainerActivity, this, hideItemOptions,
                 isGridViewPreferred(mFile));
         setRecyclerViewAdapter(mAdapter);
 
@@ -1317,36 +1308,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onMessageEvent(FavoriteEvent event) {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-        OwnCloudAccount ocAccount = null;
         AccountManager mAccountMgr = AccountManager.get(getActivity());
 
-        try {
-            ocAccount = new OwnCloudAccount(
-                    currentAccount,
-                    MainApp.getAppContext()
-            );
+        String userId = mAccountMgr.getUserData(currentAccount,
+                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
+        if (TextUtils.isEmpty(userId)) {
+            userId = client.getCredentials().getUsername();
+        }
 
-            String userId = mAccountMgr.getUserData(currentAccount,
-                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+        ToggleFavoriteOperation toggleFavoriteOperation = new ToggleFavoriteOperation(event.shouldFavorite,
+                event.remotePath, userId);
+        RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
-            if (TextUtils.isEmpty(userId)) {
-                userId = mClient.getCredentials().getUsername();
-            }
-
-            ToggleFavoriteOperation toggleFavoriteOperation = new ToggleFavoriteOperation(event.shouldFavorite,
-                    event.remotePath, userId);
-            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(mClient);
-
-            if (remoteOperationResult.isSuccess()) {
-                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
-            }
-
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | AuthenticatorException
-                | IOException | OperationCanceledException e) {
-            Log_OC.e(TAG, "Error processing event", e);
+        if (remoteOperationResult.isSuccess()) {
+            mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
         }
     }
 
@@ -1475,35 +1451,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(EncryptionEvent event) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        ToggleEncryptionOperation toggleEncryptionOperation = new ToggleEncryptionOperation(event.localId,
+                event.remotePath, event.shouldBeEncrypted);
+        RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(client, true);
 
-        OwnCloudAccount ocAccount = null;
-        try {
-            ocAccount = new OwnCloudAccount(currentAccount, MainApp.getAppContext());
-
-            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
-
-            ToggleEncryptionOperation toggleEncryptionOperation = new ToggleEncryptionOperation(event.localId,
-                    event.remotePath, event.shouldBeEncrypted);
-            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient, true);
-
-            if (remoteOperationResult.isSuccess()) {
-                mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
-            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
-            } else {
-                Snackbar.make(getRecyclerView(), R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
-            }
-
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication failed", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
+        if (remoteOperationResult.isSuccess()) {
+            mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
+        } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+            Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(getRecyclerView(), R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
         }
     }
 

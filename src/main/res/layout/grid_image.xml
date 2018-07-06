@@ -38,6 +38,14 @@
             android:src="@drawable/folder"
             android:contentDescription="@null"/>
 
+        <ImageView
+            android:id="@+id/play_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:contentDescription="@string/thumbnail"
+            android:src="@drawable/ic_play_arrow"/>
 
         <ImageView
             android:id="@+id/favorite_action"

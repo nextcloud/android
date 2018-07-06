@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,10 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -179,21 +182,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         if (mSyncFolderItems.get(section).getFilePaths() != null) {
             File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
-            ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, mContext);
-
-            ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
-                            mContext.getResources(),
-                            ThumbnailsCacheManager.mDefaultImg,
-                            task
-                    );
-            holder.image.setImageDrawable(asyncDrawable);
-
-            task.execute(file);
-
-            // set proper tag
-            holder.image.setTag(file.hashCode());
+            int placeholder = MimeTypeUtil.isImage(file) ? R.drawable.file_image : R.drawable.file_movie;
+            DisplayUtils.localImage(file, placeholder, placeholder, holder.image, GlideKey.localFile(file), mContext);
 
             holder.itemView.setTag(relativePosition % mGridWidth);
 
@@ -208,8 +198,9 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         }
     }
 
+    @NonNull
     @Override
-    public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(
                 viewType == VIEW_TYPE_HEADER ?
                         R.layout.synced_folders_item_header : R.layout.grid_sync_item, parent, false);

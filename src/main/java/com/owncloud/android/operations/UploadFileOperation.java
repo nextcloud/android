@@ -35,7 +35,6 @@ import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -59,6 +58,7 @@ import com.owncloud.android.lib.resources.files.UpdateMetadataOperation;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -1332,16 +1332,13 @@ public class UploadFileOperation extends SyncOperation {
             // coincidence; nothing else is needed, the storagePath is right
             // in the instance returned by mCurrentUpload.getFile()
         }
-        file.setNeedsUpdateThumbnail(true);
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
 
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
 
         // generate new Thumbnail
-        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
-        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
+        DisplayUtils.generateThumbnail(file, mOriginalStoragePath, getContext());
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
@@ -1352,6 +1349,7 @@ public class UploadFileOperation extends SyncOperation {
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
         file.setEtag(remoteFile.getEtag());
         file.setRemoteId(remoteFile.getRemoteId());
+        file.setEtagOnServer(remoteFile.getEtag());
     }
 
     public interface OnRenameListener {

@@ -30,7 +30,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Point;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -71,6 +73,9 @@ import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
+import com.owncloud.android.utils.glide.GlideApp;
+import com.owncloud.android.utils.glide.GlideContainer;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -83,6 +88,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -699,20 +705,78 @@ public class FileOperationsHelper {
 
     public void sendCachedImage(OCFile file, String packageName, String activityName) {
         if (file != null) {
-            Context context = MainApp.getAppContext();
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            // set MimeType
-            sendIntent.setType(file.getMimeType());
-            sendIntent.setComponent(new ComponentName(packageName, activityName));
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
-                    context.getResources().getString(R.string.image_cache_provider_authority) +
-                    file.getRemotePath()));
-            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
-            mFileActivity.startActivity(Intent.createChooser(sendIntent, 
-                    context.getString(R.string.actionbar_send_file)));
+
+            LoadCachedImageAsyncTask loadTask = new LoadCachedImageAsyncTask(packageName, activityName, mFileActivity);
+            loadTask.execute(file);
+
+
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
+    private static class LoadCachedImageAsyncTask extends AsyncTask<OCFile, Void, Uri> {
+        private OCFile file;
+        private String packageName;
+        private String activityName;
+        private FileActivity fileActivity;
+
+        LoadCachedImageAsyncTask(String packageName, String activityName, FileActivity fileActivity) {
+            this.packageName = packageName;
+            this.activityName = activityName;
+            this.fileActivity = fileActivity;
+        }
+
+        @Override
+        protected Uri doInBackground(OCFile... ocFiles) {
+            File cachedImage = null;
+            file = ocFiles[0];
+
+            try {
+                GlideContainer container = new GlideContainer();
+                container.key = GlideKey.resizedImage(file);
+
+                Point p = DisplayUtils.getScreenDimension();
+                int pxW = p.x;
+                int pxH = p.y;
+
+                cachedImage = GlideApp
+                        .with(fileActivity)
+                        .downloadOnly()
+                        .load(container)
+                        .submit(pxW, pxH)
+                        .get(); // needs to be called on background thread
+            } catch (InterruptedException | ExecutionException e) {
+                Log_OC.e(TAG, "Error generating image", e);
+            }
+
+            Context context = MainApp.getAppContext();
+
+            return FileProvider.getUriForFile(context,
+                    context.getResources().getString(R.string.file_provider_authority), cachedImage);
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            super.onPostExecute(uri);
+
+            if (uri != null) {
+                Context context = MainApp.getAppContext();
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+
+                // set MimeType
+                sendIntent.setType(file.getMimeType());
+                sendIntent.setComponent(new ComponentName(packageName, activityName));
+//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
+//                    context.getResources().getString(R.string.image_cache_provider_authority) +
+//                    file.getRemotePath()));
+                sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+                fileActivity.startActivity(Intent.createChooser(sendIntent,
+                        context.getString(R.string.actionbar_send_file)));
+            }
         }
     }
 

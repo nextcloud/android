@@ -91,7 +91,6 @@ public class OCFileUnitTest {
         mFile.setPublicLink(PUBLIC_LINK);
         mFile.setPermissions(PERMISSIONS);
         mFile.setRemoteId(REMOTE_ID);
-        mFile.setNeedsUpdateThumbnail(true);
         mFile.setDownloading(true);
         mFile.setEtagInConflict(ETAG_IN_CONFLICT);
 
@@ -121,12 +120,12 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getLastSyncDateForData(), is(LAST_SYNC_DATE_FOR_DATA));
         assertThat(fileReadFromParcel.isAvailableOffline(), is(true));
         assertThat(fileReadFromParcel.getEtag(), is(ETAG));
+        assertThat(fileReadFromParcel.getEtagOnServer(), is(ETAG));
         assertThat(fileReadFromParcel.isSharedViaLink(), is(true));
         assertThat(fileReadFromParcel.isSharedWithSharee(), is(true));
         assertThat(fileReadFromParcel.getPublicLink(), is(PUBLIC_LINK));
         assertThat(fileReadFromParcel.getPermissions(), is(PERMISSIONS));
         assertThat(fileReadFromParcel.getRemoteId(), is(REMOTE_ID));
-        assertThat(fileReadFromParcel.needsUpdateThumbnail(), is(true));
         assertThat(fileReadFromParcel.isDownloading(), is(true));
         assertThat(fileReadFromParcel.getEtagInConflict(), is(ETAG_IN_CONFLICT));
 

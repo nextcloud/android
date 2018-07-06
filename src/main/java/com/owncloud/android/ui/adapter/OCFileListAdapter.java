@@ -21,16 +21,16 @@
 
 package com.owncloud.android.ui.adapter;
 
-
 import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -41,16 +41,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -88,6 +90,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final FileUploader.FileUploaderBinder uploaderBinder;
     private final OperationsService.OperationsServiceBinder operationsServiceBinder;
     private Context mContext;
+    private OwnCloudClient client;
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
@@ -107,15 +110,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_IMAGE = 2;
 
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice = false;
 
-    public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
+    public OCFileListAdapter(Context context, OwnCloudClient client, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
                              boolean gridView) {
 
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         mContext = context;
+        this.client = client;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mHideItemOptions = argHideItemOptions;
         this.gridView = gridView;
@@ -124,9 +127,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         downloaderBinder = transferServiceGetter.getFileDownloaderBinder();
         uploaderBinder = transferServiceGetter.getFileUploaderBinder();
         operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
-
-        // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
 
     public boolean isMultiSelect() {
@@ -263,8 +263,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
 
-            gridViewHolder.thumbnail.setTag(file.getFileId());
-            setThumbnail(file, gridViewHolder.thumbnail);
+            setThumbnail(file, gridViewHolder);
+
+            if (MimeTypeUtil.isVideo(file)) {
+                gridViewHolder.playIcon.setVisibility(View.VISIBLE);
+            } else {
+                gridViewHolder.playIcon.setVisibility(View.GONE);
+            }
 
             if (isCheckedFile(file)) {
                 gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
@@ -373,52 +378,42 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void setThumbnail(OCFile file, ImageView thumbnailView) {
+    private void setThumbnail(OCFile file, OCFileListGridImageViewHolder gridImageViewHolder) {
+        ImageView thumbnailView = gridImageViewHolder.thumbnail;
+        
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
                             file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType(),
                     mContext));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                );
 
-                if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        thumbnailView.setImageBitmap(thumbnail);
-                    }
-                } else {
-                    // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-                        try {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, mStorageManager,
-                                            mAccount, asyncTasks);
-
-                            if (thumbnail == null) {
-                                if (MimeTypeUtil.isVideo(file)) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                                }
-                            }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(mContext.getResources(),
-                                            thumbnail, task);
-                            thumbnailView.setImageDrawable(asyncDrawable);
-                            asyncTasks.add(task);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                    file.getRemoteId()));
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-                        }
-                    }
+                if (client == null) {
+                    client = AccountUtils.getClientForCurrentAccount(mContext);
                 }
+
+                CustomViewTarget thumbnailTarget = new CustomViewTarget<ImageView, Drawable>(thumbnailView) {
+                    @Override
+                    protected void onResourceCleared(@Nullable Drawable placeholder) {
+                        thumbnailView.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        int placeholder = MimeTypeUtil.isVideo(file) ? R.drawable.file_movie : R.drawable.file_image;
+                        thumbnailView.setImageResource(placeholder);
+                        gridImageViewHolder.playIcon.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource,
+                                                @Nullable Transition<? super Drawable> transition) {
+                        thumbnailView.setImageDrawable(resource);
+                    }
+
+                };
+
+                DisplayUtils.downloadThumbnail(file, thumbnailTarget, client, mContext);
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
                     thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
@@ -789,20 +784,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return ret;
     }
 
-    public void cancelAllPendingTasks() {
-        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
-            if (task != null) {
-                task.cancel(true);
-                if (task.getGetMethod() != null) {
-                    Log_OC.d(TAG, "cancel: abort get method directly");
-                    task.getGetMethod().abort();
-                }
-            }
-        }
-
-        asyncTasks.clear();
-    }
-
     public void setGridView(boolean bool) {
         gridView = bool;
     }
@@ -838,6 +819,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final ImageView localFileIndicator;
         private final ImageView shared;
         private final ImageView checkbox;
+        private final ImageView playIcon;
         private final LinearLayout itemLayout;
 
         private OCFileListGridImageViewHolder(View itemView) {
@@ -849,6 +831,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             localFileIndicator = itemView.findViewById(R.id.localFileIndicator);
             shared = itemView.findViewById(R.id.sharedIcon);
             checkbox = itemView.findViewById(R.id.custom_checkbox);
+            playIcon = itemView.findViewById(R.id.play_icon);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
         }
     }

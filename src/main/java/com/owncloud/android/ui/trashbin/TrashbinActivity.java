@@ -121,7 +121,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
         emptyContentMessage.setText(noResultsMessage);
         emptyContentMessage.setVisibility(View.VISIBLE);
 
-        trashbinListAdapter = new TrashbinListAdapter(this, getStorageManager(), this);
+        trashbinListAdapter = new TrashbinListAdapter(this, this);
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFooter(true);
@@ -224,12 +224,6 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
         getMenuInflater().inflate(R.menu.trashbin_options_menu, menu);
 
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        trashbinListAdapter.cancelAllPendingTasks();
     }
 
     @Override
