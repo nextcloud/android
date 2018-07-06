@@ -682,6 +682,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
 
     <string name="prefs_category_dev">Rozwojowa</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji</string>
+    <string name="folder_icon">Ikona katalogu</string>
     <string name="dev_version_new_version_available">Nowa wersja dostępna</string>
     <string name="version_dev_download">Pobierz</string>
 
@@ -689,11 +690,16 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="share">Udostępnij</string>
     <string name="link">Odnośnik</string>
 
+    <string name="notification_channel_media_name">Odtwarzacz multimedialny</string>
+    <string name="notification_channel_file_sync_name">Synchronizacja pliku</string>
     <string name="account_not_found">Nie znaleziono konta</string>
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
+    <string name="account_icon">Ikona konta</string>
+    
     <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
+    <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
@@ -705,6 +711,12 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="upload_files">Wyślij plik</string>
     <string name="create_new_folder">Utwórz nowy folder</string>
     <string name="tags">Tagi</string>
+    <string name="restore">Przywróć plik</string>
     <string name="new_comment">Nowy komentarz…</string>
     <string name="dismiss">Anuluj</string>
+    <string name="drawer_item_trashbin">Usunięto pliki</string>
+    <string name="trashbin_activity_title">Usunięto pliki</string>
+    <string name="action_empty_trashbin">Pusty kosz</string>
+    <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
+    <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
     </resources>
