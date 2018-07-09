@@ -61,7 +61,8 @@
     <string name="prefs_imprint">חותמת</string>
 
 	<string name="recommend_subject">לנסות את %1$s בהתקן שלך!</string>
-	<string name="recommend_urls">%1$s או %2$s</string>
+	<string name="recommend_text">אשמח להזמין אותך להשתמש ב־%1$s במכשיר שלך.\nניתן להוריד מכאן: %2$s</string>
+    <string name="recommend_urls">%1$s או %2$s</string>
 
     <string name="auth_check_server">בדיקת שרת</string>
     <string name="auth_host_url">כתובת שרת https://…</string>
@@ -113,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">אין תמונות.</string>
     <string name="file_list_empty_text_videos">ניתן להעלות כמה סרטונים או להפעיל העלאה אוטומטית.</string>
     <string name="file_list_empty_text_videos_filter">אין סרטונים.</string>
+    <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
+    <string name="trashbin_empty_message">תהיה לך אפשרות לשחזר קבצים דרך כאן</string>
     <string name="upload_list_empty_headline">אין העלאות זמינות</string>
     <string name="upload_list_empty_text_auto_upload">יש להעלות תוכן כלשהו או להפעיל העלאה אוטומטית.</string>
     <string name="file_list_folder">תקיה</string>
@@ -137,6 +140,7 @@
     <string name="common_send">שליחה</string>
     <string name="about_title">על אודות</string>
     <string name="delete_account">הסרת חשבון</string>
+    <string name="delete_account_warning">להסיר את החשבון %s ולמחוק את כל הקבצים המקומיים?\n\nלא ניתן לבטל מחיקה.</string>
     <string name="avatar">תמונה מייצגת</string>
     <string name="active_user">משתמש פעיל</string>
     <string name="upload_chooser_title">העלאה מהמיקום…</string>
@@ -151,6 +155,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">אישור השרת אינו מהימן</string>
     <string name="uploads_view_title">העלאות</string>
     <string name="uploads_view_group_current_uploads">נוכחי</string>
+    <string name="uploads_view_group_failed_uploads">הפעלה מחדש ממתינה/נכשלה.</string>
     <string name="uploads_view_group_finished_uploads">הועלה</string>
     <string name="uploads_view_upload_status_succeeded">הושלם</string>
     <string name="uploads_view_upload_status_cancelled">בוטל</string>
@@ -183,6 +188,7 @@
     <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
     <string name="sync_fail_in_favourites_ticker">קבצים שהוגדרו לסנכרון נכשלו</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
+    <string name="sync_current_folder_was_removed">התיקייה %1$s לא קיימת יותר</string>
     <string name="foreign_files_move">להעביר הכול</string>
     <string name="foreign_files_success">כל הקבצים הועברו</string>
     <string name="foreign_files_fail">חלק מהקבצים לא הועברו</string>
@@ -254,11 +260,17 @@
     <string name="unfavorite">ביטול הגדרה כזמין באופן לא מקוון</string>
     <string name="favorite_real">הוספה למועדפים</string>
     <string name="unset_favorite_real">הסרה מהמועדפים</string>
+    <string name="encrypted">הגדרה כמוצפן</string>
+    <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
     <string name="common_rename">שינוי שם</string>
     <string name="common_remove">מחיקה</string>
     <string name="confirmation_remove_file_alert">למחוק את %1$s?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
+    <string name="remove_success_msg">נמחק</string>
+    <string name="remove_fail_msg">המחיקה נכשלה</string>
     <string name="rename_dialog_title">נא להזין שם חדש</string>
+    <string name="rename_local_fail_msg">לא ניתן לשנות שם של עותק מקומי, נא לנסות שם אחר</string>
+    <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>
     <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
     <string name="filename_forbidden_characters">תווים אסורים: / \\ &lt; &gt; : \" | ? *</string>
@@ -442,6 +454,7 @@
     <string name="share_expiration_date_label">תפוגה ב־%1$s</string>
     <string name="share_no_expiration_date_label">הגדרת תאריך תפוגה</string>
     <string name="share_via_link_section_title">קישור לשיתוף</string>
+    <string name="share_via_link_send_link_label">שליחת קישור</string>
     <string name="share_password_title">מוגן בססמה</string>
     <string name="share_no_password_title">הגדרת ססמה</string>
     <string name="edit_permission_label">עריכה</string>
@@ -501,6 +514,10 @@
     <string name="participate_contribute_forum_forum">בפורום</string>
     <string name="participate_contribute_translate_translate">תרגום</string>
     <string name="participate_contribute_translate_text">היישומון</string>
+    <string name="participate_rc_play_store">קבלת מועמד להפצה מהחנות Google Play</string>
+    <string name="participate_rc_fdroid">קבלת מועמד להפצה מהיישומון F-Droid</string>
+    <string name="participate_dev_fdroid">קבלת מהדורת פיתוח מהיישומון F-Droid</string>
+    <string name="participate_dev_direct_download">הורדת מהדורת פיתוח ישירות</string>
     <string name="move_to">העבר אל…</string>
     <string name="copy_to">העתק אל…</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
@@ -514,7 +531,12 @@
 
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">קובץ קיצור למפות של Google(%s)</string>
+
     <string name="storage_description_default">ברירת מחדל</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">חדש ב־%1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">בית בטוח לכל הנתונים שלך</string>
@@ -574,6 +596,7 @@
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">הגדרת תיקייה בהתאמה אישית</string>
+    <string name="autoupload_create_new_custom_folder">יצירת התקנה בתיקייה בהתאמה אישית</string>
     <string name="synced_folders_configure_folders">הגדרת תיקיות</string>
 
     <string name="test_server_button">בדיקת החיבור לשרת</string>
@@ -690,6 +713,20 @@
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
     <string name="whats_new_device_credentials_title">שימוש באבטחה של התקן ה־Android</string>
     <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
+    <string name="restore">שחזור קובץ</string>
+    <string name="new_version_was_created">נוצרה גרסה חדשה</string>
     <string name="new_comment">תגובה חדשה…</string>
+    <string name="error_comment_file">שגיאה בהוספת הערות לקובץ</string>
+    <string name="file_version_restored_successfully">גרסת הקובץ שוחזרה בהצלחה.</string>
+    <string name="file_version_restored_error">שחזור גרסת הקובץ נתקלה בשגיאה!</string>
+    <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="dismiss">התעלמות</string>
-    </resources>
+    <string name="feedback_no_mail_app">אין יישומון זמין לשליחת הודעות בדוא״ל!</string>
+    <string name="drawer_item_trashbin">קבצים שנמחקו</string>
+    <string name="trashbin_activity_title">קבצים שנמחקו</string>
+    <string name="action_empty_trashbin">פינוי סל האשפה</string>
+    <string name="trashbin_loading_failed">טעינת סל האשפה נכשלה!</string>
+    <string name="trashbin_file_not_deleted">לא ניתן למחוק את הקובץ %1$s!</string>
+    <string name="trashbin_file_not_restored">לא ניתן לשחזר את הקובץ %1$s!</string>
+    <string name="trashbin_not_emptied">לא ניתן למחוק קבצים לצמיתות!</string>
+</resources>
