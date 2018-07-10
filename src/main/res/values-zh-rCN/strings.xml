@@ -43,6 +43,9 @@
     <string name="prefs_lock_title">使用锁</string>
     <string name="prefs_lock_none">没有</string>
     <string name="prefs_lock_using_passcode">密码</string>
+    <string name="prefs_lock_using_device_credentials">设备凭证</string>
+    <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
+    <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
     <string name="prefs_expert_mode">专家模式</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
@@ -200,6 +203,8 @@
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="pass_code_enter_pass_code">请输入安全码</string>
     <string name="default_credentials_wrong">凭据不正确</string>
+    <string name="credentials_disabled">设备凭证已禁用</string>
+    
     <string name="pass_code_configure_your_pass_code">输入安全码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次启动应用都会要求输入安全码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入安全码</string>
@@ -262,6 +267,7 @@
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在本帐户</string>
+    <string name="auth_access_failed">访问已失败: %1$s</string>
     <string name="auth_illegal_login_used">非法登录地址</string>
 
     <string name="favorite">可以设置离线</string>
@@ -384,7 +390,10 @@
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
 
     <string name="file_migration_dialog_title">更新存储路径</string>
+    <string name="file_migration_preparing">正在准备迁移...</string>
+    <string name="file_migration_checking_destination">正在检查目的地...</string>
     <string name="file_migration_saving_accounts_configuration">账户安全配置</string>
+    <string name="file_migration_waiting_for_unfinished_sync">等待完整同步...</string>
     <string name="file_migration_migrating">数据迁移中...</string>
     <string name="file_migration_updating_index">更新目录中...</string>
     <string name="file_migration_cleaning">清除中...</string>
@@ -457,6 +466,7 @@
     <string name="set_as">设置</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">原文件将会被...</string>
+    <string name="prefs_instant_behaviour_title">原始文件将会...</string>
     <string name="select_all">选择全部</string>
     <string name="deselect_all">全部取消选择</string>
 
@@ -473,6 +483,8 @@
     <string name="share_via_link_edit_permission_label">允许编辑</string>
     <string name="share_via_link_password_label">密码保护</string>
     <string name="share_via_link_password_title">安全</string>
+    <string name="share_via_link_expiration_date_label">设置过期日期</string>
+    <string name="share_via_link_menu_password_label">密码保护 (%1$s)</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_section_title">分享链接</string>
     <string name="share_via_link_send_link_label">发送链接</string>
@@ -485,6 +497,8 @@
     <string name="share_with_edit_title">与 %1$s 分享</string>
     <string name="share_via_link_unset_password">未安装的</string>
 
+    <string name="share_search">用户名、联合云ID或邮件地址</string>
+
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
@@ -496,6 +510,7 @@
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">可以创建的</string>
+    <string name="share_privilege_can_edit_change">可以修改</string>
     <string name="share_privilege_can_edit_delete">允许删除</string>
 
     <string name="action_retry_uploads">重试失败上传任务</string>
@@ -596,6 +611,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">暂无动态</string>
+    <string name="activities_no_results_message">暂无新增、修改和分享的事件</string>
     <string name="prefs_category_about">关于</string>
 
     <string name="actionbar_contacts">联系人备份</string>
@@ -681,6 +697,7 @@
 
     <string name="store_short_dev_desc">Nextcloud Dev 应用是一个开发快照, 并且可以并行安装。</string>
     <string name="prefs_category_dev">开发</string>
+    <string name="dev_version_no_information_available">没有可用信息</string>
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
     <string name="folder_icon">目录图标</string>
     <string name="dev_version_new_version_available">新版本可用</string>
@@ -698,6 +715,7 @@
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_file_sync_name">文件同步</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
+    <string name="notification_channel_file_observer_name">文件观察者</string>
     <string name="notification_channel_file_observer_description">监视文件修改</string>
   
     <string name="account_not_found">账户未找到</string>
@@ -716,10 +734,14 @@
     
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
     <string name="end_to_end_encryption_wrong_password">解密时出错。密码错误？ </string>
+    <string name="end_to_end_encryption_decrypting">正在解密...</string>
+    <string name="end_to_end_encryption_retrieving_keys">正在检索密钥...</string>
     <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
+    <string name="end_to_end_encryption_generating_keys">正在生成密钥...</string>
     <string name="end_to_end_encryption_title">设置加密</string>
     <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_not_supported">加密仅适用于KitKat(4.4)及更高版本。</string>
+    <string name="end_to_end_encryption_not_enabled">端对端加密被服务器禁用。</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_password">密码…</string>
     <string name="end_to_end_encryption_unsuccessful">无法保存密钥. 请再次尝试</string>
@@ -728,6 +750,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
     <string name="notification_channel_push_name">推送通知</string>
+    <string name="notification_channel_push_description">显示服务器推送的通知，包括：在评论中被提及、收到新的远程分享、管理员发布的公告等</string>
+    <string name="sendbutton_description">发送按钮的图标</string>
     <string name="hint_name">名称</string>
     <string name="hint_password">密码</string>
     <string name="add_to_cloud">添加到%1$s</string>
