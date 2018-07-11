@@ -495,7 +495,7 @@ public class ExtendedListFragment extends Fragment
      */
     protected void restoreIndexAndTopPosition() {
         if (mIndexes.size() > 0) {
-            // needs to be checked; not every browse-up had a browse-down before 
+            // needs to be checked; not every browse-up had a browse-down before
 
             int index = mIndexes.remove(mIndexes.size() - 1);
             final int firstPosition = mFirstPositions.remove(mFirstPositions.size() - 1);
@@ -617,8 +617,6 @@ public class ExtendedListFragment extends Fragment
     public void setFabEnabled(final boolean enabled) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
-                mFabMain.show();
-
                 if (enabled) {
                     mFabMain.setEnabled(true);
                     ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));

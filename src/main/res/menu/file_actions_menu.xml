@@ -85,6 +85,12 @@
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/action_open_file_as_richdocument"
+        android:title="@string/actionbar_open_as_richdocument"
+        app:showAsAction="never"
+        android:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_sync_file"
         android:title="@string/filedetails_sync_file"
         app:showAsAction="never"

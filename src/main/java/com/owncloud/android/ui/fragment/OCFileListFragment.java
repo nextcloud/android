@@ -83,9 +83,11 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -133,10 +135,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
 
     public final static String ARG_ONLY_FOLDERS_CLICKABLE = MY_PACKAGE + ".ONLY_FOLDERS_CLICKABLE";
+    public final static String ARG_FILE_SELECTABLE = MY_PACKAGE + ".FILE_SELECTABLE";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
     public final static String ARG_HIDE_ITEM_OPTIONS = MY_PACKAGE + ".HIDE_ITEM_OPTIONS";
     public final static String ARG_SEARCH_ONLY_FOLDER = MY_PACKAGE + ".SEARCH_ONLY_FOLDER";
+    public final static String ARG_MIMETYPE = MY_PACKAGE + ".MIMETYPE";
 
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
@@ -151,6 +155,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
 
     private static final int SINGLE_SELECTION = 1;
 
@@ -159,6 +164,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private OCFile mFile;
     private OCFileListAdapter mAdapter;
     private boolean mOnlyFoldersClickable;
+    private boolean mFileSelectable;
 
     private int mSystemBarActionModeColor;
     private int mSystemBarColor;
@@ -175,6 +181,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private boolean searchFragment;
     private SearchEvent searchEvent;
     private AsyncTask remoteOperationAsyncTask;
+    private String mLimitToMimeType;
 
     private enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
@@ -326,6 +333,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         Bundle args = getArguments();
         mOnlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
+        mFileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false);
+        mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
         mAdapter = new OCFileListAdapter(getActivity(), mContainerActivity, this, hideItemOptions,
@@ -380,8 +389,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     private void registerFabListener() {
+        OCCapability capability = ((FileActivity) getActivity()).getCapabilities();
         getFabMain().setOnClickListener(v -> {
-            new OCFileListBottomSheetDialog(getContext(), this).show();
+            new OCFileListBottomSheetDialog(getContext(), capability, this).show();
         });
     }
 
@@ -436,6 +446,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return onFileActionChosen(item.getItemId(), checkedFiles);
         });
         popup.show();
+    }
+
+    @Override
+    public void newDocument() {
+        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.DOCUMENT)
+                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    }
+
+    @Override
+    public void newSpreadsheet() {
+        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.SPREADSHEET)
+                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    }
+
+    @Override
+    public void newPresentation() {
+        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.PRESENTATION)
+                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     /**
@@ -776,27 +804,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         // check if API >= 19
                         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
                             Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_supported,
-                                    Snackbar.LENGTH_LONG).show();
+                                Snackbar.LENGTH_LONG).show();
                             return;
                         }
 
-                    Account account = ((FileActivity) mContainerActivity).getAccount();
+                        Account account = ((FileActivity) mContainerActivity).getAccount();
 
-                    // check if e2e app is enabled
-                    OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(account.name);
+                        // check if e2e app is enabled
+                        OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(account.name);
 
-                    if (ocCapability.getEndToEndEncryption().isFalse() ||
-                            ocCapability.getEndToEndEncryption().isUnknown()) {
-                        Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
-                                Snackbar.LENGTH_LONG).show();
-                        return;
-                    }// check if keys are stored
-                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                            getContext().getContentResolver());
+                        if (ocCapability.getEndToEndEncryption().isFalse() ||
+                                ocCapability.getEndToEndEncryption().isUnknown()) {
+                            Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
+                                    Snackbar.LENGTH_LONG).show();
+                            return;
+                        }// check if keys are stored
+                        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                getContext().getContentResolver());
 
 
-                    String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
-                    String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
+                        String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
+                        String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
 
                         if (publicKey.isEmpty() || privateKey.isEmpty()) {
                             Log_OC.d(TAG, "no public key for " + account.name);
@@ -809,30 +837,35 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             // update state and view of this fragment
                             searchFragment = false;
 
-                        if (mContainerActivity instanceof FolderPickerActivity &&
-                                ((FolderPickerActivity) mContainerActivity)
-                                        .isDoNotEnterEncryptedFolder()) {
-                            Snackbar.make(getRecyclerView(),
-                                    R.string.copy_move_to_encrypted_folder_not_supported,
-                                    Snackbar.LENGTH_LONG).show();
-                        } else {
-                            listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                            // then, notify parent activity to let it update its state and view
-                            mContainerActivity.onBrowsedDownTo(file);
-                            // save index and top position
-                            saveIndexAndTopPosition(position);
+                            if (mContainerActivity instanceof FolderPickerActivity &&
+                                    ((FolderPickerActivity) mContainerActivity)
+                                            .isDoNotEnterEncryptedFolder()) {
+                                Snackbar.make(getRecyclerView(),
+                                        R.string.copy_move_to_encrypted_folder_not_supported,
+                                        Snackbar.LENGTH_LONG).show();
+                            } else {
+                                listDirectory(file, MainApp.isOnlyOnDevice(), false);
+                                // then, notify parent activity to let it update its state and view
+                                mContainerActivity.onBrowsedDownTo(file);
+                                // save index and top position
+                                saveIndexAndTopPosition(position);
+                            }
                         }
+                    } else {
+                        // update state and view of this fragment
+                        searchFragment = false;
+                        listDirectory(file, MainApp.isOnlyOnDevice(), false);
+                        // then, notify parent activity to let it update its state and view
+                        mContainerActivity.onBrowsedDownTo(file);
+                        // save index and top position
+                        saveIndexAndTopPosition(position);
                     }
-                } else {
-                    // update state and view of this fragment
-                    searchFragment = false;
-                    listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                    // then, notify parent activity to let it update its state and view
-                    mContainerActivity.onBrowsedDownTo(file);
-                    // save index and top position
-                    saveIndexAndTopPosition(position);
-                }
 
+                } else if (mFileSelectable) {
+                    Intent intent = new Intent();
+                    intent.putExtra(FolderPickerActivity.EXTRA_FILES, file);
+                    getActivity().setResult(Activity.RESULT_OK, intent);
+                    getActivity().finish();
                 } else if (!mOnlyFoldersClickable) { // Click on a file
                     if (PreviewImageFragment.canBePreviewed(file)) {
                         // preview image - it handles the download, if needed
@@ -865,10 +898,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
                     } else {
-                        if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(
-                                AccountUtils.getCurrentOwnCloudAccount(getContext())).isMediaStreamingSupported()) {
+                        Account account = AccountUtils.getCurrentOwnCloudAccount(getContext());
+                        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.name);
+
+                        if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(account)
+                                .isMediaStreamingSupported()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
+                        }
+
+                        if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                            android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API) {
+                            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
                             // automatic download, preview on finish
                             ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
@@ -928,6 +969,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
                 case R.id.action_stream_media: {
                     mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
+                    return true;
+                }
+                case R.id.action_open_file_as_richdocument: {
+                    mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
                     return true;
                 }
                 case R.id.action_rename_file: {
@@ -1097,7 +1142,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     });
                 }
 
-                mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
+                mAdapter.swapDirectory(directory, storageManager, onlyOnDevice, mLimitToMimeType);
                 if (mFile == null || !mFile.equals(directory)) {
                     getRecyclerView().scrollToPosition(0);
                 }
