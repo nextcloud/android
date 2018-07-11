@@ -231,8 +231,6 @@
     <string name="media_err_timeout">Attempt to play file timed out</string>
     <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
     <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_security_ex">A security error was encountered trying to play %1$s</string>
-    <string name="media_err_io_ex">Input error while trying to play %1$s</string>
     <string name="media_err_unexpected">Unexpected error while trying to play %1$s</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_play_pause_description">Play or pause button</string>
