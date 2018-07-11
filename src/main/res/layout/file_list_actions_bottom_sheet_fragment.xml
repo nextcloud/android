@@ -17,10 +17,10 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/add_to_cloud"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding"
         android:text="@string/add_to_cloud"
-        android:textSize="@dimen/bottom_sheet_text_size" />
+        android:textSize="@dimen/bottom_sheet_text_size"/>
 
     <LinearLayout
         android:id="@+id/menu_upload_files"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_upload"
-            android:tint="@color/primary" />
+            android:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/upload_files"
             android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size" />
+            android:textSize="@dimen/bottom_sheet_text_size"/>
 
     </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_import"
-            android:tint="@color/primary" />
+            android:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/upload_content_from_other_apps"
             android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size" />
+            android:textSize="@dimen/bottom_sheet_text_size"/>
 
     </LinearLayout>
 
@@ -100,7 +100,7 @@
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
-        android:background="@color/list_divider_background" />
+        android:background="@color/list_divider_background"/>
 
     <LinearLayout
         android:id="@+id/menu_mkdir"
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_create_dir"
-            android:tint="@color/primary" />
+            android:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,8 +129,113 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/create_new_folder"
             android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size" />
+            android:textSize="@dimen/bottom_sheet_text_size"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/templates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/dividerCreateTemplates"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@color/list_divider_background"/>
+
+        <LinearLayout
+            android:id="@+id/menu_new_document"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/menu_icon_new_document"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/file_doc"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:text="@string/create_new_document"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bottom_sheet_text_size"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_new_spreadsheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/menu_icon_new_spreadsheet"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/file_xls"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:text="@string/create_new_spreadsheet"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bottom_sheet_text_size"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_new_presentation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/menu_icon_new_presentation"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/file_ppt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:text="@string/create_new_presentation"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bottom_sheet_text_size"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
