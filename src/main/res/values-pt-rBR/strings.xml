@@ -422,7 +422,7 @@
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de email.</string>
+	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
 	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
     <string name="log_progress_dialog_text">Carregando dados…</string>
 
@@ -503,12 +503,12 @@
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
     <string name="share_via_link_unset_password">Não definido</string>
 
-    <string name="share_search">Nome, ID da nuvem federada ou email…</string>
+    <string name="share_search">Nome, ID da nuvem federada ou e-mail…</string>
 
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
-    <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_sharee_unavailable">Atualize a versão do servidor para permitir o compartilhamento entre usuários.\nPor favor contacte o administrador</string>
@@ -612,7 +612,7 @@
     <string name="whats_new_skip">Saltar</string>
 
     <!-- User information -->
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número do telefone</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_website">Website</string>
@@ -792,7 +792,7 @@
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="dismiss">Dispensar</string>
-    <string name="feedback_no_mail_app">Sem aplicativo para enviar emails!</string>
+    <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="action_empty_trashbin">Lixeira vazia</string>
