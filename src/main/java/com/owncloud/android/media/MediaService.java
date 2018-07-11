@@ -472,7 +472,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         } catch (SecurityException | IOException | IllegalStateException | IllegalArgumentException e) {
             Log_OC.e(TAG, e.getClass().getSimpleName() + " playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()),
+            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
                     Toast.LENGTH_LONG).show();
             processStopRequest(true);
         }
