@@ -1,4 +1,4 @@
-## 3.2.1 (June, 10, 2018)
+## 3.2.1 (June, 11, 2018)
 - Enhanced file detail/sharing screen for mail-shares
 - Fix local sorting and file selection
 - Fix local filtering
