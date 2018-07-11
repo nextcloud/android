@@ -52,7 +52,7 @@
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play Store ou F-Droid installée</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
