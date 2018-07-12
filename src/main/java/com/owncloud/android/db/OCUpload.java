@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author LukeOwncloud
@@ -401,8 +401,8 @@ public class OCUpload implements Parcelable {
         mRemotePath = source.readString();
         mAccountName = source.readString();
         mLocalAction = source.readInt();
-        mForceOverwrite = (source.readInt() == 1);
-        mIsCreateRemoteFolder = (source.readInt() == 1);
+        mForceOverwrite = source.readInt() == 1;
+        mIsCreateRemoteFolder = source.readInt() == 1;
         try {
             mUploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -415,8 +415,8 @@ public class OCUpload implements Parcelable {
             mLastResult = UploadResult.UNKNOWN;
         }
         mCreatedBy = source.readInt();
-        mIsUseWifiOnly = (source.readInt() == 1);
-        mIsWhileChargingOnly = (source.readInt() == 1);
+        mIsUseWifiOnly = source.readInt() == 1;
+        mIsWhileChargingOnly = source.readInt() == 1;
         mFolderUnlockToken = source.readString();
     }
 

@@ -156,7 +156,7 @@ public class EditShareFragment extends Fragment {
      */
     public void refreshCapabilitiesFromDB() {
         if (getActivity() instanceof FileActivity) {
-            FileActivity fileActivity = ((FileActivity) getActivity());
+            FileActivity fileActivity = (FileActivity) getActivity();
             if (fileActivity.getStorageManager() != null) {
                 mCapabilities = fileActivity.getStorageManager().getCapability(mAccount.name);
             }
@@ -202,25 +202,23 @@ public class EditShareFragment extends Fragment {
                 // from checking when iOS is ready
                 AppCompatCheckBox checkBox = editShareView.findViewById(R.id.canEditCreateCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = editShareView.findViewById(R.id.canEditChangeCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
             }
 
             setPermissionsListening(editShareView, true);
-
         }
     }
-
 
     /**
      * Binds or unbinds listener for user actions to enable or disable a permission on the edited share

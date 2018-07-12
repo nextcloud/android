@@ -222,8 +222,6 @@ public class FilesystemDataProvider {
 
             return crc.getValue();
 
-        } catch (FileNotFoundException e) {
-            return -1;
         } catch (IOException e) {
             return -1;
         }

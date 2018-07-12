@@ -457,7 +457,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return (layout == R.layout.empty_list || getFile() == null || account == null);
+        return layout == R.layout.empty_list || getFile() == null || account == null;
     }
 
     /**

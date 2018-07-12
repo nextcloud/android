@@ -71,6 +71,6 @@ public class FileDetailSharingFragmentHelper {
      * @return 'True' when public share is disabled in the server.
      */
     public static boolean isPublicShareDisabled(OCCapability capabilities) {
-        return (capabilities != null && capabilities.getFilesSharingPublicEnabled().isFalse());
+        return capabilities != null && capabilities.getFilesSharingPublicEnabled().isFalse();
     }
 }

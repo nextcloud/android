@@ -91,9 +91,7 @@ public class ConnectivityUtils {
                 Log_OC.e(TAG, "Error checking internet connection", e);
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.e(TAG, "Account not found", e);
-            } catch (OperationCanceledException e) {
-                Log_OC.e(TAG, e.getMessage());
-            } catch (AuthenticatorException e) {
+            } catch (OperationCanceledException | AuthenticatorException e) {
                 Log_OC.e(TAG, e.getMessage());
             }
         } else if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
