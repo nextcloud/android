@@ -141,6 +141,17 @@ public class FileDataStorageManager {
         return file;
     }
 
+    public @Nullable
+    OCFile getFileByRemoteId(String remoteId) {
+        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_REMOTE_ID, remoteId);
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+        }
+        c.close();
+        return file;
+    }
+
     public boolean fileExists(long id) {
         return fileExists(ProviderTableMeta._ID, String.valueOf(id));
     }
