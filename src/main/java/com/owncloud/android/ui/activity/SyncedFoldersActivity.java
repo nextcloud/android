@@ -665,4 +665,11 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolderType.CUSTOM);
         onSyncFolderSettingsClick(0, emptyCustomFolder);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setDrawerMenuItemChecked(R.id.nav_synced_folders);
+    }
 }
