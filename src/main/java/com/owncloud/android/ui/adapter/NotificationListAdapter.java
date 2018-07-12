@@ -50,6 +50,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
@@ -129,17 +132,18 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     }
 
     static class NotificationViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView activityIcon;
-        private final TextView subject;
-        private final TextView message;
-        private final TextView dateTime;
+        @BindView(R.id.activity_icon)
+        public ImageView activityIcon;
+        @BindView(R.id.activity_subject)
+        public TextView subject;
+        @BindView(R.id.activity_message)
+        public TextView message;
+        @BindView(R.id.activity_datetime)
+        public TextView dateTime;
 
         private NotificationViewHolder(View itemView) {
             super(itemView);
-            activityIcon = itemView.findViewById(R.id.activity_icon);
-            subject = itemView.findViewById(R.id.activity_subject);
-            message = itemView.findViewById(R.id.activity_message);
-            dateTime = itemView.findViewById(R.id.activity_datetime);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
