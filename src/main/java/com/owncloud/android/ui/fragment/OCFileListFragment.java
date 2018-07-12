@@ -1332,14 +1332,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
             }
 
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication failed", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | AuthenticatorException
+                | IOException | OperationCanceledException e) {
+            Log_OC.e(TAG, "Error processing event", e);
         }
     }
 

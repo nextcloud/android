@@ -71,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = (mCurrentAccount != null && AccountUtils.exists(mCurrentAccount, this));
+        boolean validAccount = mCurrentAccount != null && AccountUtils.exists(mCurrentAccount, this);
         if (!validAccount) {
             swapToDefaultAccount();
         }

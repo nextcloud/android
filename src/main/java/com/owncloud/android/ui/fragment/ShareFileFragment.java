@@ -695,9 +695,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      * @return 'True' when public share is disabled in the server
      */
     private boolean isPublicShareDisabled() {
-        return (mCapabilities != null &&
-                mCapabilities.getFilesSharingPublicEnabled().isFalse()
-        );
+        return mCapabilities != null && mCapabilities.getFilesSharingPublicEnabled().isFalse();
     }
 
     /**

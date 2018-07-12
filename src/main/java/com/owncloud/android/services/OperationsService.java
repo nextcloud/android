@@ -331,7 +331,7 @@ public class OperationsService extends Service {
          *          in process.
          */
         public boolean isPerformingBlockingOperation() {
-            return (!mServiceHandler.mPendingOperations.isEmpty());
+            return !mServiceHandler.mPendingOperations.isEmpty();
         }
 
 

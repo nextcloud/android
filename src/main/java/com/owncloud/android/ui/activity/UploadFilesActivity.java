@@ -321,7 +321,7 @@ public class UploadFilesActivity extends FileActivity implements
             return false;
         } else {
             View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
-            return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+            return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
         }
     }
     

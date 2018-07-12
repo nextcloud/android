@@ -29,6 +29,7 @@ package com.owncloud.android.ui.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -70,16 +71,15 @@ implements ConfirmationDialogFragmentListener {
             // choose message for a single file
             OCFile file = files.get(0);
 
-            messageStringId = (file.isFolder()) ?
+            messageStringId = file.isFolder() ?
                 R.string.confirmation_remove_folder_alert :
                 R.string.confirmation_remove_file_alert;
 
         } else {
             // choose message for more than one file
-            messageStringId = (containsFolder) ?
+            messageStringId = containsFolder ?
                 R.string.confirmation_remove_folders_alert :
                 R.string.confirmation_remove_files_alert;
-
         }
 
         int localRemoveButton = (!containsFavorite && (containsFolder || containsDown)) ?
@@ -124,7 +124,8 @@ implements ConfirmationDialogFragmentListener {
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
-    
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);

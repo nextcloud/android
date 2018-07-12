@@ -211,12 +211,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
                 try {
                     NetworkUtils.addCertToKnownServersStore(m509Certificate, activity);   // TODO make this asynchronously, it can take some time
                     ((OnSslUntrustedCertListener)activity).onSavedCertificate();
-    
-                } catch (GeneralSecurityException e) {
-                    ((OnSslUntrustedCertListener)activity).onFailedSavingCertificate();
-                    Log_OC.e(TAG, "Server certificate could not be saved in the known-servers trust store ", e);
-                  
-                } catch (IOException e) {
+                } catch (GeneralSecurityException | IOException e) {
                     ((OnSslUntrustedCertListener)activity).onFailedSavingCertificate();
                     Log_OC.e(TAG, "Server certificate could not be saved in the known-servers trust store ", e);
                 }
@@ -239,5 +234,4 @@ public class SslUntrustedCertDialog extends DialogFragment {
     public interface CertificateViewAdapter {
         void updateCertificateView(View mView);
     }
-    
 }

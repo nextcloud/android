@@ -266,7 +266,7 @@ public class DisplayUtils {
         hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
 
         String host = urlNoDots.substring(hostStart, hostEnd);
-        host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+        host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
 
         return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }

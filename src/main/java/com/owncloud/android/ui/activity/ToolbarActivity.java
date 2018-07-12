@@ -99,10 +99,8 @@ public abstract class ToolbarActivity extends BaseActivity {
         boolean inRoot;
 
         // choose the appropriate title
-        inRoot = (
-                chosenFile == null ||
-                        (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
-        );
+        inRoot =  chosenFile == null ||
+                        (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
         if (!inRoot) {
             title = chosenFile.getFileName();
         }

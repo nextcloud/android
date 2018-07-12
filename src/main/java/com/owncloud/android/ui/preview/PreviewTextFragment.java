@@ -58,7 +58,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PreviewTextFragment extends FileFragment {
+public class    PreviewTextFragment extends FileFragment {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
@@ -402,10 +402,9 @@ public class PreviewTextFragment extends FileFragment {
         unsupportedTypes.add("text/vnd.rn-realtext");
         unsupportedTypes.add("text/vnd.wap.wml");
         unsupportedTypes.add("text/vnd.wap.wmlscript");
-        return (file != null && file.isDown() && MimeTypeUtil.isText(file) &&
+        return file != null && file.isDown() && MimeTypeUtil.isText(file) &&
                 !unsupportedTypes.contains(file.getMimeType()) &&
-                !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()))
-        );
+                !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()));
     }
 
     /**

@@ -46,8 +46,6 @@ public class RenameFileOperation extends SyncOperation {
     private String mRemotePath;
     private String mNewName;
     private String mNewRemotePath;
-
-    
     
     /**
      * Constructor
@@ -114,7 +112,7 @@ public class RenameFileOperation extends SyncOperation {
         } catch (IOException e) {
             Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ?
                     mNewName : mNewRemotePath) + ": " +
-                    ((result!= null) ? result.getLogMessage() : ""), e);
+                    (result!= null ? result.getLogMessage() : ""), e);
         }
 
         return result;
@@ -184,7 +182,7 @@ public class RenameFileOperation extends SyncOperation {
             Log_OC.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
             return false;
         }
-        boolean result = (testFile.exists() && testFile.isFile());
+        boolean result = testFile.exists() && testFile.isFile();
         
         // cleaning ; result is ignored, since there is not much we could do in case of failure,
         // but repeat and repeat...
@@ -192,5 +190,4 @@ public class RenameFileOperation extends SyncOperation {
         
         return result;
     }
-
 }

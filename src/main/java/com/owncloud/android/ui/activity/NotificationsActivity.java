@@ -295,19 +295,13 @@ public class NotificationsActivity extends FileActivity {
                     // show error
                     runOnUiThread(() -> setEmptyContent(noResultsHeadline, getString(R.string.account_not_found)));
                 }
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(TAG, "Account not found", e);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "IO error", e);
-            } catch (OperationCanceledException e) {
-                Log_OC.e(TAG, "Operation has been canceled", e);
-            } catch (AuthenticatorException e) {
-                Log_OC.e(TAG, "Authentication Exception", e);
+            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | IOException |
+                    OperationCanceledException | AuthenticatorException e) {
+                Log_OC.e(TAG, "Error fetching notification data", e);
             }
         });
 
         t.start();
-
     }
 
     private void hideRefreshLayoutLoader() {
