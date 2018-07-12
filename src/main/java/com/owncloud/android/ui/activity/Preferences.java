@@ -454,7 +454,7 @@ public class Preferences extends PreferenceActivity
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
             if (!mnemonic.isEmpty() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (DeviceCredentialUtils.areCredentialsAvailable(Preferences.this)) {
+                if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
                     pMnemonic.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
@@ -941,13 +941,11 @@ public class Preferences extends PreferenceActivity
 
             int accentColor = ThemeUtils.primaryAccentColor(this);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this,
-                    R.style.FallbackTheming_Dialog);
-            builder.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_e2e_mnemonic),
-                    accentColor));
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+            builder.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_e2e_mnemonic), accentColor));
             builder.setMessage(mnemonic);
-            builder.setPositiveButton(ThemeUtils.getColoredTitle(getString(R.string.common_ok),
-                    accentColor), (dialog, which) -> dialog.dismiss());
+            builder.setPositiveButton(ThemeUtils.getColoredTitle(getString(R.string.common_ok), accentColor),
+                    (dialog, which) -> dialog.dismiss());
             builder.show();
         }
     }

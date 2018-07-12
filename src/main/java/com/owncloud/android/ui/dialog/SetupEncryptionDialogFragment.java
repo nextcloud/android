@@ -439,7 +439,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         for (String string : keyWords) {
             stringBuilder.append(string);
             if (withWhitespace) {
-                stringBuilder.append(" ");
+                stringBuilder.append(' ');
             }
         }
 
