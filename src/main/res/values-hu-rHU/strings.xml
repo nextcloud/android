@@ -271,6 +271,8 @@
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
     <string name="auth_account_does_not_exist">Az eszközön még nem létezik fiók</string>
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
+    <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
+
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
     <string name="favorite_real">Hozzáadás a kedvencekhez</string>
@@ -500,6 +502,8 @@
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_with_title">Megosztás vele…</string>
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
+    <string name="share_via_link_unset_password">Kikapcsol</string>
+
     <string name="share_search">Név, egyesített felhőazonosító vagy e-mail cím...</string>
 
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
@@ -620,6 +624,7 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nincs még tevékenység</string>
+    <string name="activities_no_results_message">Jelenleg nincsenek kiegészítések, módosítások és megosztások.</string>
     <string name="prefs_category_about">Névjegy</string>
 
     <string name="actionbar_contacts">Névjegyek biztonsági mentése</string>
@@ -797,12 +802,14 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="unsharing_failed">Megosztás visszavonási hiba</string>
     <string name="updating_share_failed">Megosztás frissítési hiba</string>
     <string name="whats_new_device_credentials_title">Használjon Android készülék védelmet</string>
+    <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
 	<string name="restore">Fájl visszaállítása</string>
     <string name="new_version_was_created">Új verzió létrehozva</string>
     <string name="new_comment">Új hozzászólás...</string>
     <string name="error_comment_file">Fájl hozzászólási hiba</string>
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
+    <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
     <string name="outdated_server">A szerver elérte életciklusa végét, kérem frissítsen!</string>
     <string name="dismiss">Elutasít</string>
     <string name="feedback_no_mail_app">Nincs elérhető alkalmazás email küldéséhez!</string>

@@ -39,6 +39,7 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
+    <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
@@ -107,6 +108,8 @@
     <string name="file_list_empty_text_photos_filter">写真はありません。</string>
     <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_empty_text_videos_filter">ビデオはありません。</string>
+    <string name="trashbin_empty_headline">削除されたファイルはありません</string>
+    <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
@@ -128,6 +131,7 @@
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_pending">保留中</string>
     <string name="common_delete">削除</string>
+    <string name="common_send">送信</string>
     <string name="about_title">について</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
@@ -259,6 +263,8 @@
     <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
+    <string name="favorite_real">お気に入りに追加</string>
+    <string name="unset_favorite_real">お気に入りから削除</string>
     <string name="encrypted">暗号化設定</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
