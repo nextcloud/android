@@ -67,7 +67,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -439,18 +438,16 @@ public class DisplayUtils {
      * @param account        the account to be used to connect to server
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
-     * @param storageManager reference for caching purposes
      * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull Account account, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, FileDataStorageManager storageManager,
-                                 Object callContext, Context context) {
+                                 float avatarRadius, Resources resources, Object callContext, Context context) {
 
         AccountManager accountManager = AccountManager.get(context);
         String userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        setAvatar(account, userId, listener, avatarRadius, resources, storageManager, callContext, context);
+        setAvatar(account, userId, listener, avatarRadius, resources, callContext, context);
     }
 
     /**
@@ -460,12 +457,10 @@ public class DisplayUtils {
      * @param userId         the userId which avatar should be set
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
-     * @param storageManager reference for caching purposes
      * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, FileDataStorageManager storageManager,
-                                 Object callContext, Context context) {
+                                 float avatarRadius, Resources resources, Object callContext, Context context) {
         if (callContext instanceof View) {
             ((View) callContext).setContentDescription(account.name);
         }
@@ -493,8 +488,8 @@ public class DisplayUtils {
         // check for new avatar, eTag is compared, so only new one is downloaded
         if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
             final ThumbnailsCacheManager.AvatarGenerationTask task =
-                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager,
-                            account, resources, avatarRadius, userId, serverName, context);
+                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
+                            avatarRadius, userId, serverName, context);
 
             final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
