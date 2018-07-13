@@ -2329,7 +2329,7 @@ public class FileDisplayActivity extends HookActivity
      */
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
                                   boolean streamMedia) {
-        if ((showPreview && file.isDown() && !file.isDownloading()) || streamMedia) {
+        if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
