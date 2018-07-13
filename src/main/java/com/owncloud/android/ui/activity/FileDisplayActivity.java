@@ -725,11 +725,13 @@ public class FileDisplayActivity extends HookActivity
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
                     if (success) {
-                        mWaitingToPreview = getStorageManager().getFileById(
-                                mWaitingToPreview.getFileId());   // update the file from database,
-                        // for the local storage path
+                        // update the file from database, for the local storage path
+                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
+                        
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            startMediaPreview(mWaitingToPreview, 0, true, true);
+                            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                    .isMediaStreamingSupported();
+                            startMediaPreview(mWaitingToPreview, 0, true, true, streaming);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
                             startContactListFragment(mWaitingToPreview);
@@ -2050,7 +2052,9 @@ public class FileDisplayActivity extends HookActivity
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment) details).getPosition();
-                        startMediaPreview(renamedFile, position, true, true);
+                        boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                .isMediaStreamingSupported();
+                        startMediaPreview(renamedFile, position, true, true, streaming);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2323,8 +2327,9 @@ public class FileDisplayActivity extends HookActivity
      * @param autoplay              When 'true', the playback will start without user
      *                              interactions.
      */
-    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview) {
-        if (showPreview && file.isDown() && !file.isDownloading()) {
+    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
+                                  boolean streamMedia) {
+        if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
@@ -2459,9 +2464,11 @@ public class FileDisplayActivity extends HookActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
+            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                    .isMediaStreamingSupported();
             startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
                     (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
-                    (boolean)bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true);
+                    (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, streaming);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile)bundle.get(EXTRA_FILE),
                     (VirtualFolderType)bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),
