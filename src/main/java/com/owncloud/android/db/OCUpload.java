@@ -82,7 +82,7 @@ public class OCUpload implements Parcelable {
     /**
      * Create destination folder?
      */
-    private boolean isCreateRemoteFolder;
+    private boolean createRemoteFolder;
 
     /**
      * Status of upload (later, in_progress, ...).
@@ -107,12 +107,12 @@ public class OCUpload implements Parcelable {
     /**
      * Upload only via wifi?
      */
-    private boolean isUseWifiOnly;
+    private boolean useWifiOnly;
 
     /**
      * Upload only if phone being charged?
      */
-    private boolean isWhileChargingOnly;
+    private boolean whileChargingOnly;
 
     /**
      * Token to unlock E2E folder
@@ -151,7 +151,7 @@ public class OCUpload implements Parcelable {
     }
 
     /**
-     * Convenience constructor to reupload already existing {@link OCFile}s.
+     * Convenience constructor to re-upload already existing {@link OCFile}s.
      *
      * @param  ocFile           {@link OCFile} instance to update in the remote server.
      * @param  account          ownCloud {@link Account} where ocFile is contained.
@@ -171,12 +171,12 @@ public class OCUpload implements Parcelable {
         id = -1;
         localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
         forceOverwrite = false;
-        isCreateRemoteFolder = false;
+        createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         lastResult = UploadResult.UNKNOWN;
         createdBy = UploadFileOperation.CREATED_BY_USER;
-        isUseWifiOnly = true;
-        isWhileChargingOnly = false;
+        useWifiOnly = true;
+        whileChargingOnly = false;
         folderUnlockToken = "";
     }
 
@@ -223,7 +223,7 @@ public class OCUpload implements Parcelable {
      * @param lastResult the lastResult to set
      */
     public void setLastResult(UploadResult lastResult) {
-        this.lastResult = ((lastResult != null) ? lastResult : UploadResult.UNKNOWN);
+        this.lastResult = lastResult != null ? lastResult : UploadResult.UNKNOWN;
     }
 
 
@@ -303,14 +303,14 @@ public class OCUpload implements Parcelable {
      * @return the isCreateRemoteFolder
      */
     public boolean isCreateRemoteFolder() {
-        return isCreateRemoteFolder;
+        return createRemoteFolder;
     }
 
     /**
-     * @param isCreateRemoteFolder the isCreateRemoteFolder to set
+     * @param createRemoteFolder the createRemoteFolder to set
      */
-    public void setCreateRemoteFolder(boolean isCreateRemoteFolder) {
-        this.isCreateRemoteFolder = isCreateRemoteFolder;
+    public void setCreateRemoteFolder(boolean createRemoteFolder) {
+        this.createRemoteFolder = createRemoteFolder;
     }
 
     /**
@@ -331,7 +331,7 @@ public class OCUpload implements Parcelable {
         this.createdBy = createdBy;
     }
 
-    public int getCreadtedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
@@ -377,22 +377,22 @@ public class OCUpload implements Parcelable {
      * @return the isUseWifiOnly
      */
     public boolean isUseWifiOnly() {
-        return isUseWifiOnly;
+        return useWifiOnly;
     }
 
     /**
-     * @param isUseWifiOnly the isUseWifiOnly to set
+     * @param useWifiOnly the useWifiOnly to set
      */
-    public void setUseWifiOnly(boolean isUseWifiOnly) {
-        this.isUseWifiOnly = isUseWifiOnly;
+    public void setUseWifiOnly(boolean useWifiOnly) {
+        this.useWifiOnly = useWifiOnly;
     }
 
-    public void setWhileChargingOnly(boolean isWhileChargingOnly) {
-        this.isWhileChargingOnly = isWhileChargingOnly;
+    public void setWhileChargingOnly(boolean whileChargingOnly) {
+        this.whileChargingOnly = whileChargingOnly;
     }
 
     public boolean isWhileChargingOnly() {
-        return isWhileChargingOnly;
+        return whileChargingOnly;
     }
 
     public void setFolderUnlockToken(String token) {
@@ -419,7 +419,7 @@ public class OCUpload implements Parcelable {
         accountName = source.readString();
         localAction = source.readInt();
         forceOverwrite = source.readInt() == 1;
-        isCreateRemoteFolder = source.readInt() == 1;
+        createRemoteFolder = source.readInt() == 1;
         try {
             uploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -432,8 +432,8 @@ public class OCUpload implements Parcelable {
             lastResult = UploadResult.UNKNOWN;
         }
         createdBy = source.readInt();
-        isUseWifiOnly = source.readInt() == 1;
-        isWhileChargingOnly = source.readInt() == 1;
+        useWifiOnly = source.readInt() == 1;
+        whileChargingOnly = source.readInt() == 1;
         folderUnlockToken = source.readString();
     }
 
@@ -450,13 +450,13 @@ public class OCUpload implements Parcelable {
         dest.writeString(accountName);
         dest.writeInt(localAction);
         dest.writeInt(forceOverwrite ? 1 : 0);
-        dest.writeInt(isCreateRemoteFolder ? 1 : 0);
+        dest.writeInt(createRemoteFolder ? 1 : 0);
         dest.writeString(uploadStatus.name());
         dest.writeLong(uploadEndTimeStamp);
-        dest.writeString(((lastResult == null) ? "" : lastResult.name()));
+        dest.writeString(lastResult == null ? "" : lastResult.name());
         dest.writeInt(createdBy);
-        dest.writeInt(isUseWifiOnly ? 1 : 0);
-        dest.writeInt(isWhileChargingOnly ? 1 : 0);
+        dest.writeInt(useWifiOnly ? 1 : 0);
+        dest.writeInt(whileChargingOnly ? 1 : 0);
         dest.writeString(folderUnlockToken);
     }
 
