@@ -813,48 +813,51 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     saveIndexAndTopPosition(position);
                 }
 
-            } else if (!mOnlyFoldersClickable){ // Click on a file
-                if (PreviewImageFragment.canBePreviewed(file)) {
-                    // preview image - it handles the download, if needed
-                    if (searchFragment) {
-                        VirtualFolderType type;
-                        switch (currentSearchType) {
-                            case FAVORITE_SEARCH:
-                                type = VirtualFolderType.FAVORITE;
-                                break;
-                            case PHOTO_SEARCH:
-                                type = VirtualFolderType.PHOTOS;
-                                break;
-                            default:
-                                type = VirtualFolderType.NONE;
-                                break;
+                } else if (!mOnlyFoldersClickable) { // Click on a file
+                    if (PreviewImageFragment.canBePreviewed(file)) {
+                        // preview image - it handles the download, if needed
+                        if (searchFragment) {
+                            VirtualFolderType type;
+                            switch (currentSearchType) {
+                                case FAVORITE_SEARCH:
+                                    type = VirtualFolderType.FAVORITE;
+                                    break;
+                                case PHOTO_SEARCH:
+                                    type = VirtualFolderType.PHOTOS;
+                                    break;
+                                default:
+                                    type = VirtualFolderType.NONE;
+                                    break;
+                            }
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                        } else {
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                         }
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                    } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
+                        ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
+                    } else if (PreviewTextFragment.canBePreviewed(file)) {
+                        ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
+                    } else if (file.isDown()) {
+                        if (PreviewMediaFragment.canBePreviewed(file)) {
+                            // media preview
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
+                        } else {
+                            mContainerActivity.getFileOperationsHelper().openFile(file);
+                        }
                     } else {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+                        if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(
+                                AccountUtils.getCurrentOwnCloudAccount(getContext())).isMediaStreamingSupported()) {
+                            // stream media preview on >= NC14
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
+                        } else {
+                            // automatic download, preview on finish
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
+                        }
                     }
-                } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
-                    ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
-                } else if (PreviewTextFragment.canBePreviewed(file)) {
-                    ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
-                } else if (file.isDown()) {
-                    if (PreviewMediaFragment.canBePreviewed(file)) {
-                        // media preview
-                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0,
-                                true, false);
-                    } else {
-                        mContainerActivity.getFileOperationsHelper().openFile(file);
-                    }
-
-                } else {
-                    // automatic download, preview on finish
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
-                
-
-            }
-}
+                }
         } else {
-            Log_OC.d(TAG, "Null object in ListAdapter!!");}
+                Log_OC.d(TAG, "Null object in ListAdapter!");
+            }
         }
     }
 
@@ -901,6 +904,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
                 case R.id.action_open_file_with: {
                     mContainerActivity.getFileOperationsHelper().openFile(singleFile);
+                    return true;
+                }
+                case R.id.action_stream_media: {
+                    mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
                     return true;
                 }
                 case R.id.action_rename_file: {

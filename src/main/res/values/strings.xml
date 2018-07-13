@@ -223,7 +223,6 @@
     <string name="media_state_loading">%1$s (loading)</string>
     <string name="media_event_done">%1$s playback finished</string>
     <string name="media_err_nothing_to_play">No media file found</string>
-    <string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">The file is not in a valid account</string>
     <string name="media_err_unsupported">Unsupported media codec</string>
     <string name="media_err_io">Could not read the media file</string>
@@ -823,4 +822,7 @@
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="stream">Stream with…</string>
+    <string name="stream_not_possible_headline">Internal streaming not possible</string>
+    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
 </resources>
