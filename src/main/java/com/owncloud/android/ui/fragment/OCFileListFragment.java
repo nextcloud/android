@@ -39,6 +39,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -1483,6 +1484,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } catch (OperationCanceledException e) {
             Log_OC.e(TAG, "Operation has been canceled", e);
         }
+    }
+
+    public CoordinatorLayout getListLayout() {
+        return mListFragmentLayout;
     }
 
     private void setTitle(@StringRes final int title) {

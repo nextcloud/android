@@ -2109,9 +2109,13 @@ public class FileDisplayActivity extends HookActivity
             refreshListOfFilesFragment(false);
         } else {
             try {
-                DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                if (getListOfFilesFragment() != null) {
+                    DisplayUtils.showSnackMessage(getListOfFilesFragment().getListLayout(),
+                            ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                } else {
+                    DisplayUtils.showSnackMessage(this,
+                            ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                }
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
