@@ -211,7 +211,7 @@ public class UploadFileOperation extends SyncOperation {
         mOriginalStoragePath = mFile.getStoragePath();
         mContext = context;
         mOCUploadId = upload.getUploadId();
-        mCreatedBy = upload.getCreadtedBy();
+        mCreatedBy = upload.getCreatedBy();
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
         // Ignore power save mode only if user explicitly created this upload
         mIgnoringPowerSaveMode = (mCreatedBy == CREATED_BY_USER);

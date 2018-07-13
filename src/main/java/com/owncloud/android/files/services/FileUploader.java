@@ -870,11 +870,11 @@ public class FileUploader extends Service
 
         public boolean isUploadingNow(OCUpload upload) {
             return (
-                upload != null  &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
+                    upload != null &&
+                            mCurrentAccount != null &&
+                            mCurrentUpload != null &&
+                            upload.getAccountName().equals(mCurrentAccount.name) &&
+                            upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
             );
         }
 
