@@ -187,17 +187,11 @@ public class PassCodeActivity extends AppCompatActivity {
         setOnKeyListener(2);
         setOnKeyListener(3);
 
-        mPassCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(1);
-        });
+        mPassCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(1));
 
-        mPassCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(2);
-        });
+        mPassCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(2));
 
-        mPassCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(3);
-        });
+        mPassCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(3));
     }
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
