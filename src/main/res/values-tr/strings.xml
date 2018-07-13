@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Oynatmaya çalışılırken zaman aşımına uğradı</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_unknown">Ortam dosyası iç ortam oynatıcı ile oynatılamıyor</string>
-    <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken bir güvenlik sorunu çıktı</string>
-    <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken bir giriş sorunu çıktı</string>
-    <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir sorun çıktı</string>
     <string name="media_rewind_description">Geri Alma Düğmesi</string>
     <string name="media_play_pause_description">Oynatma ya da Duraklatma Düğmesi</string>
     <string name="media_forward_description">İleri Alma Düğmesi</string>

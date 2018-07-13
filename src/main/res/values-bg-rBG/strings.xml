@@ -214,9 +214,6 @@
     <string name="media_err_timeout">Опитът за възпроизвеждане на файла беше неуспешен</string>
     <string name="media_err_invalid_progressive_playback">Медийният файл не може да бъде излъчен</string>
     <string name="media_err_unknown">Вграденият медия плеър не може да възпроизведе файла</string>
-    <string name="media_err_security_ex">Грешка по сигурноста, докато се опитва да пусне %1$s.</string>
-    <string name="media_err_io_ex">Входна грешка, докато се опитваше да пусне %1$s.</string>
-    <string name="media_err_unexpected">Неочаквана грешка, докато се опитваше да пусне %1$s.</string>
     <string name="media_rewind_description">Бутон за превъртане назад</string>
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
     <string name="media_forward_description">Бутон за превъртане напред</string>

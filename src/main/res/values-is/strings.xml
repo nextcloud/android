@@ -221,9 +221,6 @@
     <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_unknown">Innbyggði margmiðlunarspilarinn ræður ekki við að spila þessa margmiðlunarskrá  </string>
-    <string name="media_err_security_ex">Öryggissvilla kom upp við að reyna að spila  %1$s</string>
-    <string name="media_err_io_ex">Óvænt villa kom upp við að reyna að spila  %1$s</string>
-    <string name="media_err_unexpected">Óvænt villa kom upp við að reyna að spila  %1$s</string>
     <string name="media_rewind_description">Spóla-til-baka hnappur</string>
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>

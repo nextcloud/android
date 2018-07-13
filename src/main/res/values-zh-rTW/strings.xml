@@ -209,9 +209,6 @@
     <string name="media_err_timeout">欲撥放的檔案已逾時</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
-    <string name="media_err_security_ex">嘗試播放%1$s時出現安全性錯誤</string>
-    <string name="media_err_io_ex">嘗試播放%1$s時輸入錯誤</string>
-    <string name="media_err_unexpected">嘗試播放%1$s時出現未知錯誤</string>
     <string name="media_rewind_description">倒帶按鈕</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_forward_description">快轉按鈕</string>

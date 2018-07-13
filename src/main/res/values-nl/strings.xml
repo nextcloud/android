@@ -222,9 +222,6 @@
     <string name="media_err_timeout">Time-out tijdens het afspelen</string>
     <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
     <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
-    <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
-    <string name="media_err_io_ex">Invoerfout bij afspelen %1$s</string>
-    <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
     <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
     <string name="media_forward_description">Doorspoelknop</string>

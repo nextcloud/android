@@ -189,9 +189,6 @@
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
     <string name="media_err_timeout">S\'ha esgotat el temps d\'espera del fitxer de reproducció</string>
     <string name="media_err_invalid_progressive_playback">El fitxer multimèdia no es pot reproduir</string>
-    <string name="media_err_security_ex">S\'ha produït un error de seguretat en intentar jugar%1$s</string>
-    <string name="media_err_io_ex">S\'ha produït un error d\'entrada mentre es tracta de jugar%1$s</string>
-    <string name="media_err_unexpected">S\'ha produït un error inesperat mentre s\'intenta reproduir%1$s</string>
     <string name="media_rewind_description">Botó de rebobinat</string>
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>

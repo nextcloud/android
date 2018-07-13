@@ -175,9 +175,6 @@
     <string name="media_err_malformed">Media failas yra nepalaikomos koduotės.</string>
     <string name="media_err_timeout">Baigėsi laukimo laikas bandant paleisti</string>
     <string name="media_err_invalid_progressive_playback">Nepavyksta perskaityti pasirinkto failo.</string>
-    <string name="media_err_security_ex">Bandant paleisti %1$s buvo susidurta su saugumo klaida</string>
-    <string name="media_err_io_ex">Įvesties klaida bandant paleisti %1$s</string>
-    <string name="media_err_unexpected">Nenumatyta klaida bandant paleisti %1$s</string>
     <string name="media_rewind_description">Atsukimo mygtukas</string>
     <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
     <string name="media_forward_description">Prasukimo mygtukas</string>

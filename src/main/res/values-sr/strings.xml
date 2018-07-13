@@ -232,9 +232,6 @@
     <string name="media_err_timeout">Истекло време покушавајући да пустим фајл</string>
     <string name="media_err_invalid_progressive_playback">Мултимедијални фајл не може да се пусти</string>
     <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти овај фајл</string>
-    <string name="media_err_security_ex">Грешка у вези безбедности при покушају да пустим %1$s</string>
-    <string name="media_err_io_ex">Улазна грешка при покушају да пустим %1$s</string>
-    <string name="media_err_unexpected">Неочекивана грешка при покушају да пустим %1$s</string>
     <string name="media_rewind_description">Уназад</string>
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>

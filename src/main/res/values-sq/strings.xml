@@ -222,9 +222,6 @@
     <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
     <string name="media_err_invalid_progressive_playback">Skedari media s’mund të transmetohet</string>
     <string name="media_err_unknown">Ndërtuesi i integruar i medias nuk mund të luajë skedarin medial</string>
-    <string name="media_err_security_ex">Gabim sigurie gjatë përpjekjes për luajtje të %1$s</string>
-    <string name="media_err_io_ex">Gabim input-i gjatë përpjekjes për luajtje të %1$s</string>
-    <string name="media_err_unexpected">Gabim i papritur gjatë përpjekjes për luajtje të %1$s</string>
     <string name="media_rewind_description">Butoni Mbrapsht</string>
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
     <string name="media_forward_description">Butoni Përpara</string>

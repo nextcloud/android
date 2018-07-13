@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
     <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
-    <string name="media_err_security_ex">Erro de segurança encontrado ao tentar reproduzir %1$s</string>
-    <string name="media_err_io_ex">Erro de entrada tentando reproduzir %1$s</string>
-    <string name="media_err_unexpected">Erro inesperado ao tentar reproduzir %1$s</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>

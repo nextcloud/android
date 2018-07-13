@@ -219,9 +219,6 @@
     <string name="media_err_timeout">הניסיון לנגן את הקובץ ארך זמן רב מדי</string>
     <string name="media_err_invalid_progressive_playback">לא ניתן להזרים את קובץ המדיה</string>
     <string name="media_err_unknown">נגן המדיה המובנה לא יכול לנגן את קובץ המדיה</string>
-    <string name="media_err_security_ex">אירעה שגיאת אבטחה בעת הניסיון לנגן את %1$s</string>
-    <string name="media_err_io_ex">אירעה שגיאת קלט בעת הניסיון לנגן את %1$s</string>
-    <string name="media_err_unexpected">שגיאה בלתי צפויה בעת הניסיון לנגן את %1$s</string>
     <string name="media_rewind_description">לחצן החזרה אחורה</string>
     <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
     <string name="media_forward_description">לחצן הרצה קדימה</string>

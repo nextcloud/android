@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Lejátszási kísérlet időtúllépés</string>
     <string name="media_err_invalid_progressive_playback">A média fájl nem streamelhető</string>
     <string name="media_err_unknown">A beépített médialejátszó nem tudja lejátszani a fájlt</string>
-    <string name="media_err_security_ex">Biztonsági hiba a %1$s lejátszásakor</string>
-    <string name="media_err_io_ex">Bemeneti hiba %1$s lejátszásakor</string>
-    <string name="media_err_unexpected">Váratlan hiba %1$s lejátszásakor</string>
     <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
     <string name="media_forward_description">Előre gomb</string>

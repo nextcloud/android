@@ -210,9 +210,6 @@
     <string name="media_err_timeout">ფაილის დაკვრის მცდელობის დრო ამოიწურა</string>
     <string name="media_err_invalid_progressive_playback">მედია ფაილის სტრიმი ვერ ხორციელდება</string>
     <string name="media_err_unknown">ჩაშენებული მედია დამკვრელი ვერ უკრავს მედია ფაილს</string>
-    <string name="media_err_security_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა უსაფრთხებასთან დაკავშირებული შეცდომა</string>
-    <string name="media_err_io_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა შენატანთან დაკავშირებული შეცდომა</string>
-    <string name="media_err_unexpected">%1$s-ის დაკვრის მცდელობისას წარმოიშვა მოულოდნელი შეცდომა</string>
     <string name="media_rewind_description">გადახვევის ღილაკი</string>
     <string name="media_play_pause_description">დაკვრის ან პაუზის ღილაკი</string>
     <string name="media_forward_description">სწრაფი გადახვევის ღილაკი</string>

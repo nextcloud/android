@@ -221,9 +221,6 @@
     <string name="media_err_timeout">再生試行がタイムアウトしました</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_unknown">ビルトインのメディアプレーヤーはこのメディアファイルを再生できません</string>
-    <string name="media_err_security_ex">%1$s の再生時にセキュリティエラーが発生しました</string>
-    <string name="media_err_io_ex">%1$s の再生中に入力エラーが発生しました</string>
-    <string name="media_err_unexpected">%1$s の再生時に予期しないエラーが発生しました</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>

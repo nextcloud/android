@@ -219,9 +219,6 @@
     <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍할 수 없음</string>
     <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
-    <string name="media_err_security_ex">%1$s을(를) 재생하는 중 보안 오류가 발생함</string>
-    <string name="media_err_io_ex">%1$s을(를) 재생하는 중 읽기 오류가 발생함</string>
-    <string name="media_err_unexpected">%1$s을(를) 재생하는 중 알 수 없는 오류가 발생함</string>
     <string name="media_rewind_description">되감기 단추</string>
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
     <string name="media_forward_description">빨리감기 단추</string>

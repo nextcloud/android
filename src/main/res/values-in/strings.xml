@@ -163,9 +163,6 @@
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
     <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
     <string name="media_err_invalid_progressive_playback">Berkas media tidak bisa di streaming</string>
-    <string name="media_err_security_ex">Kesalahan keamanan saat mencoba memutar %1$s</string>
-    <string name="media_err_io_ex">Kesalahan masukan saat mencoba memutar %1$s</string>
-    <string name="media_err_unexpected">Kesalahan tak terduga saat mencoba memutar %1$s</string>
     <string name="media_rewind_description">Tombol mundur</string>
     <string name="media_play_pause_description">Tombol main dan jeda</string>
     <string name="media_forward_description">Tombol maju</string>

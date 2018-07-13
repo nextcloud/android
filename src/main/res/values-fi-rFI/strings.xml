@@ -217,8 +217,6 @@
     <string name="media_err_timeout">Tiedoston toisto aikakatkaistiin.</string>
     <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
     <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
-    <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
-    <string name="media_err_unexpected">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
