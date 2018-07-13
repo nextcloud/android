@@ -82,8 +82,9 @@ public class StreamMediaFileOperation extends RemoteOperation {
             Log_OC.e(TAG, "Get stream url for file with id " + fileID + " failed: " + result.getLogMessage(),
                     result.getException());
         } finally {
-            if (postMethod != null)
+            if (postMethod != null) {
                 postMethod.releaseConnection();
+            }
         }
         return result;
     }
