@@ -57,7 +57,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -246,22 +245,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), getActivity(), R.id.nav_bar_files);
-        }
-
-        if (!getResources().getBoolean(R.bool.bottom_toolbar_enabled) || savedInstanceState != null) {
-
-            final View fabView = v.findViewById(R.id.fab_main);
-            final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
-                    fabView.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    fabView.setLayoutParams(layoutParams);
-                    fabView.invalidate();
-                }
-            });
         }
 
         Bundle args = getArguments();
@@ -755,7 +738,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     if (file.isEncrypted()) {
                         // check if API >= 19
                         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                            Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_supported,
+                            Snackbar.make(mListFragmentLayout, R.string.end_to_end_encryption_not_supported,
                                     Snackbar.LENGTH_LONG).show();
                             return;
                         }
@@ -767,7 +750,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                     if (ocCapability.getEndToEndEncryption().isFalse() ||
                             ocCapability.getEndToEndEncryption().isUnknown()) {
-                        Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
+                        Snackbar.make(mListFragmentLayout, R.string.end_to_end_encryption_not_enabled,
                                 Snackbar.LENGTH_LONG).show();
                         return;
                     }// check if keys are stored
@@ -792,7 +775,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (mContainerActivity instanceof FolderPickerActivity &&
                                 ((FolderPickerActivity) mContainerActivity)
                                         .isDoNotEnterEncryptedFolder()) {
-                            Snackbar.make(getRecyclerView(),
+                            Snackbar.make(mListFragmentLayout,
                                     R.string.copy_move_to_encrypted_folder_not_supported,
                                     Snackbar.LENGTH_LONG).show();
                         } else {
@@ -1486,9 +1469,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mListFragmentLayout, R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
             } else {
-                Snackbar.make(getRecyclerView(), R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mListFragmentLayout, R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
             }
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {

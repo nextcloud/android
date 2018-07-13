@@ -32,6 +32,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -104,6 +105,7 @@ public class ExtendedListFragment extends Fragment
     private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected LinearLayout mEmptyListContainer;
+    protected CoordinatorLayout mListFragmentLayout;
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;
     protected ImageView mEmptyListIcon;
@@ -364,6 +366,8 @@ public class ExtendedListFragment extends Fragment
 
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);
+
+        mListFragmentLayout = v.findViewById(R.id.list_fragment_layout);
 
         mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
 

@@ -44,15 +44,12 @@
 
         <include layout="@layout/empty_list"/>
 
-    </android.support.design.widget.CoordinatorLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_navigation_view"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="end|bottom"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
@@ -70,5 +67,6 @@
         app:itemTextColor="@color/primary_button_text_color"
         app:menu="@menu/navigation_bar_menu"/>
 
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>
