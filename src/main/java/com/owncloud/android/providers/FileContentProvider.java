@@ -736,8 +736,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_ETAG + TEXT
                 + ProviderTableMeta.FILE_SHARED_VIA_LINK + INTEGER
                 + ProviderTableMeta.FILE_PUBLIC_LINK + TEXT
-                + ProviderTableMeta.FILE_PERMISSIONS + " TEXT null,"
-                + ProviderTableMeta.FILE_REMOTE_ID + " TEXT null,"
+                + ProviderTableMeta.FILE_PERMISSIONS + " TEXT,"
+                + ProviderTableMeta.FILE_REMOTE_ID + " TEXT ,"
                 + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
                 + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
@@ -869,7 +869,7 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("CREATE TABLE " + ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
                 + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
-                + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
+                + ProviderTableMeta.ARBITRARY_DATA_KEY + "TEXT, "      // key
                 + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT );"    // value
         );
     }
@@ -878,7 +878,7 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("CREATE TABLE " + ProviderTableMeta.VIRTUAL_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
                 + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
-                + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
+                + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER );"        // file id
         );
     }
 
@@ -889,8 +889,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
                 + ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
                 + ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
-                + ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " STRING, "
-                + ProviderTableMeta.FILESYSTEM_CRC32 + " STRING, "
+                + ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " TEXT, "
+                + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT, "
                 + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
         );
     }
