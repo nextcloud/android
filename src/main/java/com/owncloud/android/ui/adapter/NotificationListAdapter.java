@@ -19,13 +19,11 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -218,7 +216,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     }
 
     private void openLink(String link) {
-        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        notificationsActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
     }
 
     @Override
@@ -227,8 +225,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     }
 
     static class NotificationViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.notification_layout)
-        public RelativeLayout layout;
         @BindView(R.id.notification_icon)
         public ImageView icon;
         @BindView(R.id.notification_subject)
