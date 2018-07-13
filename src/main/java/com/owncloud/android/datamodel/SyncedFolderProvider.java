@@ -78,6 +78,24 @@ public class SyncedFolderProvider extends Observable {
         }
     }
 
+    public int countEnabledSyncedFolders() {
+        int count = 0;
+        Cursor cursor = mContentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                null,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED + " = ?",
+                new String[]{"1"},
+                null
+        );
+
+        if (cursor != null) {
+             count = cursor.getCount();
+             cursor.close();
+        }
+
+        return count;
+    }
+
     /**
      * get all synced folder entries.
      *
@@ -160,6 +178,37 @@ public class SyncedFolderProvider extends Observable {
         return result;
     }
 
+    public SyncedFolder findByLocalPathAndAccount(String localPath, Account account) {
+
+        SyncedFolder result = null;
+        Cursor cursor = mContentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                null,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " == \"" + localPath + "\"" + " AND " +
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " == " + account.name,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.getCount() == 1) {
+            result = createSyncedFolderFromCursor(cursor);
+        } else {
+            if (cursor == null) {
+                Log_OC.e(TAG, "Sync folder db cursor for local path=" + localPath + " in NULL.");
+            } else {
+                Log_OC.e(TAG, cursor.getCount() + " items for local path=" + localPath
+                        + " available in sync folder db. Expected 1. Failed to update sync folder db.");
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+
+    }
+
     /**
      * find a synced folder by local path.
      *
@@ -171,7 +220,7 @@ public class SyncedFolderProvider extends Observable {
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 null,
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "== \"" + localPath + "\"",
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " == \"" + localPath + "\"",
                 null,
                 null
         );

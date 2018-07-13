@@ -66,14 +66,14 @@ public class MediaProvider {
      * @return list with media folders
      */
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity) {
+                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
             cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null,
                     IMAGES_FOLDER_SORT_ORDER);
         }
@@ -171,14 +171,14 @@ public class MediaProvider {
     }
 
     public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity) {
+                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
             cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
                     null, null, null);
         } 
