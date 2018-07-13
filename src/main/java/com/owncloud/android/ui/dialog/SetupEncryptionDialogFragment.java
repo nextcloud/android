@@ -185,15 +185,19 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                                 try {
                                     String privateKey = task.get();
+                                    String mnemonic = passwordField.getText().toString().replaceAll("\\s", "")
+                                            .toLowerCase(Locale.ROOT);
                                     String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                            passwordField.getText().toString().replaceAll("\\s", "")
-                                                    .toLowerCase(Locale.ROOT));
+                                            mnemonic);
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
 
                                     dialog.dismiss();
                                     Log_OC.d(TAG, "Private key successfully decrypted and stored");
+
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.MNEMONIC,
+                                            mnemonic);
 
                                     Intent intentExisting = new Intent();
                                     intentExisting.putExtra(SUCCESS, true);
@@ -301,14 +305,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     textView.setText(R.string.end_to_end_encryption_keywords_description);
 
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    for (String string : keyWords) {
-                        stringBuilder.append(string).append(" ");
-                    }
-                    String keys = stringBuilder.toString();
-
-                    passphraseTextView.setText(keys);
+                    passphraseTextView.setText(generateMnemonicString(true));
 
                     passphraseTextView.setVisibility(View.VISIBLE);
                     positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
@@ -379,15 +376,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                     return "";
                 }
 
-                StringBuilder stringBuilder = new StringBuilder();
-                for (String string : keyWords) {
-                    stringBuilder.append(string);
-                }
-                String keyPhrase = stringBuilder.toString();
-
                 String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
                 String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
-                String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString, keyPhrase);
+                String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString,
+                        generateMnemonicString(false));
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
@@ -400,6 +392,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PRIVATE_KEY,
                             privateKeyString);
                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PUBLIC_KEY, publicKey);
+                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.MNEMONIC,
+                            generateMnemonicString(true));
 
                     keyResult = KEY_CREATED;
                     return (String) storePrivateKeyResult.getData().get(0);
@@ -437,5 +431,18 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                         SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
             }
         }
+    }
+
+    private String generateMnemonicString(boolean withWhitespace) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (String string : keyWords) {
+            stringBuilder.append(string);
+            if (withWhitespace) {
+                stringBuilder.append(' ');
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

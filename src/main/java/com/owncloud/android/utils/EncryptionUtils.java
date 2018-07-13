@@ -95,6 +95,7 @@ public class EncryptionUtils {
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
+    public static final String MNEMONIC = "MNEMONIC";
     public static final int ivLength = 16;
     public static final int saltLength = 40;
 
