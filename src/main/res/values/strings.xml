@@ -652,7 +652,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
@@ -781,6 +780,7 @@
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Auth end point address</string>
     <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
     <string name="hidden_character" translatable="false">*</string>
@@ -804,6 +804,12 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
+    <string name="notification_channel_general_name">General notifications</string>
+    <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
+    <string name="new_media_folder_detected">New %1$s media folder detected.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
     <string name="feedback_no_mail_app">No app available to send mails!</string>
