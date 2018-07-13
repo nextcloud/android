@@ -609,7 +609,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             this.items = items;
         }
 
-        void fixAndSortItems(OCUpload[] array) {
+        void fixAndSortItems(OCUpload... array) {
             FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
 
             for (OCUpload upload : array) {
