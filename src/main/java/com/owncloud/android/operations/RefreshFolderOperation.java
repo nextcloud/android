@@ -289,6 +289,9 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 removeLocalFolder();
             }
+            if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                return result;
+            }
             if (result.isException()) {
                 Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
                         result.getLogMessage(), result.getException());
