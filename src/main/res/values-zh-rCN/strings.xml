@@ -227,9 +227,6 @@
     <string name="media_err_timeout">尝试播放文件超时</string>
     <string name="media_err_invalid_progressive_playback">该媒体文件无法被转换成流</string>
     <string name="media_err_unknown">默认的媒体播放器无法播放该媒体文件</string>
-    <string name="media_err_security_ex">尝试播放 %1$s 时遇到安全错误</string>
-    <string name="media_err_io_ex">尝试播放 %1$s 时发生输入错误</string>
-    <string name="media_err_unexpected">尝试播放 %1$s 时发生意外错误</string>
     <string name="media_rewind_description">倒带按钮</string>
     <string name="media_play_pause_description">播放暂停按钮</string>
     <string name="media_forward_description">快进按钮</string>

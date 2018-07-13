@@ -39,7 +39,9 @@
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
+    <string name="prefs_lock">Blokada</string>
     <string name="prefs_lock_none">Brak.</string>
+    <string name="prefs_lock_using_passcode">Kod PIN</string>
     <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
@@ -223,9 +225,6 @@
     <string name="media_err_timeout">Upłynął limit czasu podczas próby odtwarzania pliku</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_unknown">Wbudowany odtwarzacz multimedialny nie może odtworzyć pliku</string>
-    <string name="media_err_security_ex">Napotkano błąd zabezpieczeń podczas próby odtwarzania %1$s</string>
-    <string name="media_err_io_ex">Błąd danych wejściowych podczas próby odtwarzania %1$s</string>
-    <string name="media_err_unexpected">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
@@ -239,6 +238,7 @@
 	<string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
 	<string name="auth_account_not_new">Konto tego samego użytkownika i serwera już istnieje na tym urządzeniu</string>
 	<string name="auth_account_not_the_same">Podany login nie pasuje do użytkowników </string>
+	<string name="auth_unknown_error_http_title">Wystąpił nieznany błąd HTTP!</string>
 	<string name="auth_unknown_error_title">Wystąpił nieznany błąd!</string>
 	<string name="auth_unknown_error_exception_title">Nieznany błąd: %1$s</string>
 	<string name="auth_unknown_host_title">Nie znaleziono hosta</string>
@@ -648,8 +648,10 @@
 
     <string name="date_unknown">Nieznane</string>
 
+    <string name="resized_image_not_possible_download">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
     <string name="resized_images_download_full_image">Pobrać pełen obraz?</string>
 
+    <string name="store_short_desc">Przy użyciu aplikacji mobilnej Nextcloud na Android\'a uzyskasz dostęp do wszystkich plików z twojego Nextcloud\'a.</string>
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
@@ -681,6 +683,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="store_full_dev_desc">Aplikacja Nextcloud na Android jest wolnym oprogramowaniem na licencji copyleft, co zapewnia pełną mobilną wolność.\nTo jest oficjalna wersja rozwojowa (development version), w której można zapoznać się z codzienną porcją nowych i nieprzetestowanych funkcji, co może powodować niestabilne działanie i utratę danych. Ta aplikacja jest dla osób, które chcą ją testować i zgłaszać ewentualne błędy. Nie używaj tej aplikacji do pracy produkcyjnej!\n\nW serwisie F-droid dostępna jest zarówno wersja deweloperska, jak i zwykła wersja tej aplikacji i można zainstalować obie z nich równocześnie.</string>
 
     <string name="prefs_category_dev">Rozwojowa</string>
+    <string name="dev_version_no_information_available">Brak dostępnych informacji.</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji</string>
     <string name="folder_icon">Ikona katalogu</string>
     <string name="dev_version_new_version_available">Nowa wersja dostępna</string>
@@ -695,9 +698,11 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="account_not_found">Nie znaleziono konta</string>
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
+    <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="account_icon">Ikona konta</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
+    <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
@@ -705,15 +710,25 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
+    <string name="notification_channel_push_name">Powiadomienia Push</string>
+    <string name="notification_channel_push_description">Pokaż powiadomienia push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia tworzone przez administrację itd.</string>
+    <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_password">Hasło</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="upload_files">Wyślij plik</string>
     <string name="create_new_folder">Utwórz nowy folder</string>
+    <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
-    <string name="restore">Przywróć plik</string>
+    <string name="whats_new_device_credentials_title">Używanie zabezpieczeń urządzenia</string>
+    <string name="restore_button_description">Przywróć usunięty plik</string>
+	<string name="restore">Przywróć plik</string>
+    <string name="new_version_was_created">Powstała nowa wersja</string>
     <string name="new_comment">Nowy komentarz…</string>
+    <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
+    <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="dismiss">Anuluj</string>
+    <string name="feedback_no_mail_app">Brak dostępnej aplikacji do wysyłki wiadomości email!</string>
     <string name="drawer_item_trashbin">Usunięto pliki</string>
     <string name="trashbin_activity_title">Usunięto pliki</string>
     <string name="action_empty_trashbin">Pusty kosz</string>

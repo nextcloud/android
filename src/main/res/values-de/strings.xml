@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
-    <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s wiederzugeben</string>
-    <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
-    <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s wiederzugeben</string>
     <string name="media_rewind_description">Rückspulknopf</string>
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
     <string name="media_forward_description">Vorspulknopf</string>

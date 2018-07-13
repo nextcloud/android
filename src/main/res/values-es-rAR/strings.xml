@@ -163,9 +163,6 @@
     <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>
     <string name="media_err_timeout">El intento de reproducir el archivo agotó el tiempo de espera.</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
-    <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
-    <string name="media_err_io_ex">Se presentó un error de entrada al intentar reproducir %1$s </string>
-    <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinar</string>
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
     <string name="media_forward_description">Botón de avanzar rápido</string>

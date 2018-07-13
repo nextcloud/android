@@ -234,9 +234,6 @@
     <string name="media_err_timeout">Истекло время попытки воспроизведения</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_unknown">Файл не может быть воспроизведён встроенным мультимедийным проигрывателем</string>
-    <string name="media_err_security_ex">Ошибка безопасности при воспроизведении %1$s</string>
-    <string name="media_err_io_ex">Ошибка ввода при воспроизведении %1$s</string>
-    <string name="media_err_unexpected">Неожиданная ошибка при воспроизведении %1$s</string>
     <string name="media_rewind_description">Перемотка назад</string>
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>

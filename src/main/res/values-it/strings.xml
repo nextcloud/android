@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
     <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
     <string name="media_err_unknown">Il lettore multimediale integrato non è in grado di riprodurre il file</string>
-    <string name="media_err_security_ex">Riscontrato un errore di sicurezza tentando di riprodurre %1$s</string>
-    <string name="media_err_io_ex">Errore di input durante la riproduzione di %1$s</string>
-    <string name="media_err_unexpected">Errore inatteso durante il tentativo di riproduzione di %1$s</string>
     <string name="media_rewind_description">Pulsante Riavvolgi</string>
     <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
     <string name="media_forward_description">Pulsante Avanti veloce</string>

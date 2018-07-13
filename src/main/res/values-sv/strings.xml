@@ -206,9 +206,6 @@
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
-    <string name="media_err_security_ex">Ett säkerhetsfel inträffade när %1$s skulle spelas</string>
-    <string name="media_err_io_ex">Inmatningsfel när %1$s försökte spelas upp</string>
-    <string name="media_err_unexpected">Oväntat fel när %1$s försökte spelas upp</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_forward_description">Snappspolningsknapp</string>

@@ -172,9 +172,6 @@
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
     <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
     <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče prikazati v pretoku</string>
-    <string name="media_err_security_ex">Prišlo je do varnostne napake med predvajanjem %1$s</string>
-    <string name="media_err_io_ex">Prišlo je do napake vhoda med predvajanjem %1$s</string>
-    <string name="media_err_unexpected">Prišlo je do nepričakovane napake med predvajanjem %1$s</string>
     <string name="media_rewind_description">Vrni nazaj</string>
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>

@@ -202,9 +202,6 @@
     <string name="media_err_malformed">Soubor médií má neplatné kódování</string>
     <string name="media_err_timeout">Vypršel čas při pokusu o přehrání</string>
     <string name="media_err_invalid_progressive_playback">Multimediální soubor nelze proudově odesílat</string>
-    <string name="media_err_security_ex">Při pokusu o přehrání %1$s došlo k bezpečnostní chybě</string>
-    <string name="media_err_io_ex">Chyba vstupu při pokusu o přehrání %1$s</string>
-    <string name="media_err_unexpected">Neočekávaná chyba při pokusu o přehrání %1$s</string>
     <string name="media_rewind_description">Tlačítko Přetočit</string>
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_forward_description">Tlačítko Rychle vpřed</string>

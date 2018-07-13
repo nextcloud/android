@@ -218,9 +218,6 @@
     <string name="media_err_timeout">Tidsavbrudd under avspillingsforsøk</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_unknown">Mediafilen kan ikke spilles med innebygd mediaspiller</string>
-    <string name="media_err_security_ex">Sikkerhetsfeil under avspilling av %1$s</string>
-    <string name="media_err_io_ex">Inndatafeil under avspilling av %1$s</string>
-    <string name="media_err_unexpected">Uventet feil under avspilling av %1$s</string>
     <string name="media_rewind_description">Spol tilbake</string>
     <string name="media_play_pause_description">Spill eller pause</string>
     <string name="media_forward_description">Spol fremover</string>

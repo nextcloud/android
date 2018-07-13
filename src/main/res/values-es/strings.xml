@@ -230,9 +230,6 @@
     <string name="media_err_timeout">Tiempo de espera agotado en el intento de reproducción</string>
     <string name="media_err_invalid_progressive_playback">El archivo de medios no puede ser transmitido</string>
     <string name="media_err_unknown">El reproductor de medios incorporado no puede reproducir el archivo</string>
-    <string name="media_err_security_ex">Se encontró un error de seguridad intentando reproducir %1$s</string>
-    <string name="media_err_io_ex">Error de entrada al intentar reproducir %1$s</string>
-    <string name="media_err_unexpected">Error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinado</string>
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_forward_description">Botón de avance rápido</string>

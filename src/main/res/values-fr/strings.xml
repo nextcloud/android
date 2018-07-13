@@ -232,9 +232,6 @@ Attention la suppression est irréversible.</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
-    <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
-    <string name="media_err_io_ex">Erreur d\'entrée à la lecture de %1$s</string>
-    <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>

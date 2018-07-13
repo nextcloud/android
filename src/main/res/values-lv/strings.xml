@@ -204,7 +204,6 @@
     <string name="media_err_io">Nevarēja nolasīt medija datni</string>
     <string name="media_err_malformed">Multivides failam nav pareiza iekodēšana</string>
     <string name="media_err_invalid_progressive_playback">Nevar straumēt multivides failu</string>
-    <string name="media_err_io_ex">Ievades kļūda, mēģinot atskaņot %1$s</string>
     <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
