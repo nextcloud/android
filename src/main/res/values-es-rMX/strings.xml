@@ -210,7 +210,6 @@
     <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_event_done">%1$s reproducción finalizada</string>
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
@@ -516,7 +515,6 @@
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza. </string>
@@ -620,7 +618,6 @@
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="privacy">Privacidad</string>
@@ -747,6 +744,7 @@
     <string name="notification_channel_push_name">Notificaciones push</string>
     <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Dirección del end point de autenticación</string>
     <string name="oauth_2_0_access_end_point_address_hint">Acceder a la dirección del end point</string>
     <string name="hint_name">Nombre</string>

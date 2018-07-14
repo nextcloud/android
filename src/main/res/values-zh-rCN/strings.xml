@@ -219,7 +219,6 @@
     <string name="media_state_loading">%1$s (加载)</string>
     <string name="media_event_done">%1$s 回放完毕</string>
     <string name="media_err_nothing_to_play">没有发现媒体文件</string>
-    <string name="media_err_no_account">未提供账户</string>
     <string name="media_err_not_in_owncloud">该文件不属于一个有效的账户</string>
     <string name="media_err_unsupported">不支持的媒体编码格式</string>
     <string name="media_err_io">无法读取媒体文件</string>
@@ -527,7 +526,6 @@
     <string name="confirmation_remove_files_alert">确定删除选中项？</string>
     <string name="confirmation_remove_folders_alert">确定删除选中项及其内容？</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
     <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
@@ -627,7 +625,6 @@
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="privacy">隐私</string>
@@ -749,6 +746,7 @@
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_push_description">显示服务器推送的通知，包括：在评论中被提及、收到新的远程分享、管理员发布的公告等</string>
     <string name="sendbutton_description">发送按钮的图标</string>
+
     <string name="hint_name">名称</string>
     <string name="hint_password">密码</string>
     <string name="add_to_cloud">添加到%1$s</string>

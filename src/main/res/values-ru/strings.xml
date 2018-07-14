@@ -226,7 +226,6 @@
     <string name="media_state_loading">%1$s (загружается)</string>
     <string name="media_event_done">%1$s воспроизведение завершено</string>
     <string name="media_err_nothing_to_play">Медиафайлы не найдены</string>
-    <string name="media_err_no_account">Аккаунт не указан</string>
     <string name="media_err_not_in_owncloud">Файл в неверном аккаунте</string>
     <string name="media_err_unsupported">Неподдерживаемый кодек</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
@@ -541,7 +540,6 @@
     <string name="confirmation_remove_files_alert">Действительно удалить выбранные объекты?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Эта функция Nextcloud, выполните обновление.</string>
@@ -648,7 +646,6 @@
     <string name="contacts_preferences_backup_scheduled">Резервное копирование запланировано и скоро начётся</string>
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="privacy">Конфиденциальность</string>
@@ -775,6 +772,7 @@
     <string name="notification_channel_push_name">Push-уведомления</string>
     <string name="notification_channel_push_description">Показывать push-уведомления, отправляемые на сервер: упоминания в комментариях, прием новых общих ресурсов, объявления, размещаемые администратором и т.д.</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Адрес конечной точки аутентификации</string>
     <string name="oauth_2_0_access_end_point_address_hint">Адрес конечной точки доступа</string>
     <string name="hint_name">Имя</string>
@@ -788,7 +786,6 @@
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
     <string name="unsharing_failed">Не удалось закрыть общий доступ</string>
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
-    <string name="whats_new_device_credentials_title">Использование защитной блокировки Android</string>
     <string name="whats_new_device_credentials_content">Используйте все, что угодно: шаблон, пароль, контакт или отпечаток пальца, чтобы ваши данные были в безопасности.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>
@@ -807,4 +804,4 @@
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удален!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
-</resources>
+    </resources>

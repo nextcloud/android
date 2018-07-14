@@ -201,7 +201,6 @@
     <string name="media_state_loading">%1$s（載入中）</string>
     <string name="media_event_done">%1$s播放結束</string>
     <string name="media_err_nothing_to_play">沒有發現媒體檔案</string>
-    <string name="media_err_no_account">沒有提供的帳戶</string>
     <string name="media_err_not_in_owncloud">檔案不存在於有效的帳戶中</string>
     <string name="media_err_unsupported">未支援的媒體編碼</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
@@ -438,7 +437,6 @@
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
     <string name="actionbar_search">搜尋</string>
     <string name="learn_more">瞭解更多</string>

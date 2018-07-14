@@ -176,7 +176,6 @@
     <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_event_done">%1$s reproducción finalizada</string>
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
@@ -412,7 +411,6 @@
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Conoce más</string>
@@ -499,7 +497,6 @@
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="privacy">Privacidad</string>
     <!-- Auto upload -->

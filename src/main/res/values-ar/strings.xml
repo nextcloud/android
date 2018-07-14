@@ -176,7 +176,6 @@
     
     <string name="media_state_loading">(جارٍ تحميل) %1$s</string>
     <string name="media_err_nothing_to_play">لا يوجد ملف وسائط</string>
-    <string name="media_err_no_account">لم يتم تقديم أي حساب</string>
     <string name="media_err_unsupported">ترميز غير مدعّم</string>
     <string name="media_err_invalid_progressive_playback">ملف الوسائط ﻻ يمكن عرضه</string>
     <string name="media_rewind_description">زر الترجيع</string>
@@ -327,7 +326,6 @@
 
     <string name="manage_space_title">إدارة المساحة</string>
     <string name="maintenance_mode">الخادوم في وضع الصيانة</string>
-
     <string name="actionbar_search">بحث</string>
     <string name="learn_more">تعلم المزيد</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
@@ -383,7 +381,6 @@
     <string name="contactlist_account_chooser_title">إختر الحساب الذي تود استرجاعه</string>
     <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
-    <!-- Notifications -->
     <string name="drawer_logout">الخروج</string>
     <string name="privacy">الخصوصية</string>
     <string name="file_not_found">تعذر العثور على الملف</string>
@@ -445,4 +442,5 @@
     <string name="end_to_end_encryption_dialog_close">إغلاق</string>
     <string name="end_to_end_encryption_storing_keys">تخزين المفاتيح </string>
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
+
     </resources>

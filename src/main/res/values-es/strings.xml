@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_event_done">%1$s reproducción finalizada</string>
     <string name="media_err_nothing_to_play">No se ha encontrado el archivo multimedia</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida </string>
     <string name="media_err_unsupported">Códec de medios no soportado</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
@@ -230,6 +229,7 @@
     <string name="media_err_timeout">Tiempo de espera agotado en el intento de reproducción</string>
     <string name="media_err_invalid_progressive_playback">El archivo de medios no puede ser transmitido</string>
     <string name="media_err_unknown">El reproductor de medios incorporado no puede reproducir el archivo</string>
+    <string name="media_err_playing">Error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinado</string>
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_forward_description">Botón de avance rápido</string>
@@ -533,7 +533,6 @@
     <string name="confirmation_remove_files_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualiza.</string>
@@ -638,7 +637,6 @@
     <string name="contacts_preferences_backup_scheduled">Copia de seguridad programada. Comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Cerrar sersión</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="privacy">Privacidad</string>
@@ -765,6 +763,7 @@
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Muestra notificaciones push enviadas por el servidor: menciones en comentarios, recepción de nuevos archivos  compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Dirección del punto final de autenticación</string>
     <string name="oauth_2_0_access_end_point_address_hint">Dirección de punto final de acceso</string>
     <string name="hint_name">Nombre</string>
@@ -778,7 +777,6 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
-    <string name="whats_new_device_credentials_title">Usar la protección del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
 	<string name="restore">Restaurar archivo</string>
@@ -797,4 +795,4 @@
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
-</resources>
+    </resources>

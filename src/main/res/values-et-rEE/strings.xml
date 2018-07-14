@@ -176,7 +176,6 @@
     <string name="media_state_playing">%1$s (mängib)</string>
     <string name="media_state_loading">%1$s (laeb)</string>
     <string name="media_err_nothing_to_play">Meedia faili ei leitud</string>
-    <string name="media_err_no_account">Ühtegi kontot pole antud</string>
     <string name="media_err_unsupported">Mittetoetatud meedia koodek</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_rewind_description">Tagasikerimise nupp</string>
@@ -369,7 +368,6 @@
     <string name="contacts_automatic_backup">Automaatne varundus</string>
     <string name="contacts_last_backup">Viimane varukoopia</string>
     <string name="contacts_preference_choose_date">Vali kuupäev</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Logi välja</string>
     <string name="privacy">Privaatsus</string>
     <string name="file_not_found">Faili ei leitud</string>

@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (carregando)</string>
     <string name="media_event_done">%1$s playback terminado</string>
     <string name="media_err_nothing_to_play">Nenhum arquivo de mídia encontrado</string>
-    <string name="media_err_no_account">Nenhuma conta fornecida</string>
     <string name="media_err_not_in_owncloud">O arquivo não é uma conta válida</string>
     <string name="media_err_unsupported">O codec de mídia não é suportado</string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
@@ -230,6 +229,7 @@
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
     <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
+    <string name="media_err_playing">Erro inesperado ao tocar %1$s</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
@@ -533,7 +533,6 @@
     <string name="confirmation_remove_files_alert">Quer realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="files_drop_not_supported">Isso é um recurso do Nextcloud, faça um upgrade.</string>
@@ -638,7 +637,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
     <string name="contacts_preferences_import_scheduled">Importação agendada, irá iniciar em breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="privacy">Privacidade</string>
@@ -765,6 +763,7 @@
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções nos comentários, recepção de novos compartilhamentos remotos, anúncios postados pelo administrador etc.</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Endereço do ponto final da autenticação</string>
     <string name="oauth_2_0_access_end_point_address_hint">Endereço do ponto final da acesso</string>
     <string name="hint_name">Nome</string>
@@ -778,7 +777,6 @@
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="unsharing_failed">Falha ao descompartilhar</string>
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
-    <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
 	<string name="restore">Restaurar arquivo</string>
@@ -797,4 +795,4 @@
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
-</resources>
+    </resources>

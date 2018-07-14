@@ -209,7 +209,6 @@
     <string name="media_state_loading">%1$s (ladataan)</string>
     <string name="media_event_done">%1$s toistaminen on valmis</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
-    <string name="media_err_no_account">Tiliä ei määritetty</string>
     <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
     <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
     <string name="media_err_io">Mediatiedostoa ei voitu lukea</string>
@@ -498,7 +497,6 @@
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Odotetaan latausta</string>
     <string name="actionbar_search">Etsi</string>
     <string name="files_drop_not_supported">Tämä on Nextcloud-ominaisuus, ole hyvä ja päivitä.</string>
@@ -600,7 +598,6 @@
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt</string>

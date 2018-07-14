@@ -202,7 +202,6 @@
     <string name="media_state_loading">%1$s (იტვირთება)</string>
     <string name="media_event_done">%1$s დაკვრა დასრულდა</string>
     <string name="media_err_nothing_to_play">მედია ფაილი ვერ იქნა ნაპოვნი</string>
-    <string name="media_err_no_account">ანგარიში არაა უზრუნველყოფილი</string>
     <string name="media_err_not_in_owncloud">ეს ფაილი არ ეკუთვნის დაშვებულ ანგარიშს</string>
     <string name="media_err_unsupported">მედია კოდეკი მხარდაუჭერელია</string>
     <string name="media_err_io">მედია ფაილის წაკითხვა ვერ მოხერხდა</string>
@@ -464,7 +463,6 @@
     <string name="confirmation_remove_files_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერების გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="actionbar_search">ძიება</string>
     <string name="files_drop_not_supported">ეს Nextcloud ფუნქციაა, გთხოვთ განაახლოთ.</string>
@@ -562,7 +560,6 @@
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">გასვლა</string>
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი</string>
     <string name="privacy">კონფიდენციალურობა</string>

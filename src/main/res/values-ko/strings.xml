@@ -211,7 +211,6 @@
     <string name="media_state_loading">%1$s(불러오는 중)</string>
     <string name="media_event_done">%1$s 재생 완료됨</string>
     <string name="media_err_nothing_to_play">미디어 파일을 찾을 수 없음</string>
-    <string name="media_err_no_account">계정을 찾을 수 없음</string>
     <string name="media_err_not_in_owncloud">파일이 올바른 계정에 없음</string>
     <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
@@ -511,7 +510,6 @@
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">충전 대기 중</string>
     <string name="actionbar_search">검색</string>
     <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다. 업데이트하십시오.</string>
@@ -606,7 +604,6 @@
     <string name="contacts_preferences_backup_scheduled">백업이 예약되었고 곧 시작합니다</string>
     <string name="contacts_preferences_import_scheduled">복원이 예약되었고 곧 시작합니다</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">로그아웃</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="privacy">개인 정보</string>
@@ -733,7 +730,6 @@
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
     <string name="create_new_folder">새 폴더 생성</string>
     <string name="uploads_view_upload_status_virus_detected">파이러스 탐지됨. 업로드를 완료할 수 없습니다!</string>
-    <string name="whats_new_device_credentials_title">안드로이드 기기 보호 사용</string>
     <string name="whats_new_device_credentials_content">데이터를 보호하기 위해 패턴, 비밀번호, PIN 또는 지문을 사용합니다</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
 	<string name="new_version_was_created">새 버전 생성됨</string>

@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (loading)</string>
     <string name="media_event_done">%1$s playback finished</string>
     <string name="media_err_nothing_to_play">No media file found</string>
-    <string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">The file is not in a valid account</string>
     <string name="media_err_unsupported">Unsupported media codec</string>
     <string name="media_err_io">Could not read the media file</string>
@@ -533,7 +532,6 @@
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please upgrade.</string>
@@ -638,7 +636,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
@@ -765,6 +762,7 @@
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Auth end point address</string>
     <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
     <string name="hint_name">Name</string>
@@ -778,7 +776,6 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
-    <string name="whats_new_device_credentials_title">Use Android device protection</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore_button_description">Restore deleted file</string>
 	<string name="restore">Restore file</string>
@@ -797,4 +794,4 @@
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
-</resources>
+    </resources>

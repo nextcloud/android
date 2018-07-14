@@ -210,7 +210,6 @@
     <string name="media_state_loading">%1$s (laster)</string>
     <string name="media_event_done">%1$s avspilling fullført</string>
     <string name="media_err_nothing_to_play">Ingen mediafil funnet</string>
-    <string name="media_err_no_account">Ingen konto angitt</string>
     <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
     <string name="media_err_unsupported">Ustøttet mediakodek</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
@@ -512,7 +511,6 @@
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, oppgrader.</string>
@@ -616,7 +614,6 @@
     <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Logg ut</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilde med.</string>
     <string name="privacy">Personvern</string>
@@ -754,6 +751,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
+
     <string name="hint_name">Navn</string>
     <string name="hint_password">Passord</string>
     <string name="add_to_cloud">Legg til %1$s</string>
