@@ -224,7 +224,6 @@
     <string name="media_state_loading">%1$s (учитавање)</string>
     <string name="media_event_done">%1$s пуштање завршено</string>
     <string name="media_err_nothing_to_play">Нема мултимедијалних фајлова</string>
-    <string name="media_err_no_account">Није наведен налог</string>
     <string name="media_err_not_in_owncloud">Фајл није исправан налог</string>
     <string name="media_err_unsupported">Неподржан кодек</string>
     <string name="media_err_io">Не могу да прочитам мултимедијални фајл</string>
@@ -537,7 +536,6 @@
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
     <string name="files_drop_not_supported">Ово је Некстклауд функционалност, ажурирајте га.</string>
@@ -643,7 +641,6 @@
     <string name="contacts_preferences_backup_scheduled">Прављење резервне копије заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Одјава</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена да се са њом постави слика</string>
     <string name="privacy">Приватност</string>
@@ -770,6 +767,7 @@
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер: када сте поменути у коментарима, када добијете ново удаљено дељење, када администратор постави неко обавештење итд.</string>
     <string name="sendbutton_description">Икона дугма за слање</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Крајња адреса пријаве</string>
     <string name="oauth_2_0_access_end_point_address_hint">Крајња адреса приступа</string>
     <string name="hint_name">Име</string>
@@ -783,7 +781,6 @@
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="unsharing_failed">Уклањање дељења није успело</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
-    <string name="whats_new_device_credentials_title">Користи Андроид заштиту уређаја</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
 	<string name="restore">Поврати фајл</string>
@@ -802,4 +799,4 @@
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
-</resources>
+    </resources>

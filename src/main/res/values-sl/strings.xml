@@ -165,7 +165,6 @@
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     
     <string name="media_err_nothing_to_play">Predstavnih datotek ni mogoče najti</string>
-    <string name="media_err_no_account">Ni navedenega računa</string>
     <string name="media_err_not_in_owncloud">Dokument ni shranjen v veljavnem računu.</string>
     <string name="media_err_unsupported">Nepodprt predstavni kodek</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
@@ -379,7 +378,6 @@
 
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="learn_more">Prikaži več</string>

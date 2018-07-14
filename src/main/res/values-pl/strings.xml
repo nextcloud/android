@@ -217,7 +217,6 @@
     <string name="media_state_loading">%1$s (ładowanie)</string>
     <string name="media_event_done">%1$s odtwarzanie zakończone</string>
     <string name="media_err_nothing_to_play">Nie znaleziono plików multimedialnych</string>
-    <string name="media_err_no_account">Nie znaleziono konta</string>
     <string name="media_err_not_in_owncloud">Plik na nieprawidłowym koncie</string>
     <string name="media_err_unsupported">Nieobsługiwany kodek multimediów</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
@@ -524,7 +523,6 @@
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="learn_more">Dowiedz się więcej</string>
@@ -622,7 +620,6 @@
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Wyloguj</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
@@ -713,6 +710,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_push_description">Pokaż powiadomienia push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia tworzone przez administrację itd.</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
+
     <string name="hint_name">Nazwa</string>
     <string name="hint_password">Hasło</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
@@ -720,7 +718,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="create_new_folder">Utwórz nowy folder</string>
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
-    <string name="whats_new_device_credentials_title">Używanie zabezpieczeń urządzenia</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
 	<string name="restore">Przywróć plik</string>
     <string name="new_version_was_created">Powstała nowa wersja</string>

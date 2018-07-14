@@ -214,7 +214,6 @@
     <string name="media_state_loading">%1$s (laden)</string>
     <string name="media_event_done">%1$s afspelen beëindigd</string>
     <string name="media_err_nothing_to_play">Geen mediabestand gevonden</string>
-    <string name="media_err_no_account">Geen account opgegeven</string>
     <string name="media_err_not_in_owncloud">Het bestand hoort niet bij een geldig account</string>
     <string name="media_err_unsupported">Niet-ondersteunde mediacodec</string>
     <string name="media_err_io">Kon het mediabestand niet lezen</string>
@@ -521,7 +520,6 @@
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
@@ -625,7 +623,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
@@ -752,6 +749,7 @@
     <string name="notification_channel_push_name">Push meldingen</string>
     <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
+
     <string name="hint_name">Naam</string>
     <string name="hint_password">Wachtwoord</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>

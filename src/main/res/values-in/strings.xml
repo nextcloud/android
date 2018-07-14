@@ -156,7 +156,6 @@
     <string name="pass_code_stored">Kode sandi disimpan</string>
     
     <string name="media_err_nothing_to_play">Tidak ditemukan berkas media</string>
-    <string name="media_err_no_account">Tidak ada akun yang diberikan</string>
     <string name="media_err_not_in_owncloud">Berkas tidak didalam akun yang sah</string>
     <string name="media_err_unsupported">Kodek media tidak didukung</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
@@ -372,7 +371,6 @@
 
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="maintenance_mode">Server dalam proses perawatan.</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="actionbar_search">Cari</string>
     <string name="learn_more">Pelajari lebih lanjut</string>

@@ -213,7 +213,6 @@
     <string name="media_state_loading">%1$s (読み込み中)</string>
     <string name="media_event_done">%1$s 再生終了</string>
     <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
-    <string name="media_err_no_account">アカウントが提供されていません</string>
     <string name="media_err_not_in_owncloud">ファイルが有効なアカウントにありません</string>
     <string name="media_err_unsupported">サポートされていないメディアコーデックです</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
@@ -483,6 +482,7 @@
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">認証エンドポイントアドレス</string>
     <string name="oauth_2_0_access_end_point_address_hint">アクセスエンドポイントアドレス</string>
     <string name="hint_name">名前</string>

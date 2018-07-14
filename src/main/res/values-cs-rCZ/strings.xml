@@ -195,7 +195,6 @@
     <string name="media_state_loading">%1$s (načítá)</string>
     <string name="media_event_done">%1$s přehrávání dokončeno</string>
     <string name="media_err_nothing_to_play">Nenalezen žádný multimediální soubor</string>
-    <string name="media_err_no_account">Neposkytnut žádný účet</string>
     <string name="media_err_not_in_owncloud">Soubor není v platném účtu</string>
     <string name="media_err_unsupported">Nepodporovaný kodek</string>
     <string name="media_err_io">Nepodařilo se přečíst soubor médií</string>
@@ -488,7 +487,6 @@
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je funkce Nextcloud, prosím přejděte na něj.</string>
@@ -588,7 +586,6 @@
     <string name="contacts_preferences_backup_scheduled">Zálohování je naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Odhlásit se</string>
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen</string>

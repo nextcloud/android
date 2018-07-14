@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (betöltése)</string>
     <string name="media_event_done">%1$s lejátszása kész</string>
     <string name="media_err_nothing_to_play">Nincs média fájl találat</string>
-    <string name="media_err_no_account">Nincs felhasználói fiók</string>
     <string name="media_err_not_in_owncloud">A fájl nem érvényes fiókban található</string>
     <string name="media_err_unsupported">Nem támogatott média kodek</string>
     <string name="media_err_io">Média fájl olvashatatlan</string>
@@ -535,7 +534,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="confirmation_remove_files_alert">Valóban törölni akarod a kijelölt elemeket?</string>
     <string name="confirmation_remove_folders_alert">Valóban törölni akarod a kijelölt elemeket és tartalmukat?</string>
     <string name="maintenance_mode">Szerver karbantartási üzemmódban</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Töltésre vár</string>
     <string name="actionbar_search">Keresés</string>
     <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
@@ -640,7 +638,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="contacts_preferences_backup_scheduled">Mentés ütemezve és hamarosan indul</string>
     <string name="contacts_preferences_import_scheduled">Importálás ütemezve és hamarosan indul</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Kijelentkezés</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
@@ -785,6 +782,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
     <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Autentikációs végpont címe</string>
     <string name="oauth_2_0_access_end_point_address_hint">Hozzáférési végpont címe</string>
     <string name="hint_name">Név</string>
@@ -798,7 +796,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="sharee_add_failed">Hiba a megosztás hozzáadásakor.</string>
     <string name="unsharing_failed">Megosztás visszavonási hiba</string>
     <string name="updating_share_failed">Megosztás frissítési hiba</string>
-    <string name="whats_new_device_credentials_title">Használjon Android készülék védelmet</string>
     <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
 	<string name="restore">Fájl visszaállítása</string>
@@ -817,4 +814,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_file_not_deleted">%1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">%1$s nem állítható vissza!</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
-</resources>
+    </resources>

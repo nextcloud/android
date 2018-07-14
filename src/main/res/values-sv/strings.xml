@@ -199,7 +199,6 @@
     <string name="media_state_loading">%1$s (laddar)</string>
     <string name="media_event_done">%1$s uppspelning slutfördes</string>
     <string name="media_err_nothing_to_play">Hittar ingen mediefil</string>
-    <string name="media_err_no_account">Inget konto är angivet</string>
     <string name="media_err_not_in_owncloud">Filen är inte i ett giltigt konto</string>
     <string name="media_err_unsupported">Saknar stöd för denna mediatyp</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
@@ -435,7 +434,6 @@
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
     <string name="actionbar_search">Sök</string>
     <string name="learn_more">Lär dig mer</string>
@@ -522,7 +520,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Logga ut</string>
     <string name="privacy">Privat</string>
     <!-- Auto upload -->

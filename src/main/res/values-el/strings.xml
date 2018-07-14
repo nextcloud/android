@@ -192,7 +192,6 @@
     
     <string name="media_state_loading">%1$s(φόρτωση)</string>
     <string name="media_err_nothing_to_play">Δεν βρέθηκαν αρχεία πολυμέσων</string>
-    <string name="media_err_no_account">Δεν δόθηκε λογαριασμός</string>
     <string name="media_err_not_in_owncloud">Το αρχείο δεν είναι έγκυρος λογαριασμός</string>
     <string name="media_err_unsupported">Δεν υποστηρίζεται η μορφή κωδικοποιήσης πολυμέσων</string>
     <string name="media_err_io">Αδυναμία ανάγνωσης αρχείου πολυμέσων</string>
@@ -468,7 +467,6 @@
     <string name="confirmation_remove_files_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε αναβαθμίστε.</string>
@@ -559,7 +557,6 @@
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Αποσύνδεση</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Το αρχείο δεν βρέθηκε</string>
@@ -630,13 +627,13 @@
     <string name="end_to_end_encryption_dialog_close">Κλείσιμο</string>
     <string name="end_to_end_encryption_storing_keys">Αποθήκευση κλειδιών</string>
     <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
+
     <string name="hint_name">Όνομα</string>
     <string name="hint_password">Συνθηματικό</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="tags">Ετικέτες</string>
-    <string name="whats_new_device_credentials_title">Χρήση προστασίας συσκευής Android</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>

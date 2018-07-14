@@ -156,7 +156,6 @@
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
@@ -373,7 +372,6 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="maintenance_mode">El servidor se encuentra en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Conozca más</string>

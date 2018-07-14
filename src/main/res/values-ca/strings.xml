@@ -182,7 +182,6 @@
     <string name="media_state_loading">%1$s (carregant)</string>
     <string name="media_event_done">%1$s reproducció acabada</string>
     <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimèdia</string>
-    <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
     <string name="media_err_not_in_owncloud">El fitxer no està en un compte vàlid</string>
     <string name="media_err_unsupported">El codec multimèdia no és compatible</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>

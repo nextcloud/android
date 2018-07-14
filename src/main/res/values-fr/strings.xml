@@ -224,7 +224,6 @@ Attention la suppression est irréversible.</string>
     <string name="media_state_loading">%1$s (chargement)</string>
     <string name="media_event_done">Lecture de %1$s terminée</string>
     <string name="media_err_nothing_to_play">Aucun fichier média trouvé</string>
-    <string name="media_err_no_account">Aucun compte fourni</string>
     <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
     <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
@@ -536,7 +535,6 @@ Veuillez contacter votre administrateur</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud, merci de mettre à jour.</string>
@@ -641,7 +639,6 @@ Veuillez contacter votre administrateur</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Déconnexion</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="privacy">Vie privée</string>
@@ -768,6 +765,7 @@ Veuillez contacter votre administrateur</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresse du point de terminaison d\'authentification</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresse du point de terminaison d\'accès</string>
     <string name="hint_name">Nom</string>
@@ -781,7 +779,6 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
-    <string name="whats_new_device_credentials_title">Utiliser la protection Android du terminal</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
 	<string name="restore">Restaurer le fichier</string>
@@ -800,4 +797,4 @@ Veuillez contacter votre administrateur</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
-</resources>
+    </resources>

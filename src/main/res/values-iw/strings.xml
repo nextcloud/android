@@ -211,7 +211,6 @@
     <string name="media_state_playing">%1$s (מתגנן)</string>
     <string name="media_state_loading">%1$s (בטעינה)</string>
     <string name="media_err_nothing_to_play">לא נמצא קובץ מדיה</string>
-    <string name="media_err_no_account">לא צוין חשבון</string>
     <string name="media_err_not_in_owncloud">הקובץ אינו בחשבון תקני</string>
     <string name="media_err_unsupported">מקודד המדיה אינו נתמך</string>
     <string name="media_err_io">לא ניתן לקרוא את קובץ המדיה</string>
@@ -493,7 +492,6 @@
     <string name="confirmation_remove_files_alert">למחוק את הפריטים הנבחרים?</string>
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="maintenance_mode">שרת במצב תחזוקה</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">בהמתנה לטעינה</string>
     <string name="actionbar_search">חיפוש</string>
     <string name="files_drop_not_supported">זו תכונה של Nextcloud, נא לשדרג.</string>
@@ -584,7 +582,6 @@
     <string name="contacts_preferences_backup_scheduled">הגיבוי תוזמן והוא יתחיל בעוד זמן קצר</string>
     <string name="contacts_preferences_import_scheduled">הייבוא תוזמן והוא יתחיל בעוד זמן קצר</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">יציאה</string>
     <string name="picture_set_as_no_app">לא נמצא יישומון להגדיר אתו תמונה</string>
     <string name="privacy">פרטיות</string>
@@ -697,6 +694,7 @@
     <string name="notification_channel_push_name">התרעות בדחיפה</string>
     <string name="notification_channel_push_description">הצגת הודעות בדחיפה שנשלחות על ידי השרת: אזכורים בתגובות, קבלת שיתופים מרוחקים חדשים, הכרזות שפורסמו על ידי מנהל ועוד.</string>
     <string name="sendbutton_description">סמל כפתור שליחה</string>
+
     <string name="hint_name">שם</string>
     <string name="hint_password">ססמה</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
@@ -708,7 +706,6 @@
     <string name="sharee_add_failed">הוספת נמען השיתוף נכשלה</string>
     <string name="unsharing_failed">ביטול השיתוף נכשל</string>
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
-    <string name="whats_new_device_credentials_title">שימוש באבטחה של התקן ה־Android</string>
     <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
     <string name="restore">שחזור קובץ</string>
     <string name="new_version_was_created">נוצרה גרסה חדשה</string>
@@ -726,4 +723,4 @@
     <string name="trashbin_file_not_deleted">לא ניתן למחוק את הקובץ %1$s!</string>
     <string name="trashbin_file_not_restored">לא ניתן לשחזר את הקובץ %1$s!</string>
     <string name="trashbin_not_emptied">לא ניתן למחוק קבצים לצמיתות!</string>
-</resources>
+    </resources>

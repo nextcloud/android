@@ -206,7 +206,6 @@
     <string name="media_state_loading">%1$s (се зарежда)</string>
     <string name="media_event_done">%1$s възпроизвеждането завърши</string>
     <string name="media_err_nothing_to_play">Не са открити медийни файлове</string>
-    <string name="media_err_no_account">Не е зададен профил.</string>
     <string name="media_err_not_in_owncloud">Файлът не е във валиден профил</string>
     <string name="media_err_unsupported">Неподдържан медиен кодек</string>
     <string name="media_err_io">Медия файлът не може да бъде прочетен</string>
@@ -472,7 +471,6 @@
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="maintenance_mode">Режимът за поддръжка е включен</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
@@ -569,7 +567,6 @@
     <string name="contacts_preferences_backup_scheduled">Предпазната процедура е планирана и ще започне скоро</string>
     <string name="contacts_preferences_import_scheduled">Импорт е планиран и ще започне скоро</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Отписване</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за слагане на снимка</string>
     <string name="privacy">Защита на лични данни</string>

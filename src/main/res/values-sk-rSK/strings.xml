@@ -192,7 +192,6 @@
     <string name="media_state_loading">%1$s (načítava sa)</string>
     <string name="media_event_done">%1$s prehrávanie dokončené</string>
     <string name="media_err_nothing_to_play">Nenájdený žiaden multimediálny súbor</string>
-    <string name="media_err_no_account">Účet neposkytnutý</string>
     <string name="media_err_not_in_owncloud">Súbor nie je v platnom účte</string>
     <string name="media_err_unsupported">Nepodporovaný kodek</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
@@ -391,7 +390,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
 
     <string name="maintenance_mode">Server je v režime údržby</string>
-
     <string name="actionbar_search">Hľadať</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="drawer_participate">Zúčastniť sa</string>
@@ -442,7 +440,6 @@
     <string name="contacts_preference_choose_date">Vyberte dátum</string>
     <string name="contacts_preference_backup_never">nikdy</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Odhlásiť</string>
     <string name="privacy">Súkromie</string>
     <string name="file_not_found">Súbor nenájdený</string>

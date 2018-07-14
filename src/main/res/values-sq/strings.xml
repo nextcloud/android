@@ -214,7 +214,6 @@
     <string name="media_state_loading">%1$s (po ngarkohet)</string>
     <string name="media_event_done">Luajtja e %1$s përfundoi</string>
     <string name="media_err_nothing_to_play">S’u gjetën skedar media</string>
-    <string name="media_err_no_account">S\’u dha llogari</string>
     <string name="media_err_not_in_owncloud">Skedar jo në llogari të vlefshme</string>
     <string name="media_err_unsupported">Kodek mediash i pambuluar</string>
     <string name="media_err_io">S\'u lexua dot skedari media</string>
@@ -522,7 +521,6 @@
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
@@ -626,7 +624,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="privacy">Privatësi</string>
@@ -753,6 +750,7 @@
     <string name="notification_channel_push_name">Shty njoftimet</string>
     <string name="notification_channel_push_description">Trego njoftimet e shtyra të dërguara nga serveri: Përmendjet në komentet, marrja e aksioneve të reja të largëta, shpalljet e postuara nga një administrator etj.</string>
     <string name="sendbutton_description">Ikona e butonit dërgo</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresa e autentifikimit të pikës fundore</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresa e qasjes së pikës fundore</string>
     <string name="hint_name">Emër</string>

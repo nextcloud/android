@@ -167,7 +167,6 @@
     
     <string name="media_state_loading">%1$s (įkeliama)</string>
     <string name="media_err_nothing_to_play">Nerasta medija failų</string>
-    <string name="media_err_no_account">Nenurodyta paskyra</string>
     <string name="media_err_not_in_owncloud">Failas nėra galiojančioje paskyroje (profilyje)</string>
     <string name="media_err_unsupported">Nepalaikomas kodekas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
@@ -393,7 +392,6 @@
 
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
     <string name="actionbar_search">Paieška</string>
     <string name="learn_more">Sužinoti daugiau</string>
