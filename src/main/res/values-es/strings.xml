@@ -533,6 +533,8 @@
     <string name="confirmation_remove_files_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
+    <string name="offline_mode">No hay conexión a internet</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualiza.</string>
@@ -777,6 +779,7 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
+    <string name="whats_new_device_credentials_title">Usar la protección interna del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
 	<string name="restore">Restaurar archivo</string>
@@ -785,6 +788,12 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
+    <string name="notification_channel_general_name">Notificaciones generales</string>
+    <string name="notification_channel_general_description">Mostrar notificaciones para nuevas carpetas de medios y similares</string>
+    <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">vídeo</string>
+
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="dismiss">Descartar</string>
     <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>
@@ -795,4 +804,8 @@
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
-    </resources>
+    <string name="stream">Retransmisión con...</string>
+    <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
+    <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
+    <string name="folder_already_exists">La carpeta ya existe</string>
+</resources>

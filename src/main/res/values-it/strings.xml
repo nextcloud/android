@@ -533,6 +533,8 @@
     <string name="confirmation_remove_files_alert">Vuoi davvero eliminare gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
+    <string name="offline_mode">Nessuna connessione a Internet</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">In attesa della carica</string>
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
@@ -777,6 +779,9 @@
     <string name="sharee_add_failed">Aggiunta condivisione non riuscita</string>
     <string name="unsharing_failed">Rimozione condivisione non riuscita</string>
     <string name="updating_share_failed">Aggiornamento condivisione non riuscito</string>
+    <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
+    <string name="whats_new_device_credentials_title">Usa protezione interna del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Utilizza qualcosa come un modello, password, PIN o la tua impronta digitale per tenere al sicuro i tuoi dati.</string>
     <string name="restore_button_description">Ripristina file eliminato</string>
 	<string name="restore">Ripristina file</string>
@@ -785,6 +790,12 @@
     <string name="error_comment_file">Errore di commento del file</string>
     <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
     <string name="file_version_restored_error">Errore durante il ripristino della versione del file!</string>
+    <string name="notification_channel_general_name">Notifiche generali</string>
+    <string name="notification_channel_general_description">Mostra notifiche per le nuove cartelle multimediali e simili</string>
+    <string name="new_media_folder_detected">Nuova cartella multimediale %1$s rilevata</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
     <string name="dismiss">Annulla</string>
     <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
@@ -795,4 +806,8 @@
     <string name="trashbin_file_not_deleted">Il file %1$s non può essere eliminato!</string>
     <string name="trashbin_file_not_restored">Il file %1$s non può essere ripristinato!</string>
     <string name="trashbin_not_emptied">I file non possono essere scaricati definitivamente!</string>
-    </resources>
+    <string name="stream">Trasmetti con…</string>
+    <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
+    <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
+    <string name="folder_already_exists">La cartella esiste già</string>
+</resources>
