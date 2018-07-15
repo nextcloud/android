@@ -533,6 +533,8 @@
     <string name="confirmation_remove_files_alert">Möchten Sie die ausgewählten Elemente wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
+    <string name="offline_mode">Keine Internetverbindung</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten Sie.</string>
@@ -777,6 +779,9 @@
     <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
+    <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
+    <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
+    <string name="whats_new_device_credentials_title">Android\'s interner Geräteschutz verwenden</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
 	<string name="restore">Datei wiederherstellen</string>
@@ -785,6 +790,12 @@
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
+    <string name="notification_channel_general_name">Allgemeine Benachrichtigungen</string>
+    <string name="notification_channel_general_description">Für neue Medienordner und ähnliches Benachrichtigungen anzeigen</string>
+    <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
@@ -795,4 +806,8 @@
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
     <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
-    </resources>
+    <string name="stream">Streamen mit…</string>
+    <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
+    <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
+    <string name="folder_already_exists">Ordner existiert bereits</string>
+</resources>
