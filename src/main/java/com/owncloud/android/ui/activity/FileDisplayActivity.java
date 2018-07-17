@@ -2106,7 +2106,7 @@ public class FileDisplayActivity extends HookActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment(false);
+            getListOfFilesFragment().onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
         } else {
             try {
                 if (ResultCode.FOLDER_ALREADY_EXISTS == result.getCode()) {
