@@ -243,6 +243,7 @@
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>

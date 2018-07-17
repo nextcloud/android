@@ -231,6 +231,7 @@ Attention la suppression est irréversible.</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
+    <string name="media_err_playing">Erreur inattendue lors de la lecture de %1$s </string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
@@ -535,6 +536,8 @@ Veuillez contacter votre administrateur</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
+    <string name="offline_mode">Aucune connexion internet</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud, merci de mettre à jour.</string>
@@ -779,6 +782,7 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
+    <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
 	<string name="restore">Restaurer le fichier</string>
@@ -787,6 +791,9 @@ Veuillez contacter votre administrateur</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">vidéo</string>
+
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="dismiss">Ignorer</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
@@ -797,4 +804,5 @@ Veuillez contacter votre administrateur</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
-    </resources>
+    <string name="folder_already_exists">Le dossier existe déjà</string>
+</resources>
