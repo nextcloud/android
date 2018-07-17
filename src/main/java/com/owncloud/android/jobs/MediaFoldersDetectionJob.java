@@ -134,7 +134,7 @@ public class MediaFoldersDetectionJob extends Job {
 
         } else {
             mediaFoldersModel = new MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths);
-            arbitraryDataProvider.storeOrUpdateKeyValue("global", "media_folders", gson.toJson(mediaFoldersModel));
+            arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(mediaFoldersModel));
         }
 
         return Result.SUCCESS;
