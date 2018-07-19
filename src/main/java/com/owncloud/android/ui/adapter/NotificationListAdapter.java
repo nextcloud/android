@@ -121,9 +121,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         // add action buttons
         holder.buttons.removeAllViews();
+        Button button;
+        ExecuteActionTask executeActionTask = new ExecuteActionTask(holder);
 
         for (Action action : notification.getActions()) {
-            Button button = new Button(notificationsActivity);
+            button = new Button(notificationsActivity);
             button.setText(action.label);
             if (action.primary) {
                 button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true),
@@ -131,7 +133,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
             }
 
-            button.setOnClickListener(v -> new ExecuteActionTask(holder).execute(action));
+            button.setOnClickListener(v -> executeActionTask.execute(action));
 
             holder.buttons.addView(button);
         }
