@@ -80,6 +80,8 @@ import butterknife.ButterKnife;
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String TAG = NotificationListAdapter.class.getSimpleName();
+    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
+    private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
     private List<Notification> notificationsList;
     private OwnCloudClient client;
@@ -156,10 +158,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         String text = notification.getSubjectRich();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
 
-        int openingBrace = text.indexOf("{");
+        int openingBrace = text.indexOf('{');
         int closingBrace;
         while (openingBrace != -1) {
-            closingBrace = text.indexOf("}", openingBrace) + 1;
+            closingBrace = text.indexOf('}', openingBrace) + 1;
             String replaceablePart = text.substring(openingBrace + 1, closingBrace - 1);
 
             RichObject richObject = notification.subjectRichParameters.get(replaceablePart);
@@ -169,11 +171,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 text = ssb.toString();
                 closingBrace = openingBrace + name.length();
 
-                ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), openingBrace, closingBrace, 0);
-                ssb.setSpan(new ForegroundColorSpan(Color.BLACK), openingBrace, closingBrace,
+                ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
+                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            openingBrace = text.indexOf("{", closingBrace);
+            openingBrace = text.indexOf('{', closingBrace);
         }
 
         return ssb;
