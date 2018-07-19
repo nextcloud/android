@@ -231,6 +231,7 @@
     <string name="media_err_timeout">Истекло време покушавајући да пустим фајл</string>
     <string name="media_err_invalid_progressive_playback">Мултимедијални фајл не може да се пусти</string>
     <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти овај фајл</string>
+    <string name="media_err_playing">Неочекивана грешка при покушају да пустим %1$s</string>
     <string name="media_rewind_description">Уназад</string>
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>
@@ -536,6 +537,8 @@
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>
+    <string name="offline_mode">Нема интернет конекције</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
     <string name="files_drop_not_supported">Ово је Некстклауд функционалност, ажурирајте га.</string>
@@ -781,6 +784,9 @@
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="unsharing_failed">Уклањање дељења није успело</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
+    <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
+    <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
+    <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
 	<string name="restore">Поврати фајл</string>
@@ -789,6 +795,12 @@
     <string name="error_comment_file">Грешка приликом коментарисања фајла</string>
     <string name="file_version_restored_successfully">Успешно повратио верзију фајла.</string>
     <string name="file_version_restored_error">Грешка приликом враћања верзије фајла!</string>
+    <string name="notification_channel_general_name">Општа обавештења</string>
+    <string name="notification_channel_general_description">Прикажи обавештења о новим мултимедијалним фасциклама и слично</string>
+    <string name="new_media_folder_detected">Пронађена је нова мултимедијална фасцикла са %1$s</string>
+    <string name="new_media_folder_photos">сликама</string>
+    <string name="new_media_folder_videos">видео записима</string>
+
     <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
     <string name="dismiss">Одбаци</string>
     <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>
@@ -799,4 +811,8 @@
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
-    </resources>
+    <string name="stream">Стримуј са…</string>
+    <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
+    <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
+    <string name="folder_already_exists">Фасцикла већ постоји</string>
+</resources>

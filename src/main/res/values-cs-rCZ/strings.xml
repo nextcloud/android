@@ -99,11 +99,14 @@
     <string name="file_list_empty_headline_server_search_videos">Žádné video</string>
     <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
+    <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_empty_text_photos_filter">Žádné fotky.</string>
     <string name="file_list_empty_text_videos">Nahrajte nějaká videa nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_empty_text_videos_filter">Žádná videa.</string>
+    <string name="trashbin_empty_headline">Žádné smazané soubory</string>
+    <string name="trashbin_empty_message">Odsud je možné obnovit smazané soubory</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
@@ -237,10 +240,12 @@
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
+    <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
     <string name="favorite">Nastavit jako dostupné offline</string>
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="favorite_real">Přidat do oblíbených</string>
     <string name="unset_favorite_real">Odebrat z oblíbených</string>
+    <string name="encrypted">Nastavit jako šifrované</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
@@ -361,6 +366,7 @@
     <string name="file_migration_failed_not_writable">Nedaří se zapsat do cílového souboru</string>
     <string name="file_migration_failed_not_readable">Nedaří se číst ze zdrojového souboru</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud složka už existuje</string>
+    <string name="file_migration_failed_while_coping">Nezdař během migrace</string>
     <string name="file_migration_failed_while_updating_index">Nepodařilo se aktualizovat rejstřík</string>
 
     <string name="file_migration_override_data_folder">Nahradit</string>
@@ -448,6 +454,7 @@
     <string name="share_expiration_date_label">Platnost skončí %1$s</string>
     <string name="share_no_expiration_date_label">Nastavit datum vypršení</string>
     <string name="share_via_link_section_title">Sdílet odkaz</string>
+    <string name="share_via_link_send_link_label">Poslat odkaz</string>
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_no_password_title">Nastavit heslo</string>
     <string name="edit_permission_label">upravit</string>
@@ -487,6 +494,8 @@
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
+    <string name="offline_mode">Bez připojení k Internetu</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je funkce Nextcloud, prosím přejděte na něj.</string>
@@ -645,6 +654,7 @@
 
     <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Žádné informace k dispozici.</string>
     <string name="dev_version_no_new_version_available">Není k dispozici žádná novější verze.</string>
     <string name="folder_icon">Ikona adresáře</string>
     <string name="dev_version_new_version_available">Je k dispozici novější verze</string>
@@ -657,9 +667,12 @@
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
+    <string name="notification_channel_file_observer_description">Monitoruje změny souborů</string>
+  
     <string name="account_not_found">Účet nenalezen!</string>
 
     <string name="screenshot_01_gridView">Bezpečné místo pro všechna vaše data</string>
+    <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
     <string name="account_icon">Ikona účtu</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
@@ -668,10 +681,13 @@
     <string name="end_to_end_encryption_retrieving_keys">Získávání klíčů…</string>
     <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>
     <string name="end_to_end_encryption_title">Nastavit šifrování</string>
+    <string name="end_to_end_encryption_passphrase_title">Poznamenejte si své 12 slovné šifrovací heslo</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
+    <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
+
     <string name="hint_name">Jméno</string>
     <string name="hint_password">Heslo</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
@@ -680,6 +696,18 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
     <string name="tags">Štítky</string>
+    <string name="whats_new_device_credentials_title">Použít vnitřní ochranu Android zařízení</string>
+    <string name="restore_button_description">Obnovit smazaný soubor</string>
+	<string name="restore">Obnovit soubor</string>
+    <string name="new_version_was_created">Byla vytvořena nová verze</string>
     <string name="new_comment">Nový komentář…</string>
+    <string name="error_comment_file">Chyba při komentování souboru</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="dismiss">Zavřít</string>
-    </resources>
+    <string name="drawer_item_trashbin">Smazané soubory</string>
+    <string name="trashbin_activity_title">Smazané soubory</string>
+    <string name="action_empty_trashbin">Vyprázdnit koš</string>
+    <string name="folder_already_exists">Složka už existuje</string>
+</resources>
