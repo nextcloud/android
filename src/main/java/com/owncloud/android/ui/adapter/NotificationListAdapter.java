@@ -160,9 +160,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         int openingBrace = text.indexOf('{');
         int closingBrace;
+        String replaceablePart;
         while (openingBrace != -1) {
             closingBrace = text.indexOf('}', openingBrace) + 1;
-            String replaceablePart = text.substring(openingBrace + 1, closingBrace - 1);
+            replaceablePart = text.substring(openingBrace + 1, closingBrace - 1);
 
             RichObject richObject = notification.subjectRichParameters.get(replaceablePart);
             if (richObject != null) {
