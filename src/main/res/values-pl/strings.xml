@@ -724,6 +724,9 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="new_comment">Nowy komentarz…</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
+    <string name="new_media_folder_photos">zdjęcie</string>
+    <string name="new_media_folder_videos">wideo</string>
+
     <string name="dismiss">Anuluj</string>
     <string name="feedback_no_mail_app">Brak dostępnej aplikacji do wysyłki wiadomości email!</string>
     <string name="drawer_item_trashbin">Usunięto pliki</string>

@@ -779,6 +779,8 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
+    <string name="prefs_e2e_mnemonic">Nemotécnico del cifrado E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar el nemotécnico, habilite las credenciales del dispositivo</string>
     <string name="whats_new_device_credentials_title">Usar la protección interna del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
