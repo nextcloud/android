@@ -18,15 +18,15 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/info_box"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal|bottom"
-    android:background="@color/filelist_icon_backgorund"
-    android:gravity="center"
-    android:padding="@dimen/standard_half_padding"
-    android:visibility="visible">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/info_box"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal|bottom"
+              android:background="@color/filelist_icon_backgorund"
+              android:gravity="center"
+              android:padding="@dimen/standard_half_padding"
+              android:visibility="gone">
 
     <TextView
         android:id="@+id/info_box_message"
