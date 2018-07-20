@@ -240,14 +240,9 @@ public class NotificationsActivity extends FileActivity {
             client.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
             hideRefreshLayoutLoader();
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication Exception", e);
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
+                IOException | OperationCanceledException | AuthenticatorException e) {
+            Log_OC.e(TAG, "Error initializing client", e);
         }
 
         adapter = new NotificationListAdapter(client, this);
