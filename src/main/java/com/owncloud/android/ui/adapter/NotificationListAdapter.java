@@ -127,7 +127,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         holder.message.setText(notification.getMessage());
-        holder.message.setAlpha(0.57f); // TODO set in xml, once there is an own notification_list_item.xml
 
         // Todo set proper action icon (to be clarified how to pick)
         if (!TextUtils.isEmpty(notification.getIcon())) {
