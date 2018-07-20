@@ -782,6 +782,8 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
+    <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
@@ -791,6 +793,9 @@ Veuillez contacter votre administrateur</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+    <string name="notification_channel_general_name">Notifications générales</string>
+    <string name="notification_channel_general_description">Afficher les notifications pour les nouveaux dossiers de média et des dossiers similaires</string>
+    <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vidéo</string>
 
@@ -804,5 +809,8 @@ Veuillez contacter votre administrateur</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="stream">Diffuser avec...</string>
+    <string name="stream_not_possible_headline">Diffusion interne impossible</string>
+    <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
 </resources>
