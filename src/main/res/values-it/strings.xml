@@ -810,4 +810,4 @@
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="folder_already_exists">La cartella esiste già</string>
-</resources>
+    </resources>
