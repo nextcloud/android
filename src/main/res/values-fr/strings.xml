@@ -813,4 +813,4 @@ Veuillez contacter votre administrateur</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
-</resources>
+    </resources>

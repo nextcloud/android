@@ -710,4 +710,4 @@
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
     <string name="folder_already_exists">Složka už existuje</string>
-</resources>
+    </resources>

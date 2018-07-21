@@ -815,4 +815,4 @@
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
-</resources>
+    </resources>

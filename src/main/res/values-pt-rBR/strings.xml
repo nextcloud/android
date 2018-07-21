@@ -810,4 +810,4 @@
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="folder_already_exists">Pasta já existe</string>
-</resources>
+    </resources>

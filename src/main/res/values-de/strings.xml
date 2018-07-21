@@ -810,4 +810,4 @@
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
-</resources>
+    </resources>
