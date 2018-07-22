@@ -497,6 +497,8 @@
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
+    <string name="offline_mode">Ei internetyhteyttä</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Odotetaan latausta</string>
     <string name="actionbar_search">Etsi</string>
     <string name="files_drop_not_supported">Tämä on Nextcloud-ominaisuus, ole hyvä ja päivitä.</string>
@@ -712,9 +714,16 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="new_comment">Uusi kommentti…</string>
     <string name="error_comment_file">Virhe tiedostoa kommentoidessa</string>
+    <string name="notification_channel_general_name">Yleiset ilmoitukset</string>
+    <string name="new_media_folder_photos">kuva</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="drawer_item_trashbin">Poistetut tiedostot</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>
+    <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_file_not_deleted">Tiedostoa %1$s ei voitu poistaa!</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
+    <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
+    <string name="folder_already_exists">Kansio on jo olemassa</string>
     </resources>

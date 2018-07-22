@@ -810,4 +810,5 @@
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
-    </resources>
+    <string name="notification_icon">Icono de notificaciones</string>
+</resources>
