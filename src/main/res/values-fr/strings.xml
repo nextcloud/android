@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_version">version %1$s</string>
-    <string name="actionbar_sync">Actualiser le compte</string>
+    <string name="actionbar_sync">Actualiser</string>
     <string name="actionbar_upload">Envoyer</string>
     <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
     <string name="actionbar_upload_files">Fichiers</string>
@@ -23,7 +23,7 @@
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_favorites">Favoris</string>
-    <string name="drawer_item_photos">Photos</string>
+    <string name="drawer_item_photos">Images</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
@@ -813,4 +813,5 @@ Veuillez contacter votre administrateur</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
-    </resources>
+    <string name="notification_icon">Icône de notification</string>
+</resources>
