@@ -56,7 +56,7 @@
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_marginTop="@dimen/grid_image_shared_icon_layout_top_margin"
-            android:contentDescription="@string/shared_via_link_icon"
+            android:contentDescription="@string/shared_icon_shared_via_link"
             android:src="@drawable/shared_via_link" />
 
         <ImageView

@@ -472,10 +472,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         
         if (file.isSharedWithSharee() || file.isSharedWithMe()) {
             sharedIconView.setImageResource(R.drawable.shared_via_users);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
         } else if (file.isSharedViaLink()) {
             sharedIconView.setImageResource(R.drawable.shared_via_link);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
         } else {
             sharedIconView.setImageResource(R.drawable.ic_unshared);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
         }
         sharedIconView.setOnClickListener(new View.OnClickListener() {
             @Override
