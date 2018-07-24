@@ -55,7 +55,7 @@
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/shared_via_link"
-            android:contentDescription="@string/shared_via_link_icon"/>
+            android:contentDescription="@string/shared_icon_shared_via_link"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"

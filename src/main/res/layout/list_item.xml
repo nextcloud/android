@@ -164,7 +164,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:clickable="true"
-                android:contentDescription="@string/shared_icon"
+                android:contentDescription="@string/shared_icon_share"
                 android:focusable="true"
                 android:paddingEnd="@dimen/list_item_share_right_margin"
                 android:paddingLeft="@dimen/standard_half_padding"
