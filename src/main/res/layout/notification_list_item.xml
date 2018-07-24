@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:text="@string/placeholder_sentence"
+            android:alpha="0.57"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <LinearLayout
@@ -82,6 +83,7 @@
             android:layout_gravity="end"
             android:ellipsize="end"
             android:text="@string/placeholder_sentence"
+            android:alpha="0.5"
             android:textColor="?android:attr/textColorSecondary"/>
 
     </LinearLayout>

@@ -20,6 +20,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
@@ -27,7 +28,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +53,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
+import com.owncloud.android.lib.resources.notifications.models.RichObject;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -74,6 +80,8 @@ import butterknife.ButterKnife;
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String TAG = NotificationListAdapter.class.getSimpleName();
+    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
+    private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
     private List<Notification> notificationsList;
     private OwnCloudClient client;
@@ -109,9 +117,15 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             subject = subject + " ↗";
             holder.subject.setTypeface(holder.subject.getTypeface(), Typeface.BOLD);
             holder.subject.setOnClickListener(v -> openLink(notification.getLink()));
+            holder.subject.setText(subject);
+        } else {
+            if (!TextUtils.isEmpty(notification.subjectRich)) {
+                holder.subject.setText(makeSpecialPartsBold(notification));
+            } else {
+                holder.subject.setText(subject);
+            }
         }
 
-        holder.subject.setText(subject);
         holder.message.setText(notification.getMessage());
 
         // Todo set proper action icon (to be clarified how to pick)
@@ -137,6 +151,34 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             holder.buttons.addView(button);
         }
+    }
+
+    private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
+        String text = notification.getSubjectRich();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+
+        int openingBrace = text.indexOf('{');
+        int closingBrace;
+        String replaceablePart;
+        while (openingBrace != -1) {
+            closingBrace = text.indexOf('}', openingBrace) + 1;
+            replaceablePart = text.substring(openingBrace + 1, closingBrace - 1);
+
+            RichObject richObject = notification.subjectRichParameters.get(replaceablePart);
+            if (richObject != null) {
+                String name = richObject.getName();
+                ssb.replace(openingBrace, closingBrace, name);
+                text = ssb.toString();
+                closingBrace = openingBrace + name.length();
+
+                ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
+                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            openingBrace = text.indexOf('{', closingBrace);
+        }
+
+        return ssb;
     }
 
     private class ExecuteActionTask extends AsyncTask<Action, Void, Boolean> {
