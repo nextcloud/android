@@ -178,6 +178,7 @@ public class ArbitraryDataProvider {
                 if (value == null) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
+                    cursor.close();
                     return value;
                 }
             }
