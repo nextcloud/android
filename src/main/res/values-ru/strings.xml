@@ -540,6 +540,8 @@
     <string name="confirmation_remove_files_alert">Действительно удалить выбранные объекты?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
+    <string name="offline_mode">Нет подключения к интернет</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Эта функция Nextcloud, выполните обновление.</string>
@@ -794,6 +796,10 @@
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
+    <string name="notification_channel_general_name">Общие уведомления</string>
+    <string name="new_media_folder_photos">фото</string>
+    <string name="new_media_folder_videos">видео</string>
+
     <string name="outdated_server">Сервер достиг окончания поддержки(End Of Live, EOL), пожалуйста, обновите!</string>
     <string name="dismiss">Отклонить</string>
     <string name="feedback_no_mail_app">Нет приложения для отправки писем!</string>
@@ -804,4 +810,6 @@
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удален!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
-    </resources>
+    <string name="folder_already_exists">Папка уже существует</string>
+    <string name="notification_icon">Значок уведомлений</string>
+</resources>

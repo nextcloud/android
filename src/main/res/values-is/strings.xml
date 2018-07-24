@@ -40,8 +40,10 @@
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_lock">Læsa</string>
+    <string name="prefs_lock_title">Læsa með</string>
     <string name="prefs_lock_none">Ekkert</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
+    <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
@@ -110,6 +112,7 @@
     <string name="file_list_empty_text_photos_filter">Engar ljósmyndir.</string>
     <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_empty_text_videos_filter">Engin myndskeið.</string>
+    <string name="trashbin_empty_headline">Engar eyddar skrár</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
@@ -199,6 +202,7 @@
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
     <string name="upload_query_move_foreign_files">Ónógt pláss hamlar því að hægt sé að afrita valdar skrár í %1$s möppuna. Viltu færa þær þangað í staðinn?</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
+    <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
@@ -478,6 +482,7 @@
     <string name="share_expiration_date_label">Rennur út %1$s</string>
     <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_section_title">Deilitengill</string>
+    <string name="share_via_link_send_link_label">Senda tengil</string>
     <string name="share_password_title">Verja með lykilorði</string>
     <string name="share_no_password_title">Stilltu lykilorð</string>
     <string name="edit_permission_label">breyta</string>
@@ -520,6 +525,8 @@
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
+    <string name="offline_mode">Engin internettenging</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
     <string name="files_drop_not_supported">Þetta er Nextcloud-eiginleiki, endilega uppfærðu.</string>
@@ -763,6 +770,16 @@
     <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
+    <string name="restore">Endurheimta skrá</string>
     <string name="new_comment">Ný ummæli…</string>
+    <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
+    <string name="new_media_folder_photos">ljósmyndum</string>
+    <string name="new_media_folder_videos">myndskeiðum</string>
+
     <string name="dismiss">Hafna</string>
-    </resources>
+    <string name="drawer_item_trashbin">Eyddar skrár</string>
+    <string name="trashbin_activity_title">Eyddar skrár</string>
+    <string name="stream">Streyma með…</string>
+    <string name="folder_already_exists">Mappa er þegar til</string>
+    <string name="notification_icon">Tilkynningatákn</string>
+</resources>
