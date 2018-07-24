@@ -35,7 +35,7 @@
             android:layout_height="@dimen/standard_list_item_size"
             android:layout_gravity="center"
             android:src="@drawable/folder"
-            android:contentDescription="@string/thumbnail"/>
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/favorite_action"
