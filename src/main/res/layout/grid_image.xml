@@ -35,7 +35,8 @@
             android:layout_height="match_parent"
             android:padding="@dimen/standard_eigth_padding"
             android:scaleType="centerCrop"
-            android:src="@drawable/folder" />
+            android:src="@drawable/folder"
+            android:contentDescription="@null"/>
 
 
         <ImageView

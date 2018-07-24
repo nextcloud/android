@@ -40,7 +40,7 @@
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center"
-            android:contentDescription="@string/thumbnail"
+            android:contentDescription="@null"
             android:src="@drawable/folder" />
 
     </FrameLayout>

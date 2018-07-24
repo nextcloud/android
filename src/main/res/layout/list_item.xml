@@ -49,7 +49,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/standard_half_margin"
                 android:layout_marginStart="@dimen/standard_half_margin"
-                android:contentDescription="@string/thumbnail"
+                android:contentDescription="@null"
                 android:src="@drawable/folder" />
 
             <ImageView
