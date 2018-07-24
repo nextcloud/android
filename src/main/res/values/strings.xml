@@ -704,7 +704,7 @@
     <string name="shared_icon_share">share</string>
     <string name="shared_icon_shared_via_link">shared via link</string>
     <string name="shared_icon_shared">shared</string>
-    <string name="overflow_menu">Overflow menu</string>
+    <string name="overflow_menu">More menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Newest first</string>
     <string name="sort_by_size_descending">Biggest first</string>
