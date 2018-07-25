@@ -233,6 +233,7 @@
     <string name="media_err_timeout">Истекло время попытки воспроизведения</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_unknown">Файл не может быть воспроизведён встроенным мультимедийным проигрывателем</string>
+    <string name="media_err_playing">Неожиданная ошибка при воспроизведении %1$s</string>
     <string name="media_rewind_description">Перемотка назад</string>
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>
@@ -788,6 +789,7 @@
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
     <string name="unsharing_failed">Не удалось закрыть общий доступ</string>
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
+    <string name="whats_new_device_credentials_title">Использовать системные средства защиты</string>
     <string name="whats_new_device_credentials_content">Используйте все, что угодно: шаблон, пароль, контакт или отпечаток пальца, чтобы ваши данные были в безопасности.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>
@@ -797,6 +799,7 @@
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="notification_channel_general_name">Общие уведомления</string>
+    <string name="new_media_folder_detected">Обнаружена новая папка с фото или видеофайлами: «%1$s».</string>
     <string name="new_media_folder_photos">фото</string>
     <string name="new_media_folder_videos">видео</string>
 
