@@ -71,7 +71,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -379,7 +379,7 @@ public class ThumbnailsCacheManager {
     public static class ThumbnailGenerationTask extends AsyncTask<ThumbnailGenerationTaskObject, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
-        private ArrayList<ThumbnailGenerationTask> mAsyncTasks = null;
+        private List<ThumbnailGenerationTask> mAsyncTasks;
         private Object mFile;
         private String mImageKey = null;
         private FileDataStorageManager mStorageManager;
@@ -391,7 +391,7 @@ public class ThumbnailsCacheManager {
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, ArrayList<ThumbnailGenerationTask> asyncTasks)
+                                       Account account, List<ThumbnailGenerationTask> asyncTasks)
                 throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);

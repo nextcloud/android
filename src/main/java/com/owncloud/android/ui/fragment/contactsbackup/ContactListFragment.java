@@ -139,7 +139,7 @@ public class ContactListFragment extends FileFragment {
 
     private ContactListAdapter contactListAdapter;
     private Account account;
-    private ArrayList<VCard> vCards = new ArrayList<>();
+    private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {

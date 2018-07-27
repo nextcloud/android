@@ -62,7 +62,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 /**
@@ -109,7 +109,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * List of private shares bound to the file.
      */
-    private ArrayList<OCShare> mPrivateShares;
+    private List<OCShare> mPrivateShares;
 
     /**
      * Capabilities of the server.

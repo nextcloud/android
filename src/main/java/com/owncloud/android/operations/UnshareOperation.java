@@ -34,7 +34,7 @@ import com.owncloud.android.lib.resources.shares.RemoveRemoteShareOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unshare file/folder
@@ -80,7 +80,7 @@ public class UnshareOperation extends SyncOperation {
                 } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType)
                     || ShareType.FEDERATED.equals(mShareType)){
                     // Check if it is the last share
-                    ArrayList <OCShare> sharesWith = getStorageManager().
+                    List <OCShare> sharesWith = getStorageManager().
                             getSharesWithForAFile(mRemotePath,
                             getStorageManager().getAccount().name);
                     if (sharesWith.size() == 1) {
