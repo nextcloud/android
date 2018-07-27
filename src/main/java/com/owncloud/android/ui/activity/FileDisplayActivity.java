@@ -580,11 +580,11 @@ public class FileDisplayActivity extends HookActivity
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (isFederated) {
-            return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
-                    OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
+            return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
+                    OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9;
         } else {
-            return (getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
-                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE);
+            return getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 
@@ -1570,8 +1570,7 @@ public class FileDisplayActivity extends HookActivity
 
         private boolean isSameAccount(Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            return (accountName != null && getAccount() != null &&
-                    accountName.equals(getAccount().name));
+            return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
         }
     }
 

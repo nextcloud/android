@@ -103,7 +103,7 @@ public class RenameFileDialogFragment
         inputText.setText(currentName);
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
-        int selectionEnd = (extensionStart >= 0) ? extensionStart : currentName.length();
+        int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         if (selectionStart >= 0 && selectionEnd >= 0) {
             inputText.setSelection(
                     Math.min(selectionStart, selectionEnd),

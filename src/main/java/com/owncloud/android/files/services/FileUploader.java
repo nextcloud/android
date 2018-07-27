@@ -865,17 +865,17 @@ public class FileUploader extends Service
             if (account == null || file == null) {
                 return false;
             }
-            return (mPendingUploads.contains(account.name, file.getRemotePath()));
+            return mPendingUploads.contains(account.name, file.getRemotePath());
         }
 
         public boolean isUploadingNow(OCUpload upload) {
-            return (
+            return
                     upload != null &&
                             mCurrentAccount != null &&
                             mCurrentUpload != null &&
                             upload.getAccountName().equals(mCurrentAccount.name) &&
                             upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
-            );
+            ;
         }
 
         /**

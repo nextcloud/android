@@ -470,8 +470,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult syncResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name)
-                        && getStorageManager() != null); 
+                boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
+                        && getStorageManager() != null;
     
                 if (sameAccount) {
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {

@@ -501,7 +501,7 @@ public class FileDownloader extends Service
         file.setEtag(mCurrentDownload.getEtag());
         file.setMimetype(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());
-        file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
+        file.setFileLength(new File(mCurrentDownload.getSavePath()).length());
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
@@ -602,8 +602,8 @@ public class FileDownloader extends Service
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker :
                     R.string.downloader_download_failed_ticker;
 
-            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(downloadResult.getCode()));
-            tickerId = (needsToUpdateCredentials) ?
+            boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(downloadResult.getCode());
+            tickerId = needsToUpdateCredentials ?
                     R.string.downloader_download_failed_credentials_error : tickerId;
 
             mNotificationBuilder
