@@ -57,12 +57,12 @@ public class SslUntrustedCertDialog extends DialogFragment {
     
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
     
-    protected View mView = null;
-    protected SslErrorHandler mHandler = null;
-    protected X509Certificate m509Certificate = null;
+    protected View mView;
+    protected SslErrorHandler mHandler;
+    protected X509Certificate m509Certificate;
 
-    private ErrorViewAdapter mErrorViewAdapter = null;
-    private CertificateViewAdapter mCertificateViewAdapter = null;
+    private ErrorViewAdapter mErrorViewAdapter;
+    private CertificateViewAdapter mCertificateViewAdapter;
     
     public static SslUntrustedCertDialog newInstanceForEmptySslError(SslError error, SslErrorHandler handler) {
         if (error == null) {

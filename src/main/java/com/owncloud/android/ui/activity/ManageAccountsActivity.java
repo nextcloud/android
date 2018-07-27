@@ -87,7 +87,8 @@ public class ManageAccountsActivity extends FileActivity
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private AccountListAdapter mAccountListAdapter;
-    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    private ServiceConnection mDownloadServiceConnection;
+    private ServiceConnection mUploadServiceConnection;
     Set<String> mOriginalAccounts;
     String mOriginalCurrentAccount;
     private Drawable mTintedCheck;

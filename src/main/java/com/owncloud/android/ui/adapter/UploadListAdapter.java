@@ -73,7 +73,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     private UploadsStorageManager mUploadsStorageManager;
 
-    private UploadGroup[] mUploadGroups = null;
+    private UploadGroup[] mUploadGroups;
 
     @Override
     public int getSectionCount() {

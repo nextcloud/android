@@ -66,7 +66,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final String TAG = "DocumentsStorageProvider";
 
-    private FileDataStorageManager mCurrentStorageManager = null;
+    private FileDataStorageManager mCurrentStorageManager;
     private static Map<Long, FileDataStorageManager> mRootIdToStorageManager;
 
     @Override

@@ -55,7 +55,7 @@ class SyncFolderHandler extends Handler {
 
     private IndexedForest<SynchronizeFolderOperation> mPendingOperations = new IndexedForest<>();
 
-    private Account mCurrentAccount = null;
+    private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
     private SynchronizeFolderOperation mCurrentSyncOperation;
 
