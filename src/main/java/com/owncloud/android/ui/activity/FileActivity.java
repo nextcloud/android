@@ -118,15 +118,16 @@ public abstract class FileActivity extends DrawerActivity
 
     private FileOperationsHelper mFileOperationsHelper;
 
-    private ServiceConnection mOperationsServiceConnection = null;
+    private ServiceConnection mOperationsServiceConnection;
 
-    private OperationsServiceBinder mOperationsServiceBinder = null;
+    private OperationsServiceBinder mOperationsServiceBinder;
 
-    private boolean mResumed = false;
+    private boolean mResumed;
 
-    protected FileDownloaderBinder mDownloaderBinder = null;
-    protected FileUploaderBinder mUploaderBinder = null;
-    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    protected FileDownloaderBinder mDownloaderBinder;
+    protected FileUploaderBinder mUploaderBinder;
+    private ServiceConnection mDownloadServiceConnection;
+    private ServiceConnection mUploadServiceConnection;
 
 
 

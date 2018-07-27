@@ -129,22 +129,22 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Listener for user actions to set, update or clear password on public link.
      */
-    private OnPasswordInteractionListener mOnPasswordInteractionListener = null;
+    private OnPasswordInteractionListener mOnPasswordInteractionListener;
 
     /**
      * Listener for user actions to set, update or clear expiration date on public link.
      */
-    private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener = null;
+    private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener;
 
     /**
      * Listener for user actions to set or unset edit permission on public link.
      */
-    private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener = null;
+    private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener;
 
     /**
      * Listener for user actions to set or unset hide file listing permission on public link.
      */
-    private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener = null;
+    private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener;
 
     /**
      * Public factory method to create new ShareFileFragment instances.

@@ -78,10 +78,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
-    private boolean mSearchOnlyFolders = false;
-    private boolean mDoNotEnterEncryptedFolder = false;
+    private boolean mSearchOnlyFolders;
+    private boolean mDoNotEnterEncryptedFolder;
 
     protected Button mCancelBtn;
     protected Button mChooseBtn;

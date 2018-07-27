@@ -138,9 +138,9 @@ public class OperationsService extends Service {
             mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
     private static class Target {
-        public Uri mServerUrl = null;
-        public Account mAccount = null;
-        public String mCookie = null;
+        public Uri mServerUrl;
+        public Account mAccount;
+        public String mCookie;
 
         public Target(Account account, Uri serverUrl, String cookie) {
             mAccount = account;

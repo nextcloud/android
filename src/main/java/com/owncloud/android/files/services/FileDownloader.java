@@ -91,13 +91,13 @@ public class FileDownloader extends Service
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private OwnCloudClient mDownloadClient = null;
-    private Account mCurrentAccount = null;
+    private OwnCloudClient mDownloadClient;
+    private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
 
     private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<>();
 
-    private DownloadFileOperation mCurrentDownload = null;
+    private DownloadFileOperation mCurrentDownload;
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;

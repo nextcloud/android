@@ -158,7 +158,7 @@ public class FileDisplayActivity extends HookActivity
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
-    private RemoteOperationResult mLastSslUntrustedServerResult = null;
+    private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private boolean mDualPane;
     private View mLeftFragmentContainer;
@@ -192,14 +192,14 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToPreview;
 
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
-    private MediaServiceBinder mMediaServiceBinder =  null;
-    private MediaServiceConnection mMediaServiceConnection = null;
+    private MediaServiceBinder mMediaServiceBinder;
+    private MediaServiceConnection mMediaServiceConnection;
 
     private String searchQuery;
 

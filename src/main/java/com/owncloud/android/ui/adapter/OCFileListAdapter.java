@@ -91,7 +91,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
     private boolean gridView;
-    private boolean multiSelect = false;
+    private boolean multiSelect;
     private HashSet<OCFile> checkedFiles;
 
     private FileDataStorageManager mStorageManager;

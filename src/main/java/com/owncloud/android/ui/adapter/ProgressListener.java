@@ -31,9 +31,9 @@ import java.lang.ref.WeakReference;
  * Progress listener for file transfers.
  */
 public class ProgressListener implements OnDatatransferProgressListener {
-    private int mLastPercent = 0;
-    private OCUpload mUpload = null;
-    private WeakReference<ProgressBar> mProgressBar = null;
+    private int mLastPercent;
+    private OCUpload mUpload;
+    private WeakReference<ProgressBar> mProgressBar;
 
     public ProgressListener(OCUpload upload, ProgressBar progressBar) {
         mUpload = upload;
