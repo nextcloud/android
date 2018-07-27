@@ -134,7 +134,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
-    private ArrayList<Parcelable> mStreamsToUpload;
+    private List<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
 

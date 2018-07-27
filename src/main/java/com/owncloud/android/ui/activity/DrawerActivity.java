@@ -99,6 +99,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -824,7 +825,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
             if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-                ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
+                List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
                 final int size = Math.round(24 * density);

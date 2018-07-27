@@ -309,7 +309,7 @@ public class SyncedFolderProvider extends Observable {
      * @param ids     the list of ids to be excluded from deletion.
      * @return number of deleted records.
      */
-    public int deleteSyncedFoldersNotInList(Context context, ArrayList<Long> ids) {
+    public int deleteSyncedFoldersNotInList(Context context, List<Long> ids) {
         int result = mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
