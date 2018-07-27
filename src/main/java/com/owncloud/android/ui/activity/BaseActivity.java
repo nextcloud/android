@@ -91,12 +91,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mCurrentAccount;
         boolean validAccount =
-                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(),
-                        account.name));
+                account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name);
         if (validAccount) {
             mCurrentAccount = account;
             mAccountWasSet = true;
-            mAccountWasRestored = (savedAccount || mCurrentAccount.equals(oldAccount));
+            mAccountWasRestored = savedAccount || mCurrentAccount.equals(oldAccount);
 
         } else {
             swapToDefaultAccount();
@@ -123,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         } else {
             mAccountWasSet = true;
-            mAccountWasRestored = (newAccount.equals(mCurrentAccount));
+            mAccountWasRestored = newAccount.equals(mCurrentAccount);
             mCurrentAccount = newAccount;
         }
     }

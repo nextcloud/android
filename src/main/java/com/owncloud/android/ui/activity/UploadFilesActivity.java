@@ -218,7 +218,7 @@ public class UploadFilesActivity extends FileActivity implements
      */
     public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_ACCOUNT, (account));
+        action.putExtra(EXTRA_ACCOUNT, account);
         activity.startActivityForResult(action, requestCode);
     }
 
