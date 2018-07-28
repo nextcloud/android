@@ -229,6 +229,7 @@
     <string name="media_err_timeout">Oynatmaya çalışılırken zaman aşımına uğradı</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_unknown">Ortam dosyası iç ortam oynatıcı ile oynatılamıyor</string>
+    <string name="media_err_playing">%1$s oynatılmaya çalışılırken beklenmeyen bir sorun çıktı</string>
     <string name="media_rewind_description">Geri Alma Düğmesi</string>
     <string name="media_play_pause_description">Oynatma ya da Duraklatma Düğmesi</string>
     <string name="media_forward_description">İleri Alma Düğmesi</string>
@@ -532,6 +533,8 @@
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
+    <string name="offline_mode">İnternet bağlantısı yok</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
     <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
@@ -776,6 +779,9 @@
     <string name="sharee_add_failed">Paylaşım eklenemedi</string>
     <string name="unsharing_failed">Paylaşımdan kaldırılamadı</string>
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
+    <string name="prefs_e2e_mnemonic">E2E belleği</string>
+    <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
+    <string name="whats_new_device_credentials_title">Android iç aygıt koruması kullanılsın</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
 	<string name="restore">Dosyayı geri yükle</string>
@@ -784,6 +790,12 @@
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
+    <string name="notification_channel_general_name">Genel bildirimler</string>
+    <string name="notification_channel_general_description">Yeni ortam klasörleri ve benzerleri için bildirimler görüntülensin</string>
+    <string name="new_media_folder_detected">Yeni %1$s ortam klasörü bulundu.</string>
+    <string name="new_media_folder_photos">fotoğraf</string>
+    <string name="new_media_folder_videos">görüntü</string>
+
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="dismiss">Yoksay</string>
     <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>
@@ -794,4 +806,9 @@
     <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
-    </resources>
+    <string name="stream">Şununla akıt…</string>
+    <string name="stream_not_possible_headline">İç akış yapılamaz</string>
+    <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
+    <string name="folder_already_exists">Klasör zaten var</string>
+    <string name="notification_icon">Bildirim simgesi</string>
+</resources>
