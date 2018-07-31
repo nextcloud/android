@@ -116,7 +116,7 @@
     <string name="file_list_empty_text_videos_filter">Файлы видео отсутствуют.</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы</string>
-    <string name="upload_list_empty_headline">Нет файлов для отправки на сервер</string>
+    <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>
     <string name="file_list_folder">каталог</string>
     <string name="filedetails_download">Скачать</string>
@@ -209,8 +209,8 @@
     <string name="foreign_files_remote_text">На сервере: %1$s</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="pass_code_enter_pass_code">Введите ваш код</string>
-    <string name="default_credentials_wrong">Неправильные учётные данные</string>
-    <string name="credentials_disabled">Учётные данные выключены</string>
+    <string name="default_credentials_wrong">Неверные учётные данные</string>
+    <string name="credentials_disabled">Учётная запись отключена</string>
     
     <string name="pass_code_configure_your_pass_code">Введите код</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
@@ -233,7 +233,7 @@
     <string name="media_err_timeout">Истекло время попытки воспроизведения</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_unknown">Файл не может быть воспроизведён встроенным мультимедийным проигрывателем</string>
-    <string name="media_err_playing">Неожиданная ошибка при воспроизведении %1$s</string>
+    <string name="media_err_playing">Неожиданная ошибка воспроизведения «%1$s»</string>
     <string name="media_rewind_description">Перемотка назад</string>
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>
@@ -272,7 +272,7 @@
 	<string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
     <string name="auth_account_does_not_exist">Учётная запись ещё не создана на этом устройстве</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
-    <string name="auth_illegal_login_used">Неверный URL-адрес для входа в систему</string>
+    <string name="auth_illegal_login_used">Неверный URL входа в систему</string>
 
     <string name="favorite">Сделать доступным автономно</string>
     <string name="unfavorite">Убрать автономную доступность</string>
@@ -501,7 +501,7 @@
     <string name="share_via_link_send_link_label">Отправить ссылку</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_no_password_title">Задать пароль</string>
-    <string name="edit_permission_label">редактировать</string>
+    <string name="edit_permission_label">Редактирование</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_with_title">Поделиться…</string>
@@ -518,11 +518,11 @@
 
     <string name="share_sharee_unavailable">Установленная на сервере устаревшая версия Nextcloud не позволяет предоставлять общий доступ используя приложения-клиенты. Обратитесь к своему администратору</string>
     <string name="share_privilege_unshare">Закрыть доступ</string>
-    <string name="share_privilege_can_share">разрешить делиться с другими</string>
-    <string name="share_privilege_can_edit">разрешить редактировать</string>
-    <string name="share_privilege_can_edit_create">можно создавать</string>
-    <string name="share_privilege_can_edit_change">можно изменять</string>
-    <string name="share_privilege_can_edit_delete">можно удалять</string>
+    <string name="share_privilege_can_share">Разрешить делиться с другими</string>
+    <string name="share_privilege_can_edit">Разрешить редактировать</string>
+    <string name="share_privilege_can_edit_create"> Разрешить создавать</string>
+    <string name="share_privilege_can_edit_change">Разрешить изменять</string>
+    <string name="share_privilege_can_edit_delete">Разрешить удалять</string>
 
     <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
@@ -541,7 +541,7 @@
     <string name="confirmation_remove_files_alert">Действительно удалить выбранные объекты?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
-    <string name="offline_mode">Нет подключения к интернет</string>
+    <string name="offline_mode">Отсутствует подключение к Интернет</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
@@ -726,7 +726,7 @@
     <string name="version_dev_download">Скачать</string>
 
     <string name="send">Отправить</string>
-    <string name="share">Открыть доступ</string>
+    <string name="share">Общий ресурс</string>
     <string name="link">Ссылка</string>
 
     <string name="notification_channel_upload_name">Канал уведомления отправки</string>
@@ -789,8 +789,10 @@
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
     <string name="unsharing_failed">Не удалось закрыть общий доступ</string>
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
+    <string name="prefs_e2e_mnemonic">Мнемофраза E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
     <string name="whats_new_device_credentials_title">Использовать системные средства защиты</string>
-    <string name="whats_new_device_credentials_content">Используйте все, что угодно: шаблон, пароль, контакт или отпечаток пальца, чтобы ваши данные были в безопасности.</string>
+    <string name="whats_new_device_credentials_content">Для защиты данных могут быть использованы пароль, ПИН, защитный узор или отпечаток пальца.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>
     <string name="new_version_was_created">Новая версия создана</string>
@@ -799,20 +801,24 @@
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="notification_channel_general_name">Общие уведомления</string>
+    <string name="notification_channel_general_description">Выводить уведомление при обнаружении новых папок с медиафайлами</string>
     <string name="new_media_folder_detected">Обнаружена новая папка с фото или видеофайлами: «%1$s».</string>
     <string name="new_media_folder_photos">фото</string>
     <string name="new_media_folder_videos">видео</string>
 
-    <string name="outdated_server">Сервер достиг окончания поддержки(End Of Live, EOL), пожалуйста, обновите!</string>
+    <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="dismiss">Отклонить</string>
     <string name="feedback_no_mail_app">Нет приложения для отправки писем!</string>
-    <string name="drawer_item_trashbin">Удаленные файлы</string>
-    <string name="trashbin_activity_title">Удаленные файлы</string>
-    <string name="action_empty_trashbin">Пуская корзина</string>
-    <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
-    <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удален!</string>
+    <string name="drawer_item_trashbin">Удалённые файлы</string>
+    <string name="trashbin_activity_title">Удалённые файлы</string>
+    <string name="action_empty_trashbin">Очистить корзину</string>
+    <string name="trashbin_loading_failed">Не удалась загрузить содержимое корзины!</string>
+    <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удалён!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
-    <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
+    <string name="stream">Потоковое вещание…</string>
+    <string name="stream_not_possible_headline">Встроенное потоковое вещание невозможно</string>
+    <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
     <string name="folder_already_exists">Папка уже существует</string>
-    <string name="notification_icon">Значок уведомлений</string>
+    <string name="notification_icon">Значок уведомления</string>
 </resources>
