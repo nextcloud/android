@@ -98,7 +98,7 @@ public class MediaFoldersDetectionJob extends Job {
             imageMediaFolderPaths.removeAll(mediaFoldersModel.getImageMediaFolders());
             videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
-            if (imageMediaFolderPaths.size() > 0 || videoMediaFolderPaths.size() > 0) {
+            if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
                 Account[] accounts = AccountUtils.getAccounts(getContext());
                 List<Account> accountList = new ArrayList<>();
                 for (Account account : accounts) {
