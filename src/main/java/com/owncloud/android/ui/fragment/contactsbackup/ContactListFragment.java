@@ -716,7 +716,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 checkedVCards.remove(verifiedPosition);
             }
 
-            if (checkedVCards.size() == 0) {
+            if (checkedVCards.isEmpty()) {
                 EventBus.getDefault().post(new VCardToggleEvent(false));
             }
         }

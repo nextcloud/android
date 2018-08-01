@@ -890,7 +890,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
     public boolean onFileActionChosen(int menuId, Set<OCFile> checkedFiles) {
-        if (checkedFiles.size() <= 0) {
+        if (checkedFiles.isEmpty()) {
             return false;
         }
 

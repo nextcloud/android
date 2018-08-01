@@ -254,7 +254,7 @@ public class FilesSyncHelper {
 
     public static void scheduleOfflineSyncIfNeeded() {
         Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(OfflineSyncJob.TAG);
-        if (jobRequests.size() == 0) {
+        if (jobRequests.isEmpty()) {
             new JobRequest.Builder(OfflineSyncJob.TAG)
                     .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
                     .setUpdateCurrent(false)
