@@ -229,6 +229,7 @@
     <string name="media_err_timeout">Attempt to play file timed out</string>
     <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
     <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
+    <string name="media_err_playing">Unexpected error while trying to play %1$s</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast-forward button</string>
@@ -532,6 +533,8 @@
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
+    <string name="offline_mode">No internet connection</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please upgrade.</string>
@@ -776,6 +779,9 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
+    <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore_button_description">Restore deleted file</string>
 	<string name="restore">Restore file</string>
@@ -784,6 +790,12 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
+    <string name="notification_channel_general_name">General notifications</string>
+    <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
+    <string name="new_media_folder_detected">New %1$s media folder detected.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
     <string name="feedback_no_mail_app">No app available to send mails!</string>
@@ -794,4 +806,9 @@
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
-    </resources>
+    <string name="stream">Stream with…</string>
+    <string name="stream_not_possible_headline">Internal streaming not possible</string>
+    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
+    <string name="folder_already_exists">Folder already exists</string>
+    <string name="notification_icon">Notification icon</string>
+</resources>

@@ -500,7 +500,7 @@
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
     <string name="share_via_link_unset_password">Kikapcsol</string>
 
-    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail cím...</string>
+    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail cím…</string>
 
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
@@ -800,7 +800,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
 	<string name="restore">Fájl visszaállítása</string>
     <string name="new_version_was_created">Új verzió létrehozva</string>
-    <string name="new_comment">Új hozzászólás...</string>
+    <string name="new_comment">Új hozzászólás…</string>
     <string name="error_comment_file">Fájl hozzászólási hiba</string>
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
