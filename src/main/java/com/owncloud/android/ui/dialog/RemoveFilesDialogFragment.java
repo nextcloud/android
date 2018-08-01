@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -15,16 +15,9 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.ui.dialog;
-
-/**
- *  Dialog requiring confirmation before removing a collection of given OCFiles.
- * 
- *  Triggers the removal according to the user response.
- */
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -41,8 +34,13 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class RemoveFilesDialogFragment extends ConfirmationDialogFragment
-implements ConfirmationDialogFragmentListener {
+/**
+ *  Dialog requiring confirmation before removing a collection of given OCFiles.
+ *
+ *  Triggers the removal according to the user response.
+ */
+public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implements
+        ConfirmationDialogFragmentListener {
 
     private Collection<OCFile> mTargetFiles;
 
