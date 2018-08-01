@@ -221,11 +221,11 @@ public class FileDownloader extends Service
     /**
      * Provides a binder object that clients can use to perform operations on the queue of downloads,
      * excepting the addition of new files.
-     * <p/>
+     *
      * Implemented to perform cancellation, pause and resume of existing downloads.
      */
     @Override
-    public IBinder onBind(Intent arg0) {
+    public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
