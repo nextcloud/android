@@ -571,10 +571,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void parseShares(ArrayList<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
-        for (int i = 0; i < objects.size(); i++) {
+
+        for (Object shareObject : objects) {
             // check type before cast as of long running data fetch it is possible that old result is filled
-            if (objects.get(i) instanceof OCShare) {
-                OCShare ocShare = (OCShare) objects.get(i);
+            if (shareObject instanceof OCShare) {
+                OCShare ocShare = (OCShare) shareObject;
 
                 shares.add(ocShare);
 
@@ -627,8 +628,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         List<ContentValues> contentValues = new ArrayList<>();
 
-        for (int i = 0; i < objects.size(); i++) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+        for (Object remoteFile : objects) {
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
             searchForLocalFileInDefaultPath(ocFile);
 
             try {

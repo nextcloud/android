@@ -281,8 +281,7 @@ public class SyncedFolderProvider extends Observable {
      */
     public void updateAutoUploadPaths(Context context) {
         List<SyncedFolder> syncedFolders = getSyncedFolders();
-        for (int i = 0; i < syncedFolders.size(); i++) {
-            SyncedFolder syncedFolder = syncedFolders.get(i);
+        for (SyncedFolder syncedFolder : syncedFolders) {
             if (!new File(syncedFolder.getLocalPath()).exists()) {
                 String localPath = syncedFolder.getLocalPath();
                 if (localPath.endsWith("/")) {
@@ -290,7 +289,7 @@ public class SyncedFolderProvider extends Observable {
                 }
                 localPath = localPath.substring(0, localPath.lastIndexOf('/'));
                 if (new File(localPath).exists()) {
-                    syncedFolders.get(i).setLocalPath(localPath);
+                    syncedFolder.setLocalPath(localPath);
                     updateSyncFolder(syncedFolder);
                 } else {
                     deleteSyncFolderWithId(syncedFolder.getId());
