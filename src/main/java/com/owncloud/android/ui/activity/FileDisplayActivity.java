@@ -1142,7 +1142,7 @@ public class FileDisplayActivity extends HookActivity
             // all closed
 
             //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-            if ((getIntent().getAction() != null && ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction())) && !mDualPane) {
+            if (ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction()) && !mDualPane) {
                 getIntent().setAction(null);
                 getIntent().putExtra(EXTRA_FILE, (OCFile) null);
                 startImagePreview(getFile(), false);
