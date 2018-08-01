@@ -148,11 +148,11 @@ public class FileOperationsHelper {
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            if (fileExt.equalsIgnoreCase("url") || fileExt.equalsIgnoreCase("desktop")) {
+            if ("url".equalsIgnoreCase(fileExt) || "desktop".equalsIgnoreCase(fileExt)) {
                 // Windows internet shortcut file .url
                 // Ubuntu internet shortcut file .desktop
                 url = getUrlFromFile(storagePath, mPatternUrl);
-            } else if (fileExt.equalsIgnoreCase("webloc")) {
+            } else if ("webloc".equalsIgnoreCase(fileExt)) {
                 // mac internet shortcut file .webloc
                 url = getUrlFromFile(storagePath, mPatternString);
             }

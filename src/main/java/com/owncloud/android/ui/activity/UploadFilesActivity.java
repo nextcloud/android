@@ -597,7 +597,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
+        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();

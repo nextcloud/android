@@ -200,11 +200,11 @@ public class DisplayUtils {
             return "";
         }
 
-        if (url.length() >= 7 && url.substring(0, 7).equalsIgnoreCase(HTTP_PROTOCOL)) {
+        if (url.length() >= 7 && HTTP_PROTOCOL.equalsIgnoreCase(url.substring(0, 7))) {
             return url.substring(HTTP_PROTOCOL.length()).trim();
         }
 
-        if (url.length() >= 8 && url.substring(0, 8).equalsIgnoreCase(HTTPS_PROTOCOL)) {
+        if (url.length() >= 8 && HTTPS_PROTOCOL.equalsIgnoreCase(url.substring(0, 8))) {
             return url.substring(HTTPS_PROTOCOL.length()).trim();
         }
 
