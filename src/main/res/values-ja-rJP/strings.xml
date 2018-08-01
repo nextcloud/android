@@ -475,7 +475,7 @@
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
     <string name="foreground_service_upload">ファイルのアップロード中…</string>
-    <string name="foreground_service_download">ファイルをダウンロード中...</string>
+    <string name="foreground_service_download">ファイルをダウンロード中…</string>
 
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
     <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>

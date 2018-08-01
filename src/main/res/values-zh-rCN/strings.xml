@@ -770,7 +770,7 @@
     <string name="restore_button_description">恢复已删除的文件</string>
 	<string name="restore">恢复文件</string>
     <string name="new_version_was_created">已创建新的版本</string>
-    <string name="new_comment">新评论 ...</string>
+    <string name="new_comment">新评论…</string>
     <string name="error_comment_file">评论文件发生错误</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
