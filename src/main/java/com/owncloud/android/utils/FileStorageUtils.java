@@ -94,11 +94,10 @@ public class FileStorageUtils {
 
     /**
      * Optimistic number of bytes available on sd-card. accountName is ignored.
-     *
-     * @param accountName not used. can thus be null.
+     * 
      * @return Optimistic number of available bytes (can be less)
      */
-    public static long getUsableSpace(String accountName) {
+    public static long getUsableSpace() {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();
     }
