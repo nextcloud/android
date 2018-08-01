@@ -534,7 +534,7 @@ public class UploadFilesActivity extends FileActivity implements
                     File localFile = new File(localPath);
                     total += localFile.length();
                 }
-                return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
+                return FileStorageUtils.getUsableSpace() >= total;
             }
 
             return true;
