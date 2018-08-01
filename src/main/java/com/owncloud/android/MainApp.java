@@ -579,8 +579,8 @@ public class MainApp extends MultiDexApplication {
                 Log_OC.i(TAG, "Migration check for synced_folders record: "
                         + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
 
-                for (int i = 0; i < imageMediaFolders.size(); i++) {
-                    if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
+                for (MediaFolder imageMediaFolder : imageMediaFolders) {
+                    if (imageMediaFolder.absolutePath.equals(syncedFolder.getLocalPath())) {
                         newSyncedFolder = (SyncedFolder) syncedFolder.clone();
                         newSyncedFolder.setType(MediaFolderType.IMAGE);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
@@ -590,8 +590,8 @@ public class MainApp extends MultiDexApplication {
                     }
                 }
 
-                for (int j = 0; j < videoMediaFolders.size(); j++) {
-                    if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
+                for (MediaFolder videoMediaFolder : videoMediaFolders) {
+                    if (videoMediaFolder.absolutePath.equals(syncedFolder.getLocalPath())) {
                         newSyncedFolder = (SyncedFolder) syncedFolder.clone();
                         newSyncedFolder.setType(MediaFolderType.VIDEO);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
