@@ -63,7 +63,7 @@ public class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction() != null && intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+                if (intent.getAction() != null && Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
                     FilesSyncHelper.restartJobsIfNeeded();
                 }
             }

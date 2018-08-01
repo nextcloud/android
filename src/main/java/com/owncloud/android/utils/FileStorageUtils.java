@@ -159,7 +159,7 @@ public class FileStorageUtils {
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)) {
+        if (MimeType.DIRECTORY.equalsIgnoreCase(remote.getMimeType())) {
             file.setFileLength(remote.getSize());
         } else {
             file.setFileLength(remote.getLength());

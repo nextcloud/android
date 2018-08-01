@@ -402,7 +402,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                if (file.getMimeType().equalsIgnoreCase("image/png")) {
+                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
                     thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
                 }
             } else {

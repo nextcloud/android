@@ -243,7 +243,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }
 
-                if (file.getMimeType().equalsIgnoreCase("image/png")) {
+                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
                     thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.background_color));
                 }
             } else {
