@@ -53,7 +53,7 @@ public class AccountsDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.common_choose_account);
         CharSequence ac[] = new CharSequence[
-                accountManager.getAccountsByType(MainApp.getAccountType()).length];
+                accountManager.getAccountsByType(MainApp.getAccountType(getActivity().getApplicationContext())).length];
         if (ac.length == 0) {
             // No accounts
             mListener.onNoAccount();
@@ -62,13 +62,14 @@ public class AccountsDialogFragment extends DialogFragment {
 
         for (int i = 0; i < ac.length; ++i) {
             ac[i] = DisplayUtils.convertIdn(
-                    accountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+                    accountManager.getAccountsByType(MainApp.getAccountType(
+                            getActivity().getApplicationContext()))[i].name, false);
         }
         builder.setItems(ac, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mListener.onAccountSelected(accountManager.getAccountsByType(
-                        MainApp.getAccountType())[which].name);
+                        MainApp.getAccountType(getActivity().getApplicationContext()))[which].name);
                 dismiss();
             }
         });

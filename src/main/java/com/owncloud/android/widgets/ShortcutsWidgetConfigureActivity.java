@@ -24,11 +24,11 @@ import android.app.Fragment;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.dialog.AccountsDialogFragment;
 
 
@@ -39,8 +39,6 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         implements AccountsDialogFragment.AccountDialogFragmentListener{
 
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    private static final String PREFS_NAME = "com.owncloud.android.widgets.ShortcutsWidget";
-    private static final String PREF_PREFIX_KEY = "appwidget_";
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -75,14 +73,6 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         }
     }
 
-
-    // Write the prefix to the SharedPreferences object for this widget
-    private static void saveAccountPref(Context context, int appWidgetId, String text) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
-        prefs.commit();
-    }
-
     private void configureResult(){
 
         Context context = ShortcutsWidgetConfigureActivity.this;
@@ -102,7 +92,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
     public void onAccountSelected(String accountName) {
         Context context = ShortcutsWidgetConfigureActivity.this;
 
-        saveAccountPref(context, mAppWidgetId, accountName);
+        PreferenceManager.saveAccountPref(context, mAppWidgetId, accountName);
         configureResult();
     }
 

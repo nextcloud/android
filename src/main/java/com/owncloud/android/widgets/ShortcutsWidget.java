@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 
 
 /**
@@ -58,7 +59,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
         // When the user deletes the widget, delete the preference associated with it.
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
-            ShortcutsWidgetConfigureActivity.deleteAccountPref(context, appWidgetIds[i]);
+            PreferenceManager.deleteAccountPref(context, appWidgetIds[i]);
         }
     }
 
@@ -74,8 +75,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
-        CharSequence widgetAccount =
-                ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
+        CharSequence widgetAccount = PreferenceManager.loadAccountPref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.shortcuts_widget);
@@ -100,11 +100,10 @@ public class ShortcutsWidget extends AppWidgetProvider {
                                                         int appWidgetId) {
         Intent intent = new Intent();
         intent.setAction(action);
-        String accountName = ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
+        String accountName = PreferenceManager.loadAccountPref(context, appWidgetId);
         intent.putExtra(EXTRA_ACCOUNT_NAME, accountName);
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
-
 }
 
 

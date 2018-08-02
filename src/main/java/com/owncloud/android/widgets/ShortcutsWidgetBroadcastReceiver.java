@@ -43,7 +43,7 @@ public class ShortcutsWidgetBroadcastReceiver extends BroadcastReceiver {
         Account account = null;
         String accountName = intent.getStringExtra(ShortcutsWidget.EXTRA_ACCOUNT_NAME);
         AccountManager accountManager = AccountManager.get(context);
-        Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType());
+        Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
         for(Account a: accounts){
             if (a.name.equals(accountName)){
                 account = a;
