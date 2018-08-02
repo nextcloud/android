@@ -1,21 +1,20 @@
-/**
- *   ownCloud Android client application
+/*
+ * ownCloud Android client application
  *
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.widgets;
 
@@ -36,7 +35,7 @@ import com.owncloud.android.ui.dialog.AccountsDialogFragment;
  * The configuration screen for the {@link ShortcutsWidget ShortcutsWidget} AppWidget.
  */
 public class ShortcutsWidgetConfigureActivity extends Activity
-        implements AccountsDialogFragment.AccountDialogFragmentListener{
+        implements AccountsDialogFragment.AccountDialogFragmentListener {
 
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -48,7 +47,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
-          // Find the widget id from the intent.
+        // Find the widget id from the intent.
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -73,7 +72,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         }
     }
 
-    private void configureResult(){
+    private void configureResult() {
 
         Context context = ShortcutsWidgetConfigureActivity.this;
 
@@ -100,7 +99,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
     public void onNoAccount() {
         Toast.makeText(getApplicationContext(),
                 String.format(
-                    getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)),
+                        getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)),
                 Toast.LENGTH_LONG).show();
         finish();
     }

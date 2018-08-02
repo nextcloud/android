@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * Copyright (C) 2012 Bartek Przybylski
