@@ -12,7 +12,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,7 +21,6 @@ package com.owncloud.android.widgets;
 import android.app.Activity;
 import android.app.Fragment;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -40,16 +39,15 @@ public class ShortcutsWidgetConfigureActivity extends Activity
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
         // Find the widget id from the intent.
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mAppWidgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -73,12 +71,9 @@ public class ShortcutsWidgetConfigureActivity extends Activity
     }
 
     private void configureResult() {
-
-        Context context = ShortcutsWidgetConfigureActivity.this;
-
         // It is the responsibility of the configuration activity to update the app widget
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        ShortcutsWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        ShortcutsWidget.updateAppWidget(this, appWidgetManager, mAppWidgetId);
 
         // Make sure we pass back the original appWidgetId
         Intent resultValue = new Intent();
@@ -89,17 +84,14 @@ public class ShortcutsWidgetConfigureActivity extends Activity
 
     @Override
     public void onAccountSelected(String accountName) {
-        Context context = ShortcutsWidgetConfigureActivity.this;
-
-        PreferenceManager.saveAccountPref(context, mAppWidgetId, accountName);
+        PreferenceManager.saveAccountPref(this, mAppWidgetId, accountName);
         configureResult();
     }
 
     @Override
     public void onNoAccount() {
         Toast.makeText(getApplicationContext(),
-                String.format(
-                        getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)),
+                        getString(R.string.uploader_wrn_no_account_text, getString(R.string.app_name)),
                 Toast.LENGTH_LONG).show();
         finish();
     }
