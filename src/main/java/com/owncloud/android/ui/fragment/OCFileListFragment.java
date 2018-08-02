@@ -940,7 +940,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /// actions possible on a batch of files
         switch (menuId) {
             case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles));
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
