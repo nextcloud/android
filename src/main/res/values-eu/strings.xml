@@ -374,8 +374,8 @@ Mesedez, baimendu berriz</string>
 
     <string name="privacy">Pribatutasuna</string>
     <string name="fallback_weblogin_back">Atzera</string>
-    <string name="foreground_service_upload">Fitxategiak igotzen...</string>
-    <string name="foreground_service_download">Fitxategiak deskargatzen...</string>
+    <string name="foreground_service_upload">Fitxategiak igotzen…</string>
+    <string name="foreground_service_download">Fitxategiak deskargatzen…</string>
 
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_license">Lizentzia</string>
@@ -392,9 +392,9 @@ Mesedez, baimendu berriz</string>
 
     <string name="account_not_found">Ez da kontua aurkitu!</string>
 
-    <string name="end_to_end_encryption_retrieving_keys">Gakoak eskuratzen...</string>
-    <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen...</string>
-    <string name="end_to_end_encryption_password">Pasahitza...</string>
+    <string name="end_to_end_encryption_retrieving_keys">Gakoak eskuratzen…</string>
+    <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen…</string>
+    <string name="end_to_end_encryption_password">Pasahitza…</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>
     <string name="hint_name">Izena</string>
     <string name="hint_password">Pasahitza</string>

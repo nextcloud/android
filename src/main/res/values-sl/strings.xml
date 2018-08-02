@@ -85,7 +85,7 @@
     <string name="file_list_empty">Pošiljanje datotek in usklajevanje datotek z naprave.</string>
     <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, označene kot priljubljene, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo zadetkov iskanja.</string>
-    <string name="file_list_loading">Poteka nalaganje ...</string>
+    <string name="file_list_loading">Poteka nalaganje…</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
