@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -26,7 +26,6 @@ import com.evernote.android.job.JobCreator;
 /**
  * Job creator for android-job
  */
-
 public class NCJobCreator implements JobCreator {
     @Override
     public Job create(String tag) {
@@ -45,8 +44,8 @@ public class NCJobCreator implements JobCreator {
                 return new NotificationJob();
             case MediaFoldersDetectionJob.TAG:
                 return new MediaFoldersDetectionJob();
-            case ProcessManualUploadQueue.TAG:
-                return new ProcessManualUploadQueue();
+            case ProcessManualUploadQueueJob.TAG:
+                return new ProcessManualUploadQueueJob();
             default:
                 return null;
         }
