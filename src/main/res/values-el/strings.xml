@@ -45,7 +45,7 @@
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Δεν ήταν δυνατή η επίλυση της διεύθυνσης διακομιστή του λογαριασμού για το DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένα το Google Play ή το F-Droid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_help">Βοήθεια</string>
@@ -53,9 +53,9 @@
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
 
-	<string name="recommend_subject">Δοκιμάστε %1$s στη συσκευή σας!</string>
-	<string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
-    <string name="recommend_urls">%1$sή%2$s</string>
+	<string name="recommend_subject">Δοκιμάστε το %1$s στη συσκευή σας!</string>
+	<string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
+    <string name="recommend_urls">%1$s ή %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
@@ -112,9 +112,9 @@
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_download">Λήψη</string>
     <string name="filedetails_sync_file">Συγχρονισμός</string>
-    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε %1$s κατά τη μεταφόρτωση</string>
+    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
-    <string name="action_send_share">Αποστολή / κοινή χρήση</string>
+    <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
@@ -145,7 +145,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted"> Μη αξιόπιστο πιστοποιητικό διακομιστή</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
-    <string name="uploads_view_group_failed_uploads">Αποτυχία / αναμονή επανεκκίνησης</string>
+    <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -161,7 +161,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
-    <string name="downloader_download_in_progress_ticker">Λαμβάνονται…</string>
+    <string name="downloader_download_in_progress_ticker">Λήψη...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
     <string name="downloader_download_succeeded_ticker">Ληφθέντα</string>
     <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>

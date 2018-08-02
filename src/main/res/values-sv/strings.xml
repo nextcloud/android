@@ -90,7 +90,7 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
     <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
-    <string name="file_list_loading">Laddar...</string>
+    <string name="file_list_loading">Laddar…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
@@ -136,7 +136,7 @@
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktivera användare</string>
     <string name="uploader_info_dirname">Mappnamn</string>
-    <string name="uploader_upload_in_progress_ticker">Laddar upp...</string>
+    <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Uppladdad</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>

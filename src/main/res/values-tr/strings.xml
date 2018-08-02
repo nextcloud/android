@@ -500,7 +500,7 @@
     <string name="share_with_edit_title">%1$s ile paylaş</string>
     <string name="share_via_link_unset_password">Kaldır</string>
 
-    <string name="share_search">Ad, birleşmiş bulut kodu ya da e-posta adresi...</string>
+    <string name="share_search">Ad, birleşmiş bulut kodu ya da e-posta adresi…</string>
 
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="share_group_clarification">%1$s (grup)</string>
