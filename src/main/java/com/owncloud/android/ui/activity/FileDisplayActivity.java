@@ -302,7 +302,7 @@ public class FileDisplayActivity extends HookActivity
                             }
                         });
 
-                DisplayUtils.colorSnackbar(this, snackbar);
+                ThemeUtils.colorSnackbar(this, snackbar);
 
                 snackbar.show();
             } else {
@@ -315,8 +315,6 @@ public class FileDisplayActivity extends HookActivity
             PermissionUtil.requestIgnoreBatteryOptimizationsPermission(this);
         }
 
-        if (savedInstanceState == null) {
-            createMinFragments();
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
 
@@ -340,7 +338,7 @@ public class FileDisplayActivity extends HookActivity
         return this;
     }
 
-    /**
+    /*
      * For Android 7+.
      * Opens a pop up info for the new instant upload and disabled the old instant upload.
      */
