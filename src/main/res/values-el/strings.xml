@@ -161,7 +161,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
-    <string name="downloader_download_in_progress_ticker">Λήψη...</string>
+    <string name="downloader_download_in_progress_ticker">Λήψη…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
     <string name="downloader_download_succeeded_ticker">Ληφθέντα</string>
     <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>
