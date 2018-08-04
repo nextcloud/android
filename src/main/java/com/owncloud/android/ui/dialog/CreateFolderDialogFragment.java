@@ -101,7 +101,7 @@ public class CreateFolderDialogFragment
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
-                .setPositiveButton(R.string.common_ok, this)
+                .setPositiveButton(R.string.folder_confirm_create, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
                         accentColor));
