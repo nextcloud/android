@@ -781,7 +781,7 @@
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
     <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
-    <string name="whats_new_device_credentials_title">Android\'s interner Geräteschutz verwenden</string>
+    <string name="whats_new_device_credentials_title">Androids internen Geräteschutz verwenden</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
 	<string name="restore">Datei wiederherstellen</string>
@@ -793,8 +793,8 @@
     <string name="notification_channel_general_name">Allgemeine Benachrichtigungen</string>
     <string name="notification_channel_general_description">Für neue Medienordner und ähnliches Benachrichtigungen anzeigen</string>
     <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
-    <string name="new_media_folder_photos">photo</string>
-    <string name="new_media_folder_videos">video</string>
+    <string name="new_media_folder_photos">Foto</string>
+    <string name="new_media_folder_videos">Video</string>
 
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
