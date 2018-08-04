@@ -104,8 +104,8 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         if (files.size() == 1) {
             args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{files.get(0).getFileName()});
         }
-        args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
-        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
+        args.putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete);
+        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
         args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
