@@ -7,7 +7,7 @@
     <string name="actionbar_upload_from_apps">Zawartość z innych aplikacji</string>
     <string name="actionbar_upload_files">Pliki</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
-    <string name="actionbar_mkdir">Nowy folder</string>
+    <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_settings">Ustawienia</string>
     <string name="actionbar_see_details">Szczegóły</string>
     <string name="actionbar_send_file">Wyślij</string>
@@ -40,7 +40,8 @@
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_lock">Blokada</string>
-    <string name="prefs_lock_none">Brak.</string>
+    <string name="prefs_lock_title">Zablokuj używając</string>
+    <string name="prefs_lock_none">Nic</string>
     <string name="prefs_lock_using_passcode">Kod PIN</string>
     <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
@@ -69,7 +70,7 @@
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
     <string name="uploader_btn_alternative_text">Wybierz</string>
-    <string name="uploader_top_message">Wybierz folder do przesyłania plików</string>
+    <string name="uploader_top_message">Wybierz katalog do przesyłania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
     <string name="uploader_wrn_no_account_text">Brak %1$s kont na Twoim urządzeniu. Załóż konto.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
@@ -79,9 +80,9 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie jest autoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Proszę sprawdzić czy plik istnieje.</string>
-    <string name="uploader_error_message_source_file_not_copied">Nie udało się skopiować pliku do folderu tymczasowego. Spróbuj ponownie.</string>
+    <string name="uploader_error_message_source_file_not_copied">Nie udało się skopiować pliku do tymczasowego katalogu. Spróbuj ponownie.</string>
     <string name="uploader_upload_files_behaviour">Opcja wysłania:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do folderu %1$s</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do katalogu %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
@@ -92,7 +93,7 @@
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
     <string name="file_list_loading">Ładowanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
-    <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+    <string name="local_file_list_empty">Nie ma plików w tym katalogu.</string>
     <string name="local_folder_list_empty">Nie ma plików w tym folderze.</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
@@ -101,7 +102,7 @@
     <string name="file_list_empty_shared">Pliki i foldery, które współdzielisz pokażą się tutaj</string>
     <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
-    <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
+    <string name="file_list_empty_search">Spróbować szukać w innym katalogu?</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_recently_modified_filter">Brak plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
@@ -110,9 +111,10 @@
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
     <string name="file_list_empty_text_videos_filter">Brak plików wideo.</string>
+    <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
-    <string name="file_list_folder">folder</string>
+    <string name="file_list_folder">katalog</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="filedetails_renamed_in_upload_msg">Zmieniono nazwę pliku %1$s podczas wysyłania</string>
@@ -138,7 +140,7 @@
     <string name="avatar">Awatar</string>
     <string name="active_user">Aktywny użytkownik</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
-    <string name="uploader_info_dirname">Nazwa folderu</string>
+    <string name="uploader_info_dirname">Nazwa katalogu</string>
     <string name="uploader_upload_in_progress_ticker">Wysyłanie…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Wysyłanie %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Wysłano</string>
@@ -155,7 +157,7 @@
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
     <string name="uploads_view_upload_status_failed_connection_error">Błąd połączenia</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Błąd uwierzytelniania</string>
-    <string name="uploads_view_upload_status_failed_folder_error">Błąd folderu</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Błąd katalogu</string>
     <string name="uploads_view_upload_status_failed_file_error">Błąd pliku</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Nie odnaleziono pliku lokalnego</string>
     <string name="uploads_view_upload_status_failed_permission_error">Błąd uprawnień</string>
@@ -194,8 +196,8 @@
         <item quantity="many">Nie udało się skopiować %1$d plików z folderu %2$s do</item>
         <item quantity="other">Nie udało się skopiować %1$d plików z folderu %2$s do</item>
     </plurals>
-    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do folderu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
-    <string name="sync_current_folder_was_removed">Folder %1$s nie istnieje</string>
+    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do katalogu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
+    <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
     <string name="foreign_files_move">Przenieś wszystko</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="foreign_files_fail">Niektóre pliki nie mogły zostać przeniesione</string>
@@ -277,7 +279,7 @@
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_server_fail_msg">Zmiana nazwy nie jest możliwa, nazwa już jest zajęta</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
-    <string name="create_dir_fail_msg">Nie udało się utworzyć folderu</string>
+    <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
@@ -446,14 +448,14 @@
     <string name="username">Użytkownik</string>
 
     <plurals name="file_list__footer__folder">
-        <item quantity="one">%1$d folder</item>
-        <item quantity="few">%1$d folderów</item>
-        <item quantity="many">%1$d folderów</item>
-        <item quantity="other">%1$d folderów</item>
+        <item quantity="one">%1$d katalog</item>
+        <item quantity="few">%1$d katalogi</item>
+        <item quantity="many">%1$d katalogów</item>
+        <item quantity="other">%1$d katalogów</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="one">%1$d file</item>
-        <item quantity="few">%1$d plików</item>
+        <item quantity="one">%1$d plik</item>
+        <item quantity="few">%1$d pliki</item>
         <item quantity="many">%1$d plików</item>
         <item quantity="other">%1$d plików</item>
     </plurals>
@@ -540,7 +542,7 @@
     <string name="participate_contribute_forum_text">Pomóż innym w</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Tłumacz</string>
-    <string name="participate_contribute_translate_text">aplikacja</string>
+    <string name="participate_contribute_translate_text">aplikację</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmień i napisz kod, zajrzyj do %1$s po szczegóły</string>
     <string name="participate_rc_play_store">Pobierz wersję \"kandydującą\" ze sklepu Google Play</string>
     <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
@@ -698,7 +700,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="account_icon">Ikona konta</string>
     
-    <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
+    <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty</string>
     <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
@@ -715,7 +717,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="hint_password">Hasło</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="upload_files">Wyślij plik</string>
-    <string name="create_new_folder">Utwórz nowy folder</string>
+    <string name="create_new_folder">Utwórz nowy katalog</string>
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
@@ -734,4 +736,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="action_empty_trashbin">Pusty kosz</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
-    </resources>
+    <string name="folder_already_exists">Katalog już istnieje</string>
+    <string name="notification_icon">Ikona powiadomień</string>
+</resources>
