@@ -1,19 +1,19 @@
-/**
+/*
  * Nextcloud Android client application
- * <p>
+ * 
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud.
- * <p>
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * <p>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p>
+ * 
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -128,6 +128,7 @@ public class ExternalLinksProvider {
         cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE, externalLink.type.toString());
         cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME, externalLink.name);
         cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL, externalLink.url);
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT, externalLink.redirect);
         return cv;
     }
 
@@ -161,16 +162,13 @@ public class ExternalLinksProvider {
                     type = ExternalLinkType.UNKNOWN;
                     break;
             }
-            String name = cursor.getString(cursor.getColumnIndex(
-                    ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
-            String url = cursor.getString(cursor.getColumnIndex(
-                    ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
+            String name = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
+            String url = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
+            boolean redirect = cursor.getInt(
+                    cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) == 1;
 
-            externalLink = new ExternalLink(id, iconUrl, language, type, name, url);
+            externalLink = new ExternalLink(id, iconUrl, language, type, name, url, redirect);
         }
         return externalLink;
     }
-
-
-
 }
