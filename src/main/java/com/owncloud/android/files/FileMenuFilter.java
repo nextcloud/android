@@ -99,7 +99,7 @@ public class FileMenuFilter {
      * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
      */
     public void filter(Menu menu, boolean inSingleFileFragment) {
-        if (mFiles == null || mFiles.size() <= 0) {
+        if (mFiles == null || mFiles.isEmpty()) {
             hideAll(menu);
         } else {
             List<Integer> toShow = new ArrayList<>();

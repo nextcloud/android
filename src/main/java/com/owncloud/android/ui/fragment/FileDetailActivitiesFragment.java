@@ -196,7 +196,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @OnClick(R.id.submitComment)
     public void submitComment() {
         if (commentInput.getText().toString().trim().length() > 0) {
-            new SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
+            new SubmitCommentTask(commentInput.getText().toString().trim(), userId, file.getLocalId(),
                     callback, ownCloudClient).execute();
         }
     }

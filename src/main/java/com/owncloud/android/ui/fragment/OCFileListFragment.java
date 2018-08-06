@@ -334,22 +334,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void prepareCurrentSearch(SearchEvent event) {
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            if (SearchOperation.SearchType.FILE_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.FILE_SEARCH;
 
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+            } else if (SearchOperation.SearchType.CONTENT_TYPE_SEARCH.equals(event.getSearchType())) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     currentSearchType = SearchType.PHOTO_SEARCH;
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     currentSearchType = SearchType.VIDEO_SEARCH;
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.FAVORITE_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.SHARED_FILTER;
             }
 
@@ -890,7 +890,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
     public boolean onFileActionChosen(int menuId, Set<OCFile> checkedFiles) {
-        if (checkedFiles.size() <= 0) {
+        if (checkedFiles.isEmpty()) {
             return false;
         }
 
@@ -1115,7 +1115,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile folder) {
-        return PreferenceManager.getFolderLayout(getActivity(), folder).equals(FOLDER_LAYOUT_GRID);
+        return FOLDER_LAYOUT_GRID.equals(PreferenceManager.getFolderLayout(getActivity(), folder));
     }
 
     public void setListAsPreferred() {
@@ -1244,22 +1244,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void prepareActionBarItems(SearchEvent event) {
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+            if (SearchOperation.SearchType.CONTENT_TYPE_SEARCH.equals(event.getSearchType())) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
             }
-
         }
 
         if (currentSearchType != null && !currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
@@ -1270,26 +1269,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setEmptyView(SearchEvent event) {
 
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            if (SearchOperation.SearchType.FILE_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.FILE_SEARCH);
             } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.VIDEO_SEARCH);
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.SHARED_FILTER);
             }
-
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

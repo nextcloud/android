@@ -150,7 +150,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
 
-        if (getContext().getString(R.string.send_files_to_other_apps).equalsIgnoreCase("off")) {
+        if ("off".equalsIgnoreCase(getContext().getString(R.string.send_files_to_other_apps))) {
             sharePeopleText.setVisibility(View.GONE);
         }
 

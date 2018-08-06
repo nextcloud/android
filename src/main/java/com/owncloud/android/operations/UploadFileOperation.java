@@ -1166,7 +1166,7 @@ public class UploadFileOperation extends SyncOperation {
 
         RemoteOperationResult result = null;
 
-        if (FileStorageUtils.getUsableSpace(mAccount.name) < sourceFile.length()) {
+        if (FileStorageUtils.getUsableSpace() < sourceFile.length()) {
             result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
             return result;  // error condition when the file should be copied
 
