@@ -34,6 +34,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -519,13 +520,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void externalLinkClicked(MenuItem menuItem){
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
             if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
-                Intent externalWebViewIntent = new Intent(getApplicationContext(),
-                        ExternalSiteWebView.class);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
-                startActivity(externalWebViewIntent);
+                if (link.redirect) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link.url)));
+                } else {
+                    Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
+                    startActivity(externalWebViewIntent);
+                }
             }
         }
     }
