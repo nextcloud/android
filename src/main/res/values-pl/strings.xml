@@ -393,7 +393,7 @@
     <string name="file_migration_failed_not_enough_space">Potrzeba więcej miejsca</string>
     <string name="file_migration_failed_not_writable">Nie można zapisać w pliku docelowym</string>
     <string name="file_migration_failed_not_readable">Nie można odczytać pliku źródłowego</string>
-    <string name="file_migration_failed_dir_already_exists">31/5000Folder Nextcloud już istnieje</string>
+    <string name="file_migration_failed_dir_already_exists">Katalog Nextcloud już istnieje</string>
     <string name="file_migration_failed_while_coping">Błąd podczas migracji</string>
     <string name="file_migration_failed_while_updating_index">Nie udało się zaktualizować indeksu</string>
 
