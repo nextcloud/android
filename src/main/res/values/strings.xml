@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Activities</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
-	<string name="drawer_close">Close</string>
-    <string name="drawer_open">Open</string>
+	<string name="drawer_close">Close sidebar</string>
+    <string name="drawer_open">Open sidebar</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
@@ -694,18 +694,17 @@
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
-    <string name="activity_icon">Activity icon</string>
-    <string name="file_icon">File icon</string>
-    <string name="user_icon">User icon</string>
-    <string name="favorite_icon">Favorite icon</string>
-    <string name="shared_via_link_icon">Shared via link icon</string>
-    <string name="synced_icon">Synced icon</string>
-    <string name="available_offline_icon">Available offline icon</string>
+    <string name="activity_icon">Activity</string>
+    <string name="file_icon">File</string>
+    <string name="user_icon">User</string>
+    <string name="favorite_icon">Favorite</string>
+    <string name="synced_icon">Synced</string>
+    <string name="available_offline_icon">Available offline</string>
     <string name="checkbox">Checkbox</string>
-    <string name="thumbnail">Thumbnail</string>
-    <string name="shared_icon">Shared icon</string>
-    <string name="overflow_menu">Overflow menu</string>
-    <string name="share_file_icon">Share file icon</string>
+    <string name="shared_icon_share">share</string>
+    <string name="shared_icon_shared_via_link">shared via link</string>
+    <string name="shared_icon_shared">shared</string>
+    <string name="overflow_menu">More menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Newest first</string>
     <string name="sort_by_size_descending">Biggest first</string>
@@ -827,4 +826,5 @@
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="folder_already_exists">Folder already exists</string>
     <string name="notification_icon">Notification icon</string>
+    <string name="fab_label">Add or upload</string>
 </resources>
