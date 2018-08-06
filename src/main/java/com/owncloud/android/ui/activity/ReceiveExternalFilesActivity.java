@@ -640,7 +640,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
         tmpFiles = sortFileList(tmpFiles);
 
-        if (tmpFiles.size() <= 0) {
+        if (tmpFiles.isEmpty()) {
             return;
         }
         // filter on dirtype
@@ -749,7 +749,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mFile != null) {
             List<OCFile> files = getStorageManager().getFolderContent(mFile, false);
 
-            if (files.size() == 0) {
+            if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
                         R.drawable.ic_list_empty_upload);
             } else {
@@ -873,8 +873,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
 
-        if (mStreamsToUpload == null || mStreamsToUpload.size() == 0 ||
-                mStreamsToUpload.get(0) == null) {
+        if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
             mStreamsToUpload = null;
             saveTextsFromIntent(intent);
         }

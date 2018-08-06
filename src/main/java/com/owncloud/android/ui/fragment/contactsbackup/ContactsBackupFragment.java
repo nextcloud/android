@@ -244,7 +244,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                     Collections.sort(backupFiles, new AlphanumComparator<>());
 
-                    if (backupFiles == null || backupFiles.size() == 0) {
+                    if (backupFiles == null || backupFiles.isEmpty()) {
                         contactsDatePickerBtn.setVisibility(View.GONE);
                     } else {
                         contactsDatePickerBtn.setVisibility(View.VISIBLE);

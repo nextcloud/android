@@ -94,11 +94,10 @@ public class FileStorageUtils {
 
     /**
      * Optimistic number of bytes available on sd-card. accountName is ignored.
-     *
-     * @param accountName not used. can thus be null.
+     * 
      * @return Optimistic number of available bytes (can be less)
      */
-    public static long getUsableSpace(String accountName) {
+    public static long getUsableSpace() {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();
     }
@@ -159,7 +158,7 @@ public class FileStorageUtils {
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)) {
+        if (MimeType.DIRECTORY.equalsIgnoreCase(remote.getMimeType())) {
             file.setFileLength(remote.getSize());
         } else {
             file.setFileLength(remote.getLength());

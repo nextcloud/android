@@ -658,7 +658,7 @@ public class Preferences extends PreferenceActivity
                     String oldValue = ((ListPreference) preference).getValue();
                     String newValue = (String) o;
                     if (!oldValue.equals(newValue)) {
-                        if (oldValue.equals(LOCK_NONE)) {
+                        if (LOCK_NONE.equals(oldValue)) {
                             enableLock(newValue);
                         } else {
                             pendingLock = newValue;
@@ -722,11 +722,11 @@ public class Preferences extends PreferenceActivity
 
     private void enableLock(String lock) {
         pendingLock = LOCK_NONE;
-        if (lock.equals(LOCK_PASSCODE)) {
+        if (LOCK_PASSCODE.equals(lock)) {
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (lock.equals(LOCK_DEVICE_CREDENTIALS)){
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                     !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
@@ -739,11 +739,11 @@ public class Preferences extends PreferenceActivity
     }
 
     private void disableLock(String lock) {
-        if (lock.equals(LOCK_PASSCODE)) {
+        if (LOCK_PASSCODE.equals(lock)) {
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK_WITH_RESULT);
             startActivityForResult(i, ACTION_CONFIRM_PASSCODE);
-        } else if (lock.equals(LOCK_DEVICE_CREDENTIALS)) {
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             Intent i = new Intent(getApplicationContext(), RequestCredentialsActivity.class);
             startActivityForResult(i, ACTION_CONFIRM_DEVICE_CREDENTIALS);
         }
@@ -914,7 +914,7 @@ public class Preferences extends PreferenceActivity
                 mLock.setSummary(mLock.getEntry());
 
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
-                if (!pendingLock.equals(LOCK_NONE)) {
+                if (!LOCK_NONE.equals(pendingLock)) {
                     enableLock(pendingLock);
                 }
             }
@@ -928,7 +928,7 @@ public class Preferences extends PreferenceActivity
             mLock.setValue(LOCK_NONE);
             mLock.setSummary(mLock.getEntry());
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
-            if (!pendingLock.equals(LOCK_NONE)) {
+            if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&

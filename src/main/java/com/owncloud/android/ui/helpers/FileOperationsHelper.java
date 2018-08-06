@@ -94,6 +94,9 @@ public class FileOperationsHelper {
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
     private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
     private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+    private static final String FILE_EXTENSION_URL = "url";
+    private static final String FILE_EXTENSION_DESKTOP = "desktop";
+    private static final String FILE_EXTENSION_WEBLOC = "webloc";
     private FileActivity mFileActivity;
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -148,11 +151,11 @@ public class FileOperationsHelper {
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            if (fileExt.equalsIgnoreCase("url") || fileExt.equalsIgnoreCase("desktop")) {
+            if (FILE_EXTENSION_URL.equalsIgnoreCase(fileExt) || FILE_EXTENSION_DESKTOP.equalsIgnoreCase(fileExt)) {
                 // Windows internet shortcut file .url
                 // Ubuntu internet shortcut file .desktop
                 url = getUrlFromFile(storagePath, mPatternUrl);
-            } else if (fileExt.equalsIgnoreCase("webloc")) {
+            } else if (FILE_EXTENSION_WEBLOC.equalsIgnoreCase(fileExt)) {
                 // mac internet shortcut file .webloc
                 url = getUrlFromFile(storagePath, mPatternString);
             }
