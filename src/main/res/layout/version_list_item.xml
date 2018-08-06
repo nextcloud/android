@@ -38,7 +38,7 @@
         android:layout_marginEnd="@dimen/activity_icon_layout_right_end_margin"
         android:layout_marginRight="@dimen/activity_icon_layout_right_end_margin"
         android:alpha="0.5"
-        android:contentDescription="@string/thumbnail"
+        android:contentDescription="@null"
         android:src="@drawable/ic_activity"/>
 
     <LinearLayout
