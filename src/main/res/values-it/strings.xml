@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Attività</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
-	<string name="drawer_close">Chiudi</string>
-    <string name="drawer_open">Apri</string>
-    <string name="prefs_category_general">Generale</string>
+	<string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
     <string name="prefs_lock">Blocca</string>
@@ -679,18 +677,7 @@
     <string name="drawer_middle_account">Account centrale</string>
     <string name="drawer_end_account">Ultimo account</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
-    <string name="activity_icon">Icona attività</string>
-    <string name="file_icon">Icona file</string>
-    <string name="user_icon">Icona utente</string>
-    <string name="favorite_icon">Icona preferiti</string>
-    <string name="shared_via_link_icon">Icona condivisi tramite collegamento</string>
-    <string name="synced_icon">Icona sincronizzati</string>
-    <string name="available_offline_icon">Icona disponibile non in linea</string>
     <string name="checkbox">Casella di selezione</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Icona condivisi</string>
-    <string name="overflow_menu">Menu di overflow</string>
-    <string name="share_file_icon">Icona file condivisi</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Prima i più recenti</string>
     <string name="sort_by_size_descending">Prima i più grandi</string>
@@ -811,4 +798,4 @@
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="notification_icon">Icona di notifica</string>
-</resources>
+    </resources>

@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
-	<string name="drawer_close">Sulje</string>
-    <string name="drawer_open">Avaa</string>
-    <string name="prefs_category_general">Yleiset</string>
+	<string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
     <string name="prefs_lock">Lukitse</string>
@@ -633,16 +631,7 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="drawer_current_account">Nykyinen tili</string>
-    <string name="activity_icon">Toimikuvake</string>
-    <string name="file_icon">Tiedostokuvake</string>
-    <string name="user_icon">Käyttäjäkuvake</string>
-    <string name="favorite_icon">Suosikkikuvake</string>
-    <string name="shared_via_link_icon">Jaettu linkin kautta -kuvake</string>
-    <string name="synced_icon">Synkronoitu-kuvake</string>
     <string name="checkbox">Valintaruutu</string>
-    <string name="thumbnail">Esikatselukuva</string>
-    <string name="shared_icon">Jaettu-kuvake</string>
-    <string name="share_file_icon">Jaa tiedosto -kuvake</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Uusin ensin</string>
     <string name="sort_by_size_descending">Suurin ensin</string>

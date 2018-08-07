@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
-	<string name="drawer_close">Закрыть</string>
-    <string name="drawer_open">Открыть</string>
-    <string name="prefs_category_general">Основные</string>
+	<string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_lock">Блокировка</string>
@@ -689,18 +687,7 @@
     <string name="drawer_middle_account">Средняя учётная запись</string>
     <string name="drawer_end_account">Последняя учётная запись</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
-    <string name="activity_icon">Значок события</string>
-    <string name="file_icon">Значок файла</string>
-    <string name="user_icon">Значок пользователя</string>
-    <string name="favorite_icon">Значок избранного</string>
-    <string name="shared_via_link_icon">Значок доступного по ссылке</string>
-    <string name="synced_icon">Значок синхронизированного содержимого</string>
-    <string name="available_offline_icon">Значок автономно доступного содержимого</string>
     <string name="checkbox">Флажок</string>
-    <string name="thumbnail">Миниатюра</string>
-    <string name="shared_icon">Значок ресурсов общего доступа</string>
-    <string name="overflow_menu">Меню переполнения</string>
-    <string name="share_file_icon">Значок общего файла</string>
     <string name="sort_by_name_ascending">А — Я</string>
     <string name="sort_by_modification_date_ascending">Сначала новые</string>
     <string name="sort_by_size_descending">Сначала большие</string>
@@ -821,4 +808,4 @@
     <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="notification_icon">Значок уведомления</string>
-</resources>
+    </resources>

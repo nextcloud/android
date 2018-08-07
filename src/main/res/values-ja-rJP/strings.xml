@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-	<string name="drawer_close">閉じる</string>
-    <string name="drawer_open">開く</string>
-    <string name="prefs_category_general">一般</string>
+	<string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_lock_using_passcode">パスコード</string>

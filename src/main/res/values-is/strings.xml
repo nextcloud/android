@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Virkni</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
-	<string name="drawer_close">Loka</string>
-    <string name="drawer_open">Opna</string>
-    <string name="prefs_category_general">Almennt</string>
+	<string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_lock">Læsa</string>
@@ -679,18 +677,7 @@
     <string name="drawer_middle_account">Mið-notandaaðgangur</string>
     <string name="drawer_end_account">Síðasti notandaaðgangur</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
-    <string name="activity_icon">Táknmynd fyrir virkni</string>
-    <string name="file_icon">Táknmynd fyrir skrá</string>
-    <string name="user_icon">Táknmynd fyrir notanda</string>
-    <string name="favorite_icon">Táknmynd fyrir eftirlæti</string>
-    <string name="shared_via_link_icon">Deilt með tengiltákni</string>
-    <string name="synced_icon">Táknmynd fyrir samstillingu</string>
-    <string name="available_offline_icon">Táknmynd fyrir tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
-    <string name="thumbnail">Smámynd</string>
-    <string name="shared_icon">Táknmynd fyrir deilingu</string>
-    <string name="overflow_menu">Yfirflæðisvalmynd</string>
-    <string name="share_file_icon">Táknmynd fyrir deilda skrá</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
     <string name="sort_by_size_descending">Stærsta fyrst</string>
@@ -811,4 +798,4 @@
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
     <string name="folder_already_exists">Mappa er þegar til</string>
     <string name="notification_icon">Tilkynningatákn</string>
-</resources>
+    </resources>

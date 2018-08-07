@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Aktivitetet</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
-	<string name="drawer_close">Mbylle</string>
-    <string name="drawer_open">Hape</string>
-    <string name="prefs_category_general">Të përgjithshme</string>
+	<string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_lock_none">Asnjë</string>
@@ -664,18 +662,7 @@
     <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
-    <string name="activity_icon">Ikona e aktiviteteve</string>
-    <string name="file_icon">Ikona e skedarit</string>
-    <string name="user_icon">Ikona e përdoruesit</string>
-    <string name="favorite_icon">Ikona e preferuar</string>
-    <string name="shared_via_link_icon">U nda nëpërmjet lidhjes së ikonës.</string>
-    <string name="synced_icon">Ikona e sinkronizimit</string>
-    <string name="available_offline_icon">Ikona në gjëndje offline.</string>
     <string name="checkbox">Checkbox</string>
-    <string name="thumbnail">Thumbnail</string>
-    <string name="shared_icon">Ikona e ndarë</string>
-    <string name="overflow_menu">Menu-ja overflow</string>
-    <string name="share_file_icon">Ikona për të ndarë një skedar</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
     <string name="sort_by_size_descending">Më i madhi i pari</string>
@@ -765,7 +752,10 @@
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
     <string name="new_comment">Koment i ri…</string>
+    <string name="new_media_folder_photos">Foto</string>
+    <string name="new_media_folder_videos">Video</string>
+
     <string name="dismiss">Hiq</string>
-    <string name="drawer_item_trashbin">Kartela të fshira</string>
-    <string name="trashbin_activity_title">Kartela të fshira</string>
+    <string name="drawer_item_trashbin">Skedar të fshirë</string>
+    <string name="trashbin_activity_title">Skedar të fshirë</string>
     </resources>

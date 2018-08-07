@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Dejavnosti</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
-	<string name="drawer_close">Zapri</string>
-    <string name="drawer_open">Odpri</string>
-    <string name="prefs_category_general">Splošno</string>
+	<string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_lock">Zakleni</string>

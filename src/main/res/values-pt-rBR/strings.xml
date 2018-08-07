@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="drawer_close">Fechar</string>
-    <string name="drawer_open">Abrir</string>
-    <string name="prefs_category_general">Geral</string>
+	<string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_lock">Bloquear</string>
@@ -679,18 +677,7 @@
     <string name="drawer_middle_account">Conta média</string>
     <string name="drawer_end_account">Última conta</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
-    <string name="activity_icon">Ícone de atividade</string>
-    <string name="file_icon">Ícone de arquivo</string>
-    <string name="user_icon">Ícone de usuário</string>
-    <string name="favorite_icon">Ícone de favorito</string>
-    <string name="shared_via_link_icon">Ícone de compartilhamento via link</string>
-    <string name="synced_icon">Ícone de sincronizado</string>
-    <string name="available_offline_icon">Ícone de offline disponível</string>
     <string name="checkbox">Caixa de marcação</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Ícone de compartilhado</string>
-    <string name="overflow_menu">Menu com excesso de itens</string>
-    <string name="share_file_icon">Ícone de compartilhamento de arquivo</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Mais novos primeiro</string>
     <string name="sort_by_size_descending">Maiores primeiro</string>
@@ -811,4 +798,4 @@
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="notification_icon">Ícone de notificação</string>
-</resources>
+    </resources>

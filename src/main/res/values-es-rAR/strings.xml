@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="drawer_close">Cerrar</string>
-    <string name="drawer_open">Abrir</string>
-    <string name="prefs_category_general">General</string>
+	<string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_expert_mode">Modo experto</string>
