@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Aktivitas</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
-	<string name="drawer_close">Tutup</string>
-    <string name="drawer_open">Buka</string>
-    <string name="prefs_category_general">Umum</string>
+	<string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_expert_mode">Mode Ahli</string>

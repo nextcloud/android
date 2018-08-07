@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Veiklos</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_quota">išnaudota %1$s iš %2$s</string>
-	<string name="drawer_close">Užverti</string>
-    <string name="drawer_open">Atverti</string>
-    <string name="prefs_category_general">Bendras</string>
+	<string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_expert_mode">Eksperto režimas</string>

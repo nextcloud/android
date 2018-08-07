@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
-	<string name="drawer_close">Κλείσιμο</string>
-    <string name="drawer_open">Άνοιγμα</string>
-    <string name="prefs_category_general">Γενικά</string>
+	<string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
@@ -585,10 +583,6 @@
 
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
-    <string name="activity_icon">Εικονίδιο δραστηριότητας</string>
-    <string name="file_icon">Εικονίδιο αρχείου</string>
-    <string name="user_icon">Εικονίδιο χρήστη</string>
-    <string name="thumbnail">Μικρογραφία</string>
     <string name="sort_by_name_ascending">Α - Ω</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
     <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>

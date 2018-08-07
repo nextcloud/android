@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Izmaiņas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
-	<string name="drawer_close">Aizvērt</string>
-    <string name="drawer_open">Atvērt</string>
-    <string name="prefs_category_general">Vispārīgi</string>
+	<string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_lock">Aizslēgt</string>
@@ -572,13 +570,6 @@
 
     <string name="drawer_current_account">Pašreizējais konts</string>
     <string name="drawer_end_account">Pēdējais konts</string>
-    <string name="activity_icon">Izmaiņu ikona</string>
-    <string name="file_icon">Faila ikona</string>
-    <string name="user_icon">Lietotāja ikona</string>
-    <string name="favorite_icon">Izlases ikona</string>
-    <string name="shared_via_link_icon">Koplietots ar saiti ikona</string>
-    <string name="synced_icon">Sinhronizēts ikona</string>
-    <string name="available_offline_icon">Pieejams bezsaistē ikona</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Jaunākie pirms</string>
     <string name="sort_by_size_descending">Lielākie pirms</string>

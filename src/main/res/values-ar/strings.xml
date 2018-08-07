@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">النشاطات</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
-	<string name="drawer_close">إغلاق</string>
-    <string name="drawer_open">افتح</string>
-    <string name="prefs_category_general">عام</string>
+	<string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_expert_mode">وضع متقدم</string>
@@ -398,11 +396,6 @@
     <string name="drawer_middle_account">الحساب الوسيط</string>
     <string name="drawer_end_account">آخِر حساب</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
-    <string name="activity_icon">أيقونة النشاط</string>
-    <string name="file_icon">أيقونة الملف</string>
-    <string name="user_icon">أيقونة المستخدم</string>
-    <string name="favorite_icon">أيقونة المفضلة</string>
-    <string name="shared_icon">أيقونة المشاركة</string>
     <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
     <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="sort_by_size_ascending">الأصغر حجما أولا</string>

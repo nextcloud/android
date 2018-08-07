@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Etkinlikler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
-	<string name="drawer_close">Kapat</string>
-    <string name="drawer_open">Aç</string>
-    <string name="prefs_category_general">Genel</string>
+	<string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_lock">Kilitle</string>
@@ -679,18 +677,7 @@
     <string name="drawer_middle_account">Orta hesap</string>
     <string name="drawer_end_account">Son hesap</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
-    <string name="activity_icon">İşlem simgesi</string>
-    <string name="file_icon">Dosya simgesi</string>
-    <string name="user_icon">Kullanıcı simgesi</string>
-    <string name="favorite_icon">Sık kullanılanlar simgesi</string>
-    <string name="shared_via_link_icon">Bağlantı ile paylaşılmış simgesi</string>
-    <string name="synced_icon">Eşitlenmiş simgesi</string>
-    <string name="available_offline_icon">Çevrimdışı kullanılabilir simgesi</string>
     <string name="checkbox">İşaret kutusu</string>
-    <string name="thumbnail">Küçük görsel</string>
-    <string name="shared_icon">Paylaşılmış simgesi</string>
-    <string name="overflow_menu">Taşma menüsü</string>
-    <string name="share_file_icon">Dosya paylaşımı simgesi</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Yeniden Eskiye</string>
     <string name="sort_by_size_descending">Büyükten Küçüğe</string>
@@ -811,4 +798,4 @@
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="notification_icon">Bildirim simgesi</string>
-</resources>
+    </resources>

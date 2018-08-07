@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
-	<string name="drawer_close">Затвори</string>
-    <string name="drawer_open">Отвори</string>
-    <string name="prefs_category_general">Опште</string>
+	<string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_lock">Закључавање</string>
@@ -684,18 +682,7 @@
     <string name="drawer_middle_account">Средишњи налог</string>
     <string name="drawer_end_account">Последњи налог</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
-    <string name="activity_icon">Икона активности</string>
-    <string name="file_icon">Икона фајла</string>
-    <string name="user_icon">Икона корисника</string>
-    <string name="favorite_icon">Икона омиљених</string>
-    <string name="shared_via_link_icon">Икона дељења преко везе</string>
-    <string name="synced_icon">Икона синхронизоване ставке</string>
-    <string name="available_offline_icon">Икона доступно ван мреже</string>
     <string name="checkbox">Штиклирање</string>
-    <string name="thumbnail">Мала сличица</string>
-    <string name="shared_icon">Икона дељења</string>
-    <string name="overflow_menu">Overflow мени</string>
-    <string name="share_file_icon">Икона дељења фајла</string>
     <string name="sort_by_name_ascending">А - Ш</string>
     <string name="sort_by_modification_date_ascending">Прво новије</string>
     <string name="sort_by_size_descending">Прво највеће</string>
@@ -816,4 +803,4 @@
     <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="notification_icon">Иконица обавештења</string>
-</resources>
+    </resources>

@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Jarduerak</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_quota">%1$s %2$s-(e)tik erabilita</string>
-	<string name="drawer_close">Itxi</string>
-    <string name="drawer_open">Ireki</string>
-    <string name="prefs_category_general">Orokorra</string>
+	<string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
     <string name="prefs_expert_mode">Modu aurreratua</string>
@@ -380,7 +378,6 @@ Mesedez, baimendu berriz</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_license">Lizentzia</string>
     <string name="prefs_gpl_v2">GNU Lizentzia Publiko Orokorra, 2. bertsioa</string>
-    <string name="thumbnail">Aurrebista</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Berriena lehenengo </string>
     <string name="sort_by_name_descending">Z - A</string>
