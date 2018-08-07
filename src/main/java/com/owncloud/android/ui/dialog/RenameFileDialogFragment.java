@@ -115,7 +115,7 @@ public class RenameFileDialogFragment
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
-                .setPositiveButton(R.string.common_ok, this)
+                .setPositiveButton(R.string.file_rename, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
                         accentColor));
