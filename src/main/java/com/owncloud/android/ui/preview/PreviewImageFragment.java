@@ -105,9 +105,9 @@ public class PreviewImageFragment extends FileFragment {
     private ImageView mMultiListIcon;
     private ProgressBar mMultiListProgress;
 
-    private Boolean mShowResizedImage = false;
+    private Boolean mShowResizedImage;
 
-    private Bitmap mBitmap = null;
+    private Bitmap mBitmap;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 

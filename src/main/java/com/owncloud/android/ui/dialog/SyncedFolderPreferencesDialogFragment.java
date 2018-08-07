@@ -65,7 +65,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public static final int REQUEST_CODE__SELECT_LOCAL_FOLDER = 1;
     private final static String TAG = SyncedFolderPreferencesDialogFragment.class.getSimpleName();
     private static final String BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE";
-    protected View mView = null;
+    protected View mView;
     private CharSequence[] mUploadBehaviorItemStrings;
     private SwitchCompat mEnabledSwitch;
     private AppCompatCheckBox mUploadOnWifiCheckbox;

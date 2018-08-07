@@ -46,7 +46,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
 
-public class PassCodeActivity extends AppCompatActivity {
+public class    PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -70,7 +70,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private String [] mPassCodeDigits = {"","","",""};
     private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
-    private boolean mConfirmingPassCode = false;
+    private boolean mConfirmingPassCode;
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private boolean mBChange = true; // to control that only one blocks jump

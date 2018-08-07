@@ -153,7 +153,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private FileFragment.ContainerActivity mContainerActivity;
 
-    private OCFile mFile = null;
+    private OCFile mFile;
     private OCFileListAdapter mAdapter;
     private boolean mOnlyFoldersClickable;
 
@@ -169,7 +169,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private BottomNavigationView bottomNavigationView;
 
     private SearchType currentSearchType;
-    private boolean searchFragment = false;
+    private boolean searchFragment;
     private SearchEvent searchEvent;
     private AsyncTask remoteOperationAsyncTask;
 

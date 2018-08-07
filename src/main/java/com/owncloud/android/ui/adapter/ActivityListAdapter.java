@@ -330,7 +330,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return ssb;
     }
 
-    private RichObject searchObjectByName(ArrayList<RichObject> richObjectList, String name) {
+    private RichObject searchObjectByName(List<RichObject> richObjectList, String name) {
         for (RichObject richObject : richObjectList) {
             if (richObject.getTag().equalsIgnoreCase(name))
                 return richObject;

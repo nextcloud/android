@@ -44,8 +44,8 @@ public class FeatureList {
     private static final int VERSION_3_3_0 = 30030099;
     private static final int BETA_VERSION_0 = 0;
 
-    static public ArrayList<FeatureItem> get(boolean isMultiAccount) {
-        ArrayList<FeatureItem> featuresList = new ArrayList<>();
+    static public List<FeatureItem> get(boolean isMultiAccount) {
+        List<FeatureItem> featuresList = new ArrayList<>();
         // Basic features showed on first install
         featuresList.add(new FeatureItem(R.drawable.whats_new_files,
                 R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,

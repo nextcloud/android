@@ -75,13 +75,10 @@ public class PreviewImageActivity extends FileActivity implements
 
     private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
-    private int mSavedPosition = 0;
-    private boolean mHasSavedPosition = false;
-    
+    private int mSavedPosition;
+    private boolean mHasSavedPosition;
     private boolean mRequestWaitingForBinder;
-    
     private DownloadFinishReceiver mDownloadFinishReceiver;
-    
     private View mFullScreenAnchorView;
 
     @Override

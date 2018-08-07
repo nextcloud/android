@@ -39,7 +39,7 @@ public class CustomPopup {
     protected final View mAnchor;
     protected final PopupWindow mWindow;
     private View root;
-    private Drawable background = null;
+    private Drawable background;
     protected final WindowManager mWManager;
 
     public CustomPopup(View anchor) {
@@ -57,8 +57,7 @@ public class CustomPopup {
             }
         });
 
-        mWManager = (WindowManager) anchor.getContext().getSystemService(
-                Context.WINDOW_SERVICE);
+        mWManager = (WindowManager) anchor.getContext().getSystemService(Context.WINDOW_SERVICE);
         onCreate();
     }
 
