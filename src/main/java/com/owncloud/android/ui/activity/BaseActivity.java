@@ -36,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account}.
      */
-    private boolean mRedirectingToSetupAccount = false;
+    private boolean mRedirectingToSetupAccount;
 
     /**
      * Flag to signal when the value of mAccount was set.
@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Access point to the cached database for the current ownCloud {@link Account}.
      */
-    private FileDataStorageManager mStorageManager = null;
+    private FileDataStorageManager mStorageManager;
 
     @Override
     protected void onNewIntent (Intent intent) {
@@ -91,12 +91,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mCurrentAccount;
         boolean validAccount =
-                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(),
-                        account.name));
+                account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name);
         if (validAccount) {
             mCurrentAccount = account;
             mAccountWasSet = true;
-            mAccountWasRestored = (savedAccount || mCurrentAccount.equals(oldAccount));
+            mAccountWasRestored = savedAccount || mCurrentAccount.equals(oldAccount);
 
         } else {
             swapToDefaultAccount();
@@ -123,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         } else {
             mAccountWasSet = true;
-            mAccountWasRestored = (newAccount.equals(mCurrentAccount));
+            mAccountWasRestored = newAccount.equals(mCurrentAccount);
             mCurrentAccount = newAccount;
         }
     }

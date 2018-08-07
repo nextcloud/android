@@ -63,7 +63,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +76,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
     // to show share with users/groups info
-    private ArrayList<OCShare> shares;
+    private List<OCShare> shares;
 
     private OCFile file;
     private Account account;

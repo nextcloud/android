@@ -104,7 +104,7 @@ public class NotificationsActivity extends FileActivity {
     private Unbinder unbinder;
 
     private NotificationListAdapter adapter;
-    private Snackbar snackbar = null;
+    private Snackbar snackbar;
     private OwnCloudClient client;
     private Account currentAccount;
 

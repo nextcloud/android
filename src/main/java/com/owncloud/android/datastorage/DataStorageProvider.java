@@ -42,7 +42,7 @@ import java.util.Vector;
  */
 public class DataStorageProvider {
 
-    private static final Vector<IStoragePointProvider> mStorageProviders = new Vector<>();
+    private static final List<IStoragePointProvider> mStorageProviders = new ArrayList<>();
     private static final UniqueStorageList mCachedStoragePoints = new UniqueStorageList();
     private static final DataStorageProvider sInstance = new DataStorageProvider() {{
         // There is no system wide way to get usb storage so we need to provide multiple

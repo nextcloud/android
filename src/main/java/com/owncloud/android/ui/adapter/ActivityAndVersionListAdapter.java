@@ -19,9 +19,9 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +39,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         this.versionListInterface = versionListInterface;
     }
 
-    public void setActivityAndVersionItems(ArrayList<Object> items, OwnCloudClient newClient, boolean clear) {
+    public void setActivityAndVersionItems(List<Object> items, OwnCloudClient newClient, boolean clear) {
         if (client == null) {
             client = newClient;
         }

@@ -56,8 +56,8 @@ public class DownloadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private String mBehaviour;
     private Context mContext;
-    private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
-    private long mModificationTimestamp = 0;
+    private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
+    private long mModificationTimestamp;
     private String mEtag = "";
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     

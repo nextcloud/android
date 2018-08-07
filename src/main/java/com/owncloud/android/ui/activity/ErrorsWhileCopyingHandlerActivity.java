@@ -48,7 +48,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -75,8 +75,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
     
     protected Account mAccount;
     protected FileDataStorageManager mStorageManager;
-    protected ArrayList<String> mLocalPaths;
-    protected ArrayList<String> mRemotePaths;
+    protected List<String> mLocalPaths;
+    protected List<String> mRemotePaths;
     protected ArrayAdapter<String> mAdapter;
     protected Handler mHandler;
     private DialogFragment mCurrentDialog;

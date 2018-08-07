@@ -21,7 +21,7 @@
 
 package com.owncloud.android.datamodel;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Encrypted class representation of metadata json of folder metadata
@@ -29,9 +29,9 @@ import java.util.HashMap;
 
 public class EncryptedFolderMetadata {
     private DecryptedFolderMetadata.Metadata metadata;
-    private HashMap<String, EncryptedFile> files;
+    private Map<String, EncryptedFile> files;
     
-    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, HashMap<String, EncryptedFile> files) {
+    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, Map<String, EncryptedFile> files) {
         this.metadata = metadata;
         this.files = files;
     }
@@ -44,11 +44,11 @@ public class EncryptedFolderMetadata {
         this.metadata = metadata;
     }
 
-    public HashMap<String, EncryptedFile> getFiles() {
+    public Map<String, EncryptedFile> getFiles() {
         return files;
     }
 
-    public void setFiles(HashMap<String, EncryptedFile> files) {
+    public void setFiles(Map<String, EncryptedFile> files) {
         this.files = files;
     }
 
@@ -91,4 +91,3 @@ public class EncryptedFolderMetadata {
         }
     }
 }
-

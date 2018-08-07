@@ -35,7 +35,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     private final ActivitiesContract.View activitiesView;
     private final ActivitiesRepository activitiesRepository;
     private final FilesRepository filesRepository;
-    private boolean activityStopped = false;
+    private boolean activityStopped;
 
 
     ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,

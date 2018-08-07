@@ -78,10 +78,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
-    private boolean mSearchOnlyFolders = false;
-    private boolean mDoNotEnterEncryptedFolder = false;
+    private boolean mSearchOnlyFolders;
+    private boolean mDoNotEnterEncryptedFolder;
 
     protected Button mCancelBtn;
     protected Button mChooseBtn;
@@ -470,8 +470,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult syncResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name)
-                        && getStorageManager() != null); 
+                boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
+                        && getStorageManager() != null;
     
                 if (sameAccount) {
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {

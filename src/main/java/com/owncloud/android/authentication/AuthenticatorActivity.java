@@ -207,10 +207,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private TextWatcher mHostUrlInputWatcher;
     private String mServerStatusText = "";
-    private int mServerStatusIcon = 0;
+    private int mServerStatusIcon;
 
-    private boolean mServerIsChecked = false;
-    private boolean mServerIsValid = false;
+    private boolean mServerIsChecked;
+    private boolean mServerIsValid;
 
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
@@ -227,7 +227,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private WebView mLoginWebView;
 
     private String mAuthStatusText = "";
-    private int mAuthStatusIcon = 0;
+    private int mAuthStatusIcon;
 
     private String mAuthToken = "";
     private AuthenticatorAsyncTask mAsyncTask;
@@ -246,7 +246,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String webViewPassword;
     private TextInputLayout mUsernameInputLayout;
     private TextInputLayout mPasswordInputLayout;
-    private boolean forceOldLoginMethod = false;
+    private boolean forceOldLoginMethod;
 
     /**
      * {@inheritDoc}

@@ -55,7 +55,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /*
@@ -86,7 +86,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private DownloadKeysAsyncTask task;
     private TextView passwordField;
     private String keyResult;
-    private ArrayList<String> keyWords;
+    private List<String> keyWords;
 
     /**
      * Public factory method to create new SetupEncryptionDialogFragment instance

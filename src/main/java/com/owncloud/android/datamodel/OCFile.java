@@ -303,8 +303,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public boolean existsOnDevice() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
-            File file = new File(mLocalPath);
-            return (file.exists());
+            return new File(mLocalPath).exists();
         }
         return false;
     }
@@ -588,7 +587,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
-        return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
+        return parentPath.endsWith("/") ? parentPath : parentPath + "/";
     }
 
     /**
@@ -777,7 +776,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isSharedWithMe() {
         String permissions = getPermissions();
-        return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
     }
 
     public boolean canReshare() {

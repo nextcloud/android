@@ -89,7 +89,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_backup_now)
     public AppCompatButton backupNow;
 
-    private Date selectedDate = null;
+    private Date selectedDate;
     private boolean calendarPickerOpen;
 
     private DatePickerDialog datePickerDialog;

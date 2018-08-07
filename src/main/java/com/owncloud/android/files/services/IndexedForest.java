@@ -45,10 +45,10 @@ public class IndexedForest<V> {
 
     @SuppressWarnings("PMD.ShortClassName")
     private class Node<V> {
-        private String mKey = null;
-        private Node<V> mParent = null;
+        private String mKey;
+        private Node<V> mParent;
         private Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
-        private V mPayload = null;
+        private V mPayload;
 
         // payload is optional
         public Node(String key, V payload) {
@@ -113,8 +113,8 @@ public class IndexedForest<V> {
         } else {
             // value really added
             String currentPath = remotePath;
-            String parentPath = null;
-            String parentKey = null;
+            String parentPath;
+            String parentKey;
             Node<V> currentNode = valuedNode;
             Node<V> parentNode = null;
             boolean linked = false;
@@ -142,7 +142,7 @@ public class IndexedForest<V> {
                 linkedTo = parentNode.getKey().substring(accountName.length());
             }
 
-            return new Pair<String, String>(targetKey, linkedTo);
+            return new Pair<>(targetKey, linkedTo);
         }
     }
 
@@ -156,7 +156,7 @@ public class IndexedForest<V> {
                 return remove(accountName, remotePath);
             }
         }
-        return new Pair<V, String>(null, null);
+        return new Pair<>(null, null);
     }
 
 
@@ -186,10 +186,10 @@ public class IndexedForest<V> {
                 unlinkedFrom = parent.getKey().substring(accountName.length());
             }
 
-            return new Pair<V, String>(firstRemoved.getPayload(), unlinkedFrom);
+            return new Pair<>(firstRemoved.getPayload(), unlinkedFrom);
         }
 
-        return new Pair<V, String>(null, null);
+        return new Pair<>(null, null);
     }
 
     private void removeDescendants(Node<V> removed) {
@@ -246,5 +246,4 @@ public class IndexedForest<V> {
     private String buildKey(String accountName, String remotePath) {
         return accountName + remotePath;
     }
-
 }

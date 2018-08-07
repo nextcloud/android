@@ -134,19 +134,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
-    private ArrayList<Parcelable> mStreamsToUpload;
+    private List<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
 
-    private boolean mUploadFromTmpFile = false;
+    private boolean mUploadFromTmpFile;
     private String mSubjectText;
     private String mExtraText;
 

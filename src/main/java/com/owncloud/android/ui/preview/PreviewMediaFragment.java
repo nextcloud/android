@@ -110,11 +110,11 @@ public class PreviewMediaFragment extends FileFragment implements
     protected ImageView mMultiListIcon;
     protected ProgressBar mMultiListProgress;
 
-    private MediaServiceBinder mMediaServiceBinder = null;
-    private MediaControlView mMediaController = null;
-    private MediaServiceConnection mMediaServiceConnection = null;
+    private MediaServiceBinder mMediaServiceBinder;
+    private MediaControlView mMediaController;
+    private MediaServiceConnection mMediaServiceConnection;
     private boolean mAutoplay;
-    private static boolean mOnResume = false;
+    private static boolean mOnResume;
     public boolean mPrepared;
 
     private Uri mVideoUri;
@@ -128,7 +128,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     /**
      * Creates a fragment to preview a file.
-     * <p/>
+     *
      * When 'fileToDetail' or 'ocAccount' are null
      *
      * @param fileToDetail An {@link OCFile} to preview in the fragment

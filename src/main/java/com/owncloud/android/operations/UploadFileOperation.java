@@ -25,6 +25,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
@@ -111,18 +112,18 @@ public class UploadFileOperation extends SyncOperation {
      * (if forceOverwrite==false and remote file already exists).
      */
     private OCFile mOldFile;
-    private String mRemotePath = null;
+    private String mRemotePath;
     private String mFolderUnlockToken;
-    private boolean mRemoteFolderToBeCreated = false;
-    private boolean mForceOverwrite = false;
+    private boolean mRemoteFolderToBeCreated;
+    private boolean mForceOverwrite;
     private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
     private int mCreatedBy = CREATED_BY_USER;
-    private boolean mOnWifiOnly = false;
-    private boolean mWhileChargingOnly = false;
-    private boolean mIgnoringPowerSaveMode = false;
+    private boolean mOnWifiOnly;
+    private boolean mWhileChargingOnly;
+    private boolean mIgnoringPowerSaveMode;
 
-    private boolean mWasRenamed = false;
-    private long mOCUploadId = -1;
+    private boolean mWasRenamed;
+    private long mOCUploadId;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
@@ -976,7 +977,7 @@ public class UploadFileOperation extends SyncOperation {
                 try {
                     move(originalFile, newFile);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Error moving file", e);
                 }
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 mFile.setStoragePath(newFile.getAbsolutePath());
