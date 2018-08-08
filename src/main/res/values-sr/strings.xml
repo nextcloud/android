@@ -682,6 +682,11 @@
     <string name="drawer_middle_account">Средишњи налог</string>
     <string name="drawer_end_account">Последњи налог</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
+    <string name="activity_icon">Активност</string>
+    <string name="file_icon">Фајл</string>
+    <string name="user_icon">Корисник </string>
+    <string name="favorite_icon">Омиљени</string>
+    <string name="available_offline_icon">Досступно ван мреже</string>
     <string name="checkbox">Штиклирање</string>
     <string name="sort_by_name_ascending">А - Ш</string>
     <string name="sort_by_modification_date_ascending">Прво новије</string>

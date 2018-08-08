@@ -677,6 +677,11 @@
     <string name="drawer_middle_account"> Cuenta media</string>
     <string name="drawer_end_account">Última cuenta</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
+    <string name="activity_icon">Actividad</string>
+    <string name="file_icon">Archivo</string>
+    <string name="user_icon">Usuario</string>
+    <string name="favorite_icon">Favorito</string>
+    <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Más modernos primero</string>

@@ -667,6 +667,11 @@
     <string name="drawer_middle_account">移动端账户</string>
     <string name="drawer_end_account">最后一个账户</string>
     <string name="contactlist_item_icon">联系人列表的用户图标</string>
+    <string name="activity_icon">激活</string>
+    <string name="file_icon">文件</string>
+    <string name="user_icon">用户</string>
+    <string name="favorite_icon">收藏</string>
+    <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
     <string name="sort_by_modification_date_ascending">按时间顺序</string>

@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Aktivitäten</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
-	<string name="prefs_category_general">Allgemein</string>
+	<string name="drawer_close">Hauptmenü schließen</string>
+    <string name="drawer_open">Hauptmenü öffnen</string>
+    <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_lock">Sperren</string>
@@ -677,7 +679,17 @@
     <string name="drawer_middle_account">Mittleres Konto</string>
     <string name="drawer_end_account">Letztes Konto</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
+    <string name="activity_icon">Aktivitäten</string>
+    <string name="file_icon">Datei</string>
+    <string name="user_icon">Nutzer</string>
+    <string name="favorite_icon">Favoriten</string>
+    <string name="synced_icon">Synchronisiert</string>
+    <string name="available_offline_icon">Offline verfügbar</string>
     <string name="checkbox">Checkbox</string>
+    <string name="shared_icon_share">Teilen</string>
+    <string name="shared_icon_shared_via_link">Über einen Link geteilt</string>
+    <string name="shared_icon_shared">geteilt</string>
+    <string name="overflow_menu">Weiteres Menü</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Neueste zuerst</string>
     <string name="sort_by_size_descending">Größste zuerst</string>
@@ -798,4 +810,5 @@
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
-    </resources>
+    <string name="fab_label">Hinzufügen oder hochladen</string>
+</resources>

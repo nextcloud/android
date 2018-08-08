@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Etkinlikler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
-	<string name="prefs_category_general">Genel</string>
+	<string name="drawer_close">Yan çubuğu kapat</string>
+    <string name="drawer_open">Yan çubuğu aç</string>
+    <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_lock">Kilitle</string>
@@ -677,7 +679,17 @@
     <string name="drawer_middle_account">Orta hesap</string>
     <string name="drawer_end_account">Son hesap</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
+    <string name="activity_icon">İşlem</string>
+    <string name="file_icon">Dosya</string>
+    <string name="user_icon">Kullanıcı</string>
+    <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
+    <string name="synced_icon">Eşitle</string>
+    <string name="available_offline_icon">Çevrimdışı kullanılabilir</string>
     <string name="checkbox">İşaret kutusu</string>
+    <string name="shared_icon_share">paylaş</string>
+    <string name="shared_icon_shared_via_link">bağlantı ile paylaşılmış</string>
+    <string name="shared_icon_shared">paylaşılmış</string>
+    <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Yeniden Eskiye</string>
     <string name="sort_by_size_descending">Büyükten Küçüğe</string>
@@ -798,4 +810,5 @@
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="notification_icon">Bildirim simgesi</string>
-    </resources>
+    <string name="fab_label">Ekle ya da yükle</string>
+</resources>

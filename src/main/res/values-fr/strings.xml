@@ -680,7 +680,16 @@ Veuillez contacter votre administrateur</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
+    <string name="activity_icon">Activité</string>
+    <string name="file_icon">Fichier</string>
+    <string name="user_icon">Utilisateur</string>
+    <string name="favorite_icon">Favoris</string>
+    <string name="synced_icon">Synchronisé</string>
+    <string name="available_offline_icon">Disponible hors-ligne</string>
     <string name="checkbox">Case à cocher</string>
+    <string name="shared_icon_share">partage</string>
+    <string name="shared_icon_shared_via_link">partagé par lien</string>
+    <string name="shared_icon_shared">partagé</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_size_descending">Le plus grand en premier</string>
@@ -801,4 +810,5 @@ Veuillez contacter votre administrateur</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="notification_icon">Icône de notification</string>
-    </resources>
+    <string name="fab_label">Ajouter ou téléverser</string>
+</resources>
