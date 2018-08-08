@@ -687,6 +687,11 @@
     <string name="drawer_middle_account">Средняя учётная запись</string>
     <string name="drawer_end_account">Последняя учётная запись</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
+    <string name="activity_icon">События</string>
+    <string name="file_icon">Файл</string>
+    <string name="user_icon">Пользователь</string>
+    <string name="favorite_icon">Избранное</string>
+    <string name="available_offline_icon">Доступно автономно</string>
     <string name="checkbox">Флажок</string>
     <string name="sort_by_name_ascending">А — Я</string>
     <string name="sort_by_modification_date_ascending">Сначала новые</string>

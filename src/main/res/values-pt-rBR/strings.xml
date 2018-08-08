@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="prefs_category_general">Geral</string>
+	<string name="drawer_close">Fechar barra lateral</string>
+    <string name="drawer_open">Abrir barra lateral</string>
+    <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_lock">Bloquear</string>
@@ -677,7 +679,17 @@
     <string name="drawer_middle_account">Conta média</string>
     <string name="drawer_end_account">Última conta</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
+    <string name="activity_icon">Atividade</string>
+    <string name="file_icon">Arquivo</string>
+    <string name="user_icon">Usuário</string>
+    <string name="favorite_icon">Favorito</string>
+    <string name="synced_icon">Sincronizado</string>
+    <string name="available_offline_icon">Disponível offline</string>
     <string name="checkbox">Caixa de marcação</string>
+    <string name="shared_icon_share">compartilhar</string>
+    <string name="shared_icon_shared_via_link">compartilhado via link</string>
+    <string name="shared_icon_shared">compartilhado</string>
+    <string name="overflow_menu">Mais menus</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Mais novos primeiro</string>
     <string name="sort_by_size_descending">Maiores primeiro</string>
@@ -798,4 +810,5 @@
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="notification_icon">Ícone de notificação</string>
-    </resources>
+    <string name="fab_label">Adicionar ou enviar</string>
+</resources>

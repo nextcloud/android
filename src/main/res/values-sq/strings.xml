@@ -219,6 +219,8 @@
     <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
     <string name="media_err_invalid_progressive_playback">Skedari media s’mund të transmetohet</string>
     <string name="media_err_unknown">Ndërtuesi i integruar i medias nuk mund të luajë skedarin medial</string>
+    <string name="media_err_playing">Gabim i papritur gjatë përpjekjes për të luajtur %1$s
+</string>
     <string name="media_rewind_description">Butoni Mbrapsht</string>
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
     <string name="media_forward_description">Butoni Përpara</string>
@@ -662,6 +664,10 @@
     <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
+    <string name="activity_icon">Veprimtari</string>
+    <string name="file_icon">Skedar </string>
+    <string name="user_icon">Përdorues</string>
+    <string name="favorite_icon">E parapëlqyer</string>
     <string name="checkbox">Checkbox</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Më i riu i pari</string>

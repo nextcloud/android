@@ -677,6 +677,11 @@
     <string name="drawer_middle_account">Mið-notandaaðgangur</string>
     <string name="drawer_end_account">Síðasti notandaaðgangur</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
+    <string name="activity_icon">Virkni</string>
+    <string name="file_icon">Skrá</string>
+    <string name="user_icon">Notandi</string>
+    <string name="favorite_icon">Eftirlæti</string>
+    <string name="available_offline_icon">Tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
