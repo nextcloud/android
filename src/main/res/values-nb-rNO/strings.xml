@@ -37,6 +37,8 @@
 	<string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
+    <string name="prefs_lock_none">Ingen</string>
+    <string name="prefs_lock_using_passcode">Passord</string>
     <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
@@ -472,6 +474,7 @@
     <string name="share_via_link_section_title">Del lenke</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_no_password_title">Velg passord</string>
+    <string name="edit_permission_label">rediger</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med…</string>
@@ -669,7 +672,15 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="drawer_middle_account">Mellomkonto</string>
     <string name="drawer_end_account">Siste konto</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
+    <string name="activity_icon">Aktivitet</string>
+    <string name="file_icon">Fil</string>
+    <string name="user_icon">Bruker</string>
+    <string name="favorite_icon">Favoritt</string>
+    <string name="available_offline_icon">Tilgjengelig frakoblet</string>
     <string name="checkbox">Avkryssningsboks</string>
+    <string name="shared_icon_share">del</string>
+    <string name="shared_icon_shared_via_link">del via lenke</string>
+    <string name="shared_icon_shared">delt</string>
     <string name="sort_by_name_ascending">A - Å</string>
     <string name="sort_by_modification_date_ascending">Nyeste først</string>
     <string name="sort_by_size_descending">Største først</string>
@@ -747,4 +758,10 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="tags">Knagger</string>
+    <string name="new_media_folder_photos">bilde</string>
+    <string name="new_media_folder_videos">video</string>
+
+    <string name="dismiss">Forkast</string>
+    <string name="drawer_item_trashbin">Slettede filer</string>
+    <string name="trashbin_activity_title">Slettede filer</string>
     </resources>

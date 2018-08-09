@@ -37,6 +37,7 @@
 	<string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
+    <string name="prefs_lock_none">Τίποτα</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
@@ -433,17 +434,22 @@
     <string name="share_expiration_date_label">Λήγει στις %1$s</string>
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
+    <string name="share_password_title">Προστασία με συνθηματικό</string>
+    <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
     <string name="edit_permission_label">επεξεργασία</string>
     <string name="share_via_link_hide_file_listing_permission_label">Απόκρυψη λίστας αρχείου</string>
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
     <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
+    <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου...</string>
+
     <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
     <string name="share_group_clarification">%1$s (ομάδα)</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
+    <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
     <string name="share_privilege_can_edit_create">δυνατότητα δημιουργίας</string>
@@ -583,6 +589,12 @@
 
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
+    <string name="file_icon">Αρχείο</string>
+    <string name="user_icon">Χρήστης</string>
+    <string name="favorite_icon">Αγαπημένο</string>
+    <string name="available_offline_icon">Διαθέσιμα εκτός σύνδεσης</string>
+    <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
+    <string name="shared_icon_shared">διαμοιρασμένα</string>
     <string name="sort_by_name_ascending">Α - Ω</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
     <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>
@@ -633,4 +645,13 @@
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
+    <string name="new_media_folder_photos">φωτογραφία</string>
+    <string name="new_media_folder_videos">Βίντεο</string>
+
+    <string name="dismiss">Αποδέσμευση</string>
+    <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
+    <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
+    <string name="folder_confirm_create">Δημιουργία</string>
+    <string name="file_delete">Διαγραφή</string>
+    <string name="file_rename">Μετονομασία</string>
     </resources>

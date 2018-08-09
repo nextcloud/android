@@ -683,6 +683,9 @@
     <string name="favorite_icon">Eftirlæti</string>
     <string name="available_offline_icon">Tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
+    <string name="shared_icon_share">deila</string>
+    <string name="shared_icon_shared_via_link">deilt með tengli</string>
+    <string name="shared_icon_shared">deilt</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
     <string name="sort_by_size_descending">Stærsta fyrst</string>
@@ -803,4 +806,8 @@
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
     <string name="folder_already_exists">Mappa er þegar til</string>
     <string name="notification_icon">Tilkynningatákn</string>
+    <string name="folder_confirm_create">Búa til</string>
+    <string name="file_delete">Eyða</string>
+    <string name="file_keep">Halda</string>
+    <string name="file_rename">Endurnefna</string>
     </resources>
