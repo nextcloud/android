@@ -808,4 +808,8 @@
     <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="notification_icon">Иконица обавештења</string>
+    <string name="folder_confirm_create">Направи</string>
+    <string name="file_delete">Обриши</string>
+    <string name="file_keep">Задржи</string>
+    <string name="file_rename">Преименуј</string>
     </resources>

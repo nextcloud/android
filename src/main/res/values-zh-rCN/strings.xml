@@ -673,6 +673,7 @@
     <string name="favorite_icon">收藏</string>
     <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
+    <string name="shared_icon_shared">已共享</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
     <string name="sort_by_modification_date_ascending">按时间顺序</string>
     <string name="sort_by_size_descending">文件从大到小排序</string>
@@ -785,4 +786,7 @@
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="notification_icon">通知图标</string>
+    <string name="folder_confirm_create">创建</string>
+    <string name="file_delete">删除</string>
+    <string name="file_rename">重命名</string>
     </resources>

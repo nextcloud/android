@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-	<string name="prefs_category_general">Général</string>
+	<string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_open">Ouvrir la barre latérale</string>
+    <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_lock">Verrouiller</string>
@@ -810,5 +812,9 @@ Veuillez contacter votre administrateur</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="notification_icon">Icône de notification</string>
+    <string name="folder_confirm_create">Créer</string>
+    <string name="file_delete">Supprimer</string>
+    <string name="file_keep">Conserver</string>
+    <string name="file_rename">Renommer</string>
     <string name="fab_label">Ajouter ou téléverser</string>
 </resources>

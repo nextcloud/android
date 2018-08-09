@@ -693,6 +693,8 @@
     <string name="favorite_icon">Избранное</string>
     <string name="available_offline_icon">Доступно автономно</string>
     <string name="checkbox">Флажок</string>
+    <string name="shared_icon_shared_via_link">поступ по ссылке</string>
+    <string name="shared_icon_shared">поделился</string>
     <string name="sort_by_name_ascending">А — Я</string>
     <string name="sort_by_modification_date_ascending">Сначала новые</string>
     <string name="sort_by_size_descending">Сначала большие</string>
@@ -813,4 +815,8 @@
     <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="notification_icon">Значок уведомления</string>
+    <string name="folder_confirm_create">Создать</string>
+    <string name="file_delete">Удалить</string>
+    <string name="file_keep">Сохранить</string>
+    <string name="file_rename">Переименовать</string>
     </resources>

@@ -810,5 +810,9 @@
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="notification_icon">Ícone de notificação</string>
+    <string name="folder_confirm_create">Criar</string>
+    <string name="file_delete">Excluir</string>
+    <string name="file_keep">Manter</string>
+    <string name="file_rename">Renomear</string>
     <string name="fab_label">Adicionar ou enviar</string>
 </resources>

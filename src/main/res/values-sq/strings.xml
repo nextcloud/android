@@ -669,6 +669,8 @@
     <string name="user_icon">Përdorues</string>
     <string name="favorite_icon">E parapëlqyer</string>
     <string name="checkbox">Checkbox</string>
+    <string name="shared_icon_shared_via_link">shpërndarë me anë të lidhjes</string>
+    <string name="shared_icon_shared">ndarë</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
     <string name="sort_by_size_descending">Më i madhi i pari</string>
@@ -764,4 +766,7 @@
     <string name="dismiss">Hiq</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="trashbin_activity_title">Skedar të fshirë</string>
+    <string name="folder_confirm_create">Krijo</string>
+    <string name="file_delete">Fshini</string>
+    <string name="file_rename">Riemërto</string>
     </resources>

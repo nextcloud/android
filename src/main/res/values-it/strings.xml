@@ -810,5 +810,9 @@
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="notification_icon">Icona di notifica</string>
+    <string name="folder_confirm_create">Crea</string>
+    <string name="file_delete">Elimina</string>
+    <string name="file_keep">Mantieni</string>
+    <string name="file_rename">Rinomina</string>
     <string name="fab_label">Aggiungi o carica</string>
 </resources>

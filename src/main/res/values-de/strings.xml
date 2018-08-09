@@ -810,5 +810,9 @@
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
+    <string name="folder_confirm_create">Erstellen</string>
+    <string name="file_delete">Löschen</string>
+    <string name="file_keep">Behalten</string>
+    <string name="file_rename">Umbennen</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
 </resources>

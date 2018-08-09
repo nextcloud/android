@@ -86,7 +86,7 @@
     <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya %1$s klasörüne taşınsın</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Kaynak klasördeki dosya tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniyeler önce</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
@@ -339,8 +339,8 @@
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="conflict_title">Dosya çakışması</string>
-    <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
-    <string name="conflict_keep_both">İkisini de sakla</string>
+    <string name="conflict_message">Hangi dosyaları tutmak istiyorsunuz? Her ikisini de tutmayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
+    <string name="conflict_keep_both">İkisi de tutulsun</string>
     <string name="conflict_use_local_version">yerel sürümü</string>
     <string name="conflict_use_server_version">sunucu sürümünü</string>
 
@@ -810,5 +810,9 @@
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="notification_icon">Bildirim simgesi</string>
+    <string name="folder_confirm_create">Ekle</string>
+    <string name="file_delete">Sil</string>
+    <string name="file_keep">Tut</string>
+    <string name="file_rename">Yeniden Adlandır</string>
     <string name="fab_label">Ekle ya da yükle</string>
 </resources>
