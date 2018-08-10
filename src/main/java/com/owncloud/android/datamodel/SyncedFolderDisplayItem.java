@@ -45,6 +45,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param remotePath      remote path
      * @param wifiOnly        upload on wifi only flag
      * @param chargingOnly    upload on charging only
+     * @param existing        also upload existing
      * @param subfolderByDate create sub-folders by date (month)
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
@@ -55,19 +56,19 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param type            the type of the folder
      */
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                                   Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   List<String> filePaths, String folderName, long numberOfFiles, MediaFolderType type)
+                                   Boolean existing, Boolean subfolderByDate, String account, Integer uploadAction,
+                                   Boolean enabled, List<String> filePaths, String folderName, long numberOfFiles, MediaFolderType type)
     {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account, uploadAction, enabled, type);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
     }
 
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                                   Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   String folderName, MediaFolderType type) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
+                                   Boolean existing, Boolean subfolderByDate, String account, Integer uploadAction,
+                                   Boolean enabled, String folderName, MediaFolderType type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account, uploadAction, enabled, type);
         this.folderName = folderName;
     }
 }

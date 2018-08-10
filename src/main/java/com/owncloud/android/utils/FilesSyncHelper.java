@@ -86,9 +86,13 @@ public final class FilesSyncHelper {
         final ContentResolver contentResolver = context.getContentResolver();
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
-        Long currentTime = System.currentTimeMillis();
-        double currentTimeInSeconds = currentTime / 1000.0;
-        String currentTimeString = Long.toString((long) currentTimeInSeconds);
+        String currentTimeString = Long.toString(0);
+        if (!syncedFolder.getExisting())
+        {
+            Long currentTime = System.currentTimeMillis();
+            double currentTimeInSeconds = currentTime / 1000.0;
+            currentTimeString = Long.toString((long) currentTimeInSeconds);
+        }
 
         String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
         boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
