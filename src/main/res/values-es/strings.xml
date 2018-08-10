@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
-	<string name="prefs_category_general">General</string>
+	<string name="drawer_close">Cerrar barra lateral</string>
+    <string name="drawer_open">Abrir barra lateral</string>
+    <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
     <string name="prefs_lock">Bloquear</string>
@@ -681,10 +683,13 @@
     <string name="file_icon">Archivo</string>
     <string name="user_icon">Usuario</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="synced_icon">Sincronizado</string>
     <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
+    <string name="shared_icon_share">compartido</string>
     <string name="shared_icon_shared_via_link">compartidos vía enlace</string>
     <string name="shared_icon_shared">compartido</string>
+    <string name="overflow_menu">Más menú</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Más modernos primero</string>
     <string name="sort_by_size_descending">Más grandes primero</string>
@@ -809,4 +814,5 @@
     <string name="file_delete">Eliminar</string>
     <string name="file_keep">Mantener</string>
     <string name="file_rename">Renombrar</string>
-    </resources>
+    <string name="fab_label">Añadir o subir</string>
+</resources>
