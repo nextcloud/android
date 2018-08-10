@@ -79,7 +79,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         for (OCFile file: files) {
             containsFolder |= file.isFolder();
             containsDown |= file.isDown();
-            containsFavorite |= file.isAvailableOffline();
+            containsFavorite |= file.isFavorite();
         }
 
         if (files.size() == SINGLE_SELECTION) {

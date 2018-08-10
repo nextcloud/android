@@ -178,8 +178,6 @@ public class FileMenuFilter {
         filterSync(toShow, toHide, synchronizing);
         filterShareFile(toShow, toHide, capability);
         filterDetails(toShow, toHide);
-        filterKeepAvailableOffline(toShow, toHide, synchronizing);
-        filterDontKeepAvailableOffline(toShow, toHide, synchronizing);
         filterFavorite(toShow, toHide, synchronizing);
         filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
@@ -204,22 +202,6 @@ public class FileMenuFilter {
             toShow.add(R.id.action_see_details);
         } else {
             toHide.add(R.id.action_see_details);
-        }
-    }
-
-    private void filterKeepAvailableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (!allFiles() || synchronizing || allKeptAvailableOffline()) {
-            toHide.add(R.id.action_keep_files_offline);
-        } else {
-            toShow.add(R.id.action_keep_files_offline);
-        }
-    }
-
-    private void filterDontKeepAvailableOffline(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (!allFiles() || synchronizing || allNotKeptAvailableOffline()) {
-            toHide.add(R.id.action_unset_keep_files_offline);
-        } else {
-            toShow.add(R.id.action_unset_keep_files_offline);
         }
     }
 
@@ -497,15 +479,6 @@ public class FileMenuFilter {
         return false;
     }
 
-    private boolean allKeptAvailableOffline() {
-        for (OCFile file : mFiles) {
-            if (!file.isAvailableOffline()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private boolean allFavorites() {
         for (OCFile file : mFiles) {
             if (!file.isFavorite()) {
@@ -518,15 +491,6 @@ public class FileMenuFilter {
     private boolean allNotFavorites() {
         for (OCFile file : mFiles) {
             if (file.isFavorite()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean allNotKeptAvailableOffline() {
-        for (OCFile file : mFiles) {
-            if (file.isAvailableOffline()) {
                 return false;
             }
         }

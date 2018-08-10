@@ -1030,16 +1030,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
                 return true;
             }
-            case R.id.action_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, true);
-                exitSelectionMode();
-                return true;
-            }
-            case R.id.action_unset_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, false);
-                exitSelectionMode();
-                return true;
-            }
             case R.id.action_favorite: {
                 mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
                 return true;

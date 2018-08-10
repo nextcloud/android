@@ -84,17 +84,6 @@
             android:contentDescription="@string/synced_icon"/>
 
         <ImageView
-            android:id="@+id/keptOfflineIcon"
-            android:layout_width="@dimen/grid_item_kept_offline_icon_layout_width"
-            android:layout_height="@dimen/grid_item_kept_offline_icon_layout_height"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:layout_marginRight="@dimen/grid_item_kept_offline_icon_layout_right_end_margin"
-            android:layout_marginEnd="@dimen/grid_item_kept_offline_icon_layout_right_end_margin"
-            android:src="@drawable/ic_available_offline"
-            android:contentDescription="@string/available_offline_icon"/>
-
-        <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
