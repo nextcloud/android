@@ -419,14 +419,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
-            case R.id.action_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), true);
-                return true;
-            }
-            case R.id.action_unset_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
-                return true;
-            }
             case R.id.action_encrypted: {
                 // TODO implement or remove
                 return true;

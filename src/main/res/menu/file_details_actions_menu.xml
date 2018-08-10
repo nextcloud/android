@@ -54,16 +54,6 @@
         app:showAsAction="never"
         android:showAsAction="never" />
     <item
-        android:id="@+id/action_keep_files_offline"
-        android:title="@string/favorite"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-    <item
-        android:id="@+id/action_unset_keep_files_offline"
-        android:title="@string/unfavorite"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-    <item
         android:id="@+id/action_encrypted"
         android:title="@string/encrypted"
         app:showAsAction="never"

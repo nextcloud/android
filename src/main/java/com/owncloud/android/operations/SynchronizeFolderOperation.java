@@ -308,7 +308,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
         if (localFile != null) {
             updatedFile.setFileId(localFile.getFileId());
-            updatedFile.setAvailableOffline(localFile.isAvailableOffline());
             updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
             updatedFile.setModificationTimestampAtLastSyncForData(
                     localFile.getModificationTimestampAtLastSyncForData()

@@ -24,13 +24,13 @@
 
     <item
         android:id="@+id/action_favorite"
-        android:title="@string/favorite_real"
+        android:title="@string/favorite"
         app:showAsAction="never"
         android:showAsAction="never" />
-    
+
     <item
         android:id="@+id/action_unset_favorite"
-        android:title="@string/unset_favorite_real"
+        android:title="@string/unset_favorite"
         app:showAsAction="never"
         android:showAsAction="never" />
 
@@ -70,7 +70,7 @@
         app:showAsAction="never"
         android:showAsAction="never"
         android:orderInCategory="1"/>
-    
+
     <item
         android:id="@+id/action_send_share_file"
         android:title="@string/action_send_share"
@@ -110,18 +110,6 @@
     <item
         android:id="@+id/action_deselect_all_action_menu"
         android:title="@string/deselect_all"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_keep_files_offline"
-        android:title="@string/favorite"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_unset_keep_files_offline"
-        android:title="@string/unfavorite"
         app:showAsAction="never"
         android:showAsAction="never" />
 
