@@ -71,7 +71,7 @@ public class FilesSyncJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
