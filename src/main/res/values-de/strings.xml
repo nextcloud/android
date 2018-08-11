@@ -813,6 +813,6 @@
     <string name="folder_confirm_create">Erstellen</string>
     <string name="file_delete">Löschen</string>
     <string name="file_keep">Behalten</string>
-    <string name="file_rename">Umbennen</string>
+    <string name="file_rename">Umbenennen</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
 </resources>
