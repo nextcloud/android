@@ -67,7 +67,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setContentView(R.layout.first_run_activity);
 
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
-        
+
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         Button loginButton = findViewById(R.id.login);

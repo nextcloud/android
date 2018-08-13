@@ -189,9 +189,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
                 && lastSeenVersionCode < itemVersionCode) {
-            return new FeatureItem[]{(new FeatureItem(R.drawable.whats_new_device_credentials,
-                    R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
-                    false, false))};
+            return new FeatureItem[0];
         } else {
             return new FeatureItem[0];
         }

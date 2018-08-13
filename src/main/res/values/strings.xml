@@ -805,7 +805,7 @@
     <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore_button_description">Restore deleted file</string>
-	<string name="restore">Restore file</string>
+    <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
     <string name="new_comment">New comment…</string>
     <string name="error_comment_file">Error commenting file</string>

@@ -42,6 +42,7 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -267,14 +268,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             FirstRunActivity.runIfNeeded(this);
         }
         
-        basicTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(this));
-        oauthTokenType = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this));
-        samlTokenType = AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType(this));
-
         // delete cookies for webView
         deleteCookies();
 
-        // Workaround, for fixing a problem with Android Library Support v7 19
+        // Workaround, for fixing a problem with Android Library Suppor v7 19
         //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -406,7 +403,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.make(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
                             .setActionTextColor(getResources().getColor(R.color.primary_dark))
                             .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                                 @Override
@@ -627,7 +624,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOkButton = findViewById(R.id.buttonOK);
         mOkButton.setOnClickListener(v -> onOkClick());
 
-        setupInstructionMessage();
+        /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
+        String instructionsMessageText = null;
+        if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
+                instructionsMessageText = getString(R.string.auth_expired_oauth_token_toast);
 
             } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType())
                     .equals(mAuthTokenType)) {
@@ -639,10 +640,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
-        Button welcomeLink = findViewById(R.id.welcome_link);
-        welcomeLink.setVisibility(mAction == ACTION_CREATE && isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
-        welcomeLink.setText(getString(R.string.auth_register));
-
         mTestServerButton.setVisibility(mAction == ACTION_CREATE ? View.VISIBLE : View.GONE);
 
         TextView instructionsView = findViewById(R.id.instructions_message);
