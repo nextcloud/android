@@ -24,10 +24,8 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -38,6 +36,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
@@ -48,8 +47,6 @@ import com.owncloud.android.utils.ThemeUtils;
  * Activity displaying new features after an update.
  */
 public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
-
-    public static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;
@@ -138,18 +135,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private void onFinish() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(KEY_LAST_SEEN_VERSION_CODE, MainApp.getVersionCode());
-        editor.apply();
+        PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
     }
 
     static public void runIfNeeded(Context context) {
-        if (!context.getResources().getBoolean(R.bool.show_whats_new)) {
-            return;
-        }
-
-        if (context instanceof WhatsNewActivity) {
+        if (!context.getResources().getBoolean(R.bool.show_whats_new)
+                || context instanceof WhatsNewActivity) {
             return;
         }
 
@@ -185,10 +176,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     static private FeatureItem[] getWhatsNew(Context context) {
         int itemVersionCode = 30030000;
 
-        int lastSeenVersionCode = MainApp.getLastSeenVersionCode(context);
-
         if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
-                && lastSeenVersionCode < itemVersionCode) {
+                && PreferenceManager.getLastSeenVersionCode(context) < itemVersionCode) {
             return new FeatureItem[]{new FeatureItem(R.drawable.whats_new_device_credentials,
                     R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
                     false, false)};
