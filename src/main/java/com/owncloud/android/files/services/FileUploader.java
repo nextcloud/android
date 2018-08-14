@@ -169,18 +169,18 @@ public class FileUploader extends Service
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private OwnCloudClient mUploadClient = null;
-    private Account mCurrentAccount = null;
+    private OwnCloudClient mUploadClient;
+    private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
     //since there can be only one instance of an Android service, there also just one db connection.
-    private UploadsStorageManager mUploadsStorageManager = null;
+    private UploadsStorageManager mUploadsStorageManager;
 
-    private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<UploadFileOperation>();
+    private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
     /**
      * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent upload!
      */
-    private UploadFileOperation mCurrentUpload = null;
+    private UploadFileOperation mCurrentUpload;
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
@@ -469,7 +469,7 @@ public class FileUploader extends Service
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
                 .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
         }
 
@@ -601,7 +601,7 @@ public class FileUploader extends Service
                     files[i] = UploadFileOperation.obtainNewOCFileToUpload(
                             remotePaths[i],
                             localPaths[i],
-                            ((mimeTypes != null) ? mimeTypes[i] : null)
+                            mimeTypes != null ? mimeTypes[i] : null
                     );
                     if (files[i] == null) {
                         Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
@@ -612,13 +612,13 @@ public class FileUploader extends Service
             }
             // at this point variable "OCFile[] files" is loaded correctly.
 
-            String uploadKey = null;
-            UploadFileOperation newUpload = null;
+            String uploadKey;
+            UploadFileOperation newUpload;
             try {
-                for (int i = 0; i < files.length; i++) {
+                for (OCFile file : files) {
 
-                    OCUpload ocUpload = new OCUpload(files[i], account);
-                    ocUpload.setFileSize(files[i].getFileLength());
+                    OCUpload ocUpload = new OCUpload(file, account);
+                    ocUpload.setFileSize(file.getFileLength());
                     ocUpload.setForceOverwrite(forceOverwrite);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
@@ -630,7 +630,7 @@ public class FileUploader extends Service
 
                     newUpload = new UploadFileOperation(
                             account,
-                            files[i],
+                            file,
                             ocUpload,
                             forceOverwrite,
                             localAction,
@@ -649,7 +649,7 @@ public class FileUploader extends Service
 
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
-                            files[i].getRemotePath(),
+                            file.getRemotePath(),
                             newUpload
                     );
                     if (putResult != null) {
@@ -736,7 +736,7 @@ public class FileUploader extends Service
      * uploads.
      */
     @Override
-    public IBinder onBind(Intent arg0) {
+    public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
@@ -865,17 +865,17 @@ public class FileUploader extends Service
             if (account == null || file == null) {
                 return false;
             }
-            return (mPendingUploads.contains(account.name, file.getRemotePath()));
+            return mPendingUploads.contains(account.name, file.getRemotePath());
         }
 
         public boolean isUploadingNow(OCUpload upload) {
-            return (
-                upload != null  &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
-            );
+            return
+                    upload != null &&
+                            mCurrentAccount != null &&
+                            mCurrentUpload != null &&
+                            upload.getAccountName().equals(mCurrentAccount.name) &&
+                            upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
+            ;
         }
 
         /**
@@ -1153,7 +1153,7 @@ public class FileUploader extends Service
                         String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
                 );
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
         }
 
@@ -1223,7 +1223,7 @@ public class FileUploader extends Service
             String content;
 
             // check credentials error
-            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(uploadResult.getCode()));
+            boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(uploadResult.getCode());
             tickerId = (needsToUpdateCredentials) ?
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 

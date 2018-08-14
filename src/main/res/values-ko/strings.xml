@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">활동</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_quota">%2$s 중 %1$s 사용됨</string>
-	<string name="drawer_close">닫기</string>
-    <string name="drawer_open">열기</string>
-    <string name="prefs_category_general">일반</string>
+	<string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_lock">잠금</string>
@@ -211,7 +209,6 @@
     <string name="media_state_loading">%1$s(불러오는 중)</string>
     <string name="media_event_done">%1$s 재생 완료됨</string>
     <string name="media_err_nothing_to_play">미디어 파일을 찾을 수 없음</string>
-    <string name="media_err_no_account">계정을 찾을 수 없음</string>
     <string name="media_err_not_in_owncloud">파일이 올바른 계정에 없음</string>
     <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
@@ -219,9 +216,6 @@
     <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍할 수 없음</string>
     <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
-    <string name="media_err_security_ex">%1$s을(를) 재생하는 중 보안 오류가 발생함</string>
-    <string name="media_err_io_ex">%1$s을(를) 재생하는 중 읽기 오류가 발생함</string>
-    <string name="media_err_unexpected">%1$s을(를) 재생하는 중 알 수 없는 오류가 발생함</string>
     <string name="media_rewind_description">되감기 단추</string>
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
     <string name="media_forward_description">빨리감기 단추</string>
@@ -514,7 +508,6 @@
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">충전 대기 중</string>
     <string name="actionbar_search">검색</string>
     <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다. 업데이트하십시오.</string>
@@ -543,7 +536,7 @@
     <string name="move_to">다음으로 이동</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="choose_remote_folder">대상 폴더 선택</string>
-    <string name="synced_folders_loading_folders">폴더 불러오는 중...</string>
+    <string name="synced_folders_loading_folders">폴더 불러오는 중…</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없습니다.</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
@@ -552,7 +545,7 @@
         <item quantity="other">%d개 선택됨</item>
     </plurals>
 
-    <string name="notifications_loading_activity">알림 불러오는 중...</string>
+    <string name="notifications_loading_activity">알림 불러오는 중…</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
 
@@ -609,7 +602,6 @@
     <string name="contacts_preferences_backup_scheduled">백업이 예약되었고 곧 시작합니다</string>
     <string name="contacts_preferences_import_scheduled">복원이 예약되었고 곧 시작합니다</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">로그아웃</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="privacy">개인 정보</string>
@@ -626,8 +618,8 @@
     <string name="fallback_weblogin_back">뒤로</string>
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
 
-    <string name="foreground_service_upload">파일 업로드 중...</string>
-    <string name="foreground_service_download">파일 다운로드 중...</string>
+    <string name="foreground_service_upload">파일 업로드 중…</string>
+    <string name="foreground_service_download">파일 다운로드 중…</string>
 
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_license">라이선스</string>
@@ -650,18 +642,7 @@
     <string name="drawer_middle_account">중간 계정</string>
     <string name="drawer_end_account">마지막 계정</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
-    <string name="activity_icon">활동 아이콘</string>
-    <string name="file_icon">파일 아이콘</string>
-    <string name="user_icon">사용자 아이콘</string>
-    <string name="favorite_icon">즐겨찾기 아이콘</string>
-    <string name="shared_via_link_icon">링크로 공유됨 아이콘</string>
-    <string name="synced_icon">동기화됨 아이콘</string>
-    <string name="available_offline_icon">오프라인 사용 가능 아이콘</string>
     <string name="checkbox">체크 상자</string>
-    <string name="thumbnail">섬네일</string>
-    <string name="shared_icon">공유 아이콘</string>
-    <string name="overflow_menu">오버플로 메뉴</string>
-    <string name="share_file_icon">파일 공유 아이콘</string>
     <string name="sort_by_name_ascending">가나다순</string>
     <string name="sort_by_modification_date_ascending">새 항목 먼저</string>
     <string name="sort_by_size_descending">큰 것 먼저</string>
@@ -717,10 +698,10 @@
     
     <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
-    <string name="end_to_end_encryption_decrypting">복호화중...</string>
-    <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중...</string>
+    <string name="end_to_end_encryption_decrypting">복호화중…</string>
+    <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중…</string>
     <string name="end_to_end_encryption_enter_password">비밀 키를 복호화하려면 암호를 입력하십시오.</string>
-    <string name="end_to_end_encryption_generating_keys">새 키 생성 중...</string>
+    <string name="end_to_end_encryption_generating_keys">새 키 생성 중…</string>
     <string name="end_to_end_encryption_keywords_description">이 12단어 암구호는 암호화된 파일을 보고 사용하는 매우 강력한 암호입니다. 안전한 곳에 적어서 보관해 두십시오.</string>
     <string name="end_to_end_encryption_title">암호화 설정</string>
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
@@ -736,7 +717,6 @@
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
     <string name="create_new_folder">새 폴더 생성</string>
     <string name="uploads_view_upload_status_virus_detected">파이러스 탐지됨. 업로드를 완료할 수 없습니다!</string>
-    <string name="whats_new_device_credentials_title">안드로이드 기기 보호 사용</string>
     <string name="whats_new_device_credentials_content">데이터를 보호하기 위해 패턴, 비밀번호, PIN 또는 지문을 사용합니다</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
 	<string name="new_version_was_created">새 버전 생성됨</string>

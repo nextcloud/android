@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
-	<string name="drawer_close">Zavrieť</string>
-    <string name="drawer_open">Otvoriť</string>
-    <string name="prefs_category_general">Všeobecné</string>
+	<string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_manage_accounts">Spravovať účty</string>
     <string name="prefs_expert_mode">Expertný režim</string>
@@ -192,7 +190,6 @@
     <string name="media_state_loading">%1$s (načítava sa)</string>
     <string name="media_event_done">%1$s prehrávanie dokončené</string>
     <string name="media_err_nothing_to_play">Nenájdený žiaden multimediálny súbor</string>
-    <string name="media_err_no_account">Účet neposkytnutý</string>
     <string name="media_err_not_in_owncloud">Súbor nie je v platnom účte</string>
     <string name="media_err_unsupported">Nepodporovaný kodek</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
@@ -211,6 +208,7 @@
 	<string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
 	<string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
 	<string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
+	<string name="auth_unknown_error_exception_title">Neznáma chyba: %1$s</string>
 	<string name="auth_incorrect_path_title">Server sa nenašiel</string>
 	<string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
 	<string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
@@ -227,6 +225,8 @@
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
+    <string name="favorite_real">Pridať k obľúbeným</string>
+    <string name="unset_favorite_real">Odstrániť z obľúbených</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_remove">Zmazať</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -372,6 +372,8 @@
     <string name="share_no_users">Používateľom nesprístupňujete zatiaľ žiaden obsah</string>
     <string name="share_add_user_or_group">Pridaj používateľa alebo skupinu</string>
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
+    <string name="share_via_link_send_link_label">Odoslať odkaz</string>
+    <string name="share_no_password_title">Nastaviť heslo</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
     <string name="share_with_title">Zdieľať s…</string>
@@ -391,7 +393,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
 
     <string name="maintenance_mode">Server je v režime údržby</string>
-
     <string name="actionbar_search">Hľadať</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="drawer_participate">Zúčastniť sa</string>
@@ -422,6 +423,7 @@
 
     <string name="welcome_feature_3_text">Udržujte svoje fotografie v bezpečí</string>
 
+    <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Preskočiť</string>
 
     <!-- User information -->
@@ -442,7 +444,6 @@
     <string name="contacts_preference_choose_date">Vyberte dátum</string>
     <string name="contacts_preference_backup_never">nikdy</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Odhlásiť</string>
     <string name="privacy">Súkromie</string>
     <string name="file_not_found">Súbor nenájdený</string>
@@ -465,4 +466,8 @@
     <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>
     <string name="hint_password">Heslo</string>
     <string name="create_new_folder">Vytvoriť nový priečinok</string>
+    <string name="new_comment">Nový komentár…</string>
+    <string name="drawer_item_trashbin">Zmazané súbory</string>
+    <string name="trashbin_activity_title">Zmazané súbory</string>
+    <string name="folder_already_exists">Priečinok už existuje</string>
     </resources>

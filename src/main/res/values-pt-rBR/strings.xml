@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="drawer_close">Fechar</string>
-    <string name="drawer_open">Abrir</string>
+	<string name="drawer_close">Fechar barra lateral</string>
+    <string name="drawer_open">Abrir barra lateral</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (carregando)</string>
     <string name="media_event_done">%1$s playback terminado</string>
     <string name="media_err_nothing_to_play">Nenhum arquivo de mídia encontrado</string>
-    <string name="media_err_no_account">Nenhuma conta fornecida</string>
     <string name="media_err_not_in_owncloud">O arquivo não é uma conta válida</string>
     <string name="media_err_unsupported">O codec de mídia não é suportado</string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
@@ -230,9 +229,7 @@
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
     <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
-    <string name="media_err_security_ex">Erro de segurança encontrado ao tentar reproduzir %1$s</string>
-    <string name="media_err_io_ex">Erro de entrada tentando reproduzir %1$s</string>
-    <string name="media_err_unexpected">Erro inesperado ao tentar reproduzir %1$s</string>
+    <string name="media_err_playing">Erro inesperado ao tocar %1$s</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
@@ -422,7 +419,7 @@
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de email.</string>
+	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
 	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
     <string name="log_progress_dialog_text">Carregando dados…</string>
 
@@ -503,12 +500,12 @@
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
     <string name="share_via_link_unset_password">Não definido</string>
 
-    <string name="share_search">Nome, ID da nuvem federada ou email…</string>
+    <string name="share_search">Nome, ID da nuvem federada ou e-mail…</string>
 
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
-    <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_sharee_unavailable">Atualize a versão do servidor para permitir o compartilhamento entre usuários.\nPor favor contacte o administrador</string>
@@ -536,6 +533,7 @@
     <string name="confirmation_remove_files_alert">Quer realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
+    <string name="offline_mode">Sem conexão à internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
     <string name="actionbar_search">Pesquisar</string>
@@ -612,7 +610,7 @@
     <string name="whats_new_skip">Saltar</string>
 
     <!-- User information -->
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número do telefone</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_website">Website</string>
@@ -641,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
     <string name="contacts_preferences_import_scheduled">Importação agendada, irá iniciar em breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="privacy">Privacidade</string>
@@ -682,18 +679,17 @@
     <string name="drawer_middle_account">Conta média</string>
     <string name="drawer_end_account">Última conta</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
-    <string name="activity_icon">Ícone de atividade</string>
-    <string name="file_icon">Ícone de arquivo</string>
-    <string name="user_icon">Ícone de usuário</string>
-    <string name="favorite_icon">Ícone de favorito</string>
-    <string name="shared_via_link_icon">Ícone de compartilhamento via link</string>
-    <string name="synced_icon">Ícone de sincronizado</string>
-    <string name="available_offline_icon">Ícone de offline disponível</string>
+    <string name="activity_icon">Atividade</string>
+    <string name="file_icon">Arquivo</string>
+    <string name="user_icon">Usuário</string>
+    <string name="favorite_icon">Favorito</string>
+    <string name="synced_icon">Sincronizado</string>
+    <string name="available_offline_icon">Disponível offline</string>
     <string name="checkbox">Caixa de marcação</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Ícone de compartilhado</string>
-    <string name="overflow_menu">Menu com excesso de itens</string>
-    <string name="share_file_icon">Ícone de compartilhamento de arquivo</string>
+    <string name="shared_icon_share">compartilhar</string>
+    <string name="shared_icon_shared_via_link">compartilhado via link</string>
+    <string name="shared_icon_shared">compartilhado</string>
+    <string name="overflow_menu">Mais menus</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Mais novos primeiro</string>
     <string name="sort_by_size_descending">Maiores primeiro</string>
@@ -768,6 +764,7 @@
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções nos comentários, recepção de novos compartilhamentos remotos, anúncios postados pelo administrador etc.</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Endereço do ponto final da autenticação</string>
     <string name="oauth_2_0_access_end_point_address_hint">Endereço do ponto final da acesso</string>
     <string name="hint_name">Nome</string>
@@ -781,7 +778,9 @@
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="unsharing_failed">Falha ao descompartilhar</string>
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
-    <string name="whats_new_device_credentials_title">Usar a proteção de dispositivo Android</string>
+    <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar o mnemônico, ative as credenciais do dispositivo.</string>
+    <string name="whats_new_device_credentials_title">Use a proteção interna do dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
 	<string name="restore">Restaurar arquivo</string>
@@ -790,9 +789,15 @@
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
+    <string name="notification_channel_general_name">Notificações gerais</string>
+    <string name="notification_channel_general_description">Mostrar notificações de novas pastas de mídia e semelhantes</string>
+    <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">vídeo</string>
+
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="dismiss">Dispensar</string>
-    <string name="feedback_no_mail_app">Sem aplicativo para enviar emails!</string>
+    <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="action_empty_trashbin">Lixeira vazia</string>
@@ -800,4 +805,14 @@
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="stream">Stream com…</string>
+    <string name="stream_not_possible_headline">Streaming interno não é possível</string>
+    <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
+    <string name="folder_already_exists">Pasta já existe</string>
+    <string name="notification_icon">Ícone de notificação</string>
+    <string name="folder_confirm_create">Criar</string>
+    <string name="file_delete">Excluir</string>
+    <string name="file_keep">Manter</string>
+    <string name="file_rename">Renomear</string>
+    <string name="fab_label">Adicionar ou enviar</string>
 </resources>

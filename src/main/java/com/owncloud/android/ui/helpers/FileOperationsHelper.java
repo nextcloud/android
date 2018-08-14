@@ -48,6 +48,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -93,6 +94,9 @@ public class FileOperationsHelper {
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
     private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
     private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+    private static final String FILE_EXTENSION_URL = "url";
+    private static final String FILE_EXTENSION_DESKTOP = "desktop";
+    private static final String FILE_EXTENSION_WEBLOC = "webloc";
     private FileActivity mFileActivity;
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -147,11 +151,11 @@ public class FileOperationsHelper {
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            if (fileExt.equalsIgnoreCase("url") || fileExt.equalsIgnoreCase("desktop")) {
+            if (FILE_EXTENSION_URL.equalsIgnoreCase(fileExt) || FILE_EXTENSION_DESKTOP.equalsIgnoreCase(fileExt)) {
                 // Windows internet shortcut file .url
                 // Ubuntu internet shortcut file .desktop
                 url = getUrlFromFile(storagePath, mPatternUrl);
-            } else if (fileExt.equalsIgnoreCase("webloc")) {
+            } else if (FILE_EXTENSION_WEBLOC.equalsIgnoreCase(fileExt)) {
                 // mac internet shortcut file .webloc
                 url = getUrlFromFile(storagePath, mPatternString);
             }
@@ -346,6 +350,31 @@ public class FileOperationsHelper {
         } else {
             return file.getExposedFileUri(mFileActivity);
         }
+    }
+
+    public void streamMediaFile(OCFile file) {
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+
+        new Thread(() -> {
+            Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            RemoteOperationResult result = sfo.execute(account, mFileActivity);
+
+            mFileActivity.dismissLoadingDialog();
+
+            if (!result.isSuccess()) {
+                DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
+                return;
+            }
+
+            Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse((String) result.getData().get(0));
+
+            openFileWithIntent.setDataAndType(uri, file.getMimeType());
+
+            mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
+                    mFileActivity.getString(R.string.stream)));
+        }).start();
     }
 
     /**

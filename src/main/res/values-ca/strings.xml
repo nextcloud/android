@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Activitats</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_quota">Usats %1$s de %2$s</string>
-	<string name="drawer_close">Tanca</string>
-    <string name="drawer_open">Obre</string>
-    <string name="prefs_category_general">General</string>
+	<string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_expert_mode">Mode expert</string>
@@ -182,16 +180,12 @@
     <string name="media_state_loading">%1$s (carregant)</string>
     <string name="media_event_done">%1$s reproducció acabada</string>
     <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimèdia</string>
-    <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
     <string name="media_err_not_in_owncloud">El fitxer no està en un compte vàlid</string>
     <string name="media_err_unsupported">El codec multimèdia no és compatible</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
     <string name="media_err_timeout">S\'ha esgotat el temps d\'espera del fitxer de reproducció</string>
     <string name="media_err_invalid_progressive_playback">El fitxer multimèdia no es pot reproduir</string>
-    <string name="media_err_security_ex">S\'ha produït un error de seguretat en intentar jugar%1$s</string>
-    <string name="media_err_io_ex">S\'ha produït un error d\'entrada mentre es tracta de jugar%1$s</string>
-    <string name="media_err_unexpected">S\'ha produït un error inesperat mentre s\'intenta reproduir%1$s</string>
     <string name="media_rewind_description">Botó de rebobinat</string>
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>

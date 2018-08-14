@@ -31,10 +31,9 @@ import android.view.View;
  * Extends RecyclerView to show a custom view if no data is available
  * Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
  */
-
 public class EmptyRecyclerView extends RecyclerView {
     private View mEmptyView;
-    private boolean hasFooter = false;
+    private boolean hasFooter;
 
     public EmptyRecyclerView(Context context) {
         super(context);

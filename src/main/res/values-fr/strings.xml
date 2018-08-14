@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_version">version %1$s</string>
-    <string name="actionbar_sync">Actualiser le compte</string>
+    <string name="actionbar_sync">Actualiser</string>
     <string name="actionbar_upload">Envoyer</string>
     <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
     <string name="actionbar_upload_files">Fichiers</string>
@@ -23,7 +23,7 @@
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_favorites">Favoris</string>
-    <string name="drawer_item_photos">Photos</string>
+    <string name="drawer_item_photos">Images</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-	<string name="drawer_close">Fermer</string>
-    <string name="drawer_open">Ouvrir</string>
+	<string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_open">Ouvrir la barre latérale</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
@@ -52,7 +52,7 @@
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play Store ou F-Droid installée</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
@@ -224,7 +224,6 @@ Attention la suppression est irréversible.</string>
     <string name="media_state_loading">%1$s (chargement)</string>
     <string name="media_event_done">Lecture de %1$s terminée</string>
     <string name="media_err_nothing_to_play">Aucun fichier média trouvé</string>
-    <string name="media_err_no_account">Aucun compte fourni</string>
     <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
     <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
@@ -232,9 +231,7 @@ Attention la suppression est irréversible.</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
-    <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
-    <string name="media_err_io_ex">Erreur d\'entrée à la lecture de %1$s</string>
-    <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
+    <string name="media_err_playing">Erreur inattendue lors de la lecture de %1$s </string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
@@ -539,6 +536,7 @@ Veuillez contacter votre administrateur</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
+    <string name="offline_mode">Aucune connexion internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
@@ -644,7 +642,6 @@ Veuillez contacter votre administrateur</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Déconnexion</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="privacy">Vie privée</string>
@@ -685,18 +682,16 @@ Veuillez contacter votre administrateur</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
-    <string name="activity_icon">Icône d\'activité</string>
-    <string name="file_icon">Icône de fichier</string>
-    <string name="user_icon">Icône d\'utilisateur</string>
-    <string name="favorite_icon">Icône des favoris</string>
-    <string name="shared_via_link_icon">Icône de partage par lien</string>
-    <string name="synced_icon">Icône synchronisé</string>
-    <string name="available_offline_icon">Icône disponible hors-ligne</string>
+    <string name="activity_icon">Activité</string>
+    <string name="file_icon">Fichier</string>
+    <string name="user_icon">Utilisateur</string>
+    <string name="favorite_icon">Favoris</string>
+    <string name="synced_icon">Synchronisé</string>
+    <string name="available_offline_icon">Disponible hors-ligne</string>
     <string name="checkbox">Case à cocher</string>
-    <string name="thumbnail">Miniature</string>
-    <string name="shared_icon">Icône partagé</string>
-    <string name="overflow_menu">Menu recouvrant</string>
-    <string name="share_file_icon">Icône de partage de fichier</string>
+    <string name="shared_icon_share">partage</string>
+    <string name="shared_icon_shared_via_link">partagé par lien</string>
+    <string name="shared_icon_shared">partagé</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_size_descending">Le plus grand en premier</string>
@@ -771,6 +766,7 @@ Veuillez contacter votre administrateur</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresse du point de terminaison d\'authentification</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresse du point de terminaison d\'accès</string>
     <string name="hint_name">Nom</string>
@@ -784,7 +780,9 @@ Veuillez contacter votre administrateur</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
-    <string name="whats_new_device_credentials_title">Utiliser la protection Android du terminal</string>
+    <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
+    <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
 	<string name="restore">Restaurer le fichier</string>
@@ -793,6 +791,12 @@ Veuillez contacter votre administrateur</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+    <string name="notification_channel_general_name">Notifications générales</string>
+    <string name="notification_channel_general_description">Afficher les notifications pour les nouveaux dossiers de média et des dossiers similaires</string>
+    <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">vidéo</string>
+
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="dismiss">Ignorer</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
@@ -803,4 +807,14 @@ Veuillez contacter votre administrateur</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="stream">Diffuser avec…</string>
+    <string name="stream_not_possible_headline">Diffusion interne impossible</string>
+    <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
+    <string name="folder_already_exists">Le dossier existe déjà</string>
+    <string name="notification_icon">Icône de notification</string>
+    <string name="folder_confirm_create">Créer</string>
+    <string name="file_delete">Supprimer</string>
+    <string name="file_keep">Conserver</string>
+    <string name="file_rename">Renommer</string>
+    <string name="fab_label">Ajouter ou téléverser</string>
 </resources>

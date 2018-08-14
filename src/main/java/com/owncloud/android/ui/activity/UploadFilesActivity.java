@@ -218,7 +218,7 @@ public class UploadFilesActivity extends FileActivity implements
      */
     public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_ACCOUNT, (account));
+        action.putExtra(EXTRA_ACCOUNT, account);
         activity.startActivityForResult(action, requestCode);
     }
 
@@ -321,7 +321,7 @@ public class UploadFilesActivity extends FileActivity implements
             return false;
         } else {
             View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
-            return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+            return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
         }
     }
     
@@ -534,7 +534,7 @@ public class UploadFilesActivity extends FileActivity implements
                     File localFile = new File(localPath);
                     total += localFile.length();
                 }
-                return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
+                return FileStorageUtils.getUsableSpace() >= total;
             }
 
             return true;
@@ -597,7 +597,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
+        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();

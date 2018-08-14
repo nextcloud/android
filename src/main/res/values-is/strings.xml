@@ -34,14 +34,16 @@
     <string name="drawer_item_activities">Virkni</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
-	<string name="drawer_close">Loka</string>
-    <string name="drawer_open">Opna</string>
-    <string name="prefs_category_general">Almennt</string>
+	<string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_lock">Læsa</string>
+    <string name="prefs_lock_title">Læsa með</string>
     <string name="prefs_lock_none">Ekkert</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
+    <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
+    <string name="prefs_lock_device_credentials_enabled">Auðkenni tækis virkjuð</string>
+    <string name="prefs_lock_device_credentials_not_setup">Engin auðkenni tækis hafa verið sett inn.</string>
     <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
@@ -110,6 +112,8 @@
     <string name="file_list_empty_text_photos_filter">Engar ljósmyndir.</string>
     <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_empty_text_videos_filter">Engin myndskeið.</string>
+    <string name="trashbin_empty_headline">Engar eyddar skrár</string>
+    <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
@@ -199,6 +203,9 @@
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
     <string name="upload_query_move_foreign_files">Ónógt pláss hamlar því að hægt sé að afrita valdar skrár í %1$s möppuna. Viltu færa þær þangað í staðinn?</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
+    <string name="default_credentials_wrong">Röng auðkenni</string>
+    <string name="credentials_disabled">Auðkenni óvirk</string>
+    
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
@@ -213,7 +220,6 @@
     <string name="media_state_loading">%1$s (hleðst)</string>
     <string name="media_event_done">Afspilun %1$s er lokið</string>
     <string name="media_err_nothing_to_play">Engin margmiðlunarskrá fannst</string>
-    <string name="media_err_no_account">Enginn notandaaðgangur uppgefinn</string>
     <string name="media_err_not_in_owncloud">Skráin er ekki á gildum notandaaðgangi</string>
     <string name="media_err_unsupported">Óstudd margmiðlunarlyklun (codec)</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
@@ -221,9 +227,7 @@
     <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_unknown">Innbyggði margmiðlunarspilarinn ræður ekki við að spila þessa margmiðlunarskrá  </string>
-    <string name="media_err_security_ex">Öryggissvilla kom upp við að reyna að spila  %1$s</string>
-    <string name="media_err_io_ex">Óvænt villa kom upp við að reyna að spila  %1$s</string>
-    <string name="media_err_unexpected">Óvænt villa kom upp við að reyna að spila  %1$s</string>
+    <string name="media_err_playing">Óvænt villa kom upp við að reyna að spila  %1$s</string>
     <string name="media_rewind_description">Spóla-til-baka hnappur</string>
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
@@ -262,6 +266,8 @@
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
+    <string name="auth_illegal_login_used">Notaði óleyfileg slóð á innskráningargögn</string>
+
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
     <string name="favorite_real">Bæta í eftirlæti</string>
@@ -482,6 +488,7 @@
     <string name="share_expiration_date_label">Rennur út %1$s</string>
     <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_section_title">Deilitengill</string>
+    <string name="share_via_link_send_link_label">Senda tengil</string>
     <string name="share_password_title">Verja með lykilorði</string>
     <string name="share_no_password_title">Stilltu lykilorð</string>
     <string name="edit_permission_label">breyta</string>
@@ -524,6 +531,7 @@
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
+    <string name="offline_mode">Engin internettenging</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
@@ -610,6 +618,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Engin virkni ennþá</string>
+    <string name="activities_no_results_message">Ennþá engir atburðir á borð við viðbætingar, breytingar og deilingar</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
 
     <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
@@ -628,7 +637,6 @@
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Skrá út</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="privacy">Gagnaleynd</string>
@@ -669,18 +677,15 @@
     <string name="drawer_middle_account">Mið-notandaaðgangur</string>
     <string name="drawer_end_account">Síðasti notandaaðgangur</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
-    <string name="activity_icon">Táknmynd fyrir virkni</string>
-    <string name="file_icon">Táknmynd fyrir skrá</string>
-    <string name="user_icon">Táknmynd fyrir notanda</string>
-    <string name="favorite_icon">Táknmynd fyrir eftirlæti</string>
-    <string name="shared_via_link_icon">Deilt með tengiltákni</string>
-    <string name="synced_icon">Táknmynd fyrir samstillingu</string>
-    <string name="available_offline_icon">Táknmynd fyrir tiltækt án nettengingar</string>
+    <string name="activity_icon">Virkni</string>
+    <string name="file_icon">Skrá</string>
+    <string name="user_icon">Notandi</string>
+    <string name="favorite_icon">Eftirlæti</string>
+    <string name="available_offline_icon">Tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
-    <string name="thumbnail">Smámynd</string>
-    <string name="shared_icon">Táknmynd fyrir deilingu</string>
-    <string name="overflow_menu">Yfirflæðisvalmynd</string>
-    <string name="share_file_icon">Táknmynd fyrir deilda skrá</string>
+    <string name="shared_icon_share">deila</string>
+    <string name="shared_icon_shared_via_link">deilt með tengli</string>
+    <string name="shared_icon_shared">deilt</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
     <string name="sort_by_size_descending">Stærsta fyrst</string>
@@ -755,6 +760,7 @@
     <string name="notification_channel_push_name">Ýtitilkynningar</string>
     <string name="notification_channel_push_description">Birta tilkynningar sem ýtt er út frá þjóninum: Ummæli (mentions) í athugasemdum, móttaka nýrra sameigna, tilkynningar sendar inn af stjórnendum, o.fl.</string>
     <string name="sendbutton_description">Táknmynd á sendihnappi</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Endavistfang auðkenningar</string>
     <string name="oauth_2_0_access_end_point_address_hint">Endavistfang aðgangs</string>
     <string name="hint_name">Nafn</string>
@@ -768,6 +774,40 @@
     <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
+    <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
+    <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
+    <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
+    <string name="whats_new_device_credentials_content">Notaðu tækni á borð við mynstur, lykilorð eða fingraför til að halda gögnunum þínum öruggum.</string>
+    <string name="restore_button_description">Endurheimta eydda skrá</string>
+	<string name="restore">Endurheimta skrá</string>
+    <string name="new_version_was_created">Ný útgáfa var útbúin</string>
     <string name="new_comment">Ný ummæli…</string>
+    <string name="error_comment_file">Villa við að gera athugasemd við skrá</string>
+    <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
+    <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
+    <string name="notification_channel_general_name">Almennar tilkynningar</string>
+    <string name="notification_channel_general_description">Birta tilkynningar fyrir nýjar gagnamöppur og þvíumlíkt</string>
+    <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
+    <string name="new_media_folder_photos">ljósmyndum</string>
+    <string name="new_media_folder_videos">myndskeiðum</string>
+
+    <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="dismiss">Hafna</string>
+    <string name="feedback_no_mail_app">Ekkert forrit tiltækt til að senda póst!</string>
+    <string name="drawer_item_trashbin">Eyddar skrár</string>
+    <string name="trashbin_activity_title">Eyddar skrár</string>
+    <string name="action_empty_trashbin">Tæma ruslafötu</string>
+    <string name="trashbin_loading_failed">Mistókst að hlaða inn ruslmöppu!</string>
+    <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
+    <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
+    <string name="trashbin_not_emptied">Ekki tókst að eyða skránum endanlega!</string>
+    <string name="stream">Streyma með…</string>
+    <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
+    <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
+    <string name="folder_already_exists">Mappa er þegar til</string>
+    <string name="notification_icon">Tilkynningatákn</string>
+    <string name="folder_confirm_create">Búa til</string>
+    <string name="file_delete">Eyða</string>
+    <string name="file_keep">Halda</string>
+    <string name="file_rename">Endurnefna</string>
     </resources>

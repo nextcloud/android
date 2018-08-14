@@ -88,15 +88,13 @@ public class ManageSpaceActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            boolean result = true;
-
             // Save passcode from Share preferences
             SharedPreferences appPrefs = PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext());
 
             String lockPref = appPrefs.getString(Preferences.PREFERENCE_LOCK, Preferences.LOCK_NONE);
-            boolean passCodeEnable = appPrefs.getString(Preferences.PREFERENCE_LOCK, "")
-                    .equals(Preferences.LOCK_PASSCODE);
+            boolean passCodeEnable = Preferences.LOCK_PASSCODE.equals(
+                    appPrefs.getString(Preferences.PREFERENCE_LOCK, ""));
 
             String passCodeDigits[] = new String[4];
             if (passCodeEnable) {
@@ -107,8 +105,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
             }
 
             // Clear data
-            result = clearApplicationData();
-
+            boolean result = clearApplicationData();
 
             // Clear SharedPreferences
             SharedPreferences.Editor appPrefsEditor = PreferenceManager

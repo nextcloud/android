@@ -71,6 +71,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -196,7 +197,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @OnClick(R.id.submitComment)
     public void submitComment() {
         if (commentInput.getText().toString().trim().length() > 0) {
-            new SubmitCommentTask(commentInput.getText().toString(), userId, file.getLocalId(),
+            new SubmitCommentTask(commentInput.getText().toString().trim(), userId, file.getLocalId(),
                     callback, ownCloudClient).execute();
         }
     }
@@ -307,8 +308,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 }
 
                 if (result.isSuccess() && result.getData() != null) {
-                    final ArrayList<Object> data = result.getData();
-                    final ArrayList<Object> activitiesAndVersions = (ArrayList) data.get(0);
+                    final List<Object> data = result.getData();
+                    final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
 
                     if (restoreFileVersionSupported && versions != null) {
                         activitiesAndVersions.addAll(versions);
@@ -342,22 +343,16 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 }
 
                 hideRefreshLayoutLoader(activity);
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(TAG, "Account not found", e);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "IO error", e);
-            } catch (OperationCanceledException e) {
-                Log_OC.e(TAG, "Operation has been canceled", e);
-            } catch (AuthenticatorException e) {
-                Log_OC.e(TAG, "Authentication Exception", e);
+            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | IOException |
+                    OperationCanceledException | AuthenticatorException e) {
+                Log_OC.e(TAG, "Error fetching file details activities", e);
             }
-        }
-        );
+        });
 
         t.start();
     }
 
-    private void populateList(ArrayList<Object> activities, boolean clear) {
+    private void populateList(List<Object> activities, boolean clear) {
         adapter.setActivityAndVersionItems(activities, ownCloudClient, clear);
     }
 

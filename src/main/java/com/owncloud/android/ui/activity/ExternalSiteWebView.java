@@ -53,7 +53,7 @@ public class ExternalSiteWebView extends FileActivity {
 
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
-    private boolean showSidebar = false;
+    private boolean showSidebar;
     private int menuItemId;
     private WebView webview;
 

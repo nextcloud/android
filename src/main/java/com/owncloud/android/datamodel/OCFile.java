@@ -303,8 +303,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public boolean existsOnDevice() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
-            File file = new File(mLocalPath);
-            return (file.exists());
+            return new File(mLocalPath).exists();
         }
         return false;
     }
@@ -588,7 +587,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
-        return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
+        return parentPath.endsWith("/") ? parentPath : parentPath + "/";
     }
 
     /**
@@ -665,19 +664,16 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     @Override
     public int hashCode() {
-        int result = (int) (mId ^ (mId >>> 32));
-        result = 31 * result + (int) (mParentId ^ (mParentId >>> 32));
-        return result;
+        return 31 * (int) (mId ^ (mId >>> 32)) + (int) (mParentId ^ (mParentId >>> 32));
     }
 
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
-        asString = String.format(asString, mId, getFileName(), mMimeType, isDown(),
+        return String.format(asString, mId, getFileName(), mMimeType, isDown(),
                 mLocalPath, mRemotePath, mParentId, mAvailableOffline,
                 mEtag, mIsFavorite);
-        return asString;
     }
 
     public String getEtag() {
@@ -780,7 +776,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isSharedWithMe() {
         String permissions = getPermissions();
-        return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
     }
 
     public boolean canReshare() {

@@ -27,11 +27,15 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -44,6 +48,8 @@ import com.owncloud.android.utils.ThemeUtils;
 public abstract class ToolbarActivity extends BaseActivity {
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
+    private LinearLayout mInfoBox;
+    private TextView mInfoBoxMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this, false));
         }
+        mInfoBox = findViewById(R.id.info_box);
+        mInfoBoxMessage = findViewById(R.id.info_box_message);
 
         mPreviewImage = findViewById(R.id.preview_image);
 
@@ -99,10 +107,8 @@ public abstract class ToolbarActivity extends BaseActivity {
         boolean inRoot;
 
         // choose the appropriate title
-        inRoot = (
-                chosenFile == null ||
-                        (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
-        );
+        inRoot =  chosenFile == null ||
+                        (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
         if (!inRoot) {
             title = chosenFile.getFileName();
         }
@@ -144,6 +150,23 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     public boolean isRoot(OCFile file) {
         return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+    }
+
+    /**
+     * shows the toolbar's info box with the given text.
+     *
+     * @param text the text to be displayed
+     */
+    protected final void showInfoBox(@StringRes int text) {
+        mInfoBox.setVisibility(View.VISIBLE);
+        mInfoBoxMessage.setText(text);
+    }
+
+    /**
+     * Hides the toolbar's info box.
+     */
+    protected final void hideInfoBox() {
+        mInfoBox.setVisibility(View.GONE);
     }
 
     /**

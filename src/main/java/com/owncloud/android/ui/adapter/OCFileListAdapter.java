@@ -75,6 +75,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -91,8 +92,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
     private boolean gridView;
-    private boolean multiSelect = false;
-    private HashSet<OCFile> checkedFiles;
+    private boolean multiSelect;
+    private Set<OCFile> checkedFiles;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
@@ -106,7 +107,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_IMAGE = 2;
 
-    private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
     public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
@@ -402,7 +403,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                if (file.getMimeType().equalsIgnoreCase("image/png")) {
+                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
                     thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
                 }
             } else {
@@ -472,10 +473,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         
         if (file.isSharedWithSharee() || file.isSharedWithMe()) {
             sharedIconView.setImageResource(R.drawable.shared_via_users);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
         } else if (file.isSharedViaLink()) {
             sharedIconView.setImageResource(R.drawable.shared_via_link);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
         } else {
             sharedIconView.setImageResource(R.drawable.ic_unshared);
+            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
         }
         sharedIconView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -529,7 +533,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType,
+    public void setData(List<Object> objects, ExtendedListFragment.SearchType searchType,
                         FileDataStorageManager storageManager, OCFile folder) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
@@ -566,12 +570,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         });
     }
 
-    private void parseShares(ArrayList<Object> objects) {
+    private void parseShares(List<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
-        for (int i = 0; i < objects.size(); i++) {
+
+        for (Object shareObject : objects) {
             // check type before cast as of long running data fetch it is possible that old result is filled
-            if (objects.get(i) instanceof OCShare) {
-                OCShare ocShare = (OCShare) objects.get(i);
+            if (shareObject instanceof OCShare) {
+                OCShare ocShare = (OCShare) shareObject;
 
                 shares.add(ocShare);
 
@@ -604,7 +609,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveShares(shares);
     }
 
-    private void parseVirtuals(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
+    private void parseVirtuals(List<Object> objects, ExtendedListFragment.SearchType searchType) {
         VirtualFolderType type;
         boolean onlyImages = false;
         switch (searchType) {
@@ -624,8 +629,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         List<ContentValues> contentValues = new ArrayList<>();
 
-        for (int i = 0; i < objects.size(); i++) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+        for (Object remoteFile : objects) {
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
             searchForLocalFileInDefaultPath(ocFile);
 
             try {
@@ -662,7 +667,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param files Collection of files to filter
      * @return Folders in the input
      */
-    public List<OCFile> getFolders(ArrayList<OCFile> files) {
+    public List<OCFile> getFolders(List<OCFile> files) {
         List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
@@ -681,11 +686,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public HashSet<OCFile> getCheckedItems() {
+    public Set<OCFile> getCheckedItems() {
         return checkedFiles;
     }
 
-    public void setCheckedItem(HashSet<OCFile> files) {
+    public void setCheckedItem(Set<OCFile> files) {
         checkedFiles.clear();
         checkedFiles.addAll(files);
     }

@@ -89,7 +89,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_backup_now)
     public AppCompatButton backupNow;
 
-    private Date selectedDate = null;
+    private Date selectedDate;
     private boolean calendarPickerOpen;
 
     private DatePickerDialog datePickerDialog;
@@ -244,7 +244,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                     Collections.sort(backupFiles, new AlphanumComparator<>());
 
-                    if (backupFiles == null || backupFiles.size() == 0) {
+                    if (backupFiles == null || backupFiles.isEmpty()) {
                         contactsDatePickerBtn.setVisibility(View.GONE);
                     } else {
                         contactsDatePickerBtn.setVisibility(View.VISIBLE);
@@ -361,7 +361,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         // check permissions
-        if ((PermissionUtil.checkSelfPermission(contactsPreferenceActivity, Manifest.permission.READ_CONTACTS))) {
+        if (PermissionUtil.checkSelfPermission(contactsPreferenceActivity, Manifest.permission.READ_CONTACTS)) {
             return true;
         } else {
             // Check if we should show an explanation

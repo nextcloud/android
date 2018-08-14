@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
-	<string name="drawer_close">Sulje</string>
-    <string name="drawer_open">Avaa</string>
-    <string name="prefs_category_general">Yleiset</string>
+	<string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
     <string name="prefs_lock">Lukitse</string>
@@ -209,7 +207,6 @@
     <string name="media_state_loading">%1$s (ladataan)</string>
     <string name="media_event_done">%1$s toistaminen on valmis</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
-    <string name="media_err_no_account">Tiliä ei määritetty</string>
     <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
     <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
     <string name="media_err_io">Mediatiedostoa ei voitu lukea</string>
@@ -217,8 +214,6 @@
     <string name="media_err_timeout">Tiedoston toisto aikakatkaistiin.</string>
     <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
     <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
-    <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
-    <string name="media_err_unexpected">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -500,6 +495,7 @@
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
+    <string name="offline_mode">Ei internetyhteyttä</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Odotetaan latausta</string>
     <string name="actionbar_search">Etsi</string>
@@ -602,7 +598,6 @@
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt</string>
@@ -636,16 +631,7 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="drawer_current_account">Nykyinen tili</string>
-    <string name="activity_icon">Toimikuvake</string>
-    <string name="file_icon">Tiedostokuvake</string>
-    <string name="user_icon">Käyttäjäkuvake</string>
-    <string name="favorite_icon">Suosikkikuvake</string>
-    <string name="shared_via_link_icon">Jaettu linkin kautta -kuvake</string>
-    <string name="synced_icon">Synkronoitu-kuvake</string>
     <string name="checkbox">Valintaruutu</string>
-    <string name="thumbnail">Esikatselukuva</string>
-    <string name="shared_icon">Jaettu-kuvake</string>
-    <string name="share_file_icon">Jaa tiedosto -kuvake</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Uusin ensin</string>
     <string name="sort_by_size_descending">Suurin ensin</string>
@@ -717,9 +703,16 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="new_comment">Uusi kommentti…</string>
     <string name="error_comment_file">Virhe tiedostoa kommentoidessa</string>
+    <string name="notification_channel_general_name">Yleiset ilmoitukset</string>
+    <string name="new_media_folder_photos">kuva</string>
+    <string name="new_media_folder_videos">video</string>
+
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="drawer_item_trashbin">Poistetut tiedostot</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>
+    <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_file_not_deleted">Tiedostoa %1$s ei voitu poistaa!</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
+    <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
+    <string name="folder_already_exists">Kansio on jo olemassa</string>
     </resources>

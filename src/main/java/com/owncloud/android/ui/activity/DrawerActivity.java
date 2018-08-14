@@ -37,6 +37,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -98,6 +99,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -317,7 +319,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull final MenuItem menuItem) {
                         mDrawerLayout.closeDrawers();
                         // pending runnable will be executed after the drawer has been closed
                         pendingRunnable = new Runnable() {
@@ -611,7 +613,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     accountEndView.setTag(mAvatars[1].name);
 
                     DisplayUtils.setAvatar(mAvatars[1], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            getStorageManager(), accountEndView, this);
+                            accountEndView, this);
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
@@ -623,7 +625,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     accountMiddleView.setTag(mAvatars[2].name);
 
                     DisplayUtils.setAvatar(mAvatars[2], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            getStorageManager(), accountMiddleView, this);
+                            accountMiddleView, this);
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -657,7 +659,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             account.name)
                             .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
                     DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
-                            getStorageManager(), accountMenuItem, this);
+                            accountMenuItem, this);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
@@ -729,7 +731,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             currentAccountView.setTag(account.name);
 
             DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                    getStorageManager(), currentAccountView, this);
+                    currentAccountView, this);
 
             // check and show quota info if available
             getAndDisplayUserQuota();
@@ -823,7 +825,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
             if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-                ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
+                List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
                 final int size = Math.round(24 * density);
@@ -1012,6 +1014,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
             }
+
+            setDrawerMenuItemChecked(mCheckedMenuItem);
         }
     }
 

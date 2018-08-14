@@ -36,7 +36,7 @@ import java.util.ArrayList;
  */
 public class CheckCurrentCredentialsOperation extends SyncOperation {
 
-    private Account mAccount = null;
+    private Account mAccount;
 
     public CheckCurrentCredentialsOperation(Account account) {
         if (account == null) {
@@ -55,7 +55,7 @@ public class CheckCurrentCredentialsOperation extends SyncOperation {
         } else {
             RemoteOperation check = new ExistenceCheckRemoteOperation(OCFile.ROOT_PATH, false);
             result = check.execute(client);
-            ArrayList<Object> data = new ArrayList<Object>();
+            ArrayList<Object> data = new ArrayList<>();
             data.add(mAccount);
             result.setData(data);
         }

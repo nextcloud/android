@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
-	<string name="drawer_close">Затвори</string>
-    <string name="drawer_open">Отвори</string>
-    <string name="prefs_category_general">Опште</string>
+	<string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_lock">Закључавање</string>
@@ -224,7 +222,6 @@
     <string name="media_state_loading">%1$s (учитавање)</string>
     <string name="media_event_done">%1$s пуштање завршено</string>
     <string name="media_err_nothing_to_play">Нема мултимедијалних фајлова</string>
-    <string name="media_err_no_account">Није наведен налог</string>
     <string name="media_err_not_in_owncloud">Фајл није исправан налог</string>
     <string name="media_err_unsupported">Неподржан кодек</string>
     <string name="media_err_io">Не могу да прочитам мултимедијални фајл</string>
@@ -232,9 +229,7 @@
     <string name="media_err_timeout">Истекло време покушавајући да пустим фајл</string>
     <string name="media_err_invalid_progressive_playback">Мултимедијални фајл не може да се пусти</string>
     <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти овај фајл</string>
-    <string name="media_err_security_ex">Грешка у вези безбедности при покушају да пустим %1$s</string>
-    <string name="media_err_io_ex">Улазна грешка при покушају да пустим %1$s</string>
-    <string name="media_err_unexpected">Неочекивана грешка при покушају да пустим %1$s</string>
+    <string name="media_err_playing">Неочекивана грешка при покушају да пустим %1$s</string>
     <string name="media_rewind_description">Уназад</string>
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>
@@ -540,6 +535,7 @@
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>
+    <string name="offline_mode">Нема интернет конекције</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
@@ -646,7 +642,6 @@
     <string name="contacts_preferences_backup_scheduled">Прављење резервне копије заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Одјава</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена да се са њом постави слика</string>
     <string name="privacy">Приватност</string>
@@ -687,18 +682,12 @@
     <string name="drawer_middle_account">Средишњи налог</string>
     <string name="drawer_end_account">Последњи налог</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
-    <string name="activity_icon">Икона активности</string>
-    <string name="file_icon">Икона фајла</string>
-    <string name="user_icon">Икона корисника</string>
-    <string name="favorite_icon">Икона омиљених</string>
-    <string name="shared_via_link_icon">Икона дељења преко везе</string>
-    <string name="synced_icon">Икона синхронизоване ставке</string>
-    <string name="available_offline_icon">Икона доступно ван мреже</string>
+    <string name="activity_icon">Активност</string>
+    <string name="file_icon">Фајл</string>
+    <string name="user_icon">Корисник </string>
+    <string name="favorite_icon">Омиљени</string>
+    <string name="available_offline_icon">Досступно ван мреже</string>
     <string name="checkbox">Штиклирање</string>
-    <string name="thumbnail">Мала сличица</string>
-    <string name="shared_icon">Икона дељења</string>
-    <string name="overflow_menu">Overflow мени</string>
-    <string name="share_file_icon">Икона дељења фајла</string>
     <string name="sort_by_name_ascending">А - Ш</string>
     <string name="sort_by_modification_date_ascending">Прво новије</string>
     <string name="sort_by_size_descending">Прво највеће</string>
@@ -773,6 +762,7 @@
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер: када сте поменути у коментарима, када добијете ново удаљено дељење, када администратор постави неко обавештење итд.</string>
     <string name="sendbutton_description">Икона дугма за слање</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Крајња адреса пријаве</string>
     <string name="oauth_2_0_access_end_point_address_hint">Крајња адреса приступа</string>
     <string name="hint_name">Име</string>
@@ -786,7 +776,9 @@
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="unsharing_failed">Уклањање дељења није успело</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
-    <string name="whats_new_device_credentials_title">Користи Андроид заштиту уређаја</string>
+    <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
+    <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
+    <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
 	<string name="restore">Поврати фајл</string>
@@ -795,6 +787,12 @@
     <string name="error_comment_file">Грешка приликом коментарисања фајла</string>
     <string name="file_version_restored_successfully">Успешно повратио верзију фајла.</string>
     <string name="file_version_restored_error">Грешка приликом враћања верзије фајла!</string>
+    <string name="notification_channel_general_name">Општа обавештења</string>
+    <string name="notification_channel_general_description">Прикажи обавештења о новим мултимедијалним фасциклама и слично</string>
+    <string name="new_media_folder_detected">Пронађена је нова мултимедијална фасцикла са %1$s</string>
+    <string name="new_media_folder_photos">сликама</string>
+    <string name="new_media_folder_videos">видео записима</string>
+
     <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
     <string name="dismiss">Одбаци</string>
     <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>
@@ -805,4 +803,13 @@
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
-</resources>
+    <string name="stream">Стримуј са…</string>
+    <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
+    <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
+    <string name="folder_already_exists">Фасцикла већ постоји</string>
+    <string name="notification_icon">Иконица обавештења</string>
+    <string name="folder_confirm_create">Направи</string>
+    <string name="file_delete">Обриши</string>
+    <string name="file_keep">Задржи</string>
+    <string name="file_rename">Преименуј</string>
+    </resources>

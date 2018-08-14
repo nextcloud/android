@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Aktivitäten</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
-	<string name="drawer_close">Schließen</string>
-    <string name="drawer_open">Öffnen</string>
+	<string name="drawer_close">Hauptmenü schließen</string>
+    <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
@@ -222,7 +222,6 @@
     <string name="media_state_loading">%1$s (wird geladen)</string>
     <string name="media_event_done">%1$s Wiedergabe beendet</string>
     <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
-    <string name="media_err_no_account">Kein Konto angegeben</string>
     <string name="media_err_not_in_owncloud">Die Datei befindet sich nicht in einem gültigen Konto</string>
     <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
     <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
@@ -230,9 +229,7 @@
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
-    <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s wiederzugeben</string>
-    <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
-    <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s wiederzugeben</string>
+    <string name="media_err_playing">Unerwarteter Fehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_rewind_description">Rückspulknopf</string>
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
     <string name="media_forward_description">Vorspulknopf</string>
@@ -536,6 +533,7 @@
     <string name="confirmation_remove_files_alert">Möchten Sie die ausgewählten Elemente wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
+    <string name="offline_mode">Keine Internetverbindung</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
@@ -641,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="privacy">Datenschutz</string>
@@ -682,18 +679,17 @@
     <string name="drawer_middle_account">Mittleres Konto</string>
     <string name="drawer_end_account">Letztes Konto</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
-    <string name="activity_icon">Aktivitäten-Icon</string>
-    <string name="file_icon">Datei-Icon</string>
-    <string name="user_icon">Nutzer-Icon</string>
-    <string name="favorite_icon">Favoriten-Icon</string>
-    <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
-    <string name="synced_icon">Synchronisiert-Icon</string>
-    <string name="available_offline_icon">Offline Verfügbar Icon</string>
+    <string name="activity_icon">Aktivitäten</string>
+    <string name="file_icon">Datei</string>
+    <string name="user_icon">Nutzer</string>
+    <string name="favorite_icon">Favoriten</string>
+    <string name="synced_icon">Synchronisiert</string>
+    <string name="available_offline_icon">Offline verfügbar</string>
     <string name="checkbox">Checkbox</string>
-    <string name="thumbnail">Vorschaubild</string>
-    <string name="shared_icon">Geteiltes Icon</string>
-    <string name="overflow_menu">Menü</string>
-    <string name="share_file_icon">Datei-Icon teilen</string>
+    <string name="shared_icon_share">Teilen</string>
+    <string name="shared_icon_shared_via_link">Über einen Link geteilt</string>
+    <string name="shared_icon_shared">geteilt</string>
+    <string name="overflow_menu">Weiteres Menü</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Neueste zuerst</string>
     <string name="sort_by_size_descending">Größste zuerst</string>
@@ -768,6 +764,7 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf weitere Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresse Autorisierungsendpunkt</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresse  Zugriffsendpunkt</string>
     <string name="hint_name">Name</string>
@@ -781,7 +778,9 @@
     <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
-    <string name="whats_new_device_credentials_title">Nutze Android Geräteschutz</string>
+    <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
+    <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
+    <string name="whats_new_device_credentials_title">Androids internen Geräteschutz verwenden</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
 	<string name="restore">Datei wiederherstellen</string>
@@ -790,6 +789,12 @@
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
+    <string name="notification_channel_general_name">Allgemeine Benachrichtigungen</string>
+    <string name="notification_channel_general_description">Für neue Medienordner und ähnliches Benachrichtigungen anzeigen</string>
+    <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
+    <string name="new_media_folder_photos">Foto</string>
+    <string name="new_media_folder_videos">Video</string>
+
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
@@ -800,4 +805,14 @@
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
     <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+    <string name="stream">Streamen mit…</string>
+    <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
+    <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
+    <string name="folder_already_exists">Ordner existiert bereits</string>
+    <string name="notification_icon">Benachrichtigungssymbol</string>
+    <string name="folder_confirm_create">Erstellen</string>
+    <string name="file_delete">Löschen</string>
+    <string name="file_keep">Behalten</string>
+    <string name="file_rename">Umbenennen</string>
+    <string name="fab_label">Hinzufügen oder hochladen</string>
 </resources>

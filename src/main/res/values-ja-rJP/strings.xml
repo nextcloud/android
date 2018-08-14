@@ -34,11 +34,10 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-	<string name="drawer_close">閉じる</string>
-    <string name="drawer_open">開く</string>
-    <string name="prefs_category_general">一般</string>
+	<string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
+    <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
@@ -107,6 +106,8 @@
     <string name="file_list_empty_text_photos_filter">写真はありません。</string>
     <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_empty_text_videos_filter">ビデオはありません。</string>
+    <string name="trashbin_empty_headline">削除されたファイルはありません</string>
+    <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
@@ -128,6 +129,7 @@
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_pending">保留中</string>
     <string name="common_delete">削除</string>
+    <string name="common_send">送信</string>
     <string name="about_title">について</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
@@ -209,7 +211,6 @@
     <string name="media_state_loading">%1$s (読み込み中)</string>
     <string name="media_event_done">%1$s 再生終了</string>
     <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
-    <string name="media_err_no_account">アカウントが提供されていません</string>
     <string name="media_err_not_in_owncloud">ファイルが有効なアカウントにありません</string>
     <string name="media_err_unsupported">サポートされていないメディアコーデックです</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
@@ -217,9 +218,6 @@
     <string name="media_err_timeout">再生試行がタイムアウトしました</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_unknown">ビルトインのメディアプレーヤーはこのメディアファイルを再生できません</string>
-    <string name="media_err_security_ex">%1$s の再生時にセキュリティエラーが発生しました</string>
-    <string name="media_err_io_ex">%1$s の再生中に入力エラーが発生しました</string>
-    <string name="media_err_unexpected">%1$s の再生時に予期しないエラーが発生しました</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
@@ -259,6 +257,8 @@
     <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
+    <string name="favorite_real">お気に入りに追加</string>
+    <string name="unset_favorite_real">お気に入りから削除</string>
     <string name="encrypted">暗号化設定</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
@@ -473,13 +473,14 @@
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
     <string name="foreground_service_upload">ファイルのアップロード中…</string>
-    <string name="foreground_service_download">ファイルをダウンロード中...</string>
+    <string name="foreground_service_download">ファイルをダウンロード中…</string>
 
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
     <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">認証エンドポイントアドレス</string>
     <string name="oauth_2_0_access_end_point_address_hint">アクセスエンドポイントアドレス</string>
     <string name="hint_name">名前</string>

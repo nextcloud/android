@@ -49,10 +49,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     private LocalFileListFragment.ContainerActivity mContainerActivity;
 
     /** Directory to show */
-    private File mDirectory = null;
+    private File mDirectory;
 
     /** Adapter to connect the data from the directory with the View object */
-    private LocalFileListAdapter mAdapter = null;
+    private LocalFileListAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,0 +1,4 @@
+dependencies {
+    implementation "com.google.firebase:firebase-messaging:17.1.0"
+    implementation "com.google.android.gms:play-services-gcm:15.0.1"
+}

@@ -67,7 +67,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Account account;
     private FileDataStorageManager storageManager;
 
-    private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
     public TrashbinListAdapter(TrashbinActivityInterface trashbinActivityInterface,
                                FileDataStorageManager storageManager, Context context) {
@@ -243,7 +243,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }
 
-                if (file.getMimeType().equalsIgnoreCase("image/png")) {
+                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
                     thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.background_color));
                 }
             } else {

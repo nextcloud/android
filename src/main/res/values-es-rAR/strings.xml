@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="drawer_close">Cerrar</string>
-    <string name="drawer_open">Abrir</string>
-    <string name="prefs_category_general">General</string>
+	<string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_expert_mode">Modo experto</string>
@@ -156,16 +154,12 @@
     <string name="pass_code_stored">Código de seguridad almacenado</string>
     
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>
     <string name="media_err_timeout">El intento de reproducir el archivo agotó el tiempo de espera.</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
-    <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
-    <string name="media_err_io_ex">Se presentó un error de entrada al intentar reproducir %1$s </string>
-    <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinar</string>
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
     <string name="media_forward_description">Botón de avanzar rápido</string>
@@ -376,7 +370,6 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="maintenance_mode">El servidor se encuentra en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Conozca más</string>

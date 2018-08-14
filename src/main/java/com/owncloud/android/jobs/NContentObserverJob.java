@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -28,11 +28,13 @@ import android.support.annotation.RequiresApi;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PowerUtils;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected
+    and starts a job to find new media folders
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NContentObserverJob extends JobService {
@@ -42,24 +44,37 @@ public class NContentObserverJob extends JobService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId && params.getTriggeredContentAuthorities()
                     != null && params.getTriggeredContentUris() != null
-                    && params.getTriggeredContentUris().length > 0
-                    && !PowerUtils.isPowerSaveMode(getApplicationContext())) {
+                    && params.getTriggeredContentUris().length > 0) {
 
-                PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-                persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
+                checkAndStartFileSyncJob();
 
-                new JobRequest.Builder(FilesSyncJob.TAG)
+                new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
                         .startNow()
-                        .setExtras(persistableBundleCompat)
                         .setUpdateCurrent(false)
                         .build()
                         .schedule();
+
             }
 
-            FilesSyncHelper.scheduleNJobs(true, getApplicationContext());
+            FilesSyncHelper.scheduleJobOnN();
         }
 
         return true;
+    }
+
+    private void checkAndStartFileSyncJob() {
+        if (!PowerUtils.isPowerSaveMode(getApplicationContext()) &&
+                new SyncedFolderProvider(getContentResolver()).countEnabledSyncedFolders() > 0) {
+            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+            persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
+
+            new JobRequest.Builder(FilesSyncJob.TAG)
+                    .startNow()
+                    .setExtras(persistableBundleCompat)
+                    .setUpdateCurrent(false)
+                    .build()
+                    .schedule();
+        }
     }
 
     @Override

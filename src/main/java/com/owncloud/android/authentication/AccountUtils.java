@@ -30,17 +30,12 @@ import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 
 
 public class AccountUtils {
-    private static final String TAG = AccountUtils.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     public static final int ACCOUNT_VERSION = 1;
@@ -163,18 +158,6 @@ public class AccountUtils {
                 if (found) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
                     appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
-
-                    // update credentials
-                    Thread t = new Thread(() -> {
-                        FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                                context.getContentResolver());
-                        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
-                        RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
-                        Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
-                    });
-
-                    t.start();
-
                     appPrefs.apply();
                     result = true;
                     break;

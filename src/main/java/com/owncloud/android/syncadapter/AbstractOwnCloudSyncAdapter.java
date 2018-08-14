@@ -52,7 +52,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private ContentProviderClient mContentProviderClient;
     private FileDataStorageManager mStoreManager;
 
-    private OwnCloudClient mClient = null;
+    private OwnCloudClient mClient;
 
     public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);

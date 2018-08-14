@@ -229,6 +229,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onResume() {
         super.onResume();
 
+        setDrawerMenuItemChecked(R.id.nav_activity);
+        
         setupContent();
     }
 

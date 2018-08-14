@@ -46,7 +46,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
 
-public class PassCodeActivity extends AppCompatActivity {
+public class    PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -70,7 +70,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private String [] mPassCodeDigits = {"","","",""};
     private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
-    private boolean mConfirmingPassCode = false;
+    private boolean mConfirmingPassCode;
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private boolean mBChange = true; // to control that only one blocks jump
@@ -187,17 +187,11 @@ public class PassCodeActivity extends AppCompatActivity {
         setOnKeyListener(2);
         setOnKeyListener(3);
 
-        mPassCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(1);
-        });
+        mPassCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(1));
 
-        mPassCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(2);
-        });
+        mPassCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(2));
 
-        mPassCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> {
-            onPassCodeEditTextFocusChange(3);
-        });
+        mPassCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(3));
     }
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {

@@ -91,13 +91,13 @@ public class FileDownloader extends Service
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private OwnCloudClient mDownloadClient = null;
-    private Account mCurrentAccount = null;
+    private OwnCloudClient mDownloadClient;
+    private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
 
     private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<>();
 
-    private DownloadFileOperation mCurrentDownload = null;
+    private DownloadFileOperation mCurrentDownload;
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
@@ -134,7 +134,7 @@ public class FileDownloader extends Service
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
                 .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
         }
 
@@ -178,7 +178,7 @@ public class FileDownloader extends Service
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
-        if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
+        if (intent == null || !intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
@@ -221,11 +221,11 @@ public class FileDownloader extends Service
     /**
      * Provides a binder object that clients can use to perform operations on the queue of downloads,
      * excepting the addition of new files.
-     * <p/>
+     *
      * Implemented to perform cancellation, pause and resume of existing downloads.
      */
     @Override
-    public IBinder onBind(Intent arg0) {
+    public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
@@ -501,7 +501,7 @@ public class FileDownloader extends Service
         file.setEtag(mCurrentDownload.getEtag());
         file.setMimetype(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());
-        file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
+        file.setFileLength(new File(mCurrentDownload.getSavePath()).length());
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
@@ -528,7 +528,7 @@ public class FileDownloader extends Service
                                 new File(download.getSavePath()).getName())
                 );
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
         }
         
@@ -602,8 +602,8 @@ public class FileDownloader extends Service
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker :
                     R.string.downloader_download_failed_ticker;
 
-            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(downloadResult.getCode()));
-            tickerId = (needsToUpdateCredentials) ?
+            boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(downloadResult.getCode());
+            tickerId = needsToUpdateCredentials ?
                     R.string.downloader_download_failed_credentials_error : tickerId;
 
             mNotificationBuilder
