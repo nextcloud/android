@@ -30,7 +30,6 @@ import android.accounts.AccountManagerFuture;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -807,25 +806,21 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @param quotaValue {@link GetRemoteUserInfoOperation#SPACE_UNLIMITED} or other to determinate state
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
-        updateQuotaLink();
-
         if (GetRemoteUserInfoOperation.SPACE_UNLIMITED == quotaValue) {
-            mQuotaProgressBar.setProgress(0);
-            ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, Color.GRAY);
-
             mQuotaTextPercentage.setText(String.format(
                     getString(R.string.drawer_quota_unlimited),
                     DisplayUtils.bytesToHumanReadable(usedSpace)));
         } else {
-            mQuotaProgressBar.setProgress(relative);
-            ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
-
             mQuotaTextPercentage.setText(String.format(
                     getString(R.string.drawer_quota),
                     DisplayUtils.bytesToHumanReadable(usedSpace),
                     DisplayUtils.bytesToHumanReadable(totalSpace)));
         }
 
+        mQuotaProgressBar.setProgress(relative);
+        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
+        updateQuotaLink();
         showQuota(true);
     }
 
