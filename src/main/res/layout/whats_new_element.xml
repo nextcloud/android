@@ -48,7 +48,7 @@
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
         android:gravity="center"
-        android:text="@string/welcome_feature_1_title"
+        android:text=""
         android:textAppearance="@style/NextcloudTextAppearanceHeadline"
         android:textColor="@color/white"
         android:textStyle="bold"/>
