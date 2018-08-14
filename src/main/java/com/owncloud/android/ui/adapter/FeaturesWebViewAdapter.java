@@ -9,7 +9,7 @@ import com.owncloud.android.ui.fragment.FeatureWebFragment;
 public class FeaturesWebViewAdapter extends FragmentPagerAdapter {
     private String[] mWebUrls;
 
-    public FeaturesWebViewAdapter(FragmentManager fm, String[] webUrls) {
+    public FeaturesWebViewAdapter(FragmentManager fm, String... webUrls) {
         super(fm);
         mWebUrls = webUrls;
     }
