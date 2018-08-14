@@ -11,7 +11,7 @@ public class FeaturesViewAdapter extends FragmentPagerAdapter {
 
     private FeatureItem[] mFeatures;
 
-    public FeaturesViewAdapter(FragmentManager fm, FeatureItem[] features) {
+    public FeaturesViewAdapter(FragmentManager fm, FeatureItem... features) {
         super(fm);
         mFeatures = features;
     }

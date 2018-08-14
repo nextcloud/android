@@ -57,8 +57,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
-    private static final String TAG = FirstRunActivity.class.getSimpleName();
-
     private ProgressIndicator mProgress;
 
     @Override

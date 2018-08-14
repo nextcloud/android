@@ -296,7 +296,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
 
-        String webloginUrl;
+        String webloginUrl = null;
         boolean showLegacyLogin;
         if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
@@ -304,7 +304,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showLegacyLogin = false;
         } else {
             webViewLoginMethod = !TextUtils.isEmpty(getResources().getString(R.string.webview_login_url));
-            webloginUrl = null;
             showLegacyLogin = true;
         }
 
