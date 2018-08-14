@@ -30,6 +30,7 @@ import android.accounts.AccountManagerFuture;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -800,21 +801,30 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     /**
      * configured the quota to be displayed.
-     *
-     * @param usedSpace  the used space
+     *  @param usedSpace  the used space
      * @param totalSpace the total space
      * @param relative   the percentage of space already used
+     * @param quotaValue {@link GetRemoteUserInfoOperation#SPACE_UNLIMITED} or other to determinate state
      */
-    private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
-        mQuotaProgressBar.setProgress(relative);
-        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
-
+    private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
         updateQuotaLink();
 
-        mQuotaTextPercentage.setText(String.format(
-                getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
+        if (GetRemoteUserInfoOperation.SPACE_UNLIMITED == quotaValue) {
+            mQuotaProgressBar.setProgress(0);
+            ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, Color.GRAY);
+
+            mQuotaTextPercentage.setText(String.format(
+                    getString(R.string.drawer_quota_unlimited),
+                    DisplayUtils.bytesToHumanReadable(usedSpace)));
+        } else {
+            mQuotaProgressBar.setProgress(relative);
+            ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
+            mQuotaTextPercentage.setText(String.format(
+                    getString(R.string.drawer_quota),
+                    DisplayUtils.bytesToHumanReadable(usedSpace),
+                    DisplayUtils.bytesToHumanReadable(totalSpace)));
+        }
 
         showQuota(true);
     }
@@ -966,16 +976,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (quotaValue > 0
+                                if (quotaValue > 0 || quotaValue == GetRemoteUserInfoOperation.SPACE_UNLIMITED
                                         || quotaValue == GetRemoteUserInfoOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                                    /**
+                                    /*
                                      * show quota in case
                                      * it is available and calculated (> 0) or
                                      * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
                                      */
-                                    setQuotaInformation(used, total, relative);
+                                    setQuotaInformation(used, total, relative, quotaValue);
                                 } else {
-                                    /**
+                                    /*
                                      * quotaValue < 0 means special cases like
                                      * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
                                      * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
