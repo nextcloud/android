@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ public class FeatureWebFragment extends Fragment {
         mWebUrl = getArguments() != null ? getArguments().getString("url") : null;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
