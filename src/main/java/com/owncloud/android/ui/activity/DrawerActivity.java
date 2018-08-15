@@ -79,7 +79,7 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
-import com.owncloud.android.operations.GetCapabilitiesOperarion;
+import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
@@ -1356,7 +1356,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
                         && getStorageManager() != null) {
-                    GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
