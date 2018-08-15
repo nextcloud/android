@@ -67,7 +67,7 @@ public class DrawerMenuUtil {
         }
     }
 
-    public static void filterTrashbinMenuItems(Menu menu, Account account, ContentResolver contentResolver) {
+    public static void filterTrashbinMenuItem(Menu menu, Account account, ContentResolver contentResolver) {
         if (account != null) {
             FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
             OCCapability capability = storageManager.getCapability(account.name);
@@ -75,6 +75,17 @@ public class DrawerMenuUtil {
             if (AccountUtils.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
                     capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
                 filterMenuItems(menu, R.id.nav_trashbin);
+            }
+        }
+    }
+
+    public static void filterActivityMenuItem(Menu menu, Account account, ContentResolver contentResolver) {
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
+            OCCapability capability = storageManager.getCapability(account.name);
+
+            if (capability.isActivityEnabled().isFalse() || capability.isActivityEnabled().isUnknown()) {
+                filterMenuItems(menu, R.id.nav_activity);
             }
         }
     }

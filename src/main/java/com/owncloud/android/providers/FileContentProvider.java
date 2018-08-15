@@ -804,6 +804,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
                 + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
+                + ProviderTableMeta.CAPABILITIES_ACTIVITY + INTEGER
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT + INTEGER
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + " INTEGER );");
     }
@@ -1694,6 +1695,23 @@ public class FileContentProvider extends ContentProvider {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED + " INTEGER "); // boolean
 
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 33 && newVersion >= 33) {
+                Log_OC.i(SQL, "Entering in the #3 Adding activity to capability");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_ACTIVITY + " INTEGER ");
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
