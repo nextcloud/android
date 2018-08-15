@@ -1192,7 +1192,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      *
      * @param hasFocus 'True' if focus is received, 'false' if is lost
      */
-
     private void onPasswordFocusChanged(boolean hasFocus) {
         if (hasFocus) {
             showViewPasswordButton();
@@ -1201,7 +1200,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             hidePasswordButton();
         }
     }
-
 
     private void showViewPasswordButton() {
         int drawable = R.drawable.ic_view;

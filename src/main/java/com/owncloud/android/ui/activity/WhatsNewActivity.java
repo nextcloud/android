@@ -138,7 +138,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
     }
 
-    static public void runIfNeeded(Context context) {
+    public static void runIfNeeded(Context context) {
         if (!context.getResources().getBoolean(R.bool.show_whats_new)
                 || context instanceof WhatsNewActivity) {
             return;
@@ -149,7 +149,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         }
     }
 
-    static private boolean shouldShow(Context context) {
+    private static boolean shouldShow(Context context) {
         return !(context instanceof PassCodeActivity) && getWhatsNew(context).length > 0;
     }
 
