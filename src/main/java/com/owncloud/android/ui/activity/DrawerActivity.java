@@ -346,7 +346,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void filterDrawerMenu(Menu menu, Account account) {
         DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
         DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItems(menu, account, getContentResolver());
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, account, getContentResolver());
+        DrawerMenuUtil.filterActivityMenuItem(menu, account, getContentResolver());
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
