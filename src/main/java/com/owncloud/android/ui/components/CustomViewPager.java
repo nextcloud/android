@@ -8,8 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 public class CustomViewPager extends ViewPager {
     public CustomViewPager(@NonNull Context context) {
         super(context);
@@ -25,7 +23,7 @@ public class CustomViewPager extends ViewPager {
         try {
             return super.onTouchEvent(ev);
         } catch (IllegalArgumentException ex) {
-            Log_OC.e("CustomViewPager", "crash", ex);
+            // no logging as this might flood log and we cannot do anything
         }
         return false;
     }
@@ -35,7 +33,7 @@ public class CustomViewPager extends ViewPager {
         try {
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException ex) {
-            Log_OC.e("CustomViewPager", "crash", ex);
+            // no logging as this might flood log and we cannot do anything
         }
         return false;
     }
