@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
-	<string name="prefs_category_general">Опште</string>
+	<string name="drawer_close">Затвори бочну траку</string>
+    <string name="drawer_open">Отвори бочну траку</string>
+    <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_lock">Закључавање</string>
@@ -686,8 +688,13 @@
     <string name="file_icon">Фајл</string>
     <string name="user_icon">Корисник </string>
     <string name="favorite_icon">Омиљени</string>
+    <string name="synced_icon">Синхронизовано</string>
     <string name="available_offline_icon">Досступно ван мреже</string>
     <string name="checkbox">Штиклирање</string>
+    <string name="shared_icon_share">дељење</string>
+    <string name="shared_icon_shared_via_link">дељено путем везе</string>
+    <string name="shared_icon_shared">подељено</string>
+    <string name="overflow_menu">још менија</string>
     <string name="sort_by_name_ascending">А - Ш</string>
     <string name="sort_by_modification_date_ascending">Прво новије</string>
     <string name="sort_by_size_descending">Прво највеће</string>
@@ -812,4 +819,5 @@
     <string name="file_delete">Обриши</string>
     <string name="file_keep">Задржи</string>
     <string name="file_rename">Преименуј</string>
-    </resources>
+    <string name="fab_label">Додај или отпреми</string>
+</resources>
