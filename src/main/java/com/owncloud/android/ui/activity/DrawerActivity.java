@@ -64,6 +64,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
@@ -344,10 +345,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     private void filterDrawerMenu(Menu menu, Account account) {
+        OCCapability capability = null;
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+            capability = storageManager.getCapability(account.name);
+        }
+        
         DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
         DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, account, getContentResolver());
-        DrawerMenuUtil.filterActivityMenuItem(menu, account, getContentResolver());
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, account, capability);
+        DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
