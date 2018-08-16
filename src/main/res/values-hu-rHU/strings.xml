@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">Tevékenységek</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
-	<string name="prefs_category_general">Általános</string>
+	<string name="drawer_close">Oldalsáv bezárása</string>
+    <string name="drawer_open">Oldalsáv megnyitása</string>
+    <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_lock">Zár</string>
@@ -227,6 +229,7 @@
     <string name="media_err_timeout">Lejátszási kísérlet időtúllépés</string>
     <string name="media_err_invalid_progressive_playback">A média fájl nem streamelhető</string>
     <string name="media_err_unknown">A beépített médialejátszó nem tudja lejátszani a fájlt</string>
+    <string name="media_err_playing">Váratlan hiba a következő lejátszásakor: %1$s</string>
     <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
     <string name="media_forward_description">Előre gomb</string>
@@ -532,6 +535,8 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="confirmation_remove_files_alert">Valóban törölni akarod a kijelölt elemeket?</string>
     <string name="confirmation_remove_folders_alert">Valóban törölni akarod a kijelölt elemeket és tartalmukat?</string>
     <string name="maintenance_mode">Szerver karbantartási üzemmódban</string>
+    <string name="offline_mode">Nincs internet-kapcsolat</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Töltésre vár</string>
     <string name="actionbar_search">Keresés</string>
     <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
@@ -694,7 +699,16 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="drawer_middle_account">Középső fiók</string>
     <string name="drawer_end_account">Utolsó fiók</string>
     <string name="contactlist_item_icon">Kapcsolati lista felhasználó ikon</string>
+    <string name="activity_icon">Tevékenység</string>
+    <string name="file_icon">Fájl</string>
+    <string name="user_icon">Felhasználó</string>
+    <string name="favorite_icon">Kedvenc</string>
+    <string name="synced_icon">Szinkronizált</string>
+    <string name="available_offline_icon">Offline elérhető</string>
     <string name="checkbox">Pipáló</string>
+    <string name="shared_icon_share">megosztás</string>
+    <string name="shared_icon_shared_via_link">link által megosztott</string>
+    <string name="shared_icon_shared">megosztott</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Legújabb elöl</string>
     <string name="sort_by_size_descending">Legnagyobb elöl</string>
