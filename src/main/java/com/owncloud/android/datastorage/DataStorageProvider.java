@@ -35,7 +35,6 @@ import com.owncloud.android.datastorage.providers.VDCStoragePointProvider;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * @author Bartosz Przybylski
