@@ -2110,7 +2110,7 @@ public class FileDisplayActivity extends HookActivity
         if (result.isSuccess()) {
             OCFileListFragment fileListFragment = getListOfFilesFragment();
             if (fileListFragment != null) {
-                getListOfFilesFragment().onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
+                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
             }
         } else {
             try {
