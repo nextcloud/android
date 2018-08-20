@@ -127,12 +127,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
         // bind action listener
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.createAccount();
-            }
-        });
+        actionView.setOnClickListener(v -> mListener.showFirstRunActivity());
         return actionView;
     }
 
@@ -188,7 +183,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
      */
     public interface AccountListAdapterListener {
 
-        void createAccount();
+        void showFirstRunActivity();
     }
 
     /**
