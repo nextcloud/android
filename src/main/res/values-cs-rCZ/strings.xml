@@ -205,6 +205,8 @@
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
     <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
     <string name="default_credentials_wrong">Neplatné pověření</string>
+    <string name="credentials_disabled">Přihlašovací údaje zakázány</string>
+    
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>
@@ -272,6 +274,7 @@
     <string name="favorite_real">Přidat do oblíbených</string>
     <string name="unset_favorite_real">Odebrat z oblíbených</string>
     <string name="encrypted">Nastavit jako šifrované</string>
+    <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>

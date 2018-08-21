@@ -158,7 +158,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Gaida uz Wi-Fi </string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
-    <string name="downloader_download_in_progress_ticker">Lejupielādē...</string>
+    <string name="downloader_download_in_progress_ticker">Lejupielādē…</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
     <string name="downloader_download_succeeded_ticker">Lejupielādēts</string>
     <string name="downloader_download_succeeded_content">%1$s lejupielādēts</string>
@@ -212,7 +212,7 @@
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
 
-    <string name="auth_trying_to_login">Mēģina pieteikties...</string>
+    <string name="auth_trying_to_login">Mēģina pieteikties…</string>
 	<string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
 	<string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
 	<string name="auth_connection_established">Savienojums ir izveidots</string>
