@@ -1,3 +1,19 @@
+## 3.2.2 (August, 21, 2018)
+fix crash on Android 4.x
+
+## 3.2.2 (August, 20, 2018)
+Simple Signup
+
+## 3.2.1 (June, 11, 2018)
+Enhanced file detail/sharing screen for mail-shares
+Fix local sorting and file selection
+Fix local filtering
+Fix back navigation on privacy screen
+Fix bug on searching
+Fix crash on sorting
+Fix wrong menu highlighting
+various bug fixes
+
 ## 3.2.1 (June, 10, 2018)
 - Enhanced file detail/sharing screen for mail-shares
 - Fix local sorting and file selection
