@@ -34,12 +34,15 @@
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_quota">%1$s z %2$s použito</string>
-	<string name="prefs_category_general">Obecné</string>
+	<string name="drawer_close">Zavřít postranní panel</string>
+    <string name="drawer_open">Otevřít postranní panel</string>
+    <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_lock">Uzamknout</string>
     <string name="prefs_lock_title">Uzamknout použitím</string>
     <string name="prefs_lock_none">Žádné</string>
+    <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
@@ -180,7 +183,19 @@
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů selhala</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nelze synchronizovat %1$d soubor (konflikty: %2$d)</item>
+        <item quantity="few">Nelze synchronizovat %1$d soubory (konflikty: %2$d)</item>
+        <item quantity="many">Nelze synchronizovat %1$d souborů (konflikty: %2$d)</item>
+        <item quantity="other">Nelze synchronizovat %1$d souborů (konflikty: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nepodařilo se zkopírovat %1$d soubor ze složky %2$s do</item>
+        <item quantity="few">Nepodařilo se zkopírovat %1$d soubory ze složky %2$s do</item>
+        <item quantity="many">Nepodařilo se zkopírovat %1$d souborů ze složky %2$s do</item>
+        <item quantity="other">Nepodařilo se zkopírovat %1$d souborů ze složky %2$s do</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
     <string name="foreign_files_move">Přesunout vše</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
@@ -210,6 +225,7 @@
     <string name="media_err_malformed">Soubor médií má neplatné kódování</string>
     <string name="media_err_timeout">Vypršel čas při pokusu o přehrání</string>
     <string name="media_err_invalid_progressive_playback">Multimediální soubor nelze proudově odesílat</string>
+    <string name="media_err_unknown">Multimediální soubor nemůže být přehrán s výchozím přehrávačem</string>
     <string name="media_err_playing">Neočekávaná chyba při pokusu o přehrání %1$s</string>
     <string name="media_rewind_description">Tlačítko Přetočit</string>
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
@@ -425,7 +441,9 @@
 
     <string name="prefs_category_details">Podrobnosti</string>
 
-    <string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
+    <string name="sync_folder_failed_content">Synchronizaci složky %1$s nelze dokončit</string>
+
+	<string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" ti byl nasdílen</string>
 
     <string name="auth_refresh_button">Obnovit připojení</string>
@@ -488,6 +506,7 @@
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
+    <string name="share_sharee_unavailable">Zaktualizujte verzi vašeho serveru pro umožnění sdílení dat mezi uživateli v klientské aplikaci.\nKontaktujte prosím svého administrátora</string>
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
@@ -523,6 +542,7 @@
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našli jste chybu? Něco podivného?</string>
     <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
+    <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
     <string name="participate_beta_headline">Testovat noční verzi</string>
     <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
@@ -598,6 +618,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
+    <string name="activities_no_results_message">Zatím žádné události jako přidání, změny či sdílení</string>
     <string name="prefs_category_about">O aplikaci</string>
 
     <string name="actionbar_contacts">Zálohování kontaktů</string>
@@ -608,6 +629,7 @@
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
     <string name="contaclist_restore_selected">Obnovit vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Vyber účet, který chceš importovat</string>
+    <string name="contactlist_no_permission">Práva nejsou přidělena, nic nebylo naimportováno.</string>
     <string name="contacts_preference_choose_date">Zvolte datum</string>
     <string name="contacts_preference_backup_never">Nikdy</string>
     <string name="contacts_preferences_no_file_found">Nebyl nalezen žádný soubor</string>
@@ -618,6 +640,8 @@
     <string name="drawer_logout">Odhlásit se</string>
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen</string>
+    <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuji poslední dostupnou verzi.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
     <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
@@ -638,15 +662,29 @@
     <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
     <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
 
+    <string name="sync_in_progress">Stahuji nejaktuálnější verzi souboru.</string>
     <string name="date_unknown">Neznámé</string>
 
     <string name="resized_image_not_possible">Nejsou k dispozici žádné zmenšené obrázky.</string>
+    <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="resized_images_download_full_image">Stáhnout obrázek v plné velikosti?</string>
 
+    <string name="store_short_desc">Aplikace Nextcloud pro Android ti nabízí přístup ke všem souborům ve tvém Nextcloudu.</string>
     <string name="drawer_current_account">Aktuální účet</string>
     <string name="drawer_middle_account">Prostřední účet</string>
     <string name="drawer_end_account">Poslední účet</string>
+    <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
+    <string name="activity_icon">Aktivita</string>
+    <string name="file_icon">Soubor</string>
+    <string name="user_icon">Uživatel</string>
+    <string name="favorite_icon">Oblíbené</string>
+    <string name="synced_icon">Synchronizováno</string>
+    <string name="available_offline_icon">Dostupné offline</string>
     <string name="checkbox">Zatržítko</string>
+    <string name="shared_icon_share">sdílet</string>
+    <string name="shared_icon_shared_via_link">sdílet odkazem</string>
+    <string name="shared_icon_shared">sdílené</string>
+    <string name="overflow_menu">Více menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Nejnovější první</string>
     <string name="sort_by_size_descending">Největší první</string>
@@ -677,23 +715,36 @@
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
+    <string name="notification_channel_file_sync_name">Synchronizace souboru</string>
+    <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
     <string name="notification_channel_file_observer_description">Monitoruje změny souborů</string>
   
     <string name="account_not_found">Účet nenalezen!</string>
 
     <string name="screenshot_01_gridView">Bezpečné místo pro všechna vaše data</string>
+    <string name="screenshot_02_listView">Snadno procházejte a sdílejte své soubory</string>
     <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
+    <string name="screenshot_05_autoUpload">Automaticky nahrávat vaše fotografie &amp; videa</string>
+    <string name="screenshot_06_davdroid">Synchronizujte kalendář &amp; kontakty s DAVdroid</string>
+    
+    <string name="userinfo_no_info_headline">Osobní údaje nejsou nastaveny</string>
+    <string name="userinfo_no_info_text">Přidejte jméno, obrázek a kontaktní údaje na vaší profilové stránce.</string>
     <string name="account_icon">Ikona účtu</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba při rozšifrovávání. Chybné heslo?</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
     <string name="end_to_end_encryption_retrieving_keys">Získávání klíčů…</string>
+    <string name="end_to_end_encryption_enter_password">Zadejte prosím heslo pro dešifrování privátního klíče.</string>
     <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>
+    <string name="end_to_end_encryption_keywords_description">Všech 12 slov dohromady tvoří velmi silné heslo, které pouze vám umožní prohlížet a používat vaše zašifrované soubory. Poznamenejte si jej někam na bezpečné místo.</string>
     <string name="end_to_end_encryption_title">Nastavit šifrování</string>
     <string name="end_to_end_encryption_passphrase_title">Poznamenejte si své 12 slovné šifrovací heslo</string>
+    <string name="end_to_end_encryption_not_supported">Šifrování funguje pouze v KitKat (4.4) a výše.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-end šifrování zakázáno na serveru.</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
+    <string name="end_to_end_encryption_unsuccessful">Nepodařilo se uložit klíče, zkuste to prosím znovu.</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>

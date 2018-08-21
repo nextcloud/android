@@ -34,13 +34,18 @@
     <string name="drawer_item_activities">Izmaiņas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
-	<string name="prefs_category_general">Vispārīgi</string>
+	<string name="drawer_close">Aizvērt malu</string>
+    <string name="drawer_open">Atvērt malu</string>
+    <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_lock">Aizslēgt</string>
     <string name="prefs_lock_title">Aizslēgt izmantojot</string>
     <string name="prefs_lock_none">Nav</string>
     <string name="prefs_lock_using_passcode">Kods</string>
+    <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
+    <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
+    <string name="prefs_lock_device_credentials_not_setup">Ierīces akreditācijas dati nav uzstādīti.</string>
     <string name="prefs_expert_mode">Eksperta režīms</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
@@ -92,6 +97,7 @@
     <string name="file_list_empty_headline_server_search_photos">Nav attēlu</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
     <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
+    <string name="file_list_empty_recently_modified_filter">Neviena datne nav bijusi izmainīta pēdējās 7 dienās.</string>
     <string name="file_list_empty_recently_added">Neatradām nekādus nesen pievienotus failus</string>
     <string name="file_list_empty_recently_added_filter">Nav nesen pievienotu datņu.</string>
     <string name="file_list_empty_text_photos">Augšupielādē attēlus vai ieslēdz automātisko augšupielādi.</string>
@@ -152,6 +158,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Gaida uz Wi-Fi </string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
+    <string name="downloader_download_in_progress_ticker">Lejupielādē...</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
     <string name="downloader_download_succeeded_ticker">Lejupielādēts</string>
     <string name="downloader_download_succeeded_content">%1$s lejupielādēts</string>
@@ -205,16 +212,22 @@
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
 
-    <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
+    <string name="auth_trying_to_login">Mēģina pieteikties...</string>
+	<string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
 	<string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
 	<string name="auth_connection_established">Savienojums ir izveidots</string>
 	<string name="auth_testing_connection">Notiek savienojuma testēšana</string>
 	<string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
 	<string name="auth_account_not_the_same">Ievadītais lietotājvārds neatbilst šī konta lietotājam.</string>
+	<string name="auth_unknown_error_http_title">Nezināma HTTP kļūda!</string>
 	<string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
+	<string name="auth_incorrect_path_title">Serveris nav atrasts</string>
 	<string name="auth_timeout_title">Serveris pārāk ilgi neatbildēja</string>
+	<string name="auth_incorrect_address_title">Nepareizs servera adreses formāts</string>
 	<string name="auth_ssl_general_error_title">Neizdevās inicializēt SSL</string>
+	<string name="auth_ssl_unverified_server_title">Nevar pārbaudīt SSL servera identitāti</string>
 	<string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
+	<string name="auth_wrong_connection_title">Neizdevās izveidot savienojumu</string>
 	<string name="auth_secure_connection">Ir izveidots drošs savienojums</string>
 	<string name="auth_unauthorized">Nepareizs lietotājvārds vai parole</string>
 	<string name="auth_oauth_error">Neveiksmīga autorizācija</string>
@@ -301,6 +314,7 @@
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="preview_image_error_unknown_format">Nevar attēlot attēlu</string>
     <string name="error__upload__local_file_not_copied">%1$s nevar kopēt uz %2$s lokālo mapi</string>
+    <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Saglabāt apakšmapēs pēc gada un mēneša</string>
@@ -481,6 +495,8 @@
     <string name="confirmation_remove_files_alert">Vai tiešām vēlies dzēst izvēlētos objektus?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
     <string name="maintenance_mode">Serveris ir uzturēšanas režīmā</string>
+    <string name="offline_mode">Nav interneta savienojuma</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="files_drop_not_supported">Šī ir Nextcloud funkcija, lūdzu atjauniniet.</string>
@@ -495,6 +511,8 @@
     <string name="participate_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
     <string name="participate_release_candidate_headline">Laišanas kandidāts</string>
     <string name="participate_release_candidate_text">Šis laidiena kandidāts (RC) ir pirmslaišanas versija un tai vajadzētu būt stabilai. Testējot savus individuālos uzstādijumus jūs varat palīdzēt to pārbaudīt. Pierakstieties testēšanai Play veikalā vai manuāli skatieties \"Version\" nodalijumā F-Droid. </string>
+    <string name="participate_contribute_irc_text">Pievienojies čatam IRC:</string>
+    <string name="participate_contribute_forum_text">Palīdzi citiem </string>
     <string name="participate_contribute_forum_forum">forums</string>
     <string name="participate_contribute_translate_translate">Tulkot</string>
     <string name="participate_contribute_translate_text">lietotni</string>
@@ -521,6 +539,9 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps īsceļa fails (%s)</string>
 
     <string name="storage_description_default">Noklusējuma</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Jaunums %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Droša vieta visiem jūsu datiem</string>
