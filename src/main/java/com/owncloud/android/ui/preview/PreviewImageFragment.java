@@ -553,25 +553,31 @@ public class PreviewImageFragment extends FileFragment {
         private void showLoadedImage(LoadImage result) {
             final PhotoView imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
+            Drawable drawable = result.drawable;
 
-            if (imageView != null && bitmap != null) {
-                Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                        bitmap.getHeight());
+            if (imageView != null) {
+                if (bitmap != null) {
+                    Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
+                            bitmap.getHeight());
 
-                if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
-                        MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
-                        MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                    if (getResources() != null) {
-                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
+                    if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
+                            MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                        if (getResources() != null) {
+                            imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
+                        } else {
+                            imageView.setImageBitmap(bitmap);
+                        }
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
-                } else {
-                    imageView.setImageBitmap(bitmap);
-                }
 
-                imageView.setVisibility(View.VISIBLE);
-                mBitmap = bitmap;  // needs to be kept for recycling when not useful
+                    imageView.setVisibility(View.VISIBLE);
+                    mBitmap = bitmap;  // needs to be kept for recycling when not useful
+                } else if (drawable != null) {
+                    if (MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType()) && getResources() != null) {
+                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
+                    }
+                }
             }
 
             mMultiView.setVisibility(View.GONE);
