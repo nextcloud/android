@@ -573,10 +573,10 @@ public class PreviewImageFragment extends FileFragment {
 
                     imageView.setVisibility(View.VISIBLE);
                     mBitmap = bitmap;  // needs to be kept for recycling when not useful
-                } else if (drawable != null) {
-                    if (MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType()) && getResources() != null) {
-                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
-                    }
+                } else if (drawable != null
+                        && MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())
+                        && getResources() != null) {
+                    imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
                 }
             }
 
