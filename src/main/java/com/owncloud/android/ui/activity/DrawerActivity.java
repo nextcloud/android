@@ -305,7 +305,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, ThemeUtils.primaryAccentColor(this));
+        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
     }
 
     /**
