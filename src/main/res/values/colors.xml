@@ -41,8 +41,6 @@
     <!-- standard material color definitions -->
 
     <!-- level colors for info notifications/visualisations -->
-    <color name="infolevel_info">@color/color_accent</color>
-    <color name="infolevel_warning">#fdd835</color>
-    <color name="infolevel_critical">#e57373</color>
+    <color name="infolevel_warning">#e9322d</color>
 
 </resources>
