@@ -34,7 +34,9 @@
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
-	<string name="prefs_category_general">Основные</string>
+	<string name="drawer_close">Закрыть боковую панель</string>
+    <string name="drawer_open">Открыть боковую панель</string>
+    <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_lock">Блокировка</string>
@@ -691,10 +693,13 @@
     <string name="file_icon">Файл</string>
     <string name="user_icon">Пользователь</string>
     <string name="favorite_icon">Избранное</string>
+    <string name="synced_icon">Синхронизировано</string>
     <string name="available_offline_icon">Доступно автономно</string>
     <string name="checkbox">Флажок</string>
+    <string name="shared_icon_share">общий ресурс</string>
     <string name="shared_icon_shared_via_link">поступ по ссылке</string>
     <string name="shared_icon_shared">поделился</string>
+    <string name="overflow_menu">Дополнительное меню</string>
     <string name="sort_by_name_ascending">А — Я</string>
     <string name="sort_by_modification_date_ascending">Сначала новые</string>
     <string name="sort_by_size_descending">Сначала большие</string>
@@ -819,4 +824,5 @@
     <string name="file_delete">Удалить</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_rename">Переименовать</string>
-    </resources>
+    <string name="fab_label">Добавить или выгрузить</string>
+</resources>
