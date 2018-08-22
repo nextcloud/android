@@ -329,6 +329,7 @@
     <string name="conflict_use_server_version">サーバーのバージョン</string>
 
     <string name="preview_image_description">イメージプレビュー</string>
+    <string name="preview_image_error_unknown_format">画像を表示できません</string>
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
@@ -348,8 +349,13 @@
     <string name="clipboard_text_copied">クリップボードにコピー</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
 
+    <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
+
+    <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
     <string name="network_error_socket_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
     <string name="network_error_connect_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
+    <string name="network_host_not_available">操作を完了できません。サーバーが利用できません。</string>
+
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
     <string name="forbidden_permissions_delete">ファイルを削除</string>
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
@@ -358,7 +364,9 @@
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
+    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中...</string>
     <string name="file_migration_ok_finished">完了</string>
+    <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
     <string name="actionbar_logger">ログ</string>
@@ -402,6 +410,7 @@
     <string name="share_with_user_section_title">ユーザーとグループで共有</string>
     <string name="share_no_users">ユーザーと共有されているデータはありません</string>
     <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
+    <string name="share_via_link_edit_permission_label">編集を許可</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>

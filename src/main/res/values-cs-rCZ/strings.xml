@@ -145,9 +145,9 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílám %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Nahráno</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>
-    <string name="uploader_upload_failed_ticker">Odesílání selhalo</string>
+    <string name="uploader_upload_failed_ticker">Odesílání se nezdařilo</string>
     <string name="uploader_upload_failed_content_single">Nepodařilo se nahrát %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Nahrání selhalo, znovu se přihlaste</string>
+    <string name="uploader_upload_failed_credentials_error">Nahrání se nezdařilo, znovu se přihlaste</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_group_current_uploads">Aktuální</string>
@@ -171,7 +171,7 @@
     <string name="downloader_download_in_progress_content">%1$d%% Stahuji %2$s</string>
     <string name="downloader_download_succeeded_ticker">Staženo</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
-    <string name="downloader_download_failed_ticker">Stažení selhalo</string>
+    <string name="downloader_download_failed_ticker">Stažení se nezdařilo</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_not_downloaded_yet">Ještě nestaženo</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
@@ -182,7 +182,7 @@
     <string name="sync_fail_content">Nepodařilo se synchronizovat %1$s</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
-    <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů selhala</string>
+    <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů se nezdařila</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nelze synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nelze synchronizovat %1$d soubory (konflikty: %2$d)</item>
@@ -196,7 +196,7 @@
         <item quantity="many">Nepodařilo se zkopírovat %1$d souborů ze složky %2$s do</item>
         <item quantity="other">Nepodařilo se zkopírovat %1$d souborů ze složky %2$s do</item>
     </plurals>
-    <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
+    <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>
     <string name="foreign_files_move">Přesunout vše</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
     <string name="foreign_files_fail">Některé soubory nebylo možno přesunout</string>
@@ -209,7 +209,7 @@
     
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
-    <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>
+    <string name="pass_code_reenter_your_pass_code">Zopakujte svůj bezpečnostní kód</string>
     <string name="pass_code_remove_your_pass_code">Odstraňte svůj bezpečnostní kód</string>
     <string name="pass_code_mismatch">Bezpečnostní kód se liší</string>
     <string name="pass_code_wrong">Nesprávný bezpečnostní kód</string>
@@ -225,7 +225,7 @@
     <string name="media_err_unsupported">Nepodporovaný kodek</string>
     <string name="media_err_io">Nepodařilo se přečíst soubor médií</string>
     <string name="media_err_malformed">Soubor médií má neplatné kódování</string>
-    <string name="media_err_timeout">Vypršel čas při pokusu o přehrání</string>
+    <string name="media_err_timeout">Překročen časový limit pokusu o přehrání souboru</string>
     <string name="media_err_invalid_progressive_playback">Multimediální soubor nelze proudově odesílat</string>
     <string name="media_err_unknown">Multimediální soubor nemůže být přehrán s výchozím přehrávačem</string>
     <string name="media_err_playing">Neočekávaná chyba při pokusu o přehrání %1$s</string>
@@ -233,7 +233,7 @@
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_forward_description">Tlačítko Rychle vpřed</string>
 
-    <string name="auth_getting_authorization">Příjem autorizace…</string>
+    <string name="auth_getting_authorization">Získávání pověření…</string>
     <string name="auth_trying_to_login">Pokus o přihlášení…</string>
 	<string name="auth_no_net_conn_title">Žádné síťové spojení</string>
 	<string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
@@ -250,17 +250,17 @@
 	<string name="auth_timeout_title">Serveru trvalo příliš dlouho odpovědět</string>
 	<string name="auth_incorrect_address_title">Chybný formát adresy serveru</string>
 	<string name="auth_ssl_general_error_title">Inicializace SSL selhala</string>
-	<string name="auth_ssl_unverified_server_title">Nemohu ověřit SSL identitu serveru</string>
+	<string name="auth_ssl_unverified_server_title">Nedaří se ověřit SSL identitu serveru</string>
 	<string name="auth_bad_oc_version_title">Nerozpoznaná verze serveru</string>
-	<string name="auth_wrong_connection_title">Nemohu navázat spojení</string>
+	<string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
 	<string name="auth_secure_connection">Zabezpečené spojení navázáno</string>
 	<string name="auth_unauthorized">Chybné přihlašovací jméno nebo heslo</string>
 	<string name="auth_oauth_error">Neúspěšné přihlášení</string>
 	<string name="auth_oauth_error_access_denied">Přístup zamítnut autorizačním serverem</string>
 	<string name="auth_wtf_reenter_URL">Neočekávaný stav; zadejte prosím znovu adresu serveru</string>
-	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
-	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
+	<string name="auth_expired_oauth_token_toast">Platnost vašeho přihlášení skončila. Přihlaste se znovu</string>
+	<string name="auth_expired_basic_auth_toast">Zadejte stávající heslo</string>
+	<string name="auth_expired_saml_sso_token_toast">Platnost vaší relace skončila. Přihlaste se znovu</string>
     <string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru…</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
@@ -285,28 +285,28 @@
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii, použijte jiné jméno</string>
     <string name="rename_server_fail_msg">Přejmenování nemožné, jméno již použito</string>
-    <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
+    <string name="sync_file_nothing_to_do_msg">Obsah souboru už je synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Jméno souboru obsahuje aspoň jeden neplatný znak</string>
     <string name="filename_empty">Soubor je třeba nějak nazvat</string>
-    <string name="wait_a_moment">Počkej chvíli…</string>
+    <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
-    <string name="activity_chooser_title">Odeslat odkaz…</string>
+    <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string>
-    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru…</string>
+    <string name="oauth_login_connection">Připojování k OAuth 2.0 serveru…</string>
         
     <string name="ssl_validator_header">Identitu serveru se nepodařilo ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
-    <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
+    <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru skončila platnost</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datum platnosti certifikátu je v budoucnosti</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL neodpovídá hodnotě hostname certifikátu</string>
     <string name="ssl_validator_question">Přejete si přesto tomuto certifikátu důvěřovat?</string>
     <string name="ssl_validator_not_saved">Certifikát nelze uložit</string>
-    <string name="ssl_validator_btn_details_see">Detaily</string>
+    <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_btn_details_hide">Skrýt</string>
     <string name="ssl_validator_label_subject">Vydáno pro:</string>
     <string name="ssl_validator_label_issuer">Vydal:</string>
@@ -774,4 +774,9 @@
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
     <string name="folder_already_exists">Složka už existuje</string>
-    </resources>
+    <string name="folder_confirm_create">Vytvořit</string>
+    <string name="file_delete">Smazat</string>
+    <string name="file_keep">Ponechat</string>
+    <string name="file_rename">Přejmenovat</string>
+    <string name="fab_label">Přidat nebo nahrát</string>
+</resources>
