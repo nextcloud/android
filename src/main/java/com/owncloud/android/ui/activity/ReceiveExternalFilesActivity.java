@@ -131,6 +131,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String URL_FILE_SUFFIX = ".url";
     public static final String WEBLOC_FILE_SUFFIX = ".webloc";
     public static final String DESKTOP_FILE_SUFFIX = ".desktop";
+    public static final int SINGLE_PARENT = 1;
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
@@ -1063,7 +1064,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             case android.R.id.home:
-                if (mParents.size() > 1) {
+                if (mParents.size() > SINGLE_PARENT) {
                     onBackPressed();
                 }
                 break;
