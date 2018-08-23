@@ -345,7 +345,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 // Create public/private key pair
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
-                PrivateKey privateKey = keyPair.getPrivate();
 
                 // get user id
                 String userID;
@@ -369,13 +368,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 if (result.isSuccess()) {
                     Log_OC.d(TAG, "public key success");
-
                     publicKey = (String) result.getData().get(0);
                 } else {
                     keyResult = KEY_FAILED;
                     return "";
                 }
 
+                PrivateKey privateKey = keyPair.getPrivate();
                 String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
                 String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
                 String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString,

@@ -946,13 +946,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         Thread t = new Thread(new Runnable() {
             public void run() {
                 Context context = MainApp.getAppContext();
-                AccountManager mAccountMgr = AccountManager.get(context);
                 Account account = AccountUtils.getCurrentOwnCloudAccount(context);
 
                 if (account == null) {
                     return;
                 }
 
+                AccountManager mAccountMgr = AccountManager.get(context);
                 String userId = mAccountMgr.getUserData(account,
                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 

@@ -571,12 +571,6 @@ public class FileUploader extends Service
                 mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
             }
 
-            boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-            int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
-
-            boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
-            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
                 return Service.START_NOT_STICKY;
@@ -611,6 +605,10 @@ public class FileUploader extends Service
             }
             // at this point variable "OCFile[] files" is loaded correctly.
 
+            boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
+            int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
+            boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
+            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
             String uploadKey;
             UploadFileOperation newUpload;
             try {

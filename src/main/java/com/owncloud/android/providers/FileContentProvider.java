@@ -92,12 +92,11 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
-        int count;
-
         if (isCallerNotAllowed()) {
             return -1;
         }
 
+        int count;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
