@@ -363,11 +363,9 @@ public class FileMenuFilter {
             OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            synchronizing = (
-                    anyFileSynchronizing(opsBinder) ||      // comparing local and remote
+            synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
                             anyFileDownloading(downloaderBinder) ||
-                            anyFileUploading(uploaderBinder)
-            );
+                            anyFileUploading(uploaderBinder);
         }
         return synchronizing;
     }

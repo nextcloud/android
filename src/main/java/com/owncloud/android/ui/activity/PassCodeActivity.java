@@ -315,8 +315,7 @@ public class    PassCodeActivity extends AppCompatActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {
-            result = (mPassCodeDigits[i] != null) &&
-                    mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
+            result = mPassCodeDigits[i] != null && mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
         }
         return result;
     }
@@ -332,7 +331,7 @@ public class    PassCodeActivity extends AppCompatActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeEditTexts.length && result; i++) {
-            result = ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
+            result = (mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]);
         }
         return result;
     }

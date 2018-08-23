@@ -355,7 +355,6 @@ public class OperationsService extends Service {
             }
         }
 
-
         public boolean dispatchResultIfFinished(int operationId,
                                                 OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
@@ -363,12 +362,10 @@ public class OperationsService extends Service {
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
                 return true;
-                //Log_OC.e(TAG, "Sending callback later");
             } else {
-                return (!mServiceHandler.mPendingOperations.isEmpty());
+                return !mServiceHandler.mPendingOperations.isEmpty();
             }
         }
-        
         
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account' is

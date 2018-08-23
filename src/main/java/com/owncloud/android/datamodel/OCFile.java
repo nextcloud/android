@@ -466,8 +466,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         Log_OC.d(TAG, "OCFile name changing from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
                 !mRemotePath.equals(ROOT_PATH)) {
-            String parent = (new File(this.getRemotePath())).getParent();
-            parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
+            String parent = new File(this.getRemotePath()).getParent();
+            parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
             mRemotePath = parent + name;
             if (isFolder()) {
                 mRemotePath += PATH_SEPARATOR;

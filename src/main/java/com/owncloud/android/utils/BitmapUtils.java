@@ -257,7 +257,7 @@ public class BitmapUtils {
         }
 
         if (3 * h < 2) {
-            return p + ((q - p) * 6 * ((2.0f / 3.0f) - h));
+            return p + ((q - p) * 6 * (2.0f / 3.0f - h));
         }
 
         return p;

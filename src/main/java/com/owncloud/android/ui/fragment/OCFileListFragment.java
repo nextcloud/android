@@ -306,14 +306,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         Bundle args = getArguments();
-        mOnlyFoldersClickable = (args != null) && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
-        boolean hideItemOptions = (args != null) && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
+        mOnlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
+        boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
         mAdapter = new OCFileListAdapter(getActivity(), mContainerActivity, this, hideItemOptions,
                 isGridViewPreferred(mFile));
         setRecyclerViewAdapter(mAdapter);
 
-        mHideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
+        mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
 
         if (mHideFab) {
             setFabEnabled(false);

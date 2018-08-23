@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  * <p>
  * Copyright (C) 2016 ownCloud Inc.
@@ -196,29 +196,29 @@ public class MimeTypeUtil {
      * @return 'True' if the mime type defines image
      */
     public static boolean isImage(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("image/") &&
-                !mimeType.toLowerCase(Locale.ROOT).contains("djvu"));
+        return mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("image/") &&
+                !mimeType.toLowerCase(Locale.ROOT).contains("djvu");
     }
 
     /**
      * @return 'True' the mime type defines video
      */
     public static boolean isVideo(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("video/"));
+        return mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("video/");
     }
 
     /**
      * @return 'True' the mime type defines audio
      */
     public static boolean isAudio(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("audio/"));
+        return mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("audio/");
     }
 
     /**
      * @return 'True' if mime type defines text
      */
     public static boolean isText(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("text/"));
+        return mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("text/");
     }
 
     /**
@@ -273,8 +273,8 @@ public class MimeTypeUtil {
      * @return 'True' if the file contains an image
      */
     public static boolean isImage(ServerFileInterface file) {
-        return (MimeTypeUtil.isImage(file.getMimeType())
-                || MimeTypeUtil.isImage(getMimeTypeFromPath(file.getRemotePath())));
+        return MimeTypeUtil.isImage(file.getMimeType())
+                || MimeTypeUtil.isImage(getMimeTypeFromPath(file.getRemotePath()));
     }
 
     /**

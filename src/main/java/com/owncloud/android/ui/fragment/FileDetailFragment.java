@@ -508,10 +508,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if (transferring ||
-                    (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) ||
-                    (uploaderBinder != null && uploaderBinder.isUploading(account, file))
-                    ) {
+            if (transferring
+                    || (downloaderBinder != null && downloaderBinder.isDownloading(account, file))
+                    || (uploaderBinder != null && uploaderBinder.isUploading(account, file))) {
                 setButtonsForTransferring();
 
             } else if (file.isDown()) {
@@ -544,7 +543,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return 'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return (getFile() != null && account != null && layout == R.layout.file_details_fragment);
+        return getFile() != null && account != null && layout == R.layout.file_details_fragment;
     }
 
     /**
