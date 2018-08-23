@@ -98,6 +98,7 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -881,7 +882,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void saveTextsFromIntent(Intent intent) {
-        if (!"text/plain".equals(intent.getType())) {
+        if (!MimeType.TEXT_PLAIN.equals(intent.getType())) {
             return;
         }
         mUploadFromTmpFile = true;

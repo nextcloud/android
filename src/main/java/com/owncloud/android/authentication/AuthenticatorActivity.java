@@ -188,6 +188,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String REGULAR_SERVER_INPUT_TYPE = "regular";
     public static final String SUBDOMAIN_SERVER_INPUT_TYPE = "prefix";
     public static final String DIRECTORY_SERVER_INPUT_TYPE = "suffix";
+    public static final int NO_ICON = 0;
 
     /// parameters from EXTRAs in starter Intent
     private byte mAction;
@@ -1989,7 +1990,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == 0 && "".equals(mServerStatusText)) {
+        if (mServerStatusIcon == NO_ICON && "".equals(mServerStatusText)) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);
@@ -2004,7 +2005,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the interactions with the OAuth authorization server.
      */
     private void showAuthStatus() {
-        if (mAuthStatusIcon == 0 && "".equals(mAuthStatusText)) {
+        if (mAuthStatusIcon == NO_ICON && "".equals(mAuthStatusText)) {
             mAuthStatusView.setVisibility(View.INVISIBLE);
         } else {
             mAuthStatusView.setText(mAuthStatusText);

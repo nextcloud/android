@@ -65,6 +65,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.FileInputStream;
@@ -492,7 +493,7 @@ public class PreviewImageFragment extends FileFragment {
                                 Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                                 break;
                             } else {
-                                if ("image/jpeg".equalsIgnoreCase(ocFile.getMimeType())) {
+                                if (MimeType.JPEG.equalsIgnoreCase(ocFile.getMimeType())) {
                                     // Rotate image, obeying exif tag.
                                     bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath);
                                 }
