@@ -423,7 +423,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         return files;
     }
 
-    private List<String> getDisplayFilePathList(File[] files) {
+    private List<String> getDisplayFilePathList(File... files) {
         List<String> filePaths = null;
 
         if (files != null && files.length > 0) {

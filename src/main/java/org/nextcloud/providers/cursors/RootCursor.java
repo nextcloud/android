@@ -41,7 +41,7 @@ public class RootCursor extends MatrixCursor {
             Root.COLUMN_FLAGS
     };
 
-    public RootCursor(String[] projection) {
+    public RootCursor(String... projection) {
         super(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
     }
 

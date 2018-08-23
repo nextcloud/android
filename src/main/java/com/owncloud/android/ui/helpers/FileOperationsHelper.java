@@ -343,7 +343,7 @@ public class FileOperationsHelper {
         return openFileWithIntent;
     }
 
-    private Uri getFileUri(OCFile file, String[] officeExtensions) {
+    private Uri getFileUri(OCFile file, String... officeExtensions) {
         if (file.getFileName().contains(".") &&
                 Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
                         lastIndexOf(".") + 1, file.getFileName().length())) &&

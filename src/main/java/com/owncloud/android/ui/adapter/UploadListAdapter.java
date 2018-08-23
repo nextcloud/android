@@ -605,7 +605,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             return items[position];
         }
 
-        public void setItems(OCUpload[] items) {
+        public void setItems(OCUpload... items) {
             this.items = items;
         }
 
