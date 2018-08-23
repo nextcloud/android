@@ -37,7 +37,7 @@ public class FileCursor extends MatrixCursor {
             Document.COLUMN_FLAGS, Document.COLUMN_LAST_MODIFIED
     };
 
-    public FileCursor(String[] projection) {
+    public FileCursor(String... projection) {
         super(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
     }
 

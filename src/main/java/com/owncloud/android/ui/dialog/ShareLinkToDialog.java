@@ -65,7 +65,7 @@ public class ShareLinkToDialog  extends DialogFragment {
     private ActivityAdapter mAdapter;
     private Intent mIntent;
     
-    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude) {
+    public static ShareLinkToDialog newInstance(Intent intent, String... packagesToExclude) {
         ShareLinkToDialog f = new ShareLinkToDialog();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INTENT, intent);

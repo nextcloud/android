@@ -109,7 +109,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int delete(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int delete(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         if (isCallerNotAllowed()) {
             return -1;
         }
@@ -659,7 +659,7 @@ public class FileContentProvider extends ContentProvider {
             Uri uri,
             ContentValues values,
             String selection,
-            String[] selectionArgs
+            String... selectionArgs
     ) {
         switch (mUriMatcher.match(uri)) {
             case DIRECTORY:
