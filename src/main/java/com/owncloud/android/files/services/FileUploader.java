@@ -399,11 +399,10 @@ public class FileUploader extends Service
             boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
 
             for ( OCUpload failedUpload: failedUploads) {
-                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
+                accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
+                resultMatch = uploadResult == null || uploadResult.equals(failedUpload.getLastResult());
                 if (accountMatch && resultMatch) {
-                    if (currentAccount == null ||
-                            !currentAccount.name.equals(failedUpload.getAccountName())) {
+                    if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
                         currentAccount = failedUpload.getAccount(context);
                     }
 
@@ -1217,15 +1216,14 @@ public class FileUploader extends Service
             !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
             !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
 
-            int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
+            int tickerId = uploadResult.isSuccess() ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
 
             String content;
 
             // check credentials error
             boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(uploadResult.getCode());
-            tickerId = (needsToUpdateCredentials) ?
-                    R.string.uploader_upload_failed_credentials_error : tickerId;
+            tickerId = needsToUpdateCredentials ? R.string.uploader_upload_failed_credentials_error : tickerId;
 
             mNotificationBuilder
                     .setTicker(getString(tickerId))

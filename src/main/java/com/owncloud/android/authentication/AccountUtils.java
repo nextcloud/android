@@ -15,7 +15,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.authentication;
@@ -34,12 +33,14 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 
-
-public class AccountUtils {
+/**
+ * Helper class for dealing with accounts.
+ */
+public final class AccountUtils {
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     public static final int ACCOUNT_VERSION = 1;
-    public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
+    //public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
     public static final String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
 
     private AccountUtils() {
@@ -152,10 +153,8 @@ public class AccountUtils {
     public static boolean setCurrentOwnCloudAccount(final Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
-            boolean found;
             for (final Account account : getAccounts(context)) {
-                found = (account.name.equals(accountName));
-                if (found) {
+                if (accountName.equals(account.name)) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
                     appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
                     appPrefs.apply();

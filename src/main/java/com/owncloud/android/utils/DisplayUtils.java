@@ -241,7 +241,6 @@ public class DisplayUtils {
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
@@ -261,7 +260,7 @@ public class DisplayUtils {
 
         int hostEnd = url.substring(hostStart).indexOf("/");
         // Handle URL which doesn't have a path (path is implicitly '/')
-        hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+        hostEnd = hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd;
 
         String host = urlNoDots.substring(hostStart, hostEnd);
         host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);

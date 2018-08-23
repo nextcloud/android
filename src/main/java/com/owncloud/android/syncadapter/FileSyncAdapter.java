@@ -316,12 +316,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      *                              synchronization
      */
     private boolean isFinisher(RemoteOperationResult failedResult) {
-        if  (failedResult != null) {
+        if (failedResult != null) {
             RemoteOperationResult.ResultCode code = failedResult.getCode();
-            return (code.equals(RemoteOperationResult.ResultCode.SSL_ERROR) ||
-                    code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) ||
-                    code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION) ||
-                    code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED));
+            return code.equals(RemoteOperationResult.ResultCode.SSL_ERROR)
+                    || code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)
+                    || code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION)
+                    || code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
         }
         return false;
     }
@@ -522,8 +522,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * @param builder
      */
     private void showNotification(int id, NotificationCompat.Builder builder) {
-        NotificationManager notificationManager = ((NotificationManager) getContext().
-                getSystemService(Context.NOTIFICATION_SERVICE));
+        NotificationManager notificationManager = (NotificationManager) getContext().
+                getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);

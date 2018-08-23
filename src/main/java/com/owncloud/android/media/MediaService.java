@@ -426,9 +426,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private void tryToGetAudioFocus() {
         if (mAudioFocus != AudioFocus.FOCUS
                 && mAudioManager != null
-                && (AudioManager.AUDIOFOCUS_REQUEST_GRANTED == mAudioManager.requestAudioFocus(this,
+                && AudioManager.AUDIOFOCUS_REQUEST_GRANTED == mAudioManager.requestAudioFocus(this,
                 AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN))
+                AudioManager.AUDIOFOCUS_GAIN)
                 ) {
             mAudioFocus = AudioFocus.FOCUS;
         }

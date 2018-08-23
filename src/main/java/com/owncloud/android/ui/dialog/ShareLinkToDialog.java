@@ -165,8 +165,8 @@ public class ShareLinkToDialog  extends DialogFragment {
         }
         
         private View newView(ViewGroup parent) {
-            return(((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                    inflate(R.layout.activity_row, parent, false));
+            return((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                    inflate(R.layout.activity_row, parent, false);
         }
         
         private void bindView(int position, View row) {
@@ -176,5 +176,4 @@ public class ShareLinkToDialog  extends DialogFragment {
             icon.setImageDrawable(getItem(position).loadIcon(mPackageManager));
         }
     }
-    
 }

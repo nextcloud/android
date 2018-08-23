@@ -804,7 +804,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file)));
+        return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file));
     }
 
 
