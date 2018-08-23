@@ -439,12 +439,12 @@ public class PreviewImageFragment extends FileFragment {
         protected LoadImage doInBackground(OCFile... params) {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE);
 
-            Bitmap bitmapResult = null;
-            Drawable drawableResult = null;
-
             if (params.length != 1) {
                 return null;
             }
+
+            Bitmap bitmapResult = null;
+            Drawable drawableResult = null;
             OCFile ocFile = params[0];
             String storagePath = ocFile.getStoragePath();
             try {

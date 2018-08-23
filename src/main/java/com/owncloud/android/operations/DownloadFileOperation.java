@@ -154,21 +154,21 @@ public class DownloadFileOperation extends RemoteOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
-        File newFile;
-        boolean moved;
-        
-        /// download will be performed to a temporal file, then moved to the final location
-        File tmpFile = new File(getTmpPath());
-        
-        String tmpFolder =  getTmpFolder();
-        
         /// perform the download
         synchronized(mCancellationRequested) {
             if (mCancellationRequested.get()) {
                 return new RemoteOperationResult(new OperationCancelledException());
             }
         }
+
+        RemoteOperationResult result;
+        File newFile;
+        boolean moved;
+
+        /// download will be performed to a temporal file, then moved to the final location
+        File tmpFile = new File(getTmpPath());
+
+        String tmpFolder =  getTmpFolder();
         
         mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
         Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();

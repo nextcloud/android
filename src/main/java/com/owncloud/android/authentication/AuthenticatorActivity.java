@@ -547,7 +547,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (dataString.length() < prefix.length()) {
             throw new IllegalArgumentException("Invalid login URL detected");
         }
-        LoginUrlInfo loginUrlInfo = new LoginUrlInfo();
 
         // format is basically xxx://login/server:xxx&user:xxx&password while all variables are optional
         String data = dataString.substring(prefix.length());
@@ -559,6 +558,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // error illegal number of URL elements detected
             throw new IllegalArgumentException("Illegal number of login URL elements detected: " + values.length);
         }
+
+        LoginUrlInfo loginUrlInfo = new LoginUrlInfo();
 
         for (String value : values) {
             if (value.startsWith("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {

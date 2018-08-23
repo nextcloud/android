@@ -1,4 +1,4 @@
-    /* ownCloud Android client application
+/*   ownCloud Android client application
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.operations;
@@ -36,9 +35,7 @@ public class CopyFileOperation extends SyncOperation {
 
     private String mSrcPath;
     private String mTargetParentPath;
-
     private OCFile mFile;
-
 
     /**
      * Constructor
@@ -63,8 +60,6 @@ public class CopyFileOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
-
         /// 1. check copy validity
         if (mTargetParentPath.startsWith(mSrcPath)) {
             return new RemoteOperationResult(ResultCode.INVALID_COPY_INTO_DESCENDANT);
@@ -84,7 +79,8 @@ public class CopyFileOperation extends SyncOperation {
                 targetPath,
                 false
         );
-        result = operation.execute(client);
+
+        RemoteOperationResult result = operation.execute(client);
 
         /// 3. local copy
         if (result.isSuccess()) {
@@ -94,6 +90,4 @@ public class CopyFileOperation extends SyncOperation {
 
         return result;
     }
-
-
 }
