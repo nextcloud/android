@@ -434,7 +434,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /**
          * True when action mode is finished because the drawer was opened
          */
-        private boolean mActionModeClosedByDrawer = false;
+        private boolean mActionModeClosedByDrawer;
 
         /**
          * Selected items in list when action mode is closed by drawer

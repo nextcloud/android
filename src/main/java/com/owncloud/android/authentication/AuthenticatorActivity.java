@@ -196,8 +196,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /// activity-level references / state
     private final Handler mHandler = new Handler();
-    private ServiceConnection mOperationsServiceConnection = null;
-    private OperationsServiceBinder mOperationsServiceBinder = null;
+    private ServiceConnection mOperationsServiceConnection;
+    private OperationsServiceBinder mOperationsServiceBinder;
     private AccountManager mAccountMgr;
     private Uri mNewCapturedUriFromOAuth2Redirection;
 

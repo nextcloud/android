@@ -269,10 +269,9 @@ public class OperationsService extends Service {
          * Map of listeners that will be reported about the end of operations from a
          * {@link OperationsServiceBinder} instance
          */
-        private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners =
-                new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
+        private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = new ConcurrentHashMap<>();
 
-        private ServiceHandler mServiceHandler = null;
+        private ServiceHandler mServiceHandler;
 
         public OperationsServiceBinder(ServiceHandler serviceHandler) {
             mServiceHandler = serviceHandler;
@@ -399,10 +398,10 @@ public class OperationsService extends Service {
 
 
         private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
-                new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
-        private RemoteOperation mCurrentOperation = null;
-        private Target mLastTarget = null;
-        private OwnCloudClient mOwnCloudClient = null;
+                new ConcurrentLinkedQueue<>();
+        private RemoteOperation mCurrentOperation;
+        private Target mLastTarget;
+        private OwnCloudClient mOwnCloudClient;
         private FileDataStorageManager mStorageManager;
         
         
@@ -420,7 +419,6 @@ public class OperationsService extends Service {
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
-
         
         /**
          * Performs the next operation in the queue

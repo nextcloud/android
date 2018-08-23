@@ -283,8 +283,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
-        int mLastPercent = 0;
-        WeakReference<ProgressBar> mProgressBar = null;
+        int mLastPercent;
+        WeakReference<ProgressBar> mProgressBar;
 
         ProgressListener(ProgressBar progressBar) {
             mProgressBar = new WeakReference<>(progressBar);

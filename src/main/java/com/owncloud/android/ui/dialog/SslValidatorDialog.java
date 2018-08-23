@@ -54,7 +54,7 @@ public class SslValidatorDialog extends Dialog {
     private final static String TAG = SslValidatorDialog.class.getSimpleName();
 
     private OnSslValidatorListener mListener;
-    private CertificateCombinedException mException = null;
+    private CertificateCombinedException mException;
     private View mView;
     
     

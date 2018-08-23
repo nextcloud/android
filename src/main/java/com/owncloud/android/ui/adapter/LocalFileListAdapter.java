@@ -68,7 +68,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<File> mFiles = new ArrayList<>();
     private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
-    private boolean gridView = false;
+    private boolean gridView;
     private LocalFileListFragmentInterface localFileListFragmentInterface;
     private Set<File> checkedFiles;
 
