@@ -89,8 +89,6 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         // keep the state of the fragment on configuration changes
         setRetainInstance(true);
 
-        view = null;
-
         file = getArguments().getParcelable(KEY_OCFILE);
         hideNcSharingOptions = getArguments().getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false);
         sharingPublicPasswordEnforced = getArguments().getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false);
