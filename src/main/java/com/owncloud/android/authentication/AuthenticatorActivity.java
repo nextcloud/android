@@ -183,6 +183,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
     public static final String HTTPS_PROTOCOL = "https://";
     public static final String HTTP_PROTOCOL = "http://";
+    public static final String DOTFILE_DEFAULT_URL = "arquivos.dotfile.com.br";
 
     public static final String REGULAR_SERVER_INPUT_TYPE = "regular";
     public static final String SUBDOMAIN_SERVER_INPUT_TYPE = "prefix";
@@ -680,7 +681,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// step 2 - set properties of UI elements (text, visibility, enabled...)
             mHostUrlInput = findViewById(R.id.hostUrlInput);
             // Convert IDN to Unicode
-            mHostUrlInput.setText(DisplayUtils.convertIdn(mServerInfo.mBaseUrl, false));
+            mHostUrlInput.setText(DisplayUtils.convertIdn(DOTFILE_DEFAULT_URL, false));
             if (mAction != ACTION_CREATE) {
                 /// lock things that should not change
                 mHostUrlInput.setEnabled(false);
