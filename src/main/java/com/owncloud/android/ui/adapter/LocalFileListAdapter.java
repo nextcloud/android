@@ -133,7 +133,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void addAllFilesToCheckedFiles() {
-        checkedFiles.addAll(mFiles);
+        for (File file : mFiles) {
+
+            // only select files
+            if (file.isFile()) {
+                checkedFiles.add(file);
+            }
+
+        }
     }
 
     public void removeAllFilesFromCheckedFiles() {
