@@ -154,7 +154,7 @@ public class MainApp extends MultiDexApplication {
             Log_OC.d("Debug", "start logging");
         }
 
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
                 Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
                 m.invoke(null);

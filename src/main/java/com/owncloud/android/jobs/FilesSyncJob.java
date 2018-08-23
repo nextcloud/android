@@ -47,6 +47,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PowerUtils;
 
@@ -117,8 +118,8 @@ public class FilesSyncJob extends Job {
 
                     if (MediaFolderType.IMAGE == syncedFolder.getType()) {
                         String mimeTypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-                        if ("image/jpeg".equalsIgnoreCase(mimeTypeString) || "image/tiff".
-                                equalsIgnoreCase(mimeTypeString)) {
+                        if (MimeType.JPEG.equalsIgnoreCase(mimeTypeString)
+                                || MimeType.TIFF.equalsIgnoreCase(mimeTypeString)) {
                             try {
                                 ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
                                 String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
