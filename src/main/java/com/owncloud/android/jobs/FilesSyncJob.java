@@ -65,7 +65,6 @@ import java.util.TimeZone;
  */
 public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
-
     public static final String SKIP_CUSTOM = "skipCustom";
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
 
@@ -103,14 +102,16 @@ public class FilesSyncJob extends Job {
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
+        Locale currentLocale = context.getResources().getConfiguration().locale;
+        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
+        sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.getType())) {
                 for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
                         Long.toString(syncedFolder.getId()))) {
                     File file = new File(path);
-
                     Long lastModificationTime = file.lastModified();
-                    final Locale currentLocale = context.getResources().getConfiguration().locale;
 
                     if (MediaFolderType.IMAGE == syncedFolder.getType()) {
                         String mimeTypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
@@ -121,13 +122,9 @@ public class FilesSyncJob extends Job {
                                 String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
                                 if (!TextUtils.isEmpty(exifDate)) {
                                     ParsePosition pos = new ParsePosition(0);
-                                    SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
-                                            currentLocale);
-                                    sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
                                     Date dateTime = sFormatter.parse(exifDate, pos);
                                     lastModificationTime = dateTime.getTime();
                                 }
-
                             } catch (Exception e) {
                                 Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                             }
