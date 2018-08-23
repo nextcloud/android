@@ -113,7 +113,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private boolean mIgnoreFirstSavedState;
 
-    private LoadBitmapTask mLoadBitmapTask = null;
+    private LoadBitmapTask mLoadBitmapTask;
 
     /**
      * Public factory method to create a new fragment that previews an image.

@@ -100,10 +100,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private static final float DUCK_VOLUME = 0.1f;
 
     /** Media player instance */
-    private MediaPlayer mPlayer = null;
+    private MediaPlayer mPlayer;
 
     /** Reference to the system AudioManager */
-    private AudioManager mAudioManager = null;
+    private AudioManager mAudioManager;
 
 
     /** Values to indicate the state of the service */

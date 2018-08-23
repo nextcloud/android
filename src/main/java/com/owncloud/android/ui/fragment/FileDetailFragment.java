@@ -676,7 +676,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * Helper class responsible for updating the progress bar shown for file downloading.
      */
     private class ProgressListener implements OnDatatransferProgressListener {
-        private int lastPercent = 0;
+        private int lastPercent;
         private WeakReference<ProgressBar> progressBarReference;
 
         ProgressListener(ProgressBar progressBar) {

@@ -109,7 +109,7 @@ public class MainApp extends MultiDexApplication {
 
     private static String storagePath;
 
-    private static boolean mOnlyOnDevice = false;
+    private static boolean mOnlyOnDevice;
 
     private SharedPreferences appPrefs;
     @SuppressWarnings("unused")

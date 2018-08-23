@@ -50,8 +50,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private Account mAccount;
     private boolean mSyncFileContents;
     private Context mContext;
-
-    private boolean mTransferWasRequested = false;
+    private boolean mTransferWasRequested;
 
     /**
      * When 'false', uploads to the server are not done; only downloads or conflict detection.

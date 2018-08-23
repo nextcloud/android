@@ -101,7 +101,7 @@ public class ExtendedListFragment extends Fragment
     private int maxColumnSizePortrait = 5;
     private int maxColumnSizeLandscape = 10;
 
-    private ScaleGestureDetector mScaleGestureDetector = null;
+    private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
@@ -115,9 +115,9 @@ public class ExtendedListFragment extends Fragment
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
     private ArrayList<Integer> mTops;
-    private int mHeightCell = 0;
+    private int mHeightCell;
 
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
 
     private EmptyRecyclerView mRecyclerView;
 
