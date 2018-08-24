@@ -247,7 +247,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateCapabilities() {
-        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+        GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
         RemoteOperationResult result = getCapabilities.execute(mStorageManager, mContext);
         if (!result.isSuccess()) {
             Log_OC.w(TAG, "Update Capabilities unsuccessfully");

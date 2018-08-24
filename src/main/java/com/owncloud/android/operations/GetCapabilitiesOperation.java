@@ -28,7 +28,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 /**
  * Get and save capabilities from the server
  */
-public class GetCapabilitiesOperarion extends SyncOperation {
+public class GetCapabilitiesOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
