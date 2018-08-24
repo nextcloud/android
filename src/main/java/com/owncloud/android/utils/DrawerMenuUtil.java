@@ -21,13 +21,12 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
-import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -67,16 +66,19 @@ public class DrawerMenuUtil {
         }
     }
 
-    public static void filterTrashbinMenuItems(Menu menu, Account account, ContentResolver contentResolver) {
-        if (account != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
-            OCCapability capability = storageManager.getCapability(account.name);
-
+    public static void filterTrashbinMenuItem(Menu menu, @Nullable Account account, @Nullable OCCapability capability) {
+        if (account != null && capability != null) {
             if (AccountUtils.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
                     capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
                 filterMenuItems(menu, R.id.nav_trashbin);
             }
         }
+    }
+
+    public static void filterActivityMenuItem(Menu menu, @Nullable OCCapability capability) {
+        if (capability != null && capability.isActivityEnabled().isFalse()) {
+                filterMenuItems(menu, R.id.nav_activity);
+            }
     }
 
     public static void removeMenuItem(Menu menu, int id, boolean remove) {

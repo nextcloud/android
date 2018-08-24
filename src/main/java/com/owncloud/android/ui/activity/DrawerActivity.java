@@ -64,6 +64,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
@@ -79,7 +80,7 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
-import com.owncloud.android.operations.GetCapabilitiesOperarion;
+import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
@@ -344,9 +345,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     private void filterDrawerMenu(Menu menu, Account account) {
+        OCCapability capability = null;
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+            capability = storageManager.getCapability(account.name);
+        }
+        
         DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
         DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItems(menu, account, getContentResolver());
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, account, capability);
+        DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
@@ -1355,7 +1363,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
                         && getStorageManager() != null) {
-                    GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
