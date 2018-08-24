@@ -49,13 +49,11 @@ import java.util.Locale;
 /**
  * View containing controls for a {@link MediaPlayer}. 
  *
- * Holds buttons "play / pause", "rewind", "fast forward" 
- * and a progress slider. 
+ * Holds buttons "play / pause", "rewind", "fast forward" and a progress slider. 
  *
- * It synchronizes itself with the state of the 
- * {@link MediaPlayer}.
+ * It synchronizes itself with the state of the {@link MediaPlayer}.
  */
-public class MediaControlView extends FrameLayout /* implements OnLayoutChangeListener, OnTouchListener */ implements OnClickListener, OnSeekBarChangeListener {
+public class MediaControlView extends FrameLayout implements OnClickListener, OnSeekBarChangeListener {
     private static final String TAG = MediaControlView.class.getSimpleName();
 
     private MediaPlayerControl mPlayer;
@@ -89,106 +87,7 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
     @Override
     public void onFinishInflate() {
         super.onFinishInflate();
-        /*
-        if (mRoot != null)
-            initControllerView(mRoot);
-         */
     }
-
-    /* TODO REMOVE
-    public MediaControlView(Context context, boolean useFastForward) {
-        super(context);
-        mContext = context;
-        mUseFastForward = useFastForward;
-        initFloatingWindowLayout();
-        //initFloatingWindow();
-    }
-    */
-
-    /* TODO REMOVE
-    public MediaControlView(Context context) {
-        this(context, true);
-    }
-    */
-    
-    /* T
-    private void initFloatingWindow() {
-        mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
-        mWindow = PolicyManager.makeNewWindow(mContext);
-        mWindow.setWindowManager(mWindowManager, null, null);
-        mWindow.requestFeature(Window.FEATURE_NO_TITLE);
-        mDecor = mWindow.getDecorView();
-        mDecor.setOnTouchListener(mTouchListener);
-        mWindow.setContentView(this);
-        mWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        
-        // While the media controller is up, the volume control keys should
-        // affect the media stream type
-        mWindow.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
-        setFocusable(true);
-        setFocusableInTouchMode(true);
-        setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-        requestFocus();
-    }
-    */
-
-    /*
-    // Allocate and initialize the static parts of mDecorLayoutParams. Must
-    // also call updateFloatingWindowLayout() to fill in the dynamic parts
-    // (y and width) before mDecorLayoutParams can be used.
-    private void initFloatingWindowLayout() {
-        mDecorLayoutParams = new WindowManager.LayoutParams();
-        WindowManager.LayoutParams p = mDecorLayoutParams;
-        p.gravity = Gravity.TOP;
-        p.height = LayoutParams.WRAP_CONTENT;
-        p.x = 0;
-        p.format = PixelFormat.TRANSLUCENT;
-        p.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
-        p.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH;
-        p.token = null;
-        p.windowAnimations = 0; // android.R.style.DropDownAnimationDown;
-    }
-    */
-
-    // Update the dynamic parts of mDecorLayoutParams
-    // Must be called with mAnchor != NULL.
-    /*
-    private void updateFloatingWindowLayout() {
-        int [] anchorPos = new int[2];
-        mAnchor.getLocationOnScreen(anchorPos);
-
-        WindowManager.LayoutParams p = mDecorLayoutParams;
-        p.width = mAnchor.getWidth();
-        p.y = anchorPos[1] + mAnchor.getHeight();
-    }
-    */
-
-    /*
-    // This is called whenever mAnchor's layout bound changes
-    public void onLayoutChange(View v, int left, int top, int right,
-            int bottom, int oldLeft, int oldTop, int oldRight,
-            int oldBottom) {
-        //updateFloatingWindowLayout();
-        if (mShowing) {
-            mWindowManager.updateViewLayout(mDecor, mDecorLayoutParams);
-        }
-    }
-    */
-    
-    /*
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (mShowing) {
-                hide();
-            }
-        }
-            return false;
-    }
-    */
-
 
     public void setMediaPlayer(MediaPlayerControl player) {
         mPlayer = player;
@@ -335,7 +234,6 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             if (uniqueDown && !mPlayer.isPlaying()) {
                 mPlayer.start();
                 updatePausePlay();
-                //show(sDefaultTimeout);
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP
@@ -343,12 +241,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             if (uniqueDown && mPlayer.isPlaying()) {
                 mPlayer.pause();
                 updatePausePlay();
-                //show(sDefaultTimeout);
             }
             return true;
         }
 
-        //show(sDefaultTimeout);
         return super.dispatchKeyEvent(event);
     }
 
@@ -433,16 +329,15 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         }
 
         long duration = mPlayer.getDuration();
-        long newposition = (duration * progress) / 1000L;
-        mPlayer.seekTo((int) newposition);
+        long newPosition = (duration * progress) / 1000L;
+        mPlayer.seekTo((int) newPosition);
         if (mCurrentTime != null) {
-            mCurrentTime.setText(stringForTime((int) newposition));
+            mCurrentTime.setText(stringForTime((int) newPosition));
         }
     }
 
     /**
-     * Called in devices with touchpad when the user starts to adjust the 
-     * position of the seekbar's thumb.
+     * Called in devices with touchpad when the user starts to adjust the position of the seekbar's thumb.
      *
      * Will be followed by several onProgressChanged notifications.
      */
@@ -454,8 +349,7 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
 
     /**
-     * Called in devices with touchpad when the user finishes the
-     * adjusting of the seekbar.
+     * Called in devices with touchpad when the user finishes the adjusting of the seekbar.
      */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
@@ -476,5 +370,4 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(MediaControlView.class.getName());
     }
-
 }
