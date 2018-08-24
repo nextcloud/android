@@ -134,19 +134,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
-    private ArrayList<Parcelable> mStreamsToUpload;
+    private List<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
 
-    private boolean mUploadFromTmpFile = false;
+    private boolean mUploadFromTmpFile;
     private String mSubjectText;
     private String mExtraText;
 
@@ -171,6 +171,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
+        mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
         super.onCreate(savedInstanceState);
 
@@ -194,8 +195,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected void setAccount(Account account, boolean savedAccount) {
-        mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
-
         Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType(this));
         if (accounts.length == 0) {
             Log_OC.i(TAG, "No ownCloud account is available");
@@ -355,14 +354,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mFilenameSuffix = new ArrayList<>();
             mText = new ArrayList<>();
 
-            String subjectText = getArguments().getString(KEY_SUBJECT_TEXT);
-            String extraText = getArguments().getString(KEY_EXTRA_TEXT);
+            String subjectText = "";
+            String extraText = "";
+            if (getArguments() != null) {
+                if (getArguments().getString(KEY_SUBJECT_TEXT) != null) {
+                    subjectText = getArguments().getString(KEY_SUBJECT_TEXT);
+                }
+                if (getArguments().getString(KEY_EXTRA_TEXT) != null) {
+                    extraText = getArguments().getString(KEY_EXTRA_TEXT);
+                }
+            }
 
-            LayoutInflater layout = LayoutInflater.from(getActivity().getBaseContext());
+            LayoutInflater layout = LayoutInflater.from(requireContext());
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             ArrayAdapter<String> adapter
-                    = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item);
+                    = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             int selectPos = 0;
@@ -393,7 +400,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
                 mFileCategory = CATEGORY_URL;
-            } else if (extraText != null && isIntentFromGoogleMap(subjectText, extraText)) {
+            } else if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
                 String texts[] = extraText.split("\n");
                 mText.add(internetShortcutUrlText(texts[2]));
@@ -456,7 +463,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @NonNull
         private Dialog createFilenameDialog(View view, final EditText userInput, final Spinner spinner) {
-            Builder builder = new Builder(getActivity());
+            Builder builder = new Builder(requireActivity());
             builder.setView(view);
             builder.setTitle(R.string.upload_file_dialog_title);
             builder.setPositiveButton(R.string.common_ok, (dialog, id) -> {
@@ -633,7 +640,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
         tmpFiles = sortFileList(tmpFiles);
 
-        if (tmpFiles.size() <= 0) {
+        if (tmpFiles.isEmpty()) {
             return;
         }
         // filter on dirtype
@@ -742,7 +749,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mFile != null) {
             List<OCFile> files = getStorageManager().getFolderContent(mFile, false);
 
-            if (files.size() == 0) {
+            if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
                         R.drawable.ic_list_empty_upload);
             } else {
@@ -835,7 +842,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                         currentSyncTime,
                                                                         false,
                                                                         false,
-                                                                        false,
                                                                         getStorageManager(),
                                                                         getAccount(),
                                                                         getApplicationContext()
@@ -867,8 +873,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
 
-        if (mStreamsToUpload == null || mStreamsToUpload.size() == 0 ||
-                mStreamsToUpload.get(0) == null) {
+        if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
             mStreamsToUpload = null;
             saveTextsFromIntent(intent);
         }

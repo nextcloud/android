@@ -57,16 +57,17 @@ import org.nextcloud.providers.cursors.RootCursor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final String TAG = "DocumentsStorageProvider";
 
-    private FileDataStorageManager mCurrentStorageManager = null;
+    private FileDataStorageManager mCurrentStorageManager;
     private static Map<Long, FileDataStorageManager> mRootIdToStorageManager;
 
     @Override
@@ -291,8 +292,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return !(cancellationSignal != null && cancellationSignal.isCanceled());
     }
 
-    Vector<OCFile> findFiles(OCFile root, String query) {
-        Vector<OCFile> result = new Vector<>();
+    List<OCFile> findFiles(OCFile root, String query) {
+        List<OCFile> result = new ArrayList<>();
         for (OCFile f : mCurrentStorageManager.getFolderContent(root, false)) {
             if (f.isFolder()) {
                 result.addAll(findFiles(f, query));

@@ -183,6 +183,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         return ((FileDetailTabAdapter)viewPager.getAdapter()).getFileDetailSharingFragment();
     }
 
+    /**
+     * return the reference to the file detail activity fragment to communicate with it.
+     *
+     * @return reference to the {@link FileDetailActivitiesFragment}
+     */
+    public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
+        return ((FileDetailTabAdapter) viewPager.getAdapter()).getFileDetailActivitiesFragment();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -448,7 +457,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return (layout == R.layout.empty_list || getFile() == null || account == null);
+        return layout == R.layout.empty_list || getFile() == null || account == null;
     }
 
     /**

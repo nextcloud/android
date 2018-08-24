@@ -41,12 +41,8 @@ public class SparseBooleanArrayParcelable implements Parcelable {
 
             // then pairs of (key, value)s, in the object to wrap
             SparseBooleanArray sba = new SparseBooleanArray();
-            int key;
-            boolean value;
             for (int i = 0; i < size; i++) {
-                key = source.readInt();
-                value = (source.readInt() != 0);
-                sba.put(key, value);
+                sba.put(source.readInt(), source.readInt() != 0);
             }
 
             // wrap SparseBooleanArray

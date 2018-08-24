@@ -69,6 +69,7 @@ import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -85,6 +86,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -95,6 +97,7 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
@@ -137,6 +140,7 @@ import org.parceler.Parcels;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
@@ -154,7 +158,7 @@ public class FileDisplayActivity extends HookActivity
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
-    private RemoteOperationResult mLastSslUntrustedServerResult = null;
+    private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private boolean mDualPane;
     private View mLeftFragmentContainer;
@@ -188,14 +192,14 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToPreview;
 
-    private boolean mSyncInProgress = false;
+    private boolean mSyncInProgress;
 
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
-    private MediaServiceBinder mMediaServiceBinder =  null;
-    private MediaServiceConnection mMediaServiceConnection = null;
+    private MediaServiceBinder mMediaServiceBinder;
+    private MediaServiceConnection mMediaServiceConnection;
 
     private String searchQuery;
 
@@ -235,7 +239,6 @@ public class FileDisplayActivity extends HookActivity
         } else {
             setupDrawer(R.id.nav_all_files);
         }
-
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -299,6 +302,7 @@ public class FileDisplayActivity extends HookActivity
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         upgradeNotificationForInstantUpload();
+        checkOutdatedServer();
     }
 
     private Activity getActivity() {
@@ -348,6 +352,28 @@ public class FileDisplayActivity extends HookActivity
                     })
                     .setIcon(R.drawable.nav_synced_folders)
                     .show();
+        }
+    }
+
+    private void checkOutdatedServer() {
+        Account account = getAccount();
+
+        if (getResources().getBoolean(R.bool.show_outdated_server_warning) && account != null) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+
+            int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account,
+                    WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE);
+
+            if (MainApp.getVersionCode() > lastSeenVersion) {
+                OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
+
+                if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+                    DisplayUtils.showServerOutdatedSnackbar(this);
+                }
+
+                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE,
+                        String.valueOf(MainApp.getVersionCode()));
+            }
         }
     }
 
@@ -481,7 +507,7 @@ public class FileDisplayActivity extends HookActivity
                 updateActionBarTitleAndHomeButton(file);
             } else {
                 cleanSecondFragment();
-                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimetype())) {
+                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
                     startContactListFragment(file);
                 } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                     startTextPreview(file, false);
@@ -503,7 +529,7 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)) {
+        if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
         } else if (RESTART.equals(intent.getAction())) {
@@ -554,17 +580,11 @@ public class FileDisplayActivity extends HookActivity
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (isFederated) {
-            if (com.owncloud.android.authentication.AccountUtils
-                    .getServerVersion(getAccount()).isNotReshareableFederatedSupported()) {
-                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
-                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
-            } else {
-                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9 :
-                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_UP_TO_OC9);
-            }
+            return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
+                    OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9;
         } else {
-            return (getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
-                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE);
+            return getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 
@@ -588,7 +608,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Replaces the second fragment managed by the activity with the received as
      * a parameter.
-     * <p/>
+     *
      * Assumes never will be more than two fragments managed at the same time.
      *
      * @param fragment New second Fragment to set.
@@ -705,13 +725,15 @@ public class FileDisplayActivity extends HookActivity
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
                     if (success) {
-                        mWaitingToPreview = getStorageManager().getFileById(
-                                mWaitingToPreview.getFileId());   // update the file from database,
-                        // for the local storage path
+                        // update the file from database, for the local storage path
+                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
+                        
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            startMediaPreview(mWaitingToPreview, 0, true, true);
+                            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                    .isMediaStreamingSupported();
+                            startMediaPreview(mWaitingToPreview, 0, true, true, streaming);
                             detailsFragmentChanged = true;
-                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimetype())) {
+                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
                             startContactListFragment(mWaitingToPreview);
                             detailsFragmentChanged = true;
                         } else if (PreviewTextFragment.canBePreviewed(mWaitingToPreview)) {
@@ -789,6 +811,11 @@ public class FileDisplayActivity extends HookActivity
                     setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     mDrawerToggle.syncState();
+
+                    if (getListOfFilesFragment() != null) {
+                        getListOfFilesFragment().setSearchFragment(false);
+                        getListOfFilesFragment().refreshDirectory();
+                    }
                 } else {
                     searchView.post(new Runnable() {
                         @Override
@@ -974,9 +1001,7 @@ public class FileDisplayActivity extends HookActivity
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            // default, as fallback
-            int behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-
+            int behaviour;
             switch (resultCode) {
                 case UploadFilesActivity.RESULT_OK_AND_MOVE:
                     behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
@@ -987,6 +1012,10 @@ public class FileDisplayActivity extends HookActivity
                     break;
 
                 case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                    break;
+
+                default:
                     behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
                     break;
             }
@@ -1113,7 +1142,7 @@ public class FileDisplayActivity extends HookActivity
             // all closed
 
             //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-            if ((getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane) {
+            if (ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction()) && !mDualPane) {
                 getIntent().setAction(null);
                 getIntent().putExtra(EXTRA_FILE, (OCFile) null);
                 startImagePreview(getFile(), false);
@@ -1166,11 +1195,11 @@ public class FileDisplayActivity extends HookActivity
         }
 
         revertBottomNavigationBarToAllFiles();
-        // refresh list of files
 
+        // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
-        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
+        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()
                 && startFile == null) {
             refreshListOfFilesFragment(false);
         } else {
@@ -1179,7 +1208,7 @@ public class FileDisplayActivity extends HookActivity
         }
 
         // Listen for sync messages
-        if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
+        if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -1203,8 +1232,14 @@ public class FileDisplayActivity extends HookActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
+        // setup drawer
+        if (MainApp.isOnlyOnDevice()) {
+            setDrawerMenuItemChecked(R.id.nav_on_device);
+        } else {
+            setDrawerMenuItemChecked(R.id.nav_all_files);
+        }
+        
         Log_OC.v(TAG, "onResume() end");
-
     }
 
 
@@ -1296,25 +1331,28 @@ public class FileDisplayActivity extends HookActivity
                             setFile(currentFile);
                         }
 
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
-                                synchResult != null && !synchResult.isSuccess()) {
+                                synchResult != null) {
 
-                            /// TODO refactor and make common
-
-                            if (checkForRemoteOperationError(synchResult)) {
-
-                                requestCredentialsUpdate(context);
-
-                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                    synchResult.getCode())) {
-
-                                showUntrustedCertDialog(synchResult);
+                            if (synchResult.isSuccess()) {
+                                hideInfoBox();
+                            } else {
+                                // TODO refactor and make common
+                                if (checkForRemoteOperationError(synchResult)) {
+                                    requestCredentialsUpdate(context);
+                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
+                                        synchResult.getCode())) {
+                                    showUntrustedCertDialog(synchResult);
+                                } else if (ResultCode.MAINTENANCE_MODE.equals(synchResult.getCode())) {
+                                    showInfoBox(R.string.maintenance_mode);
+                                } else if (ResultCode.NO_NETWORK_CONNECTION.equals(synchResult.getCode()) ||
+                                        ResultCode.HOST_NOT_AVAILABLE.equals(synchResult.getCode())) {
+                                    showInfoBox(R.string.offline_mode);
+                                }
                             }
-
-
                         }
                         removeStickyBroadcast(intent);
                         DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
@@ -1384,8 +1422,8 @@ public class FileDisplayActivity extends HookActivity
                 String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
-                boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) &&
-                        (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
+                boolean isDescendant = currentDir != null && uploadedRemotePath != null &&
+                        uploadedRemotePath.startsWith(currentDir.getRemotePath());
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
@@ -1463,7 +1501,7 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     * <p/>
+     *
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
@@ -1489,8 +1527,9 @@ public class FileDisplayActivity extends HookActivity
                 }
 
                 if (mWaitingToSend != null) {
-                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
-                    if (mWaitingToSend.isDown() && downloadBehaviour != null) {
+                    // update file after downloading
+                    mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
+                    if (mWaitingToSend != null && mWaitingToSend.isDown() && downloadBehaviour != null) {
                         switch (downloadBehaviour) {
                             case OCFileListFragment.DOWNLOAD_SEND:
                                 String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
@@ -1531,8 +1570,7 @@ public class FileDisplayActivity extends HookActivity
 
         private boolean isSameAccount(Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            return (accountName != null && getAccount() != null &&
-                    accountName.equals(getAccount().name));
+            return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
         }
     }
 
@@ -1726,6 +1764,8 @@ public class FileDisplayActivity extends HookActivity
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UnshareOperation) {
             onUpdateShareInformation(result, R.string.unsharing_failed);
+        } else if (operation instanceof RestoreFileVersionOperation) {
+            onRestoreFileVersionOperationFinish(result);
         }
     }
 
@@ -1758,15 +1798,21 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        DisplayUtils.showSnackMessage(
-                this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-        );
+
+        if (!operation.isInBackground()) {
+            DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
+                    getResources()));
+        }
 
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
             tryStopPlaying(removedFile);
             FileFragment second = getSecondFragment();
-            if (second != null && removedFile.equals(second.getFile())) {
+
+            // check if file is still available, if so do nothing
+            boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
+
+            if (second != null && !fileAvailable && removedFile.equals(second.getFile())) {
                 if (second instanceof PreviewMediaFragment) {
                     ((PreviewMediaFragment) second).stopPreview(true);
                 }
@@ -1782,6 +1828,34 @@ public class FileDisplayActivity extends HookActivity
                 mLastSslUntrustedServerResult = result;
                 showUntrustedCertDialog(mLastSslUntrustedServerResult);
             }
+        }
+    }
+
+    private void onRestoreFileVersionOperationFinish(RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getFile();
+
+            // delete old local copy
+            if (file.isDown()) {
+                List<OCFile> list = new ArrayList<>();
+                list.add(file);
+                getFileOperationsHelper().removeFiles(list, true, true);
+
+                // download new version, only if file was previously download
+                getFileOperationsHelper().syncFile(file);
+            }
+
+            OCFile parent = getStorageManager().getFileById(file.getParentId());
+            startSyncFolderOperation(parent, true, true);
+
+            if (getSecondFragment() instanceof FileDetailFragment) {
+                FileDetailFragment fileDetailFragment = (FileDetailFragment) getSecondFragment();
+                fileDetailFragment.getFileDetailActivitiesFragment().reload();
+            }
+
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_successfully);
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error);
         }
     }
 
@@ -1877,7 +1951,10 @@ public class FileDisplayActivity extends HookActivity
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
-            fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+            if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
+                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
+            }
             refreshListOfFilesFragment(false);
         } else {
             // Detect Failure (403) --> maybe needs password
@@ -1895,7 +1972,9 @@ public class FileDisplayActivity extends HookActivity
                 }
 
             } else {
-                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
+                    fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                }
                 Snackbar.make(
                         findViewById(android.R.id.content),
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1975,7 +2054,9 @@ public class FileDisplayActivity extends HookActivity
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment) details).getPosition();
-                        startMediaPreview(renamedFile, position, true, true);
+                        boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                                .isMediaStreamingSupported();
+                        startMediaPreview(renamedFile, position, true, true, streaming);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2027,13 +2108,18 @@ public class FileDisplayActivity extends HookActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment(false);
+            OCFileListFragment fileListFragment = getListOfFilesFragment();
+            if (fileListFragment != null) {
+                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
+            }
         } else {
             try {
-                DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
-
+                if (ResultCode.FOLDER_ALREADY_EXISTS == result.getCode()) {
+                    DisplayUtils.showSnackMessage(this, R.string.folder_already_exists);
+                } else {
+                    DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
+                            getResources()));
+                }
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
@@ -2082,9 +2168,9 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Starts an operation to refresh the requested folder.
-     * <p/>
+     *
      * The operation is run in a new background thread created on the fly.
-     * <p/>
+     *
      * The refresh updates is a "light sync": properties of regular files in folder are updated (including
      * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
      * synchronized too.
@@ -2093,7 +2179,25 @@ public class FileDisplayActivity extends HookActivity
      * @param ignoreETag If 'true', the data from the server will be fetched and sync'ed even if the eTag
      *                   didn't change.
      */
-    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
+        startSyncFolderOperation(folder, ignoreETag, false);
+    }
+
+    /**
+     * Starts an operation to refresh the requested folder.
+     *
+     * The operation is run in a new background thread created on the fly.
+     *
+     * The refresh updates is a "light sync": properties of regular files in folder are updated (including
+     * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
+     * synchronized too.
+     *
+     * @param folder      Folder to refresh.
+     * @param ignoreETag  If 'true', the data from the server will be fetched and sync'ed even if the eTag
+     *                    didn't change.
+     * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
+     */
+    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag, boolean ignoreFocus) {
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
@@ -2102,7 +2206,7 @@ public class FileDisplayActivity extends HookActivity
                     new Runnable() {
                         @Override
                         public void run() {
-                            if (hasWindowFocus()) {
+                            if (ignoreFocus || hasWindowFocus()) {
                                 long currentSyncTime = System.currentTimeMillis();
                                 mSyncInProgress = true;
 
@@ -2110,7 +2214,6 @@ public class FileDisplayActivity extends HookActivity
                                 RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
                                         currentSyncTime,
                                         false,
-                                        getFileOperationsHelper().isSharedSupported(),
                                         ignoreETag,
                                         getStorageManager(),
                                         getAccount(),
@@ -2153,7 +2256,7 @@ public class FileDisplayActivity extends HookActivity
     private void sendDownloadedFile(String packageName, String activityName) {
         if (mWaitingToSend != null) {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.setType(mWaitingToSend.getMimetype());
+            sendIntent.setType(mWaitingToSend.getMimeType());
             sendIntent.putExtra(Intent.EXTRA_STREAM, mWaitingToSend.getExposedFileUri(this));
             sendIntent.putExtra(Intent.ACTION_SEND, true);
 
@@ -2182,7 +2285,7 @@ public class FileDisplayActivity extends HookActivity
                                         String activityName) {
         mWaitingToSend = file;
         requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
-        boolean hasSecondFragment = (getSecondFragment() != null);
+        boolean hasSecondFragment = getSecondFragment() != null;
         updateFragmentsVisibility(hasSecondFragment);
     }
 
@@ -2231,8 +2334,9 @@ public class FileDisplayActivity extends HookActivity
      * @param autoplay              When 'true', the playback will start without user
      *                              interactions.
      */
-    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview) {
-        if (showPreview && file.isDown() && !file.isDownloading()) {
+    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
+                                  boolean streamMedia) {
+        if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
@@ -2339,11 +2443,9 @@ public class FileDisplayActivity extends HookActivity
 
     private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null && !listOfFiles.getIsSearchFragment()) {
+        if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
-                listDirectory(mFile);*/
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
@@ -2369,9 +2471,11 @@ public class FileDisplayActivity extends HookActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
+            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
+                    .isMediaStreamingSupported();
             startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
                     (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
-                    (boolean)bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true);
+                    (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, streaming);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile)bundle.get(EXTRA_FILE),
                     (VirtualFolderType)bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),

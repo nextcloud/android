@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Attività</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
-	<string name="drawer_close">Chiudi</string>
-    <string name="drawer_open">Apri</string>
+	<string name="drawer_close">Chiudi barra laterale</string>
+    <string name="drawer_open">Apri barra laterale</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Nessuna foto.</string>
     <string name="file_list_empty_text_videos">Carica alcuni video o attiva il caricamento automatico.</string>
     <string name="file_list_empty_text_videos_filter">Nessun video.</string>
+    <string name="trashbin_empty_headline">Nessun file eliminato</string>
+    <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="file_list_folder">cartella</string>
@@ -220,7 +222,6 @@
     <string name="media_state_loading">%1$s (in caricamento)</string>
     <string name="media_event_done">Riproduzione di %1$s terminata</string>
     <string name="media_err_nothing_to_play">Nessun file multimediale trovato</string>
-    <string name="media_err_no_account">Nessun account fornito</string>
     <string name="media_err_not_in_owncloud">Il file non è in un account valido</string>
     <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
     <string name="media_err_io">Impossibile leggere il file multimediale</string>
@@ -228,9 +229,7 @@
     <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
     <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
     <string name="media_err_unknown">Il lettore multimediale integrato non è in grado di riprodurre il file</string>
-    <string name="media_err_security_ex">Riscontrato un errore di sicurezza tentando di riprodurre %1$s</string>
-    <string name="media_err_io_ex">Errore di input durante la riproduzione di %1$s</string>
-    <string name="media_err_unexpected">Errore inatteso durante il tentativo di riproduzione di %1$s</string>
+    <string name="media_err_playing">Errore inatteso durante il tentativo di riproduzione di %1$s</string>
     <string name="media_rewind_description">Pulsante Riavvolgi</string>
     <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
     <string name="media_forward_description">Pulsante Avanti veloce</string>
@@ -356,7 +355,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
-	<string name="share_link_no_support_share_api">La condivisione non è abilitata sul tuo server.. Contatta il tuo amministratore.</string>
 	<string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
 	<string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
 	<string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
@@ -371,7 +369,7 @@
     <string name="copy_link">Copia collegamento</string>
     <string name="clipboard_text_copied">Copiato negli appunti</string>
     <string name="clipboard_no_text_to_copy">Nessun testo ricevuto da copiare negli appunti</string>
-    <string name="clipboard_uxexpected_error">Errore inatteso durante la copia negli appunti</string>
+    <string name="clipboard_unexpected_error">Errore inatteso durante la copia negli appunti</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire operazioni</string>
@@ -492,6 +490,7 @@
     <string name="share_expiration_date_label">Scade il %1$s</string>
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_via_link_section_title">Condividi collegamento</string>
+    <string name="share_via_link_send_link_label">Invia collegamento</string>
     <string name="share_password_title">Protetta da password</string>
     <string name="share_no_password_title">Imposta password</string>
     <string name="edit_permission_label">modifica</string>
@@ -534,6 +533,7 @@
     <string name="confirmation_remove_files_alert">Vuoi davvero eliminare gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
+    <string name="offline_mode">Nessuna connessione a Internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">In attesa della carica</string>
     <string name="actionbar_search">Cerca</string>
@@ -639,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup pianificato e partirà a breve</string>
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Esci</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="privacy">Riservatezza</string>
@@ -680,18 +679,17 @@
     <string name="drawer_middle_account">Account centrale</string>
     <string name="drawer_end_account">Ultimo account</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
-    <string name="activity_icon">Icona attività</string>
-    <string name="file_icon">Icona file</string>
-    <string name="user_icon">Icona utente</string>
-    <string name="favorite_icon">Icona preferiti</string>
-    <string name="shared_via_link_icon">Icona condivisi tramite collegamento</string>
-    <string name="synced_icon">Icona sincronizzati</string>
-    <string name="available_offline_icon">Icona disponibile non in linea</string>
+    <string name="activity_icon">Attività</string>
+    <string name="file_icon">File</string>
+    <string name="user_icon">Utente</string>
+    <string name="favorite_icon">Preferito</string>
+    <string name="synced_icon">Sincronizzato</string>
+    <string name="available_offline_icon">Disponibile non in linea</string>
     <string name="checkbox">Casella di selezione</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Icona condivisi</string>
-    <string name="overflow_menu">Menu di overflow</string>
-    <string name="share_file_icon">Icona file condivisi</string>
+    <string name="shared_icon_share">condivisione</string>
+    <string name="shared_icon_shared_via_link">condiviso tramite collegamento</string>
+    <string name="shared_icon_shared">condiviso</string>
+    <string name="overflow_menu">Menu Altro</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Prima i più recenti</string>
     <string name="sort_by_size_descending">Prima i più grandi</string>
@@ -766,6 +764,7 @@
     <string name="notification_channel_push_name">Notifiche push</string>
     <string name="notification_channel_push_description">Mostra le notifiche push inviate dal server: menzioni nei commenti, ricezione di nuove condivisioni remote, annunci pubblicati da un amministratore ecc.</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Indirizzo terminatore di autenticazione </string>
     <string name="oauth_2_0_access_end_point_address_hint">Indirizzo terminatore di accesso </string>
     <string name="hint_name">Nome</string>
@@ -779,6 +778,41 @@
     <string name="sharee_add_failed">Aggiunta condivisione non riuscita</string>
     <string name="unsharing_failed">Rimozione condivisione non riuscita</string>
     <string name="updating_share_failed">Aggiornamento condivisione non riuscito</string>
-    <string name="whats_new_device_credentials_title">Usa protezione del dispositivo Android</string>
+    <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
+    <string name="whats_new_device_credentials_title">Usa protezione interna del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Utilizza qualcosa come un modello, password, PIN o la tua impronta digitale per tenere al sicuro i tuoi dati.</string>
+    <string name="restore_button_description">Ripristina file eliminato</string>
+	<string name="restore">Ripristina file</string>
+    <string name="new_version_was_created">Una nuova versione è stata creata</string>
+    <string name="new_comment">Nuovo commento…</string>
+    <string name="error_comment_file">Errore di commento del file</string>
+    <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
+    <string name="file_version_restored_error">Errore durante il ripristino della versione del file!</string>
+    <string name="notification_channel_general_name">Notifiche generali</string>
+    <string name="notification_channel_general_description">Mostra notifiche per le nuove cartelle multimediali e simili</string>
+    <string name="new_media_folder_detected">Nuova cartella multimediale %1$s rilevata</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">video</string>
+
+    <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
+    <string name="dismiss">Annulla</string>
+    <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
+    <string name="drawer_item_trashbin">File eliminati</string>
+    <string name="trashbin_activity_title">File eliminati</string>
+    <string name="action_empty_trashbin">Svuota cestino</string>
+    <string name="trashbin_loading_failed">Caricamento cestino non riuscito!</string>
+    <string name="trashbin_file_not_deleted">Il file %1$s non può essere eliminato!</string>
+    <string name="trashbin_file_not_restored">Il file %1$s non può essere ripristinato!</string>
+    <string name="trashbin_not_emptied">I file non possono essere scaricati definitivamente!</string>
+    <string name="stream">Trasmetti con…</string>
+    <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
+    <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
+    <string name="folder_already_exists">La cartella esiste già</string>
+    <string name="notification_icon">Icona di notifica</string>
+    <string name="folder_confirm_create">Crea</string>
+    <string name="file_delete">Elimina</string>
+    <string name="file_keep">Mantieni</string>
+    <string name="file_rename">Rinomina</string>
+    <string name="fab_label">Aggiungi o carica</string>
 </resources>

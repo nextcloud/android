@@ -263,7 +263,7 @@ public class UserInfoActivity extends FileActivity {
         userName.setText(account.name);
         avatar.setTag(account.name);
         DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                getStorageManager(), avatar, this);
+                avatar, this);
 
         int tint = ThemeUtils.primaryColor(account, true, this);
 
@@ -482,8 +482,9 @@ public class UserInfoActivity extends FileActivity {
             notifyDataSetChanged();
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
             ViewHolder holder = new ViewHolder(view);
@@ -491,7 +492,7 @@ public class UserInfoActivity extends FileActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             UserInfoDetailsItem item = mDisplayList.get(position);
             holder.icon.setImageResource(item.icon);
             holder.text.setText(item.text);

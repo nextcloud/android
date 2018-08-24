@@ -153,7 +153,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private FileFragment.ContainerActivity mContainerActivity;
 
-    private OCFile mFile = null;
+    private OCFile mFile;
     private OCFileListAdapter mAdapter;
     private boolean mOnlyFoldersClickable;
 
@@ -169,7 +169,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private BottomNavigationView bottomNavigationView;
 
     private SearchType currentSearchType;
-    private boolean searchFragment = false;
+    private boolean searchFragment;
     private SearchEvent searchEvent;
     private AsyncTask remoteOperationAsyncTask;
 
@@ -198,7 +198,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
-        searchFragment = currentSearchType != null;
+        searchFragment = currentSearchType != null && searchEvent != null;
     }
 
     /**
@@ -228,15 +228,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
         bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
         if (savedInstanceState != null
-                && Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE)) != null) {
-            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
+                && Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE)) != null &&
+                Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT)) != null) {
             searchFragment = true;
+            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
         } else {
             currentSearchType = SearchType.NO_SEARCH;
         }
@@ -332,22 +334,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void prepareCurrentSearch(SearchEvent event) {
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            if (SearchOperation.SearchType.FILE_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.FILE_SEARCH;
 
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+            } else if (SearchOperation.SearchType.CONTENT_TYPE_SEARCH.equals(event.getSearchType())) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     currentSearchType = SearchType.PHOTO_SEARCH;
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     currentSearchType = SearchType.VIDEO_SEARCH;
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.FAVORITE_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 currentSearchType = SearchType.SHARED_FILTER;
             }
 
@@ -604,7 +606,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * Saves the current listed folder.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
@@ -811,48 +813,51 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     saveIndexAndTopPosition(position);
                 }
 
-            } else if (!mOnlyFoldersClickable){ // Click on a file
-                if (PreviewImageFragment.canBePreviewed(file)) {
-                    // preview image - it handles the download, if needed
-                    if (searchFragment) {
-                        VirtualFolderType type;
-                        switch (currentSearchType) {
-                            case FAVORITE_SEARCH:
-                                type = VirtualFolderType.FAVORITE;
-                                break;
-                            case PHOTO_SEARCH:
-                                type = VirtualFolderType.PHOTOS;
-                                break;
-                            default:
-                                type = VirtualFolderType.NONE;
-                                break;
+                } else if (!mOnlyFoldersClickable) { // Click on a file
+                    if (PreviewImageFragment.canBePreviewed(file)) {
+                        // preview image - it handles the download, if needed
+                        if (searchFragment) {
+                            VirtualFolderType type;
+                            switch (currentSearchType) {
+                                case FAVORITE_SEARCH:
+                                    type = VirtualFolderType.FAVORITE;
+                                    break;
+                                case PHOTO_SEARCH:
+                                    type = VirtualFolderType.PHOTOS;
+                                    break;
+                                default:
+                                    type = VirtualFolderType.NONE;
+                                    break;
+                            }
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                        } else {
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                         }
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                    } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
+                        ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
+                    } else if (PreviewTextFragment.canBePreviewed(file)) {
+                        ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
+                    } else if (file.isDown()) {
+                        if (PreviewMediaFragment.canBePreviewed(file)) {
+                            // media preview
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
+                        } else {
+                            mContainerActivity.getFileOperationsHelper().openFile(file);
+                        }
                     } else {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+                        if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(
+                                AccountUtils.getCurrentOwnCloudAccount(getContext())).isMediaStreamingSupported()) {
+                            // stream media preview on >= NC14
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
+                        } else {
+                            // automatic download, preview on finish
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
+                        }
                     }
-                } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
-                    ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
-                } else if (PreviewTextFragment.canBePreviewed(file)) {
-                    ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
-                } else if (file.isDown()) {
-                    if (PreviewMediaFragment.canBePreviewed(file)) {
-                        // media preview
-                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0,
-                                true, false);
-                    } else {
-                        mContainerActivity.getFileOperationsHelper().openFile(file);
-                    }
-
-                } else {
-                    // automatic download, preview on finish
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
-                
-
-            }
-}
+                }
         } else {
-            Log_OC.d(TAG, "Null object in ListAdapter!!");}
+                Log_OC.d(TAG, "Null object in ListAdapter!");
+            }
         }
     }
 
@@ -885,7 +890,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
     public boolean onFileActionChosen(int menuId, Set<OCFile> checkedFiles) {
-        if (checkedFiles.size() <= 0) {
+        if (checkedFiles.isEmpty()) {
             return false;
         }
 
@@ -899,6 +904,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
                 case R.id.action_open_file_with: {
                     mContainerActivity.getFileOperationsHelper().openFile(singleFile);
+                    return true;
+                }
+                case R.id.action_stream_media: {
+                    mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
                     return true;
                 }
                 case R.id.action_rename_file: {
@@ -931,7 +940,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /// actions possible on a batch of files
         switch (menuId) {
             case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles));
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -1078,12 +1087,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void updateLayout() {
         // decide grid vs list view
-        if (AccountUtils.getServerVersion(((FileActivity) mContainerActivity).getAccount())
-                .supportsRemoteThumbnails() && isGridViewPreferred(mFile)) {
+        if (isGridViewPreferred(mFile)) {
             switchToGridView();
         } else {
             switchToListView();
-
         }
 
         invalidateActionMode();
@@ -1108,7 +1115,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile folder) {
-        return PreferenceManager.getFolderLayout(getActivity(), folder).equals(FOLDER_LAYOUT_GRID);
+        return FOLDER_LAYOUT_GRID.equals(PreferenceManager.getFolderLayout(getActivity(), folder));
     }
 
     public void setListAsPreferred() {
@@ -1237,22 +1244,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void prepareActionBarItems(SearchEvent event) {
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+            if (SearchOperation.SearchType.CONTENT_TYPE_SEARCH.equals(event.getSearchType())) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
             }
-
         }
 
         if (currentSearchType != null && !currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
@@ -1263,26 +1269,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setEmptyView(SearchEvent event) {
 
         if (event != null) {
-            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            if (SearchOperation.SearchType.FILE_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.FILE_SEARCH);
             } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
+                if ("image/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                } else if (event.getSearchQuery().equals("video/%")) {
+                } else if ("video/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.VIDEO_SEARCH);
                 }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            } else if (SearchOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            } else if (SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            } else if (SearchOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
                 setEmptyListMessage(SearchType.SHARED_FILTER);
             }
-
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1332,14 +1336,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
             }
 
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication failed", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | AuthenticatorException
+                | IOException | OperationCanceledException e) {
+            Log_OC.e(TAG, "Error processing event", e);
         }
     }
 
@@ -1547,6 +1546,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             mRefreshListLayout.setRefreshing(false);
         } else {
+            searchFragment = false;
             super.onRefresh();
         }
     }
@@ -1555,7 +1555,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         this.searchFragment = searchFragment;
     }
 
-    public boolean getIsSearchFragment() {
+    public boolean isSearchFragment() {
         return searchFragment;
     }
 

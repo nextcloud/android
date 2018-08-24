@@ -43,7 +43,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     /**
      * {@link MediaService} instance to access with the binder
      */
-    private MediaService mService = null;
+    private MediaService mService;
 
     /**
      * Public constructor
@@ -57,11 +57,9 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         mService = service;
     }
 
-
     public boolean isPlaying(OCFile mFile) {
-        return (mFile != null && mFile.equals(mService.getCurrentFile()));
+        return mFile != null && mFile.equals(mService.getCurrentFile());
     }
-
 
     @Override
     public boolean canPause() {

@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
-	<string name="drawer_close">Cerrar</string>
-    <string name="drawer_open">Abrir</string>
+	<string name="drawer_close">Cerrar barra lateral</string>
+    <string name="drawer_open">Abrir barra lateral</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">No hay fotos.</string>
     <string name="file_list_empty_text_videos">Sube algunos vídeos o activa la subida automática.</string>
     <string name="file_list_empty_text_videos_filter">No hay vídeos.</string>
+    <string name="trashbin_empty_headline">No hay archivos eliminados</string>
+    <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
@@ -167,7 +169,7 @@
     <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando la conexión Wi-Fi</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de baterái</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de batería</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
     <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
@@ -220,7 +222,6 @@
     <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_event_done">%1$s reproducción finalizada</string>
     <string name="media_err_nothing_to_play">No se ha encontrado el archivo multimedia</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida </string>
     <string name="media_err_unsupported">Códec de medios no soportado</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
@@ -228,9 +229,7 @@
     <string name="media_err_timeout">Tiempo de espera agotado en el intento de reproducción</string>
     <string name="media_err_invalid_progressive_playback">El archivo de medios no puede ser transmitido</string>
     <string name="media_err_unknown">El reproductor de medios incorporado no puede reproducir el archivo</string>
-    <string name="media_err_security_ex">Se encontró un error de seguridad intentando reproducir %1$s</string>
-    <string name="media_err_io_ex">Error de entrada al intentar reproducir %1$s</string>
-    <string name="media_err_unexpected">Error inesperado al intentar reproducir %1$s</string>
+    <string name="media_err_playing">Error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinado</string>
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_forward_description">Botón de avance rápido</string>
@@ -356,7 +355,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
 
-	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacta con tu administrador.</string>
 	<string name="share_link_file_no_exist">No se puede compartir. Revisa si el archivo existe</string>
 	<string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
@@ -371,7 +369,7 @@
     <string name="copy_link">Copiar enlace</string>
     <string name="clipboard_text_copied">Copiado al portapapeles</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
-    <string name="clipboard_uxexpected_error">Error inesperado al copiar al portapapeles</string>
+    <string name="clipboard_unexpected_error">Error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
@@ -492,6 +490,7 @@
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_no_expiration_date_label">Establecer fecha de caducidad</string>
     <string name="share_via_link_section_title">Compartir enlace</string>
+    <string name="share_via_link_send_link_label">Enviar enlace</string>
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="edit_permission_label">editar</string>
@@ -534,6 +533,7 @@
     <string name="confirmation_remove_files_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
+    <string name="offline_mode">No hay conexión a internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
@@ -639,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Copia de seguridad programada. Comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Cerrar sersión</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="privacy">Privacidad</string>
@@ -680,25 +679,24 @@
     <string name="drawer_middle_account"> Cuenta media</string>
     <string name="drawer_end_account">Última cuenta</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
-    <string name="activity_icon">Icono de actividad</string>
-    <string name="file_icon">Icono de archivo</string>
-    <string name="user_icon">Icono de usuario</string>
-    <string name="favorite_icon">Icono de favorito</string>
-    <string name="shared_via_link_icon">Icono de compartido vía enlace</string>
-    <string name="synced_icon">Icono de sincronizado</string>
-    <string name="available_offline_icon">Icono de disponible sin conexión</string>
+    <string name="activity_icon">Actividad</string>
+    <string name="file_icon">Archivo</string>
+    <string name="user_icon">Usuario</string>
+    <string name="favorite_icon">Favorito</string>
+    <string name="synced_icon">Sincronizado</string>
+    <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Icono de compartido</string>
-    <string name="overflow_menu">Menú desplazado</string>
-    <string name="share_file_icon">Icono de archivo compartido</string>
+    <string name="shared_icon_share">compartido</string>
+    <string name="shared_icon_shared_via_link">compartidos vía enlace</string>
+    <string name="shared_icon_shared">compartido</string>
+    <string name="overflow_menu">Más menú</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Más modernos primero</string>
     <string name="sort_by_size_descending">Más grandes primero</string>
     <string name="sort_by_size_ascending">Más pequeños primero</string>
     <string name="sort_by_name_descending">Z- A</string>
     <string name="sort_by_modification_date_descending">Más antiguos primero</string>
-    <string name="synced_folders_type">ipo</string>
+    <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón de estado de la sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
     <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
@@ -729,7 +727,7 @@
     <string name="notification_channel_file_sync_name">Sincronización de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
     <string name="notification_channel_file_observer_name">Observador de archivos</string>
-    <string name="notification_channel_file_observer_description">Montoriza los cambios en archivos</string>
+    <string name="notification_channel_file_observer_description">Monitorea los cambios en archivos</string>
   
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
@@ -766,6 +764,7 @@
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Muestra notificaciones push enviadas por el servidor: menciones en comentarios, recepción de nuevos archivos  compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Dirección del punto final de autenticación</string>
     <string name="oauth_2_0_access_end_point_address_hint">Dirección de punto final de acceso</string>
     <string name="hint_name">Nombre</string>
@@ -779,6 +778,41 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
-    <string name="whats_new_device_credentials_title">Usar la protección del dispositivo Android</string>
+    <string name="prefs_e2e_mnemonic">Nemotécnico del cifrado E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar el nemotécnico, habilite las credenciales del dispositivo</string>
+    <string name="whats_new_device_credentials_title">Usar la protección interna del dispositivo Android</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
+    <string name="restore_button_description">Restaurar archivo eliminado</string>
+	<string name="restore">Restaurar archivo</string>
+    <string name="new_version_was_created">Se ha creado una versión nueva</string>
+    <string name="new_comment">Comentario nuevo…</string>
+    <string name="error_comment_file">Error al comentar el archivo</string>
+    <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
+    <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
+    <string name="notification_channel_general_name">Notificaciones generales</string>
+    <string name="notification_channel_general_description">Mostrar notificaciones para nuevas carpetas de medios y similares</string>
+    <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">vídeo</string>
+
+    <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
+    <string name="dismiss">Descartar</string>
+    <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>
+    <string name="drawer_item_trashbin">Archivos eliminados</string>
+    <string name="trashbin_activity_title">Archivos eliminados</string>
+    <string name="action_empty_trashbin">Vaciar papelera</string>
+    <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
+    <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
+    <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
+    <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
+    <string name="stream">Retransmisión con...</string>
+    <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
+    <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
+    <string name="folder_already_exists">La carpeta ya existe</string>
+    <string name="notification_icon">Icono de notificaciones</string>
+    <string name="folder_confirm_create">Crear</string>
+    <string name="file_delete">Eliminar</string>
+    <string name="file_keep">Mantener</string>
+    <string name="file_rename">Renombrar</string>
+    <string name="fab_label">Añadir o subir</string>
 </resources>

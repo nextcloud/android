@@ -34,11 +34,18 @@
     <string name="drawer_item_activities">Tevékenységek</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
-	<string name="drawer_close">Bezárás</string>
-    <string name="drawer_open">Megnyitás</string>
+	<string name="drawer_close">Oldalsáv bezárása</string>
+    <string name="drawer_open">Oldalsáv megnyitása</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
+    <string name="prefs_lock">Zár</string>
+    <string name="prefs_lock_title">Zár használva</string>
+    <string name="prefs_lock_none">Nincs</string>
+    <string name="prefs_lock_using_passcode">Számkód</string>
+    <string name="prefs_lock_using_device_credentials">Eszköz hitelesítők</string>
+    <string name="prefs_lock_device_credentials_enabled">Eszköz hitelesítő engedélyezve</string>
+    <string name="prefs_lock_device_credentials_not_setup">Eszköz hitelesítő nincs beállítva</string>
     <string name="prefs_expert_mode">Szakértő mód</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
@@ -107,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Nincsenek fotók.</string>
     <string name="file_list_empty_text_videos">Az automatikus feltöltés aktiválásához tölts fel néhány videót.</string>
     <string name="file_list_empty_text_videos_filter">Nincsenek videók.</string>
+    <string name="trashbin_empty_headline">Nincs törölt fájl</string>
+    <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fáljait. </string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
@@ -128,6 +137,7 @@
     <string name="common_error_unknown">Ismeretlen hiba</string>
     <string name="common_pending">Folyamatban</string>
     <string name="common_delete">Törlés</string>
+    <string name="common_send">Küldés</string>
     <string name="about_title">Névjegy</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal egyeütt?\n\nA törlés nem visszavonható.</string>
@@ -195,6 +205,9 @@
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
     <string name="upload_query_move_foreign_files">Elégtelem hely miatt nem másolhatók a fájlok ebbe a mappába: %1$s. Át akarod inkább mozdítani őket?</string>
     <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
+    <string name="default_credentials_wrong">Hibás azonosítók</string>
+    <string name="credentials_disabled">Azonosítók tiltva</string>
+    
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
     <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
     <string name="pass_code_reenter_your_pass_code">Kérlek add meg újra a számkódot</string>
@@ -209,7 +222,6 @@
     <string name="media_state_loading">%1$s (betöltése)</string>
     <string name="media_event_done">%1$s lejátszása kész</string>
     <string name="media_err_nothing_to_play">Nincs média fájl találat</string>
-    <string name="media_err_no_account">Nincs felhasználói fiók</string>
     <string name="media_err_not_in_owncloud">A fájl nem érvényes fiókban található</string>
     <string name="media_err_unsupported">Nem támogatott média kodek</string>
     <string name="media_err_io">Média fájl olvashatatlan</string>
@@ -217,9 +229,7 @@
     <string name="media_err_timeout">Lejátszási kísérlet időtúllépés</string>
     <string name="media_err_invalid_progressive_playback">A média fájl nem streamelhető</string>
     <string name="media_err_unknown">A beépített médialejátszó nem tudja lejátszani a fájlt</string>
-    <string name="media_err_security_ex">Biztonsági hiba a %1$s lejátszásakor</string>
-    <string name="media_err_io_ex">Bemeneti hiba %1$s lejátszásakor</string>
-    <string name="media_err_unexpected">Váratlan hiba %1$s lejátszásakor</string>
+    <string name="media_err_playing">Váratlan hiba a következő lejátszásakor: %1$s</string>
     <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
     <string name="media_forward_description">Előre gomb</string>
@@ -233,7 +243,9 @@
 	<string name="auth_not_configured_title">Hibás a szerver beállítása</string>
 	<string name="auth_account_not_new">Ezzel a felhasználóval és szerverrel már létezik egy fiók az eszközön</string>
 	<string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
+	<string name="auth_unknown_error_http_title">Ismeretlen HTTP hiba történt!</string>
 	<string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
+	<string name="auth_unknown_error_exception_title">Ismeretlen hiba: %1$s</string>
 	<string name="auth_unknown_host_title">Host nem található</string>
 	<string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
 	<string name="auth_timeout_title">A szerver túl sokára válaszolt</string>
@@ -255,8 +267,13 @@
 	<string name="auth_fail_get_user_name">A szervered nem megfelelő felhasználó azonosítót ad vissza, lépj kapcsolatba egy rendszergazdával</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
     <string name="auth_account_does_not_exist">Az eszközön még nem létezik fiók</string>
+    <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
+    <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
+
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
+    <string name="favorite_real">Hozzáadás a kedvencekhez</string>
+    <string name="unset_favorite_real">Eltávolítás a kedvencekből</string>
     <string name="encrypted">Titkosítottra állítás</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>
@@ -339,7 +356,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
-	<string name="share_link_no_support_share_api">A megosztás nem engedélyezett a szerveren, lépj kapcsolatban a rendszergazdával</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
 	<string name="unshare_link_file_no_exist">Nem lehet a megosztást kikapcsolni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
@@ -354,7 +370,7 @@
     <string name="copy_link">Link másolása</string>
     <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
     <string name="clipboard_no_text_to_copy">Nem kaptam szöveget a vágólapra másoláshoz</string>
-    <string name="clipboard_uxexpected_error">Váratlan hiba történ a vágólapra másolás közben</string>
+    <string name="clipboard_unexpected_error">Váratlan hiba történt a vágólapra másolás közben </string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritikus hiba: művelet nem végrehajtható</string>
@@ -467,11 +483,26 @@
     <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal</string>
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
     <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
+    <string name="share_via_link_edit_permission_label">Szerkesztés engedélyezése</string>
+    <string name="share_via_link_password_label">Védelem jelszóval</string>
+    <string name="share_via_link_password_title">Biztonságos</string>
+    <string name="share_via_link_expiration_date_label">Lejárati idő beállítása</string>
+    <string name="share_via_link_menu_password_label">Jelszóval védett (%1$s)</string>
+    <string name="share_expiration_date_label">Lejárat %1$s</string>
+    <string name="share_no_expiration_date_label">Lejárati idő beállítása</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
+    <string name="share_via_link_send_link_label">Hivatkozás küldése</string>
+    <string name="share_password_title">Jelszóval védett</string>
+    <string name="share_no_password_title">Jelszó beállítása</string>
+    <string name="edit_permission_label">Szerkesztés</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fájl lista elrejtése</string>
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_with_title">Megosztás vele…</string>
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
+    <string name="share_via_link_unset_password">Kikapcsol</string>
+
+    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail cím…</string>
+
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
@@ -480,8 +511,13 @@
 
     <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
 Lépj kapcsolatba a rendszergazdával</string>
+    <string name="share_privilege_unshare">Megosztás visszavonása</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
+    <string name="share_privilege_can_edit_create">létrehozhat</string>
+    <string name="share_privilege_can_edit_change">módosíthat</string>
+    <string name="share_privilege_can_edit_delete">törölhet</string>
+
     <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>
@@ -499,6 +535,7 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="confirmation_remove_files_alert">Valóban törölni akarod a kijelölt elemeket?</string>
     <string name="confirmation_remove_folders_alert">Valóban törölni akarod a kijelölt elemeket és tartalmukat?</string>
     <string name="maintenance_mode">Szerver karbantartási üzemmódban</string>
+    <string name="offline_mode">Nincs internet-kapcsolat</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Töltésre vár</string>
     <string name="actionbar_search">Keresés</string>
@@ -585,6 +622,7 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nincs még tevékenység</string>
+    <string name="activities_no_results_message">Jelenleg nincsenek kiegészítések, módosítások és megosztások.</string>
     <string name="prefs_category_about">Névjegy</string>
 
     <string name="actionbar_contacts">Névjegyek biztonsági mentése</string>
@@ -603,7 +641,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="contacts_preferences_backup_scheduled">Mentés ütemezve és hamarosan indul</string>
     <string name="contacts_preferences_import_scheduled">Importálás ütemezve és hamarosan indul</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Kijelentkezés</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
@@ -662,18 +699,16 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="drawer_middle_account">Középső fiók</string>
     <string name="drawer_end_account">Utolsó fiók</string>
     <string name="contactlist_item_icon">Kapcsolati lista felhasználó ikon</string>
-    <string name="activity_icon">Aktivitás ikon</string>
-    <string name="file_icon">Fájl ikon</string>
-    <string name="user_icon">Felhasználó ikon</string>
-    <string name="favorite_icon">Kedvencek ikon</string>
-    <string name="shared_via_link_icon">Link ikonon keresztül megosztva</string>
-    <string name="synced_icon">Szinkronizálva ikon</string>
-    <string name="available_offline_icon">Offline elérhető ikon</string>
+    <string name="activity_icon">Tevékenység</string>
+    <string name="file_icon">Fájl</string>
+    <string name="user_icon">Felhasználó</string>
+    <string name="favorite_icon">Kedvenc</string>
+    <string name="synced_icon">Szinkronizált</string>
+    <string name="available_offline_icon">Offline elérhető</string>
     <string name="checkbox">Pipáló</string>
-    <string name="thumbnail">Előnézet</string>
-    <string name="shared_icon">Megosztva ikon</string>
-    <string name="overflow_menu">Túlfutó menü</string>
-    <string name="share_file_icon">Fájl megosztás ikon</string>
+    <string name="shared_icon_share">megosztás</string>
+    <string name="shared_icon_shared_via_link">link által megosztott</string>
+    <string name="shared_icon_shared">megosztott</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Legújabb elöl</string>
     <string name="sort_by_size_descending">Legnagyobb elöl</string>
@@ -748,8 +783,36 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
     <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Autentikációs végpont címe</string>
     <string name="oauth_2_0_access_end_point_address_hint">Hozzáférési végpont címe</string>
     <string name="hint_name">Név</string>
     <string name="hint_password">Jelszó</string>
+    <string name="add_to_cloud">Hozzáadás ehhez %1$s</string>
+    <string name="upload_files">Fájlok feltöltése</string>
+    <string name="upload_content_from_other_apps">Más alkalmazásból származó tartalom feltöltése</string>
+    <string name="create_new_folder">Új mappa létrehozása</string>
+    <string name="uploads_view_upload_status_virus_detected">Vírus észlelése. Feltöltés nem fejezhető be.</string>
+    <string name="tags">Cimkék</string>
+    <string name="sharee_add_failed">Hiba a megosztás hozzáadásakor.</string>
+    <string name="unsharing_failed">Megosztás visszavonási hiba</string>
+    <string name="updating_share_failed">Megosztás frissítési hiba</string>
+    <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
+    <string name="restore_button_description">Törölt fájl visszaállítása</string>
+	<string name="restore">Fájl visszaállítása</string>
+    <string name="new_version_was_created">Új verzió létrehozva</string>
+    <string name="new_comment">Új hozzászólás…</string>
+    <string name="error_comment_file">Fájl hozzászólási hiba</string>
+    <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
+    <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
+    <string name="outdated_server">A szerver elérte életciklusa végét, kérem frissítsen!</string>
+    <string name="dismiss">Elutasít</string>
+    <string name="feedback_no_mail_app">Nincs elérhető alkalmazás email küldéséhez!</string>
+    <string name="drawer_item_trashbin">Törölt fájlok</string>
+    <string name="trashbin_activity_title">Törölt fájlok</string>
+    <string name="action_empty_trashbin">Kuka ürítése</string>
+    <string name="trashbin_loading_failed">Hiba a kuka betöltésekor!</string>
+    <string name="trashbin_file_not_deleted">%1$s fájl nem törölhető!</string>
+    <string name="trashbin_file_not_restored">%1$s nem állítható vissza!</string>
+    <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     </resources>

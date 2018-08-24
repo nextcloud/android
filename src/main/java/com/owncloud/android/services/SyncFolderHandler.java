@@ -51,12 +51,11 @@ class SyncFolderHandler extends Handler {
 
     private static final String TAG = SyncFolderHandler.class.getSimpleName();
 
-
     private OperationsService mService;
 
     private IndexedForest<SynchronizeFolderOperation> mPendingOperations = new IndexedForest<>();
 
-    private Account mCurrentAccount = null;
+    private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
     private SynchronizeFolderOperation mCurrentSyncOperation;
 
@@ -69,7 +68,6 @@ class SyncFolderHandler extends Handler {
         mService = service;
     }
 
-
     /**
      * Returns True when the folder located in 'remotePath' in the ownCloud account 'account', or any of its
      * descendants, is being synchronized (or waiting for it).
@@ -81,9 +79,8 @@ class SyncFolderHandler extends Handler {
         if (account == null || remotePath == null) {
             return false;
         }
-        return (mPendingOperations.contains(account.name, remotePath));
+        return mPendingOperations.contains(account.name, remotePath);
     }
-
 
     @Override
     public void handleMessage(Message msg) {

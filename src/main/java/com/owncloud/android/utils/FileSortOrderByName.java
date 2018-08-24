@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.TrashbinFile;
 
 import java.io.File;
 import java.util.Collections;
@@ -60,6 +61,30 @@ public class FileSortOrderByName extends FileSortOrder {
         });
 
         return super.sortCloudFiles(files);
+    }
+
+    /**
+     * Sorts list by Name.
+     *
+     * @param files files to sort
+     */
+    @SuppressFBWarnings(value = "Bx")
+    @Override
+    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
+        final int multiplier = mAscending ? 1 : -1;
+
+        Collections.sort(files, (o1, o2) -> {
+            if (o1.isFolder() && o2.isFolder()) {
+                return multiplier * new AlphanumComparator().compare(o1, o2);
+            } else if (o1.isFolder()) {
+                return -1;
+            } else if (o2.isFolder()) {
+                return 1;
+            }
+            return multiplier * new AlphanumComparator().compare(o1, o2);
+        });
+
+        return super.sortTrashbinFiles(files);
     }
 
     /**

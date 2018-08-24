@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">活動</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
-	<string name="drawer_close"> 關閉</string>
-    <string name="drawer_open">開啟</string>
-    <string name="prefs_category_general">一般</string>
+	<string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_expert_mode">專家模式</string>
@@ -59,7 +57,7 @@
     <string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">檢查伺服器</string>
-    <string name="auth_host_url">伺服器位址 https://...</string>
+    <string name="auth_host_url">伺服器位址 https://…</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
     <string name="auth_register">還沒有 Nextcloud？\n點選這裡來選擇供應商</string>
@@ -201,7 +199,6 @@
     <string name="media_state_loading">%1$s（載入中）</string>
     <string name="media_event_done">%1$s播放結束</string>
     <string name="media_err_nothing_to_play">沒有發現媒體檔案</string>
-    <string name="media_err_no_account">沒有提供的帳戶</string>
     <string name="media_err_not_in_owncloud">檔案不存在於有效的帳戶中</string>
     <string name="media_err_unsupported">未支援的媒體編碼</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
@@ -209,9 +206,6 @@
     <string name="media_err_timeout">欲撥放的檔案已逾時</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
-    <string name="media_err_security_ex">嘗試播放%1$s時出現安全性錯誤</string>
-    <string name="media_err_io_ex">嘗試播放%1$s時輸入錯誤</string>
-    <string name="media_err_unexpected">嘗試播放%1$s時出現未知錯誤</string>
     <string name="media_rewind_description">倒帶按鈕</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_forward_description">快轉按鈕</string>
@@ -330,7 +324,6 @@
     <string name="copy_link">複製連結</string>
     <string name="clipboard_text_copied">複製至剪貼簿中</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
-    <string name="clipboard_uxexpected_error">在複製的剪貼簿時發生了未知的錯誤</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
 
     <string name="error_cant_bind_to_operations_service">嚴重錯誤：無法執行操作</string>
@@ -442,7 +435,6 @@
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
     <string name="actionbar_search">搜尋</string>
     <string name="learn_more">瞭解更多</string>

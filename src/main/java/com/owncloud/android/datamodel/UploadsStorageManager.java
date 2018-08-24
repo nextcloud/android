@@ -79,7 +79,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER, ocUpload.isCreateRemoteFolder() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
-        cv.put(ProviderTableMeta.UPLOADS_CREATED_BY, ocUpload.getCreadtedBy());
+        cv.put(ProviderTableMeta.UPLOADS_CREATED_BY, ocUpload.getCreatedBy());
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
@@ -320,7 +320,7 @@ public class UploadsStorageManager extends Observable {
             upload.setUploadStatus(
                     UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)))
             );
-            upload.setLocalAction(c.getInt(c.getColumnIndex((ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR))));
+            upload.setLocalAction(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)));
             upload.setForceOverwrite(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1);
             upload.setCreateRemoteFolder(c.getInt(

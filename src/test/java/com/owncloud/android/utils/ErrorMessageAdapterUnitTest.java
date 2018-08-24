@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -58,7 +58,7 @@ public class ErrorMessageAdapterUnitTest {
     private final static String ACCOUNT_TYPE = "nextcloud";
 
     @Mock
-    Resources mMockResources;
+    private Resources mMockResources;
 
     @Test
     public void getErrorCauseMessageForForbiddenRemoval() {
@@ -73,7 +73,7 @@ public class ErrorMessageAdapterUnitTest {
         // ... when method under test is called ...
         String errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
             new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
-                new RemoveFileOperation(PATH_TO_DELETE, false, account, MainApp.getAppContext()),
+                new RemoveFileOperation(PATH_TO_DELETE, false, account, false, MainApp.getAppContext()),
             mMockResources
         );
 

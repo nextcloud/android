@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.TrashbinFile;
 
 import java.io.File;
 import java.util.Collections;
@@ -47,6 +48,23 @@ public class FileSortOrderByDate extends FileSortOrder {
                 multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
 
         return super.sortCloudFiles(files);
+    }
+
+    /**
+     * Sorts list by Date.
+     *
+     * @param files list of files to sort
+     */
+    @Override
+    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
+        final int multiplier = mAscending ? 1 : -1;
+
+        Collections.sort(files, (o1, o2) -> {
+            Long obj1 = o1.getDeletionTimestamp();
+            return multiplier * obj1.compareTo(o2.getDeletionTimestamp());
+        });
+
+        return super.sortTrashbinFiles(files);
     }
 
     /**

@@ -268,13 +268,15 @@
         <activity android:name=".ui.activity.PassCodeActivity" />
         <activity android:name=".ui.activity.RequestCredentialsActivity" />
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
-        <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
         <activity android:name=".ui.activity.UploadListActivity" />
+        <activity
+            android:name=".ui.trashbin.TrashbinActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
 

@@ -34,11 +34,18 @@
     <string name="drawer_item_activities">Aktivitetet</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
-	<string name="drawer_close">Mbylle</string>
-    <string name="drawer_open">Hape</string>
+	<string name="drawer_close">Mbyllni sidebar-in</string>
+    <string name="drawer_open">Hapni sidebar-in</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
+    <string name="prefs_lock">Kyç</string>
+    <string name="prefs_lock_title">Kyç përdorimin</string>
+    <string name="prefs_lock_none">Asnjë</string>
+    <string name="prefs_lock_using_passcode">Kodkalimi</string>
+    <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
+    <string name="prefs_lock_device_credentials_enabled">Kredencialet e pajisjes janë aktivizuar</string>
+    <string name="prefs_lock_device_credentials_not_setup">Nuk janë krijuar kredencialet për asnjë pajisje</string>
     <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
@@ -107,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">Nuk ka foto.</string>
     <string name="file_list_empty_text_videos">Ngarkoni disa video ose aktivizoni ngarkimin direkt.</string>
     <string name="file_list_empty_text_videos_filter">Nuk ka video.</string>
+    <string name="trashbin_empty_headline">Pa kartela të fshira</string>
+    <string name="trashbin_empty_message">Që këtu do të jeni në gjendje të rimerrni kartela të fshira</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
@@ -196,6 +205,9 @@
     <string name="foreign_files_remote_text">E largët: %1$s</string>
     <string name="upload_query_move_foreign_files">Nuk ka hapësirë të mjaftueshme për të kopjuar fotografitë e zgjedhura në %1$s  dosje. Dëshironi ti lëvizni ata në vend që ti kopjoni?</string>
     <string name="pass_code_enter_pass_code">Ju lutemi, futni kodkalimin tuaj</string>
+    <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
+    <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
+    
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kodkalimi do të kërkohet sa herë që niset aplikacioni</string>
     <string name="pass_code_reenter_your_pass_code">Ju lutemi, rifutni kodkalimin tuaj</string>
@@ -210,7 +222,6 @@
     <string name="media_state_loading">%1$s (po ngarkohet)</string>
     <string name="media_event_done">Luajtja e %1$s përfundoi</string>
     <string name="media_err_nothing_to_play">S’u gjetën skedar media</string>
-    <string name="media_err_no_account">S\’u dha llogari</string>
     <string name="media_err_not_in_owncloud">Skedar jo në llogari të vlefshme</string>
     <string name="media_err_unsupported">Kodek mediash i pambuluar</string>
     <string name="media_err_io">S\'u lexua dot skedari media</string>
@@ -218,9 +229,8 @@
     <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
     <string name="media_err_invalid_progressive_playback">Skedari media s’mund të transmetohet</string>
     <string name="media_err_unknown">Ndërtuesi i integruar i medias nuk mund të luajë skedarin medial</string>
-    <string name="media_err_security_ex">Gabim sigurie gjatë përpjekjes për luajtje të %1$s</string>
-    <string name="media_err_io_ex">Gabim input-i gjatë përpjekjes për luajtje të %1$s</string>
-    <string name="media_err_unexpected">Gabim i papritur gjatë përpjekjes për luajtje të %1$s</string>
+    <string name="media_err_playing">Gabim i papritur gjatë përpjekjes për të luajtur %1$s
+</string>
     <string name="media_rewind_description">Butoni Mbrapsht</string>
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
     <string name="media_forward_description">Butoni Përpara</string>
@@ -259,6 +269,8 @@
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Kjo llogari nuk është shtuar në këtë paisje akoma</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
+    <string name="auth_illegal_login_used">URL e të dhënave të përdorur për t\'u identifikimit e paligjshme </string>
+
     <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
     <string name="favorite_real">U shtua te të parapëlqyerat</string>
@@ -344,7 +356,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
 
-	<string name="share_link_no_support_share_api">Ndarja nuk është e aktivizuar në serverin tuaj. Ju lutemi kontaktoni administratorin tuaj</string>
 	<string name="share_link_file_no_exist">S’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
 	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
 	<string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston</string>
@@ -359,7 +370,7 @@
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="clipboard_text_copied">U kopjua te e papastra</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
-    <string name="clipboard_uxexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
+    <string name="clipboard_unexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
@@ -480,6 +491,7 @@
     <string name="share_expiration_date_label">Skadon%1$s</string>
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_via_link_section_title">Lidhje ndarjeje</string>
+    <string name="share_via_link_send_link_label">Dërgo lidhjen</string>
     <string name="share_password_title">Mbrojtur me fjalëkalim</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
     <string name="edit_permission_label">redakto</string>
@@ -522,6 +534,7 @@
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
+    <string name="offline_mode">Asnjë lidhje interneti</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
@@ -608,6 +621,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
+    <string name="activities_no_results_message">Nuk ka ende ngjarje si shtesat, ndryshimet dhe ndarjet</string>
     <string name="prefs_category_about">Rreth </string>
 
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>
@@ -626,7 +640,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="privacy">Privatësi</string>
@@ -667,18 +680,17 @@
     <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
-    <string name="activity_icon">Ikona e aktiviteteve</string>
-    <string name="file_icon">Ikona e skedarit</string>
-    <string name="user_icon">Ikona e përdoruesit</string>
-    <string name="favorite_icon">Ikona e preferuar</string>
-    <string name="shared_via_link_icon">U nda nëpërmjet lidhjes së ikonës.</string>
-    <string name="synced_icon">Ikona e sinkronizimit</string>
-    <string name="available_offline_icon">Ikona në gjëndje offline.</string>
+    <string name="activity_icon">Veprimtari</string>
+    <string name="file_icon">Skedar </string>
+    <string name="user_icon">Përdorues</string>
+    <string name="favorite_icon">E parapëlqyer</string>
+    <string name="synced_icon">i sinkronizuar</string>
+    <string name="available_offline_icon">I disponueshëm jo në linjë</string>
     <string name="checkbox">Checkbox</string>
-    <string name="thumbnail">Thumbnail</string>
-    <string name="shared_icon">Ikona e ndarë</string>
-    <string name="overflow_menu">Menu-ja overflow</string>
-    <string name="share_file_icon">Ikona për të ndarë një skedar</string>
+    <string name="shared_icon_share">ndaje</string>
+    <string name="shared_icon_shared_via_link">shpërndarë me anë të lidhjes</string>
+    <string name="shared_icon_shared">ndarë</string>
+    <string name="overflow_menu">Më shumë menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
     <string name="sort_by_size_descending">Më i madhi i pari</string>
@@ -753,6 +765,7 @@
     <string name="notification_channel_push_name">Shty njoftimet</string>
     <string name="notification_channel_push_description">Trego njoftimet e shtyra të dërguara nga serveri: Përmendjet në komentet, marrja e aksioneve të reja të largëta, shpalljet e postuara nga një administrator etj.</string>
     <string name="sendbutton_description">Ikona e butonit dërgo</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresa e autentifikimit të pikës fundore</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresa e qasjes së pikës fundore</string>
     <string name="hint_name">Emër</string>
@@ -766,4 +779,41 @@
     <string name="sharee_add_failed">Duke shtuar përdëruesit e dështuar</string>
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
-    </resources>
+    <string name="prefs_e2e_mnemonic">E2E i kujtesës</string>
+    <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
+    <string name="whats_new_device_credentials_title">Përdorni mbrojtjen e brendshme të pajisjes Android</string>
+    <string name="whats_new_device_credentials_content">Përdorni diçka si një model, fjalëkalim, pin ose gjurmë gishtash për të mbajtur të dhënat tuaja të sigurta.</string>
+    <string name="restore_button_description">Rikthe skedarin e fshirë</string>
+	<string name="restore">Rikthe skedarin</string>
+    <string name="new_version_was_created">U krijua versioni i ri</string>
+    <string name="new_comment">Koment i ri…</string>
+    <string name="error_comment_file">Gabim gjatë komentimit të skedarit</string>
+    <string name="file_version_restored_successfully">Versioni i skedarit i rikthyer me sukses.</string>
+    <string name="file_version_restored_error">Gabim në rikthimin e versionit të skedarit!</string>
+    <string name="notification_channel_general_name">Njoftime të përgjithshme</string>
+    <string name="notification_channel_general_description">Shfaq njoftimet për dosjet e mediave të reja dhe të ngjashme</string>
+    <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
+    <string name="new_media_folder_photos">Foto</string>
+    <string name="new_media_folder_videos">Video</string>
+
+    <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
+    <string name="dismiss">Hiq</string>
+    <string name="feedback_no_mail_app">Nuk ka asnjë aplikacion në dispozicion për të dërguar mesazhe!</string>
+    <string name="drawer_item_trashbin">Skedar të fshirë</string>
+    <string name="trashbin_activity_title">Skedar të fshirë</string>
+    <string name="action_empty_trashbin">Boshatis koshin e plehrave</string>
+    <string name="trashbin_loading_failed">Ngarkimi i koshit të plehrave nuk u arrit!</string>
+    <string name="trashbin_file_not_deleted">Skeda %1$snuk mund të fshihej!</string>
+    <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
+    <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
+    <string name="stream">Rrjedh me...</string>
+    <string name="stream_not_possible_headline">Rrjedhja e brendshme nuk është e mundur</string>
+    <string name="stream_not_possible_message">Ju lutemi të shkarkoni mediat ose të përdorni aplikacionin e jashtëm.</string>
+    <string name="folder_already_exists">Dosja ekziston tashmë</string>
+    <string name="notification_icon">Ikona e njoftimit</string>
+    <string name="folder_confirm_create">Krijo</string>
+    <string name="file_delete">Fshini</string>
+    <string name="file_keep">Mbaje</string>
+    <string name="file_rename">Riemërto</string>
+    <string name="fab_label">Shtoni ose ngarkoni</string>
+</resources>

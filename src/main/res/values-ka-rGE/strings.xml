@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">აქტივობები</string>
     <string name="drawer_item_notifications">შეტყობინებები</string>
     <string name="drawer_quota">გამოყენებულია %1$s სულ %2$s-იდან </string>
-	<string name="drawer_close">დახურვა</string>
-    <string name="drawer_open">გახსნა</string>
-    <string name="prefs_category_general">ზოგადი</string>
+	<string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
     <string name="prefs_expert_mode">ექპერტ-რეჟიმი</string>
@@ -202,7 +200,6 @@
     <string name="media_state_loading">%1$s (იტვირთება)</string>
     <string name="media_event_done">%1$s დაკვრა დასრულდა</string>
     <string name="media_err_nothing_to_play">მედია ფაილი ვერ იქნა ნაპოვნი</string>
-    <string name="media_err_no_account">ანგარიში არაა უზრუნველყოფილი</string>
     <string name="media_err_not_in_owncloud">ეს ფაილი არ ეკუთვნის დაშვებულ ანგარიშს</string>
     <string name="media_err_unsupported">მედია კოდეკი მხარდაუჭერელია</string>
     <string name="media_err_io">მედია ფაილის წაკითხვა ვერ მოხერხდა</string>
@@ -210,9 +207,6 @@
     <string name="media_err_timeout">ფაილის დაკვრის მცდელობის დრო ამოიწურა</string>
     <string name="media_err_invalid_progressive_playback">მედია ფაილის სტრიმი ვერ ხორციელდება</string>
     <string name="media_err_unknown">ჩაშენებული მედია დამკვრელი ვერ უკრავს მედია ფაილს</string>
-    <string name="media_err_security_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა უსაფრთხებასთან დაკავშირებული შეცდომა</string>
-    <string name="media_err_io_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა შენატანთან დაკავშირებული შეცდომა</string>
-    <string name="media_err_unexpected">%1$s-ის დაკვრის მცდელობისას წარმოიშვა მოულოდნელი შეცდომა</string>
     <string name="media_rewind_description">გადახვევის ღილაკი</string>
     <string name="media_play_pause_description">დაკვრის ან პაუზის ღილაკი</string>
     <string name="media_forward_description">სწრაფი გადახვევის ღილაკი</string>
@@ -324,7 +318,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">ქვე-დირექტორიების მოხმარება</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">ქვე-დირექტორიებში თვისა და წელიწადის მიხედვით შევნახვა</string>
 
-	<string name="share_link_no_support_share_api">გაზიარება თქვენს სერვერზე არაა ამოქმედებული. გთხოვთ დაუკავშირდეთ თქვენს ადმინისტრატორს</string>
 	<string name="share_link_file_no_exist">გაზიარება ვერ ხერხდება. გთხოვთ დაამოწმოთ ფაილის არსებობა</string>
 	<string name="share_link_file_error">ამ ფაილის თუ დირექტორიის გაზიარებისას წარმოიშვა შეცდომა</string>
 	<string name="unshare_link_file_no_exist">გაზიარების შეწყვეტა ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
@@ -339,7 +332,6 @@
     <string name="copy_link">ბმულის კოპირება</string>
     <string name="clipboard_text_copied">კოპირებულია ბუფერში</string>
     <string name="clipboard_no_text_to_copy">ბუფერში გადასატანად ტექსტი მიღებული არაა</string>
-    <string name="clipboard_uxexpected_error">ბუფერში გადატანისას  წარმოშვა მოულოდნელი შეცდომა</string>
     <string name="clipboard_label">ტექსტი %1$s-იდან დაკოპირდა</string>
 
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
@@ -469,7 +461,6 @@
     <string name="confirmation_remove_files_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერების გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="actionbar_search">ძიება</string>
     <string name="files_drop_not_supported">ეს Nextcloud ფუნქციაა, გთხოვთ განაახლოთ.</string>
@@ -567,7 +558,6 @@
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">გასვლა</string>
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი</string>
     <string name="privacy">კონფიდენციალურობა</string>
@@ -605,18 +595,7 @@
     <string name="drawer_middle_account">შუა ანგარიში</string>
     <string name="drawer_end_account">ბოლო ანგარიში</string>
     <string name="contactlist_item_icon">მომხმარებლის პიქტოგრამა კონტაქტების სიისთვის</string>
-    <string name="activity_icon">აქტივობის პიქტოგრამა</string>
-    <string name="file_icon">ფაილის პიქტოგრამა</string>
-    <string name="user_icon">მომხმარებლის პიქტოგრამა</string>
-    <string name="favorite_icon">რჩეულის პიქტოგრამა</string>
-    <string name="shared_via_link_icon">გაზიარებულია ბმულის პიქტოგრამით</string>
-    <string name="synced_icon">სინქრონიზირებული პიქტოგრამა</string>
-    <string name="available_offline_icon">ხელმისაწვდომი კავშირ-გარეშე პიქტოგრამა</string>
     <string name="checkbox">ჩექბოქსი</string>
-    <string name="thumbnail">მინიატურა</string>
-    <string name="shared_icon">გაზიარებული პიქტოგრამა</string>
-    <string name="overflow_menu">ნამეტი მენიუ</string>
-    <string name="share_file_icon">ფაილის პიქტოგრამის გაზიარება</string>
     <string name="sort_by_name_ascending">ა - ჰ</string>
     <string name="sort_by_modification_date_ascending">ჯერ ახალი</string>
     <string name="sort_by_size_descending">ჯერ დიდი</string>

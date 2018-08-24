@@ -109,7 +109,7 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getFileId(), is(ID));
         assertThat(fileReadFromParcel.getParentId(), is(PARENT_ID));
         assertThat(fileReadFromParcel.getStoragePath(), is(STORAGE_PATH));
-        assertThat(fileReadFromParcel.getMimetype(), is(MIME_TYPE));
+        assertThat(fileReadFromParcel.getMimeType(), is(MIME_TYPE));
         assertThat(fileReadFromParcel.getFileLength(), is(FILE_LENGTH));
         assertThat(fileReadFromParcel.getCreationTimestamp(), is(CREATION_TIMESTAMP));
         assertThat(fileReadFromParcel.getModificationTimestamp(), is(MODIFICATION_TIMESTAMP));

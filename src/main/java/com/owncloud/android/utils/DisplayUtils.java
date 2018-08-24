@@ -67,7 +67,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -201,11 +200,11 @@ public class DisplayUtils {
             return "";
         }
 
-        if (url.length() >= 7 && url.substring(0, 7).equalsIgnoreCase(HTTP_PROTOCOL)) {
+        if (url.length() >= 7 && HTTP_PROTOCOL.equalsIgnoreCase(url.substring(0, 7))) {
             return url.substring(HTTP_PROTOCOL.length()).trim();
         }
 
-        if (url.length() >= 8 && url.substring(0, 8).equalsIgnoreCase(HTTPS_PROTOCOL)) {
+        if (url.length() >= 8 && HTTPS_PROTOCOL.equalsIgnoreCase(url.substring(0, 8))) {
             return url.substring(HTTPS_PROTOCOL.length()).trim();
         }
 
@@ -266,7 +265,7 @@ public class DisplayUtils {
         hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
 
         String host = urlNoDots.substring(hostStart, hostEnd);
-        host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+        host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
 
         return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
@@ -310,7 +309,7 @@ public class DisplayUtils {
      * calculates the relative time string based on the given modification timestamp.
      *
      * @param context the app's context
-     * @param modificationTimestamp the UNIX timestamp of the file modification time.
+     * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
      * @return a relative time string
      */
     public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
@@ -439,18 +438,16 @@ public class DisplayUtils {
      * @param account        the account to be used to connect to server
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
-     * @param storageManager reference for caching purposes
      * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull Account account, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, FileDataStorageManager storageManager,
-                                 Object callContext, Context context) {
+                                 float avatarRadius, Resources resources, Object callContext, Context context) {
 
         AccountManager accountManager = AccountManager.get(context);
         String userId = accountManager.getUserData(account,
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        setAvatar(account, userId, listener, avatarRadius, resources, storageManager, callContext, context);
+        setAvatar(account, userId, listener, avatarRadius, resources, callContext, context);
     }
 
     /**
@@ -460,12 +457,10 @@ public class DisplayUtils {
      * @param userId         the userId which avatar should be set
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
-     * @param storageManager reference for caching purposes
      * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, FileDataStorageManager storageManager,
-                                 Object callContext, Context context) {
+                                 float avatarRadius, Resources resources, Object callContext, Context context) {
         if (callContext instanceof View) {
             ((View) callContext).setContentDescription(account.name);
         }
@@ -493,8 +488,8 @@ public class DisplayUtils {
         // check for new avatar, eTag is compared, so only new one is downloaded
         if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
             final ThumbnailsCacheManager.AvatarGenerationTask task =
-                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager,
-                            account, resources, avatarRadius, userId, serverName, context);
+                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
+                            avatarRadius, userId, serverName, context);
 
             final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
@@ -697,6 +692,16 @@ public class DisplayUtils {
     }
 
     /**
+     * Show a temporary message in a {@link Snackbar} bound to the given view.
+     *
+     * @param view    The view the {@link Snackbar} is bound to.
+     * @param message The message.
+     */
+    public static void showSnackMessage(View view, String message) {
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
      * create a temporary message in a {@link Snackbar} bound to the given view.
      *
      * @param view            The view the {@link Snackbar} is bound to.
@@ -757,4 +762,11 @@ public class DisplayUtils {
         }
     }
 
+    static public void showServerOutdatedSnackbar(Activity activity) {
+        Snackbar.make(activity.findViewById(android.R.id.content),
+                R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.dismiss, v -> {
+                })
+                .show();
+    }
 }

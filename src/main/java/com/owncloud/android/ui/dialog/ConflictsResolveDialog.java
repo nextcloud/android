@@ -57,36 +57,26 @@ public class ConflictsResolveDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+        return new AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
                 .setIcon(R.drawable.ic_warning)
                 .setTitle(R.string.conflict_title)
                 .setMessage(getString(R.string.conflict_message))
                 .setPositiveButton(R.string.conflict_use_local_version,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (mListener != null) {
-                                    mListener.conflictDecisionMade(Decision.OVERWRITE);
-                                }
+                        (dialog, which) -> {
+                            if (mListener != null) {
+                                mListener.conflictDecisionMade(Decision.OVERWRITE);
                             }
                         })
                 .setNeutralButton(R.string.conflict_keep_both,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (mListener != null) {
-                                    mListener.conflictDecisionMade(Decision.KEEP_BOTH);
-                                }
+                        (dialog, which) -> {
+                            if (mListener != null) {
+                                mListener.conflictDecisionMade(Decision.KEEP_BOTH);
                             }
                         })
                 .setNegativeButton(R.string.conflict_use_server_version,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (mListener != null) {
-                                    mListener.conflictDecisionMade(Decision.SERVER);
-                                }
+                        (dialog, which) -> {
+                            if (mListener != null) {
+                                mListener.conflictDecisionMade(Decision.SERVER);
                             }
                         })
                 .create();
@@ -103,18 +93,11 @@ public class ConflictsResolveDialog extends DialogFragment {
         this.show(ft, "dialog");
     }
 
-    public void dismissDialog(AppCompatActivity activity) {
-        Fragment prev = activity.getSupportFragmentManager().findFragmentByTag(getTag());
-        if (prev != null) {
-            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-            ft.remove(prev);
-            ft.commit();
-        }
-    }
-    
     @Override
     public void onCancel(DialogInterface dialog) {
-        mListener.conflictDecisionMade(Decision.CANCEL);
+        if (mListener != null) {
+            mListener.conflictDecisionMade(Decision.CANCEL);
+        }
     }
     
     public interface OnConflictDecisionMadeListener {

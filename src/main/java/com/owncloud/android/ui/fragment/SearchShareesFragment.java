@@ -43,7 +43,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment for Searching sharees (users and groups)
@@ -69,7 +69,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     private Account mAccount;
 
     // other members
-    private ArrayList<OCShare> mShares;
+    private List<OCShare> mShares;
     private ShareFragmentListener mListener;
 
 

@@ -112,10 +112,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     /** {@link SyncResult} instance to return to the system when the synchronization finish */
     private SyncResult mSyncResult;
 
-    /** 'True' means that the server supports the share API */
-    private boolean mIsShareSupported;
-    
-    
     /**
      * Creates a {@link FileSyncAdapter}
      *
@@ -238,8 +234,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         RemoteOperationResult result = update.execute(getClient());
         if (!result.isSuccess()) {
             mLastFailedResult = result; 
-        } else {
-            mIsShareSupported = update.getOCVersion().isSharedSupported();
         }
     }
     
@@ -265,7 +259,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         RefreshFolderOperation synchFolderOp = new RefreshFolderOperation( folder,
                                                                                    mCurrentSyncTime,
                                                                                    true,
-                                                                                   mIsShareSupported,
                                                                                    false,
                                                                                    getStorageManager(),
                                                                                    getAccount(),
@@ -532,7 +525,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         NotificationManager notificationManager = ((NotificationManager) getContext().
                 getSystemService(Context.NOTIFICATION_SERVICE));
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
         }
 

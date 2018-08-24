@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="drawer_close">Cerrar</string>
-    <string name="drawer_open">Abrir</string>
-    <string name="prefs_category_general">General</string>
+	<string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_expert_mode">Modo experto</string>
@@ -209,7 +207,6 @@
     <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_event_done">%1$s reproducción finalizada</string>
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
-    <string name="media_err_no_account">No se ha proporcionado una cuenta</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
@@ -217,9 +214,6 @@
     <string name="media_err_timeout">El intento de reproducir el archivo sobrepasó el tiempo de espera</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
     <string name="media_err_unknown">El reproductor de medios integrado es incapaz de reproducir el archivo de medios</string>
-    <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
-    <string name="media_err_io_ex">Se presentó un error de entrada al intentar reproducir %1$s </string>
-    <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobinar</string>
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
     <string name="media_forward_description">Botón de avanzar rápido</string>
@@ -252,7 +246,7 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
-    <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+    <string name="auth_connecting_auth_server">Conectando al servidor de autenticación…</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Tu servidor no esta regresando un user ID correcto, por favor contacta a tu adminsitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
@@ -283,7 +277,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
-    <string name="oauth_login_connection">Conectando al servidor de OAuth2.0...</string>
+    <string name="oauth_login_connection">Conectando al servidor de OAuth2.0…</string>
         
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
@@ -340,7 +334,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
-	<string name="share_link_no_support_share_api">El compartir no está habilitado en tu servidor. Por favor contacta a tu administrador</string>
 	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
@@ -355,7 +348,6 @@
     <string name="copy_link">Copiar liga</string>
     <string name="clipboard_text_copied">Copiado al portapapeles</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
-    <string name="clipboard_uxexpected_error">Se presentó un error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
@@ -376,14 +368,14 @@
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
-    <string name="file_migration_preparing">Preparando la migración...</string>
-    <string name="file_migration_checking_destination">Verificando el destino...</string>
-    <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta...</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Agurardando sincronización completa...</string>
+    <string name="file_migration_preparing">Preparando la migración…</string>
+    <string name="file_migration_checking_destination">Verificando el destino…</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Agurardando sincronización completa…</string>
     <string name="file_migration_migrating">Moviendo los datos…</string>
-    <string name="file_migration_updating_index">Actualizando índice ...</string>
+    <string name="file_migration_updating_index">Actualizando índice…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
-    <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta...</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta…</string>
     <string name="file_migration_ok_finished">Terminado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
@@ -407,7 +399,7 @@
 	<string name="log_send_history_button">Enviar histórico</string>
 	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
-    <string name="log_progress_dialog_text">Cargando datos...</string>
+    <string name="log_progress_dialog_text">Cargando datos…</string>
 
 	<string name="saml_authentication_required_text">Se requiere contraseña</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
@@ -453,8 +445,8 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer Como</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será...</string>
-    <string name="prefs_instant_behaviour_title">El archivo original será...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será…</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será…</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect_all">Deseleccionar todo</string>
 
@@ -471,7 +463,7 @@
     <string name="share_via_link_section_title">Compartir liga</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
-    <string name="share_with_title">Compartir con...</string>
+    <string name="share_with_title">Compartir con…</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
@@ -499,8 +491,7 @@
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
-
-    <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza. </string>
     <string name="learn_more">Conoce más</string>
@@ -525,11 +516,11 @@
     <string name="participate_rc_fdroid">Obten el candidato a liberación de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_fdroid">Obten la liberación de desarrollo de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_direct_download">Obten la liberación de desarrollo directamente</string>
-    <string name="move_to">Mover a...</string>
-    <string name="copy_to">Copiar a...</string>
-    <string name="choose_remote_folder">Elige la carpeta remota...</string>
-    <string name="choose_local_folder">Elige la carpeta local...</string>
-    <string name="synced_folders_loading_folders">Cargando carpetas...</string>
+    <string name="move_to">Mover a…</string>
+    <string name="copy_to">Copiar a…</string>
+    <string name="choose_remote_folder">Elige la carpeta remota…</string>
+    <string name="choose_local_folder">Elige la carpeta local…</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_no_results">No se encontraron carpetas de medios. </string>
     <string name="synced_folders_preferences">Preferencias para cargas automáticas</string>
     <string name="synced_folders_new_info">Las cargas instantaneas se han mejorado por completo. Re-configura tu carga automática desde el menú principal.\n\nDisfruta la nueva y mejorada carga automática. </string>
@@ -539,7 +530,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Cargando notificaciones...</string>
+    <string name="notifications_loading_activity">Cargando notificaciones…</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
 
@@ -603,7 +594,6 @@
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="privacy">Privacidad</string>
@@ -644,18 +634,7 @@
     <string name="drawer_middle_account">Cuenta intermedia</string>
     <string name="drawer_end_account">Última cuenta</string>
     <string name="contactlist_item_icon">Ícono de usuario para la lista de contactos</string>
-    <string name="activity_icon">Ícono de actividad</string>
-    <string name="file_icon">Ícono de archivo</string>
-    <string name="user_icon">Ícono de usuario</string>
-    <string name="favorite_icon">Ícono de Favorito</string>
-    <string name="shared_via_link_icon">Ícono de compartido por liga</string>
-    <string name="synced_icon">Ícono de sincronizado</string>
-    <string name="available_offline_icon">Ícono de disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
-    <string name="thumbnail">Miniatura</string>
-    <string name="shared_icon">Ícono de compartido</string>
-    <string name="overflow_menu">Menú de desbordamiento</string>
-    <string name="share_file_icon">Ícono de compartir archivo</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Más reciente primero</string>
     <string name="sort_by_size_descending">Más grande primero</string>
@@ -730,6 +709,7 @@
     <string name="notification_channel_push_name">Notificaciones push</string>
     <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Dirección del end point de autenticación</string>
     <string name="oauth_2_0_access_end_point_address_hint">Acceder a la dirección del end point</string>
     <string name="hint_name">Nombre</string>

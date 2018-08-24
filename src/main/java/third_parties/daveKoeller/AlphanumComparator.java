@@ -24,7 +24,7 @@
 
 package third_parties.daveKoeller;
 
-import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.ServerFileInterface;
 
 import java.io.File;
 import java.io.Serializable;
@@ -86,7 +86,7 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
         return chunk.toString();
     }
 
-    public int compare(OCFile o1, OCFile o2) {
+    public int compare(ServerFileInterface o1, ServerFileInterface o2) {
         String s1 = o1.getFileName();
         String s2 = o2.getFileName();
 

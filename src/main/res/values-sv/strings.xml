@@ -34,11 +34,13 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Notifieringar</string>
     <string name="drawer_quota">%1$s av %2$s använt</string>
-	<string name="drawer_close">Stäng</string>
-    <string name="drawer_open">Öppna</string>
-    <string name="prefs_category_general">Allmänt</string>
+	<string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
+    <string name="prefs_lock">Lås</string>
+    <string name="prefs_lock_none">Ingen
+</string>
+    <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_expert_mode">Expertläge</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
@@ -86,7 +88,7 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
     <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
-    <string name="file_list_loading">Laddar...</string>
+    <string name="file_list_loading">Laddar…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
@@ -132,7 +134,7 @@
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktivera användare</string>
     <string name="uploader_info_dirname">Mappnamn</string>
-    <string name="uploader_upload_in_progress_ticker">Laddar upp...</string>
+    <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Uppladdad</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
@@ -195,16 +197,12 @@
     <string name="media_state_loading">%1$s (laddar)</string>
     <string name="media_event_done">%1$s uppspelning slutfördes</string>
     <string name="media_err_nothing_to_play">Hittar ingen mediefil</string>
-    <string name="media_err_no_account">Inget konto är angivet</string>
     <string name="media_err_not_in_owncloud">Filen är inte i ett giltigt konto</string>
     <string name="media_err_unsupported">Saknar stöd för denna mediatyp</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
-    <string name="media_err_security_ex">Ett säkerhetsfel inträffade när %1$s skulle spelas</string>
-    <string name="media_err_io_ex">Inmatningsfel när %1$s försökte spelas upp</string>
-    <string name="media_err_unexpected">Oväntat fel när %1$s försökte spelas upp</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_forward_description">Snappspolningsknapp</string>
@@ -321,7 +319,6 @@
     <string name="copy_link">Kopiera länk</string>
     <string name="clipboard_text_copied">Kopierat till urklipp</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
-    <string name="clipboard_uxexpected_error">Oväntat fel vid kopiering till utklipp</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritiskt fel: Oförmögen att utföra operationerna</string>
@@ -435,7 +432,6 @@
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
     <string name="actionbar_search">Sök</string>
     <string name="learn_more">Lär dig mer</string>
@@ -522,7 +518,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Logga ut</string>
     <string name="privacy">Privat</string>
     <!-- Auto upload -->
@@ -550,18 +545,7 @@
     <string name="drawer_current_account">Nuvarande konto</string>
     <string name="drawer_middle_account">Mittenkonto</string>
     <string name="drawer_end_account">Sista konto</string>
-    <string name="activity_icon">Aktivitetsikon</string>
-    <string name="file_icon">Fil-ikon</string>
-    <string name="user_icon">Användar-ikon</string>
-    <string name="favorite_icon">Favorit-ikon</string>
-    <string name="shared_via_link_icon">Delad via länk-ikon</string>
-    <string name="synced_icon">Synkroniserad-ikon</string>
-    <string name="available_offline_icon">Tillgänglig offline-ikon</string>
     <string name="checkbox">Kryssruta</string>
-    <string name="thumbnail">Ikon</string>
-    <string name="shared_icon">Delad-ikon</string>
-    <string name="overflow_menu">Overflow-meny</string>
-    <string name="share_file_icon">Delad fil-ikon</string>
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Synkstatus-knapp</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>

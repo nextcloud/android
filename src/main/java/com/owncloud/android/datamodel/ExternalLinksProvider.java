@@ -31,6 +31,7 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Database provider for handling the persistence aspects of {@link com.owncloud.android.lib.common.ExternalLink}s.
@@ -82,7 +83,7 @@ public class ExternalLinksProvider {
      *
      * @return external links, empty if none exists
      */
-    public ArrayList<ExternalLink> getExternalLink(ExternalLinkType type) {
+    public List<ExternalLink> getExternalLink(ExternalLinkType type) {
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
                 null,
@@ -92,7 +93,7 @@ public class ExternalLinksProvider {
         );
 
         if (cursor != null) {
-            ArrayList<ExternalLink> list = new ArrayList<>();
+            List<ExternalLink> list = new ArrayList<>();
             if (cursor.moveToFirst()) {
                 do {
                     ExternalLink externalLink = createExternalLinkFromCursor(cursor);

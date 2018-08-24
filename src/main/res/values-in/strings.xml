@@ -34,9 +34,7 @@
     <string name="drawer_item_activities">Aktivitas</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
-	<string name="drawer_close">Tutup</string>
-    <string name="drawer_open">Buka</string>
-    <string name="prefs_category_general">Umum</string>
+	<string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_expert_mode">Mode Ahli</string>
@@ -156,16 +154,12 @@
     <string name="pass_code_stored">Kode sandi disimpan</string>
     
     <string name="media_err_nothing_to_play">Tidak ditemukan berkas media</string>
-    <string name="media_err_no_account">Tidak ada akun yang diberikan</string>
     <string name="media_err_not_in_owncloud">Berkas tidak didalam akun yang sah</string>
     <string name="media_err_unsupported">Kodek media tidak didukung</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
     <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
     <string name="media_err_invalid_progressive_playback">Berkas media tidak bisa di streaming</string>
-    <string name="media_err_security_ex">Kesalahan keamanan saat mencoba memutar %1$s</string>
-    <string name="media_err_io_ex">Kesalahan masukan saat mencoba memutar %1$s</string>
-    <string name="media_err_unexpected">Kesalahan tak terduga saat mencoba memutar %1$s</string>
     <string name="media_rewind_description">Tombol mundur</string>
     <string name="media_play_pause_description">Tombol main dan jeda</string>
     <string name="media_forward_description">Tombol maju</string>
@@ -272,7 +266,6 @@
     <string name="copy_link">Salin tautan</string>
     <string name="clipboard_text_copied">Disalin ke papan klip</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
-    <string name="clipboard_uxexpected_error">Kesalahan tak terduga saat menyalin ke papan klip</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
@@ -376,7 +369,6 @@
 
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="maintenance_mode">Server dalam proses perawatan.</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="actionbar_search">Cari</string>
     <string name="learn_more">Pelajari lebih lanjut</string>

@@ -139,7 +139,7 @@ public class ContactListFragment extends FileFragment {
 
     private ContactListAdapter contactListAdapter;
     private Account account;
-    private ArrayList<VCard> vCards = new ArrayList<>();
+    private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
@@ -162,7 +162,7 @@ public class ContactListFragment extends FileFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.contactlist_fragment, container, false);
         ButterKnife.bind(this, view);
@@ -233,7 +233,7 @@ public class ContactListFragment extends FileFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putIntArray(CHECKED_ITEMS_ARRAY_KEY, contactListAdapter.getCheckedIntArray());
     }
@@ -496,11 +496,11 @@ public class ContactListFragment extends FileFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase(FileDownloader.getDownloadFinishMessage())) {
+            if (FileDownloader.getDownloadFinishMessage().equalsIgnoreCase(intent.getAction())) {
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
 
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        getContext().getContentResolver());
+                        context.getContentResolver());
                 ocFile = storageManager.getFileByPath(downloadedRemotePath);
                 loadContactsTask.execute();
             }
@@ -612,67 +612,28 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         }
     }
 
+    @NonNull
     @Override
-    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.contactlist_list_item, parent, false);
 
         return new ContactListFragment.ContactItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ContactListFragment.ContactItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ContactListFragment.ContactItemViewHolder holder, final int position) {
         final int verifiedPosition = holder.getAdapterPosition();
         final VCard vcard = vCards.get(verifiedPosition);
 
         if (vcard != null) {
 
-            if (checkedVCards.contains(position)) {
-                holder.getName().setChecked(true);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.getName().getCheckMarkDrawable()
-                            .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
-                }
-            } else {
-                holder.getName().setChecked(false);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.getName().getCheckMarkDrawable().clearColorFilter();
-                }
-            }
+            setChecked(checkedVCards.contains(position), holder.getName());
 
             holder.getName().setText(getDisplayName(vcard));
 
             // photo
             if (vcard.getPhotos().size() > 0) {
-                Photo firstPhoto = vcard.getPhotos().get(0);
-                String url = firstPhoto.getUrl();
-                byte[] data = firstPhoto.getData();
-
-                if (data != null && data.length > 0) {
-                    Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
-                            thumbnail);
-
-                    holder.getBadge().setImageDrawable(drawable);
-                } else if (url != null) {
-                    ImageView badge = holder.getBadge();
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation
-                                glideAnimation) {
-                            holder.getBadge().setImageDrawable(resource);
-                        }
-
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            super.onLoadFailed(e, errorDrawable);
-                            holder.getBadge().setImageDrawable(errorDrawable);
-                        }
-                    };
-                    DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user,
-                            badge.getWidth(), badge.getHeight());
-                }
+                setPhoto(holder.getBadge(), vcard.getPhotos().get(0));
             } else {
                 try {
                     holder.getBadge().setImageDrawable(
@@ -686,39 +647,78 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 }
             }
 
-            // Checkbox
-            holder.setVCardListener(new View.OnClickListener() {
+            holder.setVCardListener(v -> toggleVCard(holder, verifiedPosition));
+        }
+    }
+
+    private void setPhoto(ImageView imageView, Photo firstPhoto) {
+        String url = firstPhoto.getUrl();
+        byte[] data = firstPhoto.getData();
+
+        if (data != null && data.length > 0) {
+            Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+            RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
+                    thumbnail);
+
+            imageView.setImageDrawable(drawable);
+        } else if (url != null) {
+            SimpleTarget target = new SimpleTarget<Drawable>() {
                 @Override
-                public void onClick(View v) {
-                    holder.getName().setChecked(!holder.getName().isChecked());
-
-                    if (holder.getName().isChecked()) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            holder.getName().getCheckMarkDrawable()
-                                    .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
-                        }
-
-                        if (!checkedVCards.contains(verifiedPosition)) {
-                            checkedVCards.add(verifiedPosition);
-                        }
-                        if (checkedVCards.size() == 1) {
-                            EventBus.getDefault().post(new VCardToggleEvent(true));
-                        }
-                    } else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            holder.getName().getCheckMarkDrawable().clearColorFilter();
-                        }
-
-                        if (checkedVCards.contains(verifiedPosition)) {
-                            checkedVCards.remove(verifiedPosition);
-                        }
-
-                        if (checkedVCards.size() == 0) {
-                            EventBus.getDefault().post(new VCardToggleEvent(false));
-                        }
-                    }
+                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                    imageView.setImageDrawable(resource);
                 }
-            });
+
+                @Override
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                    super.onLoadFailed(e, errorDrawable);
+                    imageView.setImageDrawable(errorDrawable);
+                }
+            };
+            DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user, imageView.getWidth(),
+                    imageView.getHeight());
+        }
+    }
+
+    private void setChecked(boolean checked, CheckedTextView checkedTextView) {
+        checkedTextView.setChecked(checked);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (checked) {
+                checkedTextView.getCheckMarkDrawable()
+                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+            } else {
+                checkedTextView.getCheckMarkDrawable().clearColorFilter();
+            }
+        }
+    }
+
+    private void toggleVCard(ContactListFragment.ContactItemViewHolder holder, int verifiedPosition) {
+        holder.getName().setChecked(!holder.getName().isChecked());
+
+        if (holder.getName().isChecked()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.getName().getCheckMarkDrawable()
+                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+            }
+
+            if (!checkedVCards.contains(verifiedPosition)) {
+                checkedVCards.add(verifiedPosition);
+            }
+            if (checkedVCards.size() == 1) {
+                EventBus.getDefault().post(new VCardToggleEvent(true));
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.getName().getCheckMarkDrawable().clearColorFilter();
+            }
+
+            if (checkedVCards.contains(verifiedPosition)) {
+                checkedVCards.remove(verifiedPosition);
+            }
+
+            if (checkedVCards.isEmpty()) {
+                EventBus.getDefault().post(new VCardToggleEvent(false));
+            }
         }
     }
 

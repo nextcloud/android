@@ -1,8 +1,12 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
  * Copyright (C) 2016 ownCloud Inc.
+ *
+ * @author Tobias Kaminsky
+ * Copyright (C) 2018 Tobias Kaminsky
+ * Copyright (C) 2018 Nextcloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -20,6 +24,8 @@
 package com.owncloud.android.media;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -32,6 +38,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
@@ -39,6 +46,12 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.StreamMediaFileOperation;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -46,6 +59,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -365,7 +379,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         }
     }
 
-
     /**
      * Fully releases the audio focus.
      */
@@ -443,59 +456,34 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
             createMediaPlayerIfNeeded();
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            String url = mFile.getStoragePath();
 
-            /* Streaming is not possible right now
-            if (url == null || url.length() <= 0) {
-                url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
+            if (mFile.isDown()) {
+                mPlayer.setDataSource(mFile.getStoragePath());
+                preparePlayer();
+            } else {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, getBaseContext());
+                OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, getBaseContext());
+
+                new LoadStreamUrl(this, client).execute(mFile.getLocalId());
             }
-            mIsStreaming = url.startsWith("http:") || url.startsWith("https:");
-            */
-            //mIsStreaming = false;
-            mPlayer.setDataSource(url);
-
-            mState = State.PREPARING;
-            setUpAsForeground(String.format(getString(R.string.media_state_loading), mFile.getFileName()));
-
-            // starts preparing the media player in background
-            mPlayer.prepareAsync();
-
-            // prevent the Wifi from going to sleep when streaming
-            /*
-            if (mIsStreaming) {
-                mWifiLock.acquire();
-            } else
-            */
-            if (mWifiLock.isHeld()) {
-                mWifiLock.release();
-            }
-
-        } catch (SecurityException e) {
-            Log_OC.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IllegalStateException e) {
-            Log_OC.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
-                    Toast.LENGTH_LONG).show();
-            processStopRequest(true);
-
-        } catch (IllegalArgumentException e) {
-            Log_OC.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
+        } catch (AccountUtils.AccountNotFoundException | OperationCanceledException | AuthenticatorException e) {
+            Log_OC.e(TAG, "Loading stream url not possible: " + e.getMessage());
+        } catch (SecurityException | IOException | IllegalStateException | IllegalArgumentException e) {
+            Log_OC.e(TAG, e.getClass().getSimpleName() + " playing " + mAccount.name + mFile.getRemotePath(), e);
+            Toast.makeText(this, String.format(getString(R.string.media_err_playing), mFile.getFileName()),
                     Toast.LENGTH_LONG).show();
             processStopRequest(true);
         }
     }
 
+    private void preparePlayer() {
+        mState = State.PREPARING;
+        setUpAsForeground(String.format(getString(R.string.media_state_loading), mFile.getFileName()));
+
+        // starts preparing the media player in background
+        mPlayer.prepareAsync();
+    }
 
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
@@ -556,7 +544,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
         }
 
@@ -593,7 +581,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
 
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
         }
 
@@ -720,4 +708,48 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         return mMediaController;
     }
 
+    private static class LoadStreamUrl extends AsyncTask<String, Void, String> {
+
+        private OwnCloudClient client;
+        private WeakReference<MediaService> mediaServiceWeakReference;
+
+        public LoadStreamUrl(MediaService mediaService, OwnCloudClient client) {
+            this.client = client;
+            this.mediaServiceWeakReference = new WeakReference<>(mediaService);
+        }
+
+        @Override
+        protected String doInBackground(String... fileId) {
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(fileId[0]);
+            RemoteOperationResult result = sfo.execute(client);
+
+            if (!result.isSuccess()) {
+                return null;
+            }
+
+            return (String) result.getData().get(0);
+        }
+
+        @Override
+        protected void onPostExecute(String url) {
+            MediaService mediaService = mediaServiceWeakReference.get();
+
+            if (mediaService != null) {
+                if (url != null) {
+                    try {
+                        mediaService.mPlayer.setDataSource(url);
+
+                        // prevent the Wifi from going to sleep when streaming
+                        mediaService.mWifiLock.acquire();
+                        mediaService.preparePlayer();
+                    } catch (IOException e) {
+                        Log_OC.e(TAG, "Streaming not possible: " + e.getMessage());
+                    }
+                } else {
+                    // we already show a toast with error from media player
+                    mediaService.processStopRequest(true);
+                }
+            }
+        }
+    }
 }

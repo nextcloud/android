@@ -65,6 +65,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -87,7 +88,8 @@ public class ManageAccountsActivity extends FileActivity
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private AccountListAdapter mAccountListAdapter;
-    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    private ServiceConnection mDownloadServiceConnection;
+    private ServiceConnection mUploadServiceConnection;
     Set<String> mOriginalAccounts;
     String mOriginalCurrentAccount;
     private Drawable mTintedCheck;
@@ -111,9 +113,14 @@ public class ManageAccountsActivity extends FileActivity
 
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         mOriginalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
-        mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
 
-        setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+
+        if (currentAccount != null) {
+            mOriginalCurrentAccount = currentAccount.name;
+        }
+
+        setAccount(currentAccount);
         onAccountSet(false);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
@@ -207,7 +214,7 @@ public class ManageAccountsActivity extends FileActivity
         if (account == null) {
             return true;
         } else {
-            return !mOriginalCurrentAccount.equals(account.name);
+            return !account.name.equals(mOriginalCurrentAccount);
         }
     }
 
@@ -232,9 +239,9 @@ public class ManageAccountsActivity extends FileActivity
      *
      * @return list of account list items
      */
-    private ArrayList<AccountListItem> getAccountListItems() {
+    private List<AccountListItem> getAccountListItems() {
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-        ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
+        List<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
         for (Account account : accountList) {
             boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account, PENDING_FOR_REMOVAL);
             adapterAccountList.add(new AccountListItem(account, !pendingForRemoval));
@@ -302,7 +309,7 @@ public class ManageAccountsActivity extends FileActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAccountRemovedEvent(AccountRemovedEvent event) {
-        ArrayList<AccountListItem> accountListItemArray = getAccountListItems();
+        List<AccountListItem> accountListItemArray = getAccountListItems();
         mAccountListAdapter.clear();
         mAccountListAdapter.addAll(accountListItemArray);
         mAccountListAdapter.notifyDataSetChanged();
@@ -332,7 +339,7 @@ public class ManageAccountsActivity extends FileActivity
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
             }
 
-            ArrayList<AccountListItem> accountListItemArray = getAccountListItems();
+            List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > 1) {
                 mAccountListAdapter = new AccountListAdapter(this, accountListItemArray, mTintedCheck);
                 mListView.setAdapter(mAccountListAdapter);

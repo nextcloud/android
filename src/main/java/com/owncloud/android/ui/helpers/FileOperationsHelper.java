@@ -48,14 +48,16 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagOperation;
+import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
@@ -92,6 +94,9 @@ public class FileOperationsHelper {
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
     private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
     private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+    private static final String FILE_EXTENSION_URL = "url";
+    private static final String FILE_EXTENSION_DESKTOP = "desktop";
+    private static final String FILE_EXTENSION_WEBLOC = "webloc";
     private FileActivity mFileActivity;
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -146,11 +151,11 @@ public class FileOperationsHelper {
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            if (fileExt.equalsIgnoreCase("url") || fileExt.equalsIgnoreCase("desktop")) {
+            if (FILE_EXTENSION_URL.equalsIgnoreCase(fileExt) || FILE_EXTENSION_DESKTOP.equalsIgnoreCase(fileExt)) {
                 // Windows internet shortcut file .url
                 // Ubuntu internet shortcut file .desktop
                 url = getUrlFromFile(storagePath, mPatternUrl);
-            } else if (fileExt.equalsIgnoreCase("webloc")) {
+            } else if (FILE_EXTENSION_WEBLOC.equalsIgnoreCase(fileExt)) {
                 // mac internet shortcut file .webloc
                 url = getUrlFromFile(storagePath, mPatternString);
             }
@@ -328,7 +333,7 @@ public class FileOperationsHelper {
             openFileWithIntent = new Intent(Intent.ACTION_VIEW);
             openFileWithIntent.setDataAndType(
                     fileUri,
-                    file.getMimetype()
+                    file.getMimeType()
             );
         }
 
@@ -347,6 +352,31 @@ public class FileOperationsHelper {
         }
     }
 
+    public void streamMediaFile(OCFile file) {
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+
+        new Thread(() -> {
+            Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            RemoteOperationResult result = sfo.execute(account, mFileActivity);
+
+            mFileActivity.dismissLoadingDialog();
+
+            if (!result.isSuccess()) {
+                DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
+                return;
+            }
+
+            Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse((String) result.getData().get(0));
+
+            openFileWithIntent.setDataAndType(uri, file.getMimeType());
+
+            mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
+                    mFileActivity.getString(R.string.stream)));
+        }).start();
+    }
+
     /**
      * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
      *
@@ -354,47 +384,36 @@ public class FileOperationsHelper {
      * @param password Optional password to protect the public share.
      */
     public void shareFileViaLink(OCFile file, String password) {
-        if (isSharedSupported()) {
-            if (file != null) {
-                mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
-                Intent service = new Intent(mFileActivity, OperationsService.class);
-                service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-                service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-                if (password != null && password.length() > 0) {
-                    service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
-                }
-                service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-                mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
-            } else {
-                Log_OC.e(TAG, "Trying to share a NULL OCFile");
-                // TODO user-level error?
+        if (file != null) {
+            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            if (password != null && password.length() > 0) {
+                service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
             }
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
-            // Show a Message
-            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+            // TODO user-level error?
         }
     }
 
     public void getFileWithLink(OCFile file) {
-        if (isSharedSupported()) {
-            if (file != null) {
-                mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                        getString(R.string.wait_a_moment));
+        if (file != null) {
+            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                    getString(R.string.wait_a_moment));
 
-                Intent service = new Intent(mFileActivity, OperationsService.class);
-                service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-                service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-                service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-                mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-            } else {
-                Log_OC.e(TAG, "Trying to share a NULL OCFile");
-            }
         } else {
-            // Show a Message
-            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
         }
     }
 
@@ -426,15 +445,27 @@ public class FileOperationsHelper {
         }
     }
 
-
     /**
-     * @return 'True' if the server supports the Share API
+     * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
+     *
+     * @param fileVersion The file version to restore
+     * @param userId      userId of current account
      */
-    public boolean isSharedSupported() {
-        return mFileActivity.getAccount() != null &&
-                AccountUtils.getServerVersion(mFileActivity.getAccount()).isSharedSupported();
-    }
+    public void restoreFileVersion(FileVersion fileVersion, String userId) {
+        if (fileVersion != null) {
+            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                    getString(R.string.wait_a_moment));
 
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_RESTORE_VERSION);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_FILE_VERSION, fileVersion);
+            service.putExtra(OperationsService.EXTRA_USER_ID, userId);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        } else {
+            Log_OC.e(TAG, "Trying to restore a NULL FileVersion");
+        }
+    }
 
     /**
      * Helper method to unshare a file publicly shared via link.
@@ -468,19 +499,11 @@ public class FileOperationsHelper {
         queueShareIntent(unshareService);
     }
 
-
     private void queueShareIntent(Intent shareIntent) {
-        if (isSharedSupported()) {
-            // Unshare the file
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
+        // Unshare the file
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
 
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
-
-        } else {
-            // Show a Message
-            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
-        }
+        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().getString(R.string.wait_a_moment));
     }
 
     /**
@@ -637,27 +660,11 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            if (AccountUtils.getServerVersion(mFileActivity.getAccount()).isNotReshareableFederatedSupported()) {
-                updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
-                        OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
-            } else {
-                updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
-                        OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
-            }
+            updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                    OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
         }
 
         queueShareIntent(updateShareIntent);
-    }
-
-    /**
-     * @return 'True' if the server supports the Search Users API
-     */
-    public boolean isSearchUserSupportedSupported() {
-        if (mFileActivity.getAccount() != null) {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
-            return serverVersion.isSearchUsersSupported();
-        }
-        return false;
     }
 
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
@@ -666,7 +673,14 @@ public class FileOperationsHelper {
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions);
+        OCCapability capability = mFileActivity.getStorageManager().getCapability(mFileActivity.getAccount().name);
+        SendShareDialog mSendShareDialog;
+        if (capability != null) {
+            mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions,
+                    capability.getFilesSharingPublicPasswordEnforced().isTrue());
+        } else {
+            mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, false);
+        }
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
@@ -686,7 +700,7 @@ public class FileOperationsHelper {
             Context context = MainApp.getAppContext();
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
-            sendIntent.setType(file.getMimetype());
+            sendIntent.setType(file.getMimeType());
             sendIntent.setComponent(new ComponentName(packageName, activityName));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
                     context.getResources().getString(R.string.image_cache_provider_authority) +
@@ -723,11 +737,11 @@ public class FileOperationsHelper {
                             file.getRemotePath());
                 }
 
-                intent.setDataAndType(uri, file.getMimetype());
+                intent.setDataAndType(uri, file.getMimeType());
                 mFileActivity.startActivityForResult(Intent.createChooser(intent,
                         mFileActivity.getString(R.string.set_as)), 200);
 
-                intent.setDataAndType(uri, file.getMimetype());
+                intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {
                 DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
             }
@@ -836,8 +850,9 @@ public class FileOperationsHelper {
      * @param files         Files to delete
      * @param onlyLocalCopy When 'true' only local copy of the files is removed; otherwise files are also deleted
      *                      in the server.
+     * @param inBackground  When 'true', do not show any loading dialog
      */
-    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy) {
+    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy, boolean inBackground) {
         for (OCFile file : files) {
             // RemoveFile
             Intent service = new Intent(mFileActivity, OperationsService.class);
@@ -845,10 +860,13 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
+            service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        if (!inBackground) {
+            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        }
     }
 
 
@@ -933,14 +951,6 @@ public class FileOperationsHelper {
 
     public void setOpIdWaitingFor(long waitingForOpId) {
         mWaitingForOpId = waitingForOpId;
-    }
-
-    /**
-     * @return 'True' if the server doesn't need to check forbidden characters
-     */
-    public boolean isVersionWithForbiddenCharacters() {
-        return mFileActivity.getAccount() != null &&
-                AccountUtils.getServerVersion(mFileActivity.getAccount()).isVersionWithForbiddenCharacters();
     }
 
     /**

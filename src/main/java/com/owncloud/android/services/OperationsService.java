@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
@@ -65,6 +66,7 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -93,6 +95,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
+    public static final String EXTRA_FILE_VERSION = "FILE_VERSION";
     public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
     public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
@@ -100,6 +103,8 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
+    public static final String EXTRA_USER_ID = "USER_ID";
+    public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
@@ -119,6 +124,7 @@ public class OperationsService extends Service {
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     public static final String ACTION_COPY_FILE = "COPY_FILE";
     public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
+    public static final String ACTION_RESTORE_VERSION = "RESTORE_VERSION";
 
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -132,9 +138,9 @@ public class OperationsService extends Service {
             mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
     private static class Target {
-        public Uri mServerUrl = null;
-        public Account mAccount = null;
-        public String mCookie = null;
+        public Uri mServerUrl;
+        public Account mAccount;
+        public String mCookie;
 
         public Target(Account account, Uri serverUrl, String cookie) {
             mAccount = account;
@@ -176,7 +182,7 @@ public class OperationsService extends Service {
 
         // WIP: for the moment, only SYNC_FOLDER is expected here;
         // the rest of the operations are requested through the Binder
-        if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
+        if (intent != null && ACTION_SYNC_FOLDER.equals(intent.getAction())) {
 
             if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -325,7 +331,7 @@ public class OperationsService extends Service {
          *          in process.
          */
         public boolean isPerformingBlockingOperation() {
-            return (!mServiceHandler.mPendingOperations.isEmpty());
+            return !mServiceHandler.mPendingOperations.isEmpty();
         }
 
 
@@ -516,9 +522,6 @@ public class OperationsService extends Service {
                 mService.dispatchResultToOperationListeners(mCurrentOperation, result);
             }
         }
-
-
-
     }
 
 
@@ -551,7 +554,7 @@ public class OperationsService extends Service {
                 
                 String action = operationIntent.getAction();
 
-                if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
+                if (ACTION_CREATE_SHARE_VIA_LINK.equals(action)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                     if (remotePath.length() > 0) {
@@ -594,7 +597,7 @@ public class OperationsService extends Service {
                         ((UpdateSharePermissionsOperation)operation).setPassword(password);
                     }
 
-                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {
+                } else if (ACTION_CREATE_SHARE_WITH_SHAREE.equals(action)) {
                     // Create private share with user or group
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
@@ -609,7 +612,7 @@ public class OperationsService extends Service {
                         );
                     }
 
-                } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
+                } else if (ACTION_UNSHARE.equals(action)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     ShareType shareType = (ShareType) operationIntent.
                             getSerializableExtra(EXTRA_SHARE_TYPE);
@@ -623,11 +626,11 @@ public class OperationsService extends Service {
                         );
                     }
                     
-                } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
+                } else if (ACTION_GET_SERVER_INFO.equals(action)) {
                     // check OC server and get basic information from it
                     operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
 
-                } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
+                } else if (ACTION_OAUTH2_GET_ACCESS_TOKEN.equals(action)) {
                     /// GET ACCESS TOKEN to the OAuth server
                     String oauth2QueryParameters =
                             operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
@@ -637,36 +640,38 @@ public class OperationsService extends Service {
                             getString(R.string.oauth2_grant_type),
                             oauth2QueryParameters);
 
-                } else if (action.equals(ACTION_GET_USER_NAME)) {
+                } else if (ACTION_GET_USER_NAME.equals(action)) {
                     // Get User Name
                     operation = new GetRemoteUserInfoOperation();
                     
-                } else if (action.equals(ACTION_RENAME)) {
+                } else if (ACTION_RENAME.equals(action)) {
                     // Rename file or folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
                     operation = new RenameFileOperation(remotePath, newName);
                     
-                } else if (action.equals(ACTION_REMOVE)) {
+                } else if (ACTION_REMOVE.equals(action)) {
                     // Remove file or folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
-                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy, account, getApplicationContext());
+                    boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
+                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy, account, inBackground,
+                            getApplicationContext());
                     
-                } else if (action.equals(ACTION_CREATE_FOLDER)) {
+                } else if (ACTION_CREATE_FOLDER.equals(action)) {
                     // Create Folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
                     operation = new CreateFolderOperation(remotePath, createFullPath);
 
-                } else if (action.equals(ACTION_SYNC_FILE)) {
+                } else if (ACTION_SYNC_FILE.equals(action)) {
                     // Sync file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
                     operation = new SynchronizeFileOperation(remotePath, account, syncFileContents,
                             getApplicationContext());
                     
-                } else if (action.equals(ACTION_SYNC_FOLDER)) {
+                } else if (ACTION_SYNC_FOLDER.equals(action)) {
                     // Sync folder (all its descendant files are sync'ed)
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     operation = new SynchronizeFolderOperation(
@@ -676,21 +681,26 @@ public class OperationsService extends Service {
                             System.currentTimeMillis()  // TODO remove this dependency from construction time
                     );
 
-                } else if (action.equals(ACTION_MOVE_FILE)) {
+                } else if (ACTION_MOVE_FILE.equals(action)) {
                     // Move file/folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                     operation = new MoveFileOperation(remotePath, newParentPath);
 
-                } else if (action.equals(ACTION_COPY_FILE)) {
+                } else if (ACTION_COPY_FILE.equals(action)) {
                     // Copy file/folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                     operation = new CopyFileOperation(remotePath, newParentPath);
 
-                } else if (action.equals(ACTION_CHECK_CURRENT_CREDENTIALS)) {
+                } else if (ACTION_CHECK_CURRENT_CREDENTIALS.equals(action)) {
                     // Check validity of currently stored credentials for a given account
                     operation = new CheckCurrentCredentialsOperation(account);
+                } else if (ACTION_RESTORE_VERSION.equals(action)) {
+                    FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
+                    String userId = operationIntent.getStringExtra(EXTRA_USER_ID);
+                    operation = new RestoreFileVersionOperation(fileVersion.getRemoteId(), fileVersion.getFileName(),
+                            userId);
                 }
             }
                 

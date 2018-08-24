@@ -62,7 +62,6 @@
         android:layout_gravity="center_horizontal"
         android:ellipsize="end"
         android:gravity="center"
-        android:maxLines="3"
         android:text="@string/file_list_empty"
         android:visibility="gone"/>
 

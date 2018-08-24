@@ -20,11 +20,11 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/appbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/appbar"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,5 +56,7 @@
             android:padding="@dimen/zero"
             android:visibility="visible" />
     </RelativeLayout>
+
+    <include layout="@layout/info_box"/>
 
 </android.support.design.widget.AppBarLayout>

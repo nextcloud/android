@@ -93,6 +93,7 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
+    private SearchView mSearchView;
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
@@ -217,7 +218,7 @@ public class UploadFilesActivity extends FileActivity implements
      */
     public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_ACCOUNT, (account));
+        action.putExtra(EXTRA_ACCOUNT, account);
         activity.startActivityForResult(action, requestCode);
     }
 
@@ -237,11 +238,11 @@ public class UploadFilesActivity extends FileActivity implements
 
         int fontColor = ThemeUtils.fontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        EditText editText = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
-        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        ImageView searchClose = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(fontColor);
 
 
@@ -314,27 +315,43 @@ public class UploadFilesActivity extends FileActivity implements
         }
         return true;
     }
+
+    private boolean isSearchOpen() {
+        if (mSearchView == null) {
+            return false;
+        } else {
+            View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+            return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
+        }
+    }
     
     @Override
     public void onBackPressed() {
-        if (mDirectories.getCount() <= 1) {
-            finish();
-            return;
-        }
-        popDirname();
-        mFileListFragment.onNavigateUp();
-        mCurrentDir = mFileListFragment.getCurrentDirectory();
-
-        if (mCurrentDir.getParentFile() == null) {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
+        if (isSearchOpen() && mSearchView != null) {
+            mSearchView.setQuery("", false);
+            mFileListFragment.onClose();
+            mSearchView.onActionViewCollapsed();
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+        } else {
+            if (mDirectories.getCount() <= 1) {
+                finish();
+                return;
             }
-        }
+            popDirname();
+            mFileListFragment.onNavigateUp();
+            mCurrentDir = mFileListFragment.getCurrentDirectory();
 
-        // invalidate checked state when navigating directories
-        if(!mLocalFolderPickerMode) {
-            setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+            if (mCurrentDir.getParentFile() == null) {
+                ActionBar actionBar = getSupportActionBar();
+                if (actionBar != null) {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
+            }
+
+            // invalidate checked state when navigating directories
+            if (!mLocalFolderPickerMode) {
+                setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+            }
         }
     }
     
@@ -517,7 +534,7 @@ public class UploadFilesActivity extends FileActivity implements
                     File localFile = new File(localPath);
                     total += localFile.length();
                 }
-                return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
+                return FileStorageUtils.getUsableSpace() >= total;
             }
 
             return true;
@@ -580,7 +597,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
+        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();

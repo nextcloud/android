@@ -35,13 +35,14 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ServerFileInterface;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
-public class OCFile implements Parcelable, Comparable<OCFile> {
+public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
 
@@ -302,8 +303,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean existsOnDevice() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
-            File file = new File(mLocalPath);
-            return (file.exists());
+            return new File(mLocalPath).exists();
         }
         return false;
     }
@@ -466,7 +466,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         Log_OC.d(TAG, "OCFile name changing from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
                 !mRemotePath.equals(ROOT_PATH)) {
-            String parent = (new File(getRemotePath())).getParent();
+            String parent = (new File(this.getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
             mRemotePath = parent + name;
             if (isFolder()) {
@@ -485,11 +485,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Can be used to get the Mimetype
+     * Can be used to get the MimeType
      *
-     * @return the Mimetype as a String
+     * @return the MimeType as a String
      */
-    public String getMimetype() {
+    @Override
+    public String getMimeType() {
         return mMimeType;
     }
 
@@ -585,8 +586,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return remote path
      */
     public String getParentRemotePath() {
-        String parentPath = new File(getRemotePath()).getParent();
-        return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
+        String parentPath = new File(this.getRemotePath()).getParent();
+        return parentPath.endsWith("/") ? parentPath : parentPath + "/";
     }
 
     /**
@@ -663,19 +664,16 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public int hashCode() {
-        int result = (int) (mId ^ (mId >>> 32));
-        result = 31 * result + (int) (mParentId ^ (mParentId >>> 32));
-        return result;
+        return 31 * (int) (mId ^ (mId >>> 32)) + (int) (mParentId ^ (mParentId >>> 32));
     }
 
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
-        asString = String.format(asString, mId, getFileName(), mMimeType, isDown(),
+        return String.format(asString, mId, getFileName(), mMimeType, isDown(),
                 mLocalPath, mRemotePath, mParentId, mAvailableOffline,
                 mEtag, mIsFavorite);
-        return asString;
     }
 
     public String getEtag() {
@@ -778,7 +776,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public boolean isSharedWithMe() {
         String permissions = getPermissions();
-        return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
     }
 
     public boolean canReshare() {

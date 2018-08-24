@@ -35,7 +35,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -44,7 +43,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -158,7 +156,7 @@ public class EditShareFragment extends Fragment {
      */
     public void refreshCapabilitiesFromDB() {
         if (getActivity() instanceof FileActivity) {
-            FileActivity fileActivity = ((FileActivity) getActivity());
+            FileActivity fileActivity = (FileActivity) getActivity();
             if (fileActivity.getStorageManager() != null) {
                 mCapabilities = fileActivity.getStorageManager().getCapability(mAccount.name);
             }
@@ -176,8 +174,6 @@ public class EditShareFragment extends Fragment {
 
             int sharePermissions = mShare.getPermissions();
             boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
-            boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
 
             int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
@@ -199,32 +195,30 @@ public class EditShareFragment extends Fragment {
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             switchCompat.setChecked(canEdit);
 
-            boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
+            boolean areEditOptionsAvailable = !isFederated;
 
             if (mFile.isFolder() && areEditOptionsAvailable) {
                 /// TODO change areEditOptionsAvailable in order to delete !isFederated
                 // from checking when iOS is ready
                 AppCompatCheckBox checkBox = editShareView.findViewById(R.id.canEditCreateCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = editShareView.findViewById(R.id.canEditChangeCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-                checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                checkBox.setVisibility(canEdit ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
             }
 
             setPermissionsListening(editShareView, true);
-
         }
     }
-
 
     /**
      * Binds or unbinds listener for user actions to enable or disable a permission on the edited share
