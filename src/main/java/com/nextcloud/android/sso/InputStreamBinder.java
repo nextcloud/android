@@ -15,6 +15,7 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.NameValuePair;
@@ -33,6 +34,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,8 +67,9 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private Context context;
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private static final String CHARSET_UTF8 = "UTF-8";
+    private static final int HTTP_STATUS_CODE_OK = 200;
 
-    private ArrayList<String> validPackages = new ArrayList<>(Arrays.asList(
+    private List<String> validPackages = new ArrayList<>(Arrays.asList(
             "de.luhmer.owncloudnewsreader"
     ));
 
@@ -100,7 +103,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             NextcloudRequest request = deserializeObjectAndCloseStream(is);
             httpStream = processRequest(request);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, e.getMessage());
             exception = e;
         }
 
@@ -110,7 +113,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, httpStream);
             return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, e.getMessage());
         }
         return null;
     }
@@ -147,7 +150,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
 
         // Validate URL
-        if(!request.url.startsWith("/")) {
+        if(request.url.charAt(0) != '/') {
             throw new IllegalStateException("URL need to start with a /");
         }
 
@@ -194,7 +197,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
         int status = client.executeMethod(method);
-        if (status == 200) {
+        if (status == HTTP_STATUS_CODE_OK) {
             return method.getResponseBodyAsStream();
         } else {
             throw new Exception("Request returned code: " + status);

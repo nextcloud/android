@@ -62,7 +62,7 @@ public class NextcloudRequest implements Serializable {
             return this;
         }
 
-        public Builder setParameter(HashMap<String, String> parameter) {
+        public Builder setParameter(Map<String, String> parameter) {
             ncr.parameter = parameter;
             return this;
         }

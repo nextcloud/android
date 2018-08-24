@@ -3,6 +3,8 @@ package com.nextcloud.android.sso.aidl;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -88,16 +90,17 @@ public final class ParcelFileDescriptorUtil {
                 try {
                     mIn.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getMessage());
+                    Log_OC.e(TAG, e.getMessage());
                 }
                 try {
                     mOut.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getMessage());
+                    Log_OC.e(TAG, e.getMessage());
                 }
             }
-            if (mListener != null)
+            if (mListener != null) {
                 mListener.onThreadFinished(this);
+            }
         }
     }
 }

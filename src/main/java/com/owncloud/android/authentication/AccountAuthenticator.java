@@ -85,12 +85,12 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                              String accountType, String authTokenType,
                              String[] requiredFeatures, Bundle options) {
         Log_OC.i(TAG, "Adding account with type " + accountType + " and auth token " + authTokenType);
-        
-        final Bundle bundle = new Bundle();
-        
+
         AccountManager accountManager = AccountManager.get(mContext);
         Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType(mContext));
-        
+
+        final Bundle bundle = new Bundle();
+
         if (mContext.getResources().getBoolean(R.bool.multiaccount_support) || accounts.length < 1) {
             try {
                 validateAccountType(accountType);
@@ -110,16 +110,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             setIntentFlags(intent);
             
             bundle.putParcelable(AccountManager.KEY_INTENT, intent);
-        
         } else {
-
             // Return an error
             bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION);
             final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name)); 
             bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
            
             mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
-            
         }
         
         return bundle;
