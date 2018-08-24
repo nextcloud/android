@@ -182,7 +182,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         editor.apply();
     }
 
-    static private int getLastSeenVersionCode() {
+    static public int getLastSeenVersionCode() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
         return pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
     }

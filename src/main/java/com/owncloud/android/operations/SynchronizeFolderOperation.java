@@ -42,7 +42,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -261,7 +260,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(ArrayList<Object> folderAndFiles) throws OperationCancelledException {
+    private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
         FileDataStorageManager storageManager = getStorageManager();
         
         // parse data from remote folder

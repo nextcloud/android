@@ -206,11 +206,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextView mServerStatusView;
 
     private TextWatcher mHostUrlInputWatcher;
-    private String mServerStatusText;
-    private int mServerStatusIcon = 0;
+    private String mServerStatusText = "";
+    private int mServerStatusIcon;
 
-    private boolean mServerIsChecked = false;
-    private boolean mServerIsValid = false;
+    private boolean mServerIsChecked;
+    private boolean mServerIsValid;
 
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
@@ -226,8 +226,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private WebView mLoginWebView;
 
-    private String mAuthStatusText;
-    private int mAuthStatusIcon = 0;
+    private String mAuthStatusText = "";
+    private int mAuthStatusIcon;
 
     private String mAuthToken = "";
     private AuthenticatorAsyncTask mAsyncTask;
@@ -246,7 +246,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String webViewPassword;
     private TextInputLayout mUsernameInputLayout;
     private TextInputLayout mPasswordInputLayout;
-    private boolean forceOldLoginMethod = false;
+    private boolean forceOldLoginMethod;
 
     /**
      * {@inheritDoc}
@@ -379,6 +379,47 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mLoginWebView.loadUrl(url, headers);
 
+        setClient(progressBar);
+
+        // show snackbar after 60s to switch back to old login method
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
+                        .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mLoginWebView.setVisibility(View.INVISIBLE);
+                                webViewLoginMethod = false;
+
+                                setContentView(R.layout.account_setup);
+
+                                // initialize general UI elements
+                                initOverallUi();
+
+                                mPasswordInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInput.requestFocus();
+                                mOAuth2Check.setVisibility(View.INVISIBLE);
+                                mAuthStatusView.setVisibility(View.INVISIBLE);
+                                mServerStatusView.setVisibility(View.INVISIBLE);
+                                mTestServerButton.setVisibility(View.INVISIBLE);
+                                forceOldLoginMethod = true;
+                                mOkButton.setVisibility(View.VISIBLE);
+
+                                initServerPreFragment(null);
+
+                                mHostUrlInput.setText(baseURL);
+
+                                checkOcServer();
+                            }
+                        }).show();
+            }
+        }, 60000);
+    }
+
+    private void setClient(ProgressBar progressBar) {
         mLoginWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -424,43 +465,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
         });
-
-        // show snackbar after 60s to switch back to old login method
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                DisplayUtils.createSnackbar(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
-                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
-                        .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mLoginWebView.setVisibility(View.INVISIBLE);
-                                webViewLoginMethod = false;
-
-                                setContentView(R.layout.account_setup);
-
-                                // initialize general UI elements
-                                initOverallUi();
-
-                                mPasswordInputLayout.setVisibility(View.VISIBLE);
-                                mUsernameInputLayout.setVisibility(View.VISIBLE);
-                                mUsernameInput.requestFocus();
-                                mOAuth2Check.setVisibility(View.INVISIBLE);
-                                mAuthStatusView.setVisibility(View.INVISIBLE);
-                                mServerStatusView.setVisibility(View.INVISIBLE);
-                                mTestServerButton.setVisibility(View.INVISIBLE);
-                                forceOldLoginMethod = true;
-                                mOkButton.setVisibility(View.VISIBLE);
-
-                                initServerPreFragment(null);
-
-                                mHostUrlInput.setText(baseURL);
-
-                                checkOcServer();
-                            }
-                        }).show();
-            }
-        }, 60000);
     }
 
     private void parseAndLoginFromWebView(String dataString) {
@@ -541,7 +545,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthTokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
         if (mAuthTokenType == null) {
             if (mAccount != null) {
-                boolean oAuthRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null);
+                boolean oAuthRequired = mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null;
                 boolean samlWebSsoRequired = (
                         mAccountMgr.getUserData
                                 (mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null
@@ -1418,6 +1422,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      4. we got the authentication method required by the server 
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
+            // show outdated warning
+            if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
+                    mServerInfo.mVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+                DisplayUtils.showServerOutdatedSnackbar(this);
+            }
+
             webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported() && !forceOldLoginMethod;
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
@@ -1957,7 +1967,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == 0 && "".equals(mServerStatusText) || forceOldLoginMethod) {
+        if (mServerStatusIcon == 0 && "".equals(mServerStatusText)) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);

@@ -52,7 +52,7 @@ public class UriUploader {
     private final String TAG = UriUploader.class.getSimpleName();
 
     private FileActivity mActivity;
-    private ArrayList<Parcelable> mUrisToUpload;
+    private List<Parcelable> mUrisToUpload;
     private CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener mCopyTmpTaskListener;
 
     private int mBehaviour;
@@ -72,7 +72,7 @@ public class UriUploader {
 
     public UriUploader(
             FileActivity activity,
-            ArrayList<Parcelable> uris,
+            List<Parcelable> uris,
             String uploadPath,
             Account account,
             int behaviour,

@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -60,7 +60,6 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -73,7 +72,7 @@ public class FilesSyncHelper {
     public static final String GLOBAL = "global";
     public static final String SYNCEDFOLDERINITIATED = "syncedFolderIntitiated_";
 
-    public static int ContentSyncJobId = 315;
+    public static final int ContentSyncJobId = 315;
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
@@ -113,7 +112,6 @@ public class FilesSyncHelper {
 
         } else {
             try {
-
                 if (dryRun) {
                     arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                             currentTimeString);
@@ -126,7 +124,7 @@ public class FilesSyncHelper {
 
                     Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
-                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
 
                             File file = path.toFile();
                             if (attrs.lastModifiedTime().toMillis() >= Long.parseLong(dateInitiated) * 1000) {
@@ -157,7 +155,7 @@ public class FilesSyncHelper {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && ((MediaFolderType.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
+            if (syncedFolder.isEnabled() && (MediaFolderType.CUSTOM != syncedFolder.getType() || !skipCustom)) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
@@ -241,52 +239,6 @@ public class FilesSyncHelper {
         }).start();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean isContentObserverJobScheduled() {
-        JobScheduler js = MainApp.getAppContext().getSystemService(JobScheduler.class);
-        List<JobInfo> jobs = js.getAllPendingJobs();
-
-        if (jobs == null || jobs.size() == 0) {
-            return false;
-        }
-
-        for (int i = 0; i < jobs.size(); i++) {
-            if (jobs.get(i).getId() == ContentSyncJobId) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static void scheduleNJobs(boolean force, Context context) {
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());
-
-
-        boolean hasVideoFolders = false;
-        boolean hasImageFolders = false;
-
-        if (syncedFolderProvider.getSyncedFolders() != null) {
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (MediaFolderType.VIDEO == syncedFolder.getType()) {
-                    hasVideoFolders = true;
-                } else if (MediaFolderType.IMAGE == syncedFolder.getType()) {
-                    hasImageFolders = true;
-                }
-            }
-        }
-
-        if (hasImageFolders || hasVideoFolders) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                cancelJobOnN();
-            }
-        }
-    }
-
     public static void scheduleFilesSyncIfNeeded(Context context) {
         // always run this because it also allows us to perform retries of manual uploads
         new JobRequest.Builder(FilesSyncJob.TAG)
@@ -295,14 +247,14 @@ public class FilesSyncHelper {
                 .build()
                 .schedule();
 
-        if (context != null) {
-            scheduleNJobs(false, context);
+        if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            scheduleJobOnN();
         }
     }
 
     public static void scheduleOfflineSyncIfNeeded() {
         Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(OfflineSyncJob.TAG);
-        if (jobRequests.size() == 0) {
+        if (jobRequests.isEmpty()) {
             new JobRequest.Builder(OfflineSyncJob.TAG)
                     .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
                     .setUpdateCurrent(false)
@@ -311,21 +263,11 @@ public class FilesSyncHelper {
         }
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void cancelJobOnN() {
-        JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
-        if (isContentObserverJobScheduled()) {
-            jobScheduler.cancel(ContentSyncJobId);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void scheduleJobOnN(boolean hasImageFolders, boolean hasVideoFolders,
-                                       boolean force) {
+    public static void scheduleJobOnN() {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
-        if ((hasImageFolders || hasVideoFolders) && (!isContentObserverJobScheduled() || force)) {
+        if (jobScheduler != null) {
             JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
                     NContentObserverJob.class.getName()));
             builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.

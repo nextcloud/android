@@ -34,16 +34,20 @@
     <string name="drawer_item_activities">Tegevused</string>
     <string name="drawer_item_notifications">Märguanded</string>
     <string name="drawer_quota">Kasutatud %1$s/%2$s</string>
-	<string name="drawer_close">Sulge</string>
-    <string name="drawer_open">Ava</string>
+	<string name="drawer_close">Sulge külgriba</string>
+    <string name="drawer_open">Ava külgriba</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
+    <string name="prefs_lock">Lukusta</string>
+    <string name="prefs_lock_title">Lukusta kasutades</string>
+    <string name="prefs_lock_using_passcode">Parooli</string>
     <string name="prefs_expert_mode">Edasijõudnute režiim</string>
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>
     <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
     <string name="prefs_calendar_contacts">Sünkroniseeri kalender &amp; kontaktid</string>
     <string name="prefs_calendar_contacts_summary">Seadista käesoleva konto jaoks DAVdroid (v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Kasutaja jaoks seadistatud serveri aadressi ei õnnestunud DAVdroidi jaoks lahendada</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole installeeritud</string>
     <string name="prefs_daily_contacts_sync_summary">Igapäevane varundus sinu kontaktidest</string>
     <string name="prefs_help">Abiinfo</string>
@@ -54,6 +58,7 @@
 	<string name="recommend_urls">%1$s või %2$s</string>
 
     <string name="auth_check_server">Kontrolli serverit</string>
+    <string name="auth_host_url">Serveri aadress https://…</string>
     <string name="auth_username">Kasutajanimi</string>
     <string name="auth_password">Parool</string>
     <string name="auth_register">Sul pole veel oma Nextcloudi?\nVajuta siia, et see teenusepakkujalt saada</string>
@@ -73,6 +78,7 @@
     <string name="uploader_error_message_source_file_not_found">Üleslaadimiseks valitud faili ei leitud. Palun kontrolli, kas valisid õige faili.</string>
     <string name="uploader_error_message_source_file_not_copied">Faili kopeerimine ajutisse kausta ebaõnnestus. Palun proovi see uuesti saata.</string>
     <string name="uploader_upload_files_behaviour">Üleslaadimise valikud:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Liiguta fail kausta %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Jäta fail originaalkausta</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Kustuta fail originaalkaustast</string>
     <string name="file_list_seconds_ago">sekundit tagasi</string>
@@ -81,6 +87,7 @@
     <string name="file_list_empty">Lae midagi üles või sünkroniseeri oma seadmetega.</string>
     <string name="file_list_empty_favorites_filter_list">Lemmikuteks märgitud failid ja kaustad kuvatakse siin</string>
     <string name="file_list_empty_favorites_filter">Sinu poolt sooritatud otsing ei leidnud ühtegi lemmikuks märgitud faili.</string>
+    <string name="file_list_loading">Laadimine…</string>
     <string name="file_list_no_app_for_file_type">Puudub rakendus seda tüüpi failide avamiseks.</string>
     <string name="local_file_list_empty">Kaustas pole faile.</string>
     <string name="local_folder_list_empty">Rohkem kaustu ei ole.</string>
@@ -100,9 +107,12 @@
     <string name="file_list_empty_text_photos_filter">Pilte pole.</string>
     <string name="file_list_empty_text_videos">Lae üles mõned videod või lülita sisse automaatne üleslaadimine.</string>
     <string name="file_list_empty_text_videos_filter">Videosid pole.</string>
+    <string name="trashbin_empty_headline">Kustutatud faile pole</string>
+    <string name="trashbin_empty_message">Siit saad kustutatud faile taastada</string>
     <string name="upload_list_empty_text_auto_upload">Lae üles mõned failid või lülita sisse automaatne üleslaadimine.</string>
     <string name="file_list_folder">kaust</string>
     <string name="filedetails_download">Lae alla</string>
+    <string name="filedetails_sync_file">Sünkrooni</string>
     <string name="action_send_share">Saada/Jaga</string>
     <string name="common_yes">Jah</string>
     <string name="common_no">Ei</string>
@@ -112,15 +122,19 @@
     <string name="common_back">Tagasi</string>
     <string name="common_save">Salvesta</string>
     <string name="common_error">Viga</string>
+    <string name="common_loading">Laadimine…</string>
     <string name="common_unknown">tundmatu</string>
     <string name="common_error_unknown">Tundmatu viga</string>
     <string name="common_pending">Ootel</string>
     <string name="common_delete">Kustuta</string>
+    <string name="common_send">Saada</string>
     <string name="about_title">Info</string>
     <string name="delete_account">Eemalda konto</string>
+    <string name="delete_account_warning">Eemalda konto %s ja kustuta kõik kohalikud failid?\n\nKustutamist ei saa tagasi võtta.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiivne kasutaja</string>
     <string name="uploader_info_dirname">Kausta nimi</string>
+    <string name="uploader_upload_in_progress_ticker">Üleslaadimine…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% üleslaadimine %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Ülesse laetud</string>
     <string name="uploader_upload_succeeded_content_single">%1$s üles laetud</string>
@@ -139,9 +153,12 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Kohalikku faili ei leitud</string>
     <string name="uploads_view_upload_status_failed_permission_error">Õiguse viga</string>
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
+    <string name="uploads_view_upload_status_service_interrupted">Rakendus jõuda suletud</string>
     <string name="uploads_view_upload_status_unknown_fail">Tundmatu viga</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi ootamine</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Voolusäästurežiimist väljumise ootamine</string>
     <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootamine</string>
+    <string name="downloader_download_in_progress_ticker">Allalaadimine…</string>
     <string name="downloader_download_in_progress_content">%1$d%% allalaadimine %2$s</string>
     <string name="downloader_download_succeeded_ticker">Alla laetud</string>
     <string name="downloader_download_succeeded_content">%1$s alla laetud</string>
@@ -176,7 +193,6 @@
     <string name="media_state_playing">%1$s (mängib)</string>
     <string name="media_state_loading">%1$s (laeb)</string>
     <string name="media_err_nothing_to_play">Meedia faili ei leitud</string>
-    <string name="media_err_no_account">Ühtegi kontot pole antud</string>
     <string name="media_err_unsupported">Mittetoetatud meedia koodek</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_rewind_description">Tagasikerimise nupp</string>
@@ -188,12 +204,17 @@
 	<string name="auth_connection_established">Saadi ühendus</string>
 	<string name="auth_testing_connection">Ühenduse testimine</string>
 	<string name="auth_not_configured_title">Vigases vormingus server seadistus</string>
+	<string name="auth_account_not_new">Sama konto  kasutaja ja server on juba selles seadmes olemas</string>
 	<string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
+	<string name="auth_unknown_error_http_title">Esines tundmatu HTTP tõrge!</string>
 	<string name="auth_unknown_error_title">Tekkis tundmatu tõrge!</string>
+	<string name="auth_unknown_error_exception_title">Tundmatu tõrge: %1$s</string>
 	<string name="auth_unknown_host_title">Ei leidnud hosti</string>
 	<string name="auth_incorrect_path_title">Serverit ei leitud</string>
 	<string name="auth_timeout_title">Serveri vastus võttis liiga kaua aega</string>
+	<string name="auth_incorrect_address_title">Vale serveriaadressi formaat</string>
 	<string name="auth_ssl_general_error_title">SSL-i käivitamine ebaõnnestus</string>
+	<string name="auth_ssl_unverified_server_title">SSL serveri identiteeti ei suudetud tuvastada</string>
 	<string name="auth_bad_oc_version_title">Tundmatu serveri versioon</string>
 	<string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
 	<string name="auth_secure_connection">Saavutati turvaline ühendus</string>
@@ -201,18 +222,37 @@
 	<string name="auth_oauth_error">Autoriseerimine ebaõnnestus</string>
 	<string name="auth_oauth_error_access_denied">Ligipääs keelatud autoriseeriva serveri poolt</string>
 	<string name="auth_expired_oauth_token_toast">Sinu autoriseerimine aegus. Palun autoriseeri uuesti</string>
+	<string name="auth_expired_basic_auth_toast">Palun sisesta praegune parool</string>
 	<string name="auth_expired_saml_sso_token_toast">Sinu sessioon aegus. Palun ühenda uuesti</string>
     <string name="auth_unsupported_multiaccount">%1$s ei toeta mitme konto kasutamist</string>
-	<string name="common_rename">Nimeta ümber</string>
+	<string name="auth_can_not_auth_against_server">Selle serveri vastu autentimine ebaõnnestus</string>
+    <string name="auth_account_does_not_exist">Seda kontot pole veel sellesse seadmesse lisatud</string>
+    <string name="auth_access_failed">Ligipääs ebaõnnestus: %1$s</string>
+    <string name="favorite_real">Lisa lemmikutesse</string>
+    <string name="unset_favorite_real">Eemalda lemmikutest</string>
+    <string name="encrypted">Määra krüpteerituks</string>
+    <string name="unset_encrypted">Eemalda krüpteering</string>
+    <string name="common_rename">Nimeta ümber</string>
     <string name="common_remove">Kustuta</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
     <string name="remove_success_msg">Kustutatud</string>
+    <string name="remove_fail_msg">Kustutamine ebaõnnestus</string>
     <string name="rename_dialog_title">Sisesta uus nimi</string>
+    <string name="rename_local_fail_msg">Lokaalse koopia ümbernimetamine ebaõnnestus, proovi teist nime</string>
+    <string name="rename_server_fail_msg">Ümbernimetamine pole võimalik, nimi on juba kasutuses</string>
     <string name="sync_file_nothing_to_do_msg">Faili sisu on juba sünkroniseeritud</string>
+    <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
     <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Faili nimes on vähemalt üks keelatud märk</string>
+    <string name="filename_empty">Faili nimi ei tohi olla tühi</string>
+    <string name="wait_a_moment">Oota üks hetk…</string>
     <string name="filedisplay_no_file_selected">Faile ei ole valitud</string>
+    <string name="activity_chooser_title">Saada link…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Faili kopeerimine privaatsest salvestusalast</string>
     
+    <string name="oauth_check_onoff">OAuth 2.0 sisselogimine</string>
+    <string name="oauth_login_connection">OAuth 2.0 serveriga ühendumine…</string>
+        
     <string name="ssl_validator_reason_cert_not_trusted">- Serveri sertifikaat pole usaldusväärne</string>
     <string name="ssl_validator_reason_cert_expired">- Serveri sertifikaat on aegunud</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serveri sertifikaat kehtivad kuupäevad on alles tulevikus</string>
@@ -244,9 +284,11 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Lae üles ainult piiramata Wi-Fi võrgus</string>
     <string name="instant_upload_on_charging">Lae ülesse ainult laadimise ajal</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Failikonflikt</string>
+    <string name="conflict_message">Millist faili sa soovid säilitada? Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
     <string name="conflict_keep_both">Säilita mõlemad</string>
     <string name="conflict_use_local_version">kohalik versioon</string>
     <string name="conflict_use_server_version">serveri versioon</string>
@@ -280,7 +322,9 @@
     <string name="file_migration_override_data_folder">Asenda</string>
     <string name="prefs_add_account">Lisa konto</string>
     <string name="drawer_manage_accounts">Halda kontosid</string>
-    <string name="actionbar_logger">Logid</string>
+    <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
+
+	<string name="actionbar_logger">Logid</string>
 	<string name="log_send_history_button">Saada ajalugu</string>
 	<string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
     <string name="saml_authentication_wrong_pass">Vale parool</string>
@@ -326,34 +370,66 @@
     <string name="pref_behaviour_entries_keep_file">hoitakse algses kaustas</string>
     <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
     <string name="pref_behaviour_entries_delete_file">kustutatud</string>
+    <string name="prefs_storage_path">Salvestuskoht</string>
+
     <string name="share_dialog_title">Jagamine</string>
     <string name="share_file">Jaga %1$s</string>
     <string name="share_with_user_section_title">Jaga kasutajate ja gruppidega</string>
     <string name="share_no_users">Kasutajatega pole veel midagi jagatud</string>
     <string name="share_add_user_or_group">Lisa kasutaja või grupp</string>
+    <string name="share_via_link_expiration_date_label">Määra aegumise kuupäev</string>
+    <string name="share_no_expiration_date_label">Määra aegumise kuupäev</string>
     <string name="share_via_link_section_title">Jaga linki</string>
+    <string name="share_via_link_send_link_label">Saada link</string>
     <string name="share_via_link_hide_file_listing_permission_label">Peida failide nimekiri</string>
     <string name="share_get_public_link_button">Hangi link</string>
     <string name="search_users_and_groups_hint">Otsi kasutajaid ja gruppe</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_email_clarification">%1$s (e-kiri)</string>
+    <string name="share_privilege_unshare">Lõpeta jagamine</string>
     <string name="share_privilege_can_share">saab jagada</string>
-    <string name="share_privilege_can_edit">saab muuta</string>
+    <string name="share_privilege_can_edit">saab redigeerida</string>
+    <string name="share_privilege_can_edit_create">saab luua</string>
+    <string name="share_privilege_can_edit_change">saab muuta</string>
+    <string name="share_privilege_can_edit_delete">saab kustutada</string>
+
+    <string name="action_retry_uploads">Proovi ebaõnnestunud üleslaadimisi uuesti</string>
+    <string name="action_clear_failed_uploads">Puhasta ebaõnnestunud üleslaadimised</string>
+    <string name="action_clear_successful_uploads">Puhasta õnnestunud üleslaadimised</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
 
     <string name="manage_space_title">Ruumi haldamine</string>
     <string name="manage_space_clear_data">Tühjenda andmed</string>
 
+    <string name="maintenance_mode">Server on hooldusrežiimis</string>
+    <string name="offline_mode">Internetiühendus puudub</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Laadimise ootel</string>
     <string name="actionbar_search">Otsi</string>
     <string name="drawer_synced_folders">Automaatne üleslaadimine</string>
+    <string name="drawer_participate">Osavõtt</string>
     <string name="participate_testing_headline">Aita testides</string>
-    <string name="participate_contribute_forum_forum">foorum</string>
+    <string name="participate_testing_bug_text">Leidsid bugi? Midagi veidrat?</string>
+    <string name="participate_testing_report_text">Teavita probleemist GitHubis</string>
+    <string name="participate_testing_version_text">Oled huvitatud aitamisest uut versiooni testides?</string>
+    <string name="participate_beta_headline">Testi arendusversiooni</string>
+    <string name="participate_beta_text">See sisaldab kõiki tulevasi funktsioona. Bugisid/vigu võib esineda ja kui nii juhtub, siis palun andke sellest teada.</string>
+    <string name="participate_release_candidate_headline">Väljalaske kandidaat</string>
+    <string name="participate_contribute_headline">Löö aktiivselt kaasa</string>
+    <string name="participate_contribute_irc_text">Ühine jutuajamiseg IRC serveris:</string>
+    <string name="participate_contribute_forum_text">Aita teisi</string>
+    <string name="participate_contribute_forum_forum">foorumis</string>
     <string name="participate_contribute_translate_translate">Tõlgi</string>
-    <string name="participate_contribute_translate_text">rekendus</string>
+    <string name="participate_contribute_translate_text">rakendust</string>
+    <string name="participate_contribute_github_text">Vaata, paranda ja kirjuta koodi, täpsem info: %1$s</string>
+    <string name="notifications_loading_activity">Teavituste laadimine…</string>
     <string name="notifications_no_results_headline">Märguandeid pole</string>
+    <string name="upload_file_dialog_filename">Faili nimi</string>
     <string name="welcome_feature_3_title">Automaatne üleslaadimine</string>
     <string name="whats_new_ipv6_title">IPv6 tugi</string>
+    <string name="whats_new_ipv6_content">IPv6 kui server seda toetab, IPv4 kui ei.</string>
+
     <string name="whats_new_skip">Jäta vahele</string>
 
     <!-- User information -->
@@ -363,23 +439,32 @@
     <string name="user_info_website">Veebileht</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Tegevusi veel pole</string>
+    <string name="activities_no_results_message">Tegevusi, nagu lisamised, muutmised ja jagamised, pole</string>
     <string name="actionbar_contacts">Varunda kontaktid</string>
     <string name="actionbar_contacts_restore">Taasta kontaktid</string>
     <string name="contacts_backup_button">Varunda kohe</string>
     <string name="contacts_automatic_backup">Automaatne varundus</string>
     <string name="contacts_last_backup">Viimane varukoopia</string>
     <string name="contacts_preference_choose_date">Vali kuupäev</string>
-    <!-- Notifications -->
+    <string name="contacts_preferences_something_strange_happened">Viimast varundust ei leitud!</string>
+    <string name="contacts_preferences_backup_scheduled">Varundus on planeeritud ning algab koheselt</string>
     <string name="drawer_logout">Logi välja</string>
     <string name="privacy">Privaatsus</string>
     <string name="file_not_found">Faili ei leitud</string>
+    <string name="test_server_button">Testi ühendust serveriga</string>
     <string name="fallback_weblogin_back">Tagasi</string>
+    <string name="foreground_service_upload">Failide ülesaadimine…</string>
+    <string name="foreground_service_download">Failide allalaadimine…</string>
+
+    <string name="prefs_sourcecode">Vaata lähtekoodi</string>
     <string name="prefs_license">Litsents</string>
-    <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
+    <string name="prefs_gpl_v2">GNU General Public License, versioon 2</string>
+    <string name="push_notifications_temp_error">Süsteemiteavitused pole hetkel saadaval</string>
+
     <string name="date_unknown">Teadmata</string>
 
-    <string name="file_icon">Faili ikoon</string>
-    <string name="user_icon">Kasutaja ikoon</string>
     <string name="synced_folders_type">Tüüp</string>
     <string name="synced_folder_settings_button">Seadete nupp</string>
     <string name="forward">Edasi</string>
@@ -392,4 +477,9 @@
     <string name="link">Link</string>
 
     <string name="end_to_end_encryption_dialog_close">Sulge</string>
+    <string name="notification_channel_push_name">Süsteemiteavitused</string>
+    <string name="hint_name">Nimi</string>
+    <string name="upload_files">Failide üleslaadimine</string>
+    <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>
+    <string name="create_new_folder">Loo uus kaust</string>
     </resources>

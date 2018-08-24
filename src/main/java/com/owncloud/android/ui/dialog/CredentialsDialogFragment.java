@@ -45,8 +45,8 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 public class CredentialsDialogFragment extends DialogFragment
     implements DialogInterface.OnClickListener {
 
-    private WebView mWebView = null;
-    private HttpAuthHandler mHandler = null;
+    private WebView mWebView;
+    private HttpAuthHandler mHandler;
 
     private EditText mUsernameET;
     private EditText mPasswordET;

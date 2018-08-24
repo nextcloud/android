@@ -89,7 +89,6 @@ public class SslValidatorDialog extends Dialog {
         mListener = listener;
     }
     
-    
     /**
      * {@inheritDoc}
      */
@@ -161,25 +160,23 @@ public class SslValidatorDialog extends Dialog {
 
             /// refresh
             if (mException.getCertPathValidatorException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.VISIBLE);
             }
             
             if (mException.getCertificateExpiredException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.reason_cert_expired).setVisibility(View.VISIBLE);
             }
             
             if (mException.getCertificateNotYetValidException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.VISIBLE);
             } 
 
             if (mException.getSslPeerUnverifiedException() != null ) {
-                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.VISIBLE);
             }
-            
             
             showCertificateData(mException.getServerCertificate());
         }
-        
     }
     
     private void showCertificateData(X509Certificate cert) {
@@ -197,8 +194,8 @@ public class SslValidatorDialog extends Dialog {
     }
 
     private void showSignature(X509Certificate cert) {
-        TextView sigView = ((TextView)mView.findViewById(R.id.value_signature));
-        TextView algorithmView = ((TextView)mView.findViewById(R.id.value_signature_algorithm));
+        TextView sigView = mView.findViewById(R.id.value_signature);
+        TextView algorithmView = mView.findViewById(R.id.value_signature_algorithm);
         sigView.setText(getHex(cert.getSignature()));
         algorithmView.setText(cert.getSigAlgName());
     }
@@ -219,20 +216,20 @@ public class SslValidatorDialog extends Dialog {
 
     @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
-        TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
-        TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
+        TextView fromView = mView.findViewById(R.id.value_validity_from);
+        TextView toView = mView.findViewById(R.id.value_validity_to);
         fromView.setText(notBefore.toLocaleString());
         toView.setText(notAfter.toLocaleString());
     }
 
     private void showSubject(X500Principal subject) {
         Map<String, String> s = parsePrincipal(subject);
-        TextView cnView = ((TextView)mView.findViewById(R.id.value_subject_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.value_subject_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.value_subject_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.value_subject_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.value_subject_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.value_subject_L));
+        TextView cnView = mView.findViewById(R.id.value_subject_CN);
+        TextView oView = mView.findViewById(R.id.value_subject_O);
+        TextView ouView = mView.findViewById(R.id.value_subject_OU);
+        TextView cView = mView.findViewById(R.id.value_subject_C);
+        TextView stView = mView.findViewById(R.id.value_subject_ST);
+        TextView lView = mView.findViewById(R.id.value_subject_L);
         
         if (s.get("CN") != null) {
             cnView.setText(s.get("CN"));
@@ -274,12 +271,12 @@ public class SslValidatorDialog extends Dialog {
     
     private void showIssuer(X500Principal issuer) {
         Map<String, String> s = parsePrincipal(issuer);
-        TextView cnView = ((TextView)mView.findViewById(R.id.value_issuer_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.value_issuer_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.value_issuer_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.value_issuer_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.value_issuer_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.value_issuer_L));
+        TextView cnView = mView.findViewById(R.id.value_issuer_CN);
+        TextView oView = mView.findViewById(R.id.value_issuer_O);
+        TextView ouView = mView.findViewById(R.id.value_issuer_OU);
+        TextView cView = mView.findViewById(R.id.value_issuer_C);
+        TextView stView = mView.findViewById(R.id.value_issuer_ST);
+        TextView lView = mView.findViewById(R.id.value_issuer_L);
         
         if (s.get("CN") != null) {
             cnView.setText(s.get("CN"));
@@ -321,7 +318,7 @@ public class SslValidatorDialog extends Dialog {
     
 
     private Map<String, String> parsePrincipal(X500Principal principal) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
         String toParse = principal.getName();
         String[] pieces = toParse.split(",");
         String[] tokens = {"CN", "O", "OU", "C", "ST", "L"}; 
@@ -341,11 +338,9 @@ public class SslValidatorDialog extends Dialog {
             NetworkUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
         }
     }
-
     
     public interface OnSslValidatorListener {
         public void onSavedCertificate();
         public void onFailedSavingCertificate();
     }
 }
-

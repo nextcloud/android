@@ -54,19 +54,24 @@
                 android:id="@+id/share_by_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:text="@string/share_via_link_section_title"/>
 
-            <TextView
-                android:id="@+id/share_link_label"
+            <ImageView
+                android:id="@+id/share_link_copy_icon"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:textColor="@color/black"
+                android:layout_height="32dp"
+                android:paddingEnd="@dimen/standard_eighth_margin"
+                android:paddingLeft="@dimen/standard_half_margin"
+                android:paddingRight="@dimen/standard_eighth_margin"
+                android:paddingStart="@dimen/standard_half_margin"
+                android:paddingTop="@dimen/standard_quarter_margin"
                 android:layout_weight="1"
-                android:textSize="16sp"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
-                android:text="@string/share_via_link_section_title" />
+                android:contentDescription="@string/copy_link"
+                android:paddingBottom="@dimen/standard_quarter_margin"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_content_copy"
+                android:layout_gravity="start|center"/>
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link_allow_editing"

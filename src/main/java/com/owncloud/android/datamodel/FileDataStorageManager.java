@@ -141,6 +141,17 @@ public class FileDataStorageManager {
         return file;
     }
 
+    public @Nullable
+    OCFile getFileByRemoteId(String remoteId) {
+        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_REMOTE_ID, remoteId);
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+        }
+        c.close();
+        return file;
+    }
+
     public boolean fileExists(long id) {
         return fileExists(ProviderTableMeta._ID, String.valueOf(id));
     }
@@ -185,7 +196,7 @@ public class FileDataStorageManager {
         );
         cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimeType());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
@@ -430,7 +441,7 @@ public class FileDataStorageManager {
         );
         cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimeType());
         cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
@@ -455,7 +466,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimeType());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
@@ -1367,7 +1378,7 @@ public class FileDataStorageManager {
                 );
                 cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
                 cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-                cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+                cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimeType());
                 cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
                 cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
                 cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
@@ -1645,7 +1656,7 @@ public class FileDataStorageManager {
 
     }
 
-    public ArrayList<OCShare> getSharesWithForAFile(String filePath, String accountName) {
+    public List<OCShare> getSharesWithForAFile(String filePath, String accountName) {
         // Condition
         String where = ProviderTableMeta.OCSHARES_PATH + AND
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
@@ -2182,7 +2193,7 @@ public class FileDataStorageManager {
         if (onlyImages) {
             List<OCFile> temp = new ArrayList<>();
 
-            for (OCFile file : temp) {
+            for (OCFile file : ocFiles) {
                 if (MimeTypeUtil.isImage(file)) {
                     temp.add(file);
                 }

@@ -53,7 +53,7 @@ public class ExternalSiteWebView extends FileActivity {
 
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
-    private boolean showSidebar = false;
+    private boolean showSidebar;
     private int menuItemId;
     private WebView webview;
 
@@ -97,7 +97,12 @@ public class ExternalSiteWebView extends FileActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             ThemeUtils.setColoredTitle(actionBar, title, this);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+
+            if (showSidebar) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } else {
+                setDrawerIndicatorEnabled(false);
+            }
         }
 
         // enable zoom
@@ -157,8 +162,7 @@ public class ExternalSiteWebView extends FileActivity {
                         openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                    startActivity(settingsIntent);
+                    finish();
                 }
             retval = true;
             break;

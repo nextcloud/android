@@ -49,10 +49,8 @@ public class FilesServiceApiImpl implements FilesServiceApi {
     private static final String TAG = FilesServiceApiImpl.class.getSimpleName();
 
     @Override
-    public void readRemoteFile(String fileUrl, BaseActivity activity,
-                               boolean isSharingSupported, FilesServiceCallback<OCFile> callback) {
-        ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(fileUrl, activity,
-                isSharingSupported, callback);
+    public void readRemoteFile(String fileUrl, BaseActivity activity, FilesServiceCallback<OCFile> callback) {
+        ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(fileUrl, activity, callback);
         readRemoteFileTask.execute();
     }
 
@@ -62,15 +60,11 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         private String errorMessage;
         // TODO: Figure out a better way to do this than passing a BaseActivity reference.
         private final BaseActivity baseActivity;
-        private final boolean isSharingSupported;
         private final String fileUrl;
 
-        private ReadRemoteFileTask(String fileUrl, BaseActivity baseActivity,
-                                   boolean isSharingSupported,
-                                   FilesServiceCallback<OCFile> callback) {
+        private ReadRemoteFileTask(String fileUrl, BaseActivity baseActivity, FilesServiceCallback<OCFile> callback) {
             this.callback = callback;
             this.baseActivity = baseActivity;
-            this.isSharingSupported = isSharingSupported;
             this.fileUrl = fileUrl;
         }
 
@@ -97,7 +91,6 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                         RemoteOperation synchFolderOp = new RefreshFolderOperation(remoteOcFile,
                                 System.currentTimeMillis(),
                                 false,
-                                isSharingSupported,
                                 true,
                                 baseActivity.getStorageManager(),
                                 baseActivity.getAccount(),

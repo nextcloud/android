@@ -60,7 +60,7 @@ public class FileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        setFile((OCFile) bundle.getParcelable(EXTRA_FILE));
+        setFile(bundle.getParcelable(EXTRA_FILE));
     }
 
     /**

@@ -34,8 +34,8 @@
     <string name="drawer_item_activities">Activities</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
-	<string name="drawer_close">Close</string>
-    <string name="drawer_open">Open</string>
+	<string name="drawer_close">Close sidebar</string>
+    <string name="drawer_open">Open sidebar</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">No photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
+    <string name="trashbin_empty_headline">No deleted files</string>
+    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
@@ -220,7 +222,6 @@
     <string name="media_state_loading">%1$s (loading)</string>
     <string name="media_event_done">%1$s playback finished</string>
     <string name="media_err_nothing_to_play">No media file found</string>
-    <string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">The file is not in a valid account</string>
     <string name="media_err_unsupported">Unsupported media codec</string>
     <string name="media_err_io">Could not read the media file</string>
@@ -228,9 +229,7 @@
     <string name="media_err_timeout">Attempt to play file timed out</string>
     <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
     <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_security_ex">A security error was encountered trying to play %1$s</string>
-    <string name="media_err_io_ex">Input error while trying to play %1$s</string>
-    <string name="media_err_unexpected">Unexpected error while trying to play %1$s</string>
+    <string name="media_err_playing">Unexpected error while trying to play %1$s</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast-forward button</string>
@@ -356,7 +355,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
-	<string name="share_link_no_support_share_api">Sharing is not enabled on your server. Please contact your admin</string>
 	<string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
 	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
@@ -371,7 +369,7 @@
     <string name="copy_link">Copy link</string>
     <string name="clipboard_text_copied">Copied to clipboard</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
-    <string name="clipboard_uxexpected_error">Unexpected error while copying to clipboard</string>
+    <string name="clipboard_unexpected_error">Unexpected error while copying to clipboard</string>
     <string name="clipboard_label">Text copied from %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
@@ -492,6 +490,7 @@
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
+    <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
     <string name="edit_permission_label">edit</string>
@@ -534,6 +533,7 @@
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
+    <string name="offline_mode">No internet connection</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
@@ -639,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
@@ -680,18 +679,17 @@
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
-    <string name="activity_icon">Activity icon</string>
-    <string name="file_icon">File icon</string>
-    <string name="user_icon">User icon</string>
-    <string name="favorite_icon">Favourite icon</string>
-    <string name="shared_via_link_icon">Shared via link icon</string>
-    <string name="synced_icon">Synced icon</string>
-    <string name="available_offline_icon">Available offline icon</string>
+    <string name="activity_icon">Activity</string>
+    <string name="file_icon">File</string>
+    <string name="user_icon">User</string>
+    <string name="favorite_icon">Favorite</string>
+    <string name="synced_icon">Synced</string>
+    <string name="available_offline_icon">Available offline</string>
     <string name="checkbox">Checkbox</string>
-    <string name="thumbnail">Thumbnail</string>
-    <string name="shared_icon">Shared icon</string>
-    <string name="overflow_menu">Overflow menu</string>
-    <string name="share_file_icon">Share file icon</string>
+    <string name="shared_icon_share">share</string>
+    <string name="shared_icon_shared_via_link">shared via link</string>
+    <string name="shared_icon_shared">shared</string>
+    <string name="overflow_menu">More menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Newest first</string>
     <string name="sort_by_size_descending">Biggest first</string>
@@ -766,6 +764,7 @@
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Auth end point address</string>
     <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
     <string name="hint_name">Name</string>
@@ -779,6 +778,41 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
-    <string name="whats_new_device_credentials_title">Use Android device protection</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
+    <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
+    <string name="restore_button_description">Restore deleted file</string>
+	<string name="restore">Restore file</string>
+    <string name="new_version_was_created">New version was created</string>
+    <string name="new_comment">New comment…</string>
+    <string name="error_comment_file">Error commenting file</string>
+    <string name="file_version_restored_successfully">Successfully restored file version.</string>
+    <string name="file_version_restored_error">Error restoring file version!</string>
+    <string name="notification_channel_general_name">General notifications</string>
+    <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
+    <string name="new_media_folder_detected">New %1$s media folder detected.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">video</string>
+
+    <string name="outdated_server">The server has reached end of life, please upgrade!</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="feedback_no_mail_app">No app available to send mails!</string>
+    <string name="drawer_item_trashbin">Deleted files</string>
+    <string name="trashbin_activity_title">Deleted files</string>
+    <string name="action_empty_trashbin">Empty trashbin</string>
+    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
+    <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
+    <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
+    <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="stream">Stream with…</string>
+    <string name="stream_not_possible_headline">Internal streaming not possible</string>
+    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
+    <string name="folder_already_exists">Folder already exists</string>
+    <string name="notification_icon">Notification icon</string>
+    <string name="folder_confirm_create">Create</string>
+    <string name="file_delete">Delete</string>
+    <string name="file_keep">Keep</string>
+    <string name="file_rename">Rename</string>
+    <string name="fab_label">Add or upload</string>
 </resources>

@@ -32,6 +32,5 @@ public interface FilesServiceApi {
         void onError(String error);
     }
 
-    void readRemoteFile(String fileUrl, BaseActivity activity, boolean isSharingSupported,
-                        FilesServiceApi.FilesServiceCallback<OCFile> callback);
+    void readRemoteFile(String fileUrl, BaseActivity activity, FilesServiceApi.FilesServiceCallback<OCFile> callback);
 }

@@ -51,7 +51,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PowerUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,7 +71,7 @@ public class FilesSyncJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
@@ -129,7 +128,7 @@ public class FilesSyncJob extends Job {
                                     lastModificationTime = dateTime.getTime();
                                 }
 
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                             }
                         }

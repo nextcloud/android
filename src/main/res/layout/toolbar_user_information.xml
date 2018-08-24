@@ -115,7 +115,9 @@
 
             </RelativeLayout>
 
-        </LinearLayout>
+        <include layout="@layout/info_box"/>
+
+    </LinearLayout>
     </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>

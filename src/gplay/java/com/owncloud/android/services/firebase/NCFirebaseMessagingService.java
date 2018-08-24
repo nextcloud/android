@@ -29,7 +29,7 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData() != null) {
+        if (remoteMessage != null && remoteMessage.getData() != null) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
                     (NotificationJob.KEY_NOTIFICATION_SUBJECT));

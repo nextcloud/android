@@ -34,18 +34,17 @@
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
-	<string name="drawer_close">Κλείσιμο</string>
-    <string name="drawer_open">Άνοιγμα</string>
-    <string name="prefs_category_general">Γενικά</string>
+	<string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
+    <string name="prefs_lock_none">Τίποτα</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Δεν ήταν δυνατή η επίλυση της διεύθυνσης διακομιστή του λογαριασμού για το DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένα το Google Play ή το F-Droid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_help">Βοήθεια</string>
@@ -53,9 +52,9 @@
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
 
-	<string name="recommend_subject">Δοκιμάστε %1$s στη συσκευή σας!</string>
-	<string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
-    <string name="recommend_urls">%1$sή%2$s</string>
+	<string name="recommend_subject">Δοκιμάστε το %1$s στη συσκευή σας!</string>
+	<string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
+    <string name="recommend_urls">%1$s ή %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
@@ -112,9 +111,9 @@
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_download">Λήψη</string>
     <string name="filedetails_sync_file">Συγχρονισμός</string>
-    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε %1$s κατά τη μεταφόρτωση</string>
+    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
-    <string name="action_send_share">Αποστολή / κοινή χρήση</string>
+    <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
@@ -128,6 +127,7 @@
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
     <string name="common_pending">Εκκρεμεί</string>
     <string name="common_delete">Διαγραφή</string>
+    <string name="common_send">Αποστολή</string>
     <string name="about_title">Περί</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
@@ -145,7 +145,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted"> Μη αξιόπιστο πιστοποιητικό διακομιστή</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
-    <string name="uploads_view_group_failed_uploads">Αποτυχία / αναμονή επανεκκίνησης</string>
+    <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -161,7 +161,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
-    <string name="downloader_download_in_progress_ticker">Λαμβάνονται…</string>
+    <string name="downloader_download_in_progress_ticker">Λήψη…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
     <string name="downloader_download_succeeded_ticker">Ληφθέντα</string>
     <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>
@@ -179,6 +179,8 @@
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
+    <string name="foreign_files_move">Μετακίνηση όλων</string>
+    <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
@@ -188,17 +190,14 @@
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     
+    <string name="media_state_loading">%1$s(φόρτωση)</string>
     <string name="media_err_nothing_to_play">Δεν βρέθηκαν αρχεία πολυμέσων</string>
-    <string name="media_err_no_account">Δεν δόθηκε λογαριασμός</string>
     <string name="media_err_not_in_owncloud">Το αρχείο δεν είναι έγκυρος λογαριασμός</string>
     <string name="media_err_unsupported">Δεν υποστηρίζεται η μορφή κωδικοποιήσης πολυμέσων</string>
     <string name="media_err_io">Αδυναμία ανάγνωσης αρχείου πολυμέσων</string>
     <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
     <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
     <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
-    <string name="media_err_security_ex">Σφάλμα ασφαλείας κατά την προσπάθεια αναπαραγωγής του %1$s</string>
-    <string name="media_err_io_ex">Σφάλμα εισόδου κατά την προσπάθεια αναπαραγωγής του %1$s</string>
-    <string name="media_err_unexpected">Απροσδόκητο σφάλμα κατά την προσπάθεια αναπαραγωγής του %1$s</string>
     <string name="media_rewind_description">Κουμπί ταχείας κίνησης πίσω</string>
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
@@ -213,6 +212,7 @@
 	<string name="auth_account_not_new">Ένας λογαριασμός για τον ίδιο χρήστη και διακομιστή υπάρχει ήδη στη συσκευή</string>
 	<string name="auth_account_not_the_same">Ο χρήστης που εισάγατε δεν ταιριάζει με το χρήστη αυτού του λογαριασμού</string>
 	<string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα!</string>
+	<string name="auth_unknown_error_exception_title">Άγνωστο σφάλμα: %1$s</string>
 	<string name="auth_unknown_host_title">Αδυναμία εύρεσης κεντρικού υπολογιστή</string>
 	<string name="auth_incorrect_path_title">Δεν βρέθηκε διακομιστής</string>
 	<string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
@@ -243,6 +243,7 @@
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
@@ -319,7 +320,6 @@
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="clipboard_text_copied">Αντιγράφηκε στο πρόχειρο</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
-    <string name="clipboard_uxexpected_error">Μη αναμενόμενο σφάλμα κατά την αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
@@ -427,19 +427,35 @@
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
     <string name="share_no_users">Δεν έχουν διαμοιραστεί ακόμα δεδομένα με τους χρήστες</string>
     <string name="share_add_user_or_group">Προσθήκη χρήστη ή ομάδας</string>
+    <string name="share_via_link_edit_permission_label">Επιτρέπεται η επεξεργασία</string>
+    <string name="share_via_link_password_label">Προστασία με συνθηματικό</string>
+    <string name="share_via_link_password_title">Ασφαλίστηκε</string>
+    <string name="share_via_link_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
+    <string name="share_expiration_date_label">Λήγει στις %1$s</string>
+    <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
+    <string name="share_password_title">Προστασία με συνθηματικό</string>
+    <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
+    <string name="edit_permission_label">επεξεργασία</string>
     <string name="share_via_link_hide_file_listing_permission_label">Απόκρυψη λίστας αρχείου</string>
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
     <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
+    <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου...</string>
+
     <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
     <string name="share_group_clarification">%1$s (ομάδα)</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
+    <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
+    <string name="share_privilege_can_edit_create">δυνατότητα δημιουργίας</string>
+    <string name="share_privilege_can_edit_change">δυνατότητα αλλαγής</string>
+    <string name="share_privilege_can_edit_delete">δυνατότητα διαγραφής</string>
+
     <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
@@ -457,7 +473,6 @@
     <string name="confirmation_remove_files_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε αναβαθμίστε.</string>
@@ -548,7 +563,6 @@
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Αποσύνδεση</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Το αρχείο δεν βρέθηκε</string>
@@ -575,10 +589,12 @@
 
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
-    <string name="activity_icon">Εικονίδιο δραστηριότητας</string>
-    <string name="file_icon">Εικονίδιο αρχείου</string>
-    <string name="user_icon">Εικονίδιο χρήστη</string>
-    <string name="thumbnail">Μικρογραφία</string>
+    <string name="file_icon">Αρχείο</string>
+    <string name="user_icon">Χρήστης</string>
+    <string name="favorite_icon">Αγαπημένο</string>
+    <string name="available_offline_icon">Διαθέσιμα εκτός σύνδεσης</string>
+    <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
+    <string name="shared_icon_shared">διαμοιρασμένα</string>
     <string name="sort_by_name_ascending">Α - Ω</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
     <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>
@@ -597,9 +613,16 @@
     <string name="share">Διαμοιρασμός</string>
     <string name="link">Σύνδεσμος</string>
 
+    <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
+    <string name="notification_channel_upload_description">Εμφάνισης προόδου μεταφόρτωσης</string>
+    <string name="notification_channel_media_name">Αναπαραγωγή πολυμέσων</string>
+    <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
 
     <string name="screenshot_01_gridView">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
+    <string name="userinfo_no_info_headline">Δεν ορίστηκαν προσωπικές πληροφορίες</string>
+    <string name="account_icon">Εικονίδιο λογαριασμού</string>
+    
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
     <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>
     <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
@@ -611,4 +634,24 @@
     <string name="end_to_end_encryption_unsuccessful">Αδυναμία αποθήκευσης κλειδιών, παρακαλούμε δοκιμάστε ξανά.</string>
     <string name="end_to_end_encryption_dialog_close">Κλείσιμο</string>
     <string name="end_to_end_encryption_storing_keys">Αποθήκευση κλειδιών</string>
+    <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
+
+    <string name="hint_name">Όνομα</string>
+    <string name="hint_password">Συνθηματικό</string>
+    <string name="add_to_cloud">Προσθήκη στο %1$s</string>
+    <string name="upload_files">Μεταφόρτωση αρχείων</string>
+    <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
+    <string name="tags">Ετικέτες</string>
+    <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
+    <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
+    <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
+    <string name="new_media_folder_photos">φωτογραφία</string>
+    <string name="new_media_folder_videos">Βίντεο</string>
+
+    <string name="dismiss">Αποδέσμευση</string>
+    <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
+    <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
+    <string name="folder_confirm_create">Δημιουργία</string>
+    <string name="file_delete">Διαγραφή</string>
+    <string name="file_rename">Μετονομασία</string>
     </resources>

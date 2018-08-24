@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_version">version %1$s</string>
-    <string name="actionbar_sync">Actualiser le compte</string>
+    <string name="actionbar_sync">Actualiser</string>
     <string name="actionbar_upload">Envoyer</string>
     <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
     <string name="actionbar_upload_files">Fichiers</string>
@@ -23,7 +23,7 @@
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_favorites">Favoris</string>
-    <string name="drawer_item_photos">Photos</string>
+    <string name="drawer_item_photos">Images</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
@@ -34,18 +34,25 @@
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-	<string name="drawer_close">Fermer</string>
-    <string name="drawer_open">Ouvrir</string>
+	<string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_open">Ouvrir la barre latérale</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
+    <string name="prefs_lock">Verrouiller</string>
+    <string name="prefs_lock_title">Verrouillage utilisé</string>
+    <string name="prefs_lock_none">Aucun</string>
+    <string name="prefs_lock_using_passcode">Code de sécurité</string>
+    <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
+    <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
+    <string name="prefs_lock_device_credentials_not_setup">Aucune information d\'identification du terminal n\'a été configurée</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play Store ou F-Droid installée</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
@@ -66,7 +73,7 @@
     <string name="setup_btn_connect">Se connecter</string>
     <string name="uploader_btn_upload_text">Envoyer</string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
-    <string name="uploader_top_message">Sélectionner le dossier de téléversement</string>
+    <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
     <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
     <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
@@ -77,7 +84,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
-    <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
+    <string name="uploader_upload_files_behaviour">Option d\'envoi :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
@@ -103,16 +110,18 @@
     <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
     <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
-    <string name="file_list_empty_text_photos">Charger des photos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_photos">Envoyez des photos ou activez l\'envoi automatique.</string>
     <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
-    <string name="file_list_empty_text_videos">Charger des vidéos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez l\'envoi automatique.</string>
     <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
-    <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
-    <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
+    <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
+    <string name="trashbin_empty_message">Ici, vous verrez et pourrez restaurer vos fichiers supprimés</string>
+    <string name="upload_list_empty_headline">Aucun historique d\'envoi</string>
+    <string name="upload_list_empty_text_auto_upload">Envoyez du contenu ou activez l\'envoi automatique.</string>
     <string name="file_list_folder">dossier</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
-    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
+    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="common_yes">Oui</string>
@@ -144,11 +153,11 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Téléversement échoué, reconnectez-vous</string>
+    <string name="uploader_upload_failed_credentials_error">Envoi échoué, reconnectez-vous</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">En cours</string>
-    <string name="uploads_view_group_failed_uploads">Redémarrerage échoué/en attente</string>
+    <string name="uploads_view_group_failed_uploads">Envoi échoué / Nouvel envoi possible</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
@@ -198,6 +207,9 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
+    <string name="default_credentials_wrong">Informations d\'identification erronées</string>
+    <string name="credentials_disabled">Informations d\'identification désactivées</string>
+    
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -212,7 +224,6 @@ Attention la suppression est irréversible.</string>
     <string name="media_state_loading">%1$s (chargement)</string>
     <string name="media_event_done">Lecture de %1$s terminée</string>
     <string name="media_err_nothing_to_play">Aucun fichier média trouvé</string>
-    <string name="media_err_no_account">Aucun compte fourni</string>
     <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
     <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
@@ -220,9 +231,7 @@ Attention la suppression est irréversible.</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
-    <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
-    <string name="media_err_io_ex">Erreur d\'entrée à la lecture de %1$s</string>
-    <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
+    <string name="media_err_playing">Erreur inattendue lors de la lecture de %1$s </string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
@@ -261,6 +270,8 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
+    <string name="auth_illegal_login_used">Utilisation d\'une URL d\'identification non autorisée</string>
+
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Ajouter aux favoris</string>
@@ -328,7 +339,7 @@ Attention la suppression est irréversible.</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/TéléversementAutomatique</string>
+    <string name="auto_upload_path">/EnvoiAuto</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
     <string name="conflict_keep_both">Conserver les deux</string>
@@ -346,7 +357,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
 
-	<string name="share_link_no_support_share_api">Le partage n\'est pas activé sur votre serveur. Contactez s\'il vous plait votre administrateur</string>
 	<string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
 	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
 	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
@@ -361,7 +371,7 @@ Attention la suppression est irréversible.</string>
     <string name="copy_link">Copier le lien</string>
     <string name="clipboard_text_copied">Copié dans le presse-papier</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
-    <string name="clipboard_uxexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
+    <string name="clipboard_unexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
@@ -477,9 +487,12 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_edit_permission_label">Autoriser la modification</string>
     <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
+    <string name="share_via_link_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_menu_password_label">Protéger par un mot de passe (%1$s)</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
+    <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
+    <string name="share_via_link_send_link_label">Envoyer le lien</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
     <string name="edit_permission_label">modifier</string>
@@ -487,6 +500,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec…</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
+    <string name="share_via_link_unset_password">Désactiver</string>
+
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
 
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
@@ -521,12 +536,13 @@ Veuillez contacter votre administrateur</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
+    <string name="offline_mode">Aucune connexion internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud, merci de mettre à jour.</string>
     <string name="learn_more">En savoir plus</string>
-    <string name="drawer_synced_folders">Téléversement automatique</string>
+    <string name="drawer_synced_folders">Envoi automatique</string>
     <string name="drawer_participate">Participer</string>
     <string name="participate_testing_headline">Aidez-nous à améliorer Nextcloud</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
@@ -553,8 +569,8 @@ Veuillez contacter votre administrateur</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
     <string name="synced_folders_loading_folders">Chargement des dossiers…</string>
     <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
-    <string name="synced_folders_preferences">Préférences pour le téléversement automatique</string>
-    <string name="synced_folders_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique.\n\nProfitez des nouvelles capacités étendues du téléversement automatique.</string>
+    <string name="synced_folders_preferences">Préférences d\'envois automatiques</string>
+    <string name="synced_folders_new_info">L\'envoi immédiat a été complètement refondu. Merci de reconfigurer vos envois automatiques depuis le Menu principal.\n\nProfitez des capacités nouvelles et étendues des envois automatiques.</string>
     <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
@@ -584,7 +600,7 @@ Veuillez contacter votre administrateur</string>
     <string name="welcome_feature_2_title">Multi-compte</string>
     <string name="welcome_feature_2_text">Connectez-vous avec plusieurs comptes clouds</string>
 
-    <string name="welcome_feature_3_title">Téléversement automatique</string>
+    <string name="welcome_feature_3_title">Envoi automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
     <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
@@ -607,6 +623,7 @@ Veuillez contacter votre administrateur</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
+    <string name="activities_no_results_message">Aucun ajout, changement ou un partage à afficher</string>
     <string name="prefs_category_about">À propos</string>
 
     <string name="actionbar_contacts">Sauvegarde des contacts</string>
@@ -625,7 +642,6 @@ Veuillez contacter votre administrateur</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Déconnexion</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="privacy">Vie privée</string>
@@ -642,7 +658,7 @@ Veuillez contacter votre administrateur</string>
     <string name="fallback_weblogin_back">Retour</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
 
-    <string name="foreground_service_upload">Téléversement des fichiers…</string>
+    <string name="foreground_service_upload">Envoi des fichiers…</string>
     <string name="foreground_service_download">Téléchargement des fichiers…</string>
 
     <string name="prefs_sourcecode">Obtenir le code source</string>
@@ -666,18 +682,16 @@ Veuillez contacter votre administrateur</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
-    <string name="activity_icon">Icône d\'activité</string>
-    <string name="file_icon">Icône de fichier</string>
-    <string name="user_icon">Icône d\'utilisateur</string>
-    <string name="favorite_icon">Icône des favoris</string>
-    <string name="shared_via_link_icon">Icône de partage par lien</string>
-    <string name="synced_icon">Icône synchronisé</string>
-    <string name="available_offline_icon">Icône disponible hors-ligne</string>
+    <string name="activity_icon">Activité</string>
+    <string name="file_icon">Fichier</string>
+    <string name="user_icon">Utilisateur</string>
+    <string name="favorite_icon">Favoris</string>
+    <string name="synced_icon">Synchronisé</string>
+    <string name="available_offline_icon">Disponible hors-ligne</string>
     <string name="checkbox">Case à cocher</string>
-    <string name="thumbnail">Miniature</string>
-    <string name="shared_icon">Icône partagé</string>
-    <string name="overflow_menu">Menu recouvrant</string>
-    <string name="share_file_icon">Icône de partage de fichier</string>
+    <string name="shared_icon_share">partage</string>
+    <string name="shared_icon_shared_via_link">partagé par lien</string>
+    <string name="shared_icon_shared">partagé</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_size_descending">Le plus grand en premier</string>
@@ -706,10 +720,10 @@ Veuillez contacter votre administrateur</string>
     <string name="share">Partager</string>
     <string name="link">Lien</string>
 
-    <string name="notification_channel_upload_name">Canal de notification de téléversement</string>
+    <string name="notification_channel_upload_name">Canal de notification des envois</string>
     <string name="notification_channel_download_name">Canal de notification de téléchargement</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
-    <string name="notification_channel_upload_description">Afficher la progression de téléversement</string>
+    <string name="notification_channel_upload_description">Afficher l\'avancement de l\'envoi</string>
     <string name="notification_channel_media_name">Lecteur média</string>
     <string name="notification_channel_media_description">Progression du lecteur de musique</string>
     <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
@@ -752,6 +766,7 @@ Veuillez contacter votre administrateur</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+
     <string name="oauth_2_0_auth_end_point_address_hint">Adresse du point de terminaison d\'authentification</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adresse du point de terminaison d\'accès</string>
     <string name="hint_name">Nom</string>
@@ -760,9 +775,46 @@ Veuillez contacter votre administrateur</string>
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
-    <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
+    <string name="uploads_view_upload_status_virus_detected">Un virus a été détecté. L\'envoi ne peut donc pas être réalisé !</string>
     <string name="tags">Étiquettes</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
-    </resources>
+    <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
+    <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
+    <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
+    <string name="restore_button_description">Restaurer le fichier supprimé</string>
+	<string name="restore">Restaurer le fichier</string>
+    <string name="new_version_was_created">Une nouvelle version a été créée</string>
+    <string name="new_comment">Nouveau commentaire…</string>
+    <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
+    <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
+    <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
+    <string name="notification_channel_general_name">Notifications générales</string>
+    <string name="notification_channel_general_description">Afficher les notifications pour les nouveaux dossiers de média et des dossiers similaires</string>
+    <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">vidéo</string>
+
+    <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
+    <string name="dismiss">Ignorer</string>
+    <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
+    <string name="drawer_item_trashbin">Fichiers supprimés</string>
+    <string name="trashbin_activity_title">Fichiers supprimés</string>
+    <string name="action_empty_trashbin">Corbeille vide</string>
+    <string name="trashbin_loading_failed">Erreur du chargement de la corbeille !</string>
+    <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
+    <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
+    <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="stream">Diffuser avec…</string>
+    <string name="stream_not_possible_headline">Diffusion interne impossible</string>
+    <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
+    <string name="folder_already_exists">Le dossier existe déjà</string>
+    <string name="notification_icon">Icône de notification</string>
+    <string name="folder_confirm_create">Créer</string>
+    <string name="file_delete">Supprimer</string>
+    <string name="file_keep">Conserver</string>
+    <string name="file_rename">Renommer</string>
+    <string name="fab_label">Ajouter ou téléverser</string>
+</resources>

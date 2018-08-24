@@ -47,7 +47,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -63,7 +62,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 /**
@@ -110,7 +109,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * List of private shares bound to the file.
      */
-    private ArrayList<OCShare> mPrivateShares;
+    private List<OCShare> mPrivateShares;
 
     /**
      * Capabilities of the server.
@@ -130,22 +129,22 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Listener for user actions to set, update or clear password on public link.
      */
-    private OnPasswordInteractionListener mOnPasswordInteractionListener = null;
+    private OnPasswordInteractionListener mOnPasswordInteractionListener;
 
     /**
      * Listener for user actions to set, update or clear expiration date on public link.
      */
-    private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener = null;
+    private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener;
 
     /**
      * Listener for user actions to set or unset edit permission on public link.
      */
-    private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener = null;
+    private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener;
 
     /**
      * Listener for user actions to set or unset hide file listing permission on public link.
      */
-    private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener = null;
+    private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener;
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -191,7 +190,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         // Image
         ImageView icon = view.findViewById(R.id.shareFileIcon);
         icon.setImageDrawable(
-                MimeTypeUtil.getFileTypeIcon(mFile.getMimetype(), mFile.getFileName(), mAccount, getContext())
+                MimeTypeUtil.getFileTypeIcon(mFile.getMimeType(), mFile.getFileName(), mAccount, getContext())
         );
         if (MimeTypeUtil.isImage(mFile)) {
             String remoteId = String.valueOf(mFile.getRemoteId());
@@ -227,17 +226,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         addUserGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
-                if (shareWithUsersEnable) {
-                    // Show Search Fragment
-                    mListener.showSearchUsersAndGroups();
-                } else {
-                    Snackbar.make(
-                            getActivity().findViewById(android.R.id.content),
-                            getString(R.string.share_sharee_unavailable),
-                            Snackbar.LENGTH_LONG
-                    ).show();
-                }
+                // Show Search Fragment
+                mListener.showSearchUsersAndGroups();
             }
         });
 
@@ -705,9 +695,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      * @return 'True' when public share is disabled in the server
      */
     private boolean isPublicShareDisabled() {
-        return (mCapabilities != null &&
-                mCapabilities.getFilesSharingPublicEnabled().isFalse()
-        );
+        return mCapabilities != null && mCapabilities.getFilesSharingPublicEnabled().isFalse();
     }
 
     /**

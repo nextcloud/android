@@ -65,6 +65,13 @@
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/action_stream_media"
+        android:title="@string/stream"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1"/>
+    
+    <item
         android:id="@+id/action_send_share_file"
         android:title="@string/action_send_share"
         app:showAsAction="never"

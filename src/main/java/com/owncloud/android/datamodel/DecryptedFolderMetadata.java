@@ -22,14 +22,14 @@
 package com.owncloud.android.datamodel;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Decrypted class representation of metadata json of folder metadata
  */
-
 public class DecryptedFolderMetadata {
     private Metadata metadata;
-    private HashMap<String, DecryptedFile> files;
+    private Map<String, DecryptedFile> files;
 
     public DecryptedFolderMetadata() {
         this.metadata = new Metadata();
@@ -49,24 +49,24 @@ public class DecryptedFolderMetadata {
         this.metadata = metadata;
     }
 
-    public HashMap<String, DecryptedFile> getFiles() {
+    public Map<String, DecryptedFile> getFiles() {
         return files;
     }
 
-    public void setFiles(HashMap<String, DecryptedFile> files) {
+    public void setFiles(Map<String, DecryptedFile> files) {
         this.files = files;
     }
 
     public static class Metadata {
-        private HashMap<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
+        private Map<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
         private Sharing sharing;
         private int version;
 
-        public HashMap<Integer, String> getMetadataKeys() {
+        public Map<Integer, String> getMetadataKeys() {
             return metadataKeys;
         }
 
-        public void setMetadataKeys(HashMap<Integer, String> metadataKeys) {
+        public void setMetadataKeys(Map<Integer, String> metadataKeys) {
             this.metadataKeys = metadataKeys;
         }
 
@@ -93,26 +93,26 @@ public class DecryptedFolderMetadata {
     }
 
     public static class Encrypted {
-        private HashMap<Integer, String> metadataKeys;
+        private Map<Integer, String> metadataKeys;
 
-        public HashMap<Integer, String> getMetadataKeys() {
+        public Map<Integer, String> getMetadataKeys() {
             return metadataKeys;
         }
 
-        public void setMetadataKeys(HashMap<Integer, String> metadataKeys) {
+        public void setMetadataKeys(Map<Integer, String> metadataKeys) {
             this.metadataKeys = metadataKeys;
         }
     }
 
     public static class Sharing {
-        private HashMap<String, String> recipient;
+        private Map<String, String> recipient;
         private String signature;
 
-        public HashMap<String, String> getRecipient() {
+        public Map<String, String> getRecipient() {
             return recipient;
         }
 
-        public void setRecipient(HashMap<String, String> recipient) {
+        public void setRecipient(Map<String, String> recipient) {
             this.recipient = recipient;
         }
 

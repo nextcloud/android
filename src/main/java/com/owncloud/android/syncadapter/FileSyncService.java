@@ -33,7 +33,7 @@ import android.os.IBinder;
 public class FileSyncService extends Service {
     
     // Storage for an instance of the sync adapter
-    private static FileSyncAdapter sSyncAdapter = null;
+    private static FileSyncAdapter sSyncAdapter;
     // Object to use as a thread-safe lock
     private static final Object sSyncAdapterLock = new Object();
     

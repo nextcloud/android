@@ -34,11 +34,15 @@
     <string name="drawer_item_activities">Activiteiten</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
-	<string name="drawer_close">Sluiten</string>
-    <string name="drawer_open">Openen</string>
+	<string name="drawer_close">Sluiten zijbalk</string>
+    <string name="drawer_open">Openen zijbalk</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
+    <string name="prefs_lock">Slot</string>
+    <string name="prefs_lock_none">Geen</string>
+    <string name="prefs_lock_using_passcode">Toegangscode</string>
+    <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -107,6 +111,7 @@
     <string name="file_list_empty_text_photos_filter">Geen foto\'s.</string>
     <string name="file_list_empty_text_videos">Upload enkele video\'s of activeer auto-upload.</string>
     <string name="file_list_empty_text_videos_filter">Geen video\'s.</string>
+    <string name="trashbin_empty_headline">Geen verwijderde bestanden</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
@@ -196,6 +201,9 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
+    <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
+    <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
+    
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>
@@ -210,7 +218,6 @@
     <string name="media_state_loading">%1$s (laden)</string>
     <string name="media_event_done">%1$s afspelen beëindigd</string>
     <string name="media_err_nothing_to_play">Geen mediabestand gevonden</string>
-    <string name="media_err_no_account">Geen account opgegeven</string>
     <string name="media_err_not_in_owncloud">Het bestand hoort niet bij een geldig account</string>
     <string name="media_err_unsupported">Niet-ondersteunde mediacodec</string>
     <string name="media_err_io">Kon het mediabestand niet lezen</string>
@@ -218,9 +225,6 @@
     <string name="media_err_timeout">Time-out tijdens het afspelen</string>
     <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
     <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
-    <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
-    <string name="media_err_io_ex">Invoerfout bij afspelen %1$s</string>
-    <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
     <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
     <string name="media_forward_description">Doorspoelknop</string>
@@ -344,7 +348,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
-	<string name="share_link_no_support_share_api">Sorry, delen is niet ingeschakeld op jouw server. Neem contact op met je server beheerder</string>
 	<string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
 	<string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
 	<string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
@@ -359,7 +362,7 @@
     <string name="copy_link">Link kopiëren</string>
     <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
-    <string name="clipboard_uxexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
+    <string name="clipboard_unexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
@@ -480,8 +483,10 @@
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_via_link_section_title">Deel link</string>
+    <string name="share_via_link_send_link_label">Verstuur link</string>
     <string name="share_password_title">Wachtwoord beveiligd</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
+    <string name="edit_permission_label">bewerken</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met…</string>
@@ -519,7 +524,6 @@
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
@@ -623,7 +627,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
@@ -664,18 +667,16 @@
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
     <string name="contactlist_item_icon">Contactpersonen pictogram</string>
-    <string name="activity_icon">Activiteitspictogram</string>
-    <string name="file_icon">Bestandpictogram</string>
-    <string name="user_icon">Gebruikerspictogram</string>
-    <string name="favorite_icon">Favorietenpictogram</string>
-    <string name="shared_via_link_icon">Gedeeld via link icoon</string>
-    <string name="synced_icon">Gesynch\'d pictogram</string>
-    <string name="available_offline_icon">Offline beschikbaar icoon</string>
+    <string name="activity_icon">Activiteit</string>
+    <string name="file_icon">Bestand</string>
+    <string name="user_icon">Gebruiker</string>
+    <string name="favorite_icon">Favoriet</string>
+    <string name="available_offline_icon">Offline beschikbaar</string>
     <string name="checkbox">Aanvinkvakje</string>
-    <string name="thumbnail">Miniatuurweergave</string>
-    <string name="shared_icon">Gedeeld icoon</string>
-    <string name="overflow_menu">Overloopmenu</string>
-    <string name="share_file_icon">Deel bestand icoon</string>
+    <string name="shared_icon_share">delen</string>
+    <string name="shared_icon_shared_via_link">gedeeld via link</string>
+    <string name="shared_icon_shared">deelde</string>
+    <string name="overflow_menu">Meer menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Nieuwste eerst</string>
     <string name="sort_by_size_descending">Grootste eerst</string>
@@ -750,6 +751,7 @@
     <string name="notification_channel_push_name">Push meldingen</string>
     <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
+
     <string name="hint_name">Naam</string>
     <string name="hint_password">Wachtwoord</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
@@ -757,4 +759,23 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="restore_button_description">Herstel verwijderd bestand</string>
+	<string name="restore">Herstellen bestand</string>
+    <string name="new_comment">Nieuwe reactie…</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">video</string>
+
+    <string name="dismiss">Weigeren</string>
+    <string name="drawer_item_trashbin">Verwijderde bestanden</string>
+    <string name="trashbin_activity_title">Verwijderde bestanden</string>
+    <string name="action_empty_trashbin">Legen prullebak</string>
+    <string name="trashbin_file_not_deleted">Bestand %1$s kon niet worden verwijderd!</string>
+    <string name="trashbin_file_not_restored">Bestand %1$s kon niet worden hersteld!</string>
+    <string name="folder_already_exists">Map bestaat al</string>
+    <string name="notification_icon">Meldingenpictogram</string>
+    <string name="folder_confirm_create">Aanmaken</string>
+    <string name="file_delete">Verwijderen</string>
+    <string name="file_keep">Behouden</string>
+    <string name="file_rename">Hernoemen</string>
     </resources>

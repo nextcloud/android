@@ -35,7 +35,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     private final ActivitiesContract.View activitiesView;
     private final ActivitiesRepository activitiesRepository;
     private final FilesRepository filesRepository;
-    private boolean activityStopped = false;
+    private boolean activityStopped;
 
 
     ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
@@ -71,10 +71,9 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     }
 
     @Override
-    public void openActivity(String fileUrl, BaseActivity baseActivity, boolean isSharingSupported) {
+    public void openActivity(String fileUrl, BaseActivity baseActivity) {
         activitiesView.setProgressIndicatorState(true);
-        filesRepository.readRemoteFile(fileUrl, baseActivity, isSharingSupported,
-                new FilesRepository.ReadRemoteFileCallback() {
+        filesRepository.readRemoteFile(fileUrl, baseActivity, new FilesRepository.ReadRemoteFileCallback() {
                     @Override
                     public void onFileLoaded(@Nullable OCFile ocFile) {
                         activitiesView.setProgressIndicatorState(false);

@@ -103,7 +103,7 @@ public class RenameFileDialogFragment
         inputText.setText(currentName);
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
-        int selectionEnd = (extensionStart >= 0) ? extensionStart : currentName.length();
+        int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         if (selectionStart >= 0 && selectionEnd >= 0) {
             inputText.setSelection(
                     Math.min(selectionStart, selectionEnd),
@@ -115,7 +115,7 @@ public class RenameFileDialogFragment
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
-                .setPositiveButton(R.string.common_ok, this)
+                .setPositiveButton(R.string.file_rename, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
                         accentColor));
@@ -142,23 +142,13 @@ public class RenameFileDialogFragment
                 return;
             }
 
-            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
-                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
-
-            if (!FileUtils.isValidName(newFileName, serverWithForbiddenChars)) {
-
-                if (serverWithForbiddenChars) {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
-                } else {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
-                }
-
+            if (!FileUtils.isValidName(newFileName)) {
+                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
+                    
                 return;
             }
 
-            ((ComponentsGetter)getActivity()).getFileOperationsHelper().
-                    renameFile(mTargetFile, newFileName);
-
+            ((ComponentsGetter) getActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
         }
     }
 }

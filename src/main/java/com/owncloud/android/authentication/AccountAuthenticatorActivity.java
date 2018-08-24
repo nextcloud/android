@@ -34,8 +34,8 @@ import android.support.v7.app.AppCompatActivity;
 
 public class AccountAuthenticatorActivity extends AppCompatActivity {
 
-    private AccountAuthenticatorResponse mAccountAuthenticatorResponse = null;
-    private Bundle mResultBundle = null;
+    private AccountAuthenticatorResponse mAccountAuthenticatorResponse;
+    private Bundle mResultBundle;
 
 
     /**

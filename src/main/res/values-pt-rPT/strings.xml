@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_android">%1$s Aplicação Android</string>
+    <string name="about_version">versão %1$s</string>
+    <string name="actionbar_sync">Atualizar conta</string>
+    <string name="actionbar_upload">Enviar</string>
+    <string name="actionbar_upload_from_apps">Conteúdo de outras aplicações</string>
+    <string name="actionbar_upload_files">Ficheiros</string>
+    <string name="actionbar_open_with">Abrir com</string>
+    <string name="actionbar_mkdir">Nova pasta</string>
+    <string name="actionbar_settings">Definições</string>
+    <string name="actionbar_see_details">Detalhes</string>
+    <string name="actionbar_send_file">Enviar</string>
+    <string name="actionbar_sort">Ordenar</string>
+    <string name="sort_by">Ordenar por</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Recentes primeiro</string>
+    <string name="menu_item_sort_by_date_oldest_first">Antigos primeiro</string>
+    <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
+    <string name="menu_item_sort_by_size_smallest_first">Mais pequenos primeiro</string>
+
+    <string name="drawer_item_all_files">Todos os ficheiros</string>
+    <string name="drawer_item_home">Início</string>
+    <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_photos">Fotos</string>
+    <string name="drawer_item_on_device">No dispositivo</string>
+    <string name="drawer_item_recently_added">Adicionados recentemente</string>
+    <string name="drawer_item_recently_modified">Modificados recentemente</string>
+    <string name="drawer_item_shared">Partilhados</string>
+    <string name="drawer_item_videos">Videos</string>
+    <string name="drawer_item_settings">Definições</string>
+    <string name="drawer_item_uploads_list">Envios</string>
+    <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_notifications">Notificações</string>
+    <string name="drawer_quota">Usado %1$s de %2$s</string>
+	<string name="drawer_close">Fechar barra lateral</string>
+    <string name="drawer_open">Abrir barra lateral</string>
+    <string name="prefs_category_general">Geral</string>
+    <string name="prefs_category_more">Mais</string>
+    <string name="prefs_manage_accounts">Gerir contas</string>
+    <string name="prefs_lock">Bloquear</string>
+    <string name="prefs_lock_title">Bloquear, utilizando</string>
+    <string name="prefs_lock_none">nenhum</string>
+    <string name="prefs_lock_using_passcode">Código</string>
+    <string name="prefs_lock_using_device_credentials">Credenciais de dispositivo</string>
+    <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
+    <string name="prefs_lock_device_credentials_not_setup">Não foram configuradas credenciais de dispositivo.</string>
+    <string name="prefs_expert_mode">Modo avançado</string>
+    <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
+    <string name="prefs_log_delete_history_button">Eliminar histórico</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para a conta atual</string>
+    <string name="prefs_calendar_contacts_no_store_error">As aplicações F-Droid e Google Play não estão instaladas</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Configurar sincronização de calendário e contactos</string>
+    <string name="prefs_daily_contacts_sync_summary">Cópia de segurança diária dos seus contactos</string>
+    <string name="prefs_help">Ajuda</string>
+    <string name="prefs_recommend">Recomendar a um amigo</string>
+    <string name="prefs_feedback">Opinião</string>
+    <string name="prefs_imprint">Informação</string>
+
+	<string name="recommend_subject">Teste %1$s no seu dispositivo!</string>
+	<string name="recommend_text">Eu quero convidar-te para utilizares %1$sno teu dispositivo.\nTransfere aqui: %2$s</string>
+    <string name="recommend_urls">%1$s ou %2$s</string>
+
+    <string name="auth_check_server">Verificar servidor</string>
+    <string name="auth_host_url">Endereço do servidor https://...</string>
+    <string name="auth_username">Nome de utilizador</string>
+    <string name="auth_password">Palavra-passe</string>
+    <string name="auth_register">Ainda sem Nextcloud?\\nClique aqui para obter um de um fornecedor</string>
+    <string name="sync_string_files">Ficheiros</string>
+    <string name="setup_btn_connect">Ligar</string>
+    <string name="uploader_btn_upload_text">Enviar</string>
+    <string name="uploader_btn_alternative_text">Escolher</string>
+    <string name="uploader_top_message">Escolha uma pasta para envio</string>
+    <string name="uploader_wrn_no_account_title">Não foi encontrada nenhuma conta</string>
+    <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>
+    <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
+    <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
+    <string name="uploader_error_title_no_file_to_upload">Nenhum ficheiro para enviar</string>
+    <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluíam um ficheiro válido.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Este ficheiro não pode ser enviado</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s não está autorizado para ler um ficheiro recebido</string>
+    <string name="uploader_error_message_source_file_not_found">Não foi encontrado o ficheiro selecionado para envio. Por favor, verifique se o ficheiro existe.</string>
+    <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o ficheiro para uma pasta temporária. Tente reenviá-lo.</string>
+    <string name="uploader_upload_files_behaviour">Opção de envio:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o ficheiro para a pasta %1$s</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro na pasta fonte</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
+    <string name="file_list_seconds_ago">há segundos</string>
+    <string name="file_list_empty_headline">Sem ficheiros aqui</string>
+    <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="file_list_empty">Envie algum conteúdo ou sincronize com os seus dispositivos</string>
+    <string name="file_list_empty_favorites_filter_list">Os seus ficheiros e pastas favoritos serão mostrados aqui</string>
+    <string name="file_list_empty_favorites_filter">A sua pesquisa não devolveu ficheiros favoritos.</string>
+    <string name="file_list_loading">A carregar...</string>
+    <string name="file_list_no_app_for_file_type">Nenhuma aplicação para usar este tipo de ficheiro.</string>
+    <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
+    <string name="local_folder_list_empty">Não existem mais pastas.</string>
+    <string name="file_list_empty_headline_search">Sem resultados nesta pasta</string>
+    <string name="file_list_empty_headline_server_search">Sem resultados</string>
+    <string name="file_list_empty_favorite_headline">Ainda sem favoritos</string>
+    <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
+    <string name="file_list_empty_shared">Os ficheiros e pastas que partilha serão mostrados aqui</string>
+    <string name="file_list_empty_headline_server_search_videos">Sem vídeos</string>
+    <string name="file_list_empty_headline_server_search_photos">Sem fotografias</string>
+    <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
+    <string name="file_list_empty_text_photos">Envie algumas fotografias ou ative o envio automático.</string>
+    <string name="file_list_empty_text_photos_filter">Sem fotografias.</string>
+    <string name="file_list_empty_text_videos">Envie algumas fotografias ou ative o envio automático.</string>
+    <string name="file_list_empty_text_videos_filter">Sem vídeos.</string>
+    <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
+    <string name="upload_list_empty_headline">Sem envios disponíveis</string>
+    <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
+    <string name="file_list_folder">pasta</string>
+    <string name="filedetails_download">Transferir</string>
+    <string name="filedetails_sync_file">Sincronizar</string>
+    <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado para %1$s durante o envio</string>
+    <string name="list_layout">Layout listado</string>
+    <string name="action_send_share">Enviar/Partilhar</string>
+    <string name="common_yes">Sim</string>
+    <string name="common_no">Não</string>
+    <string name="common_ok">ACEITAR</string>
+    <string name="common_cancel_sync">Cancelar sincronização</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_back">Anterior</string>
+    <string name="common_save">Guardar</string>
+    <string name="common_error">Erro</string>
+    <string name="common_loading">A carregar...</string>
+    <string name="common_unknown">desconhecido</string>
+    <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_pending">Pendente</string>
+    <string name="common_delete">Eliminar </string>
+    <string name="common_send">Enviar</string>
+    <string name="about_title">Sobre</string>
+    <string name="delete_account">Remover conta</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Utilizador ativo</string>
+    <string name="upload_chooser_title">Enviar de...</string>
+    <string name="uploader_info_dirname">Nome da pasta</string>
+    <string name="uploader_upload_in_progress_ticker">A enviar...</string>
+    <string name="uploader_upload_in_progress_content">%1$d%%  A enviar %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Enviado</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
+    <string name="uploader_upload_failed_ticker">Envio falhou</string>
+    <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">O envio falhou, inicie novamente a sessão</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor desconfiável</string>
+    <string name="uploads_view_title">Envios</string>
+    <string name="uploads_view_group_current_uploads">Atual</string>
+    <string name="uploads_view_group_failed_uploads">Falhou/reinício pendente</string>
+    <string name="uploads_view_group_finished_uploads">Enviado</string>
+    <string name="uploads_view_upload_status_succeeded">Concluído</string>
+    <string name="uploads_view_upload_status_cancelled">Cancelado</string>
+    <string name="uploads_view_upload_status_failed_connection_error">Erro de ligação</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Erro de credenciais</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Erro de pasta</string>
+    <string name="uploads_view_upload_status_failed_file_error">Erro de ficheiro</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Ficheiro local não encontrado</string>
+    <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
+    <string name="uploads_view_upload_status_conflict">Conflito</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplicação terminada</string>
+    <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">A aguardar por Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">A aguardar para sair do modo de poupança de bateria</string>
+    <string name="uploads_view_later_waiting_to_upload">A aguardar para enviar</string>
+    <string name="downloader_download_in_progress_ticker">A transferir...</string>
+    <string name="downloader_download_in_progress_content">%1$d%% A transferir %2$s</string>
+    <string name="downloader_download_succeeded_ticker">Transferido</string>
+    <string name="downloader_download_succeeded_content">%1$s transferido</string>
+    <string name="downloader_download_failed_ticker">Transferência falhou</string>
+    <string name="downloader_download_failed_content">Não foi possível transferir %1$s</string>
+    <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
+    <string name="downloader_download_failed_credentials_error">A transferência falhou, inicie novamente a sessão</string>
+    <string name="common_choose_account">Escolher conta</string>
+    <string name="common_switch_account">Mudar Conta</string>
+    <string name="sync_fail_ticker">Sincronização falhou</string>
+    <string name="sync_fail_ticker_unauthorized">A sincronização falhou, inicie novamente a sessão</string>
+    <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
+    <string name="sync_fail_content_unauthorized">Palavra-passe incorreta para %1$s</string>
+    <string name="sync_conflicts_in_favourites_ticker">Encontrados conflitos</string>
+    <string name="sync_fail_in_favourites_ticker">Manter ficheiros sincronizados falhou</string>
+    <string name="sync_foreign_files_forgotten_ticker">Alguns ficheiros locais foram esquecidos</string>
+    <string name="sync_foreign_files_forgotten_explanation">Para a versão 1.3.16, os ficheiros enviados deste dispositivo são copiados para a seguinte pasta %1$s para evitar a falha de dados quando um só ficheiro é sincronizado em múltiplas contas.\n\nDevido a esta alteração, todos os ficheiros enviados com as versões mais antigas desta aplicação serão copiadas para a seguinte pasta %2$s. Contudo, um erro evitou a conclusão desta operação durante a sincronização da conta. Pode deixar o(s) ficheiro(s) como estão e eliminar a associação para %3$s, ou mover o(s) ficheiro(s) para a pasta %1$s e manter a associação para %4$s.\n\nEm baixo está a lista dos ficheiros locais e dos ficheiros remotos na pasta %5$s em que foram associados.</string>
+    <string name="sync_current_folder_was_removed">A pasta %1$s já não existe</string>
+    <string name="foreign_files_move">Mover todos</string>
+    <string name="foreign_files_success">Todos os ficheiros foram movidos</string>
+    <string name="foreign_files_fail">Não foi possível mover alguns ficheiros</string>
+    <string name="foreign_files_local_text">Local: %1$s</string>
+    <string name="foreign_files_remote_text">Remoto: %1$s</string>
+    <string name="upload_query_move_foreign_files">Espaço insuficiente não permite que a cópia dos ficheiros selecionados seja efetuada para a pasta %1$s. Pretende mover os ficheiros?</string>
+    <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
+    <string name="default_credentials_wrong">Credenciais incorretas</string>
+    <string name="credentials_disabled">Credenciais desativadas</string>
+    
+    <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
+    <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação é iniciada</string>
+    <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
+    <string name="pass_code_remove_your_pass_code">Eliminar o seu código</string>
+    <string name="pass_code_mismatch">Os códigos não coincidem</string>
+    <string name="pass_code_wrong">Código incorreto</string>
+    <string name="pass_code_removed">Código eliminado</string>
+    <string name="pass_code_stored">Código guardado</string>
+    
+    <string name="media_notif_ticker">%1$s reprodutor de música</string>
+    <string name="media_state_playing">%1$s (a reproduzir)</string>
+    <string name="media_state_loading">%1$s (a carregar)</string>
+    <string name="media_event_done">%1$s reprodução terminou</string>
+    <string name="media_err_nothing_to_play">Não foi encontrado nenhum ficheiro de multimédia</string>
+    <string name="media_err_not_in_owncloud">O ficheiro não está numa conta válida</string>
+    <string name="media_err_unsupported">Codec de multimédia não suportado</string>
+    <string name="media_err_io">Não foi possível ler o ficheiro de multimédia</string>
+    <string name="media_rewind_description">Botão de Retroceder</string>
+    <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
+    <string name="media_forward_description">Botão de Avançar Rápido</string>
+
+    <string name="auth_getting_authorization">A obter autorização...</string>
+    <string name="auth_trying_to_login">A tentar iniciar a sessão...</string>
+	<string name="auth_no_net_conn_title">Sem ligação de rede</string>
+	<string name="auth_nossl_plain_ok_title">Ligação segura indisponível.</string>
+	<string name="auth_connection_established">Ligação estabelecida</string>
+	<string name="auth_testing_connection">A testar a ligação</string>
+	<string name="auth_not_configured_title">Configuração de servidor incorreta</string>
+	<string name="auth_account_not_new">Já existe uma conta para o mesmo utilizador e servidor no dispositivo</string>
+	<string name="auth_account_not_the_same">O utilizador inserido não corresponde com o utilizador desta conta</string>
+	<string name="auth_unknown_error_http_title">Ocorreu um erro de HTTP desconhecido!</string>
+	<string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
+	<string name="auth_unknown_error_exception_title">Erro desconhecido: %1$s</string>
+	<string name="auth_unknown_host_title">Não foi possível encontrar o anfitrião</string>
+	<string name="auth_incorrect_path_title">Servidor não encontrado</string>
+	<string name="auth_timeout_title">O servidor demorou muito tempo a responder</string>
+	<string name="auth_incorrect_address_title">Formato de endereço para o servidor errado</string>
+	<string name="auth_ssl_general_error_title">Inicialização de SSL falhou</string>
+	<string name="auth_ssl_unverified_server_title">Não possível verificar a identidade do servidor SSL</string>
+	<string name="auth_bad_oc_version_title">Versão do servidor não reconhecida</string>
+	<string name="auth_wrong_connection_title">Não foi possível estabelecer ligação</string>
+	<string name="auth_secure_connection">Ligação segura estabelecida</string>
+	<string name="auth_unauthorized">Nome de utilizador/palavra-passe errada</string>
+	<string name="auth_oauth_error">autorização sem exito</string>
+	<string name="auth_oauth_error_access_denied">Acesso negado pelo servidor de autorização</string>
+	<string name="auth_wtf_reenter_URL">Estado inesperado. Digite novamente o endereço do servidor</string>
+	<string name="auth_expired_oauth_token_toast">A sua autorização expirou. Por favor, autorize novamente</string>
+	<string name="auth_expired_basic_auth_toast">Por favor, introduza a sua palavra-passe atual</string>
+	<string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor, inicie a sessão novamente</string>
+    <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
+	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
+    <string name="favorite">Definir como disponível em modo desligado</string>
+    <string name="common_rename">Renomear</string>
+    <string name="confirmation_remove_local">Apenas localmente</string>
+    <string name="rename_dialog_title">Introduza um novo nome</string>
+    <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
+    <string name="filename_forbidden_characters">Carateres proibidos: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
+    <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
+    
+    <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
+    <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- O URL não corresponde com o nome de anfitrião no certificado.</string>
+    <string name="ssl_validator_question">Mesmo assim, quer confiar neste certificado?</string>
+    <string name="ssl_validator_btn_details_see">Detalhes</string>
+    <string name="ssl_validator_btn_details_hide">Ocultar</string>
+    <string name="ssl_validator_label_subject">Emitido para:</string>
+    <string name="ssl_validator_label_issuer">Emitido por:</string>
+    <string name="ssl_validator_label_CN">Nome comum.</string>
+    <string name="ssl_validator_label_O">Organização:</string>
+    <string name="ssl_validator_label_OU">Unidade organizacional.</string>
+    <string name="ssl_validator_label_C">País:</string>
+    <string name="ssl_validator_label_ST">Estado:</string>
+    <string name="ssl_validator_label_L">Localização:</string>
+    <string name="ssl_validator_label_validity">Validade:</string>
+    <string name="ssl_validator_label_validity_from">De:</string>
+    <string name="ssl_validator_label_validity_to">Para:</string>
+    <string name="ssl_validator_label_signature">Assinatura:</string>
+    <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+    <string name="digest_algorithm_not_available">O algoritmo de resumo não está disponível no seu telemóvel</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Assinatura digital:</string>
+    <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
+    <string name="ssl_validator_null_cert">Não foi possível mostrar o certificado.</string>
+    <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
+
+    <string name="placeholder_sentence">Isto é uma variável</string>
+    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_timestamp">2012/05/18 12:23</string>
+    <string name="placeholder_media_time">12:23:45</string>
+
+    <string name="instant_upload_path">/Envio Instantâneo </string>
+    <string name="conflict_title">Conflito de ficheiro</string>
+    <string name="conflict_keep_both">Manter ambos</string>
+    <string name="conflict_use_local_version">versão local</string>
+    <string name="conflict_use_server_version">versão servidor</string>
+
+    <string name="preview_image_description">Pré-Visualizar imagem</string>
+    <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
+    <string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
+	<string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
+	<string name="unshare_link_file_no_exist">Não é possível retirar a partilha. Verifique se o ficheiro existe</string>
+	<string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
+    <string name="update_link_file_error">Ocorreu um erro ao tentar atualizar a partilha</string>
+    <string name="share_link_password_title">Introduza uma palavra-passe</string>
+    <string name="share_link_empty_password">Você deve introduzir uma palavra-passe</string>
+
+    <string name="activity_chooser_send_file_title">Enviar</string>
+
+    <string name="copy_link">Copiar hiperligação</string>
+    <string name="clipboard_text_copied">Copiado para a área de transferência</string>
+    <string name="clipboard_label">Texto copiado a partir de %1$s</string>
+
+    <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
+    <string name="forbidden_permissions_delete">para apagar este ficheiro</string>
+    <string name="share_link_forbidden_permissions">para partilhar este ficheiro</string>
+    <string name="unshare_link_forbidden_permissions">para cancelar a partilha deste ficheiro</string>
+    <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
+    <string name="downloader_download_file_not_found">O ficheiro não está mais disponível no servidor</string>
+
+    <string name="prefs_add_account">Adicionar conta</string>
+    <string name="actionbar_logger">Registos de Alterações</string>
+	<string name="log_send_history_button">Histórico de envio</string>
+	<string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
+    <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
+	<string name="actionbar_move">Mover</string>
+    <string name="folder_picker_choose_button_text">Escolher</string>
+
+    <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
+    <string name="forbidden_permissions_move">para mover este ficheiro</string>
+
+
+    <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
+    <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
+    <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
+
+    <string name="prefs_category_details">Detalhes</string>
+
+    <string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
+    <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
+
+    <string name="auth_refresh_button">Recarregar ligação</string>
+    <string name="auth_host_address">Endereço do servidor</string>
+    <string name="common_error_out_memory">Falta de memória</string>
+
+    <string name="username">Nome de utilizador</string>
+
+    <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
+    <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
+    <string name="share_dialog_title">Partilha</string>
+    <string name="share_file">Partilhar %1$s</string>
+    <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
+    <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
+    <string name="share_add_user_or_group">Adicionar utilizador ou grupo</string>
+    <string name="share_via_link_section_title">Compartilhar hiperligação</string>
+    <string name="share_get_public_link_button">Obter ligação</string>
+    <string name="share_with_edit_title">Partilhar com %1$s</string>
+    <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
+    <string name="share_group_clarification">%1$s (grupo)</string>
+    <string name="share_remote_clarification">%1$s (remoto)</string>
+    <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
+
+    <string name="share_privilege_can_share">pode partilhar</string>
+    <string name="share_privilege_can_edit">pode editar</string>
+    <string name="action_switch_grid_view">Vista em grelha</string>
+    <string name="action_switch_list_view">Vista em lista</string>
+
+    <string name="manage_space_title">Gerir espaço</string>
+    <string name="manage_space_clear_data">Limpar dados</string>
+
+    <string name="maintenance_mode">Servidor em manutenção</string>
+    <string name="actionbar_search">Procura</string>
+    <string name="learn_more">Conheça melhor</string>
+    <string name="drawer_participate">Participe</string>
+    <string name="upload_file_dialog_filename">Nome do ficheiro</string>
+    <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Atalhos(%s) de Internet</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atalho do Google Maps</string>
+
+    <string name="storage_description_default">Por defeito</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Um lugar seguro para todos os seus dados</string>
+    <string name="welcome_feature_2_title">Conta múltipla</string>
+    <string name="welcome_feature_2_text">Ligar-se a todas as suas contas cloud</string>
+
+    <string name="whats_new_end_to_end_encryption_title">Encriptação ponto-a-ponto</string>
+    <string name="whats_new_skip">Passar à frente</string>
+
+    <!-- User information -->
+    <string name="user_info_email">E-mail</string>
+    <string name="user_info_address">Endereço</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="foreground_service_download">A transferir os ficheiros...</string>
+
+    <string name="prefs_license">Licença</string>
+    <string name="date_unknown">Desconhecido</string>
+
+    <string name="resized_images_download_full_image">Transferir imagem completa?</string>
+
+    <string name="version_dev_download">Transferir</string>
+
+    <string name="notification_channel_download_name">Canal de notificação de transferências</string>
+    <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
+    <string name="end_to_end_encryption_not_enabled">Encriptação ponto-a-ponto desativada no servidor.</string>
+    </resources>

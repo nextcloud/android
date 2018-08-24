@@ -21,12 +21,16 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -52,9 +56,17 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileVersion;
+import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.CommentFileOperation;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.adapter.ActivityListAdapter;
+import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
+import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -64,15 +76,16 @@ import java.util.List;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface {
+public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface, VersionListInterface.View {
     private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
-    private ActivityListAdapter adapter;
+    private ActivityAndVersionListAdapter adapter;
     private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
 
@@ -106,11 +119,19 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.commentInputField)
+    public TextInputEditText commentInput;
+
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
 
     @BindString(R.string.activities_no_results_message)
     public String noResultsMessage;
+
+    private boolean restoreFileVersionSupported;
+    private String userId;
+    private FileOperationsHelper operationsHelper;
+    private VersionListInterface.CommentCallback callback;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -144,12 +165,41 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         fetchAndSetData(null);
 
-        swipeListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeListRefreshLayout));
-        swipeEmptyListRefreshLayout.setOnRefreshListener(
-                () -> onRefreshListLayout(swipeEmptyListRefreshLayout));
+        swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
+
+        AccountManager accountManager = AccountManager.get(getContext());
+        userId = accountManager.getUserData(account,
+                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+        callback = new VersionListInterface.CommentCallback() {
+
+            @Override
+            public void onSuccess() {
+                commentInput.getText().clear();
+                fetchAndSetData(null);
+            }
+
+            @Override
+            public void onError(int error) {
+                Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
+            }
+        };
+
+        commentInput.getBackground().setColorFilter(
+                ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP
+        );
 
         return view;
+    }
+
+    @OnClick(R.id.submitComment)
+    public void submitComment() {
+        if (commentInput.getText().toString().trim().length() > 0) {
+            new SubmitCommentTask(commentInput.getText().toString().trim(), userId, file.getLocalId(),
+                    callback, ownCloudClient).execute();
+        }
     }
 
     private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
@@ -174,12 +224,19 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, requireActivity().getContentResolver());
+        operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
+
+        OCCapability capability = storageManager.getCapability(account.name);
+        OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
+        restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
+                serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
+
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityListAdapter(getContext(), this, storageManager);
+        adapter = new ActivityAndVersionListAdapter(getContext(), this, this, storageManager);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -205,6 +262,10 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         });
     }
 
+    public void reload() {
+        fetchAndSetData(null);
+    }
+
     /**
      * @param pageUrl String
      */
@@ -228,7 +289,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation(
                         file.getLocalId());
-                
+
                 if (pageUrl != null) {
                     getRemoteNotificationOperation.setNextUrl(pageUrl);
                 }
@@ -236,14 +297,28 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
 
+                ArrayList<Object> versions = null;
+                if (restoreFileVersionSupported) {
+                    ReadFileVersionsOperation readFileVersionsOperation = new ReadFileVersionsOperation(
+                            file.getLocalId(), userId);
+
+                    RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
+
+                    versions = result1.getData();
+                }
+
                 if (result.isSuccess() && result.getData() != null) {
-                    final ArrayList<Object> data = result.getData();
-                    final ArrayList<Object> activities = (ArrayList) data.get(0);
+                    final List<Object> data = result.getData();
+                    final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
+
+                    if (restoreFileVersionSupported && versions != null) {
+                        activitiesAndVersions.addAll(versions);
+                    }
                     nextPageUrl = (String) data.get(1);
 
                     activity.runOnUiThread(() -> {
-                        populateList(activities, ownCloudClient, pageUrl == null);
-                        if (activities.isEmpty()) {
+                        populateList(activitiesAndVersions, pageUrl == null);
+                        if (activitiesAndVersions.isEmpty()) {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
                             list.setVisibility(View.GONE);
                             empty.setVisibility(View.VISIBLE);
@@ -268,28 +343,22 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 }
 
                 hideRefreshLayoutLoader(activity);
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(TAG, "Account not found", e);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "IO error", e);
-            } catch (OperationCanceledException e) {
-                Log_OC.e(TAG, "Operation has been canceled", e);
-            } catch (AuthenticatorException e) {
-                Log_OC.e(TAG, "Authentication Exception", e);
+            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | IOException |
+                    OperationCanceledException | AuthenticatorException e) {
+                Log_OC.e(TAG, "Error fetching file details activities", e);
             }
-        }
-        );
+        });
 
         t.start();
     }
 
-    private void populateList(List<Object> activities, OwnCloudClient mClient, boolean clear) {
-        adapter.setActivityItems(activities, mClient, clear);
+    private void populateList(List<Object> activities, boolean clear) {
+        adapter.setActivityAndVersionItems(activities, ownCloudClient, clear);
     }
 
     private void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
 
@@ -302,7 +371,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void setErrorContent(String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
             emptyContentMessage.setText(message);
 
             emptyContentMessage.setVisibility(View.VISIBLE);
@@ -343,5 +412,49 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
         outState.putParcelable(FileActivity.EXTRA_FILE, file);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+    }
+
+    @Override
+    public void onRestoreClicked(FileVersion fileVersion) {
+        operationsHelper.restoreFileVersion(fileVersion, userId);
+    }
+
+    private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
+
+        private String message;
+        private String userId;
+        private String fileId;
+        private VersionListInterface.CommentCallback callback;
+        private OwnCloudClient client;
+
+        private SubmitCommentTask(String message, String userId, String fileId,
+                                  VersionListInterface.CommentCallback callback, OwnCloudClient client) {
+            this.message = message;
+            this.userId = userId;
+            this.fileId = fileId;
+            this.callback = callback;
+            this.client = client;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId, userId);
+
+            RemoteOperationResult result = commentFileOperation.execute(client);
+
+            return result.isSuccess();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+
+            if (success) {
+                callback.onSuccess();
+            } else {
+                callback.onError(R.string.error_comment_file);
+
+            }
+        }
     }
 }

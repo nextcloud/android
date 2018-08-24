@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,10 +49,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     private LocalFileListFragment.ContainerActivity mContainerActivity;
 
     /** Directory to show */
-    private File mDirectory = null;
+    private File mDirectory;
 
     /** Adapter to connect the data from the directory with the View object */
-    private LocalFileListAdapter mAdapter = null;
+    private LocalFileListAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
@@ -121,7 +122,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (mContainerActivity.isFolderPickerMode()) {
-            menu.removeItem(R.id.action_select_all_action_menu);
+            menu.removeItem(R.id.action_select_all);
             menu.removeItem(R.id.action_search);
         } else {
             super.onCreateOptionsMenu(menu, inflater);

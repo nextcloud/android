@@ -127,6 +127,13 @@ To make sure your new pull request does not contain commits which are already co
 * Push branch to server: ```git push -u origin name_of_local_master_branch```
 * Use GitHub to issue PR
 
+### 4. Backport pull request:
+If some pull request is worth to backport to a dot release, label it as "backport-request".
+
+* create a new branch based on latest stable branch
+* git cherry-pick commits from origin pull request
+* create pull request on github with "Backport of #originPullRequest: description"
+* remove label "backport-request" from origin pull request
 
 ## Translations
 We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/). So just request joining the translation team for Android on the site and start translating. All translations will then be automatically pushed to this repository, there is no need for any pull request for translations.
@@ -178,11 +185,11 @@ beware, that beta releases for an upcoming version will always use the minor and
 For dev the version name is in format YYYYMMDD. It is mainly as a reference for reporting bugs and is not related to stable/release candidates as it is an independent app.
 
 ## Release cycle
-* for each release we choose several PRs that will be included in the next release. Currently there are many open PRs from ownCloud, but after merging them, the intention is to choose the PRs that are ready (reviewed, tested) to get them merged very soon.
-* these will be merged into master, tested heavily, maybe automatic testing
+* Releases are planned every ~2 months, with 6 weeks of developing and 2 weeks of stabilising
 * after feature freeze a public release candidate on play store and f-droid is released
 * ~2 weeks testing, bug fixing
 * release final version on f-droid and play store
+* Bugfix releases (dot releases, e.g. 3.2.1) are released on demand from the branch created with first stable release (stable-3.2.x). If changes to the library are required, we do the same: create a branch from the version used in stable release (e.g. 1.1.0) and then release a dot release (1.1.1).
 
 To get an idea which PRs and issues will be part of the next release simply check our [milestone plan](https://github.com/nextcloud/android/milestones)
 

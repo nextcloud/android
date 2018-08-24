@@ -47,6 +47,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -270,6 +271,13 @@ public class ThemeUtils {
         }
     }
 
+    public static void colorEditText(EditText editText, int elementColor) {
+        if (editText != null) {
+            editText.setTextColor(elementColor);
+            editText.getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
     /**
      * sets the coloring of the given progress bar to color_accent.
      *
@@ -402,11 +410,11 @@ public class ThemeUtils {
     }
 
     private static OCCapability getCapability(Account acc, Context context) {
-        Account account;
+        Account account = null;
 
         if (acc != null) {
             account = acc;
-        } else {
+        } else if (context != null) {
             account = AccountUtils.getCurrentOwnCloudAccount(context);
         }
 

@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -15,20 +15,15 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.ui.dialog;
 
-/**
- *  Dialog requiring confirmation before removing a collection of given OCFiles.
- * 
- *  Triggers the removal according to the user response.
- */
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.ActionMode;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -39,12 +34,32 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class RemoveFilesDialogFragment extends ConfirmationDialogFragment
-implements ConfirmationDialogFragmentListener {
+/**
+ *  Dialog requiring confirmation before removing a collection of given OCFiles.
+ *
+ *  Triggers the removal according to the user response.
+ */
+public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implements
+        ConfirmationDialogFragmentListener {
 
     private Collection<OCFile> mTargetFiles;
 
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
+
+    private ActionMode actionMode;
+
+    /**
+     * Public factory method to create new RemoveFilesDialogFragment instances.
+     *
+     * @param files           Files to remove.
+     * @param actionMode      ActionMode to finish on confirmation
+     * @return                Dialog ready to show.
+     */
+    public static RemoveFilesDialogFragment newInstance(ArrayList<OCFile> files, ActionMode actionMode) {
+        RemoveFilesDialogFragment dialogFragment = newInstance(files);
+        dialogFragment.setActionMode(actionMode);
+        return dialogFragment;
+    }
 
     /**
      * Public factory method to create new RemoveFilesDialogFragment instances.
@@ -70,16 +85,15 @@ implements ConfirmationDialogFragmentListener {
             // choose message for a single file
             OCFile file = files.get(0);
 
-            messageStringId = (file.isFolder()) ?
+            messageStringId = file.isFolder() ?
                 R.string.confirmation_remove_folder_alert :
                 R.string.confirmation_remove_file_alert;
 
         } else {
             // choose message for more than one file
-            messageStringId = (containsFolder) ?
+            messageStringId = containsFolder ?
                 R.string.confirmation_remove_folders_alert :
                 R.string.confirmation_remove_files_alert;
-
         }
 
         int localRemoveButton = (!containsFavorite && (containsFolder || containsDown)) ?
@@ -90,8 +104,8 @@ implements ConfirmationDialogFragmentListener {
         if (files.size() == 1) {
             args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{files.get(0).getFileName()});
         }
-        args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
-        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
+        args.putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete);
+        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
         args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
@@ -124,7 +138,8 @@ implements ConfirmationDialogFragmentListener {
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
-    
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
@@ -136,12 +151,20 @@ implements ConfirmationDialogFragmentListener {
     }    
 
     /**
-     * Performs the removal of the target file, both locally and in the server.
+     * Performs the removal of the target file, both locally and in the server and
+     * finishes the supplied ActionMode if one was given.
      */
     @Override
     public void onConfirmation(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false);
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false, false);
+
+        // This is used when finishing an actionMode,
+        // for example if we want to exit the selection mode
+        // after deleting the target files.
+        if (actionMode != null) {
+            actionMode.finish();
+        }
     }
     
     /**
@@ -150,11 +173,15 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true);
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true, false);
     }
 
     @Override
     public void onNeutral(String callerTag) {
         // nothing to do here
+    }
+
+    private void setActionMode(ActionMode actionMode) {
+        this.actionMode = actionMode;
     }
 }

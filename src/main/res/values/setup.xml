@@ -39,6 +39,7 @@
     <bool name="share_via_link_feature">true</bool>
     <bool name="share_with_users_feature">true</bool>
     <bool name="show_external_links">true</bool>
+    <bool name="show_outdated_server_warning">true</bool>
 
     <!-- Contacts backup -->
     <bool name="contacts_backup">true</bool>

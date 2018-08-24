@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Andy Scherzinger
@@ -62,8 +62,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         this.mTintedCheck = tintedCheck;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         AccountViewHolderItem viewHolder;
         View view = convertView;
 
@@ -126,12 +127,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
         // bind action listener
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.createAccount();
-            }
-        });
+        actionView.setOnClickListener(v -> mListener.createAccount());
         return actionView;
     }
 
@@ -141,7 +137,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     }
 
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
-        if (AccountUtils.getCurrentOwnCloudAccount(getContext()).name.equals(account.name)) {
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getContext());
+        if (currentAccount != null && currentAccount.name.equals(account.name)) {
             viewHolder.checkViewItem.setVisibility(View.VISIBLE);
         } else {
             viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
@@ -152,8 +149,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         try {
             View viewItem = viewHolder.imageViewItem;
             viewItem.setTag(account.name);
-            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(),
-                    mContext.getStorageManager(), viewItem, mContext);
+            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(), viewItem,
+                    mContext);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
             // use user icon as a fallback

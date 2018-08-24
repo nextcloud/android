@@ -29,7 +29,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -222,8 +221,6 @@ public class FilesystemDataProvider {
 
             return crc.getValue();
 
-        } catch (FileNotFoundException e) {
-            return -1;
         } catch (IOException e) {
             return -1;
         }

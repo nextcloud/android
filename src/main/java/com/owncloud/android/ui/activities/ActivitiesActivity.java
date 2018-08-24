@@ -170,7 +170,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
                 PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-        adapter = new ActivityListAdapter(this, this, storageManager);
+        adapter = new ActivityListAdapter(this, this, storageManager, false);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -229,14 +229,15 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onResume() {
         super.onResume();
 
+        setDrawerMenuItemChecked(R.id.nav_activity);
+        
         setupContent();
     }
 
     @Override
     public void onActivityClicked(RichObject richObject) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        mActionListener.openActivity(path, this,
-                getFileOperationsHelper().isSharedSupported());
+        mActionListener.openActivity(path, this);
     }
 
     @Override

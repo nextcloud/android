@@ -35,7 +35,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.TextDrawable;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter to show a user/group in Share With List
@@ -43,11 +43,11 @@ import java.util.ArrayList;
 public class ShareUserListAdapter extends ArrayAdapter {
 
     private Context mContext;
-    private ArrayList<OCShare> mShares;
+    private List<OCShare> mShares;
     private ShareUserAdapterListener mListener;
     private float mAvatarRadiusDimension;
 
-    public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares,
+    public ShareUserListAdapter(Context context, int resource, List<OCShare> shares,
                                 ShareUserAdapterListener listener) {
         super(context, resource);
         mContext= context;

@@ -35,8 +35,6 @@ import android.widget.VideoView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -57,6 +55,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     
     /** Key to receive the position of the playback where the video should be put at start */
     public static final String EXTRA_START_POSITION = "START_POSITION";
+
+    public static final String EXTRA_STREAM_URL = "STREAM_URL";
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
@@ -64,6 +64,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private VideoView mVideoPlayer;             // view to play the file; both performs and show the playback
     private MediaController mMediaController;   // panel control used by the user to control the playback
+    private Uri mStreamUri;
           
     /** 
      *  Called when the activity is first created.
@@ -86,15 +87,16 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             Bundle extras = getIntent().getExtras();
             mSavedPlaybackPosition = extras.getInt(EXTRA_START_POSITION);
             mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY);
-            
+            mStreamUri = (Uri) extras.get(EXTRA_STREAM_URL);
         } else {
             mSavedPlaybackPosition = savedInstanceState.getInt(EXTRA_START_POSITION);
             mAutoplay = savedInstanceState.getBoolean(EXTRA_AUTOPLAY);
+            mStreamUri = (Uri) savedInstanceState.get(EXTRA_STREAM_URL);
         }
           
         mVideoPlayer = (VideoView) findViewById(R.id.videoPlayer);
 
-        // set listeners to get more contol on the playback
+        // set listeners to get more control on the playback
         mVideoPlayer.setOnPreparedListener(this);
         mVideoPlayer.setOnCompletionListener(this);
         mVideoPlayer.setOnErrorListener(this);
@@ -115,6 +117,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         super.onSaveInstanceState(outState);
         outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
         outState.putBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY , mVideoPlayer.isPlaying());
+        outState.putParcelable(PreviewVideoActivity.EXTRA_STREAM_URL, mStreamUri);
     }
 
     
@@ -207,16 +210,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             if (file != null) {
                 if (file.isDown()) {
                     mVideoPlayer.setVideoURI(file.getStorageUri());
-
                 } else {
-                    // not working yet
-                    String url;
-                    try {
-                        url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
-                        mVideoPlayer.setVideoURI(Uri.parse(url));
-                    } catch (AccountNotFoundException e) {
-                        onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
-                    }
+                    mVideoPlayer.setVideoURI(mStreamUri);
                 }
 
                 // create and prepare control panel for the user
