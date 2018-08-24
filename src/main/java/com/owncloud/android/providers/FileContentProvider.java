@@ -114,90 +114,15 @@ public class FileContentProvider extends ContentProvider {
             return -1;
         }
 
-        int count = 0;
+        int count;
         switch (mUriMatcher.match(uri)) {
             case SINGLE_FILE:
-                Cursor c = query(db, uri, null, where, whereArgs, null);
-                String remoteId = "";
-                try {
-                    if (c != null && c.moveToFirst()) {
-                        remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
-                        //ThumbnailsCacheManager.removeFileFromCache(remoteId);
-                    }
-                    Log_OC.d(TAG, "Removing FILE " + remoteId);
-
-                    count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                            ProviderTableMeta._ID
-                                    + "="
-                                    + uri.getPathSegments().get(1)
-                                    + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""),
-                            whereArgs);
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "DB-Error removing file!", e);
-                } finally {
-                    if (c != null) {
-                        c.close();
-                    }
-                }
+                count = deleteSingleFile(db, uri, where, whereArgs);
                 break;
             case DIRECTORY:
-                // deletion of folder is recursive
-            /*
-            Uri folderUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, Long.parseLong(uri.getPathSegments().get(1)));
-            Cursor folder = query(db, folderUri, null, null, null, null);
-            String folderName = "(unknown)";
-            if (folder != null && folder.moveToFirst()) {
-                folderName = folder.getString(folder.getColumnIndex(ProviderTableMeta.FILE_PATH));
-            }
-            */
-                Cursor children = query(uri, null, null, null, null);
-                if (children != null) {
-                    if (children.moveToFirst()) {
-                        long childId;
-                        boolean isDir;
-                        while (!children.isAfterLast()) {
-                            childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
-                            isDir = MimeType.DIRECTORY.equals(children.getString(
-                                    children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
-                            ));
-                            //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
-                            if (isDir) {
-                                count += delete(
-                                        db,
-                                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
-                                        null,
-                                        null
-                                );
-                            } else {
-                                count += delete(
-                                        db,
-                                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
-                                        null,
-                                        null
-                                );
-                            }
-                            children.moveToNext();
-                        }
-                    }
-                    children.close();
-                } /*else {
-                Log_OC.d(TAG, "No child to remove in DIRECTORY " + folderName);
-            }
-            Log_OC.d(TAG, "Removing DIRECTORY " + folderName + " (or maybe not) ");
-            */
-                count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                        ProviderTableMeta._ID
-                                + "="
-                                + uri.getPathSegments().get(1)
-                                + (!TextUtils.isEmpty(where) ? " AND (" + where
-                                + ")" : ""), whereArgs);
-            /* Just for log
-             if (folder != null) {
-                folder.close();
-            }*/
+                count = deleteDirectory(db, uri, where, whereArgs);
                 break;
             case ROOT_DIRECTORY:
-                //Log_OC.d(TAG, "Removing ROOT!");
                 count = db.delete(ProviderTableMeta.FILE_TABLE_NAME, where, whereArgs);
                 break;
             case SHARES:
@@ -225,9 +150,82 @@ public class FileContentProvider extends ContentProvider {
                 count = db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
                 break;
             default:
-                //Log_OC.e(TAG, "Unknown uri " + uri);
                 throw new IllegalArgumentException("Unknown uri: " + uri.toString());
         }
+        
+        return count;
+    }
+
+    private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+        int count = 0;
+
+        Cursor children = query(uri, null, null, null, null);
+        if (children != null) {
+            if (children.moveToFirst()) {
+                long childId;
+                boolean isDir;
+                while (!children.isAfterLast()) {
+                    childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
+                    isDir = MimeType.DIRECTORY.equals(children.getString(
+                            children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
+                    ));
+                    //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
+                    if (isDir) {
+                        count += delete(
+                                db,
+                                ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
+                                null,
+                                null
+                        );
+                    } else {
+                        count += delete(
+                                db,
+                                ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
+                                null,
+                                null
+                        );
+                    }
+                    children.moveToNext();
+                }
+            }
+            children.close();
+        }
+
+        count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                ProviderTableMeta._ID
+                        + "="
+                        + uri.getPathSegments().get(1)
+                        + (!TextUtils.isEmpty(where) ? " AND (" + where
+                        + ")" : ""), whereArgs);
+
+        return count;
+    }
+
+    private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+        int count = 0;
+        Cursor c = query(db, uri, null, where, whereArgs, null);
+        String remoteId = "";
+        try {
+            if (c != null && c.moveToFirst()) {
+                remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
+                //ThumbnailsCacheManager.removeFileFromCache(remoteId);
+            }
+            Log_OC.d(TAG, "Removing FILE " + remoteId);
+
+            count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                    ProviderTableMeta._ID
+                            + "="
+                            + uri.getPathSegments().get(1)
+                            + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""),
+                    whereArgs);
+        } catch (Exception e) {
+            Log_OC.d(TAG, "DB-Error removing file!", e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
         return count;
     }
 
@@ -652,7 +650,6 @@ public class FileContentProvider extends ContentProvider {
         mContext.getContentResolver().notifyChange(uri, null);
         return count;
     }
-
 
     private int update(
             SQLiteDatabase db,
