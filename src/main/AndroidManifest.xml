@@ -68,9 +68,8 @@
 
     <application
         android:name=".MainApp"
-        android:icon="@drawable/ic_launcher"
-        android:roundIcon="@drawable/ic_launcher"
-        android:logo="@drawable/ic_launcher"
+        android:icon="@drawable/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_round"
         android:label="@string/app_name"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
