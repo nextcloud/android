@@ -203,7 +203,7 @@ public class FilesSyncJob extends Job {
                         Date dateTime = formatter.parse(exifDate, pos);
                         lastModificationTime = dateTime.getTime();
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                 }
             }
