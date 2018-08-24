@@ -55,7 +55,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
-    private ProgressIndicator mProgress;
+    private ProgressIndicator progressIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +100,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         hostOwnServerTextView.setTextColor(getResources().getColor(R.color.login_text_color));
         hostOwnServerTextView.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
-        mProgress = findViewById(R.id.progressIndicator);
-        ViewPager mPager = findViewById(R.id.contentPanel);
+        progressIndicator = findViewById(R.id.progressIndicator);
+        ViewPager viewPager = findViewById(R.id.contentPanel);
 
         // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
         if (isFirstRun(this)) {
@@ -115,10 +115,10 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
         FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
                 getFirstRun());
-        mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
-        mPager.setAdapter(featuresViewAdapter);
+        progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
+        viewPager.setAdapter(featuresViewAdapter);
 
-        mPager.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
     }
 
     private void setSlideshowSize(boolean isLandscape) {
@@ -187,7 +187,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-        mProgress.animateToStep(position + 1);
+        progressIndicator.animateToStep(position + 1);
     }
 
     @Override

@@ -21,7 +21,7 @@ import com.owncloud.android.features.FeatureItem;
 
 
 public class FeatureFragment extends Fragment {
-    private FeatureItem mItem;
+    private FeatureItem item;
 
     static public FeatureFragment newInstance(FeatureItem item) {
         FeatureFragment f = new FeatureFragment();
@@ -34,44 +34,44 @@ public class FeatureFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mItem = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
+        item = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.whats_new_element, container, false);
+        View view = inflater.inflate(R.layout.whats_new_element, container, false);
         int fontColor = getResources().getColor(R.color.login_text_color);
 
-        ImageView iv = v.findViewById(R.id.whatsNewImage);
-        if (mItem.shouldShowImage()) {
-            iv.setImageResource(mItem.getImage());
+        ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
+        if (item.shouldShowImage()) {
+            whatsNewImage.setImageResource(item.getImage());
         }
 
-        TextView titleTextView = v.findViewById(R.id.whatsNewTitle);
-        if (mItem.shouldShowTitleText()) {
-            titleTextView.setText(mItem.getTitleText());
-            titleTextView.setTextColor(fontColor);
-            titleTextView.setVisibility(View.VISIBLE);
+        TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);
+        if (item.shouldShowTitleText()) {
+            whatsNewTitle.setText(item.getTitleText());
+            whatsNewTitle.setTextColor(fontColor);
+            whatsNewTitle.setVisibility(View.VISIBLE);
         } else {
-            titleTextView.setVisibility(View.GONE);
+            whatsNewTitle.setVisibility(View.GONE);
         }
 
-        LinearLayout linearLayout = v.findViewById(R.id.whatsNewTextLayout);
-        if (mItem.shouldShowContentText()) {
-            if (mItem.shouldShowBulletPointList()) {
-                String[] texts = getText(mItem.getContentText()).toString().split("\n");
+        LinearLayout linearLayout = view.findViewById(R.id.whatsNewTextLayout);
+        if (item.shouldShowContentText()) {
+            if (item.shouldShowBulletPointList()) {
+                String[] texts = getText(item.getContentText()).toString().split("\n");
 
                 for (String text : texts) {
                     TextView textView = generateTextView(text, getContext(),
-                            mItem.shouldContentCentered(), fontColor, true);
+                            item.shouldContentCentered(), fontColor, true);
 
                     linearLayout.addView(textView);
                 }
             } else {
-                TextView textView = generateTextView(getText(mItem.getContentText()).toString(),
-                        getContext(), mItem.shouldContentCentered(), fontColor, false);
+                TextView textView = generateTextView(getText(item.getContentText()).toString(),
+                        getContext(), item.shouldContentCentered(), fontColor, false);
 
                 linearLayout.addView(textView);
             }
@@ -79,7 +79,7 @@ public class FeatureFragment extends Fragment {
             linearLayout.setVisibility(View.GONE);
         }
 
-        return v;
+        return view;
     }
 
     private TextView generateTextView(String text, Context context,
