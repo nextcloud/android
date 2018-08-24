@@ -122,7 +122,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (mContainerActivity.isFolderPickerMode()) {
-            menu.removeItem(R.id.action_select_all_action_menu);
+            menu.removeItem(R.id.action_select_all);
             menu.removeItem(R.id.action_search);
         } else {
             super.onCreateOptionsMenu(menu, inflater);
