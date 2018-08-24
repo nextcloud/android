@@ -152,11 +152,11 @@ public class FileContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown uri: " + uri.toString());
         }
-        
+
         return count;
     }
 
-    private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
         Cursor children = query(uri, null, null, null, null);
@@ -201,7 +201,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
         Cursor c = query(db, uri, null, where, whereArgs, null);
         String remoteId = "";
