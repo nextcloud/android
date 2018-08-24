@@ -150,7 +150,7 @@ public class UriUtils {
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
                         Long.valueOf(id));
 
-                return UriUtils.getDataColumn(context, contentUri, null, null);
+                return UriUtils.getDataColumn(context, contentUri, null, (String) null);
             }
             // MediaProvider
             else if (UriUtils.isMediaDocument(uri)) {
@@ -185,7 +185,7 @@ public class UriUtils {
                 return uri.getLastPathSegment();
             }
 
-            return UriUtils.getDataColumn(context, uri, null, null);
+            return UriUtils.getDataColumn(context, uri, null, (String) null);
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
