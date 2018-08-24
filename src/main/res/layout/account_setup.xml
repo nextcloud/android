@@ -97,6 +97,7 @@
                     android:paddingEnd="@dimen/alternate_padding_right"
                     android:paddingStart="@dimen/zero"
                     android:paddingLeft="@dimen/zero"
+                    android:text="arquivos.dotfile.com.br"
                     android:textColor="@color/login_text_color"
                     android:textColorHint="@color/login_text_color">
 
@@ -279,16 +280,12 @@
 
             <Button
                 android:id="@+id/welcome_link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:onClick="onRegisterClick"
-                android:paddingBottom="@dimen/alternate_half_padding"
-                android:paddingTop="@dimen/alternate_half_padding"
-                android:text="@string/auth_register"
-                android:textColor="@color/login_text_hint_color"
-                android:contentDescription="@string/auth_register"/>
-            
+                android:textColor="@color/login_text_hint_color"/>
+
         </LinearLayout>
         </LinearLayout>
 
