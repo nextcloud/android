@@ -42,6 +42,7 @@
     <string name="prefs_lock">Slot</string>
     <string name="prefs_lock_none">Geen</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
+    <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -200,6 +201,9 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
+    <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
+    <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
+    
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>
