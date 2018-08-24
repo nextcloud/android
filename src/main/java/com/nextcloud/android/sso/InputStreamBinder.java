@@ -58,16 +58,21 @@ import java.util.Map;
  *
  */
 
+
 public class InputStreamBinder extends IInputStreamService.Stub {
+
     private final static String TAG = "InputStreamBinder";
-
-    private ArrayList<String> validPackages = new ArrayList<>(Arrays.asList("de.luhmer.owncloudnewsreader"));
-    
     private Context context;
-    public InputStreamBinder(Context ctxt) {
-        this.context = ctxt;
-    }
+    private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+    private static final String CHARSET_UTF8 = "UTF-8";
 
+    private ArrayList<String> validPackages = new ArrayList<>(Arrays.asList(
+            "de.luhmer.owncloudnewsreader"
+    ));
+
+    public InputStreamBinder(Context context) {
+        this.context = context;
+    }
 
     private NameValuePair[] convertMapToNVP(Map<String, String> map) {
         NameValuePair[] nvp = new NameValuePair[map.size()];
@@ -78,7 +83,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
         return nvp;
     }
-
 
     public ParcelFileDescriptor performNextcloudRequest(ParcelFileDescriptor input) {
         // read the input
@@ -128,6 +132,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         return result;
     }
 
+
     private InputStream processRequest(final NextcloudRequest request) throws Exception {
         Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!
         if(account == null) {
@@ -159,8 +164,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 if (request.requestBody != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
                             request.requestBody,
-                            "application/json",
-                            "UTF-8");
+                            CONTENT_TYPE_APPLICATION_JSON,
+                            CHARSET_UTF8);
                     ((PostMethod) method).setRequestEntity(requestEntity);
                 }
                 break;
@@ -170,8 +175,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 if (request.requestBody != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
                             request.requestBody,
-                            "application/json",
-                            "UTF-8");
+                            CONTENT_TYPE_APPLICATION_JSON,
+                            CHARSET_UTF8);
                     ((PutMethod) method).setRequestEntity(requestEntity);
                 }
                 break;

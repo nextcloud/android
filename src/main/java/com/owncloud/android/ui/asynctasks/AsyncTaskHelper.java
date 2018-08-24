@@ -1,9 +1,5 @@
 package com.owncloud.android.ui.asynctasks;
 
-/**
- * Created by david on 27.06.17.
- */
-
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -63,5 +59,4 @@ public class AsyncTaskHelper {
             }
         }
     }
-
 }

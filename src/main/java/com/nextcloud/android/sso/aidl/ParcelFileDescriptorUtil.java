@@ -28,6 +28,7 @@ import java.io.OutputStream;
 
 public final class ParcelFileDescriptorUtil {
 
+    private ParcelFileDescriptorUtil() { }
 
     public static ParcelFileDescriptor pipeFrom(InputStream inputStream, IThreadListener listener)
             throws IOException {
@@ -58,6 +59,7 @@ public final class ParcelFileDescriptorUtil {
     }
 
     public static class TransferThread extends Thread {
+        private static final String TAG = TransferThread.class.getCanonicalName();
         private final InputStream mIn;
         private final OutputStream mOut;
         private final IThreadListener mListener;
@@ -82,17 +84,16 @@ public final class ParcelFileDescriptorUtil {
                 mOut.flush(); // just to be safe
             } catch (IOException e) {
                 Log.e("TransferThread", "writing failed");
-                e.printStackTrace();
             } finally {
                 try {
                     mIn.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
                 }
                 try {
                     mOut.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
                 }
             }
             if (mListener != null)
