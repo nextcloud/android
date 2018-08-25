@@ -196,7 +196,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             }
 
             result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
-            result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(mContext));
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType(mContext));
             result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
             result.putString("username", userId);
             result.putString("token", token);

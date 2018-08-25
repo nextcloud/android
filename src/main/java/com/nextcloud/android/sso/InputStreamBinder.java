@@ -67,14 +67,15 @@ import java.util.Map;
 public class InputStreamBinder extends IInputStreamService.Stub {
 
     private final static String TAG = "InputStreamBinder";
-    private Context context;
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private static final String CHARSET_UTF8 = "UTF-8";
     private static final int HTTP_STATUS_CODE_OK = 200;
     private static final char PATH_SEPARATOR = '/';
+    private Context context;
 
     private List<String> validPackages = new ArrayList<>(Arrays.asList(
             "de.luhmer.owncloudnewsreader"
+            //"it.niedermann.owncloud.notes"
     ));
 
     public InputStreamBinder(Context context) {
@@ -146,10 +147,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             throw new IllegalStateException("CE_2"); // Custom Exception 2 (Account not found)
         }
 
-        OwnCloudClientManager ownCloudClientManager = OwnCloudClientManagerFactory.getDefaultSingleton();
-        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-        OwnCloudClient client = ownCloudClientManager.getClientFor(ocAccount, context);
-
         // Validate token & package name
         if (!isValid(request)) {
             throw new IllegalStateException("CE_1"); // Custom Exception 1 (Invalid token or package name)
@@ -159,6 +156,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if(request.url.charAt(0) != PATH_SEPARATOR) {
             throw new IllegalStateException("URL need to start with a /");
         }
+
+        OwnCloudClientManager ownCloudClientManager = OwnCloudClientManagerFactory.getDefaultSingleton();
+        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+        OwnCloudClient client = ownCloudClientManager.getClientFor(ocAccount, context);
 
         request.url = client.getBaseUri() + request.url;
         HttpMethodBase method;
