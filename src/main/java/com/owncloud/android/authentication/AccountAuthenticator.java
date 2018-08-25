@@ -161,7 +161,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                                Account account, String authTokenType, Bundle options) {
 
         if (NEXTCLOUD_SSO.equals(authTokenType)) {
-            AccountManager accountManager = AccountManager.get(mContext);
             final Bundle result = new Bundle();
 
             String packageName = options.getString("androidPackageName");
@@ -188,6 +187,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             try {
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, mContext);
                 serverUrl = ocAccount.getBaseUri().toString();
+                AccountManager accountManager = AccountManager.get(mContext);
                 userId = accountManager.getUserData(account,
                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
             } catch (AccountUtils.AccountNotFoundException e) {

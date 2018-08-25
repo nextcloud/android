@@ -1,6 +1,8 @@
 package com.nextcloud.android.sso;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Binder;
@@ -14,6 +16,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -68,6 +71,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private static final String CHARSET_UTF8 = "UTF-8";
     private static final int HTTP_STATUS_CODE_OK = 200;
+    private static final char PATH_SEPARATOR = '/';
 
     private List<String> validPackages = new ArrayList<>(Arrays.asList(
             "de.luhmer.owncloudnewsreader"
@@ -136,13 +140,15 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
 
-    private InputStream processRequest(final NextcloudRequest request) throws Exception {
+    private InputStream processRequest(final NextcloudRequest request) throws UnsupportedOperationException, com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException, OperationCanceledException, AuthenticatorException, IOException {
         Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!
         if(account == null) {
             throw new IllegalStateException("CE_2"); // Custom Exception 2 (Account not found)
         }
+
+        OwnCloudClientManager ownCloudClientManager = OwnCloudClientManagerFactory.getDefaultSingleton();
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-        OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
+        OwnCloudClient client = ownCloudClientManager.getClientFor(ocAccount, context);
 
         // Validate token & package name
         if (!isValid(request)) {
@@ -150,7 +156,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
 
         // Validate URL
-        if(request.url.charAt(0) != '/') {
+        if(request.url.charAt(0) != PATH_SEPARATOR) {
             throw new IllegalStateException("URL need to start with a /");
         }
 
@@ -189,7 +195,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 break;
 
             default:
-                throw new Exception("Unexpected type!!");
+                throw new UnsupportedOperationException("Unexpected type!!");
 
         }
 
@@ -200,7 +206,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if (status == HTTP_STATUS_CODE_OK) {
             return method.getResponseBodyAsStream();
         } else {
-            throw new Exception("Request returned code: " + status);
+            throw new IllegalStateException("Request returned code: " + status);
         }
     }
 
