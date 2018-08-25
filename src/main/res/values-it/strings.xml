@@ -3,9 +3,6 @@
     <string name="about_android">Applicazione per Android di %1$s</string>
     <string name="about_version">versione %1$s</string>
     <string name="actionbar_sync">Aggiorna account</string>
-    <string name="actionbar_upload">Carica</string>
-    <string name="actionbar_upload_from_apps">Contenuti da altre applicazioni</string>
-    <string name="actionbar_upload_files">File</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_settings">Impostazioni</string>

@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android alkalmazás</string>
     <string name="about_version">verzió %1$s</string>
     <string name="actionbar_sync">Fiók frissítése</string>
-    <string name="actionbar_upload">Feltöltés</string>
-    <string name="actionbar_upload_from_apps">Más alkalmazásokból származó tartalom</string>
-    <string name="actionbar_upload_files">Fájlok</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_settings">Beállítások</string>

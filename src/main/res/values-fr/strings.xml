@@ -3,9 +3,6 @@
     <string name="about_android">Application Android %1$s</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Actualiser</string>
-    <string name="actionbar_upload">Envoyer</string>
-    <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
-    <string name="actionbar_upload_files">Fichiers</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_settings">Paramètres</string>
@@ -692,6 +689,7 @@ Veuillez contacter votre administrateur</string>
     <string name="shared_icon_share">partage</string>
     <string name="shared_icon_shared_via_link">partagé par lien</string>
     <string name="shared_icon_shared">partagé</string>
+    <string name="overflow_menu">Plus de menu</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_size_descending">Le plus grand en premier</string>

@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Androidアプリ</string>
     <string name="about_version">バージョン %1$s</string>
     <string name="actionbar_sync">アカウントを同期</string>
-    <string name="actionbar_upload">アップロード</string>
-    <string name="actionbar_upload_from_apps">他アプリからのコンテンツ</string>
-    <string name="actionbar_upload_files">ファイル</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_settings">設定</string>

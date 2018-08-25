@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Aplicació d\'Android</string>
     <string name="about_version">versió %1$s</string>
     <string name="actionbar_sync">Actualitza el compte</string>
-    <string name="actionbar_upload">Puja un fitxer</string>
-    <string name="actionbar_upload_from_apps">Contingut d\'altres aplicacions</string>
-    <string name="actionbar_upload_files">Fitxers</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_mkdir">Carpeta nova</string>
     <string name="actionbar_settings">Configuració</string>

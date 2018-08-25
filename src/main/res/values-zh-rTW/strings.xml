@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android 應用程式</string>
     <string name="about_version">版本 %1$s</string>
     <string name="actionbar_sync">更新帳戶</string>
-    <string name="actionbar_upload">上傳</string>
-    <string name="actionbar_upload_from_apps">其他應用程式的內容</string>
-    <string name="actionbar_upload_files">檔案</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_settings">設定</string>

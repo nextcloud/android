@@ -3,9 +3,6 @@
     <string name="about_android">%1$s aplikace pro Android</string>
     <string name="about_version">verze %1$s</string>
     <string name="actionbar_sync">Obnovit účet</string>
-    <string name="actionbar_upload">Nahrát</string>
-    <string name="actionbar_upload_from_apps">Obsah z ostatních aplikací</string>
-    <string name="actionbar_upload_files">Soubory</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_settings">Nastavení</string>
