@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android programėlė</string>
     <string name="about_version">versija %1$s</string>
     <string name="actionbar_sync">Atnaujinti paskyrą</string>
-    <string name="actionbar_upload">Įkelti</string>
-    <string name="actionbar_upload_from_apps">Turinys iš kitų programų</string>
-    <string name="actionbar_upload_files">Failai</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_settings">Nustatymai</string>

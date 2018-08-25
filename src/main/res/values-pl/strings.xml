@@ -3,9 +3,6 @@
     <string name="about_android">%1$s na Android</string>
     <string name="about_version">wersja %1$s</string>
     <string name="actionbar_sync">Odśwież konto</string>
-    <string name="actionbar_upload">Wyślij plik</string>
-    <string name="actionbar_upload_from_apps">Zawartość z innych aplikacji</string>
-    <string name="actionbar_upload_files">Pliki</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_settings">Ustawienia</string>

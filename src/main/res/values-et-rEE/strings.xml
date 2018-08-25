@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Androidi rakendus</string>
     <string name="about_version">versioon %1$s</string>
     <string name="actionbar_sync">Värskenda kontot</string>
-    <string name="actionbar_upload">Lae fail üles</string>
-    <string name="actionbar_upload_from_apps">Sisu teistest rakendustest</string>
-    <string name="actionbar_upload_files">Failid</string>
     <string name="actionbar_open_with">Ava rakendusega</string>
     <string name="actionbar_mkdir">Uus kaust</string>
     <string name="actionbar_settings">Seaded</string>

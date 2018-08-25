@@ -3,9 +3,6 @@
     <string name="about_android">%1$s za Android</string>
     <string name="about_version">različica %1$s</string>
     <string name="actionbar_sync">Osveži račun</string>
-    <string name="actionbar_upload">Pošiljanje</string>
-    <string name="actionbar_upload_from_apps">Vsebino, vezano na druge programe</string>
-    <string name="actionbar_upload_files">Datoteke</string>
     <string name="actionbar_open_with">Odpri s programom</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_settings">Nastavitve</string>

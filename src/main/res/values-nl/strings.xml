@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">versie %1$s</string>
     <string name="actionbar_sync">Account verversen</string>
-    <string name="actionbar_upload">Uploaden</string>
-    <string name="actionbar_upload_from_apps">Inhoud van andere apps</string>
-    <string name="actionbar_upload_files">Bestanden</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_settings">Instellingen</string>

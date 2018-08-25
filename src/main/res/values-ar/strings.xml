@@ -3,9 +3,6 @@
     <string name="about_android">%1$s تطبيق آندرويد</string>
     <string name="about_version">الإصدار %1$s</string>
     <string name="actionbar_sync">تحديث الحساب</string>
-    <string name="actionbar_upload">رفع</string>
-    <string name="actionbar_upload_from_apps">محتويات من تطبيقات أخرى</string>
-    <string name="actionbar_upload_files">الملفات</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_settings">الإعدادات</string>

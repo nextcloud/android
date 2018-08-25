@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android uygulaması</string>
     <string name="about_version">sürüm %1$s</string>
     <string name="actionbar_sync">Hesabı yenile</string>
-    <string name="actionbar_upload">Yükle</string>
-    <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
-    <string name="actionbar_upload_files">Dosyalar</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_settings">Ayarlar</string>
