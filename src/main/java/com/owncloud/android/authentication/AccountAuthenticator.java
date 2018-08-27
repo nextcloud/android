@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
@@ -198,9 +199,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
             result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType(mContext));
             result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
-            result.putString("username", userId);
-            result.putString("token", token);
-            result.putString("server_url", serverUrl);
+            result.putString(Constants.SSO_USERNAME,   userId);
+            result.putString(Constants.SSO_TOKEN,      token);
+            result.putString(Constants.SSO_SERVER_URL, serverUrl);
 
             return result;
         }
