@@ -1,6 +1,4 @@
-package com.nextcloud.android.sso.aidl;
-
-/**
+/*
  *  Nextcloud SingleSignOn
  *
  *  @author David Luhmer
@@ -18,6 +16,8 @@ package com.nextcloud.android.sso.aidl;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package com.nextcloud.android.sso.aidl;
 
 public interface IThreadListener {
 
