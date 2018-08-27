@@ -37,9 +37,7 @@ public class NextcloudRequest implements Serializable {
     public String packageName;
     public String accountName;
 
-    private NextcloudRequest() {
-
-    }
+    private NextcloudRequest() { }
 
     public static class Builder {
         private NextcloudRequest ncr;
@@ -91,5 +89,24 @@ public class NextcloudRequest implements Serializable {
             ncr.accountName = accountName;
             return this;
         }
+    }
+
+    public boolean validateToken(String token) {
+        // As discussed with Lukas R. at the Nextcloud Conf 2018, always compare whole strings
+        // and don't exit prematurely if the string does not match anymore to prevent timing-attacks
+        return isEqual(this.token.getBytes(), token.getBytes());
+    }
+
+    // Taken from http://codahale.com/a-lesson-in-timing-attacks/
+    private static boolean isEqual(byte[] a, byte[] b) {
+        if (a.length != b.length) {
+            return false;
+        }
+
+        int result = 0;
+        for (int i = 0; i < a.length; i++) {
+            result |= a[i] ^ b[i];
+        }
+        return result == 0;
     }
 }
