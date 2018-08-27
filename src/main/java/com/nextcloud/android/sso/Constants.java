@@ -10,4 +10,5 @@ public class Constants {
     // Custom Exceptions
     public static final String EXCEPTION_INVALID_TOKEN = "CE_1";
     public static final String EXCEPTION_ACCOUNT_NOT_FOUND = "CE_2";
+    public static final String EXCEPTION_UNSUPPORTED_METHOD = "CE_3";
 }

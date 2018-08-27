@@ -63,6 +63,7 @@ import java.util.Map;
 
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_TOKEN;
+import static com.nextcloud.android.sso.Constants.EXCEPTION_UNSUPPORTED_METHOD;
 
 
 /**
@@ -200,7 +201,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 break;
 
             default:
-                throw new UnsupportedOperationException("Unexpected type!!");
+                throw new UnsupportedOperationException(EXCEPTION_UNSUPPORTED_METHOD);
 
         }
 
