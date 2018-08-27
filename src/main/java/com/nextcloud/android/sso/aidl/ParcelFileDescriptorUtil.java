@@ -1,15 +1,4 @@
-package com.nextcloud.android.sso.aidl;
-
-import android.os.ParcelFileDescriptor;
-import android.util.Log;
-
-import com.owncloud.android.lib.common.utils.Log_OC;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-/**
+/*
  *  Nextcloud SingleSignOn
  *
  *  @author David Luhmer
@@ -27,6 +16,17 @@ import java.io.OutputStream;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package com.nextcloud.android.sso.aidl;
+
+import android.os.ParcelFileDescriptor;
+import android.util.Log;
+
+import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public final class ParcelFileDescriptorUtil {
 

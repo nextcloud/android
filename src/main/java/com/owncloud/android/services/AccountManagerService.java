@@ -1,12 +1,4 @@
-package com.owncloud.android.services;
-
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-
-import com.nextcloud.android.sso.InputStreamBinder;
-
-/**
+/*
  *  Nextcloud SingleSignOn
  *
  *  @author David Luhmer
@@ -24,6 +16,14 @@ import com.nextcloud.android.sso.InputStreamBinder;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package com.owncloud.android.services;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+import com.nextcloud.android.sso.InputStreamBinder;
 
 public class AccountManagerService extends Service {
 
