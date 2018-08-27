@@ -27,6 +27,8 @@ import java.util.Map;
 public class NextcloudRequest implements Serializable {
 
     private static final long serialVersionUID = 215521212534236L; //assign a long value
+    public static final String EXCEPTION_INVALID_TOKEN = "CE_1";
+    public static final String EXCEPTION_ACCOUNT_NOT_FOUND = "CE_2";
 
     public String method;
     public Map<String, List<String>> header = new HashMap<>();

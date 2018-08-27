@@ -61,6 +61,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.nextcloud.android.sso.aidl.NextcloudRequest.EXCEPTION_ACCOUNT_NOT_FOUND;
+import static com.nextcloud.android.sso.aidl.NextcloudRequest.EXCEPTION_INVALID_TOKEN;
+
 
 /**
  * Stream binder to pass usable InputStreams across the process boundary in Android.
@@ -145,12 +148,12 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private InputStream processRequest(final NextcloudRequest request) throws UnsupportedOperationException, com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException, OperationCanceledException, AuthenticatorException, IOException {
         Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!
         if(account == null) {
-            throw new IllegalStateException("CE_2"); // Custom Exception 2 (Account not found)
+            throw new IllegalStateException(EXCEPTION_ACCOUNT_NOT_FOUND);
         }
 
-        // Validate token & package name
+        // Validate token
         if (!isValid(request)) {
-            throw new IllegalStateException("CE_1"); // Custom Exception 1 (Invalid token or package name)
+            throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
         }
 
         // Validate URL
