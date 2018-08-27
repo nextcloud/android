@@ -61,8 +61,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.nextcloud.android.sso.aidl.NextcloudRequest.EXCEPTION_ACCOUNT_NOT_FOUND;
-import static com.nextcloud.android.sso.aidl.NextcloudRequest.EXCEPTION_INVALID_TOKEN;
+import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
+import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_TOKEN;
 
 
 /**
