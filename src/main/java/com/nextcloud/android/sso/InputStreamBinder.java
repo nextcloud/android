@@ -26,7 +26,6 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -56,9 +55,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
@@ -77,11 +73,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private static final int HTTP_STATUS_CODE_OK = 200;
     private static final char PATH_SEPARATOR = '/';
     private Context context;
-
-    private List<String> validPackages = new ArrayList<>(Arrays.asList(
-            "de.luhmer.owncloudnewsreader"
-            //"it.niedermann.owncloud.notes"
-    ));
 
     public InputStreamBinder(Context context) {
         this.context = context;
@@ -217,11 +208,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
-        if(request.packageName == null) {
-            String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
-            request.packageName = callingPackageName;
-        }
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String storedToken = sharedPreferences.getString(request.packageName, "");
         return validPackages.contains(request.packageName) && request.token.equals(storedToken);
