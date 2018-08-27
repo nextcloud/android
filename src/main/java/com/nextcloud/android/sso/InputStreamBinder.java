@@ -59,6 +59,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
+import static com.nextcloud.android.sso.Constants.EXCEPTION_HTTP_REQUEST_FAILED;
+import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_REQUEST_URL;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_TOKEN;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_UNSUPPORTED_METHOD;
 
@@ -71,7 +73,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private final static String TAG = "InputStreamBinder";
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private static final String CHARSET_UTF8 = "UTF-8";
+
     private static final int HTTP_STATUS_CODE_OK = 200;
+    private static final int HTTP_STATUS_CODE_MULTIPLE_CHOICES = 300;
+
     private static final char PATH_SEPARATOR = '/';
     private Context context;
 
@@ -150,8 +155,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
 
         // Validate URL
-        if(request.url.charAt(0) != PATH_SEPARATOR) {
-            throw new IllegalStateException("URL need to start with a /");
+        if(request.url.length() == 0 || request.url.charAt(0) != PATH_SEPARATOR) {
+            throw new IllegalStateException(EXCEPTION_INVALID_REQUEST_URL, new IllegalStateException("URL need to start with a /"));
         }
 
         OwnCloudClientManager ownCloudClientManager = OwnCloudClientManagerFactory.getDefaultSingleton();
@@ -201,10 +206,12 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
         int status = client.executeMethod(method);
-        if (status == HTTP_STATUS_CODE_OK) {
+
+        // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
+        if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return method.getResponseBodyAsStream();
         } else {
-            throw new IllegalStateException("Request returned code: " + status);
+            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(""+status));
         }
     }
 
