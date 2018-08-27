@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class NextcloudRequest implements Serializable {
 
-    private static final long serialVersionUID = 215521212534236L; //assign a long value
+    private static final long serialVersionUID = 215521212534237L; //assign a long value
 
     public String method;
     public Map<String, List<String>> header = new HashMap<>();
