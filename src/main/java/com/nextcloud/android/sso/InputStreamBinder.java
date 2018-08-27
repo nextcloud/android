@@ -26,6 +26,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -208,6 +209,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
+        if(request.packageName == null) {
+            String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+            request.packageName = callingPackageName;
+        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String storedToken = sharedPreferences.getString(request.packageName, "");
         return request.validateToken(storedToken);
