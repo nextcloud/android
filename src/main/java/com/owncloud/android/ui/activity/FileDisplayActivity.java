@@ -362,7 +362,7 @@ public class FileDisplayActivity extends HookActivity
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
             int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account,
-                    WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE);
+                    PreferenceManager.AUTO_PREF__LAST_SEEN_VERSION_CODE);
 
             if (MainApp.getVersionCode() > lastSeenVersion) {
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
@@ -371,7 +371,7 @@ public class FileDisplayActivity extends HookActivity
                     DisplayUtils.showServerOutdatedSnackbar(this);
                 }
 
-                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE,
+                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PreferenceManager.AUTO_PREF__LAST_SEEN_VERSION_CODE,
                         String.valueOf(MainApp.getVersionCode()));
             }
         }

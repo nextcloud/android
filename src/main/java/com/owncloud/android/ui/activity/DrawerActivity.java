@@ -455,7 +455,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getFragmentManager(), true);
                 break;
             case R.id.drawer_menu_account_add:
-                createAccount(false);
+                Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
+                firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
+                startActivity(firstRunIntent);
                 break;
             case R.id.drawer_menu_account_manage:
                 Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);

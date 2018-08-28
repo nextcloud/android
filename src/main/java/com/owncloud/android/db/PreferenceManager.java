@@ -46,6 +46,7 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
+    public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
@@ -423,6 +424,26 @@ public abstract class PreferenceManager {
      */
     public static void setGridColumns(Context context, float gridColumns) {
         saveFloatPreference(context, AUTO_PREF__GRID_COLUMNS, gridColumns);
+    }
+
+    /**
+     * Gets the last seen version code right before updating.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return grid columns     grid columns
+     */
+    public static int getLastSeenVersionCode(Context context) {
+        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, 0);
+    }
+
+    /**
+     * Saves the version code as the last seen version code.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param versionCode the app's version code
+     */
+    public static void setLastSeenVersionCode(Context context, int versionCode) {
+        saveIntPreference(context, AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode);
     }
 
     private static void saveBooleanPreference(Context context, String key, boolean value) {

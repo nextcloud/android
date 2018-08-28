@@ -105,7 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Tries to swap the current ownCloud {@link Account} for other valid and existing.
      *
-     * If no valid ownCloud {@link Account} exists, the the user is requested
+     * If no valid ownCloud {@link Account} exists, then the user is requested
      * to create a new ownCloud {@link Account}.
      *
      * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
