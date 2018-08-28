@@ -120,9 +120,9 @@
     <string name="delete_account_warning">Видалити обліковий запис %s і знищити всі локальні файли?\n\nВидалення не можна буде відмінити.</string>
     <string name="avatar">Світлина</string>
     <string name="active_user">Активний користувач</string>
-    <string name="upload_chooser_title">Завантажити з...</string>
+    <string name="upload_chooser_title">Завантажити з…</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
-    <string name="uploader_upload_in_progress_ticker">Завантаження...</string>
+    <string name="uploader_upload_in_progress_ticker">Завантаження…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Завантаження %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Завантажені</string>
     <string name="uploader_upload_succeeded_content_single">%1$s завантажено</string>
@@ -189,8 +189,8 @@
     <string name="media_play_pause_description">Відтворення або пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>
 
-    <string name="auth_getting_authorization">Авторизація...</string>
-    <string name="auth_trying_to_login">Триває авторизація...</string>
+    <string name="auth_getting_authorization">Авторизація…</string>
+    <string name="auth_trying_to_login">Триває авторизація…</string>
 	<string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
 	<string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
 	<string name="auth_connection_established">З\'єднання встановлено</string>
@@ -242,11 +242,11 @@
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="filedisplay_no_file_selected">Жодного файлу обрано</string>
-    <string name="activity_chooser_title">Надіслати посилання до...</string>
+    <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
     
     <string name="oauth_check_onoff">Увійти через oAuth2</string>
-    <string name="oauth_login_connection">З\'єднання з сервером oAuth2...</string>
+    <string name="oauth_login_connection">З\'єднання з сервером oAuth2…</string>
         
     <string name="ssl_validator_reason_cert_not_trusted">- Не довірений сертифікат серверу</string>
     <string name="ssl_validator_reason_cert_expired">- Сертифікат серверу втратив чинність</string>
