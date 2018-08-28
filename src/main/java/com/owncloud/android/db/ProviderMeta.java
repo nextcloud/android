@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 33;
+    public static final int DB_VERSION = 34;
 
     private ProviderMeta() {
     }
@@ -211,6 +211,7 @@ public class ProviderMeta {
         public static final String EXTERNAL_LINKS_TYPE = "type";
         public static final String EXTERNAL_LINKS_NAME = "name";
         public static final String EXTERNAL_LINKS_URL = "url";
+        public static final String EXTERNAL_LINKS_REDIRECT = "redirect";
 
         // Columns of arbitrary data table
         public static final String ARBITRARY_DATA_CLOUD_ID = "cloud_id";
