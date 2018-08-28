@@ -305,7 +305,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, ThemeUtils.primaryAccentColor(this));
+        ThemeUtils.colorProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
     }
 
     /**
@@ -800,22 +800,28 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     /**
      * configured the quota to be displayed.
-     *
-     * @param usedSpace  the used space
+     *  @param usedSpace  the used space
      * @param totalSpace the total space
      * @param relative   the percentage of space already used
+     * @param quotaValue {@link GetRemoteUserInfoOperation#SPACE_UNLIMITED} or other to determinate state
      */
-    private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
+    private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
+        if (GetRemoteUserInfoOperation.SPACE_UNLIMITED == quotaValue) {
+            mQuotaTextPercentage.setText(String.format(
+                    getString(R.string.drawer_quota_unlimited),
+                    DisplayUtils.bytesToHumanReadable(usedSpace)));
+        } else {
+            mQuotaTextPercentage.setText(String.format(
+                    getString(R.string.drawer_quota),
+                    DisplayUtils.bytesToHumanReadable(usedSpace),
+                    DisplayUtils.bytesToHumanReadable(totalSpace)));
+        }
+
         mQuotaProgressBar.setProgress(relative);
-        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
+        ThemeUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
         updateQuotaLink();
-
-        mQuotaTextPercentage.setText(String.format(
-                getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
-
         showQuota(true);
     }
 
@@ -966,16 +972,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (quotaValue > 0
+                                if (quotaValue > 0 || quotaValue == GetRemoteUserInfoOperation.SPACE_UNLIMITED
                                         || quotaValue == GetRemoteUserInfoOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                                    /**
+                                    /*
                                      * show quota in case
                                      * it is available and calculated (> 0) or
                                      * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
                                      */
-                                    setQuotaInformation(used, total, relative);
+                                    setQuotaInformation(used, total, relative, quotaValue);
                                 } else {
-                                    /**
+                                    /*
                                      * quotaValue < 0 means special cases like
                                      * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
                                      * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
