@@ -22,52 +22,31 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.BulletSpan;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.features.FeatureList;
-import com.owncloud.android.features.FeatureList.FeatureItem;
+import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.features.FeatureItem;
+import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
+import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
- * Activity displaying general feature after a fresh install and new features after an update.
+ * Activity displaying new features after an update.
  */
 public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
-
-    public static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;
@@ -79,21 +58,11 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
 
-        int fontColor = ThemeUtils.fontColor(this);
+        int fontColor = getResources().getColor(R.color.login_text_color);
 
         mProgress = findViewById(R.id.progressIndicator);
         mPager = findViewById(R.id.contentPanel);
-        final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
-        final boolean isMultiAccount = getResources().getBoolean(R.bool.multiaccount_support);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
-
-        // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
-        if (isFirstRun()) {
-            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-            for (Account account : AccountUtils.getAccounts(this)) {
-                am.removeAccount(account, null, null);
-            }
-        }
 
         boolean showWebView = urls.length > 0;
 
@@ -104,29 +73,25 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                    FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount));
+                    getWhatsNew(this));
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
 
         mPager.addOnPageChangeListener(this);
 
-
         mForwardFinishButton = findViewById(R.id.forward);
         ThemeUtils.colorImageButton(mForwardFinishButton, fontColor);
-        
-        mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mProgress.hasNextStep()) {
-                    mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
-                    mProgress.animateToStep(mPager.getCurrentItem() + 1);
-                } else {
-                    onFinish();
-                    finish();
-                }
-                updateNextButtonIfNeeded();
+
+        mForwardFinishButton.setOnClickListener(view -> {
+            if (mProgress.hasNextStep()) {
+                mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+                mProgress.animateToStep(mPager.getCurrentItem() + 1);
+            } else {
+                onFinish();
+                finish();
             }
+            updateNextButtonIfNeeded();
         });
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -137,20 +102,15 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         mSkipButton = findViewById(R.id.skip);
         mSkipButton.setTextColor(fontColor);
-        mSkipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onFinish();
-                finish();
-            }
+        mSkipButton.setOnClickListener(view -> {
+            onFinish();
+            finish();
         });
 
         TextView tv = findViewById(R.id.welcomeText);
 
         if (showWebView) {
             tv.setText(R.string.app_name);
-        } else if (isFirstRun()) {
-            tv.setText(R.string.empty);
         } else {
             tv.setText(String.format(getString(R.string.whats_new_title), MainApp.getVersionName()));
         }
@@ -164,7 +124,6 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         super.onBackPressed();
     }
 
-
     private void updateNextButtonIfNeeded() {
         if (!mProgress.hasNextStep()) {
             mForwardFinishButton.setImageResource(R.drawable.ic_done_white);
@@ -176,27 +135,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private void onFinish() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(KEY_LAST_SEEN_VERSION_CODE, MainApp.getVersionCode());
-        editor.apply();
+        PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
     }
 
-    static public int getLastSeenVersionCode() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
-    }
-
-    static private boolean isFirstRun() {
-        return getLastSeenVersionCode() == 0 && AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
-    }
-
-    static public void runIfNeeded(Context context) {
-        if (!context.getResources().getBoolean(R.bool.show_whats_new)) {
-            return;
-        }
-
-        if (context instanceof WhatsNewActivity) {
+    public static void runIfNeeded(Context context) {
+        if (!context.getResources().getBoolean(R.bool.show_whats_new)
+                || context instanceof WhatsNewActivity) {
             return;
         }
 
@@ -205,13 +149,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         }
     }
 
-    static private boolean shouldShow(Context context) {
-        final boolean isBeta = context.getResources().getBoolean(R.bool.is_beta);
-        final boolean isMultiAccount = context.getResources().getBoolean(R.bool.multiaccount_support);
-
-        return (isFirstRun() && context instanceof AccountAuthenticatorActivity) || (!(isFirstRun() &&
-                (context instanceof FileDisplayActivity)) && !(context instanceof PassCodeActivity) &&
-                (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount).length > 0));
+    private static boolean shouldShow(Context context) {
+        return !(context instanceof PassCodeActivity) && getWhatsNew(context).length > 0;
     }
 
     @Override
@@ -230,172 +169,20 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         // unused but to be implemented due to abstract parent
     }
 
-    private final class FeaturesWebViewAdapter extends FragmentPagerAdapter {
-        private String[] mWebUrls;
-
-        public FeaturesWebViewAdapter(FragmentManager fm, String[] webUrls) {
-            super(fm);
-            mWebUrls = webUrls;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return FeatureWebFragment.newInstance(mWebUrls[position]);
-        }
-
-        @Override
-        public int getCount() {
-            return mWebUrls.length;
-        }
+    static private boolean isFirstRun(Context context) {
+        return AccountUtils.getCurrentOwnCloudAccount(context) == null;
     }
 
-    public static class FeatureWebFragment extends Fragment {
-        private String mWebUrl;
+    static private FeatureItem[] getWhatsNew(Context context) {
+        int itemVersionCode = 30030000;
 
-        static public FeatureWebFragment newInstance(String webUrl) {
-            FeatureWebFragment f = new FeatureWebFragment();
-            Bundle args = new Bundle();
-            args.putString("url", webUrl);
-            f.setArguments(args);
-            return f;
-        }
-
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mWebUrl = getArguments() != null ? getArguments().getString("url") : null;
-        }
-
-        @SuppressLint("SetJavaScriptEnabled")
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
-                                 @Nullable Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.whats_new_webview_element, container, false);
-
-            WebView webView = v.findViewById(R.id.whatsNewWebView);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.getSettings().setDomStorageEnabled(true);
-            webView.getSettings().setAllowFileAccess(false);
-            webView.setWebViewClient(new WebViewClient());
-            webView.loadUrl(mWebUrl);
-
-            return v;
-        }
-    }
-
-    private final class FeaturesViewAdapter extends FragmentPagerAdapter {
-
-        private FeatureItem[] mFeatures;
-
-        public FeaturesViewAdapter(FragmentManager fm, FeatureItem[] features) {
-            super(fm);
-            mFeatures = features;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return FeatureFragment.newInstance(mFeatures[position]);
-        }
-
-        @Override
-        public int getCount() {
-            return mFeatures.length;
-        }
-    }
-
-    public static class FeatureFragment extends Fragment {
-        private FeatureItem mItem;
-
-        static public FeatureFragment newInstance(FeatureItem item) {
-            FeatureFragment f = new FeatureFragment();
-            Bundle args = new Bundle();
-            args.putParcelable("feature", item);
-            f.setArguments(args);
-            return f;
-        }
-
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mItem = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
-        }
-
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
-                                 @Nullable Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.whats_new_element, container, false);
-            int fontColor = ThemeUtils.fontColor(getContext());
-
-            ImageView iv = v.findViewById(R.id.whatsNewImage);
-            if (mItem.shouldShowImage()) {
-                iv.setImageResource(mItem.getImage());
-            }
-
-            TextView titleTextView = v.findViewById(R.id.whatsNewTitle);
-            if (mItem.shouldShowTitleText()) {
-                titleTextView.setText(mItem.getTitleText());
-                titleTextView.setTextColor(fontColor);
-            }
-
-            if (mItem.shouldShowContentText()) {
-                LinearLayout linearLayout = v.findViewById(R.id.whatsNewTextLayout);
-
-
-                if (mItem.shouldShowBulletPointList()) {
-                    String[] texts = getText(mItem.getContentText()).toString().split("\n");
-
-                    for (String text : texts) {
-                        TextView textView = generateTextView(text, getContext(),
-                                mItem.shouldContentCentered(), fontColor, true);
-
-                        linearLayout.addView(textView);
-                    }
-                } else {
-                    TextView textView = generateTextView(getText(mItem.getContentText()).toString(),
-                            getContext(), mItem.shouldContentCentered(), fontColor, false);
-
-                    linearLayout.addView(textView);
-                }
-            }
-
-            return v;
-        }
-    }
-
-    private static TextView generateTextView(String text, Context context,
-                                             boolean shouldContentCentered, int fontColor,
-                                             boolean showBulletPoints) {
-        int standardMargin = context.getResources().getDimensionPixelSize(R.dimen.standard_margin);
-        int doubleMargin = context.getResources()
-                .getDimensionPixelSize(R.dimen.standard_double_margin);
-        int zeroMargin = context.getResources().getDimensionPixelSize(R.dimen.zero);
-
-        TextView textView = new TextView(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(doubleMargin, standardMargin, doubleMargin, zeroMargin);
-        textView.setTextAppearance(context, R.style.NextcloudTextAppearanceMedium);
-        textView.setLayoutParams(layoutParams);
-
-        if (showBulletPoints) {
-            BulletSpan bulletSpan = new BulletSpan(standardMargin, fontColor);
-            SpannableString spannableString = new SpannableString(text);
-            spannableString.setSpan(bulletSpan, 0, spannableString.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.setText(spannableString);
+        if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
+                && PreferenceManager.getLastSeenVersionCode(context) < itemVersionCode) {
+            return new FeatureItem[]{new FeatureItem(R.drawable.whats_new_device_credentials,
+                    R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
+                    false, false)};
         } else {
-            textView.setText(text);
+            return new FeatureItem[0];
         }
-        textView.setTextColor(fontColor);
-
-        if (!shouldContentCentered) {
-            textView.setGravity(Gravity.START);
-        } else {
-            textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        }
-
-        return textView;
     }
 }

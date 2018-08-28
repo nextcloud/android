@@ -27,8 +27,8 @@
     <!-- Can be regular (full input), prefix (subdomain input) and suffix (directory input) -->
     <!-- Requires server url to be set -->
     <string name="server_input_type">regular</string>
-    <bool name="show_welcome_link">true</bool>
-    <string name="welcome_link_url">"https://nextcloud.com/providers"</string>
+    <bool name="show_provider_or_own_installation">true</bool>
+    <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>

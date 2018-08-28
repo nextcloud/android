@@ -288,26 +288,6 @@
 			android:text="@string/setup_btn_connect"
 			android:contentDescription="@string/setup_btn_connect"
 			android:visibility="gone"/>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center|bottom">
-
-			<Button
-				android:id="@+id/welcome_link"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:background="@android:color/transparent"
-				android:onClick="onRegisterClick"
-				android:paddingTop="@dimen/alternate_half_padding"
-				android:text="@string/auth_register"
-				android:textColor="@color/login_text_hint_color"
-				android:contentDescription="@string/auth_register"/>
-
-		</LinearLayout>
-
 	</LinearLayout>
 		
 </RelativeLayout>

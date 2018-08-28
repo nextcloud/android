@@ -33,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Progress indicator visualizing the actual progress with dots.
@@ -65,7 +64,7 @@ public class ProgressIndicator extends FrameLayout {
     }
 
     public void setNumberOfSteps(int steps) {
-        int fontColor = ThemeUtils.fontColor(getContext());
+        int fontColor = getResources().getColor(R.color.login_text_color);
         mNumberOfSteps = steps;
         mDotsContainer.removeAllViews();
         for (int i = 0; i < steps; ++i) {

@@ -270,6 +270,13 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     @Override
+    public void showFirstRunActivity() {
+        Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
+        firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
+        startActivity(firstRunIntent);
+    }
+
+    //    @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(this),
@@ -286,9 +293,9 @@ public class ManageAccountsActivity extends FileActivity
                                 String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
                                 mAccountListAdapter = new AccountListAdapter(
-                                    ManageAccountsActivity.this,
-                                    getAccountListItems(),
-                                    mTintedCheck
+                                        ManageAccountsActivity.this,
+                                        getAccountListItems(),
+                                        mTintedCheck
                                 );
                                 mListView.setAdapter(mAccountListAdapter);
                                 runOnUiThread(new Runnable() {

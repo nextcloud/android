@@ -49,6 +49,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -752,6 +753,13 @@ public class DisplayUtils {
         }
     }
 
+    public static int convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+
+        return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+    
     static public void showServerOutdatedSnackbar(Activity activity) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                 R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)

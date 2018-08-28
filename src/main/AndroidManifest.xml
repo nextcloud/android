@@ -254,6 +254,10 @@
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
+        <activity
+            android:name=".ui.activity.FirstRunActivity"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login"
+            android:configChanges="orientation|screenSize"/>
 
         <receiver android:name=".files.BootupBroadcastReceiver" >
             <intent-filter>
