@@ -41,9 +41,12 @@ import java.util.Locale;
 /**
  * Utility class with methods for decoding Bitmaps.
  */
-public class BitmapUtils {
+public final class BitmapUtils {
     public static final String TAG = BitmapUtils.class.getSimpleName();
 
+    private BitmapUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap

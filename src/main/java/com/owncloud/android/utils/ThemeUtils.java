@@ -62,7 +62,11 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 /**
  * Utility class with methods for client side theming.
  */
-public class ThemeUtils {
+public final class ThemeUtils {
+
+    private ThemeUtils() {
+        // utility class -> private constructor
+    }
 
     public static int primaryAccentColor(Context context) {
         OCCapability capability = getCapability(context);

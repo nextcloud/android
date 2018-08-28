@@ -63,16 +63,20 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-/*
-    Various utilities that make auto upload tick
+/**
+ * Various utilities that make auto upload tick
  */
-public class FilesSyncHelper {
+public final class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
 
     public static final String GLOBAL = "global";
     public static final String SYNCEDFOLDERINITIATED = "syncedFolderIntitiated_";
 
     public static final int ContentSyncJobId = 315;
+
+    private FilesSyncHelper() {
+        // utility class -> private constructor
+    }
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();

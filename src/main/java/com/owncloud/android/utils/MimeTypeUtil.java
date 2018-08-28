@@ -64,7 +64,7 @@ import javax.annotation.Nullable;
  * </ol>
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public class MimeTypeUtil {
+public final class MimeTypeUtil {
     /** Mapping: icon for mime type */
     private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: icon for main mime type (first part of a mime type declaration). */
@@ -76,6 +76,10 @@ public class MimeTypeUtil {
         populateFileExtensionMimeTypeMapping();
         populateMimeTypeIconMapping();
         populateMainMimeTypeMapping();
+    }
+
+    private MimeTypeUtil() {
+        // utility class -> private constructor
     }
 
     /**

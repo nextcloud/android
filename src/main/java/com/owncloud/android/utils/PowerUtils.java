@@ -5,7 +5,11 @@ import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
 
-public class PowerUtils {
+public final class PowerUtils {
+
+    private PowerUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Checks if device is in power save mode. For older devices that do not support this API, returns false.

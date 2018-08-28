@@ -32,7 +32,11 @@ import java.util.Date;
 /**
  * Helper calls for visibility logic of the sharing menu.
  */
-public class SharingMenuHelper {
+public final class SharingMenuHelper {
+
+    private SharingMenuHelper() {
+        // utility class -> private constructor
+    }
 
     /**
      * Sets checked/visiblity state on the given {@link MenuItem} based on the given criteria.
