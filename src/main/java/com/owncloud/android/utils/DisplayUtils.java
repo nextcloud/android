@@ -102,7 +102,7 @@ import java.util.Set;
 /**
  * A helper class for UI/display related operations.
  */
-public class DisplayUtils {
+public final class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
@@ -129,6 +129,10 @@ public class DisplayUtils {
         // music
         mimeType2HumanReadable.put("audio/mpeg", "MP3 music file");
         mimeType2HumanReadable.put("application/ogg", "OGG music file");
+    }
+
+    private DisplayUtils() {
+        // utility class -> private constructor
     }
 
     /**

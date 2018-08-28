@@ -32,7 +32,7 @@ import java.util.Random;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class NotificationUtils {
+public final class NotificationUtils {
 
     public static final String NOTIFICATION_CHANNEL_GENERAL = "NOTIFICATION_CHANNEL_GENERAL";
     public static final String NOTIFICATION_CHANNEL_DOWNLOAD = "NOTIFICATION_CHANNEL_DOWNLOAD";
@@ -41,6 +41,10 @@ public class NotificationUtils {
     public static final String NOTIFICATION_CHANNEL_FILE_SYNC = "NOTIFICATION_CHANNEL_FILE_SYNC";
     public static final String NOTIFICATION_CHANNEL_FILE_OBSERVER = "NOTIFICATION_CHANNEL_FILE_OBSERVER";
     public static final String NOTIFICATION_CHANNEL_PUSH = "NOTIFICATION_CHANNEL_PUSH";
+
+    private NotificationUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Factory method for {@link android.support.v4.app.NotificationCompat.Builder} instances.

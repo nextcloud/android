@@ -40,12 +40,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * A helper class for some Uri operations.
  */
-public class UriUtils {
+public final class UriUtils {
 
     public static final String TAG = UriUtils.class.getSimpleName();
 
     public static final String URI_CONTENT_SCHEME = "content://";
 
+    private UriUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Get the value of the data column for this Uri. This is useful for
