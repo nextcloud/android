@@ -61,7 +61,7 @@ def versionMinor = 3
 def versionPatch = 0
 def versionBuild = 0 // 0-49=Alpha / 50-98=RC / 99=stable
 
-def taskRequest = getGradle().getStartParameter().getTaskRequests().toString();
+def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
     apply from: 'gplay.gradle'
 }
@@ -129,8 +129,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20180824
-                versionName "20180824"
+                versionCode 20180825
+                versionName "20180825"
             }
         }
     }

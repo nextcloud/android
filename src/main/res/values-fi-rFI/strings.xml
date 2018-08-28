@@ -3,9 +3,6 @@
     <string name="about_android">%1$s-Android-sovellus</string>
     <string name="about_version">versio %1$s</string>
     <string name="actionbar_sync">Päivitä tili</string>
-    <string name="actionbar_upload">Lähetä tiedosto</string>
-    <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
-    <string name="actionbar_upload_files">Tiedostot</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
     <string name="actionbar_settings">Asetukset</string>

@@ -20,48 +20,47 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical"
               android:weightSum="100">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
         android:id="@+id/whatsNewImage"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/alternate_margin"
-        android:layout_weight="50"
-        android:src="@drawable/whats_new_files"
-        android:contentDescription="@string/what_s_new_image"/>
+        android:layout_weight="60"
+        android:contentDescription="@string/what_s_new_image"
+        />
 
     <TextView
+        android:id="@+id/whatsNewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:gravity="center"
+        android:text=""
         android:textAppearance="@style/NextcloudTextAppearanceHeadline"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="@string/welcome_feature_1_title"
-        android:id="@+id/whatsNewTitle"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_half_margin"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"/>
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/whatsNewTextLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_margin="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:gravity="center"
         android:orientation="vertical">
     </LinearLayout>
 </LinearLayout>

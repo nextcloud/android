@@ -3,9 +3,6 @@
     <string name="about_android">%1$s для Android</string>
     <string name="about_version">версия %1$s</string>
     <string name="actionbar_sync">Обновить</string>
-    <string name="actionbar_upload">Отправить</string>
-    <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
-    <string name="actionbar_upload_files">Файлы</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_settings">Настройки</string>

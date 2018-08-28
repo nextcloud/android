@@ -279,7 +279,7 @@ public class ThemeUtils {
     }
 
     /**
-     * sets the coloring of the given progress bar to color_accent.
+     * sets the coloring of the given progress bar to given color.
      *
      * @param progressBar the progress bar to be colored
      * @param color       the color to be used
@@ -288,6 +288,22 @@ public class ThemeUtils {
         if (progressBar != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    /**
+     * sets the coloring of the given progress bar's progress to given color.
+     *
+     * @param progressBar the progress bar to be colored
+     * @param color       the color to be used
+     */
+    public static void colorProgressBar(ProgressBar progressBar, @ColorInt int color) {
+        if (progressBar != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                progressBar.setProgressTintList(ColorStateList.valueOf(color));
+            } else {
+                ThemeUtils.colorHorizontalProgressBar(progressBar, color);
+            }
         }
     }
 

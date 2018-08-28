@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android lietotne</string>
     <string name="about_version">versija %1$s</string>
     <string name="actionbar_sync">Atsvaidzināt kontu</string>
-    <string name="actionbar_upload">Augšupielādēt</string>
-    <string name="actionbar_upload_from_apps">Saturs no citām programmām</string>
-    <string name="actionbar_upload_files">Datnes</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_mkdir">Jauna mape</string>
     <string name="actionbar_settings">Iestatījumi</string>

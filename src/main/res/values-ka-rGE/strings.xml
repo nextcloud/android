@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android აპლიკაცია</string>
     <string name="about_version">ვერსია %1$s</string>
     <string name="actionbar_sync">ანგარიშის განახლება</string>
-    <string name="actionbar_upload">ატვირთვა</string>
-    <string name="actionbar_upload_from_apps">შემცველობა სხვა აპლიკაციებიდან</string>
-    <string name="actionbar_upload_files">ფაილები</string>
     <string name="actionbar_open_with">გახსნა</string>
     <string name="actionbar_mkdir">ახალი დირექტორია</string>
     <string name="actionbar_settings">პარამეტრები</string>

@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android aplikazioa</string>
     <string name="about_version">%1$s bertsioa</string>
     <string name="actionbar_sync">Freskatu kontua</string>
-    <string name="actionbar_upload">Kargatu</string>
-    <string name="actionbar_upload_from_apps">Beste aplikazioen edukia</string>
-    <string name="actionbar_upload_files">Fitxategiak</string>
     <string name="actionbar_open_with">Ireki honekin</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_settings">Ezarpenak</string>

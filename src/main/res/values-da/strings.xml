@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Genindlæs konto</string>
-    <string name="actionbar_upload">Upload</string>
-    <string name="actionbar_upload_from_apps">Indhold fra andre apps</string>
-    <string name="actionbar_upload_files">Filer</string>
     <string name="actionbar_open_with">Åben med</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_settings">Indstillinger</string>

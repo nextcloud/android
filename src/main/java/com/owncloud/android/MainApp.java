@@ -244,7 +244,7 @@ public class MainApp extends MultiDexApplication {
                 StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
                 String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
                 if (TextUtils.isEmpty(storagePath)) {
-                    if (appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
+                    if (PreferenceManager.getLastSeenVersionCode(this) != 0) {
                         // We already used the app, but no storage is set - fix that!
                         appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
                                 Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
@@ -494,9 +494,8 @@ public class MainApp extends MultiDexApplication {
         String packageName = getAppContext().getPackageName();
         String version = "";
 
-        PackageInfo pInfo = null;
         try {
-            pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
+            PackageInfo pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
             if (pInfo != null) {
                 version = pInfo.versionName;
             }

@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android-forrit</string>
     <string name="about_version">útgáfa %1$s</string>
     <string name="actionbar_sync">Endurlesa aðgang</string>
-    <string name="actionbar_upload">Senda inn</string>
-    <string name="actionbar_upload_from_apps">Efni frá öðrum forritum</string>
-    <string name="actionbar_upload_files">Skrár</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_settings">Stillingar</string>
