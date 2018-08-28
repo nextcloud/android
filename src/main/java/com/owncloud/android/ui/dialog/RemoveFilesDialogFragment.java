@@ -158,13 +158,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onConfirmation(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
         cg.getFileOperationsHelper().removeFiles(mTargetFiles, false, false);
-
-        // This is used when finishing an actionMode,
-        // for example if we want to exit the selection mode
-        // after deleting the target files.
-        if (actionMode != null) {
-            actionMode.finish();
-        }
+        finishActionMode();
     }
     
     /**
@@ -174,6 +168,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
         cg.getFileOperationsHelper().removeFiles(mTargetFiles, true, false);
+        finishActionMode();
     }
 
     @Override
@@ -183,5 +178,16 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
     private void setActionMode(ActionMode actionMode) {
         this.actionMode = actionMode;
+    }
+
+    /**
+     * This is used when finishing an actionMode,
+     * for example if we want to exit the selection mode
+     * after deleting the target files.
+     */
+    private void finishActionMode() {
+        if (actionMode != null) {
+            actionMode.finish();
+        }
     }
 }
