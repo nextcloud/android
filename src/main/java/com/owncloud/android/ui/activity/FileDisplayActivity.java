@@ -962,6 +962,7 @@ public class FileDisplayActivity extends HookActivity
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
+            exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
                     new Runnable() {
@@ -974,7 +975,7 @@ public class FileDisplayActivity extends HookActivity
             );
 
         } else if (requestCode == REQUEST_CODE__COPY_FILES && resultCode == RESULT_OK) {
-
+            exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
                     new Runnable() {
@@ -990,6 +991,13 @@ public class FileDisplayActivity extends HookActivity
             super.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    private void exitSelectionMode() {
+        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.exitSelectionMode();
+        }
     }
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
