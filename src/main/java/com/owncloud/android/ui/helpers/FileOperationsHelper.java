@@ -283,6 +283,8 @@ public class FileOperationsHelper {
                                     }
                                 }
 
+                                openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
                                 mFileActivity.startActivity(
                                         Intent.createChooser(
                                                 openFileWithIntent,

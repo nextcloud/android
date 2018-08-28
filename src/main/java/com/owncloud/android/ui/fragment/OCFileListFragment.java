@@ -947,6 +947,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             case R.id.action_download_file:
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFiles(checkedFiles);
+                exitSelectionMode();
                 return true;
             }
             case R.id.action_cancel_sync: {
@@ -955,10 +956,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             case R.id.action_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, true);
+                exitSelectionMode();
                 return true;
             }
             case R.id.action_unset_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, false);
+                exitSelectionMode();
                 return true;
             }
             case R.id.action_favorite: {
@@ -1578,5 +1581,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         mActiveActionMode.invalidate();        
+    }
+
+    /**
+     * Exits the multi file selection mode.
+     */
+    public void exitSelectionMode() {
+        mActiveActionMode.finish();
     }
 }

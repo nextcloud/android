@@ -33,7 +33,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
@@ -50,6 +49,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,8 +108,7 @@ public class DisplayUtils {
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
     private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
-    private static final int RELATIVE_THRESHOLD_WARNING = 90;
-    private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
+    private static final int RELATIVE_THRESHOLD_WARNING = 80;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static final String HTTP_PROTOCOL = "http://";
@@ -319,8 +318,7 @@ public class DisplayUtils {
 
 
     /**
-     * determines the info level color based on certain thresholds
-     * {@link #RELATIVE_THRESHOLD_WARNING} and {@link #RELATIVE_THRESHOLD_CRITICAL}.
+     * determines the info level color based on {@link #RELATIVE_THRESHOLD_WARNING}.
      *
      * @param context  the app's context
      * @param relative relative value for which the info level color should be looked up
@@ -328,16 +326,9 @@ public class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            if (ThemeUtils.colorToHexString(ThemeUtils.primaryColor(context)).equalsIgnoreCase(
-                    ThemeUtils.colorToHexString(context.getResources().getColor(R.color.primary)))) {
-                return context.getResources().getColor(R.color.infolevel_info);
-            } else {
-                return Color.GRAY;
-            }
-        } else if (relative >= RELATIVE_THRESHOLD_WARNING && relative < RELATIVE_THRESHOLD_CRITICAL) {
-            return context.getResources().getColor(R.color.infolevel_warning);
+            return ThemeUtils.primaryColor(context, true);
         } else {
-            return context.getResources().getColor(R.color.infolevel_critical);
+            return context.getResources().getColor(R.color.infolevel_warning);
         }
     }
 
@@ -762,6 +753,13 @@ public class DisplayUtils {
         }
     }
 
+    public static int convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+
+        return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+    
     static public void showServerOutdatedSnackbar(Activity activity) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                 R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)

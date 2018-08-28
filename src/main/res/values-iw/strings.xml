@@ -3,9 +3,6 @@
     <string name="about_android">יישום אנדרואיד %1$s</string>
     <string name="about_version">גרסה %1$s</string>
     <string name="actionbar_sync">רענון חשבון</string>
-    <string name="actionbar_upload">העלאה</string>
-    <string name="actionbar_upload_from_apps">תוכן מיישומים אחרים</string>
-    <string name="actionbar_upload_files">קבצים</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_settings">הגדרות</string>

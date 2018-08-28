@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android 앱</string>
     <string name="about_version">버전 %1$s</string>
     <string name="actionbar_sync">계정 새로 고침</string>
-    <string name="actionbar_upload">업로드</string>
-    <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
-    <string name="actionbar_upload_files">파일</string>
     <string name="actionbar_open_with">다음으로 열기</string>
     <string name="actionbar_mkdir">새 폴더</string>
     <string name="actionbar_settings">설정</string>

@@ -3,9 +3,6 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Rifreskoni llogarinë</string>
-    <string name="actionbar_upload">Ngarkoni</string>
-    <string name="actionbar_upload_from_apps">Përmbajtje nga aplikacione të tjera</string>
-    <string name="actionbar_upload_files">Skedarët</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_settings">Rregullimet</string>
