@@ -51,11 +51,13 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.ProcessManualUploadQueueJob;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -81,7 +83,8 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
-        OnClickListener, SortingOrderDialogFragment.OnSortingOrderListener {
+        OnClickListener, SortingOrderDialogFragment.OnSortingOrderListener,
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
 
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
     private static final int SINGLE_DIR = 1;

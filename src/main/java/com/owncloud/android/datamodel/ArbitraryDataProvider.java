@@ -29,6 +29,7 @@ import android.net.Uri;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.HashMap;
