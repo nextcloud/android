@@ -123,6 +123,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -1907,9 +1908,6 @@ public class FileDisplayActivity extends HookActivity
         if (result.isSuccess()) {
             updateFileFromDB();
 
-            // Create dialog to allow the user choose an app to send the link
-            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-
             // if share to user and share via link multiple ocshares are returned,
             // therefore filtering for public_link
             String link = "";
@@ -1920,44 +1918,14 @@ public class FileDisplayActivity extends HookActivity
                     break;
                 }
             }
+            String fLink = link;
 
-            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-            intentToShareLink.setType("text/plain");
-
-            String username;
-            try {
-                OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
-                if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
-                    username = oca.getDisplayName();
-                } else {
-                    username = AccountUtils.getUsernameForAccount(getAccount());
-                }
-            } catch (Exception e) {
-                username = AccountUtils.getUsernameForAccount(getAccount());
-            }
-
-            if (username != null) {
-                intentToShareLink.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        getString(
-                                R.string.subject_user_shared_with_you,
-                                username,
-                                getFile().getFileName()
-                        )
-                );
-            } else {
-                intentToShareLink.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        getString(
-                                R.string.subject_shared_with_you,
-                                getFile().getFileName()
-                        )
-                );
-            }
-
-            String[] packagesToExclude = new String[]{getPackageName()};
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
-            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+            ClipboardUtil.copyToClipboard(this, link, false);
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    R.string.clipboard_text_copied,
+                    Snackbar.LENGTH_LONG
+            ).setAction(R.string.share, v -> showShareLinkDialog(fLink)).show();
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
@@ -1990,6 +1958,49 @@ public class FileDisplayActivity extends HookActivity
                 ).show();
             }
         }
+    }
+
+    private void showShareLinkDialog(String link) {
+        // Create dialog to allow the user choose an app to send the link
+        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+
+        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+        intentToShareLink.setType("text/plain");
+
+        String username;
+        try {
+            OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
+            if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                username = oca.getDisplayName();
+            } else {
+                username = AccountUtils.getUsernameForAccount(getAccount());
+            }
+        } catch (Exception e) {
+            username = AccountUtils.getUsernameForAccount(getAccount());
+        }
+
+        if (username != null) {
+            intentToShareLink.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    getString(
+                            R.string.subject_user_shared_with_you,
+                            username,
+                            getFile().getFileName()
+                    )
+            );
+        } else {
+            intentToShareLink.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    getString(
+                            R.string.subject_shared_with_you,
+                            getFile().getFileName()
+                    )
+            );
+        }
+
+        String[] packagesToExclude = new String[]{getPackageName()};
+        DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+        chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
     }
 
     private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int errorString) {
