@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="prefs_category_general">General</string>
+    <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_expert_mode">Modo experto</string>
@@ -450,16 +450,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>
 
     <string name="storage_description_default">Predeterminado</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
-    <string name="welcome_feature_1_text">Accede, comparte y proteje tus archivos en casa y la oficina</string>
-
-    <string name="welcome_feature_2_title">Multi cuenta</string>
-    <string name="welcome_feature_2_text">Conéctate a todas tsus nubes</string>
-
-    <string name="welcome_feature_3_title">Carga automática</string>
-    <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
     <string name="whats_new_skip">Saltar</string>
 

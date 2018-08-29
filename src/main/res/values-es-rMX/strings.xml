@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
-	<string name="prefs_category_general">General</string>
+    <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_expert_mode">Modo experto</string>
@@ -56,7 +56,6 @@
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">¿Aún no tienes tu Nextcloud?\nHaz click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -564,24 +563,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nuevo en %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
-    <string name="welcome_feature_1_text">Accede, comparte y proteje tus archivos en casa y la oficina</string>
-
-    <string name="welcome_feature_2_title">Multi cuenta</string>
-    <string name="welcome_feature_2_text">Conéctate a todas tsus nubes</string>
-
-    <string name="welcome_feature_3_title">Carga automática</string>
-    <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
-    <string name="whats_new_end_to_end_encryption_content">Pulsa para encriptar, desde cualquier cliente. Agrega nuevos copiando las 12 palabras.</string>
-    <string name="whats_new_resized_images_title">Imágenes adaptativas</string>
-    <string name="whats_new_resized_images_content">Las imágenes miniatura son rápidas y geniales para compartir. Haz zoom para descargar la versión completa. </string>
-    <string name="whats_new_ipv6_title">Soporte IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
-
     <string name="whats_new_skip">Omitir</string>
 
     <!-- User information -->

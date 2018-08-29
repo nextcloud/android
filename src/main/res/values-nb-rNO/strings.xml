@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_quota">%1$s av %2$s brukt</string>
-	<string name="prefs_category_general">Generelt</string>
+    <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_lock_none">Ingen</string>
@@ -58,7 +58,6 @@
     <string name="auth_host_url">Tjeneradresse https://…</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
-    <string name="auth_register">Ingen Nextcloud enda?\nTrykk her for å få fra en tilbyder</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
@@ -563,24 +562,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nytt i %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Et trygt hjem for alle data</string>
-    <string name="welcome_feature_1_text">Bruk, del og beskytt filene dine hjemme og på jobb</string>
-
-    <string name="welcome_feature_2_title">Multi-konto</string>
-    <string name="welcome_feature_2_text">Koble til andre skytjenester</string>
-
-    <string name="welcome_feature_3_title">Auto-opplasting</string>
-    <string name="welcome_feature_3_text">Hold bilder trygge</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Ende-til-ende -kryptering</string>
-    <string name="whats_new_end_to_end_encryption_content">Trykk for å kryptere, fra vilkårlig klient. Legg til nye ved å kopiere 12 ord over.</string>
-    <string name="whats_new_resized_images_title">Tilpasningsdyktige bilder</string>
-    <string name="whats_new_resized_images_content">Små bilder er raske og fungerer flott til deling. Forstørr for å laste ned fullversjon.</string>
-    <string name="whats_new_ipv6_title">IPv6-støtte</string>
-    <string name="whats_new_ipv6_content">IPv6 når tjeneren støtter det, IPv4 hvis ikke.</string>
-
     <string name="whats_new_skip">Hopp over</string>
 
     <!-- User information -->
@@ -757,7 +738,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="tags">Knagger</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
-
     <string name="dismiss">Forkast</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="trashbin_activity_title">Slettede filer</string>

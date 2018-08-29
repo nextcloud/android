@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
-	<string name="drawer_close">Закрыть боковую панель</string>
+    <string name="drawer_close">Закрыть боковую панель</string>
     <string name="drawer_open">Открыть боковую панель</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Адрес сервера https://…</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
-    <string name="auth_register">Нет своей учётной записи Nextcloud?\nНажмите здесь для заказа</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Отправить</string>
@@ -596,24 +595,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Новое в %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
-    <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
-
-    <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
-    <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
-
-    <string name="welcome_feature_3_title">Автоматическая передача файлов на сервер</string>
-    <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Оконечное шифрование</string>
-    <string name="whats_new_end_to_end_encryption_content">Нажмите, чтобы зашифровать, от любого клиента. Добавьте новые, скопировав 12 слов.</string>
-    <string name="whats_new_resized_images_title">Адаптивные изображения</string>
-    <string name="whats_new_resized_images_content">Уменьшенные изображения быстрее работают и лучше передаются. Увеличьте для загрузки полной версии</string>
-    <string name="whats_new_ipv6_title">Поддержка протокола IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6, если сервер поддерживает, IPv4, если нет</string>
-
     <string name="whats_new_skip">Пропустить</string>
 
     <!-- User information -->
@@ -801,7 +782,6 @@
     <string name="new_media_folder_detected">Обнаружена новая папка с фото или видеофайлами: «%1$s».</string>
     <string name="new_media_folder_photos">фото</string>
     <string name="new_media_folder_videos">видео</string>
-
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="dismiss">Отклонить</string>
     <string name="feedback_no_mail_app">Нет приложения для отправки писем!</string>

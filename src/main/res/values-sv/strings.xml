@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Notifieringar</string>
     <string name="drawer_quota">%1$s av %2$s använt</string>
-	<string name="prefs_category_general">Allmänt</string>
+    <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_lock">Lås</string>
@@ -60,7 +60,6 @@
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
-    <string name="auth_register"> Har du inte Nextcloud än?\nKlicka här för att hämta från leverantör</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Anslut</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>
@@ -473,16 +472,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Kartor-genväg(%s)</string>
 
     <string name="storage_description_default">Standard</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">En säker lagringsplats för all din data</string>
-    <string name="welcome_feature_1_text">Få tillgång, dela och skydda dina filer hemma och i ditt företag</string>
-
-    <string name="welcome_feature_2_title">Multikonto</string>
-    <string name="welcome_feature_2_text">Anslut alla dina moln</string>
-
-    <string name="welcome_feature_3_title">Automatisk uppladdning</string>
-    <string name="welcome_feature_3_text">Lagra dina foton på ett säkert ställe</string>
 
     <string name="whats_new_skip">Hoppa över</string>
 

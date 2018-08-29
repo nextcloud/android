@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">פעילויות</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_quota">נעשה שימוש ב־%1$s מתוך %2$s</string>
-	<string name="drawer_close">סגירת סרגל הצד</string>
+    <string name="drawer_close">סגירת סרגל הצד</string>
     <string name="drawer_open">פתיחת סרגל הצד</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_password">ססמה</string>
-    <string name="auth_register">אין לך Nextcloud עדיין?\nניתן ללחוץ כאן כדי לקבל אחד מספק</string>
     <string name="sync_string_files">קבצים</string>
     <string name="setup_btn_connect">התחברות</string>
     <string name="uploader_btn_upload_text">העלאה</string>
@@ -557,24 +556,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">חדש ב־%1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">בית בטוח לכל הנתונים שלך</string>
-    <string name="welcome_feature_1_text">גישה, שיתוף והגנה על הקבצים שלך בבית ובעבודה</string>
-
-    <string name="welcome_feature_2_title">חשבונות מרובים</string>
-    <string name="welcome_feature_2_text">התחברות לכל העננים שלך</string>
-
-    <string name="welcome_feature_3_title">העלאה אוטומטית</string>
-    <string name="welcome_feature_3_text">הגנה על התמונות שלך</string>
-
-    <string name="whats_new_end_to_end_encryption_title">הצפנה מקצה לקצה</string>
-    <string name="whats_new_end_to_end_encryption_content">יש לגעת כדי להצפין, מכל לקוח. ניתן להוסיף חדשות על ידי העתקת 12 מילים ממקום למקום.</string>
-    <string name="whats_new_resized_images_title">תמונות מסתגלות</string>
-    <string name="whats_new_resized_images_content">תמונות קטנות הן מהירות ועובדות נהדר בשיתוף. ניתן להתקרב כדי להוריד גרסה מלאה.</string>
-    <string name="whats_new_ipv6_title">תמיכה ב־IPv6</string>
-    <string name="whats_new_ipv6_content">שימוש ב־IPv6 כאשר השרת תומך בזה, אם לא אז IPv4.</string>
-
     <string name="whats_new_skip">דלג</string>
 
     <!-- User information -->
@@ -750,7 +731,6 @@
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
     <string name="new_media_folder_photos">תמונות</string>
     <string name="new_media_folder_videos">סרטונים</string>
-
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="dismiss">התעלמות</string>
     <string name="feedback_no_mail_app">אין יישומון זמין לשליחת הודעות בדוא״ל!</string>

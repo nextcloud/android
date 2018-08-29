@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-	<string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_close">Fermer la barre latérale</string>
     <string name="drawer_open">Ouvrir la barre latérale</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
-    <string name="auth_register">Pas encore de Nextcloud ?\nCliquez ici pour choisir un fournisseur</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Se connecter</string>
     <string name="uploader_btn_upload_text">Envoyer</string>
@@ -589,24 +588,6 @@ Veuillez contacter votre administrateur</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nouveautés dans %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
-    <string name="welcome_feature_1_text">Accédez, partagez et protégez vos fichiers personnels et professionnels</string>
-
-    <string name="welcome_feature_2_title">Multi-compte</string>
-    <string name="welcome_feature_2_text">Connectez-vous avec plusieurs comptes clouds</string>
-
-    <string name="welcome_feature_3_title">Envoi automatique</string>
-    <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
-    <string name="whats_new_end_to_end_encryption_content">Appuyer pour encrypter, depuis n\'importe quel client. Ajoutez-en des nouveaux en utilisant votre phrase secrète à 12 mots.</string>
-    <string name="whats_new_resized_images_title">Images adaptatives</string>
-    <string name="whats_new_resized_images_content">Les petites images sont rapides et adaptées pour le partage. Zoomez-les pour télécharger la version complète.</string>
-    <string name="whats_new_ipv6_title">Prise en charge de l\'IPV6</string>
-    <string name="whats_new_ipv6_content">En IPv6 si le serveur le supporte, IPv4 sinon.</string>
-
     <string name="whats_new_skip">Ignorer</string>
 
     <!-- User information -->
@@ -794,7 +775,6 @@ Veuillez contacter votre administrateur</string>
     <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vidéo</string>
-
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="dismiss">Ignorer</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Tevékenységek</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
-	<string name="drawer_close">Oldalsáv bezárása</string>
+    <string name="drawer_close">Oldalsáv bezárása</string>
     <string name="drawer_open">Oldalsáv megnyitása</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Kiszolgáló cím https://…</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
-    <string name="auth_register">Nincs még szervered?\nKattints ide és szerezz egyet egy szolgáltatótól!</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
@@ -588,24 +587,6 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Új itt: %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
-    <string name="welcome_feature_1_text">Érd el, oszd meg és védd a fájljaidat otthon és a munkában</string>
-
-    <string name="welcome_feature_2_title">Többszörös fiók</string>
-    <string name="welcome_feature_2_text">Csatlakozás az összes felhődhöz</string>
-
-    <string name="welcome_feature_3_title">Autofeltöltés</string>
-    <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Vég-vég titkosítás</string>
-    <string name="whats_new_end_to_end_encryption_content">Érintsd meg a titkosításhoz, bármely kliensről. Adj hozzá újakat a 12 szavas kód megadásával.</string>
-    <string name="whats_new_resized_images_title">Alkalmazkodó képek.</string>
-    <string name="whats_new_resized_images_content">A kisebb képek jobban működnek és jobbak a megosztáshoz. Nagyíts a teljes kép letöltéséhez.</string>
-    <string name="whats_new_ipv6_title">IPv6 támogatás</string>
-    <string name="whats_new_ipv6_content">IPv6 ha a szerver támogatja,IPv4 ha nem.</string>
-
     <string name="whats_new_skip">Kihagy</string>
 
     <!-- User information -->

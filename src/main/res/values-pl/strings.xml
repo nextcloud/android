@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktywności</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_quota">Użyto %1$s z %2$s</string>
-	<string name="drawer_close">Zamknij pasek boczny</string>
+    <string name="drawer_close">Zamknij pasek boczny</string>
     <string name="drawer_open">Otwórz pasek boczny</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
@@ -62,7 +62,6 @@
     <string name="auth_host_url">Adres serwera https://…</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
-    <string name="auth_register">Nie masz jeszcze Nextcloud?\nKliknij tutaj, aby znaleźć dostawcę</string>
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
@@ -578,19 +577,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Co nowego w %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
-    <string name="welcome_feature_1_text">Dostęp, współdzielenie i ochrona Twoich plików w domu i w pracy</string>
-
-    <string name="welcome_feature_2_title">Wiele kont</string>
-    <string name="welcome_feature_2_text">Podłącz się do wszystkich swoich chmur</string>
-
-    <string name="welcome_feature_3_title">Automatyczne wysyłanie</string>
-    <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Szyfrowanie end-to-end</string>
-    <string name="whats_new_ipv6_title">Wsparcie IPv6</string>
     <string name="whats_new_skip">Pomiń</string>
 
     <!-- User information -->
@@ -717,7 +703,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
-
     <string name="dismiss">Anuluj</string>
     <string name="feedback_no_mail_app">Brak dostępnej aplikacji do wysyłki wiadomości email!</string>
     <string name="drawer_item_trashbin">Usunięto pliki</string>

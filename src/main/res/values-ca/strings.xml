@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Activitats</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_quota">Usats %1$s de %2$s</string>
-	<string name="prefs_category_general">General</string>
+    <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_expert_mode">Mode expert</string>
@@ -402,13 +402,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fitxer(%s) de drecera de Google Maps</string>
 
     <string name="storage_description_default">Per defecte</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un lloc segur per totes les vostres dades</string>
-    <string name="welcome_feature_2_title">Multi compte</string>
-    <string name="welcome_feature_2_text">Connecteu amb tots els vostres núvols</string>
-
-    <string name="welcome_feature_3_text">Mantingueu les vostres fotos segures</string>
 
     <string name="whats_new_skip">Omet</string>
 
