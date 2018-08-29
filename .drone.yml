@@ -49,7 +49,7 @@ pipeline:
       when:
         event: push
         status: failure
-        branch: master
+        branch: stable-3.3.x
 
 matrix:
   FLAVOR:
@@ -64,4 +64,4 @@ services:
       matrix:
         FLAVOR: Gplay
 
-branches: master
+branches: stable-3.3.x
