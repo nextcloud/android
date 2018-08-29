@@ -36,6 +36,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -360,7 +361,10 @@ public class ExtendedListFragment extends Fragment
         mRecyclerView.setHasFooter(true);
         mRecyclerView.setEmptyView(v.findViewById(R.id.empty_list_view));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);
