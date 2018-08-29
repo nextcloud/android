@@ -33,8 +33,8 @@ import android.util.Log;
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
 import com.nextcloud.android.sso.aidl.ParcelFileDescriptorUtil;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManager;
@@ -217,12 +217,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
-        if(request.getPackageName() == null) {
-            String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
-            request.setPackageName(callingPackageName);
-        }
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String storedToken = sharedPreferences.getString(request.getPackageName(), "");
+        String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(AccountAuthenticator.SSO_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE);
+        String storedToken = sharedPreferences.getString(callingPackageName, "");
         return request.validateToken(storedToken);
     }
 }

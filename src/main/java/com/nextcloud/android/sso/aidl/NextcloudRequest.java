@@ -19,6 +19,8 @@
 
 package com.nextcloud.android.sso.aidl;
 
+import com.owncloud.android.utils.EncryptionUtils;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -78,11 +80,6 @@ public class NextcloudRequest implements Serializable {
 
         public Builder setToken(String token) {
             ncr.token = token;
-            return this;
-        }
-
-        public Builder setPackageName(String packageName) {
-            ncr.packageName = packageName;
             return this;
         }
 
@@ -151,9 +148,13 @@ public class NextcloudRequest implements Serializable {
     }
 
     public boolean validateToken(String token) {
+        String salt = this.token.split("\\$")[1]; // TODO extract "$"
+
+        String newHash = EncryptionUtils.generateSHA512(token, salt);
+
         // As discussed with Lukas R. at the Nextcloud Conf 2018, always compare whole strings
         // and don't exit prematurely if the string does not match anymore to prevent timing-attacks
-        return isEqual(this.token.getBytes(), token.getBytes());
+        return isEqual(this.token.getBytes(), newHash.getBytes());
     }
 
     // Taken from http://codahale.com/a-lesson-in-timing-attacks/
