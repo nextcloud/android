@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">აქტივობები</string>
     <string name="drawer_item_notifications">შეტყობინებები</string>
     <string name="drawer_quota">გამოყენებულია %1$s სულ %2$s-იდან </string>
-	<string name="prefs_category_general">ზოგადი</string>
+    <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
     <string name="prefs_expert_mode">ექპერტ-რეჟიმი</string>
@@ -55,7 +55,6 @@
     <string name="auth_check_server">სერვერის შემოწმება</string>
     <string name="auth_username">მომხმარებლის სახელი</string>
     <string name="auth_password">პაროლი</string>
-    <string name="auth_register">ჯერ არ გაქვთ Nextcloud-ი?\nპროვაიდერისგან მიღებისთვის დააწკაპუნეთ აქ</string>
     <string name="sync_string_files">ფაილები</string>
     <string name="setup_btn_connect">დაკავშირება</string>
     <string name="uploader_btn_upload_text">ატვირთვა</string>
@@ -506,24 +505,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">ახალი %1$s-ში</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
-    <string name="welcome_feature_1_text">იქნოიეთ წვდომა, გააზიარეთ და დაიცავით თქვენი ფაილები სახლსა და სამსახურში</string>
-
-    <string name="welcome_feature_2_title">მულტი-ანგარიში</string>
-    <string name="welcome_feature_2_text">დაუკავშირდით ყველა თქვენს ქლაუდს</string>
-
-    <string name="welcome_feature_3_title">ავტო-ატვირთვა</string>
-    <string name="welcome_feature_3_text">იქონიეთ თქვენი სურათები დაცულად</string>
-
-    <string name="whats_new_end_to_end_encryption_title">End-to-end შიფრაცია</string>
-    <string name="whats_new_end_to_end_encryption_content">დასაშიფრად ნებისმიერი კლიენტიდან შეეხეთ ეკრანს. დაამატეთ ახლები 12 სიტყვის კოპირებით.</string>
-    <string name="whats_new_resized_images_title">ადაპტირებადი სურათები</string>
-    <string name="whats_new_resized_images_content">პატარა სურათები სწრაფია და კარგად მოქმედებს გაზიარებისთვის. მიაახლოვეთ სრული ვერსიის ჩამოსატვირთად.</string>
-    <string name="whats_new_ipv6_title">IPv6 მხარდაჭერა</string>
-    <string name="whats_new_ipv6_content">IPv6 როდესაც სერვერი მხარს უჭერს მას, IPv4 თუ არა.</string>
-
     <string name="whats_new_skip">გამოტოვება</string>
 
     <!-- User information -->

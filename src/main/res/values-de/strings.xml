@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktivitäten</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
-	<string name="drawer_close">Hauptmenü schließen</string>
+    <string name="drawer_close">Hauptmenü schließen</string>
     <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
-    <string name="auth_register">Sie haben noch keinen Server?\nKlicken Sie hier um Server-Anbieter zu finden</string>
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -586,24 +585,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Neu in %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Ein sicheres Zuhause für all Ihre Daten</string>
-    <string name="welcome_feature_1_text">Zugriff, Freigabe &amp; Schutz Ihrer Dateien zu Hause und in Ihrem Unternehmen.</string>
-
-    <string name="welcome_feature_2_title">Mehrfachkonto</string>
-    <string name="welcome_feature_2_text">Verbinden Sie sich mit all Ihren Clouds</string>
-
-    <string name="welcome_feature_3_title">Automatisches Hochladen</string>
-    <string name="welcome_feature_3_text">Schützen Sie Ihre Fotos</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Ende-zu-Ende Verschlüsselung</string>
-    <string name="whats_new_end_to_end_encryption_content">Wählen Sie zu verschlüsselnde Ordner aus, egal mit welchem Client. Fügen Sie unter Verwendung der 12 Worte Phrase neue Geräte hinzu.</string>
-    <string name="whats_new_resized_images_title">Auf Gerät optimierte Bildanzeige</string>
-    <string name="whats_new_resized_images_content">Verkleinerte Bilder sind schnell und funktionieren gut für das Teilen. Zoomen zum Herunterladen des Originalbilds.</string>
-    <string name="whats_new_ipv6_title">IPv6 Unterstützung</string>
-    <string name="whats_new_ipv6_content">Es wird IPv6 verwendet, falls der Server dies unterstützt. Ansonsten IPv4.</string>
-
     <string name="whats_new_skip">Überspringen</string>
 
     <!-- User information -->
@@ -791,7 +772,6 @@
     <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
-
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="dismiss">Ausblenden</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>

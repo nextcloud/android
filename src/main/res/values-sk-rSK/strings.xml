@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
-	<string name="prefs_category_general">Všeobecné</string>
+    <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_manage_accounts">Spravovať účty</string>
     <string name="prefs_expert_mode">Expertný režim</string>
@@ -56,7 +56,6 @@
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
-    <string name="auth_register">Ešte nemáte Nextcloud?\nKliknite sem a získajte ho od poskytovateľa</string>
     <string name="sync_string_files">Súbory</string>
     <string name="setup_btn_connect">Pripojiť</string>
     <string name="uploader_btn_upload_text">Nahrať</string>
@@ -413,14 +412,6 @@
 
     <string name="storage_description_default">Predvolené</string>
 
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
-    <string name="welcome_feature_2_title">Viac účtov</string>
-    <string name="welcome_feature_2_text">Pripojte sa k všetkým vaším cloudovým službám</string>
-
-    <string name="welcome_feature_3_text">Udržujte svoje fotografie v bezpečí</string>
-
-    <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Preskočiť</string>
 
     <!-- User information -->

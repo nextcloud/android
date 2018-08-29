@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktivitas</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
-	<string name="prefs_category_general">Umum</string>
+    <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_expert_mode">Mode Ahli</string>
@@ -404,16 +404,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Berkas pintasan Google Maps(%s)</string>
 
     <string name="storage_description_default">Bawaan</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Tempat yang aman untuk semua data anda</string>
-    <string name="welcome_feature_1_text">Akses, bagi dan lindungi berkasi anda baik dirumah maupun di kantor.</string>
-
-    <string name="welcome_feature_2_title">Multi akun</string>
-    <string name="welcome_feature_2_text">Sambung ke semua cloud anda</string>
-
-    <string name="welcome_feature_3_title">Unggah otomatis.</string>
-    <string name="welcome_feature_3_text">Jaga foto anda tetap aman</string>
 
     <string name="whats_new_skip">Lewat</string>
 

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">活動</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
-	<string name="prefs_category_general">一般</string>
+    <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_expert_mode">專家模式</string>
@@ -57,7 +57,6 @@
     <string name="auth_host_url">伺服器位址 https://…</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
-    <string name="auth_register">還沒有 Nextcloud？\n點選這裡來選擇供應商</string>
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
@@ -454,14 +453,6 @@
     <string name="upload_file_dialog_filename">檔案名稱</string>
     <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="storage_description_default">預設</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">您資料的安全屋</string>
-    <string name="welcome_feature_2_title">分身</string>
-    <string name="welcome_feature_2_text">連接您的所有的雲端</string>
-
-    <string name="welcome_feature_3_title">自動上傳</string>
-    <string name="welcome_feature_3_text">安全保存您的相片</string>
 
     <string name="whats_new_skip">略過</string>
 

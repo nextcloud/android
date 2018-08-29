@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
-	<string name="drawer_close">Затвори бочну траку</string>
+    <string name="drawer_close">Затвори бочну траку</string>
     <string name="drawer_open">Отвори бочну траку</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
-    <string name="auth_register">Још немате Некстклауд?\nКликните овде да направите један код провајдера</string>
     <string name="sync_string_files">Фајлови</string>
     <string name="setup_btn_connect">Повежи се</string>
     <string name="uploader_btn_upload_text">Отпреми</string>
@@ -591,24 +590,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Ново у %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Сигурно место за све Ваше податке</string>
-    <string name="welcome_feature_1_text">Приступите, делите и заштитите Ваше податке кући и на послу</string>
-
-    <string name="welcome_feature_2_title">Подршка за више налога</string>
-    <string name="welcome_feature_2_text">Повежите се на све Ваше облаке</string>
-
-    <string name="welcome_feature_3_title">Аутоматска отпремања</string>
-    <string name="welcome_feature_3_text">Држите Ваше слике на сигурном</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Шифровање са краја на крај</string>
-    <string name="whats_new_end_to_end_encryption_content">Кликните за шифровање, са било ког клијента. Додајте нове копирајући 12 речи.</string>
-    <string name="whats_new_resized_images_title">Прилагођавајуће слике</string>
-    <string name="whats_new_resized_images_content">Мале слике су брзе и супер су за дељење. Зумирајте слику да је скините целу.</string>
-    <string name="whats_new_ipv6_title">Подршка за IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 уколико га сервер подржава, у супротном IPv4.</string>
-
     <string name="whats_new_skip">Прескочи</string>
 
     <!-- User information -->
@@ -796,7 +777,6 @@
     <string name="new_media_folder_detected">Пронађена је нова мултимедијална фасцикла са %1$s</string>
     <string name="new_media_folder_photos">сликама</string>
     <string name="new_media_folder_videos">видео записима</string>
-
     <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
     <string name="dismiss">Одбаци</string>
     <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>

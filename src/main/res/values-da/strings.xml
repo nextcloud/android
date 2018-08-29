@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_quota">%1$s af %2$s brugt</string>
-	<string name="drawer_close">Luk sidebar</string>
+    <string name="drawer_close">Luk sidebar</string>
     <string name="drawer_open">Åben sidebar</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
@@ -67,7 +67,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_username">Brugernavn</string>
     <string name="auth_password">Kodeord</string>
-    <string name="auth_register">Ingen Nextcloud endnu?\nKlik her for at få en fra en udbyder</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Tilslut</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -381,12 +380,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="storage_description_default">Standard</string>
 
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
-    <string name="welcome_feature_2_title">Flere kontoer</string>
-    <string name="welcome_feature_2_text">Forbind til alle dine skyer</string>
-
-    <string name="welcome_feature_3_title">Auto upload</string>
     <string name="whats_new_skip">Spring over</string>
 
     <!-- User information -->

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktivitetet</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
-	<string name="drawer_close">Mbyllni sidebar-in</string>
+    <string name="drawer_close">Mbyllni sidebar-in</string>
     <string name="drawer_open">Hapni sidebar-in</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
@@ -65,7 +65,6 @@
     <string name="auth_host_url">Adresa e serverit https://…</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
-    <string name="auth_register">Nuk keni akoma Nextcloud?\nKlikoni këtu për të marrë një nga ofruesit</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
@@ -587,24 +586,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">I ri në %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
-    <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
-
-    <string name="welcome_feature_2_title">Llogari e shumfishtë</string>
-    <string name="welcome_feature_2_text">Lidhuni me të gjitha shërbimet cloud</string>
-
-    <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
-    <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Enkriptim end-to-end </string>
-    <string name="whats_new_end_to_end_encryption_content">Shtyp për të enkriptuar, nga cdo klient. Shto të rinj duke kopjuar 12 fjalë ose më shumë.</string>
-    <string name="whats_new_resized_images_title">Imazhe adaptive</string>
-    <string name="whats_new_resized_images_content">Imazhet e vogla janë të shpejta dhe funksionojnë shumë mirë për ti shpërndarë. Zmadhoni për të shkarkuar një version të plotë.</string>
-    <string name="whats_new_ipv6_title">Mbështet IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 kur serveri e suporton atë, IPv4 kur nuk e suporton.</string>
-
     <string name="whats_new_skip">Kalo</string>
 
     <!-- User information -->
@@ -792,7 +773,6 @@
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
-
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
     <string name="dismiss">Hiq</string>
     <string name="feedback_no_mail_app">Nuk ka asnjë aplikacion në dispozicion për të dërguar mesazhe!</string>

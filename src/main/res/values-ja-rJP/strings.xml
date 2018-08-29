@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-	<string name="prefs_category_general">一般</string>
+    <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
@@ -57,7 +57,6 @@
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">Nextcloud をまだ導入していないのですか？\nここをクリックしてプロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -449,13 +448,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
 
     <string name="storage_description_default">デフォルト</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
-    <string name="welcome_feature_2_title">マルチアカウント</string>
-    <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
-
-    <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>
 

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_quota">%1$s z %2$s použito</string>
-	<string name="drawer_close">Zavřít postranní panel</string>
+    <string name="drawer_close">Zavřít postranní panel</string>
     <string name="drawer_open">Otevřít postranní panel</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
@@ -589,22 +589,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nově v %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>
-    <string name="welcome_feature_1_text">Přistupujte, sdílejte a ochraňte své domácí a pracovní soubory</string>
-
-    <string name="welcome_feature_2_title">Multi účet</string>
-    <string name="welcome_feature_2_text">Připojte se ke všem svým cloudům</string>
-
-    <string name="welcome_feature_3_title">Automatické nahrávání</string>
-    <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Šifrování end-to-end</string>
-    <string name="whats_new_resized_images_title">Přizpůsobivé obrázky</string>
-    <string name="whats_new_ipv6_title">Podpora IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 pokud to server podporuje, IPv4, když ne.</string>
-
     <string name="whats_new_skip">Přeskočit</string>
 
     <!-- User information -->
@@ -765,7 +749,6 @@
     <string name="error_comment_file">Chyba při komentování souboru</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-
     <string name="dismiss">Zavřít</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="trashbin_activity_title">Smazané soubory</string>

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
-	<string name="prefs_category_general">Γενικά</string>
+    <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_lock_none">Τίποτα</string>
@@ -57,7 +57,6 @@
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
-    <string name="auth_register">Όχι  Nextcloud ακόμα; \ nΚάντε κλικ εδώ για να πάρετε ένα από έναν πάροχο</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -519,18 +518,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
-    <string name="welcome_feature_1_text">Πρόσβαση, διαμοιρασμός και προστασία των αρχείων σας στο σπίτι και στην εταιρία σας</string>
-
-    <string name="welcome_feature_2_title">Πολλαπλός λογαριασμός</string>
-    <string name="welcome_feature_2_text">Σύνδεση με όλα τα clouds σας</string>
-
-    <string name="welcome_feature_3_title">Αυτόματη μεταφόρτωση</string>
-    <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
-
-    <string name="whats_new_ipv6_title">Υποστήριξη IPv6</string>
     <string name="whats_new_skip">Παράλειψη</string>
 
     <!-- User information -->
@@ -644,7 +631,6 @@
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
-
     <string name="dismiss">Αποδέσμευση</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>

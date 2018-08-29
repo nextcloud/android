@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Jarduerak</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_quota">%1$s %2$s-(e)tik erabilita</string>
-	<string name="prefs_category_general">Orokorra</string>
+    <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
     <string name="prefs_expert_mode">Modu aurreratua</string>
