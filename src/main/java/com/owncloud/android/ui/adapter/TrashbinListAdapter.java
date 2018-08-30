@@ -54,7 +54,6 @@ import butterknife.ButterKnife;
 /**
  * Adapter for the trashbin view
  */
-
 public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TRASHBIN_ITEM = 100;
