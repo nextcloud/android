@@ -211,7 +211,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return method.getResponseBodyAsStream();
         } else {
-            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(""+status));
+            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(String.valueOf(status)));
         }
     }
 
