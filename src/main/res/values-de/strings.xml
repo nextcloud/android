@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Aktivitäten</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
-    <string name="drawer_close">Hauptmenü schließen</string>
+    <string name="drawer_quota_unlimited">%1$s verwendet</string>
+	<string name="drawer_close">Hauptmenü schließen</string>
     <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
@@ -759,6 +760,13 @@
     <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
     <string name="whats_new_device_credentials_title">Androids internen Geräteschutz verwenden</string>
+    <string name="login">Anmelden</string>
+    <string name="signup_with_provider">Mit Provider anmelden</string>
+    <string name="host_your_own_server">Eigenen Server betreiben</string>
+    <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
+    <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
+    <string name="first_run_3_text">Leicht verwendbares Web-Mail, Kalender &amp; Kontakte</string>
+    <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
     <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
 	<string name="restore">Datei wiederherstellen</string>

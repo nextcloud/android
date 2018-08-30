@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-    <string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_quota_unlimited">%1$s utilisé</string>
+	<string name="drawer_close">Fermer la barre latérale</string>
     <string name="drawer_open">Ouvrir la barre latérale</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
@@ -762,6 +763,13 @@ Veuillez contacter votre administrateur</string>
     <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
+    <string name="login">Se connecter</string>
+    <string name="signup_with_provider">Se connecter avec un fournisseur</string>
+    <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="first_run_1_text">Sécurisez et contrôlez vos données</string>
+    <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
+    <string name="first_run_3_text">Messagerie web, Agenda et Contacts faciles d\'utilisation</string>
+    <string name="first_run_4_text">Partage d\'écran et réunion en ligne</string>
     <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
 	<string name="restore">Restaurer le fichier</string>

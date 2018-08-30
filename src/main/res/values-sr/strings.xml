@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
-    <string name="drawer_close">Затвори бочну траку</string>
+    <string name="drawer_quota_unlimited">%1$s искоришћено</string>
+	<string name="drawer_close">Затвори бочну траку</string>
     <string name="drawer_open">Отвори бочну траку</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
@@ -764,6 +765,9 @@
     <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
     <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
     <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
+    <string name="login">Пријава</string>
+    <string name="signup_with_provider">Пријавите се преко провајдера</string>
+    <string name="first_run_1_text">Држите податке безбедним и под Вашом контролом</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
 	<string name="restore">Поврати фајл</string>

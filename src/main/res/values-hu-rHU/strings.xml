@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Tevékenységek</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
-    <string name="drawer_close">Oldalsáv bezárása</string>
+    <string name="drawer_quota_unlimited">%1$s használt</string>
+	<string name="drawer_close">Oldalsáv bezárása</string>
     <string name="drawer_open">Oldalsáv megnyitása</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
@@ -775,6 +776,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="sharee_add_failed">Hiba a megosztás hozzáadásakor.</string>
     <string name="unsharing_failed">Megosztás visszavonási hiba</string>
     <string name="updating_share_failed">Megosztás frissítési hiba</string>
+    <string name="login">Bejelentkezés</string>
     <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
 	<string name="restore">Fájl visszaállítása</string>
@@ -783,6 +785,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="error_comment_file">Fájl hozzászólási hiba</string>
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
+    <string name="new_media_folder_photos">Fénykép</string>
+    <string name="new_media_folder_videos">Videó</string>
     <string name="outdated_server">A szerver elérte életciklusa végét, kérem frissítsen!</string>
     <string name="dismiss">Elutasít</string>
     <string name="feedback_no_mail_app">Nincs elérhető alkalmazás email küldéséhez!</string>
@@ -793,4 +797,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_file_not_deleted">%1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">%1$s nem állítható vissza!</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
+    <string name="folder_confirm_create">Létrehozás</string>
+    <string name="file_delete">Törlés</string>
+    <string name="file_rename">Átnevez</string>
     </resources>

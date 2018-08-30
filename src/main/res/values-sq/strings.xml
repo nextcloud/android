@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Aktivitetet</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
-    <string name="drawer_close">Mbyllni sidebar-in</string>
+    <string name="drawer_quota_unlimited">%1$s të përdorura</string>
+	<string name="drawer_close">Mbyllni sidebar-in</string>
     <string name="drawer_open">Hapni sidebar-in</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
@@ -760,6 +761,7 @@
     <string name="prefs_e2e_mnemonic">E2E i kujtesës</string>
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
     <string name="whats_new_device_credentials_title">Përdorni mbrojtjen e brendshme të pajisjes Android</string>
+    <string name="login">Hyni</string>
     <string name="whats_new_device_credentials_content">Përdorni diçka si një model, fjalëkalim, pin ose gjurmë gishtash për të mbajtur të dhënat tuaja të sigurta.</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>
 	<string name="restore">Rikthe skedarin</string>

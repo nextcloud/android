@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Virkni</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
-    <string name="prefs_category_general">Almennt</string>
+    <string name="drawer_quota_unlimited">%1$s notað</string>
+	<string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_lock">Læsa</string>
@@ -755,6 +756,7 @@
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
+    <string name="login">Skrá inn</string>
     <string name="whats_new_device_credentials_content">Notaðu tækni á borð við mynstur, lykilorð eða fingraför til að halda gögnunum þínum öruggum.</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>
 	<string name="restore">Endurheimta skrá</string>

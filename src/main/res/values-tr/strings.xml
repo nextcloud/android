@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Etkinlikler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
-    <string name="drawer_close">Yan çubuğu kapat</string>
+    <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
+	<string name="drawer_close">Yan çubuğu kapat</string>
     <string name="drawer_open">Yan çubuğu aç</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
@@ -759,6 +760,9 @@
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
     <string name="whats_new_device_credentials_title">Android iç aygıt koruması kullanılsın</string>
+    <string name="login">Oturum Aç</string>
+    <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
+    <string name="first_run_1_text">Verilerinizi güvenli ve denetiminiz altında tutun</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
 	<string name="restore">Dosyayı geri yükle</string>

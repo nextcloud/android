@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_quota">%1$s av %2$s brukt</string>
-    <string name="prefs_category_general">Generelt</string>
+    <string name="drawer_quota_unlimited">%1$s brukt</string>
+	<string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_lock_none">Ingen</string>
@@ -103,6 +104,7 @@
     <string name="file_list_empty_text_photos_filter">Ingen bilder.</string>
     <string name="file_list_empty_text_videos">Last opp noen videoer eller skru på automatisk opplasting.</string>
     <string name="file_list_empty_text_videos_filter">Ingen videoer.</string>
+    <string name="trashbin_empty_headline">Ingen slettede filer</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
@@ -736,9 +738,17 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="tags">Knagger</string>
+    <string name="login">Logg inn</string>
+    <string name="signup_with_provider">Logg på med tilbyder</string>
+    <string name="first_run_1_text">Hold dine data sikre og under din egen kontroll</string>
+    <string name="new_comment">Ny kommentar…</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
     <string name="dismiss">Forkast</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="trashbin_activity_title">Slettede filer</string>
+    <string name="folder_confirm_create">Opprett</string>
+    <string name="file_delete">Slett</string>
+    <string name="file_keep">Behold</string>
+    <string name="file_rename">Gi nytt navn</string>
     </resources>
