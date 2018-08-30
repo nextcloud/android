@@ -277,9 +277,7 @@ public class FileDisplayActivity extends HookActivity
                                 PermissionUtil.requestWriteExternalStoreagePermission(FileDisplayActivity.this);
                             }
                         });
-
                 ThemeUtils.colorSnackbar(this, snackbar);
-
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
@@ -1926,9 +1924,7 @@ public class FileDisplayActivity extends HookActivity
                     R.string.clipboard_text_copied,
                     Snackbar.LENGTH_LONG
             ).setAction(R.string.share, v -> showShareLinkDialog(fLink));
-
             ThemeUtils.colorSnackbar(this, snackbar);
-
             snackbar.show();
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
@@ -1955,11 +1951,13 @@ public class FileDisplayActivity extends HookActivity
                 if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                     fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
                 }
-                Snackbar.make(
+                Snackbar snackbar = Snackbar.make(
                         findViewById(android.R.id.content),
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Snackbar.LENGTH_LONG
-                ).show();
+                );
+                ThemeUtils.colorSnackbar(this, snackbar);
+                snackbar.show();
             }
         }
     }
@@ -2014,7 +2012,9 @@ public class FileDisplayActivity extends HookActivity
             updateFileFromDB();
             refreshListOfFilesFragment(false);
         } else if (fileDetailFragment.getView() != null) {
-            Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG);
+            ThemeUtils.colorSnackbar(this, snackbar);
+            snackbar.show();
         }
 
         if (fileDetailFragment != null && fileDetailFragment instanceof FileDetailFragment) {
