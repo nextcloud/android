@@ -122,6 +122,8 @@ public class ExtendedListFragment extends Fragment
 
     private EmptyRecyclerView mRecyclerView;
 
+    private DividerItemDecoration dividerItemDecoration;
+
     protected SearchView searchView;
     private Handler handler = new Handler();
 
@@ -154,6 +156,11 @@ public class ExtendedListFragment extends Fragment
         return mRecyclerView;
     }
 
+    protected DividerItemDecoration getDividerItemDecoration() {
+        return dividerItemDecoration;
+    }
+
+
     public FloatingActionButton getFabMain() {
         return mFabMain;
     }
@@ -161,12 +168,14 @@ public class ExtendedListFragment extends Fragment
     public void switchToGridView() {
         if (!isGridEnabled()) {
             getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnSize()));
+            getRecyclerView().removeItemDecoration(dividerItemDecoration);
         }
     }
 
     public void switchToListView() {
         if (isGridEnabled()) {
             getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+            getRecyclerView().addItemDecoration(dividerItemDecoration);
         }
     }
 
@@ -363,8 +372,12 @@ public class ExtendedListFragment extends Fragment
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        dividerItemDecoration = new DividerItemDecoration(getContext(), layoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.vertical_divider));
+
+        if(!isGridEnabled()){
+            mRecyclerView.addItemDecoration(dividerItemDecoration);
+        }
 
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);

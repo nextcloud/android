@@ -1164,9 +1164,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
             });
-            
+            getRecyclerView().removeItemDecoration(getDividerItemDecoration());
         } else {
             layoutManager = new LinearLayoutManager(getContext());
+            getRecyclerView().addItemDecoration(getDividerItemDecoration());
         }
 
         getRecyclerView().setLayoutManager(layoutManager);
