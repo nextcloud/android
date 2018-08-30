@@ -1921,11 +1921,15 @@ public class FileDisplayActivity extends HookActivity
             String fLink = link;
 
             ClipboardUtil.copyToClipboard(this, link, false);
-            Snackbar.make(
+            Snackbar snackbar = Snackbar.make(
                     findViewById(android.R.id.content),
                     R.string.clipboard_text_copied,
                     Snackbar.LENGTH_LONG
-            ).setAction(R.string.share, v -> showShareLinkDialog(fLink)).show();
+            ).setAction(R.string.share, v -> showShareLinkDialog(fLink));
+
+            ThemeUtils.colorSnackbar(this, snackbar);
+
+            snackbar.show();
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
