@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Activiteiten</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
-    <string name="drawer_close">Sluiten zijbalk</string>
+    <string name="drawer_quota_unlimited">%1$s gebruikt</string>
+	<string name="drawer_close">Sluiten zijbalk</string>
     <string name="drawer_open">Openen zijbalk</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
@@ -738,6 +739,8 @@
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="login">Inloggen</string>
+    <string name="first_run_1_text">Hou je gegevens veilig en in eigen beheer</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
 	<string name="restore">Herstellen bestand</string>
     <string name="new_comment">Nieuwe reactie…</string>

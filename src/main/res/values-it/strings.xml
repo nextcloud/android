@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Attività</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
-    <string name="drawer_close">Chiudi barra laterale</string>
+    <string name="drawer_quota_unlimited">%1$s utilizzato</string>
+	<string name="drawer_close">Chiudi barra laterale</string>
     <string name="drawer_open">Apri barra laterale</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
@@ -759,6 +760,13 @@
     <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
     <string name="whats_new_device_credentials_title">Usa protezione interna del dispositivo Android</string>
+    <string name="login">Accedi</string>
+    <string name="signup_with_provider">Registrati a un fornitore</string>
+    <string name="host_your_own_server">Ospita il tuo server</string>
+    <string name="first_run_1_text">Mantieni i tuoi dati sicuri e sotto il tuo controllo</string>
+    <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
+    <string name="first_run_3_text">Web mail, calendari e contatti di semplice utilizzo</string>
+    <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
     <string name="whats_new_device_credentials_content">Utilizza qualcosa come un modello, password, PIN o la tua impronta digitale per tenere al sicuro i tuoi dati.</string>
     <string name="restore_button_description">Ripristina file eliminato</string>
 	<string name="restore">Ripristina file</string>
