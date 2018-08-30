@@ -276,7 +276,7 @@ public class ManageAccountsActivity extends FileActivity
         startActivity(firstRunIntent);
     }
 
-    //    @Override
+    @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(this),
