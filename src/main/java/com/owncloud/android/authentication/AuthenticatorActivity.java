@@ -342,7 +342,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             setContentView(R.layout.account_setup_webview);
             mLoginWebView = findViewById(R.id.login_webview);
-            initWebViewLogin(webloginUrl, showLegacyLogin);
+            initWebViewLogin(webloginUrl, showLegacyLogin, false);
         }
 
         initServerPreFragment(savedInstanceState);
@@ -369,7 +369,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebViewLogin(String baseURL, boolean showLegacyLogin) {
+    private void initWebViewLogin(String baseURL, boolean showLegacyLogin, boolean useGenericUserAgent) {
         mLoginWebView.setVisibility(View.GONE);
 
         final ProgressBar progressBar = findViewById(R.id.login_webview_progress_bar);
@@ -377,7 +377,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
         mLoginWebView.getSettings().setDomStorageEnabled(true);
-        mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
+        
+        if (useGenericUserAgent) {
+            mLoginWebView.getSettings().setUserAgentString(MainApp.getNextcloudUserAgent());
+        } else {
+            mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
+        }
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
 
@@ -978,7 +983,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             webViewLoginMethod = true;
             setContentView(R.layout.account_setup_webview);
             mLoginWebView = findViewById(R.id.login_webview);
-            initWebViewLogin(getString(R.string.provider_registration_server), false);
+            initWebViewLogin(getString(R.string.provider_registration_server), false, true);
         }
     }
 
@@ -1470,7 +1475,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 setContentView(R.layout.account_setup_webview);
                 mLoginWebView = findViewById(R.id.login_webview);
-                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, true);
+                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, true, false);
             } else {
                 // show old login
                 setOldLoginVisibility(View.VISIBLE);
@@ -1802,7 +1807,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {    // authorization fail due to client side - probably wrong credentials
             if (webViewLoginMethod) {
                 mLoginWebView = findViewById(R.id.login_webview);
-                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, true);
+                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, true, false);
 
                 DisplayUtils.showSnackMessage(this, mLoginWebView, R.string.auth_access_failed, result.getLogMessage());
             } else {
