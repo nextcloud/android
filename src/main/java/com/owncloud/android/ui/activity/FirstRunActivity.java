@@ -168,6 +168,13 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
     public static boolean runIfNeeded(Context context) {
+        boolean isProviderOrOwnInstallationVisible = context.getResources()
+                .getBoolean(R.bool.show_provider_or_own_installation);
+
+        if (!isProviderOrOwnInstallationVisible) {
+            return false;
+        }
+        
         if (context instanceof FirstRunActivity) {
             return false;
         }
