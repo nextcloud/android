@@ -55,7 +55,6 @@
                 android:id="@+id/Filename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="@string/placeholder_filename"
@@ -79,7 +78,6 @@
                     android:id="@+id/file_separator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:paddingEnd="@dimen/standard_quarter_padding"
                     android:paddingLeft="@dimen/zero"
                     android:paddingRight="@dimen/standard_quarter_padding"
@@ -92,7 +90,6 @@
                     android:id="@+id/deletionTimestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     tools:text="@string/placeholder_media_time"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
@@ -103,7 +100,6 @@
                 android:id="@+id/originalLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 tools:text="@string/placeholder_filename"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"/>
