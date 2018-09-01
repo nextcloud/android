@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">Usado %1$s de %2$s</string>
-    <string name="drawer_close">Fechar barra lateral</string>
+    <string name="drawer_quota_unlimited">%1$s utilizado</string>
+	<string name="drawer_close">Fechar barra lateral</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
@@ -240,13 +241,20 @@
 	<string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor, inicie a sessão novamente</string>
     <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
 	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
+    <string name="auth_access_failed">O acesso falhou: %1$s</string>
     <string name="favorite">Definir como disponível em modo desligado</string>
+    <string name="favorite_real">Adicionar aos favoritos</string>
+    <string name="unset_favorite_real">Remover dos favoritos</string>
     <string name="common_rename">Renomear</string>
+    <string name="common_remove">Eliminar </string>
     <string name="confirmation_remove_local">Apenas localmente</string>
+    <string name="remove_success_msg">Eliminado</string>
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
     <string name="filename_forbidden_characters">Carateres proibidos: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
+    <string name="activity_chooser_title">Enviar ligação para…</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
     
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
@@ -277,6 +285,7 @@
 
     <string name="placeholder_sentence">Isto é uma variável</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -288,6 +297,9 @@
 
     <string name="preview_image_description">Pré-Visualizar imagem</string>
     <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
+    <string name="prefs_synced_folders_local_path_title">Pasta Local</string>
+    <string name="prefs_synced_folders_remote_path_title">Pasta Remota</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Usar Subpastas</string>
     <string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
 	<string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
 	<string name="unshare_link_file_no_exist">Não é possível retirar a partilha. Verifique se o ficheiro existe</string>
@@ -307,15 +319,30 @@
     <string name="share_link_forbidden_permissions">para partilhar este ficheiro</string>
     <string name="unshare_link_forbidden_permissions">para cancelar a partilha deste ficheiro</string>
     <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
+    <string name="forbidden_permissions_create">para criar este ficheiro</string>
     <string name="downloader_download_file_not_found">O ficheiro não está mais disponível no servidor</string>
 
+    <string name="file_migration_preparing">Preparando migração…</string>
+    <string name="file_migration_checking_destination">Verificando destino…</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando configurações da conta…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Aguardando que a sincronização termine…</string>
+    <string name="file_migration_migrating">Movendo dados…</string>
+    <string name="file_migration_updating_index">Actualizando indíce…</string>
+    <string name="file_migration_cleaning">Limpando…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando configurações da conta…</string>
+    <string name="file_migration_ok_finished">Terminado</string>
     <string name="prefs_add_account">Adicionar conta</string>
+    <string name="drawer_manage_accounts">Gerir contas</string>
     <string name="actionbar_logger">Registos de Alterações</string>
 	<string name="log_send_history_button">Histórico de envio</string>
 	<string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
-    <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
+    <string name="log_progress_dialog_text">A carregar dados…</string>
+
+	<string name="saml_authentication_required_text">Necessário palavra-passe</string>
+	<string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
 	<string name="actionbar_move">Mover</string>
-    <string name="folder_picker_choose_button_text">Escolher</string>
+    <string name="actionbar_copy">Copiar</string>
+	<string name="folder_picker_choose_button_text">Escolher</string>
 
     <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
     <string name="forbidden_permissions_move">para mover este ficheiro</string>
@@ -336,23 +363,56 @@
 
     <string name="username">Nome de utilizador</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d pasta</item>
+        <item quantity="other">%1$d pastas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d ficheiro</item>
+        <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será…</string>
+    <string name="prefs_instant_behaviour_title">O ficheiro original será…</string>
+    <string name="select_all">Selecionar tudo</string>
+    <string name="deselect_all">Desseleccionado tudo</string>
+
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
+    <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="share_dialog_title">Partilha</string>
     <string name="share_file">Partilhar %1$s</string>
     <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
     <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
     <string name="share_add_user_or_group">Adicionar utilizador ou grupo</string>
+    <string name="share_via_link_edit_permission_label">Permitir edição</string>
+    <string name="share_via_link_password_title">Protegido</string>
+    <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
+    <string name="share_via_link_menu_password_label">Protegido com Senha (%1$s)</string>
+    <string name="share_no_expiration_date_label">Definir a data de expiração</string>
     <string name="share_via_link_section_title">Compartilhar hiperligação</string>
+    <string name="share_via_link_send_link_label">Enviar hiperligação</string>
+    <string name="share_password_title">Protegido com Senha</string>
+    <string name="share_no_password_title">Defina a senha</string>
+    <string name="edit_permission_label">editar</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Esconder listagem de ficheiros</string>
     <string name="share_get_public_link_button">Obter ligação</string>
+    <string name="share_with_title">Partilhar com…</string>
     <string name="share_with_edit_title">Partilhar com %1$s</string>
+    <string name="share_search">Nome, Id. da nuvem federada ou endereço de e-mail…</string>
+
     <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
+    <string name="share_privilege_unshare">Cancelar partilha</string>
     <string name="share_privilege_can_share">pode partilhar</string>
     <string name="share_privilege_can_edit">pode editar</string>
+    <string name="share_privilege_can_edit_create">pode criar</string>
+    <string name="share_privilege_can_edit_change">pode alterar</string>
+    <string name="share_privilege_can_edit_delete">pode apagar</string>
+
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
 
@@ -362,7 +422,16 @@
     <string name="maintenance_mode">Servidor em manutenção</string>
     <string name="actionbar_search">Procura</string>
     <string name="learn_more">Conheça melhor</string>
+    <string name="drawer_synced_folders">Carregamento automático</string>
     <string name="drawer_participate">Participe</string>
+    <string name="participate_testing_report_text">Reportar um problema no Github</string>
+    <string name="participate_contribute_translate_translate">Traduzir</string>
+    <string name="move_to">Movido para…</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+
     <string name="upload_file_dialog_filename">Nome do ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Atalhos(%s) de Internet</string>
@@ -370,23 +439,70 @@
 
     <string name="storage_description_default">Por defeito</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Novo em %1$s</string>
     <string name="whats_new_skip">Passar à frente</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_phone">Número de telefone</string>
     <string name="user_info_address">Endereço</string>
+    <string name="user_info_website">Site da Internet</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Ainda sem atividade</string>
+    <string name="prefs_category_about">Sobre</string>
+
+    <string name="contacts_preference_backup_never">nunca</string>
+    <string name="drawer_logout">Terminar sessão</string>
+    <string name="privacy">Privacidade</string>
+    <string name="file_not_found">Ficheiro não encontrado</string>
+    <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
+    <string name="fallback_weblogin_back">Anterior</string>
+    <string name="foreground_service_upload">A enviar ficheiros…</string>
     <string name="foreground_service_download">A transferir os ficheiros...</string>
 
     <string name="prefs_license">Licença</string>
+    <string name="prefs_gpl_v2">GNU - Licença Pública Geral, Versão 2</string>
     <string name="date_unknown">Desconhecido</string>
 
     <string name="resized_images_download_full_image">Transferir imagem completa?</string>
 
+    <string name="activity_icon">Actividade</string>
+    <string name="file_icon">Ficheiro</string>
+    <string name="user_icon">Utilizador</string>
+    <string name="favorite_icon">Favorito</string>
+    <string name="shared_icon_shared_via_link">Partilhado via hiperligação</string>
+    <string name="shared_icon_shared">partilhado</string>
+    <string name="sort_by_modification_date_ascending">Recentes primeiro</string>
+    <string name="sort_by_size_descending">Maiores primeiro</string>
+    <string name="sort_by_size_ascending">Mais pequenos primeiro</string>
+    <string name="sort_by_modification_date_descending">Antigos primeiro</string>
+    <string name="synced_folders_type">Tipo</string>
+    <string name="synced_folder_settings_button">Botão de Configurações</string>
+    <string name="forward">Avançar</string>
     <string name="version_dev_download">Transferir</string>
+
+    <string name="send">Enviar</string>
+    <string name="share">Partilhar</string>
+    <string name="link">Hiperligação</string>
 
     <string name="notification_channel_download_name">Canal de notificação de transferências</string>
     <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
     <string name="end_to_end_encryption_not_enabled">Encriptação ponto-a-ponto desativada no servidor.</string>
+    <string name="end_to_end_encryption_password">Palavra-passe…</string>
+    <string name="end_to_end_encryption_dialog_close">Fechar</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_password">Palavra-passe</string>
+    <string name="upload_files">Carregar ficheiros</string>
+    <string name="create_new_folder">Criar nova pasta</string>
+    <string name="tags">Etiquetas</string>
+    <string name="login">Iniciar Sessão</string>
+    <string name="new_comment">Novo comentário…</string>
+    <string name="new_media_folder_photos">photo</string>
+    <string name="new_media_folder_videos">vídeo</string>
+    <string name="dismiss">Dispensar</string>
+    <string name="drawer_item_trashbin">Ficheiros eliminados</string>
+    <string name="trashbin_activity_title">Ficheiros eliminados</string>
     </resources>

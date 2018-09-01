@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">פעילויות</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_quota">נעשה שימוש ב־%1$s מתוך %2$s</string>
-    <string name="drawer_close">סגירת סרגל הצד</string>
+    <string name="drawer_quota_unlimited">%1$s בשימוש</string>
+	<string name="drawer_close">סגירת סרגל הצד</string>
     <string name="drawer_open">פתיחת סרגל הצד</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
@@ -718,6 +719,7 @@
     <string name="unsharing_failed">ביטול השיתוף נכשל</string>
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
     <string name="whats_new_device_credentials_title">שימוש בהגנה הפנימית של מכשיר ה־Android שלך</string>
+    <string name="login">כניסה</string>
     <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
     <string name="restore_button_description">שחזור קובץ שנמחק</string>
 	<string name="restore">שחזור קובץ</string>
