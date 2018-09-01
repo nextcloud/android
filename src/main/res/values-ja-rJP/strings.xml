@@ -362,7 +362,7 @@
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
     <string name="file_migration_migrating">データを移動中</string>
-    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中...</string>
+    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_ok_finished">完了</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
     <string name="prefs_add_account">アカウントを追加</string>
