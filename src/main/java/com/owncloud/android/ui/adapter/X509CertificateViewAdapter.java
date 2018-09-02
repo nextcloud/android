@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio
@@ -20,6 +20,8 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -39,13 +41,11 @@ import java.util.Map;
 import javax.security.auth.x500.X500Principal;
 
 /**
- *
+ * Show certificate information.
  */
 public class X509CertificateViewAdapter implements SslUntrustedCertDialog.CertificateViewAdapter {
     
-    //private final static String TAG = X509CertificateViewAdapter.class.getSimpleName();
-    
-    private X509Certificate mCertificate = null;
+    private X509Certificate mCertificate;
 
     private static final String TAG = X509CertificateViewAdapter.class.getSimpleName();
 
@@ -55,7 +55,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     
     @Override
     public void updateCertificateView(View dialogView) {
-        TextView nullCerView = (TextView) dialogView.findViewById(R.id.null_cert);
+        TextView nullCerView = dialogView.findViewById(R.id.null_cert);
         
         if (mCertificate != null) {
             nullCerView.setVisibility(View.GONE);
@@ -90,32 +90,32 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
         try {
             cert = mCertificate.getEncoded();
             if (cert == null) {
-
                 certFingerprintView.setText(R.string.certificate_load_problem);
                 algorithmView.setText(R.string.certificate_load_problem);
-
             } else {
-
-                certFingerprintView.setText(
-                        getDigestHexBytesWithColonsAndNewLines(dialogView, "SHA-256", cert)
-                                + getDigestHexBytesWithColonsAndNewLines(dialogView, "SHA-1", cert)
-                                + getDigestHexBytesWithColonsAndNewLines(dialogView, "MD5", cert));
+                certFingerprintView.setText(getDigestString(dialogView.getContext(), cert));
                 algorithmView.setText(mCertificate.getSigAlgName());
-
             }
         } catch (CertificateEncodingException e) {
             Log.e(TAG, "Problem while trying to decode the certificate.");
         }
     }
-    
-    private String getDigestHexBytesWithColonsAndNewLines(View dialogView, final String digestType, final byte [] cert) {
+
+    @NonNull
+    private String getDigestString(Context context, byte[] cert) {
+        return getDigestHexBytesWithColonsAndNewLines(context, "SHA-256", cert)
+                + getDigestHexBytesWithColonsAndNewLines(context, "SHA-1", cert)
+                + getDigestHexBytesWithColonsAndNewLines(context, "MD5", cert);
+    }
+
+    private String getDigestHexBytesWithColonsAndNewLines(Context context, final String digestType, final byte [] cert) {
         final byte[] rawDigest;
         final String newLine = System.getProperty("line.separator");
 
         rawDigest = getDigest(digestType, cert);
 
         if ( rawDigest == null) {
-            return digestType + ":" + newLine + dialogView.getContext().getString(R.string.digest_algorithm_not_available) + newLine + newLine;
+            return digestType + ":" + newLine + context.getString(R.string.digest_algorithm_not_available) + newLine + newLine;
         }
 
         final StringBuilder hex = new StringBuilder(3 * rawDigest.length);
