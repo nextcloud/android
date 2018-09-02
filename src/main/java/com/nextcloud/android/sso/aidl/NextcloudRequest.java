@@ -26,16 +26,17 @@ import java.util.Map;
 
 public class NextcloudRequest implements Serializable {
 
-    private static final long serialVersionUID = 215521212534237L; //assign a long value
+    private static final long serialVersionUID = 215521212534238L; //assign a long value
 
-    public String method;
-    public Map<String, List<String>> header = new HashMap<>();
-    public Map<String, String> parameter = new HashMap<>();
-    public String requestBody;
-    public String url;
-    public String token;
-    public String packageName;
-    public String accountName;
+    private String method;
+    private Map<String, List<String>> header = new HashMap<>();
+    private Map<String, String> parameter = new HashMap<>();
+    private String requestBody;
+    private String url;
+    private String token;
+    private String packageName;
+    private String accountName;
+    private boolean followRedirects = false;
 
     private NextcloudRequest() { }
 
@@ -89,6 +90,64 @@ public class NextcloudRequest implements Serializable {
             ncr.accountName = accountName;
             return this;
         }
+
+        /**
+         * Default: true
+         * @param followRedirects
+         * @return
+         */
+        public Builder setFollowRedirects(boolean followRedirects) {
+            ncr.followRedirects = followRedirects;
+            return this;
+        }
+    }
+
+    public String getMethod() {
+        return this.method;
+    }
+
+    public Map<String, List<String>> getHeader() {
+        return this.header;
+    }
+
+    public Map<String, String> getParameter() {
+        return this.parameter;
+    }
+
+    public String getRequestBody() {
+        return this.requestBody;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPackageName() {
+        return this.packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getAccountName() {
+        return this.accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public boolean getFollowRedirects() {
+        return this.followRedirects;
     }
 
     public boolean validateToken(String token) {

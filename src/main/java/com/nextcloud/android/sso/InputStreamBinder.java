@@ -144,7 +144,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
 
     private InputStream processRequest(final NextcloudRequest request) throws UnsupportedOperationException, com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException, OperationCanceledException, AuthenticatorException, IOException {
-        Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!
+        Account account = AccountUtils.getOwnCloudAccountByName(context, request.getAccountName()); // TODO handle case that account is not found!
         if(account == null) {
             throw new IllegalStateException(EXCEPTION_ACCOUNT_NOT_FOUND);
         }
@@ -155,7 +155,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
 
         // Validate URL
-        if(request.url.length() == 0 || request.url.charAt(0) != PATH_SEPARATOR) {
+        if(request.getUrl().length() == 0 || request.getUrl().charAt(0) != PATH_SEPARATOR) {
             throw new IllegalStateException(EXCEPTION_INVALID_REQUEST_URL, new IllegalStateException("URL need to start with a /"));
         }
 
@@ -163,19 +163,19 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
         OwnCloudClient client = ownCloudClientManager.getClientFor(ocAccount, context);
 
-        request.url = client.getBaseUri() + request.url;
+        String requestUrl = client.getBaseUri() + request.getUrl();
         HttpMethodBase method;
 
-        switch (request.method) {
+        switch (request.getMethod()) {
             case "GET":
-                method = new GetMethod(request.url);
+                method = new GetMethod(requestUrl);
                 break;
 
             case "POST":
-                method = new PostMethod(request.url);
-                if (request.requestBody != null) {
+                method = new PostMethod(requestUrl);
+                if (request.getRequestBody() != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
-                            request.requestBody,
+                            request.getRequestBody(),
                             CONTENT_TYPE_APPLICATION_JSON,
                             CHARSET_UTF8);
                     ((PostMethod) method).setRequestEntity(requestEntity);
@@ -183,10 +183,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 break;
 
             case "PUT":
-                method = new PutMethod(request.url);
-                if (request.requestBody != null) {
+                method = new PutMethod(requestUrl);
+                if (request.getRequestBody() != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
-                            request.requestBody,
+                            request.getRequestBody(),
                             CONTENT_TYPE_APPLICATION_JSON,
                             CHARSET_UTF8);
                     ((PutMethod) method).setRequestEntity(requestEntity);
@@ -194,7 +194,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 break;
 
             case "DELETE":
-                method = new DeleteMethod(request.url);
+                method = new DeleteMethod(requestUrl);
                 break;
 
             default:
@@ -202,9 +202,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         }
 
-        method.setQueryString(convertMapToNVP(request.parameter));
+        method.setQueryString(convertMapToNVP(request.getParameter()));
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
+        client.setFollowRedirects(request.getFollowRedirects());
         int status = client.executeMethod(method);
 
         // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
@@ -216,12 +217,12 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
-        if(request.packageName == null) {
+        if(request.getPackageName() == null) {
             String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
-            request.packageName = callingPackageName;
+            request.setPackageName(callingPackageName);
         }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String storedToken = sharedPreferences.getString(request.packageName, "");
+        String storedToken = sharedPreferences.getString(request.getPackageName(), "");
         return request.validateToken(storedToken);
     }
 }
