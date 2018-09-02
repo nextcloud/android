@@ -32,11 +32,18 @@
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_quota">%1$s av %2$s brukt</string>
     <string name="drawer_quota_unlimited">%1$s brukt</string>
-	<string name="prefs_category_general">Generelt</string>
+	<string name="drawer_close">Lukk sidepanel</string>
+    <string name="drawer_open">Åpne sidepanel</string>
+    <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
+    <string name="prefs_lock">Lås</string>
+    <string name="prefs_lock_title">Lås med</string>
     <string name="prefs_lock_none">Ingen</string>
     <string name="prefs_lock_using_passcode">Passord</string>
+    <string name="prefs_lock_using_device_credentials">Enhetens legitimasjon</string>
+    <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
+    <string name="prefs_lock_device_credentials_not_setup">Ingen legitimasjon for enhet er satt opp.</string>
     <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
@@ -105,6 +112,7 @@
     <string name="file_list_empty_text_videos">Last opp noen videoer eller skru på automatisk opplasting.</string>
     <string name="file_list_empty_text_videos_filter">Ingen videoer.</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
+    <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
@@ -194,6 +202,9 @@
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
+    <string name="default_credentials_wrong">Feil legitimasjon</string>
+    <string name="credentials_disabled">Legitimasjon deaktivert</string>
+    
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
     <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang programmet startes</string>
     <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
@@ -215,6 +226,7 @@
     <string name="media_err_timeout">Tidsavbrudd under avspillingsforsøk</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_unknown">Mediafilen kan ikke spilles med innebygd mediaspiller</string>
+    <string name="media_err_playing">Uventet feil ved spilling av %1$s</string>
     <string name="media_rewind_description">Spol tilbake</string>
     <string name="media_play_pause_description">Spill eller pause</string>
     <string name="media_forward_description">Spol fremover</string>
@@ -228,6 +240,7 @@
 	<string name="auth_not_configured_title">Feil i tjenerkonfigurasjon</string>
 	<string name="auth_account_not_new">En konto for samme bruker og tjener finnes allerede på enheten</string>
 	<string name="auth_account_not_the_same">Den innskrevne brukeren samsvarer ikke med brukeren av denne kontoen</string>
+	<string name="auth_unknown_error_http_title">Ukjent HTTP feil oppstod!</string>
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
 	<string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
 	<string name="auth_unknown_host_title">Fant ikke vert</string>
@@ -251,6 +264,9 @@
 	<string name="auth_fail_get_user_name">Tjeneren svarer ikke med korrekt bruker-ID. Kontakt administrator</string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen er ikke lagt til på denne enheten enda</string>
+    <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
+    <string name="auth_illegal_login_used">Ugyldig påloggingsdata for URL er brukt</string>
+
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Legg til i favoritter</string>
@@ -350,6 +366,7 @@
     <string name="copy_link">Kopier lenke</string>
     <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
+    <string name="clipboard_unexpected_error">Uventet feil ved kopiering til utklippstavle</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritisk feil: Kan ikke utføre operasjonene</string>
@@ -470,6 +487,7 @@
     <string name="share_expiration_date_label">Utløper den %1$s</string>
     <string name="share_no_expiration_date_label">Sett utløpsdato</string>
     <string name="share_via_link_section_title">Del lenke</string>
+    <string name="share_via_link_send_link_label">Send lenke</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_no_password_title">Velg passord</string>
     <string name="edit_permission_label">rediger</string>
@@ -510,6 +528,8 @@
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
+    <string name="offline_mode">Ingen internettforbindelse</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, oppgrader.</string>
@@ -577,6 +597,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet enda</string>
+    <string name="activities_no_results_message">Ingen hendelser som tillegg, endringer eller delinger enda</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>
@@ -656,11 +677,13 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="file_icon">Fil</string>
     <string name="user_icon">Bruker</string>
     <string name="favorite_icon">Favoritt</string>
+    <string name="synced_icon">Synkronisert</string>
     <string name="available_offline_icon">Tilgjengelig frakoblet</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="shared_icon_share">del</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_icon_shared">delt</string>
+    <string name="overflow_menu">Mer meny</string>
     <string name="sort_by_name_ascending">A - Å</string>
     <string name="sort_by_modification_date_ascending">Nyeste først</string>
     <string name="sort_by_size_descending">Største først</string>
@@ -671,6 +694,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="sync_status_button">Synkroniseringsstatusknapp</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
+    <string name="upload_item_action_button">Last opp element handlingsknapp</string>
     <string name="forward">Fremover</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
 
@@ -688,6 +712,8 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="share">Del</string>
     <string name="link">Lenke</string>
 
+    <string name="notification_channel_upload_name">Kanal for varsel om opplasting</string>
+    <string name="notification_channel_download_name">Kanal for varsel om nedlasting</string>
     <string name="notification_channel_download_description">Viser nedlastingsfremgang</string>
     <string name="notification_channel_upload_description">Viser opplastingsfremgang</string>
     <string name="notification_channel_media_name">Mediaavspiller</string>
@@ -708,6 +734,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på profilsiden.</string>
+    <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
     <string name="account_icon">Kontoikon</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
@@ -716,6 +743,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
     <string name="end_to_end_encryption_enter_password">Skriv inn passord for å dekryptere privat nøkkel.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
+    <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
     <string name="end_to_end_encryption_title">Sett opp kryptering</string>
     <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
@@ -731,24 +759,59 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresse til endepunkt for autentisering</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Gå til endepunkt adresse</string>
     <string name="hint_name">Navn</string>
     <string name="hint_password">Passord</string>
     <string name="add_to_cloud">Legg til %1$s</string>
     <string name="upload_files">Last opp filer</string>
+    <string name="upload_content_from_other_apps">Last opp innhold fra andre programmer</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="tags">Knagger</string>
+    <string name="unsharing_failed">Fjerning av deling feilet</string>
+    <string name="updating_share_failed">Oppdatering av deling feilet</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
+    <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
+    <string name="whats_new_device_credentials_title">Bruk Android\'s interne enhets beskyttelse</string>
     <string name="login">Logg inn</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
+    <string name="host_your_own_server">Bruk din egen server</string>
     <string name="first_run_1_text">Hold dine data sikre og under din egen kontroll</string>
+    <string name="first_run_2_text">Sikkert samarbeid &amp; fil utveksling</string>
+    <string name="first_run_3_text">Brukervennlig e-post på web, kalender &amp; kontakter </string>
+    <string name="first_run_4_text">Deling av skjerm, online møter &amp; samtaler på web</string>
+    <string name="whats_new_device_credentials_content">Bruk et mønster, passord, pin eller fingeravtrykk for å holde dine data sikret.</string>
+    <string name="restore_button_description">Gjenopprett slettet fil</string>
+	<string name="restore">Gjenopprett fil</string>
+    <string name="new_version_was_created">Ny versjon er opprettet</string>
     <string name="new_comment">Ny kommentar…</string>
+    <string name="error_comment_file">Feil ved kommentering av fil</string>
+    <string name="file_version_restored_successfully">Vellykket gjenoppretting av fil versjon.</string>
+    <string name="file_version_restored_error">Feil ved gjennoppretting av fil versjon!</string>
+    <string name="notification_channel_general_name">Generelle varsel</string>
+    <string name="notification_channel_general_description">Vis varsel for nye media mapper og lignende</string>
+    <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="outdated_server">Tjener er ikke lengre supportert, ver vennlig å oppgradere!</string>
     <string name="dismiss">Forkast</string>
+    <string name="feedback_no_mail_app">Ingen program tilgjengelig for å sende e-post!</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="trashbin_activity_title">Slettede filer</string>
+    <string name="action_empty_trashbin">Tøm søppelbøtte</string>
+    <string name="trashbin_loading_failed">Innlesing av søppelbøtte feilet!</string>
+    <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
+    <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
+    <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="stream">Strøm med…</string>
+    <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
+    <string name="stream_not_possible_message">Vennligst last ned media i stedet for å bruke eksternt program.</string>
+    <string name="folder_already_exists">Mappe finnes allerede</string>
+    <string name="notification_icon">Ikon for notifisering</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="file_delete">Slett</string>
     <string name="file_keep">Behold</string>
     <string name="file_rename">Gi nytt navn</string>
-    </resources>
+    <string name="fab_label">Legg til eller last opp</string>
+</resources>
