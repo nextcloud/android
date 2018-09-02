@@ -205,7 +205,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         method.setQueryString(convertMapToNVP(request.getParameter()));
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
-        client.setFollowRedirects(request.getFollowRedirects());
+        client.setFollowRedirects(request.isFollowRedirects());
         int status = client.executeMethod(method);
 
         // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
