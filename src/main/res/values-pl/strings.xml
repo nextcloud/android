@@ -695,6 +695,8 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="create_new_folder">Utwórz nowy katalog</string>
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
+    <string name="login">Zaloguj</string>
+    <string name="host_your_own_server">Hostuj swój własny serwer</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
 	<string name="restore">Przywróć plik</string>
     <string name="new_version_was_created">Powstała nowa wersja</string>
