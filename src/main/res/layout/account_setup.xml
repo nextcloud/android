@@ -25,7 +25,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fillViewport="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/primary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,6 +52,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/centeredRefreshButton"
+                style="@style/Button.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

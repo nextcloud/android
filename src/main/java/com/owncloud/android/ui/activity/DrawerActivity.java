@@ -109,7 +109,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -989,7 +991,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     menuItem.getIcon().clearColorFilter();
-                    menuItem.setTitle(Html.fromHtml("<font color='#000000'>" + menuItem.getTitle() + "</font>"));
+                    menuItem.setTitle(Html.fromHtml("<font color='" + ThemeUtils.colorToHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColor)) + "'>" + menuItem.getTitle() + "</font>"));
                 }
             }
 
@@ -1263,6 +1265,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
+        getDelegate().setLocalNightMode(preferences.getTheme() ?
+                                        AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        getDelegate().applyDayNight();
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
