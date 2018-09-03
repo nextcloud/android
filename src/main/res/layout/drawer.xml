@@ -37,21 +37,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
+            android:background="@color/background_color"
             android:clickable="false"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/standard_half_padding"
             android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/drawer_quota_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/alternate_half_padding"
-                />
+                android:drawablePadding="@dimen/alternate_half_padding" />
 
             <ProgressBar
                 android:id="@+id/drawer_quota_ProgressBar"
@@ -60,15 +59,14 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
-                android:text="@string/drawer_quota"
-                />
+                android:text="@string/drawer_quota" />
 
             <TextView
                 android:id="@+id/drawer_quota_percentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/alternate_half_padding"
-                android:text="@string/drawer_quota"/>
+                android:text="@string/drawer_quota" />
 
         </LinearLayout>
 

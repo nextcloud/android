@@ -78,7 +78,8 @@
                 android:id="@+id/hostUrlFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/zero">
+                android:layout_marginBottom="@dimen/zero"
+                android:background="@color/primary">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,7 +128,7 @@
                     android:padding="@dimen/zero"
                     android:scaleType="fitCenter"
                     android:src="@drawable/arrow_right"
-                    android:tint="@color/white" />
+                    android:tint="@color/login_btn_tint" />
 
                 <ImageButton
                     android:id="@+id/embeddedRefreshButton"

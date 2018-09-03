@@ -70,7 +70,7 @@
                 android:drawable="@drawable/ic_share"
                 android:text="@string/share"
                 android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +98,7 @@
                 android:drawable="@drawable/ic_share"
                 android:text="@string/link"
                 android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -109,7 +109,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/send_share_buttons"
         android:alpha="0.3"
-        android:background="@color/black"/>
+        android:background="@color/background_color_inverse"/>
 
         <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/send_button_recycler_view"
