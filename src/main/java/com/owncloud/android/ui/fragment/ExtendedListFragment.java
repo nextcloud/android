@@ -36,6 +36,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -121,6 +122,8 @@ public class ExtendedListFragment extends Fragment
 
     private EmptyRecyclerView mRecyclerView;
 
+    private DividerItemDecoration dividerItemDecoration;
+
     protected SearchView searchView;
     private Handler handler = new Handler();
 
@@ -153,6 +156,11 @@ public class ExtendedListFragment extends Fragment
         return mRecyclerView;
     }
 
+    protected DividerItemDecoration getDividerItemDecoration() {
+        return dividerItemDecoration;
+    }
+
+
     public FloatingActionButton getFabMain() {
         return mFabMain;
     }
@@ -160,12 +168,14 @@ public class ExtendedListFragment extends Fragment
     public void switchToGridView() {
         if (!isGridEnabled()) {
             getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnSize()));
+            getRecyclerView().removeItemDecoration(dividerItemDecoration);
         }
     }
 
     public void switchToListView() {
         if (isGridEnabled()) {
             getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+            getRecyclerView().addItemDecoration(dividerItemDecoration);
         }
     }
 
@@ -360,7 +370,14 @@ public class ExtendedListFragment extends Fragment
         mRecyclerView.setHasFooter(true);
         mRecyclerView.setEmptyView(v.findViewById(R.id.empty_list_view));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        dividerItemDecoration = new DividerItemDecoration(getContext(), layoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.vertical_divider));
+
+        if(!isGridEnabled()){
+            mRecyclerView.addItemDecoration(dividerItemDecoration);
+        }
 
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);
