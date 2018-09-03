@@ -60,7 +60,8 @@
             android:text="@string/auth_check_server"
             android:visibility="gone"
             android:contentDescription="@string/auth_check_server"
-            app:cornerRadius="@dimen/button_corner_radius"/>
+            app:cornerRadius="@dimen/button_corner_radius"
+                style="@style/Button.Primary" />
 
         <TextView
             android:id="@+id/instructions_message"

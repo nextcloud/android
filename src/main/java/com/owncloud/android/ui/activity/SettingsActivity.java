@@ -690,6 +690,20 @@ public class SettingsActivity extends PreferenceActivity
         }
 
         loadStoragePath();
+
+        SwitchPreference themePref = (SwitchPreference) findPreference(getString(R.string.prefs_key_theme));
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        themePref.setSummary((appPrefs.getBoolean(com.owncloud.android.db.PreferenceManager.PREF__DARK_THEME,
+                            false) ?
+                            getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light)));
+        themePref.setOnPreferenceChangeListener((preference, newValue) -> {
+            MainApp.setAppTheme((Boolean) newValue);
+            getDelegate().applyDayNight();
+            recreate();
+
+            return true;
+        });
     }
 
     private String getAppVersion() {
@@ -1001,5 +1015,4 @@ public class SettingsActivity extends PreferenceActivity
     public void returnVersion(Integer latestVersion) {
         FileActivity.showDevSnackbar(this, latestVersion, true);
     }
-
 }

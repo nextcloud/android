@@ -144,7 +144,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             int start = text.indexOf(textBlock);
             int end = start + textBlock.length();
             ssb.setSpan(new StyleSpan(Typeface.BOLD), start, end, 0);
-            ssb.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.textColor)), start, end,
+                                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         return ssb;

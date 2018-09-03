@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -26,6 +25,11 @@
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:defaultValue="@string/prefs_value_theme_light"
+            android:key="@string/prefs_key_theme"
+            android:summary="%s"
+            android:title="@string/prefs_theme_title" />
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"

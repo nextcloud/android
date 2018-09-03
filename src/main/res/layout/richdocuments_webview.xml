@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="middle"
             android:text="@string/placeholder_filename"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="20sp"
             android:textStyle="bold"/>
 

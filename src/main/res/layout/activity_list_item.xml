@@ -25,7 +25,8 @@
     android:orientation="horizontal"
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="@dimen/standard_padding">
+    android:paddingLeft="@dimen/standard_padding"
+    android:background="@color/background_color">
 
     <ImageView
         android:id="@+id/activity_icon"

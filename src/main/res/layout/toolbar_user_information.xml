@@ -91,11 +91,11 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:shadowColor="@color/black"
+                        android:shadowColor="@color/drawer_shadow"
                         android:shadowDx="0.5"
                         android:shadowDy="0"
                         android:shadowRadius="2"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/drawer_header_text"
                         android:textStyle="bold"
                         tools:text="Max Mustermann"/>
@@ -107,11 +107,11 @@
                         android:ellipsize="end"
                         android:lines="1"
                         android:maxLines="1"
-                        android:shadowColor="@color/black"
+                        android:shadowColor="@color/drawer_shadow"
                         android:shadowDx="0.5"
                         android:shadowDy="0"
                         android:shadowRadius="2"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/drawer_header_subtext"
                         tools:text="max@127.0.0.1/nextcloud"/>
                 </LinearLayout>

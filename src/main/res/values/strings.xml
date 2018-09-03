@@ -56,6 +56,11 @@
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_imprint">Imprint</string>
+    <string name="prefs_value_theme_light">Light</string>
+    <string name="prefs_value_theme_dark">Dark</string>
+    <string name="prefs_key_theme">darkTheme</string>
+    <string name="prefs_theme_title">Theme</string>
+
 
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
