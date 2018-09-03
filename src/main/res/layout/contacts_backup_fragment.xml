@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/contacts_automatic_backup"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/textColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +51,7 @@
                 android:layout_weight="1"
                 android:text="@string/contacts_last_backup"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:id="@+id/contacts_last_backup_timestamp"

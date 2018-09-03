@@ -20,7 +20,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:background="@color/background_color">
 
     <TextView
         android:id="@+id/add_to_cloud"
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding"
         android:text="@string/add_to_cloud"
-        android:textSize="@dimen/bottom_sheet_text_size"/>
+        android:textSize="@dimen/bottom_sheet_text_size"
+        android:textColor="@color/textColor"/>
 
     <LinearLayout
         android:id="@+id/menu_upload_files"
@@ -56,8 +58,8 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_files"
-            android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size"/>
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
 
@@ -87,8 +89,8 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_content_from_other_apps"
-            android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size"/>
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
 
@@ -169,8 +171,8 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/create_new_folder"
-            android:textColor="@color/black"
-            android:textSize="@dimen/bottom_sheet_text_size"/>
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
 
@@ -216,7 +218,7 @@
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:text="@string/create_new_document"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/bottom_sheet_text_size"/>
         </LinearLayout>
 
@@ -245,7 +247,7 @@
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:text="@string/create_new_spreadsheet"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/bottom_sheet_text_size"/>
         </LinearLayout>
 
@@ -274,7 +276,7 @@
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:text="@string/create_new_presentation"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/bottom_sheet_text_size"/>
         </LinearLayout>
     </LinearLayout>

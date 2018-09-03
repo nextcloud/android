@@ -99,6 +99,7 @@ import javax.net.ssl.SSLEngine;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
@@ -230,6 +231,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
+        setAppTheme(preferences.getTheme());
         super.onCreate();
 
         insertConscrypt();
@@ -795,4 +797,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return dispatchingAndroidInjector;
     }
 
+
+    public static void setAppTheme(Boolean darkTheme) {
+        if (darkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }

@@ -369,7 +369,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }, idx1, idx2, 0);
                 ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
-                ssb.setSpan(new ForegroundColorSpan(Color.BLACK), idx1, idx2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.textColor)),
+                            idx1, idx2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             idx1 = text.indexOf('{', idx2);
         }

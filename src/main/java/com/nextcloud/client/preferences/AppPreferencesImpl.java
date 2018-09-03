@@ -67,6 +67,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
+
+    private static final String PREF__DARK_THEME = "darkTheme";
     private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
@@ -337,6 +339,11 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public int getUploaderBehaviour() {
         return preferences.getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
+    }
+
+    @Override
+    public boolean getTheme() {
+        return preferences.getBoolean(PREF__DARK_THEME, false);
     }
 
     @Override

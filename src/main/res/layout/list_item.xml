@@ -69,7 +69,7 @@
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_synced"/>
+            android:src="@drawable/ic_synced" />
 
     </RelativeLayout>
 

@@ -20,11 +20,13 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- General ownCloud app style -->
-	<style name="Theme.ownCloud" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+	<style name="Theme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 		<item name="actionModeBackground">@color/action_mode_background</item>
-		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+		<!--<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>-->
+		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>
+        <item name="android:actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
@@ -32,23 +34,29 @@
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
 		<item name="android:windowBackground">@color/background_color</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="colorSecondary">@color/textColor</item>
+        <item name="android:colorSecondary">@color/textColor</item>
 	</style>
 
-	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+		<item name="colorPrimary">#424242</item>
+		<item name="colorPrimaryDark">#212121</item>
+		<item name="colorAccent">#757575</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="colorSecondary">@color/textColor</item>
+        <item name="android:colorSecondary">@color/textColor</item>
+	</style>
+
+	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
-	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
-		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#212121</item>
-		<item name="colorAccent">#757575</item>
-        <item name="android:textAllCaps">false</item>
-	</style>
-
-	<style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+	<style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
@@ -58,7 +66,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -78,20 +86,20 @@
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
 		<item name="android:windowBackground">@color/primary</item>
 		<item name="colorControlNormal">@color/login_text_hint_color</item>
-		<item name="colorControlActivated">@color/white</item>
+		<item name="colorControlActivated">@color/login_asset</item>
 		<item name="colorControlHighlight">@color/login_text_hint_color</item>
 		<item name="colorAccent">@color/login_text_hint_color</item>
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
 
-	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
@@ -128,9 +136,9 @@
 
     <style name="OutlineLogindButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorAccent">@color/transparent</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textAllCaps">false</item>
-        <item name="strokeColor">@color/white</item>
+        <item name="strokeColor">@color/textColor</item>
     </style>
 
 	<style name="Button.Primary" parent="Button">
@@ -139,8 +147,8 @@
 	</style>
 
 	<style name="Button.Login" parent="Button">
-		<item name="colorButtonNormal">@color/white</item>
-        <item name="colorAccent">@color/white</item>
+		<item name="colorButtonNormal">@color/textColor</item>
+        <item name="colorAccent">@color/textColor</item>
 		<item name="android:textColor">@color/primary_dark</item>
 	</style>
 
@@ -155,7 +163,7 @@
 	</style>
 
 	<style name="Button.Borderless.Login" parent="Widget.MaterialComponents.Button.TextButton">
-		<item name="android:textColor">@color/white</item>
+		<item name="android:textColor">@color/textColor</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
@@ -189,7 +197,7 @@
 		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
 	</style>
 
-	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.MaterialComponents">
+	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.MaterialComponents.DayNight">
         <item name="android:windowFullscreen">true</item>
 		<item name="colorAccent">@color/color_accent</item>
     </style>
@@ -198,15 +206,15 @@
 		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
 		<item name="android:background">@color/primary</item>
 		<item name="background">@color/primary</item>
-    	<item name="android:textColor">#ffffff</item>
-    	<item name="android:shadowColor">#222222</item>
+    	<item name="android:textColor">@color/textColor</item>
+    	<item name="android:shadowColor">@color/actionbar_shadow</item>
     	<item name="android:shadowRadius">1</item>
     	<item name="android:shadowDy">1</item>
     	<item name="android:backgroundSplit">@drawable/split_action_bg</item>
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
@@ -218,7 +226,7 @@
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.MaterialComponents.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
@@ -226,6 +234,8 @@
 	<style name="NavigationView_ItemTextAppearance">
 		<item name="android:ellipsize">end</item>
 		<item name="android:listDivider">@color/transparent</item>
+		<item name="android:textColor">@color/textColor</item>
+		<item name="android:color">@color/textColor</item>
 	</style>
 
 	<!-- Button Bar hack due to Lollipop bug:
@@ -272,19 +282,31 @@
 	<!-- Text styles -->
 	<style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
 		<item name="android:textSize">26sp</item>
-		<item name="android:textColor">#000000</item>
+		<item name="android:textColor">@color/textColor</item>
 	</style>
 	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
 	</style>
 
 	<style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+	</style>
+	<style name="EditText" parent="Theme.MaterialComponents.DayNight">
+		<item name="colorControlActivated">@color/login_text_color</item>
+		<item name="colorControlNormal">@color/login_text_color</item>
+		<item name="android:textColorHint">@color/login_text_color</item>
 	</style>
 
 	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
 		<item name="android:textSize">16sp</item>
 		<item name="textAllCaps">false</item>
-	</style>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.PopupMenu" parent="ThemeOverlay.MaterialComponents.Dark">
+        <!-- popup menu background - NEVER "android:background" !!! in themes -->
+        <item name="android:colorBackground">@color/background_color</item>
+        <!-- popup menu item text color -->
+        <item name="android:textColorPrimary">@color/textColor</item>
+    </style>
 
     <style name="MaterialListItemSingleLine">
         <item name="android:clickable">true</item>

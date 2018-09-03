@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pass_code_enter_pass_code"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
         android:gravity="center_horizontal"
         android:textSize="@dimen/two_line_primary_text_size"
          />
@@ -56,6 +56,7 @@
             android:focusable="true"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
+            android:textCursorDrawable="@color/primary"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
             android:hint="@string/hidden_character">

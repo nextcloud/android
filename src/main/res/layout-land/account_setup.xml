@@ -122,7 +122,7 @@
                         android:padding="@dimen/zero"
                         android:scaleType="fitCenter"
                         android:src="@drawable/arrow_right"
-                        android:tint="@color/white"
+                        android:tint="@color/login_btn_tint"
                         android:background="@android:color/transparent"
                         android:onClick="onTestServerConnectionClick"
                         android:contentDescription="@string/test_server_button"
@@ -183,7 +183,7 @@
 					android:layout_height="wrap_content"
 					android:visibility="gone"
 					app:passwordToggleDrawable="@drawable/password_visibility_selector"
-					app:passwordToggleTint="@color/white">
+					app:passwordToggleTint="@color/login_btn_tint">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/account_password"

@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/standard_quarter_padding"
             android:text="@string/placeholder_media_time"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_inverse"
             />
 
         <SeekBar
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/standard_quarter_padding"
             android:text="@string/placeholder_media_time"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_inverse"
             />
         
     </LinearLayout>
