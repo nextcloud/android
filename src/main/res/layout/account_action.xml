@@ -41,13 +41,14 @@
         android:id="@+id/user_name"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:paddingEnd="@dimen/standard_padding"
+        android:paddingLeft="28dp"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingLeft="@dimen/standard_padding"
+        android:paddingStart="28dp"
         android:text="@string/prefs_add_account"
         android:textColor="@color/primary"
-        android:textSize="@dimen/two_line_primary_text_size"/>
+        android:textSize="@dimen/two_line_primary_text_size" />
 
 </LinearLayout>         
