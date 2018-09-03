@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="permission_label" translatable="false">Nextcloud single sign-on</string>
-    <string name="permission_desc" translatable="false">Nextcloud single sign-on permission</string>
-    <string name="permission_group" translatable="false">Nextcloud single sign-on</string>
-
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
