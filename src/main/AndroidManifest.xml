@@ -65,26 +65,6 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <permission-group android:name="com.owncloud.android"
-        android:label="@string/permission_group" />
-
-    <!--
-        TODO review protection level again..
-        see: https://developer.android.com/guide/topics/manifest/permission-element
-
-        I think we can't use the signature based one since our apps will be signed with different keys
-        Therefore if you want to test the security features, you'll have to sign this app with a different key than the client app (e.g. nextcloud news app)
-    -->
-
-    <permission
-        android:name="com.nextcloud.android.sso"
-        android:permissionGroup="com.nextcloud.android"
-        android:protectionLevel="normal"
-        android:label="@string/permission_label"
-        android:description="@string/permission_desc">
-    </permission>
-
-
 
 
     <application
@@ -321,8 +301,7 @@
         <service
             android:name=".services.AccountManagerService"
             android:enabled="true"
-            android:exported="true"
-            android:permission="com.nextcloud.android.sso" >
+            android:exported="true" >
         </service>
 
     </application>
