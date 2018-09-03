@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.NameValuePair;
@@ -221,7 +222,30 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(AccountAuthenticator.SSO_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE);
-        String storedToken = sharedPreferences.getString(callingPackageName, "");
-        return request.validateToken(storedToken);
+        String hash = sharedPreferences.getString(callingPackageName, "");
+        return validateToken(hash, request.getToken());
+    }
+
+    private boolean validateToken(String hash, String token) {
+        String salt = hash.split("\\$")[1]; // TODO extract "$"
+
+        String newHash = EncryptionUtils.generateSHA512(token, salt);
+
+        // As discussed with Lukas R. at the Nextcloud Conf 2018, always compare whole strings
+        // and don't exit prematurely if the string does not match anymore to prevent timing-attacks
+        return isEqual(hash.getBytes(), newHash.getBytes());
+    }
+
+    // Taken from http://codahale.com/a-lesson-in-timing-attacks/
+    private static boolean isEqual(byte[] a, byte[] b) {
+        if (a.length != b.length) {
+            return false;
+        }
+
+        int result = 0;
+        for (int i = 0; i < a.length; i++) {
+            result |= a[i] ^ b[i];
+        }
+        return result == 0;
     }
 }
