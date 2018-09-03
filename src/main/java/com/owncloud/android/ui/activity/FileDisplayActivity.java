@@ -1916,16 +1916,8 @@ public class FileDisplayActivity extends HookActivity
                     break;
                 }
             }
-            String fLink = link;
 
-            ClipboardUtil.copyToClipboard(this, link, false);
-            Snackbar snackbar = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    R.string.clipboard_text_copied,
-                    Snackbar.LENGTH_LONG
-            ).setAction(R.string.share, v -> showShareLinkDialog(fLink));
-            ThemeUtils.colorSnackbar(this, snackbar);
-            snackbar.show();
+            copyAndShareFileLink(link);
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
@@ -1962,7 +1954,18 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void showShareLinkDialog(String link) {
+    private void copyAndShareFileLink(String link) {
+        ClipboardUtil.copyToClipboard(this, link, false);
+        Snackbar snackbar = Snackbar.make(
+                findViewById(android.R.id.content),
+                R.string.clipboard_text_copied,
+                Snackbar.LENGTH_LONG
+        ).setAction(R.string.share, v -> showShareLinkDialog(link));
+        ThemeUtils.colorSnackbar(this, snackbar);
+        snackbar.show();
+    }
+
+    public void showShareLinkDialog(String link) {
         // Create dialog to allow the user choose an app to send the link
         Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
 
