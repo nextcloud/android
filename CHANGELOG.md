@@ -1,4 +1,7 @@
-## 3.2.2 (August, 21, 2018)
+## 3.2.4 (September, 04, 2018)
+fix push notification on gplay release
+
+## 3.2.3 (August, 21, 2018)
 fix crash on Android 4.x
 
 ## 3.2.2 (August, 20, 2018)
