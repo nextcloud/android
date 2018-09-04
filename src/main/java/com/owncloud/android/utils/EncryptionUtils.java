@@ -671,8 +671,7 @@ public class EncryptionUtils {
                 stringBuilder.append(Integer.toString((hashByte & 0xff) + 0x100, 16).substring(1));
             }
 
-            stringBuilder.append(HASH_DELIMITER);
-            stringBuilder.append(salt);
+            stringBuilder.append(HASH_DELIMITER).append(salt);
 
             hashedToken = stringBuilder.toString();
 
