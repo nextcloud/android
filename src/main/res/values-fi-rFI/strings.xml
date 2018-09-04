@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
-	<string name="prefs_category_general">Yleiset</string>
+    <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
     <string name="prefs_lock">Lukitse</string>
@@ -60,7 +60,6 @@
     <string name="auth_host_url">Palvelimen osoite https://…</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
-    <string name="auth_register">Eikö sinulla ole vielä Nextcloudia?\nNapauta tästä saadaksesi omasi palveluntarjoajalta</string>
     <string name="sync_string_files">Tiedostot</string>
     <string name="setup_btn_connect">Yhdistä</string>
     <string name="uploader_btn_upload_text">Lähetä</string>
@@ -545,24 +544,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Uutta versiossa %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Turvallinen koti kaikille tiedostoillesi</string>
-    <string name="welcome_feature_1_text">Käytä, jaa ja suojaa tiedostojasi kotona ja töissä</string>
-
-    <string name="welcome_feature_2_title">Useita käyttäjätilejä</string>
-    <string name="welcome_feature_2_text">Yhdistä kaikkiin pilviisi</string>
-
-    <string name="welcome_feature_3_title">Automaattinen lähetys</string>
-    <string name="welcome_feature_3_text">Pidä kuvasi tallessa</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Päästä päähän -salaus</string>
-    <string name="whats_new_end_to_end_encryption_content">Salaa mistä tahansa äpistä. Lisää äppejä tiliisi antamalla 12 sanan salasana.</string>
-    <string name="whats_new_resized_images_title">Mukautuvat kuvat</string>
-    <string name="whats_new_resized_images_content">Pienet kuvat ovat nopeita ja toimivat hyvin jaettaessa. Zoomaamalla voit ladata täyden version. </string>
-    <string name="whats_new_ipv6_title">IPv6-tuki</string>
-    <string name="whats_new_ipv6_content">IPv6 kun palvelin tukee sitä, IPv4 jos ei.</string>
-
     <string name="whats_new_skip">Ohita</string>
 
     <!-- User information -->
@@ -703,7 +684,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="notification_channel_general_name">Yleiset ilmoitukset</string>
     <string name="new_media_folder_photos">kuva</string>
     <string name="new_media_folder_videos">video</string>
-
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="drawer_item_trashbin">Poistetut tiedostot</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>

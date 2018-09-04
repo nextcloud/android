@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Dejavnosti</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
-	<string name="prefs_category_general">Splošno</string>
+    <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_lock">Zakleni</string>
@@ -409,14 +409,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps bližnjica(%s)</string>
 
     <string name="storage_description_default">Privzeto</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Varno mesto za vse podatke</string>
-    <string name="welcome_feature_2_title">Več računov</string>
-    <string name="welcome_feature_2_text">Poveži se z vsemi tvojimi oblaki</string>
-
-    <string name="welcome_feature_3_title">Samodejno nalaganje</string>
-    <string name="welcome_feature_3_text">Hrani svoje slike na varnem</string>
 
     <string name="whats_new_skip">Preskoči</string>
 

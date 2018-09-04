@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Andy Scherzinger
+  Copyright (C) 2018 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/icon"
-        android:contentDescription="@string/account_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
         android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-        android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-        android:layout_marginTop="@dimen/standard_margin"/>
+        android:layout_marginRight="@dimen/standard_half_margin"
+        android:layout_marginStart="@dimen/standard_icon_list_horizontal_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:contentDescription="@string/account_icon"
+        tools:src="@drawable/ic_phone" />
 
     <TextView
         android:id="@+id/text"
@@ -23,6 +45,7 @@
         android:layout_toEndOf="@id/icon"
         android:layout_toRightOf="@id/icon"
         android:maxLines="3"
-        android:textAppearance="?android:attr/textAppearanceListItem"/>
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        tools:text="+49 123 456 789 12" />
 
 </RelativeLayout>

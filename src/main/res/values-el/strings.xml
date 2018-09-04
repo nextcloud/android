@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
+    <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
 	<string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
@@ -57,7 +58,6 @@
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
-    <string name="auth_register">Όχι  Nextcloud ακόμα; \ nΚάντε κλικ εδώ για να πάρετε ένα από έναν πάροχο</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -103,6 +103,7 @@
     <string name="file_list_empty_text_photos_filter">Δεν υπάρχουν φωτογραφίες.</string>
     <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_empty_text_videos_filter">Δεν υπάρχουν βίντεο.</string>
+    <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
@@ -231,6 +232,8 @@
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
     <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
+    <string name="favorite_real">Προσθήκη στα αγαπημένα</string>
+    <string name="unset_favorite_real">Αφαίρεση από τα αγαπημένα</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Διαγραφή</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
@@ -428,9 +431,11 @@
     <string name="share_via_link_password_label">Προστασία με συνθηματικό</string>
     <string name="share_via_link_password_title">Ασφαλίστηκε</string>
     <string name="share_via_link_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
+    <string name="share_via_link_menu_password_label">Προστασία με συνθηματικό (%1$s)</string>
     <string name="share_expiration_date_label">Λήγει στις %1$s</string>
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
+    <string name="share_via_link_send_link_label">Αποστολή συνδέσμου</string>
     <string name="share_password_title">Προστασία με συνθηματικό</string>
     <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
     <string name="edit_permission_label">επεξεργασία</string>
@@ -519,18 +524,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
-    <string name="welcome_feature_1_text">Πρόσβαση, διαμοιρασμός και προστασία των αρχείων σας στο σπίτι και στην εταιρία σας</string>
-
-    <string name="welcome_feature_2_title">Πολλαπλός λογαριασμός</string>
-    <string name="welcome_feature_2_text">Σύνδεση με όλα τα clouds σας</string>
-
-    <string name="welcome_feature_3_title">Αυτόματη μεταφόρτωση</string>
-    <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
-
-    <string name="whats_new_ipv6_title">Υποστήριξη IPv6</string>
     <string name="whats_new_skip">Παράλειψη</string>
 
     <!-- User information -->
@@ -586,6 +579,7 @@
 
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
+    <string name="activity_icon">Δραστηριότητα</string>
     <string name="file_icon">Αρχείο</string>
     <string name="user_icon">Χρήστης</string>
     <string name="favorite_icon">Αγαπημένο</string>
@@ -639,12 +633,14 @@
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="tags">Ετικέτες</string>
+    <string name="login">Είσοδος</string>
+    <string name="restore">Επαναφορά αρχείου</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
+    <string name="new_comment">Νέο σχόλιο…</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
-
     <string name="dismiss">Αποδέσμευση</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>

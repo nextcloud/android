@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">动态</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
+    <string name="drawer_quota_unlimited">%1$s 已使用</string>
 	<string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理账号</string>
@@ -63,7 +64,6 @@
     <string name="auth_host_url">服务器地址 https://…</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
-    <string name="auth_register">还没有使用过 Nextcloud ？\n点击这里查看供应商</string>
     <string name="sync_string_files">文件</string>
     <string name="setup_btn_connect">连接</string>
     <string name="uploader_btn_upload_text">上传</string>
@@ -478,6 +478,7 @@
     <string name="share_via_link_password_title">安全</string>
     <string name="share_via_link_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_menu_password_label">密码保护 (%1$s)</string>
+    <string name="share_expiration_date_label">过期 %1$s</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_section_title">分享链接</string>
     <string name="share_via_link_send_link_label">发送链接</string>
@@ -576,22 +577,6 @@
 
     <string name="storage_description_default">默认</string>
 
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
-    <string name="welcome_feature_1_text">访问，共享和保护您的文件在家里和工作</string>
-
-    <string name="welcome_feature_2_title">多用户</string>
-    <string name="welcome_feature_2_text">联接你所有的云</string>
-
-    <string name="welcome_feature_3_title">自动上传</string>
-    <string name="welcome_feature_3_text">保护你的照片安全</string>
-
-    <string name="whats_new_end_to_end_encryption_title">端到端加密</string>
-    <string name="whats_new_resized_images_title">Adaptive images</string>
-    <string name="whats_new_resized_images_content">小尺寸图像速度快，适合分享。 放大以下载完整版本。</string>
-    <string name="whats_new_ipv6_title">IPv6 支持</string>
-    <string name="whats_new_ipv6_content">当服务器支持时为IPv6，否则为IPv4。</string>
-
     <string name="whats_new_skip">跳过</string>
 
     <!-- User information -->
@@ -670,6 +655,7 @@
     <string name="favorite_icon">收藏</string>
     <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
+    <string name="shared_icon_shared_via_link">通过链接共享</string>
     <string name="shared_icon_shared">已共享</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
     <string name="sort_by_modification_date_ascending">按时间顺序</string>
@@ -756,6 +742,7 @@
     <string name="unsharing_failed">取消分享失败</string>
     <string name="updating_share_failed">更新分享失败</string>
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
+    <string name="login">登录</string>
     <string name="whats_new_device_credentials_content">通过使用图案，密码，PIN 或指纹等方式来确保您的数据安全。</string>
     <string name="restore_button_description">恢复已删除的文件</string>
 	<string name="restore">恢复文件</string>
@@ -768,7 +755,6 @@
     <string name="new_media_folder_detected">检测到新的%1$s媒体目录。</string>
     <string name="new_media_folder_photos">照片</string>
     <string name="new_media_folder_videos">视频</string>
-
     <string name="outdated_server">服务器即将寿命终止，请升级！</string>
     <string name="dismiss">忽略</string>
     <string name="feedback_no_mail_app">没有可用的用于发送邮件的应用！</string>

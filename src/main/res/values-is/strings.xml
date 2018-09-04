@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Virkni</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
+    <string name="drawer_quota_unlimited">%1$s notað</string>
 	<string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
@@ -63,7 +64,6 @@
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_username">Notandanafn</string>
     <string name="auth_password">Lykilorð</string>
-    <string name="auth_register">Ertu ekki enn með Nextcloud skýjaþjón?\nSmelltu hér til að fá þér einn frá þjónustuaðila</string>
     <string name="sync_string_files">Skrár</string>
     <string name="setup_btn_connect">Tengjast</string>
     <string name="uploader_btn_upload_text">Senda inn</string>
@@ -584,24 +584,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nýtt í %1$s?</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Öruggur staður fyrir öll gögnin þín</string>
-    <string name="welcome_feature_1_text">Haltu utan um, deildu og verndaðu skrárnar þínar, hvort sem er heima eða á vinnustað</string>
-
-    <string name="welcome_feature_2_title">Margir aðgangar</string>
-    <string name="welcome_feature_2_text">Tengdu öll gagnaskýin þín</string>
-
-    <string name="welcome_feature_3_title">Sjálfvirk innsending</string>
-    <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Enda-í-enda dulritun</string>
-    <string name="whats_new_end_to_end_encryption_content">Bankaðu til að dulrita, úr einhverju forritanna. Bættu nýjum við með því að afrita 12 orð yfir.</string>
-    <string name="whats_new_resized_images_title">Aðlaganlegar myndir</string>
-    <string name="whats_new_resized_images_content">Litlar myndir eru hraðvirkar og henta vel til að deila. Auktu aðdráttinn til að sækja fulla útgáfu.</string>
-    <string name="whats_new_ipv6_title">Stuðningur við IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 þegar vefþjónninn styður það, annars IPv4.</string>
-
     <string name="whats_new_skip">Sleppa</string>
 
     <!-- User information -->
@@ -774,6 +756,7 @@
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
+    <string name="login">Skrá inn</string>
     <string name="whats_new_device_credentials_content">Notaðu tækni á borð við mynstur, lykilorð eða fingraför til að halda gögnunum þínum öruggum.</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>
 	<string name="restore">Endurheimta skrá</string>
@@ -787,7 +770,6 @@
     <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
     <string name="new_media_folder_photos">ljósmyndum</string>
     <string name="new_media_folder_videos">myndskeiðum</string>
-
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="dismiss">Hafna</string>
     <string name="feedback_no_mail_app">Ekkert forrit tiltækt til að senda póst!</string>

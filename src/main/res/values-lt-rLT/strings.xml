@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Veiklos</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_quota">išnaudota %1$s iš %2$s</string>
-	<string name="prefs_category_general">Bendras</string>
+    <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_expert_mode">Eksperto režimas</string>
@@ -428,16 +428,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps nuorodos failas(%s)</string>
 
     <string name="storage_description_default">Numatytasis</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Saugūs namai visiems jūsų duomenims</string>
-    <string name="welcome_feature_1_text">Prisijunkite, bendrinkite ir apsaugokite savo failus namuose ir darbe</string>
-
-    <string name="welcome_feature_2_title">Daugialypė paskyra</string>
-    <string name="welcome_feature_2_text">Prijsijunkite prie visų savo debesų</string>
-
-    <string name="welcome_feature_3_title">Automatinis įkėlimas</string>
-    <string name="welcome_feature_3_text">Saugokite nuotraukas</string>
 
     <string name="whats_new_skip">Praleisti</string>
 

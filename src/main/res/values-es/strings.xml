@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
+    <string name="drawer_quota_unlimited">usado %1$s</string>
 	<string name="drawer_close">Cerrar barra lateral</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="prefs_category_general">General</string>
@@ -65,7 +66,6 @@
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">¿Todavía no tienes Nextcloud?\nClic aquí para conseguir uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Subir</string>
@@ -586,24 +586,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nuevo en %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
-    <string name="welcome_feature_1_text">Accede, comparte y protege tus archivos en casa y en el trabajo</string>
-
-    <string name="welcome_feature_2_title">Múltiples cuentas</string>
-    <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
-
-    <string name="welcome_feature_3_title">Subida automática</string>
-    <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Cifrado punto a punto</string>
-    <string name="whats_new_end_to_end_encryption_content">Pulsa para cifrar, desde cualquier cliente. Añade nuevos copiando las 12 palabras.</string>
-    <string name="whats_new_resized_images_title">Imágenes adaptadas a la pantalla</string>
-    <string name="whats_new_resized_images_content">Las imágenes pequeñas son rápidas y funcionan bien para compartir. Haz zoom para descargar una versión completa.</string>
-    <string name="whats_new_ipv6_title">Soporte de IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporta, IPv4 si no.</string>
-
     <string name="whats_new_skip">Omitir</string>
 
     <!-- User information -->
@@ -778,6 +760,13 @@
     <string name="prefs_e2e_mnemonic">Nemotécnico del cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar el nemotécnico, habilite las credenciales del dispositivo</string>
     <string name="whats_new_device_credentials_title">Usar la protección interna del dispositivo Android</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="signup_with_provider">Registrarse con un proveedor</string>
+    <string name="host_your_own_server">Aloja tu propio servidor</string>
+    <string name="first_run_1_text">Mantén tus datos seguros y bajo tu control</string>
+    <string name="first_run_2_text">Colaboración segura e intercambio de archivos</string>
+    <string name="first_run_3_text">Correo web, calendario y contactos fáciles de usar</string>
+    <string name="first_run_4_text">Compartir pantalla, reuniones online y conferencias web</string>
     <string name="whats_new_device_credentials_content">Usa cualquier cosa, como un patrón, una contraseña, un pin o tu huella dactilar para mantener tus datos a salvo.</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
 	<string name="restore">Restaurar archivo</string>
@@ -791,7 +780,6 @@
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
-
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="dismiss">Descartar</string>
     <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>

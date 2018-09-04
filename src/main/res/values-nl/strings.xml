@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Activiteiten</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
+    <string name="drawer_quota_unlimited">%1$s gebruikt</string>
 	<string name="drawer_close">Sluiten zijbalk</string>
     <string name="drawer_open">Openen zijbalk</string>
     <string name="prefs_category_general">Algemeen</string>
@@ -62,7 +63,6 @@
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
-    <string name="auth_register">Heb je nog geen server?\n Klik hier om je bij een provider aan te melden</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
@@ -575,24 +575,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nieuw in %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Een veilige plek voor al je gegevens</string>
-    <string name="welcome_feature_1_text">Benader, deel &amp; beveilig je gegevens thuis en binnen je organisatie</string>
-
-    <string name="welcome_feature_2_title">Meerdere accounts</string>
-    <string name="welcome_feature_2_text">Verbind met al je clouds</string>
-
-    <string name="welcome_feature_3_title">Automatisch uploaden</string>
-    <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Eindpunt-tot-eindpunt versleuteling</string>
-    <string name="whats_new_end_to_end_encryption_content">Versleutel je data met één druk op de knop. Voeg nieuwe locaties toe met een sleutel van 12 woorden.</string>
-    <string name="whats_new_resized_images_title">Slimme afbeeldingsgrootte</string>
-    <string name="whats_new_resized_images_content">In eerste instantie downloaden we kleine afbeeldingen; ideaal om snel te werken en te delen. Zoom in om de volledige resolutie te downloaden.</string>
-    <string name="whats_new_ipv6_title">IPv6 ondersteuning</string>
-    <string name="whats_new_ipv6_content">IPv6 als de server dit ondersteunt, en anders IPv4.</string>
-
     <string name="whats_new_skip">Overslaan</string>
 
     <!-- User information -->
@@ -757,12 +739,13 @@
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="login">Inloggen</string>
+    <string name="first_run_1_text">Hou je gegevens veilig en in eigen beheer</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
 	<string name="restore">Herstellen bestand</string>
     <string name="new_comment">Nieuwe reactie…</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-
     <string name="dismiss">Weigeren</string>
     <string name="drawer_item_trashbin">Verwijderde bestanden</string>
     <string name="trashbin_activity_title">Verwijderde bestanden</string>

@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Tegevused</string>
     <string name="drawer_item_notifications">Märguanded</string>
     <string name="drawer_quota">Kasutatud %1$s/%2$s</string>
-	<string name="drawer_close">Sulge külgriba</string>
+    <string name="drawer_close">Sulge külgriba</string>
     <string name="drawer_open">Ava külgriba</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
@@ -58,7 +58,6 @@
     <string name="auth_host_url">Serveri aadress https://…</string>
     <string name="auth_username">Kasutajanimi</string>
     <string name="auth_password">Parool</string>
-    <string name="auth_register">Sul pole veel oma Nextcloudi?\nVajuta siia, et see teenusepakkujalt saada</string>
     <string name="sync_string_files">Failid</string>
     <string name="setup_btn_connect">Ühenda</string>
     <string name="uploader_btn_upload_text">Lae üles</string>
@@ -423,10 +422,6 @@
     <string name="notifications_loading_activity">Teavituste laadimine…</string>
     <string name="notifications_no_results_headline">Märguandeid pole</string>
     <string name="upload_file_dialog_filename">Faili nimi</string>
-    <string name="welcome_feature_3_title">Automaatne üleslaadimine</string>
-    <string name="whats_new_ipv6_title">IPv6 tugi</string>
-    <string name="whats_new_ipv6_content">IPv6 kui server seda toetab, IPv4 kui ei.</string>
-
     <string name="whats_new_skip">Jäta vahele</string>
 
     <!-- User information -->

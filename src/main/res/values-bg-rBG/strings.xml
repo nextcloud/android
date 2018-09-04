@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">Активност</string>
     <string name="drawer_item_notifications">Известяване</string>
     <string name="drawer_quota">%1$s от %2$s използвани</string>
-	<string name="prefs_category_general">Общи</string>
+    <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_lock">Заключи</string>
@@ -62,7 +62,6 @@
     <string name="auth_check_server">Проверяване на сървъра</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
-    <string name="auth_register">Все още нямате Nextcloud? Натиснете тук, за да получите един от доставчик</string>
     <string name="sync_string_files">Файлове</string>
     <string name="setup_btn_connect">Свързване</string>
     <string name="uploader_btn_upload_text">Качване</string>
@@ -520,24 +519,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Ново в %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Сигурен дом за всички ваши данни</string>
-    <string name="welcome_feature_1_text">Разглеждайте, споделяйте и защитавайте вашите файлове в дома и в работата</string>
-
-    <string name="welcome_feature_2_title">Мулти профил</string>
-    <string name="welcome_feature_2_text">Свържете се с всички свои облаци</string>
-
-    <string name="welcome_feature_3_title">Автоматично качване</string>
-    <string name="welcome_feature_3_text">Съхранявайте своите снимки безопасно</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Криптиране</string>
-    <string name="whats_new_end_to_end_encryption_content">Натиснете за да криптирате, от всеки клиент. Добавете нови като копирате 12-те думи тук.</string>
-    <string name="whats_new_resized_images_title">Адаптиращи се изображения</string>
-    <string name="whats_new_resized_images_content">Малки изображения са бързи и работят добре за споделяне. Увеличете за да изтеглите пълната версия.</string>
-    <string name="whats_new_ipv6_title">IPv6 поддръжка</string>
-    <string name="whats_new_ipv6_content">IPv6 когато сървъра го поддържа, IPv4 ако не.</string>
-
     <string name="whats_new_skip">Пропусни</string>
 
     <!-- User information -->
