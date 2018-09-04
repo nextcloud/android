@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class NextcloudRequest implements Serializable {
 
-    private static final long serialVersionUID = 215521212534239L; //assign a long value
+    private static final long serialVersionUID = 215521212534240L; //assign a long value
 
     private String method;
     private Map<String, List<String>> header = new HashMap<>();
@@ -78,11 +78,6 @@ public class NextcloudRequest implements Serializable {
 
         public Builder setToken(String token) {
             ncr.token = token;
-            return this;
-        }
-
-        public Builder setPackageName(String packageName) {
-            ncr.packageName = packageName;
             return this;
         }
 
@@ -148,24 +143,5 @@ public class NextcloudRequest implements Serializable {
 
     public boolean isFollowRedirects() {
         return this.followRedirects;
-    }
-
-    public boolean validateToken(String token) {
-        // As discussed with Lukas R. at the Nextcloud Conf 2018, always compare whole strings
-        // and don't exit prematurely if the string does not match anymore to prevent timing-attacks
-        return isEqual(this.token.getBytes(), token.getBytes());
-    }
-
-    // Taken from http://codahale.com/a-lesson-in-timing-attacks/
-    private static boolean isEqual(byte[] a, byte[] b) {
-        if (a.length != b.length) {
-            return false;
-        }
-
-        int result = 0;
-        for (int i = 0; i < a.length; i++) {
-            result |= a[i] ^ b[i];
-        }
-        return result == 0;
     }
 }

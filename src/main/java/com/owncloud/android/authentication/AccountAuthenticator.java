@@ -36,11 +36,11 @@ import android.widget.Toast;
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.EncryptionUtils;
 
 import java.util.UUID;
 
@@ -64,6 +64,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";
     public static final String KEY_ACCOUNT = "account";
+    public static final String SSO_SHARED_PREFERENCE = "sso";
+    
     private static final String NEXTCLOUD_SSO = "NextcloudSSO";
     
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
@@ -171,17 +173,16 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                 return result;
             }
 
-            // get or create token
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-            String token = sharedPreferences.getString(packageName, "");
+            // create token
+            SharedPreferences sharedPreferences = mContext.getSharedPreferences(SSO_SHARED_PREFERENCE,
+                    Context.MODE_PRIVATE);
+            String token = UUID.randomUUID().toString().replaceAll("-", "");
 
-            if (token.isEmpty()) {
-                token = UUID.randomUUID().toString().replaceAll("-", "");
+            String hashedTokenWithSalt = EncryptionUtils.generateSHA512(token);
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(packageName, token);
-                editor.apply();
-            }
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(packageName, hashedTokenWithSalt);
+            editor.apply();
                         
             String serverUrl;
             String userId;
@@ -206,8 +207,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             return result;
         }
 
-
-        /// validate parameters
+        // validate parameters
         try {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
