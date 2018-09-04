@@ -148,7 +148,6 @@ public class UserInfoActivity extends FileActivity {
         updateActionBarTitleAndHomeButtonByString("");
 
         mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
-        mUserInfoList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
