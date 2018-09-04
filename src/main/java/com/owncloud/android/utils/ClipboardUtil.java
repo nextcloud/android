@@ -39,6 +39,10 @@ public class ClipboardUtil {
     }
 
     public static void copyToClipboard(Activity activity, String text) {
+        copyToClipboard(activity, text, true);
+    }
+
+    public static void copyToClipboard(Activity activity, String text, boolean showToast) {
         if (text != null && text.length() > 0) {
             try {
                 ClipData clip = ClipData.newPlainText(
@@ -48,7 +52,9 @@ public class ClipboardUtil {
                 );
                 ((ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(clip);
 
-                Toast.makeText(activity, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
+                if (showToast) {
+                    Toast.makeText(activity, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 Toast.makeText(activity, R.string.clipboard_unexpected_error, Toast.LENGTH_SHORT).show();
                 Log_OC.e(TAG, "Exception caught while copying to clipboard", e);

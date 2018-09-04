@@ -54,6 +54,7 @@ import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
@@ -235,24 +236,31 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @OnClick(R.id.share_by_link)
     public void toggleShareByLink() {
         if (shareByLink.isChecked()) {
-            if (capabilities != null &&
-                    capabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
-                // password enforced by server, request to the user before trying to create
-                requestPasswordForShareViaLink(true);
-
-            } else {
-                // create without password if not enforced by server or we don't know if enforced;
-                ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
-            }
-
+            createShareLink();
         } else {
             ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(file);
         }
     }
 
+    private void createShareLink() {
+        if (capabilities != null &&
+                capabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
+            // password enforced by server, request to the user before trying to create
+            requestPasswordForShareViaLink(true);
+
+        } else {
+            // create without password if not enforced by server or we don't know if enforced;
+            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
+        }
+    }
+
     private void showSendLinkTo() {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+            if (TextUtils.isEmpty(file.getPublicLink())) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+            } else {
+                ((FileDisplayActivity) getActivity()).showShareLinkDialog(file.getPublicLink());
+            }
         }
     }
 
@@ -260,7 +268,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     public void copyLinkToClipboard() {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(file.getPublicLink())) {
-                showSendLinkTo();
+                ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
             } else {
                 ClipboardUtil.copyToClipboard(getActivity(), file.getPublicLink());
             }
@@ -336,7 +344,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 return true;
             }
             case R.id.action_share_send_link: {
-                showSendLinkTo();
+                if(shareByLink.isChecked() && file.isSharedViaLink() && !TextUtils.isEmpty(file.getPublicLink())) {
+                    ((FileDisplayActivity) getActivity()).showShareLinkDialog(file.getPublicLink());
+                } else {
+                    showSendLinkTo();
+                }
                 return true;
             }
             default:
