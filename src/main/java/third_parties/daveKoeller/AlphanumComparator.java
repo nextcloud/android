@@ -28,6 +28,7 @@ import com.owncloud.android.lib.resources.files.ServerFileInterface;
 
 import java.io.File;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.text.Collator;
 import java.util.Comparator;
 
@@ -150,14 +151,10 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
                     countThat++;
                 }
 
-                try {
-                    long thisChunkValue = Long.parseLong(thisChunk.substring(0, countThis));
-                    long thatChunkValue = Long.parseLong(thatChunk.substring(0, countThat));
+                BigInteger thisChunkValue = new BigInteger(thisChunk.substring(0, countThis));
+                BigInteger thatChunkValue = new BigInteger(thatChunk.substring(0, countThat));
 
-                    result = Long.compare(thisChunkValue, thatChunkValue);
-                } catch (NumberFormatException exception) {
-                    result = thisChunk.substring(0, countThis).compareTo(thatChunk.substring(0, countThat));
-                }
+                result = thisChunkValue.compareTo(thatChunkValue);
                 
                 if (result == 0) {
                     // value is equal, compare leading zeros
