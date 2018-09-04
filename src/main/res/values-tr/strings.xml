@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Etkinlikler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
+    <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
 	<string name="drawer_close">Yan çubuğu kapat</string>
     <string name="drawer_open">Yan çubuğu aç</string>
     <string name="prefs_category_general">Genel</string>
@@ -65,7 +66,6 @@
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
-    <string name="auth_register">Henüz Nextcloud kullanmıyor musunuz?\Listeden bir hizmet sağlayıcısı seçebilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -586,24 +586,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">%1$s yenilikleri</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
-    <string name="welcome_feature_1_text">Ev ya da iş yerinizdeki dosyalarınıza erişin, paylaşın ve koruyun</string>
-
-    <string name="welcome_feature_2_title">Birden çok hesap</string>
-    <string name="welcome_feature_2_text">Tüm bulut hesaplarınıza bağlanın</string>
-
-    <string name="welcome_feature_3_title">Otomatik yükleme</string>
-    <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Uçtan uca şifreleme</string>
-    <string name="whats_new_end_to_end_encryption_content">Şifrelenmesini istediğiniz istemciye dokunun. 12 sözcüğü kopyalayarak yenilerini ekleyinç</string>
-    <string name="whats_new_resized_images_title">Uyumlu görseller</string>
-    <string name="whats_new_resized_images_content">Küçük görseller çalışmak ve paylaşmak için uygundur. Tam sürümü indirmek için yakınlaştırın.</string>
-    <string name="whats_new_ipv6_title">IPv6 desteği</string>
-    <string name="whats_new_ipv6_content">Sunucu destekliyorsa IPv6, desteklemiyorsa IPv4.</string>
-
     <string name="whats_new_skip">Atla</string>
 
     <!-- User information -->
@@ -778,6 +760,13 @@
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
     <string name="whats_new_device_credentials_title">Android iç aygıt koruması kullanılsın</string>
+    <string name="login">Oturum Aç</string>
+    <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
+    <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
+    <string name="first_run_1_text">Verilerinizi güvenli ve denetiminiz altında tutun</string>
+    <string name="first_run_2_text">Güvenli iş birliği ve dosya değiş tokuşu</string>
+    <string name="first_run_3_text">Kolay kullanılan web e-posta, takvim ve kişiler</string>
+    <string name="first_run_4_text">Ekran paylaşımı, çevrimiçi görüşmeler ve web toplantıları</string>
     <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
 	<string name="restore">Dosyayı geri yükle</string>
@@ -791,7 +780,6 @@
     <string name="new_media_folder_detected">Yeni %1$s ortam klasörü bulundu.</string>
     <string name="new_media_folder_photos">fotoğraf</string>
     <string name="new_media_folder_videos">görüntü</string>
-
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="dismiss">Yoksay</string>
     <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>

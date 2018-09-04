@@ -64,14 +64,18 @@
         android:layout_centerInParent="true"
         android:layout_toEndOf="@id/avatar_container"
         android:layout_toRightOf="@id/avatar_container"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/zero"
+        android:paddingLeft="3dp"
+        android:paddingRight="@dimen/zero"
+        android:paddingStart="3dp">
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_quarter_margin"
@@ -87,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:ellipsize="end"

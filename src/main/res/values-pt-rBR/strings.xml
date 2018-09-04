@@ -31,6 +31,7 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
+    <string name="drawer_quota_unlimited">%1$s usados</string>
 	<string name="drawer_close">Fechar barra lateral</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="prefs_category_general">Geral</string>
@@ -65,7 +66,6 @@
     <string name="auth_host_url">Endereço do servidor https://…</string>
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_password">Senha</string>
-    <string name="auth_register">Sem Nextcloud ainda?\nClique aqui para obter um de um provedor</string>
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -586,24 +586,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Novo em %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Um local seguro para seus dados</string>
-    <string name="welcome_feature_1_text">Acesse, compartilhe e proteja seus arquivos, em casa e no trabalho</string>
-
-    <string name="welcome_feature_2_title">Multi contas</string>
-    <string name="welcome_feature_2_text">Conectar em todas as suas Nuvens</string>
-
-    <string name="welcome_feature_3_title">Auto envio</string>
-    <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
-
-    <string name="whats_new_end_to_end_encryption_title">Criptografia de ponta-a-ponta</string>
-    <string name="whats_new_end_to_end_encryption_content">Toque para criptografar, de qualquer cliente. Adicione novos copiando as 12 palavras.</string>
-    <string name="whats_new_resized_images_title">Imagens adaptáveis</string>
-    <string name="whats_new_resized_images_content">Imagens pequenas são rápidas e funcionam bem ao compartilhar. Amplie para baixar uma versão completa.</string>
-    <string name="whats_new_ipv6_title"> Support IPv6</string>
-    <string name="whats_new_ipv6_content">IPv6 quando o servidor suportar, IPv4 quando não.</string>
-
     <string name="whats_new_skip">Saltar</string>
 
     <!-- User information -->
@@ -778,6 +760,13 @@
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar o mnemônico, ative as credenciais do dispositivo.</string>
     <string name="whats_new_device_credentials_title">Use a proteção interna do dispositivo Android</string>
+    <string name="login">Entrar</string>
+    <string name="signup_with_provider">Registre-se com um provedor</string>
+    <string name="host_your_own_server">Hospede seu próprio servidor</string>
+    <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
+    <string name="first_run_2_text">Colaboração segura &amp; troca de arquivo</string>
+    <string name="first_run_3_text">Webmail fácil de usar, calendário &amp; contatos</string>
+    <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
     <string name="whats_new_device_credentials_content">Use qualquer coisa como um padrão, senha, pin ou sua impressão digital para manter seus dados seguros.</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
 	<string name="restore">Restaurar arquivo</string>
@@ -791,7 +780,6 @@
     <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
-
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="dismiss">Dispensar</string>
     <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>

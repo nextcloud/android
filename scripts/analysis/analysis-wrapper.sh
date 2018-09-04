@@ -49,8 +49,9 @@ else
         curl 2>/dev/null -u $1:$2 -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
     done
     
-    # check library
-    if [ $(grep "android-library:master" build.gradle -c) -ne 3 ]; then
+    # check library, only if base branch is master
+    baseBranch=$(scripts/analysis/getBranchBase.sh $1 $2 $7 | tr -d "\"")
+    if [ $baseBranch = "master" -a $(grep "android-library:master" build.gradle -c) -ne 3 ]; then
         checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
         checkLibrary=1
     else 

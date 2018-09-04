@@ -17,9 +17,9 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -54,7 +54,7 @@
             android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:paddingTop="@dimen/standard_padding"
-            android:text="@string/placeholder_filename"
+            tools:text="@string/placeholder_filename"
             android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
@@ -66,7 +66,7 @@
             android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:ellipsize="end"
-            android:text="@string/placeholder_sentence"
+            tools:text="@string/placeholder_sentence"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <GridLayout
@@ -92,7 +92,7 @@
             android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
             android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
-            android:text="@string/placeholder_sentence"
+            tools:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
 
     </LinearLayout>

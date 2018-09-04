@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-	<string name="prefs_category_general">一般</string>
+    <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
@@ -57,7 +57,6 @@
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">Nextcloud をまだ導入していないのですか？\nここをクリックしてプロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -361,7 +360,9 @@
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
-    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中...</string>
+    <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
+    <string name="file_migration_migrating">データを移動中</string>
+    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_ok_finished">完了</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
     <string name="prefs_add_account">アカウントを追加</string>
@@ -372,6 +373,7 @@
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_progress_dialog_text">データの読み込み中…</string>
 
+	<string name="saml_authentication_required_text">パスワードが必要です</string>
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
 	<string name="actionbar_move">移動</string>
     <string name="actionbar_copy">コピー</string>
@@ -397,6 +399,8 @@
     <string name="username">ユーザー名</string>
 
     <string name="select_all">すべて選択</string>
+    <string name="deselect_all">選択を全解除</string>
+
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダーに移動</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
@@ -449,13 +453,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
 
     <string name="storage_description_default">デフォルト</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
-    <string name="welcome_feature_2_title">マルチアカウント</string>
-    <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
-
-    <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>
 

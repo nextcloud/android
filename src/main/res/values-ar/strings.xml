@@ -31,7 +31,7 @@
     <string name="drawer_item_activities">النشاطات</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
-	<string name="prefs_category_general">عام</string>
+    <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_expert_mode">وضع متقدم</string>
@@ -56,7 +56,6 @@
     <string name="auth_host_url">عنوان الخادوم https://…</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
-    <string name="auth_register">ليس لديك ناكست كلاود حتى الآن ؟\nإضغط هنا للحصول على واحد من أحد المزودين</string>
     <string name="sync_string_files">الملفات</string>
     <string name="setup_btn_connect">اتصال</string>
     <string name="uploader_btn_upload_text">رفع</string>
@@ -342,19 +341,6 @@
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">جديد على %1$s</string>
-
-    <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">المكان الآمن لجميع بياناتك</string>
-    <string name="welcome_feature_1_text">توصّل إلى ملفاتك و شاركها و قم بتأمينها سواء في المنزل أو في مكان العمل</string>
-
-    <string name="welcome_feature_2_title"> متعدد الحسابات</string>
-    <string name="welcome_feature_2_text">إتصل بجميع سحابياتك</string>
-
-    <string name="welcome_feature_3_title">رفع تلقائي</string>
-    <string name="welcome_feature_3_text">إحرص على أمان صورك</string>
-
-    <string name="whats_new_end_to_end_encryption_title">التعمية مِن طرف إلى آخر الطرف</string>
-    <string name="whats_new_ipv6_title">دعم IPv6</string>
     <string name="whats_new_skip">تخطى</string>
 
     <!-- User information -->
