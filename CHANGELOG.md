@@ -16,10 +16,6 @@
 ## 3.2.4 (Sept, 04, 2018)
 fix push notification on gplay release
 
-## 3.2.4 (September, 04, 2018)
-fix push notification on gplay release
-
-
 ## 3.2.3 (Aug, 21, 2018)
 - Fix crash on Android Android 4.x
 
