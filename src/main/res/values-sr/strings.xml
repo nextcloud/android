@@ -767,7 +767,11 @@
     <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
     <string name="login">Пријава</string>
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
+    <string name="host_your_own_server">Хостујте сопствени  сервер</string>
     <string name="first_run_1_text">Држите податке безбедним и под Вашом контролом</string>
+    <string name="first_run_2_text">Безбедна сарадња &amp; и размена фајлова</string>
+    <string name="first_run_3_text">Веб пошта лака за коришћење, календар &amp; контакти</string>
+    <string name="first_run_4_text">Дељење екрана, састанци на интернету &amp; веб конференције</string>
     <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
 	<string name="restore">Поврати фајл</string>
