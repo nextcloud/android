@@ -1,4 +1,4 @@
-## 3.2.4 (August, 21, 2018)
+## 3.2.4 (September, 04, 2018)
 fix push notification on gplay release
 
 ## 3.2.3 (August, 21, 2018)
