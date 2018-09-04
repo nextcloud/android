@@ -249,10 +249,8 @@ public class NotificationsActivity extends FileActivity {
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
