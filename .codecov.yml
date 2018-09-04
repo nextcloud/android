@@ -1,5 +1,5 @@
 codecov:
-  branch: master
+  branch: stable-3.3.x
   ci:
     - drone.nextcloud.com
 

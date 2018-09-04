@@ -59,7 +59,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 3
 def versionPatch = 0
-def versionBuild = 0 // 0-49=Alpha / 50-98=RC / 99=stable
+def versionBuild = 50 // 0-49=Alpha / 50-98=RC / 99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
@@ -211,9 +211,9 @@ dependencies {
     // dependencies for app building
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation project('nextcloud-android-library')
-    genericImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
-    gplayImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
-    versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
+    genericImplementation "com.github.nextcloud:android-library:1.1.0"
+    gplayImplementation "com.github.nextcloud:android-library:1.1.0"
+    versionDevImplementation 'com.github.nextcloud:android-library:1.1.0' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'

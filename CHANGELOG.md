@@ -1,3 +1,18 @@
+## 3.3.0 (September, 2018)
+- Support for restoring deleted files (Nc14+)
+- Media streaming (Nc14+)
+- New media detection for AutoUpload
+- Accessibility: improved TalkBack screenreader support
+- Show outdated server warning for server <Nc12
+- Add support for device credentials
+- Show offline info / Show maintenance info
+- Improved activities screen
+- Improved file detail / sharing screen with comments
+- Improved Share link creation via bottom sheet
+- Improved Notification screen, supporting actions
+- Minor UI/UX improvements
+- Many bug fixes
+
 ## 3.2.4 (Sept, 04, 2018)
 fix push notification on gplay release
 
@@ -23,10 +38,10 @@ fix push notification on gplay release
 - many bug fixes
  
 ## 3.1.0 (Apr, 22, 2018)
-- enhance support for 8.x
-- speed improvements
-- minor UI/UX improvements
-- many bug fixes
+- Enhanced support for 8.x
+- Speed improvements
+- Minor UI/UX improvements
+- Many bug fixes
 
 ## 3.0.3 (Mar, 05, 2018)
 - Fix creating folders in auto upload
