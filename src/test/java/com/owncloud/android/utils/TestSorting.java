@@ -117,6 +117,47 @@ public class TestSorting {
         assertTrue(test(sortedArray, unsortedList));
     }
 
+    @Test
+    public void testSortCloudFiles() {
+        List<OCFile> array = new ArrayList<>();
+        array.add(new OCFile("/Joplin/0ed1778f8f88414286c13b2cbff8664e.md"));
+        array.add(new OCFile("/Joplin/0edf70ab1b722172088257b3d73d6c46.md"));
+        array.add(new OCFile("/Joplin/0fb063d4d18128fdf464878d18439ca3.md"));
+        array.add(new OCFile("/Joplin/10e27391096748b187392f913da048f8.md"));
+        array.add(new OCFile("/Joplin/4093463de91947b990fccff4a1d13d8f.md"));
+        array.add(new OCFile("/Joplin/41742897324842849667274b2d1a0bb6.md"));
+        array.add(new OCFile("/Joplin/41890bd1b11a44f7a6b226120ee1efbc.md"));
+        array.add(new OCFile("/Joplin/41bd23f62ebb4d0b64c5f78b5ad13133.md"));
+        array.add(new OCFile("/Joplin/4292ef3223334677bed0ad0268e5bd4b.md"));
+        array.add(new OCFile("/Joplin/4307355783f4108aad5eba4d1b81ff91.md"));
+        array.add(new OCFile("/Joplin/448d96a6c76b48b68030c8c11339088d.md"));
+        array.add(new OCFile("/Joplin/4969e02c5c504899b17a355e61989bed.md"));
+        array.add(new OCFile("/Joplin/49bfe05d968c3c0612ddceb2250b3a18.md"));
+        array.add(new OCFile("/Joplin/701409a07ee4464fb82d9bc0c451f204.md"));
+        array.add(new OCFile("/Joplin/70ba2272c85353a0216577ec76d0d343.md"));
+        array.add(new OCFile("/Joplin/71563833027a49dcaa86208a3f621402.md"));
+        array.add(new OCFile("/Joplin/7172f37973434fe3aeb6ef96bb48d968.md"));
+        array.add(new OCFile("/Joplin/72068539d77c6e7b3271b653422d6e76.md"));
+        array.add(new OCFile("/Joplin/73098c81e1ae4831b3a90ffda82ddcec.md"));
+        array.add(new OCFile("/Joplin/730c09e169bc4289af163a34d7fe2553.md"));
+        array.add(new OCFile("/Joplin/736be455ce8aff18694649001a74722a.md"));
+        array.add(new OCFile("/Joplin/749c837930174e828620a99a9e7ad7bc.md"));
+        array.add(new OCFile("/Joplin/8a2d6a6461eb4979bb049837a8710a3d.md"));
+        array.add(new OCFile("/Joplin/8b7ff9081f5944399e1fc83c6191a09f.md"));
+        array.add(new OCFile("/Joplin/8c45ac421149a21f32edab06f0955839.md"));
+        array.add(new OCFile("/Joplin/8cd855a41cca4cbd8a0c20e79c4f2f9e.md"));
+        array.add(new OCFile("/Joplin/8f062be696e3488ca12a9d3f3f6aa10a.md"));
+        array.add(new OCFile("/Joplin/8f74a571a11b4709bb1cdf75b4a51a8e.md"));
+        array.add(new OCFile("/Joplin/90f61d36f4dd4ef79525b7b0812213e2.md"));
+        array.add(new OCFile("/Joplin/9846fdafaffa718ebcfa19474e8be251.md"));
+        array.add(new OCFile("/Joplin/a441cb730c22451aa4352129231fe898.md"));
+        array.add(new OCFile("/Joplin/a551ce1ae06e6f05669a0cadc4eb2f7b.md"));
+        array.add(new OCFile("/Joplin/a590cd1671b648c7a3bae0d6fbb7da81.md"));
+
+        FileSortOrderByName fileSortOrderByName = new FileSortOrderByName("test", true);
+        fileSortOrderByName.sortCloudFiles(array);
+    }
+
     private List<Comparable> shuffle(List<? extends Comparable> files) {
         List<Comparable> shuffled = new ArrayList<>();
         shuffled.addAll(files);
