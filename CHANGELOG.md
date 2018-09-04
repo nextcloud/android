@@ -1,4 +1,4 @@
-## 3.3.0 (Sept, 2018)
+## 3.3.0 (September, 2018)
 - Support for restoring deleted files (Nc14+)
 - Media streaming (Nc14+)
 - New media detection for AutoUpload
@@ -15,6 +15,10 @@
 
 ## 3.2.4 (Sept, 04, 2018)
 fix push notification on gplay release
+
+## 3.2.4 (September, 04, 2018)
+fix push notification on gplay release
+
 
 ## 3.2.3 (Aug, 21, 2018)
 - Fix crash on Android Android 4.x
