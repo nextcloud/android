@@ -265,7 +265,7 @@ dependencies {
     androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
 
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
-    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.2'
+    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
     
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
