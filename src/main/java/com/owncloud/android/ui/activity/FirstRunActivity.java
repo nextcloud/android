@@ -163,6 +163,13 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
     }
 
+    @Override
+    protected void onStop() {
+        onFinish();
+
+        super.onStop();
+    }
+
     private static boolean isFirstRun(Context context) {
         return AccountUtils.getCurrentOwnCloudAccount(context) == null;
     }
