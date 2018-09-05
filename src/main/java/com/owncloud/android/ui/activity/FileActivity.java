@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -77,14 +78,13 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.util.concurrent.ExecutionException;
-
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  */
 public abstract class FileActivity extends DrawerActivity
-        implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
+        implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
+        LoadingVersionNumberTask.VersionDevInterface {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -596,45 +596,51 @@ public abstract class FileActivity extends DrawerActivity
             int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, APP_OPENED_COUNT);
 
             if (count > 10 || count == -1) {
-                checkForNewDevVersion(view, context, false);
+                checkForNewDevVersion(this, context);
             }
         }
     }
 
-    public static void checkForNewDevVersion(View view, Context context, boolean openDirectly) {
-        Integer latestVersion = -1;
+    @Override
+    public void returnVersion(Integer latestVersion) {
+        showDevSnackbar(this, latestVersion, false);
+    }
+
+    public static void checkForNewDevVersion(LoadingVersionNumberTask.VersionDevInterface callback, Context context) {
+        String url = context.getString(R.string.dev_latest);
+        LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask(callback);
+        loadTask.execute(url);
+    }
+    
+    public static void showDevSnackbar(Activity activity, Integer latestVersion, boolean openDirectly) {
         Integer currentVersion = -1;
         try {
-            currentVersion = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-            String url = context.getString(R.string.dev_latest);
-            LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
-            loadTask.execute(url);
-            latestVersion = loadTask.get();
-        } catch (InterruptedException | ExecutionException | PackageManager.NameNotFoundException e) {
-            Log_OC.e(TAG, "Error detecting app version", e);
+            currentVersion = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log_OC.e(TAG, "Package not found", e);
         }
+
         if (latestVersion == -1 || currentVersion == -1) {
-            Snackbar.make(view, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG).show();
+            DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG);
         }
         if (latestVersion > currentVersion) {
             if (openDirectly) {
-                String devApkLink = (String) context.getText(R.string.dev_link) + latestVersion + ".apk";
+                String devApkLink = (String) activity.getText(R.string.dev_link) + latestVersion + ".apk";
                 Uri uriUrl = Uri.parse(devApkLink);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                context.startActivity(intent);
+                activity.startActivity(intent);
             } else {
-                Integer finalLatestVersion = latestVersion;
-                Snackbar.make(view, R.string.dev_version_new_version_available, Snackbar.LENGTH_LONG)
-                        .setAction(context.getString(R.string.version_dev_download), v -> {
-                            String devApkLink = (String) context.getText(R.string.dev_link)
-                                    + finalLatestVersion + ".apk";
+                Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
+                        Snackbar.LENGTH_LONG)
+                        .setAction(activity.getString(R.string.version_dev_download), v -> {
+                            String devApkLink = (String) activity.getText(R.string.dev_link) + latestVersion + ".apk";
                             Uri uriUrl = Uri.parse(devApkLink);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                            context.startActivity(intent);
+                            activity.startActivity(intent);
                         }).show();
             }
         } else {
-            Snackbar.make(view, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG).show();
+            DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG);
         }
     }
 }

@@ -71,6 +71,7 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -85,7 +86,7 @@ import java.util.ArrayList;
  * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class Preferences extends PreferenceActivity
-        implements StorageMigration.StorageMigrationProgressListener {
+        implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface {
 
     private static final String TAG = Preferences.class.getSimpleName();
 
@@ -191,7 +192,7 @@ public class Preferences extends PreferenceActivity
             if (pDevLink != null) {
                 if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
                     pDevLink.setOnPreferenceClickListener(preference -> {
-                        FileActivity.checkForNewDevVersion(getListView(), getApplicationContext(), true);
+                        FileActivity.checkForNewDevVersion(this, getApplicationContext());
                         return true;
                     });
                 } else {
@@ -1096,4 +1097,10 @@ public class Preferences extends PreferenceActivity
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
     }
+
+    @Override
+    public void returnVersion(Integer latestVersion) {
+        FileActivity.showDevSnackbar(this, latestVersion, true);
+    }
+
 }
