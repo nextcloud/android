@@ -31,10 +31,14 @@
     <string name="drawer_item_activities">Dejavnosti</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
+    <string name="drawer_quota_unlimited">Skupaj %1$s</string>
+	<string name="drawer_close">Zapri bočno okno</string>
+    <string name="drawer_open">Odpri bočno okno</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_lock">Zakleni</string>
+    <string name="prefs_lock_title">Zaklepanje</string>
     <string name="prefs_lock_none">Brez</string>
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_lock_using_device_credentials">Poverila naprave</string>
@@ -45,6 +49,8 @@
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
     <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutni račun</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Naslova strežnika za račun ni mogoče razrešiti za DAVDroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_help">Pomoč</string>
@@ -52,7 +58,11 @@
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_imprint">Natis</string>
 
-	<string name="auth_check_server">Preveri strežnik</string>
+	<string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
+	<string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
+    <string name="recommend_urls">%1$s ali %2$s</string>
+
+    <string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_host_url">Naslov strežnika https:// …</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
@@ -72,6 +82,7 @@
     <string name="uploader_error_message_source_file_not_found">Datoteke določene za nalaganje ne najdem. Prosim preveri, če sploh obstaja.</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusi znova poslati kasneje.</string>
     <string name="uploader_upload_files_behaviour">Možnost pošiljanja:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s.</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Izbriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
@@ -97,10 +108,13 @@
     <string name="file_list_empty_text_photos_filter">Ni slik in fotografij.</string>
     <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
     <string name="file_list_empty_text_videos_filter">Ni video posnetkov.</string>
+    <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
     <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
     <string name="filedetails_download">Prejmi</string>
+    <string name="filedetails_sync_file">Uskladi</string>
+    <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>
@@ -108,20 +122,27 @@
     <string name="common_cancel">Prekliči</string>
     <string name="common_back">Nazaj</string>
     <string name="common_save">Shrani</string>
+    <string name="common_error">Napaka</string>
+    <string name="common_loading">Poteka nalaganje …</string>
     <string name="common_unknown">neznano</string>
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_pending">V teku</string>
     <string name="common_delete">Izbriši</string>
+    <string name="common_send">Pošlji</string>
     <string name="about_title">O projektu</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Dejavni uporabnik</string>
+    <string name="upload_chooser_title">Pošlji iz ...</string>
     <string name="uploader_info_dirname">Ime mape</string>
+    <string name="uploader_upload_in_progress_ticker">Poteka pošiljanje ...</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Poslano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
     <string name="uploader_upload_failed_content_single">Ni mogoče naložiti %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo; zahtevana je ponovna prijava.</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Potrdilo strežnika ni vredno zaupanja</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
@@ -136,27 +157,42 @@
     <string name="uploads_view_upload_status_conflict">Spor</string>
     <string name="uploads_view_upload_status_service_interrupted">Program je vsiljeno končan</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na vzpostavitev povezave Wi-Fi ...</string>
     <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
+    <string name="downloader_download_in_progress_ticker">Poteka prejemanje ...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
     <string name="downloader_download_succeeded_ticker">Prenešeno</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
     <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
     <string name="downloader_download_failed_content">Ne morem prebrati %1$s</string>
     <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
+    <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="common_choose_account">Izbor računa</string>
+    <string name="common_switch_account">Preklopi račun</string>
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
+    <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="sync_fail_content_unauthorized">Napačno geslo za %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_fail_in_favourites_ticker">Posodobitev stalno usklajenih datotek je spodletelo</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
+    <string name="foreign_files_move">Premakni vse</string>
+    <string name="foreign_files_success">Vse datoteke so premaknjene</string>
+    <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
+    <string name="foreign_files_local_text">Krajevno: %1$s</string>
+    <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
+    <string name="default_credentials_wrong">Nepravilna poverila</string>
+    <string name="credentials_disabled">Poverila so onemogočena</string>
+    
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo PIN</string>
+    <string name="pass_code_remove_your_pass_code">Izbrišite kodo PIN programa</string>
     <string name="pass_code_mismatch">Vpisani kodi PIN nista enaki</string>
     <string name="pass_code_wrong">Napačna koda PIN</string>
+    <string name="pass_code_removed">Koda PIN je izbrisana</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     
     <string name="media_err_nothing_to_play">Predstavnih datotek ni mogoče najti</string>
@@ -199,6 +235,7 @@
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="common_rename">Preimenuj</string>
+    <string name="common_remove">Izbriši</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
@@ -238,6 +275,7 @@
 
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_filename">vsebnik.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -334,6 +372,18 @@
 
     <string name="username">Uporabniško ime</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mapa</item>
+        <item quantity="two">%1$d mapi</item>
+        <item quantity="few">%1$d mape</item>
+        <item quantity="other">%1$d map</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d datoteka</item>
+        <item quantity="two">%1$d datoteki</item>
+        <item quantity="few">%1$d datoteke</item>
+        <item quantity="other">%1$d datotek</item>
+    </plurals>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="set_as">Nastavi kot</string>
 
@@ -388,6 +438,7 @@
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Pomoč pri prevajanju</string>
     <string name="participate_contribute_translate_text">programa</string>
+    <string name="synced_folders_loading_folders">Poteka nalaganje map ...</string>
     <string name="synced_folders_no_results">Map s predstavno vsebino ni mogoče najti.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
     <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
@@ -437,4 +488,48 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
 
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
-    </resources>
+    <string name="foreground_service_upload">Poteka nalaganje datotek ...</string>
+    <string name="foreground_service_download">Poteka prejemanje datotek ...</string>
+
+    <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
+    <string name="prefs_license">Dovoljenje</string>
+    <string name="prefs_gpl_v2">Splošno Javno dovoljenje GNU GPL, različice 2</string>
+    <string name="drawer_current_account">Trenutni račun</string>
+    <string name="drawer_middle_account">Srednji račun</string>
+    <string name="drawer_end_account">Zadnji račun</string>
+    <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
+    <string name="activity_icon">Dejavnosti</string>
+    <string name="file_icon">Datoteka</string>
+    <string name="user_icon">Uporabnik</string>
+    <string name="favorite_icon">Priljubljeno</string>
+    <string name="synced_icon">Usklajeno</string>
+    <string name="available_offline_icon">Na voljo brez povezave</string>
+    <string name="sort_by_name_ascending">po abecedi naraščajoče A–Ž</string>
+    <string name="sort_by_modification_date_ascending">najprej najnovejše</string>
+    <string name="sort_by_size_descending">najprej največje</string>
+    <string name="sort_by_size_ascending">najprej najmanjše</string>
+    <string name="sort_by_name_descending">po abecedi padajoče Ž–A</string>
+    <string name="sort_by_modification_date_descending">najprej najstarejše</string>
+    <string name="synced_folders_type">Vrsta</string>
+    <string name="link">Povezava</string>
+
+    <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
+  
+    <string name="end_to_end_encryption_password">Geslo ...</string>
+    <string name="hint_name">Ime</string>
+    <string name="hint_password">Geslo</string>
+    <string name="add_to_cloud">Dodaj v %1$s</string>
+    <string name="upload_files">Pošlji datoteke</string>
+    <string name="upload_content_from_other_apps">Pošlji vsebino iz drugih programov</string>
+    <string name="create_new_folder">Ustvari novo mapo</string>
+    <string name="uploads_view_upload_status_virus_detected">Zaznan je virus! Pošiljanja ni mogoče dokončati!</string>
+    <string name="tags">Oznake</string>
+    <string name="login">Prijava</string>
+    <string name="drawer_item_trashbin">Izbrisane datoteke</string>
+    <string name="trashbin_activity_title">Izbrisane datoteke</string>
+    <string name="folder_confirm_create">Ustvari</string>
+    <string name="file_delete">Izbriši</string>
+    <string name="file_keep">Ohrani</string>
+    <string name="file_rename">Preimenuj</string>
+    <string name="fab_label">Dodaj ali pošlji</string>
+</resources>
