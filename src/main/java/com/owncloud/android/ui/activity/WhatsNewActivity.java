@@ -139,8 +139,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     public static void runIfNeeded(Context context) {
-        if (!context.getResources().getBoolean(R.bool.show_whats_new)
-                || context instanceof WhatsNewActivity) {
+        if (!context.getResources().getBoolean(R.bool.show_whats_new) || context instanceof WhatsNewActivity) {
             return;
         }
 
@@ -174,7 +173,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     static private FeatureItem[] getWhatsNew(Context context) {
-        int itemVersionCode = 30030000;
+        int itemVersionCode = 30030099;
 
         if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
                 && PreferenceManager.getLastSeenVersionCode(context) < itemVersionCode) {
