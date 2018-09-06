@@ -118,7 +118,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     @Override
     public boolean isPlaying() {
         MediaService.State currentState = mService.getState();
-        return (currentState == State.PLAYING || (currentState == State.PREPARING && mService.mPlayOnPrepared));
+        return currentState == State.PLAYING || (currentState == State.PREPARING && mService.mPlayOnPrepared);
     }
 
 
@@ -169,15 +169,13 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
 
     public boolean isInPlaybackState() {
         MediaService.State currentState = mService.getState();
-        return (currentState == MediaService.State.PLAYING || currentState == MediaService.State.PAUSED);
+        return currentState == MediaService.State.PLAYING || currentState == MediaService.State.PAUSED;
     }
-
 
     @Override
     public int getAudioSessionId() {
         return 1; // not really used
     }
-
 }
 
 

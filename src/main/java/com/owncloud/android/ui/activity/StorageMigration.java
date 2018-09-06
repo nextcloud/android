@@ -269,7 +269,7 @@ public class StorageMigration {
             }
         }
 
-        protected void restoreAccountsSyncStatus(boolean oldSync[]) {
+        protected void restoreAccountsSyncStatus(boolean... oldSync) {
             // If we don't have the old sync statuses, then
             // probably migration failed even before saving states,
             // which is weird and should be investigated.

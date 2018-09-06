@@ -704,8 +704,8 @@ public class FileDisplayActivity extends HookActivity
     protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath,
                                          boolean success) {
         FileFragment secondFragment = getSecondFragment();
-        boolean waitedPreview = (mWaitingToPreview != null &&
-                mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
+        boolean waitedPreview = mWaitingToPreview != null
+                && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
         if (secondFragment instanceof FileDetailFragment) {
             FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
             OCFile fileInFragment = detailsFragment.getFile();
@@ -745,7 +745,7 @@ public class FileDisplayActivity extends HookActivity
                     mWaitingToPreview = null;
                 }
                 if (!detailsFragmentChanged) {
-                    detailsFragment.updateFileDetails(false, (success));
+                    detailsFragment.updateFileDetails(false, success);
                 }
             }
         }
@@ -1497,12 +1497,8 @@ public class FileDisplayActivity extends HookActivity
         // TODO refactor this receiver, and maybe DownloadFinishReceiver; this method is duplicated :S
         private boolean isAscendant(String linkedToRemotePath) {
             OCFile currentDir = getCurrentDir();
-            return (
-                    currentDir != null &&
-                            currentDir.getRemotePath().startsWith(linkedToRemotePath)
-            );
+            return currentDir != null && currentDir.getRemotePath().startsWith(linkedToRemotePath);
         }
-
     }
 
 

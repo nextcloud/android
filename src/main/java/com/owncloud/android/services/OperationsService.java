@@ -269,10 +269,9 @@ public class OperationsService extends Service {
          * Map of listeners that will be reported about the end of operations from a
          * {@link OperationsServiceBinder} instance
          */
-        private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners =
-                new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
+        private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = new ConcurrentHashMap<>();
 
-        private ServiceHandler mServiceHandler = null;
+        private ServiceHandler mServiceHandler;
 
         public OperationsServiceBinder(ServiceHandler serviceHandler) {
             mServiceHandler = serviceHandler;
@@ -355,7 +354,6 @@ public class OperationsService extends Service {
             }
         }
 
-
         public boolean dispatchResultIfFinished(int operationId,
                                                 OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
@@ -363,12 +361,10 @@ public class OperationsService extends Service {
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
                 return true;
-                //Log_OC.e(TAG, "Sending callback later");
             } else {
-                return (!mServiceHandler.mPendingOperations.isEmpty());
+                return !mServiceHandler.mPendingOperations.isEmpty();
             }
         }
-        
         
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account' is
@@ -402,10 +398,10 @@ public class OperationsService extends Service {
 
 
         private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
-                new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
-        private RemoteOperation mCurrentOperation = null;
-        private Target mLastTarget = null;
-        private OwnCloudClient mOwnCloudClient = null;
+                new ConcurrentLinkedQueue<>();
+        private RemoteOperation mCurrentOperation;
+        private Target mLastTarget;
+        private OwnCloudClient mOwnCloudClient;
         private FileDataStorageManager mStorageManager;
         
         
@@ -423,7 +419,6 @@ public class OperationsService extends Service {
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
-
         
         /**
          * Performs the next operation in the queue

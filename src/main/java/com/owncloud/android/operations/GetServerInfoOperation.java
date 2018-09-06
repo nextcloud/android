@@ -49,7 +49,6 @@ public class GetServerInfoOperation extends RemoteOperation {
     
     private String mUrl;
     private Context mContext;
-    
     private ServerInfo mResultData;
 
     /** 
@@ -62,10 +61,8 @@ public class GetServerInfoOperation extends RemoteOperation {
     public GetServerInfoOperation(String url, Context context) {
         mUrl = trimWebdavSuffix(url);
         mContext = context;
-        
         mResultData = new ServerInfo();
     }
-    
     
     /**
      * Performs the operation
@@ -143,10 +140,10 @@ public class GetServerInfoOperation extends RemoteOperation {
     
     
     public static class ServerInfo {
-        public OwnCloudVersion mVersion = null;
+        public OwnCloudVersion mVersion;
         public String mBaseUrl = "";
         public AuthenticationMethod mAuthMethod = AuthenticationMethod.UNKNOWN;
-        public boolean mIsSslConn = false;
+        public boolean mIsSslConn;
     }
 	
 }

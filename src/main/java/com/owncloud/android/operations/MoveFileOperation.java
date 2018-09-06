@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -15,7 +15,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.operations;
@@ -37,7 +36,6 @@ public class MoveFileOperation extends SyncOperation {
     
     private String mSrcPath;
     private String mTargetParentPath;
-    
     private OCFile mFile;
     
     /**
@@ -63,8 +61,6 @@ public class MoveFileOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
-        
         /// 1. check move validity
         if (mTargetParentPath.startsWith(mSrcPath)) {
             return new RemoteOperationResult(ResultCode.INVALID_MOVE_INTO_DESCENDANT);
@@ -84,7 +80,7 @@ public class MoveFileOperation extends SyncOperation {
                 targetPath, 
                 false
         );
-        result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client);
         
         /// 3. local move
         if (result.isSuccess()) {

@@ -172,7 +172,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + mRemotePath);
 
         mRemoteFolderChanged = true;
-        RemoteOperationResult result;
         
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
@@ -180,7 +179,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         
         // remote request
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
-        result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client);
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -261,8 +260,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param folderAndFiles Remote folder and children files in Folder
      */
     private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
-        FileDataStorageManager storageManager = getStorageManager();
-        
         // parse data from remote folder
         OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
@@ -271,13 +268,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath()
                 + " changed - starting update of local data ");
 
-        List<OCFile> updatedFiles = new Vector<>(folderAndFiles.size() - 1);
         mFilesForDirectDownload.clear();
         mFilesToSyncContents.clear();
 
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
+
+        FileDataStorageManager storageManager = getStorageManager();
+        List<OCFile> updatedFiles = new Vector<>(folderAndFiles.size() - 1);
 
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);

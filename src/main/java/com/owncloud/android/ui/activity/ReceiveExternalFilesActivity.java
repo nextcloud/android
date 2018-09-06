@@ -98,6 +98,7 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -131,6 +132,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String URL_FILE_SUFFIX = ".url";
     public static final String WEBLOC_FILE_SUFFIX = ".webloc";
     public static final String DESKTOP_FILE_SUFFIX = ".desktop";
+    public static final int SINGLE_PARENT = 1;
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
@@ -526,7 +528,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             inputText.setText(filename);
             int selectionStart = 0;
             int extensionStart = filename.lastIndexOf(".");
-            int selectionEnd = (extensionStart >= 0) ? extensionStart : filename.length();
+            int selectionEnd = extensionStart >= 0 ? extensionStart : filename.length();
             if (selectionEnd >= 0) {
                 inputText.setSelection(
                         Math.min(selectionStart, selectionEnd),
@@ -544,7 +546,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         private boolean isIntentStartWithUrl(String extraText) {
-            return (extraText.startsWith("http://") || extraText.startsWith("https://"));
+            return extraText.startsWith("http://") || extraText.startsWith("https://");
         }
 
         @Nullable
@@ -728,7 +730,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         ListView mListView = findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
-        boolean notRoot = (mParents.size() > 1);
+        boolean notRoot = mParents.size() > 1;
 
         if (actionBar != null) {
             if ("".equals(current_dir)) {
@@ -880,7 +882,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void saveTextsFromIntent(Intent intent) {
-        if (!"text/plain".equals(intent.getType())) {
+        if (!MimeType.TEXT_PLAIN.equals(intent.getType())) {
             return;
         }
         mUploadFromTmpFile = true;
@@ -1063,7 +1065,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             case android.R.id.home:
-                if ((mParents.size() > 1)) {
+                if (mParents.size() > SINGLE_PARENT) {
                     onBackPressed();
                 }
                 break;
@@ -1115,8 +1117,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult syncResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = (getAccount() != null &&
-                        accountName.equals(getAccount().name) && getStorageManager() != null);
+                boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
+                        && getStorageManager() != null;
 
                 if (sameAccount) {
 
@@ -1150,13 +1152,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                             mFile = currentFile;
                         }
 
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
 
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                                equals(event) &&
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event)
                                 /// TODO refactor and make common
-                                syncResult != null && !syncResult.isSuccess()) {
+                                && syncResult != null && !syncResult.isSuccess()) {
 
                             if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
                                     (syncResult.isException() && syncResult.getException()

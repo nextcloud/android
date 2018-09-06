@@ -44,9 +44,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class ConnectivityUtils {
+public final class ConnectivityUtils {
 
     private final static String TAG = ConnectivityUtils.class.getName();
+
+    private ConnectivityUtils() {
+        // utility class -> private constructor
+    }
 
     public static boolean isInternetWalled(Context context) {
         if (isOnlineWithWifi(context)) {

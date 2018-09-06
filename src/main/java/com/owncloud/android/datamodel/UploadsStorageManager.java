@@ -275,7 +275,7 @@ public class UploadsStorageManager extends Observable {
         return getUploads(null, null);
     }
 
-    private OCUpload[] getUploads(@Nullable String selection, @Nullable String[] selectionArgs) {
+    private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
         OCUpload[] list;
 
         Cursor c = getDB().query(

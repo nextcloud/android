@@ -28,7 +28,11 @@ import java.security.KeyPair;
  * Own parts are licensed unter GPLv3+.
  */
 
-public class CsrHelper {
+public final class CsrHelper {
+
+    private CsrHelper() {
+        // utility class -> private constructor
+    }
 
     /**
      * Generate CSR with PEM encoding

@@ -83,14 +83,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private AlertDialog behaviourDialog;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
-        SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
-
         if (syncedFolder == null) {
             throw new IllegalArgumentException("SyncedFolder is mandatory but NULL!");
         }
 
         Bundle args = new Bundle();
         args.putParcelable(SYNCED_FOLDER_PARCELABLE, new SyncedFolderParcelable(syncedFolder, section));
+
+        SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
         dialogFragment.setArguments(args);
         dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
 

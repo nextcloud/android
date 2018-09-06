@@ -36,7 +36,7 @@ public class ExtendedListView extends ListView {
 
     private static final String TAG = ExtendedListView.class.getSimpleName();
 
-    private int mPositionToSetAndCenter = 0;
+    private int mPositionToSetAndCenter;
 
     public ExtendedListView(Context context) {
         super(context);

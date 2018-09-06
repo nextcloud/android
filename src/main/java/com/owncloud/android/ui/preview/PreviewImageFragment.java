@@ -65,6 +65,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.FileInputStream;
@@ -113,7 +114,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private boolean mIgnoreFirstSavedState;
 
-    private LoadBitmapTask mLoadBitmapTask = null;
+    private LoadBitmapTask mLoadBitmapTask;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -439,12 +440,12 @@ public class PreviewImageFragment extends FileFragment {
         protected LoadImage doInBackground(OCFile... params) {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE);
 
-            Bitmap bitmapResult = null;
-            Drawable drawableResult = null;
-
             if (params.length != 1) {
                 return null;
             }
+
+            Bitmap bitmapResult = null;
+            Drawable drawableResult = null;
             OCFile ocFile = params[0];
             String storagePath = ocFile.getStoragePath();
             try {
@@ -492,7 +493,7 @@ public class PreviewImageFragment extends FileFragment {
                                 Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                                 break;
                             } else {
-                                if ("image/jpeg".equalsIgnoreCase(ocFile.getMimeType())) {
+                                if (MimeType.JPEG.equalsIgnoreCase(ocFile.getMimeType())) {
                                     // Rotate image, obeying exif tag.
                                     bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath);
                                 }

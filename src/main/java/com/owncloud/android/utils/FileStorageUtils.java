@@ -50,10 +50,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Static methods to help in access to local file system.
  */
-public class FileStorageUtils {
+public final class FileStorageUtils {
     private static final String TAG = FileStorageUtils.class.getSimpleName();
 
     public static final String PATTERN_YYYY_MM = "yyyy/MM/";
+
+    private FileStorageUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Get local owncloud storage path for accountName.
