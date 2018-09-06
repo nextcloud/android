@@ -1587,6 +1587,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * Exits the multi file selection mode.
      */
     public void exitSelectionMode() {
-        mActiveActionMode.finish();
+        if (mActiveActionMode != null) {
+            mActiveActionMode.finish();
+        }
     }
 }
