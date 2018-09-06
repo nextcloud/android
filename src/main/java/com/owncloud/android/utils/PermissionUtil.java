@@ -9,11 +9,15 @@ import android.support.v4.content.ContextCompat;
 /**
  * Created by scherzia on 29.12.2015.
  */
-public class PermissionUtil {
+public final class PermissionUtil {
     public static final int PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     public static final int PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2;
     public static final int PERMISSIONS_READ_CONTACTS_MANUALLY = 3;
     public static final int PERMISSIONS_WRITE_CONTACTS = 4;
+
+    private PermissionUtil() {
+        // utility class -> private constructor
+    }
 
     /**
      * Wrapper method for ContextCompat.checkSelfPermission().

@@ -22,4 +22,7 @@ package com.owncloud.android.utils;
  */
 public class MimeType {
     public static final String DIRECTORY = "DIR";
+    public static final String JPEG = "image/jpeg";
+    public static final String TIFF = "image/tiff";
+    public static final String TEXT_PLAIN = "text/plain";
 }

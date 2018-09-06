@@ -177,7 +177,7 @@ public class UriUploader {
      * @param sourceUris        Array of content:// URIs to the files to upload
      * @param remotePaths       Array of absolute paths to set to the uploaded files
      */
-    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
+    private void copyThenUpload(Uri[] sourceUris, String... remotePaths) {
         if (mShowWaitingDialog) {
             mActivity.showLoadingDialog(mActivity.getResources().
                     getString(R.string.wait_for_tmp_copy_from_private_storage));

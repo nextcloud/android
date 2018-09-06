@@ -41,9 +41,12 @@ import java.util.Locale;
 /**
  * Utility class with methods for decoding Bitmaps.
  */
-public class BitmapUtils {
+public final class BitmapUtils {
     public static final String TAG = BitmapUtils.class.getSimpleName();
 
+    private BitmapUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap
@@ -257,7 +260,7 @@ public class BitmapUtils {
         }
 
         if (3 * h < 2) {
-            return p + ((q - p) * 6 * ((2.0f / 3.0f) - h));
+            return p + ((q - p) * 6 * (2.0f / 3.0f - h));
         }
 
         return p;
@@ -376,8 +379,6 @@ public class BitmapUtils {
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
-
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             if (bitmapDrawable.getBitmap() != null) {
@@ -385,6 +386,7 @@ public class BitmapUtils {
             }
         }
 
+        Bitmap bitmap;
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         } else {

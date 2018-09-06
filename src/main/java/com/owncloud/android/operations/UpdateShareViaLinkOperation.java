@@ -48,13 +48,9 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      * @param path          Full path of the file/folder being shared. Mandatory argument
      */
     public UpdateShareViaLinkOperation(String path) {
-
         mPath = path;
-        mPassword = null;
         mExpirationDateInMillis = 0;
-        mPublicUpload = null;
     }
-
 
     /**
      * Set password to update in public link.
@@ -66,7 +62,6 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     public void setPassword(String password) {
         mPassword = password;
     }
-
 
     /**
      * Set expiration date to update in Share resource.
@@ -89,7 +84,6 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     public void setPublicUpload(Boolean publicUpload) {
         mPublicUpload = publicUpload;
     }
-
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -157,6 +151,5 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
             getStorageManager().saveFile(file);
         }
     }
-
 }
 

@@ -239,7 +239,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void setBitmap(OCFile file, ImageView fileIcon, boolean isDetailView) {
         // No Folder
         if (!file.isFolder()) {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
+            if (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) {
                 int placeholder;
 
                 if (MimeTypeUtil.isImage(file)) {

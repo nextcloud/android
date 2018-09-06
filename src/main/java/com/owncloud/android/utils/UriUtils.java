@@ -40,12 +40,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * A helper class for some Uri operations.
  */
-public class UriUtils {
+public final class UriUtils {
 
     public static final String TAG = UriUtils.class.getSimpleName();
 
     public static final String URI_CONTENT_SCHEME = "content://";
 
+    private UriUtils() {
+        // utility class -> private constructor
+    }
 
     /**
      * Get the value of the data column for this Uri. This is useful for
@@ -57,7 +60,7 @@ public class UriUtils {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public static String getDataColumn(Context context, Uri uri, String selection, String... selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";
@@ -150,7 +153,7 @@ public class UriUtils {
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
                         Long.valueOf(id));
 
-                return UriUtils.getDataColumn(context, contentUri, null, null);
+                return UriUtils.getDataColumn(context, contentUri, null, (String) null);
             }
             // MediaProvider
             else if (UriUtils.isMediaDocument(uri)) {
@@ -185,7 +188,7 @@ public class UriUtils {
                 return uri.getLastPathSegment();
             }
 
-            return UriUtils.getDataColumn(context, uri, null, null);
+            return UriUtils.getDataColumn(context, uri, null, (String) null);
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {

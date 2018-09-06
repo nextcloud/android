@@ -29,10 +29,14 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 
-/*
-    Helper for setting up network and power receivers
+/**
+ * Helper for setting up network and power receivers
  */
-public class ReceiversHelper {
+public final class ReceiversHelper {
+
+    private ReceiversHelper() {
+        // utility class -> private constructor
+    }
 
     public static void registerNetworkChangeReceiver() {
         Context context = MainApp.getAppContext();

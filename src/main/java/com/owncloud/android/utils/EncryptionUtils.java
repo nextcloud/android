@@ -87,7 +87,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Utils for encryption
  */
 
-public class EncryptionUtils {
+public final class EncryptionUtils {
     private static String TAG = EncryptionUtils.class.getSimpleName();
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
@@ -104,6 +104,10 @@ public class EncryptionUtils {
     private static final String AES = "AES";
     private static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
     private static final String RSA = "RSA";
+
+    private EncryptionUtils() {
+        // utility class -> private constructor
+    }
 
     /*
     JSON

@@ -84,9 +84,9 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
 
     private ArrayAdapter<String> mDirectories;
-    private File mCurrentDir = null;
-    private boolean mSelectAll = false;
-    private boolean mLocalFolderPickerMode = false;
+    private File mCurrentDir;
+    private boolean mSelectAll;
+    private boolean mLocalFolderPickerMode;
     private LocalFileListFragment mFileListFragment;
     protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;

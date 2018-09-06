@@ -353,7 +353,7 @@ public class OCUpload implements Parcelable {
                     (getLastResult() == null ? "null" : getLastResult().getValue());
         } catch (NullPointerException e) {
             Log_OC.d(TAG, "Exception " + e.toString());
-            return (e.toString());
+            return e.toString();
         }
     }
 

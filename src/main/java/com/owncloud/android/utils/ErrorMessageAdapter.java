@@ -53,7 +53,12 @@ import java.net.SocketTimeoutException;
  * Class to choose proper error messages to show to the user depending on the results of operations,
  * always following the same policy
  */
-public class ErrorMessageAdapter {
+public final class ErrorMessageAdapter {
+
+    private ErrorMessageAdapter() {
+        // utility class -> private constructor
+    }
+
     /**
      * Return an internationalized user message corresponding to an operation result
      * and the operation performed.

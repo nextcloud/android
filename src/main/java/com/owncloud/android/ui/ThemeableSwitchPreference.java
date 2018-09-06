@@ -38,7 +38,6 @@ import com.owncloud.android.utils.ThemeUtils;
 /**
  * Themeable switch preference
  */
-
 public class ThemeableSwitchPreference extends SwitchPreference {
 
     public ThemeableSwitchPreference(Context context) {
@@ -64,24 +63,31 @@ public class ThemeableSwitchPreference extends SwitchPreference {
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private void findSwitch(ViewGroup viewGroup) {
+        ColorStateList thumbColorStateList = null;
+        ColorStateList trackColorStateList = null;
+
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
 
             if (child instanceof Switch) {
                 Switch switchView = (Switch) child;
 
-                int color = ThemeUtils.primaryAccentColor(getContext());
-                int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+                if(thumbColorStateList == null && trackColorStateList == null) {
+                    int color = ThemeUtils.primaryAccentColor(getContext());
+                    int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+                    thumbColorStateList = new ColorStateList(
+                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                            new int[]{color, Color.WHITE});
+                    trackColorStateList = new ColorStateList(
+                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                            new int[]{trackColor, Color.parseColor("#4D000000")});
+                }
 
                 // setting the thumb color
-                DrawableCompat.setTintList(switchView.getThumbDrawable(), new ColorStateList(
-                        new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                        new int[]{color, Color.WHITE}));
+                DrawableCompat.setTintList(switchView.getThumbDrawable(), thumbColorStateList);
 
                 // setting the track color
-                DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
-                        new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                        new int[]{trackColor, Color.parseColor("#4D000000")}));
+                DrawableCompat.setTintList(switchView.getTrackDrawable(), trackColorStateList);
 
                 break;
             } else if (child instanceof ViewGroup) {
