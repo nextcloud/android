@@ -106,7 +106,7 @@ android {
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
-        flavorDimensions "default"
+        flavorDimensions "mode", "google"
 
         buildTypes {
             debug {
@@ -115,22 +115,25 @@ android {
         }
 
         productFlavors {
-            // used for f-droid
             generic {
                 applicationId 'com.nextcloud.client'
-                dimension "default"
-            }
-
-            gplay {
-                applicationId 'com.nextcloud.client'
-                dimension "default"
+                dimension "mode"
             }
 
             versionDev {
                 applicationId "com.nextcloud.android.beta"
-                dimension "default"
+                dimension "mode"
                 versionCode 20180905
                 versionName "20180905"
+            }
+            
+            free {
+                dimension "google"
+            }
+            
+            gplay {
+                dimension "google"
+                apply from: 'gplay.gradle'
             }
         }
     }
@@ -212,7 +215,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
-    gplayImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
