@@ -39,6 +39,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.ProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
@@ -101,7 +102,7 @@ public final class DeviceCredentialUtils {
             keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException | NoSuchProviderException
                 | InvalidAlgorithmParameterException | KeyStoreException
-                | CertificateException | IOException e) {
+                | CertificateException | ProviderException | IOException e) {
             Log_OC.e(TAG, "Exception: " + e.getMessage());
         }
     }
