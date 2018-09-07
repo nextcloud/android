@@ -69,6 +69,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
     private boolean gridView;
+    private boolean largePreview;
     private LocalFileListFragmentInterface localFileListFragmentInterface;
     private Set<File> checkedFiles;
 
@@ -79,6 +80,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                                 LocalFileListFragmentInterface localFileListFragmentInterface, Context context) {
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
+        largePreview = false;
         swapDirectory(directory);
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
@@ -296,7 +298,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         switch (viewType) {
             default:
             case VIEWTYPE_ITEM:
-                if (gridView) {
+                if(largePreview) {
+                    View itemView = LayoutInflater.from(mContext).inflate(R.layout.large_preview_item, parent, false);
+                    return new LocalFileListGridViewHolder(itemView);
+                } if (gridView) {
                     View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, parent, false);
                     return new LocalFileListGridViewHolder(itemView);
                 } else {
@@ -517,6 +522,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         return output;
+    }
+
+    public void setLargePreview(boolean largePreview) {
+        this.largePreview = largePreview;
+    }
+
+    public boolean isLargePreview() {
+        return largePreview;
     }
 
     static class LocalFileListItemViewHolder extends LocalFileListGridViewHolder {

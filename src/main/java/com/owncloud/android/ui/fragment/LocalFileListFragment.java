@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -269,6 +270,27 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         for (int i = 0; i < mAdapter.getItemCount(); i++) {
             mAdapter.notifyItemChanged(i);
         }
+    }
+
+    public void enabelLargePreview() {
+        mAdapter.setLargePreview(true);
+        /**
+         * Set recyclerview adapter again to force new view for items. If this is not done
+         * a few items keep their old view.
+         *
+         * https://stackoverflow.com/questions/36495009/force-recyclerview-to-redraw-android
+         */
+        getRecyclerView().setAdapter(mAdapter);
+        getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), 2));
+    }
+
+    public void disableLargePreview() {
+        mAdapter.setLargePreview(false);
+        getRecyclerView().setAdapter(mAdapter);
+    }
+
+    public boolean largePreviewEnabled() {
+        return mAdapter.isLargePreview();
     }
 
     /**
