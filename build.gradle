@@ -211,7 +211,7 @@ dependencies {
     // dependencies for app building
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation project('nextcloud-android-library')
-    genericImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
+    genericImplementation "com.github.nextcloud:android-library:1.1.0-1.1.0"
     gplayImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
