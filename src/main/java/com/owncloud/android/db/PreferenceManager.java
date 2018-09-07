@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -64,6 +65,8 @@ public abstract class PreferenceManager {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
+    private static final String PREF_WIDGET_NAME = "com.owncloud.android.widgets.ShortcutsWidget";
+    private static final String PREF_WIDGET_PREFIX_KEY = "appwidget_";
 
     public static void setKeysReInit(Context context) {
         saveBooleanPreference(context, PREF__KEYS_REINIT, true);
@@ -444,6 +447,31 @@ public abstract class PreferenceManager {
      */
     public static void setLastSeenVersionCode(Context context, int versionCode) {
         saveIntPreference(context, AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode);
+    }
+
+    // Write the prefix to the SharedPreferences object for this widget
+    public static void saveAccountPref(Context context, int appWidgetId, String text) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREF_WIDGET_NAME, 0).edit();
+        prefs.putString(PREF_WIDGET_PREFIX_KEY + appWidgetId, text);
+        prefs.apply();
+    }
+
+    // Read the prefix from the SharedPreferences object for this widget.
+    // If there is no preference saved, get the default from a resource
+    public static String loadAccountPref(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_WIDGET_NAME, 0);
+        String userValue = prefs.getString(PREF_WIDGET_PREFIX_KEY + appWidgetId, null);
+
+        if (userValue != null) {
+            return userValue;
+        } else {
+            return context.getString(R.string.username);
+        }
+    }
+    public static void deleteAccountPref(Context context, int appWidgetId) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREF_WIDGET_NAME, 0).edit();
+        prefs.remove(PREF_WIDGET_PREFIX_KEY + appWidgetId);
+        prefs.apply();
     }
 
     private static void saveBooleanPreference(Context context, String key, boolean value) {
