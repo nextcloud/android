@@ -1,0 +1,2 @@
+## 3.3.0 RC2 (September, 07, 2018)
+- Bugs fixed found in RC1
