@@ -226,7 +226,7 @@ dependencies {
     implementation 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.4'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
@@ -246,7 +246,7 @@ dependencies {
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.2.5'
+    testImplementation 'org.mockito:mockito-core:2.21.0'
     // dependencies for instrumented tests
     // JUnit4 Rules
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
@@ -264,8 +264,8 @@ dependencies {
 
     androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
 
-    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
-    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.2'
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
+    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
     
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
