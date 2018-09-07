@@ -236,7 +236,7 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
     implementation 'org.parceler:parceler-api:1.1.11'
-    annotationProcessor 'org.parceler:parceler:1.1.9'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
     implementation ('com.github.bumptech.glide:glide:3.7.0') {
         exclude group: "com.android.support"
     }
