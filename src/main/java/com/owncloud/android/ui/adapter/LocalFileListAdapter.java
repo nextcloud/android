@@ -527,7 +527,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.largePreview = largePreview;
     }
 
-    public boolean getLargePreview() {
+    public boolean isLargePreview() {
         return largePreview;
     }
 

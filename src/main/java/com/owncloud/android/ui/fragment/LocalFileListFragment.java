@@ -290,7 +290,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     }
 
     public boolean largePreviewEnabled() {
-        return mAdapter.getLargePreview();
+        return mAdapter.isLargePreview();
     }
 
     /**
