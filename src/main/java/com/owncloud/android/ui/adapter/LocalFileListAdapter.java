@@ -69,7 +69,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
     private boolean gridView;
-    private boolean largePreview = false;
+    private boolean largePreview;
     private LocalFileListFragmentInterface localFileListFragmentInterface;
     private Set<File> checkedFiles;
 
@@ -80,6 +80,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                                 LocalFileListFragmentInterface localFileListFragmentInterface, Context context) {
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
+        largePreview = false;
         swapDirectory(directory);
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
