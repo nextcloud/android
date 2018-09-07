@@ -37,6 +37,12 @@ import java.net.URL;
 public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
     private static final String TAG = LoadingVersionNumberTask.class.getSimpleName();
 
+    private VersionDevInterface callback;
+    
+    public LoadingVersionNumberTask(VersionDevInterface callback) {
+        this.callback = callback;
+    }
+    
     protected Integer doInBackground(String... args) {
         try {
             URL url = new URL(args[0]);
@@ -50,5 +56,14 @@ public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
             Log_OC.e(TAG, "Malformed URL", e);
         }
         return -1;
+    }
+
+    @Override
+    protected void onPostExecute(Integer latestVersion) {
+        callback.returnVersion(latestVersion);
+    }
+
+    public interface VersionDevInterface {
+        void returnVersion(Integer latestVersion);
     }
 }

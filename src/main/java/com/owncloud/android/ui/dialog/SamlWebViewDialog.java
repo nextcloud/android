@@ -194,7 +194,7 @@ public class SamlWebViewDialog extends DialogFragment {
         
         // Work around bug: http://code.google.com/p/android/issues/detail?id=17423
         Dialog dialog = getDialog();
-        if ((dialog != null)) {
+        if (dialog != null) {
             dialog.setOnDismissListener(null);
         }
         

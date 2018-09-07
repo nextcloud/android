@@ -18,24 +18,27 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ListItemLayout"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/standard_list_item_size"
-              android:background="@drawable/list_selector"
-              android:descendantFocusability="blocksDescendants"
-              android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/standard_list_item_size"
+    android:background="@drawable/list_selector"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding">
 
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:contentDescription="@null"
@@ -43,20 +46,18 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="top"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/standard_padding">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/Filename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:text="@string/placeholder_filename"
+                tools:text="@string/placeholder_filename"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/two_line_primary_text_size"/>
 
@@ -69,7 +70,7 @@
                     android:id="@+id/fileSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/placeholder_fileSize"
+                    tools:text="@string/placeholder_fileSize"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -77,7 +78,6 @@
                     android:id="@+id/file_separator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:paddingEnd="@dimen/standard_quarter_padding"
                     android:paddingLeft="@dimen/zero"
                     android:paddingRight="@dimen/standard_quarter_padding"
@@ -90,8 +90,7 @@
                     android:id="@+id/deletionTimestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/placeholder_media_time"
+                    tools:text="@string/placeholder_media_time"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -101,8 +100,7 @@
                 android:id="@+id/originalLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/placeholder_filename"
+                tools:text="@string/placeholder_filename"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -111,7 +109,6 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:paddingEnd="@dimen/zero"
             android:paddingLeft="@dimen/standard_half_padding"
             android:paddingRight="@dimen/zero"
@@ -120,7 +117,7 @@
             <ImageView
                 android:id="@+id/restore"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:clickable="false"
                 android:contentDescription="@string/restore_button_description"
@@ -134,7 +131,7 @@
             <ImageView
                 android:id="@+id/customCheckbox"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/restore"
                 android:layout_toRightOf="@id/restore"
@@ -150,7 +147,7 @@
             <ImageView
                 android:id="@+id/overflowMenu"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/customCheckbox"
                 android:layout_toRightOf="@id/customCheckbox"
@@ -166,10 +163,5 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/list_divider_background"/>
 
 </LinearLayout>

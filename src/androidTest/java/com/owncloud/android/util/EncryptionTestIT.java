@@ -258,6 +258,19 @@ public class EncryptionTestIT {
         }
     }
 
+    @Test
+    public void testSHA512() {
+        // sent to 3rd party app in cleartext
+        String token = "4ae5978bf5354cd284b539015d442141";
+        String salt = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.randomBytes(EncryptionUtils.saltLength));
+
+        // stored in database
+        String hashedToken = EncryptionUtils.generateSHA512(token, salt);
+
+        // check: use passed cleartext and salt to verify hashed token
+        assertTrue(EncryptionUtils.verifySHA512(hashedToken, token));
+    }
+
 
     // Helper
     private boolean compareJsonStrings(String expected, String actual) {

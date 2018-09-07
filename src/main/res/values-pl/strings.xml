@@ -108,6 +108,7 @@
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
     <string name="file_list_empty_text_videos_filter">Brak plików wideo.</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
+    <string name="trashbin_empty_message">Stąd będziesz w stanie odzyskać usunięte pliki</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">katalog</string>
@@ -222,6 +223,7 @@
     <string name="media_err_timeout">Upłynął limit czasu podczas próby odtwarzania pliku</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_unknown">Wbudowany odtwarzacz multimedialny nie może odtworzyć pliku</string>
+    <string name="media_err_playing">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
@@ -357,6 +359,7 @@
     <string name="copy_link">Skopiuj link</string>
     <string name="clipboard_text_copied">Skopiuj do schowka</string>
     <string name="clipboard_no_text_to_copy">Nie odebrano tekstu, by skopiować go do schowka</string>
+    <string name="clipboard_unexpected_error">Nieoczekiwany błąd podczas kopiowania do schowka</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Błąd krytyczny: Nie można wykonać operacji</string>
@@ -497,6 +500,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
+    <string name="share_sharee_unavailable">Zaktualizuj serwer aby umożliwić udostępnianie plików pomiędzy użytkownikami z poziomu klienta.\nSkontaktuj się ze swoim administratorem</string>
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
@@ -600,6 +604,7 @@
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
+    <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano</string>
     <string name="contacts_preference_choose_date">Wybierz datę</string>
     <string name="contacts_preference_backup_never">nigdy</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
@@ -610,6 +615,8 @@
     <string name="drawer_logout">Wyloguj</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
+    <string name="file_not_synced">Nie udało się zsynchronizować pliku. Prezentowana jest ostatnia dostępna wersja</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
@@ -639,9 +646,21 @@
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
+    <string name="file_icon">Plik</string>
+    <string name="user_icon">Użytkownik</string>
+    <string name="favorite_icon">Ulubione</string>
+    <string name="synced_icon">Zsynchronizowano</string>
+    <string name="available_offline_icon">Dostępne offline</string>
     <string name="checkbox">Pole checkbox</string>
+    <string name="shared_icon_share">udostępnij</string>
+    <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
+    <string name="shared_icon_shared">udostępniono</string>
     <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Najnowsze na początku</string>
+    <string name="sort_by_size_descending">Największe na początku</string>
+    <string name="sort_by_size_ascending">Najmniejsze na początku</string>
     <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Najstarsze na początku</string>
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Przycisk status synchronizacji</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
@@ -666,8 +685,11 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="share">Udostępnij</string>
     <string name="link">Odnośnik</string>
 
+    <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_media_name">Odtwarzacz multimedialny</string>
+    <string name="notification_channel_media_description">Postęp odtwarzacza muzyki</string>
     <string name="notification_channel_file_sync_name">Synchronizacja pliku</string>
+    <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
     <string name="account_not_found">Nie znaleziono konta</string>
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
@@ -677,11 +699,13 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty</string>
     <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
+    <string name="end_to_end_encryption_enter_password">Wprowadź hasło aby odszyfrować klucz prywatny</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
+    <string name="end_to_end_encryption_unsuccessful">Nie udało się zapisać kluczy, spróbuj ponownie</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_push_description">Pokaż powiadomienia push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia tworzone przez administrację itd.</string>
@@ -695,6 +719,9 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="create_new_folder">Utwórz nowy katalog</string>
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
+    <string name="login">Zaloguj</string>
+    <string name="host_your_own_server">Hostuj swój własny serwer</string>
+    <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
 	<string name="restore">Przywróć plik</string>
     <string name="new_version_was_created">Powstała nowa wersja</string>

@@ -127,7 +127,7 @@ public class UploadFileOperation extends SyncOperation {
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
-    private String mOriginalStoragePath = null;
+    private String mOriginalStoragePath;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
     private OnRenameListener mRenameUploadListener;
 
@@ -138,7 +138,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private UploadRemoteFileOperation mUploadOperation;
 
-    protected RequestEntity mEntity = null;
+    protected RequestEntity mEntity;
 
     private Account mAccount;
     private OCUpload mUpload;

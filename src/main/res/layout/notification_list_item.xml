@@ -19,9 +19,9 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:text="@string/placeholder_filename"
+            tools:text="@string/placeholder_filename"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:text="@string/placeholder_sentence"
+            tools:text="@string/placeholder_sentence"
             android:alpha="0.57"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:ellipsize="end"
-            android:text="@string/placeholder_sentence"
+            tools:text="@string/placeholder_sentence"
             android:alpha="0.5"
             android:textColor="?android:attr/textColorSecondary"/>
 

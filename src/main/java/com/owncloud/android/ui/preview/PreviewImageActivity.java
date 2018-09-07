@@ -145,7 +145,7 @@ public class PreviewImageActivity extends FileActivity implements
         mViewPager = findViewById(R.id.fragmentPager);
 
         int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
-        position = (position >= 0) ? position : 0;
+        position = position >= 0 ? position : 0;
 
         mViewPager.setAdapter(mPreviewImagePagerAdapter);
         mViewPager.addOnPageChangeListener(this);

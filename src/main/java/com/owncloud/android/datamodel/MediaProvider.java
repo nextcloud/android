@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 /**
  * Media queries to gain access to media lists for the device.
  */
-public class MediaProvider {
+public final class MediaProvider {
     private static final String TAG = MediaProvider.class.getSimpleName();
 
     // fixed query parameters
@@ -57,6 +57,10 @@ public class MediaProvider {
 
     private static final String[] VIDEOS_FOLDER_PROJECTION = {"Distinct " + MediaStore.Video.Media.BUCKET_ID,
             MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
+
+    private MediaProvider() {
+        // utility class -> private constructor
+    }
 
     /**
      * Getting All Images Paths.

@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -28,14 +28,21 @@ import android.accounts.AccountManager;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.EncryptionUtils;
+
+import java.util.UUID;
 
 
 /**
@@ -57,6 +64,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";
     public static final String KEY_ACCOUNT = "account";
+    public static final String SSO_SHARED_PREFERENCE = "sso";
+    
+    private static final String NEXTCLOUD_SSO = "NextcloudSSO";
     
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
     
@@ -75,16 +85,15 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      */
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response,
-            String accountType, String authTokenType,
-            String[] requiredFeatures, Bundle options)
-            throws NetworkErrorException {
+                             String accountType, String authTokenType,
+                             String[] requiredFeatures, Bundle options) {
         Log_OC.i(TAG, "Adding account with type " + accountType + " and auth token " + authTokenType);
-        
-        final Bundle bundle = new Bundle();
-        
+
         AccountManager accountManager = AccountManager.get(mContext);
         Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType(mContext));
-        
+
+        final Bundle bundle = new Bundle();
+
         if (mContext.getResources().getBoolean(R.bool.multiaccount_support) || accounts.length < 1) {
             try {
                 validateAccountType(accountType);
@@ -104,16 +113,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             setIntentFlags(intent);
             
             bundle.putParcelable(AccountManager.KEY_INTENT, intent);
-        
         } else {
-
             // Return an error
             bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION);
             final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name)); 
             bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
            
             mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
-            
         }
         
         return bundle;
@@ -124,7 +130,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      */
     @Override
     public Bundle confirmCredentials(AccountAuthenticatorResponse response,
-            Account account, Bundle options) throws NetworkErrorException {
+                                     Account account, Bundle options) {
         try {
             validateAccountType(account.type);
         } catch (AuthenticatorException e) {
@@ -155,9 +161,53 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      */
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response,
-            Account account, String authTokenType, Bundle options)
-            throws NetworkErrorException {
-        /// validate parameters
+                               Account account, String authTokenType, Bundle options) {
+
+        if (NEXTCLOUD_SSO.equals(authTokenType)) {
+            final Bundle result = new Bundle();
+
+            String packageName = options.getString("androidPackageName");
+
+            if (packageName == null) {
+                Log_OC.e(TAG, "No calling package, exit.");
+                return result;
+            }
+
+            // create token
+            SharedPreferences sharedPreferences = mContext.getSharedPreferences(SSO_SHARED_PREFERENCE,
+                    Context.MODE_PRIVATE);
+            String token = UUID.randomUUID().toString().replaceAll("-", "");
+
+            String hashedTokenWithSalt = EncryptionUtils.generateSHA512(token);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(packageName, hashedTokenWithSalt);
+            editor.apply();
+                        
+            String serverUrl;
+            String userId;
+            try {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, mContext);
+                serverUrl = ocAccount.getBaseUri().toString();
+                AccountManager accountManager = AccountManager.get(mContext);
+                userId = accountManager.getUserData(account,
+                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+            } catch (AccountUtils.AccountNotFoundException e) {
+                Log_OC.e(TAG, "Account not found");
+                return new Bundle();
+            }
+
+            result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType(mContext));
+            result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
+            result.putString(Constants.SSO_USERNAME,   userId);
+            result.putString(Constants.SSO_TOKEN,      token);
+            result.putString(Constants.SSO_SERVER_URL, serverUrl);
+
+            return result;
+        }
+
+        // validate parameters
         try {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
@@ -203,7 +253,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle hasFeatures(AccountAuthenticatorResponse response,
-            Account account, String[] features) throws NetworkErrorException {
+                              Account account, String[] features) {
         final Bundle result = new Bundle();
         result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true);
         return result;
@@ -211,8 +261,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle updateCredentials(AccountAuthenticatorResponse response,
-            Account account, String authTokenType, Bundle options)
-            throws NetworkErrorException {
+                                    Account account, String authTokenType, Bundle options) {
 
         Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);

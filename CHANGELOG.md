@@ -1,3 +1,12 @@
+## 3.2.4 (Sept, 04, 2018)
+fix push notification on gplay release
+
+## 3.2.3 (Aug, 21, 2018)
+- Fix crash on Android Android 4.x
+
+## 3.2.2 (Aug, 20, 2018)
+- New simple signup screen
+
 ## 3.2.1 (June, 11, 2018)
 - Enhanced file detail/sharing screen for mail-shares
 - Fix local sorting and file selection

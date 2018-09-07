@@ -399,11 +399,10 @@ public class FileUploader extends Service
             boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
 
             for ( OCUpload failedUpload: failedUploads) {
-                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
+                accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
+                resultMatch = uploadResult == null || uploadResult.equals(failedUpload.getLastResult());
                 if (accountMatch && resultMatch) {
-                    if (currentAccount == null ||
-                            !currentAccount.name.equals(failedUpload.getAccountName())) {
+                    if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
                         currentAccount = failedUpload.getAccount(context);
                     }
 
@@ -572,12 +571,6 @@ public class FileUploader extends Service
                 mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
             }
 
-            boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-            int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
-
-            boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
-            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
                 return Service.START_NOT_STICKY;
@@ -612,6 +605,10 @@ public class FileUploader extends Service
             }
             // at this point variable "OCFile[] files" is loaded correctly.
 
+            boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
+            int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
+            boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
+            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
             String uploadKey;
             UploadFileOperation newUpload;
             try {
@@ -1217,15 +1214,14 @@ public class FileUploader extends Service
             !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
             !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
 
-            int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
+            int tickerId = uploadResult.isSuccess() ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
 
             String content;
 
             // check credentials error
             boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(uploadResult.getCode());
-            tickerId = (needsToUpdateCredentials) ?
-                    R.string.uploader_upload_failed_credentials_error : tickerId;
+            tickerId = needsToUpdateCredentials ? R.string.uploader_upload_failed_credentials_error : tickerId;
 
             mNotificationBuilder
                     .setTicker(getString(tickerId))

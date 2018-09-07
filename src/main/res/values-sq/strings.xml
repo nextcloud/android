@@ -762,8 +762,12 @@
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
     <string name="whats_new_device_credentials_title">Përdorni mbrojtjen e brendshme të pajisjes Android</string>
     <string name="login">Hyni</string>
+    <string name="signup_with_provider">Regjistrohu me ofruesin</string>
+    <string name="host_your_own_server">Hostoni serverin tuaj</string>
     <string name="first_run_1_text">Mbani të sigurta dhe nën kontroll të dhënat tuaja</string>
     <string name="first_run_2_text">Bashkëpunim i sigurtë &amp;skedar i ndryshuar</string>
+    <string name="first_run_3_text">E-mail i thjeshtë për t\'u përdorur në web, kalendari &amp;i kontakteve</string>
+    <string name="first_run_4_text">Ndarja e ekranit, takime në internet &amp; konferenca në web</string>
     <string name="whats_new_device_credentials_content">Përdorni diçka si një model, fjalëkalim, pin ose gjurmë gishtash për të mbajtur të dhënat tuaja të sigurta.</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>
 	<string name="restore">Rikthe skedarin</string>

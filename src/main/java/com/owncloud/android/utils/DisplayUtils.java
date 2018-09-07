@@ -27,7 +27,6 @@ package com.owncloud.android.utils;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -103,7 +102,7 @@ import java.util.Set;
 /**
  * A helper class for UI/display related operations.
  */
-public class DisplayUtils {
+public final class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
@@ -130,6 +129,10 @@ public class DisplayUtils {
         // music
         mimeType2HumanReadable.put("audio/mpeg", "MP3 music file");
         mimeType2HumanReadable.put("application/ogg", "OGG music file");
+    }
+
+    private DisplayUtils() {
+        // utility class -> private constructor
     }
 
     /**
@@ -241,7 +244,6 @@ public class DisplayUtils {
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
@@ -261,7 +263,7 @@ public class DisplayUtils {
 
         int hostEnd = url.substring(hostStart).indexOf("/");
         // Handle URL which doesn't have a path (path is implicitly '/')
-        hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+        hostEnd = hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd;
 
         String host = urlNoDots.substring(hostStart, hostEnd);
         host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
@@ -733,7 +735,7 @@ public class DisplayUtils {
     // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
     // under GPL3
     public static void useCompatVectorIfNeeded() {
-        if (Build.VERSION.SDK_INT < 23) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             try {
                 @SuppressLint("RestrictedApi") AppCompatDrawableManager drawableManager = AppCompatDrawableManager.get();
                 Class<?> inflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$InflateDelegate");
