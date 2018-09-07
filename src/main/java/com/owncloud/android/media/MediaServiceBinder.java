@@ -157,12 +157,12 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
 
 
     public void registerMediaController(MediaControlView mediaController) {
-        mService.setMediaContoller(mediaController);
+        mService.setMediaController(mediaController);
     }
 
     public void unregisterMediaController(MediaControlView mediaController) {
         if (mediaController != null && mediaController == mService.getMediaController()) {
-            mService.setMediaContoller(null);
+            mService.setMediaController(null);
         }
 
     }
