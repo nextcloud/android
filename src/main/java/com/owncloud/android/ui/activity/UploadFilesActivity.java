@@ -278,6 +278,10 @@ public class UploadFilesActivity extends FileActivity implements
                 break;
             }
             case R.id.action_switch_view: {
+                if(mFileListFragment.largePreviewEnabled()) {
+                    mFileListFragment.disableLargePreview();
+                }
+
                 if (isGridView()) {
                     item.setTitle(getString(R.string.action_switch_grid_view));
                     item.setIcon(R.drawable.ic_view_module);
@@ -288,6 +292,12 @@ public class UploadFilesActivity extends FileActivity implements
                     mFileListFragment.switchToGridView();
                 }
                 break;
+            }
+            case R.id.action_large_preview: {
+                if(!mFileListFragment.largePreviewEnabled()) {
+                    mOptionsMenu.findItem(R.id.action_switch_view).setTitle(R.string.action_switch_list_view);
+                    mFileListFragment.enabelLargePreview();
+                }
             }
             default:
                 retval = super.onOptionsItemSelected(item);
