@@ -700,7 +700,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     }
 
 
-    protected void setMediaContoller(MediaControlView mediaController) {
+    protected void setMediaController(MediaControlView mediaController) {
         mMediaController = mediaController;
     }
 
@@ -734,7 +734,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         protected void onPostExecute(String url) {
             MediaService mediaService = mediaServiceWeakReference.get();
 
-            if (mediaService != null) {
+            if (mediaService != null && mediaService.getCurrentFile() != null) {
                 if (url != null) {
                     try {
                         mediaService.mPlayer.setDataSource(url);
