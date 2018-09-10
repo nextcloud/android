@@ -33,7 +33,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 /**
  * A helper class for drawer menu related operations.
  */
-public class DrawerMenuUtil {
+public final class DrawerMenuUtil {
     private DrawerMenuUtil() {
     }
 
