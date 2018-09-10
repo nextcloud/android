@@ -32,7 +32,7 @@ import java.util.Locale;
 /**
  * Helper class for authenticator-URL related logic.
  */
-public abstract class AuthenticatorUrlUtils {
+public final class AuthenticatorUrlUtils {
     public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
 
     private static final String HTTPS_PROTOCOL = "https://";
@@ -40,6 +40,9 @@ public abstract class AuthenticatorUrlUtils {
 
     private static final String ODAV_PATH = "/remote.php/odav";
     private static final String SAML_SSO_PATH = "/remote.php/webdav";
+
+    private AuthenticatorUrlUtils() {
+    }
 
     /**
      * Returns the proper URL path to access the WebDAV interface of an ownCloud server,

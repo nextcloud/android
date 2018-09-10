@@ -36,7 +36,7 @@ import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_
 /**
  * Helper to simplify reading of Preferences all around the app
  */
-public abstract class PreferenceManager {
+public final class PreferenceManager {
     /**
      * Constant to access value of last path selected by the user to upload a file shared from other app.
      * Value handled by the app without direct access in the UI.
@@ -64,6 +64,9 @@ public abstract class PreferenceManager {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
+
+    private PreferenceManager() {
+    }
 
     public static void setKeysReInit(Context context) {
         saveBooleanPreference(context, PREF__KEYS_REINIT, true);
