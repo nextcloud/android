@@ -519,6 +519,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return output;
     }
 
+    public void setGridView(boolean gridView) {
+        this.gridView = gridView;
+    }
+
     static class LocalFileListItemViewHolder extends LocalFileListGridViewHolder {
         private final TextView fileSize;
         private final TextView lastModification;
@@ -530,6 +534,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             fileSize = itemView.findViewById(R.id.file_size);
             fileSeparator = itemView.findViewById(R.id.file_separator);
             lastModification = itemView.findViewById(R.id.last_mod);
+
+            itemView.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
         }
     }
 
@@ -547,7 +553,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             checkbox = itemView.findViewById(R.id.custom_checkbox);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
 
-            itemView.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
             itemView.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
             itemView.findViewById(R.id.favorite_action).setVisibility(View.GONE);
             itemView.findViewById(R.id.keptOfflineIcon).setVisibility(View.GONE);
