@@ -772,7 +772,9 @@
     <string name="whats_new_device_credentials_title">Использовать системные средства защиты</string>
     <string name="login">Войти</string>
     <string name="signup_with_provider">Подключиться через провайдера</string>
+    <string name="host_your_own_server">Разместите ваш собственный сервер</string>
     <string name="first_run_1_text">Храните ваши данные в безопасности и под вашим контролем.</string>
+    <string name="first_run_3_text">Легкие в использовании почта, календари &amp; контакты</string>
     <string name="whats_new_device_credentials_content">Для защиты данных могут быть использованы пароль, ПИН, защитный узор или отпечаток пальца.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>
