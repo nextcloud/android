@@ -766,7 +766,7 @@ public class FileDataStorageManager {
         }
     }
 
-    public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
+    public void migrateStoredFiles(String srcPath, String dstPath) throws RemoteException {
         Cursor cursor;
         try {
             if (getContentResolver() != null) {
