@@ -30,7 +30,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 /**
  * Helper calls for visibility logic of the sharing fragment.
  */
-public class FileDetailSharingFragmentHelper {
+public final class FileDetailSharingFragmentHelper {
     private FileDetailSharingFragmentHelper() {
         // Private empty constructor
     }
