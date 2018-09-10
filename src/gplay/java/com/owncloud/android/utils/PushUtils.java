@@ -71,7 +71,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Locale;
 
-public class PushUtils {
+public final class PushUtils {
 
     public static final String KEY_PUSH = "push";
     private static final String TAG = "PushUtils";
@@ -80,6 +80,9 @@ public class PushUtils {
     private static final String KEYPAIR_PRIV_EXTENSION = ".priv";
     private static final String KEYPAIR_PUB_EXTENSION = ".pub";
     private static ArbitraryDataProvider arbitraryDataProvider;
+
+    private PushUtils() {
+    }
 
     public static String generateSHA512Hash(String pushToken) {
         MessageDigest messageDigest = null;
