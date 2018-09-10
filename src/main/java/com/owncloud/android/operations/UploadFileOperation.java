@@ -699,12 +699,10 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
-            UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentFolder.getLocalId(), token);
-            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
-
-            return unlockFileOperationResult;
-        } else
+            return new UnlockFileOperation(parentFolder.getLocalId(), token).execute(client, true);
+        } else {
             return new RemoteOperationResult(new Exception("No token available"));
+        }
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
