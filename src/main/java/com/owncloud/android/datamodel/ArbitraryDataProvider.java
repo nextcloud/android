@@ -116,9 +116,7 @@ public class ArbitraryDataProvider {
     }
 
     public boolean getBooleanValue(String accountName, String key) {
-        String value = getValue(accountName, key);
-
-        return !value.isEmpty() && TRUE.equalsIgnoreCase(value);
+        return TRUE.equalsIgnoreCase(getValue(accountName, key));
     }
 
     public boolean getBooleanValue(Account account, String key) {
