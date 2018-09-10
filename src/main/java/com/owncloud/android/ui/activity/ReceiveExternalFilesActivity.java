@@ -538,10 +538,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
             String texts[] = extraText.split("\n");
-            if (texts.length != 3)
+            if (texts.length != 3) {
                 return false;
-            if (texts[0].length() == 0 || !subjectText.equals(texts[0]))
+            }
+
+            if (texts[0].length() == 0 || !subjectText.equals(texts[0])) {
                 return false;
+            }
+
             return texts[2].startsWith("https://goo.gl/maps/");
         }
 
