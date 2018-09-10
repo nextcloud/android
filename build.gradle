@@ -237,7 +237,7 @@ dependencies {
 
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
-    implementation ('com.github.bumptech.glide:glide:3.7.0') {
+    implementation ('com.github.bumptech.glide:glide:4.8.0') {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.3'
