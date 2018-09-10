@@ -20,6 +20,10 @@ group_defaults:
     enabled: false
   reset_on_reopened:
     enabled: true
+  conditions:
+    labels:
+      exclude:
+        - dependencies
 
 groups:
   code-review:
