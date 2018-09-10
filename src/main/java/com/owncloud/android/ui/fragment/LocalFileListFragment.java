@@ -271,6 +271,27 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         }
     }
 
+    @Override
+    public void switchToGridView() {
+        mAdapter.setGridView(true);
+        /**
+         * Set recyclerview adapter again to force new view for items. If this is not done
+         * a few items keep their old view.
+         *
+         * https://stackoverflow.com/questions/36495009/force-recyclerview-to-redraw-android
+         */
+        getRecyclerView().setAdapter(mAdapter);
+        super.switchToGridView();
+    }
+
+    @Override
+    public void switchToListView() {
+        mAdapter.setGridView(false);
+        /** Same problem here, see switchToGridView() */
+        getRecyclerView().setAdapter(mAdapter);
+        super.switchToListView();
+    }
+
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment
      */
