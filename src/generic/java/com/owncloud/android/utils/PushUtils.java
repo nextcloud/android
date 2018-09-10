@@ -28,8 +28,11 @@ import com.owncloud.android.db.PreferenceManager;
 
 import java.security.Key;
 
-public class PushUtils {
+public final class PushUtils {
     public static final String KEY_PUSH = "push";
+
+    private PushUtils() {
+    }
 
     public static void pushRegistrationToServer() {
         // do nothing
