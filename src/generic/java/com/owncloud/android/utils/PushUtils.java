@@ -47,7 +47,7 @@ public final class PushUtils {
         return null;
     }
 
-    public SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
+    public static SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
         return null;
     }
 

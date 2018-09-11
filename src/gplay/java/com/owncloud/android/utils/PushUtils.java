@@ -403,7 +403,7 @@ public final class PushUtils {
         }
     }
 
-    public SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
+    public static SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
         Signature signature = null;
         PublicKey publicKey;
         SignatureVerification signatureVerification = new SignatureVerification();
@@ -415,7 +415,6 @@ public final class PushUtils {
         String arbitraryValue;
         Gson gson = new Gson();
         PushConfigurationState pushArbitraryData;
-
 
         try {
             signature = Signature.getInstance("SHA512withRSA");
@@ -447,7 +446,7 @@ public final class PushUtils {
         return signatureVerification;
     }
 
-    private Key readKeyFromString(boolean readPublicKey, String keyString) {
+    private static Key readKeyFromString(boolean readPublicKey, String keyString) {
         String modifiedKey;
         if (readPublicKey) {
             modifiedKey = keyString.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----",
@@ -467,7 +466,6 @@ public final class PushUtils {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decode(modifiedKey, Base64.DEFAULT));
                 return keyFactory.generatePrivate(keySpec);
             }
-
         } catch (NoSuchAlgorithmException e) {
             Log.d("TAG", "No such algorithm while reading key from string");
         } catch (InvalidKeySpecException e) {
@@ -476,5 +474,4 @@ public final class PushUtils {
 
         return null;
     }
-
 }
