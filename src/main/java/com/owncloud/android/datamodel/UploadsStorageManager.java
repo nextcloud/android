@@ -45,12 +45,13 @@ import java.util.Observable;
  * information for each file.
  */
 public class UploadsStorageManager extends Observable {
+    private static final String TAG = UploadsStorageManager.class.getSimpleName();
 
     private static final String AND = " AND ";
-    static private final String TAG = UploadsStorageManager.class.getSimpleName();
+    private static final int SINGLE_RESULT = 1;
+
     private ContentResolver mContentResolver;
     private Context mContext;
-
 
     public UploadsStorageManager(ContentResolver contentResolver, Context context) {
         if (contentResolver == null) {
@@ -123,7 +124,7 @@ public class UploadsStorageManager extends Observable {
         );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
-        if (result != 1) {
+        if (result != SINGLE_RESULT) {
             Log_OC.e(TAG, "Failed to update item " + ocUpload.getLocalPath() + " into upload db.");
         } else {
             notifyObserversNow();
@@ -189,7 +190,7 @@ public class UploadsStorageManager extends Observable {
         );
 
         if (c != null) {
-            if (c.getCount() != 1) {
+            if (c.getCount() != SINGLE_RESULT) {
                 Log_OC.e(TAG, c.getCount() + " items for id=" + id
                         + " available in UploadDb. Expected 1. Failed to update upload db.");
             } else {

@@ -152,6 +152,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
+    private static final int SINGLE_SELECTION = 1;
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile;
@@ -894,7 +896,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return false;
         }
 
-        if (checkedFiles.size() == 1) {
+        if (checkedFiles.size() == SINGLE_SELECTION) {
             /// action only possible on a single file
             OCFile singleFile = checkedFiles.iterator().next();
             switch (menuId) {

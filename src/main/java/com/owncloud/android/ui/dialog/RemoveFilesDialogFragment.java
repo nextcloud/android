@@ -42,10 +42,10 @@ import java.util.Collection;
 public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implements
         ConfirmationDialogFragmentListener {
 
-    private Collection<OCFile> mTargetFiles;
-
+    private static final int SINGLE_SELECTION = 1;
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
 
+    private Collection<OCFile> mTargetFiles;
     private ActionMode actionMode;
 
     /**
@@ -81,7 +81,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
             containsFavorite |= file.isAvailableOffline();
         }
 
-        if (files.size() == 1) {
+        if (files.size() == SINGLE_SELECTION) {
             // choose message for a single file
             OCFile file = files.get(0);
 

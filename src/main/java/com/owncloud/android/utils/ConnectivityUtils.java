@@ -39,6 +39,7 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONObject;
 
@@ -73,10 +74,10 @@ public final class ConnectivityUtils {
                     int status = client.executeMethod(get);
 
                     if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                        return !(status == 204 &&
+                        return !(status == HttpStatus.SC_NO_CONTENT &&
                                 (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
                     } else {
-                        if (status == 200) {
+                        if (status == HttpStatus.SC_OK) {
                             try {
                                 // try parsing json to verify response
                                 // check if json contains maintenance and it should be false
