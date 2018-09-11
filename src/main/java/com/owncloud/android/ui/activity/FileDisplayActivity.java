@@ -86,6 +86,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
@@ -190,6 +191,8 @@ public class FileDisplayActivity extends HookActivity
     public static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
 
     public static final String TEXT_PREVIEW = "TEXT_PREVIEW";
+
+    private static final String VERSION_DOT = ".";
 
     private OCFile mWaitingToPreview;
 
@@ -365,8 +368,14 @@ public class FileDisplayActivity extends HookActivity
 
             if (MainApp.getVersionCode() > lastSeenVersion) {
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
+                
+                if (serverVersion == null) {
+                    OCCapability capability = getCapabilities();
+                    serverVersion = new OwnCloudVersion(capability.getVersionMayor() + VERSION_DOT +
+                            capability.getVersionMinor() + VERSION_DOT + capability.getVersionMicro());
+                }
 
-                if (serverVersion.compareTo(MainApp.OUTDATED_SERVER_VERSION) < 0) {
+                if (MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0) {
                     DisplayUtils.showServerOutdatedSnackbar(this);
                 }
 
