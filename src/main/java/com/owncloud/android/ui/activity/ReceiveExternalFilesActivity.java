@@ -315,9 +315,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
          *
          * @return list of account list items
          */
-        private ArrayList<AccountListItem> getAccountListItems(ReceiveExternalFilesActivity activity) {
+        private List<AccountListItem> getAccountListItems(ReceiveExternalFilesActivity activity) {
             Account[] accountList = activity.mAccountManager.getAccountsByType(MainApp.getAccountType(getActivity()));
-            ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
+            List<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
             for (Account account : accountList) {
                 adapterAccountList.add(new AccountListItem(account));
             }

@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -23,6 +23,7 @@ package com.owncloud.android.datastorage.providers;
 
 import com.owncloud.android.datastorage.StoragePoint;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Pattern;
@@ -42,8 +43,8 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
     }
 
     @Override
-    public Vector<StoragePoint> getAvailableStoragePoint() {
-        Vector<StoragePoint> result = new Vector<>();
+    public List<StoragePoint> getAvailableStoragePoint() {
+        List<StoragePoint> result = new Vector<>();
 
         for (String p : getPotentialPaths(getCommandLineResult())) {
             if (canBeAddedToAvailableList(result, p)) {
@@ -54,8 +55,8 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
         return result;
     }
 
-    private Vector<String> getPotentialPaths(String mounted) {
-        final Vector<String> result = new Vector<>();
+    private List<String> getPotentialPaths(String mounted) {
+        final List<String> result = new Vector<>();
 
         for (String line : mounted.split("\n")) {
             if (!line.toLowerCase(Locale.US).contains("asec") && sPattern.matcher(line).matches()) {
