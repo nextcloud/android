@@ -870,7 +870,8 @@ public class ThumbnailsCacheManager {
                     // we are using eTag to download a new avatar only if it changed
                     switch (status) {
                         case HttpStatus.SC_OK:
-                            // new avatar
+                        case HttpStatus.SC_CREATED:
+						    // new avatar
                             InputStream inputStream = get.getResponseBodyAsStream();
 
                             String newETag = null;
