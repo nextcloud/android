@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -33,6 +33,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+
+import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
                     errorMessage = result.getLogMessage();
-                    if (result.getHttpCode() == 304) {
+                    if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
                         errorMessage = context.getString(R.string.file_list_empty_headline_server_search);
                     }
                     return false;

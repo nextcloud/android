@@ -69,6 +69,8 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.apache.commons.httpclient.HttpStatus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -332,7 +334,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
                     String logMessage = result.getLogMessage();
-                    if (result.getHttpCode() == 304) {
+                    if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
                         logMessage = noResultsMessage;
                     }
                     final String finalLogMessage = logMessage;
