@@ -185,6 +185,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                                 try {
                                     String privateKey = task.get();
+                                    String mnemonicUnchanged = passwordField.getText().toString();
                                     String mnemonic = passwordField.getText().toString().replaceAll("\\s", "")
                                             .toLowerCase(Locale.ROOT);
                                     String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
@@ -197,7 +198,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                     Log_OC.d(TAG, "Private key successfully decrypted and stored");
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.MNEMONIC,
-                                            mnemonic);
+                                            mnemonicUnchanged);
 
                                     Intent intentExisting = new Intent();
                                     intentExisting.putExtra(SUCCESS, true);
