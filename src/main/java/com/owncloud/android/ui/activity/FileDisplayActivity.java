@@ -372,7 +372,7 @@ public class FileDisplayActivity extends HookActivity
                 if (serverVersion == null) {
                     OCCapability capability = getCapabilities();
                     serverVersion = new OwnCloudVersion(capability.getVersionMayor() + VERSION_DOT +
-                            capability.getVersionMinor() + VERSION_DOT + capability.getVersionMinor());
+                            capability.getVersionMinor() + VERSION_DOT + capability.getVersionMicro());
                 }
 
                 if (MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0) {
