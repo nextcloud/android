@@ -71,11 +71,10 @@ public class NotificationJob extends Job {
             try {
                 byte[] base64DecodedSubject = Base64.decode(subject, Base64.DEFAULT);
                 byte[] base64DecodedSignature = Base64.decode(signature, Base64.DEFAULT);
-                PushUtils pushUtils = new PushUtils();
                 PrivateKey privateKey = (PrivateKey) PushUtils.readKeyFromFile(false);
 
                 try {
-                    SignatureVerification signatureVerification = pushUtils.verifySignature(context,
+                    SignatureVerification signatureVerification = PushUtils.verifySignature(context,
                             base64DecodedSignature, base64DecodedSubject);
 
                     if (signatureVerification.isSignatureValid()) {
