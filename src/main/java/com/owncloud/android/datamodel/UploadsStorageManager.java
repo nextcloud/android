@@ -272,7 +272,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getAllStoredUploads() {
-        return getUploads(null, null);
+        return getUploads(null, (String[]) null);
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
@@ -393,7 +393,7 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFinishedUploads() {
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, (String[]) null);
     }
 
     public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
@@ -432,7 +432,7 @@ public class UploadsStorageManager extends Observable {
                         "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
                         AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue(),
-                null
+                (String[]) null
         );
     }
 

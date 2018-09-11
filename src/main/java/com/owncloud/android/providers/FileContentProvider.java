@@ -175,14 +175,14 @@ public class FileContentProvider extends ContentProvider {
                                 db,
                                 ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
                                 null,
-                                null
+                                (String[]) null
                         );
                     } else {
                         count += delete(
                                 db,
                                 ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
                                 null,
-                                null
+                                (String[]) null
                         );
                     }
                     children.moveToNext();
