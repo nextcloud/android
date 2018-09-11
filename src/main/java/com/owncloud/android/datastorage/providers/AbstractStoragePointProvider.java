@@ -25,7 +25,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 
 import java.io.File;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * @author Bartosz Przybylski
