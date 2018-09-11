@@ -298,7 +298,6 @@ public final class PushUtils {
             fileInputStream = new FileInputStream(path);
             byte[] bytes = new byte[fileInputStream.available()];
             fileInputStream.read(bytes);
-            fileInputStream.close();
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
@@ -318,6 +317,14 @@ public final class PushUtils {
             Log_OC.d(TAG, "InvalidKeySpecException while reading the key");
         } catch (NoSuchAlgorithmException e) {
             Log_OC.d(TAG, "RSA algorithm not supported");
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing input stream during reading key from file", e);
+                }
+            }
         }
 
         return null;
@@ -334,12 +341,19 @@ public final class PushUtils {
             }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);
-            keyFileOutputStream.close();
             return 0;
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, "Failed to save key to file");
         } catch (IOException e) {
             Log_OC.d(TAG, "Failed to save key to file via IOException");
+        } finally {
+            if (keyFileOutputStream != null) {
+                try {
+                    keyFileOutputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing input stream during reading key from file", e);
+                }
+            }
         }
 
         return -1;

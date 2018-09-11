@@ -571,8 +571,9 @@ public final class EncryptionUtils {
      */
 
     public static String getMD5Sum(File file) {
+        FileInputStream fileInputStream = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream = new FileInputStream(file);
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] bytes = new byte[2048];
             int readBytes;
@@ -585,6 +586,14 @@ public final class EncryptionUtils {
 
         } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage());
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error getting MD5 checksum for file", e);
+                }
+            }
         }
 
         return "";
