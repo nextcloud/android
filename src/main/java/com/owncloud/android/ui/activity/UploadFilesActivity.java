@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -82,6 +82,7 @@ public class UploadFilesActivity extends FileActivity implements
         OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener {
 
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
+    private static final int SINGLE_DIR = 1;
 
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir;
@@ -333,7 +334,7 @@ public class UploadFilesActivity extends FileActivity implements
             mSearchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else {
-            if (mDirectories.getCount() <= 1) {
+            if (mDirectories.getCount() <= SINGLE_DIR) {
                 finish();
                 return;
             }

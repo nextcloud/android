@@ -644,6 +644,9 @@ public final class ThumbnailsCacheManager {
     }
 
     public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+
+        private static final int IMAGE_KEY_PARAMS_LENGTH = 2;
+
         private enum Type {IMAGE, VIDEO}
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
@@ -663,7 +666,7 @@ public final class ThumbnailsCacheManager {
             try {
                 if (params[0] instanceof File) {
                     mFile = (File) params[0];
-                    if (params.length == 2) {
+                    if (params.length == IMAGE_KEY_PARAMS_LENGTH) {
                         mImageKey = (String) params[1];
                     }
 
