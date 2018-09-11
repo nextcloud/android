@@ -221,7 +221,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
     implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
     implementation "com.android.support:exifinterface:${supportLibraryVersion}"
-    implementation 'com.github.albfernandez:juniversalchardet:2.1.0'
+    implementation 'com.github.albfernandez:juniversalchardet:2.2.0'
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.evernote:android-job:v1.2.5'
