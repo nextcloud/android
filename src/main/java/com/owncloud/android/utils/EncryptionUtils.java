@@ -69,6 +69,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.crypto.BadPaddingException;
@@ -86,7 +87,6 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Utils for encryption
  */
-
 public final class EncryptionUtils {
     private static String TAG = EncryptionUtils.class.getSimpleName();
 
@@ -95,8 +95,8 @@ public final class EncryptionUtils {
     public static final String MNEMONIC = "MNEMONIC";
     public static final int ivLength = 16;
     public static final int saltLength = 40;
-    public static final String HASH_DELIMITER = "$";
 
+    private static final String HASH_DELIMITER = "$";
     private static final String ivDelimiter = "fA=="; // "|" base64 encoded
     private static final int iterationCount = 1024;
     private static final int keyStrength = 256;
@@ -590,7 +590,7 @@ public final class EncryptionUtils {
         return "";
     }
 
-    public static ArrayList<String> getRandomWords(int count, Context context) throws IOException {
+    public static List<String> getRandomWords(int count, Context context) throws IOException {
         InputStream ins = context.getResources().openRawResource(context.getResources()
                 .getIdentifier("encryption_key_words", "raw", context.getPackageName()));
 
@@ -598,7 +598,7 @@ public final class EncryptionUtils {
 
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-        ArrayList<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             lines.add(line);
@@ -606,7 +606,7 @@ public final class EncryptionUtils {
 
         SecureRandom random = new SecureRandom();
 
-        ArrayList<String> outputLines = new ArrayList<>();
+        List<String> outputLines = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             int randomLine = random.nextInt(lines.size());
             outputLines.add(lines.get(randomLine));

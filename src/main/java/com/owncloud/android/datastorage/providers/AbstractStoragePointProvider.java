@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -24,6 +24,7 @@ package com.owncloud.android.datastorage.providers;
 import com.owncloud.android.datastorage.StoragePoint;
 
 import java.io.File;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -31,7 +32,7 @@ import java.util.Vector;
  */
 abstract class AbstractStoragePointProvider implements IStoragePointProvider {
 
-    boolean canBeAddedToAvailableList(Vector<StoragePoint> currentList, String path) {
+    boolean canBeAddedToAvailableList(List<StoragePoint> currentList, String path) {
         if (path == null) {
             return false;
         }

@@ -1466,8 +1466,8 @@ public class FileDataStorageManager {
         }
     }
 
-    public void saveSharesDB(ArrayList<OCShare> shares) {
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+    public void saveSharesDB(List<OCShare> shares) {
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
 
         // Reset flags & Remove shares for this files
         String filePath = "";
@@ -1581,7 +1581,7 @@ public class FileDataStorageManager {
      * @return
      */
     private ArrayList<ContentProviderOperation> prepareInsertShares(
-            ArrayList<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
+            List<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         if (shares != null) {
             // prepare operations to insert or update files to save in the given folder

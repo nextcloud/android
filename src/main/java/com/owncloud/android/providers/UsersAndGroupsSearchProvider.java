@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package com.owncloud.android.providers;
 
 import android.accounts.Account;
@@ -32,6 +31,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -84,7 +85,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     private UriMatcher mUriMatcher;
 
-    private static HashMap<String, ShareType> sShareTypes = new HashMap<>();
+    private static Map<String, ShareType> sShareTypes = new HashMap<>();
 
     public static ShareType getShareType(String authority) {
 
@@ -93,7 +94,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         // TODO implement
         return null;
     }
@@ -119,7 +120,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * TODO description
-     * <p/>
+     *
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formattted as
@@ -133,7 +134,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      */
     @Nullable
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         Log_OC.d(TAG, "query received in thread " + Thread.currentThread().getName());
 
         int match = mUriMatcher.match(uri);
@@ -240,19 +241,19 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         // TODO implementation
         return null;
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
     }
@@ -283,5 +284,4 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             }
         });
     }
-
 }

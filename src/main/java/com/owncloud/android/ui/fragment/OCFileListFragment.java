@@ -117,6 +117,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -180,7 +181,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
 
-    private ArrayList<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -439,7 +440,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /**
          * Selected items in list when action mode is closed by drawer
          */
-        private HashSet<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
+        private Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
 
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -486,7 +487,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mActionModeClosedByDrawer = true;
             }
         }
-
 
         /**
          * Update action mode bar when an item is selected / unselected in the list
