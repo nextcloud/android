@@ -304,6 +304,9 @@
             android:exported="true" >
         </service>
 
+        <activity
+            android:name=".ui.activity.SsoGrantPermissionActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
