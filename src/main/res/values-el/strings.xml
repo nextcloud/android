@@ -32,10 +32,16 @@
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
-	<string name="prefs_category_general">Γενικά</string>
+	<string name="drawer_close">Κλείσιμο πλευρικής στήλης</string>
+    <string name="drawer_open">Άνοιγμα πλευρικής στήλης</string>
+    <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_lock_none">Τίποτα</string>
+    <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
+    <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
+    <string name="prefs_lock_device_credentials_enabled">Ενεργοποιημένα διαπιστευτήρια συσκευής</string>
+    <string name="prefs_lock_device_credentials_not_setup">Δεν έχουν ρυθμιστεί διαπιστευτήρια συσκευής</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
@@ -61,7 +67,7 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
-    <string name="uploader_btn_alternative_text">Επιλέξτε</string>
+    <string name="uploader_btn_alternative_text">Επιλογή</string>
     <string name="uploader_top_message">Επιλογή φακέλου μεταφόρτωσης</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
@@ -181,13 +187,20 @@
     <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
+    <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
+    <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
+    
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
     <string name="pass_code_configure_your_pass_code_explanation">Ο κωδικός πρόσβασης θα ζητείται κάθε φορά που εκκινεί η εφαρμογή</string>
     <string name="pass_code_reenter_your_pass_code">Παρακαλούμε εισάγετε ξανά τον κωδικό πρόσβασης</string>
+    <string name="pass_code_remove_your_pass_code">Διαγραφή κωδικού πρόσβασης</string>
     <string name="pass_code_mismatch">Οι κωδικοί πρόσβασης δεν ταιριάζουν</string>
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
+    <string name="pass_code_removed">Διεγράφη ο κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     
+    <string name="media_notif_ticker">%1$sαναπαραγωγή μουσικής</string>
+    <string name="media_state_playing">%1$s(αναπαραγωγή)</string>
     <string name="media_state_loading">%1$s(φόρτωση)</string>
     <string name="media_err_nothing_to_play">Δεν βρέθηκαν αρχεία πολυμέσων</string>
     <string name="media_err_not_in_owncloud">Το αρχείο δεν είναι έγκυρος λογαριασμός</string>
@@ -234,6 +247,8 @@
     <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="favorite_real">Προσθήκη στα αγαπημένα</string>
     <string name="unset_favorite_real">Αφαίρεση από τα αγαπημένα</string>
+    <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
+    <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Διαγραφή</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
@@ -578,14 +593,17 @@
     <string name="resized_images_download_full_image">Λήψη πλήρους εικόνας;</string>
 
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
+    <string name="drawer_middle_account">Μεσαίος λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
     <string name="activity_icon">Δραστηριότητα</string>
     <string name="file_icon">Αρχείο</string>
     <string name="user_icon">Χρήστης</string>
     <string name="favorite_icon">Αγαπημένο</string>
     <string name="available_offline_icon">Διαθέσιμα εκτός σύνδεσης</string>
+    <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>
+    <string name="overflow_menu">Περισσότερο μενού</string>
     <string name="sort_by_name_ascending">Α - Ω</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
     <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>
@@ -593,7 +611,9 @@
     <string name="sort_by_name_descending">Ω - Α</string>
     <string name="sort_by_modification_date_descending">Παλαιότερο πρώτα</string>
     <string name="synced_folders_type">Τύπος</string>
+    <string name="sync_status_button">Κουμπί κατάστασης συγχρονισμού</string>
     <string name="synced_folder_settings_button">Κουμπί ρυθμίσεων</string>
+    <string name="synced_folder_custom_folder_image">Προσαρμοσμένη εικόνα φακέλου</string>
     <string name="dev_version_no_information_available">Καμία διαθέσιμη πληροφορία.</string>
     <string name="dev_version_no_new_version_available">Καμία διαθέσιμη νέα έκδοση.</string>
     <string name="folder_icon">Εικονίδιο φακέλου</string>
@@ -607,6 +627,7 @@
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
     <string name="notification_channel_upload_description">Εμφάνισης προόδου μεταφόρτωσης</string>
     <string name="notification_channel_media_name">Αναπαραγωγή πολυμέσων</string>
+    <string name="notification_channel_media_description">Πρόοδος αναπαραγωγής μουσικής</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
 
@@ -614,6 +635,8 @@
     <string name="userinfo_no_info_headline">Δεν ορίστηκαν προσωπικές πληροφορίες</string>
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
+    <string name="end_to_end_encryption_wrong_password">Σφάλμα κατά την αποκρυπτογράφηση. Εσφαλμένο συνθηματικό;</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
     <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>
     <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
@@ -637,14 +660,23 @@
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="new_comment">Νέο σχόλιο…</string>
+    <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
+    <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
     <string name="dismiss">Αποδέσμευση</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
+    <string name="action_empty_trashbin">Άδειασμα κάδου</string>
+    <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
+    <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
+    <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
+    <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="file_delete">Διαγραφή</string>
+    <string name="file_keep">Διατήρηση</string>
     <string name="file_rename">Μετονομασία</string>
-    </resources>
+    <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
+</resources>
