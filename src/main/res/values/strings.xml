@@ -819,4 +819,5 @@
     <string name="account_creation_failed">Account creation failed</string>
 
     <string name="single_sign_on_request_token" formatted="true">App %1$s wants access to your Nextcloud account (%2$s), do you want to grant permission?</string>
+    <string name="single_sign_on_request_token_app_icon" translatable="false">AppIcon</string>
 </resources>

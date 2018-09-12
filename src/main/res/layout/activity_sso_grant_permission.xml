@@ -39,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/background"
-        app:layout_constraintTop_toBottomOf="@id/tvInfoText"/>
+        app:layout_constraintTop_toBottomOf="@id/tvInfoText"
+        android:contentDescription="@string/single_sign_on_request_token_app_icon" />
 
 </android.support.constraint.ConstraintLayout>
