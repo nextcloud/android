@@ -115,7 +115,7 @@ public final class DisplayUtils {
     private static final String TWITTER_HANDLE_PREFIX = "@";
     private static final int MIMETYPE_PARTS_COUNT = 2;
     private static final int BYTE_SIZE_DIVIDER = 1024;
-    private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.;
+    private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
 
     private static Map<String, String> mimeType2HumanReadable;
