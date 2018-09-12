@@ -2081,6 +2081,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private abstract static class RightDrawableOnTouchListener implements OnTouchListener {
 
+        private static final int RIGHT_DRAWABLE_COMPOUND_DRAWABLES_LENGTH = 2;
+
         private int fuzz = 75;
 
         /**
@@ -2091,7 +2093,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Drawable rightDrawable = null;
             if (view instanceof TextView) {
                 Drawable[] drawables = ((TextView) view).getCompoundDrawables();
-                if (drawables.length > 2) {
+                if (drawables.length > RIGHT_DRAWABLE_COMPOUND_DRAWABLES_LENGTH) {
                     rightDrawable = drawables[2];
                 }
             }

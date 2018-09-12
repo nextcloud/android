@@ -71,7 +71,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Locale;
 
-public class PushUtils {
+public final class PushUtils {
 
     public static final String KEY_PUSH = "push";
     private static final String TAG = "PushUtils";
@@ -80,6 +80,9 @@ public class PushUtils {
     private static final String KEYPAIR_PRIV_EXTENSION = ".priv";
     private static final String KEYPAIR_PUB_EXTENSION = ".pub";
     private static ArbitraryDataProvider arbitraryDataProvider;
+
+    private PushUtils() {
+    }
 
     public static String generateSHA512Hash(String pushToken) {
         MessageDigest messageDigest = null;
@@ -295,7 +298,6 @@ public class PushUtils {
             fileInputStream = new FileInputStream(path);
             byte[] bytes = new byte[fileInputStream.available()];
             fileInputStream.read(bytes);
-            fileInputStream.close();
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
@@ -315,6 +317,14 @@ public class PushUtils {
             Log_OC.d(TAG, "InvalidKeySpecException while reading the key");
         } catch (NoSuchAlgorithmException e) {
             Log_OC.d(TAG, "RSA algorithm not supported");
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing input stream during reading key from file", e);
+                }
+            }
         }
 
         return null;
@@ -331,12 +341,19 @@ public class PushUtils {
             }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);
-            keyFileOutputStream.close();
             return 0;
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, "Failed to save key to file");
         } catch (IOException e) {
             Log_OC.d(TAG, "Failed to save key to file via IOException");
+        } finally {
+            if (keyFileOutputStream != null) {
+                try {
+                    keyFileOutputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing input stream during reading key from file", e);
+                }
+            }
         }
 
         return -1;
@@ -400,7 +417,7 @@ public class PushUtils {
         }
     }
 
-    public SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
+    public static SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
         Signature signature = null;
         PublicKey publicKey;
         SignatureVerification signatureVerification = new SignatureVerification();
@@ -412,7 +429,6 @@ public class PushUtils {
         String arbitraryValue;
         Gson gson = new Gson();
         PushConfigurationState pushArbitraryData;
-
 
         try {
             signature = Signature.getInstance("SHA512withRSA");
@@ -444,7 +460,7 @@ public class PushUtils {
         return signatureVerification;
     }
 
-    private Key readKeyFromString(boolean readPublicKey, String keyString) {
+    private static Key readKeyFromString(boolean readPublicKey, String keyString) {
         String modifiedKey;
         if (readPublicKey) {
             modifiedKey = keyString.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----",
@@ -464,7 +480,6 @@ public class PushUtils {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decode(modifiedKey, Base64.DEFAULT));
                 return keyFactory.generatePrivate(keySpec);
             }
-
         } catch (NoSuchAlgorithmException e) {
             Log.d("TAG", "No such algorithm while reading key from string");
         } catch (InvalidKeySpecException e) {
@@ -473,5 +488,4 @@ public class PushUtils {
 
         return null;
     }
-
 }

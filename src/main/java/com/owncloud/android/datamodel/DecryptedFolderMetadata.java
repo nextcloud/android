@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Decrypted class representation of metadata json of folder metadata
+ * Decrypted class representation of metadata json of folder metadata.
  */
 public class DecryptedFolderMetadata {
     private Metadata metadata;
@@ -36,7 +36,7 @@ public class DecryptedFolderMetadata {
         this.files = new HashMap<>();
     }
 
-    public DecryptedFolderMetadata(Metadata metadata, HashMap<String, DecryptedFile> files) {
+    public DecryptedFolderMetadata(Metadata metadata, Map<String, DecryptedFile> files) {
         this.metadata = metadata;
         this.files = files;
     }

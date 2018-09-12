@@ -33,7 +33,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 /**
  * A helper class for drawer menu related operations.
  */
-public class DrawerMenuUtil {
+public final class DrawerMenuUtil {
     private DrawerMenuUtil() {
     }
 
@@ -67,18 +67,17 @@ public class DrawerMenuUtil {
     }
 
     public static void filterTrashbinMenuItem(Menu menu, @Nullable Account account, @Nullable OCCapability capability) {
-        if (account != null && capability != null) {
-            if (AccountUtils.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
-                    capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown()) {
-                filterMenuItems(menu, R.id.nav_trashbin);
-            }
+        if (account != null && capability != null &&
+                (AccountUtils.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
+                        capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown())) {
+            filterMenuItems(menu, R.id.nav_trashbin);
         }
     }
 
     public static void filterActivityMenuItem(Menu menu, @Nullable OCCapability capability) {
         if (capability != null && capability.isActivityEnabled().isFalse()) {
-                filterMenuItems(menu, R.id.nav_activity);
-            }
+            filterMenuItems(menu, R.id.nav_activity);
+        }
     }
 
     public static void removeMenuItem(Menu menu, int id, boolean remove) {

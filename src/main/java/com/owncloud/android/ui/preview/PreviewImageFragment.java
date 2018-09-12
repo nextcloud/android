@@ -412,6 +412,7 @@ public class PreviewImageFragment extends FileFragment {
 
 
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
+        private static final int PARAMS_LENGTH = 1;
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
@@ -422,7 +423,7 @@ public class PreviewImageFragment extends FileFragment {
         private final WeakReference<PhotoView> mImageViewRef;
 
         /**
-         * Error message to show when a load fails
+         * Error message to show when a load fails.
          */
         private int mErrorMessageId;
 
@@ -440,7 +441,7 @@ public class PreviewImageFragment extends FileFragment {
         protected LoadImage doInBackground(OCFile... params) {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE);
 
-            if (params.length != 1) {
+            if (params.length != PARAMS_LENGTH) {
                 return null;
             }
 

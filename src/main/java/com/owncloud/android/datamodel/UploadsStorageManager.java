@@ -45,12 +45,13 @@ import java.util.Observable;
  * information for each file.
  */
 public class UploadsStorageManager extends Observable {
+    private static final String TAG = UploadsStorageManager.class.getSimpleName();
 
     private static final String AND = " AND ";
-    static private final String TAG = UploadsStorageManager.class.getSimpleName();
+    private static final int SINGLE_RESULT = 1;
+
     private ContentResolver mContentResolver;
     private Context mContext;
-
 
     public UploadsStorageManager(ContentResolver contentResolver, Context context) {
         if (contentResolver == null) {
@@ -123,7 +124,7 @@ public class UploadsStorageManager extends Observable {
         );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
-        if (result != 1) {
+        if (result != SINGLE_RESULT) {
             Log_OC.e(TAG, "Failed to update item " + ocUpload.getLocalPath() + " into upload db.");
         } else {
             notifyObserversNow();
@@ -189,7 +190,7 @@ public class UploadsStorageManager extends Observable {
         );
 
         if (c != null) {
-            if (c.getCount() != 1) {
+            if (c.getCount() != SINGLE_RESULT) {
                 Log_OC.e(TAG, c.getCount() + " items for id=" + id
                         + " available in UploadDb. Expected 1. Failed to update upload db.");
             } else {
@@ -272,7 +273,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getAllStoredUploads() {
-        return getUploads(null, null);
+        return getUploads(null, (String[]) null);
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
@@ -393,7 +394,7 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFinishedUploads() {
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, (String[]) null);
     }
 
     public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
@@ -432,7 +433,7 @@ public class UploadsStorageManager extends Observable {
                         "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
                         AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue(),
-                null
+                (String[]) null
         );
     }
 

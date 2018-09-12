@@ -280,6 +280,8 @@ public final class FileStorageUtils {
         }
     }
 
+    @SuppressFBWarnings(value="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE",
+            justification="False-positive on the output stream")
     public static boolean copyFile(File src, File target) {
         boolean ret = true;
 

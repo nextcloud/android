@@ -78,7 +78,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Manager for concurrent access to thumbnails cache.
  */
-public class ThumbnailsCacheManager {
+public final class ThumbnailsCacheManager {
 
     public static final String PREFIX_RESIZED_IMAGE = "r";
     public static final String PREFIX_THUMBNAIL = "t";
@@ -103,6 +103,9 @@ public class ThumbnailsCacheManager {
 
     public static final Bitmap mDefaultVideo = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_movie);
+
+    private ThumbnailsCacheManager() {
+    }
     
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
         @Override
@@ -641,6 +644,9 @@ public class ThumbnailsCacheManager {
     }
 
     public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+
+        private static final int IMAGE_KEY_PARAMS_LENGTH = 2;
+
         private enum Type {IMAGE, VIDEO}
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
@@ -660,7 +666,7 @@ public class ThumbnailsCacheManager {
             try {
                 if (params[0] instanceof File) {
                     mFile = (File) params[0];
-                    if (params.length == 2) {
+                    if (params.length == IMAGE_KEY_PARAMS_LENGTH) {
                         mImageKey = (String) params[1];
                     }
 

@@ -86,6 +86,9 @@ public class FileContentProvider extends ContentProvider {
     private static final String ADD_COLUMN = " ADD COLUMN ";
     private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
+    private static final int SINGLE_PATH_SEGMENT = 1;
+    public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
+
     private DataBaseHelper mDbHelper;
     private Context mContext;
     private UriMatcher mUriMatcher;
@@ -175,14 +178,14 @@ public class FileContentProvider extends ContentProvider {
                                 db,
                                 ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
                                 null,
-                                null
+                                (String[]) null
                         );
                     } else {
                         count += delete(
                                 db,
                                 ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
                                 null,
-                                null
+                                (String[]) null
                         );
                     }
                     children.moveToNext();
@@ -501,67 +504,66 @@ public class FileContentProvider extends ContentProvider {
             case ROOT_DIRECTORY:
                 break;
             case DIRECTORY:
-                String folderId = uri.getPathSegments().get(1);
                 sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "="
-                        + folderId);
+                        + uri.getPathSegments().get(1));
                 break;
             case SINGLE_FILE:
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case SHARES:
                 sqlQuery.setTables(ProviderTableMeta.OCSHARES_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case CAPABILITIES:
                 sqlQuery.setTables(ProviderTableMeta.CAPABILITIES_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case UPLOADS:
                 sqlQuery.setTables(ProviderTableMeta.UPLOADS_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case SYNCED_FOLDERS:
                 sqlQuery.setTables(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case EXTERNAL_LINKS:
                 sqlQuery.setTables(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case ARBITRARY_DATA:
                 sqlQuery.setTables(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
                 break;
             case VIRTUAL:
                 sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
                 }
                 break;
             case FILESYSTEM:
                 sqlQuery.setTables(ProviderTableMeta.FILESYSTEM_TABLE_NAME);
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "="
                             + uri.getPathSegments().get(1));
                 }
@@ -1629,7 +1631,7 @@ public class FileContentProvider extends ContentProvider {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
                     }
-                    if (oldVersion > 20) {
+                    if (oldVersion > ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION) {
                         if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
                                 ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
                             db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +

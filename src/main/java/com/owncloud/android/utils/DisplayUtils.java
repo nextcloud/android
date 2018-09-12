@@ -113,6 +113,10 @@ public final class DisplayUtils {
     private static final String HTTP_PROTOCOL = "http://";
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
+    private static final int MIMETYPE_PARTS_COUNT = 2;
+    private static final int BYTE_SIZE_DIVIDER = 1024;
+    private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
+    private static final int DATE_TIME_PARTS_SIZE = 2;
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -152,8 +156,8 @@ public final class DisplayUtils {
         } else {
             double result = bytes;
             int suffixIndex = 0;
-            while (result > 1024 && suffixIndex < sizeSuffixes.length) {
-                result /= 1024.;
+            while (result > BYTE_SIZE_DIVIDER && suffixIndex < sizeSuffixes.length) {
+                result /= BYTE_SIZE_DIVIDER_DOUBLE;
                 suffixIndex++;
             }
 
@@ -173,7 +177,7 @@ public final class DisplayUtils {
         if (mimeType2HumanReadable.containsKey(mimetype)) {
             return mimeType2HumanReadable.get(mimetype);
         }
-        if (mimetype.split("/").length >= 2) {
+        if (mimetype.split("/").length >= MIMETYPE_PARTS_COUNT) {
             return mimetype.split("/")[1].toUpperCase(Locale.getDefault()) + " file";
         }
         return MIME_TYPE_UNKNOWN;
@@ -351,7 +355,7 @@ public final class DisplayUtils {
         }
 
         String[] parts = dateString.toString().split(",");
-        if (parts.length == 2) {
+        if (parts.length == DATE_TIME_PARTS_SIZE) {
             if (parts[1].contains(":") && !parts[0].contains(":")) {
                 return parts[0];
             } else if (parts[0].contains(":") && !parts[1].contains(":")) {

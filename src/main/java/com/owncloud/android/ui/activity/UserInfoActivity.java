@@ -301,8 +301,9 @@ public class UserInfoActivity extends FileActivity {
 
     private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text,
                                    @StringRes int contentDescriptionInt) {
-        if (!TextUtils.isEmpty(text))
+        if (!TextUtils.isEmpty(text)) {
             info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
+        }
     }
 
     public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager,

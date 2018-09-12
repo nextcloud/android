@@ -193,6 +193,7 @@ public class    PreviewTextFragment extends FileFragment {
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
+        private static final int PARAMS_LENGTH = 1;
         private final WeakReference<TextView> mTextViewReference;
 
         private TextLoadAsyncTask(WeakReference<TextView> textView) {
@@ -206,8 +207,9 @@ public class    PreviewTextFragment extends FileFragment {
 
         @Override
         protected StringWriter doInBackground(java.lang.Object... params) {
-            if (params.length != 1) {
-                throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location");
+            if (params.length != PARAMS_LENGTH) {
+                throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName()
+                        + " must be (1) the file location");
             }
             String location = (String) params[0];
 

@@ -315,9 +315,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
          *
          * @return list of account list items
          */
-        private ArrayList<AccountListItem> getAccountListItems(ReceiveExternalFilesActivity activity) {
+        private List<AccountListItem> getAccountListItems(ReceiveExternalFilesActivity activity) {
             Account[] accountList = activity.mAccountManager.getAccountsByType(MainApp.getAccountType(getActivity()));
-            ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
+            List<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
             for (Account account : accountList) {
                 adapterAccountList.add(new AccountListItem(account));
             }
@@ -332,6 +332,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private static final int CATEGORY_URL = 1;
         private static final int CATEGORY_MAPS_URL = 2;
+        private static final int EXTRA_TEXT_LENGTH = 3;
+        private static final int SINGLE_SPINNER_ENTRY = 1;
 
         private List<String> mFilenameBase;
         private List<String> mFilenameSuffix;
@@ -430,9 +432,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
-            if (adapter.getCount() == 1) {
-                TextView label = view.findViewById(R.id.label_file_type);
-                label.setVisibility(View.GONE);
+            if (adapter.getCount() == SINGLE_SPINNER_ENTRY) {
+                view.findViewById(R.id.label_file_type).setVisibility(View.GONE);
                 spinner.setVisibility(View.GONE);
             }
             mSpinner = spinner;
@@ -538,10 +539,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
             String texts[] = extraText.split("\n");
-            if (texts.length != 3)
+            if (texts.length != EXTRA_TEXT_LENGTH) {
                 return false;
-            if (texts[0].length() == 0 || !subjectText.equals(texts[0]))
+            }
+
+            if (texts[0].length() == 0 || !subjectText.equals(texts[0])) {
                 return false;
+            }
+
             return texts[2].startsWith("https://goo.gl/maps/");
         }
 
@@ -625,7 +630,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     public void onBackPressed() {
-        if (mParents.size() <= 1) {
+        if (mParents.size() <= SINGLE_PARENT) {
             super.onBackPressed();
         } else {
             mParents.pop();

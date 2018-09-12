@@ -344,7 +344,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(ArrayList<Object> folderAndFiles) {
+    private void synchronizeData(List<Object> folderAndFiles) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
@@ -397,10 +397,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             // prepare content synchronization for kept-in-sync files
             if (updatedFile.isAvailableOffline()) {
-                SynchronizeFileOperation operation = new SynchronizeFileOperation(localFile, remoteFile, mAccount, true,
-                        mContext);
-
-                mFilesToSyncContents.add(operation);
+                mFilesToSyncContents.add(
+                        new SynchronizeFileOperation(localFile, remoteFile, mAccount, true, mContext)
+                );
             }
 
             // update file name for encrypted files
