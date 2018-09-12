@@ -33,7 +33,6 @@ import android.util.Log;
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
 import com.nextcloud.android.sso.aidl.ParcelFileDescriptorUtil;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -64,6 +63,7 @@ import static com.nextcloud.android.sso.Constants.EXCEPTION_HTTP_REQUEST_FAILED;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_REQUEST_URL;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_TOKEN;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_UNSUPPORTED_METHOD;
+import static com.nextcloud.android.sso.Constants.SSO_SHARED_PREFERENCE;
 
 
 /**
@@ -220,7 +220,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private boolean isValid(NextcloudRequest request) {
         String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(AccountAuthenticator.SSO_SHARED_PREFERENCE,
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SSO_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE);
         String hash = sharedPreferences.getString(callingPackageName, "");
         return validateToken(hash, request.getToken());
