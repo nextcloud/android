@@ -57,28 +57,29 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         setContentView(R.layout.activity_sso_grant_permission);
 
         ButterKnife.bind(this);
+
+        ComponentName callingActivity = getCallingActivity();
+
+        if(callingActivity != null) {
+            packageName = callingActivity.getPackageName();
+            String appName = getAppNameForPackage(packageName);
+            account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
+            tvInfo.setText(getString(R.string.single_sign_on_request_token, appName, account.name));
+            Log.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
+            Log.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
+        } else {
+            // Activity was not started using startActivityForResult!
+            Log.e(TAG, "Calling Package is null");
+            setResultAndExit("Request was not executed properly. Use startActivityForResult()");
+        }
+
         try {
-            ComponentName callingActivity = getCallingActivity();
-            if(callingActivity != null) {
-                packageName = callingActivity.getPackageName();
-                String appName = getAppNameForPackage(packageName);
-                account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
+            if(packageName != null) {
                 Drawable appIcon = getPackageManager().getApplicationIcon(packageName);
                 imageView.setImageDrawable(appIcon);
-
-
-                tvInfo.setText(getString(R.string.single_sign_on_request_token, appName, account.name));
-
-                Log.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
-                Log.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
-            } else {
-                // Activity was not started using startActivityForResult!
-                Log.e(TAG, "Calling Package is null");
-                setResultAndExit("Request was not executed properly. Use startActivityForResult()");
             }
-            
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+                Log.e(TAG, e.getMessage());
         }
     }
 
@@ -91,11 +92,11 @@ public class SsoGrantPermissionActivity extends BaseActivity {
 
     private String getAppNameForPackage(String pkg) {
         final PackageManager pm = getApplicationContext().getPackageManager();
-        ApplicationInfo ai;
+        ApplicationInfo ai = null;
         try {
             ai = pm.getApplicationInfo(pkg, 0);
         } catch (final PackageManager.NameNotFoundException e) {
-            ai = null;
+            Log.e(TAG, e.getMessage());
         }
         return (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");
     }
@@ -107,8 +108,6 @@ public class SsoGrantPermissionActivity extends BaseActivity {
 
     @OnClick(R.id.btnGrant)
     void grantPermission() {
-        final Bundle result = new Bundle();
-
         // create token
         SharedPreferences sharedPreferences = getSharedPreferences(SSO_SHARED_PREFERENCE, Context.MODE_PRIVATE);
         String token = UUID.randomUUID().toString().replaceAll("-", "");
@@ -133,14 +132,13 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             return;
         }
 
+        final Bundle result = new Bundle();
         result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
         result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType(this));
         result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
         result.putString(Constants.SSO_USERNAME,   userId);
         result.putString(Constants.SSO_TOKEN,      token);
         result.putString(Constants.SSO_SERVER_URL, serverUrl);
-
-        //return result;
 
         Intent data = new Intent();
         data.putExtra(NEXTCLOUD_SSO, result);
