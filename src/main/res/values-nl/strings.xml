@@ -222,6 +222,7 @@
     <string name="media_err_timeout">Time-out tijdens het afspelen</string>
     <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
     <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
+    <string name="media_err_playing">Onverwachte fout tijdens het afspelen %1$s</string>
     <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
     <string name="media_forward_description">Doorspoelknop</string>
@@ -260,6 +261,8 @@
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
+    <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
+
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
     <string name="favorite_real">Aan favorieten toevoegen</string>
@@ -488,6 +491,8 @@
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met…</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
+    <string name="share_via_link_unset_password">uitgeschakeld</string>
+
     <string name="share_search">Naam, gefedereerde Cloud ID of een e-mailadres…</string>
 
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
@@ -521,6 +526,8 @@
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
+    <string name="offline_mode">Geen internet verbinding</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
@@ -650,6 +657,7 @@
     <string name="file_icon">Bestand</string>
     <string name="user_icon">Gebruiker</string>
     <string name="favorite_icon">Favoriet</string>
+    <string name="synced_icon">gesynchroniseerd</string>
     <string name="available_offline_icon">Offline beschikbaar</string>
     <string name="checkbox">Aanvinkvakje</string>
     <string name="shared_icon_share">delen</string>
@@ -738,12 +746,19 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
+    <string name="unsharing_failed">Stoppen met delen mislukt</string>
+    <string name="updating_share_failed">Bijwerken delen mislukt</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="login">Inloggen</string>
+    <string name="host_your_own_server">Host je eigen server</string>
     <string name="first_run_1_text">Hou je gegevens veilig en in eigen beheer</string>
+    <string name="first_run_2_text">Beveiligde samenwerking &amp; bestand uitwisseling</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
 	<string name="restore">Herstellen bestand</string>
     <string name="new_comment">Nieuwe reactie…</string>
+    <string name="error_comment_file">Fout bij plaatsen commentaar</string>
+    <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
+    <string name="new_media_folder_detected">Nieuwe%1$smedia map gevonden.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
     <string name="dismiss">Weigeren</string>
