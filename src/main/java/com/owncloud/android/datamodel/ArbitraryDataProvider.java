@@ -35,7 +35,8 @@ import java.util.List;
  * Database provider for handling the persistence aspects of arbitrary data table.
  */
 public class ArbitraryDataProvider {
-    static private final String TAG = ArbitraryDataProvider.class.getSimpleName();
+    private static final String TAG = ArbitraryDataProvider.class.getSimpleName();
+    private static final String TRUE = "true";
 
     private ContentResolver contentResolver;
 
@@ -115,9 +116,7 @@ public class ArbitraryDataProvider {
     }
 
     public boolean getBooleanValue(String accountName, String key) {
-        String value = getValue(accountName, key);
-
-        return !value.isEmpty() && value.equalsIgnoreCase("true");
+        return TRUE.equalsIgnoreCase(getValue(accountName, key));
     }
 
     public boolean getBooleanValue(Account account, String key) {

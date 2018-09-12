@@ -32,7 +32,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * Helper implementation to copy a string into the system clipboard.
  */
-public class ClipboardUtil {
+public final class ClipboardUtil {
     private static final String TAG = ClipboardUtil.class.getName();
 
     private ClipboardUtil() {

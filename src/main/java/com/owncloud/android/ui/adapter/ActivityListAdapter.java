@@ -332,8 +332,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private RichObject searchObjectByName(List<RichObject> richObjectList, String name) {
         for (RichObject richObject : richObjectList) {
-            if (richObject.getTag().equalsIgnoreCase(name))
+            if (richObject.getTag().equalsIgnoreCase(name)) {
                 return richObject;
+            }
         }
         return null;
     }
@@ -341,10 +342,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        if (values.get(position) instanceof Activity)
+        if (values.get(position) instanceof Activity) {
             return ACTIVITY_TYPE;
-        else
+        } else {
             return HEADER_TYPE;
+        }
     }
 
     @Override

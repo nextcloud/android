@@ -24,6 +24,7 @@ package com.owncloud.android.datastorage.providers;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -38,8 +39,8 @@ public class VDCStoragePointProvider extends AbstractCommandLineStoragePoint {
 
 
     @Override
-    public Vector<StoragePoint> getAvailableStoragePoint() {
-        Vector<StoragePoint> result = new Vector<>();
+    public List<StoragePoint> getAvailableStoragePoint() {
+        List<StoragePoint> result = new Vector<>();
 
         result.addAll(getPaths(getCommandLineResult()));
 
@@ -51,8 +52,8 @@ public class VDCStoragePointProvider extends AbstractCommandLineStoragePoint {
         return sVDCVolListCommand;
     }
 
-    private Vector<StoragePoint> getPaths(String vdcResources) {
-        Vector<StoragePoint> result = new Vector<>();
+    private List<StoragePoint> getPaths(String vdcResources) {
+        List<StoragePoint> result = new Vector<>();
 
         for (String line : vdcResources.split("\n")) {
             String vdcLine[] = line.split(" ");

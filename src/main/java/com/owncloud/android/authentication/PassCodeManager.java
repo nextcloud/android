@@ -37,7 +37,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PassCodeManager {
+public final class PassCodeManager {
 
     private static final Set<Class> exemptOfPasscodeActivities;
 

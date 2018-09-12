@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -23,7 +23,7 @@ package com.owncloud.android.datastorage.providers;
 
 import com.owncloud.android.datastorage.StoragePoint;
 
-import java.util.Vector;
+import java.util.List;
 
 /**
  * @author Bartosz Przybylski
@@ -38,11 +38,9 @@ public interface IStoragePointProvider {
      */
     boolean canProvideStoragePoints();
 
-
     /**
      *
      * @return available storage points
      */
-    Vector<StoragePoint> getAvailableStoragePoint();
-
+    List<StoragePoint> getAvailableStoragePoint();
 }

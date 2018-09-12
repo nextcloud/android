@@ -71,7 +71,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     private float avatarRadiusDimension;
     private Account account;
     private OCFile file;
-    private FileDataStorageManager storageManager;
 
     public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
                            OCFile file, ShareeListAdapterListener listener) {
@@ -83,8 +82,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         this.file = file;
 
         accentColor = ThemeUtils.primaryAccentColor(context);
-        storageManager = new FileDataStorageManager(account, context.getContentResolver());
-        capabilities = storageManager.getCapability(account.name);
+        capabilities = new FileDataStorageManager(account, context.getContentResolver()).getCapability(account.name);
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 

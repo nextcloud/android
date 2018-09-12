@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -25,6 +25,7 @@ import android.text.TextUtils;
 
 import com.owncloud.android.datastorage.StoragePoint;
 
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -40,15 +41,15 @@ public class EnvironmentStoragePointProvider extends AbstractStoragePointProvide
     }
 
     @Override
-    public Vector<StoragePoint> getAvailableStoragePoint() {
-        Vector<StoragePoint> result = new Vector<>();
+    public List<StoragePoint> getAvailableStoragePoint() {
+        List<StoragePoint> result = new Vector<>();
 
         addEntriesFromEnv(result, sSecondaryStorageEnvName);
 
         return result;
     }
 
-    private void addEntriesFromEnv(Vector<StoragePoint> result, String envName) {
+    private void addEntriesFromEnv(List<StoragePoint> result, String envName) {
         String env = System.getenv(envName);
         if (env != null) {
             for (String p : env.split(":")) {

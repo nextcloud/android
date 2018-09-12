@@ -109,8 +109,9 @@ public class ContactListFragment extends FileFragment {
 
     public static final String FILE_NAME = "FILE_NAME";
     public static final String ACCOUNT = "ACCOUNT";
-
     public static final String CHECKED_ITEMS_ARRAY_KEY = "CHECKED_ITEMS";
+
+    private static final int SINGLE_ACCOUNT = 1;
 
     @BindView(R.id.contactlist_recyclerview)
     public RecyclerView recyclerView;
@@ -416,7 +417,7 @@ public class ContactListFragment extends FileFragment {
             }
         }
 
-        if (accounts.size() == 1) {
+        if (accounts.size() == SINGLE_ACCOUNT) {
             importContacts(accounts.get(0));
         } else {
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, accounts);
@@ -565,6 +566,8 @@ public class ContactListFragment extends FileFragment {
 }
 
 class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.ContactItemViewHolder> {
+    private static final int SINGLE_SELECTION = 1;
+
     private List<VCard> vCards;
     private Set<Integer> checkedVCards;
 
@@ -704,7 +707,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             if (!checkedVCards.contains(verifiedPosition)) {
                 checkedVCards.add(verifiedPosition);
             }
-            if (checkedVCards.size() == 1) {
+            if (checkedVCards.size() == SINGLE_SELECTION) {
                 EventBus.getDefault().post(new VCardToggleEvent(true));
             }
         } else {

@@ -127,9 +127,9 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     public int getItemViewType(int position) {
         Object value = values.get(position);
 
-        if (value instanceof Activity)
+        if (value instanceof Activity) {
             return ACTIVITY_TYPE;
-        else if (value instanceof FileVersion) {
+        } else if (value instanceof FileVersion) {
             return VERSION_TYPE;
         } else {
             return HEADER_TYPE;

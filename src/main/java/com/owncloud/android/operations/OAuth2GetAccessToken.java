@@ -37,9 +37,11 @@ import java.util.Map;
 
 
 public class OAuth2GetAccessToken extends RemoteOperation {
-    
     private static final String TAG = OAuth2GetAccessToken.class.getSimpleName();
-    
+
+    private static final int KEY_INDEX = 0;
+    private static final int VALUE_INDEX = 1;
+
     private String mClientId;
     private String mRedirectUri;
     private String mGrantType;
@@ -149,9 +151,9 @@ public class OAuth2GetAccessToken extends RemoteOperation {
             String[] part = pairs[i].split("=");
             while (part.length > j) {
                 String p = part[j];
-                if (j == 0) {
+                if (j == KEY_INDEX) {
                     key = p;
-                } else if (j == 1) {
+                } else if (j == VALUE_INDEX) {
                     value = p;
                     mOAuth2ParsedAuthorizationResponse.put(key, value);
                 }

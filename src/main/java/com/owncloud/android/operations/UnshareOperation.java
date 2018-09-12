@@ -43,7 +43,8 @@ import java.util.List;
 public class UnshareOperation extends SyncOperation {
 
     private static final String TAG = UnshareOperation.class.getSimpleName();
-    
+    private static final int SINGLY_SHARED = 1;
+
     private String mRemotePath;
     private ShareType mShareType;
     private String mShareWith;
@@ -83,7 +84,7 @@ public class UnshareOperation extends SyncOperation {
                     List <OCShare> sharesWith = getStorageManager().
                             getSharesWithForAFile(mRemotePath,
                             getStorageManager().getAccount().name);
-                    if (sharesWith.size() == 1) {
+                    if (sharesWith.size() == SINGLY_SHARED) {
                         file.setShareWithSharee(false);
                     }
                 }
