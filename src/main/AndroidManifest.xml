@@ -306,7 +306,8 @@
 
         <activity
             android:name=".ui.activity.SsoGrantPermissionActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/Theme.ownCloud.Dialog.NoTitle" />
     </application>
 
 </manifest>

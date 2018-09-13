@@ -24,29 +24,14 @@
     android:layout_margin="@dimen/standard_margin"
     tools:context="com.owncloud.android.ui.activity.SsoGrantPermissionActivity">
 
-    <FrameLayout
-        android:id="@+id/appIcon_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/permissionText">
-
-        <ImageView
-            android:id="@+id/appIcon"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="top|start"
-            android:contentDescription="@null"
-            android:src="@drawable/background" />
-
-        <ImageView
-            android:id="@+id/ticker"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_gravity="bottom|end"
-            android:background="@drawable/round_bgnd"
-            android:contentDescription="@string/active_user"
-            android:src="@drawable/ic_key" />
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/appIcon"
+        android:layout_width="@dimen/user_icon_size"
+        android:layout_height="@dimen/user_icon_size"
+        android:layout_gravity="top|start"
+        android:contentDescription="@null"
+        android:src="@drawable/background"
+        app:layout_constraintTop_toTopOf="@+id/permissionText" />
 
     <TextView
         android:id="@+id/permissionText"
@@ -56,6 +41,7 @@
         android:paddingLeft="@dimen/permission_dialog_text_padding"
         android:paddingRight="@dimen/zero"
         android:paddingStart="@dimen/permission_dialog_text_padding"
+        android:paddingBottom="@dimen/standard_padding"
         android:textSize="@dimen/permission_dialog_text_size"
         app:layout_constraintBottom_toTopOf="@+id/btnGrant"
         app:layout_constraintTop_toTopOf="parent"
