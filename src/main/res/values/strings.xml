@@ -816,4 +816,5 @@
     <string name="file_keep">Keep</string>
     <string name="file_rename">Rename</string>
     <string name="fab_label">Add or upload</string>
+    <string name="account_creation_failed">Account creation failed</string>
 </resources>
