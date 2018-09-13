@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
+import com.owncloud.android.utils.ThemeUtils;
 
 
 public class FeatureFragment extends Fragment {
@@ -46,7 +47,7 @@ public class FeatureFragment extends Fragment {
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            whatsNewImage.setImageResource(item.getImage());
+            whatsNewImage.setImageDrawable(ThemeUtils.tintDrawable(item.getImage(), fontColor));
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);
