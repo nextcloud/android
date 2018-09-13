@@ -1,3 +1,25 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author David Luhmer
+ * @author Andy Scherzinger
+ * Copyright (C) 2018 David Luhmer
+ * Copyright (C) 2018 Andy Scherzinger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -8,9 +30,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,12 +52,14 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_ACCESS_DECLINED;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
@@ -35,36 +68,54 @@ import static com.nextcloud.android.sso.Constants.NEXTCLOUD_SSO;
 import static com.nextcloud.android.sso.Constants.NEXTCLOUD_SSO_EXCEPTION;
 import static com.nextcloud.android.sso.Constants.SSO_SHARED_PREFERENCE;
 
-
+/**
+ * Activity for granting access rights to a Nextcloud account, used for SSO.
+ */
 public class SsoGrantPermissionActivity extends BaseActivity {
 
     private static final String TAG = SsoGrantPermissionActivity.class.getCanonicalName();
 
+    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
+    private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
+
     private String packageName;
     private Account account;
 
+    private Unbinder unbinder;
 
-    @BindView(R.id.imageView)
-    ImageView imageView;
+    @BindView(R.id.appIcon)
+    ImageView appIcon;
 
-    @BindView(R.id.tvInfoText)
-    TextView tvInfo;
+    @BindView(R.id.permissionText)
+    TextView permissionText;
 
+    @BindView(R.id.ticker)
+    ImageView ticker;
+
+    @BindView(R.id.btnGrant)
+    Button grantPermissionButton;
+
+    @BindView(R.id.btnDecline)
+    Button declinePermissionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sso_grant_permission);
 
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         ComponentName callingActivity = getCallingActivity();
 
-        if(callingActivity != null) {
+        if (callingActivity != null) {
             packageName = callingActivity.getPackageName();
             String appName = getAppNameForPackage(packageName);
             account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
-            tvInfo.setText(getString(R.string.single_sign_on_request_token, appName, account.name));
+            permissionText.setText(makeSpecialPartsBold(
+                    getString(R.string.single_sign_on_request_token, appName, account.name),
+                    appName,
+                    account.name)
+            );
             Log.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
             Log.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
         } else {
@@ -74,13 +125,45 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         }
 
         try {
-            if(packageName != null) {
+            if (packageName != null) {
                 Drawable appIcon = getPackageManager().getApplicationIcon(packageName);
-                imageView.setImageDrawable(appIcon);
+                this.appIcon.setImageDrawable(appIcon);
             }
         } catch (PackageManager.NameNotFoundException e) {
-                Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
+
+        themeUI();
+    }
+
+    private void themeUI() {
+        int primaryColor = ThemeUtils.primaryColor(this, true);
+        grantPermissionButton.setTextColor(primaryColor);
+        declinePermissionButton.setTextColor(primaryColor);
+
+        Drawable mTintedCheck = DrawableCompat.wrap(
+                ContextCompat.getDrawable(this, R.drawable.account_circle_white));
+        int tint = ThemeUtils.elementColor(this);
+        DrawableCompat.setTint(mTintedCheck, tint);
+        ticker.setImageDrawable(mTintedCheck);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    private SpannableStringBuilder makeSpecialPartsBold(String text, String... toBeStyledText) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+        for (String textBlock : toBeStyledText) {
+            int start = text.indexOf(textBlock);
+            int end = start + textBlock.length();
+            ssb.setSpan(styleSpanBold, start, end, 0);
+            ssb.setSpan(foregroundColorSpanBlack, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return ssb;
     }
 
     private void setResultAndExit(String exception) {
@@ -133,11 +216,11 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         }
 
         final Bundle result = new Bundle();
-        result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
-        result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType(this));
-        result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
-        result.putString(Constants.SSO_USERNAME,   userId);
-        result.putString(Constants.SSO_TOKEN,      token);
+        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+        result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(this));
+        result.putString(AccountManager.KEY_AUTHTOKEN, NEXTCLOUD_SSO);
+        result.putString(Constants.SSO_USERNAME, userId);
+        result.putString(Constants.SSO_TOKEN, token);
         result.putString(Constants.SSO_SERVER_URL, serverUrl);
 
         Intent data = new Intent();
@@ -145,5 +228,4 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         setResult(RESULT_OK, data);
         finish();
     }
-
 }
