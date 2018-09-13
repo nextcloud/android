@@ -818,7 +818,7 @@
     <string name="fab_label">Add or upload</string>
     <string name="account_creation_failed">Account creation failed</string>
 
-    <string name="single_sign_on_request_token" formatted="true">Grant %1$s access to your Nextcloud account (%2$s)?</string>
+    <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access to your Nextcloud account %2$s?</string>
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
 

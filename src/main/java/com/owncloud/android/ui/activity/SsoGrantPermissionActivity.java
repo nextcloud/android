@@ -31,11 +31,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -75,9 +72,6 @@ public class SsoGrantPermissionActivity extends BaseActivity {
 
     private static final String TAG = SsoGrantPermissionActivity.class.getCanonicalName();
 
-    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
-    private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
-
     private String packageName;
     private Account account;
 
@@ -88,9 +82,6 @@ public class SsoGrantPermissionActivity extends BaseActivity {
 
     @BindView(R.id.permissionText)
     TextView permissionText;
-
-    @BindView(R.id.ticker)
-    ImageView ticker;
 
     @BindView(R.id.btnGrant)
     Button grantPermissionButton;
@@ -133,19 +124,9 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             Log.e(TAG, e.getMessage());
         }
 
-        themeUI();
-    }
-
-    private void themeUI() {
         int primaryColor = ThemeUtils.primaryColor(this, true);
         grantPermissionButton.setTextColor(primaryColor);
         declinePermissionButton.setTextColor(primaryColor);
-
-        Drawable mTintedCheck = DrawableCompat.wrap(
-                ContextCompat.getDrawable(this, R.drawable.account_circle_white));
-        int tint = ThemeUtils.elementColor(this);
-        DrawableCompat.setTint(mTintedCheck, tint);
-        ticker.setImageDrawable(mTintedCheck);
     }
 
     @Override
@@ -159,8 +140,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         for (String textBlock : toBeStyledText) {
             int start = text.indexOf(textBlock);
             int end = start + textBlock.length();
-            ssb.setSpan(styleSpanBold, start, end, 0);
-            ssb.setSpan(foregroundColorSpanBlack, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, end, 0);
+            ssb.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         return ssb;
