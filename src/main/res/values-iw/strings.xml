@@ -720,6 +720,10 @@
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
     <string name="whats_new_device_credentials_title">שימוש בהגנה הפנימית של מכשיר ה־Android שלך</string>
     <string name="login">כניסה</string>
+    <string name="host_your_own_server">אירוח שרת משלך</string>
+    <string name="first_run_1_text">ניתן להשאיר את הנתונים שלך מאובטחים ותחת שליטה</string>
+    <string name="first_run_2_text">שיתוף פעולה והעברת קבצים באופן מאובטח</string>
+    <string name="first_run_4_text">שיתוף מסך, פגישות מקוונות וכנסים מקוונים</string>
     <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
     <string name="restore_button_description">שחזור קובץ שנמחק</string>
 	<string name="restore">שחזור קובץ</string>
