@@ -1,18 +1,18 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
  * Copyright (C) 2015 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,6 +39,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -550,8 +551,13 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (result.isSuccess()) {
             // update local database
             ArrayList<OCShare> shares = new ArrayList<>();
+            OCShare share;
             for (Object obj : result.getData()) {
-                shares.add((OCShare) obj);
+                share = (OCShare) obj;
+
+                if (!ShareType.NO_SHARED.equals(share.getShareType())) {
+                    shares.add(share);
+                }
             }
             mStorageManager.saveSharesInFolder(shares, mLocalFolder);
         }
