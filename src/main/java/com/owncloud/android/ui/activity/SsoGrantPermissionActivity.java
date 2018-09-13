@@ -31,6 +31,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -140,7 +141,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         for (String textBlock : toBeStyledText) {
             int start = text.indexOf(textBlock);
             int end = start + textBlock.length();
-            ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, end, 0);
+            ssb.setSpan(new StyleSpan(Typeface.BOLD), start, end, 0);
             ssb.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
