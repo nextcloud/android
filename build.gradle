@@ -37,7 +37,7 @@ configurations.all {
 
 ext {
     supportLibraryVersion = '27.1.1'
-    jacocoVersion = "0.7.4.201502262128"
+    jacocoVersion = "0.8.2"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
