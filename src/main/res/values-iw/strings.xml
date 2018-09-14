@@ -529,7 +529,7 @@
     <string name="action_switch_list_view">תצוגת רשימה</string>
 
     <string name="manage_space_title">ניהול מקום</string>
-    <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. n\n\קבצים שירדו ישארו ללא שינוי.n\n\התהליך ימשך זמן מה.</string>
+    <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. \n\nקבצים שירדו ישארו ללא שינוי.\n\nהתהליך ימשך זמן מה.</string>
     <string name="manage_space_clear_data">ניקוי מידע</string>
 
     <string name="permission_storage_access">נדרשות הרשאות נוספות כדי להעלות ולהוריד קבצים</string>
