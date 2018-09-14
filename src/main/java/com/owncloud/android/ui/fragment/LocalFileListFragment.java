@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -281,7 +283,23 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
          * https://stackoverflow.com/questions/36495009/force-recyclerview-to-redraw-android
          */
         getRecyclerView().setAdapter(mAdapter);
-        super.switchToGridView();
+
+        if (!isGridEnabled()) {
+            RecyclerView.LayoutManager layoutManager;
+            layoutManager = new GridLayoutManager(getContext(), getColumnSize());
+            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (position == mAdapter.getItemCount() - 1) {
+                        return ((GridLayoutManager) layoutManager).getSpanCount();
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+
+            getRecyclerView().setLayoutManager(layoutManager);
+        }
     }
 
     @Override
