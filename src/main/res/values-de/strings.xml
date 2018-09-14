@@ -800,4 +800,6 @@
     <string name="file_keep">Behalten</string>
     <string name="file_rename">Umbenennen</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
+    <string name="account_creation_failed">Kontoerstellung fehlgeschlagen</string>
+
     </resources>
