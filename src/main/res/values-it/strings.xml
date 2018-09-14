@@ -800,4 +800,6 @@
     <string name="file_keep">Mantieni</string>
     <string name="file_rename">Rinomina</string>
     <string name="fab_label">Aggiungi o carica</string>
-</resources>
+    <string name="account_creation_failed">Creazione dell\'account non riuscita</string>
+
+    </resources>

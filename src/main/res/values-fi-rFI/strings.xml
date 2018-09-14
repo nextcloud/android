@@ -31,6 +31,9 @@
     <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
+    <string name="drawer_quota_unlimited">%1$s käytetty</string>
+	<string name="drawer_close">Sulje valikko</string>
+    <string name="drawer_open">Avaa valikko</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
@@ -76,6 +79,7 @@
     <string name="uploader_error_message_source_file_not_found">Lähetykseen valittua tiedostoa ei löytynyt. Varmista, että tiedosto on olemassa.</string>
     <string name="uploader_error_message_source_file_not_copied">Virhe kopioitaessa tiedostoa väliaikaiseen kansioon. Yritä lähettää se uudelleen.</string>
     <string name="uploader_upload_files_behaviour">Lähetysasetus:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto %1$s kansioon</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Poista tiedosto lähdekansiosta</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
@@ -133,6 +137,7 @@
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="avatar">Profiilikuva</string>
     <string name="active_user">Aktiivinen käyttäjä</string>
+    <string name="upload_chooser_title">Lähetä…</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
@@ -210,6 +215,7 @@
     <string name="media_err_timeout">Tiedoston toisto aikakatkaistiin.</string>
     <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
     <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
+    <string name="media_err_playing">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -247,6 +253,7 @@
 	<string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_account_does_not_exist">Tälle laitteelle ei ole vielä asennettu tiliä.</string>
+    <string name="auth_access_failed">Pääsy epäonnistui: %1$s</string>
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="favorite_real">Lisää suosikkeihin</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
@@ -270,6 +277,7 @@
     <string name="wait_a_moment">Odota hetki…</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
+    <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     
     <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string>
@@ -435,6 +443,10 @@
         <item quantity="other">%1$d tiedostoa</item>
     </plurals>
     <string name="set_picture_as">Käytä kuvaa</string>
+    <string name="set_as">Aseta</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto…</string>
+    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto…</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="deselect_all">Poista valinnat</string>
 
@@ -468,6 +480,7 @@
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
     <string name="share_sharee_unavailable">Päivitä uudempaan versioon salliaksesi jakamisen käyttäjien välillä suoraan työpöydältä tai kännykästä.\nOta yhteyttä ylläpitoon</string>
+    <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_privilege_can_share">voi jakaa</string>
     <string name="share_privilege_can_edit">voi muokata</string>
     <string name="share_privilege_can_edit_create">voi luoda</string>
@@ -518,6 +531,8 @@
     <string name="participate_rc_fdroid">Lataa julkaisuehdokas F-Droidin äpillä.</string>
     <string name="participate_dev_fdroid">Lataa kehitysjulkaisu F-Droidin äpillä.</string>
     <string name="participate_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
+    <string name="move_to">Siirrä kohteeseen…</string>
+    <string name="copy_to">Kopio kohteeseen…</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita…</string>

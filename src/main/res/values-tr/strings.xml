@@ -800,4 +800,6 @@
     <string name="file_keep">Tut</string>
     <string name="file_rename">Yeniden Adlandır</string>
     <string name="fab_label">Ekle ya da yükle</string>
-</resources>
+    <string name="account_creation_failed">Hesap oluşturulamadı</string>
+
+    </resources>

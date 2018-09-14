@@ -41,6 +41,8 @@
     <string name="prefs_lock_title">Uzamknout použitím</string>
     <string name="prefs_lock_none">Žádné</string>
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
+    <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
+    <string name="prefs_lock_device_credentials_not_setup">Nebyly nastaveny žádné přihlašovací údaje zařízení.</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
@@ -499,6 +501,8 @@
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s…</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>
+    <string name="share_via_link_unset_password">Zrušit nastavení</string>
+
     <string name="share_search">Jméno, sdružené cloud ID, nebo e-mailová adresa…</string>
 
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
@@ -702,6 +706,7 @@
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
     <string name="notification_channel_file_sync_name">Synchronizace souboru</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
+    <string name="notification_channel_file_observer_name">Pozorovatel souboru</string>
     <string name="notification_channel_file_observer_description">Monitoruje změny souborů</string>
   
     <string name="account_not_found">Účet nenalezen!</string>
@@ -732,6 +737,8 @@
     <string name="end_to_end_encryption_unsuccessful">Nepodařilo se uložit klíče, zkuste to prosím znovu.</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky v tuto chvíli není podporováno.</string>
+    <string name="untrusted_domain">Přístup prostřednictvím nedůvěryhodné domény. Více informací naleznete v nápovědě.</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
 
     <string name="hint_name">Jméno</string>
@@ -742,24 +749,36 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
     <string name="tags">Štítky</string>
+    <string name="unsharing_failed">Rušení sdílení se nezdařilo</string>
     <string name="whats_new_device_credentials_title">Použít vnitřní ochranu Android zařízení</string>
     <string name="login">Přihlásit</string>
+    <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
+    <string name="host_your_own_server">Hostovat svůj vlastní server</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
 	<string name="restore">Obnovit soubor</string>
     <string name="new_version_was_created">Byla vytvořena nová verze</string>
     <string name="new_comment">Nový komentář…</string>
     <string name="error_comment_file">Chyba při komentování souboru</string>
+    <string name="file_version_restored_successfully">Verze souboru úspěšně obnovena.</string>
+    <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>
     <string name="notification_channel_general_name">Obecná oznámení</string>
+    <string name="notification_channel_general_description">Zobrazovat oznámení o nových složkách s médii a podobně</string>
+    <string name="new_media_folder_detected">Zjištěna nová složka s médii %1$s.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="outdated_server">Server dosáhl konce své životnosti – přejděte na nový!</string>
     <string name="dismiss">Zavřít</string>
+    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání e-mailů!</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
+    <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
+    <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
     <string name="folder_already_exists">Složka už existuje</string>
+    <string name="notification_icon">Ikona oznámení</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="file_delete">Smazat</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_rename">Přejmenovat</string>
     <string name="fab_label">Přidat nebo nahrát</string>
-</resources>
+    </resources>
