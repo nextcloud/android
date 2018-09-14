@@ -319,9 +319,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
 
         if (mHideFab) {
-            setFabEnabled(false);
+            setFabVisible(false);
         } else {
-            setFabEnabled(true);
+            setFabVisible(true);
             registerFabListener();
         }
 
@@ -514,7 +514,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
 
             // hide FAB in multi selection mode
-            setFabEnabled(false);
+            setFabVisible(false);
 
             mAdapter.setMultiSelect(true);
             return true;
@@ -563,7 +563,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
-                setFabEnabled(true);
+                setFabVisible(true);
             }
 
             mAdapter.setMultiSelect(false);
@@ -1023,7 +1023,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void refreshDirectory() {
         searchFragment = false;
 
-        setFabEnabled(true);
+        setFabVisible(true);
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1097,6 +1097,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             switchToListView();
         }
+
+        // FAB
+        setFabEnabled(mFile.canWrite());
 
         invalidateActionMode();
     }
@@ -1307,7 +1310,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
         getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
 
-        setFabEnabled(true);
+        setFabVisible(true);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1354,7 +1357,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile);
 
-        setFabEnabled(false);
+        setFabVisible(false);
 
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);

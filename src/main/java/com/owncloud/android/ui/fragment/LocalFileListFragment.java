@@ -93,7 +93,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
-        setFabEnabled(false); // Disable FAB
+        setFabVisible(false); // Disable FAB
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
