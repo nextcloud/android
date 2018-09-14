@@ -59,6 +59,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
     private final static String PERMISSION_CAN_RESHARE = "R";
+    private final static String PERMISSION_CAN_WRITE = "CK"; 
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -782,6 +783,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean canReshare() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
+    }
+
+    public boolean canWrite() {
+        String permissions = getPermissions();
+        return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
     }
 
     public WebdavEntry.MountType getMountType() {

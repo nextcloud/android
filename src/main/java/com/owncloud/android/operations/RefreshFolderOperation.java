@@ -363,6 +363,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(mLocalFolder, mStorageManager);
         mLocalFolder.setEncrypted(encryptedAncestor);
 
+        // update permission
+        mLocalFolder.setPermissions(remoteFolder.getPermissions());
+
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
 
         // get current data about local contents of the folder to synchronize
