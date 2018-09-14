@@ -137,7 +137,7 @@
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="avatar">Profiilikuva</string>
     <string name="active_user">Aktiivinen käyttäjä</string>
-    <string name="upload_chooser_title">Lähetä...</string>
+    <string name="upload_chooser_title">Lähetä…</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
@@ -277,7 +277,7 @@
     <string name="wait_a_moment">Odota hetki…</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
-    <string name="activity_chooser_title">Lähetä linkki...</string>
+    <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     
     <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string>
@@ -445,8 +445,8 @@
     <string name="set_picture_as">Käytä kuvaa</string>
     <string name="set_as">Aseta</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto...</string>
-    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto…</string>
+    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto…</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="deselect_all">Poista valinnat</string>
 
@@ -531,8 +531,8 @@
     <string name="participate_rc_fdroid">Lataa julkaisuehdokas F-Droidin äpillä.</string>
     <string name="participate_dev_fdroid">Lataa kehitysjulkaisu F-Droidin äpillä.</string>
     <string name="participate_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
-    <string name="move_to">Siirrä kohteeseen...</string>
-    <string name="copy_to">Kopio kohteeseen...</string>
+    <string name="move_to">Siirrä kohteeseen…</string>
+    <string name="copy_to">Kopio kohteeseen…</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita…</string>
