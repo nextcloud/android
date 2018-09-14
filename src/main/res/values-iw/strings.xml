@@ -186,8 +186,8 @@
     <string name="sync_fail_in_favourites_ticker">קבצים שהוגדרו לסנכרון נכשלו</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">לא ניתן לסנכן את קובץ %1$d (התנגשות %2$d)</item>
-        <item quantity="two">לא ניתן לסנכרן את ה%1$dקבצים  (התנגשות: %2$d)</item>
-        <item quantity="many">לא ניתן לסנכרן %1$d קבצים  (התגשות:%2$d)</item>
+        <item quantity="two">לא ניתן לסנכרן את ה %1$d קבצים  (התנגשות: %2$d)</item>
+        <item quantity="many">לא ניתן לסנכרן %1$d קבצים  (התגשות: %2$d)</item>
         <item quantity="other">לא ניתן לסנכרן %1$d קבצים (התגשות: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
@@ -390,12 +390,12 @@
     <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
 
     <string name="file_migration_dialog_title">נתיב האחסון מתעדכן</string>
-    <string name="file_migration_preparing">מתכונן להעברה...</string>
-    <string name="file_migration_checking_destination">בודק יעד...</string>
-    <string name="file_migration_saving_accounts_configuration">שומר עדכוני חשבון...</string>
+    <string name="file_migration_preparing">מתכונן להעברה…</string>
+    <string name="file_migration_checking_destination">בודק יעד…</string>
+    <string name="file_migration_saving_accounts_configuration">שומר עדכוני חשבון…</string>
     <string name="file_migration_waiting_for_unfinished_sync">בהמתנה לסנכרון מלא…</string>
     <string name="file_migration_migrating">הנתונים מועברים…</string>
-    <string name="file_migration_updating_index">מעדכן אינדקס...</string>
+    <string name="file_migration_updating_index">מעדכן אינדקס…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
     <string name="file_migration_restoring_accounts_configuration">תצורת החשבון משוחזרת…</string>
     <string name="file_migration_ok_finished">הסתיים</string>
@@ -529,9 +529,7 @@
     <string name="action_switch_list_view">תצוגת רשימה</string>
 
     <string name="manage_space_title">ניהול מקום</string>
-    <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. 
-קבצים שירדו ישארו ללא שינוי.
-התהליך ימשך זמן מה.</string>
+    <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. n\n\קבצים שירדו ישארו ללא שינוי.n\n\התהליך ימשך זמן מה.</string>
     <string name="manage_space_clear_data">ניקוי מידע</string>
 
     <string name="permission_storage_access">נדרשות הרשאות נוספות כדי להעלות ולהוריד קבצים</string>
