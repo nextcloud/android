@@ -38,9 +38,12 @@
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_lock">Slot</string>
+    <string name="prefs_lock_title">Beveiligd door</string>
     <string name="prefs_lock_none">Geen</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
+    <string name="prefs_lock_device_credentials_enabled">Apparaatinloggegevens ingeschakeld</string>
+    <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -793,4 +796,4 @@
     <string name="file_keep">Behouden</string>
     <string name="file_rename">Hernoemen</string>
     <string name="fab_label">Toevoegen of uploaden</string>
-</resources>
+    </resources>
