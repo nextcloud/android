@@ -803,4 +803,10 @@ Veuillez contacter votre administrateur</string>
     <string name="file_keep">Conserver</string>
     <string name="file_rename">Renommer</string>
     <string name="fab_label">Ajouter ou téléverser</string>
-    </resources>
+    <string name="account_creation_failed">Échec de création du compte</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
+    <string name="permission_deny">Refuser</string>
+    <string name="permission_allow">Accepter</string>
+
+</resources>
