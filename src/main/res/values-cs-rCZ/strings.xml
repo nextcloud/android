@@ -40,6 +40,7 @@
     <string name="prefs_lock">Uzamknout</string>
     <string name="prefs_lock_title">Uzamknout použitím</string>
     <string name="prefs_lock_none">Žádné</string>
+    <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
     <string name="prefs_lock_device_credentials_not_setup">Nebyly nastaveny žádné přihlašovací údaje zařízení.</string>

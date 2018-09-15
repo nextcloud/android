@@ -802,4 +802,8 @@
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="account_creation_failed">Hesap oluşturulamadı</string>
 
-    </resources>
+    <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
+    <string name="permission_deny">Reddet</string>
+    <string name="permission_allow">İzin Ver</string>
+
+</resources>

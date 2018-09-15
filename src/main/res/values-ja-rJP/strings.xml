@@ -31,9 +31,13 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
+    <string name="drawer_close">サイドバーを閉じる</string>
+    <string name="drawer_open">サイドバーを開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
+    <string name="prefs_lock">ロック</string>
+    <string name="prefs_lock_none">なし</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
@@ -251,6 +255,9 @@
 	<string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返さない場合は、管理者に連絡してください</string>
 	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
+    <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
+    <string name="auth_illegal_login_used">不正なログインデータURLを使用しています</string>
+
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="favorite_real">お気に入りに追加</string>
@@ -324,9 +331,14 @@
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのバージョン</string>
 
+    <string name="preview_sorry">申し訳ありません</string>
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_unknown_format">画像を表示できません</string>
+    <string name="preview_image_error_no_local_file">プレビューするローカルファイルはありません</string>
+
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
+    <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
+    <string name="prefs_synced_folders_remote_path_title">フォルダーを削除</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
@@ -362,6 +374,7 @@
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
     <string name="file_migration_migrating">データを移動中</string>
+    <string name="file_migration_updating_index">インデックスの更新中…</string>
     <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_ok_finished">完了</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
@@ -398,6 +411,12 @@
 
     <string name="username">ユーザー名</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">%1$d フォルダー</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">%1$d ファイル</item>
+    </plurals>
     <string name="select_all">すべて選択</string>
     <string name="deselect_all">選択を全解除</string>
 
@@ -413,6 +432,8 @@
     <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
     <string name="share_via_link_edit_permission_label">編集を許可</string>
     <string name="share_via_link_section_title">URLで共有</string>
+    <string name="share_via_link_send_link_label">リンクを送信</string>
+    <string name="edit_permission_label">編集</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
     <string name="share_with_edit_title">%1$s と共有</string>
@@ -432,11 +453,13 @@
 
     <string name="actionbar_search">検索</string>
     <string name="learn_more">もっと見る</string>
+    <string name="drawer_synced_folders">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
+    <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
@@ -467,6 +490,7 @@
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
     <string name="prefs_category_about">アプリについて</string>
 
+    <string name="actionbar_contacts">連絡先のバックアップ</string>
     <string name="contacts_last_backup">前回のバックアップ</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contacts_preference_choose_date">日付を選択</string>
@@ -475,9 +499,15 @@
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
+    <string name="privacy">プライバシー</string>
+    <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
+
     <string name="foreground_service_upload">ファイルのアップロード中…</string>
     <string name="foreground_service_download">ファイルをダウンロード中…</string>
 
+    <string name="prefs_sourcecode">ソースコードを入手</string>
+    <string name="prefs_license">ライセンス</string>
+    <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
     <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
@@ -494,4 +524,10 @@
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="tags">タグ</string>
+    <string name="login">ログイン</string>
+    <string name="signup_with_provider">他のサービスでサインアップ</string>
+    <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
+    <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
+    <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
+    <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
     </resources>
