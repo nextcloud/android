@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -208,7 +209,7 @@ public class ExtendedListFragment extends Fragment
                         if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
 
                             if (!(getActivity() instanceof UploadFilesActivity)) {
-                                setFabEnabled(!hasFocus);
+                                setFabVisible(!hasFocus);
                             }
 
                             boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
@@ -588,21 +589,42 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
-     * When 'false' is set, FAB visibility is set to View.GONE programmatically,
+     *
+     * When 'false' is set, FAB visibility is set to View.GONE programmatically.
+     *
+     * @param visible Desired visibility for the FAB.
+     */
+    public void setFabVisible(final boolean visible) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                if (visible) {
+                    mFabMain.setVisibility(View.VISIBLE);
+                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
+                } else {
+                    mFabMain.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     *
+     * When 'false' is set, FAB is greyed out
      *
      * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(final boolean enabled) {
         if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (enabled) {
-                        mFabMain.setVisibility(View.VISIBLE);
-                    } else {
-                        mFabMain.setVisibility(View.GONE);
-                    }
+            getActivity().runOnUiThread(() -> {
+                mFabMain.setVisibility(View.VISIBLE);
+
+                if (enabled) {
+                    mFabMain.setEnabled(true);
+                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
+                } else {
+                    mFabMain.setEnabled(false);
+                    ThemeUtils.tintDrawable(mFabMain.getBackground(), Color.GRAY);
                 }
             });
         }
