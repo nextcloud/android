@@ -112,6 +112,7 @@
     <string name="file_list_empty_text_videos">Upload enkele video\'s of activeer auto-upload.</string>
     <string name="file_list_empty_text_videos_filter">Geen video\'s.</string>
     <string name="trashbin_empty_headline">Geen verwijderde bestanden</string>
+    <string name="trashbin_empty_message">Van hieruit kun je verwijderde bestanden terugzetten</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
@@ -598,6 +599,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
+    <string name="activities_no_results_message">Nog geen afspraken als toevoegingen, wijzigingen en shares</string>
     <string name="prefs_category_about">Over</string>
 
     <string name="actionbar_contacts">Maak een backup van de contacten</string>
@@ -752,9 +754,11 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="tags">Labels</string>
+    <string name="sharee_add_failed">Toevoegen ontvanger mislukt</string>
     <string name="unsharing_failed">Stoppen met delen mislukt</string>
     <string name="updating_share_failed">Bijwerken delen mislukt</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="prefs_e2e_no_device_credentials">Om de mnemonic te tonen moet je apparaatinloggegevens inschakelen.</string>
     <string name="whats_new_device_credentials_title">Gebruik de interne Android\'s apparaatbeveiliging</string>
     <string name="login">Inloggen</string>
     <string name="signup_with_provider">Aanmelden bij provider</string>
@@ -796,4 +800,10 @@
     <string name="file_keep">Behouden</string>
     <string name="file_rename">Hernoemen</string>
     <string name="fab_label">Toevoegen of uploaden</string>
-    </resources>
+    <string name="account_creation_failed">Account aanmaken mislukt</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Toestaan dat%1$s je Nextcloud account %2$sbenadert?</string>
+    <string name="permission_deny">Weigeren</string>
+    <string name="permission_allow">Toestaan</string>
+
+</resources>
