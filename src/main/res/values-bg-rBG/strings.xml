@@ -143,7 +143,7 @@
     <string name="uploader_upload_failed_ticker">Неуспешно качване</string>
     <string name="uploader_upload_failed_content_single">%1$sне може да бъде качен</string>
     <string name="uploader_upload_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ненадежден сървър сертификат</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Недоверен сървърен сертификат</string>
     <string name="uploads_view_title">Качени</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
@@ -283,7 +283,7 @@
     
     <string name="oauth_check_onoff">Вписване с OAuto 2.0</string>
     <string name="ssl_validator_header">Самоличността на сървъра не може да бъде потвърдена</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е надежден</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е доверен</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датите на валидност на сървърния сертификат са в бъдещето</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL адресът не съвпада с името на сървъра от сертификата</string>
