@@ -69,7 +69,7 @@ public class EmptyRecyclerView extends RecyclerView {
             int emptyCount = hasFooter ? 1 : 0;
             boolean empty = getAdapter() == null || getAdapter().getItemCount() == emptyCount;
             mEmptyView.setVisibility(empty ? VISIBLE : GONE);
-            EmptyRecyclerView.this.setVisibility(empty ? GONE : VISIBLE);
+            this.setVisibility(empty ? GONE : VISIBLE);
         }
     }
 

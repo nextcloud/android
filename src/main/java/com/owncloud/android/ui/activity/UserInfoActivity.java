@@ -260,8 +260,7 @@ public class UserInfoActivity extends FileActivity {
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
         avatar.setTag(account.name);
-        DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                avatar, this);
+        DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(), avatar, this);
 
         int tint = ThemeUtils.primaryColor(account, true, this);
 
@@ -412,7 +411,7 @@ public class UserInfoActivity extends FileActivity {
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
             RemoteOperation getRemoteUserInfoOperation = new GetRemoteUserInfoOperation();
-            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, UserInfoActivity.this);
+            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, this);
 
             if (result.isSuccess() && result.getData() != null) {
                 userInfo = (UserInfo) result.getData().get(0);
