@@ -119,9 +119,9 @@ public final class MediaProvider {
                                 MediaStore.MediaColumns.DATA));
 
                         // check if valid path
-                        if (filePath != null && filePath.lastIndexOf("/") > 0) {
+                        if (filePath != null && filePath.lastIndexOf('/') > 0) {
                             mediaFolder.filePaths.add(filePath);
-                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
                     }
                     cursorImages.close();
