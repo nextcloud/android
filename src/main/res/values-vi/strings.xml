@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_android">%1$s Ứng dụng Android</string>
+    <string name="about_version">phiên bản %1$s</string>
+    <string name="actionbar_sync">Cập nhật lại tài khoản</string>
+    <string name="actionbar_open_with">Mở với</string>
+    <string name="actionbar_mkdir">Tạo thư mục</string>
+    <string name="actionbar_settings">Cài đặt</string>
+    <string name="actionbar_see_details">Chi tiết</string>
+    <string name="actionbar_send_file">Gởi</string>
+    <string name="actionbar_sort">Sắp xếp</string>
+    <string name="sort_by">Sắp xếp theo</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Mới trước</string>
+    <string name="menu_item_sort_by_date_oldest_first">Cũ trước</string>
+    <string name="menu_item_sort_by_size_biggest_first">Lớn trước</string>
+    <string name="menu_item_sort_by_size_smallest_first">Nhỏ trước</string>
+
+    <string name="drawer_item_all_files">Tất cả tệp tin</string>
+    <string name="drawer_item_home">Trang nhất</string>
+    <string name="drawer_item_favorites">Ưa thích</string>
+    <string name="drawer_item_photos">Ảnh</string>
+    <string name="drawer_item_on_device">Trên thiết bị</string>
+    <string name="drawer_item_recently_added">Mới thêm</string>
+    <string name="drawer_item_recently_modified">Mới sửa</string>
+    <string name="drawer_item_shared">Chia sẻ</string>
+    <string name="drawer_item_videos">Phim</string>
+    <string name="drawer_item_settings">Thiệt lập</string>
+    <string name="drawer_item_uploads_list">Tải lên</string>
+    <string name="drawer_item_activities">Hoạt động</string>
+    <string name="drawer_item_notifications">Thông báo</string>
+    <string name="drawer_quota">%1$s trên %2$s đã sử dụng</string>
+    <string name="drawer_quota_unlimited">%1$s đã dùng</string>
+	<string name="drawer_close">Đóng thanh bên</string>
+    <string name="drawer_open">Mở thanh bên</string>
+    <string name="prefs_category_general">Tổng hợp</string>
+    <string name="prefs_category_more">hơn</string>
+    <string name="prefs_manage_accounts">Quản lý tài khoản</string>
+    <string name="prefs_lock">Khóa</string>
+    <string name="prefs_lock_title">Đang khóa</string>
+    <string name="prefs_lock_none">Không có</string>
+    <string name="prefs_lock_using_passcode">Mật mã</string>
+    <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
+    <string name="prefs_lock_device_credentials_enabled">Bật chứng nhận thiết bị</string>
+    <string name="prefs_lock_device_credentials_not_setup">Không có thông tin đăng nhập thiết bị nào được thiết lập.</string>
+    <string name="prefs_expert_mode">Chế độ chuyên gia</string>
+    <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
+    <string name="prefs_log_delete_history_button">Xóa lịch sử</string>
+    <string name="prefs_calendar_contacts">Đồng bộ lịch &amp; danh bạ</string>
+    <string name="prefs_calendar_contacts_summary">Thiết lập DAVdroid (v1.3.0+) cho tài khoản hiện tại</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Địa chỉ máy chủ cho tài khoản không sử dụng được cho DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Không có F-Droid hoặc Google Play nào được cài đặt</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Thiết lập đồng bộ lịch &amp; danh bạ</string>
+    <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>
+    <string name="prefs_help">Giúp đỡ</string>
+    <string name="prefs_recommend">Giới thiệu cho bạn bè</string>
+    <string name="prefs_feedback">Phản hồi</string>
+    <string name="prefs_imprint">Đánh dấu</string>
+
+	<string name="recommend_subject">Thử %1$s trên điện thoại của bạn!</string>
+	<string name="recommend_text">Tôi muốn mời bạn sử dụng %1$s trên điện thoại của bạn.\nTải về: %2$s</string>
+    <string name="recommend_urls">%1$s hoặc %2$s</string>
+
+    <string name="auth_check_server">Kiểm tra máy chủ</string>
+    <string name="auth_host_url">Địa chỉ máy chủ https://…</string>
+    <string name="auth_username">Tên người dùng</string>
+    <string name="auth_password">Mật khẩu</string>
+    <string name="sync_string_files">Tập tin</string>
+    <string name="setup_btn_connect">Kết nối</string>
+    <string name="uploader_btn_upload_text">Tải lên</string>
+    <string name="uploader_btn_alternative_text">Chọn</string>
+    <string name="uploader_top_message">Chọn thư mục tải lên</string>
+    <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
+    <string name="uploader_wrn_no_account_text">Không có tài khoản %1$s trên thiết bị của bạn. Cần thiết lập tài khoản trước.</string>
+    <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
+    <string name="uploader_wrn_no_account_quit_btn_text">Thoát</string>
+    <string name="uploader_error_title_no_file_to_upload">Không có tệp để tải lên</string>
+    <string name="uploader_error_message_no_file_to_upload">Dữ liệu đã nhận không bao gồm tệp hợp lệ.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Không thể tải tệp này</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s không được phép đọc một tệp đã nhận</string>
+    <string name="uploader_error_message_source_file_not_found">Không tìm thấy tệp đã chọn để tải lên. Vui lòng kiểm tra xem liệu tệp có tồn tại hay không.</string>
+    <string name="uploader_error_message_source_file_not_copied">Không thể sao chép tệp vào thư mục tạm thời. Thử gửi lại.</string>
+    <string name="uploader_upload_files_behaviour">Tùy chọn tải lên:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Di chuyển dữ liệu đến %1$s thư mục</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Giữ tệp trong thư mục nguồn</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Xoá tệp trong thư mục nguồn</string>
+    <string name="file_list_seconds_ago">vài giây trước</string>
+    <string name="file_list_empty_headline">Không có tệp nào</string>
+    <string name="folder_list_empty_headline">Không có thư mục nào</string>
+    <string name="file_list_empty">Tải lên một số nội dung hoặc đồng bộ với thiết bị của bạn.</string>
+    <string name="file_list_empty_favorites_filter_list">Những tệp và thư mục mà bạn đánh dấu là mục ưa thích sẽ hiển thị ở đây</string>
+    <string name="file_list_empty_favorites_filter">Kết quả tìm kiếm không trả về các tệp ưa thích.</string>
+    <string name="file_list_loading">Đang tải...</string>
+    <string name="file_list_no_app_for_file_type">Không có ứng dụng nào được thiết lập để xử lý loại tệp này.</string>
+    <string name="local_file_list_empty">Không có tệp nào trong thư mục này.</string>
+    <string name="local_folder_list_empty">Không có thư mục nào khác.</string>
+    <string name="file_list_empty_headline_search">Không có kết quả trong thư mục này</string>
+    <string name="file_list_empty_headline_server_search">Không có kết quả</string>
+    <string name="file_list_empty_favorite_headline">Không có mục ưa thích nào</string>
+    <string name="file_list_empty_shared_headline">Chưa có gì được chia sẻ</string>
+    <string name="file_list_empty_shared">Tập tin và thư mục bạn chia sẻ sẽ được hiển thị tại đây.</string>
+    <string name="file_list_empty_headline_server_search_videos">Không có video nào cả</string>
+    <string name="file_list_empty_headline_server_search_photos">Không có hình ảnh nào cả</string>
+    <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
+    <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
+    <string name="file_list_empty_recently_modified_filter">Không tệp nào được sửa đổi trong 7 ngày qua</string>
+    <string name="file_list_empty_recently_added">Không tìm thấy tệp nào được thêm vào gần đây</string>
+    <string name="file_list_empty_recently_added_filter">Không tệp nào được thêm vào gần đây</string>
+    <string name="file_list_empty_text_photos">Tải lên một số ảnh hoặc kích hoạt tự động tải lên.</string>
+    <string name="file_list_empty_text_photos_filter">Không có hình ảnh</string>
+    <string name="file_list_empty_text_videos">Tải lên vài đoạn phim hoặc kích hoạt tự dộng tải lên</string>
+    <string name="file_list_empty_text_videos_filter">Không có đoạn phim nào.</string>
+    <string name="trashbin_empty_headline">Không có file đã xóa</string>
+    <string name="trashbin_empty_message">Bạn có thể khôi phục dữ liệu đã xóa tại đây</string>
+    <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
+    <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>
+    <string name="file_list_folder">folder</string>
+    <string name="filedetails_download">Tải về</string>
+    <string name="filedetails_sync_file">Đồng bộ</string>
+    <string name="filedetails_renamed_in_upload_msg">Đã đổi tên tệp %1$s trong khi tải lên</string>
+    <string name="list_layout">Bố cục được liệt kê</string>
+    <string name="action_send_share">Gửi/Chia sẽ</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">Không</string>
+    <string name="common_ok">Chấp nhận</string>
+    <string name="common_cancel_sync">Hủy đồng bộ</string>
+    <string name="common_cancel">Hủy</string>
+    <string name="common_back">Trở lại</string>
+    <string name="common_save">Lưu</string>
+    <string name="common_error">Lỗi</string>
+    <string name="common_loading">Đang tải...</string>
+    <string name="common_unknown">không biết</string>
+    <string name="common_error_unknown">Lỗi chưa biết</string>
+    <string name="common_pending">Đang dừng</string>
+    <string name="common_delete">Xóa</string>
+    <string name="common_send">Gửi</string>
+    <string name="about_title">Giới thiệu</string>
+    <string name="delete_account">Xóa tài khoản</string>
+    <string name="delete_account_warning">Xóa tài khoản %s và xóa tất cả các tệp cục bộ?\n\nXóa không thể hoàn tác.</string>
+    <string name="avatar">Hình đại diện</string>
+    <string name="active_user">Người dùng đang hoạt động</string>
+    <string name="upload_chooser_title">Tải lên từ...</string>
+    <string name="uploader_info_dirname">Tên thư mục</string>
+    <string name="uploader_upload_in_progress_ticker">Đang tải lên...</string>
+    <string name="uploader_upload_in_progress_content">%1$d%% Đang tải lên %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Đã tải lên</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s đã tải lên</string>
+    <string name="uploader_upload_failed_ticker">Tải lên thất bại</string>
+    <string name="uploader_upload_failed_content_single">Không thể tải lên%1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Lỗi tải lên, đăng nhập lại</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Chứng chỉ máy chủ không đáng tin cậy</string>
+    <string name="uploads_view_title">Tải lên</string>
+    <string name="uploads_view_group_current_uploads">Hiện tại</string>
+    <string name="uploads_view_group_failed_uploads">Không thành công/đang chờ khởi động lại</string>
+    <string name="uploads_view_group_finished_uploads">Đã tải lên</string>
+    <string name="uploads_view_upload_status_succeeded">Hoàn thành</string>
+    <string name="uploads_view_upload_status_cancelled">Đã hủy</string>
+    <string name="uploads_view_upload_status_failed_connection_error">Lỗi kết nối</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Lỗi thông tin xác thực</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Lỗi thư mục</string>
+    <string name="uploads_view_upload_status_failed_file_error">Lỗi tập tin</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Không tìm thấy tập tin trên máy chủ</string>
+    <string name="uploads_view_upload_status_failed_permission_error">Lỗi quyền truy cập</string>
+    <string name="uploads_view_upload_status_conflict">Xung đột</string>
+    <string name="uploads_view_upload_status_service_interrupted">Đã đóng ứng dụng</string>
+    <string name="uploads_view_upload_status_unknown_fail">Lỗi chưa biết</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Chờ kết nối WIFI</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Đang chờ thoát chế độ tiết kiệm điện</string>
+    <string name="uploads_view_later_waiting_to_upload">Chờ tải lên</string>
+    <string name="downloader_download_in_progress_ticker">Đang tải về</string>
+    <string name="downloader_download_in_progress_content">%1$d%% Đang tải về %2$s</string>
+    <string name="downloader_download_succeeded_ticker">Đã tải về</string>
+    <string name="downloader_download_succeeded_content">%1$s đã tải về</string>
+    <string name="downloader_download_failed_ticker">Tải về thất bại</string>
+    <string name="downloader_download_failed_content">Không thể tải về %1$s</string>
+    <string name="downloader_not_downloaded_yet">Vẫn chưa tải về</string>
+    <string name="downloader_download_failed_credentials_error">Lỗi tải về, đăng nhập lại</string>
+    <string name="common_choose_account">Chọn tài khoản</string>
+    <string name="common_switch_account">Chuyển tài khoản</string>
+    <string name="sync_fail_ticker">Lỗi đồng bộ</string>
+    <string name="sync_fail_ticker_unauthorized">Đồng bộ lỗi, đăng nhập lại</string>
+    <string name="sync_fail_content">Không thể đồng bộ %1$s</string>
+    <string name="sync_fail_content_unauthorized">Sai mật khẩu của %1$s</string>
+    <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
+    <string name="sync_fail_in_favourites_ticker">Các file trong hàng đợi đồng bộ không thành công</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">Không thể đồng bộ tập tin %1$d (xung đột: %2$d)</item>
+    </plurals>
+    <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">Lỗi sao chép tập tin %1$d từ %2$s vào thư mục</item>
+    </plurals>
+    <string name="sync_current_folder_was_removed">Thư mục %1$s không còn tồn tại nữa</string>
+    <string name="foreign_files_move">Dịch chuyển tất cả</string>
+    <string name="foreign_files_success">Tất cả tập tin đã được dịch chuyển</string>
+    <string name="foreign_files_fail">Một số tập tin không thể dịch chuyển</string>
+    <string name="foreign_files_local_text">Cục bộ: %1$s</string>
+    <string name="foreign_files_remote_text">Từ xa: %1$s</string>
+    <string name="pass_code_enter_pass_code">Hãy nhập mã PIN của bạn</string>
+    <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
+    <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
+    
+    <string name="pass_code_configure_your_pass_code">Nhập mã PIN của bạn</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Mã PIN sẽ được yêu cầu mỗi khi ứng dụng được khởi động</string>
+    <string name="pass_code_reenter_your_pass_code">Hãy nhập lại mã PIN của bạn</string>
+    <string name="pass_code_remove_your_pass_code">Xóa mã PIN của bạn</string>
+    <string name="pass_code_mismatch">Mã PIN không giống nhau</string>
+    <string name="pass_code_wrong">Sai mã PIN</string>
+    <string name="pass_code_removed">Mã PIN đã được xóa</string>
+    <string name="pass_code_stored">Mã PIN đã được lưu</string>
+    
+    <string name="media_notif_ticker">%1$s trình nghe nhạc</string>
+    <string name="media_state_playing">%1$s (đang phát)</string>
+    <string name="media_state_loading">%1$s (đang chạy)</string>
+    <string name="media_event_done">%1$s phát lại khi kết thúc</string>
+    <string name="media_err_nothing_to_play">Không tìm thấy tập tin media nào</string>
+    <string name="media_err_not_in_owncloud">Tập tin không hợp lệ trong tài khoản </string>
+    <string name="media_err_unsupported">Codec của media không được hỗ trợ</string>
+    <string name="media_err_io">Không thể đọc tập tin media</string>
+    <string name="media_rewind_description">Nút chuyển lại</string>
+    <string name="media_play_pause_description">Nút phát hoặc tạm dừng</string>
+    <string name="media_forward_description">Nút đẩy nhanh tốc độ phát</string>
+
+    <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
+	<string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
+	<string name="auth_connection_established">Kết nối đã thiết lập</string>
+	<string name="auth_testing_connection">Kiểm tra kết nối</string>
+	<string name="auth_not_configured_title">Thay đổi cấu hình máy chủ </string>
+	<string name="auth_account_not_the_same">Tên người dùng đã nhập không đúng với tên người dùng của tài khoản này</string>
+	<string name="auth_unknown_error_title">Không xác định được lỗi!</string>
+	<string name="auth_timeout_title">Máy chủ đã quá dài để đáp ứng</string>
+	<string name="auth_incorrect_address_title">Sai định dạng địa chỉ máy chủ</string>
+	<string name="auth_ssl_general_error_title">SSL khởi tạo thất bại</string>
+	<string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ</string>
+	<string name="auth_secure_connection">Kết nối an toàn đã được thiết lập</string>
+	<string name="auth_unauthorized">Sai tên người dùng hoặc mật khẩu</string>
+	<string name="auth_oauth_error">Xác nhận không thành công</string>
+	<string name="auth_oauth_error_access_denied">Từ chối truy cập vì xác nhận từ phía máy chủ</string>
+	<string name="auth_expired_oauth_token_toast">Hạn xác nhận của bạn đã hết. Vui lòng, xác nhận lại</string>
+	<string name="auth_expired_basic_auth_toast">Hãy nhập mật khẩu hiện tại</string>
+	<string name="auth_expired_saml_sso_token_toast">Phiên làm việc của bạn đã kết thúc. Vui lòng kết nối lại</string>
+    <string name="auth_connecting_auth_server">Đang kết nối đến máy chủ chứng thực</string>
+	<string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
+	<string name="auth_can_not_auth_against_server">Không thể chứng thực với máy chủ này</string>
+    <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
+    <string name="favorite_real">Thêm vào ưa thích</string>
+    <string name="unset_favorite_real">Xóa khỏi ưa thích</string>
+    <string name="encrypted">Đặt mã hóa</string>
+    <string name="unset_encrypted">Bỏ đặt mã hóa</string>
+    <string name="common_rename">Sửa tên</string>
+    <string name="common_remove">Xóa</string>
+    <string name="confirmation_remove_file_alert">Bạn thực sự muốn xóa %1$s?</string>
+    <string name="confirmation_remove_local">Chỉ cục bộ</string>
+    <string name="remove_success_msg">Đã xóa</string>
+    <string name="remove_fail_msg">Lỗi khi xóa</string>
+    <string name="rename_dialog_title">Nhập tên mới</string>
+    <string name="sync_file_nothing_to_do_msg">Nội dung tập tin đã đồng bộ</string>
+    <string name="create_dir_fail_msg">Không thể tạo thư mục</string>
+    <string name="filename_forbidden_characters">Những kí tự không được dùng: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="wait_a_moment">Đợi một chút…</string>
+    <string name="filedisplay_no_file_selected">Không có tập tin nào được chọn</string>
+    <string name="activity_chooser_title">Gửi liên kết đến...</string>
+    <string name="ssl_validator_reason_cert_not_trusted">Chứng chỉ này không đáng tin cậy</string>
+    <string name="ssl_validator_reason_cert_expired">Chứng chỉ đã hết hạn</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">Chứng nhận máy chủ quá mới</string>
+    <string name="ssl_validator_reason_hostname_not_verified">URL không phù hợp với tên máy trong chứng chỉ</string>
+    <string name="ssl_validator_question">Bạn có chắc chắn tin tưởng chứng chỉ này?</string>
+    <string name="ssl_validator_btn_details_see">Chi tiết</string>
+    <string name="ssl_validator_btn_details_hide">Ẩn</string>
+    <string name="ssl_validator_label_subject">Cấp cho :</string>
+    <string name="ssl_validator_label_issuer">Nơi cấp:</string>
+    <string name="ssl_validator_label_CN">Tên thông dụng :</string>
+    <string name="ssl_validator_label_O">Tổ chức</string>
+    <string name="ssl_validator_label_OU">Đơn vị :</string>
+    <string name="ssl_validator_label_C">Quốc gia :</string>
+    <string name="ssl_validator_label_ST">Tiểu bang :</string>
+    <string name="ssl_validator_label_L">Đến từ :</string>
+    <string name="ssl_validator_label_validity">Hiệu lực :</string>
+    <string name="ssl_validator_label_validity_from">Từ :</string>
+    <string name="ssl_validator_label_validity_to">Tới :</string>
+    <string name="ssl_validator_label_signature">Chữ ký :</string>
+    <string name="ssl_validator_label_signature_algorithm">Thuật toán :</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Vân tay:</string>
+    <string name="ssl_validator_no_info_about_error">- Không có thông tin về lỗi</string>
+
+    <string name="placeholder_sentence">Vị trí này đã được đặt chỗ trước</string>
+    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="placeholder_media_time">12:23:45</string>
+
+    <string name="instant_upload_path">/Upload tức thì</string>
+    <string name="conflict_keep_both">Giữ cho cả hai</string>
+    <string name="conflict_use_server_version">phiên bản máy chủ</string>
+
+    <string name="preview_sorry">Xin lỗi</string>
+    <string name="preview_image_description">Xem trước hình ảnh</string>
+    <string name="preview_image_error_unknown_format">Không thể hiển thị hình ảnh</string>
+    <string name="prefs_synced_folders_local_path_title">Thư mục cục bộ</string>
+    <string name="prefs_synced_folders_remote_path_title">Thư mục từ xa</string>
+    <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
+	<string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
+    <string name="share_link_password_title">Nhập mật khẩu</string>
+    <string name="share_link_empty_password">Bạn hãy nhập một mật khẩu</string>
+
+    <string name="activity_chooser_send_file_title">Gởi</string>
+
+    <string name="copy_link">Sao chép liên kết</string>
+    <string name="clipboard_text_copied">Đã sao chép vào clipboard</string>
+    <string name="clipboard_label">Văn bản đã được sao chép từ %1$s</string>
+
+    <string name="error_cant_bind_to_operations_service">Lỗi nghiêm trọng: Không thể thực hiện thao tác</string>
+
+    <string name="forbidden_permissions_rename">đổi tên tập tin này</string>
+    <string name="forbidden_permissions_delete">xóa tập tin này</string>
+    <string name="share_link_forbidden_permissions">chia sẽ tập tin này</string>
+    <string name="unshare_link_forbidden_permissions">bỏ chia sẽ tập tin này</string>
+    <string name="update_link_forbidden_permissions">cập nhật chia sẽ này</string>
+    <string name="forbidden_permissions_create">tạo tập tin này</string>
+    <string name="uploader_upload_forbidden_permissions">tải lên thư mục này</string>
+    <string name="file_migration_migrating">Dịch chuyển dữ liệu...</string>
+    <string name="file_migration_cleaning">Đang xóa...</string>
+    <string name="file_migration_ok_finished">Đã hoàn tất</string>
+    <string name="file_migration_use_data_folder">Dùng</string>
+
+    <string name="file_migration_source_not_readable_title">Thư mục nguồn không thể đọc được!</string>
+    <string name="prefs_add_account">Thêm tài khoản</string>
+    <string name="drawer_manage_accounts">Quản lý tài khoản</string>
+    <string name="log_send_mail_subject">%1$s nhật ký ứng dụng Android</string>
+    <string name="log_progress_dialog_text">Đang tải dữ liệu...</string>
+
+	<string name="saml_authentication_required_text">Yêu cầu mật khẩu</string>
+	<string name="saml_authentication_wrong_pass">Sai mật khẩu</string>
+	<string name="actionbar_move">Dịch chuyển</string>
+    <string name="actionbar_copy">Sao chép</string>
+	<string name="file_list_empty_moving">Không có gì ở đây. Bạn có thể thêm một thư mục</string>
+	<string name="folder_picker_choose_button_text">Chọn</string>
+
+    <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
+    <string name="forbidden_permissions_move">dịch chuyển tập tin này</string>
+
+
+    <string name="copy_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
+    <string name="forbidden_permissions_copy">sao chép tập tin này</string>
+
+    <string name="prefs_category_details">Chi tiết</string>
+
+    <string name="sync_folder_failed_content">Đồng bộ thư mục %1$s không thể hoàn tất</string>
+
+	<string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
+    <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
+
+    <string name="auth_refresh_button">Làm mới kết nối</string>
+    <string name="auth_host_address">Địa chỉ máy chủ</string>
+    <string name="common_error_out_memory">Không đủ dung lượng lưu trữ</string>
+
+    <string name="username">Tài khoản</string>
+
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">Thư mục %1$d</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">Tập tin %1$d</item>
+    </plurals>
+    <string name="set_picture_as">Dùng hình ảnh như</string>
+    <string name="set_as">Đặt như</string>
+
+    <string name="select_all">Chọn tất cả</string>
+    <string name="deselect_all">Bỏ chọn tất cả</string>
+
+    <string name="pref_behaviour_entries_delete_file">đã xóa</string>
+    <string name="prefs_storage_path">Đường dẫn lưu trữ</string>
+
+    <string name="share_dialog_title">Chia sẻ</string>
+    <string name="share_file">Chia sẽ %1$s</string>
+    <string name="share_with_user_section_title">Chia sẽ với người dùng hoặc nhóm</string>
+    <string name="share_no_users">Chưa có dữ liệu nào được chia sẽ với người dùng</string>
+    <string name="share_add_user_or_group">Thêm người dùng hoặc nhóm</string>
+    <string name="share_via_link_edit_permission_label">Cho phép chỉnh sửa</string>
+    <string name="share_via_link_password_label">Bảo vệ với mật khẩu</string>
+    <string name="share_via_link_password_title">Bảo mật</string>
+    <string name="share_via_link_expiration_date_label">Đặt ngày hết hạn</string>
+    <string name="share_via_link_menu_password_label">Mật khẩu bảo vệ (%1$s)</string>
+    <string name="share_expiration_date_label">Hết hạn %1$s</string>
+    <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
+    <string name="share_via_link_section_title">Chia sẻ liên kết</string>
+    <string name="share_via_link_send_link_label">Gửi liên kết</string>
+    <string name="share_no_password_title">Đặt mật khẩu</string>
+    <string name="edit_permission_label">chỉnh sửa</string>
+    <string name="share_get_public_link_button">Lấy liên kết</string>
+    <string name="share_with_title">Chia sẽ với...</string>
+    <string name="share_with_edit_title">Chia sẽ với %1$s</string>
+    <string name="search_users_and_groups_hint">Tìm người dùng hoặc nhóm</string>
+    <string name="share_privilege_unshare">Bỏ chia sẽ</string>
+    <string name="share_privilege_can_share">có thể chia sẽ</string>
+    <string name="share_privilege_can_edit">có thể chỉnh sửa</string>
+    <string name="share_privilege_can_edit_create">có thể tạo</string>
+    <string name="share_privilege_can_edit_change">có thể chỉnh sửa</string>
+    <string name="share_privilege_can_edit_delete">có thể xóa</string>
+
+    <string name="action_retry_uploads">Thử lại các tải lên bị lỗi</string>
+    <string name="action_clear_failed_uploads">Dọn dẹp các tải lên bị lỗi</string>
+    <string name="action_clear_successful_uploads">Dọn dẹp các tải lên đã hoàn tất</string>
+    <string name="manage_space_title">Quản lý dung lượng</string>
+    <string name="manage_space_clear_data">Xóa dữ liệu</string>
+
+    <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>
+    <string name="offline_mode">Không có kết nối Internet</string>
+
+    <string name="actionbar_search">Tìm</string>
+    <string name="files_drop_not_supported">Đây là một tính năng của Hệ thống, hãy nâng cấp nó.</string>
+    <string name="learn_more">Đọc nhiều hơn</string>
+    <string name="drawer_synced_folders">Tự động tải lên</string>
+    <string name="move_to">Di chuyển đến</string>
+    <string name="copy_to">Sao chép đến</string>
+    <string name="synced_folders_loading_folders">Đang tải thư mục</string>
+    <string name="synced_folders_no_results">Không có thư mục media nào được tìm thấy</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d đã chọn</item>
+    </plurals>
+
+    <string name="notifications_loading_activity">Đang tải thông báo</string>
+    <string name="notifications_no_results_headline">Không có thông báo</string>
+    <string name="notifications_no_results_message">Hãy kiểm tra lại sau.</string>
+
+    <string name="upload_file_dialog_filename">Tên tập tin</string>
+    <string name="upload_file_dialog_filetype">Định dạng</string>
+    <string name="storage_description_default">Mặc định</string>
+
+    <string name="whats_new_skip">Bỏ qua</string>
+
+    <string name="user_info_phone">Số điện thoại</string>
+    <string name="user_info_address">Địa chỉ</string>
+    <string name="contacts_preference_choose_date">Chọn ngày</string>
+    <string name="contacts_preferences_no_file_found">Không tìm thấy tập tin</string>
+    <string name="drawer_logout">Đăng xuất</string>
+    <string name="file_not_found">Không tìm thấy tập tin</string>
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Thiết đặt một thư mục tùy chỉnh</string>
+    <string name="autoupload_create_new_custom_folder">Tạo mới một thư mục tùy chỉnh</string>
+    <string name="synced_folders_configure_folders">Cấu hình thư mục</string>
+
+    <string name="test_server_button">Kiểm tra kết nối máy chủ</string>
+    <string name="fallback_weblogin_back">Quay lại</string>
+    <string name="foreground_service_upload">Đang tải lên tập tin...</string>
+    <string name="foreground_service_download">Đang tải về tập tin...</string>
+
+    <string name="date_unknown">Không xác định</string>
+
+    <string name="resized_images_download_full_image">Tải ảnh đầy đủ?</string>
+
+    <string name="store_short_desc">Hệ thống là ứng dụng Android cho phép modile truy cập tất cả các tập tin của bạn trên máy chủ.</string>
+    <string name="drawer_current_account">Tài khoản hiện tại</string>
+    <string name="drawer_end_account">Tài khoản gần đây</string>
+    <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
+    <string name="file_icon">Tập tin</string>
+    <string name="user_icon">Người dùng</string>
+    <string name="favorite_icon">Ưa thích</string>
+    <string name="synced_icon">Đã đồng bộ</string>
+    <string name="available_offline_icon">Có sẵn cho ngoại tuyến</string>
+    <string name="checkbox">Hộp chọn</string>
+    <string name="shared_icon_share">chia sẽ</string>
+    <string name="shared_icon_shared_via_link">liên kết đã chia sẽ</string>
+    <string name="shared_icon_shared">đã chia sẽ</string>
+    <string name="sync_status_button">Nút trạng thái đồng bộ</string>
+    <string name="synced_folder_settings_button">Nút thiết đặt</string>
+    <string name="synced_folder_custom_folder_image">Tùy chỉnh hình ảnh thư mục</string>
+    <string name="folder_icon">Biểu tượng thư mục</string>
+    <string name="dev_version_new_version_available">Phiên bản mới</string>
+    <string name="version_dev_download">Tải về</string>
+
+    <string name="send">Gửi</string>
+    <string name="share">Chia sẻ</string>
+    <string name="link">Liên kết</string>
+
+    <string name="notification_channel_upload_name">Thông báo các kênh tải lên</string>
+    <string name="notification_channel_download_name">Thông báo các kênh tải về</string>
+    <string name="notification_channel_download_description">Hiện tiến trình tải về</string>
+    <string name="notification_channel_upload_description">Hiện tiến trình tải lên</string>
+    <string name="notification_channel_media_description">Tiến trình phát nhạt</string>
+    <string name="notification_channel_file_sync_name">Đồng bộ tập tin</string>
+    <string name="notification_channel_file_sync_description">Hiển thị tiến trình đồng bộ tệp và kết quả</string>
+    <string name="screenshot_04_accounts">Kết nối với các tài khoản khác nhau</string>
+    <string name="userinfo_no_info_headline">Không có thông tin cá nhân nào được đặt</string>
+    <string name="drawer_header_background">Hình nền của thanh tiêu đề</string>
+    <string name="account_icon">Biểu tượng tài khoản</string>
+    
+    <string name="end_to_end_encryption_folder_not_empty">Thư mục này rỗng</string>
+    <string name="end_to_end_encryption_wrong_password">Lỗi khi giải mã. Sai mật khẩu?</string>
+    <string name="end_to_end_encryption_decrypting">Đang giải mã…</string>
+    <string name="end_to_end_encryption_password">Mật khẩu...</string>
+    <string name="end_to_end_encryption_dialog_close">Đóng</string>
+    <string name="notification_channel_push_name">Thông báo đẩy</string>
+    <string name="sendbutton_description">Biểu tượng nút gửi</string>
+
+    <string name="hint_name">Tên</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="add_to_cloud">Thêm vào %1$s</string>
+    <string name="upload_files">Tải lên tập tin</string>
+    <string name="create_new_folder">Tạo thư mục mới</string>
+    <string name="uploads_view_upload_status_virus_detected">Phát hiện virus. Tải lên không thể hoàn tât!</string>
+    <string name="whats_new_device_credentials_title">Dùng bảo vệ nội bộ của thiết bị Android</string>
+    <string name="login">Đăng nhập</string>
+    <string name="new_comment">Bình luận mới</string>
+    <string name="error_comment_file">Lỗi khi bình luận tập tin</string>
+    <string name="dismiss">Bỏ qua</string>
+    <string name="drawer_item_trashbin">File đã bị xóa</string>
+    <string name="trashbin_activity_title">File đã bị xóa</string>
+    <string name="action_empty_trashbin">Dọn sạch thùng rác</string>
+    <string name="trashbin_loading_failed">Tải dữ liệu ở thùng rác bị lỗi!</string>
+    <string name="folder_already_exists">Thư mục đã tồn tại</string>
+    <string name="notification_icon">Biểu tượng thông báo</string>
+    <string name="folder_confirm_create">Tạo</string>
+    <string name="file_delete">Xóa</string>
+    <string name="file_keep">Giữ</string>
+    <string name="file_rename">Đổi tên</string>
+    <string name="fab_label">Thêm hoặc tải lên</string>
+    <string name="account_creation_failed">Tạo tài khoản không thành công</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
+    <string name="permission_deny">Từ chối</string>
+    <string name="permission_allow">Cho phép</string>
+
+</resources>
