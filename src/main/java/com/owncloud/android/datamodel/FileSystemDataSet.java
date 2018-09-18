@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -22,16 +22,16 @@ package com.owncloud.android.datamodel;
 
 import android.support.annotation.Nullable;
 
-/*
-    Model for filesystem data from the database
+/**
+ * Model for filesystem data from the database.
  */
 public class FileSystemDataSet {
 
     private int id;
     private String localPath;
     private long modifiedAt;
-    private boolean isFolder;
-    private boolean isSentForUpload;
+    private boolean folder;
+    private boolean sentForUpload;
     private long foundAt;
     private long syncedFolderId;
     @Nullable private String crc32;
@@ -39,13 +39,13 @@ public class FileSystemDataSet {
     public FileSystemDataSet() {
     }
 
-    public FileSystemDataSet(int id, String localPath, long modifiedAt, boolean isFolder,
-                             boolean isSentForUpload, long foundAt, long syncedFolderId, @Nullable String crc32) {
+    public FileSystemDataSet(int id, String localPath, long modifiedAt, boolean folder,
+                             boolean sentForUpload, long foundAt, long syncedFolderId, @Nullable String crc32) {
         this.id = id;
         this.localPath = localPath;
         this.modifiedAt = modifiedAt;
-        this.isFolder = isFolder;
-        this.isSentForUpload = isSentForUpload;
+        this.folder = folder;
+        this.sentForUpload = sentForUpload;
         this.foundAt = foundAt;
         this.syncedFolderId = syncedFolderId;
         this.crc32 = crc32;
@@ -84,11 +84,11 @@ public class FileSystemDataSet {
     }
 
     public boolean isFolder() {
-        return isFolder;
+        return folder;
     }
 
     public void setFolder(boolean folder) {
-        isFolder = folder;
+        this.folder = folder;
     }
 
     public long getFoundAt() {
@@ -100,11 +100,11 @@ public class FileSystemDataSet {
     }
 
     public boolean isSentForUpload() {
-        return isSentForUpload;
+        return sentForUpload;
     }
 
     public void setSentForUpload(boolean sentForUpload) {
-        isSentForUpload = sentForUpload;
+        this.sentForUpload = sentForUpload;
     }
 
     public long getSyncedFolderId() {
