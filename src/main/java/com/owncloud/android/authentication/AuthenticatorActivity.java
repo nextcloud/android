@@ -2222,7 +2222,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void doOnResumeAndBound() {
         //Log_OC.e(TAG, "registering to listen for operation callbacks" );
-        mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+        mOperationsServiceBinder.addOperationListener(this, mHandler);
         if (mWaitingForOpId <= Integer.MAX_VALUE) {
             mOperationsServiceBinder.dispatchResultIfFinished((int) mWaitingForOpId, this);
         }

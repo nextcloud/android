@@ -1386,7 +1386,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
-                Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(this);
 
                 if (account != null && getStorageManager() != null &&
                         getStorageManager().getCapability(account.name) != null &&
@@ -1405,7 +1405,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                         Log_OC.d("ExternalLinks", "update via api");
                         RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(account, DrawerActivity.this);
+                        RemoteOperationResult result = getExternalLinksOperation.execute(account, this);
 
                         if (result.isSuccess() && result.getData() != null) {
                             externalLinksProvider.deleteAllExternalLinks();
