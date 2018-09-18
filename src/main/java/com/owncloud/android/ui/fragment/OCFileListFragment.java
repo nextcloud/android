@@ -268,7 +268,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         Bundle args = getArguments();
-        boolean allowContextualActions = (args != null) && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
+        boolean allowContextualActions = args != null && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
         if (allowContextualActions) {
             setChoiceModeAsMultipleModal(savedInstanceState);
         }

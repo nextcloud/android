@@ -343,7 +343,7 @@ public final class FileStorageUtils {
         File realFile = new File(file.getStoragePath());
 
         if (realFile.lastModified() != file.getModificationTimestamp() && realFile.length() != file.getFileLength()) {
-            while ((realFile.lastModified() != lastModified) && (realFile.length() != lastSize)) {
+            while (realFile.lastModified() != lastModified && realFile.length() != lastSize) {
                 lastModified = realFile.lastModified();
                 lastSize = realFile.length();
                 try {

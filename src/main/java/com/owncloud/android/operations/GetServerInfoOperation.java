@@ -82,7 +82,7 @@ public class GetServerInfoOperation extends RemoteOperation {
         if (result.isSuccess()) {
             // second: get authentication method required by the server
             mResultData.mVersion = (OwnCloudVersion)(result.getData().get(0));
-            mResultData.mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
+            mResultData.mIsSslConn = result.getCode() == ResultCode.OK_SSL;
             mResultData.mBaseUrl = normalizeProtocolPrefix(mUrl, mResultData.mIsSslConn);
             RemoteOperationResult detectAuthResult = detectAuthorizationMethod(client);
             
