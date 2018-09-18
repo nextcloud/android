@@ -487,8 +487,7 @@ public class UserInfoActivity extends FileActivity {
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
-            ViewHolder holder = new ViewHolder(view);
-            return holder;
+            return new ViewHolder(view);
         }
 
         @Override

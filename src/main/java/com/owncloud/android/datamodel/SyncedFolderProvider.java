@@ -249,14 +249,11 @@ public class SyncedFolderProvider extends Observable {
      *  @param account whose synced folders should be deleted
      */
     public int deleteSyncFoldersForAccount(Account account) {
-        int result = mContentResolver.delete(
+        return mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " = ?",
                 new String[]{String.valueOf(account.name)}
         );
-
-        return result;
-
     }
 
     /**
