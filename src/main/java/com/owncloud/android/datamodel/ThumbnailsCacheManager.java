@@ -90,13 +90,13 @@ public final class ThumbnailsCacheManager {
     private static final String ETAG = "ETag";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
-    private static DiskLruImageCache mThumbnailCache = null;
+    private static DiskLruImageCache mThumbnailCache;
     private static boolean mThumbnailCacheStarting = true;
 
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 200; // 200MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
-    private static OwnCloudClient mClient = null;
+    private static OwnCloudClient mClient;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -384,7 +384,7 @@ public final class ThumbnailsCacheManager {
         private static Account mAccount;
         private List<ThumbnailGenerationTask> mAsyncTasks;
         private Object mFile;
-        private String mImageKey = null;
+        private String mImageKey;
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
 
