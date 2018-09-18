@@ -404,19 +404,25 @@ public class FileContentProvider extends ContentProvider {
             SQLiteDatabase db, ContentValues newShare
     ) {
         ContentValues fileValues = new ContentValues();
-        int newShareType = newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE);
-        if (newShareType == ShareType.PUBLIC_LINK.getValue()) {
-            fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
-        } else if (
-                newShareType == ShareType.USER.getValue() ||
-                        newShareType == ShareType.GROUP.getValue() ||
-                        newShareType == ShareType.EMAIL.getValue() ||
-                        newShareType == ShareType.FEDERATED.getValue()) {
-            fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
+        ShareType newShareType = ShareType.fromValue(newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE));
+
+        switch (newShareType) {
+            case PUBLIC_LINK:
+                fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
+                break;
+            case USER:
+            case GROUP:
+            case EMAIL:
+            case FEDERATED:
+            case ROOM:
+                fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
+                break;
+
+            default:
+                // everything should be handled
         }
 
-        String where = ProviderTableMeta.FILE_PATH + "=? AND " +
-                ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
         String[] whereArgs = new String[]{
                 newShare.getAsString(ProviderTableMeta.OCSHARES_PATH),
                 newShare.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
