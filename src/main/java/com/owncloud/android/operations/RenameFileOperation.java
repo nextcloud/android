@@ -81,7 +81,7 @@ public class RenameFileOperation extends SyncOperation {
             if (!isValidNewName()) {
                 return new RemoteOperationResult(ResultCode.INVALID_LOCAL_FILE_NAME);
             }
-            String parent = (new File(mFile.getRemotePath())).getParent();
+            String parent = new File(mFile.getRemotePath()).getParent();
             parent = parent.endsWith(OCFile.PATH_SEPARATOR) ? parent : parent + OCFile.PATH_SEPARATOR;
             mNewRemotePath =  parent + mNewName;
             if (mFile.isFolder()) {

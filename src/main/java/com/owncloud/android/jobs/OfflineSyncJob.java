@@ -84,9 +84,9 @@ public class OfflineSyncJob extends Job {
             if (cursorOnKeptInSync != null) {
                 if (cursorOnKeptInSync.moveToFirst()) {
 
-                    String localPath = "";
-                    String accountName = "";
-                    Account account = null;
+                    String localPath;
+                    String accountName;
+                    Account account;
                     do {
                         localPath = cursorOnKeptInSync.getString(cursorOnKeptInSync
                                 .getColumnIndex(ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH));

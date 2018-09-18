@@ -1120,7 +1120,7 @@ public class FileDisplayActivity extends HookActivity
             return false;
         } else {
             View mSearchEditFrame = searchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
-            return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+            return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
         }
     }
 
@@ -1306,8 +1306,8 @@ public class FileDisplayActivity extends HookActivity
                         intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult synchResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = (getAccount() != null &&
-                        accountName.equals(getAccount().name) && getStorageManager() != null);
+                boolean sameAccount = getAccount() != null &&
+                        accountName.equals(getAccount().name) && getStorageManager() != null;
 
                 if (sameAccount) {
 
@@ -1458,9 +1458,8 @@ public class FileDisplayActivity extends HookActivity
                 boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) ||
                         renamedInUpload;
                 FileFragment details = getSecondFragment();
-                boolean detailFragmentIsShown = (details instanceof FileDetailFragment);
 
-                if (sameAccount && sameFile && detailFragmentIsShown) {
+                if (sameAccount && sameFile && details instanceof FileDetailFragment) {
                     if (uploadWasFine) {
                         setFile(getStorageManager().getFileByPath(uploadedRemotePath));
                     } else {
@@ -1468,7 +1467,7 @@ public class FileDisplayActivity extends HookActivity
                         Log_OC.d(TAG, "Remove upload progress bar after upload failed");
                     }
                     if (renamedInUpload) {
-                        String newName = (new File(uploadedRemotePath)).getName();
+                        String newName = new File(uploadedRemotePath).getName();
                         DisplayUtils.showSnackMessage(
                                 getActivity(),
                                 R.string.filedetails_renamed_in_upload_msg,
@@ -1565,19 +1564,15 @@ public class FileDisplayActivity extends HookActivity
 
         private boolean isDescendant(String downloadedRemotePath) {
             OCFile currentDir = getCurrentDir();
-            return (
-                    currentDir != null &&
-                            downloadedRemotePath != null &&
-                            downloadedRemotePath.startsWith(currentDir.getRemotePath())
-            );
+            return currentDir != null &&
+                    downloadedRemotePath != null &&
+                    downloadedRemotePath.startsWith(currentDir.getRemotePath());
         }
 
         private boolean isAscendant(String linkedToRemotePath) {
             OCFile currentDir = getCurrentDir();
-            return (
-                    currentDir != null &&
-                            currentDir.getRemotePath().startsWith(linkedToRemotePath)
-            );
+            return currentDir != null &&
+                    currentDir.getRemotePath().startsWith(linkedToRemotePath);
         }
 
         private boolean isSameAccount(Intent intent) {

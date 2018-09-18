@@ -151,8 +151,8 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
                 return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
                         OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9;
         } else {
-            return (getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
-                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE);
+            return getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 

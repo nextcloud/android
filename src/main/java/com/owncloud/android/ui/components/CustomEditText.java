@@ -61,9 +61,9 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
                 || getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)) {
             return getText().toString();
         } else if (isPrefixFixed) {
-            return (getResources().getString(R.string.server_url) + "/" + getText().toString());
+            return getResources().getString(R.string.server_url) + "/" + getText().toString();
         } else {
-            return (getText().toString() + "." + getResources().getString(R.string.server_url));
+            return getText().toString() + "." + getResources().getString(R.string.server_url);
         }
     }
 
