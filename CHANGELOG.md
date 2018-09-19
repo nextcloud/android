@@ -1,10 +1,25 @@
-## 3.2.4 (Sept, 04, 2018)
-fix push notification on gplay release
+## 3.3.0 (September, 19, 2018)
+- Support for Trashbin (Nc14+)
+- Media streaming (Nc14+)
+- New media detection for AutoUpload
+- Improved TalkBack screenreader support
+- Show outdated server warning for server <NC12
+- Add support for device credentials
+- Show offline / maintenance info
+- Improved activities
+- Improved file detail / sharing with comments
+- Improved Share link creation via bottom sheet
+- Improved Notification, supporting actions
+- Minor UI/UX improvements
+- Many bug fixes
 
-## 3.2.3 (Aug, 21, 2018)
+## 3.2.4 (September, 04, 2018)
+- Fix push notification on gplay release
+
+## 3.2.3 (August, 21, 2018)
 - Fix crash on Android Android 4.x
 
-## 3.2.2 (Aug, 20, 2018)
+## 3.2.2 (August, 20, 2018)
 - New simple signup screen
 
 ## 3.2.1 (June, 11, 2018)
@@ -22,27 +37,27 @@ fix push notification on gplay release
 - minor UI/UX improvements
 - many bug fixes
  
-## 3.1.0 (Apr, 22, 2018)
+## 3.1.0 (April, 22, 2018)
 - enhance support for 8.x
 - speed improvements
 - minor UI/UX improvements
 - many bug fixes
 
-## 3.0.3 (Mar, 05, 2018)
+## 3.0.3 (March, 05, 2018)
 - Fix creating folders in auto upload
 
-## 3.0.2 (Feb, 27, 2018)
+## 3.0.2 (February, 27, 2018)
 - Fix crash on old android versions
 - Fix E2E
 - Fix crash on old server
 
-## 3.0.1 (Feb, 14, 2018)
+## 3.0.1 (February, 14, 2018)
 - Bugfix E2E
 - Fix SSL via PlayStore updater
 - Fix push notification
 - New android lib, fixing wrong user agent
 
-## 3.0.0 (Feb, 08, 2018)
+## 3.0.0 (February, 08, 2018)
 - End to end encryption
 - Screen adapted images instead of downloading
 - direct access to operations for single files
@@ -58,7 +73,7 @@ fix push notification on gplay release
 - UI enhancements
 - bug fixes
 
-## 2.0.0 (Oct, 17, 2017)
+## 2.0.0 (October, 17, 2017)
 - Account-wide search (Nc 12+)
 - Auto upload available on Android 4+
 - Separation between Image & Video for Auto upload
