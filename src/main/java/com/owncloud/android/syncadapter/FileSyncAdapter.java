@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -357,7 +358,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * 
      * @param event             Event in the process of synchronization to be notified.   
      * @param dirRemotePath     Remote path of the folder target of the event occurred.
-     * @param result            Result of an individual {@ SynchronizeFolderOperation},
+     * @param result            Result of an individual {@link SynchronizeFolderOperation},
      *                          if completed; may be null.
      */
     private void sendLocalBroadcast(String event, String dirRemotePath,
@@ -388,10 +389,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
-        boolean needsToUpdateCredentials = (
-                mLastFailedResult != null &&
-                ResultCode.UNAUTHORIZED.equals(mLastFailedResult.getCode())
-        );
+        boolean needsToUpdateCredentials = mLastFailedResult != null
+                && ResultCode.UNAUTHORIZED.equals(mLastFailedResult.getCode());
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
             Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);

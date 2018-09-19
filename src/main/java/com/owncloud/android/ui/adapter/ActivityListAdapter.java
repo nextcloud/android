@@ -299,10 +299,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         String text = richElement.getRichSubject();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
 
-        int idx1 = text.indexOf("{");
+        int idx1 = text.indexOf('{');
         int idx2;
         while (idx1 != -1) {
-            idx2 = text.indexOf("}", idx1) + 1;
+            idx2 = text.indexOf('}', idx1) + 1;
             final String clickString = text.substring(idx1 + 1, idx2 - 1);
             final RichObject richObject = searchObjectByName(richElement.getRichObjectList(), clickString);
             if (richObject != null) {
@@ -324,7 +324,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
                 ssb.setSpan(new ForegroundColorSpan(Color.BLACK), idx1, idx2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            idx1 = text.indexOf("{", idx2);
+            idx1 = text.indexOf('{', idx2);
         }
 
         return ssb;

@@ -528,7 +528,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
             inputText.setText(filename);
             int selectionStart = 0;
-            int extensionStart = filename.lastIndexOf(".");
+            int extensionStart = filename.lastIndexOf('.');
             int selectionEnd = extensionStart >= 0 ? extensionStart : filename.length();
             if (selectionEnd >= 0) {
                 inputText.setSelection(

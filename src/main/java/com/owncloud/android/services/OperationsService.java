@@ -617,13 +617,13 @@ public class OperationsService extends Service {
                                 remotePath,
                                 shareType,
                                 shareWith,
-                                OperationsService.this
+                                this
                         );
                     }
                     
                 } else if (ACTION_GET_SERVER_INFO.equals(action)) {
                     // check OC server and get basic information from it
-                    operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
+                    operation = new GetServerInfoOperation(serverUrl, this);
 
                 } else if (ACTION_OAUTH2_GET_ACCESS_TOKEN.equals(action)) {
                     /// GET ACCESS TOKEN to the OAuth server

@@ -211,9 +211,8 @@ public class SynchronizeFileOperation extends SyncOperation {
                 } else {
                     serverChanged = !mServerFile.getEtag().equals(mLocalFile.getEtag());
                 }
-                boolean localChanged = (
-                        mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData()
-                );
+                boolean localChanged =
+                        mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData();
 
                 /// decide action to perform depending upon changes
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {

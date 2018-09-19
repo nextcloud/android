@@ -577,7 +577,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), activity.getPreviewImageView()) &&
                         mContainerActivity.getStorageManager() != null) {
                     final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                            new ThumbnailsCacheManager.ResizedImageGenerationTask(FileDetailFragment.this,
+                            new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
                                     activity.getPreviewImageView(),
                                     mContainerActivity.getStorageManager(),
                                     mContainerActivity.getStorageManager().getAccount());

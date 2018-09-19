@@ -587,10 +587,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (mAuthTokenType == null) {
             if (mAccount != null) {
                 boolean oAuthRequired = mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null;
-                boolean samlWebSsoRequired = (
-                        mAccountMgr.getUserData
-                                (mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null
-                );
+                boolean samlWebSsoRequired = mAccountMgr.getUserData
+                        (mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null;
                 mAuthTokenType = chooseAuthTokenType(oAuthRequired, samlWebSsoRequired);
 
             } else {
@@ -1525,13 +1523,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private boolean authSupported(AuthenticationMethod authMethod) {
-        return ((basicTokenType.equals(mAuthTokenType) &&
-                AuthenticationMethod.BASIC_HTTP_AUTH.equals(authMethod)) ||
-                (oauthTokenType.equals(mAuthTokenType) &&
-                        AuthenticationMethod.BEARER_TOKEN.equals(authMethod)) ||
-                (samlTokenType.equals(mAuthTokenType) &&
-                        AuthenticationMethod.SAML_WEB_SSO.equals(authMethod))
-        );
+        return (basicTokenType.equals(mAuthTokenType) && AuthenticationMethod.BASIC_HTTP_AUTH.equals(authMethod)) ||
+                (oauthTokenType.equals(mAuthTokenType) && AuthenticationMethod.BEARER_TOKEN.equals(authMethod)) ||
+                (samlTokenType.equals(mAuthTokenType) && AuthenticationMethod.SAML_WEB_SSO.equals(authMethod));
     }
 
     /**
@@ -2222,7 +2216,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void doOnResumeAndBound() {
         //Log_OC.e(TAG, "registering to listen for operation callbacks" );
-        mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+        mOperationsServiceBinder.addOperationListener(this, mHandler);
         if (mWaitingForOpId <= Integer.MAX_VALUE) {
             mOperationsServiceBinder.dispatchResultIfFinished((int) mWaitingForOpId, this);
         }
