@@ -1,15 +1,15 @@
-## 3.3.0 (September, 2018)
-- Support for restoring deleted files (Nc14+)
+## 3.3.0 (September, 19, 2018)
+- Support for Trashbin (Nc14+)
 - Media streaming (Nc14+)
 - New media detection for AutoUpload
-- Accessibility: improved TalkBack screenreader support
-- Show outdated server warning for server <Nc12
+- Improved TalkBack screenreader support
+- Show outdated server warning for server <NC12
 - Add support for device credentials
-- Show offline info / Show maintenance info
-- Improved activities screen
-- Improved file detail / sharing screen with comments
+- Show offline / maintenance info
+- Improved activities
+- Improved file detail / sharing with comments
 - Improved Share link creation via bottom sheet
-- Improved Notification screen, supporting actions
+- Improved Notification, supporting actions
 - Minor UI/UX improvements
 - Many bug fixes
 
