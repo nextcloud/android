@@ -45,7 +45,7 @@ public class FileSortOrderByName extends FileSortOrder {
      *
      * @param files files to sort
      */
-    @SuppressFBWarnings(value = "Bx")
+    @SuppressFBWarnings("Bx")
     public List<OCFile> sortCloudFiles(List<OCFile> files) {
         final int multiplier = mAscending ? 1 : -1;
 

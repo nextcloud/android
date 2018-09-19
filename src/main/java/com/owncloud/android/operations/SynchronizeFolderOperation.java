@@ -242,10 +242,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
             storageManager.removeFolder(
                     mLocalFolder,
                     true,
-                    (   mLocalFolder.isDown() &&        // TODO: debug, I think this is
-                                                        // always false for folders
-                            mLocalFolder.getStoragePath().startsWith(currentSavePath)
-                    )
+                    mLocalFolder.isDown() // TODO: debug, I think this is always false for folders
+                            && mLocalFolder.getStoragePath().startsWith(currentSavePath)
             );
         }
     }
@@ -397,7 +395,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
                             child,
-                            (child.getEtagInConflict() != null ? child : null),
+                            child.getEtagInConflict() != null ? child : null,
                             mAccount,
                             true,
                             mContext

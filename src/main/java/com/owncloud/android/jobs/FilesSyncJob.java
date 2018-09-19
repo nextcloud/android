@@ -130,18 +130,23 @@ public class FilesSyncJob extends Job {
         Integer uploadAction;
         boolean needsCharging;
         boolean needsWifi;
+        File file;
+        ArbitraryDataProvider arbitraryDataProvider;
         Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
+
+        if (lightVersion) {
+            arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        } else {
+            arbitraryDataProvider = null;
+        }
 
         for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
                 Long.toString(syncedFolder.getId()))) {
-            File file = new File(path);
+            file = new File(path);
             Long lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter);
             String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
             if (lightVersion) {
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                        context.getContentResolver());
-
                 needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging);
                 needsWifi = account == null || arbitraryDataProvider.getBooleanValue(account.name,
                         Preferences.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);

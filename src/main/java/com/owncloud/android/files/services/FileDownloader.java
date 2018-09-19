@@ -321,10 +321,7 @@ public class FileDownloader extends Service
          * @param file    A file that could be in the queue of downloads.
          */
         public boolean isDownloading(Account account, OCFile file) {
-            if (account == null || file == null) {
-                return false;
-            }
-            return (mPendingDownloads.contains(account.name, file.getRemotePath()));
+            return account != null && file != null && mPendingDownloads.contains(account.name, file.getRemotePath());
         }
 
 
@@ -599,8 +596,8 @@ public class FileDownloader extends Service
         }
 
         if (!downloadResult.isCancelled()) {
-            int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker :
-                    R.string.downloader_download_failed_ticker;
+            int tickerId = downloadResult.isSuccess() ?
+                    R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
 
             boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(downloadResult.getCode());
             tickerId = needsToUpdateCredentials ?

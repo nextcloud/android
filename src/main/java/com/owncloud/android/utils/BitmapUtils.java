@@ -295,7 +295,7 @@ public final class BitmapUtils {
         // Converting our data into a usable rgb format
         // Start at 1 because 16%3=1 but 15%3=0 and makes the repartition even
         for (int count = 1; count < modulo; count++) {
-            rgb[count % 3] += (Integer.parseInt(result[count]));
+            rgb[count % 3] += Integer.parseInt(result[count]);
         }
 
         // Reduce values bigger than rgb requirements

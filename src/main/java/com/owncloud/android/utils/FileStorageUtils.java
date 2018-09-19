@@ -337,13 +337,13 @@ public final class FileStorageUtils {
         file.delete();
     }
 
-    public static boolean checkIfFileFinishedSaving(OCFile file) {
+    public static void checkIfFileFinishedSaving(OCFile file) {
         long lastModified = 0;
         long lastSize = 0;
         File realFile = new File(file.getStoragePath());
 
         if (realFile.lastModified() != file.getModificationTimestamp() && realFile.length() != file.getFileLength()) {
-            while ((realFile.lastModified() != lastModified) && (realFile.length() != lastSize)) {
+            while (realFile.lastModified() != lastModified && realFile.length() != lastSize) {
                 lastModified = realFile.lastModified();
                 lastSize = realFile.length();
                 try {
@@ -353,8 +353,6 @@ public final class FileStorageUtils {
                 }
             }
         }
-
-        return true;
     }
 
     /**

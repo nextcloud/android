@@ -215,7 +215,7 @@ public class UploadFileOperation extends SyncOperation {
         mCreatedBy = upload.getCreatedBy();
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
         // Ignore power save mode only if user explicitly created this upload
-        mIgnoringPowerSaveMode = (mCreatedBy == CREATED_BY_USER);
+        mIgnoringPowerSaveMode = mCreatedBy == CREATED_BY_USER;
         mFolderUnlockToken = upload.getFolderUnlockToken();
     }
 
@@ -721,8 +721,8 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && (!Device.getBatteryStatus(mContext).isCharging() && Device.getBatteryStatus(mContext)
-                .getBatteryPercent() < 1)) {
+        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()
+                && Device.getBatteryStatus(mContext).getBatteryPercent() < 1) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }

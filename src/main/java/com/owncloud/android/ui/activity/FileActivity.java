@@ -493,7 +493,7 @@ public abstract class FileActivity extends DrawerActivity
 
 
     private void doOnResumeAndBound() {
-        mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+        mOperationsServiceBinder.addOperationListener(this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
         if (waitingForOpId <= Integer.MAX_VALUE) {
             boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId,

@@ -42,7 +42,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -261,8 +260,7 @@ public class UserInfoActivity extends FileActivity {
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
         avatar.setTag(account.name);
-        DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                avatar, this);
+        DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(), avatar, this);
 
         int tint = ThemeUtils.primaryColor(account, true, this);
 
@@ -413,7 +411,7 @@ public class UserInfoActivity extends FileActivity {
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
             RemoteOperation getRemoteUserInfoOperation = new GetRemoteUserInfoOperation();
-            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, UserInfoActivity.this);
+            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, this);
 
             if (result.isSuccess() && result.getData() != null) {
                 userInfo = (UserInfo) result.getData().get(0);
@@ -487,8 +485,7 @@ public class UserInfoActivity extends FileActivity {
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
-            ViewHolder holder = new ViewHolder(view);
-            return holder;
+            return new ViewHolder(view);
         }
 
         @Override
