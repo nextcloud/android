@@ -102,7 +102,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
                     break;
                 case ROOM:
                     name = getContext().getString(R.string.share_room_clarification, name);
-                    setImage(icon, name, R.drawable.ic_group);
+                    setImage(icon, name, R.drawable.ic_chat_bubble);
                     break;
                 default:
                     setImage(icon, name, R.drawable.ic_user);

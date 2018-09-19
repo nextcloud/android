@@ -112,7 +112,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                     break;
                 case ROOM:
                     name = context.getString(R.string.share_room_clarification, name);
-                    setImage(holder, name, R.drawable.ic_group);
+                    setImage(holder, name, R.drawable.ic_chat_bubble);
                     break;
                 default:
                     setImage(holder, name, R.drawable.ic_user);

@@ -239,7 +239,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             break;
 
                         case ROOM:
-                            icon = R.drawable.ic_group;
+                            icon = R.drawable.ic_chat_bubble;
                             displayName = getContext().getString(R.string.share_room_clarification, userName);
                             dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                             break;
