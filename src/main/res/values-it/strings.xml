@@ -802,4 +802,8 @@
     <string name="fab_label">Aggiungi o carica</string>
     <string name="account_creation_failed">Creazione dell\'account non riuscita</string>
 
-    </resources>
+    <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
+    <string name="permission_deny">Nega</string>
+    <string name="permission_allow">Consenti</string>
+
+</resources>

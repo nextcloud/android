@@ -40,6 +40,7 @@
     <string name="prefs_lock">Uzamknout</string>
     <string name="prefs_lock_title">Uzamknout použitím</string>
     <string name="prefs_lock_none">Žádné</string>
+    <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
     <string name="prefs_lock_device_credentials_not_setup">Nebyly nastaveny žádné přihlašovací údaje zařízení.</string>
@@ -627,6 +628,7 @@
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
     <string name="drawer_logout">Odhlásit se</string>
+    <string name="picture_set_as_no_app">Nenalezena aplikace pro nastavení obrázku</string>
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuji poslední dostupnou verzi.</string>
@@ -700,6 +702,8 @@
     <string name="share">Sdílet</string>
     <string name="link">Odkaz</string>
 
+    <string name="notification_channel_upload_name">Kanál oznamování o nahrání</string>
+    <string name="notification_channel_download_name">Kanál oznamování o stažení</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
@@ -713,12 +717,14 @@
 
     <string name="screenshot_01_gridView">Bezpečné místo pro všechna vaše data</string>
     <string name="screenshot_02_listView">Snadno procházejte a sdílejte své soubory</string>
+    <string name="screenshot_03_drawer">Rychlý přístup k aktivitě, sdílením, souborům offline a další</string>
     <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
     <string name="screenshot_05_autoUpload">Automaticky nahrávat vaše fotografie &amp; videa</string>
     <string name="screenshot_06_davdroid">Synchronizujte kalendář &amp; kontakty s DAVdroid</string>
     
     <string name="userinfo_no_info_headline">Osobní údaje nejsou nastaveny</string>
     <string name="userinfo_no_info_text">Přidejte jméno, obrázek a kontaktní údaje na vaší profilové stránce.</string>
+    <string name="drawer_header_background">Obrázek na pozadí hlavičky zásuvky</string>
     <string name="account_icon">Ikona účtu</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
@@ -739,8 +745,11 @@
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky v tuto chvíli není podporováno.</string>
     <string name="untrusted_domain">Přístup prostřednictvím nedůvěryhodné domény. Více informací naleznete v nápovědě.</string>
+    <string name="notification_channel_push_name">Vyskakovací oznámení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresa koncového bodu ověřování</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresa koncového bodu přístupu</string>
     <string name="hint_name">Jméno</string>
     <string name="hint_password">Heslo</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
@@ -749,11 +758,17 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
     <string name="tags">Štítky</string>
+    <string name="sharee_add_failed">Přidání sdílejícího se nezdařilo</string>
     <string name="unsharing_failed">Rušení sdílení se nezdařilo</string>
+    <string name="updating_share_failed">Změna sdílení se nezdařila</string>
     <string name="whats_new_device_credentials_title">Použít vnitřní ochranu Android zařízení</string>
     <string name="login">Přihlásit</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
+    <string name="first_run_1_text">Mějte svá data zabezpečená a pod svou správou</string>
+    <string name="first_run_2_text">Zabezpečená spolupráce &amp; výměna souborů</string>
+    <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendáře &amp; kontakty</string>
+    <string name="first_run_4_text">Sdílení obrazovky, online schůzky &amp; webové konference</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
 	<string name="restore">Obnovit soubor</string>
     <string name="new_version_was_created">Byla vytvořena nová verze</string>
@@ -772,6 +787,11 @@
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
+    <string name="trashbin_loading_failed">Načtení obsahu koše se nezdařilo!</string>
+    <string name="trashbin_file_not_deleted">Soubor %1$s se nepodařilo smazat!</string>
+    <string name="trashbin_file_not_restored">Soubor %1$s se nepodařilo obnovit!</string>
+    <string name="trashbin_not_emptied">Soubory se nepodařilo nadobro smazat!</string>
+    <string name="stream">Proudově vysílat s…</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
     <string name="folder_already_exists">Složka už existuje</string>
@@ -781,4 +801,6 @@
     <string name="file_keep">Ponechat</string>
     <string name="file_rename">Přejmenovat</string>
     <string name="fab_label">Přidat nebo nahrát</string>
+    <string name="account_creation_failed">Vytvoření účtu se nezdařilo</string>
+
     </resources>
