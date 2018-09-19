@@ -544,8 +544,8 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("flac", Collections.singletonList("audio/flac"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("flv", Collections.singletonList("video/x-flv"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gif", Collections.singletonList("image/gif"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gz", Collections.singletonList("application/x-gzip"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gzip", Collections.singletonList("application/x-gzip"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gz", Collections.singletonList("application/gzip"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gzip", Collections.singletonList("application/gzip"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("h", Collections.singletonList("text/x-h"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("hh", Collections.singletonList("text/x-h"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("html", Arrays.asList("text/html", "text/plain"));
@@ -631,7 +631,6 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("svg", Arrays.asList("image/svg+xml", "text/plain"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("swf", Arrays.asList("application/x-shockwave-flash", "application/octet-stream"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("tar", Collections.singletonList("application/x-tar"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("gz", Collections.singletonList("application/x-compressed"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("tex", Collections.singletonList("application/x-tex"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("tgz", Collections.singletonList("application/x-compressed"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("tiff", Collections.singletonList("image/tiff"));
