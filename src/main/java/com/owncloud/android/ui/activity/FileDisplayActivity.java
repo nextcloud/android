@@ -537,6 +537,7 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
@@ -546,8 +547,8 @@ public class FileDisplayActivity extends HookActivity
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 String query = intent.getStringExtra(SearchManager.QUERY);
+                setIntent(intent);
                 Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
-
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
                 Uri data = intent.getData();
                 String dataString = intent.getDataString();
@@ -1249,10 +1250,16 @@ public class FileDisplayActivity extends HookActivity
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
         // setup drawer
-        if (MainApp.isOnlyOnDevice()) {
-            setDrawerMenuItemChecked(R.id.nav_on_device);
+        int menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
+
+        if (menuItemId == -1) {
+            if (MainApp.isOnlyOnDevice()) {
+                setDrawerMenuItemChecked(R.id.nav_on_device);
+            } else {
+                setDrawerMenuItemChecked(R.id.nav_all_files);
+            }
         } else {
-            setDrawerMenuItemChecked(R.id.nav_all_files);
+            setDrawerMenuItemChecked(menuItemId);
         }
         
         Log_OC.v(TAG, "onResume() end");
