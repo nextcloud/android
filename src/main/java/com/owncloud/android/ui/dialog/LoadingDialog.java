@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2015 ownCloud Inc.
@@ -36,10 +36,6 @@ import com.owncloud.android.utils.ThemeUtils;
 public class LoadingDialog extends DialogFragment {
 
     private String mMessage;
-    
-    public LoadingDialog() {
-        super();
-    }
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
