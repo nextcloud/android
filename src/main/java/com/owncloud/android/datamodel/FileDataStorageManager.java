@@ -557,7 +557,7 @@ public class FileDataStorageManager {
     }
 
     private boolean removeFolderInDb(OCFile folder) {
-        Uri folder_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, "" + folder.getFileId()); // URI
+        Uri folder_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(folder.getFileId())); // URI
         // for recursive deletion
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
         String[] whereArgs = new String[]{mAccount.name, folder.getRemotePath()};
