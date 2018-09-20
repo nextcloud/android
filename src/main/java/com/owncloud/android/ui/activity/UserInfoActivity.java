@@ -461,8 +461,8 @@ public class UserInfoActivity extends FileActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            @BindView(R.id.icon) protected ImageView icon = null;
-            @BindView(R.id.text) protected TextView text = null;
+            @BindView(R.id.icon) protected ImageView icon;
+            @BindView(R.id.text) protected TextView text;
 
             public ViewHolder(View itemView) {
                 super(itemView);
