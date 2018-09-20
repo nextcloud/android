@@ -2020,7 +2020,7 @@ public class FileDisplayActivity extends HookActivity
             snackbar.show();
         }
 
-        if (fileDetailFragment != null && fileDetailFragment instanceof FileDetailFragment) {
+        if (fileDetailFragment instanceof FileDetailFragment) {
             ((FileDetailFragment) fileDetailFragment).getFileDetailSharingFragment()
                     .onUpdateShareInformation(result, getFile());
         }
