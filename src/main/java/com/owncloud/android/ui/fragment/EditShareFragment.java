@@ -290,12 +290,11 @@ public class EditShareFragment extends Fragment {
                         if (isChecked) {
                             if (!isFederated) {
                                 /// not federated shares -> enable all the subpermisions
-                                for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
+                                for (int subordinateCheckBoxId : sSubordinateCheckBoxIds) {
                                     //noinspection ConstantConditions, prevented in the method beginning
-                                    subordinate = getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                    subordinate = getView().findViewById(subordinateCheckBoxId);
                                     subordinate.setVisibility(View.VISIBLE);
-                                    if (!subordinate.isChecked() &&
-                                            !mFile.isSharedWithMe()) {          // see (1)
+                                    if (!subordinate.isChecked() && !mFile.isSharedWithMe()) { // see (1)
                                         toggleDisablingListener(subordinate);
                                     }
                                 }
