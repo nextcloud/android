@@ -25,9 +25,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -343,5 +345,15 @@ public final class AccountUtils {
 
         // will assume it succeeds, not a big deal otherwise
         return newAccount;
+    }
+
+    /**
+     * Checks if an account owns the file (file's ownerId is the same as account name)
+     * @param file File to check
+     * @param account account to compare
+     * @return false if ownerId is not set or owner is a different account
+     */
+    public static boolean accountOwnsFile(OCFile file, Account account) {
+        return !TextUtils.isEmpty(file.getOwnerId()) && account.name.split("@")[0].equals(file.getOwnerId());
     }
 }

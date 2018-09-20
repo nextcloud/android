@@ -873,4 +873,6 @@
     <string name="io_error">IO error</string>
     <string name="operation_canceled">Operation has been canceled</string>
     <string name="authentication_exception">Authentication Exception</string>
+    <string name="shared_avatar_desc">Avatar from shared user</string>
+    <string name="shared_with_you_by">Shared with you by %1$s</string>
 </resources>

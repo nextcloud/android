@@ -172,12 +172,25 @@
             android:src="@drawable/ic_unshared" />
 
         <ImageView
+            android:id="@+id/sharedAvatar"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/sharedIcon"
+            android:layout_toRightOf="@id/sharedIcon"
+            android:contentDescription="@string/shared_avatar_desc"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_user"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/sharedIcon"
-            android:layout_toRightOf="@id/sharedIcon"
+            android:layout_toEndOf="@id/sharedAvatar"
+            android:layout_toRightOf="@id/sharedAvatar"
             android:clickable="false"
             android:contentDescription="@string/checkbox"
             android:focusable="false"
