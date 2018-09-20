@@ -251,14 +251,14 @@ public class StorageMigration {
         }
 
         protected void stopAccountsSyncing() {
-            for (int i = 0; i < mOcAccounts.length; ++i) {
-                ContentResolver.setSyncAutomatically(mOcAccounts[i], mAuthority, false);
+            for (Account ocAccount : mOcAccounts) {
+                ContentResolver.setSyncAutomatically(ocAccount, mAuthority, false);
             }
         }
 
         protected void waitForUnfinishedSynchronizations() {
-            for (int i = 0; i < mOcAccounts.length; ++i) {
-                while (ContentResolver.isSyncActive(mOcAccounts[i], mAuthority)) {
+            for (Account ocAccount : mOcAccounts) {
+                while (ContentResolver.isSyncActive(ocAccount, mAuthority)) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
