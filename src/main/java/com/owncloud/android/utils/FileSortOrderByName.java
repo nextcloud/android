@@ -68,7 +68,7 @@ public class FileSortOrderByName extends FileSortOrder {
      *
      * @param files files to sort
      */
-    @SuppressFBWarnings(value = "Bx")
+    @SuppressFBWarnings("Bx")
     @Override
     public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
         final int multiplier = mAscending ? 1 : -1;
