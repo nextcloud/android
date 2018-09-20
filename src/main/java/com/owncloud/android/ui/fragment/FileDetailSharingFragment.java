@@ -58,6 +58,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
+import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -317,6 +318,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 publicShare.getExpirationDate(),
                 res
         );
+
+        menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
     }
 
     private boolean optionsItemSelected(MenuItem item) {
@@ -351,6 +354,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 }
                 return true;
             }
+            case R.id.action_share_send_note:
+                NoteDialogFragment dialog = NoteDialogFragment.newInstance(publicShare);
+                dialog.show(getActivity().getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -439,6 +446,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         ;
 
         return permissions;
+    }
+
+    @Override
+    public void updateNoteToShare(OCShare share, String note) {
+        ((FileActivity) getActivity()).getFileOperationsHelper().updateNoteToShare(share, note);
     }
 
     /**
