@@ -803,4 +803,7 @@
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="account_creation_failed">Vytvoření účtu se nezdařilo</string>
 
-    </resources>
+    <string name="permission_deny">Zakázat</string>
+    <string name="permission_allow">Povolit</string>
+
+</resources>

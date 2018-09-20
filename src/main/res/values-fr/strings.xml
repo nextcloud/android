@@ -533,7 +533,7 @@ Veuillez contacter votre administrateur</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
-    <string name="offline_mode">Aucune connexion internet</string>
+    <string name="offline_mode">Aucune connexion Internet</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>

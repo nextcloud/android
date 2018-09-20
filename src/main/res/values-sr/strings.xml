@@ -805,4 +805,10 @@
     <string name="file_keep">Задржи</string>
     <string name="file_rename">Преименуј</string>
     <string name="fab_label">Додај или отпреми</string>
-    </resources>
+    <string name="account_creation_failed">Прављење налога није успело</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Дозволи да %1$s приступа Вашем Некстклауд налогу %2$s?</string>
+    <string name="permission_deny">Одбиј</string>
+    <string name="permission_allow">Дозволи</string>
+
+</resources>
