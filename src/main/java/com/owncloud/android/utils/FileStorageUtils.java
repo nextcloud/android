@@ -209,6 +209,7 @@ public final class FileStorageUtils {
         file.setUnreadCommentsCount(remote.getUnreadCommentsCount());
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
+        file.setNote(remote.getNote());
 
         return file;
     }
@@ -441,7 +442,7 @@ public final class FileStorageUtils {
      * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/54652548223d151f089bdc6fc868b13ca5ab20a9/app/src
      * /main/java/com/amaze/filemanager/activities/MainActivity.java#L620 on 14.02.2019
      */
-    @SuppressFBWarnings(value = "DMI_HARDCODED_ABSOLUTE_FILENAME", 
+    @SuppressFBWarnings(value = "DMI_HARDCODED_ABSOLUTE_FILENAME",
         justification = "Default Android fallback storage path")
     public static List<String> getStorageDirectories(Activity activity) {
         // Final set of paths
