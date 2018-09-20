@@ -128,6 +128,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @BindView(R.id.shared_with_you_username)
     TextView sharedWithYouUsername;
 
+    @BindView(R.id.shared_with_you_note)
+    TextView sharedWithYouNote;
+
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
         Bundle args = new Bundle();
@@ -208,13 +211,19 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void setupView() {
-        setShareByLinkInfo(file.isSharedViaLink());
-        setShareWithUserInfo();
         setShareWithYou();
-        FileDetailSharingFragmentHelper.setupSearchView(
-            (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
-            fileDisplayActivity.getComponentName());
-        ThemeUtils.themeSearchView(getContext(), searchView, false);
+
+        if (file.canReshare()) {
+            setShareByLinkInfo(file.isSharedViaLink());
+            setShareWithUserInfo();
+            FileDetailSharingFragmentHelper.setupSearchView(
+                (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
+                fileDisplayActivity.getComponentName());
+            ThemeUtils.themeSearchView(getContext(), searchView, false);
+        } else {
+            searchView.setVisibility(View.GONE);
+            noList.setText(R.string.reshare_not_allowed);
+        }
     }
 
     /**
@@ -271,6 +280,15 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 R.dimen.file_list_item_avatar_icon_radius), getResources(), sharedWithYouAvatar,
                 getContext());
             sharedWithYouAvatar.setVisibility(View.VISIBLE);
+
+            String note = file.getNote();
+
+            if (!note.isEmpty()) {
+                sharedWithYouNote.setText(file.getNote());
+                sharedWithYouNote.setVisibility(View.VISIBLE);
+            } else {
+                sharedWithYouNote.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -535,7 +553,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      * Takes into account server capabilities before reading database.
      */
     public void refreshPublicShareFromDB() {
-        if (FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
+        if (FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities) || !file.canReshare()) {
             shareByLinkContainer.setVisibility(View.GONE);
         } else {
             // Get public share

@@ -700,7 +700,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_HAS_PREVIEW + INTEGER
                        + ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT + INTEGER
                        + ProviderTableMeta.FILE_OWNER_ID + TEXT
-                       + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + " TEXT);"
+                       + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + TEXT
+                       + ProviderTableMeta.FILE_NOTE + " TEXT);"
         );
     }
 
@@ -1876,6 +1877,24 @@ public class FileContentProvider extends ContentProvider {
                             ADD_COLUMN + ProviderTableMeta.FILE_OWNER_ID + " TEXT ");
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 44 && newVersion >= 44) {
+                Log_OC.i(SQL, "Entering in the #44 add note to file table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_NOTE + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
