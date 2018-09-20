@@ -698,7 +698,9 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + INTEGER
                        + ProviderTableMeta.FILE_MOUNT_TYPE + INTEGER
                        + ProviderTableMeta.FILE_HAS_PREVIEW + INTEGER
-                       + ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT + " INTEGER);"
+                       + ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT + INTEGER
+                       + ProviderTableMeta.FILE_OWNER_ID + TEXT
+                       + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + " TEXT);"
         );
     }
 
@@ -1849,6 +1851,26 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 43 && newVersion >= 43) {
+                Log_OC.i(SQL, "Entering in the #43 add ownerId and owner display name to file table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.FILE_OWNER_ID + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

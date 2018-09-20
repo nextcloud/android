@@ -205,6 +205,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, file.getUnreadCommentsCount());
+        cv.put(ProviderTableMeta.FILE_OWNER_ID, file.getOwnerId());
+        cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, file.getOwnerDisplayName());
 
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||
@@ -443,6 +445,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_FAVORITE, folder.isFavorite());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, folder.isEncrypted());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, folder.getUnreadCommentsCount());
+        cv.put(ProviderTableMeta.FILE_OWNER_ID, folder.getOwnerId());
+        cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, folder.getOwnerDisplayName());
 
         return cv;
     }
@@ -479,6 +483,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, file.getMountType().ordinal());
         cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.isPreviewAvailable() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, file.getUnreadCommentsCount());
+        cv.put(ProviderTableMeta.FILE_OWNER_ID, file.getOwnerId());
+        cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, file.getOwnerDisplayName());
 
         return cv;
     }
@@ -975,6 +981,8 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
             file.setPreviewAvailable(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
             file.setUnreadCommentsCount(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT)));
+            file.setOwnerId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_OWNER_ID)));
+            file.setOwnerDisplayName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME)));
         }
 
         return file;
