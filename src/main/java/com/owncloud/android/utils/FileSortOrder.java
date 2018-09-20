@@ -79,11 +79,11 @@ public class FileSortOrder {
      */
     public static List<OCFile> sortCloudFilesByFavourite(List<OCFile> files) {
         Collections.sort(files, (o1, o2) -> {
-            if (o1.getIsFavorite() && o2.getIsFavorite()) {
+            if (o1.isFavorite() && o2.isFavorite()) {
                 return 0;
-            } else if (o1.getIsFavorite()) {
+            } else if (o1.isFavorite()) {
                 return -1;
-            } else if (o2.getIsFavorite()) {
+            } else if (o2.isFavorite()) {
                 return 1;
             }
             return 0;

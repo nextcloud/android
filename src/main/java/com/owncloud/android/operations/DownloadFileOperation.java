@@ -144,8 +144,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
     
     public long getModificationTimestamp() {
-        return (mModificationTimestamp > 0) ? mModificationTimestamp :
-                mFile.getModificationTimestamp();
+        return mModificationTimestamp > 0 ? mModificationTimestamp : mFile.getModificationTimestamp();
     }
 
     public String getEtag() {

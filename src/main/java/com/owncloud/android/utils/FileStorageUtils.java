@@ -195,7 +195,7 @@ public final class FileStorageUtils {
         file.setEtag(ocFile.getEtag());
         file.setPermissions(ocFile.getPermissions());
         file.setRemoteId(ocFile.getRemoteId());
-        file.setFavorite(ocFile.getIsFavorite());
+        file.setFavorite(ocFile.isFavorite());
         return file;
     }
 
