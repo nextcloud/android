@@ -299,7 +299,7 @@ public class ExtendedListFragment extends Fragment
                 delay = 0;
             }
 
-            if (adapter != null && adapter instanceof OCFileListAdapter) {
+            if (adapter instanceof OCFileListAdapter) {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -313,7 +313,7 @@ public class ExtendedListFragment extends Fragment
                         }
                     }
                 }, delay);
-            } else if (adapter != null && adapter instanceof LocalFileListAdapter) {
+            } else if (adapter instanceof LocalFileListAdapter) {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
