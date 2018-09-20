@@ -108,6 +108,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_IMAGE = 2;
 
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private boolean onlyOnDevice = false;
 
     public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
@@ -283,7 +284,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
-                itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+
+                if (onlyOnDevice) {
+                    File localFile = new File(file.getStoragePath());
+
+                    long localSize;
+                    if (localFile.isDirectory()) {
+                        localSize = FileStorageUtils.getFolderSize(localFile);
+                    } else {
+                        localSize = localFile.length();
+                    }
+
+                    itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(localSize));
+                } else {
+                    itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                }
                 itemViewHolder.lastModification.setText(DisplayUtils.getRelativeTimestamp(mContext,
                         file.getModificationTimestamp()));
 
@@ -499,6 +514,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager,
                               boolean onlyOnDevice) {
+        this.onlyOnDevice = onlyOnDevice;
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
