@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2016 Tobias Kaminsky
@@ -20,8 +20,6 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.widget.ListAdapter;
-
-public interface FilterableListAdapter extends ListAdapter {
+public interface FilterableListAdapter {
     void filter(String text);
 }
