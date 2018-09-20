@@ -770,7 +770,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.OCSHARES_USER_ID + INTEGER
                 + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + INTEGER
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + TEXT
-                + ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED + " INTEGER );");
+                + ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED + INTEGER
+                + ProviderTableMeta.OCSHARES_NOTE + " TEXT );");
     }
 
     private void createCapabilitiesTable(SQLiteDatabase db) {
@@ -1734,6 +1735,24 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER "); // boolean
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 35 && newVersion >= 35) {
+                Log_OC.i(SQL, "Entering in the #35 add note to share table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.OCSHARES_NOTE + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

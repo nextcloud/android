@@ -669,6 +669,16 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    public void updateNoteToShare(OCShare share, String note) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_NOTE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
+
+        queueShareIntent(updateShareIntent);
+    }
+
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog
         FragmentManager fm = mFileActivity.getSupportFragmentManager();

@@ -86,7 +86,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
@@ -101,6 +100,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -190,8 +190,6 @@ public class FileDisplayActivity extends HookActivity
     public static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
 
     public static final String TEXT_PREVIEW = "TEXT_PREVIEW";
-
-    private static final String VERSION_DOT = ".";
 
     private OCFile mWaitingToPreview;
 
@@ -374,9 +372,7 @@ public class FileDisplayActivity extends HookActivity
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
 
                 if (serverVersion == null) {
-                    OCCapability capability = getCapabilities();
-                    serverVersion = new OwnCloudVersion(capability.getVersionMayor() + VERSION_DOT +
-                            capability.getVersionMinor() + VERSION_DOT + capability.getVersionMicro());
+                    serverVersion = getCapabilities().getVersion();
                 }
 
                 if (MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0) {
@@ -1787,6 +1783,8 @@ public class FileDisplayActivity extends HookActivity
             onUpdateShareInformation(result, R.string.unsharing_failed);
         } else if (operation instanceof RestoreFileVersionOperation) {
             onRestoreFileVersionOperationFinish(result);
+        } else if (operation instanceof UpdateNoteForShareOperation) {
+            onUpdateNoteForShareOperationFinish(result);
         }
     }
 
@@ -1965,6 +1963,19 @@ public class FileDisplayActivity extends HookActivity
                 ThemeUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             }
+        }
+    }
+
+    private void onUpdateNoteForShareOperationFinish(RemoteOperationResult result) {
+        FileDetailFragment fileDetailFragment = getShareFileFragment();
+
+        if (result.isSuccess()) {
+            if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
+                fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
+                fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
+            }
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.note_could_not_sent);
         }
     }
 
