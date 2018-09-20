@@ -961,15 +961,15 @@ public class FileUploader extends Service
                         totalToTransfer, fileName);
 
                 if (MainApp.getAppContext() != null) {
-                    if (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
+                    if (mCurrentUpload.isWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
                             equals(JobRequest.NetworkType.UNMETERED)) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_WIFI);
-                    } else if (mCurrentUpload.getIsChargingRequired() &&
+                    } else if (mCurrentUpload.isChargingRequired() &&
                             !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
-                    } else if (!mCurrentUpload.getIsIgnoringPowerSaveMode() &&
+                    } else if (!mCurrentUpload.isIgnoringPowerSaveMode() &&
                             PowerUtils.isPowerSaveMode(MainApp.getAppContext())) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_IN_POWER_SAVE_MODE);

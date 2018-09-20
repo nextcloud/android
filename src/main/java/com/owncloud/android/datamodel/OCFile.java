@@ -198,7 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeSerializable(mMountType);
     }
 
-    public boolean getIsFavorite() {
+    public boolean isFavorite() {
         return mIsFavorite;
     }
 

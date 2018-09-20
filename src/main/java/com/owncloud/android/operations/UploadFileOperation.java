@@ -219,15 +219,15 @@ public class UploadFileOperation extends SyncOperation {
         mFolderUnlockToken = upload.getFolderUnlockToken();
     }
 
-    public boolean getIsWifiRequired() {
+    public boolean isWifiRequired() {
         return mOnWifiOnly;
     }
 
-    public boolean getIsChargingRequired() {
+    public boolean isChargingRequired() {
         return mWhileChargingOnly;
     }
 
-    public boolean getIsIgnoringPowerSaveMode() { return mIgnoringPowerSaveMode; }
+    public boolean isIgnoringPowerSaveMode() { return mIgnoringPowerSaveMode; }
 
     public Account getAccount() {
         return mAccount;

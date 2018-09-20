@@ -780,7 +780,7 @@ public class FileOperationsHelper {
     public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
         List<OCFile> alreadyRightStateList = new ArrayList<>();
         for (OCFile file : files) {
-            if (file.getIsFavorite() == shouldBeFavorite) {
+            if (file.isFavorite() == shouldBeFavorite) {
                 alreadyRightStateList.add(file);
             }
         }
@@ -793,7 +793,7 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
-        if (file.getIsFavorite() != shouldBeFavorite) {
+        if (file.isFavorite() != shouldBeFavorite) {
             EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
         }
     }
