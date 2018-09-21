@@ -41,6 +41,9 @@
     <string name="prefs_lock_title">Lukitse käyttäen</string>
     <string name="prefs_lock_none">Ei mitään</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
+    <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
+    <string name="prefs_lock_device_credentials_enabled">Laitteen kirjautumistiedot käytössä</string>
+    <string name="prefs_lock_device_credentials_not_setup">Laitteelle ei ole määritelty kirjautumistietoja.</string>
     <string name="prefs_expert_mode">Asiantuntijatila</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
@@ -194,6 +197,9 @@
     <string name="foreign_files_remote_text">Etä: %1$s</string>
     <string name="upload_query_move_foreign_files">Riittämätön tila estää tiedostojen kopioinnin %1$s kansioon. Haluatko sen sijaan siirtää ne sinne?</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
+    <string name="default_credentials_wrong">Virheelliset kirjautumistiedot</string>
+    <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
+    
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
     <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
     <string name="pass_code_reenter_your_pass_code">Anna suojakoodisi uudelleen</string>
@@ -331,6 +337,7 @@
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
     <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
 
+    <string name="error__upload__local_file_not_copied">%1$s ei voitu kopioida paikalliskansioon %2$s</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
@@ -462,6 +469,7 @@
     <string name="share_add_user_or_group">Lisää käyttäjä tai ryhmä</string>
     <string name="share_via_link_edit_permission_label">Salli muokkaus</string>
     <string name="share_via_link_password_label">Suojaa salasanalla</string>
+    <string name="share_via_link_password_title">Suojattu</string>
     <string name="share_via_link_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_via_link_menu_password_label">Salasanasuojattu (%1$s)</string>
     <string name="share_expiration_date_label">Vanhenee %1$s</string>
@@ -475,6 +483,8 @@
     <string name="share_get_public_link_button">Hanki linkki</string>
     <string name="share_with_title">Jaa…</string>
     <string name="share_with_edit_title">Jaa käyttäjän %1$s kanssa</string>
+    <string name="share_via_link_unset_password">Poista</string>
+
     <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
@@ -624,7 +634,18 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="drawer_current_account">Nykyinen tili</string>
+    <string name="drawer_middle_account">Keskimmäinen tili</string>
+    <string name="drawer_end_account">Viimeisin tili</string>
+    <string name="activity_icon">Aktiviteetti</string>
+    <string name="file_icon">Tiedosto</string>
+    <string name="user_icon">Käyttäjä</string>
+    <string name="favorite_icon">Suosikki</string>
+    <string name="synced_icon">Synkronoitu</string>
+    <string name="available_offline_icon">Saatavana offline-tilassa</string>
     <string name="checkbox">Valintaruutu</string>
+    <string name="shared_icon_share">jaa</string>
+    <string name="shared_icon_shared_via_link">jaettu linkin kautta</string>
+    <string name="shared_icon_shared">jaettu</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Uusin ensin</string>
     <string name="sort_by_size_descending">Suurin ensin</string>
@@ -638,6 +659,7 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
     <string name="prefs_category_dev">Kehittäjä</string>
+    <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
     <string name="folder_icon">Kansiokuvake</string>
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
@@ -652,6 +674,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="notification_channel_download_description">Näyttää latauksen edistymisen</string>
     <string name="notification_channel_upload_description">Näyttää lähetyksen edistymisen</string>
     <string name="notification_channel_media_name">Mediasoitin</string>
+    <string name="notification_channel_media_description">Musiikin toiston edistyminen</string>
     <string name="notification_channel_file_sync_name">Tiedostojen synkronointi</string>
     <string name="notification_channel_file_sync_description">Näyttää tiedostojen synkronoinnin edistymisen ja tulokset</string>
     <string name="notification_channel_file_observer_name">Tiedostojen tarkkailija</string>
@@ -685,26 +708,51 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="notification_channel_push_name">Push-ilmoitukset</string>
+    <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
+
     <string name="hint_name">Nimi</string>
     <string name="hint_password">Salasana</string>
     <string name="upload_files">Lähetä tiedostoja</string>
+    <string name="upload_content_from_other_apps">Lähetä sisältöä toisista sovelluksista</string>
     <string name="create_new_folder">Luo uusi kansio</string>
     <string name="uploads_view_upload_status_virus_detected">Virus havaittu. Lähetystä ei voi suorittaa loppuun!</string>
     <string name="tags">Tunnisteet</string>
+    <string name="unsharing_failed">Jakamisen peruuttaminen epäonnistui</string>
+    <string name="updating_share_failed">Jaon päivitys epäonnistui</string>
+    <string name="whats_new_device_credentials_title">Käytä Android-laitteen sisäistä suojausta.</string>
+    <string name="login">Kirjaudu sisään</string>
+    <string name="whats_new_device_credentials_content">Käytä mitä tahansa kuten kuviota, salasanaa, pin-koodia tai sormenjälkeäsi pitääksesi tiedostosi turvassa. </string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>
 	<string name="restore">Palauta tiedosto</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="new_comment">Uusi kommentti…</string>
     <string name="error_comment_file">Virhe tiedostoa kommentoidessa</string>
+    <string name="file_version_restored_successfully">Tiedostoversio palautettu onnistuneesti.</string>
+    <string name="file_version_restored_error">Virhe palauttaessa tiedostoversiota!</string>
     <string name="notification_channel_general_name">Yleiset ilmoitukset</string>
+    <string name="notification_channel_general_description">Näytä ilmoitukset uusia mediakansiota ja vastaavia varten</string>
+    <string name="new_media_folder_detected">Uusi mediakansio %1$s löytynyt.</string>
     <string name="new_media_folder_photos">kuva</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
+    <string name="dismiss">Hylkää</string>
+    <string name="feedback_no_mail_app">Sovellusta ei löydy sähköpostin lähettämiseen!</string>
     <string name="drawer_item_trashbin">Poistetut tiedostot</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>
+    <string name="action_empty_trashbin">Tyhjennä roskakori</string>
     <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_file_not_deleted">Tiedostoa %1$s ei voitu poistaa!</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
+    <string name="stream">Suoratoista käyttämällä...</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
-    </resources>
+    <string name="notification_icon">Ilmoituksen kuvake</string>
+    <string name="folder_confirm_create">Luo</string>
+    <string name="file_delete">Poista</string>
+    <string name="file_keep">Pidä</string>
+    <string name="file_rename">Nimeä uudelleen</string>
+    <string name="fab_label">Lisää tai lähetä</string>
+    <string name="permission_deny">Kiellä</string>
+    <string name="permission_allow">Salli</string>
+
+</resources>
