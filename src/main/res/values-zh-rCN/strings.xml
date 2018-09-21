@@ -32,7 +32,9 @@
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
-	<string name="prefs_category_general">常规</string>
+	<string name="drawer_close">关闭侧边栏</string>
+    <string name="drawer_open">打开侧边栏</string>
+    <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_lock">锁定</string>
@@ -655,8 +657,10 @@
     <string name="favorite_icon">收藏</string>
     <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
+    <string name="shared_icon_share">共享</string>
     <string name="shared_icon_shared_via_link">通过链接共享</string>
     <string name="shared_icon_shared">已共享</string>
+    <string name="overflow_menu">更多菜单</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
     <string name="sort_by_modification_date_ascending">按时间顺序</string>
     <string name="sort_by_size_descending">文件从大到小排序</string>
@@ -738,11 +742,13 @@
     <string name="upload_files">上传文件</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
     <string name="create_new_folder">创建新文件夹</string>
+    <string name="uploads_view_upload_status_virus_detected">检测到病毒。不能完成上传！</string>
     <string name="tags">标签</string>
     <string name="unsharing_failed">取消分享失败</string>
     <string name="updating_share_failed">更新分享失败</string>
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="login">登录</string>
+    <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
     <string name="whats_new_device_credentials_content">通过使用图案，密码，PIN 或指纹等方式来确保您的数据安全。</string>
     <string name="restore_button_description">恢复已删除的文件</string>
 	<string name="restore">恢复文件</string>
@@ -772,4 +778,11 @@
     <string name="folder_confirm_create">创建</string>
     <string name="file_delete">删除</string>
     <string name="file_rename">重命名</string>
-    </resources>
+    <string name="fab_label">添加或上传</string>
+    <string name="account_creation_failed"> 帐户创建已失败</string>
+
+    <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的Nextcloud 帐户%2$s？</string>
+    <string name="permission_deny">禁止</string>
+    <string name="permission_allow">允许</string>
+
+</resources>
