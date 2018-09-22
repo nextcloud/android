@@ -234,6 +234,7 @@
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
+    <string name="favorite_real">Dodaj med priljubljene</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_remove">Izbriši</string>
     <string name="confirmation_remove_local">Le krajevno</string>
@@ -245,7 +246,9 @@
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
-    <string name="oauth_check_onoff">Prijava  z oAuth2</string>
+    <string name="oauth_check_onoff">Prijava z OAuth2.0</string>
+    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth2.0 ...</string>
+        
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_expired">- potrdilo strežnika je poteklo</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
@@ -511,10 +514,12 @@
     <string name="sort_by_name_descending">po abecedi padajoče Ž–A</string>
     <string name="sort_by_modification_date_descending">najprej najstarejše</string>
     <string name="synced_folders_type">Vrsta</string>
+    <string name="synced_folder_settings_button">Gumb nastavitev</string>
     <string name="link">Povezava</string>
 
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
   
+    <string name="userinfo_no_info_headline">Osebni podatki še niso vpisani</string>
     <string name="end_to_end_encryption_password">Geslo ...</string>
     <string name="hint_name">Ime</string>
     <string name="hint_password">Geslo</string>
