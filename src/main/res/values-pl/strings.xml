@@ -41,6 +41,9 @@
     <string name="prefs_lock_title">Zablokuj używając</string>
     <string name="prefs_lock_none">Żadna</string>
     <string name="prefs_lock_using_passcode">Kod PIN</string>
+    <string name="prefs_lock_using_device_credentials">Poświadczenia urządzenia</string>
+    <string name="prefs_lock_device_credentials_enabled">Poświadczenia urządzenia włączone</string>
+    <string name="prefs_lock_device_credentials_not_setup">Nie ustawiono żadnych poświadczeń urządzenia</string>
     <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
@@ -203,6 +206,9 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
+    <string name="default_credentials_wrong">Błedne poświadczenia</string>
+    <string name="credentials_disabled">Poświadczenia wyłączone</string>
+    
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>
@@ -262,6 +268,9 @@
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto nie jest jeszcze dodane na tym urządzeniu</string>
+    <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
+    <string name="auth_illegal_login_used">Użyto błędny URL danych logowania</string>
+
     <string name="favorite">Ustaw jako dostępne offline</string>
     <string name="unfavorite">Odznacz jako dostępne offline</string>
     <string name="favorite_real">Dodaj do ulubionych</string>
@@ -276,6 +285,7 @@
     <string name="remove_success_msg">Usunięto</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
+    <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Zmiana nazwy nie jest możliwa, nazwa już jest zajęta</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
@@ -493,6 +503,8 @@
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z…</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
+    <string name="share_via_link_unset_password">Nieustalone</string>
+
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail…</string>
 
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
@@ -530,12 +542,14 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
+    <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
     <string name="drawer_synced_folders">Automatyczne przesyłanie</string>
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
+    <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
@@ -595,6 +609,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Brak aktywności</string>
+    <string name="activities_no_results_message">Brak zdarzeń dodatków, zmian i udostępnień</string>
     <string name="prefs_category_about">O aplikacji</string>
 
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>
@@ -614,6 +629,7 @@
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
     <string name="drawer_logout">Wyloguj</string>
+    <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
     <string name="file_not_synced">Nie udało się zsynchronizować pliku. Prezentowana jest ostatnia dostępna wersja</string>
@@ -638,8 +654,10 @@
     <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
 
+    <string name="sync_in_progress">Pobieranie najnowszej wersji pliku</string>
     <string name="date_unknown">Nieznane</string>
 
+    <string name="resized_image_not_possible">Niedostępna wersja ze zmienionym rozmiarem.</string>
     <string name="resized_image_not_possible_download">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
     <string name="resized_images_download_full_image">Pobrać pełen obraz?</string>
 
@@ -647,6 +665,8 @@
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
+    <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
+    <string name="activity_icon">Aktywność</string>
     <string name="file_icon">Plik</string>
     <string name="user_icon">Użytkownik</string>
     <string name="favorite_icon">Ulubione</string>
@@ -656,6 +676,7 @@
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
     <string name="shared_icon_shared">udostępniono</string>
+    <string name="overflow_menu">Więcej</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Najnowsze na początku</string>
     <string name="sort_by_size_descending">Największe na początku</string>
@@ -686,32 +707,55 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="share">Udostępnij</string>
     <string name="link">Odnośnik</string>
 
+    <string name="notification_channel_upload_name">Kanał powiadomień wysyłania</string>
+    <string name="notification_channel_download_name">Kanał powiadomień pobierania</string>
+    <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_media_name">Odtwarzacz multimedialny</string>
     <string name="notification_channel_media_description">Postęp odtwarzacza muzyki</string>
     <string name="notification_channel_file_sync_name">Synchronizacja pliku</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
+    <string name="notification_channel_file_observer_name">Obserwator plików</string>
+    <string name="notification_channel_file_observer_description">Obserwuje zmiany w plikach</string>
+  
     <string name="account_not_found">Nie znaleziono konta</string>
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
+    <string name="screenshot_02_listView">Łatwo przeglądaj i udostępniaj swoje pliki</string>
+    <string name="screenshot_03_drawer">Uzyskaj szybki dostęp do aktywności, udostępnień, plików offline i innych</string>
+    <string name="screenshot_04_accounts">Podłącz się do innego konta</string>
+    <string name="screenshot_05_autoUpload">Automatycznie wysyłaj zdjęcia i obrazy.</string>
+    <string name="screenshot_06_davdroid">Synchronizuj kalnedarz i kontakty z DAVdroid</string>
+    
+    <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
+    <string name="drawer_header_background">Tło nagłówka menu rozwijanego</string>
     <string name="account_icon">Ikona konta</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty</string>
     <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy...</string>
     <string name="end_to_end_encryption_enter_password">Wprowadź hasło aby odszyfrować klucz prywatny</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
+    <string name="end_to_end_encryption_keywords_description">Wszystkie 12 słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
+    <string name="end_to_end_encryption_passphrase_title">Zapisz 12 słów hasła szyfrowania.</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
+    <string name="end_to_end_encryption_not_enabled">Szyfrowanie end-to-end wyłączone po stronie serwera.</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_unsuccessful">Nie udało się zapisać kluczy, spróbuj ponownie</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
+    <string name="end_to_end_encryption_storing_keys">Klucze przechowywania</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopiowanie/przenoszenie do zaszyfrowanego katalou aktualnie nieobsługiwane.</string>
+    <string name="untrusted_domain">Dostęp z niezaufanej domeny. Przeczytaj dokumentację by dowiedzieć się więcej.</string>
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_push_description">Pokaż powiadomienia push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia tworzone przez administrację itd.</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">Adres autoryzacji</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adres dostępu</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_password">Hasło</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
@@ -720,27 +764,56 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="create_new_folder">Utwórz nowy katalog</string>
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Nie można zakończyć wysyłania pliku!</string>
     <string name="tags">Tagi</string>
+    <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
+    <string name="unsharing_failed">Usuwanie udostępnienia nie powiodło się</string>
+    <string name="updating_share_failed">Zmiana udostępnienia nie powiodła się</string>
+    <string name="prefs_e2e_mnemonic">Mnemonik E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Aby pokazać mnemonik włącz poświadczenia urządzenia</string>
+    <string name="whats_new_device_credentials_title">Korzystaj z wbudowanego zabezpieczenia systemu Android</string>
     <string name="login">Zaloguj</string>
+    <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="host_your_own_server">Hostuj swój własny serwer</string>
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
+    <string name="first_run_2_text">Bezpieczna współpraca i wymiana plikami</string>
+    <string name="first_run_3_text">Prosty klient pocztowy, kalendarze i kontakty.</string>
+    <string name="first_run_4_text">Współdzielenie ekranu, spotkania i konferencje online.</string>
+    <string name="whats_new_device_credentials_content">Użyj gestu, hasła, pinu lub odcisku palca aby przechowywać bezpiecznie dane.</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
 	<string name="restore">Przywróć plik</string>
     <string name="new_version_was_created">Powstała nowa wersja</string>
     <string name="new_comment">Nowy komentarz…</string>
+    <string name="error_comment_file">Błąd komentowania pliku</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
+    <string name="notification_channel_general_name">Powiadomienia ogólne</string>
+    <string name="notification_channel_general_description">Pokazuj powiadomienia dla nowych folderów mediów i podobnych</string>
+    <string name="new_media_folder_detected">Nowy %1$s katalog mediów wykryty.</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
+    <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="dismiss">Anuluj</string>
     <string name="feedback_no_mail_app">Brak dostępnej aplikacji do wysyłki wiadomości email!</string>
     <string name="drawer_item_trashbin">Usunięto pliki</string>
     <string name="trashbin_activity_title">Usunięto pliki</string>
     <string name="action_empty_trashbin">Pusty kosz</string>
+    <string name="trashbin_loading_failed">Ładowanie kosza nie powiodło się!</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
+    <string name="trashbin_not_emptied">Nie udało się trwale usunąć!</string>
+    <string name="stream">Streamuj...</string>
+    <string name="stream_not_possible_headline">Wewnętrzny streaming niemożliwy</string>
+    <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="notification_icon">Ikona powiadomień</string>
+    <string name="folder_confirm_create">Utwórz</string>
     <string name="file_delete">Usuń</string>
     <string name="file_keep">Zachowaj</string>
     <string name="file_rename">Zmień nazwę</string>
-    </resources>
+    <string name="fab_label">Dodaj lub wyślij</string>
+    <string name="account_creation_failed">Błąd tworzenia konta</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
+    <string name="permission_deny">Odrzuć</string>
+    <string name="permission_allow">Akceptuj</string>
+
+</resources>
