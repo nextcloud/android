@@ -487,6 +487,7 @@
     <string name="contacts_preference_choose_date">Izberi datum</string>
     <string name="contacts_preference_backup_never">nikoli</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
+    <string name="drawer_logout">Odjava</string>
     <string name="privacy">Zasebnost</string>
     <string name="synced_folders_configure_folders">Nastavi mape</string>
 
