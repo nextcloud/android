@@ -579,6 +579,8 @@
 
     <string name="storage_description_default">默认</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">新建%1$s</string>
     <string name="whats_new_skip">跳过</string>
 
     <!-- User information -->
@@ -655,6 +657,7 @@
     <string name="file_icon">文件</string>
     <string name="user_icon">用户</string>
     <string name="favorite_icon">收藏</string>
+    <string name="synced_icon">已同步</string>
     <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
     <string name="shared_icon_share">共享</string>
@@ -736,6 +739,8 @@
     <string name="notification_channel_push_description">显示服务器推送的通知，包括：在评论中被提及、收到新的远程分享、管理员发布的公告等</string>
     <string name="sendbutton_description">发送按钮的图标</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">验证端点地址</string>
+    <string name="oauth_2_0_access_end_point_address_hint">访问端点地址</string>
     <string name="hint_name">名称</string>
     <string name="hint_password">密码</string>
     <string name="add_to_cloud">添加到%1$s</string>
@@ -744,11 +749,16 @@
     <string name="create_new_folder">创建新文件夹</string>
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。不能完成上传！</string>
     <string name="tags">标签</string>
+    <string name="sharee_add_failed">新建分享失败</string>
     <string name="unsharing_failed">取消分享失败</string>
     <string name="updating_share_failed">更新分享失败</string>
+    <string name="prefs_e2e_mnemonic">端到端加密</string>
+    <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="login">登录</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
+    <string name="first_run_3_text">易于使用的网络邮件，日历和&amp;联系</string>
+    <string name="first_run_4_text">屏幕分享，在线会议，&amp;网络会议</string>
     <string name="whats_new_device_credentials_content">通过使用图案，密码，PIN 或指纹等方式来确保您的数据安全。</string>
     <string name="restore_button_description">恢复已删除的文件</string>
 	<string name="restore">恢复文件</string>
@@ -758,6 +768,7 @@
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="notification_channel_general_name">通用提醒</string>
+    <string name="notification_channel_general_description">有新消息时显示通知</string>
     <string name="new_media_folder_detected">检测到新的%1$s媒体目录。</string>
     <string name="new_media_folder_photos">照片</string>
     <string name="new_media_folder_videos">视频</string>
@@ -771,12 +782,14 @@
     <string name="trashbin_file_not_deleted">文件 %1$s 无法删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法恢复！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
+    <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="notification_icon">通知图标</string>
     <string name="folder_confirm_create">创建</string>
     <string name="file_delete">删除</string>
+    <string name="file_keep">保留</string>
     <string name="file_rename">重命名</string>
     <string name="fab_label">添加或上传</string>
     <string name="account_creation_failed"> 帐户创建已失败</string>
