@@ -6,6 +6,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -38,7 +39,7 @@ public abstract class AbstractIT {
     @BeforeClass
     public static void beforeAll() {
         try {
-            context = MainApp.getAppContext();
+            context = InstrumentationRegistry.getTargetContext();
 
             Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType(context));
 
