@@ -7,7 +7,6 @@ import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ApplicationTestCase;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -26,7 +25,7 @@ import java.io.IOException;
  */
 
 @RunWith(AndroidJUnit4.class)
-public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
+public abstract class AbstractIT {
 
     protected static OwnCloudClient client;
     protected static Account account;
@@ -35,10 +34,6 @@ public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
     private static final String username = "test";
     private static final String password = "test";
     private static final String baseUrl = "server";
-
-    public AbstractIT() {
-        super(MainApp.class);
-    }
 
     @BeforeClass
     public static void beforeAll() {

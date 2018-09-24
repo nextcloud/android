@@ -11,6 +11,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
+
 /**
  * Tests related to file uploads
  */
