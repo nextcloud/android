@@ -598,10 +598,10 @@ public class ExtendedListFragment extends Fragment
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (visible) {
-                    mFabMain.setVisibility(View.VISIBLE);
+                    mFabMain.show();
                     ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
                 } else {
-                    mFabMain.setVisibility(View.GONE);
+                    mFabMain.hide();
                 }
             });
         }
@@ -617,7 +617,7 @@ public class ExtendedListFragment extends Fragment
     public void setFabEnabled(final boolean enabled) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
-                mFabMain.setVisibility(View.VISIBLE);
+                mFabMain.show();
 
                 if (enabled) {
                     mFabMain.setEnabled(true);
