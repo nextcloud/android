@@ -9,10 +9,12 @@ import com.owncloud.android.operations.common.SyncOperation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNull;
+
 /**
  * Tests related to file operations
  */
-
 @RunWith(AndroidJUnit4.class)
 public class FileIT extends AbstractIT {
 
