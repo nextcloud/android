@@ -11,12 +11,12 @@
 ruby scripts/analysis/lint-up.rb $1 $2 $3
 lintValue=$?
 
-./gradlew findbugs
-
 # exit codes:
 # 0: count was reduced
 # 1: count was increased
 # 2: count stayed the same
+
+./gradlew findbugs
 
 echo "Branch: $3"
 
@@ -57,6 +57,17 @@ else
     else 
         checkLibrary=0
     fi
+    
+    # lint and findbugs file must exist
+    if [ ! -s build/reports/lint/lint.html ] ; then
+        echo "lint.html file is missing!"
+        exit 1
+    fi
+    
+    if [ ! -s build/reports/findbugs/findbugs.html ] ; then
+        echo "findbugs.html file is missing!"
+        exit 1
+    fi 
     
     # add comment with results
     lintResultNew=$(grep "Lint Report.* [0-9]* warnings" build/reports/lint/lint.html | cut -f2 -d':' |cut -f1 -d'<')
