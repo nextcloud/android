@@ -68,6 +68,7 @@ public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
     public static final String SKIP_CUSTOM = "skipCustom";
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
+    private static final String WAKELOCK_TAG_SEPARATION = ":";
 
     @NonNull
     @Override
@@ -77,7 +78,8 @@ public class FilesSyncJob extends Job {
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, MainApp.getAuthority() +
+                    WAKELOCK_TAG_SEPARATION + TAG);
             wakeLock.acquire();
         }
 
