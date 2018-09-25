@@ -41,7 +41,6 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -60,6 +59,8 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+
+import androidx.core.app.NotificationCompat;
 
 
 /**

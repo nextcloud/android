@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
@@ -45,6 +44,8 @@ import com.owncloud.android.utils.PowerUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class OfflineSyncJob extends Job {
     public static final String TAG = "OfflineSyncJob";

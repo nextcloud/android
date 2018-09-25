@@ -22,13 +22,14 @@ package com.owncloud.android.utils;
 
 import android.accounts.Account;
 import android.content.res.Resources;
-import android.support.annotation.Nullable;
 import android.view.Menu;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+
+import androidx.annotation.Nullable;
 
 /**
  * A helper class for drawer menu related operations.

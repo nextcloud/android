@@ -24,13 +24,14 @@ package com.owncloud.android.jobs;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PowerUtils;
+
+import androidx.annotation.RequiresApi;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected

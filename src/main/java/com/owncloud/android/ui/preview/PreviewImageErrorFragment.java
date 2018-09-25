@@ -1,13 +1,14 @@
 package com.owncloud.android.ui.preview;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.fragment.FileFragment;
+
+import androidx.annotation.Nullable;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 

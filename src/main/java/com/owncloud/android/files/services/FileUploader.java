@@ -42,7 +42,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
 import android.os.Process;
-import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
 import com.evernote.android.job.JobRequest;
@@ -83,6 +82,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Nullable;
+
+import androidx.core.app.NotificationCompat;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).

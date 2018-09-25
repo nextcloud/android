@@ -30,7 +30,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 
 import com.evernote.android.job.Job;
@@ -55,6 +54,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Job that backup contacts to /Contacts-Backup and deletes files older than x days

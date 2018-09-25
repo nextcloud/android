@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
@@ -34,6 +33,8 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
+
+import androidx.appcompat.widget.AppCompatButton;
 
 /**
  * Activity providing information about ways to participate in the app's development.

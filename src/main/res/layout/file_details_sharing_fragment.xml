@@ -29,7 +29,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_eigth_padding">
 
-        <android.support.v7.widget.SearchView
+        <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/searchView"
@@ -50,7 +50,7 @@
             android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding">
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:src="@drawable/ic_content_copy"
                 android:layout_gravity="start|center"/>
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link_allow_editing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:src="@drawable/ic_dots_vertical" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shareUsersList"
             android:layout_width="match_parent"
             android:layout_height="0dp"

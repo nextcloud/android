@@ -21,8 +21,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +34,9 @@ import com.owncloud.android.ui.TextDrawable;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 /**
  * Adapter to show a user/group in Share With List

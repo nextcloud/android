@@ -24,13 +24,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 
 public class IndeterminateProgressDialog extends DialogFragment {

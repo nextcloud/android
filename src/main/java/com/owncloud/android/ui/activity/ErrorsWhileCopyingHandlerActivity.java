@@ -26,9 +26,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +46,10 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 
 /**
@@ -104,7 +105,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         setContentView(R.layout.generic_explanation);
         
         /// customize text message
-        TextView textView = (TextView) findViewById(R.id.message);
+        TextView textView = findViewById(R.id.message);
         String appName = getString(R.string.app_name);
         String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation),
                 appName, appName, appName, appName, mAccount.name);
@@ -112,7 +113,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         textView.setMovementMethod(new ScrollingMovementMethod());
         
         /// load the list of local and remote files that failed
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
         if (mLocalPaths != null && mLocalPaths.size() > 0) {
             mAdapter = new ErrorsWhileCopyingListAdapter();
             listView.setAdapter(mAdapter);
@@ -122,8 +123,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         }
         
         /// customize buttons
-        Button cancelBtn = (Button) findViewById(R.id.cancel);
-        Button okBtn = (Button) findViewById(R.id.ok);
+        Button cancelBtn = findViewById(R.id.cancel);
+        Button okBtn = findViewById(R.id.ok);
         
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
@@ -160,14 +161,14 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             if (view != null)  {
                 String localPath = getItem(position);
                 if (localPath != null) {
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                    TextView text1 = view.findViewById(android.R.id.text1);
                     if (text1 != null) {
                         text1.setText(String.format(getString(R.string.foreign_files_local_text), localPath));
                     }
                 }
                 if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 &&
                         position < mRemotePaths.size()) {
-                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                    TextView text2 = view.findViewById(android.R.id.text2);
                     String remotePath = mRemotePaths.get(position);
                     if (text2 != null && remotePath != null) {
                         text2.setText(String.format(getString(R.string.foreign_files_remote_text), remotePath));

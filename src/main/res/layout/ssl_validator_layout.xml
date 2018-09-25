@@ -422,7 +422,7 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-		<android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"
@@ -430,7 +430,7 @@
             android:layout_weight="1"
             android:text="@string/common_no" />
 
-		<android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/details_btn"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"
@@ -438,7 +438,7 @@
             android:layout_weight="2"
             android:text="@string/ssl_validator_btn_details_see" />
 
-		<android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ok"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"

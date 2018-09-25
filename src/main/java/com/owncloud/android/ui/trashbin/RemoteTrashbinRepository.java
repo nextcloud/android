@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -40,6 +39,8 @@ import com.owncloud.android.operations.EmptyTrashbinFileOperation;
 import com.owncloud.android.operations.RestoreTrashbinFileOperation;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class RemoteTrashbinRepository implements TrashbinRepository {
 

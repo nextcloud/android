@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +37,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
+
+import androidx.annotation.NonNull;
 
 /**
  * Show certificate information.

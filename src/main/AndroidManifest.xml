@@ -197,7 +197,7 @@
 
         <!-- new provider used to generate URIs without file:// scheme (forbidden from Android 7) -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="@string/file_provider_authority"
             android:grantUriPermissions="true"
             android:exported="false">

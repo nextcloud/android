@@ -23,7 +23,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.ExternalLink;
@@ -32,6 +31,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Database provider for handling the persistence aspects of {@link com.owncloud.android.lib.common.ExternalLink}s.

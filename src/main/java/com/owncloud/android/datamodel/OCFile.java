@@ -28,8 +28,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -40,6 +38,8 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {

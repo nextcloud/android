@@ -7,13 +7,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatDialog;
 import android.util.AttributeSet;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.lang.reflect.Method;
+
+import androidx.appcompat.app.AppCompatDialog;
 
 public class OwnCloudListPreference extends ListPreference {
     private static final String TAG = OwnCloudListPreference.class.getSimpleName();
@@ -51,8 +52,8 @@ public class OwnCloudListPreference extends ListPreference {
         int preselect = findIndexOfValue(getValue());
 
         // same thing happens for the Standard ListPreference though
-        android.support.v7.app.AlertDialog.Builder builder =
-                new android.support.v7.app.AlertDialog.Builder(mContext, R.style.ownCloud_AlertDialog)
+        androidx.appcompat.app.AlertDialog.Builder builder =
+                new androidx.appcompat.app.AlertDialog.Builder(mContext, R.style.ownCloud_AlertDialog)
                 .setTitle(getDialogTitle())
                 .setIcon(getDialogIcon())
                 .setSingleChoiceItems(getEntries(), preselect, this);

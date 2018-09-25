@@ -23,10 +23,11 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 
 import com.owncloud.android.R;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 
 public class ConfirmationDialogFragment extends DialogFragment {
@@ -147,9 +148,11 @@ public class ConfirmationDialogFragment extends DialogFragment {
     
     
     public interface ConfirmationDialogFragmentListener {
-        public void onConfirmation(String callerTag);
-        public void onNeutral(String callerTag);
-        public void onCancel(String callerTag);
+        void onConfirmation(String callerTag);
+
+        void onNeutral(String callerTag);
+
+        void onCancel(String callerTag);
     }
     
 }

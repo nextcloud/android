@@ -24,8 +24,6 @@ package com.owncloud.android.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -41,6 +39,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.InputStream;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
  * This activity shows an URL as a web view

@@ -24,7 +24,6 @@ package com.owncloud.android.jobs;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -38,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
 
+import androidx.annotation.NonNull;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
 import third_parties.ezvcard_android.ContactOperations;

@@ -2,9 +2,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.BulletSpan;
@@ -19,6 +16,10 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.utils.ThemeUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 
 public class FeatureFragment extends Fragment {

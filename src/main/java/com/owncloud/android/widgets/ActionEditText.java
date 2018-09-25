@@ -25,7 +25,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -34,6 +33,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 public class ActionEditText extends AppCompatEditText {
     private String s;
@@ -74,7 +75,7 @@ public class ActionEditText extends AppCompatEditText {
         getDrawingRect(mButtonRect);
         mButtonRect.top += 10;
         mButtonRect.bottom -= 10;
-        mButtonRect.left = (int) (getWidth() - mTextBounds.width() - 18);
+        mButtonRect.left = getWidth() - mTextBounds.width() - 18;
         mButtonRect.right = getWidth() - 10;
         btn_rect = mButtonRect;
 

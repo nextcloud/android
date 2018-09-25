@@ -22,7 +22,6 @@ import android.accounts.Account;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentManager;
 
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
@@ -36,6 +35,8 @@ import com.owncloud.android.utils.UriUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.FragmentManager;
 
 /**
  * This class examines URIs pointing to files to upload and then requests {@link FileUploader} to upload them.

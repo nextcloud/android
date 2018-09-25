@@ -21,8 +21,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,6 +36,9 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 
 /**

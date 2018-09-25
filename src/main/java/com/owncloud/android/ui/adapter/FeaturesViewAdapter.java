@@ -1,11 +1,11 @@
 package com.owncloud.android.ui.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.fragment.FeatureFragment;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 public class FeaturesViewAdapter extends FragmentPagerAdapter {
 

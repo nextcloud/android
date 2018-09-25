@@ -30,7 +30,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -43,6 +42,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+
+import androidx.annotation.NonNull;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     public static final String TAG = DiskLruImageCacheFileProvider.class.getSimpleName();

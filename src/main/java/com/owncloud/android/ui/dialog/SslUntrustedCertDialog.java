@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +44,8 @@ import com.owncloud.android.ui.adapter.X509CertificateViewAdapter;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
+
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show information about an untrusted certificate and allow the user
@@ -138,14 +139,14 @@ public class SslUntrustedCertDialog extends DialogFragment {
         } else {
             ((ViewGroup)mView.getParent()).removeView(mView);
         }
-        
-        Button ok = (Button) mView.findViewById(R.id.ok);
+
+        Button ok = mView.findViewById(R.id.ok);
         ok.setOnClickListener(new OnCertificateTrusted());
-        
-        Button cancel = (Button) mView.findViewById(R.id.cancel);
+
+        Button cancel = mView.findViewById(R.id.cancel);
         cancel.setOnClickListener(new OnCertificateNotTrusted());
-        
-        Button details = (Button) mView.findViewById(R.id.details_btn);
+
+        Button details = mView.findViewById(R.id.details_btn);
         details.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -222,9 +223,11 @@ public class SslUntrustedCertDialog extends DialogFragment {
     
     
     public interface OnSslUntrustedCertListener {
-        public void onSavedCertificate();
-        public void onFailedSavingCertificate();
-        public void onCancelCertificate();
+        void onSavedCertificate();
+
+        void onFailedSavingCertificate();
+
+        void onCancelCertificate();
     }
     
     public interface ErrorViewAdapter {

@@ -85,7 +85,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 28
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // arguments to be passed to functional tests
         testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
@@ -210,19 +210,19 @@ android {
 
 dependencies {
     // dependencies for app building
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
     gplayImplementation "com.github.nextcloud:android-library:master-SNAPSHOT"
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:support-v4:${supportLibraryVersion}"
-    implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
-    implementation "com.android.support:exifinterface:${supportLibraryVersion}"
-    implementation 'com.github.albfernandez:juniversalchardet:2.0.0' // need this version for Android <7
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation 'com.github.albfernandez:juniversalchardet:2.2.0'
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.evernote:android-job:v1.2.5'
@@ -243,7 +243,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.3'
-    implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // dependencies for local unit tests
@@ -251,15 +251,15 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.0'
     // dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'androidx.test:rules:1.1.0-alpha4'
     // Android JUnit Runner
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
 
     // Espresso core
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-alpha4'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0-alpha4'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:16.0.3'

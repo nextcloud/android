@@ -1,13 +1,13 @@
 package com.owncloud.android;
 
-import android.support.test.runner.AndroidJUnit4;
-
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import androidx.test.runner.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNull;

@@ -20,7 +20,7 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Model for filesystem data from the database.
