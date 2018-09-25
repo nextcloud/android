@@ -211,7 +211,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId())
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
                 );
 
                 if (thumbnail != null) {

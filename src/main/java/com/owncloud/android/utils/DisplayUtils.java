@@ -252,7 +252,7 @@ public final class DisplayUtils {
 
         String urlNoDots = url;
         String dots = "";
-        while (urlNoDots.startsWith(".")) {
+        while (urlNoDots.charAt(0) == '.') {
             urlNoDots = url.substring(1);
             dots = dots + ".";
         }

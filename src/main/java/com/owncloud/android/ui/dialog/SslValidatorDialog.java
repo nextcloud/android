@@ -321,11 +321,11 @@ public class SslValidatorDialog extends Dialog {
         Map<String, String> result = new HashMap<>();
         String toParse = principal.getName();
         String[] pieces = toParse.split(",");
-        String[] tokens = {"CN", "O", "OU", "C", "ST", "L"}; 
-        for (int i=0; i < pieces.length ; i++) {
-            for (int j=0; j<tokens.length; j++) {
-                if (pieces[i].startsWith(tokens[j] + "=")) {
-                    result.put(tokens[j], pieces[i].substring(tokens[j].length()+1));
+        String[] tokens = {"CN", "O", "OU", "C", "ST", "L"};
+        for (String piece : pieces) {
+            for (String token : tokens) {
+                if (piece.startsWith(token + "=")) {
+                    result.put(token, piece.substring(token.length() + 1));
                 }
             }
         }

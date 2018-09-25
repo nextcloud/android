@@ -223,7 +223,7 @@ public final class MediaProvider {
 
                         if (filePath != null) {
                             mediaFolder.filePaths.add(filePath);
-                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
                     }
                     cursorVideos.close();

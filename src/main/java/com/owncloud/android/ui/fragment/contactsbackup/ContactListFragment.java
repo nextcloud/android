@@ -188,8 +188,10 @@ public class ContactListFragment extends FileFragment {
         } else {
             Set<Integer> checkedItems = new HashSet<>();
             int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
-            for (int i = 0; i < itemsArray.length; i++) {
-                checkedItems.add(itemsArray[i]);
+            if (itemsArray != null) {
+                for (int checkedItem : itemsArray) {
+                    checkedItems.add(checkedItem);
+                }
             }
             if (checkedItems.size() > 0) {
                 onMessageEvent(new VCardToggleEvent(true));

@@ -289,7 +289,7 @@ public final class BitmapUtils {
 
         // Splitting evenly the string
         for (int i = 0; i < hash.length(); i++) {
-            result[i % modulo] = result[i % modulo] + String.valueOf(Integer.parseInt(hash.substring(i, i + 1), 16));
+            result[i % modulo] = result[i % modulo] + Integer.parseInt(hash.substring(i, i + 1), 16);
         }
 
         // Converting our data into a usable rgb format

@@ -728,7 +728,7 @@ public class PreviewImageFragment extends FileFragment {
                 LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
                 Drawable layerOne;
 
-                if (previewImageActivity.getSystemUIVisible()) {
+                if (previewImageActivity.isSystemUIVisible()) {
                     layerOne = getResources().getDrawable(R.color.white);
                 } else {
                     layerOne = getResources().getDrawable(R.drawable.backrepeat);

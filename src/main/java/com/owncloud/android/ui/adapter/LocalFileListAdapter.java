@@ -248,7 +248,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (MimeTypeUtil.isImage(file)) {
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.hashCode())
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
                 );
                 if (thumbnail != null) {
                     thumbnailView.setImageBitmap(thumbnail);

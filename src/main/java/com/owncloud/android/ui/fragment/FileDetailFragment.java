@@ -433,12 +433,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 break;
             }
             case R.id.favorite: {
-                if (getFile().getIsFavorite()) {
+                if (getFile().isFavorite()) {
                     mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
                 } else {
                     mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
                 }
-                setFavoriteIconStatus(!getFile().getIsFavorite());
+                setFavoriteIconStatus(!getFile().isFavorite());
                 break;
             }
             case R.id.overflow_menu: {
@@ -503,7 +503,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
             fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), file.getModificationTimestamp()));
             setFilePreview(file);
-            setFavoriteIconStatus(file.getIsFavorite());
+            setFavoriteIconStatus(file.isFavorite());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();

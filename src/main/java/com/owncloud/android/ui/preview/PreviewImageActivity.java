@@ -167,7 +167,7 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
-        outState.putBoolean(KEY_SYSTEM_VISIBLE, getSystemUIVisible());
+        outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible());
     }
 
     @Override
@@ -426,7 +426,7 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
-    public boolean getSystemUIVisible() {
+    public boolean isSystemUIVisible() {
         return getSupportActionBar() == null || getSupportActionBar().isShowing();
     }
 
