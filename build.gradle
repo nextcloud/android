@@ -183,7 +183,7 @@ android {
         ignoreFailures = false
         effort = "max"
         reportLevel = "medium"
-        classes = fileTree("$project.buildDir/intermediates/classes/gplay/debug/com/owncloud")
+        classes = fileTree("$project.buildDir/intermediates/javac/gplayDebug/compileGplayDebugJavaWithJavac/classes/")
         excludeFilter = file("${project.rootDir}/findbugs-filter.xml")
         source = fileTree('src/main/java')
         pluginClasspath = project.configurations.findbugsPlugins
