@@ -126,12 +126,22 @@ public class UploadFilesActivity extends FileActivity implements
             mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
         }
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
                     .getExternalStorageDirectory().getAbsolutePath()));
             mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
-            mCurrentDir = Environment.getExternalStorageDirectory();
+            String lastUploadFrom = PreferenceManager.getUploadFromLocalLastPath(this);
+
+            if (!lastUploadFrom.isEmpty()) {
+                mCurrentDir = new File(lastUploadFrom);
+
+                while (!mCurrentDir.exists()) {
+                    mCurrentDir = mCurrentDir.getParentFile();
+                }
+            } else {
+                mCurrentDir = Environment.getExternalStorageDirectory();
+            }
         }
         
         mAccountOnCreation = getAccount();
@@ -487,9 +497,11 @@ public class UploadFilesActivity extends FileActivity implements
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if(mLocalFolderPickerMode) {
+            PreferenceManager.setUploadFromLocalLastPath(this, mCurrentDir.getAbsolutePath());
+
+            if (mLocalFolderPickerMode) {
                 Intent data = new Intent();
-                if(mCurrentDir != null) {
+                if (mCurrentDir != null) {
                     data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
                 }
                 setResult(RESULT_OK, data);

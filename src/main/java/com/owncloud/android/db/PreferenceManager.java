@@ -42,6 +42,7 @@ public final class PreferenceManager {
      * Value handled by the app without direct access in the UI.
      */
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
+    private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
@@ -184,6 +185,27 @@ public final class PreferenceManager {
      */
     public static void setLastUploadPath(Context context, String path) {
         saveStringPreference(context, AUTO_PREF__LAST_UPLOAD_PATH, path);
+    }
+
+    /**
+     * Gets the last local path where the user selected to do an upload from.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return path     Absolute path to a folder, as previously stored by
+     * {@link #setUploadFromLocalLastPath(Context, String)}, or empty String if never saved before.
+     */
+    public static String getUploadFromLocalLastPath(Context context) {
+        return getDefaultSharedPreferences(context).getString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, "");
+    }
+
+    /**
+     * Saves the path where the user selected to do the last local upload of a file from.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param path    Absolute path to a folder.
+     */
+    public static void setUploadFromLocalLastPath(Context context, String path) {
+        saveStringPreference(context, AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, path);
     }
 
     /**
