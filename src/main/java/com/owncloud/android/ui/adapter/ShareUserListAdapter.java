@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.TextDrawable;
 
 import java.security.NoSuchAlgorithmException;
@@ -90,27 +90,25 @@ public class ShareUserListAdapter extends ArrayAdapter {
             final ImageView unshareButton = view.findViewById(R.id.unshareButton);
 
             String name = share.getSharedWithDisplayName();
-            if (share.getShareType() == ShareType.GROUP) {
-                name = getContext().getString(R.string.share_group_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_group);
-                }
-            } else if (share.getShareType() == ShareType.EMAIL) {
-                name = getContext().getString(R.string.share_email_clarification, name);
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_email);
-                }
-            } else {
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
-                } catch (NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_user);
-                }
+
+            switch (share.getShareType()) {
+                case GROUP:
+                    name = getContext().getString(R.string.share_group_clarification, name);
+                    setImage(icon, name, R.drawable.ic_group);
+                    break;
+                case EMAIL:
+                    name = getContext().getString(R.string.share_email_clarification, name);
+                    setImage(icon, name, R.drawable.ic_email);
+                    break;
+                case ROOM:
+                    name = getContext().getString(R.string.share_room_clarification, name);
+                    setImage(icon, name, R.drawable.ic_chat_bubble);
+                    break;
+                default:
+                    setImage(icon, name, R.drawable.ic_user);
+                    break;
             }
+
             userName.setText(name);
 
             /// bind listener to edit privileges
@@ -120,6 +118,14 @@ public class ShareUserListAdapter extends ArrayAdapter {
             unshareButton.setOnClickListener(v -> mListener.unshareButtonPressed(mShares.get(position)));
         }
         return view;
+    }
+
+    private void setImage(ImageView icon, String name, @DrawableRes int fallback) {
+        try {
+            icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+        } catch (NoSuchAlgorithmException e) {
+            icon.setImageResource(fallback);
+        }
     }
 
     public interface ShareUserAdapterListener {
