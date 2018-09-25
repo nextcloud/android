@@ -88,8 +88,8 @@ public class ContactsImportJob extends Job {
             }
 
 
-            for (int i = 0; i < intArray.length; i++) {
-                VCard vCard = vCards.get(intArray[i]);
+            for (int checkedItem : intArray) {
+                VCard vCard = vCards.get(checkedItem);
                 if (ContactListFragment.getDisplayName(vCard).length() != 0) {
                     if (!ownContactList.containsKey(vCard)) {
                         operations.insertContact(vCard);

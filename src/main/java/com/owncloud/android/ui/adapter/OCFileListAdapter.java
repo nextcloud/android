@@ -163,14 +163,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setFavoriteAttributeForItemID(String fileId, boolean favorite) {
-        for (int i = 0; i < mFiles.size(); i++) {
+        int filesSize = mFiles.size();
+        for (int i = 0; i < filesSize; i++) {
             if (mFiles.get(i).getRemoteId().equals(fileId)) {
                 mFiles.get(i).setFavorite(favorite);
                 break;
             }
         }
 
-        for (int i = 0; i < mFilesAll.size(); i++) {
+        filesSize = mFilesAll.size();
+        for (int i = 0; i < filesSize; i++) {
             if (mFilesAll.get(i).getRemoteId().equals(fileId)) {
                 mFilesAll.get(i).setFavorite(favorite);
                 break;
@@ -338,7 +340,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
             }
 
-            gridViewHolder.favorite.setVisibility(file.getIsFavorite() ? View.VISIBLE : View.GONE);
+            gridViewHolder.favorite.setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
             gridViewHolder.offlineIcon.setVisibility(file.isAvailableOffline() ? View.VISIBLE : View.GONE);
 
             if (multiSelect) {
@@ -380,7 +382,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId())
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
                 );
 
                 if (thumbnail != null && !file.needsUpdateThumbnail()) {

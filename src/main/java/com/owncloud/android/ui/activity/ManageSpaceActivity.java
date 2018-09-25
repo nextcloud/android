@@ -40,7 +40,6 @@ import java.io.File;
 public class ManageSpaceActivity extends AppCompatActivity {
 
     private static final String TAG = ManageSpaceActivity.class.getSimpleName();
-
     private static final String LIB_FOLDER = "lib";
 
     @Override
@@ -167,13 +166,13 @@ public class ManageSpaceActivity extends AppCompatActivity {
             if (dir != null && dir.isDirectory()) {
                 String[] children = dir.list();
                 if (children != null) {
-                    for (int i = 0; i < children.length; i++) {
-                        boolean success = deleteDir(new File(dir, children[i]));
+                    for (String child : children) {
+                        boolean success = deleteDir(new File(dir, child));
                         if (!success) {
-                            Log_OC.w(TAG, "File NOT deleted " + children[i]);
+                            Log_OC.w(TAG, "File NOT deleted " + child);
                             return false;
                         } else {
-                            Log_OC.d(TAG, "File deleted " + children[i]);
+                            Log_OC.d(TAG, "File deleted " + child);
                         }
                     }
                 } else {
@@ -181,7 +180,11 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 }
             }
 
-            return dir.delete();
+            if (dir != null) {
+                return dir.delete();
+            } else {
+                return false;
+            }
         }
     }
 }

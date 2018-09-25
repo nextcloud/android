@@ -53,7 +53,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
-
     private SparseArray<FileFragment> mCachedFragments;
 
     /**
@@ -240,12 +239,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * Reset the image zoom to default value for each CachedFragments
      */
     public void resetZoom() {
+        Matrix matrix = new Matrix();
         for (int i = 0; i < mCachedFragments.size(); i++) {
             FileFragment fileFragment = mCachedFragments.valueAt(i);
 
             if (fileFragment instanceof PreviewImageFragment) {
-                ((PreviewImageFragment) fileFragment).getImageView().setDisplayMatrix(new Matrix());
-                ((PreviewImageFragment) fileFragment).getImageView().setSuppMatrix(new Matrix());
+                ((PreviewImageFragment) fileFragment).getImageView().setDisplayMatrix(matrix);
+                ((PreviewImageFragment) fileFragment).getImageView().setSuppMatrix(matrix);
             }
         }
     }

@@ -198,7 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeSerializable(mMountType);
     }
 
-    public boolean getIsFavorite() {
+    public boolean isFavorite() {
         return mIsFavorite;
     }
 
@@ -714,7 +714,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return 'True' if the file is hidden
      */
     public boolean isHidden() {
-        return getFileName().startsWith(".");
+        return getFileName().charAt(0) == '.';
     }
 
     public String getPermissions() {
