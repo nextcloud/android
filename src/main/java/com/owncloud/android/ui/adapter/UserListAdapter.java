@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -99,25 +100,25 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             final OCShare share = shares.get(position);
 
             String name = share.getSharedWithDisplayName();
-            if (share.getShareType() == ShareType.GROUP) {
-                name = context.getString(R.string.share_group_clarification, name);
-                try {
-                    holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (NoSuchAlgorithmException e) {
-                    holder.avatar.setImageResource(R.drawable.ic_group);
-                }
-            } else if (share.getShareType() == ShareType.EMAIL) {
-                name = context.getString(R.string.share_email_clarification, name);
-                try {
-                    holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (NoSuchAlgorithmException e) {
-                    holder.avatar.setImageResource(R.drawable.ic_email);
-                }
-            } else {
-                holder.avatar.setTag(share.getShareWith());
-                DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,
-                        context.getResources(), holder.avatar, context);
+
+            switch (share.getShareType()) {
+                case GROUP:
+                    name = context.getString(R.string.share_group_clarification, name);
+                    setImage(holder, name, R.drawable.ic_group);
+                    break;
+                case EMAIL:
+                    name = context.getString(R.string.share_email_clarification, name);
+                    setImage(holder, name, R.drawable.ic_email);
+                    break;
+                case ROOM:
+                    name = context.getString(R.string.share_room_clarification, name);
+                    setImage(holder, name, R.drawable.ic_chat_bubble);
+                    break;
+                default:
+                    setImage(holder, name, R.drawable.ic_user);
+                    break;
             }
+            
             holder.name.setText(name);
 
             ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
@@ -126,6 +127,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
             // bind listener to edit privileges
             holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
+        }
+    }
+
+    private void setImage(UserViewHolder holder, String name, @DrawableRes int fallback) {
+        try {
+            holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
+        } catch (NoSuchAlgorithmException e) {
+            holder.avatar.setImageResource(fallback);
         }
     }
 

@@ -1664,23 +1664,22 @@ public class FileDataStorageManager {
                 + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
         String[] whereArgs = new String[]{filePath, accountName,
                 Integer.toString(ShareType.USER.getValue()),
                 Integer.toString(ShareType.GROUP.getValue()),
                 Integer.toString(ShareType.EMAIL.getValue()),
-                Integer.toString(ShareType.FEDERATED.getValue())};
+                Integer.toString(ShareType.FEDERATED.getValue()),
+                Integer.toString(ShareType.ROOM.getValue())};
 
         Cursor cursor = null;
         if (getContentResolver() != null) {
-            cursor = getContentResolver().query(
-                    ProviderTableMeta.CONTENT_URI_SHARE,
-                    null, where, whereArgs, null);
+            cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_SHARE, null, where, whereArgs, null);
         } else {
             try {
-                cursor = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        null, where, whereArgs, null);
+                cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_SHARE, null, where,
+                        whereArgs, null);
 
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Could not get list of shares with: " + e.getMessage(), e);

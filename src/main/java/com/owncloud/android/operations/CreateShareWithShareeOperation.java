@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio
@@ -31,6 +31,10 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Creates a new private share for a given file.
  */
@@ -43,6 +47,9 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private ShareType mShareType;
     private int mPermissions;
 
+    private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
+            ShareType.GROUP, ShareType.FEDERATED, ShareType.EMAIL, ShareType.ROOM));
+
     /**
      * Constructor.
      *
@@ -54,8 +61,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      *                      https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html .
      */
     public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
-        if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)
-                && !ShareType.FEDERATED.equals(shareType) && !ShareType.EMAIL.equals(shareType)) {
+        if (!supportedShareTypes.contains(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
         mPath = path;

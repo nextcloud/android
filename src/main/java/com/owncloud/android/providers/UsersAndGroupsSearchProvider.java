@@ -4,16 +4,16 @@
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
  * Copyright (C) 2015 ownCloud Inc.
- * <p/>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -101,7 +101,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-
+        if (getContext() == null) {
+            return false;
+        }
+        
         AUTHORITY = getContext().getResources().getString(R.string.users_and_groups_search_authority);
         ACTION_SHARE_WITH = getContext().getResources().getString(R.string.users_and_groups_share_with);
         DATA_USER = AUTHORITY + ".data.user";
@@ -110,6 +113,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
         sShareTypes.put(DATA_USER, ShareType.USER);
         sShareTypes.put(DATA_GROUP, ShareType.GROUP);
+        sShareTypes.put(DATA_GROUP, ShareType.ROOM);
         sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
         sShareTypes.put(DATA_REMOTE, ShareType.EMAIL);
 
@@ -119,22 +123,23 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     }
 
     /**
-     * TODO description
-     *
+     * returns sharee from server
+     * 
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
-     * @param uri           Content {@link Uri}, formattted as
+     * @param uri           Content {@link Uri}, formatted as
      *                      "content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/" +
      *                      {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" + 'userQuery'
      * @param projection    Expected to be NULL.
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
      * @param sortOrder     Expected to be NULL.
-     * @return              Cursor with users and groups in the ownCloud server that match 'userQuery'.
+     * @return Cursor with possible sharees in the server that match 'query'.
      */
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
+                        String sortOrder) {
         Log_OC.d(TAG, "query received in thread " + Thread.currentThread().getName());
 
         int match = mUriMatcher.match(uri);
@@ -150,37 +155,35 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private Cursor searchForUsersOrGroups(Uri uri) {
         MatrixCursor response = null;
 
-
         String userQuery = uri.getLastPathSegment().toLowerCase(Locale.ROOT);
 
-
-        /// need to trust on the AccountUtils to get the current account since the query in the client side is not
-        /// directly started by our code, but from SearchView implementation
+        // need to trust on the AccountUtils to get the current account since the query in the client side is not
+        // directly started by our code, but from SearchView implementation
         Account account = AccountUtils.getCurrentOwnCloudAccount(getContext());
 
-        /// request to the OC server about users and groups matching userQuery
+        // request to the OC server about users and groups matching userQuery
         GetRemoteShareesOperation searchRequest = new GetRemoteShareesOperation(
                 userQuery, REQUESTED_PAGE, RESULTS_PER_PAGE
         );
         RemoteOperationResult result = searchRequest.execute(account, getContext());
         List<JSONObject> names = new ArrayList<>();
+
         if (result.isSuccess()) {
             for (Object o : result.getData()) {
-                // Get JSonObjects from response
                 names.add((JSONObject) o);
             }
         } else {
             showErrorMessage(result);
         }
 
-        /// convert the responses from the OC server to the expected format
+        // convert the responses from the OC server to the expected format
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
             Iterator<JSONObject> namesIt = names.iterator();
             JSONObject item;
-            String displayName = null;
+            String displayName;
             int icon = 0;
-            Uri dataUri = null;
+            Uri dataUri;
             int count = 0;
 
             Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
@@ -194,32 +197,55 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             try {
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
+                    dataUri = null;
+                    displayName = null;
                     String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
                     JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
-                    int type = value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
+                    ShareType type = ShareType.fromValue(value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE));
                     String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
 
-                    if (ShareType.GROUP.getValue() == type) {
-                        displayName = getContext().getString(R.string.share_group_clarification, userName);
-                        icon = R.drawable.ic_group;
-                        dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
-                    } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
-                        icon = R.drawable.ic_user;
-                        if (userName.equals(shareWith)) {
-                            displayName = getContext().getString(R.string.share_remote_clarification, userName);
-                        } else {
-                            String[] uriSplitted = shareWith.split("@");
-                            displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
-                                uriSplitted[uriSplitted.length - 1]);
-                        }
-                        dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
-                    } else if (ShareType.USER.getValue() == type) {
-                        displayName = userName;
-                        icon = R.drawable.ic_user;
-                        dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
-                    } else if (ShareType.EMAIL.getValue() == type) {
-                        icon = R.drawable.ic_email;
-                        displayName = getContext().getString(R.string.share_email_clarification, userName);
+                    switch (type) {
+                        case GROUP:
+                            displayName = getContext().getString(R.string.share_group_clarification, userName);
+                            icon = R.drawable.ic_group;
+                            dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
+                            break;
+
+                        case FEDERATED:
+                            if (federatedShareAllowed) {
+                                icon = R.drawable.ic_user;
+                                dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
+
+                                if (userName.equals(shareWith)) {
+                                    displayName = getContext().getString(R.string.share_remote_clarification, userName);
+                                } else {
+                                    String[] uriSplitted = shareWith.split("@");
+                                    displayName = getContext().getString(R.string.share_known_remote_clarification,
+                                            userName, uriSplitted[uriSplitted.length - 1]);
+                                }
+                            }
+                            break;
+
+                        case USER:
+                            displayName = userName;
+                            icon = R.drawable.ic_user;
+                            dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
+                            break;
+
+                        case EMAIL:
+                            icon = R.drawable.ic_email;
+                            displayName = getContext().getString(R.string.share_email_clarification, userName);
+                            dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
+                            break;
+
+                        case ROOM:
+                            icon = R.drawable.ic_chat_bubble;
+                            displayName = getContext().getString(R.string.share_room_clarification, userName);
+                            dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
+                            break;
+
+                        default:
+                            break;
                     }
 
                     if (displayName != null && dataUri != null) {
@@ -242,19 +268,16 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        // TODO implementation
         return null;
     }
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-        // TODO implementation
         return 0;
     }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // TODO implementation
         return 0;
     }
 
@@ -263,7 +286,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      *
      * @param result Result with the failure information.
      */
-    public void showErrorMessage(final RemoteOperationResult result) {
+    private void showErrorMessage(final RemoteOperationResult result) {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
@@ -272,15 +295,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // the thread may die before, an exception will occur, and the message will be left on the screen
                 // until the app dies
 
-                Toast.makeText(
-                        getContext().getApplicationContext(),
-                        ErrorMessageAdapter.getErrorCauseMessage(
-                                result,
-                                null,
-                                getContext().getResources()
-                        ),
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(getContext().getApplicationContext(),
+                        ErrorMessageAdapter.getErrorCauseMessage(result, null, getContext().getResources()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
