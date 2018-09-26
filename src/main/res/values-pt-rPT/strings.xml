@@ -62,7 +62,7 @@
     <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
-    <string name="auth_host_url">Endereço do servidor https://...</string>
+    <string name="auth_host_url">Endereço do servidor https://…</string>
     <string name="auth_username">Nome de utilizador</string>
     <string name="auth_password">Palavra-passe</string>
     <string name="sync_string_files">Ficheiros</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Envie algum conteúdo ou sincronize com os seus dispositivos</string>
     <string name="file_list_empty_favorites_filter_list">Os seus ficheiros e pastas favoritos serão mostrados aqui</string>
     <string name="file_list_empty_favorites_filter">A sua pesquisa não devolveu ficheiros favoritos.</string>
-    <string name="file_list_loading">A carregar...</string>
+    <string name="file_list_loading">A carregar…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação para usar este tipo de ficheiro.</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="local_folder_list_empty">Não existem mais pastas.</string>
@@ -123,7 +123,7 @@
     <string name="common_back">Anterior</string>
     <string name="common_save">Guardar</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">A carregar...</string>
+    <string name="common_loading">A carregar…</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
@@ -133,9 +133,9 @@
     <string name="delete_account">Remover conta</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utilizador ativo</string>
-    <string name="upload_chooser_title">Enviar de...</string>
+    <string name="upload_chooser_title">Enviar de…</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
-    <string name="uploader_upload_in_progress_ticker">A enviar...</string>
+    <string name="uploader_upload_in_progress_ticker">A enviar…</string>
     <string name="uploader_upload_in_progress_content">%1$d%%  A enviar %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
@@ -161,7 +161,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">A aguardar por Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">A aguardar para sair do modo de poupança de bateria</string>
     <string name="uploads_view_later_waiting_to_upload">A aguardar para enviar</string>
-    <string name="downloader_download_in_progress_ticker">A transferir...</string>
+    <string name="downloader_download_in_progress_ticker">A transferir…</string>
     <string name="downloader_download_in_progress_content">%1$d%% A transferir %2$s</string>
     <string name="downloader_download_succeeded_ticker">Transferido</string>
     <string name="downloader_download_succeeded_content">%1$s transferido</string>
@@ -211,8 +211,8 @@
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
     <string name="media_forward_description">Botão de Avançar Rápido</string>
 
-    <string name="auth_getting_authorization">A obter autorização...</string>
-    <string name="auth_trying_to_login">A tentar iniciar a sessão...</string>
+    <string name="auth_getting_authorization">A obter autorização…</string>
+    <string name="auth_trying_to_login">A tentar iniciar a sessão…</string>
 	<string name="auth_no_net_conn_title">Sem ligação de rede</string>
 	<string name="auth_nossl_plain_ok_title">Ligação segura indisponível.</string>
 	<string name="auth_connection_established">Ligação estabelecida</string>
@@ -239,7 +239,8 @@
 	<string name="auth_expired_oauth_token_toast">A sua autorização expirou. Por favor, autorize novamente</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduza a sua palavra-passe atual</string>
 	<string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor, inicie a sessão novamente</string>
-    <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
+    <string name="auth_connecting_auth_server">A ligar ao servidor de autenticação…</string>
+	<string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
 	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
     <string name="auth_access_failed">O acesso falhou: %1$s</string>
     <string name="favorite">Definir como disponível em modo desligado</string>
@@ -257,6 +258,8 @@
     <string name="activity_chooser_title">Enviar ligação para…</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
     
+    <string name="oauth_login_connection">A ligar ao servidor OAuth 2.0…</string>
+        
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>
@@ -461,7 +464,7 @@
     <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="fallback_weblogin_back">Anterior</string>
     <string name="foreground_service_upload">A enviar ficheiros…</string>
-    <string name="foreground_service_download">A transferir os ficheiros...</string>
+    <string name="foreground_service_download">A transferir os ficheiros…</string>
 
     <string name="prefs_license">Licença</string>
     <string name="prefs_gpl_v2">GNU - Licença Pública Geral, Versão 2</string>
@@ -490,6 +493,7 @@
 
     <string name="notification_channel_download_name">Canal de notificação de transferências</string>
     <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
+    <string name="end_to_end_encryption_decrypting">Decryption…</string>
     <string name="end_to_end_encryption_not_enabled">Encriptação ponto-a-ponto desativada no servidor.</string>
     <string name="end_to_end_encryption_password">Palavra-passe…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
