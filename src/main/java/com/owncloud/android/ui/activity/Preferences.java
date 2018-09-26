@@ -380,7 +380,7 @@ public class Preferences extends PreferenceActivity
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     } else {
-                        DisplayUtils.showSnackMessage(Preferences.this, R.string.feedback_no_mail_app);
+                        DisplayUtils.showSnackMessage(this, R.string.feedback_no_mail_app);
                     }
 
                     return true;
@@ -436,7 +436,7 @@ public class Preferences extends PreferenceActivity
 
                         Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        Preferences.this.startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
+                        startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
 
                         return true;
                     });
@@ -722,8 +722,8 @@ public class Preferences extends PreferenceActivity
                     return true;
                 }
 
-                StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
-                storageMigration.setStorageMigrationProgressListener(Preferences.this);
+                StorageMigration storageMigration = new StorageMigration(this, mStoragePath, newPath);
+                storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 
                 return false;
@@ -817,8 +817,8 @@ public class Preferences extends PreferenceActivity
                 OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
                 mUri = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
                         getApplicationContext()).getBaseUri();
-            } catch (Throwable t1) {
-                Log_OC.e(TAG, "Error retrieving user's base URI", t1);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error retrieving user's base URI", e);
             }
         });
         t.start();
