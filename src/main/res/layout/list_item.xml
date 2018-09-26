@@ -153,10 +153,28 @@
         android:paddingStart="@dimen/standard_half_padding">
 
         <ImageView
+            android:id="@+id/unreadComments"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:contentDescription="@string/unread_comments"
+            android:focusable="true"
+            android:paddingEnd="@dimen/list_item_share_right_margin"
+            android:paddingLeft="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/list_item_share_right_margin"
+            android:paddingStart="@dimen/standard_half_padding"
+            android:alpha="0.3"
+            android:src="@drawable/ic_comment"
+            android:visibility="gone"/>
+
+        <ImageView
             android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/unreadComments"
+            android:layout_toRightOf="@id/unreadComments"
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"
