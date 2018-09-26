@@ -144,9 +144,6 @@ public class Preferences extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
-        // retrieve user's base uri
-        setupBaseUri();
-
         setupActionBar();
 
         // Register context menu for list of preferences.
@@ -158,6 +155,9 @@ public class Preferences extends PreferenceActivity
 
         mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         mArbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+
+        // retrieve user's base uri
+        setupBaseUri();
 
         // General
         setupGeneralCategory(accentColor);
