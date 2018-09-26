@@ -104,6 +104,7 @@
     <string name="file_list_empty_headline_server_search_photos">Ni slik in fotografij</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_recently_added">Ni nedavno dodanih datotek</string>
+    <string name="file_list_empty_recently_added_filter">Ni nedavno dodanih datotek.</string>
     <string name="file_list_empty_text_photos">Naloži kakšno sliko ali vključi samodejno nalaganje.</string>
     <string name="file_list_empty_text_photos_filter">Ni slik in fotografij.</string>
     <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
@@ -164,13 +165,14 @@
     <string name="downloader_download_succeeded_ticker">Prenešeno</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
     <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
-    <string name="downloader_download_failed_content">Ne morem prebrati %1$s</string>
+    <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
     <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="common_choose_account">Izbor računa</string>
     <string name="common_switch_account">Preklopi račun</string>
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
     <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo; zahtevana je ponovna prijava.</string>
+    <string name="sync_fail_content">Ni mogoče uskladiti %1$s</string>
     <string name="sync_fail_content_unauthorized">Napačno geslo za %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_fail_in_favourites_ticker">Posodobitev stalno usklajenih datotek je spodletelo</string>
