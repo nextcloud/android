@@ -24,6 +24,7 @@
 package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,6 +33,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -77,10 +80,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -969,4 +975,46 @@ public class FileOperationsHelper {
 
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_checking_credentials));
     }
+
+    public void uploadFromCamera(Activity activity, int requestCode) {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        deleteOldFiles(activity);
+
+        File photoFile = createImageFile(activity);
+
+        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
+                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
+        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivityForResult(pictureIntent, requestCode);
+        } else {
+            DisplayUtils.showSnackMessage(activity, "No Camera found");
+        }
+    }
+
+    private void deleteOldFiles(Activity activity) {
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (storageDir != null) {
+            for (File file : storageDir.listFiles()) {
+                if (!file.delete()) {
+                    Log_OC.d(this, "Failed to delete: " + file.getAbsolutePath());
+                }
+            }
+        }
+    }
+
+    public static File createImageFile(Activity activity) {
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        return new File(storageDir + "/directCameraUpload.jpg");
+    }
+
+    public static String getCapturedImageName() {
+        return new SimpleDateFormat("Y-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
+    }
+
+
 }
