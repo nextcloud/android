@@ -178,6 +178,7 @@ public final class FileStorageUtils {
         }
         file.setMountType(remote.getMountType());
         file.setPreviewAvailable(remote.hasPreview());
+        file.setUnreadCommentsCount(remote.getUnreadCommentsCount());
 
         return file;
     }

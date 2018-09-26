@@ -84,6 +84,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
+import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -434,6 +435,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @Override
+    public void showShareDetailView(OCFile file) {
+        mContainerActivity.showDetails(file, 1);
+    }
+
+    @Override
+    public void showActivityDetailView(OCFile file) {
+        mContainerActivity.showDetails(file, 0);
+    }
+    
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
@@ -1377,6 +1388,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
 
         setFabVisible(true);
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(CommentsEvent event) {
+        mAdapter.refreshCommentsCount(event.remoteId);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
