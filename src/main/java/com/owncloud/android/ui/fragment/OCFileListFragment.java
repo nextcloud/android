@@ -418,6 +418,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
+    public void directCameraUpload() {
+        FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) getActivity());
+
+        if (fileDisplayActivity != null) {
+            fileDisplayActivity.getFileOperationsHelper()
+                .uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+        } else {
+            DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
+        }
+    }
+
+    @Override
     public void uploadFiles() {
         UploadFilesActivity.startUploadActivityForResult(
                 getActivity(),

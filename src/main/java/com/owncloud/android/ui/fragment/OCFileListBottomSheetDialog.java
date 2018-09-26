@@ -47,7 +47,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
     @BindView(R.id.menu_icon_upload_from_app)
     public ImageView iconUploadFromApp;
-
+    @BindView(R.id.menu_icon_direct_camera_upload)
+    public ImageView iconDirectCameraUpload;
     @BindView(R.id.menu_icon_mkdir)
     public ImageView iconMakeDir;
 
@@ -82,6 +83,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         int primaryColor = ThemeUtils.primaryColor(getContext(), true);
         ThemeUtils.tintDrawable(iconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconUploadFromApp.getDrawable(), primaryColor);
+        ThemeUtils.tintDrawable(iconDirectCameraUpload.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconMakeDir.getDrawable(), primaryColor);
 
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
@@ -107,6 +109,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @OnClick(R.id.menu_upload_from_app)
     public void uploadFromApp() {
         actions.uploadFromApp();
+        dismiss();
+    }
+
+    @OnClick(R.id.menu_direct_camera_upload)
+    public void directCameraUpload() {
+        actions.directCameraUpload();
         dismiss();
     }
 
