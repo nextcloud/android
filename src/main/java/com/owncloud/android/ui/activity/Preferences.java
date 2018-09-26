@@ -36,8 +36,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
@@ -236,14 +234,11 @@ public class Preferences extends PreferenceActivity
 
             if (licenseEnabled && !licenseUrl.isEmpty()) {
                 licensePreference.setSummary(R.string.prefs_gpl_v2);
-                licensePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Uri uriUrl = Uri.parse(licenseUrl);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
-                        return true;
-                    }
+                licensePreference.setOnPreferenceClickListener(preference -> {
+                    Uri uriUrl = Uri.parse(licenseUrl);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
+                    return true;
                 });
             } else {
                 preferenceCategoryAbout.removePreference(licensePreference);
@@ -255,32 +250,29 @@ public class Preferences extends PreferenceActivity
         Preference privacyPreference = findPreference("privacy");
         if (privacyPreference != null) {
             if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
-                privacyPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        try {
-                            Uri privacyUrl = Uri.parse(getString(R.string.privacy_url));
-                            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
-                            
-                            Intent intent;
-                            if ("application/pdf".equals(mimeType)) {
-                                intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
-                            } else {
-                                intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                                intent.putExtra(ExternalSiteWebView.EXTRA_TITLE, 
-                                        getResources().getString(R.string.privacy));
-                                intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
-                                intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                                intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                            }
-                            
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            Log_OC.e(TAG, "Could not parse privacy url");
-                            preferenceCategoryAbout.removePreference(privacyPreference);
+                privacyPreference.setOnPreferenceClickListener(preference -> {
+                    try {
+                        Uri privacyUrl = Uri.parse(getString(R.string.privacy_url));
+                        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
+
+                        Intent intent;
+                        if ("application/pdf".equals(mimeType)) {
+                            intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
+                        } else {
+                            intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
+                                    getResources().getString(R.string.privacy));
+                            intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
+                            intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                            intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
                         }
-                        return true;
+
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Log_OC.e(TAG, "Could not parse privacy url");
+                        preferenceCategoryAbout.removePreference(privacyPreference);
                     }
+                    return true;
                 });
             } else {
                 preferenceCategoryAbout.removePreference(privacyPreference);
@@ -293,14 +285,11 @@ public class Preferences extends PreferenceActivity
         if (sourcecodePreference != null) {
             String sourcecodeUrl = getString(R.string.sourcecode_url);
             if (sourcecodeEnabled && !sourcecodeUrl.isEmpty()) {
-                sourcecodePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Uri uriUrl = Uri.parse(sourcecodeUrl);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
-                        return true;
-                    }
+                sourcecodePreference.setOnPreferenceClickListener(preference -> {
+                    Uri uriUrl = Uri.parse(sourcecodeUrl);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
+                    return true;
                 });
             } else {
                 preferenceCategoryAbout.removePreference(sourcecodePreference);
@@ -337,18 +326,16 @@ public class Preferences extends PreferenceActivity
         Preference pImprint = findPreference("imprint");
         if (pImprint != null) {
             if (imprintEnabled) {
-                pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        String imprintWeb = getString(R.string.url_imprint);
-                        if (imprintWeb != null && imprintWeb.length() > 0) {
-                            Uri uriUrl = Uri.parse(imprintWeb);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                            startActivity(intent);
-                        }
-                        //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
-                        return true;
+                pImprint.setOnPreferenceClickListener(preference -> {
+                    String imprintWeb = getString(R.string.url_imprint);
+
+                    if (!imprintWeb.isEmpty()) {
+                        Uri uriUrl = Uri.parse(imprintWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
                     }
+                    //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pImprint);
@@ -365,14 +352,11 @@ public class Preferences extends PreferenceActivity
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {
-                pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
-                        startActivity(loggerIntent);
+                pLogger.setOnPreferenceClickListener(preference -> {
+                    Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
+                    startActivity(loggerIntent);
 
-                        return true;
-                    }
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pLogger);
@@ -385,26 +369,21 @@ public class Preferences extends PreferenceActivity
         Preference pFeedback = findPreference("feedback");
         if (pFeedback != null) {
             if (feedbackEnabled) {
-                pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail = getString(R.string.mail_feedback);
-                        String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                        Intent intent = new Intent(Intent.ACTION_SENDTO);
-                        intent.setType("text/plain");
-                        intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
+                pFeedback.setOnPreferenceClickListener(preference -> {
+                    String feedbackMail = getString(R.string.mail_feedback);
+                    String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setDataAndType(Uri.parse(feedbackMail), "text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        intent.setData(Uri.parse(feedbackMail));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        } else {
-                            DisplayUtils.showSnackMessage(Preferences.this, R.string.feedback_no_mail_app);
-                        }
-
-                        return true;
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        DisplayUtils.showSnackMessage(Preferences.this, R.string.feedback_no_mail_app);
                     }
+
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pFeedback);
@@ -417,31 +396,28 @@ public class Preferences extends PreferenceActivity
         Preference pRecommend = findPreference("recommend");
         if (pRecommend != null) {
             if (recommendEnabled) {
-                pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
+                pRecommend.setOnPreferenceClickListener(preference -> {
 
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("text/plain");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        String appName = getString(R.string.app_name);
-                        String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
-                        String downloadUrlFDroid = getString(R.string.fdroid_link);
-                        String downloadUrls = String.format(getString(R.string.recommend_urls),
-                                downloadUrlGooglePlayStore, downloadUrlFDroid);
+                    String appName = getString(R.string.app_name);
+                    String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
+                    String downloadUrlFDroid = getString(R.string.fdroid_link);
+                    String downloadUrls = String.format(getString(R.string.recommend_urls),
+                            downloadUrlGooglePlayStore, downloadUrlFDroid);
 
-                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
-                        String recommendText = String.format(getString(R.string.recommend_text),
-                                appName, downloadUrls);
+                    String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                    String recommendText = String.format(getString(R.string.recommend_text),
+                            appName, downloadUrls);
 
-                        intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
-                        intent.putExtra(Intent.EXTRA_TEXT, recommendText);
-                        startActivity(intent);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
+                    intent.putExtra(Intent.EXTRA_TEXT, recommendText);
+                    startActivity(intent);
 
-                        return true;
+                    return true;
 
-                    }
                 });
             } else {
                 preferenceCategoryMore.removePreference(pRecommend);
@@ -456,16 +432,13 @@ public class Preferences extends PreferenceActivity
         if (pMnemonic != null) {
             if (!mnemonic.isEmpty() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
-                    pMnemonic.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
+                    pMnemonic.setOnPreferenceClickListener(preference -> {
 
-                            Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                            Preferences.this.startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
+                        Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        Preferences.this.startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
 
-                            return true;
-                        }
+                        return true;
                     });
                 } else {
                     pMnemonic.setEnabled(false);
@@ -482,17 +455,14 @@ public class Preferences extends PreferenceActivity
         Preference pHelp = findPreference("help");
         if (pHelp != null) {
             if (helpEnabled) {
-                pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        String helpWeb = getString(R.string.url_help);
-                        if (helpWeb != null && helpWeb.length() > 0) {
-                            Uri uriUrl = Uri.parse(helpWeb);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                            startActivity(intent);
-                        }
-                        return true;
+                pHelp.setOnPreferenceClickListener(preference -> {
+                    String helpWeb = getString(R.string.url_help);
+                    if (!helpWeb.isEmpty()) {
+                        Uri uriUrl = Uri.parse(helpWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
                     }
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pHelp);
@@ -506,14 +476,11 @@ public class Preferences extends PreferenceActivity
         Preference pContactsBackup = findPreference("contacts");
         if (pContactsBackup != null) {
             if (contactsBackupEnabled) {
-                pContactsBackup.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
-                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
-                        startActivity(contactsIntent);
-                        return true;
-                    }
+                pContactsBackup.setOnPreferenceClickListener(preference -> {
+                    Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                    contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
+                    startActivity(contactsIntent);
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pContactsBackup);
@@ -527,20 +494,17 @@ public class Preferences extends PreferenceActivity
         if (pCalendarContacts != null) {
             if (calendarContactsEnabled) {
                 final Activity activity = this;
-                pCalendarContacts.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        try {
-                            launchDavDroidLogin();
-                        } catch (Throwable t) {
-                            Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
-                            DisplayUtils.showSnackMessage(
-                                    activity,
-                                    R.string.prefs_calendar_contacts_address_resolve_error
-                            );
-                        }
-                        return true;
+                pCalendarContacts.setOnPreferenceClickListener(preference -> {
+                    try {
+                        launchDavDroidLogin();
+                    } catch (Throwable t) {
+                        Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
+                        DisplayUtils.showSnackMessage(
+                                activity,
+                                R.string.prefs_calendar_contacts_address_resolve_error
+                        );
                     }
+                    return true;
                 });
             } else {
                 preferenceCategoryMore.removePreference(pCalendarContacts);
@@ -577,26 +541,23 @@ public class Preferences extends PreferenceActivity
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else {
             mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
-            mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SharedPreferences appPrefs =
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean(PREFERENCE_EXPERT_MODE, mExpertMode.isChecked());
-                    editor.apply();
+            mExpertMode.setOnPreferenceClickListener(preference -> {
+                SharedPreferences appPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = appPrefs.edit();
+                editor.putBoolean(PREFERENCE_EXPERT_MODE, mExpertMode.isChecked());
+                editor.apply();
 
-                    if (mExpertMode.isChecked()) {
-                        Log_OC.startLogging(getApplicationContext());
-                    } else {
-                        if (!BuildConfig.DEBUG &&
-                                !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
-                            Log_OC.stopLogging();
-                        }
+                if (mExpertMode.isChecked()) {
+                    Log_OC.startLogging(getApplicationContext());
+                } else {
+                    if (!BuildConfig.DEBUG &&
+                            !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
+                        Log_OC.stopLogging();
                     }
-
-                    return true;
                 }
+
+                return true;
             });
         }
     }
@@ -605,16 +566,13 @@ public class Preferences extends PreferenceActivity
                                             boolean fShowHiddenFilesEnabled) {
         mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
         if (fShowHiddenFilesEnabled) {
-            mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SharedPreferences appPrefs =
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
-                    editor.apply();
-                    return true;
-                }
+            mShowHiddenFiles.setOnPreferenceClickListener(preference -> {
+                SharedPreferences appPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = appPrefs.edit();
+                editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
+                editor.apply();
+                return true;
             });
         } else {
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
@@ -652,22 +610,19 @@ public class Preferences extends PreferenceActivity
             mLock.setEntries(lockEntriesArr);
             mLock.setEntryValues(lockValuesArr);
             mLock.setSummary(mLock.getEntry());
-            mLock.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    pendingLock = LOCK_NONE;
-                    String oldValue = ((ListPreference) preference).getValue();
-                    String newValue = (String) o;
-                    if (!oldValue.equals(newValue)) {
-                        if (LOCK_NONE.equals(oldValue)) {
-                            enableLock(newValue);
-                        } else {
-                            pendingLock = newValue;
-                            disableLock(oldValue);
-                        }
+            mLock.setOnPreferenceChangeListener((preference, o) -> {
+                pendingLock = LOCK_NONE;
+                String oldValue = ((ListPreference) preference).getValue();
+                String newValue = (String) o;
+                if (!oldValue.equals(newValue)) {
+                    if (LOCK_NONE.equals(oldValue)) {
+                        enableLock(newValue);
+                    } else {
+                        pendingLock = newValue;
+                        disableLock(oldValue);
                     }
-                    return false;
                 }
+                return false;
             });
         } else {
             preferenceCategoryDetails.removePreference(mLock);
@@ -690,29 +645,22 @@ public class Preferences extends PreferenceActivity
             pUploadOnWifiCheckbox.setChecked(
                     arbitraryDataProvider.getBooleanValue(mAccount, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
-            pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
-                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
+            pUploadOnWifiCheckbox.setOnPreferenceClickListener(preference -> {
+                arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                        String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
-                    return true;
-                }
+                return true;
             });
 
             Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
             if (pSyncedFolder != null) {
                 if (getResources().getBoolean(R.bool.syncedFolder_light)
                         && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            Intent syncedFoldersIntent =
-                                    new Intent(getApplicationContext(), SyncedFoldersActivity.class);
-                            syncedFoldersIntent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, false);
-                            startActivity(syncedFoldersIntent);
-                            return true;
-                        }
+                    pSyncedFolder.setOnPreferenceClickListener(preference -> {
+                        Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                        syncedFoldersIntent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, false);
+                        startActivity(syncedFoldersIntent);
+                        return true;
                     });
                 } else {
                     preferenceCategorySyncedFolders.removePreference(pSyncedFolder);
@@ -767,22 +715,18 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setEntries(entries);
             mPrefStoragePath.setEntryValues(values);
 
-            mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String newPath = (String) newValue;
-                    if (mStoragePath.equals(newPath)) {
-                        return true;
-                    }
+            mPrefStoragePath.setOnPreferenceChangeListener((preference, newValue) -> {
+                String newPath = (String) newValue;
 
-                    StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
-
-                    storageMigration.setStorageMigrationProgressListener(Preferences.this);
-
-                    storageMigration.migrate();
-
-                    return false;
+                if (mStoragePath.equals(newPath)) {
+                    return true;
                 }
+
+                StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
+                storageMigration.setStorageMigrationProgressListener(Preferences.this);
+                storageMigration.migrate();
+
+                return false;
             });
         }
 
@@ -847,7 +791,6 @@ public class Preferences extends PreferenceActivity
                 davDroidLoginIntent.putExtra("url", mUri.toString() + DAV_PATH);
             }
             davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(mAccount.name));
-            //loginIntent.putExtra("password", "...");
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed
@@ -869,15 +812,13 @@ public class Preferences extends PreferenceActivity
 
     private void setupBaseUri() {
         // retrieve and set user's base URI
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
-                    mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, getApplicationContext()).getBaseUri();
-                } catch (Throwable t) {
-                    Log_OC.e(TAG, "Error retrieving user's base URI", t);
-                }
+        Thread t = new Thread(() -> {
+            try {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
+                mUri = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
+                        getApplicationContext()).getBaseUri();
+            } catch (Throwable t1) {
+                Log_OC.e(TAG, "Error retrieving user's base URI", t1);
             }
         });
         t.start();
@@ -1036,19 +977,15 @@ public class Preferences extends PreferenceActivity
                     p.setTitle(link.name);
                     p.setKey(link.id.toString());
 
-                    p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            Intent externalWebViewIntent =
-                                    new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.id);
-                            startActivity(externalWebViewIntent);
+                    p.setOnPreferenceClickListener(preference -> {
+                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.id);
+                        startActivity(externalWebViewIntent);
 
-                            return true;
-                        }
+                        return true;
                     });
 
                     preferenceCategory.addPreference(p);
