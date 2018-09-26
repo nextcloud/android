@@ -54,4 +54,9 @@ public interface OCFileListBottomSheetActions {
      * opens template selection for presentations
      */
     void newPresentation();
+
+    /**
+     * offers direct camera upload to the current folder.
+     */
+    void directCameraUpload();
 }
