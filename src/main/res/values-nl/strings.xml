@@ -503,6 +503,7 @@
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s (gesprek)</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met andere gebruikers.\nNeem contact op met je server beheerder</string>

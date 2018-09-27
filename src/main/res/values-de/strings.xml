@@ -503,6 +503,7 @@
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_email_clarification">%1$s (E-Mail)</string>
+    <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktieren Sie Ihren Administrator</string>

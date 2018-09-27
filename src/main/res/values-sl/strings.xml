@@ -215,7 +215,9 @@
 	<string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
 	<string name="auth_account_not_new">Na napravi račun za istega uporabnika in strežnik že obstaja</string>
 	<string name="auth_account_not_the_same">Vpisan uporabnik ni lastnik tega računa</string>
+	<string name="auth_unknown_error_http_title">Prišlo je do neznane napake HTTP!</string>
 	<string name="auth_unknown_error_title">Prišlo je do neznane napake!</string>
+	<string name="auth_unknown_error_exception_title">Neznana napaka: %1$s</string>
 	<string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
 	<string name="auth_incorrect_path_title">Strežnika ni mogoče najti</string>
 	<string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
@@ -232,25 +234,43 @@
 	<string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
 	<string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
-    <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+    <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
+	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+	<string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
+    <string name="auth_account_does_not_exist">Račun še ni dodan na to napravo.</string>
+    <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="favorite_real">Dodaj med priljubljene</string>
+    <string name="unset_favorite_real">Odstrani iz priljubljenih</string>
+    <string name="encrypted">Nastavi kot šifrirano</string>
+    <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_remove">Izbriši</string>
+    <string name="confirmation_remove_file_alert">Ali res želite izbrisati %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
+    <string name="remove_success_msg">Izbrisano</string>
+    <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
+    <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
+    <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
     <string name="create_dir_fail_msg">Ne morem ustvariti mape</string>
     <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
+    <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
+    <string name="wait_a_moment">Počakajte trenutek ...</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
+    <string name="activity_chooser_title">Pošlji povezavo ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
     <string name="oauth_check_onoff">Prijava z OAuth2.0</string>
     <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth2.0 ...</string>
         
+    <string name="ssl_validator_header">Istovetnosti strežnika ni mogoče preveriti</string>
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_expired">- potrdilo strežnika je poteklo</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
@@ -296,6 +316,8 @@
     <string name="preview_sorry">Žal</string>
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
+    <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
+
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
@@ -333,6 +355,11 @@
     <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
 
     <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
+    <string name="file_migration_saving_accounts_configuration">Poteka shranjevanje nastavitev računa ...</string>
+    <string name="file_migration_migrating">Poteka premikanje podatkov ...</string>
+    <string name="file_migration_updating_index">Poteka posodabljanje kazala ...</string>
+    <string name="file_migration_cleaning">Poteka čiščenje ...</string>
+    <string name="file_migration_restoring_accounts_configuration">Poteka obnavljanje nastavitev računa ...</string>
     <string name="file_migration_ok_finished">Zaključeno</string>
     <string name="file_migration_override_data_folder">Zamenjaj</string>
     <string name="file_migration_use_data_folder">Uporabi</string>
@@ -404,6 +431,8 @@
     <string name="share_no_users">Ni datotek, ki bi jih omogočili za souporabo z drugimi</string>
     <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
+    <string name="share_via_link_send_link_label">Pošlji povezavo</string>
+    <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>

@@ -495,12 +495,15 @@
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med…</string>
     <string name="share_with_edit_title">Del med %1$s</string>
+    <string name="share_via_link_unset_password">Ikke satt</string>
+
     <string name="share_search">Navn, sammenknyttet sky-ID eller e-postadresse…</string>
 
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
+    <string name="share_room_clarification">%1$s(samtale)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Tjeneren må oppdateres for å tillatte deling mellom brukere via klientenheter.\nKontakt administrator</string>
@@ -769,6 +772,8 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="tags">Knagger</string>
+    <string name="sharee_add_failed">
+Adding sharee failed</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
@@ -814,4 +819,10 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="file_keep">Behold</string>
     <string name="file_rename">Gi nytt navn</string>
     <string name="fab_label">Legg til eller last opp</string>
-    </resources>
+    <string name="account_creation_failed">Oppretting av konto mislyktes</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
+    <string name="permission_deny">ikke tillatt</string>
+    <string name="permission_allow">Tillatt</string>
+
+</resources>
