@@ -505,6 +505,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_email_clarification">%1$s (courriel)</string>
+    <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
 
     <string name="share_sharee_unavailable">Désolé, la version du serveur n\'autorise pas le partage entre utilisateurs depuis leur client.

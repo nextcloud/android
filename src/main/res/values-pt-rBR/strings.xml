@@ -503,6 +503,7 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
+    <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_sharee_unavailable">Atualize a versão do servidor para permitir o compartilhamento entre usuários.\nPor favor contacte o administrador</string>
