@@ -34,6 +34,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
+    <string name="prefs_lock">Bloqueja</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
@@ -78,6 +79,7 @@
     <string name="file_list_empty">Puja continguts o sincronitza els teus dispositius.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí apareixeran els fitxers i carpetes que marquis com favorits</string>
     <string name="file_list_empty_favorites_filter">La cerca no ha retornat cap fitxer </string>
+    <string name="file_list_loading">Carregant...</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="local_file_list_empty">No hi ha fitxers en aquesta carpeta</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
@@ -109,6 +111,7 @@
     <string name="common_back">Enrere</string>
     <string name="common_save">Guarda</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Carregant...</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
     <string name="common_pending">Pendent</string>
@@ -187,7 +190,8 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-    <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
+    <string name="auth_trying_to_login">Intentat accedir ...</string>
+	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
 	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
 	<string name="auth_connection_established">S\'ha establert la connexió</string>
 	<string name="auth_testing_connection">S\'està comprovant la connexió</string>
@@ -195,6 +199,7 @@
 	<string name="auth_account_not_new">Ja existeix un compte per al mateix usuari i servidor al dispositiu</string>
 	<string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
 	<string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
+	<string name="auth_unknown_error_exception_title">Error desconegut: %1$s</string>
 	<string name="auth_unknown_host_title">No s\'ha pogut trobar</string>
 	<string name="auth_incorrect_path_title">No s\'ha trobat el servidor</string>
 	<string name="auth_timeout_title">El servidor ha trigat massa en respondre</string>
@@ -211,7 +216,8 @@
 	<string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
 	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-    <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+    <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
+	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="favorite">Marca com a disponible fora de línia</string>
     <string name="unfavorite">Desmarca com a disponible fora de línia</string>
