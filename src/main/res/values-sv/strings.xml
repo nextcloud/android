@@ -582,5 +582,6 @@
 
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
     <string name="end_to_end_encryption_password">Lösenord…</string>
+    <string name="host_your_own_server">Använd egen server</string>
     <string name="new_comment">Ny kommentar…</string>
     </resources>

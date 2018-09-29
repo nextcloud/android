@@ -35,17 +35,17 @@
 	<string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
-    <string name="prefs_lock">Заключи</string>
-    <string name="prefs_lock_title">Заключи като използваш</string>
-    <string name="prefs_lock_none">Нито един</string>
+    <string name="prefs_lock">Заключване</string>
+    <string name="prefs_lock_title">Заключване чрез</string>
+    <string name="prefs_lock_none">Без</string>
     <string name="prefs_lock_using_passcode">Код за достъп</string>
-    <string name="prefs_lock_using_device_credentials">Удостоверяване на устройство</string>
-    <string name="prefs_lock_device_credentials_enabled">Удостоверяване на устройството е включено</string>
-    <string name="prefs_lock_device_credentials_not_setup">Удостоверяване на устройството не е настроено</string>
+    <string name="prefs_lock_using_device_credentials">Удостоверяване от устройството</string>
+    <string name="prefs_lock_device_credentials_enabled">Удостоверяването от устройството е включено</string>
+    <string name="prefs_lock_device_credentials_not_setup">Удостоверяването от устройството е настроено.</string>
     <string name="prefs_expert_mode">Експертен режим</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
-    <string name="prefs_calendar_contacts">Синхронизиране на календар &amp; контакта</string>
+    <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адресът на сървъра за акаунта не може да бъде намерен от DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
@@ -83,7 +83,7 @@
     <string name="file_list_seconds_ago">преди секунди</string>
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="folder_list_empty_headline">Няма папки</string>
-    <string name="file_list_empty">Качи съдържание или синхронизирай с устройства.</string>
+    <string name="file_list_empty">Качете файлове или синхронизирай с устройства.</string>
     <string name="file_list_empty_favorites_filter_list">Файлове и папки които маркирате като любими ще се показват тук</string>
     <string name="file_list_empty_favorites_filter">Търсенето ви не откри любими файлове.</string>
     <string name="file_list_loading">Зареждане…</string>
@@ -198,8 +198,8 @@
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
-    <string name="pass_code_reenter_your_pass_code">Моля, въведи отново кода за достъп</string>
-    <string name="pass_code_remove_your_pass_code">Изтрийте своя код за достъп</string>
+    <string name="pass_code_reenter_your_pass_code">Моля, въведете кода за достъп отново</string>
+    <string name="pass_code_remove_your_pass_code">Изтриване на кода за достъп</string>
     <string name="pass_code_mismatch">Кодовете не съвпадат</string>
     <string name="pass_code_wrong">Грешен код</string>
     <string name="pass_code_removed">Кодът за достъп е изтрит</string>
@@ -239,7 +239,7 @@
 	<string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
 	<string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
 	<string name="auth_ssl_general_error_title">Неуспешна инициализация на SSL</string>
-	<string name="auth_ssl_unverified_server_title">Не може да потвърди самоличността на сървъра</string>
+	<string name="auth_ssl_unverified_server_title">Идентичността на SSL сървъра не може да бъде потвърдена</string>
 	<string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
 	<string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
 	<string name="auth_secure_connection">Осъществена е сигурна връзка.</string>
@@ -282,7 +282,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
     
     <string name="oauth_check_onoff">Вписване с OAuto 2.0</string>
-    <string name="ssl_validator_header">Самоличността на сървъра не може да бъде потвърдена</string>
+    <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е доверен</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датите на валидност на сървърния сертификат са в бъдещето</string>
@@ -441,8 +441,8 @@
         <item quantity="other">%1$d папки</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="one">%1$d файлове</item>
-        <item quantity="other">%1$d файлове</item>
+        <item quantity="one">%1$d файл</item>
+        <item quantity="other">%1$d файла</item>
     </plurals>
     <string name="set_picture_as">Използвай снимка като</string>
     <string name="set_as">Задай като</string>
@@ -606,7 +606,7 @@
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_gpl_v2">GNU Генерален Публичен Лиценз, версия 2</string>
-    <string name="push_notifications_not_implemented">Нотификациите са изключени заради зависимости на частни Google Play услуги.</string>
+    <string name="push_notifications_not_implemented">Известията са изключени заради зависимост от частни Google Play услуги.</string>
     <string name="resized_images_download_full_image">Сваляне на пълноразмерната версия?</string>
 
     <string name="store_short_desc">Приложението Nextcloud за Android осигурява достъп до всичките ви файлове в Nextcloud.</string>
@@ -647,8 +647,13 @@
     <string name="hint_name">Име</string>
     <string name="hint_password">Парола</string>
     <string name="add_to_cloud">Добави към %1$s</string>
+    <string name="upload_files">Качи файлове</string>
+    <string name="upload_content_from_other_apps">Качи от други приложения</string>
+    <string name="create_new_folder">Създай нова папка</string>
     <string name="tags">Етикети</string>
     <string name="login">Вписване</string>
+    <string name="host_your_own_server">Стартирайте собствен сървър</string>
+    <string name="first_run_4_text">Споделяне на екрана, online meetings и уеб конференции</string>
     <string name="new_version_was_created">Създадена е нова версия</string>
     <string name="new_comment">Нов коментар…</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
