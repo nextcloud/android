@@ -657,7 +657,10 @@
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="tags">Ετικέτες</string>
     <string name="login">Είσοδος</string>
-    <string name="restore">Επαναφορά αρχείου</string>
+    <string name="signup_with_provider">Σύνδεση με πάροχο</string>
+    <string name="whats_new_device_credentials_content">Χρησιμοποιήστε οποιοδήποτε μοτίβο, συνθηματικό, pin ή δακτυλικό αποτύπωμα για να διατηρήσετε ασφαλή τα δεδομένα σας.</string>
+    <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
+	<string name="restore">Επαναφορά αρχείου</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="new_comment">Νέο σχόλιο…</string>
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
@@ -666,11 +669,14 @@
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
+    <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
     <string name="dismiss">Αποδέσμευση</string>
+    <string name="feedback_no_mail_app">Δεν υπάρχει διαθέσιμη εφαρμογή για αποστολή αλληλογραφίας!</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="action_empty_trashbin">Άδειασμα κάδου</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
+    <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>

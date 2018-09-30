@@ -503,6 +503,7 @@
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_email_clarification">%1$s (E-posta)</string>
+    <string name="share_room_clarification">%1$s (görüşme)</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>

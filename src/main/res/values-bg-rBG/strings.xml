@@ -657,6 +657,7 @@
     <string name="new_version_was_created">Създадена е нова версия</string>
     <string name="new_comment">Нов коментар…</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
+    <string name="notification_channel_general_name">Общи известия</string>
     <string name="new_media_folder_photos">снимка</string>
     <string name="new_media_folder_videos">видео</string>
     <string name="feedback_no_mail_app">Няма налично приложение за изпращане на имейл.</string>
