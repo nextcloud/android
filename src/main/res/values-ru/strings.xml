@@ -511,6 +511,7 @@
     <string name="share_group_clarification">%1$s (группа)</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s (беседа)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Установленная на сервере устаревшая версия Nextcloud не позволяет предоставлять общий доступ используя приложения-клиенты. Обратитесь к своему администратору</string>
