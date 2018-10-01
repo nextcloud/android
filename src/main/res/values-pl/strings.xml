@@ -511,6 +511,7 @@
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s (konwersacja)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
     <string name="share_sharee_unavailable">Zaktualizuj serwer aby umożliwić udostępnianie plików pomiędzy użytkownikami z poziomu klienta.\nSkontaktuj się ze swoim administratorem</string>

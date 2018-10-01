@@ -504,6 +504,7 @@
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
     <string name="share_sharee_unavailable">Përditësoni versionin e serverit për të lejuar ndarjen midis përdoruesve brenda klientëve të tyre.\nJu lutemi të kontaktoni administratorin tuaj</string>
