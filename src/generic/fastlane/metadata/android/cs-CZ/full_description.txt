@@ -10,10 +10,10 @@ Funkce:
 * Doručování oznámení
 * Podpora vícero účtů
 * Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu
-* Začlenění DAVdroid pro snadný přístup ke kalendáři & Synchronizace kontaktů
+* Začlenění DAVdroid pro snadný přístup ke kalendáři & synchronizaci kontaktů
 
 Jakékoli problémy prosím hlaste na https://github.com/nextcloud/android/issues a o aplikaci diskutujte na https://help.nextcloud.com/c/clients/android
 
-Noví v Nextcloud? Nextcloud je server pro soukromou synchronizaci souborů &, sdílení a komunikaci. Je to svobodný software a můžete ho buď provozovat sami nebo pronajímat od společnosti. Tím vy vládnete svým fotkám, údajům v kalendáři a kontaktech, dokumentům a všemu ostatnímu.
+Ještě Nextcloud neznáte? Nextcloud je server pro soukromou synchronizaci souborů &, sdílení a komunikaci. Je to svobodný software a můžete ho buď provozovat sami nebo si pronajímat od nějaké společnosti. Tím vy vládnete svým fotkám, údajům v kalendáři a kontaktech, dokumentům a všemu ostatnímu.
 
 Podívejte se na Nextcloud na https://nextcloud.com
