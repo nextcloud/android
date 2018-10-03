@@ -208,6 +208,7 @@
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
 
+    <string name="auth_getting_authorization">Poteka pridobivanje podatkov overitve ...</string>
     <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
 	<string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
 	<string name="auth_connection_established">Povezava je vzpostavljena</string>
@@ -257,8 +258,8 @@
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
-    <string name="create_dir_fail_msg">Ne morem ustvariti mape</string>
-    <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
+    <string name="filename_forbidden_characters">Nedovoljeni znaki: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
     <string name="wait_a_moment">Počakajte trenutek ...</string>
@@ -342,6 +343,7 @@
 
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
 
+    <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
     <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv</string>
 
     <string name="forbidden_permissions">Ni ustreznega dovoljenja %s</string>
@@ -374,7 +376,9 @@
 	<string name="log_send_history_button">Pošlji zgodovino</string>
 	<string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
 	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
-    <string name="saml_authentication_wrong_pass">Napačno geslo</string>
+    <string name="log_progress_dialog_text">Poteka nalaganje podatkov …</string>
+
+	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
 	<string name="actionbar_move">Premakni</string>
     <string name="actionbar_copy">Kopiraj</string>
 	<string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
@@ -435,6 +439,7 @@
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
+    <string name="share_with_title">Omogoči souporabo ...</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
@@ -444,6 +449,8 @@
 
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
+    <string name="share_privilege_can_edit_delete">lahko izbriše</string>
+
     <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
     <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
     <string name="action_clear_successful_uploads">Pobriši uspela nalaganja</string>
