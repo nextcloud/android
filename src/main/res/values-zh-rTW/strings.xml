@@ -31,9 +31,16 @@
     <string name="drawer_item_activities">活動</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
+    <string name="drawer_quota_unlimited">%1$s已使用</string>
+	<string name="drawer_close">關閉側邊攔</string>
+    <string name="drawer_open">開啟側邊攔</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
+    <string name="prefs_lock">鎖定</string>
+    <string name="prefs_lock_title">使用上鎖</string>
+    <string name="prefs_lock_none">無</string>
+    <string name="prefs_lock_using_passcode">通行碼</string>
     <string name="prefs_expert_mode">專家模式</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
