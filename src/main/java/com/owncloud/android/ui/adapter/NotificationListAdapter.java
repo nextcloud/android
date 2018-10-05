@@ -136,18 +136,23 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         // add action buttons
         holder.buttons.removeAllViews();
         Button button;
-        ExecuteActionTask executeActionTask = new ExecuteActionTask(holder);
+
 
         for (Action action : notification.getActions()) {
             button = new Button(notificationsActivity);
             button.setText(action.label);
+
             if (action.primary) {
                 button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true),
                         PorterDuff.Mode.SRC_ATOP);
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
             }
 
-            button.setOnClickListener(v -> executeActionTask.execute(action));
+            button.setOnClickListener(v -> {
+                setButtonEnabled(holder, false);
+
+                new ExecuteActionTask(holder).execute(action);
+            });
 
             holder.buttons.addView(button);
         }
@@ -222,7 +227,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 return false;
             }
 
-            return status == HttpStatus.SC_OK;
+            return status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED;
         }
 
         @Override
@@ -232,8 +237,15 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 notificationsList.remove(position);
                 notifyItemRemoved(position);
             } else {
+                setButtonEnabled(holder, true);
                 DisplayUtils.showSnackMessage(notificationsActivity, "Failed to execute action!");
             }
+        }
+    }
+
+    private void setButtonEnabled(NotificationViewHolder holder, boolean enabled) {
+        for (int i = 0; i < holder.buttons.getChildCount(); i++) {
+            holder.buttons.getChildAt(i).setEnabled(enabled);
         }
     }
 
