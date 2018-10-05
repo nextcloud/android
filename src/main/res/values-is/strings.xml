@@ -32,7 +32,9 @@
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
     <string name="drawer_quota_unlimited">%1$s notað</string>
-	<string name="prefs_category_general">Almennt</string>
+	<string name="drawer_close">Loka hliðarspjaldi</string>
+    <string name="drawer_open">Opna hliðarspjald</string>
+    <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_lock">Læsa</string>
@@ -501,6 +503,7 @@
     <string name="share_group_clarification">%1$s (hópur)</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_email_clarification">%1$s (tölvupóstur)</string>
+    <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
     <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
@@ -660,11 +663,13 @@
     <string name="file_icon">Skrá</string>
     <string name="user_icon">Notandi</string>
     <string name="favorite_icon">Eftirlæti</string>
+    <string name="synced_icon">Samstillt</string>
     <string name="available_offline_icon">Tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
     <string name="shared_icon_share">deila</string>
     <string name="shared_icon_shared_via_link">deilt með tengli</string>
     <string name="shared_icon_shared">deilt</string>
+    <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
     <string name="sort_by_size_descending">Stærsta fyrst</string>
@@ -757,6 +762,8 @@
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
     <string name="login">Skrá inn</string>
+    <string name="host_your_own_server">Hýstu þinn eigin þjón</string>
+    <string name="first_run_3_text">Einfaldur og auðveldur vefpóstur, dagatal &amp; tengiliðir</string>
     <string name="whats_new_device_credentials_content">Notaðu tækni á borð við mynstur, lykilorð eða fingraför til að halda gögnunum þínum öruggum.</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>
 	<string name="restore">Endurheimta skrá</string>
@@ -789,4 +796,11 @@
     <string name="file_delete">Eyða</string>
     <string name="file_keep">Halda</string>
     <string name="file_rename">Endurnefna</string>
-    </resources>
+    <string name="fab_label">Bæta við eða senda inn</string>
+    <string name="account_creation_failed">Gerð notandaaðgangs mistókst</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
+    <string name="permission_deny">Hafna</string>
+    <string name="permission_allow">Leyfa</string>
+
+</resources>
