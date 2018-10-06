@@ -314,7 +314,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
 
     <string name="copy_link">Copiar hiperligação</string>
-    <string name="clipboard_text_copied">Copiado para a área de transferência</string>
     <string name="clipboard_label">Texto copiado a partir de %1$s</string>
 
     <string name="forbidden_permissions_rename">para renomear este ficheiro</string>

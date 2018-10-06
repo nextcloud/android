@@ -327,7 +327,6 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
 
     <string name="copy_link">Kopēt saiti</string>
-    <string name="clipboard_text_copied">Nokopēts starpliktuvē</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
     <string name="clipboard_unexpected_error">Kopējot starpliktuvē, radās neparedzēta kļūda</string>
     <string name="clipboard_label">Teksts kopēts no %1$s</string>

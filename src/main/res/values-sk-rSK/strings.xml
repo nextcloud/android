@@ -297,7 +297,6 @@
     <string name="activity_chooser_send_file_title">Odoslať</string>
 
     <string name="copy_link">Kopíruj odkaz</string>
-    <string name="clipboard_text_copied">Skopírované do schránky</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
 
     <string name="forbidden_permissions_rename">premenovať tento súbor</string>

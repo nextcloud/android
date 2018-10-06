@@ -298,7 +298,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="activity_chooser_send_file_title">Send</string>
 
     <string name="copy_link">Kopiér link</string>
-    <string name="clipboard_text_copied">Kopieret til udklipsholder</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
 
     <string name="forbidden_permissions_rename">til at omdøbe denne fil</string>

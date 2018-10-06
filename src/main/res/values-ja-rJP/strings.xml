@@ -354,7 +354,6 @@
     <string name="activity_chooser_send_file_title">送信</string>
 
     <string name="copy_link">リンクをコピー</string>
-    <string name="clipboard_text_copied">クリップボードにコピー</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
 
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>

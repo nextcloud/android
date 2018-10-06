@@ -349,7 +349,6 @@
     <string name="activity_chooser_send_file_title">Изпращане</string>
 
     <string name="copy_link">Копиране на връзката</string>
-    <string name="clipboard_text_copied">Копирана</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
 

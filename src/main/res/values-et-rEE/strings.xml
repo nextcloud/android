@@ -302,7 +302,6 @@
     <string name="activity_chooser_send_file_title">Saada</string>
 
     <string name="copy_link">Kopeeri link</string>
-    <string name="clipboard_text_copied">Kopeeritud lõikepuhvrisse</string>
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
     <string name="forbidden_permissions_rename">selle faili ümbernimetamiseks</string>
     <string name="forbidden_permissions_delete">selle faili kustutamiseks</string>

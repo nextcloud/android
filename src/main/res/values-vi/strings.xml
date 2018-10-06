@@ -306,7 +306,6 @@
     <string name="activity_chooser_send_file_title">Gởi</string>
 
     <string name="copy_link">Sao chép liên kết</string>
-    <string name="clipboard_text_copied">Đã sao chép vào clipboard</string>
     <string name="clipboard_label">Văn bản đã được sao chép từ %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Lỗi nghiêm trọng: Không thể thực hiện thao tác</string>
