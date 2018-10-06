@@ -266,7 +266,6 @@
     <string name="activity_chooser_send_file_title">أرسل</string>
 
     <string name="copy_link">نسخ الرابط</string>
-    <string name="clipboard_text_copied">تم النسخ للحافظة</string>
     <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_rename">لإعادة تسمية هذا الملف</string>
     <string name="forbidden_permissions_delete">لحذف هذا الملف</string>

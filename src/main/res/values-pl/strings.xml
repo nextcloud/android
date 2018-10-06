@@ -368,7 +368,6 @@
     <string name="activity_chooser_send_file_title">Wyślij</string>
 
     <string name="copy_link">Skopiuj link</string>
-    <string name="clipboard_text_copied">Skopiuj do schowka</string>
     <string name="clipboard_no_text_to_copy">Nie odebrano tekstu, by skopiować go do schowka</string>
     <string name="clipboard_unexpected_error">Nieoczekiwany błąd podczas kopiowania do schowka</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>

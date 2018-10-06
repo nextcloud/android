@@ -306,7 +306,6 @@
     <string name="activity_chooser_send_file_title">Envia</string>
 
     <string name="copy_link">Copia l\'enllaç</string>
-    <string name="clipboard_text_copied">S\'ha copiat al porta-retalls</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
 

@@ -365,7 +365,6 @@
     <string name="activity_chooser_send_file_title">Küldés</string>
 
     <string name="copy_link">Link másolása</string>
-    <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
     <string name="clipboard_no_text_to_copy">Nem kaptam szöveget a vágólapra másoláshoz</string>
     <string name="clipboard_unexpected_error">Váratlan hiba történt a vágólapra másolás közben </string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>

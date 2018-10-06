@@ -337,7 +337,6 @@
     <string name="activity_chooser_send_file_title">Pošlji</string>
 
     <string name="copy_link">Kopiraj povezavo</string>
-    <string name="clipboard_text_copied">Kopirano v odložišče</string>
     <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
 

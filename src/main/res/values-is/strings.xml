@@ -364,7 +364,6 @@
     <string name="activity_chooser_send_file_title">Senda</string>
 
     <string name="copy_link">Afrita tengil</string>
-    <string name="clipboard_text_copied">Afritað á klippispjaldið</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_unexpected_error">Óvænt villa kom upp við afritun á klippispjald</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>

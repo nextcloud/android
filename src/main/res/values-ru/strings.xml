@@ -368,7 +368,6 @@
     <string name="activity_chooser_send_file_title">Отправить</string>
 
     <string name="copy_link">Копировать ссылку</string>
-    <string name="clipboard_text_copied">Скопировано в буфер обмена</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_unexpected_error">Неожиданная ошибка во время копирования в буфер обмена</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>

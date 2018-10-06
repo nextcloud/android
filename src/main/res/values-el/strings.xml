@@ -333,7 +333,6 @@
     <string name="activity_chooser_send_file_title">Αποστολή</string>
 
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
-    <string name="clipboard_text_copied">Αντιγράφηκε στο πρόχειρο</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
 

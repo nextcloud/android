@@ -299,7 +299,6 @@
     <string name="activity_chooser_send_file_title">Kirim</string>
 
     <string name="copy_link">Salin tautan</string>
-    <string name="clipboard_text_copied">Disalin ke papan klip</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
 

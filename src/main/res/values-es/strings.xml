@@ -364,7 +364,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
 
     <string name="copy_link">Copiar enlace</string>
-    <string name="clipboard_text_copied">Copiado al portapapeles</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_unexpected_error">Error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>

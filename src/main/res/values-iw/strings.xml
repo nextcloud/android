@@ -367,7 +367,6 @@
     <string name="activity_chooser_send_file_title">שליחה</string>
 
     <string name="copy_link">העתקת קישור</string>
-    <string name="clipboard_text_copied">הועתק ללוח הגזירים - clipboard</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
     <string name="clipboard_unexpected_error">אירעה שגיאה בזמן העתקה ללוח</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>

@@ -364,7 +364,6 @@
     <string name="activity_chooser_send_file_title">Send</string>
 
     <string name="copy_link">Kopier lenke</string>
-    <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
     <string name="clipboard_unexpected_error">Uventet feil ved kopiering til utklippstavle</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>

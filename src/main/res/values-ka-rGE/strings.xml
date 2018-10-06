@@ -326,7 +326,6 @@
     <string name="activity_chooser_send_file_title">გაგზავნა</string>
 
     <string name="copy_link">ბმულის კოპირება</string>
-    <string name="clipboard_text_copied">კოპირებულია ბუფერში</string>
     <string name="clipboard_no_text_to_copy">ბუფერში გადასატანად ტექსტი მიღებული არაა</string>
     <string name="clipboard_label">ტექსტი %1$s-იდან დაკოპირდა</string>
 
