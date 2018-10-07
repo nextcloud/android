@@ -332,7 +332,7 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
-    <string name="instant_upload_on_charging">Subir solamente al cargar</string>
+    <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="conflict_title">Conflicto con archivo</string>
@@ -364,6 +364,7 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
 
     <string name="copy_link">Copiar enlace</string>
+    <string name="clipboard_text_copied">Enlace copiado</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_unexpected_error">Error inesperado al copiar al portapapeles</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>

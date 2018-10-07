@@ -368,6 +368,7 @@
     <string name="activity_chooser_send_file_title">Wyślij</string>
 
     <string name="copy_link">Skopiuj link</string>
+    <string name="clipboard_text_copied">Link skopiowany</string>
     <string name="clipboard_no_text_to_copy">Nie odebrano tekstu, by skopiować go do schowka</string>
     <string name="clipboard_unexpected_error">Nieoczekiwany błąd podczas kopiowania do schowka</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
@@ -662,6 +663,8 @@
     <string name="resized_images_download_full_image">Pobrać pełen obraz?</string>
 
     <string name="store_short_desc">Przy użyciu aplikacji mobilnej Nextcloud na Android\'a uzyskasz dostęp do wszystkich plików z twojego Nextcloud\'a.</string>
+    <string name="store_full_desc">Oparta na Open Source aplikacja Nexcloud Android umożliwia dostęp do wszystkich twoich plików w Nextcloud.\n\nFunkcje:\n* Prosty i nowoczesny wygląd\n* Wysyłaj swoje pliki na swój serwer Nextcloud* Dawaj innym dostęp do twoich plików\n* Synchronizuj wybrane pliki i katalogi z serwerem\n* Automatycznie wysyłaj zdjęcia i filmy robione urządzeniem\n* Wsparcie dla wielu kont\n\nZgłaszaj błędy na https://github.com/nextcloud/android/issues i dyskutuj na temat tej aplikacji na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud jest prywatnym serwerem synchronizacji współdzielenia plików oraz komunikacji. Jego źródła są całkowicie otwarte, więc możesz korzystać z niego na własnym serwerze albo możesz zapłacić za to firmie trzeciej. W ten sposób kontrolujesz swoje zdjęcia, kalendarz, dane kontaktowe, twoje dokumenty i inne dane.\n\nZobacz Nextcloud na https://nextcloud.com</string>
+
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
