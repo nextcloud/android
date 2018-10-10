@@ -34,7 +34,27 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.support.annotation.PluralsRes;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UpdateOCVersionOperation;
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+
+import org.apache.jackrabbit.webdav.DavException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -141,15 +161,18 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             String authority, ContentProviderClient providerClient,
             SyncResult syncResult) {
 
+        String timeString = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("time_between_sync", "60");
+        int timeTillNextSyncInMinutes = Integer.parseInt(timeString);
+
         mCancellation = false;
         mFailedResultsCounter = 0;
         mLastFailedResult = null;
         mConflictsFound = 0;
         mFailsInFavouritesFound = 0;
-        mForgottenLocalFiles = new HashMap<String, String>();
+        mForgottenLocalFiles = new HashMap<>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
-        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
+        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + timeTillNextSyncInMinutes*60; // avoid too many automatic synchronizations
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
