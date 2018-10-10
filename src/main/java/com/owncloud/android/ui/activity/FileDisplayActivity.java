@@ -288,6 +288,33 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requesReadExternalStoreagePermission(FileDisplayActivity.this);
+                            }
+                        });
+
+                ThemeUtils.colorSnackbar(this, snackbar);
+
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requesReadExternalStoreagePermission(this);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionUtil.requestIgnoreBatteryOptimizationsPermission(this);
+        }
+
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
 
@@ -311,7 +338,7 @@ public class FileDisplayActivity extends HookActivity
         return this;
     }
 
-    /**
+    /*
      * For Android 7+.
      * Opens a pop up info for the new instant upload and disabled the old instant upload.
      */
