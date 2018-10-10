@@ -19,13 +19,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:fillViewport="true"
-    android:orientation="vertical" 
-    android:id="@+id/scroll"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:id="@+id/scroll"
     >
 
     <LinearLayout
@@ -61,7 +61,7 @@
             android:text="@string/auth_check_server"
             android:visibility="gone"
             android:contentDescription="@string/auth_check_server"/>
-        
+
         <TextView
             android:id="@+id/instructions_message"
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:textColor="@color/login_text_color"
             android:contentDescription="@string/auth_expired_basic_auth_toast"/>
 
-	    <FrameLayout 
+            <FrameLayout
 	        android:id="@+id/hostUrlFrame"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -180,7 +180,8 @@
                 android:text="@string/oauth2_url_endpoint_auth"
                 android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:importantForAutofill="no"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -201,6 +202,7 @@
                 android:text="@string/oauth2_url_endpoint_access"
                 android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
+                android:importantForAutofill="no"
                 android:visibility="gone" />
 
         </android.support.design.widget.TextInputLayout>
@@ -220,7 +222,8 @@
                 android:hint="@string/auth_username"
                 android:inputType="textNoSuggestions"
                 android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"/>
+                android:textColorHint="@color/login_text_hint_color"
+                android:autofillHints="username"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -243,7 +246,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
-                />
+                android:autofillHints="password"/>
         </android.support.design.widget.TextInputLayout>
 
         <TextView
