@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="UnusedAttribute">
+        <ignore regexp="importantForAutofill"/>
+        <ignore regexp="autofillHints"/>
+    </issue>
     <issue id="InvalidPackage">
         <ignore path="**/freemarker-2.3.23.jar"/>
         <ignore path="**/nnio-0.2.jar"/>
         <ignore path="**/pkix-1.54.0.0.jar"/>
     </issue>
-    
+
     <issue id="UnusedResources">
         <ignore regexp="store_short_desc|store_full_desc|store_short_dev_desc|store_full_dev_desc" />
         <ignore
             regexp="screenshot_01_gridView|screenshot_02_listView|screenshot_03_drawer|screenshot_04_accounts|screenshot_05_autoUpload|screenshot_06_davdroid"/>
     </issue>
-    
+
     <issue id="MissingQuantity">
         <ignore path="**/values-ka-rGE/strings.xml"/>
     </issue>
@@ -85,7 +89,7 @@
         <ignore path="**/values-cs-rCZ/strings.xml"/>
         <ignore path="**/values-en-rGB/strings.xml"/>
     </issue>
-    
+
     <issue id="TypographyEllipsis">
         <ignore path="**/values-b+en+001/strings.xml"/>
         <ignore path="**/values-pt-rPT/strings.xml"/>
@@ -143,8 +147,8 @@
         <ignore path="**/values-cs-rCZ/strings.xml"/>
         <ignore path="**/values-en-rGB/strings.xml"/>
     </issue>
-	
-	<issue id="Typos">
+
+    <issue id="Typos">
         <ignore path="**/values-b+en+001/strings.xml"/>
         <ignore path="**/values-pt-rPT/strings.xml"/>
         <ignore path="**/values-ro/strings.xml"/>
