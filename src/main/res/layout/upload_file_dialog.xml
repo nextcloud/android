@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_name"
+        android:importantForAutofill="no"
         android:inputType="textNoSuggestions|textCapSentences"/>
 
     <TextView
