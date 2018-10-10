@@ -366,6 +366,7 @@
     <string name="activity_chooser_send_file_title">Пошаљи</string>
 
     <string name="copy_link">Копирај везу</string>
+    <string name="clipboard_text_copied">Веза ископирана</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у оставу</string>
     <string name="clipboard_unexpected_error">Неочекивана грешка приликом копирања у оставу</string>
     <string name="clipboard_label">Текст прекопиран са %1$s</string>
