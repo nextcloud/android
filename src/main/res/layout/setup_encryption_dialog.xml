@@ -49,5 +49,6 @@
         android:hint="@string/end_to_end_encryption_password"
         android:inputType="textPassword"
         android:textCursorDrawable="@null"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:autofillHints="password"/>
 </LinearLayout>
