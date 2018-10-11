@@ -388,6 +388,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
 
+        if (Build.VERSION.SDK_INT >= 19) {
+            mLoginWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            mLoginWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
