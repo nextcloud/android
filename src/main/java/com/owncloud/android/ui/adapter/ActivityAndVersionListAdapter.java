@@ -13,6 +13,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
@@ -33,8 +34,8 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
 
     public ActivityAndVersionListAdapter(Context context, ActivityListInterface activityListInterface,
                                          VersionListInterface.View versionListInterface,
-                                         FileDataStorageManager storageManager) {
-        super(context, activityListInterface, storageManager, true);
+                                         FileDataStorageManager storageManager, OCCapability capability) {
+        super(context, activityListInterface, storageManager, capability, true);
 
         this.versionListInterface = versionListInterface;
     }
