@@ -111,7 +111,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             NextcloudRequest request = deserializeObjectAndCloseStream(is);
             httpStream = processRequest(request);
         } catch (Exception e) {
-            Log_OC.e(TAG, e.getMessage());
+            Log_OC.e(TAG, e.toString());
             exception = e;
         }
 
