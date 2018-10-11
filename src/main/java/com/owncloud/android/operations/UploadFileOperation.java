@@ -22,8 +22,10 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
@@ -564,6 +566,19 @@ public class UploadFileOperation extends SyncOperation {
                 size = new File(mFile.getStoragePath()).length();
             }
 
+            if (size == 0) {
+                Cursor cursor = getContext().getContentResolver().query(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        new String[]{MediaStore.MediaColumns.SIZE},
+                        MediaStore.Images.Media.DATA + " like ?",
+                        new String[]{mFile.getStoragePath()}, null);
+
+                if (cursor.moveToFirst()) {
+                    size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.SIZE));
+                }
+                cursor.close();
+            }
+
             for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
                 if (ocUpload.getUploadId() == getOCUploadId()) {
                     ocUpload.setFileSize(size);
@@ -576,11 +591,11 @@ public class UploadFileOperation extends SyncOperation {
             if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
-                        mFile.getEtagInConflict(), timeStamp);
+                        mFile.getEtagInConflict(), timeStamp, size);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
-                        mFile.getEtagInConflict(), timeStamp);
+                        mFile.getEtagInConflict(), timeStamp, size);
             }
 
             Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
@@ -803,6 +818,19 @@ public class UploadFileOperation extends SyncOperation {
                 size = new File(mFile.getStoragePath()).length();
             }
 
+            if (size == 0) {
+                Cursor cursor = getContext().getContentResolver().query(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        new String[]{MediaStore.MediaColumns.SIZE},
+                        MediaStore.Images.Media.DATA + " like ?",
+                        new String[]{mFile.getStoragePath()}, null);
+
+                if (cursor.moveToFirst()) {
+                    size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.SIZE));
+                }
+                cursor.close();
+            }
+
             for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
                 if (ocUpload.getUploadId() == getOCUploadId()) {
                     ocUpload.setFileSize(size);
@@ -814,10 +842,10 @@ public class UploadFileOperation extends SyncOperation {
             // perform the upload
             if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp, size);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp, size);
             }
 
             Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
