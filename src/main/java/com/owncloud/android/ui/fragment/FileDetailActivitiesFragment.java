@@ -28,6 +28,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,9 +202,16 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     @OnClick(R.id.submitComment)
     public void submitComment() {
-        if (commentInput.getText().toString().trim().length() > 0) {
-            new SubmitCommentTask(commentInput.getText().toString().trim(), userId, file.getLocalId(),
-                    callback, ownCloudClient).execute();
+        Editable commentField = commentInput.getText();
+
+        if (commentField == null) {
+            return;
+        }
+
+        String trimmedComment = commentField.toString().trim();
+
+        if (trimmedComment.length() > 0) {
+            new SubmitCommentTask(trimmedComment, userId, file.getLocalId(), callback, ownCloudClient).execute();
         }
     }
 
@@ -241,7 +249,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityAndVersionListAdapter(getContext(), this, this, storageManager);
+        adapter = new ActivityAndVersionListAdapter(getContext(), this, this, storageManager, capability);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
