@@ -364,6 +364,7 @@
     <string name="activity_chooser_send_file_title">Versturen</string>
 
     <string name="copy_link">Link kopiëren</string>
+    <string name="clipboard_text_copied">Link gekopieerd</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
     <string name="clipboard_unexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
