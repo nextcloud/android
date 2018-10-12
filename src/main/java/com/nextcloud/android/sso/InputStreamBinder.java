@@ -49,10 +49,12 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -213,7 +215,17 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return method.getResponseBodyAsStream();
         } else {
-            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(String.valueOf(status)));
+            StringBuilder total = new StringBuilder();
+            InputStream inputStream = method.getResponseBodyAsStream();
+            // If response body is available
+            if(inputStream != null) {
+                BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+                for (String line; (line = r.readLine()) != null; ) {
+                    total.append(line).append('\n');
+                }
+                Log_OC.e(TAG, total.toString());
+            }
+            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(String.valueOf(status), new Throwable(total.toString())));
         }
     }
 
