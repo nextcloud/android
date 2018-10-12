@@ -65,6 +65,9 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <!-- Apps that target Android 9 (API level 28) or higher and use foreground services
+    must request the FOREGROUND_SERVICE permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
 
     <application
@@ -109,7 +112,7 @@
         <activity android:name=".ui.activity.ContactsPreferenceActivity"
             android:launchMode="singleInstance"/>
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
-                  
+
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
@@ -245,7 +248,7 @@
         <activity android:name=".ui.activity.RequestCredentialsActivity" />
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-        
+
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
