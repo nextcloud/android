@@ -111,7 +111,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             NextcloudRequest request = deserializeObjectAndCloseStream(is);
             httpStream = processRequest(request);
         } catch (Exception e) {
-            Log_OC.e(TAG, e.toString());
+            Log_OC.e(TAG, "Error during Nextcloud request", e);
             exception = e;
         }
 
@@ -121,7 +121,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, httpStream);
             return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
         } catch (IOException e) {
-            Log_OC.e(TAG, e.getMessage());
+            Log_OC.e(TAG, "Error while sending response back to client app", e);
         }
         return null;
     }
