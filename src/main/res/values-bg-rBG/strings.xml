@@ -32,7 +32,9 @@
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_quota">%1$s от %2$s използвани</string>
     <string name="drawer_quota_unlimited">%1$s използвани</string>
-	<string name="prefs_category_general">Общи</string>
+	<string name="drawer_close">Затвори страничното меню</string>
+    <string name="drawer_open">Отвори страничното меню</string>
+    <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_lock">Заключване</string>
@@ -49,6 +51,8 @@
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адресът на сървъра за акаунта не може да бъде намерен от DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Календар &amp; синхронизацията на контакти е настроена</string>
+    <string name="prefs_daily_contacts_sync_summary">Дневно копие на вашите контакти</string>
     <string name="prefs_help">Помощ</string>
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
@@ -78,6 +82,7 @@
     <string name="uploader_error_message_source_file_not_found">Селектирания за качване файл не е намерен. Моля проверете дали файлът съществува.</string>
     <string name="uploader_error_message_source_file_not_copied">Неуспешно копиране на файл във временна папка. Моля опитайте да го изпратите отново</string>
     <string name="uploader_upload_files_behaviour">Опции за качване:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Премести файл в папка %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Запазване на файла в оригиналната папка</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Изтриване на файла от оригиналната папка</string>
     <string name="file_list_seconds_ago">преди секунди</string>
@@ -135,6 +140,7 @@
     <string name="delete_account_warning">Изтриване на профила %s?\n\nИзтриването е необратима операция.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активен потребител</string>
+    <string name="upload_chooser_title">Качи от...</string>
     <string name="uploader_info_dirname">Име на папката</string>
     <string name="uploader_upload_in_progress_ticker">Качване…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
@@ -196,6 +202,9 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
+    <string name="default_credentials_wrong">Грешни данни за вход</string>
+    <string name="credentials_disabled">Потребителските данни са спрени</string>
+    
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведете кода за достъп отново</string>
@@ -250,11 +259,15 @@
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-    <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+    <string name="auth_connecting_auth_server">Свързване към сървър за идентификация</string>
+	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
-    <string name="favorite">Задай като достъпна офлайн</string>
+    <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
+    <string name="auth_illegal_login_used">Използван е невалиден URL с данни за вход</string>
+
+    <string name="favorite">Сваляне, за офлайн достъп</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="favorite_real">Добави към любимите</string>
     <string name="unset_favorite_real">Премахни от любимите</string>
@@ -278,10 +291,12 @@
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
-    <string name="activity_chooser_title">Изпрати връзка чрез…</string>
+    <string name="activity_chooser_title">Изпращане на връзка чрез…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
     
     <string name="oauth_check_onoff">Вписване с OAuto 2.0</string>
+    <string name="oauth_login_connection">Свързване към OAuth 2.0 сървър...</string>
+        
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е доверен</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
@@ -316,8 +331,8 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Качване само при Wi-Fi връзка</string>
-    <string name="instant_upload_on_charging">Качвай само при зареждане</string>
+    <string name="auto_upload_on_wifi">Качване само от Wi-Fi мрежа</string>
+    <string name="instant_upload_on_charging">Качване само при зареждане</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">Файлов конфликт</string>
@@ -341,7 +356,7 @@
 	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
 	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>
 	<string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на файл или папка</string>
-    <string name="update_link_file_no_exist">Обновяването беше неуспешно. Моля, проверете дали файлът съществува</string>
+    <string name="update_link_file_no_exist">Актуализирането беше неуспешно. Моля, проверете дали файлът съществува</string>
     <string name="update_link_file_error">Възникна грешка при опита за обновяване на споделянето</string>
     <string name="share_link_password_title">Въведете парола</string>
     <string name="share_link_empty_password">Трябва да въведете парола</string>
@@ -349,7 +364,9 @@
     <string name="activity_chooser_send_file_title">Изпращане</string>
 
     <string name="copy_link">Копиране на връзката</string>
+    <string name="clipboard_text_copied">Връзката е копирана</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
+    <string name="clipboard_unexpected_error">Неочаквана грешка при опит за копиране в клипборда</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>
@@ -375,6 +392,7 @@
     <string name="file_migration_saving_accounts_configuration">Запазване на настройките на профилите…</string>
     <string name="file_migration_waiting_for_unfinished_sync">Изчакване на пълна синхронизация…</string>
     <string name="file_migration_migrating">Преместване на данни…</string>
+    <string name="file_migration_updating_index">Обновяване на индекс...</string>
     <string name="file_migration_cleaning">Почистване…</string>
     <string name="file_migration_restoring_accounts_configuration">Възстановяване настройките на профила…</string>
     <string name="file_migration_ok_finished">Готово</string>
@@ -451,8 +469,8 @@
     <string name="select_all">Избери всички</string>
     <string name="deselect_all">Откажи всички избрани</string>
 
-    <string name="pref_behaviour_entries_keep_file">запазвани в оригиналната папка</string>
-    <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
+    <string name="pref_behaviour_entries_keep_file">запазван в оригиналната папка</string>
+    <string name="pref_behaviour_entries_move">преместван в папката на приложението</string>
     <string name="pref_behaviour_entries_delete_file">изтрит</string>
     <string name="prefs_storage_path">Път до хранилището</string>
 
@@ -463,22 +481,29 @@
     <string name="share_add_user_or_group">Добавете потребител или група</string>
     <string name="share_via_link_edit_permission_label">Разреши редактиране</string>
     <string name="share_via_link_password_label">Защити с парола</string>
+    <string name="share_via_link_password_title">Защитено</string>
     <string name="share_via_link_expiration_date_label">Срок на валидност</string>
     <string name="share_via_link_menu_password_label">Защитено с парола (%1$s)</string>
     <string name="share_expiration_date_label">Изтича %1$s</string>
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_via_link_section_title">Връзка за споделяне</string>
-    <string name="share_via_link_send_link_label">Изпрати връзка</string>
+    <string name="share_via_link_send_link_label">Изпратете връзката</string>
     <string name="share_password_title">Защитена с парола</string>
     <string name="share_no_password_title">Задайте парола</string>
+    <string name="edit_permission_label">редактирай</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_get_public_link_button">Вземи връзка</string>
     <string name="share_with_title">Споделете чрез ...</string>
     <string name="share_with_edit_title">Споделете с %1$s</string>
+    <string name="share_via_link_unset_password">Зануляване</string>
+
+    <string name="share_search">Име, cloud ID или имейл адрес...</string>
+
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_email_clarification">%1$s (имейл)</string>
+    <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента. \nМоля, уведомете системния админинстратор</string>
@@ -531,6 +556,7 @@
     <string name="participate_contribute_github_text">Прегледай, промени и пиши код, вижте %1$s за повече информация</string>
     <string name="participate_rc_play_store">Изтегляне на release candidate от магазина Google play</string>
     <string name="participate_rc_fdroid">Изтегляне на release candidate от приложението F-Droid</string>
+    <string name="participate_dev_fdroid">Свали развоен релийз от F-Droid приложение</string>
     <string name="participate_dev_direct_download">Изтегляне на развойна версия</string>
     <string name="move_to">Премести в…</string>
     <string name="copy_to">Копирай в…</string>
@@ -577,7 +603,11 @@
     <string name="activities_no_results_message">Все още няма действия като добавяне, промени и споделяния</string>
     <string name="prefs_category_about">Относно</string>
 
+    <string name="actionbar_contacts">Създай резервно копие на контактите</string>
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
+    <string name="contacts_backup_button">Създай резервно копие сега</string>
+    <string name="contacts_automatic_backup">Автоматично създаване на резервно копие</string>
+    <string name="contacts_last_backup">Последно резервно копие</string>
     <string name="contacts_read_permission">Нужно е разрешение за да прочетете листът с контакти</string>
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
     <string name="contactlist_account_chooser_title">Изберете профил за вкарване в системата</string>
@@ -585,6 +615,10 @@
     <string name="contacts_preference_choose_date">Изберете дата</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
+    <string name="contacts_preferences_something_strange_happened">Последното ви резервно копие не може да бъде намерено!</string>
+    <string name="contacts_preferences_backup_scheduled">Резервното копие беше планирано и ще започне скоро</string>
+    <string name="contacts_preferences_import_scheduled">Импортирането е планирано и ще започне скоро</string>
+
     <string name="drawer_logout">Отписване</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="privacy">Защита на лични данни</string>
@@ -593,7 +627,7 @@
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Изберете папка</string>
-    <string name="autoupload_create_new_custom_folder">Създадете нова папка</string>
+    <string name="autoupload_create_new_custom_folder">Създаване на нова папка</string>
     <string name="synced_folders_configure_folders">Конфигуриране на папки</string>
 
     <string name="test_server_button">Тестване на връзката със сървъра</string>
@@ -602,24 +636,37 @@
     <string name="fallback_weblogin_text">Връщане към стария метод за вписване</string>
 
     <string name="foreground_service_upload">Качване на файлове…</string>
+    <string name="foreground_service_download">Сваляне на файлове...</string>
+
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_gpl_v2">GNU Генерален Публичен Лиценз, версия 2</string>
     <string name="push_notifications_not_implemented">Известията са изключени заради зависимост от частни Google Play услуги.</string>
+    <string name="push_notifications_old_login">Няма налични известия поради изтекла потребителска сесия. Моля, обмислете да пре-добавите вашия профил.</string>
+    <string name="push_notifications_temp_error">Известията не са достъпни в момента.</string>
+
+    <string name="sync_in_progress">Търси се най-скорошната версия на файл.</string>
+    <string name="date_unknown">Неизвестен</string>
+
+    <string name="resized_image_not_possible">Няма наличнo оразмеренo изображение.</string>
+    <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
     <string name="resized_images_download_full_image">Сваляне на пълноразмерната версия?</string>
 
     <string name="store_short_desc">Приложението Nextcloud за Android осигурява достъп до всичките ви файлове в Nextcloud.</string>
     <string name="drawer_current_account">Текущ профил</string>
     <string name="drawer_middle_account">Среден профил</string>
     <string name="drawer_end_account">Последен профил</string>
+    <string name="contactlist_item_icon">Потребителска икона за списъка с контакти</string>
     <string name="activity_icon">Активност</string>
     <string name="file_icon">Файл</string>
     <string name="user_icon">Потребител</string>
     <string name="favorite_icon">Любими</string>
     <string name="synced_icon">Синхронизиран</string>
+    <string name="available_offline_icon">Достъпен офлайн</string>
     <string name="shared_icon_share">сподели</string>
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
     <string name="shared_icon_shared">споделено</string>
+    <string name="overflow_menu">Повече</string>
     <string name="sort_by_name_ascending">А - Я</string>
     <string name="sort_by_modification_date_ascending">Най-нов</string>
     <string name="sort_by_size_descending">Най-голям</string>
@@ -627,6 +674,11 @@
     <string name="sort_by_name_descending">Я - А</string>
     <string name="sort_by_modification_date_descending">Най-стар</string>
     <string name="synced_folders_type">Тип</string>
+    <string name="sync_status_button">Статус на синхронизация</string>
+    <string name="synced_folder_settings_button">Настройки</string>
+    <string name="forward">Напред</string>
+    <string name="what_s_new_image">Какво ново</string>
+
     <string name="dev_version_no_information_available">Няма налична информация.</string>
     <string name="dev_version_no_new_version_available">Няма нова версия.</string>
     <string name="dev_version_new_version_available">Има нова версия.</string>

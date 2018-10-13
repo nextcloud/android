@@ -35,6 +35,9 @@
     <string name="prefs_category_more">Més</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_lock">Bloqueja</string>
+    <string name="prefs_lock_none">Cap</string>
+    <string name="prefs_lock_using_passcode">Codi d\'accés</string>
+    <string name="prefs_lock_using_device_credentials">Credencials del dispositiu</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
@@ -274,6 +277,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Només carregar amb Wifi sense límits</string>
     <string name="instant_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="auto_upload_path">/ Carrega automàtica</string>
@@ -411,4 +415,6 @@
     <string name="whats_new_skip">Omet</string>
 
     <string name="screenshot_01_gridView">Un lloc segur per totes les vostres dades</string>
+    <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i guardeu-la en un lloc segur.</string>
+    <string name="end_to_end_encryption_not_supported">L\'encriptació només funciona en KitKat(4.4) o més noves.</string>
     </resources>
