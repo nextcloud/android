@@ -41,7 +41,7 @@
 			android:src="@drawable/logo"
             android:contentDescription="@string/app_name"
 			/>
-		
+
 		<ScrollView
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
@@ -71,16 +71,17 @@
 					android:contentDescription="@string/auth_check_server"/>
 
 				<TextView
-				    android:id="@+id/instructions_message"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_gravity="fill_horizontal"
-				    android:text="@string/auth_expired_basic_auth_toast" 
-				    android:visibility="gone"
-				    android:layout_marginBottom="@dimen/alternate_margin"
-					android:textColor="@color/login_text_color"
+                    android:id="@+id/instructions_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="@string/auth_expired_basic_auth_toast"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/alternate_margin"
+                    android:textColor="@color/login_text_color"
                     android:contentDescription="@string/auth_expired_basic_auth_toast"/>
-			    <FrameLayout 
+
+                <FrameLayout
 	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -142,7 +143,7 @@
                         android:contentDescription="@string/auth_refresh_button"
 					    />
 				</FrameLayout>
-		
+
 				<TextView
 					android:id="@+id/server_status_text"
 					android:layout_width="match_parent"
@@ -156,7 +157,7 @@
 					android:text="@string/auth_testing_connection"
 					android:minHeight="@dimen/display_text_min_height"
                     android:contentDescription="@string/auth_testing_connection"/>
-		             
+
 				<CheckBox
 					android:id="@+id/oauth_onOff_check"
 					android:layout_width="wrap_content"
@@ -175,18 +176,19 @@
                     android:layout_height="wrap_content">
 
 					<EditText
-						android:id="@+id/oAuthEntryPoint_1"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:ems="10"
-						android:enabled="false"
-						android:hint="@string/oauth_2_0_auth_end_point_address_hint"
-						android:inputType="textUri"
-						android:maxLines="1"
-						android:text="@string/oauth2_url_endpoint_auth"
-						android:textColor="@color/login_text_color"
-						android:textColorHint="@color/login_text_hint_color"
-						android:visibility="gone" />
+                        android:id="@+id/oAuthEntryPoint_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:hint="@string/oauth_2_0_auth_end_point_address_hint"
+                        android:inputType="textUri"
+                        android:maxLines="1"
+                        android:text="@string/oauth2_url_endpoint_auth"
+                        android:textColor="@color/login_text_color"
+                        android:textColorHint="@color/login_text_hint_color"
+                        android:importantForAutofill="no"
+                        android:visibility="gone" />
 
 				</android.support.design.widget.TextInputLayout>
 
@@ -196,18 +198,19 @@
                     android:layout_height="wrap_content">
 
 					<EditText
-						android:id="@+id/oAuthEntryPoint_2"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:ems="10"
-						android:enabled="false"
-						android:hint="@string/oauth_2_0_access_end_point_address_hint"
-						android:inputType="textUri"
-						android:maxLines="1"
-						android:text="@string/oauth2_url_endpoint_access"
-						android:textColor="@color/login_text_color"
-						android:textColorHint="@color/login_text_hint_color"
-						android:visibility="gone" />
+                        android:id="@+id/oAuthEntryPoint_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:hint="@string/oauth_2_0_access_end_point_address_hint"
+                        android:inputType="textUri"
+                        android:maxLines="1"
+                        android:text="@string/oauth2_url_endpoint_access"
+                        android:textColor="@color/login_text_color"
+                        android:textColorHint="@color/login_text_hint_color"
+                        android:importantForAutofill="no"
+                        android:visibility="gone" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -218,14 +221,15 @@
 					android:visibility="gone">
 
 				<EditText
-					android:id="@+id/account_username"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ems="10"
-					android:hint="@string/auth_username"
-					android:inputType="textNoSuggestions"
-					android:textColor="@color/login_text_color"
-					android:textColorHint="@color/login_text_hint_color"/>
+                    android:id="@+id/account_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/auth_username"
+                    android:inputType="textNoSuggestions"
+                    android:textColor="@color/login_text_color"
+                    android:textColorHint="@color/login_text_hint_color"
+                    android:autofillHints="username"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -246,11 +250,12 @@
                         android:hint="@string/auth_password"
                         android:inputType="textPassword"
                         android:textColor="@color/login_text_color"
-                        android:textColorHint="@color/login_text_hint_color"/>
+                        android:textColorHint="@color/login_text_hint_color"
+                        android:autofillHints="password"/>
 
                 </android.support.design.widget.TextInputLayout>
-		        
-				<TextView
+
+                <TextView
 					android:id="@+id/auth_status_text"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -265,9 +270,9 @@
 
 			</LinearLayout>
 		</ScrollView>
-						           
-	</LinearLayout>
-       
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@id/bottom_block"
         android:layout_width="match_parent"
@@ -275,8 +280,8 @@
 		android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_half_padding">
-        
-		<android.support.v7.widget.AppCompatButton
+
+        <android.support.v7.widget.AppCompatButton
 			android:id="@+id/buttonOK"
 			android:theme="@style/Button.Login"
 			style="@style/Button.Login"
@@ -289,5 +294,5 @@
 			android:contentDescription="@string/setup_btn_connect"
 			android:visibility="gone"/>
 	</LinearLayout>
-		
+
 </RelativeLayout>
