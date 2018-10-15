@@ -43,7 +43,7 @@
         android:gravity="center_horizontal"
         android:textSize="@dimen/two_line_secondary_text_size"
          />
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -55,6 +55,7 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
+            android:importantForAutofill="no"
             android:hint="@string/hidden_character">
             <requestFocus/>
         </EditText>
@@ -64,6 +65,7 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
+            android:importantForAutofill="no"
             android:hint="@string/hidden_character"/>
 
         <EditText
@@ -71,6 +73,7 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
+            android:importantForAutofill="no"
             android:hint="@string/hidden_character"/>
 
         <EditText
@@ -78,6 +81,7 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
+            android:importantForAutofill="no"
             android:hint="@string/hidden_character"/>
     </LinearLayout>
 
