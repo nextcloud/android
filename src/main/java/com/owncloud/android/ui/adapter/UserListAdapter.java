@@ -70,7 +70,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     private int accentColor;
     private List<OCShare> shares;
     private float avatarRadiusDimension;
-    private Account account;
     private OCFile file;
 
     public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
@@ -79,7 +78,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         this.fragmentManager = fragmentManager;
         this.shares = shares;
         this.listener = listener;
-        this.account = account;
         this.file = file;
 
         accentColor = ThemeUtils.primaryAccentColor(context);
@@ -118,7 +116,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                     setImage(holder, name, R.drawable.ic_user);
                     break;
             }
-            
+
             holder.name.setText(name);
 
             ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
