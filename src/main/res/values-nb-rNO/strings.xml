@@ -364,6 +364,7 @@
     <string name="activity_chooser_send_file_title">Send</string>
 
     <string name="copy_link">Kopier lenke</string>
+    <string name="clipboard_text_copied">Lenke kopiert</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
     <string name="clipboard_unexpected_error">Uventet feil ved kopiering til utklippstavle</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
@@ -771,8 +772,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="tags">Knagger</string>
-    <string name="sharee_add_failed">
-Adding sharee failed</string>
+    <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
