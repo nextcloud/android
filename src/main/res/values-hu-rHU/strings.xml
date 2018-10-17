@@ -365,6 +365,7 @@
     <string name="activity_chooser_send_file_title">Küldés</string>
 
     <string name="copy_link">Link másolása</string>
+    <string name="clipboard_text_copied">Hivatkozás másolva!</string>
     <string name="clipboard_no_text_to_copy">Nem kaptam szöveget a vágólapra másoláshoz</string>
     <string name="clipboard_unexpected_error">Váratlan hiba történt a vágólapra másolás közben </string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
@@ -503,6 +504,7 @@
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
+    <string name="share_room_clarification">%1$s(beszélgetés)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
     <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
@@ -777,6 +779,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="updating_share_failed">Megosztás frissítési hiba</string>
     <string name="whats_new_device_credentials_title">Használja az Android eszköz belső védelmét</string>
     <string name="login">Bejelentkezés</string>
+    <string name="signup_with_provider">Feliratkozás szolgáltatóval</string>
+    <string name="host_your_own_server">Saját kiszolgáló használata</string>
     <string name="first_run_1_text">Tarts az adataid biztonságban és a felügyeleted alatt</string>
     <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>

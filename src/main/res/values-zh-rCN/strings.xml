@@ -362,6 +362,7 @@
     <string name="activity_chooser_send_file_title">发送</string>
 
     <string name="copy_link">复制链接</string>
+    <string name="clipboard_text_copied">已复制链接</string>
     <string name="clipboard_no_text_to_copy">收到没有文字复制到剪贴板</string>
     <string name="clipboard_unexpected_error">在复制内容到剪贴板时发生了一个预料外的错误</string>
     <string name="clipboard_label">从%1$s复制文本</string>
@@ -755,6 +756,7 @@
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="login">登录</string>
+    <string name="host_your_own_server">自己搭建服务器</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
     <string name="first_run_3_text">易于使用的网络邮件，日历和&amp;联系</string>
     <string name="first_run_4_text">屏幕分享，在线会议，&amp;网络会议</string>
