@@ -1,3 +1,6 @@
+## 3.3.1 (October, 2018)
+- Bug fixes
+
 ## 3.3.0 (September, 19, 2018)
 - Support for Trashbin (Nc14+)
 - Media streaming (Nc14+)
