@@ -48,8 +48,11 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
+import com.owncloud.android.ui.viewModel.UserInfoViewModel;
 
 import java.io.File;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
@@ -145,5 +148,16 @@ class AppModule {
     AsyncRunner asyncRunner() {
         Handler uiHandler = new Handler();
         return new AsyncRunnerImpl(uiHandler, 4);
+    }
+
+    @Provides
+    public Executor executor() {
+        return Executors.newCachedThreadPool();
+    }
+
+
+    @Provides
+    public UserInfoViewModel userInfoViewModel() {
+        return new UserInfoViewModel();
     }
 }

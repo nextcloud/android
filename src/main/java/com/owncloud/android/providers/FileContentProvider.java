@@ -77,6 +77,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int ARBITRARY_DATA = 9;
     private static final int VIRTUAL = 10;
     private static final int FILESYSTEM = 11;
+    private static final int USERINFO = 12;
     private static final String TAG = FileContentProvider.class.getSimpleName();
     // todo avoid string concatenation and use string formatting instead later.
     private static final String ERROR = "ERROR ";
@@ -152,6 +153,9 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case FILESYSTEM:
                 count = db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
+                break;
+            case USERINFO:
+                count = db.delete(ProviderTableMeta.USERINFO_TABLE_NAME, where, whereArgs);
                 break;
             default:
                 throw new IllegalArgumentException(String.format(Locale.US, "Unknown uri: %s", uri.toString()));
@@ -370,6 +374,16 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException("ERROR " + uri);
                 }
                 return insertedFilesystemUri;
+            case USERINFO:
+                Uri insertedUserInfoUri;
+                long insertedUserInfoId = db.insert(ProviderTableMeta.USERINFO_TABLE_NAME, null, values);
+                if (insertedUserInfoId > 0) {
+                    insertedUserInfoUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_USERINFO,
+                                                                     insertedUserInfoId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+                }
+                return insertedUserInfoUri;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -432,6 +446,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "arbitrary_data", ARBITRARY_DATA);
         mUriMatcher.addURI(authority, "virtual", VIRTUAL);
         mUriMatcher.addURI(authority, "filesystem", FILESYSTEM);
+        mUriMatcher.addURI(authority, "userinfo", USERINFO);
 
         return true;
     }
@@ -531,6 +546,12 @@ public class FileContentProvider extends ContentProvider {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
                 }
                 break;
+            case USERINFO:
+                sqlQuery.setTables(ProviderTableMeta.USERINFO_TABLE_NAME);
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -559,11 +580,14 @@ public class FileContentProvider extends ContentProvider {
                 case VIRTUAL:
                     order = ProviderTableMeta.VIRTUAL_TYPE;
                     break;
-                default: // Files
-                    order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
-                    break;
                 case FILESYSTEM:
                     order = ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
+                    break;
+                case USERINFO:
+                    order = ProviderTableMeta.USERINFO_ACCOUNT;
+                    break;
+                default: // Files
+                    order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
                     break;
             }
         } else {
@@ -632,6 +656,8 @@ public class FileContentProvider extends ContentProvider {
                 return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, values, selection, selectionArgs);
             case FILESYSTEM:
                 return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, values, selection, selectionArgs);
+            case USERINFO:
+                return db.update(ProviderTableMeta.USERINFO_TABLE_NAME, values, selection, selectionArgs);
             default:
                 return db.update(ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs);
         }
@@ -862,6 +888,22 @@ public class FileContentProvider extends ContentProvider {
         );
     }
 
+    private void createUserInfoTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ProviderTableMeta.USERINFO_TABLE_NAME + "("
+                       + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                       + ProviderTableMeta.USERINFO_ACCOUNT + TEXT
+                       + ProviderTableMeta.USERINFO_DISPLAYNAME + TEXT
+                       + ProviderTableMeta.USERINFO_EMAIL + TEXT
+                       + ProviderTableMeta.USERINFO_PHONE + TEXT
+                       + ProviderTableMeta.USERINFO_ADDRESS + TEXT
+                       + ProviderTableMeta.USERINFO_WEBSITE + TEXT
+                       + ProviderTableMeta.USERINFO_TWITTER + TEXT
+                       + ProviderTableMeta.USERINFO_GROUPS + TEXT
+                       + ProviderTableMeta.USERINFO_QUOTA + " TEXT); "
+
+        );
+    }
+
     /**
      * Version 10 of database does not modify its scheme. It coincides with the upgrade of the
      * ownCloud account names structure to include in it the path to the server instance. Updating
@@ -992,6 +1034,7 @@ public class FileContentProvider extends ContentProvider {
             case ARBITRARY_DATA:
             case VIRTUAL:
             case FILESYSTEM:
+            case USERINFO:
                 String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
                 return callingPackage == null || !callingPackage.equals(mContext.getPackageName());
 
@@ -1037,6 +1080,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create filesystem table
             createFileSystemTable(db);
+
+            // Create userInfo table
+            createUserInfoTable(db);
         }
 
         @Override
@@ -1993,6 +2039,23 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 50 && newVersion >= 50) {
+                Log_OC.i(SQL, "Entering in the #50 add userinfo table");
+                db.beginTransaction();
+                try {
+                    createUserInfoTable(db);
 
                     upgraded = true;
                     db.setTransactionSuccessful();
