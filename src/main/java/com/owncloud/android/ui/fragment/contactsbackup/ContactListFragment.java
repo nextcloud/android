@@ -32,7 +32,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,15 +60,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.jobs.ContactsImportJob;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -79,6 +78,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -168,6 +168,8 @@ public class ContactListFragment extends FileFragment {
         View view = inflater.inflate(R.layout.contactlist_fragment, container, false);
         ButterKnife.bind(this, view);
 
+        OwnCloudClient client = AccountUtils.getClientForCurrentAccount(requireContext());
+
         setHasOptionsMenu(true);
 
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
@@ -184,7 +186,7 @@ public class ContactListFragment extends FileFragment {
         recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(getContext(), vCards);
+            contactListAdapter = new ContactListAdapter(getContext(), client, vCards);
         } else {
             Set<Integer> checkedItems = new HashSet<>();
             int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
@@ -196,7 +198,7 @@ public class ContactListFragment extends FileFragment {
             if (checkedItems.size() > 0) {
                 onMessageEvent(new VCardToggleEvent(true));
             }
-            contactListAdapter = new ContactListAdapter(getContext(), vCards, checkedItems);
+            contactListAdapter = new ContactListAdapter(getContext(), client, vCards, checkedItems);
         }
         recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -572,20 +574,22 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
     private List<VCard> vCards;
     private Set<Integer> checkedVCards;
-
+    private OwnCloudClient client;
+    
     private Context context;
 
-    ContactListAdapter(Context context, List<VCard> vCards) {
+    ContactListAdapter(Context context, OwnCloudClient client, List<VCard> vCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = new HashSet<>();
+        this.client = client;
     }
 
-    ContactListAdapter(Context context, List<VCard> vCards,
-                       Set<Integer> checkedVCards) {
+    ContactListAdapter(Context context, OwnCloudClient client, List<VCard> vCards, Set<Integer> checkedVCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = checkedVCards;
+        this.client = client;
     }
 
     public int getCheckedCount() {
@@ -667,20 +671,8 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
             imageView.setImageDrawable(drawable);
         } else if (url != null) {
-            SimpleTarget target = new SimpleTarget<Drawable>() {
-                @Override
-                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                    imageView.setImageDrawable(resource);
-                }
-
-                @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                    super.onLoadFailed(e, errorDrawable);
-                    imageView.setImageDrawable(errorDrawable);
-                }
-            };
-            DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user, imageView.getWidth(),
-                    imageView.getHeight());
+            DisplayUtils.downloadImage(url, R.drawable.ic_user, R.drawable.ic_user, imageView, client,
+                    GlideKey.url(url), context);
         }
     }
 

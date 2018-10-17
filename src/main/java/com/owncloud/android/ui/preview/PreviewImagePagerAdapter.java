@@ -22,6 +22,7 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Matrix;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -217,6 +218,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return super.getItemPosition(object);
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Object fragment = super.instantiateItem(container, position);

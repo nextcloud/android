@@ -84,7 +84,7 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
-    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
+    private static final String REMOVE_COLUMN = " DROP COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
     private static final int SINGLE_PATH_SEGMENT = 1;
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
@@ -738,11 +738,11 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + INTEGER
                 + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + INTEGER
                 + ProviderTableMeta.FILE_ETAG + TEXT
+                + ProviderTableMeta.FILE_ETAG_ON_SERVER + TEXT
                 + ProviderTableMeta.FILE_SHARED_VIA_LINK + INTEGER
                 + ProviderTableMeta.FILE_PUBLIC_LINK + TEXT
                 + ProviderTableMeta.FILE_PERMISSIONS + " TEXT null,"
                 + ProviderTableMeta.FILE_REMOTE_ID + " TEXT null,"
-                + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
                 + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
                 + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
@@ -1734,6 +1734,24 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER "); // boolean
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 35 && newVersion >= 35) {
+                Log_OC.i(SQL, "Entering in the #35 add eTagOnServer");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.FILE_ETAG_ON_SERVER + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

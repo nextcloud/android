@@ -23,7 +23,6 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,15 +34,15 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.TrashbinFile;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,17 +63,15 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<TrashbinFile> files;
     private Context context;
     private Account account;
-    private FileDataStorageManager storageManager;
+    private OwnCloudClient client;
 
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
-
-    public TrashbinListAdapter(TrashbinActivityInterface trashbinActivityInterface,
-                               FileDataStorageManager storageManager, Context context) {
+    public TrashbinListAdapter(TrashbinActivityInterface trashbinActivityInterface, Context context) {
         this.files = new ArrayList<>();
         this.trashbinActivityInterface = trashbinActivityInterface;
         this.account = AccountUtils.getCurrentOwnCloudAccount(context);
-        this.storageManager = storageManager;
         this.context = context;
+
+        client = AccountUtils.getClientForCurrentAccount(context);
     }
 
     public void setTrashbinFiles(List<Object> trashbinFiles, boolean clear) {
@@ -113,7 +110,6 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             trashbinFileViewHolder.itemLayout.setOnClickListener(v -> trashbinActivityInterface.onItemClicked(file));
 
             // thumbnail
-            trashbinFileViewHolder.thumbnail.setTag(file.getRemoteId());
             setThumbnail(file, trashbinFileViewHolder.thumbnail);
 
             // fileName
@@ -208,42 +204,21 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context));
         } else {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                );
+            if (MimeTypeUtil.isImageOrVideo(file)) {
+                try {
+                    int placeholder = MimeTypeUtil.isImage(file) ? R.drawable.file_image : R.drawable.file_movie;
 
-                if (thumbnail != null) {
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        thumbnailView.setImageBitmap(thumbnail);
+                    int px = DisplayUtils.getThumbnailDimension();
+
+                    String url = DisplayUtils.getThumbnailUri(client, file, px);
+                    DisplayUtils.downloadImage(url, placeholder, placeholder, thumbnailView, client,
+                            GlideKey.trashbinThumbnail(file), context);
+
+                    if ("image/png".equalsIgnoreCase(file.getMimeType())) {
+                        thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.background_color));
                     }
-                } else {
-                    // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-                        try {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, storageManager,
-                                            account, asyncTasks);
-
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
-                                            thumbnail, task);
-                            thumbnailView.setImageDrawable(asyncDrawable);
-                            asyncTasks.add(task);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                    file.getRemoteId()));
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-                        }
-                    }
-                }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.background_color));
+                } catch (Exception e) {
+                    Log_OC.e(TAG, e.getMessage());
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
@@ -264,20 +239,6 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         return files.size() + 1;
-    }
-
-    public void cancelAllPendingTasks() {
-        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
-            if (task != null) {
-                task.cancel(true);
-                if (task.getGetMethod() != null) {
-                    Log_OC.d(TAG, "cancel: abort get method directly");
-                    task.getGetMethod().abort();
-                }
-            }
-        }
-
-        asyncTasks.clear();
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {

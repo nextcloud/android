@@ -22,8 +22,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -44,12 +42,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -63,12 +55,7 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
-import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,7 +162,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
+                DisplayUtils.downloadSVG(activity.getIcon(), R.drawable.ic_activity_light_grey,
+                        R.drawable.ic_activity_light_grey, activityViewHolder.activityIcon, context);
             }
 
             if (activity.getRichSubjectElement() != null &&
@@ -240,20 +228,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         // No Folder
         if (!file.isFolder()) {
             if (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) {
-                int placeholder;
-
-                if (MimeTypeUtil.isImage(file)) {
-                    placeholder = R.drawable.file_image;
+                if (TextUtils.isEmpty(file.getEtag())) {
+                    DisplayUtils.downloadActivityThumbnail(file, fileIcon, client, context);
                 } else {
-                    placeholder = R.drawable.file_movie;
+                    DisplayUtils.downloadThumbnail(file, fileIcon, client, context);
                 }
-
-                String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
-                        Uri.encode(file.getRemotePath(), "/");
-
-                Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).placeholder(placeholder)
-                        .error(placeholder).into(fileIcon); // using custom fetcher
-
             } else {
                 if (isDetailView) {
                     fileIcon.setVisibility(View.GONE);
@@ -272,27 +251,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 file.isSharedViaLink(), file.isEncrypted(), file.getMountType(), context));
             }
         }
-    }
-
-    private void downloadIcon(String icon, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_activity)
-                .error(R.drawable.ic_activity)
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<>());
-
-        Uri uri = Uri.parse(icon);
-        requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(itemViewType);
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {

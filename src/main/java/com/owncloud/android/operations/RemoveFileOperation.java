@@ -26,19 +26,21 @@ import android.accounts.Account;
 import android.content.Context;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoveRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
  * Remote operation performing the removal of a remote file or folder in the ownCloud server.
  */
 public class RemoveFileOperation extends SyncOperation {
+    private final static String TAG = RemoveFileOperation.class.getSimpleName();
 
     private OCFile fileToRemove;
     private String remotePath;
@@ -92,7 +94,11 @@ public class RemoveFileOperation extends SyncOperation {
         fileToRemove = getStorageManager().getFileByPath(remotePath);
 
         // store resized image
-        ThumbnailsCacheManager.generateResizedImage(fileToRemove);
+        try {
+            DisplayUtils.generateResizedImage(fileToRemove, context);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Thumbnail generation failed", e);
+        }
 
         boolean localRemovalFailed = false;
         if (!onlyLocalCopy) {

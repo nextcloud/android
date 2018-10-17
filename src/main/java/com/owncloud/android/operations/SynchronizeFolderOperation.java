@@ -23,7 +23,6 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -39,7 +38,6 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.HashMap;
@@ -332,11 +330,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (updatedFile.isFolder()) {
                 updatedFile.setFileLength(localFile.getFileLength());
                     // TODO move operations about size of folders to FileContentProvider
-            } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
-                    remoteFile.getModificationTimestamp() !=
-                            localFile.getModificationTimestamp()) {
-                updatedFile.setNeedsUpdateThumbnail(true);
-                Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
             updatedFile.setPublicLink(localFile.getPublicLink());
             updatedFile.setShareViaLink(localFile.isSharedViaLink());

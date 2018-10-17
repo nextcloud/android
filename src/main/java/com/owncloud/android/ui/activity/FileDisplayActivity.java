@@ -441,7 +441,7 @@ public class FileDisplayActivity extends HookActivity
             setFile(file);
 
             if (mAccountWasSet) {
-                setAccountInDrawer(getAccount());
+                // setAccountInDrawer(getAccount()); // no need to call this here, as updateAccountList will be used
                 setupDrawer();
             }
 

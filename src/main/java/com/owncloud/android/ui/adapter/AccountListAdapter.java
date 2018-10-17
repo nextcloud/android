@@ -3,16 +3,16 @@
  *
  * @author Andy Scherzinger
  * Copyright (C) 2016 ownCloud Inc.
- * <p/>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -155,10 +155,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
     private void setAvatar(AccountViewHolderItem viewHolder, Account account) {
         try {
-            View viewItem = viewHolder.imageViewItem;
-            viewItem.setTag(account.name);
-            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(), viewItem,
-                    mContext);
+            DisplayUtils.setAvatar(account, mContext, viewHolder.imageViewItem, mAccountAvatarRadiusDimension);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
             // use user icon as a fallback

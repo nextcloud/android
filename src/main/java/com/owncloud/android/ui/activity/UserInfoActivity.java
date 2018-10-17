@@ -56,9 +56,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -68,11 +67,13 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.glide.GlideKey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -221,34 +222,38 @@ public class UserInfoActivity extends FileActivity {
                 ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
 
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
+                int primaryColor = ThemeUtils.primaryColor(account, false, this);
 
                 if (URLUtil.isValidUrl(background)) {
+                    Drawable backgroundResource;
+                    OwnCloudVersion ownCloudVersion = AccountUtils.getServerVersion(account);
+                    if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_13) >= 0) {
+                        backgroundResource = getResources().getDrawable(R.drawable.background_nc13);
+                    } else {
+                        backgroundResource = getResources().getDrawable(R.drawable.background);
+                    }
+                    
                     // background image
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                    SimpleTarget<Drawable> target = new SimpleTarget<Drawable>() {
                         @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        public void onResourceReady(@NonNull Drawable resource,
+                                                    @Nullable Transition<? super Drawable> transition) {
                             Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
                             backgroundImageView.setImageDrawable(layerDrawable);
                         }
 
                         @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
                             Drawable[] drawables = {new ColorDrawable(primaryColor),
-                                    getResources().getDrawable(R.drawable.background)};
+                                    backgroundResource};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
                             backgroundImageView.setImageDrawable(layerDrawable);
                         }
                     };
 
-                    Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .crossFade()
-                            .into(target);
+                    DisplayUtils.downloadImage(background, R.drawable.background, R.drawable.background, target,
+                            GlideKey.url(background), this);
                 } else {
                     // plain color
                     backgroundImageView.setImageDrawable(new ColorDrawable(primaryColor));
@@ -259,8 +264,8 @@ public class UserInfoActivity extends FileActivity {
 
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
-        avatar.setTag(account.name);
-        DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(), avatar, this);
+
+        DisplayUtils.setAvatar(account, this, avatar, mCurrentAccountAvatarRadiusDimension);
 
         int tint = ThemeUtils.primaryColor(account, true, this);
 
@@ -485,6 +490,7 @@ public class UserInfoActivity extends FileActivity {
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
+
             return new ViewHolder(view);
         }
 

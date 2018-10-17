@@ -397,7 +397,7 @@ public final class PushUtils {
                 if (oldPrivateKeyFile.exists()) {
                     try {
                         FileStorageUtils.moveFile(oldPrivateKeyFile, privateKeyFile);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         Log.e(TAG, "Failed to move old private key to new location");
                     }
                 }
@@ -405,7 +405,7 @@ public final class PushUtils {
                 if (oldPublicKeyFile.exists()) {
                     try {
                         FileStorageUtils.moveFile(oldPublicKeyFile, publicKeyFile);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         Log.e(TAG, "Failed to move old public key to new location");
                     }
                 }

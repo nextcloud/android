@@ -25,8 +25,8 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,8 +47,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -62,8 +63,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Fragment for Sharing a file with sharees (users or groups) or creating
@@ -189,17 +190,20 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         // Setup layout
         // Image
         ImageView icon = view.findViewById(R.id.shareFileIcon);
-        icon.setImageDrawable(
-                MimeTypeUtil.getFileTypeIcon(mFile.getMimeType(), mFile.getFileName(), mAccount, getContext())
-        );
-        if (MimeTypeUtil.isImage(mFile)) {
-            String remoteId = String.valueOf(mFile.getRemoteId());
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
-            if (thumbnail != null) {
-                icon.setImageBitmap(thumbnail);
-            }
-        }
+        Context context = getContext();
 
+        if ((MimeTypeUtil.isImage(mFile) || MimeTypeUtil.isVideo(mFile)) && mFile.getRemoteId() != null) {
+            OwnCloudClient client = AccountUtils.getClientForCurrentAccount(context);
+            DisplayUtils.downloadThumbnail(mFile, icon, client, context);
+
+            if ("image/png".equalsIgnoreCase(mFile.getMimeType())) {
+                icon.setBackgroundColor(container.getResources().getColor(R.color.background_color));
+            }
+        } else {
+            icon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(mFile.getMimeType(), mFile.getFileName(),
+                    mAccount, getContext()));
+        }
+        
         // Title
         TextView title = view.findViewById(R.id.shareWithUsersSectionTitle);
         title.setTextColor(accentColor);
