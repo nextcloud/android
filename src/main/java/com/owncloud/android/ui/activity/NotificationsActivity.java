@@ -233,20 +233,6 @@ public class NotificationsActivity extends FileActivity {
                 PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
-        try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, this);
-            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
-            client.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
-
-            hideRefreshLayoutLoader();
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
-                IOException | OperationCanceledException | AuthenticatorException e) {
-            Log_OC.e(TAG, "Error initializing client", e);
-        }
-
-        adapter = new NotificationListAdapter(client, this);
-        recyclerView.setAdapter(adapter);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -267,6 +253,22 @@ public class NotificationsActivity extends FileActivity {
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
+            if (client == null) {
+                try {
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, this);
+                    client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
+                    client.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
+                    IOException | OperationCanceledException | AuthenticatorException e) {
+                    Log_OC.e(TAG, "Error initializing client", e);
+                }
+            }
+
+            if (adapter == null) {
+                adapter = new NotificationListAdapter(client, this);
+                recyclerView.setAdapter(adapter);
+            }
+
             RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
             final RemoteOperationResult result = getRemoteNotificationOperation.execute(client);
 
