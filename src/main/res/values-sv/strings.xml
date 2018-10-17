@@ -323,6 +323,7 @@
     <string name="activity_chooser_send_file_title">Skicka</string>
 
     <string name="copy_link">Kopiera länk</string>
+    <string name="clipboard_text_copied">Länk kopierad</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
 
@@ -349,6 +350,10 @@
     <string name="file_migration_cleaning">Rensar upp…</string>
     <string name="file_migration_restoring_accounts_configuration">Återställer kontokonfigurationn…</string>
     <string name="file_migration_ok_finished">Slutförd</string>
+    <string name="file_migration_failed_not_enough_space">Mer utrymme krävs</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud-mapp finns redan</string>
+    <string name="file_migration_failed_while_updating_index">Misslyckades med indexuppdatering</string>
+
     <string name="file_migration_override_data_folder">Ersätt</string>
     <string name="file_migration_use_data_folder">Använd</string>
 
@@ -435,6 +440,10 @@
 
     <string name="share_privilege_can_share">får dela</string>
     <string name="share_privilege_can_edit">kan redigera</string>
+    <string name="share_privilege_can_edit_create">kan skapa</string>
+    <string name="share_privilege_can_edit_change">kan ändra</string>
+    <string name="share_privilege_can_edit_delete">kan radera</string>
+
     <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
     <string name="action_clear_successful_uploads">Ta bort lyckade uppladdningar</string>
