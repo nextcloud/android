@@ -168,9 +168,9 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
                 }
             } else if (isSpecialChar(thisChunk.charAt(0)) && isSpecialChar(thatChunk.charAt(0))) {
                 for (int i = 0; i < thisChunk.length(); i++) {
-                    if (thisChunk.charAt(i) == '.') {
+                    if (thisChunk.charAt(i) == '.' && thatChunk.charAt(i) != '.') {
                         return -1;
-                    } else if (thatChunk.charAt(i) == '.') {
+                    } else if (thatChunk.charAt(i) == '.' && thisChunk.charAt(i) != '.') {
                         return 1;
                     } else {
                         result = thisChunk.charAt(i) - thatChunk.charAt(i);
