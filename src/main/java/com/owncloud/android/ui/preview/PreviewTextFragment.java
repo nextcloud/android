@@ -227,7 +227,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         mHandler.removeCallbacksAndMessages(null);
 
         if (mOriginalText != null) {
-            if (getActivity() != null && getActivity() instanceof FileDisplayActivity) {
+            if (getActivity() instanceof FileDisplayActivity) {
                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
                 fileDisplayActivity.setSearchQuery(query);
             }
