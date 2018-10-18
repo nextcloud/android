@@ -29,7 +29,11 @@ import java.util.regex.Pattern;
 /**
  * Helper class for handling and manipulating strings.
  */
-public class StringUtils {
+public final class StringUtils {
+
+    private StringUtils() {
+        // prevent class from being constructed
+    }
 
     public static String searchAndColor(String text, String searchText, @ColorInt int color) {
 
