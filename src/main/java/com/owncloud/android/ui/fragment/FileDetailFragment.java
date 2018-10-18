@@ -163,7 +163,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     /**
      * Creates an empty details fragment.
-     * 
+     *
      * It's necessary to keep a public constructor without parameters; the system uses it when tries
      * to reinstantiate a fragment automatically.
      */
@@ -267,13 +267,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         tabLayout.removeAllTabs();
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.drawer_item_activities));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
+
+        if (getFile().canReshare()) {
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
+        }
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
 
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter
-                (getFragmentManager(), getFile(), account);
+        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), account);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -484,11 +486,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void updateFileDetails(boolean transferring, boolean refresh) {
         if (readyToShow()) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            
+
             if (storageManager == null) {
                 return;
             }
-            
+
             if (refresh) {
                 setFile(storageManager.getFileByPath(getFile().getRemotePath()));
             }
@@ -514,9 +516,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 setButtonsForTransferring();
 
             } else if (file.isDown()) {
-                
+
                 setButtonsForDown();
-                
+
             } else {
                 // TODO load default preview image; when the local file is removed, the preview
                 // remains there
