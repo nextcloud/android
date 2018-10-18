@@ -51,7 +51,7 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, account);
-                return fileDetailActivitiesFragment; 
+                return fileDetailActivitiesFragment;
             case 1:
                 fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, account);
                 return fileDetailSharingFragment;
@@ -70,6 +70,6 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return file.canReshare() ? 2 : 1;
     }
 }
