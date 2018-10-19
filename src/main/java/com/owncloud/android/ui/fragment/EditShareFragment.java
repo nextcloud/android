@@ -308,9 +308,9 @@ public class EditShareFragment extends Fragment {
 
                             }
                         } else {
-                            for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
+                            for (int sSubordinateCheckBoxId : sSubordinateCheckBoxIds) {
                                 //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                subordinate = getView().findViewById(sSubordinateCheckBoxId);
                                 subordinate.setVisibility(View.GONE);
                                 if (subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
