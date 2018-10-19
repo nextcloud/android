@@ -41,12 +41,15 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
+import android.hardware.biometrics.BiometricPrompt;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -135,17 +138,15 @@ import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -869,58 +870,89 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
-        switch (item.getItemId()) {
-            case R.id.action_sync_account: {
-                startSynchronization();
-                break;
-            }
-            case android.R.id.home: {
-                FileFragment second = getSecondFragment();
-                OCFile currentDir = getCurrentDir();
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else if ((currentDir != null && currentDir.getParentId() != 0) ||
-                        (second != null && second.getFile() != null) || isSearchOpen()) {
-                    onBackPressed();
 
-                } else {
-                    openDrawer();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+
+            CancellationSignal cancellationSignal = getCancellationSignal();
+
+
+            BiometricPrompt.AuthenticationCallback callback = new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, CharSequence errString) {
+                    DisplayUtils.showSnackMessage(getActivity(), errString.toString());
+                    super.onAuthenticationError(errorCode, errString);
                 }
-                break;
-            }
-            case R.id.action_sort: {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.addToBackStack(null);
 
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, getListOfFilesFragment().getCurrentFile()));
-                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
-
-                break;
-            }
-            case R.id.action_switch_view: {
-                if (isGridView()) {
-                    item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
-                    getListOfFilesFragment().setListAsPreferred();
-                } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
-                    getListOfFilesFragment().setGridAsPreferred();
+                @Override
+                public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                    DisplayUtils.showSnackMessage(getActivity(), "successful");
+                    super.onAuthenticationSucceeded(result);
                 }
-                break;
-            }
-            case R.id.action_select_all: {
-                getListOfFilesFragment().selectAllFiles(true);
-                break;
-            }
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+
+                @Override
+                public void onAuthenticationFailed() {
+                    DisplayUtils.showSnackMessage(getActivity(), "failed");
+                    super.onAuthenticationFailed();
+                }
+            };
+            displayBiometricPrompt(callback, cancellationSignal, this);
+
         }
-        return retval;
+
+        return true;
+
+//        boolean retval = true;
+//        switch (item.getItemId()) {
+//            case R.id.action_sync_account: {
+//                startSynchronization();
+//                break;
+//            }
+//            case android.R.id.home: {
+//                FileFragment second = getSecondFragment();
+//                OCFile currentDir = getCurrentDir();
+//                if (isDrawerOpen()) {
+//                    closeDrawer();
+//                } else if ((currentDir != null && currentDir.getParentId() != 0) ||
+//                        (second != null && second.getFile() != null) || isSearchOpen()) {
+//                    onBackPressed();
+//
+//                } else {
+//                    openDrawer();
+//                }
+//                break;
+//            }
+//            case R.id.action_sort: {
+//                FragmentManager fm = getSupportFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                ft.addToBackStack(null);
+//
+//                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
+//                        getSortOrder(this, getListOfFilesFragment().getCurrentFile()));
+//                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
+//
+//                break;
+//            }
+//            case R.id.action_switch_view: {
+//                if (isGridView()) {
+//                    item.setTitle(getString(R.string.action_switch_grid_view));
+//                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
+//                    getListOfFilesFragment().setListAsPreferred();
+//                } else {
+//                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+//                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
+//                    getListOfFilesFragment().setGridAsPreferred();
+//                }
+//                break;
+//            }
+//            case R.id.action_select_all: {
+//                getListOfFilesFragment().selectAllFiles(true);
+//                break;
+//            }
+//            default:
+//                retval = super.onOptionsItemSelected(item);
+//                break;
+//        }
+//        return retval;
     }
 
     private void startSynchronization() {
@@ -2557,6 +2589,8 @@ public class FileDisplayActivity extends HookActivity
         EventBus.getDefault().post(new TokenPushEvent());
 
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
+
+
     }
 
     @Override
@@ -2570,4 +2604,29 @@ public class FileDisplayActivity extends HookActivity
         searchQuery = query;
     }
 
+    @TargetApi(Build.VERSION_CODES.P)
+    private void displayBiometricPrompt(final BiometricPrompt.AuthenticationCallback biometricCallback, CancellationSignal cancellationSignal, Context context) {
+        new BiometricPrompt.Builder(context)
+            .setTitle("Bio")
+            .setSubtitle("Subtitle")
+            .setDescription("Description")
+            .setNegativeButton("no no no", context.getMainExecutor(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    biometricCallback.onAuthenticationFailed();
+                }
+            }).build().authenticate(cancellationSignal, getMainExecutor(), biometricCallback);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private CancellationSignal getCancellationSignal() {
+        // With this cancel signal, we can cancel biometric prompt operation
+        CancellationSignal cancellationSignal = new CancellationSignal();
+        cancellationSignal.setOnCancelListener(() -> {
+            //handle cancel result
+            Log.i(TAG, "Canceled");
+        });
+        return cancellationSignal;
+    }
 }

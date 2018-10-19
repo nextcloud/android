@@ -20,8 +20,9 @@
  */
 package com.owncloud.android.utils;
 
-import android.app.KeyguardManager;
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
@@ -68,14 +69,30 @@ public final class DeviceCredentialUtils {
     }
 
     public static boolean areCredentialsAvailable(Context context) {
-        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        
-        if (keyguardManager != null) {
-            return keyguardManager.isKeyguardSecure();
-        } else {
-            Log_OC.e(TAG, "Keyguard manager is null");
-            return false;
-        }
+        return isBiometricPromptEnabled() || (isSdkVersionSupported() && isHardwareSupported(context) && isFingerprintAvailable(context) && isPermissionGranted(context));
+    }
+
+    public static boolean isBiometricPromptEnabled() {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P);
+    }
+
+    public static boolean isSdkVersionSupported() {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
+    }
+
+    public static boolean isHardwareSupported(Context context) {
+        FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(context);
+        return fingerprintManager.isHardwareDetected();
+    }
+
+    public static boolean isFingerprintAvailable(Context context) {
+        FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(context);
+        return fingerprintManager.hasEnrolledFingerprints();
+    }
+
+    public static boolean isPermissionGranted(Context context) {
+        return ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) ==
+            PackageManager.PERMISSION_GRANTED;
     }
 
     /**

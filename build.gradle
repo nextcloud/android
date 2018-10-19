@@ -237,6 +237,10 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
+    // https://mvnrepository.com/artifact/androidx.biometric/biometric
+    implementation group: 'androidx.biometric', name: 'biometric', version: '1.0.0-alpha02'
+
+
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
     implementation ('com.github.bumptech.glide:glide:3.7.0') {

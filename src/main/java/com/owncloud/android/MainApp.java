@@ -4,16 +4,16 @@
  * @author masensio
  * @author David A. Velasco
  * Copyright (C) 2015 ownCloud Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -130,7 +130,7 @@ public class MainApp extends MultiDexApplication {
         fixStoragePath();
 
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH,
-                getApplicationContext().getFilesDir().getAbsolutePath());
+            getApplicationContext().getFilesDir().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
@@ -140,7 +140,7 @@ public class MainApp extends MultiDexApplication {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
         } else {
             OwnCloudClientManagerFactory
-                    .setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT_IF_SERVER_SUPPORTS_SERVER_MONITORING);
+                .setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT_IF_SERVER_SUPPORTS_SERVER_MONITORING);
         }
 
         // initialise thumbnails cache on background thread
@@ -148,7 +148,7 @@ public class MainApp extends MultiDexApplication {
 
 
         if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled) ||
-                appPrefs.getBoolean(Preferences.PREFERENCE_EXPERT_MODE, false)) {
+            appPrefs.getBoolean(Preferences.PREFERENCE_EXPERT_MODE, false)) {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
@@ -169,16 +169,16 @@ public class MainApp extends MultiDexApplication {
 
 
         new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
+            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
+            .setUpdateCurrent(true)
+            .build()
+            .schedule();
 
         new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-                .startNow()
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
+            .startNow()
+            .setUpdateCurrent(false)
+            .build()
+            .schedule();
 
 
         // register global protection with pass code
@@ -387,7 +387,7 @@ public class MainApp extends MultiDexApplication {
             notificationManager.createNotificationChannel(channel);
         }
     }
-    
+
 
     public static Context getAppContext() {
         return MainApp.mContext;
@@ -405,9 +405,9 @@ public class MainApp extends MultiDexApplication {
         MainApp.storagePath = path;
     }
 
-    // Methods to obtain Strings referring app_name 
-    //   From AccountAuthenticator 
-    //   public static final String ACCOUNT_TYPE = "owncloud";    
+    // Methods to obtain Strings referring app_name
+    //   From AccountAuthenticator
+    //   public static final String ACCOUNT_TYPE = "owncloud";
     public static String getAccountType(Context context) {
         return context.getResources().getString(R.string.account_type);
     }
@@ -446,7 +446,7 @@ public class MainApp extends MultiDexApplication {
         return getAppContext().getResources().getString(R.string.authority);
     }
 
-    //  From ProviderMeta 
+    //  From ProviderMeta
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {
         return getAppContext().getResources().getString(R.string.db_file);
