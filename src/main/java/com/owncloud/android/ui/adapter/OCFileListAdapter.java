@@ -108,7 +108,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_IMAGE = 2;
 
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
-    private boolean onlyOnDevice = false;
+    private boolean onlyOnDevice;
 
     public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
@@ -188,14 +188,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        for (int i = 0; i < mFiles.size(); i++) {
+        int filesSize = mFiles.size();
+        for (int i = 0; i < filesSize; i++) {
             if (mFiles.get(i).getRemoteId().equals(fileId)) {
                 mFiles.get(i).setEncrypted(encrypted);
                 break;
             }
         }
 
-        for (int i = 0; i < mFilesAll.size(); i++) {
+        filesSize = mFilesAll.size();
+        for (int i = 0; i < filesSize; i++) {
             if (mFilesAll.get(i).getRemoteId().equals(fileId)) {
                 mFilesAll.get(i).setEncrypted(encrypted);
                 break;
@@ -487,7 +489,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void showShareIcon(OCFileListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.shared;
         sharedIconView.setVisibility(View.VISIBLE);
-        
+
         if (file.isSharedWithSharee() || file.isSharedWithMe()) {
             sharedIconView.setImageResource(R.drawable.shared_via_users);
             sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
