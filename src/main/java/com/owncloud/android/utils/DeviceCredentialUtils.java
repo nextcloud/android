@@ -51,6 +51,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 /**
  * Utility class with methods for handling device credentials.

@@ -41,7 +41,6 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
-import android.hardware.biometrics.BiometricPrompt;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -136,12 +135,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.biometrics.BiometricPrompt;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -871,8 +872,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-
             CancellationSignal cancellationSignal = getCancellationSignal();
 
 
@@ -884,7 +883,7 @@ public class FileDisplayActivity extends HookActivity
                 }
 
                 @Override
-                public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                     DisplayUtils.showSnackMessage(getActivity(), "successful");
                     super.onAuthenticationSucceeded(result);
                 }
@@ -896,8 +895,6 @@ public class FileDisplayActivity extends HookActivity
                 }
             };
             displayBiometricPrompt(callback, cancellationSignal, this);
-
-        }
 
         return true;
 
@@ -2604,18 +2601,18 @@ public class FileDisplayActivity extends HookActivity
         searchQuery = query;
     }
 
-    @TargetApi(Build.VERSION_CODES.P)
     private void displayBiometricPrompt(final BiometricPrompt.AuthenticationCallback biometricCallback, CancellationSignal cancellationSignal, Context context) {
-        new BiometricPrompt.Builder(context)
+        BiometricPrompt.PromptInfo test = new BiometricPrompt.PromptInfo.Builder()
             .setTitle("Bio")
             .setSubtitle("Subtitle")
             .setDescription("Description")
-            .setNegativeButton("no no no", context.getMainExecutor(), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    biometricCallback.onAuthenticationFailed();
-                }
-            }).build().authenticate(cancellationSignal, getMainExecutor(), biometricCallback);
+            .setNegativeButtonText("no no no")
+            .build();
+
+        BiometricPrompt test2 = new BiometricPrompt(this, Executors.newCachedThreadPool(), biometricCallback);
+        test2.authenticate(test);
+
+        //.authenticate(cancellationSignal, getMainExecutor(), biometricCallback);
 
     }
 
