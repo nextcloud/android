@@ -689,6 +689,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="shared_icon_share">megosztás</string>
     <string name="shared_icon_shared_via_link">link által megosztott</string>
     <string name="shared_icon_shared">megosztott</string>
+    <string name="overflow_menu">További menü</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Legújabb elöl</string>
     <string name="sort_by_size_descending">Legnagyobb elöl</string>
