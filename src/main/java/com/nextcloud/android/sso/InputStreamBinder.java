@@ -239,6 +239,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean validateToken(String hash, String token) {
+        if(hash.isEmpty() || !hash.contains("$")) {
+            throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
+        }
+
         String salt = hash.split("\\$")[1]; // TODO extract "$"
 
         String newHash = EncryptionUtils.generateSHA512(token, salt);
