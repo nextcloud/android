@@ -499,6 +499,7 @@
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_email_clarification">%1$s (邮件)</string>
+    <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
     <string name="share_sharee_unavailable">升级服务器版本以允许用户之间的共享。\n请与您的管理员联系</string>
@@ -756,8 +757,10 @@
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="login">登录</string>
+    <string name="signup_with_provider">与提供商签约</string>
     <string name="host_your_own_server">自己搭建服务器</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
+    <string name="first_run_2_text">安全的交换 &amp; 个协作文件</string>
     <string name="first_run_3_text">易于使用的网络邮件，日历和&amp;联系</string>
     <string name="first_run_4_text">屏幕分享，在线会议，&amp;网络会议</string>
     <string name="whats_new_device_credentials_content">通过使用图案，密码，PIN 或指纹等方式来确保您的数据安全。</string>

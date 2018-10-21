@@ -368,6 +368,7 @@
     <string name="activity_chooser_send_file_title">Отправить</string>
 
     <string name="copy_link">Копировать ссылку</string>
+    <string name="clipboard_text_copied">Ссылка скопирована</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_unexpected_error">Неожиданная ошибка во время копирования в буфер обмена</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
@@ -774,7 +775,9 @@
     <string name="signup_with_provider">Подключиться через провайдера</string>
     <string name="host_your_own_server">Разместите ваш собственный сервер</string>
     <string name="first_run_1_text">Храните ваши данные в безопасности и под вашим контролем.</string>
+    <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Легкие в использовании почта, календари &amp; контакты</string>
+    <string name="first_run_4_text">Публикация экрана, онлайн общение &amp; веб-конференции</string>
     <string name="whats_new_device_credentials_content">Для защиты данных могут быть использованы пароль, ПИН, защитный узор или отпечаток пальца.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>
@@ -808,4 +811,10 @@
     <string name="file_keep">Сохранить</string>
     <string name="file_rename">Переименовать</string>
     <string name="fab_label">Добавить или выгрузить</string>
-    </resources>
+    <string name="account_creation_failed">Сбой при создании аккаунта</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>
+    <string name="permission_deny">Запретить</string>
+    <string name="permission_allow">Разрешить</string>
+
+</resources>

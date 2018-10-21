@@ -489,6 +489,8 @@
     <string name="confirmation_remove_files_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
+    <string name="offline_mode">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε αναβαθμίστε.</string>
@@ -509,6 +511,7 @@
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
+    <string name="participate_dev_direct_download">Απευθείας λήψη της υπό ανάπτυξη έκδοσης</string>
     <string name="move_to">Μετακίνηση σε…</string>
     <string name="copy_to">Αντιγραφή σε…</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
@@ -564,6 +567,7 @@
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
+    <string name="contacts_preferences_something_strange_happened">Αδυναμία εύρεσης του τελευταίου αντιγράφου ασφαλείας!</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
@@ -684,4 +688,6 @@
     <string name="file_keep">Διατήρηση</string>
     <string name="file_rename">Μετονομασία</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
-    </resources>
+    <string name="permission_allow">Επιτρέπεται</string>
+
+</resources>
