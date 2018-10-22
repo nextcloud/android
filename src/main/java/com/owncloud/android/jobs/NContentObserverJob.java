@@ -49,11 +49,11 @@ public class NContentObserverJob extends JobService {
 
                 checkAndStartFileSyncJob();
 
-                new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-                        .startNow()
-                        .setUpdateCurrent(false)
-                        .build()
-                        .schedule();
+//                new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
+//                        .startNow()
+//                        .setUpdateCurrent(false)
+//                        .build()
+//                        .schedule();
 
             }
 

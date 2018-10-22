@@ -39,7 +39,6 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -52,7 +51,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
-import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -74,7 +72,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
@@ -168,17 +165,17 @@ public class MainApp extends MultiDexApplication {
         notificationChannels();
 
 
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-            .setUpdateCurrent(true)
-            .build()
-            .schedule();
-
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .startNow()
-            .setUpdateCurrent(false)
-            .build()
-            .schedule();
+//        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
+//            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
+//            .setUpdateCurrent(true)
+//            .build()
+//            .schedule();
+//
+//        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
+//            .startNow()
+//            .setUpdateCurrent(false)
+//            .build()
+//            .schedule();
 
 
         // register global protection with pass code
