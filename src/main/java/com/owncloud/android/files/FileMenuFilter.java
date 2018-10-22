@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
- * according to the current state of the latest. 
+ * according to the current state of the latest.
  */
 public class FileMenuFilter {
 
@@ -189,7 +189,8 @@ public class FileMenuFilter {
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
         if (containsEncryptedFile() || (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
-                !isSingleSelection() || !isShareApiEnabled(capability) || mOverflowMenu) {
+            !isSingleSelection() || !isShareApiEnabled(capability) || !mFiles.iterator().next().canReshare()
+            || mOverflowMenu) {
             toHide.add(R.id.action_send_share_file);
         } else {
             toShow.add(R.id.action_send_share_file);
