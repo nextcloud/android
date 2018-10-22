@@ -111,7 +111,7 @@
                         android:id="@+id/local_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:text="@string/prefs_synced_folders_local_path_title"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -174,7 +174,7 @@
                         android:id="@+id/remote_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:text="@string/prefs_synced_folders_remote_path_title"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -238,7 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:text="@string/auto_upload_on_wifi"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -288,7 +288,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:text="@string/instant_upload_on_charging"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -338,7 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:text="@string/prefs_instant_upload_path_use_subfolders_title"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -397,7 +397,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:text="@string/prefs_instant_behaviour_title"
                     android:textAppearance="?attr/textAppearanceListItem"/>
 
@@ -406,7 +406,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="@string/placeholder_filename"
                     android:textColor="?android:attr/textColorSecondary"/>
 
