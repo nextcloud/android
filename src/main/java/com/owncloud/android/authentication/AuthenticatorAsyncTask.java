@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio on 09/02/2015.
@@ -43,11 +43,11 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
     private static final String REMOTE_PATH = "/";
     private static final boolean SUCCESS_IF_ABSENT = false;
 
-    private Context mContext;
+    private WeakReference<Context> mWeakContext;
     private final WeakReference<OnAuthenticatorTaskListener> mListener;
 
     public AuthenticatorAsyncTask(Activity activity) {
-        mContext = activity.getApplicationContext();
+        mWeakContext = new WeakReference<>(activity.getApplicationContext());
         mListener = new WeakReference<>((OnAuthenticatorTaskListener)activity);
     }
 
@@ -55,21 +55,18 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
     protected RemoteOperationResult doInBackground(Object... params) {
 
         RemoteOperationResult result;
-        if (params!= null && params.length==2) {
+        if (params != null && params.length == 2 && mWeakContext.get() != null) {
             String url = (String)params[0];
+            Context context = mWeakContext.get();
             OwnCloudCredentials credentials = (OwnCloudCredentials)params[1];
 
             // Client
             Uri uri = Uri.parse(url);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, mContext, true);
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
             client.setCredentials(credentials);
 
             // Operation - try credentials
-            ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(
-                    REMOTE_PATH,
-                    mContext,
-                    SUCCESS_IF_ABSENT
-            );
+            ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(REMOTE_PATH, SUCCESS_IF_ABSENT);
             result = operation.execute(client);
 
             if (operation.wasRedirected()) {
