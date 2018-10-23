@@ -768,7 +768,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
-                
+
                 if (file.isFolder()) {
                     if (file.isEncrypted()) {
                         // check if API >= 19
@@ -792,7 +792,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
                             getContext().getContentResolver());
 
-                    
+
                     String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
                     String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
 
@@ -1185,7 +1185,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
             });
-            
+
         } else {
             layoutManager = new LinearLayoutManager(getContext());
         }
@@ -1316,7 +1316,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         searchFragment = false;
-        
+        searchEvent = null;
+
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
@@ -1457,6 +1458,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             setEmptyView(event);
                         } else {
                             mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager, mFile);
+                            searchEvent = event;
                         }
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
@@ -1601,7 +1603,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mAdapter.notifyItemChanged(i);
         }
 
-        mActiveActionMode.invalidate();        
+        mActiveActionMode.invalidate();
     }
 
     /**
