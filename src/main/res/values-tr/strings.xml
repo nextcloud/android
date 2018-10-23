@@ -720,7 +720,7 @@
     
     <string name="userinfo_no_info_headline">Herhangi bir kişisel bilgi ayarlanmamış</string>
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
-    <string name="drawer_header_background">Çekmece üst bilgisinin art alan görseli</string>
+    <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>
     <string name="account_icon">Hesap simgesi</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
