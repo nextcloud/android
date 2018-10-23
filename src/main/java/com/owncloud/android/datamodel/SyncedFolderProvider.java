@@ -182,12 +182,12 @@ public class SyncedFolderProvider extends Observable {
 
         SyncedFolder result = null;
         Cursor cursor = mContentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                null,
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " == \"" + localPath + "\"" + " AND " +
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " == " + account.name,
-                null,
-                null
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "=? AND " +
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
+            new String[]{localPath, account.name},
+            null
         );
 
         if (cursor != null && cursor.getCount() == 1) {
@@ -207,40 +207,6 @@ public class SyncedFolderProvider extends Observable {
 
         return result;
 
-    }
-
-    /**
-     * find a synced folder by local path.
-     *
-     * @param localPath the local path of the local folder
-     * @return the synced folder if found, else null
-     */
-    public SyncedFolder findByLocalPath(String localPath) {
-        SyncedFolder result = null;
-        Cursor cursor = mContentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                null,
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " == \"" + localPath + "\"",
-                null,
-                null
-        );
-
-        if (cursor != null && cursor.getCount() == 1) {
-            result = createSyncedFolderFromCursor(cursor);
-        } else {
-            if (cursor == null) {
-                Log_OC.e(TAG, "Sync folder db cursor for local path=" + localPath + " in NULL.");
-            } else {
-                Log_OC.e(TAG, cursor.getCount() + " items for local path=" + localPath
-                        + " available in sync folder db. Expected 1. Failed to update sync folder db.");
-            }
-        }
-
-        if (cursor != null) {
-            cursor.close();
-        }
-
-        return result;
     }
 
     /**
@@ -342,14 +308,12 @@ public class SyncedFolderProvider extends Observable {
 
         ContentValues cv = createContentValuesFromSyncedFolder(syncedFolder);
 
-        int result = mContentResolver.update(
+        return mContentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 cv,
                 ProviderMeta.ProviderTableMeta._ID + "=?",
                 new String[]{String.valueOf(syncedFolder.getId())}
         );
-
-        return result;
     }
 
     /**
