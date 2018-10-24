@@ -22,7 +22,11 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +49,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.StringUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -58,7 +63,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class    PreviewTextFragment extends FileFragment {
+public class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
@@ -67,6 +72,10 @@ public class    PreviewTextFragment extends FileFragment {
     private TextView mTextPreview;
     private TextLoadAsyncTask mTextLoadTask;
 
+    private String mOriginalText;
+
+    private Handler mHandler;
+    private SearchView mSearchView;
     private RelativeLayout mMultiView;
 
     protected LinearLayout mMultiListContainer;
@@ -75,6 +84,9 @@ public class    PreviewTextFragment extends FileFragment {
     protected ImageView mMultiListIcon;
     protected ProgressBar mMultiListProgress;
 
+
+    private String mSearchQuery = "";
+    private boolean mSearchOpen;
 
     /**
      * Creates an empty fragment for previews.
@@ -101,6 +113,7 @@ public class    PreviewTextFragment extends FileFragment {
 
 
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
+        mTextPreview = ret.findViewById(R.id.text_preview);
 
         mTextPreview = ret.findViewById(R.id.text_preview);
 
@@ -137,6 +150,7 @@ public class    PreviewTextFragment extends FileFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         OCFile file = getFile();
 
@@ -150,6 +164,11 @@ public class    PreviewTextFragment extends FileFragment {
             mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
         }
 
+        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
+            mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+        }
+        mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
+
         if (savedInstanceState == null) {
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
@@ -161,8 +180,9 @@ public class    PreviewTextFragment extends FileFragment {
             file = savedInstanceState.getParcelable(EXTRA_FILE);
             mAccount = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
         }
+
+        mHandler = new Handler();
         setFile(file);
-        setHasOptionsMenu(true);
     }
 
     /**
@@ -170,9 +190,10 @@ public class    PreviewTextFragment extends FileFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putParcelable(PreviewTextFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewTextFragment.EXTRA_ACCOUNT, mAccount);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -188,6 +209,45 @@ public class    PreviewTextFragment extends FileFragment {
         mTextLoadTask.execute(getFile().getStoragePath());
     }
 
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        performSearch(query, 0);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(final String newText) {
+        performSearch(newText, 500);
+        return true;
+    }
+
+
+    private void performSearch(final String query, int delay) {
+        mHandler.removeCallbacksAndMessages(null);
+
+        if (mOriginalText != null) {
+            if (getActivity() instanceof FileDisplayActivity) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                fileDisplayActivity.setSearchQuery(query);
+            }
+            mHandler.postDelayed(() -> {
+                if (query != null && !query.isEmpty()) {
+                    if (getContext() != null && getContext().getResources() != null) {
+                        String coloredText = StringUtils.searchAndColor(mOriginalText, query,
+                            getContext().getResources().getColor(R.color.primary));
+                        mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+                    }
+                } else {
+                    mTextPreview.setText(mOriginalText);
+                }
+            }, delay);
+        }
+
+        if (delay == 0 && mSearchView != null) {
+            mSearchView.clearFocus();
+        }
+    }
 
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
@@ -258,7 +318,13 @@ public class    PreviewTextFragment extends FileFragment {
             final TextView textView = mTextViewReference.get();
 
             if (textView != null) {
-                textView.setText(new String(stringWriter.getBuffer()));
+                mOriginalText = stringWriter.toString();
+                mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
+                textView.setText(mOriginalText);
+
+                if (mSearchOpen) {
+                    mSearchView.setQuery(mSearchQuery, true);
+                }
                 textView.setVisibility(View.VISIBLE);
             }
 
@@ -277,6 +343,17 @@ public class    PreviewTextFragment extends FileFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        menuItem.setVisible(true);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        mSearchView.setMaxWidth(Integer.MAX_VALUE);
+
+        if (mSearchOpen) {
+            mSearchView.setIconified(false);
+            mSearchView.setQuery(mSearchQuery, false);
+            mSearchView.clearFocus();
+        }
     }
 
     /**
