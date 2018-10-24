@@ -7,18 +7,18 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
-        google()
         mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.codehaus.groovy:groovy-all:2.4.12' 
-        classpath('com.dicedmelon.gradle:jacoco-android:0.1.3') { 
-            exclude group: 'org.codehaus.groovy', module: 'groovy-all' 
+        classpath 'org.codehaus.groovy:groovy-all:2.4.12'
+        classpath('com.dicedmelon.gradle:jacoco-android:0.1.3') {
+            exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
     }
 }
@@ -46,10 +46,10 @@ ext {
 }
 
 repositories {
+    google()
     jcenter()
     maven { url "https://jitpack.io" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    google()
 
     flatDir {
         dirs 'libs'
@@ -268,7 +268,7 @@ dependencies {
 
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
     findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
-    
+
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 //    androidJacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
