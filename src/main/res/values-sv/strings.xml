@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_notifications">Notifieringar</string>
     <string name="drawer_quota">%1$s av %2$s använt</string>
-    <string name="prefs_category_general">Allmänt</string>
+    <string name="drawer_quota_unlimited">%1$s använt</string>
+	<string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_lock">Lås</string>
@@ -76,6 +77,7 @@
     <string name="uploader_error_message_source_file_not_found">Filen som valdes för uppladdning kan inte hittas. Vänligen dubbelkolla att den existerar.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till %1$s mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
@@ -104,6 +106,7 @@
     <string name="file_list_empty_text_photos_filter">Inga foton.</string>
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_videos_filter">Inga videor.</string>
+    <string name="trashbin_empty_headline">Inga raderade filer</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
@@ -125,6 +128,7 @@
     <string name="common_error_unknown">Okänt fel</string>
     <string name="common_pending">Väntar</string>
     <string name="common_delete">Ta bort</string>
+    <string name="common_send">Skicka</string>
     <string name="about_title">Om</string>
     <string name="delete_account">Radera konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
@@ -216,6 +220,7 @@
 	<string name="auth_account_not_new">Ett konto för samma användare och server finns redan på enheten</string>
 	<string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>
 	<string name="auth_unknown_error_title">Okänt fel inträffade!</string>
+	<string name="auth_unknown_error_exception_title">Okänt fel: %1$s</string>
 	<string name="auth_unknown_host_title">Kunde inte hitta värden</string>
 	<string name="auth_incorrect_path_title">Server kunde inte hittas</string>
 	<string name="auth_timeout_title">Servern svarar inte</string>
@@ -235,8 +240,13 @@
     <string name="auth_connecting_auth_server">Ansluter till autentiseringsserver…</string>
 	<string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
+    <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
     <string name="favorite">Sätt som tillgänglig offline</string>
     <string name="unfavorite">Ta bort som tillgänglig offline</string>
+    <string name="favorite_real">Lägg till i favoriter</string>
+    <string name="unset_favorite_real">Ta bort från favoriter</string>
+    <string name="encrypted">Sätt som krypterad</string>
+    <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_remove">Radera</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
@@ -369,6 +379,7 @@
 	<string name="log_send_mail_subject">%1$s Android apploggar</string>
     <string name="log_progress_dialog_text">Laddar data…</string>
 
+	<string name="saml_authentication_required_text">Lösenord krävs</string>
 	<string name="saml_authentication_wrong_pass">Fel lösenord</string>
 	<string name="actionbar_move">Flytta</string>
     <string name="actionbar_copy">Kopiera</string>
@@ -425,7 +436,18 @@
     <string name="share_with_user_section_title">Dela med användare och grupper</string>
     <string name="share_no_users">Ingen data delar med användare än</string>
     <string name="share_add_user_or_group">Lägg till användare eller grupp</string>
+    <string name="share_via_link_edit_permission_label">Tillåt redigering</string>
+    <string name="share_via_link_password_label">Skydda med lösenord</string>
+    <string name="share_via_link_password_title">Säkrad</string>
+    <string name="share_via_link_expiration_date_label">Välj utgångsdatum</string>
+    <string name="share_via_link_menu_password_label">Lösenordsskydda (%1$s)</string>
+    <string name="share_expiration_date_label">Gick ut %1$s</string>
+    <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_via_link_section_title">Dela länk</string>
+    <string name="share_via_link_send_link_label">Skicka länk</string>
+    <string name="share_password_title">Lösenordsskyddad</string>
+    <string name="share_no_password_title">Sätt lösenord</string>
+    <string name="edit_permission_label">redigera</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_with_title">Delad med…</string>
@@ -438,6 +460,7 @@
     <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
 
+    <string name="share_privilege_unshare">Sluta dela</string>
     <string name="share_privilege_can_share">får dela</string>
     <string name="share_privilege_can_edit">kan redigera</string>
     <string name="share_privilege_can_edit_create">kan skapa</string>
@@ -511,6 +534,8 @@
 
     <string name="storage_description_default">Standard</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_new_skip">Hoppa över</string>
 
     <!-- User information -->
@@ -572,7 +597,21 @@
     <string name="drawer_current_account">Nuvarande konto</string>
     <string name="drawer_middle_account">Mittenkonto</string>
     <string name="drawer_end_account">Sista konto</string>
+    <string name="activity_icon">Aktivitet</string>
+    <string name="file_icon">Fil</string>
+    <string name="user_icon">Användare</string>
+    <string name="favorite_icon">Favoritisera</string>
+    <string name="available_offline_icon">Tillgänglig offline</string>
     <string name="checkbox">Kryssruta</string>
+    <string name="shared_icon_shared_via_link">delad via länk</string>
+    <string name="shared_icon_shared">delad</string>
+    <string name="overflow_menu">Mer Meny</string>
+    <string name="sort_by_name_ascending">A - Ö</string>
+    <string name="sort_by_modification_date_ascending">Nyaste först</string>
+    <string name="sort_by_size_descending">Störst först</string>
+    <string name="sort_by_size_ascending">Minst först</string>
+    <string name="sort_by_name_descending">Ö - A</string>
+    <string name="sort_by_modification_date_descending">Äldst först</string>
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Synkstatus-knapp</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>
@@ -582,14 +621,42 @@
     <string name="what_s_new_image">Vad är nytt-bild</string>
 
     <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Ingen tillgänglig information.</string>
     <string name="dev_version_no_new_version_available">Ingen ny version tillgänglig.</string>
     <string name="folder_icon">Mapp-ikon</string>
+    <string name="dev_version_new_version_available">Ny version tillgänglig</string>
+    <string name="version_dev_download">Ladda ned</string>
+
     <string name="send">Skicka</string>
     <string name="share">Dela</string>
     <string name="link">Länk</string>
 
+    <string name="screenshot_01_gridView">Ett säkert hem för dina filer</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
     <string name="end_to_end_encryption_password">Lösenord…</string>
+    <string name="end_to_end_encryption_dialog_close">Stäng</string>
+    <string name="hint_name">Namn</string>
+    <string name="hint_password">Lösenord</string>
+    <string name="upload_files">Ladda upp filer</string>
+    <string name="create_new_folder">Skapa ny mapp</string>
+    <string name="tags">Taggar</string>
+    <string name="login">Logga in</string>
+    <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="host_your_own_server">Använd egen server</string>
+    <string name="first_run_1_text">Håll din data säker och under din kontroll</string>
+    <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
+    <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
+    <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="new_comment">Ny kommentar…</string>
+    <string name="new_media_folder_photos">bild</string>
+    <string name="new_media_folder_videos">video</string>
+    <string name="dismiss">Avfärda</string>
+    <string name="drawer_item_trashbin">Raderade filer</string>
+    <string name="trashbin_activity_title">Raderade filer</string>
+    <string name="action_empty_trashbin">Töm papperskorgen</string>
+    <string name="folder_already_exists">Mapp finns redan</string>
+    <string name="folder_confirm_create">Skapa</string>
+    <string name="file_delete">Radera</string>
+    <string name="file_keep">Behåll</string>
+    <string name="file_rename">Byt namn</string>
     </resources>
