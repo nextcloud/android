@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
@@ -90,16 +91,16 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.note_dialog, null, false);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.note_dialog, null, false);
 
         unbinder = ButterKnife.bind(this, view);
 
-        // Setup layout 
+        // Setup layout
         noteEditText.setText(share.getNote());
         noteEditText.requestFocus();
         noteEditText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
-        // Build the dialog  
+        // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
                 .setPositiveButton(R.string.note_confirm, this)
