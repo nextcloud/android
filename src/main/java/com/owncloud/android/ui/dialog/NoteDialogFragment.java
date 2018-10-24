@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -68,7 +69,16 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         frag.setArguments(args);
 
         return frag;
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() == null) {
+            throw new NullPointerException("Arguments may not be null");
+        }
+        share = getArguments().getParcelable(ARG_SHARE);
     }
 
     @Override
@@ -87,10 +97,9 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
-        share = getArguments().getParcelable(ARG_SHARE);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.note_dialog, null, false);
 
         unbinder = ButterKnife.bind(this, view);
@@ -101,12 +110,12 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         noteEditText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
-                .setPositiveButton(R.string.note_confirm, this)
-                .setNegativeButton(R.string.common_cancel, this)
-                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.send_note),
-                        accentColor));
+            .setPositiveButton(R.string.note_confirm, this)
+            .setNegativeButton(R.string.common_cancel, this)
+            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.send_note),
+                accentColor));
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -118,7 +127,6 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         return dialog;
     }
 
-
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
@@ -126,17 +134,17 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
             if (componentsGetter != null) {
                 componentsGetter.getFileOperationsHelper().updateNoteToShare(share,
-                        noteEditText.getText().toString().trim());
+                    noteEditText.getText().toString().trim());
             } else {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.note_could_not_sent);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.note_could_not_sent);
             }
         }
     }
 
     @Override
     public void onStop() {
-        super.onStop();
-
         unbinder.unbind();
+
+        super.onStop();
     }
 }
