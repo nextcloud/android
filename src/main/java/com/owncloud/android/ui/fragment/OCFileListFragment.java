@@ -1410,15 +1410,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         };
 
         if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    switchToGridView();
-                }
-            });
-        } else if (currentSearchType.equals(SearchType.NO_SEARCH) || currentSearchType.equals(
-                SearchType.REGULAR_FILTER)) {
-            new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+            new Handler(Looper.getMainLooper()).post(this::switchToGridView);
         } else {
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
