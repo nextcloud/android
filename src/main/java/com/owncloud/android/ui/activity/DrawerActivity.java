@@ -353,7 +353,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
             capability = storageManager.getCapability(account.name);
         }
-        
+
         DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
         DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources());
         DrawerMenuUtil.filterTrashbinMenuItem(menu, account, capability);
@@ -1095,7 +1095,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     LayerDrawable layerDrawable = new LayerDrawable(drawables);
                     setNavigationHeaderBackground(layerDrawable, navigationHeader);
                 } else {
-                    // use url 
+                    // use url
                     if (URLUtil.isValidUrl(background) || background.isEmpty()) {
                         // background image
                         SimpleTarget target = new SimpleTarget<Drawable>() {
