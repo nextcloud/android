@@ -28,11 +28,11 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class SearchEvent {
-    public String searchQuery;
+    private String searchQuery;
 
-    public SearchOperation.SearchType searchType;
+    private SearchOperation.SearchType searchType;
 
-    public UnsetType unsetType;
+    private UnsetType unsetType;
 
     public enum UnsetType {
         NO_UNSET,
