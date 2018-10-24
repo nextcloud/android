@@ -71,10 +71,8 @@ public class MediaFoldersDetectionJob extends Job {
         String arbitraryDataString;
         MediaFoldersModel mediaFoldersModel;
 
-        List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1,
-                null, true);
-        List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null,
-                true);
+        List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true);
+        List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true);
 
         List<String> imageMediaFolderPaths = new ArrayList<>();
         List<String> videoMediaFolderPaths = new ArrayList<>();
@@ -109,8 +107,7 @@ public class MediaFoldersDetectionJob extends Job {
 
                 for (Account account : accountList) {
                     for (String imageMediaFolder : imageMediaFolderPaths) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder,
-                                account) == null) {
+                        if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder, account) == null) {
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_photos)),
                                     imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1,
@@ -120,8 +117,7 @@ public class MediaFoldersDetectionJob extends Job {
                     }
 
                     for (String videoMediaFolder : videoMediaFolderPaths) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder,
-                                account) == null) {
+                        if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder, account) == null) {
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_videos)),
                                     videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1,
@@ -134,14 +130,14 @@ public class MediaFoldersDetectionJob extends Job {
 
         } else {
             mediaFoldersModel = new MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths);
-            arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(mediaFoldersModel));
+            arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS,
+                gson.toJson(mediaFoldersModel));
         }
 
         return Result.SUCCESS;
     }
 
-    private void sendNotification(String contentTitle, String subtitle,  Account account,
-                                  String path, int type) {
+    private void sendNotification(String contentTitle, String subtitle, Account account, String path, int type) {
         Context context = getContext();
         Intent intent = new Intent(getContext(), SyncedFoldersActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
