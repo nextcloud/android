@@ -156,7 +156,7 @@ public class FileDisplayActivity extends HookActivity
         SendShareDialog.SendShareDialogDownloader {
 
     public static final String RESTART = "RESTART";
- 
+
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -172,7 +172,6 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
-    private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -205,7 +204,11 @@ public class FileDisplayActivity extends HookActivity
     private MediaServiceBinder mMediaServiceBinder;
     private MediaServiceConnection mMediaServiceConnection;
 
-    private String searchQuery;
+    public static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
+    public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
+
+    private String searchQuery = "";
+    private boolean searchOpen;
 
     private SearchView searchView;
 
@@ -223,6 +226,7 @@ public class FileDisplayActivity extends HookActivity
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
+            searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
@@ -368,7 +372,7 @@ public class FileDisplayActivity extends HookActivity
 
             if (MainApp.getVersionCode() > lastSeenVersion) {
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
-                
+
                 if (serverVersion == null) {
                     OCCapability capability = getCapabilities();
                     serverVersion = new OwnCloudVersion(capability.getVersionMayor() + VERSION_DOT +
@@ -627,7 +631,7 @@ public class FileDisplayActivity extends HookActivity
             searchView.post(new Runnable() {
                 @Override
                 public void run() {
-                    searchView.setQuery("", true);
+                    searchView.setQuery(searchQuery, true);
                 }
             });
         }
@@ -736,7 +740,7 @@ public class FileDisplayActivity extends HookActivity
                     if (success) {
                         // update the file from database, for the local storage path
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                        
+
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
                                     .isMediaStreamingSupported();
@@ -779,8 +783,9 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
         menu.findItem(R.id.action_select_all).setVisible(false);
-        final MenuItem item = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(item);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchMenuItem.setVisible(false);
 
         // hacky as no default way is provided
         int fontColor = ThemeUtils.fontColor(this);
@@ -857,7 +862,7 @@ public class FileDisplayActivity extends HookActivity
             }
         });
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
 
@@ -1195,8 +1200,10 @@ public class FileDisplayActivity extends HookActivity
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
         if (searchView != null) {
-            outState.putString(KEY_SEARCH_QUERY, searchView.getQuery().toString());
+            outState.putBoolean(KEY_IS_SEARCH_OPEN, !searchView.isIconified());
         }
+        outState.putString(KEY_SEARCH_QUERY, searchQuery);
+
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
@@ -1215,7 +1222,7 @@ public class FileDisplayActivity extends HookActivity
 
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
-            searchView.setQuery(searchQuery, true);
+            searchView.setQuery(searchQuery, false);
         } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()
                 && startFile == null) {
             refreshListOfFilesFragment(false);
@@ -1261,7 +1268,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             setDrawerMenuItemChecked(menuItemId);
         }
-        
+
         Log_OC.v(TAG, "onResume() end");
     }
 
@@ -2301,7 +2308,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
-        
+
         mWaitingToSend = null;
     }
 
@@ -2395,6 +2402,8 @@ public class FileDisplayActivity extends HookActivity
             Bundle args = new Bundle();
             args.putParcelable(EXTRA_FILE, file);
             args.putParcelable(EXTRA_ACCOUNT, getAccount());
+            args.putBoolean(EXTRA_SEARCH, searchOpen);
+            args.putString(EXTRA_SEARCH_QUERY, searchQuery);
             Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                     PreviewTextFragment.class.getName(), args);
             setSecondFragment(textPreviewFragment);
@@ -2541,4 +2550,9 @@ public class FileDisplayActivity extends HookActivity
 
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
     }
+
+    public void setSearchQuery(String query) {
+        searchQuery = query;
+    }
+
 }
