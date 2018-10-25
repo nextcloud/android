@@ -76,7 +76,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         super.onCreate(savedInstanceState);
 
         if (getArguments() == null) {
-            throw new NullPointerException("Arguments may not be null");
+            throw new IllegalArgumentException("Arguments may not be null");
         }
         share = getArguments().getParcelable(ARG_SHARE);
     }
