@@ -95,16 +95,6 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/participate_release_candidate_playstore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:onClick="onGetRCPlayStoreClick"
-                        android:padding="@dimen/zero"
-                        android:src="@drawable/playstore"
-                        android:contentDescription="@string/participate_rc_play_store"/>
-
-                    <ImageButton
                         android:id="@+id/participate_release_candidate_fdroid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -113,6 +103,16 @@
                         android:padding="@dimen/zero"
                         android:src="@drawable/fdroid"
                         android:contentDescription="@string/participate_rc_fdroid"/>
+
+                    <ImageButton
+                        android:id="@+id/participate_release_candidate_playstore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:onClick="onGetRCPlayStoreClick"
+                        android:padding="@dimen/zero"
+                        android:src="@drawable/playstore"
+                        android:contentDescription="@string/participate_rc_play_store"/>
 
                 </LinearLayout>
 

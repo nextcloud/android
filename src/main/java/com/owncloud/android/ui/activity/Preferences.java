@@ -172,7 +172,7 @@ public class Preferences extends PreferenceActivity
 
         // About
         setupAboutCategory(accentColor, appVersion);
-        
+
         // Dev
         setupDevCategory(accentColor, preferenceScreen);
     }
@@ -202,10 +202,7 @@ public class Preferences extends PreferenceActivity
             Preference pChangelogLink = findPreference("changelog_link");
             if (pChangelogLink != null) {
                 pChangelogLink.setOnPreferenceClickListener(preference -> {
-                    String devChangelogLink = getString(R.string.dev_changelog);
-                    Uri uriUrl = Uri.parse(devChangelogLink);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);
+                    DisplayUtils.startLinkIntent(this, R.string.dev_changelog);
                     return true;
                 });
             }
@@ -230,14 +227,10 @@ public class Preferences extends PreferenceActivity
         boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
         Preference licensePreference = findPreference("license");
         if (licensePreference != null) {
-            String licenseUrl = getString(R.string.license_url);
-
-            if (licenseEnabled && !licenseUrl.isEmpty()) {
+            if (licenseEnabled) {
                 licensePreference.setSummary(R.string.prefs_gpl_v2);
                 licensePreference.setOnPreferenceClickListener(preference -> {
-                    Uri uriUrl = Uri.parse(licenseUrl);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);
+                    DisplayUtils.startLinkIntent(this, R.string.license_url);
                     return true;
                 });
             } else {
@@ -258,6 +251,7 @@ public class Preferences extends PreferenceActivity
                         Intent intent;
                         if ("application/pdf".equals(mimeType)) {
                             intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
+                            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
@@ -283,12 +277,9 @@ public class Preferences extends PreferenceActivity
         boolean sourcecodeEnabled = getResources().getBoolean(R.bool.sourcecode_enabled);
         Preference sourcecodePreference = findPreference("sourcecode");
         if (sourcecodePreference != null) {
-            String sourcecodeUrl = getString(R.string.sourcecode_url);
-            if (sourcecodeEnabled && !sourcecodeUrl.isEmpty()) {
+            if (sourcecodeEnabled) {
                 sourcecodePreference.setOnPreferenceClickListener(preference -> {
-                    Uri uriUrl = Uri.parse(sourcecodeUrl);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);
+                    DisplayUtils.startLinkIntent(this, R.string.sourcecode_url);
                     return true;
                 });
             } else {
@@ -332,7 +323,7 @@ public class Preferences extends PreferenceActivity
                     if (!imprintWeb.isEmpty()) {
                         Uri uriUrl = Uri.parse(imprintWeb);
                         Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
+                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
                     }
                     //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
@@ -460,7 +451,7 @@ public class Preferences extends PreferenceActivity
                     if (!helpWeb.isEmpty()) {
                         Uri uriUrl = Uri.parse(helpWeb);
                         Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
+                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
                     }
                     return true;
                 });
@@ -803,7 +794,7 @@ public class Preferences extends PreferenceActivity
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
-                startActivity(downloadIntent);
+                DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
             }
@@ -891,7 +882,7 @@ public class Preferences extends PreferenceActivity
             builder.show();
         }
     }
-    
+
     @Override
     @NonNull
     public MenuInflater getMenuInflater() {
