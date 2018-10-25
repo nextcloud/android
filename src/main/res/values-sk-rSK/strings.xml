@@ -140,9 +140,9 @@
     <string name="delete_account_warning">Zmazať účet %s a zmazať všetky lokálne súbory?\n\nZmazanie nebude možné vrátiť späť.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktívny používateľ</string>
-    <string name="upload_chooser_title">Nahrať z...</string>
+    <string name="upload_chooser_title">Nahrať z…</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
-    <string name="uploader_upload_in_progress_ticker">Nahrávanie...</string>
+    <string name="uploader_upload_in_progress_ticker">Nahrávanie…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Odoslané</string>
     <string name="uploader_upload_succeeded_content_single">%1$s odoslané</string>
@@ -235,8 +235,8 @@
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
 
-    <string name="auth_getting_authorization">Získavam autorizáciu...</string>
-    <string name="auth_trying_to_login">Prihlasujem sa...</string>
+    <string name="auth_getting_authorization">Získavam autorizáciu…</string>
+    <string name="auth_trying_to_login">Prihlasujem sa…</string>
 	<string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
 	<string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
 	<string name="auth_connection_established">Pripojenie vytvorené</string>
@@ -263,7 +263,7 @@
 	<string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
-    <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server ...</string>
+    <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server…</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
 	<string name="auth_fail_get_user_name">Váš server nevracia správne používateľské ID, kontaktujte prosím správcu systému </string>
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
@@ -295,7 +295,7 @@
     <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
-    <string name="activity_chooser_title">Odoslať odkaz...</string>
+    <string name="activity_chooser_title">Odoslať odkaz…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     
     <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
@@ -391,14 +391,14 @@
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
 
     <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
-    <string name="file_migration_preparing">Pripravujem migráciu...</string>
-    <string name="file_migration_checking_destination">Kontrolujem umiestnenie...</string>
-    <string name="file_migration_saving_accounts_configuration">Ukladám konfiguráciu účtov...</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Čakám na kompletnú synchronizáciu...</string>
-    <string name="file_migration_migrating">Presúvam dáta...</string>
-    <string name="file_migration_updating_index">Aktualizujem zoznam...</string>
-    <string name="file_migration_cleaning">Čistenie...</string>
-    <string name="file_migration_restoring_accounts_configuration">Obnovujem konfiguráciu účtu...</string>
+    <string name="file_migration_preparing">Pripravujem migráciu…</string>
+    <string name="file_migration_checking_destination">Kontrolujem umiestnenie…</string>
+    <string name="file_migration_saving_accounts_configuration">Ukladám konfiguráciu účtov…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Čakám na kompletnú synchronizáciu…</string>
+    <string name="file_migration_migrating">Presúvam dáta…</string>
+    <string name="file_migration_updating_index">Aktualizujem zoznam…</string>
+    <string name="file_migration_cleaning">Čistenie…</string>
+    <string name="file_migration_restoring_accounts_configuration">Obnovujem konfiguráciu účtu…</string>
     <string name="file_migration_ok_finished">Hotovo</string>
     <string name="file_migration_failed_not_enough_space">Nedostatok priestoru</string>
     <string name="file_migration_failed_not_writable">Nepodarilo sa zapísať do cieľového súboru</string>
@@ -472,8 +472,8 @@
     <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="set_as">Nastaviť ako</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude...</string>
-    <string name="prefs_instant_behaviour_title">Pôvodný súbor bude...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude…</string>
+    <string name="prefs_instant_behaviour_title">Pôvodný súbor bude…</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="deselect_all">Odznačiť všetko</string>
 
@@ -505,7 +505,7 @@
     <string name="share_with_edit_title">Sprístupniť pre %1$s</string>
     <string name="share_via_link_unset_password">Zrušiť</string>
 
-    <string name="share_search">Meno, federatívny cloud ID alebo e-mailová adresa...</string>
+    <string name="share_search">Meno, federatívny cloud ID alebo e-mailová adresa…</string>
 
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
@@ -568,9 +568,9 @@
     <string name="participate_dev_direct_download">Získajte vývojovú verziu</string>
     <string name="move_to">Presunúť do…</string>
     <string name="copy_to">Kopírovať do…</string>
-    <string name="choose_remote_folder">Vyberte vzdialený priečinok...</string>
-    <string name="choose_local_folder">Vyberte miestny priečinok...</string>
-    <string name="synced_folders_loading_folders">Načítavanie priečinkov...</string>
+    <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
+    <string name="choose_local_folder">Vyberte miestny priečinok…</string>
+    <string name="synced_folders_loading_folders">Načítavanie priečinkov…</string>
     <string name="synced_folders_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
     <string name="synced_folders_preferences">Nastavenie automatického nahrávania</string>
     <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované.  Zmente si nastavenie automatického nahrávania cez hlavné menu.\n\nUžite si nové a rozšírene možnosti automatického nahrávania.</string>
@@ -582,7 +582,7 @@
         <item quantity="other">%d vybraných</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Nahrávanie notifikácií...</string>
+    <string name="notifications_loading_activity">Nahrávanie notifikácií…</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
 
@@ -645,8 +645,8 @@
     <string name="fallback_weblogin_back">Späť</string>
     <string name="fallback_weblogin_text">Vrátiť sa k pôvodnému spôsobu prihlásenia</string>
 
-    <string name="foreground_service_upload">Nahrávanie súborov...    </string>
-    <string name="foreground_service_download">Sťahovanie súborov...</string>
+    <string name="foreground_service_upload">Nahrávanie súborov…</string>
+    <string name="foreground_service_download">Sťahovanie súborov…</string>
 
     <string name="prefs_sourcecode">Získajte zdrojový kód</string>
     <string name="prefs_license">Licencia</string>
@@ -720,8 +720,8 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba pri dešifrovaní.  Nesprávne heslo?</string>
-    <string name="end_to_end_encryption_decrypting">Dešifrujem...</string>
-    <string name="end_to_end_encryption_retrieving_keys">Získavam kľúče...</string>
+    <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Získavam kľúče…</string>
     <string name="end_to_end_encryption_enter_password">Prosím zadajte heslo na dešifrovanie privátneho kľúča.</string>
     <string name="end_to_end_encryption_generating_keys">Vytvárajú sa nové kľúče…</string>
     <string name="end_to_end_encryption_keywords_description">Táto 12-slovná fráza je veľmi silné heslo, ktoré poskytuje úplný prístup k prezeraniu a používaniu šifrovaných súborov. Napíšte si ju a uschovajte niekde v bezpečí.</string>
