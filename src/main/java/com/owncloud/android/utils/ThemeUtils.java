@@ -224,11 +224,16 @@ public final class ThemeUtils {
     public static String getDefaultDisplayNameForRootFolder(Context context) {
         OCCapability capability = getCapability(context);
 
-        if (capability.getServerName() == null || capability.getServerName().isEmpty()) {
-            return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
+        if (MainApp.isOnlyOnDevice()) {
+            return MainApp.getAppContext().getString(R.string.drawer_item_on_device);
         } else {
-            return capability.getServerName();
+            if (capability.getServerName() == null || capability.getServerName().isEmpty()) {
+                return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
+            } else {
+                return capability.getServerName();
+            }
         }
+
     }
 
     public static void setStatusBarColor(Activity activity, @ColorInt int color) {

@@ -1435,6 +1435,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         remoteOperationAsyncTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
+                setTitle();
                 if (getContext() != null && !isCancelled()) {
                     RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
 
