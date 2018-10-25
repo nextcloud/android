@@ -2501,9 +2501,23 @@ public class FileDisplayActivity extends HookActivity
         browseToRoot();
     }
 
+    public void setActionBarTitle(@StringRes final int title) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getSupportActionBar() != null) {
+                    ThemeUtils.setColoredTitle(getSupportActionBar(), title, getBaseContext());
+                }
+            }
+        });
+    }
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
+        if (onDeviceOnly) {
+            setActionBarTitle(R.string.drawer_item_on_device);
+        }
         getListOfFilesFragment().refreshDirectory();
     }
 
