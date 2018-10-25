@@ -203,7 +203,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private AccountManager mAccountMgr;
     private Uri mNewCapturedUriFromOAuth2Redirection;
 
-    /// Server PRE-Fragment elements 
+    /// Server PRE-Fragment elements
     private CustomEditText mHostUrlInput;
     private View mRefreshButton;
     private TextView mServerStatusView;
@@ -217,7 +217,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
-    /// Authentication PRE-Fragment elements 
+    /// Authentication PRE-Fragment elements
     private CheckBox mOAuth2Check;
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
@@ -237,7 +237,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private boolean mIsFirstAuthAttempt;
 
-    /// Identifier of operation in progress which result shouldn't be lost 
+    /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
     private String basicTokenType;
@@ -264,7 +264,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (savedInstanceState == null) {
             FirstRunActivity.runIfNeeded(this);
         }
-        
+
         basicTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(this));
         oauthTokenType = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType(this));
         samlTokenType = AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType(this));
@@ -379,7 +379,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
         mLoginWebView.getSettings().setDomStorageEnabled(true);
-        
+
         if (useGenericUserAgent) {
             mLoginWebView.getSettings().setUserAgentString(MainApp.getNextcloudUserAgent());
         } else {
@@ -1339,7 +1339,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         uri = uriBuilder.build();
         Log_OC.d(TAG, "Starting browser to view " + uri.toString());
         Intent i = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(i);
+
+        DisplayUtils.startIntentIfAppAvailable(i, this, R.string.no_browser_available);
     }
 
 
@@ -1371,7 +1372,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (operation instanceof GetServerInfoOperation) {
             if (operation.hashCode() == mWaitingForOpId) {
                 onGetServerInfoFinish(result);
-            }   // else nothing ; only the last check operation is considered; 
+            }   // else nothing ; only the last check operation is considered;
             // multiple can be started if the user amends a URL quickly
 
         } else if (operation instanceof OAuth2GetAccessToken) {
@@ -1456,7 +1457,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      1. connection succeeded, and we know if it's SSL or not
             //      2. server is installed
             //      3. we got the server version
-            //      4. we got the authentication method required by the server 
+            //      4. we got the authentication method required by the server
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
             // show outdated warning
@@ -1776,7 +1777,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else if (result.isServerFail() || result.isException()) {
-            /// server errors or exceptions in authorization take to requiring a new check of 
+            /// server errors or exceptions in authorization take to requiring a new check of
             /// the server
             mServerIsChecked = true;
             mServerIsValid = false;
@@ -1837,13 +1838,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (AccountTypeUtils.getAuthTokenTypeAccessToken(accountType).equals(mAuthTokenType)) {
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
-            // the next line is necessary, notifications are calling directly to the 
+            // the next line is necessary, notifications are calling directly to the
             // AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
 
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(accountType).equals(mAuthTokenType)) {
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
-            // the next line is necessary; by now, notifications are calling directly to the 
+            // the next line is necessary; by now, notifications are calling directly to the
             // AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
 
@@ -1938,7 +1939,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             /// prepare result to return to the Authenticator
-            //  TODO check again what the Authenticator makes with it; probably has the same 
+            //  TODO check again what the Authenticator makes with it; probably has the same
             //  effect as addAccountExplicitly, but it's not well done
             final Intent intent = new Intent();
             intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, accountType);
@@ -1947,7 +1948,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (isOAuth || isSaml) {
                 mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             }
-            /// add user data to the new account; TODO probably can be done in the last parameter 
+            /// add user data to the new account; TODO probably can be done in the last parameter
             //      addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
@@ -2053,7 +2054,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
-     * 
+     *
      * Used to trigger the authentication check when the user presses 'enter' after writing the
      * password, or to throw the server test when the only field on screen is the URL input field.
      */
@@ -2192,7 +2193,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onSavedCertificate() {
         Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
         if (fd == null) {
-            // if SAML dialog is not shown, 
+            // if SAML dialog is not shown,
             // the SslDialog was shown due to an SSL error in the server check
             checkOcServer();
         }

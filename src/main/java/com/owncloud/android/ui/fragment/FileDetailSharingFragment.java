@@ -23,9 +23,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -63,6 +61,7 @@ import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.ClipboardUtil;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
@@ -373,11 +372,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     public void showNotSupportedByOcMessage() {
         if (getView() != null) {
             Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.learn_more, v -> {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(getString(R.string.url_server_install)));
-                        startActivity(i);
-                    })
+                .setAction(R.string.learn_more, v ->
+                    DisplayUtils.startLinkIntent(requireActivity(), R.string.url_server_install))
                     .show();
         }
     }
@@ -473,7 +469,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     /**
      * Get known server capabilities from DB
-     * 
+     *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
      */
@@ -485,9 +481,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     /**
      * Get public link from the DB to fill in the "Share link" section in the UI.
-     * 
+     *
      * Takes into account server capabilities before reading database.
-     * 
+     *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
      */

@@ -63,7 +63,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setContentView(R.layout.first_run_activity);
 
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
-        
+
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         Button loginButton = findViewById(R.id.login);
@@ -181,7 +181,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         if (!isProviderOrOwnInstallationVisible) {
             return false;
         }
-        
+
         if (context instanceof FirstRunActivity) {
             return false;
         }
@@ -210,7 +210,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
     public void onHostYourOwnServerClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_server_install))));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_server_install)));
+        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
     }
 
     @Override
@@ -224,7 +225,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
                 DisplayUtils.showSnackMessage(this, R.string.account_creation_failed);
                 return;
             }
-            
+
             setAccount(account);
             AccountUtils.setCurrentOwnCloudAccount(this, account.name);
             onAccountSet(false);

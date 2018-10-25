@@ -272,7 +272,9 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     }
 
     private void openLink(String link) {
-        notificationsActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+
+        DisplayUtils.startIntentIfAppAvailable(intent, notificationsActivity, R.string.no_browser_available);
     }
 
     @Override
