@@ -433,6 +433,8 @@
     <string name="set_as">Nastavi kot</string>
 
     <string name="select_all">Izberi vse</string>
+    <string name="deselect_all">Odstrani celoten izbor</string>
+
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premaknjeno v mapo programa</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
@@ -464,6 +466,8 @@
 
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
+    <string name="share_privilege_can_edit_create">lahko ustvari</string>
+    <string name="share_privilege_can_edit_change">lahko spremeni</string>
     <string name="share_privilege_can_edit_delete">lahko izbriše</string>
 
     <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
@@ -478,6 +482,8 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
 
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
+    <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
+    <string name="confirmation_remove_files_alert">Ali res želite izbrisati izbrane predmete?</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="actionbar_search">Iskanje</string>
