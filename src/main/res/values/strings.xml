@@ -822,5 +822,10 @@
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
+    <string name="share_send_note">Note to recipient</string>
+    <string name="note_confirm">Send</string>
+    <string name="send_note">Send note to recipient</string>
+    <string name="note_could_not_sent">Could not send note</string>
+    <string name="hint_note">Note</string>
 
 </resources>
