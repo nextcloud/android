@@ -44,4 +44,10 @@
         android:title="@string/share_via_link_send_link_label"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_share_send_note"
+        android:showAsAction="never"
+        android:title="@string/share_send_note"
+        app:showAsAction="never"/>
+
 </menu>
