@@ -753,5 +753,4 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="permission_deny">Kiellä</string>
     <string name="permission_allow">Salli</string>
-
-</resources>
+    </resources>

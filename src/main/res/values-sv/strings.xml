@@ -401,7 +401,9 @@
 
     <string name="prefs_category_details">Detaljer</string>
 
-    <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
+    <string name="sync_folder_failed_content">Synkronisering av %1$s-mappen kunde inte slutföras</string>
+
+	<string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
 
     <string name="auth_refresh_button">Uppdatera uppkopplingen</string>

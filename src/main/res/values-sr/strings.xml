@@ -811,5 +811,4 @@
     <string name="single_sign_on_request_token" formatted="true">Дозволи да %1$s приступа Вашем Некстклауд налогу %2$s?</string>
     <string name="permission_deny">Одбиј</string>
     <string name="permission_allow">Дозволи</string>
-
-</resources>
+    </resources>

@@ -815,5 +815,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
 
     <string name="permission_deny">Megtagad</string>
     <string name="permission_allow">Engedélyez</string>
-
-</resources>
+    </resources>

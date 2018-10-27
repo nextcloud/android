@@ -818,5 +818,4 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="permission_deny">Odrzuć</string>
     <string name="permission_allow">Akceptuj</string>
-
-</resources>
+    </resources>

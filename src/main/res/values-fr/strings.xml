@@ -809,5 +809,4 @@ Veuillez contacter votre administrateur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_allow">Accepter</string>
-
-</resources>
+    </resources>

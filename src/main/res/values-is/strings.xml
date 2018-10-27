@@ -802,5 +802,4 @@
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="permission_deny">Hafna</string>
     <string name="permission_allow">Leyfa</string>
-
-</resources>
+    </resources>

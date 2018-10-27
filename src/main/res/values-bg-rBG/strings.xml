@@ -733,5 +733,4 @@
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="permission_deny">Не</string>
     <string name="permission_allow">Да</string>
-
-</resources>
+    </resources>

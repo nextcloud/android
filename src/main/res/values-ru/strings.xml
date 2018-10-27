@@ -816,5 +816,4 @@
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="permission_deny">Запретить</string>
     <string name="permission_allow">Разрешить</string>
-
-</resources>
+    </resources>
