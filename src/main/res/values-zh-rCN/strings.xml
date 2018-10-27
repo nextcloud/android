@@ -801,5 +801,4 @@
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的Nextcloud 帐户%2$s？</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_allow">允许</string>
-
-</resources>
+    </resources>

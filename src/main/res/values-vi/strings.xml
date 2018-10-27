@@ -519,5 +519,4 @@
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="permission_deny">Từ chối</string>
     <string name="permission_allow">Cho phép</string>
-
-</resources>
+    </resources>

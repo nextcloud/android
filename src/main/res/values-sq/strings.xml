@@ -806,5 +806,4 @@
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="permission_deny">Refuzo</string>
     <string name="permission_allow">Lejo</string>
-
-</resources>
+    </resources>

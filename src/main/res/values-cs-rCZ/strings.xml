@@ -816,5 +816,4 @@
     <string name="single_sign_on_request_token" formatted="true">Umožnit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="permission_deny">Odepřít</string>
     <string name="permission_allow">Umožnit</string>
-
-</resources>
+    </resources>

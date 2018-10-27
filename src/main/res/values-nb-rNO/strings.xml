@@ -823,5 +823,4 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="permission_deny">ikke tillatt</string>
     <string name="permission_allow">Tillatt</string>
-
-</resources>
+    </resources>

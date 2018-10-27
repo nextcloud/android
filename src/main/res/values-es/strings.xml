@@ -806,5 +806,4 @@
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
     <string name="permission_deny">Denegar</string>
     <string name="permission_allow">Permitir</string>
-
-</resources>
+    </resources>
