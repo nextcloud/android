@@ -809,4 +809,10 @@ Veuillez contacter votre administrateur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_allow">Accepter</string>
-    </resources>
+    <string name="share_send_note">Note au destinataire</string>
+    <string name="note_confirm">Envoyer</string>
+    <string name="send_note">Envoyer la note au destinataire</string>
+    <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
+    <string name="hint_note">Note</string>
+
+</resources>
