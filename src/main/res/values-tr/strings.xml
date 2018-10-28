@@ -806,4 +806,10 @@
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="permission_deny">Reddet</string>
     <string name="permission_allow">İzin Ver</string>
-    </resources>
+    <string name="share_send_note">Alıcıya not</string>
+    <string name="note_confirm">Gönder</string>
+    <string name="send_note">Alıcıya not gönder</string>
+    <string name="note_could_not_sent">Not gönderilemedi</string>
+    <string name="hint_note">Not</string>
+
+</resources>

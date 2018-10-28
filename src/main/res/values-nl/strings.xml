@@ -806,4 +806,10 @@
     <string name="single_sign_on_request_token" formatted="true">Toestaan dat%1$s je Nextcloud account %2$sbenadert?</string>
     <string name="permission_deny">Weigeren</string>
     <string name="permission_allow">Toestaan</string>
-    </resources>
+    <string name="share_send_note">Notitie voor ontvanger</string>
+    <string name="note_confirm">Versturen</string>
+    <string name="send_note">Stuur notitie aan ontvanger</string>
+    <string name="note_could_not_sent">Kon notitie niet versturen</string>
+    <string name="hint_note">Notitie</string>
+
+</resources>
