@@ -765,12 +765,25 @@ public final class DisplayUtils {
 
         return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
-    
+
     static public void showServerOutdatedSnackbar(Activity activity) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                 R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.dismiss, v -> {
                 })
                 .show();
+    }
+
+    static public void startLinkIntent(Activity activity, @StringRes int link) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(activity.getString(link)));
+        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+    }
+
+    static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivity(intent);
+        } else {
+            DisplayUtils.showSnackMessage(activity, error);
+        }
     }
 }

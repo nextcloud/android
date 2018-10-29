@@ -545,7 +545,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
             if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
                 if (link.redirect) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link.url)));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.url));
+                    DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
