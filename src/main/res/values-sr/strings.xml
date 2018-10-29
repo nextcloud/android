@@ -811,4 +811,10 @@
     <string name="single_sign_on_request_token" formatted="true">Дозволи да %1$s приступа Вашем Некстклауд налогу %2$s?</string>
     <string name="permission_deny">Одбиј</string>
     <string name="permission_allow">Дозволи</string>
-    </resources>
+    <string name="share_send_note">Белешка примаоцу</string>
+    <string name="note_confirm">Пошаљи</string>
+    <string name="send_note">Пошаљи белешку примаоцу</string>
+    <string name="note_could_not_sent">Не могу да пошаљем белешку</string>
+    <string name="hint_note">Белешка</string>
+
+</resources>

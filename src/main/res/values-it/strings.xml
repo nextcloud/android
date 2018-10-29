@@ -806,4 +806,10 @@
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="permission_deny">Nega</string>
     <string name="permission_allow">Consenti</string>
-    </resources>
+    <string name="share_send_note">Nota per destinatario</string>
+    <string name="note_confirm">Invia</string>
+    <string name="send_note">Invia nota a destinatario</string>
+    <string name="note_could_not_sent">Impossibile inviare la nota</string>
+    <string name="hint_note">Nota</string>
+
+</resources>
