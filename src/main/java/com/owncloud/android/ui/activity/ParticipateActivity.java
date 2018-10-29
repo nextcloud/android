@@ -23,7 +23,6 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
@@ -33,6 +32,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
@@ -94,28 +94,23 @@ public class ParticipateActivity extends FileActivity {
 
         AppCompatButton reportButton = findViewById(R.id.participate_testing_report);
         reportButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
-        reportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.report_issue_link))));
-            }
-        });
+        reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }
 
     public void onGetBetaFDroidClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.fdroid_beta_link))));
+        DisplayUtils.startLinkIntent(this, R.string.fdroid_beta_link);
     }
 
     public void onGetRCFDroidClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.fdroid_link))));
+        DisplayUtils.startLinkIntent(this, R.string.fdroid_link);
     }
 
     public void onGetRCPlayStoreClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.play_store_register_beta))));
+        DisplayUtils.startLinkIntent(this, R.string.play_store_register_beta);
     }
 
     public void onGetBetaApkClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.beta_apk_link))));
+        DisplayUtils.startLinkIntent(this, R.string.beta_apk_link);
     }
 
     @Override

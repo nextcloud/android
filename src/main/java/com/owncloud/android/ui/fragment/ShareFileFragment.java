@@ -25,10 +25,8 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -62,8 +60,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Fragment for Sharing a file with sharees (users or groups) or creating
@@ -543,14 +541,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             } else {
                 // not supported in ownCloud
                 Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.learn_more, new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(getString(R.string.url_server_install)));
-                                startActivity(i);
-                            }
-                        })
+                    .setAction(R.string.learn_more, v ->
+                        DisplayUtils.startLinkIntent(requireActivity(), R.string.url_server_install))
                         .show();
             }
 
