@@ -1,5 +1,10 @@
 ## 3.3.1 (October 29, 2018)
-- Bug fixes
+- Bug fixes:
+  - [android#3066](https://github.com/nextcloud/android/pull/3066) Quickfix for unknown SharingTypes
+  - [android#3100](https://github.com/nextcloud/android/pull/3100) Base uri was retrieved too early
+  - [android#3154](https://github.com/nextcloud/android/pull/3154) Notification: move client creation to thread
+  - [android#3172](https://github.com/nextcloud/android/pull/3172) Create a task for each button
+  - [android#3195](https://github.com/nextcloud/android/pull/3195) Use another svg as source for talk icon. previous got corrupted on 6.0
 
 ## 3.3.0 (September, 19, 2018)
 - Support for Trashbin (Nc14+)
