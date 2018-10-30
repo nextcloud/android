@@ -144,8 +144,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.owncloud.android.db.PreferenceManager.getSortOrder;
-
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
@@ -890,7 +888,7 @@ public class FileDisplayActivity extends HookActivity
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, getListOfFilesFragment().getCurrentFile()));
+                    PreferenceManager.getSortOrderByFolder(this, getListOfFilesFragment().getCurrentFile()));
                 mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;

@@ -36,6 +36,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.resources.files.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -52,8 +53,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
  * Presenting trashbin data, received from presenter
@@ -164,7 +163,8 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, null));
+                    PreferenceManager.getSortOrderByType(this, FileSortOrder.Type.trashBinView,
+                        FileSortOrder.sort_new_to_old));
                 mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;
@@ -276,7 +276,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     @Override
     public void showError(int message) {
         swipeListRefreshLayout.setRefreshing(false);
-        
+
         if (emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
             emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
