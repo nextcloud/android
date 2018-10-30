@@ -206,7 +206,7 @@ Attention la suppression est irréversible.</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -215,7 +215,7 @@ Attention la suppression est irréversible.</string>
     <string name="pass_code_wrong">Code de sécurité incorrect</string>
     <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
-    
+
     <string name="media_notif_ticker">Lecteur de musique %1$s</string>
     <string name="media_state_playing">%1$s (lecture)</string>
     <string name="media_state_loading">%1$s (chargement)</string>
@@ -295,10 +295,10 @@ Attention la suppression est irréversible.</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
-    
+
     <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string>
     <string name="oauth_login_connection">Connexion au serveur OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">L\'identité du serveur n\'a pas pu être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
@@ -711,7 +711,7 @@ Veuillez contacter votre administrateur</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
     <string name="notification_channel_file_observer_name">Explorateur de fichier</string>
     <string name="notification_channel_file_observer_description">Recherche des changements de fichiers</string>
-  
+
     <string name="account_not_found">Compte introuvable !</string>
 
     <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>
@@ -720,12 +720,12 @@ Veuillez contacter votre administrateur</string>
     <string name="screenshot_04_accounts">Connectez-vous avec plusieurs comptes</string>
     <string name="screenshot_05_autoUpload">Téléversez instantanément vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid">Synchroniser les contacts du calendrier &amp; avec DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Aucunes informations personnelles renseignées</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="account_icon">Icône du compte</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Ce dossier n\'est pas vide.</string>
     <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -814,5 +814,4 @@ Veuillez contacter votre administrateur</string>
     <string name="send_note">Envoyer la note au destinataire</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
     <string name="hint_note">Note</string>
-
-</resources>
+    </resources>

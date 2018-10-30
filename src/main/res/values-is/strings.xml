@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Rangur lykilkóði</string>
     <string name="pass_code_removed">Aðgangskóða eytt</string>
     <string name="pass_code_stored">Geymdi lykilkóða</string>
-    
+
     <string name="media_notif_ticker">%1$s tónlistarspilari</string>
     <string name="media_state_playing">%1$s (í spilun)</string>
     <string name="media_state_loading">%1$s (hleðst)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
     <string name="activity_chooser_title">Senda tengil til…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
-    
+
     <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string>
     <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>
-        
+
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
     <string name="ssl_validator_reason_cert_expired">- Skilríki þjónsins er útrunnið</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Sýnir framvindu og niðurstöður samstillingar skráa</string>
     <string name="notification_channel_file_observer_name">Skráavöktun</string>
     <string name="notification_channel_file_observer_description">Fylgist með breytingum á skrám</string>
-  
+
     <string name="account_not_found">Notandaaðgangur fannst ekki!</string>
 
     <string name="screenshot_01_gridView">Öruggur staður fyrir öll gögnin þín</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Tengstu mismunandi notandaaðgöngum</string>
     <string name="screenshot_05_autoUpload">Sjálfvirk innsending mynda &amp; myndskeiða</string>
     <string name="screenshot_06_davdroid">Samstilltu dagatal &amp; tengiliði með DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Engar persónulegar upplýsingar stilltar</string>
     <string name="userinfo_no_info_text">Bættu nafni, mynd og tengiliðaupplýsingum á forsíðuna þína.</string>
     <string name="drawer_header_background">Bakgrunnsmynd á haus hliðarspjalds</string>
     <string name="account_icon">Táknmynd fyrir notandaaðgang</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Þessi mappa er ekki tóm.</string>
     <string name="end_to_end_encryption_wrong_password">Villa kom upp við afkóðun. Rangt lykilorð?</string>
     <string name="end_to_end_encryption_decrypting">Afkóða…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Senda minnispunkt til viðtakanda</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
     <string name="hint_note">Minnispunktur</string>
-
-</resources>
+    </resources>

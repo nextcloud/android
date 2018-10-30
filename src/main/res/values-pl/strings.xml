@@ -208,7 +208,7 @@
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>
@@ -217,7 +217,7 @@
     <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
     <string name="pass_code_removed">Kod PIN został usunięty</string>
     <string name="pass_code_stored">Kod PIN został zapisany</string>
-    
+
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
     <string name="media_state_playing">%1$s (odtwarzanie)</string>
     <string name="media_state_loading">%1$s (ładowanie)</string>
@@ -297,10 +297,10 @@
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
-    
+
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
     <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości serwera</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -720,7 +720,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
     <string name="notification_channel_file_observer_name">Obserwator plików</string>
     <string name="notification_channel_file_observer_description">Obserwuje zmiany w plikach</string>
-  
+
     <string name="account_not_found">Nie znaleziono konta</string>
 
     <string name="screenshot_01_gridView">Bezpieczny dom dla wszystkich danych</string>
@@ -729,12 +729,12 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="screenshot_04_accounts">Podłącz się do innego konta</string>
     <string name="screenshot_05_autoUpload">Automatycznie wysyłaj zdjęcia i obrazy.</string>
     <string name="screenshot_06_davdroid">Synchronizuj kalnedarz i kontakty z DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="drawer_header_background">Tło nagłówka menu rozwijanego</string>
     <string name="account_icon">Ikona konta</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty</string>
     <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>

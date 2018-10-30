@@ -207,7 +207,7 @@
     <string name="pass_code_enter_pass_code">נא להקליד את מילת הצופן שלך</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
-    
+
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
     <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -216,7 +216,7 @@
     <string name="pass_code_wrong">קוד שגוי</string>
     <string name="pass_code_removed">מילת צופן נמחקה</string>
     <string name="pass_code_stored">הקוד נשמר</string>
-    
+
     <string name="media_notif_ticker">נגן מוזיקה %1$s</string>
     <string name="media_state_playing">%1$s (מתגנן)</string>
     <string name="media_state_loading">%1$s (בטעינה)</string>
@@ -296,10 +296,10 @@
     <string name="filedisplay_no_file_selected">לא נבחר קובץ</string>
     <string name="activity_chooser_title">שליחת קישור אל…</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
-    
+
     <string name="oauth_check_onoff">כניסה עם OAuth 2.0</string>
     <string name="oauth_login_connection">התחברות אל שרת oAuth2…</string>
-        
+
     <string name="ssl_validator_header">לא ניתן לאמת את זהות השרת</string>
     <string name="ssl_validator_reason_cert_not_trusted">- תעודת השרת אינה מהימנה</string>
     <string name="ssl_validator_reason_cert_expired">- תוקף תעודת השרת פג</string>
@@ -704,7 +704,7 @@
     <string name="notification_channel_file_sync_description">הצגת תהליך סנכרון קבצים ותוצאות</string>
     <string name="notification_channel_file_observer_name">משגיח קבצים</string>
     <string name="notification_channel_file_observer_description">מעקב אחר שינויים בקבצים</string>
-  
+
     <string name="account_not_found">החשבון לא נמצא!</string>
 
     <string name="screenshot_01_gridView">בית בטוח לכל הנתונים שלך</string>
@@ -713,12 +713,12 @@
     <string name="screenshot_04_accounts">התחברות לחשבונות אחרים</string>
     <string name="screenshot_05_autoUpload">העלאת התמונות והסרטונים שלך אוטומטית</string>
     <string name="screenshot_06_davdroid">סנכרון לוח שנה ואנשי קשר עם DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">לא הוגדרו פרטים אישיים</string>
     <string name="userinfo_no_info_text">הוספת שם, תמונה ופרטי קשר לעמוד הפרופיל שלך.</string>
     <string name="drawer_header_background">תמונת רקע של כותרת מגירה</string>
     <string name="account_icon">סמל חשבון</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">התיקייה הזאת אינה ריקה</string>
     <string name="end_to_end_encryption_wrong_password">ההצפנה נכשלה. ססמה שגויה?</string>
     <string name="end_to_end_encryption_decrypting">מתבצע פענוח…</string>

@@ -149,7 +149,7 @@
     <string name="pass_code_mismatch">Los códigos de seguridad no son iguales</string>
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
-    
+
     <string name="media_err_nothing_to_play">No se encontró el archivo</string>
     <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida</string>
     <string name="media_err_unsupported">Codec no soportado</string>
@@ -198,7 +198,7 @@
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    
+
     <string name="oauth_check_onoff">Iniciando sesión con OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>

@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Onjuiste toegangscode</string>
     <string name="pass_code_removed">Toegangscode verwijderd</string>
     <string name="pass_code_stored">Toegangscode opgeslagen</string>
-    
+
     <string name="media_notif_ticker">%1$s muziekspeler</string>
     <string name="media_state_playing">%1$s (speelt)</string>
     <string name="media_state_loading">%1$s (laden)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
-    
+
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
     <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>
-        
+
     <string name="ssl_validator_header">De identiteit van de server kon niet geverifieerd worden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
     <string name="notification_channel_file_observer_name">Bestand waarnemer</string>
     <string name="notification_channel_file_observer_description">Hou bestands veranderingen bij</string>
-  
+
     <string name="account_not_found">Account niet gevonden!</string>
 
     <string name="screenshot_01_gridView">Een veilige plek voor al je data</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp; video\'s uploaden</string>
     <string name="screenshot_06_davdroid">Synchroniseer agenda &amp; contactpersonen met DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>
     <string name="account_icon">Account icoon</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Stuur notitie aan ontvanger</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
     <string name="hint_note">Notitie</string>
-
-</resources>
+    </resources>

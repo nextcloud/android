@@ -199,7 +199,7 @@
     <string name="pass_code_wrong">암호가 잘못됨</string>
     <string name="pass_code_removed">암호 삭제됨</string>
     <string name="pass_code_stored">암호 저장됨</string>
-    
+
     <string name="media_notif_ticker">%1$s 음악 재생기</string>
     <string name="media_state_playing">%1$s(재생 중)</string>
     <string name="media_state_loading">%1$s(불러오는 중)</string>
@@ -276,10 +276,10 @@
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
     <string name="activity_chooser_title">다음으로 링크 보내기…</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
-    
+
     <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string>
     <string name="oauth_login_connection">OAuth 2.0 서버에 연결 중…</string>
-        
+
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_expired">- 서버 인증서가 만료되었습니다</string>
@@ -663,7 +663,7 @@
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
     <string name="notification_channel_file_observer_name">파일 관찰자</string>
     <string name="notification_channel_file_observer_description">파일 변경 사항 감시</string>
-  
+
     <string name="account_not_found">계정을 찾을 수 없습니다!</string>
 
     <string name="screenshot_01_gridView">내 모든 데이터를 위한 안전한 저장소</string>
@@ -672,12 +672,12 @@
     <string name="screenshot_04_accounts">다른 계정에 연결하기</string>
     <string name="screenshot_05_autoUpload">내 사진과 동영상 자동 업로드</string>
     <string name="screenshot_06_davdroid">DAVdroid를 통한 달력 및 연락처 동기화</string>
-    
+
     <string name="userinfo_no_info_headline">개인 정보 설정되지 않음</string>
     <string name="userinfo_no_info_text">프로필 페이지에 이름, 사진, 연락처를 추가하십시오.</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="account_icon">계정 아이콘</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>

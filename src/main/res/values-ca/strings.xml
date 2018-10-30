@@ -177,7 +177,7 @@
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
     <string name="pass_code_removed">S\'ha eliminat el codi d\'accés</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
-    
+
     <string name="media_notif_ticker">%1$s reproductor de música</string>
     <string name="media_state_playing">%1$s (sonant)</string>
     <string name="media_state_loading">%1$s (carregant)</string>
@@ -241,7 +241,7 @@
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>
-    
+
     <string name="oauth_check_onoff">Inicieu sessió amb OAuth 2.0</string>
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del servidor</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>

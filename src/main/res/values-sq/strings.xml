@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Ju lutemi, futni kodkalimin tuaj</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kodkalimi do të kërkohet sa herë që niset aplikacioni</string>
     <string name="pass_code_reenter_your_pass_code">Ju lutemi, rifutni kodkalimin tuaj</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Kodkalim i pasaktë</string>
     <string name="pass_code_removed">Kodkalimi u hoq</string>
     <string name="pass_code_stored">Kodkalimi u depozitua</string>
-    
+
     <string name="media_notif_ticker">Lojtësi %1$s i muzikës</string>
     <string name="media_state_playing">%1$s (po luhet)</string>
     <string name="media_state_loading">%1$s (po ngarkohet)</string>
@@ -294,10 +294,10 @@
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
-    
+
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
     <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Tregon progresin e sinkronizimit të skedarëve dhe rezultatin</string>
     <string name="notification_channel_file_observer_name">Vëzhguesi i skedarëve</string>
     <string name="notification_channel_file_observer_description">Monitoron skedarët për ndryshime</string>
-  
+
     <string name="account_not_found">Llogaria nuk u gjet!</string>
 
     <string name="screenshot_01_gridView">Një shtëpi e sigurt për të dhënat e tua</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Lidhuni me llogari të ndryshme</string>
     <string name="screenshot_05_autoUpload">Ngarko automatikisht fotot &amp;videot</string>
     <string name="screenshot_06_davdroid">Sinkronizo kalendarin &amp;kontaktet me DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Nuk është vendosur asnjë info personale</string>
     <string name="userinfo_no_info_text">Shto emër, foto dhe detajet e kontaktit në faqen tuaj të profilit.</string>
     <string name="drawer_header_background">Imazhi në background i drawer header</string>
     <string name="account_icon">Ikona e llogarisë</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Ky skedar nuk është bosh.</string>
     <string name="end_to_end_encryption_wrong_password">Ndoshi një gabim gjatë dekriptimit. Fjalëkalimi i gabuar?</string>
     <string name="end_to_end_encryption_decrypting">Duke dekriptuar…</string>

@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="credentials_disabled">Credentials disabled</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Incorrect passcode</string>
     <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
-    
+
     <string name="media_notif_ticker">%1$s music player</string>
     <string name="media_state_playing">%1$s (playing)</string>
     <string name="media_state_loading">%1$s (loading)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
-    
+
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
     <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
-        
+
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
     <string name="notification_channel_file_observer_name">File observer</string>
     <string name="notification_channel_file_observer_description">Monitors files for changes</string>
-  
+
     <string name="account_not_found">Account not found!</string>
 
     <string name="screenshot_01_gridView">A safe home for all your data</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
     <string name="screenshot_06_davdroid">Sync calendar &amp; contacts with DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Send note to recipient</string>
     <string name="note_could_not_sent">Could not send note</string>
     <string name="hint_note">Note</string>
-
-</resources>
+    </resources>

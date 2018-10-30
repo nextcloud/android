@@ -185,7 +185,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="pass_code_mismatch">Passcode\'erne er ikke ens</string>
     <string name="pass_code_wrong">Ukorrekt passcode</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
-    
+
     <string name="media_notif_ticker">%1$s musik afspiller</string>
     <string name="media_state_playing">%1$s (afspiller)</string>
     <string name="media_state_loading">%1$s (loader)</string>
@@ -234,7 +234,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
-    
+
     <string name="oauth_check_onoff">Log ind med OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>

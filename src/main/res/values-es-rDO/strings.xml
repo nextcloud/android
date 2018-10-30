@@ -197,7 +197,7 @@
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
     <string name="pass_code_removed">Código de seguirdad eliminado</string>
     <string name="pass_code_stored">Código de seguridad almacenado</string>
-    
+
     <string name="media_notif_ticker">Reproductor de músca %1$s</string>
     <string name="media_state_playing">%1$s (reproduciendo)</string>
     <string name="media_state_loading">%1$s (cargando)</string>
@@ -271,10 +271,10 @@
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="activity_chooser_title">Enviar liga a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    
+
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando al servidor de OAuth2.0…</string>
-        
+
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -650,7 +650,7 @@
     <string name="notification_channel_file_sync_description">Muestra el progreso de la sincronización de archivos y los resultados</string>
     <string name="notification_channel_file_observer_name">Observador de archivos</string>
     <string name="notification_channel_file_observer_description">Monitorear cambios en los archivos</string>
-  
+
     <string name="account_not_found">¡No se encontró la cuenta!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para todos tus datos</string>
@@ -659,12 +659,12 @@
     <string name="screenshot_04_accounts">Conectarse a diferentes cuentas</string>
     <string name="screenshot_05_autoUpload">Carga automáticamente tus fotos &amp; videos</string>
     <string name="screenshot_06_davdroid">Sincronizar calendario &amp; contactos con DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">No se ha establecido la información personal </string>
     <string name="userinfo_no_info_text">Agrega tu nombre, una imagen y detalles de contacto en tu página de perfil. </string>
     <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
     <string name="account_icon">Ícono de la cuenta</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_wrong_password">Se presentó un error al decriptar. ¿Contraseña equivocada?</string>
     <string name="end_to_end_encryption_decrypting">Decriptando…</string>

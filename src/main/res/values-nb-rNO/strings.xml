@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
     <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang programmet startes</string>
     <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Feil passord</string>
     <string name="pass_code_removed">Passkode slettet</string>
     <string name="pass_code_stored">Passord lagret</string>
-    
+
     <string name="media_notif_ticker">%1$s musikkspiller</string>
     <string name="media_state_playing">%1$s (spiller)</string>
     <string name="media_state_loading">%1$s (laster)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
-    
+
     <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
     <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener…</string>
-        
+
     <string name="ssl_validator_header">Tjenerens identitet kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
@@ -725,7 +725,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
     <string name="notification_channel_file_observer_name">Filobservatør</string>
     <string name="notification_channel_file_observer_description">Sjekker filer for endringer</string>
-  
+
     <string name="account_not_found">Konto ble ikke funnet!</string>
 
     <string name="screenshot_01_gridView">Et trygt hjem for alle data</string>
@@ -734,12 +734,12 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
     <string name="screenshot_05_autoUpload">Last opp bilder og videoer automatisk</string>
     <string name="screenshot_06_davdroid">Synkroniser kalender og kontakter med DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på profilsiden.</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
     <string name="account_icon">Kontoikon</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_wrong_password">Feil under dekryptering. Feil passord?</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>

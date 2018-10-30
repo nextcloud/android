@@ -208,7 +208,7 @@
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
     <string name="pass_code_configure_your_pass_code_explanation">Heslo bude nutné zadať vždy po štarte aplikácie</string>
     <string name="pass_code_reenter_your_pass_code">Vložte prosím znovu svoje heslo</string>
@@ -217,7 +217,7 @@
     <string name="pass_code_wrong">Nesprávne heslo</string>
     <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
-    
+
     <string name="media_notif_ticker">Hudobný prehrávač %1$s</string>
     <string name="media_state_playing">%1$s (prehráva sa)</string>
     <string name="media_state_loading">%1$s (načítava sa)</string>
@@ -297,10 +297,10 @@
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
     <string name="activity_chooser_title">Odoslať odkaz…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
-    
+
     <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
     <string name="oauth_login_connection">Pripájam sa na OAuth 2.0 server…</string>
-        
+
     <string name="ssl_validator_header">Identu servra nemožno overiť</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
@@ -663,6 +663,8 @@
     <string name="resized_images_download_full_image">Stiahnuť pôvodný obrázok?</string>
 
     <string name="store_short_desc">Aplikácia Nextcloud pre Android vám umožňuje pristupovať k súborom na vašom Nextcloud serveri.</string>
+    <string name="store_full_desc">Slobodná (copyleft) aplikácia Nextclodu pre Android, poskytujúca mobilnú slobodu.\n\nFunkcie:\n* Jednoducho použiteľné moderné rozhranie, hodiace sa k vzhľadu vášho servera\n* Nahrávanie súborov na Nextcloud server\n* Ich sprístupnenie s inými ľudmi\n* Synchronizácia vašich obľúbených súborov a priečinkov\n* Vyhľadávanie naprieč všetkými zložkami na serveri\n* Automatické nahrávanie fotiek a videí nasnímaných vašim zariadením\n* Doručovanie notifikácií\n* Podpora viac účtov naraz\n* Zabezpečený prístup k vašim dátam pomocou odtlačku prstu alebo kódom PIN\n* Začlenenie DAVdroid pre jednoduchý prístup ku kalendáru &amp; synchronizácii kontaktov\n\nAkékoľvek problémy prosím hláste na https://github.com/nextcloud/android/issues a o aplikácii môžete diskutovať na https://help.nextcloud.com/c/clients/android\n\nNepoznáte ešte Nextcloud? Nextcloud je server pre súkromnú synchronizáciu súborov &amp;, zdieľanie a komunikáciu. Je to slobodný softvér a môžete si ho prevádzkovať buď sami alebo si ho prenajímať od nejakej spoločnosti. Týmto spôsobom získate plnú vládu nad svojimi fotkami, údajom v kalendári a kontaktoch, dokumentom a všetkým ostatným.\n\nViac zistíte na https://nextcloud.com</string>
+
     <string name="drawer_current_account">Aktuálny účet</string>
     <string name="drawer_middle_account">Stredný účet</string>
     <string name="drawer_end_account">Posledný účet</string>
@@ -688,9 +690,14 @@
     <string name="sync_status_button">Tlačidlo stavu synchronizácie</string>
     <string name="synced_folder_settings_button">Tlačidlo nastavenia</string>
     <string name="synced_folder_custom_folder_image">Vlastný obrázok priečinku</string>
+    <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
     <string name="forward">Preposlať</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
 
+    <string name="store_short_dev_desc">Aplikácia Nextcloud Dev je ukážkou stavu vývoja a môže byť nainštalovaná paralelne.</string>
+    <string name="store_full_dev_desc">Slobodná (copyleft) aplikácia Nextcloud pre Android vám dáva mobilnú slobodu.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
+
+    <string name="prefs_category_dev">Vývojové</string>
     <string name="dev_version_no_information_available">Nie sú dostupné žiadne informácie.</string>
     <string name="dev_version_no_new_version_available">Nová verzia nie je dostupná.</string>
     <string name="folder_icon">Ikona priečinku</string>
@@ -701,10 +708,17 @@
     <string name="share">Zdieľať</string>
     <string name="link">Odkaz</string>
 
+    <string name="notification_channel_upload_name">Kanál oznámení o nahratí</string>
+    <string name="notification_channel_download_name">Kanál oznámení o stiahnutí</string>
+    <string name="notification_channel_download_description">Zobrazuje postup sťahovania</string>
+    <string name="notification_channel_upload_description">Zobrazuje postup nahrávania</string>
     <string name="notification_channel_media_name">Prehrávač médií</string>
+    <string name="notification_channel_media_description">Priebeh prehrávača hudby</string>
+    <string name="notification_channel_file_sync_name">Synchronizácia súborov</string>
     <string name="notification_channel_file_sync_description">Zobrazuje progres a výsledok synchronizácie súborov</string>
+    <string name="notification_channel_file_observer_name">Pozorovanie súborov</string>
     <string name="notification_channel_file_observer_description">Sleduje zmeny v súboroch</string>
-  
+
     <string name="account_not_found">Účet sa nenašiel!</string>
 
     <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
@@ -713,11 +727,12 @@
     <string name="screenshot_04_accounts">Pripojenia k rôznym účtom</string>
     <string name="screenshot_05_autoUpload">Automaticky nahraj svoje fotky &amp; videá</string>
     <string name="screenshot_06_davdroid">Synchronizuj kalendár &amp; kontakty pomocou DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Osobné informácie neboli nastavené</string>
     <string name="userinfo_no_info_text">Pridaj meno, obrázok a kontakt na profilovú stránku.</string>
+    <string name="drawer_header_background">Obrázok na pozadí hlavičky panela</string>
     <string name="account_icon">Ikona účtu</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba pri dešifrovaní.  Nesprávne heslo?</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
@@ -740,6 +755,8 @@
     <string name="notification_channel_push_description">Zobraz push notifikácie posielané servrom:  spomenutie mena v komentároch, nové zdieľanie zo vzdialeného servra, oznámenia od administrátora, atď.</string>
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresa end-pointu overovania</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresa end-pointu prístupu</string>
     <string name="hint_name">Meno</string>
     <string name="hint_password">Heslo</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
@@ -748,8 +765,12 @@
     <string name="create_new_folder">Vytvoriť nový priečinok</string>
     <string name="uploads_view_upload_status_virus_detected">Bol zistený víru.  Nahrávanie nebude ukončené!</string>
     <string name="tags">Štítky</string>
+    <string name="sharee_add_failed">Pridanie sprístupňujúceho sa nepodarilo</string>
     <string name="unsharing_failed">Zrušenie sprístupnenia neúspešné</string>
     <string name="updating_share_failed">Aktualizácia zdieľania neúspešná</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
+    <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>
+    <string name="whats_new_device_credentials_title">Použiť vnútornú ochranu zariadenia Android</string>
     <string name="login">Prihlásiť sa</string>
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="host_your_own_server">Hostiť vlastný server</string>
@@ -780,6 +801,9 @@
     <string name="trashbin_file_not_deleted">Súbor %1$s sa nedá vymazať!</string>
     <string name="trashbin_file_not_restored">Súbor %1$s sa nedá obnoviť!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
+    <string name="stream">Streamovať s...</string>
+    <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
+    <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
     <string name="folder_already_exists">Priečinok už existuje</string>
     <string name="notification_icon">Ikona notifikácie</string>
     <string name="folder_confirm_create">Vytvoriť</string>
@@ -792,4 +816,9 @@
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="permission_deny">Odmietnuť</string>
     <string name="permission_allow">Povoliť</string>
+    <string name="share_send_note">Poznámka pre príjemcu</string>
+    <string name="note_confirm">Odoslať</string>
+    <string name="send_note">Odoslať poznámku pre príjemcu</string>
+    <string name="note_could_not_sent">Nebolo možné odoslať poznámku</string>
+    <string name="hint_note">Poznámka</string>
     </resources>
