@@ -115,9 +115,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import static com.owncloud.android.db.PreferenceManager.getSortOrder;
-
-
 /**
  * This can be used to upload things to an ownCloud instance.
  */
@@ -170,7 +167,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (parentPath != null) {
                 mParents.addAll(Arrays.asList(parentPath.split("/")));
             }
-            
+
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
@@ -264,7 +261,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), 
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text),
                     getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, (dialog, which) -> {
@@ -653,7 +650,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         // filter on dirtype
         Vector<OCFile> files = new Vector<>();
         files.addAll(tmpFiles);
-        
+
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
@@ -800,7 +797,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (actionBar != null) {
                 actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
             }
-            
+
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
                 btnNewFolder.setOnClickListener(this);
 
@@ -857,7 +854,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private List<OCFile> sortFileList(List<OCFile> files) {
-        FileSortOrder sortOrder = getSortOrder(this, mFile);
+        FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(this, mFile);
         return sortOrder.sortCloudFiles(files);
     }
 
@@ -1079,7 +1076,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 break;
             case R.id.action_sort:
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, mFile));
+                    PreferenceManager.getSortOrderByFolder(this, mFile));
                 mSortingOrderDialogFragment.show(getSupportFragmentManager(),
                         SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
                 break;

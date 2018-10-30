@@ -70,9 +70,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.owncloud.android.db.PreferenceManager.getSortOrder;
-
-
 /**
  * Displays local files and let the user choose what of them wants to upload
  * to the current ownCloud account.
@@ -143,12 +140,12 @@ public class UploadFilesActivity extends FileActivity implements
                 mCurrentDir = Environment.getExternalStorageDirectory();
             }
         }
-        
+
         mAccountOnCreation = getAccount();
-                
+
         /// USER INTERFACE
-            
-        // Drop-down navigation 
+
+        // Drop-down navigation
         mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
         File currDir = mCurrentDir;
         while(currDir != null && currDir.getParentFile() != null) {
@@ -167,7 +164,7 @@ public class UploadFilesActivity extends FileActivity implements
         }
 
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
-        
+
         // Set input controllers
         findViewById(R.id.upload_files_btn_cancel).setOnClickListener(this);
 
@@ -194,7 +191,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         // setup the toolbar
         setupToolbar();
-            
+
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
@@ -215,7 +212,7 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
         }
-            
+
         Log_OC.d(TAG, "onCreate() end");
     }
 
@@ -266,7 +263,7 @@ public class UploadFilesActivity extends FileActivity implements
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if(mCurrentDir != null && mCurrentDir.getParentFile() != null){
-                    onBackPressed(); 
+                    onBackPressed();
                 }
                 break;
             }
@@ -283,7 +280,7 @@ public class UploadFilesActivity extends FileActivity implements
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, null));
+                    PreferenceManager.getSortOrderByType(this, FileSortOrder.Type.uploadFilesView));
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
                 break;
@@ -311,15 +308,15 @@ public class UploadFilesActivity extends FileActivity implements
     public void onSortingOrderChosen(FileSortOrder selection) {
         mFileListFragment.sortFiles(selection);
     }
-    
+
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         int i = itemPosition;
         while (i-- != 0) {
             onBackPressed();
         }
-        // the next operation triggers a new call to this method, but it's necessary to 
-        // ensure that the name exposed in the action bar is the current directory when the 
+        // the next operation triggers a new call to this method, but it's necessary to
+        // ensure that the name exposed in the action bar is the current directory when the
         // user selected it in the navigation list
         if (itemPosition != 0) {
             getSupportActionBar().setSelectedNavigationItem(0);
@@ -335,7 +332,7 @@ public class UploadFilesActivity extends FileActivity implements
             return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
         }
     }
-    
+
     @Override
     public void onBackPressed() {
         if (isSearchOpen() && mSearchView != null) {
@@ -365,7 +362,7 @@ public class UploadFilesActivity extends FileActivity implements
             }
         }
     }
-    
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
@@ -417,7 +414,7 @@ public class UploadFilesActivity extends FileActivity implements
      * Custom array adapter to override text colors
      */
     private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
-    
+
         public CustomArrayAdapter(UploadFilesActivity ctx, int view) {
             super(ctx, view);
         }
@@ -433,13 +430,13 @@ public class UploadFilesActivity extends FileActivity implements
             ((TextView) v).setTextColor(colorStateList);
             return v;
         }
-    
+
         public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
             View v = super.getDropDownView(position, convertView, parent);
-    
+
             ((TextView) v).setTextColor(getResources().getColorStateList(
                     android.R.color.white));
-    
+
             return v;
         }
     }
@@ -467,7 +464,7 @@ public class UploadFilesActivity extends FileActivity implements
     public void onFileClick(File file) {
         // nothing to do
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -486,8 +483,8 @@ public class UploadFilesActivity extends FileActivity implements
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
-     * 
-     * TODO Make here the real request to the Upload service ; will require to receive the account and 
+     *
+     * TODO Make here the real request to the Upload service ; will require to receive the account and
      * target folder where the upload must be done in the received intent.
      */
     @Override
@@ -516,7 +513,7 @@ public class UploadFilesActivity extends FileActivity implements
     /**
      * Asynchronous task checking if there is space enough to copy all the files chosen
      * to upload into the ownCloud local folder.
-     * 
+     *
      * Maybe an AsyncTask is not strictly necessary, but who really knows.
      */
     private class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
@@ -567,7 +564,7 @@ public class UploadFilesActivity extends FileActivity implements
                 mCurrentDialog.dismiss();
                 mCurrentDialog = null;
             }
-            
+
             if (result) {
                 // return the list of selected files (success)
                 Intent data = new Intent();
@@ -639,7 +636,7 @@ public class UploadFilesActivity extends FileActivity implements
                 setResult(RESULT_CANCELED);
                 finish();
             }
-            
+
         } else {
             setResult(RESULT_CANCELED);
             finish();

@@ -529,7 +529,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                 mFiles = filterHiddenFiles(mFiles);
             }
-            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, directory);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
@@ -573,7 +573,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, folder);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
             mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
@@ -764,7 +764,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
-                FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, null);
+                FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, currentDirectory);
                 mFiles = sortOrder.sortCloudFiles(mFiles);
             }
 
