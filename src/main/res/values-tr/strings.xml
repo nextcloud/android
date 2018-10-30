@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
     <string name="default_credentials_wrong">Kimlik doğrulama bilgileri hatalı</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola uygulama her başlatıldığında sorulacak</string>
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Parola yanlış</string>
     <string name="pass_code_removed">Parola silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
-    
+
     <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
     <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="media_state_loading">%1$s (yükleniyor)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
     <string name="activity_chooser_title">Bağlantıyı gönder…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
-    
+
     <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string>
     <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>
-        
+
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi dolmuş</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
     <string name="notification_channel_file_observer_name">Dosya izleyici</string>
     <string name="notification_channel_file_observer_description">Dosyalardaki değişiklikleri izler</string>
-  
+
     <string name="account_not_found">Hesap bulunamadı!</string>
 
     <string name="screenshot_01_gridView">Verileriniz için güvenli bir yer!</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Farklı hesaplara bağlanın</string>
     <string name="screenshot_05_autoUpload">Fotoğraf ve görüntülerinizi otomatik olarak yükleyin</string>
     <string name="screenshot_06_davdroid">DAVdroid ile Takvim ve Kişileri eşitleme</string>
-    
+
     <string name="userinfo_no_info_headline">Herhangi bir kişisel bilgi ayarlanmamış</string>
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>
     <string name="account_icon">Hesap simgesi</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Alıcıya not gönder</string>
     <string name="note_could_not_sent">Not gönderilemedi</string>
     <string name="hint_note">Not</string>
-
-</resources>
+    </resources>

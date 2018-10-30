@@ -196,7 +196,7 @@
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     <string name="credentials_disabled">資格情報が無効です</string>
-    
+
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
     <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
@@ -205,7 +205,7 @@
     <string name="pass_code_wrong">パスコードが正しくありません</string>
     <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
-    
+
     <string name="media_notif_ticker">%1$s ミュージックプレイヤー</string>
     <string name="media_state_playing">%1$s (再生中)</string>
     <string name="media_state_loading">%1$s (読み込み中)</string>
@@ -284,10 +284,10 @@
     <string name="filedisplay_no_file_selected">ファイル未選択</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
-    
+
     <string name="oauth_check_onoff">OAuth 2.0でログインする</string>
     <string name="oauth_login_connection">OAuth 2.0サーバーに接続中…</string>
-        
+
     <string name="ssl_validator_header">サーバーIDを確認できません</string>
     <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_expired">- サーバー証明書が有効期限切れです</string>

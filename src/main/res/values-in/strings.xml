@@ -171,7 +171,7 @@
     <string name="pass_code_mismatch">Kode sandi tidak sama</string>
     <string name="pass_code_wrong">Kode sandi salah</string>
     <string name="pass_code_stored">Kode sandi disimpan</string>
-    
+
     <string name="media_notif_ticker">Pemutar musik %1$s</string>
     <string name="media_state_playing">%1$s (dimainkan)</string>
     <string name="media_state_loading">%1$s (sedang dimuat)</string>
@@ -232,10 +232,10 @@
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
     <string name="activity_chooser_title">Kirim taukan ke…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
-    
+
     <string name="oauth_check_onoff">Masuk dengan 2.0</string>
     <string name="oauth_login_connection">Menyambungkan ke server OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_reason_cert_not_trusted">- Sertifikat server tidak terpercaya</string>
     <string name="ssl_validator_reason_cert_expired">- Sertifikat server kadaluarsa</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tanggal sertifikat server yang valid adalah di masa depan</string>

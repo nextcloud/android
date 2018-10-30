@@ -189,7 +189,7 @@
     <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação é iniciada</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
@@ -198,7 +198,7 @@
     <string name="pass_code_wrong">Código incorreto</string>
     <string name="pass_code_removed">Código eliminado</string>
     <string name="pass_code_stored">Código guardado</string>
-    
+
     <string name="media_notif_ticker">%1$s reprodutor de música</string>
     <string name="media_state_playing">%1$s (a reproduzir)</string>
     <string name="media_state_loading">%1$s (a carregar)</string>
@@ -257,9 +257,9 @@
     <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
     <string name="activity_chooser_title">Enviar ligação para…</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
-    
+
     <string name="oauth_login_connection">A ligar ao servidor OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>

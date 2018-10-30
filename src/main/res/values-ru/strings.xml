@@ -208,7 +208,7 @@
     <string name="pass_code_enter_pass_code">Введите ваш код</string>
     <string name="default_credentials_wrong">Неверные учётные данные</string>
     <string name="credentials_disabled">Учётная запись отключена</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Введите код</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
     <string name="pass_code_reenter_your_pass_code">Введите ваш код ещё раз</string>
@@ -217,7 +217,7 @@
     <string name="pass_code_wrong">Некорректный код</string>
     <string name="pass_code_removed">Код удалён</string>
     <string name="pass_code_stored">Код сохранён</string>
-    
+
     <string name="media_notif_ticker">%1$s аудиоплеер</string>
     <string name="media_state_playing">%1$s (проигрывается)</string>
     <string name="media_state_loading">%1$s (загружается)</string>
@@ -297,10 +297,10 @@
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
-    
+
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string>
     <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">Не удалось проверить подлинность сервера</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
@@ -718,7 +718,7 @@
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
     <string name="notification_channel_file_observer_name">Обозреватель файлов</string>
     <string name="notification_channel_file_observer_description">Отслеживание изменений файлов</string>
-  
+
     <string name="account_not_found">Учётная запись не найдена!</string>
 
     <string name="screenshot_01_gridView">Надёжный дом для всех ваших данных</string>
@@ -727,12 +727,12 @@
     <string name="screenshot_04_accounts">Соединение с несколькими учётными записями</string>
     <string name="screenshot_05_autoUpload">Автоматическая передача фотографий &amp;видео</string>
     <string name="screenshot_06_davdroid">Синхронизация календаря и контактов с использованием используя приложения DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Личная информация не указана</string>
     <string name="userinfo_no_info_text">На странице профиля укажите своё имя, добавьте изображение и подробные сведения</string>
     <string name="drawer_header_background">Фоновое изображение заголовка</string>
     <string name="account_icon">Значок учётной записи</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Эта папка не пуста.</string>
     <string name="end_to_end_encryption_wrong_password">Ошибка расшифровывания. Неверный пароль?</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>

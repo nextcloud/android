@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Por favor introduzca su código de acceso</string>
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
     <string name="pass_code_configure_your_pass_code_explanation">Se solicitará el código de acceso cada vez que se inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelve a introducir tu código de acceso</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
-    
+
     <string name="media_notif_ticker">Reproductor de música %1$s</string>
     <string name="media_state_playing">%1$s (reproduciendo)</string>
     <string name="media_state_loading">%1$s (cargando)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">No hay archivos seleccionados</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
-    
+
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando al servidor OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha expirado</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
     <string name="notification_channel_file_observer_name">Observador de archivos</string>
     <string name="notification_channel_file_observer_description">Monitorea los cambios en archivos</string>
-  
+
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Conectarse a cuentas diferentes</string>
     <string name="screenshot_05_autoUpload">Sube automáticamente tus fotos y vídeos</string>
     <string name="screenshot_06_davdroid">Sincroniza tu calendario y tus contactos con DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">No se ha configurado la información personal</string>
     <string name="userinfo_no_info_text">Añade tu nombre, imagen y detalles de contacto en tu página de perfil.</string>
     <string name="drawer_header_background">Imagen de fondo de la cabecera del cajón</string>
     <string name="account_icon">Icono de la cuenta</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
@@ -806,4 +806,9 @@
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
     <string name="permission_deny">Denegar</string>
     <string name="permission_allow">Permitir</string>
+    <string name="share_send_note">Nota para el destinatario</string>
+    <string name="note_confirm">Enviar</string>
+    <string name="send_note">Enviar nota al destinatario</string>
+    <string name="note_could_not_sent">No se puede enviar la nota</string>
+    <string name="hint_note">Nota</string>
     </resources>

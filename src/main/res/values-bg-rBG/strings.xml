@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="credentials_disabled">Потребителските данни са спрени</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведете кода за достъп отново</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Грешен код</string>
     <string name="pass_code_removed">Кодът за достъп е изтрит</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
-    
+
     <string name="media_notif_ticker">%1$s музикален плеър</string>
     <string name="media_state_playing">%1$s (възпроизвеждане)</string>
     <string name="media_state_loading">%1$s (се зарежда)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
     <string name="activity_chooser_title">Изпращане на връзка чрез…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
-    
+
     <string name="oauth_check_onoff">Вписване с OAuto 2.0</string>
     <string name="oauth_login_connection">Свързване към OAuth 2.0 сървър...</string>
-        
+
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е доверен</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>

@@ -189,7 +189,7 @@
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
     <string name="pass_code_configure_your_pass_code_explanation">Ο κωδικός πρόσβασης θα ζητείται κάθε φορά που εκκινεί η εφαρμογή</string>
     <string name="pass_code_reenter_your_pass_code">Παρακαλούμε εισάγετε ξανά τον κωδικό πρόσβασης</string>
@@ -198,7 +198,7 @@
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
     <string name="pass_code_removed">Διεγράφη ο κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
-    
+
     <string name="media_notif_ticker">%1$sαναπαραγωγή μουσικής</string>
     <string name="media_state_playing">%1$s(αναπαραγωγή)</string>
     <string name="media_state_loading">%1$s(φόρτωση)</string>
@@ -264,10 +264,10 @@
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
-    
+
     <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string>
     <string name="oauth_login_connection">Σύνδεση στον διακομιστή OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Οι έγκυρες ημερομηνίες του πιστοποιητικού του διακομιστή είναι στο μέλλον</string>
@@ -637,7 +637,7 @@
     <string name="screenshot_01_gridView">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
     <string name="userinfo_no_info_headline">Δεν ορίστηκαν προσωπικές πληροφορίες</string>
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_wrong_password">Σφάλμα κατά την αποκρυπτογράφηση. Εσφαλμένο συνθηματικό;</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>

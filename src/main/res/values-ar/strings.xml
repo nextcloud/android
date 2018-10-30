@@ -167,7 +167,7 @@
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
     <string name="pass_code_removed">تمت إزالة الرمز السري</string>
     <string name="pass_code_stored">رمز المرور المخزنة</string>
-    
+
     <string name="media_state_loading">(جارٍ تحميل) %1$s</string>
     <string name="media_err_nothing_to_play">لا يوجد ملف وسائط</string>
     <string name="media_err_unsupported">ترميز غير مدعّم</string>
@@ -213,7 +213,7 @@
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
     <string name="activity_chooser_title">ارسل الرابط الى…</string>
     <string name="oauth_login_connection">الاتصال مع خادم oAuth2.0…</string>
-        
+
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
     <string name="ssl_validator_reason_cert_expired">شهادة الخادم منتهية الصلاحية</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
@@ -402,7 +402,7 @@
     <string name="notification_channel_file_sync_name">مزامنة الملفات</string>
     <string name="notification_channel_file_observer_name">مراقب الملفات</string>
     <string name="notification_channel_file_observer_description">مراقبة الملفات التي طرأت عليها تغييرات</string>
-  
+
     <string name="account_not_found">الحساب غير موجود </string>
 
     <string name="screenshot_01_gridView">المكان الآمن لكافة بياناتك</string>
@@ -410,7 +410,7 @@
     <string name="screenshot_04_accounts">الاتصال بحسابات آخرى</string>
     <string name="screenshot_05_autoUpload">حمّل تلقائيا صورك و فيديوهاتك</string>
     <string name="account_icon">أيقونة الحساب </string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">هذا المجلد غير فارغ.</string>
     <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التعمية. هل كلمة السر صحيحة ؟</string>
     <string name="end_to_end_encryption_enter_password">الرجاء أدخل كلمة المرور ليتم فك تشفير المفتاح الخاص</string>

@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, digite seu código de acesso novamente</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">Código de acesso incorreto</string>
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
-    
+
     <string name="media_notif_ticker">%1$s player</string>
     <string name="media_state_playing">%1$s (tocando)</string>
     <string name="media_state_loading">%1$s (carregando)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>
     <string name="activity_chooser_title">Enviar o link para…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
-    
+
     <string name="oauth_check_onoff">Entrar com OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0…</string>
-        
+
     <string name="ssl_validator_header">A identidade do servidor não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
     <string name="notification_channel_file_observer_name">Observador de arquivo</string>
     <string name="notification_channel_file_observer_description">Monitora mudanças em arquivos</string>
-  
+
     <string name="account_not_found">Conta não encontrada!</string>
 
     <string name="screenshot_01_gridView">Um lugar seguro para seus dados</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Conecte com diferentes contas</string>
     <string name="screenshot_05_autoUpload">Envie suas fotos &amp; vídeos automaticamente</string>
     <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contatos com DAVdroid</string>
-    
+
     <string name="userinfo_no_info_headline">Informações privadas não encontradas</string>
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
     <string name="account_icon">Ícone da conta</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Esta pasta não está vazia.</string>
     <string name="end_to_end_encryption_wrong_password">Erro descriptografando. Senha incorreta?</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Enviar anotação para o destinatário</string>
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
     <string name="hint_note">Anotação</string>
-
-</resources>
+    </resources>

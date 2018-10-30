@@ -200,7 +200,7 @@
     <string name="pass_code_enter_pass_code">Hãy nhập mã PIN của bạn</string>
     <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
     <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Nhập mã PIN của bạn</string>
     <string name="pass_code_configure_your_pass_code_explanation">Mã PIN sẽ được yêu cầu mỗi khi ứng dụng được khởi động</string>
     <string name="pass_code_reenter_your_pass_code">Hãy nhập lại mã PIN của bạn</string>
@@ -209,7 +209,7 @@
     <string name="pass_code_wrong">Sai mã PIN</string>
     <string name="pass_code_removed">Mã PIN đã được xóa</string>
     <string name="pass_code_stored">Mã PIN đã được lưu</string>
-    
+
     <string name="media_notif_ticker">%1$s trình nghe nhạc</string>
     <string name="media_state_playing">%1$s (đang phát)</string>
     <string name="media_state_loading">%1$s (đang chạy)</string>
@@ -483,7 +483,7 @@
     <string name="userinfo_no_info_headline">Không có thông tin cá nhân nào được đặt</string>
     <string name="drawer_header_background">Hình nền của thanh tiêu đề</string>
     <string name="account_icon">Biểu tượng tài khoản</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Thư mục này rỗng</string>
     <string name="end_to_end_encryption_wrong_password">Lỗi khi giải mã. Sai mật khẩu?</string>
     <string name="end_to_end_encryption_decrypting">Đang giải mã…</string>

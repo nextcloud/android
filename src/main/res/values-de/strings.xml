@@ -204,7 +204,7 @@
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
-    
+
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Ihre PIN nochmals eingeben</string>
@@ -213,7 +213,7 @@
     <string name="pass_code_wrong">PIN nicht korrekt</string>
     <string name="pass_code_removed">Passcode gelöscht</string>
     <string name="pass_code_stored">PIN gespeichert</string>
-    
+
     <string name="media_notif_ticker">%1$s Musik Player</string>
     <string name="media_state_playing">%1$s (wird abgespielt)</string>
     <string name="media_state_loading">%1$s (wird geladen)</string>
@@ -293,10 +293,10 @@
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
-    
+
     <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
     <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server…</string>
-        
+
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
@@ -708,7 +708,7 @@
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
     <string name="notification_channel_file_observer_name">Dateimonitor</string>
     <string name="notification_channel_file_observer_description">Prüft auf Dateiänderungen</string>
-  
+
     <string name="account_not_found">Kein Konto gefunden</string>
 
     <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Ihre Daten</string>
@@ -717,12 +717,12 @@
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
-    
+
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
     <string name="account_icon">Konto-Icon</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Dieser Ordner ist nicht leer.</string>
     <string name="end_to_end_encryption_wrong_password">Fehler beim Entschlüsseln. Falsches Passwort?</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
@@ -811,5 +811,4 @@
     <string name="send_note">Notiz an Empfänger senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="hint_note">Notiz</string>
-
-</resources>
+    </resources>

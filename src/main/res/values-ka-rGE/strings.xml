@@ -190,7 +190,7 @@
     <string name="pass_code_wrong">არასწორი პასკოდი</string>
     <string name="pass_code_removed">პასკოდი გაუქმდა</string>
     <string name="pass_code_stored">პასკოდი შენახულია</string>
-    
+
     <string name="media_notif_ticker">%1$s მუსიკის დამკვრელი</string>
     <string name="media_state_playing">%1$s (იკვრება)</string>
     <string name="media_state_loading">%1$s (იტვირთება)</string>
@@ -257,7 +257,7 @@
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>
     <string name="wait_for_tmp_copy_from_private_storage">ფაილის კოპირება პირადი საცავიდან</string>
-    
+
     <string name="oauth_check_onoff">გაიარეთ ავტორიზაცია OAuth 2.0-ით</string>
     <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
     <string name="ssl_validator_reason_cert_not_trusted">- სერვერის სერტიფიკატი არ არის სანდო</string>
@@ -610,7 +610,7 @@
     <string name="notification_channel_file_sync_description">აჩვენებს ფაილების სინქ. პროგრესს და შედეგებს</string>
     <string name="notification_channel_file_observer_name">ფაილ ობზერვერი</string>
     <string name="notification_channel_file_observer_description">მონიტორინგი ფაილების ცვლილებაზე</string>
-  
+
     <string name="account_not_found">ანგარიში ვერ იქნა ნაპოვნი!</string>
 
     <string name="screenshot_01_gridView">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
@@ -619,12 +619,12 @@
     <string name="screenshot_04_accounts">დაუკავშირდით სხვა ანგარიშებს</string>
     <string name="screenshot_05_autoUpload">ავტომატურად ატვირთეთ თქვენი ფოტოები და ვიდეოები</string>
     <string name="screenshot_06_davdroid">კალენდრისა და კონტაქტების სინქ DAVdroid-თან</string>
-    
+
     <string name="userinfo_no_info_headline">პირადი ინფორმაციის კომპლექტი არაა</string>
     <string name="userinfo_no_info_text">დაამატეთ სახელი, ფოტო და საკონტაქტო დეტალები თქვენს პროფილის გვერდზე.</string>
     <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
     <string name="account_icon">ანგარიშის პიქტოგრამა</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">ეს დირექტორია არაა ცარიელი</string>
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
     <string name="end_to_end_encryption_enter_password">პირადი გასაღების დეშიფრაციისთვის გთხოვთ შეიყვანოთ პაროლი.</string>

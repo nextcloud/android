@@ -206,7 +206,7 @@
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
     <string name="default_credentials_wrong">Неисправни акредитиви</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
     <string name="pass_code_reenter_your_pass_code">Поново унесите кôд за закључавање</string>
@@ -215,7 +215,7 @@
     <string name="pass_code_wrong">Неисправан код</string>
     <string name="pass_code_removed">Кôд за закључавање обрисан</string>
     <string name="pass_code_stored">Код за закључавање је сачуван</string>
-    
+
     <string name="media_notif_ticker">%1$s музички плејер</string>
     <string name="media_state_playing">%1$s (свира)</string>
     <string name="media_state_loading">%1$s (учитавање)</string>
@@ -295,10 +295,10 @@
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
     <string name="activity_chooser_title">Пошаљи везу…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
-    
+
     <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string>
     <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером…</string>
-        
+
     <string name="ssl_validator_header">Идентитет сервера не може да се провери</string>
     <string name="ssl_validator_reason_cert_not_trusted">– Сертификат сервера није од поверења</string>
     <string name="ssl_validator_reason_cert_expired">– Сертификат сервера је истекао</string>
@@ -713,7 +713,7 @@
     <string name="notification_channel_file_sync_description">Прикажи напредак синхронизације фајла и резултате</string>
     <string name="notification_channel_file_observer_name">Надгледач фајлова</string>
     <string name="notification_channel_file_observer_description">Проверава да ли су фајлови измењени</string>
-  
+
     <string name="account_not_found">Налог није нађен!</string>
 
     <string name="screenshot_01_gridView">Сигурно место за све Ваше податке</string>
@@ -722,12 +722,12 @@
     <string name="screenshot_04_accounts">Повежите се на различите налоге</string>
     <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
     <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте са ДАВдроидом</string>
-    
+
     <string name="userinfo_no_info_headline">Нису постављени лични подаци</string>
     <string name="userinfo_no_info_text">Додајте име, слику и детаље контакта на Вашу профилну страну.</string>
     <string name="drawer_header_background">Позадинска слика заглавља фиоке</string>
     <string name="account_icon">Икона налога</string>
-    
+
     <string name="end_to_end_encryption_folder_not_empty">Фасцикла није празна.</string>
     <string name="end_to_end_encryption_wrong_password">Грешка приликом дешифровања. Погрешна лозинка?</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
@@ -816,5 +816,4 @@
     <string name="send_note">Пошаљи белешку примаоцу</string>
     <string name="note_could_not_sent">Не могу да пошаљем белешку</string>
     <string name="hint_note">Белешка</string>
-
-</resources>
+    </resources>
