@@ -181,7 +181,7 @@ system ("git config --local user.name '"  + git_user + "'")
 system ("git config --local user.email '.'") # set email blank
 system ("git remote rm origin")
 system ("git remote add origin https://" + git_user + ":" + git_token + "@github.com/nextcloud/android")
-system ("git checkout origin/' + git_branch)
+system ("git checkout origin/" + git_branch)
 
 # add previous Lint result file to git
 system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
