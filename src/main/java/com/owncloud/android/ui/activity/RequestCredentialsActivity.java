@@ -50,7 +50,7 @@ public class RequestCredentialsActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
-            if (resultCode == Activity.RESULT_OK && DeviceCredentialUtils.tryEncrypt(getApplicationContext())) {
+            if (resultCode == Activity.RESULT_OK) {
                 finishWithResult(KEY_CHECK_RESULT_TRUE);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
@@ -66,11 +66,10 @@ public class RequestCredentialsActivity extends Activity {
         super.onResume();
 
         if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
-            DeviceCredentialUtils.createKey(getApplicationContext());
             requestCredentials();
         } else {
             DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
-            finishWithResult(KEY_CHECK_RESULT_TRUE);
+            finishWithResult(KEY_CHECK_RESULT_CANCEL);
         }
     }
 
@@ -78,6 +77,7 @@ public class RequestCredentialsActivity extends Activity {
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         if (keyguardManager != null) {
             Intent i = keyguardManager.createConfirmDeviceCredentialIntent(null, null);
+            i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivityForResult(i, REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS);
         } else {
             Log_OC.e(TAG, "Keyguard manager is null");

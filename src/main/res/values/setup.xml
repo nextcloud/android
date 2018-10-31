@@ -20,7 +20,7 @@
     <string name="default_display_name_for_root_folder">Nextcloud</string>
     <string name="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
     <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
-    
+
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
@@ -92,15 +92,6 @@
     <!-- Help, imprint and feedback, and other things -->
     <bool name="passcode_enabled">true</bool>
     <bool name="device_credentials_enabled">true</bool>
-    <string name="secret_key_name">Nextcloud</string>
-    <integer-array name="secret_byte_array">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </integer-array>
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
