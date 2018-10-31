@@ -3,16 +3,16 @@
  *
  * @author David A. Velasco
  * Copyright (C) 2016 ownCloud Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -65,6 +65,7 @@ public final class PreferenceManager {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
+    public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
 
     private PreferenceManager() {
     }
@@ -233,7 +234,7 @@ public final class PreferenceManager {
      *
      * @param context Caller {@link Context}, used to access to preferences manager.
      * @param folder Folder
-     * @return preference value, default is 
+     * @return preference value, default is
      * {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
      */
     public static String getFolderLayout(Context context, OCFile folder) {
@@ -289,14 +290,14 @@ public final class PreferenceManager {
         if (account == null) {
             return defaultValue;
         }
-        
+
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
 
         if (storageManager == null) {
             storageManager = new FileDataStorageManager(account, context.getContentResolver());
         }
-        
+
         String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
         while (folder != null && value.isEmpty()) {
             folder = storageManager.getFileById(folder.getParentId());
@@ -322,7 +323,7 @@ public final class PreferenceManager {
     private static String getKeyFromFolder(String preferenceName, OCFile folder) {
         final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
                 FileDataStorageManager.ROOT_PARENT_ID);
-        
+
         return preferenceName + "_" + folderIdString;
     }
 
@@ -471,6 +472,14 @@ public final class PreferenceManager {
         saveIntPreference(context, AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode);
     }
 
+    public static long getLockTimestamp(Context context) {
+        return getDefaultSharedPreferences(context).getLong(PREF__LOCK_TIMESTAMP, 0);
+    }
+
+    public static void setLockTimestamp(Context context, long timestamp) {
+        saveLongPreference(context, PREF__LOCK_TIMESTAMP, timestamp);
+    }
+
     private static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putBoolean(key, value).apply();
@@ -495,6 +504,11 @@ public final class PreferenceManager {
     private static void saveFloatPreference(Context context, String key, float value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putFloat(key, value).apply();
+    }
+
+    private static void saveLongPreference(Context context, String key, long value) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putLong(key, value).apply();
     }
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
