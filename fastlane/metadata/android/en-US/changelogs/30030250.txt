@@ -1,0 +1,3 @@
+## 3.3.2 RC 1 (October, 31, 2018)
+
+- fix fingerprint not working on certain devices
