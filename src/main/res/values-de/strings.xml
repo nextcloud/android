@@ -148,7 +148,7 @@
     <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
     <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
-    <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneut anmeldung</string>
+    <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
@@ -811,4 +811,7 @@
     <string name="send_note">Notiz an Empfänger senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="hint_note">Notiz</string>
-    </resources>
+    <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
+
+</resources>

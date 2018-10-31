@@ -814,4 +814,7 @@ Veuillez contacter votre administrateur</string>
     <string name="send_note">Envoyer la note au destinataire</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
     <string name="hint_note">Note</string>
-    </resources>
+    <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
+    <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
+
+</resources>

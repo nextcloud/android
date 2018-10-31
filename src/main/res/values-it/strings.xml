@@ -811,4 +811,7 @@
     <string name="send_note">Invia nota a destinatario</string>
     <string name="note_could_not_sent">Impossibile inviare la nota</string>
     <string name="hint_note">Nota</string>
-    </resources>
+    <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
+    <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
+
+</resources>
