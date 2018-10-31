@@ -50,12 +50,11 @@ public final class PassCodeManager {
         // other activities may be exempted, if needed
     }
 
-    private static final int PASS_CODE_TIMEOUT = 1000;
+    private static final int PASS_CODE_TIMEOUT = 5000;
         // keeping a "low" positive value is the easiest way to prevent the pass code is requested on rotations
 
     private static PassCodeManager passCodeManagerInstance;
 
-    private Long timestamp = 0L;
     private int visibleActivitiesCounter;
 
     public static PassCodeManager getPassCodeManager() {
@@ -79,7 +78,8 @@ public final class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested()) {
+        Long timestamp = PreferenceManager.getLockTimestamp(activity);
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
@@ -88,8 +88,7 @@ public final class PassCodeManager {
         }
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(activity) &&
-                !DeviceCredentialUtils.tryEncrypt(activity)) {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(timestamp, activity)) {
             Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
@@ -102,7 +101,7 @@ public final class PassCodeManager {
         if (visibleActivitiesCounter > 0) {
             visibleActivitiesCounter--;
         }
-        setUnlockTimestamp();
+        setUnlockTimestamp(activity);
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         if ((passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null
                 && !powerMgr.isScreenOn()) {
@@ -110,22 +109,23 @@ public final class PassCodeManager {
         }
     }
 
-    private void setUnlockTimestamp() {
-        timestamp = System.currentTimeMillis();
+    private void setUnlockTimestamp(Activity activity) {
+        Long timestamp = System.currentTimeMillis();
+        PreferenceManager.setLockTimestamp(activity, timestamp);
     }
 
-    private boolean passCodeShouldBeRequested() {
+    private boolean passCodeShouldBeRequested(Long timestamp) {
         return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT &&
-                visibleActivitiesCounter <= 0 && passCodeIsEnabled();
+            visibleActivitiesCounter <= 0 && passCodeIsEnabled();
     }
 
     private boolean passCodeIsEnabled() {
         return PreferenceManager.getLockPreference(MainApp.getAppContext()).equals(Preferences.LOCK_PASSCODE);
     }
 
-    private boolean deviceCredentialsShouldBeRequested(Activity activity) {
+    private boolean deviceCredentialsShouldBeRequested(Long timestamp, Activity activity) {
         return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 &&
-                deviceCredentialsAreEnabled(activity);
+            deviceCredentialsAreEnabled(activity);
     }
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
