@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Sort order 
+ * Sort order
  */
 
 public class FileSortOrder {
@@ -42,22 +42,27 @@ public class FileSortOrder {
     public static final FileSortOrder sort_big_to_small = new FileSortOrderBySize("sort_big_to_small", false);
 
     public static final Map<String, FileSortOrder> sortOrders;
+
+    public enum Type {
+        trashBinView, localFileListView, uploadFilesView
+
+    }
     static {
         sortOrders = new HashMap<>();
-        sortOrders.put(sort_a_to_z.mName, sort_a_to_z);
-        sortOrders.put(sort_z_to_a.mName, sort_z_to_a);
-        sortOrders.put(sort_old_to_new.mName, sort_old_to_new);
-        sortOrders.put(sort_new_to_old.mName, sort_new_to_old);
-        sortOrders.put(sort_small_to_big.mName, sort_small_to_big);
-        sortOrders.put(sort_big_to_small.mName, sort_big_to_small);
+        sortOrders.put(sort_a_to_z.name, sort_a_to_z);
+        sortOrders.put(sort_z_to_a.name, sort_z_to_a);
+        sortOrders.put(sort_old_to_new.name, sort_old_to_new);
+        sortOrders.put(sort_new_to_old.name, sort_new_to_old);
+        sortOrders.put(sort_small_to_big.name, sort_small_to_big);
+        sortOrders.put(sort_big_to_small.name, sort_big_to_small);
     }
 
-    public String mName;
-    public boolean mAscending;
+    public String name;
+    public boolean isAscending;
 
     public FileSortOrder(String name, boolean ascending) {
-        mName = name;
-        mAscending = ascending;
+        this.name = name;
+        isAscending = ascending;
     }
 
     public List<OCFile> sortCloudFiles(List<OCFile> files) {

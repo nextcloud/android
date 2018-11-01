@@ -294,7 +294,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
 
-        FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, null);
+        FileSortOrder sortOrder = PreferenceManager.getSortOrderByType(mContext, FileSortOrder.Type.localFileListView);
         mFiles = sortOrder.sortLocalFiles(mFiles);
 
         // Fetch preferences for showing hidden files
@@ -310,7 +310,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(mContext, null, sortOrder);
+        PreferenceManager.setSortOrder(mContext, FileSortOrder.Type.localFileListView, sortOrder);
         mFiles = sortOrder.sortLocalFiles(mFiles);
         notifyDataSetChanged();
     }

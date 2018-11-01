@@ -47,7 +47,7 @@ public class FileSortOrderByName extends FileSortOrder {
      */
     @SuppressFBWarnings("Bx")
     public List<OCFile> sortCloudFiles(List<OCFile> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
@@ -71,7 +71,7 @@ public class FileSortOrderByName extends FileSortOrder {
     @SuppressFBWarnings("Bx")
     @Override
     public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
@@ -94,7 +94,7 @@ public class FileSortOrderByName extends FileSortOrder {
      */
     @Override
     public List<File> sortLocalFiles(List<File> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isDirectory() && o2.isDirectory()) {
