@@ -57,7 +57,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
 
         Bundle args = new Bundle();
-        args.putString(KEY_SORT_ORDER, sortOrder.mName);
+        args.putString(KEY_SORT_ORDER, sortOrder.name);
         dialogFragment.setArguments(args);
 
         dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
@@ -72,7 +72,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         setRetainInstance(true);
 
         mView = null;
-        mCurrentSortOrderName = getArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.mName);
+        mCurrentSortOrderName = getArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private void setupActiveOrderSelection() {
         final int color = ThemeUtils.primaryAccentColor(getContext());
         for (View view: mTaggedViews) {
-            if (!((FileSortOrder)view.getTag()).mName.equals(mCurrentSortOrderName)) {
+            if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;
             }
             if (view instanceof ImageButton) {

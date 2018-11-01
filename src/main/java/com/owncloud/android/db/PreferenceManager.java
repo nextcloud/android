@@ -258,19 +258,57 @@ public final class PreferenceManager {
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
-    public static FileSortOrder getSortOrder(Context context, OCFile folder) {
+    public static FileSortOrder getSortOrderByFolder(Context context, OCFile folder) {
         return FileSortOrder.sortOrders.get(getFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder,
-                FileSortOrder.sort_a_to_z.mName));
+            FileSortOrder.sort_a_to_z.name));
     }
 
     /**
      * Set preferred folder sort order.
      *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param sortOrder   the sort order
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param sortOrder the sort order
      */
     public static void setSortOrder(Context context, OCFile folder, FileSortOrder sortOrder) {
-        setFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder, sortOrder.mName);
+        setFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder, sortOrder.name);
+    }
+
+    public static FileSortOrder getSortOrderByType(Context context, FileSortOrder.Type type) {
+        return getSortOrderByType(context, type, FileSortOrder.sort_a_to_z);
+    }
+
+    /**
+     * Get preferred folder sort order.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     */
+    public static FileSortOrder getSortOrderByType(Context context, FileSortOrder.Type type,
+                                                   FileSortOrder defaultOrder) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            return defaultOrder;
+        }
+
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+
+        String value = dataProvider.getValue(account.name, PREF__FOLDER_SORT_ORDER + "_" + type);
+
+        return value.isEmpty() ? defaultOrder : FileSortOrder.sortOrders.get(value);
+    }
+
+    /**
+     * Set preferred folder sort order.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param sortOrder the sort order
+     */
+    public static void setSortOrder(Context context, FileSortOrder.Type type, FileSortOrder sortOrder) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+
+        dataProvider.storeOrUpdateKeyValue(account.name, PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
     /**
@@ -303,6 +341,29 @@ public final class PreferenceManager {
             folder = storageManager.getFileById(folder.getParentId());
             value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
         }
+        return value.isEmpty() ? defaultValue : value;
+    }
+
+    /**
+     * Get preference value for a view.
+     *
+     * @param context        Context object.
+     * @param preferenceName Name of the preference to lookup.
+     * @param type           view which view
+     * @param defaultValue   Fallback value in case nothing is set.
+     * @return Preference value
+     */
+    public static String getTypePreference(Context context, String preferenceName, String type, String defaultValue) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            return defaultValue;
+        }
+
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+
+        String value = dataProvider.getValue(account.name, preferenceName + "_" + type);
+
         return value.isEmpty() ? defaultValue : value;
     }
 

@@ -86,7 +86,8 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             files.add((TrashbinFile) file);
         }
 
-        files = PreferenceManager.getSortOrder(context, null).sortTrashbinFiles(files);
+        files = PreferenceManager.getSortOrderByType(context, FileSortOrder.Type.trashBinView,
+            FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
     }
@@ -281,7 +282,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(context, null, sortOrder);
+        PreferenceManager.setSortOrder(context, FileSortOrder.Type.trashBinView, sortOrder);
         files = sortOrder.sortTrashbinFiles(files);
         notifyDataSetChanged();
     }

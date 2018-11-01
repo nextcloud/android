@@ -42,7 +42,7 @@ public class FileSortOrderByDate extends FileSortOrder {
      * @param files list of files to sort
      */
     public List<OCFile> sortCloudFiles(List<OCFile> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) ->
                 multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
@@ -57,7 +57,7 @@ public class FileSortOrderByDate extends FileSortOrder {
      */
     @Override
     public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> {
             Long obj1 = o1.getDeletionTimestamp();
@@ -74,7 +74,7 @@ public class FileSortOrderByDate extends FileSortOrder {
      */
     @Override
     public List<File> sortLocalFiles(List<File> files) {
-        final int multiplier = mAscending ? 1 : -1;
+        final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> multiplier * Long.compare(o1.lastModified(),o2.lastModified()));
 
