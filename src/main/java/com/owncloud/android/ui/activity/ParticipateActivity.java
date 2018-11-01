@@ -30,11 +30,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
-
-import androidx.appcompat.widget.AppCompatButton;
 
 /**
  * Activity providing information about ways to participate in the app's development.
@@ -93,7 +92,7 @@ public class ParticipateActivity extends FileActivity {
                                 ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
                                 getString(R.string.contributing_link)))));
 
-        AppCompatButton reportButton = findViewById(R.id.participate_testing_report);
+        MaterialButton reportButton = findViewById(R.id.participate_testing_report);
         reportButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }

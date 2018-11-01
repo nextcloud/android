@@ -50,7 +50,7 @@
             android:orientation="vertical"
             android:padding="@dimen/standard_half_padding">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
             android:id="@+id/centeredRefreshButton"
             style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
@@ -262,7 +262,7 @@
             android:textColor="@color/login_text_color"
             android:contentDescription="@string/auth_unauthorized"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonOK"
             android:theme="@style/Button.Login"
             style="@style/Button.Login"

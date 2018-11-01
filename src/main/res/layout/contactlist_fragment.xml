@@ -49,7 +49,7 @@
                 android:src="@drawable/uploader_list_separator"
                 android:contentDescription="@null"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/contactlist_restore_selected"
                 style="@style/Button.Borderless"
                 android:layout_width="match_parent"

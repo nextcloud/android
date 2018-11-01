@@ -57,7 +57,7 @@
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteLogHistoryButton"
         android:theme="@style/Button"
         android:layout_width="fill_parent"
@@ -66,7 +66,7 @@
         android:layout_weight="1"
         android:text="@string/prefs_log_delete_history_button" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/sendLogHistoryButton"
         android:theme="@style/Button.Primary"
         android:layout_width="fill_parent"

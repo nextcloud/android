@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
     ownCloud Android client application
 
     Copyright (C) 2015 ownCloud Inc.
@@ -49,7 +50,7 @@
 		 />
 
 
-    <TextView
+	<TextView
 		android:id="@+id/reason_cert_expired"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -108,14 +109,14 @@
         android:layout_weight="1"
         >
 
-        <LinearLayout
+		<LinearLayout
 			android:id="@+id/details_view"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:gravity="start"
 			android:orientation="vertical" >
 
-            <TextView
+		    <TextView
 				android:id="@+id/null_cert"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
         			android:textAppearance="?android:attr/textAppearanceMedium"
         		/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_subject_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -144,7 +145,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -153,7 +154,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_subject_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -161,7 +162,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -170,7 +171,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_subject_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -178,7 +179,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -187,7 +188,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_subject_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -195,7 +196,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -212,7 +213,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -221,7 +222,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_subject_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -229,7 +230,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_subject_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -239,7 +240,7 @@
 				/>
 
 
-            <TextView
+				<TextView
         			android:id="@+id/label_issuer"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
@@ -248,7 +249,7 @@
         			android:textAppearance="?android:attr/textAppearanceMedium"
         		/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_issuer_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -256,7 +257,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -265,7 +266,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_issuer_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -273,7 +274,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -282,7 +283,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_issuer_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -290,7 +291,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -299,7 +300,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_issuer_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -307,7 +308,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -324,7 +325,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -333,7 +334,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_issuer_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -341,7 +342,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_issuer_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -350,7 +351,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
         			android:id="@+id/label_validity"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
@@ -359,7 +360,7 @@
         			android:textAppearance="?android:attr/textAppearanceMedium"
         		/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_validity_from"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -367,7 +368,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_validity_from"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -376,7 +377,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/label_validity_to"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -384,7 +385,7 @@
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-            <TextView
+				<TextView
 				    android:id="@+id/value_validity_to"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
@@ -402,7 +403,7 @@
         			android:textAppearance="?android:attr/textAppearanceMedium"
         		/>
 
-            <TextView
+				<TextView
         			android:id="@+id/label_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
@@ -410,7 +411,7 @@
         			android:textAppearance="?android:attr/textAppearanceSmall"
         		/>
 
-            <TextView
+				<TextView
         			android:id="@+id/value_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
@@ -437,11 +438,11 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
 
-        </LinearLayout>
+		</LinearLayout>
 
     </ScrollView>
 
-    <TextView
+	<TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -457,7 +458,7 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"
@@ -465,7 +466,7 @@
             android:layout_weight="1"
             android:text="@string/common_no" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/details_btn"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"
@@ -473,7 +474,7 @@
             android:layout_weight="2"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ok"
 			style="@style/Button.Borderless"
             android:layout_width="@dimen/zero"

@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -62,7 +63,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -160,7 +160,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         if (mLocalFolderPickerMode) {
             findViewById(R.id.upload_options).setVisibility(View.GONE);
-            ((AppCompatButton) findViewById(R.id.upload_files_btn_upload))
+            ((MaterialButton) findViewById(R.id.upload_files_btn_upload))
                     .setText(R.string.uploader_btn_alternative_text);
         }
 
@@ -169,7 +169,7 @@ public class UploadFilesActivity extends FileActivity implements
         // Set input controllers
         findViewById(R.id.upload_files_btn_cancel).setOnClickListener(this);
 
-        mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
+        mUploadBtn = (MaterialButton) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);
 
