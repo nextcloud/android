@@ -19,7 +19,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- General ownCloud app style -->
-	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="Theme.ownCloud" parent="Theme.MaterialComponents.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 		<item name="actionModeBackground">@color/action_mode_background</item>
@@ -34,19 +34,19 @@
         <item name="fontFamily">@font/nunito_regular</item>
 	</style>
 
-	<style name="FallbackThemingTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
 	</style>
 
-	<style name="FallbackDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
 	</style>
 
-	<style name="FallbackTheming.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+	<style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
@@ -56,7 +56,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -82,13 +82,13 @@
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
 
-	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
+	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
@@ -110,11 +110,11 @@
 		<!--<item name="suggestionRowLayout">...</item>-->
 	</style>
 
-	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
+	<style name="ownCloud.Button" parent="Widget.MaterialComponents.Button">
 		<item name="colorButtonNormal">@color/primary</item>
 	</style>
 
-	<style name="Button" parent="Base.Widget.AppCompat.Button">
+	<style name="Button" parent="Widget.MaterialComponents.Button">
 		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
 		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
@@ -130,15 +130,15 @@
 		<item name="android:textColor">@color/primary_dark</item>
 	</style>
 
-	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
+	<style name="Button.Borderless" parent="Widget.MaterialComponents.Button.TextButton">
 		<item name="android:textColor">@drawable/borderless_btn</item>
 	</style>
 
-	<style name="Button.Borderless.Destructive" parent="Base.Widget.AppCompat.Button.Borderless">
+	<style name="Button.Borderless.Destructive" parent="Widget.MaterialComponents.Button.TextButton">
 		<item name="android:textColor">@color/highlight_textColor_Warning</item>
 	</style>
 
-	<style name="Button.Borderless.Login" parent="Base.Widget.AppCompat.Button.Borderless">
+	<style name="Button.Borderless.Login" parent="Widget.MaterialComponents.Button.TextButton">
 		<item name="android:textColor">@color/white</item>
 	</style>
 
@@ -153,7 +153,7 @@
 	</style>
 
 	<!-- ACTION BAR STYLES -->
-	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.MaterialComponents.Toolbar">
 		<item name="android:background">@color/color_transparent</item>
 		<item name="android:windowActionBarOverlay">true</item>
 		<!-- Support library compatibility -->
@@ -173,14 +173,14 @@
 		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
 	</style>
 
-	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.AppCompat">
+	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.MaterialComponents">
         <item name="android:windowFullscreen">true</item>
 		<item name="colorAccent">@color/color_accent</item>
     </style>
 
 
-    <style name="Theme.ownCloud.Widget.ActionBar"
-		parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+	<style name="Theme.ownCloud.Widget.ActionBar"
+		parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
 		<item name="android:background">@color/primary</item>
 		<item name="background">@color/primary</item>
     	<item name="android:textColor">#ffffff</item>
@@ -191,7 +191,7 @@
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
@@ -203,7 +203,7 @@
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.MaterialComponents.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
@@ -226,7 +226,7 @@
 		<item name="android:minHeight">@null</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="@style/Widget.MaterialComponents.Button.TextButton">
 		<!-- Setting the weight as follows should result in equally wide buttons filling the alert dialog width,
             but instead they span further out of the dialog, breaking in multiple lines though -->
 		<item name="android:layout_width">0dp</item>

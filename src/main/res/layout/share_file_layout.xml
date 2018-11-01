@@ -122,7 +122,7 @@
                 android:text="@string/share_no_users"
                 android:textSize="@dimen/share_file_layout_text_size"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/addUserButton"
                 style="@style/ownCloud.Button"
                 android:layout_width="match_parent"
@@ -333,7 +333,7 @@
 
                 </RelativeLayout>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/shareViaLinkGetLinkButton"
                     style="@style/ownCloud.Button"
                     android:layout_width="match_parent"

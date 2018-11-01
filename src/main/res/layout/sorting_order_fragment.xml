@@ -290,7 +290,7 @@
         android:layout_height="wrap_content"
         android:gravity="end">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel"
             style="@style/Button.Borderless"
             android:layout_width="wrap_content"

@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_backup_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:text="@string/contacts_backup_button"
                 android:theme="@style/Button.Primary"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_datepicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -89,7 +89,7 @@
             android:textCursorDrawable="@null" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/cancel"
         android:theme="@style/Button.Primary"
         android:layout_width="wrap_content"

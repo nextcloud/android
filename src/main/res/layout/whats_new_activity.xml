@@ -54,7 +54,7 @@
         android:orientation="horizontal"
         android:weightSum="3">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/skip"
             style="@style/Button.Borderless.Login"
             android:layout_width="0dp"

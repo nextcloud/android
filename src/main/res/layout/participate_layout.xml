@@ -60,7 +60,7 @@
                     android:text="@string/participate_testing_bug_text"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/participate_testing_report"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

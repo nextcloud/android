@@ -24,7 +24,7 @@
     <include
         layout="@layout/toolbar_standard" />
 
-    <FrameLayout
+	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
         android:layout_weight="1"
@@ -50,7 +50,7 @@
         android:orientation="horizontal"
 		android:padding="@dimen/standard_padding">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/folder_picker_btn_cancel"
             android:theme="@style/Button"
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
 		    android:id="@+id/folder_picker_btn_choose"
             android:theme="@style/Button.Primary"
 		    android:layout_width="wrap_content"

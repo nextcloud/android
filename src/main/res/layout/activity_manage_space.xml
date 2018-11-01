@@ -31,7 +31,7 @@
         android:text="@string/manage_space_description"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/manage_space_clear_data"
