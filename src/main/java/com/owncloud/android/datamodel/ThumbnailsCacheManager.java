@@ -51,8 +51,8 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ServerFileInterface;
-import com.owncloud.android.lib.resources.files.TrashbinFile;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -397,7 +397,7 @@ public final class ThumbnailsCacheManager {
                                        Account account, List<ThumbnailGenerationTask> asyncTasks)
                 throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
-            mImageViewReference = new WeakReference<ImageView>(imageView);
+            mImageViewReference = new WeakReference<>(imageView);
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
@@ -421,7 +421,7 @@ public final class ThumbnailsCacheManager {
 
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
-            mImageViewReference = new WeakReference<ImageView>(imageView);
+            mImageViewReference = new WeakReference<>(imageView);
         }
 
         @SuppressFBWarnings("Dm")

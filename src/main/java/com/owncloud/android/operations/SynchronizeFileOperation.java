@@ -1,4 +1,4 @@
-/**
+/*
  *  ownCloud Android client application
  *
  *  @author David A. Velasco
@@ -32,8 +32,8 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -192,7 +192,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             /// local copy in the device -> need to think a bit more before do anything
 
             if (mServerFile == null) {
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
+                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
                 result = operation.execute(client);
                 if (result.isSuccess()) {
                     mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));

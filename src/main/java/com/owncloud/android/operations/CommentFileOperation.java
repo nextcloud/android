@@ -21,37 +21,17 @@
 
 package com.owncloud.android.operations;
 
-import android.util.Log;
-
-import com.google.gson.GsonBuilder;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
- * Restore a {@link com.owncloud.android.lib.resources.files.FileVersion}.
+ * Comment file
  */
 public class CommentFileOperation extends SyncOperation {
-
-    private static final String TAG = CommentFileOperation.class.getSimpleName();
-    private static final int POST_READ_TIMEOUT = 30000;
-    private static final int POST_CONNECTION_TIMEOUT = 5000;
-
-    private static final String ACTOR_ID = "actorId";
-    private static final String ACTOR_TYPE = "actorType";
-    private static final String ACTOR_TYPE_VALUE = "users";
-    private static final String VERB = "verb";
-    private static final String VERB_VALUE = "comment";
-    private static final String MESSAGE = "message";
 
     private String message;
     private String fileId;
@@ -76,37 +56,12 @@ public class CommentFileOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
+        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId, userId).execute(client, true);
 
-        RemoteOperationResult result;
-        try {
-            String url = client.getNewWebdavUri() + "/comments/files/" + fileId;
-            PostMethod postMethod = new PostMethod(url);
-            postMethod.addRequestHeader("Content-type", "application/json");
-
-            Map<String, String> values = new HashMap<>();
-            values.put(ACTOR_ID, userId);
-            values.put(ACTOR_TYPE, ACTOR_TYPE_VALUE);
-            values.put(VERB, VERB_VALUE);
-            values.put(MESSAGE, message);
-
-            String json = new GsonBuilder().create().toJson(values, Map.class);
-
-            postMethod.setRequestEntity(new StringRequestEntity(json));
-
-            int status = client.executeMethod(postMethod, POST_READ_TIMEOUT, POST_CONNECTION_TIMEOUT);
-
-            result = new RemoteOperationResult(isSuccess(status), postMethod);
-
-            client.exhaustResponse(postMethod.getResponseBodyAsStream());
-        } catch (IOException e) {
-            result = new RemoteOperationResult(e);
-            Log.e(TAG, "Post comment to file with id " + fileId + " failed: " + result.getLogMessage(), e);
+        if (!result.isSuccess()) {
+            Log_OC.e(this, "File with Id " + fileId + " could not be commented");
         }
 
         return result;
-    }
-
-    private boolean isSuccess(int status) {
-        return status == HttpStatus.SC_CREATED;
     }
 }

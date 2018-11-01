@@ -56,9 +56,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.models.Activity;
-import com.owncloud.android.lib.resources.activities.models.RichElement;
-import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.activities.model.Activity;
+import com.owncloud.android.lib.resources.activities.model.RichElement;
+import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
@@ -102,11 +102,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setActivityItems(List<Object> activityItems, OwnCloudClient client, boolean clear) {
         this.client = client;
         String sTime = "";
-        
+
         if (clear) {
             values.clear();
         }
-        
+
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
             String time;
@@ -312,12 +312,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 idx2 = idx1 + name.length();
                 ssb.setSpan(new ClickableSpan() {
                     @Override
-                    public void onClick(View widget) {
+                    public void onClick(@NonNull View widget) {
                         activityListInterface.onActivityClicked(richObject);
                     }
 
                     @Override
-                    public void updateDrawState(TextPaint ds) {
+                    public void updateDrawState(@NonNull TextPaint ds) {
                         ds.setUnderlineText(false);
                     }
                 }, idx1, idx2, 0);

@@ -22,7 +22,7 @@ package com.owncloud.android.ui.interfaces;
 
 import android.view.View;
 
-import com.owncloud.android.lib.resources.files.TrashbinFile;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 
 /**

@@ -28,7 +28,7 @@ import android.webkit.MimeTypeMap;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
-import com.owncloud.android.lib.resources.files.ServerFileInterface;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -157,7 +157,7 @@ public final class MimeTypeUtil {
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType, 
+                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType,
                                              Context context) {
         int drawableId;
 

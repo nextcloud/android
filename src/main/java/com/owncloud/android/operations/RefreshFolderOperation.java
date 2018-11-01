@@ -34,9 +34,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -263,8 +263,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
 
         // remote request
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
-        result = operation.execute(client, true);
+        result = new ReadFileRemoteOperation(remotePath).execute(client, true);
+
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -305,8 +305,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
-        RemoteOperationResult result = operation.execute(client, true);
+        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client, true);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
 
         if (result.isSuccess()) {
