@@ -19,7 +19,7 @@
  */
 package com.owncloud.android.ui.events;
 
-import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 
 import org.parceler.Parcel;
 
@@ -30,7 +30,7 @@ import org.parceler.Parcel;
 public class SearchEvent {
     private String searchQuery;
 
-    private SearchOperation.SearchType searchType;
+    private SearchRemoteOperation.SearchType searchType;
 
     private UnsetType unsetType;
 
@@ -44,7 +44,7 @@ public class SearchEvent {
 
     }
 
-    public SearchEvent(String searchQuery, SearchOperation.SearchType searchType, UnsetType unsetType) {
+    public SearchEvent(String searchQuery, SearchRemoteOperation.SearchType searchType, UnsetType unsetType) {
 
         this.searchQuery = searchQuery;
         this.searchType = searchType;
@@ -60,7 +60,7 @@ public class SearchEvent {
         return searchQuery;
     }
 
-    public SearchOperation.SearchType getSearchType() {
+    public SearchRemoteOperation.SearchType getSearchType() {
         return searchType;
     }
 }

@@ -32,7 +32,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -79,7 +79,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                         getClientFor(ocAccount, MainApp.getAppContext());
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
-                GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation();
                 if (pageUrl != null) {
                     getRemoteNotificationOperation.setNextUrl(pageUrl);
                 }

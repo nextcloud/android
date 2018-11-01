@@ -33,11 +33,11 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteTrashbinFolderOperation;
-import com.owncloud.android.lib.resources.files.RemoveTrashbinFileOperation;
-import com.owncloud.android.lib.resources.files.TrashbinFile;
-import com.owncloud.android.operations.EmptyTrashbinFileOperation;
-import com.owncloud.android.operations.RestoreTrashbinFileOperation;
+import com.owncloud.android.lib.resources.trashbin.EmptyTrashbinRemoteOperation;
+import com.owncloud.android.lib.resources.trashbin.ReadTrashbinFolderRemoteOperation;
+import com.owncloud.android.lib.resources.trashbin.RemoveTrashbinFileRemoteOperation;
+import com.owncloud.android.lib.resources.trashbin.RestoreTrashbinFileRemoteOperation;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
     private String userId;
     private OwnCloudClient client;
 
-    public RemoteTrashbinRepository(Context context) {
+    RemoteTrashbinRepository(Context context) {
         AccountManager accountManager = AccountManager.get(context);
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
 
@@ -81,9 +81,8 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            RemoveTrashbinFileOperation removeTrashbinFileOperation = new RemoveTrashbinFileOperation(
-                    file.getFullRemotePath());
-            RemoteOperationResult result = removeTrashbinFileOperation.execute(client);
+            RemoteOperationResult result = new RemoveTrashbinFileRemoteOperation(file.getFullRemotePath())
+                .execute(client);
 
             return result.isSuccess();
         }
@@ -114,7 +113,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            EmptyTrashbinFileOperation emptyTrashbinFileOperation = new EmptyTrashbinFileOperation(userId);
+            EmptyTrashbinRemoteOperation emptyTrashbinFileOperation = new EmptyTrashbinRemoteOperation(userId);
             RemoteOperationResult result = emptyTrashbinFileOperation.execute(client);
 
             return result.isSuccess();
@@ -150,11 +149,8 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-
-            RestoreTrashbinFileOperation restoreTrashbinFileOperation = new RestoreTrashbinFileOperation(
-                    file.getFullRemotePath(), file.getFileName(), userId);
-
-            RemoteOperationResult result = restoreTrashbinFileOperation.execute(client);
+            RemoteOperationResult result = new RestoreTrashbinFileRemoteOperation(
+                file.getFullRemotePath(), file.getFileName(), userId).execute(client);
 
             return result.isSuccess();
         }
@@ -190,10 +186,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ReadRemoteTrashbinFolderOperation readRemoteTrashbinFolderOperation =
-                    new ReadRemoteTrashbinFolderOperation(remotePath, userId);
-
-            RemoteOperationResult result = readRemoteTrashbinFolderOperation.execute(client);
+            RemoteOperationResult result = new ReadTrashbinFolderRemoteOperation(remotePath, userId).execute(client);
 
             if (result.isSuccess()) {
                 trashbinFiles = result.getData();

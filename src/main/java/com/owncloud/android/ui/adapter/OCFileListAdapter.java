@@ -54,8 +54,8 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.RefreshFolderOperation;
@@ -583,8 +583,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 shares.add(ocShare);
 
                 // get ocFile from Server to have an up-to-date copy
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(ocShare.getPath());
-                RemoteOperationResult result = operation.execute(mAccount, mContext);
+                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(mAccount,
+                    mContext);
+
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     searchForLocalFileInDefaultPath(file);

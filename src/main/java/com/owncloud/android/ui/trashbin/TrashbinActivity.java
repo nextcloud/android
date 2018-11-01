@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
-import com.owncloud.android.lib.resources.files.TrashbinFile;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
