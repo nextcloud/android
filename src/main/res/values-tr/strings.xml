@@ -28,7 +28,7 @@
     <string name="drawer_item_videos">Görüntüler</string>
     <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
-    <string name="drawer_item_activities">Etkinlikler</string>
+    <string name="drawer_item_activities">İşlemler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
@@ -211,7 +211,7 @@
     <string name="pass_code_remove_your_pass_code">Parolanızı silin</string>
     <string name="pass_code_mismatch">Parola ile onayı aynı değil</string>
     <string name="pass_code_wrong">Parola yanlış</string>
-    <string name="pass_code_removed">Parola silindi</string>
+    <string name="pass_code_removed">Parola kodu silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
 
     <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
