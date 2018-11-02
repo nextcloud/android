@@ -355,6 +355,9 @@
     <string name="activity_chooser_send_file_title">Lähetä</string>
 
     <string name="copy_link">Kopioi linkki</string>
+    <string name="clipboard_text_copied">Linkki kopioitu</string>
+    <string name="clipboard_no_text_to_copy">Leikepöydälle ei kopioitunut mitään</string>
+    <string name="clipboard_unexpected_error">Odottamaton virhe kopioitaessa leikepöydälle</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>
@@ -388,6 +391,7 @@
     <string name="file_migration_failed_not_writable">Kohdetiedostoon ei voinut kirjoittaa</string>
     <string name="file_migration_failed_not_readable">Lähdetiedostosta ei voinut lukea</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-kansio on jo olemassa</string>
+    <string name="file_migration_failed_while_coping">Virhe migraation aikana</string>
     <string name="file_migration_failed_while_updating_index">Indeksin päivitys epäonnistui</string>
 
     <string name="file_migration_directory_already_exists">Data-kansio on jo olemassa, Valitse yksi seuraavista:</string>
@@ -488,6 +492,7 @@
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
+    <string name="share_room_clarification">%1$s (keskustelu)</string>
     <string name="share_sharee_unavailable">Päivitä uudempaan versioon salliaksesi jakamisen käyttäjien välillä suoraan työpöydältä tai kännykästä.\nOta yhteyttä ylläpitoon</string>
     <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_privilege_can_share">voi jakaa</string>
@@ -601,6 +606,7 @@
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
 
     <string name="drawer_logout">Kirjaudu ulos</string>
+    <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt</string>
     <string name="file_not_synced">Tiedostoa ei voitu synkronoida. Näytetään viimeisin saatavilla oleva versio.</string>
@@ -628,6 +634,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sync_in_progress">Noudetaan tiedoston viimeisin versio.</string>
     <string name="date_unknown">Tuntematon</string>
 
+    <string name="resized_image_not_possible">Uuden kokoista kuvaa ei ole saatavilla.
+</string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
     <string name="resized_images_download_full_image">Ladataanko koko kuva?</string>
 
@@ -635,6 +643,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="drawer_current_account">Nykyinen tili</string>
     <string name="drawer_middle_account">Keskimmäinen tili</string>
     <string name="drawer_end_account">Viimeisin tili</string>
+    <string name="contactlist_item_icon">Käyttäjäkuvake yhteystietoihin</string>
     <string name="activity_icon">Aktiviteetti</string>
     <string name="file_icon">Tiedosto</string>
     <string name="user_icon">Käyttäjä</string>
@@ -645,6 +654,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="shared_icon_share">jaa</string>
     <string name="shared_icon_shared_via_link">jaettu linkin kautta</string>
     <string name="shared_icon_shared">jaettu</string>
+    <string name="overflow_menu">Lisää -valikko</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Uusin ensin</string>
     <string name="sort_by_size_descending">Suurin ensin</string>
@@ -654,6 +664,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="synced_folders_type">Tyyppi</string>
     <string name="sync_status_button">Synkronoinnin tila -painike</string>
     <string name="synced_folder_settings_button">Asetukset-painike</string>
+    <string name="forward">Välitä</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
 
     <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
@@ -744,6 +755,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
     <string name="stream">Suoratoista käyttämällä...</string>
+    <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
+    <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="notification_icon">Ilmoituksen kuvake</string>
     <string name="folder_confirm_create">Luo</string>
@@ -751,6 +764,13 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="file_keep">Pidä</string>
     <string name="file_rename">Nimeä uudelleen</string>
     <string name="fab_label">Lisää tai lähetä</string>
+    <string name="account_creation_failed">Tilin luonti epäonnistui</string>
+
+    <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="permission_deny">Kiellä</string>
     <string name="permission_allow">Salli</string>
-    </resources>
+    <string name="note_confirm">Lähetä</string>
+    <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
+    <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
+
+</resources>

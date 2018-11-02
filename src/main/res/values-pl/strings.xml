@@ -818,4 +818,12 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="permission_deny">Odrzuć</string>
     <string name="permission_allow">Akceptuj</string>
-    </resources>
+    <string name="share_send_note">Notatka dla odbiorcy</string>
+    <string name="note_confirm">Wyślij</string>
+    <string name="send_note">Wyślij notatkę do odbiorcy</string>
+    <string name="note_could_not_sent">Nie można wysłać notatki</string>
+    <string name="hint_note">Notatka</string>
+    <string name="no_browser_available">Brak aplikacji obsługującej odnośniki</string>
+    <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
+
+</resources>
