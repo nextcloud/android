@@ -193,7 +193,7 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-    <string name="auth_trying_to_login">Intentat accedir ...</string>
+    <string name="auth_trying_to_login">Intentat accedir…</string>
 	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
 	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
 	<string name="auth_connection_established">S\'ha establert la connexió</string>
