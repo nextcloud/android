@@ -430,8 +430,10 @@
     <string name="share_no_users">ユーザーと共有されているデータはありません</string>
     <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
     <string name="share_via_link_edit_permission_label">編集を許可</string>
+    <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_send_link_label">リンクを送信</string>
+    <string name="share_no_password_title">パスワードを設定</string>
     <string name="edit_permission_label">編集</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
@@ -444,6 +446,10 @@
 
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
+    <string name="share_privilege_can_edit_create">作成可能</string>
+    <string name="share_privilege_can_edit_change">変更可能</string>
+    <string name="share_privilege_can_edit_delete">削除可能</string>
+
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
@@ -457,6 +463,8 @@
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
+    <string name="participate_contribute_forum_forum">フォーラム</string>
+    <string name="participate_contribute_translate_translate">翻訳</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
@@ -490,6 +498,8 @@
     <string name="prefs_category_about">アプリについて</string>
 
     <string name="actionbar_contacts">連絡先のバックアップ</string>
+    <string name="contacts_backup_button">今すぐバックアップ</string>
+    <string name="contacts_automatic_backup">自動バックアップ</string>
     <string name="contacts_last_backup">前回のバックアップ</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contacts_preference_choose_date">日付を選択</string>
@@ -498,7 +508,9 @@
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
+    <string name="drawer_logout">ログアウト</string>
     <string name="privacy">プライバシー</string>
+    <string name="fallback_weblogin_back">戻る</string>
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
 
     <string name="foreground_service_upload">ファイルのアップロード中…</string>
@@ -507,8 +519,30 @@
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_license">ライセンス</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
+    <string name="date_unknown">不明</string>
+
+    <string name="activity_icon">アクティビティ</string>
+    <string name="file_icon">ファイル</string>
+    <string name="user_icon">ユーザー</string>
+    <string name="favorite_icon">お気に入り</string>
+    <string name="checkbox">チェックボックス</string>
+    <string name="shared_icon_share">共有</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="version_dev_download">ダウンロード</string>
+
+    <string name="share">共有</string>
+    <string name="link">リンク</string>
+
+    <string name="account_icon">アカウントアイコン</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">このフォルダは空ではありません。</string>
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
+    <string name="end_to_end_encryption_decrypting">復号化中…</string>
     <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
+    <string name="end_to_end_encryption_title">暗号化を設定する</string>
+    <string name="end_to_end_encryption_password">パスワード…</string>
+    <string name="end_to_end_encryption_dialog_close">閉じる</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
@@ -529,4 +563,13 @@
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
     <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
+    <string name="new_comment">新しいコメント...</string>
+    <string name="new_media_folder_photos">写真</string>
+    <string name="new_media_folder_videos">ビデオ</string>
+    <string name="dismiss">閉じる</string>
+    <string name="notification_icon">通知アイコン</string>
+    <string name="folder_confirm_create">作成</string>
+    <string name="file_delete">削除</string>
+    <string name="file_rename">名前を変更</string>
+    <string name="hint_note">ノート</string>
     </resources>
