@@ -275,7 +275,9 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
 
     @Override
     public void showError(int message) {
-        swipeListRefreshLayout.setRefreshing(false);
+        if (swipeListRefreshLayout != null) {
+            swipeListRefreshLayout.setRefreshing(false);
+        }
 
         if (emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
