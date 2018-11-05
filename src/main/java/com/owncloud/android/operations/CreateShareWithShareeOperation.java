@@ -84,15 +84,15 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
 
-        
+
         if (result.isSuccess() && result.getData().size() > 0) {
             OCShare share = (OCShare) result.getData().get(0);
             updateData(share);
         }
-        
+
         return result;
     }
-    
+
     public String getPath() {
         return mPath;
     }
@@ -103,13 +103,12 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         share.setIsFolder(mPath.endsWith(FileUtils.PATH_SEPARATOR));
 
         getStorageManager().saveShare(share);
-        
+
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
-            file.setShareWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
+            file.setSharedWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
             getStorageManager().saveFile(file);
         }
     }
-
 }

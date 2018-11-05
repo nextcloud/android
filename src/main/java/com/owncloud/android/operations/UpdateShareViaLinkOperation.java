@@ -147,7 +147,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file != null) {
             file.setPublicLink(share.getShareLink());
-            file.setShareViaLink(true);
+            file.setSharedViaLink(true);
             getStorageManager().saveFile(file);
         }
     }

@@ -388,7 +388,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
                 );
 
-                if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                if (thumbnail != null && !file.isNeedsUpdateThumbnail()) {
                     if (MimeTypeUtil.isVideo(file)) {
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                         thumbnailView.setImageBitmap(withOverlay);
@@ -611,10 +611,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
-                        file.setShareViaLink(true);
+                        file.setSharedViaLink(true);
                     } else if (newShareType == ShareType.USER || newShareType == ShareType.GROUP ||
                             newShareType == ShareType.EMAIL || newShareType == ShareType.FEDERATED) {
-                        file.setShareWithSharee(true);
+                        file.setSharedWithSharee(true);
                     }
 
                     mStorageManager.saveFile(file);

@@ -215,7 +215,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.isNeedsUpdateThumbnail());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
@@ -484,7 +484,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.isNeedsUpdateThumbnail());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
@@ -870,7 +870,7 @@ public class FileDataStorageManager {
 
     private OCFile createRootDir() {
         OCFile file = new OCFile(OCFile.ROOT_PATH);
-        file.setMimetype(MimeType.DIRECTORY);
+        file.setMimeType(MimeType.DIRECTORY);
         file.setParentId(FileDataStorageManager.ROOT_PARENT_ID);
         saveFile(file);
         return file;
@@ -948,7 +948,7 @@ public class FileDataStorageManager {
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
             file.setEncryptedFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ENCRYPTED_NAME)));
-            file.setMimetype(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
+            file.setMimeType(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
             file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
             if (file.getStoragePath() == null) {
                 // try to find existing file and bind it with current account;
@@ -969,8 +969,8 @@ public class FileDataStorageManager {
             file.setLastSyncDateForData(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
             file.setAvailableOffline(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1);
             file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
-            file.setShareViaLink(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
-            file.setShareWithSharee(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
+            file.setSharedViaLink(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
+            file.setSharedWithSharee(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
             file.setPublicLink(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PUBLIC_LINK)));
             file.setPermissions(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
             file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
@@ -1399,7 +1399,7 @@ public class FileDataStorageManager {
                 cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
                 cv.put(
                         ProviderTableMeta.FILE_UPDATE_THUMBNAIL,
-                        file.needsUpdateThumbnail() ? 1 : 0
+                        file.isNeedsUpdateThumbnail() ? 1 : 0
                 );
                 cv.put(
                         ProviderTableMeta.FILE_IS_DOWNLOADING,

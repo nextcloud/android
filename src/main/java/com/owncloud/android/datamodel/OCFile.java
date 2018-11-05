@@ -40,6 +40,8 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 
+import lombok.Getter;
+import lombok.Setter;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
@@ -52,48 +54,55 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private static final String TAG = OCFile.class.getSimpleName();
 
-    private long mId;
-    private long mParentId;
-    private long mLength;
-    private long mCreationTimestamp;
-    private long mModifiedTimestamp;
-    private long mModifiedTimestampAtLastSyncForData;
-    private String mRemotePath;
-    private String mLocalPath;
-    private String mMimeType;
-    private boolean mNeedsUpdating;
-    private long mLastSyncDateForProperties;
-    private long mLastSyncDateForData;
-    private boolean mAvailableOffline;
+    /** android internal ID of the file */
+    @Getter @Setter private long fileId;
+    @Getter @Setter private long parentId;
+    @Getter @Setter private long fileLength;
+    /** UNIX timestamp of the time the file was created */
+    @Getter @Setter private long creationTimestamp;
+    /** UNIX timestamp of the file modification time */
+    @Getter @Setter private long modificationTimestamp;
+    /** UNIX timestamp of the modification time, corresponding to the value returned by the server
+     * in the last synchronization of THE CONTENTS of this file.
+     */
+    @Getter @Setter private long modificationTimestampAtLastSyncForData;
+    @Setter private String remotePath;
+    private String localPath;
+    @Getter @Setter private String mimeType;
+    @Getter private boolean needsUpdatingWhileSaving;
+    @Getter @Setter private long lastSyncDateForProperties;
+    @Getter @Setter private long lastSyncDateForData;
+    @Getter @Setter private boolean availableOffline;
     private boolean mHasPreview;
 
-    private String mEtag;
+    @Getter private String etag;
 
-    private boolean mShareByLink;
-    private String mPublicLink;
+    @Getter @Setter private boolean sharedViaLink;
+    @Getter @Setter private String publicLink;
 
-    private String mPermissions;
-    private String mRemoteId;
+    @Getter @Setter private String permissions;
+    /** The fileid namespaced by the instance fileId, globally unique */
+    @Getter @Setter private String remoteId;
 
-    private boolean mNeedsUpdateThumbnail;
+    @Getter @Setter private boolean needsUpdateThumbnail;
 
-    private boolean mIsDownloading;
+    @Getter @Setter private boolean downloading;
 
-    private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
+    @Getter @Setter private String etagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
 
-    private boolean mShareWithSharee;
+    @Getter @Setter private boolean sharedWithSharee;
 
-    private boolean mIsFavorite;
+    @Getter @Setter private boolean favorite;
 
-    private boolean mIsEncrypted;
+    @Getter @Setter private boolean encrypted;
 
-    private WebdavEntry.MountType mMountType;
+    @Getter @Setter private WebdavEntry.MountType mountType;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
      * to {@link #getStorageUri()}
      */
-    private Uri mLocalUri;
+    private Uri localUri;
 
 
     /**
@@ -101,8 +110,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * <p>
      * Cached after first call, until changed.
      */
-    private Uri mExposedFileUri;
-    private String mEncryptedFileName;
+    private Uri exposedFileUri;
+    @Getter @Setter private String encryptedFileName;
 
 
     /**
@@ -114,11 +123,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public OCFile(String path) {
         resetData();
-        mNeedsUpdating = false;
+        needsUpdatingWhileSaving = false;
         if (path == null || path.length() <= 0 || !path.startsWith(PATH_SEPARATOR)) {
             throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
         }
-        mRemotePath = path;
+        remotePath = path;
     }
 
     /**
@@ -127,90 +136,66 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @param source The source parcel
      */
     private OCFile(Parcel source) {
-        mId = source.readLong();
-        mParentId = source.readLong();
-        mLength = source.readLong();
-        mCreationTimestamp = source.readLong();
-        mModifiedTimestamp = source.readLong();
-        mModifiedTimestampAtLastSyncForData = source.readLong();
-        mRemotePath = source.readString();
-        mLocalPath = source.readString();
-        mMimeType = source.readString();
-        mNeedsUpdating = source.readInt() == 0;
-        mAvailableOffline = source.readInt() == 1;
-        mLastSyncDateForProperties = source.readLong();
-        mLastSyncDateForData = source.readLong();
-        mEtag = source.readString();
-        mShareByLink = source.readInt() == 1;
-        mPublicLink = source.readString();
-        mPermissions = source.readString();
-        mRemoteId = source.readString();
-        mNeedsUpdateThumbnail = source.readInt() == 1;
-        mIsDownloading = source.readInt() == 1;
-        mEtagInConflict = source.readString();
-        mShareWithSharee = source.readInt() == 1;
-        mIsFavorite = source.readInt() == 1;
-        mIsEncrypted = source.readInt() == 1;
-        mEncryptedFileName = source.readString();
-        mMountType = (WebdavEntry.MountType) source.readSerializable();
+        fileId = source.readLong();
+        parentId = source.readLong();
+        fileLength = source.readLong();
+        creationTimestamp = source.readLong();
+        modificationTimestamp = source.readLong();
+        modificationTimestampAtLastSyncForData = source.readLong();
+        remotePath = source.readString();
+        localPath = source.readString();
+        mimeType = source.readString();
+        needsUpdatingWhileSaving = source.readInt() == 0;
+        availableOffline = source.readInt() == 1;
+        lastSyncDateForProperties = source.readLong();
+        lastSyncDateForData = source.readLong();
+        etag = source.readString();
+        sharedViaLink = source.readInt() == 1;
+        publicLink = source.readString();
+        permissions = source.readString();
+        remoteId = source.readString();
+        needsUpdateThumbnail = source.readInt() == 1;
+        downloading = source.readInt() == 1;
+        etagInConflict = source.readString();
+        sharedWithSharee = source.readInt() == 1;
+        favorite = source.readInt() == 1;
+        encrypted = source.readInt() == 1;
+        encryptedFileName = source.readString();
+        mountType = (WebdavEntry.MountType) source.readSerializable();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
-        dest.writeLong(mParentId);
-        dest.writeLong(mLength);
-        dest.writeLong(mCreationTimestamp);
-        dest.writeLong(mModifiedTimestamp);
-        dest.writeLong(mModifiedTimestampAtLastSyncForData);
-        dest.writeString(mRemotePath);
-        dest.writeString(mLocalPath);
-        dest.writeString(mMimeType);
-        dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mAvailableOffline ? 1 : 0);
-        dest.writeLong(mLastSyncDateForProperties);
-        dest.writeLong(mLastSyncDateForData);
-        dest.writeString(mEtag);
-        dest.writeInt(mShareByLink ? 1 : 0);
-        dest.writeString(mPublicLink);
-        dest.writeString(mPermissions);
-        dest.writeString(mRemoteId);
-        dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
-        dest.writeInt(mIsDownloading ? 1 : 0);
-        dest.writeString(mEtagInConflict);
-        dest.writeInt(mShareWithSharee ? 1 : 0);
-        dest.writeInt(mIsFavorite ? 1 : 0);
-        dest.writeInt(mIsEncrypted ? 1 : 0);
-        dest.writeString(mEncryptedFileName);
-        dest.writeSerializable(mMountType);
-    }
-
-    public boolean isFavorite() {
-        return mIsFavorite;
-    }
-
-    public void setFavorite(boolean mIsFavorite) {
-        this.mIsFavorite = mIsFavorite;
-    }
-
-    public boolean isEncrypted() {
-        return mIsEncrypted;
-    }
-
-    public void setEncrypted(boolean mIsEncrypted) {
-        this.mIsEncrypted = mIsEncrypted;
-    }
-    /**
-     * Gets the android internal ID of the file
-     *
-     * @return the android internal file ID
-     */
-    public long getFileId() {
-        return mId;
+        dest.writeLong(fileId);
+        dest.writeLong(parentId);
+        dest.writeLong(fileLength);
+        dest.writeLong(creationTimestamp);
+        dest.writeLong(modificationTimestamp);
+        dest.writeLong(modificationTimestampAtLastSyncForData);
+        dest.writeString(remotePath);
+        dest.writeString(localPath);
+        dest.writeString(mimeType);
+        dest.writeInt(needsUpdatingWhileSaving ? 1 : 0);
+        dest.writeInt(availableOffline ? 1 : 0);
+        dest.writeLong(lastSyncDateForProperties);
+        dest.writeLong(lastSyncDateForData);
+        dest.writeString(etag);
+        dest.writeInt(sharedViaLink ? 1 : 0);
+        dest.writeString(publicLink);
+        dest.writeString(permissions);
+        dest.writeString(remoteId);
+        dest.writeInt(needsUpdateThumbnail ? 1 : 0);
+        dest.writeInt(downloading ? 1 : 0);
+        dest.writeString(etagInConflict);
+        dest.writeInt(sharedWithSharee ? 1 : 0);
+        dest.writeInt(favorite ? 1 : 0);
+        dest.writeInt(encrypted ? 1 : 0);
+        dest.writeString(encryptedFileName);
+        dest.writeSerializable(mountType);
     }
 
     public String getDecryptedRemotePath() {
-        return mRemotePath;
+        return remotePath;
     }
 
     /**
@@ -220,7 +205,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getRemotePath() {
         if (isEncrypted() && !isFolder()) {
-            String parentPath = new File(mRemotePath).getParent();
+            String parentPath = new File(remotePath).getParent();
 
             if (parentPath.endsWith("/")) {
                 return parentPath + getEncryptedFileName();
@@ -229,19 +214,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             }
         } else {
             if (isFolder()) {
-                if (mRemotePath.endsWith("/")) {
-                    return mRemotePath;
+                if (remotePath.endsWith("/")) {
+                    return remotePath;
                 } else {
-                    return mRemotePath + "/";
+                    return remotePath + "/";
                 }
             } else {
-                return mRemotePath;
+                return remotePath;
             }
         }
-    }
-
-    public void setRemotePath(String path) {
-        mRemotePath = path;
     }
 
     /**
@@ -251,7 +232,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true, if the file exists in the database
      */
     public boolean fileExists() {
-        return mId != -1;
+        return fileId != -1;
     }
 
     /**
@@ -260,7 +241,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return mMimeType != null && mMimeType.equals(MimeType.DIRECTORY);
+        return mimeType != null && mimeType.equals(MimeType.DIRECTORY);
     }
 
 
@@ -271,7 +252,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return OCFile this file
      */
     public OCFile setFolder() {
-        setMimetype(MimeType.DIRECTORY);
+        setMimeType(MimeType.DIRECTORY);
         return this;
     }
 
@@ -290,8 +271,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is
      */
     public boolean existsOnDevice() {
-        if (mLocalPath != null && mLocalPath.length() > 0) {
-            return new File(mLocalPath).exists();
+        if (localPath != null && localPath.length() > 0) {
+            return new File(localPath).exists();
         }
         return false;
     }
@@ -302,7 +283,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return The local path to the file
      */
     public String getStoragePath() {
-        return mLocalPath;
+        return localPath;
     }
 
     /**
@@ -311,44 +292,44 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return A URI to the local copy of the file, or NULL if not stored in the device
      */
     public Uri getStorageUri() {
-        if (mLocalPath == null || mLocalPath.length() == 0) {
+        if (localPath == null || localPath.length() == 0) {
             return null;
         }
-        if (mLocalUri == null) {
+        if (localUri == null) {
             Uri.Builder builder = new Uri.Builder();
             builder.scheme(ContentResolver.SCHEME_FILE);
-            builder.path(mLocalPath);
-            mLocalUri = builder.build();
+            builder.path(localPath);
+            localUri = builder.build();
         }
-        return mLocalUri;
+        return localUri;
     }
 
 
     public Uri getLegacyExposedFileUri(Context context) {
-        if (mLocalPath == null || mLocalPath.length() == 0) {
+        if (localPath == null || localPath.length() == 0) {
             return null;
         }
 
-        if (mExposedFileUri == null) {
-            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
+        if (exposedFileUri == null) {
+            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(localPath));
         }
 
-        return mExposedFileUri;
+        return exposedFileUri;
 
     }
     /*
         Partly disabled because not all apps understand paths that we get via this method for now
      */
     public Uri getExposedFileUri(Context context) {
-        if (mLocalPath == null || mLocalPath.length() == 0) {
+        if (localPath == null || localPath.length() == 0) {
             return null;
         }
-        if (mExposedFileUri == null) {
+        if (exposedFileUri == null) {
             try {
-                mExposedFileUri = FileProvider.getUriForFile(
+                exposedFileUri = FileProvider.getUriForFile(
                         context,
                         context.getString(R.string.file_provider_authority),
-                        new File(mLocalPath));
+                        new File(localPath));
             } catch (IllegalArgumentException ex) {
                 // Could not share file using FileProvider URI scheme.
                 // Fall back to legacy URI parsing.
@@ -356,7 +337,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             }
         }
 
-        return mExposedFileUri;
+        return exposedFileUri;
     }
 
     /**
@@ -365,74 +346,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @param storage_path to set
      */
     public void setStoragePath(String storage_path) {
-        mLocalPath = storage_path;
-        mLocalUri = null;
-        mExposedFileUri = null;
+        localPath = storage_path;
+        localUri = null;
+        exposedFileUri = null;
     }
-
-    /**
-     * Get a UNIX timestamp of the file creation time
-     *
-     * @return A UNIX timestamp of the time that file was created
-     */
-    public long getCreationTimestamp() {
-        return mCreationTimestamp;
-    }
-
-    /**
-     * Set a UNIX timestamp of the time the file was created
-     *
-     * @param creation_timestamp to set
-     */
-    public void setCreationTimestamp(long creation_timestamp) {
-        mCreationTimestamp = creation_timestamp;
-    }
-
-    /**
-     * Get a UNIX timestamp of the file modification time.
-     *
-     * @return A UNIX timestamp of the modification time, corresponding to the value returned by the server
-     * in the last synchronization of the properties of this file.
-     */
-    public long getModificationTimestamp() {
-        return mModifiedTimestamp;
-    }
-
-    /**
-     * Set a UNIX timestamp of the time the time the file was modified.
-     * <p/>
-     * To update with the value returned by the server in every synchronization of the properties
-     * of this file.
-     *
-     * @param modification_timestamp to set
-     */
-    public void setModificationTimestamp(long modification_timestamp) {
-        mModifiedTimestamp = modification_timestamp;
-    }
-
-
-    /**
-     * Get a UNIX timestamp of the file modification time.
-     *
-     * @return A UNIX timestamp of the modification time, corresponding to the value returned by the server
-     * in the last synchronization of THE CONTENTS of this file.
-     */
-    public long getModificationTimestampAtLastSyncForData() {
-        return mModifiedTimestampAtLastSyncForData;
-    }
-
-    /**
-     * Set a UNIX timestamp of the time the time the file was modified.
-     * <p/>
-     * To update with the value returned by the server in every synchronization of THE CONTENTS
-     * of this file.
-     *
-     * @param modificationTimestamp to set
-     */
-    public void setModificationTimestampAtLastSyncForData(long modificationTimestamp) {
-        mModifiedTimestampAtLastSyncForData = modificationTimestamp;
-    }
-
 
     /**
      * Returns the filename and "/" for the root directory
@@ -440,7 +357,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return The name of the file
      */
     public String getFileName() {
-        File f = new File(mRemotePath);
+        File f = new File(remotePath);
         return f.getName().length() == 0 ? ROOT_PATH : f.getName();
     }
 
@@ -451,121 +368,49 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * directory
      */
     public void setFileName(String name) {
-        Log_OC.d(TAG, "OCFile name changing from " + mRemotePath);
+        Log_OC.d(TAG, "OCFile name changing from " + remotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
-                !mRemotePath.equals(ROOT_PATH)) {
+                !remotePath.equals(ROOT_PATH)) {
             String parent = new File(this.getRemotePath()).getParent();
             parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
-            mRemotePath = parent + name;
+            remotePath = parent + name;
             if (isFolder()) {
-                mRemotePath += PATH_SEPARATOR;
+                remotePath += PATH_SEPARATOR;
             }
-            Log_OC.d(TAG, "OCFile name changed to " + mRemotePath);
+            Log_OC.d(TAG, "OCFile name changed to " + remotePath);
         }
-    }
-
-    public void setEncryptedFileName(String name) {
-        mEncryptedFileName = name;
-    }
-
-    public String getEncryptedFileName() {
-        return mEncryptedFileName;
-    }
-
-    /**
-     * Can be used to get the MimeType
-     *
-     * @return the MimeType as a String
-     */
-    @Override
-    public String getMimeType() {
-        return mMimeType;
     }
 
     /**
      * Used internally. Reset all file properties
      */
     private void resetData() {
-        mId = -1;
-        mRemotePath = null;
-        mParentId = 0;
-        mLocalPath = null;
-        mMimeType = null;
-        mLength = 0;
-        mCreationTimestamp = 0;
-        mModifiedTimestamp = 0;
-        mModifiedTimestampAtLastSyncForData = 0;
-        mLastSyncDateForProperties = 0;
-        mLastSyncDateForData = 0;
-        mAvailableOffline = false;
-        mNeedsUpdating = false;
-        mEtag = null;
-        mShareByLink = false;
-        mPublicLink = null;
-        mPermissions = null;
-        mRemoteId = null;
-        mNeedsUpdateThumbnail = false;
-        mIsDownloading = false;
-        mEtagInConflict = null;
-        mShareWithSharee = false;
-        mIsFavorite = false;
-        mIsEncrypted = false;
-        mEncryptedFileName = null;
-        mMountType = WebdavEntry.MountType.INTERNAL;
-    }
-
-    /**
-     * Sets the ID of the file
-     *
-     * @param file_id to set
-     */
-    public void setFileId(long file_id) {
-        mId = file_id;
-    }
-
-    /**
-     * Sets the Mime-Type of the
-     *
-     * @param mimetype to set
-     */
-    public void setMimetype(String mimetype) {
-        mMimeType = mimetype;
-    }
-
-    /**
-     * Sets the ID of the parent folder
-     *
-     * @param parent_id to set
-     */
-    public void setParentId(long parent_id) {
-        mParentId = parent_id;
-    }
-
-    /**
-     * Sets the file size in bytes
-     *
-     * @param file_len to set
-     */
-    public void setFileLength(long file_len) {
-        mLength = file_len;
-    }
-
-    /**
-     * Returns the size of the file in bytes
-     *
-     * @return The filesize in bytes
-     */
-    public long getFileLength() {
-        return mLength;
-    }
-
-    /**
-     * Returns the ID of the parent Folder
-     *
-     * @return The ID
-     */
-    public long getParentId() {
-        return mParentId;
+        fileId = -1;
+        remotePath = null;
+        parentId = 0;
+        localPath = null;
+        mimeType = null;
+        fileLength = 0;
+        creationTimestamp = 0;
+        modificationTimestamp = 0;
+        modificationTimestampAtLastSyncForData = 0;
+        lastSyncDateForProperties = 0;
+        lastSyncDateForData = 0;
+        availableOffline = false;
+        needsUpdatingWhileSaving = false;
+        etag = null;
+        sharedViaLink = false;
+        publicLink = null;
+        permissions = null;
+        remoteId = null;
+        needsUpdateThumbnail = false;
+        downloading = false;
+        etagInConflict = null;
+        sharedWithSharee = false;
+        favorite = false;
+        encrypted = false;
+        encryptedFileName = null;
+        mountType = WebdavEntry.MountType.INTERNAL;
     }
 
     /**
@@ -576,47 +421,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
         return parentPath.endsWith("/") ? parentPath : parentPath + "/";
-    }
-
-    /**
-     * Check, if this file needs updating
-     *
-     * @return
-     */
-    public boolean needsUpdatingWhileSaving() {
-        return mNeedsUpdating;
-    }
-
-    public boolean needsUpdateThumbnail() {
-        return mNeedsUpdateThumbnail;
-    }
-
-    public void setNeedsUpdateThumbnail(boolean needsUpdateThumbnail) {
-        this.mNeedsUpdateThumbnail = needsUpdateThumbnail;
-    }
-
-    public long getLastSyncDateForProperties() {
-        return mLastSyncDateForProperties;
-    }
-
-    public void setLastSyncDateForProperties(long lastSyncDate) {
-        mLastSyncDateForProperties = lastSyncDate;
-    }
-
-    public long getLastSyncDateForData() {
-        return mLastSyncDateForData;
-    }
-
-    public void setLastSyncDateForData(long lastSyncDate) {
-        mLastSyncDateForData = lastSyncDate;
-    }
-
-    public void setAvailableOffline(boolean availableOffline) {
-        mAvailableOffline = availableOffline;
-    }
-
-    public boolean isAvailableOffline() {
-        return mAvailableOffline;
     }
 
     @Override
@@ -647,51 +451,30 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
         OCFile ocFile = (OCFile) o;
 
-        return mId == ocFile.mId && mParentId == ocFile.mParentId;
+        return fileId == ocFile.fileId && parentId == ocFile.parentId;
     }
 
     @Override
     public int hashCode() {
-        return 31 * (int) (mId ^ (mId >>> 32)) + (int) (mParentId ^ (mParentId >>> 32));
+        return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
     }
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
+        String asString = "[fileId=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
-        return String.format(asString, mId, getFileName(), mMimeType, isDown(),
-                mLocalPath, mRemotePath, mParentId, mAvailableOffline,
-                mEtag, mIsFavorite);
-    }
-
-    public String getEtag() {
-        return mEtag;
+        return String.format(asString, fileId, getFileName(), mimeType, isDown(),
+            localPath, remotePath, parentId, availableOffline,
+            etag, favorite);
     }
 
     public void setEtag(String etag) {
-        this.mEtag = (etag != null ? etag : "");
-    }
-
-
-    public boolean isSharedViaLink() {
-        return mShareByLink;
-    }
-
-    public void setShareViaLink(boolean shareByLink) {
-        this.mShareByLink = shareByLink;
-    }
-
-    public String getPublicLink() {
-        return mPublicLink;
-    }
-
-    public void setPublicLink(String publicLink) {
-        this.mPublicLink = publicLink;
+        this.etag = (etag != null ? etag : "");
     }
 
     public long getLocalModificationTimestamp() {
-        if (mLocalPath != null && mLocalPath.length() > 0) {
-            File f = new File(mLocalPath);
+        if (localPath != null && localPath.length() > 0) {
+            File f = new File(localPath);
             return f.lastModified();
         }
         return 0;
@@ -704,62 +487,17 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return getFileName().length() > 0 && getFileName().charAt(0) == '.';
     }
 
-    public String getPermissions() {
-        return mPermissions;
-    }
-
-    public void setPermissions(String permissions) {
-        this.mPermissions = permissions;
-    }
-
     /**
-     * The fileid namespaced by the instance id, globally unique
+     * The unique fileId for the file within the instance
      *
-     * @return globally unique file id: file id + instance id
-     */
-    public String getRemoteId() {
-        return mRemoteId;
-    }
-
-    /**
-     * The unique id for the file within the instance
-     *
-     * @return file id, unique within the instance
+     * @return file fileId, unique within the instance
      */
     public String getLocalId() {
         return getRemoteId().substring(0, 8).replaceAll("^0*", "");
     }
 
-    public void setRemoteId(String remoteId) {
-        this.mRemoteId = remoteId;
-    }
-
-    public boolean isDownloading() {
-        return mIsDownloading;
-    }
-
-    public void setDownloading(boolean isDownloading) {
-        this.mIsDownloading = isDownloading;
-    }
-
-    public String getEtagInConflict() {
-        return mEtagInConflict;
-    }
-
     public boolean isInConflict() {
-        return mEtagInConflict != null && !mEtagInConflict.equals("");
-    }
-
-    public void setEtagInConflict(String etagInConflict) {
-        mEtagInConflict = etagInConflict;
-    }
-
-    public boolean isSharedWithSharee() {
-        return mShareWithSharee;
-    }
-
-    public void setShareWithSharee(boolean shareWithSharee) {
-        this.mShareWithSharee = shareWithSharee;
+        return etagInConflict != null && !etagInConflict.equals("");
     }
 
     public boolean isSharedWithMe() {
@@ -775,14 +513,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean canWrite() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
-    }
-
-    public WebdavEntry.MountType getMountType() {
-        return mMountType;
-    }
-
-    public void setMountType(WebdavEntry.MountType mountType) {
-        mMountType = mountType;
     }
 
     public boolean hasPreview() {
