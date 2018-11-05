@@ -235,7 +235,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             if (success) {
                 int position = holder.getAdapterPosition();
 
-                if (position > 0 && position < notificationsList.size()) {
+                if (position >= 0 && position < notificationsList.size()) {
                     notificationsList.remove(position);
                     notifyItemRemoved(position);
                 }
