@@ -1,3 +1,8 @@
+## 3.3.2 (November, 2, 2018)
+- fix fingerprint not working on certain devices
+
+For full list please see https://github.com/nextcloud/android/milestone/27
+
 ## 3.3.1 (October, 29, 2018)
 Bugfix release
 - fix crash on shared folder/file via Talk
