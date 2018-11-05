@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -29,7 +30,7 @@ import java.io.IOException;
 public abstract class AbstractIT {
 
     protected static OwnCloudClient client;
-    protected static Account account;
+    static Account account;
     protected static Context context;
 
     private static final String username = "test";
@@ -58,7 +59,7 @@ public abstract class AbstractIT {
             if (account == null) {
                 throw new ActivityNotFoundException();
             }
-            
+
             client = OwnCloudClientFactory.createOwnCloudClient(account, context);
 
             createDummyFiles();
@@ -73,14 +74,28 @@ public abstract class AbstractIT {
         }
     }
 
-    protected FileDataStorageManager getStorageManager() {
+    FileDataStorageManager getStorageManager() {
         return new FileDataStorageManager(account, context.getContentResolver());
     }
 
     private static void createDummyFiles() throws IOException {
         new File(FileStorageUtils.getSavePath(account.name)).mkdirs();
 
-        File file = new File(FileStorageUtils.getSavePath(account.name) + "/123.txt");
+        createFile("empty.txt", 0);
+        createFile("nonEmpty.txt", 100);
+        createFile("chunkedFile.txt", 500000);
+    }
+
+    private static void createFile(String name, int iteration) throws IOException {
+        File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
         file.createNewFile();
+
+        FileWriter writer = new FileWriter(file);
+
+        for (int i = 0; i < iteration; i++) {
+            writer.write("123123123123123123123123123\n");
+        }
+        writer.flush();
+        writer.close();
     }
 }
