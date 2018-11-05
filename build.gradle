@@ -261,6 +261,9 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:16.0.3'
 
+    compileOnly "org.projectlombok:lombok:1.18.4"
+    annotationProcessor "org.projectlombok:lombok:1.18.4"
+
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
 
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
