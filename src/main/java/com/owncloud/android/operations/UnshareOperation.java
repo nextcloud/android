@@ -49,7 +49,7 @@ public class UnshareOperation extends SyncOperation {
     private ShareType mShareType;
     private String mShareWith;
     private Context mContext;
-    
+
     public UnshareOperation(String remotePath, ShareType shareType, String shareWith,
                                 Context context) {
         mRemotePath = remotePath;
@@ -61,11 +61,11 @@ public class UnshareOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result  = null;
-        
+
         // Get Share for a file
         OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath,
                 mShareType, mShareWith);
-        
+
         if (share != null) {
             OCFile file = getStorageManager().getFileByPath(mRemotePath);
             RemoveRemoteShareOperation operation =
@@ -76,7 +76,7 @@ public class UnshareOperation extends SyncOperation {
                 Log_OC.d(TAG, "Share id = " + share.getRemoteId() + " deleted");
 
                 if (ShareType.PUBLIC_LINK.equals(mShareType)) {
-                    file.setShareViaLink(false);
+                    file.setSharedViaLink(false);
                     file.setPublicLink("");
                 } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType)
                     || ShareType.FEDERATED.equals(mShareType)){
@@ -85,7 +85,7 @@ public class UnshareOperation extends SyncOperation {
                             getSharesWithForAFile(mRemotePath,
                             getStorageManager().getAccount().name);
                     if (sharesWith.size() == SINGLY_SHARED) {
-                        file.setShareWithSharee(false);
+                        file.setSharedWithSharee(false);
                     }
                 }
 
@@ -103,7 +103,7 @@ public class UnshareOperation extends SyncOperation {
 
         return result;
     }
-    
+
     private boolean existsFile(OwnCloudClient client, String remotePath){
         ExistenceCheckRemoteOperation existsOperation =
                 new ExistenceCheckRemoteOperation(remotePath, mContext, false);

@@ -167,7 +167,7 @@ public final class FileStorageUtils {
         } else {
             file.setFileLength(remote.getLength());
         }
-        file.setMimetype(remote.getMimeType());
+        file.setMimeType(remote.getMimeType());
         file.setModificationTimestamp(remote.getModifiedTimestamp());
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
