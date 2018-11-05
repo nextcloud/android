@@ -31,7 +31,8 @@
     <string name="drawer_item_activities">Izmaiņas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
-    <string name="drawer_close">Aizvērt malu</string>
+    <string name="drawer_quota_unlimited">%1$s izmantoti</string>
+	<string name="drawer_close">Aizvērt malu</string>
     <string name="drawer_open">Atvērt malu</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
@@ -48,13 +49,19 @@
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
     <string name="prefs_calendar_contacts_summary">Kontam iestatīt DAVdroid (v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Servera adresi šim kontam nevar sasniegt priekš DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktu sinhronizācija ir izveidota</string>
     <string name="prefs_daily_contacts_sync_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_help">Palīdzība</string>
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
 
-	<string name="auth_check_server">Pārbaudīt serveri</string>
+	<string name="recommend_text">Izmanto %1$s aplikāciju arī Tu.\nLejuplādē to šeit: %2$s</string>
+    <string name="recommend_urls">%1$s vai %2$s</string>
+
+    <string name="auth_check_server">Pārbaudīt serveri</string>
     <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_password">Parole</string>
@@ -81,9 +88,12 @@
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
+    <string name="file_list_empty_favorites_filter_list">Faili un mapes kurus pievienosiet izlasei, būs redzami šeit</string>
+    <string name="file_list_empty_favorites_filter">Nekas netika atrast starp izlases datnēm.</string>
     <string name="file_list_loading">Ielādē …</string>
     <string name="file_list_no_app_for_file_type">Neviena lietotne nevar atvērt šo datnes tipu.</string>
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
+    <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
     <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
     <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
     <string name="file_list_empty_favorite_headline">Nekas vēl nav pievienots favorītiem</string>
@@ -127,6 +137,7 @@
     <string name="about_title">Par</string>
     <string name="delete_account">Noņemt kontu</string>
     <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>
+    <string name="avatar">Profila attēls</string>
     <string name="active_user">Aktīvais lietotājs</string>
     <string name="upload_chooser_title">Augšupielādēts no…</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
@@ -140,6 +151,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
     <string name="uploads_view_title">Augšupielādes</string>
     <string name="uploads_view_group_current_uploads">Pašreizējais</string>
+    <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
     <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_cancelled">Atcelts</string>
@@ -150,6 +162,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokālā datne nav atrasta</string>
     <string name="uploads_view_upload_status_failed_permission_error">Pieejas tiesību kļuda</string>
     <string name="uploads_view_upload_status_conflict">Konflikts</string>
+    <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Gaida uz Wi-Fi </string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
@@ -176,6 +189,11 @@
         <item quantity="other">Nevarēja sinhronizēt %1$d datnes (konflikti: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="zero">%1$d  datni no mapes %2$s neizdevās pārkopēt uz</item>
+        <item quantity="one">%1$d datni no mapes %2$s neizdevās pārkopēt uz</item>
+        <item quantity="other">%1$d  datnes no mapes %2$s neizdevās pārkopēt uz</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">Mape %1$s vairs neeksistē</string>
     <string name="foreign_files_move">Pārvietot visu</string>
     <string name="foreign_files_success">Visas datnes tika pārvietotas</string>
@@ -185,6 +203,8 @@
     <string name="upload_query_move_foreign_files">Nepietiekama atmiņa neatļauj izvēlētās datnes kopēt uz %1$s mapi. Vai jūs gribat tās tur pārvietot?</string>
     <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
+    <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
+
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kods tiks pieprasīts katru reizi kad atvērsiet lietotni</string>
     <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
@@ -203,20 +223,27 @@
     <string name="media_err_unsupported">Neatbalstīts mediju kodekss</string>
     <string name="media_err_io">Nevarēja nolasīt medija datni</string>
     <string name="media_err_malformed">Multivides failam nav pareiza iekodēšana</string>
+    <string name="media_err_timeout">Mēģinājums atskaņot failu noilga</string>
     <string name="media_err_invalid_progressive_playback">Nevar straumēt multivides failu</string>
+    <string name="media_err_unknown">Iegultais atskaņotājs nevarēja atvērt failu.</string>
+    <string name="media_err_playing">Neparedzēta kļūda atskaņojot %1$s</string>
     <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
 
+    <string name="auth_getting_authorization">Iegūst pieeju...</string>
     <string name="auth_trying_to_login">Mēģina pieteikties…</string>
 	<string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
 	<string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
 	<string name="auth_connection_established">Savienojums ir izveidots</string>
 	<string name="auth_testing_connection">Notiek savienojuma testēšana</string>
 	<string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
+	<string name="auth_account_not_new">Konts šādam lietotājam un serverim jau pastāv.</string>
 	<string name="auth_account_not_the_same">Ievadītais lietotājvārds neatbilst šī konta lietotājam.</string>
 	<string name="auth_unknown_error_http_title">Nezināma HTTP kļūda!</string>
 	<string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
+	<string name="auth_unknown_error_exception_title">Nezināma kļūda: %1$s</string>
+	<string name="auth_unknown_host_title">Nevar atrast saimniekdatoru</string>
 	<string name="auth_incorrect_path_title">Serveris nav atrasts</string>
 	<string name="auth_timeout_title">Serveris pārāk ilgi neatbildēja</string>
 	<string name="auth_incorrect_address_title">Nepareizs servera adreses formāts</string>
@@ -228,9 +255,14 @@
 	<string name="auth_unauthorized">Nepareizs lietotājvārds vai parole</string>
 	<string name="auth_oauth_error">Neveiksmīga autorizācija</string>
 	<string name="auth_oauth_error_access_denied">Piekļuvi liedza autorizācijas serveris</string>
+	<string name="auth_wtf_reenter_URL">Neparedzēts stāvoklis, lūdzu ievadiet servera adresi no jauna</string>
+	<string name="auth_expired_oauth_token_toast">Jūsu pieteikšanās sesija noilgusi. Lūdzu piesakieties no jauna.</string>
 	<string name="auth_expired_basic_auth_toast">Lūdzu, ievadiet pašreizējo paroli</string>
 	<string name="auth_expired_saml_sso_token_toast">Jūsu sesija ir beigusies. Lūdzu, izveidojiet savienojumu vēlreiz</string>
-    <string name="auth_can_not_auth_against_server">Nevar autentificēt serveri</string>
+    <string name="auth_connecting_auth_server">Savienojas ar autentifikācijas serveri…</string>
+	<string name="auth_unsupported_multiaccount">%1$s neatbalsta vairākus kontus.</string>
+	<string name="auth_can_not_auth_against_server">Nevar autentificēt serveri</string>
+    <string name="auth_account_does_not_exist">Konts vēl nav pievienots šai iekārtai</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
     <string name="auth_illegal_login_used">Nepareizs pierakstīšanās datu URL izmantots</string>
 
@@ -327,6 +359,7 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
 
     <string name="copy_link">Kopēt saiti</string>
+    <string name="clipboard_text_copied">Saite nokopēta</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
     <string name="clipboard_unexpected_error">Kopējot starpliktuvē, radās neparedzēta kļūda</string>
     <string name="clipboard_label">Teksts kopēts no %1$s</string>
@@ -335,6 +368,7 @@
 
     <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
     <string name="network_error_socket_timeout_exception">Radās kļūda, gaidot serveri. Darbību nevarēja pabeigt</string>
+    <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_rename">lai pārsauktu šo datni</string>
     <string name="forbidden_permissions_delete">lai dzēstu šo datni</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
@@ -506,6 +540,7 @@
     <string name="participate_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
     <string name="participate_release_candidate_headline">Laišanas kandidāts</string>
     <string name="participate_release_candidate_text">Šis laidiena kandidāts (RC) ir pirmslaišanas versija un tai vajadzētu būt stabilai. Testējot savus individuālos uzstādijumus jūs varat palīdzēt to pārbaudīt. Pierakstieties testēšanai Play veikalā vai manuāli skatieties \"Version\" nodalijumā F-Droid. </string>
+    <string name="participate_contribute_headline">Aktīvi dod iegūldījumu</string>
     <string name="participate_contribute_irc_text">Pievienojies čatam IRC:</string>
     <string name="participate_contribute_forum_text">Palīdzi citiem </string>
     <string name="participate_contribute_forum_forum">forums</string>
