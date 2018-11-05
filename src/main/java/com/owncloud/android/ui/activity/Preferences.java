@@ -864,22 +864,27 @@ public class Preferences extends PreferenceActivity
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
-        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (data == null) {
+                DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
+            } else {
+                if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                         RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-            String mnemonic = arbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
+                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+                    String mnemonic = arbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
 
-            int accentColor = ThemeUtils.primaryAccentColor(this);
+                    int accentColor = ThemeUtils.primaryAccentColor(this);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
-            builder.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_e2e_mnemonic), accentColor));
-            builder.setMessage(mnemonic);
-            builder.setPositiveButton(ThemeUtils.getColoredTitle(getString(R.string.common_ok), accentColor),
-                    (dialog, which) -> dialog.dismiss());
-            builder.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+                    builder.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_e2e_mnemonic), accentColor));
+                    builder.setMessage(mnemonic);
+                    builder.setPositiveButton(ThemeUtils.getColoredTitle(getString(R.string.common_ok), accentColor),
+                        (dialog, which) -> dialog.dismiss());
+                    builder.show();
+                }
+            }
         }
     }
 
