@@ -1,18 +1,18 @@
 /*
  * ownCloud Android client application
- * 
+ *
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -130,7 +130,7 @@ public class FileDataStorageManager {
         c.close();
         return file;
     }
-    
+
     public OCFile getFileByLocalPath(String path) {
         Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile file = null;
@@ -172,7 +172,7 @@ public class FileDataStorageManager {
 
     public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> ret = new ArrayList<>();
-        
+
         if (folder != null) {
             // TODO better implementation, filtering in the access to database instead of here
             List<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
@@ -490,6 +490,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
         cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, file.getMountType().ordinal());
+        cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.hasPreview() ? 1 : 0);
         return cv;
     }
 
@@ -600,7 +601,7 @@ public class FileDataStorageManager {
                 }
             }
 
-            // stage 2: remove the folder itself and any local file inside out of sync; 
+            // stage 2: remove the folder itself and any local file inside out of sync;
             //          for instance, after clearing the app cache or reinstalling
             success &= removeLocalFolder(localFolder);
         }
@@ -717,7 +718,7 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Fail to update " + file.getFileId() + " and descendants in database", e);
             }
 
-            /// 4. move in local file system 
+            /// 4. move in local file system
             String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
             String targetLocalPath = defaultSavePath + targetPath;
             File localFile = new File(originalLocalPath);
@@ -859,7 +860,7 @@ public class FileDataStorageManager {
                     }
                 } while (c.moveToNext());
             }
-            
+
             c.close();
         }
 
@@ -983,6 +984,7 @@ public class FileDataStorageManager {
             }
             file.setMountType(WebdavEntry.MountType.values()[c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
+            file.setHasPreview(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
         }
         return file;
     }

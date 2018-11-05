@@ -43,23 +43,9 @@ import java.io.File;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
-
-    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
-
-        @Override
-        public OCFile createFromParcel(Parcel source) {
-            return new OCFile(source);
-        }
-
-        @Override
-        public OCFile[] newArray(int size) {
-            return new OCFile[size];
-        }
-    };
-
-    private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
+    private final static String PERMISSION_SHARED_WITH_ME = "S";
     private final static String PERMISSION_CAN_RESHARE = "R";
-    private final static String PERMISSION_CAN_WRITE = "CK"; 
+    private final static String PERMISSION_CAN_WRITE = "CK";
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -79,6 +65,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
     private boolean mAvailableOffline;
+    private boolean mHasPreview;
 
     private String mEtag;
 
@@ -368,7 +355,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
                 getLegacyExposedFileUri(context);
             }
         }
-        
+
         return mExposedFileUri;
     }
 
@@ -797,4 +784,25 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public void setMountType(WebdavEntry.MountType mountType) {
         mMountType = mountType;
     }
+
+    public boolean hasPreview() {
+        return mHasPreview;
+    }
+
+    public void setHasPreview(boolean hasPreview) {
+        this.mHasPreview = hasPreview;
+    }
+
+    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+
+        @Override
+        public OCFile createFromParcel(Parcel source) {
+            return new OCFile(source);
+        }
+
+        @Override
+        public OCFile[] newArray(int size) {
+            return new OCFile[size];
+        }
+    };
 }
