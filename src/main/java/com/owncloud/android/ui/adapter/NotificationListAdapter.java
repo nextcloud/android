@@ -234,8 +234,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         protected void onPostExecute(Boolean success) {
             if (success) {
                 int position = holder.getAdapterPosition();
-                notificationsList.remove(position);
-                notifyItemRemoved(position);
+
+                if (position >= 0 && position < notificationsList.size()) {
+                    notificationsList.remove(position);
+                    notifyItemRemoved(position);
+                }
             } else {
                 setButtonEnabled(holder, true);
                 DisplayUtils.showSnackMessage(notificationsActivity, "Failed to execute action!");
