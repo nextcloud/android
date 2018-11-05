@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
@@ -23,10 +23,15 @@ package com.owncloud.android.datamodel;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Display item specialization for synced folder objects to be displayed in a list/grid view adding further
  * information to be displayed in the UI but not part of the persisted underlying {@link SyncedFolder} object.
  */
+@Getter
+@Setter
 public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
@@ -64,29 +69,5 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    String folderName, MediaFolderType type) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
         this.folderName = folderName;
-    }
-
-    public List<String> getFilePaths() {
-        return filePaths;
-    }
-
-    public void setFilePaths(List<String> filePaths) {
-        this.filePaths = filePaths;
-    }
-
-    public String getFolderName() {
-        return folderName;
-    }
-
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
-    }
-
-    public long getNumberOfFiles() {
-        return numberOfFiles;
-    }
-
-    public void setNumberOfFiles(long numberOfFiles) {
-        this.numberOfFiles = numberOfFiles;
     }
 }
