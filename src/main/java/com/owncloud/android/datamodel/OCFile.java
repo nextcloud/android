@@ -469,7 +469,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setEtag(String etag) {
-        this.etag = (etag != null ? etag : "");
+        this.etag = etag != null ? etag : "";
     }
 
     public long getLocalModificationTimestamp() {
