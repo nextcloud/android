@@ -22,54 +22,19 @@ package com.owncloud.android.datamodel;
 
 import org.parceler.Parcel;
 
-@Parcel public class DecryptedPushMessage {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Parcel
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DecryptedPushMessage {
     public String app;
-
     public String type;
-
     public String subject;
-
     public String id;
-
-    public DecryptedPushMessage(String app, String type, String subject, String id) {
-        this.app = app;
-        this.type = type;
-        this.subject = subject;
-        this.id = id;
-    }
-
-    public DecryptedPushMessage() {
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }
