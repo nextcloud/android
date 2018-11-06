@@ -106,7 +106,7 @@ public final class ThumbnailsCacheManager {
 
     private ThumbnailsCacheManager() {
     }
-    
+
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
         @Override
         protected Void doInBackground(File... params) {
@@ -115,7 +115,7 @@ public final class ThumbnailsCacheManager {
 
                 if (mThumbnailCache == null) {
                     try {
-                        // Check if media is mounted or storage is built-in, if so, 
+                        // Check if media is mounted or storage is built-in, if so,
                         // try and use external cache dir; otherwise use internal cache dir
                         File cacheDir = MainApp.getAppContext().getExternalCacheDir();
 
@@ -184,7 +184,7 @@ public final class ThumbnailsCacheManager {
 
         return thumbnail;
     }
-    
+
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache != null) {
@@ -265,7 +265,7 @@ public final class ThumbnailsCacheManager {
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || file.needsUpdateThumbnail()) {
+            if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
                 Point p = getScreenDimension();
                 int pxW = p.x;
                 int pxH = p.y;
@@ -281,7 +281,7 @@ public final class ThumbnailsCacheManager {
 
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
 
-                        file.setNeedsUpdateThumbnail(false);
+                        file.setUpdateThumbnailNeeded(false);
                         storageManager.saveFile(file);
                     }
 
@@ -355,7 +355,7 @@ public final class ThumbnailsCacheManager {
                             }
                         }
                     }).start();
-                    
+
                 }
             }
         }
@@ -504,7 +504,7 @@ public final class ThumbnailsCacheManager {
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).needsUpdateThumbnail())) {
+            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded())) {
                 int pxW;
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
@@ -528,7 +528,7 @@ public final class ThumbnailsCacheManager {
 
                             thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
 
-                            ocFile.setNeedsUpdateThumbnail(false);
+                            ocFile.setUpdateThumbnailNeeded(false);
                             mStorageManager.saveFile(ocFile);
                         }
                     }
@@ -555,7 +555,7 @@ public final class ThumbnailsCacheManager {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
                                             file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
                                 }
-                                
+
                                 Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
                                 getMethod = new GetMethod(uri);
                                 getMethod.setRequestHeader("Cookie",
@@ -865,7 +865,7 @@ public final class ThumbnailsCacheManager {
                     Log_OC.d("Avatar", "URI: " + uri);
                     get = new GetMethod(uri);
 
-                    // only use eTag if available and corresponding avatar is still there 
+                    // only use eTag if available and corresponding avatar is still there
                     // (might be deleted from cache)
                     if (!eTag.isEmpty() && getBitmapFromDiskCache(avatarKey) != null) {
                         get.setRequestHeader("If-None-Match", eTag);

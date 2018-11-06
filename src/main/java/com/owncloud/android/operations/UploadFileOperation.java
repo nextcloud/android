@@ -167,7 +167,7 @@ public class UploadFileOperation extends SyncOperation {
         // are checked when the UploadFileOperation instance is created
 
 
-        newFile.setMimetype(mimeType);
+        newFile.setMimeType(mimeType);
 
         return newFile;
     }
@@ -385,7 +385,7 @@ public class UploadFileOperation extends SyncOperation {
         // parent file is not null anymore:
         // - it was created on fresh upload or
         // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
-        
+
         mFile.setParentId(parent.getFileId());
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
@@ -436,7 +436,7 @@ public class UploadFileOperation extends SyncOperation {
         String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
 
         try {
-            // check conditions 
+            // check conditions
             result = checkConditions(originalFile);
 
             if (result != null) {
@@ -450,7 +450,7 @@ public class UploadFileOperation extends SyncOperation {
 
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
-                // immediately store it 
+                // immediately store it
                 mUpload.setFolderUnlockToken(token);
                 uploadsStorageManager.updateUpload(mUpload);
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
@@ -1027,7 +1027,7 @@ public class UploadFileOperation extends SyncOperation {
         }
         if (parent != null) {
             OCFile createdFolder = new OCFile(remotePath);
-            createdFolder.setMimetype(MimeType.DIRECTORY);
+            createdFolder.setMimeType(MimeType.DIRECTORY);
             createdFolder.setParentId(parent.getFileId());
             getStorageManager().saveFile(createdFolder);
             return createdFolder;
@@ -1047,7 +1047,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile newFile = new OCFile(newRemotePath);
         newFile.setCreationTimestamp(mFile.getCreationTimestamp());
         newFile.setFileLength(mFile.getFileLength());
-        newFile.setMimetype(mFile.getMimeType());
+        newFile.setMimeType(mFile.getMimeType());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
         newFile.setModificationTimestampAtLastSyncForData(
                 mFile.getModificationTimestampAtLastSyncForData()
@@ -1332,7 +1332,7 @@ public class UploadFileOperation extends SyncOperation {
             // coincidence; nothing else is needed, the storagePath is right
             // in the instance returned by mCurrentUpload.getFile()
         }
-        file.setNeedsUpdateThumbnail(true);
+        file.setUpdateThumbnailNeeded(true);
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
 
@@ -1347,7 +1347,7 @@ public class UploadFileOperation extends SyncOperation {
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
         file.setCreationTimestamp(remoteFile.getCreationTimestamp());
         file.setFileLength(remoteFile.getLength());
-        file.setMimetype(remoteFile.getMimeType());
+        file.setMimeType(remoteFile.getMimeType());
         file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
         file.setEtag(remoteFile.getEtag());

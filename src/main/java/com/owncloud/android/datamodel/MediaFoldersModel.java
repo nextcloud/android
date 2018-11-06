@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Andy Scherzinger
  * Copyright (C) 2018 Mario Danic
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,35 +24,15 @@ package com.owncloud.android.datamodel;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MediaFoldersModel {
     private List<String> imageMediaFolders;
     private List<String> videoMediaFolders;
-
-    /**
-     * default constructor.
-     */
-    public MediaFoldersModel() {
-        // keep default constructor for GSON
-    }
-
-    public MediaFoldersModel(List<String> imageMediaFolders, List<String> videoMediaFolders) {
-        this.imageMediaFolders = imageMediaFolders;
-        this.videoMediaFolders = videoMediaFolders;
-    }
-
-    public List<String> getImageMediaFolders() {
-        return imageMediaFolders;
-    }
-
-    public void setImageMediaFolders(List<String> imageMediaFolders) {
-        this.imageMediaFolders = imageMediaFolders;
-    }
-
-    public List<String> getVideoMediaFolders() {
-        return videoMediaFolders;
-    }
-
-    public void setVideoMediaFolders(List<String> videoMediaFolders) {
-        this.videoMediaFolders = videoMediaFolders;
-    }
 }

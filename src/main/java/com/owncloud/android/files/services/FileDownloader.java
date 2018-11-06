@@ -492,11 +492,11 @@ public class FileDownloader extends Service
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);
-        file.setNeedsUpdateThumbnail(true);
+        file.setUpdateThumbnailNeeded(true);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
         file.setModificationTimestampAtLastSyncForData(mCurrentDownload.getModificationTimestamp());
         file.setEtag(mCurrentDownload.getEtag());
-        file.setMimetype(mCurrentDownload.getMimeType());
+        file.setMimeType(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());
         file.setFileLength(new File(mCurrentDownload.getSavePath()).length());
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
@@ -528,7 +528,7 @@ public class FileDownloader extends Service
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
         }
-        
+
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = null;
         if (PreviewImageFragment.canBePreviewed(download.getFile())) {
@@ -569,7 +569,7 @@ public class FileDownloader extends Service
             if (mNotificationManager == null) {
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
-            
+
             if (mNotificationManager != null) {
                 mNotificationManager.notify(R.string.downloader_download_in_progress_ticker,
                         mNotificationBuilder.build());
