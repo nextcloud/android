@@ -102,7 +102,7 @@ public class UploaderAdapter extends SimpleAdapter {
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(file.getRemoteId())
                 );
-                if (thumbnail != null && !file.isNeedsUpdateThumbnail()) {
+                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     fileIcon.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail

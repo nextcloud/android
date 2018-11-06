@@ -265,7 +265,7 @@ public final class ThumbnailsCacheManager {
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || file.isNeedsUpdateThumbnail()) {
+            if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
                 Point p = getScreenDimension();
                 int pxW = p.x;
                 int pxH = p.y;
@@ -281,7 +281,7 @@ public final class ThumbnailsCacheManager {
 
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
 
-                        file.setNeedsUpdateThumbnail(false);
+                        file.setUpdateThumbnailNeeded(false);
                         storageManager.saveFile(file);
                     }
 
@@ -504,7 +504,7 @@ public final class ThumbnailsCacheManager {
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).isNeedsUpdateThumbnail())) {
+            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded())) {
                 int pxW;
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
@@ -528,7 +528,7 @@ public final class ThumbnailsCacheManager {
 
                             thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
 
-                            ocFile.setNeedsUpdateThumbnail(false);
+                            ocFile.setUpdateThumbnailNeeded(false);
                             mStorageManager.saveFile(ocFile);
                         }
                     }
