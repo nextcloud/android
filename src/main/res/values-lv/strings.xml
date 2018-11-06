@@ -231,7 +231,7 @@
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
 
-    <string name="auth_getting_authorization">Iegūst pieeju...</string>
+    <string name="auth_getting_authorization">Iegūst pieeju…</string>
     <string name="auth_trying_to_login">Mēģina pieteikties…</string>
 	<string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
 	<string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
