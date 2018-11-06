@@ -477,7 +477,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             } else if (remoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
                     remoteFile.getModificationTimestamp() !=
                             localFile.getModificationTimestamp()) {
-                updatedFile.setNeedsUpdateThumbnail(true);
+                updatedFile.setUpdateThumbnailNeeded(true);
                 Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
 

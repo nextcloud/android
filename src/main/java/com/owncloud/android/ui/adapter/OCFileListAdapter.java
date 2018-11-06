@@ -388,7 +388,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
                 );
 
-                if (thumbnail != null && !file.isNeedsUpdateThumbnail()) {
+                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     if (MimeTypeUtil.isVideo(file)) {
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                         thumbnailView.setImageBitmap(withOverlay);

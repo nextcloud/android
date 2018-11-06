@@ -91,7 +91,7 @@ public class OCFileUnitTest {
         mFile.setPublicLink(PUBLIC_LINK);
         mFile.setPermissions(PERMISSIONS);
         mFile.setRemoteId(REMOTE_ID);
-        mFile.setNeedsUpdateThumbnail(true);
+        mFile.setUpdateThumbnailNeeded(true);
         mFile.setDownloading(true);
         mFile.setEtagInConflict(ETAG_IN_CONFLICT);
 
@@ -126,7 +126,7 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getPublicLink(), is(PUBLIC_LINK));
         assertThat(fileReadFromParcel.getPermissions(), is(PERMISSIONS));
         assertThat(fileReadFromParcel.getRemoteId(), is(REMOTE_ID));
-        assertThat(fileReadFromParcel.isNeedsUpdateThumbnail(), is(true));
+        assertThat(fileReadFromParcel.isUpdateThumbnailNeeded(), is(true));
         assertThat(fileReadFromParcel.isDownloading(), is(true));
         assertThat(fileReadFromParcel.getEtagInConflict(), is(ETAG_IN_CONFLICT));
     }

@@ -227,7 +227,7 @@ public class PreviewImageFragment extends FileFragment {
                 Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId()));
 
-                if (resizedImage != null && !getFile().isNeedsUpdateThumbnail()) {
+                if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
                     mImageView.setImageBitmap(resizedImage);
                     mImageView.setVisibility(View.VISIBLE);
                     mBitmap = resizedImage;

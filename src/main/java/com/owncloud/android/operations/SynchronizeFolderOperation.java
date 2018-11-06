@@ -335,7 +335,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
                     remoteFile.getModificationTimestamp() !=
                             localFile.getModificationTimestamp()) {
-                updatedFile.setNeedsUpdateThumbnail(true);
+                updatedFile.setUpdateThumbnailNeeded(true);
                 Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
             updatedFile.setPublicLink(localFile.getPublicLink());

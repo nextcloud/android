@@ -84,7 +84,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     /** The fileid namespaced by the instance fileId, globally unique */
     @Getter @Setter private String remoteId;
 
-    @Getter @Setter private boolean needsUpdateThumbnail;
+    @Getter @Setter private boolean updateThumbnailNeeded;
 
     @Getter @Setter private boolean downloading;
 
@@ -154,7 +154,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         publicLink = source.readString();
         permissions = source.readString();
         remoteId = source.readString();
-        needsUpdateThumbnail = source.readInt() == 1;
+        updateThumbnailNeeded = source.readInt() == 1;
         downloading = source.readInt() == 1;
         etagInConflict = source.readString();
         sharedWithSharee = source.readInt() == 1;
@@ -184,7 +184,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(publicLink);
         dest.writeString(permissions);
         dest.writeString(remoteId);
-        dest.writeInt(needsUpdateThumbnail ? 1 : 0);
+        dest.writeInt(updateThumbnailNeeded ? 1 : 0);
         dest.writeInt(downloading ? 1 : 0);
         dest.writeString(etagInConflict);
         dest.writeInt(sharedWithSharee ? 1 : 0);
@@ -403,7 +403,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         publicLink = null;
         permissions = null;
         remoteId = null;
-        needsUpdateThumbnail = false;
+        updateThumbnailNeeded = false;
         downloading = false;
         etagInConflict = null;
         sharedWithSharee = false;

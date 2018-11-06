@@ -312,7 +312,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
             );
-            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isNeedsUpdateThumbnail()) {
+            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
                 itemViewHolder.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail

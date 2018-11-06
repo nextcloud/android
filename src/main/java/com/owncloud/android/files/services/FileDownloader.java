@@ -492,7 +492,7 @@ public class FileDownloader extends Service
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);
-        file.setNeedsUpdateThumbnail(true);
+        file.setUpdateThumbnailNeeded(true);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
         file.setModificationTimestampAtLastSyncForData(mCurrentDownload.getModificationTimestamp());
         file.setEtag(mCurrentDownload.getEtag());
