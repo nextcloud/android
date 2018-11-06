@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Tobias Kaminsky
@@ -23,12 +23,20 @@ package com.owncloud.android.datamodel;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Synced folder entity containing all information per synced folder.
  */
+@Getter
+@Setter
+@AllArgsConstructor
 public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     private static final long serialVersionUID = -793476118299906429L;
+
     private long id = UNPERSISTED_ID;
     private String localPath;
     private String remotePath;
@@ -39,35 +47,6 @@ public class SyncedFolder implements Serializable, Cloneable {
     private Integer uploadAction;
     private boolean enabled;
     private MediaFolderType type;
-
-    /**
-     * constructor for already persisted entity.
-     *
-     * @param id              the primary key
-     * @param localPath       local path
-     * @param remotePath      remote path
-     * @param wifiOnly        upload on wifi only flag
-     * @param chargingOnly    upload on charging only
-     * @param subfolderByDate create sub-folders by date (month)
-     * @param account         the account owning the synced folder
-     * @param uploadAction    the action to be done after the upload
-     * @param enabled         flag if synced folder config is active
-     * @param type            the type of the folder
-     */
-    public SyncedFolder(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                        MediaFolderType type) {
-        this.id = id;
-        this.localPath = localPath;
-        this.remotePath = remotePath;
-        this.wifiOnly = wifiOnly;
-        this.chargingOnly = chargingOnly;
-        this.subfolderByDate = subfolderByDate;
-        this.account = account;
-        this.uploadAction = uploadAction;
-        this.enabled = enabled;
-        this.type = type;
-    }
 
     /**
      * constructor for new, to be persisted entity.
@@ -102,85 +81,5 @@ public class SyncedFolder implements Serializable, Cloneable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLocalPath() {
-        return localPath;
-    }
-
-    public void setLocalPath(String localPath) {
-        this.localPath = localPath;
-    }
-
-    public String getRemotePath() {
-        return remotePath;
-    }
-
-    public void setRemotePath(String remotePath) {
-        this.remotePath = remotePath;
-    }
-
-    public Boolean getWifiOnly() {
-        return wifiOnly;
-    }
-
-    public void setWifiOnly(Boolean wifiOnly) {
-        this.wifiOnly = wifiOnly;
-    }
-
-    public Boolean getChargingOnly() {
-        return chargingOnly;
-    }
-
-    public void setChargingOnly(Boolean chargingOnly) {
-        this.chargingOnly = chargingOnly;
-    }
-
-    public Boolean getSubfolderByDate() {
-        return subfolderByDate;
-    }
-
-    public void setSubfolderByDate(Boolean subfolderByDate) {
-        this.subfolderByDate = subfolderByDate;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public Integer getUploadAction() {
-        return uploadAction;
-    }
-
-    public void setUploadAction(Integer uploadAction) {
-        this.uploadAction = uploadAction;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public MediaFolderType getType() {
-        return type;
-    }
-
-    public void setType(MediaFolderType type) {
-        this.type = type;
     }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -77,7 +77,7 @@ public class OCFileUnitTest {
         mFile.setFileId(ID);
         mFile.setParentId(PARENT_ID);
         mFile.setStoragePath(STORAGE_PATH);
-        mFile.setMimetype(MIME_TYPE);
+        mFile.setMimeType(MIME_TYPE);
         mFile.setFileLength(FILE_LENGTH);
         mFile.setCreationTimestamp(CREATION_TIMESTAMP);
         mFile.setModificationTimestamp(MODIFICATION_TIMESTAMP);
@@ -86,12 +86,12 @@ public class OCFileUnitTest {
         mFile.setLastSyncDateForData(LAST_SYNC_DATE_FOR_DATA);
         mFile.setAvailableOffline(true);
         mFile.setEtag(ETAG);
-        mFile.setShareViaLink(true);
-        mFile.setShareWithSharee(true);
+        mFile.setSharedViaLink(true);
+        mFile.setSharedWithSharee(true);
         mFile.setPublicLink(PUBLIC_LINK);
         mFile.setPermissions(PERMISSIONS);
         mFile.setRemoteId(REMOTE_ID);
-        mFile.setNeedsUpdateThumbnail(true);
+        mFile.setUpdateThumbnailNeeded(true);
         mFile.setDownloading(true);
         mFile.setEtagInConflict(ETAG_IN_CONFLICT);
 
@@ -126,9 +126,8 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getPublicLink(), is(PUBLIC_LINK));
         assertThat(fileReadFromParcel.getPermissions(), is(PERMISSIONS));
         assertThat(fileReadFromParcel.getRemoteId(), is(REMOTE_ID));
-        assertThat(fileReadFromParcel.needsUpdateThumbnail(), is(true));
+        assertThat(fileReadFromParcel.isUpdateThumbnailNeeded(), is(true));
         assertThat(fileReadFromParcel.isDownloading(), is(true));
         assertThat(fileReadFromParcel.getEtagInConflict(), is(ETAG_IN_CONFLICT));
-
     }
 }

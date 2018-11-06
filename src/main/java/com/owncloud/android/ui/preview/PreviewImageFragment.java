@@ -227,7 +227,7 @@ public class PreviewImageFragment extends FileFragment {
                 Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId()));
 
-                if (resizedImage != null && !getFile().needsUpdateThumbnail()) {
+                if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
                     mImageView.setImageBitmap(resizedImage);
                     mImageView.setVisibility(View.VISIBLE);
                     mBitmap = resizedImage;
@@ -320,7 +320,7 @@ public class PreviewImageFragment extends FileFragment {
             mf.filter(menu, true);
         }
 
-        // additional restriction for this fragment 
+        // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         // TODO allow refresh file in PreviewImageFragment
         FileMenuFilter.hideMenuItems(

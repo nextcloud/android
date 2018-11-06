@@ -23,32 +23,17 @@ import android.accounts.Account;
 
 import org.parceler.Parcel;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Parcel
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignatureVerification {
     public boolean signatureValid;
     public Account account;
-
-    public SignatureVerification() {
-    }
-
-    public SignatureVerification(boolean signatureValid, Account account) {
-        this.signatureValid = signatureValid;
-        this.account = account;
-    }
-
-    public boolean isSignatureValid() {
-        return signatureValid;
-    }
-
-    public void setSignatureValid(boolean signatureValid) {
-        this.signatureValid = signatureValid;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 }

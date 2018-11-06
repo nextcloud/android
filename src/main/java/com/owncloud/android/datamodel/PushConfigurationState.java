@@ -1,8 +1,10 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,62 +22,19 @@
 
 package com.owncloud.android.datamodel;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PushConfigurationState {
     public String pushToken;
     public String deviceIdentifier;
     public String deviceIdentifierSignature;
     public String userPublicKey;
     public boolean shouldBeDeleted;
-
-    public PushConfigurationState() {
-    }
-
-    public PushConfigurationState(String pushToken, String deviceIdentifier, String deviceIdentifierSignature,
-                             String userPublicKey, boolean shouldBeDeleted) {
-        this.pushToken = pushToken;
-        this.deviceIdentifier = deviceIdentifier;
-        this.deviceIdentifierSignature = deviceIdentifierSignature;
-        this.userPublicKey = userPublicKey;
-        this.shouldBeDeleted = shouldBeDeleted;
-    }
-
-    public String getPushToken() {
-        return pushToken;
-    }
-
-    public void setPushToken(String pushToken) {
-        this.pushToken = pushToken;
-    }
-
-    public String getDeviceIdentifier() {
-        return deviceIdentifier;
-    }
-
-    public void setDeviceIdentifier(String deviceIdentifier) {
-        this.deviceIdentifier = deviceIdentifier;
-    }
-
-    public String getDeviceIdentifierSignature() {
-        return deviceIdentifierSignature;
-    }
-
-    public void setDeviceIdentifierSignature(String deviceIdentifierSignature) {
-        this.deviceIdentifierSignature = deviceIdentifierSignature;
-    }
-
-    public String getUserPublicKey() {
-        return userPublicKey;
-    }
-
-    public void setUserPublicKey(String userPublicKey) {
-        this.userPublicKey = userPublicKey;
-    }
-
-    public boolean isShouldBeDeleted() {
-        return shouldBeDeleted;
-    }
-
-    public void setShouldBeDeleted(boolean shouldBeDeleted) {
-        this.shouldBeDeleted = shouldBeDeleted;
-    }
 }

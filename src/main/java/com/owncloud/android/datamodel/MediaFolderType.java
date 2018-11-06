@@ -21,6 +21,8 @@ package com.owncloud.android.datamodel;
 
 import android.util.SparseArray;
 
+import lombok.Getter;
+
 /**
  * Types of media folder.
  */
@@ -29,7 +31,7 @@ public enum MediaFolderType {
     IMAGE(1),
     VIDEO(2);
 
-    private Integer id;
+    @Getter private Integer id;
 
     private static SparseArray<MediaFolderType> reverseMap = new SparseArray<>(3);
 
@@ -45,9 +47,5 @@ public enum MediaFolderType {
 
     public static MediaFolderType getById(Integer id) {
         return reverseMap.get(id);
-    }
-
-    public Integer getId() {
-        return id;
     }
 }

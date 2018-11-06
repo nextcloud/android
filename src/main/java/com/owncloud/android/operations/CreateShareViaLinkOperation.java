@@ -89,7 +89,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             createOp.setGetShareDetails(true);
             result = createOp.execute(client);
         }
-        
+
         if (result.isSuccess()) {
             if (result.getData().size() > 0) {
                 Object item = result.getData().get(0);
@@ -106,10 +106,10 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
             }
         }
-        
+
         return result;
     }
-    
+
     public String getPath() {
         return mPath;
     }
@@ -128,12 +128,12 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         }
 
         getStorageManager().saveShare(share);
-        
+
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
             file.setPublicLink(share.getShareLink());
-            file.setShareViaLink(true);
+            file.setSharedViaLink(true);
             getStorageManager().saveFile(file);
         }
     }

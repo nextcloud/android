@@ -298,7 +298,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
          */
         OCFile fakeFileToCheatThumbnailsCacheManagerInterface = new OCFile(item.getRemotePath());
         fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(item.getLocalPath());
-        fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(item.getMimeType());
+        fakeFileToCheatThumbnailsCacheManagerInterface.setMimeType(item.getMimeType());
 
         boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
                 fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.thumbnail
@@ -312,7 +312,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
             );
-            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()) {
+            if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
                 itemViewHolder.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
@@ -649,7 +649,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 } else if (upload2.getFixedUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                     return 1;
                 }
-                if (upload1.getFixedUploadEndTimestamp() == 0 || upload2.getFixedUploadEndTimestamp() == 0) {
+                if (upload1.getFixedUploadEndTimeStamp() == 0 || upload2.getFixedUploadEndTimeStamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
                     return compareUpdateTime(upload1, upload2);
@@ -663,7 +663,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             @SuppressFBWarnings("Bx")
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload2.getFixedUploadEndTimestamp()).compareTo(upload1.getFixedUploadEndTimestamp());
+                return Long.valueOf(upload2.getFixedUploadEndTimeStamp()).compareTo(upload1.getFixedUploadEndTimeStamp());
             }
         };
     }

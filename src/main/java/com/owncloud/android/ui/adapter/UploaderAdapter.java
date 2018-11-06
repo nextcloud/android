@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UploaderAdapter extends SimpleAdapter {
-    
+
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
@@ -102,7 +102,7 @@ public class UploaderAdapter extends SimpleAdapter {
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(file.getRemoteId())
                 );
-                if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     fileIcon.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail
