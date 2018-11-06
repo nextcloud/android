@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 36;
+    public static final int DB_VERSION = 37;
 
     private ProviderMeta() {
     }
@@ -132,6 +132,7 @@ public class ProviderMeta {
         public static final String OCSHARES_ACCOUNT_OWNER = "owner_share";
         public static final String OCSHARES_IS_PASSWORD_PROTECTED = "is_password_protected";
         public static final String OCSHARES_NOTE = "note";
+        public static final String OCSHARES_HIDE_DOWNLOAD = "hide_download";
 
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
                 + " collate nocase asc";
