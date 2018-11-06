@@ -199,6 +199,7 @@ Mesedez, baimendu berriz</string>
     <string name="unfavorite">Offline erabilgarri bezala ezeztatu</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="common_rename">Berrizendatu</string>
+    <string name="common_remove">Ezabatu</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
     <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
