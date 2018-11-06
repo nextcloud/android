@@ -220,8 +220,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             // If response body is available
             if(inputStream != null) {
                 BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-                for (String line; (line = r.readLine()) != null; ) {
+                String line = r.readLine();
+                while(line != null) {
                     total.append(line).append('\n');
+                    line = r.readLine();
                 }
                 Log_OC.e(TAG, total.toString());
             }
