@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -37,10 +37,11 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class UpdateShareViaLinkOperation extends SyncOperation {
 
-    private String mPath;
-    private String mPassword;
-    private Boolean mPublicUpload;
-    private long mExpirationDateInMillis;
+    private String path;
+    private String password;
+    private Boolean publicUpload;
+    private Boolean hideFileDownload;
+    private long expirationDateInMillis;
 
     /**
      * Constructor
@@ -48,8 +49,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      * @param path          Full path of the file/folder being shared. Mandatory argument
      */
     public UpdateShareViaLinkOperation(String path) {
-        mPath = path;
-        mExpirationDateInMillis = 0;
+        this.path = path;
+        expirationDateInMillis = 0;
     }
 
     /**
@@ -60,7 +61,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      *                      Null results in no update applied to the password.
      */
     public void setPassword(String password) {
-        mPassword = password;
+        this.password = password;
     }
 
     /**
@@ -72,7 +73,11 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      *                                  the expiration date.
      */
     public void setExpirationDate(long expirationDateInMillis) {
-        mExpirationDateInMillis = expirationDateInMillis;
+        this.expirationDateInMillis = expirationDateInMillis;
+    }
+
+    public void setHideFileDownload(boolean hideFileDownload) {
+        this.hideFileDownload = hideFileDownload;
     }
 
     /**
@@ -82,32 +87,23 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      *                        Null results in no update applied to the upload permission.
      */
     public void setPublicUpload(Boolean publicUpload) {
-        mPublicUpload = publicUpload;
+        this.publicUpload = publicUpload;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-
-        OCShare publicShare = getStorageManager().getFirstShareByPathAndType(
-                mPath,
-                ShareType.PUBLIC_LINK,
-                ""
-        );
+        OCShare publicShare = getStorageManager().getFirstShareByPathAndType(path, ShareType.PUBLIC_LINK, "");
 
         if (publicShare == null) {
             // TODO try to get remote share before failing?
-            return new RemoteOperationResult(
-                    RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
-            );
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
-        // Update remote share with password
-        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(
-            publicShare.getRemoteId()
-        );
-        updateOp.setPassword(mPassword);
-        updateOp.setExpirationDate(mExpirationDateInMillis);
-        updateOp.setPublicUpload(mPublicUpload);
+        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(publicShare.getRemoteId());
+        updateOp.setPassword(password);
+        updateOp.setExpirationDate(expirationDateInMillis);
+        updateOp.setPublicUpload(publicUpload);
+        updateOp.setHideFileDownload(hideFileDownload);
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
@@ -124,17 +120,17 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     }
 
     public String getPath() {
-        return mPath;
+        return path;
     }
 
     public String getPassword() {
-        return mPassword;
+        return password;
     }
 
     private void updateData(OCShare share) {
         // Update DB with the response
-        share.setPath(mPath);
-        if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
+        share.setPath(path);
+        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
             share.setIsFolder(true);
         } else {
             share.setIsFolder(false);
@@ -144,7 +140,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
         // Update OCFile with data from share: ShareByLink  and publicLink
         // TODO check & remove if not needed
-        OCFile file = getStorageManager().getFileByPath(mPath);
+        OCFile file = getStorageManager().getFileByPath(path);
         if (file != null) {
             file.setPublicLink(share.getShareLink());
             file.setSharedViaLink(true);
@@ -152,4 +148,3 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         }
     }
 }
-

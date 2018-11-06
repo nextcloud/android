@@ -772,7 +772,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + INTEGER
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + TEXT
                 + ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED + INTEGER
-                + ProviderTableMeta.OCSHARES_NOTE + " TEXT );");
+            + ProviderTableMeta.OCSHARES_NOTE + TEXT
+            + ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD + " INTEGER );");
     }
 
     private void createCapabilitiesTable(SQLiteDatabase db) {
@@ -1772,6 +1773,24 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                         ADD_COLUMN + ProviderTableMeta.FILE_HAS_PREVIEW + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 37 && newVersion >= 37) {
+                Log_OC.i(SQL, "Entering in the #37 add hide-download to share table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
+                        ADD_COLUMN + ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
