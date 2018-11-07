@@ -103,6 +103,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
     public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
+    public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_USER_ID = "USER_ID";
@@ -151,7 +152,7 @@ public class OperationsService extends Service {
             mCookie = cookie;
         }
     }
-    
+
     /**
      * Service initialization
      */
@@ -160,14 +161,14 @@ public class OperationsService extends Service {
         super.onCreate();
         Log_OC.d(TAG, "Creating service");
 
-        /// First worker thread for most of operations 
+        // First worker thread for most of operations
         HandlerThread thread = new HandlerThread("Operations thread",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mOperationsHandler = new ServiceHandler(thread.getLooper(), this);
         mOperationsBinder = new OperationsServiceBinder(mOperationsHandler);
-        
-        /// Separated worker thread for download of folders (WIP)
+
+        // Separated worker thread for download of folders (WIP)
         thread = new HandlerThread("Syncfolder thread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mSyncFolderHandler = new SyncFolderHandler(thread.getLooper(), this);
@@ -211,7 +212,7 @@ public class OperationsService extends Service {
             msg.arg1 = startId;
             mOperationsHandler.sendMessage(msg);
         }
-        
+
         return START_NOT_STICKY;
     }
 
@@ -316,8 +317,8 @@ public class OperationsService extends Service {
         /**
          * Removes a listener from the list of objects interested in the being reported about
          * the end of operations.
-         * 
-         * @param listener      Object to notify about progress of transfer.    
+         *
+         * @param listener      Object to notify about progress of transfer.
          */
         public void removeOperationListener(OnRemoteOperationListener listener) {
             synchronized (mBoundListeners) {
@@ -339,9 +340,9 @@ public class OperationsService extends Service {
 
         /**
          * Creates and adds to the queue a new operation, as described by operationIntent.
-         * 
+         *
          * Calls startService to make the operation is processed by the ServiceHandler.
-         * 
+         *
          * @param operationIntent       Intent describing a new operation to queue and execute.
          * @return                      Identifier of the operation created, or null if failed.
          */
@@ -351,7 +352,7 @@ public class OperationsService extends Service {
                 mServiceHandler.mPendingOperations.add(itemToQueue);
                 startService(new Intent(OperationsService.this, OperationsService.class));
                 return itemToQueue.second.hashCode();
-                
+
             } else {
                 return Long.MAX_VALUE;
             }
@@ -359,7 +360,7 @@ public class OperationsService extends Service {
 
         public boolean dispatchResultIfFinished(int operationId,
                                                 OnRemoteOperationListener listener) {
-            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+            Pair<RemoteOperation, RemoteOperationResult> undispatched =
                     mUndispatchedFinishedOperations.remove(operationId);
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
@@ -368,14 +369,14 @@ public class OperationsService extends Service {
                 return !mServiceHandler.mPendingOperations.isEmpty();
             }
         }
-        
+
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account' is
          * downloading or waiting to download.
-         * 
+         *
          * If 'file' is a directory, returns 'true' if some of its descendant files is downloading
          * or waiting to download.
-         * 
+         *
          * @param account       ownCloud account where the remote file is stored.
          * @param file          File to check if something is synchronizing
          *                      / downloading / uploading inside.
@@ -390,13 +391,13 @@ public class OperationsService extends Service {
     /**
      * Operations worker. Performs the pending operations in the order they were requested.
      *
-     * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}. 
+     * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
         // don't make it a final class, and don't remove the static ; lint will warn about a p
         // ossible memory leak
-        
-        
+
+
         OperationsService mService;
 
 
@@ -406,8 +407,8 @@ public class OperationsService extends Service {
         private Target mLastTarget;
         private OwnCloudClient mOwnCloudClient;
         private FileDataStorageManager mStorageManager;
-        
-        
+
+
         public ServiceHandler(Looper looper, OperationsService service) {
             super(looper);
             if (service == null) {
@@ -422,21 +423,21 @@ public class OperationsService extends Service {
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
-        
+
         /**
          * Performs the next operation in the queue
          */
         private void nextOperation() {
-            
+
             //Log_OC.e(TAG, "nextOperation init" );
-            
+
             Pair<Target, RemoteOperation> next = null;
             synchronized(mPendingOperations) {
                 next = mPendingOperations.peek();
             }
 
             if (next != null) {
-                
+
                 mCurrentOperation = next.second;
                 RemoteOperationResult result = null;
                 try {
@@ -453,7 +454,7 @@ public class OperationsService extends Service {
                             mOwnCloudClient.setOwnCloudVersion(version);
 
                             mStorageManager = new FileDataStorageManager(
-                                    mLastTarget.mAccount, 
+                                mLastTarget.mAccount,
                                     mService.getContentResolver()
                             );
                         } else {
@@ -492,7 +493,7 @@ public class OperationsService extends Service {
                                 mLastTarget.mAccount.name, e);
                     }
                     result = new RemoteOperationResult(e);
-                    
+
                 } catch (IOException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
@@ -509,13 +510,13 @@ public class OperationsService extends Service {
                         Log_OC.e(TAG, "Unexpected error for " + mLastTarget.mAccount.name, e);
                     }
                     result = new RemoteOperationResult(e);
-                
+
                 } finally {
                     synchronized(mPendingOperations) {
                         mPendingOperations.poll();
                     }
                 }
-                
+
                 //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
                 mService.dispatchResultToOperationListeners(mCurrentOperation, result);
             }
@@ -525,9 +526,9 @@ public class OperationsService extends Service {
 
     /**
      * Creates a new operation, as described by operationIntent.
-     * 
+     *
      * TODO - move to ServiceHandler (probably)
-     * 
+     *
      * @param operationIntent       Intent describing a new operation to queue and execute.
      * @return                      Pair with the new operation object and the information about its
      *                              target server.
@@ -536,7 +537,7 @@ public class OperationsService extends Service {
         RemoteOperation operation = null;
         Target target = null;
         try {
-            if (!operationIntent.hasExtra(EXTRA_ACCOUNT) && 
+            if (!operationIntent.hasExtra(EXTRA_ACCOUNT) &&
                     !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
 
@@ -545,11 +546,11 @@ public class OperationsService extends Service {
                 String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
                 String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
                 target = new Target(
-                        account, 
+                    account,
                         (serverUrl == null) ? null : Uri.parse(serverUrl),
                         cookie
                 );
-                
+
                 String action = operationIntent.getAction();
                 String remotePath;
                 String password;
@@ -578,6 +579,10 @@ public class OperationsService extends Service {
 
                             long expirationDate = operationIntent.getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0);
                             updateLinkOperation.setExpirationDate(expirationDate);
+
+                            boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
+                                false);
+                            updateLinkOperation.setHideFileDownload(hideFileDownload);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
                                 updateLinkOperation.setPublicUpload(
@@ -712,14 +717,14 @@ public class OperationsService extends Service {
                         break;
                 }
             }
-                
+
         } catch (IllegalArgumentException e) {
             Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
             operation = null;
         }
 
         if (operation != null) {
-            return new Pair<Target , RemoteOperation>(target, operation);  
+            return new Pair<Target, RemoteOperation>(target, operation);
         } else {
             return null;
         }
@@ -740,7 +745,7 @@ public class OperationsService extends Service {
         while (listeners.hasNext()) {
             final OnRemoteOperationListener listener = listeners.next();
             final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
-            if (handler != null) { 
+            if (handler != null) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
