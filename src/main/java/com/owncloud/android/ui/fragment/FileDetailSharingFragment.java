@@ -308,6 +308,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 shareByLinkAllowEditing.isChecked(),
                 publicShare.getPermissions()
         );
+        SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
+            publicShare.isHideFileDownload(), file.isFolder());
         SharingMenuHelper.setupPasswordMenuItem(
                 menu.findItem(R.id.action_password),
                 publicShare.isPasswordProtected()
@@ -333,16 +335,19 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 }
                 return true;
             }
+            case R.id.action_hide_file_download:
+                item.setChecked(!item.isChecked());
+                setHideFileDownloadPermissionToShare(file, item.isChecked());
+
+                return true;
             case R.id.action_password: {
                 requestPasswordForShareViaLink(false);
                 return true;
             }
             case R.id.action_share_expiration_date: {
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
-                dialog.show(
-                        getActivity().getSupportFragmentManager(),
-                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
-                );
+                dialog.show(getActivity().getSupportFragmentManager(),
+                    ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
                 return true;
             }
             case R.id.action_share_send_link: {
@@ -366,6 +371,12 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
         ((FileActivity) getActivity()).getFileOperationsHelper().
                 setHideFileListingPermissionsToShare(share, hideFileListing);
+    }
+
+    @Override
+    public void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload) {
+        ((FileActivity) getActivity()).getFileOperationsHelper().
+            setHideFileDownloadPermissionsToShare(file, hideFileDownload);
     }
 
     @Override
