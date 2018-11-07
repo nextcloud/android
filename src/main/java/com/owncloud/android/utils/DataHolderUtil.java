@@ -19,6 +19,8 @@
  */
 package com.owncloud.android.utils;
 
+import android.annotation.SuppressLint;
+
 import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -34,6 +36,7 @@ public class DataHolderUtil {
 
     private static DataHolderUtil instance;
 
+    @SuppressLint("TrulyRandom")
     private SecureRandom random = new SecureRandom();
 
     public static synchronized DataHolderUtil getInstance() {
