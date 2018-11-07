@@ -413,7 +413,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                                      boolean canEditDelete);
 
         void updateNoteToShare(OCShare share, String note);
-        
+
         /**
          * show a snackbar that this feature is not supported by ownCloud.
          */
@@ -434,5 +434,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
          * @param hideFileListing New state of the permission for editing the folder shared via link.
          */
         void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing);
+
+        void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload);
     }
 }

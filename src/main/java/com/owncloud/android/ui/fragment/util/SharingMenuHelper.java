@@ -63,6 +63,21 @@ public final class SharingMenuHelper {
     }
 
     /**
+     * Sets checked/visibility state on the given {@link MenuItem} based on the given criteria.
+     *
+     * @param fileListing the {@link MenuItem} to be setup
+     * @param isFolder    flag if it is a folder
+     */
+    public static void setupHideFileDownload(MenuItem fileListing, boolean hideFileDownload, boolean isFolder) {
+        if (isFolder) {
+            fileListing.setVisible(false);
+        } else {
+            fileListing.setVisible(true);
+            fileListing.setChecked(hideFileDownload);
+        }
+    }
+
+    /**
      * sets up the password {@link MenuItem}'s title based on the fact if a password is present.
      *
      * @param password            the password {@link MenuItem}
