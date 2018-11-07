@@ -72,7 +72,7 @@ public class OfflineSyncJob extends Job {
                 PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, MainApp.getAuthority() +
                         WAKELOCK_TAG_SEPARATION + TAG);
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
             }
 
             Cursor cursorOnKeptInSync = context.getContentResolver().query(
