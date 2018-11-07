@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -60,6 +61,7 @@ import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -110,6 +112,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @BindView(R.id.share_by_link_container)
     LinearLayout shareByLinkContainer;
 
+    private FileOperationsHelper fileOperationsHelper;
+    private FileDisplayActivity fileDisplayActivity;
+    private FileDataStorageManager fileDataStorageManager;
+
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
         Bundle args = new Bundle();
@@ -117,6 +123,40 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         args.putParcelable(ARG_ACCOUNT, account);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            file = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
+            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
+        } else {
+            Bundle arguments = getArguments();
+
+            if (arguments != null) {
+                file = getArguments().getParcelable(ARG_FILE);
+                account = getArguments().getParcelable(ARG_ACCOUNT);
+            }
+        }
+
+        if (file == null) {
+            throw new IllegalArgumentException("File may not be null");
+        }
+
+        if (account == null) {
+            throw new IllegalArgumentException("Account may not be null");
+        }
+
+        fileDisplayActivity = (FileDisplayActivity) getActivity();
+
+        if (fileDisplayActivity == null) {
+            throw new IllegalArgumentException("FileActivity may not be null");
+        }
+
+        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
+        fileDataStorageManager = fileDisplayActivity.getStorageManager();
     }
 
     @Override
@@ -129,15 +169,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        file = getArguments().getParcelable(ARG_FILE);
-        account = getArguments().getParcelable(ARG_ACCOUNT);
-
-        if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
-            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
-        }
-
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -164,10 +195,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         setShareByLinkInfo(file.isSharedViaLink());
         setShareWithUserInfo();
         FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE),
-                searchView,
-                getActivity().getComponentName()
-        );
+            (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
+            fileDisplayActivity.getComponentName());
     }
 
     /**
@@ -207,14 +236,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
      */
     public void setShareWithUserInfo() {
         // Get Users and Groups
-        if (((FileActivity) getActivity()).getStorageManager() != null) {
-            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
+        shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), account.name);
 
-            shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), account.name);
-
-            // Update list of users/groups
-            updateListOfUserGroups();
-        }
+        // Update list of users/groups
+        updateListOfUserGroups();
     }
 
     private void updateListOfUserGroups() {
@@ -222,8 +247,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
         if (shares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new UserListAdapter(getActivity().getSupportFragmentManager(),
-                    getActivity().getApplicationContext(), shares, account, file, this));
+            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(), fileDisplayActivity, shares,
+                account, file, this));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);
@@ -238,7 +263,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         if (shareByLink.isChecked()) {
             createShareLink();
         } else {
-            ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(file);
+            fileOperationsHelper.unshareFileViaLink(file);
         }
     }
 
@@ -250,16 +275,16 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
+            fileOperationsHelper.shareFileViaLink(file, null);
         }
     }
 
     private void showSendLinkTo() {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(file.getPublicLink())) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+                fileOperationsHelper.getFileWithLink(file);
             } else {
-                ((FileDisplayActivity) getActivity()).showShareLinkDialog(file.getPublicLink());
+                fileDisplayActivity.showShareLinkDialog(file.getPublicLink());
             }
         }
     }
@@ -268,7 +293,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     public void copyLinkToClipboard() {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(file.getPublicLink())) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+                fileOperationsHelper.getFileWithLink(file);
             } else {
                 ClipboardUtil.copyToClipboard(getActivity(), file.getPublicLink());
             }
@@ -278,8 +303,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @OnClick(R.id.share_by_link_allow_editing)
     public void toggleShareLinkAllowEditing() {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper()
-                    .setUploadPermissionsToShare(file, shareByLinkAllowEditing.isChecked());
+            fileOperationsHelper.setUploadPermissionsToShare(file, shareByLinkAllowEditing.isChecked());
         }
     }
 
@@ -346,13 +370,15 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             }
             case R.id.action_share_expiration_date: {
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
-                dialog.show(getActivity().getSupportFragmentManager(),
-                    ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
+                dialog.show(
+                    fileDisplayActivity.getSupportFragmentManager(),
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                );
                 return true;
             }
             case R.id.action_share_send_link: {
                 if(shareByLink.isChecked() && file.isSharedViaLink() && !TextUtils.isEmpty(file.getPublicLink())) {
-                    ((FileDisplayActivity) getActivity()).showShareLinkDialog(file.getPublicLink());
+                    fileDisplayActivity.showShareLinkDialog(file.getPublicLink());
                 } else {
                     showSendLinkTo();
                 }
@@ -360,7 +386,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             }
             case R.id.action_share_send_note:
                 NoteDialogFragment dialog = NoteDialogFragment.newInstance(publicShare);
-                dialog.show(getActivity().getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+                dialog.show(fileDisplayActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -369,8 +395,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @Override
     public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
-        ((FileActivity) getActivity()).getFileOperationsHelper().
-                setHideFileListingPermissionsToShare(share, hideFileListing);
+        fileOperationsHelper.setHideFileListingPermissionsToShare(share, hideFileListing);
     }
 
     @Override
@@ -407,35 +432,28 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     /**
      * Get {@link OCShare} instance from DB and updates the UI.
-     *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
-     * instance ready to use. If not ready, does nothing.
      */
     private void refreshUiFromDB() {
-        FileDataStorageManager storageManager = ((FileActivity) getActivity()).getStorageManager();
-        if (storageManager != null) {
-            if (publicShare != null) {
-                // Get edited shared by link
-                publicShare = storageManager.getShareById(publicShare.getId());
-            }
-
-            // Updates UI with new state
-            setupView();
+        if (publicShare != null) {
+            // Get edited shared by link
+            publicShare = fileDataStorageManager.getShareById(publicShare.getId());
         }
+
+        // Updates UI with new state
+        setupView();
     }
 
     @Override
     public void unshareWith(OCShare share) {
-        ((FileActivity) getActivity()).getFileOperationsHelper()
-                .unshareFileWithUserOrGroup(file, share.getShareType(), share.getShareWith());
+        fileOperationsHelper.unshareFileWithUserOrGroup(file, share.getShareType(), share.getShareWith());
     }
 
     @Override
-    public int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit,
-                                        boolean canEditCreate, boolean canEditChange,
-                                        boolean canEditDelete) {
+    public int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate,
+                                        boolean canEditChange, boolean canEditDelete) {
         SharePermissionsBuilder spb = new SharePermissionsBuilder();
         spb.setSharePermission(canReshare);
+
         if (file.isFolder()) {
             spb.setUpdatePermission(canEditChange)
                     .setCreatePermission(canEditCreate)
@@ -445,19 +463,14 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         }
         int permissions = spb.build();
 
-        ((FileActivity) getActivity()).getFileOperationsHelper().
-                setPermissionsToShare(
-                        share,
-                        permissions
-                )
-        ;
+        fileOperationsHelper.setPermissionsToShare(share, permissions);
 
         return permissions;
     }
 
     @Override
     public void updateNoteToShare(OCShare share, String note) {
-        ((FileActivity) getActivity()).getFileOperationsHelper().updateNoteToShare(share, note);
+        fileOperationsHelper.updateNoteToShare(share, note);
     }
 
     /**
@@ -480,34 +493,23 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     /**
      * Get known server capabilities from DB
-     *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
-     * instance ready to use. If not ready, does nothing.
      */
     public void refreshCapabilitiesFromDB() {
-        if (((FileActivity) getActivity()).getStorageManager() != null) {
-            capabilities = ((FileActivity) getActivity()).getStorageManager().getCapability(account.name);
-        }
+        capabilities = fileDataStorageManager.getCapability(account.name);
     }
 
     /**
      * Get public link from the DB to fill in the "Share link" section in the UI.
      *
      * Takes into account server capabilities before reading database.
-     *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
-     * instance ready to use. If not ready, does nothing.
      */
     public void refreshPublicShareFromDB() {
         if (FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
             shareByLinkContainer.setVisibility(View.GONE);
-        } else if (((FileActivity) getActivity()).getStorageManager() != null) {
+        } else {
             // Get public share
-            publicShare = ((FileActivity) getActivity()).getStorageManager().getFirstShareByPathAndType(
-                    file.getRemotePath(),
-                    ShareType.PUBLIC_LINK,
-                    ""
-            );
+            publicShare = fileDataStorageManager.getFirstShareByPathAndType(file.getRemotePath(),
+                ShareType.PUBLIC_LINK, "");
 
             // Update public share section
             updatePublicShareSection();

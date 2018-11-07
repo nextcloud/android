@@ -22,7 +22,9 @@ package com.owncloud.android.ui.fragment.util;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -42,7 +44,13 @@ public final class FileDetailSharingFragmentHelper {
      * @param searchView    the {@link SearchView}
      * @param componentName the {@link ComponentName}
      */
-    public static void setupSearchView(SearchManager searchManager, SearchView searchView, ComponentName componentName) {
+    public static void setupSearchView(@Nullable SearchManager searchManager, SearchView searchView,
+                                       ComponentName componentName) {
+        if (searchManager == null) {
+            searchView.setVisibility(View.GONE);
+            return;
+        }
+
         // assumes parent activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
