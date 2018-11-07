@@ -816,4 +816,12 @@
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="permission_deny">Запретить</string>
     <string name="permission_allow">Разрешить</string>
-    </resources>
+    <string name="share_send_note">Примечание для получателя</string>
+    <string name="note_confirm">Отправить</string>
+    <string name="send_note">Отправить примечание получателю</string>
+    <string name="note_could_not_sent">Не удалось отправить примечание</string>
+    <string name="hint_note">Примечание</string>
+    <string name="no_browser_available">Отсутствует приложение, которое может обрабатывать переход по ссылкам</string>
+    <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
+
+</resources>
