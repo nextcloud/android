@@ -816,5 +816,4 @@ Veuillez contacter votre administrateur</string>
     <string name="hint_note">Note</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
-
-</resources>
+    </resources>
