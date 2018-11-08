@@ -823,5 +823,4 @@
     <string name="hint_note">Примечание</string>
     <string name="no_browser_available">Отсутствует приложение, которое может обрабатывать переход по ссылкам</string>
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
-
-</resources>
+    </resources>
