@@ -218,16 +218,17 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();
             // If response body is available
-            if(inputStream != null) {
-                BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-                String line = r.readLine();
-                while(line != null) {
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = reader.readLine();
+                while (line != null) {
                     total.append(line).append('\n');
-                    line = r.readLine();
+                    line = reader.readLine();
                 }
                 Log_OC.e(TAG, total.toString());
             }
-            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED, new IllegalStateException(String.valueOf(status), new Throwable(total.toString())));
+            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
+                new IllegalStateException(String.valueOf(status), new Throwable(total.toString())));
         }
     }
 
