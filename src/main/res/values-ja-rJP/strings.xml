@@ -31,14 +31,19 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-    <string name="drawer_close">サイドバーを閉じる</string>
+    <string name="drawer_quota_unlimited">%1$s使用中</string>
+	<string name="drawer_close">サイドバーを閉じる</string>
     <string name="drawer_open">サイドバーを開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_lock">ロック</string>
+    <string name="prefs_lock_title">ロックを使用</string>
     <string name="prefs_lock_none">なし</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
+    <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
+    <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
+    <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
@@ -195,6 +200,7 @@
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
+    <string name="default_credentials_wrong">不正な資格情報</string>
     <string name="credentials_disabled">資格情報が無効です</string>
 
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
@@ -218,6 +224,7 @@
     <string name="media_err_timeout">再生試行がタイムアウトしました</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_unknown">ビルトインのメディアプレーヤーはこのメディアファイルを再生できません</string>
+    <string name="media_err_playing">%1$s の再生時に予期しないエラーが発生しました</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
@@ -327,6 +334,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">ファイル競合</string>
+    <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのバージョン</string>
@@ -354,6 +362,9 @@
     <string name="activity_chooser_send_file_title">送信</string>
 
     <string name="copy_link">リンクをコピー</string>
+    <string name="clipboard_text_copied">リンクをコピーしました</string>
+    <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
+    <string name="clipboard_unexpected_error">クリップボードにテキストをコピーするときにエラーが発生しました。</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
 
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
@@ -363,23 +374,43 @@
     <string name="network_error_connect_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
     <string name="network_host_not_available">操作を完了できません。サーバーが利用できません。</string>
 
+    <string name="forbidden_permissions">%sが許可されていません。</string>
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
     <string name="forbidden_permissions_delete">ファイルを削除</string>
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
     <string name="update_link_forbidden_permissions">共有を更新</string>
+    <string name="forbidden_permissions_create">このファイルを作成する</string>
+    <string name="uploader_upload_forbidden_permissions">このフォルダにアップロードする</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
+    <string name="file_migration_preparing">移行の準備中...</string>
+    <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
+    <string name="file_migration_waiting_for_unfinished_sync">全ての同期を待機中..</string>
     <string name="file_migration_migrating">データを移動中</string>
     <string name="file_migration_updating_index">インデックスの更新中…</string>
+    <string name="file_migration_cleaning">クリーニング中…</string>
     <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_ok_finished">完了</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
+    <string name="file_migration_failed_not_writable">移動先ファイルに書き込めませんでした</string>
+    <string name="file_migration_failed_not_readable">ソースファイルを読み込めませんでした</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloudフォルダは既に存在します</string>
+    <string name="file_migration_failed_while_coping">移行中に失敗しました</string>
+    <string name="file_migration_failed_while_updating_index">インデックスの更新に失敗しました</string>
+
+    <string name="file_migration_directory_already_exists">データフォルダは既に存在します。 次のいずれかを選択します。</string>
+    <string name="file_migration_override_data_folder">置換</string>
+    <string name="file_migration_use_data_folder">利用</string>
+
+    <string name="file_migration_source_not_readable_title">ソースフォルダが読み込めません！</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
-    <string name="actionbar_logger">ログ</string>
+    <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
+
+	<string name="actionbar_logger">ログ</string>
 	<string name="log_send_history_button">履歴を送信</string>
 	<string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
@@ -389,19 +420,26 @@
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
 	<string name="actionbar_move">移動</string>
     <string name="actionbar_copy">コピー</string>
+	<string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
 	<string name="folder_picker_choose_button_text">選択</string>
 
+    <string name="move_file_not_found">ファイルを移動できません。ファイルがあるか確認してください。</string>
+    <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
     <string name="forbidden_permissions_move">このファイルを移動</string>
 
 
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
+    <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
+    <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
 
     <string name="prefs_category_details">詳細</string>
 
-    <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+    <string name="sync_folder_failed_content">%1$sフォルダの同期を完了できませんでした</string>
+
+	<string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
 
     <string name="auth_refresh_button">再接続中</string>
@@ -416,6 +454,11 @@
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d ファイル</item>
     </plurals>
+    <string name="set_picture_as">画像を使用する</string>
+    <string name="set_as">として設定され</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">元のファイルになります...</string>
+    <string name="prefs_instant_behaviour_title">元のファイルになります...</string>
     <string name="select_all">すべて選択</string>
     <string name="deselect_all">選択を全解除</string>
 
@@ -430,20 +473,34 @@
     <string name="share_no_users">ユーザーと共有されているデータはありません</string>
     <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
     <string name="share_via_link_edit_permission_label">編集を許可</string>
+    <string name="share_via_link_password_label">パスワードで保護</string>
+    <string name="share_via_link_password_title">セキュア</string>
+    <string name="share_via_link_expiration_date_label">有効期限を設定</string>
+    <string name="share_via_link_menu_password_label">パスワード保護(%1$s)</string>
+    <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_send_link_label">リンクを送信</string>
+    <string name="share_password_title">パスワード保護</string>
     <string name="share_no_password_title">パスワードを設定</string>
     <string name="edit_permission_label">編集</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
+    <string name="share_with_title">…と共有</string>
     <string name="share_with_edit_title">%1$s と共有</string>
+    <string name="share_via_link_unset_password">設定を解除</string>
+
+    <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス</string>
+
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_email_clarification">%1$s (メール)</string>
+    <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
 
+    <string name="share_sharee_unavailable">クライアント内のユーザー間で共有できるように、サーバーのバージョンをアップグレードしてください。管理者に連絡してください</string>
+    <string name="share_privilege_unshare">共有解除</string>
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
     <string name="share_privilege_can_edit_create">作成可能</string>
