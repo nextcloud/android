@@ -242,7 +242,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean validateToken(String hash, String token) {
-        if(hash.isEmpty() || !hash.contains("$")) {
+        if (hash.isEmpty() || !hash.contains("$")) {
             throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
         }
 
