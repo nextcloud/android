@@ -513,18 +513,45 @@
     <string name="manage_space_title">管理領域</string>
     <string name="manage_space_clear_data">データのクリア</string>
 
+    <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
+    <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
+    <string name="confirmation_remove_files_alert">本当に選択したアイテムを削除しますか？</string>
+    <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
+    <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
+    <string name="offline_mode">インターネットに接続されていません</string>
+
     <string name="actionbar_search">検索</string>
+    <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
     <string name="drawer_synced_folders">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
+    <string name="participate_testing_headline">テストによるヘルプ</string>
+    <string name="participate_testing_bug_text">バグがありましたか? 問題がありますか?</string>
+    <string name="participate_testing_report_text">Githubでエラーを報告する</string>
+    <string name="participate_testing_version_text">次のバージョンのテストを手伝ってください。</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
+    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
+    <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
+    <string name="participate_contribute_irc_text">IRCのチャットに参加する：</string>
+    <string name="participate_contribute_forum_text">他の人に協力する</string>
     <string name="participate_contribute_forum_forum">フォーラム</string>
     <string name="participate_contribute_translate_translate">翻訳</string>
+    <string name="participate_contribute_translate_text">アプリ</string>
+    <string name="participate_contribute_github_text">詳細を確認するには、%1$sを参照してください。</string>
+    <string name="participate_rc_play_store">Google Playストアからリリース候補を取得する</string>
+    <string name="participate_rc_fdroid">F-Droidアプリからリリース候補を取得する</string>
+    <string name="participate_dev_fdroid">F-Droidアプリから開発リリースを入手</string>
+    <string name="participate_dev_direct_download">開発リリースを直接ダウンロードする</string>
+    <string name="move_to">移動…</string>
+    <string name="copy_to">コピー…</string>
+    <string name="choose_remote_folder">リモートフォルダを選択...</string>
+    <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
+    <string name="synced_folders_preferences_folder_path">%1$sの</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
@@ -533,6 +560,7 @@
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
 
+    <string name="upload_file_dialog_title">アップロードするファイル名とファイルタイプを入力</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="upload_file_dialog_filetype">ファイルタイプ</string>
     <string name="upload_file_dialog_filetype_snippet_text">スニペットテキストファイル(.txt)</string>
@@ -541,6 +569,8 @@
 
     <string name="storage_description_default">デフォルト</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_new_skip">スキップ</string>
 
     <!-- User information -->
@@ -550,23 +580,42 @@
     <string name="user_info_website">ウェブサイト</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <string name="user_information_retrieval_error">ユーザー情報を取得中にエラーが発生しました</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
+    <string name="activities_no_results_message">追加、変更、共有のようなイベントはまだありません</string>
     <string name="prefs_category_about">アプリについて</string>
 
     <string name="actionbar_contacts">連絡先のバックアップ</string>
+    <string name="actionbar_contacts_restore">アドレス帳を復元</string>
     <string name="contacts_backup_button">今すぐバックアップ</string>
     <string name="contacts_automatic_backup">自動バックアップ</string>
     <string name="contacts_last_backup">前回のバックアップ</string>
+    <string name="contacts_read_permission">必要な連絡先リストを読む権限</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
+    <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
+    <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
     <string name="contacts_preference_choose_date">日付を選択</string>
     <string name="contacts_preference_backup_never">しない</string>
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
+    <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
     <string name="drawer_logout">ログアウト</string>
+    <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
     <string name="privacy">プライバシー</string>
+    <string name="file_not_found">ファイルが見つかりません</string>
+    <string name="file_not_synced">ファイルを同期できませんでした。 最新の利用可能なバージョンを表示します。</string>
+
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
+    <string name="autoupload_create_new_custom_folder">新しいカスタムフォルダセットアップを作成する</string>
+    <string name="synced_folders_configure_folders">フォルダの設定</string>
+
+    <string name="test_server_button">テストサーバーの接続</string>
+    <string name="resharing_is_not_allowed">再共有は許可されていません</string>
     <string name="fallback_weblogin_back">戻る</string>
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
 
@@ -576,6 +625,10 @@
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_license">ライセンス</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
+    <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
+    <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
+    <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
+
     <string name="date_unknown">不明</string>
 
     <string name="activity_icon">アクティビティ</string>
