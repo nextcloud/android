@@ -813,4 +813,6 @@
     <string name="hint_note">Not</string>
     <string name="no_browser_available">Bağlantıları işleyecek bir uygulama bulunamadı</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
-    </resources>
+    <string name="share_via_link_hide_download">İndirmeyi gizle</string>
+
+</resources>
