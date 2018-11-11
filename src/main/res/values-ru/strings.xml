@@ -772,7 +772,7 @@
     <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
     <string name="whats_new_device_credentials_title">Использовать системные средства защиты</string>
     <string name="login">Войти</string>
-    <string name="signup_with_provider">Подключиться через провайдера</string>
+    <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="host_your_own_server">Развернуть собственный сервер</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
     <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
