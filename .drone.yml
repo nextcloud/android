@@ -20,7 +20,7 @@ pipeline:
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
-      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+      - bash ./codecov.sh -t df7b84c0-3ab4-48a7-8ba2-1ad8ddbc96e1
     secrets: [ LOG_USERNAME, LOG_PASSWORD ]
     when:
       matrix:
@@ -35,7 +35,7 @@ pipeline:
     when:
       matrix:
         FLAVOR: Analysis
-        
+
   notify:
       image: drillster/drone-email
       host: $EMAIL_HOST
