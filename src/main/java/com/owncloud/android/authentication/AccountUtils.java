@@ -50,10 +50,10 @@ public final class AccountUtils {
     /**
      * Can be used to get the currently selected ownCloud {@link Account} in the
      * application preferences.
-     * 
+     *
      * @param   context     The current application {@link Context}
-     * @return              The ownCloud {@link Account} currently saved in preferences, or the first 
-     *                      {@link Account} available, if valid (still registered in the system as ownCloud 
+     * @return The ownCloud {@link Account} currently saved in preferences, or the first
+     *                      {@link Account} available, if valid (still registered in the system as ownCloud
      *                      account). If none is available and valid, returns null.
      */
     public static @Nullable Account getCurrentOwnCloudAccount(Context context) {
@@ -96,7 +96,7 @@ public final class AccountUtils {
         return accountManager.getAccountsByType(MainApp.getAccountType(context));
     }
 
-    
+
     public static boolean exists(Account account, Context context) {
         Account[] ocAccounts = getAccounts(context);
 
@@ -132,7 +132,7 @@ public final class AccountUtils {
             return null;
         }
     }
-    
+
     /**
      * Returns owncloud account identified by accountName or null if it does not exist.
      * @param context the context
@@ -176,20 +176,23 @@ public final class AccountUtils {
     /**
      * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER
      *
-     * @param   account     ownCloud account
-     * @return              Version of the OC server corresponding to account, according to the data saved
-     *                      in the system AccountManager
+     * @param account ownCloud account
+     * @return Version of the OC server corresponding to account, according to the data saved
+     * in the system AccountManager
      */
     public static @NonNull
     OwnCloudVersion getServerVersion(Account account) {
-        OwnCloudVersion serverVersion = OwnCloudVersion.nextcloud_10;
+        OwnCloudVersion serverVersion = MainApp.MINIMUM_SUPPORTED_SERVER_VERSION;
+
         if (account != null) {
             AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
             String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+
             if (serverVersionStr != null) {
                 serverVersion = new OwnCloudVersion(serverVersionStr);
             }
         }
+
         return serverVersion;
     }
 
