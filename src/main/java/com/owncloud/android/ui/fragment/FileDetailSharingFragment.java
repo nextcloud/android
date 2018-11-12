@@ -309,7 +309,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 publicShare.getPermissions()
         );
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
-            publicShare.isHideFileDownload(), file.isFolder());
+            publicShare.isHideFileDownload(), file.isFolder(), capabilities);
         SharingMenuHelper.setupPasswordMenuItem(
                 menu.findItem(R.id.action_password),
                 publicShare.isPasswordProtected()
