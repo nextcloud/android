@@ -4,16 +4,16 @@
  * @author masensio
  * @author David A. Velasco
  * Copyright (C) 2015 ownCloud Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -95,6 +95,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 public class MainApp extends MultiDexApplication {
 
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_12;
+    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_10;
 
     private static final String TAG = MainApp.class.getSimpleName();
 
@@ -387,7 +388,7 @@ public class MainApp extends MultiDexApplication {
             notificationManager.createNotificationChannel(channel);
         }
     }
-    
+
 
     public static Context getAppContext() {
         return MainApp.mContext;
@@ -405,9 +406,9 @@ public class MainApp extends MultiDexApplication {
         MainApp.storagePath = path;
     }
 
-    // Methods to obtain Strings referring app_name 
-    //   From AccountAuthenticator 
-    //   public static final String ACCOUNT_TYPE = "owncloud";    
+    // Methods to obtain Strings referring app_name
+    //   From AccountAuthenticator
+    //   public static final String ACCOUNT_TYPE = "owncloud";
     public static String getAccountType(Context context) {
         return context.getResources().getString(R.string.account_type);
     }
@@ -446,7 +447,7 @@ public class MainApp extends MultiDexApplication {
         return getAppContext().getResources().getString(R.string.authority);
     }
 
-    //  From ProviderMeta 
+    //  From ProviderMeta
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {
         return getAppContext().getResources().getString(R.string.db_file);
