@@ -777,7 +777,7 @@
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
     <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
-    <string name="first_run_4_text">Публикация экрана, онлайн общение и веб-конференции</string>
+    <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="whats_new_device_credentials_content">Для защиты данных могут быть использованы пароль, ПИН, защитный узор или отпечаток пальца.</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
 	<string name="restore">Восстановить файл</string>

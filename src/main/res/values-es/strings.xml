@@ -813,4 +813,6 @@
     <string name="hint_note">Nota</string>
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
-    </resources>
+    <string name="share_via_link_hide_download">Ocultar descarga</string>
+
+</resources>
