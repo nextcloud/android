@@ -811,4 +811,8 @@
     <string name="send_note">Senda minnispunkt til viðtakanda</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
     <string name="hint_note">Minnispunktur</string>
-    </resources>
+    <string name="no_browser_available">Ekkert forrit tiltækt til að meðhöndla tengla</string>
+    <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
+    <string name="share_via_link_hide_download">Fela niðurhal</string>
+
+</resources>

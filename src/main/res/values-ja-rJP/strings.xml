@@ -385,10 +385,10 @@
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
-    <string name="file_migration_preparing">移行の準備中...</string>
+    <string name="file_migration_preparing">移行の準備中…</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
-    <string name="file_migration_waiting_for_unfinished_sync">全ての同期を待機中..</string>
+    <string name="file_migration_waiting_for_unfinished_sync">全ての同期を待機中…</string>
     <string name="file_migration_migrating">データを移動中</string>
     <string name="file_migration_updating_index">インデックスの更新中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
@@ -424,6 +424,7 @@
 	<string name="folder_picker_choose_button_text">選択</string>
 
     <string name="move_file_not_found">ファイルを移動できません。ファイルがあるか確認してください。</string>
+    <string name="move_file_invalid_into_descendent">フォルダを自身の基礎となるフォルダの1つに移動することはできません</string>
     <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
     <string name="forbidden_permissions_move">このファイルを移動</string>
@@ -457,8 +458,8 @@
     <string name="set_picture_as">画像を使用する</string>
     <string name="set_as">として設定され</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">元のファイルになります...</string>
-    <string name="prefs_instant_behaviour_title">元のファイルになります...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">元のファイルになります…</string>
+    <string name="prefs_instant_behaviour_title">元のファイルになります…</string>
     <string name="select_all">すべて選択</string>
     <string name="deselect_all">選択を全解除</string>
 
@@ -507,10 +508,16 @@
     <string name="share_privilege_can_edit_change">変更可能</string>
     <string name="share_privilege_can_edit_delete">削除可能</string>
 
+    <string name="action_retry_uploads">失敗したアップロードを再試行する</string>
+    <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
+    <string name="action_clear_successful_uploads">成功したアップロードをクリアする</string>
+    <string name="action_force_rescan">強制再スキャン</string>
+
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
     <string name="manage_space_title">管理領域</string>
+    <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_clear_data">データのクリア</string>
 
     <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
@@ -520,6 +527,7 @@
     <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
 
+    <string name="uploads_view_upload_status_waiting_for_charging">料金を待つ</string>
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
@@ -546,7 +554,7 @@
     <string name="participate_dev_direct_download">開発リリースを直接ダウンロードする</string>
     <string name="move_to">移動…</string>
     <string name="copy_to">コピー…</string>
-    <string name="choose_remote_folder">リモートフォルダを選択...</string>
+    <string name="choose_remote_folder">リモートフォルダを選択…</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
@@ -629,35 +637,98 @@
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
 
+    <string name="sync_in_progress">最新のファイルを取得しています。</string>
     <string name="date_unknown">不明</string>
 
+    <string name="resized_image_not_possible">サイズ変更された画像はありません。</string>
+    <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
+    <string name="resized_images_download_full_image">フルイメージをダウンロードしますか？</string>
+
+    <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
+    <string name="drawer_current_account">現在のアカウント</string>
+    <string name="drawer_middle_account">ミドルアカウント</string>
+    <string name="drawer_end_account">最後のアカウント</string>
+    <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="activity_icon">アクティビティ</string>
     <string name="file_icon">ファイル</string>
     <string name="user_icon">ユーザー</string>
     <string name="favorite_icon">お気に入り</string>
+    <string name="synced_icon">同期した</string>
+    <string name="available_offline_icon">オフラインで利用可能</string>
     <string name="checkbox">チェックボックス</string>
     <string name="shared_icon_share">共有</string>
+    <string name="shared_icon_shared_via_link">リンク経由で共有</string>
+    <string name="shared_icon_shared">共有中</string>
+    <string name="overflow_menu">その他のメニュー</string>
     <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">新しい順</string>
+    <string name="sort_by_size_descending">サイズ（降順）</string>
+    <string name="sort_by_size_ascending">サイズ（昇順）</string>
     <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">日付（昇順）</string>
     <string name="synced_folders_type">タイプ</string>
+    <string name="sync_status_button">同期ステータスボタン</string>
+    <string name="synced_folder_settings_button">設定ボタン</string>
+    <string name="synced_folder_custom_folder_image">カスタムフォルダイメージ</string>
+    <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
+    <string name="forward">転送</string>
+    <string name="what_s_new_image">新しいイメージとは</string>
+
+    <string name="store_short_dev_desc">Nextcloud Devアプリケーションは開発スナップショットであり、並列にインストールすることができます。</string>
+    <string name="prefs_category_dev">開発者</string>
+    <string name="dev_version_no_information_available">情報がありません。</string>
+    <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
     <string name="folder_icon">フォルダアイコン</string>
+    <string name="dev_version_new_version_available">新しいバージョンが利用可能</string>
     <string name="version_dev_download">ダウンロード</string>
 
     <string name="send">送信</string>
     <string name="share">共有</string>
     <string name="link">リンク</string>
 
+    <string name="notification_channel_upload_name">アップロード通知チャンネル</string>
+    <string name="notification_channel_download_name">通知チャンネルをダウンロード</string>
+    <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
+    <string name="notification_channel_upload_description">アップロードの進行状況を表示</string>
     <string name="notification_channel_media_name">メディアプレーヤー</string>
+    <string name="notification_channel_media_description">ミュージックプレーヤーの進行状況</string>
+    <string name="notification_channel_file_sync_name">ファイル同期</string>
+    <string name="notification_channel_file_sync_description">ファイルの同期の進行状況と結果を表示します</string>
+    <string name="notification_channel_file_observer_name">ファイルオブザーバー</string>
+    <string name="notification_channel_file_observer_description">変更のファイルを監視する</string>
+
+    <string name="account_not_found">アカウントが見つかりません！</string>
+
+    <string name="screenshot_01_gridView">すべてのデータの安全なホーム</string>
+    <string name="screenshot_02_listView">ファイルを簡単にブラウズして共有する</string>
+    <string name="screenshot_03_drawer">アクティビティ、共有、オフラインファイルなどに素早くアクセス</string>
+    <string name="screenshot_04_accounts">別のアカウントに接続する</string>
+    <string name="screenshot_05_autoUpload">写真を自動的にアップロード &amp; ビデオ</string>
+    <string name="screenshot_06_davdroid">同期カレンダー &amp; DAVdroidとのコンタクト</string>
+
+    <string name="userinfo_no_info_headline">個人情報が設定されていない</string>
+    <string name="userinfo_no_info_text">プロフィールページに名前、写真、連絡先の詳細を追加します。</string>
+    <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
     <string name="account_icon">アカウントアイコン</string>
 
     <string name="end_to_end_encryption_folder_not_empty">このフォルダは空ではありません。</string>
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
+    <string name="end_to_end_encryption_retrieving_keys">キーを取得中…</string>
     <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
+    <string name="end_to_end_encryption_generating_keys">新しいキーを生成中…</string>
+    <string name="end_to_end_encryption_keywords_description">すべての12単語が非常に強力なパスワードを作成し、暗号化されたファイルを表示して使用するだけです。 それを書き留めて、安全な場所に保管してください。</string>
     <string name="end_to_end_encryption_title">暗号化を設定する</string>
+    <string name="end_to_end_encryption_passphrase_title">あなたの12単語の暗証番号を書き留めてください</string>
+    <string name="end_to_end_encryption_not_supported">暗号化はKitKat（4.4）以降でのみ有効です。</string>
+    <string name="end_to_end_encryption_not_enabled">サーバー上でエンドツーエンドの暗号化が無効になっています。</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_password">パスワード…</string>
+    <string name="end_to_end_encryption_unsuccessful">キーを保存できませんでした。もう一度お試しください。</string>
     <string name="end_to_end_encryption_dialog_close">閉じる</string>
+    <string name="end_to_end_encryption_storing_keys">キーの保存</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
+    <string name="untrusted_domain">信頼できないドメインを介したアクセス。 詳細はドキュメントを参照してください。</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
@@ -672,23 +743,64 @@
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="tags">タグ</string>
+    <string name="sharee_add_failed">共有を追加できませんでした</string>
+    <string name="unsharing_failed">共有に失敗しました</string>
+    <string name="updating_share_failed">共有の更新に失敗しました</string>
+    <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
+    <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
+    <string name="whats_new_device_credentials_title">Androidのデバイス内部保護を使用する</string>
     <string name="login">ログイン</string>
     <string name="signup_with_provider">他のサービスでサインアップ</string>
+    <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
     <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
-    <string name="restore">ファイルを復元</string>
+    <string name="whats_new_device_credentials_content">データを安全に保つために、パターン、パスワード、ピン、または指紋などを使用してください。</string>
+    <string name="restore_button_description">選択したファイルを復元する</string>
+	<string name="restore">ファイルを復元</string>
+    <string name="new_version_was_created">新しいバージョンが作成されました</string>
     <string name="new_comment">新しいコメント…</string>
+    <string name="error_comment_file">コメントファイルのエラー</string>
+    <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
+    <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
+    <string name="notification_channel_general_name">一般的な通知</string>
+    <string name="notification_channel_general_description">新しいメディアフォルダなどの通知を表示する</string>
+    <string name="new_media_folder_detected">新しい %1$s メディアフォルダが検出されました。</string>
     <string name="new_media_folder_photos">写真</string>
     <string name="new_media_folder_videos">ビデオ</string>
+    <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="dismiss">閉じる</string>
+    <string name="feedback_no_mail_app">メールを送信するアプリはありません！</string>
+    <string name="drawer_item_trashbin">ゴミ箱</string>
+    <string name="trashbin_activity_title">ゴミ箱</string>
+    <string name="action_empty_trashbin">空のゴミ箱</string>
+    <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
+    <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
+    <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
+    <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="stream">ストリームと...</string>
+    <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
+    <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
+    <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="notification_icon">通知アイコン</string>
     <string name="folder_confirm_create">作成</string>
     <string name="file_delete">削除</string>
+    <string name="file_keep">保持</string>
     <string name="file_rename">名前を変更</string>
+    <string name="fab_label">追加またはアップロード</string>
+    <string name="account_creation_failed">アカウントの作成に失敗しました</string>
+
+    <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
     <string name="permission_deny">拒否</string>
     <string name="permission_allow">許可</string>
+    <string name="share_send_note">受取人への注意</string>
     <string name="note_confirm">送信</string>
+    <string name="send_note">受信者にメモを送信する</string>
+    <string name="note_could_not_sent">メモを送信できませんでした</string>
     <string name="hint_note">ノート</string>
-    </resources>
+    <string name="no_browser_available">リンクを処理するアプリがありません</string>
+    <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
+    <string name="share_via_link_hide_download">ダウンロードを隠す</string>
+
+</resources>
