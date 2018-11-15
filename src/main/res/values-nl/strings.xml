@@ -813,4 +813,6 @@
     <string name="hint_note">Notitie</string>
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
-    </resources>
+    <string name="share_via_link_hide_download">Verberg download</string>
+
+</resources>
