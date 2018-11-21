@@ -74,9 +74,6 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // disable contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-            // remove push notification
-            PushUtils.deleteRegistrationForAccount(account);
-
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
             File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
@@ -118,7 +115,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
                 filesystemDataProvider.deleteAllEntriesForSyncedFolder(Long.toString(syncedFolderId));
             }
 
-            // delete stored E2E keys 
+            // delete stored E2E keys
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
 

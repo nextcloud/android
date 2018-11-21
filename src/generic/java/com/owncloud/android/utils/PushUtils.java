@@ -52,7 +52,4 @@ public final class PushUtils {
     }
 
 
-    public static void deleteRegistrationForAccount() {
-        // do nothing
-    }
 }

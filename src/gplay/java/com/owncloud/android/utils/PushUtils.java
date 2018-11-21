@@ -144,7 +144,7 @@ public final class PushUtils {
         return -2;
     }
 
-    public static void deleteRegistrationForAccount(Account account) {
+    private static void deleteRegistrationForAccount(Account account) {
         Context context = MainApp.getAppContext();
         OwnCloudAccount ocAccount = null;
         arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
