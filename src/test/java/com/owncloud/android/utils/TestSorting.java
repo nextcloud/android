@@ -372,6 +372,34 @@ public class TestSorting {
         assertTrue(sortAndTest(array));
     }
 
+    @Test
+    public void testSortCloudFilesWithDotFilesAndFolders() {
+        List<OCFile> sortedArray = new ArrayList<>();
+
+        sortedArray.add(new OCFile("/.apache2").setFolder());
+        sortedArray.add(new OCFile("/.cache").setFolder());
+        sortedArray.add(new OCFile("/.config").setFolder());
+        sortedArray.add(new OCFile("/.local").setFolder());
+        sortedArray.add(new OCFile("/.logs").setFolder());
+        sortedArray.add(new OCFile("/.nano").setFolder());
+        sortedArray.add(new OCFile("/.nginx").setFolder());
+        sortedArray.add(new OCFile("/.script-credentials").setFolder());
+        sortedArray.add(new OCFile("/.ssh").setFolder());
+        sortedArray.add(new OCFile("/.subversion").setFolder());
+        sortedArray.add(new OCFile("/.znc").setFolder());
+        sortedArray.add(new OCFile("/.bash_aliases"));
+        sortedArray.add(new OCFile("/.bash_history"));
+        sortedArray.add(new OCFile("/.bash_logout"));
+        sortedArray.add(new OCFile("/.bashrc"));
+        sortedArray.add(new OCFile("/.feral_aliases"));
+        sortedArray.add(new OCFile("/.mysql_history"));
+        sortedArray.add(new OCFile("/.profile"));
+        sortedArray.add(new OCFile("/.selected_editor"));
+        sortedArray.add(new OCFile("/.wget-hsts"));
+
+        assertTrue(sortAndTest(sortedArray));
+    }
+
     private List<Comparable> shuffle(List<? extends Comparable> files) {
         List<Comparable> shuffled = new ArrayList<>();
         shuffled.addAll(files);
