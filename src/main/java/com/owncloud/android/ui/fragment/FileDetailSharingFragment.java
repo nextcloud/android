@@ -333,7 +333,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 publicShare.getPermissions()
         );
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
-            publicShare.isHideFileDownload(), file.isFolder(), capabilities);
+            publicShare.isHideFileDownload(), capabilities);
         SharingMenuHelper.setupPasswordMenuItem(
                 menu.findItem(R.id.action_password),
                 publicShare.isPasswordProtected()
@@ -400,8 +400,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @Override
     public void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload) {
-        ((FileActivity) getActivity()).getFileOperationsHelper().
-            setHideFileDownloadPermissionsToShare(file, hideFileDownload);
+        fileOperationsHelper.setHideFileDownloadPermissionsToShare(file, hideFileDownload);
     }
 
     @Override
