@@ -45,7 +45,7 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 #### With a computer:
 - connect the device via USB
 - open command prompt/terminal
-- enter `adb logcat | grep "$(adb shell ps | grep com.nextcloud.client | awk '{print $2}')" > logcatOutput.txt` to save the output to this file
+- enter `adb logcat | grep "$(adb shell ps | awk '/com.nextcloud.client/{print $2}')" > logcatOutput.txt` to save the output to this file
 
 **Note:** You must have [adb](https://developer.android.com/studio/releases/platform-tools.html) installed first!
 
