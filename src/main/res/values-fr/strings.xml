@@ -112,7 +112,7 @@
     <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez l\'envoi automatique.</string>
     <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
-    <string name="trashbin_empty_message">Ici, vous verrez et pourrez restaurer vos fichiers supprimés</string>
+    <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
     <string name="upload_list_empty_headline">Aucun historique d\'envoi</string>
     <string name="upload_list_empty_text_auto_upload">Envoyez du contenu ou activez l\'envoi automatique.</string>
     <string name="file_list_folder">dossier</string>
@@ -789,7 +789,7 @@ Veuillez contacter votre administrateur</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
-    <string name="action_empty_trashbin">Corbeille vide</string>
+    <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="trashbin_loading_failed">Erreur du chargement de la corbeille !</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
