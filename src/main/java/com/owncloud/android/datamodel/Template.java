@@ -21,13 +21,21 @@
 package com.owncloud.android.datamodel;
 
 import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Template for creating a file from it via RichDocuments app
  */
 
 @Parcel
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Template {
 
     private int id;
@@ -35,37 +43,4 @@ public class Template {
     private String thumbnailLink;
     private String type;
     private String extension;
-
-    @ParcelConstructor
-    public Template(int id, String name, String thumbnailLink, String type, String extension) {
-        this.id = id;
-        this.name = name;
-        this.thumbnailLink = thumbnailLink;
-        this.type = type;
-        this.extension = extension;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getThumbnailLink() {
-        return thumbnailLink;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
 }
