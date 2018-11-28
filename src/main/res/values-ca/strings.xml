@@ -140,9 +140,9 @@
     <string name="delete_account_warning">Esborrar el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuari actiu</string>
-    <string name="upload_chooser_title">Puja des de...</string>
+    <string name="upload_chooser_title">Puja des de…</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">Pujant...</string>
+    <string name="uploader_upload_in_progress_ticker">Pujant…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Penjat</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
@@ -168,7 +168,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant al mode d\'apagada segur</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-ho</string>
-    <string name="downloader_download_in_progress_ticker">Baixant...</string>
+    <string name="downloader_download_in_progress_ticker">Baixant…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descarregant %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descarregat</string>
     <string name="downloader_download_succeeded_content">%1$s descarregat</string>
