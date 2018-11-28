@@ -36,7 +36,6 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -739,7 +738,6 @@ public final class DisplayUtils {
     // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
     // under GPL3
     public static void useCompatVectorIfNeeded() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             try {
                 @SuppressLint("RestrictedApi") AppCompatDrawableManager drawableManager = AppCompatDrawableManager.get();
                 Class<?> inflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$InflateDelegate");
@@ -756,7 +754,6 @@ public final class DisplayUtils {
             } catch (Exception e) {
                 Log.e(TAG, "Failed to use reflection to enable proper vector scaling");
             }
-        }
     }
 
     public static int convertDpToPixel(float dp, Context context) {

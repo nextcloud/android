@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -53,6 +54,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -1929,6 +1931,9 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN, capability.getServerBackgroundPlain()
                 .getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_ACTIVITY, capability.isActivityEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
+                TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
 
         if (capabilityExists(account.name)) {
             if (getContentResolver() != null) {
@@ -2084,6 +2089,13 @@ public class FileDataStorageManager {
                     c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN))));
             capability.setActivity(CapabilityBooleanType.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_ACTIVITY))));
+            capability.setRichDocuments(CapabilityBooleanType.fromValue(c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT))));
+            String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
+            if (mimetypes == null) {
+                mimetypes = "";
+            }
+            capability.setRichDocumentsMimeTypeList(Arrays.asList(mimetypes.split(",")));
         }
         return capability;
     }
