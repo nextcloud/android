@@ -39,4 +39,19 @@ public interface OCFileListBottomSheetActions {
      * offers a file upload with the app file picker to the current folder.
      */
     void uploadFiles();
+
+    /**
+     * opens template selection for documents
+     */
+    void newDocument();
+
+    /**
+     * opens template selection for spreadsheets
+     */
+    void newSpreadsheet();
+
+    /**
+     * opens template selection for presentations
+     */
+    void newPresentation();
 }

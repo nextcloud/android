@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.ThemeUtils;
 
 import butterknife.BindView;
@@ -44,21 +45,28 @@ import butterknife.Unbinder;
 public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @BindView(R.id.menu_icon_upload_files)
     public ImageView iconUploadFiles;
+
     @BindView(R.id.menu_icon_upload_from_app)
     public ImageView iconUploadFromApp;
+
     @BindView(R.id.menu_icon_mkdir)
     public ImageView iconMakeDir;
+
     @BindView(R.id.add_to_cloud)
     public TextView headline;
 
+    @BindView(R.id.templates)
+    public View templates;
+
     private Unbinder unbinder;
-
     private OCFileListBottomSheetActions actions;
+    private OCCapability capability;
 
-
-    public OCFileListBottomSheetDialog(@NonNull Context context, OCFileListBottomSheetActions actions) {
+    public OCFileListBottomSheetDialog(@NonNull Context context, OCCapability capability,
+                                       OCFileListBottomSheetActions actions) {
         super(context);
         this.actions = actions;
+        this.capability = capability;
     }
 
     @Override
@@ -80,6 +88,10 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
                 ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
+
+        if (capability.getRichDocuments().isTrue()) {
+            templates.setVisibility(View.VISIBLE);
+        }
 
         setOnShowListener(d ->
                 BottomSheetBehavior.from((View) view.getParent()).setPeekHeight(view.getMeasuredHeight())
@@ -104,6 +116,23 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         dismiss();
     }
 
+    @OnClick(R.id.menu_new_document)
+    public void newDocument() {
+        actions.newDocument();
+        dismiss();
+    }
+
+    @OnClick(R.id.menu_new_spreadsheet)
+    public void newSpreadsheet() {
+        actions.newSpreadsheet();
+        dismiss();
+    }
+
+    @OnClick(R.id.menu_new_presentation)
+    public void newPresentation() {
+        actions.newPresentation();
+        dismiss();
+    }
     @Override
     protected void onStop() {
         super.onStop();
