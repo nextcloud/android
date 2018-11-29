@@ -812,7 +812,6 @@
     <string name="file_rename">Переименовать</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="account_creation_failed">Сбой при создании аккаунта</string>
-
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="permission_deny">Запретить</string>
     <string name="permission_allow">Разрешить</string>
@@ -825,4 +824,4 @@
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
 
-</resources>
+    </resources>

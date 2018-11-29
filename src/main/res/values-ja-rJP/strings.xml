@@ -790,7 +790,6 @@
     <string name="file_rename">名前を変更</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="account_creation_failed">アカウントの作成に失敗しました</string>
-
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
     <string name="permission_deny">拒否</string>
     <string name="permission_allow">許可</string>
@@ -803,4 +802,4 @@
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
 
-</resources>
+    </resources>

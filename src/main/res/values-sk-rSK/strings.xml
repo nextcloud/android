@@ -812,7 +812,6 @@
     <string name="file_rename">Premenovať</string>
     <string name="fab_label">Pridať alebo nahrať</string>
     <string name="account_creation_failed">Vytvorenie účtu sa nepodarilo</string>
-
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="permission_deny">Odmietnuť</string>
     <string name="permission_allow">Povoliť</string>
@@ -825,4 +824,4 @@
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
 
-</resources>
+    </resources>

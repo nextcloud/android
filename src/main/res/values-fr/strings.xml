@@ -805,7 +805,6 @@ Veuillez contacter votre administrateur</string>
     <string name="file_rename">Renommer</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="account_creation_failed">Échec de création du compte</string>
-
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_allow">Accepter</string>
@@ -818,4 +817,4 @@ Veuillez contacter votre administrateur</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
 
-</resources>
+    </resources>

@@ -814,7 +814,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="file_rename">Zmień nazwę</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="account_creation_failed">Błąd tworzenia konta</string>
-
     <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="permission_deny">Odrzuć</string>
     <string name="permission_allow">Akceptuj</string>

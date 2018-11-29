@@ -797,7 +797,6 @@
     <string name="file_rename">重命名</string>
     <string name="fab_label">添加或上传</string>
     <string name="account_creation_failed"> 帐户创建已失败</string>
-
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的Nextcloud 帐户%2$s？</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_allow">允许</string>
@@ -808,4 +807,4 @@
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
 
-</resources>
+    </resources>
