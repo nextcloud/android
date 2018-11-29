@@ -57,7 +57,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 4
 def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 99=stable
+def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
@@ -93,7 +93,7 @@ android {
 
         versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
 
-        if (versionBuild > 98) {
+        if (versionBuild > 89) {
             versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         } else if (versionBuild > 50) {
             versionName "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
