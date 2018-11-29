@@ -802,7 +802,6 @@
     <string name="file_rename">Renomear</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="account_creation_failed">Falha ao criar conta</string>
-
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
     <string name="permission_deny">Negar</string>
     <string name="permission_allow">Permitir</string>
@@ -815,4 +814,4 @@
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
 
-</resources>
+    </resources>

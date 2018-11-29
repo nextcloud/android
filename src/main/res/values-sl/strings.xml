@@ -134,9 +134,9 @@
     <string name="delete_account">Odstrani račun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Dejavni uporabnik</string>
-    <string name="upload_chooser_title">Pošlji iz ...</string>
+    <string name="upload_chooser_title">Pošlji iz…</string>
     <string name="uploader_info_dirname">Ime mape</string>
-    <string name="uploader_upload_in_progress_ticker">Poteka pošiljanje ...</string>
+    <string name="uploader_upload_in_progress_ticker">Poteka pošiljanje…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Poslano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
@@ -158,9 +158,9 @@
     <string name="uploads_view_upload_status_conflict">Spor</string>
     <string name="uploads_view_upload_status_service_interrupted">Program je vsiljeno končan</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na vzpostavitev povezave Wi-Fi ...</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na vzpostavitev povezave Wi-Fi…</string>
     <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
-    <string name="downloader_download_in_progress_ticker">Poteka prejemanje ...</string>
+    <string name="downloader_download_in_progress_ticker">Poteka prejemanje…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
     <string name="downloader_download_succeeded_ticker">Prenešeno</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
@@ -208,7 +208,7 @@
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
 
-    <string name="auth_getting_authorization">Poteka pridobivanje podatkov overitve ...</string>
+    <string name="auth_getting_authorization">Poteka pridobivanje podatkov overitve…</string>
     <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
 	<string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
 	<string name="auth_connection_established">Povezava je vzpostavljena</string>
@@ -235,7 +235,7 @@
 	<string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
 	<string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
-    <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
+    <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom…</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
 	<string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
@@ -262,14 +262,14 @@
     <string name="filename_forbidden_characters">Nedovoljeni znaki: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
-    <string name="wait_a_moment">Počakajte trenutek ...</string>
+    <string name="wait_a_moment">Počakajte trenutek…</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
-    <string name="activity_chooser_title">Pošlji povezavo ...</string>
+    <string name="activity_chooser_title">Pošlji povezavo…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
 
     <string name="oauth_check_onoff">Prijava z OAuth2.0</string>
-    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth2.0 ...</string>
+    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth2.0…</string>
 
     <string name="ssl_validator_header">Istovetnosti strežnika ni mogoče preveriti</string>
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
@@ -357,13 +357,13 @@
     <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
 
     <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
-    <string name="file_migration_checking_destination">Poteka preverjanje cilja ...</string>
-    <string name="file_migration_saving_accounts_configuration">Poteka shranjevanje nastavitev računa ...</string>
-    <string name="file_migration_waiting_for_unfinished_sync">V čakanju na polno uskladitev ...</string>
-    <string name="file_migration_migrating">Poteka premikanje podatkov ...</string>
-    <string name="file_migration_updating_index">Poteka posodabljanje kazala ...</string>
-    <string name="file_migration_cleaning">Poteka čiščenje ...</string>
-    <string name="file_migration_restoring_accounts_configuration">Poteka obnavljanje nastavitev računa ...</string>
+    <string name="file_migration_checking_destination">Poteka preverjanje cilja…</string>
+    <string name="file_migration_saving_accounts_configuration">Poteka shranjevanje nastavitev računa…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">V čakanju na polno uskladitev…</string>
+    <string name="file_migration_migrating">Poteka premikanje podatkov…</string>
+    <string name="file_migration_updating_index">Poteka posodabljanje kazala…</string>
+    <string name="file_migration_cleaning">Poteka čiščenje…</string>
+    <string name="file_migration_restoring_accounts_configuration">Poteka obnavljanje nastavitev računa…</string>
     <string name="file_migration_ok_finished">Zaključeno</string>
     <string name="file_migration_failed_not_enough_space">Zahtevanega je več prostora</string>
     <string name="file_migration_failed_not_writable">Ni mogoče pisati v ciljno datoteko</string>
@@ -456,7 +456,7 @@
     <string name="edit_permission_label">uredi</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
-    <string name="share_with_title">Omogoči souporabo ...</string>
+    <string name="share_with_title">Omogoči souporabo…</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
@@ -500,7 +500,7 @@
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Pomoč pri prevajanju</string>
     <string name="participate_contribute_translate_text">programa</string>
-    <string name="synced_folders_loading_folders">Poteka nalaganje map ...</string>
+    <string name="synced_folders_loading_folders">Poteka nalaganje map…</string>
     <string name="synced_folders_no_results">Map s predstavno vsebino ni mogoče najti.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
     <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
@@ -552,8 +552,8 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
 
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
-    <string name="foreground_service_upload">Poteka nalaganje datotek ...</string>
-    <string name="foreground_service_download">Poteka prejemanje datotek ...</string>
+    <string name="foreground_service_upload">Poteka nalaganje datotek…</string>
+    <string name="foreground_service_download">Poteka prejemanje datotek…</string>
 
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_license">Dovoljenje</string>
@@ -581,7 +581,7 @@
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
 
     <string name="userinfo_no_info_headline">Osebni podatki še niso vpisani</string>
-    <string name="end_to_end_encryption_password">Geslo ...</string>
+    <string name="end_to_end_encryption_password">Geslo…</string>
     <string name="hint_name">Ime</string>
     <string name="hint_password">Geslo</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>

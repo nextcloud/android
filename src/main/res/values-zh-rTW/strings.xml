@@ -562,7 +562,6 @@
     <string name="file_rename">更名</string>
     <string name="fab_label">新增或上傳</string>
     <string name="account_creation_failed">帳號建立失敗</string>
-
     <string name="single_sign_on_request_token" formatted="true">允許%1$s存取您的Nextcloud帳號%2$s？</string>
     <string name="permission_deny">否</string>
     <string name="permission_allow">允許</string>

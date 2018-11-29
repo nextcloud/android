@@ -515,7 +515,6 @@
     <string name="file_rename">Đổi tên</string>
     <string name="fab_label">Thêm hoặc tải lên</string>
     <string name="account_creation_failed">Tạo tài khoản không thành công</string>
-
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="permission_deny">Từ chối</string>
     <string name="permission_allow">Cho phép</string>

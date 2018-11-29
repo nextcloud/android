@@ -729,7 +729,6 @@
     <string name="file_rename">Преименувай</string>
     <string name="fab_label">Добави или качи</string>
     <string name="account_creation_failed">Създаването на профила се провали</string>
-
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="permission_deny">Не</string>
     <string name="permission_allow">Да</string>

@@ -765,7 +765,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="file_rename">Nimeä uudelleen</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="account_creation_failed">Tilin luonti epäonnistui</string>
-
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="permission_deny">Kiellä</string>
     <string name="permission_allow">Salli</string>

@@ -720,13 +720,17 @@
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
+    <string name="restore_button_description">Återställ raderad fil</string>
+	<string name="restore">Återställ fil</string>
     <string name="new_comment">Ny kommentar…</string>
+    <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
     <string name="dismiss">Avfärda</string>
     <string name="drawer_item_trashbin">Raderade filer</string>
     <string name="trashbin_activity_title">Raderade filer</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
+    <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="file_delete">Radera</string>

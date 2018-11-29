@@ -812,7 +812,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="file_rename">Átnevez</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="account_creation_failed">Fiók létrehozás sikertelen</string>
-
     <string name="permission_deny">Megtagad</string>
     <string name="permission_allow">Engedélyez</string>
     </resources>
