@@ -52,6 +52,7 @@
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Next permissions are always approved in installation time, the apps needs to do nothing special in runtime -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -70,6 +71,7 @@
     must request the FOREGROUND_SERVICE permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+    <uses-sdk tools:overrideLibrary="com.blikoon.qrcodescanner" />
 
     <application
         android:name=".MainApp"
@@ -274,11 +276,24 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".authentication.DeepLinkLoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/login_data_own_scheme" android:host="login"/>
+
+                <data
+                    android:host="login"
+                    android:scheme="@string/login_data_own_scheme" />
             </intent-filter>
         </activity>
 

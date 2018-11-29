@@ -740,8 +740,7 @@ public class OperationsService extends Service {
             final RemoteOperation operation, final RemoteOperationResult result
     ) {
         int count = 0;
-        Iterator<OnRemoteOperationListener> listeners =
-                mOperationsBinder.mBoundListeners.keySet().iterator();
+        Iterator<OnRemoteOperationListener> listeners = mOperationsBinder.mBoundListeners.keySet().iterator();
         while (listeners.hasNext()) {
             final OnRemoteOperationListener listener = listeners.next();
             final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
