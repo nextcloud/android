@@ -15,6 +15,7 @@ public final class PermissionUtil {
     public static final int PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2;
     public static final int PERMISSIONS_READ_CONTACTS_MANUALLY = 3;
     public static final int PERMISSIONS_WRITE_CONTACTS = 4;
+    public static final int PERMISSIONS_CAMERA = 5;
 
     private PermissionUtil() {
         // utility class -> private constructor
@@ -56,5 +57,16 @@ public final class PermissionUtil {
         ActivityCompat.requestPermissions(activity,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+    }
+
+    /**
+     * request camera permission.
+     *
+     * @param activity The target activity.
+     */
+    public static void requestCameraPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity,
+                                          new String[]{Manifest.permission.CAMERA},
+                                          PERMISSIONS_CAMERA);
     }
 }
