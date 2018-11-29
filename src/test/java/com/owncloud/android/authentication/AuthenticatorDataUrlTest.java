@@ -33,7 +33,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 public class AuthenticatorDataUrlTest {
     private static final String URL_PARSING = " url parsing";
     private static final String INCORRECT_USER_VALUE_IN = "Incorrect user value in ";
-    private String schemeUrl = "nextcloud://login/";
+    private String schemeUrl = "nc://login/";
     private String plus = "&";
 
     private String userValue = "testuser123";
