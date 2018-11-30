@@ -75,7 +75,7 @@
     <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s, выполните настройку аккаунта.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
-    <string name="uploader_error_title_no_file_to_upload">Не выбран файл для отправки</string>
+    <string name="uploader_error_title_no_file_to_upload">Не выбран файл для передачи на сервер</string>
     <string name="uploader_error_message_no_file_to_upload">Принятые данные не содержат исправный файл.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть передан на сервер</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
@@ -142,13 +142,13 @@
     <string name="active_user">Активный пользователь</string>
     <string name="upload_chooser_title">Выгрузить из…</string>
     <string name="uploader_info_dirname">Имя каталога</string>
-    <string name="uploader_upload_in_progress_ticker">Отправка…</string>
+    <string name="uploader_upload_in_progress_ticker">Передача…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% «%2$s»</string>
     <string name="uploader_upload_succeeded_ticker">Успешная передача на сервер</string>
     <string name="uploader_upload_succeeded_content_single">Передача файла «%1$s» завершена</string>
     <string name="uploader_upload_failed_ticker">Ошибка передачи на сервер</string>
     <string name="uploader_upload_failed_content_single">Файл «%1$s» не удалось передать</string>
-    <string name="uploader_upload_failed_credentials_error">Ошибка отправки файла, необходимо войти в систему</string>
+    <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
     <string name="uploads_view_title">Состояние передачи</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
@@ -167,7 +167,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">ожидание подключения Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Ожидание выхода из режима энергосбережения</string>
-    <string name="uploads_view_later_waiting_to_upload">Ожидание отправки</string>
+    <string name="uploads_view_later_waiting_to_upload">Ожидание передачи на сервер</string>
     <string name="downloader_download_in_progress_ticker">Скачивается…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
@@ -420,7 +420,7 @@
 
 	<string name="actionbar_logger">Журналы</string>
 	<string name="log_send_history_button">Отправить историю</string>
-	<string name="log_send_no_mail_app">Программа для отправки журналов не найдена. Установите приложение для работы с почтой.</string>
+	<string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>
 	<string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_progress_dialog_text">Получение данных…</string>
 
@@ -645,7 +645,7 @@
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
 
-    <string name="foreground_service_upload">Отправка файлов…</string>
+    <string name="foreground_service_upload">Передача файлов на сервер…</string>
     <string name="foreground_service_download">Получение файлов…</string>
 
     <string name="prefs_sourcecode">Получить исходный код</string>
@@ -708,10 +708,10 @@
     <string name="share">Общий ресурс</string>
     <string name="link">Ссылка</string>
 
-    <string name="notification_channel_upload_name">Канал уведомления отправки</string>
+    <string name="notification_channel_upload_name">Информация о передаче файлов</string>
     <string name="notification_channel_download_name">Канал уведомления о получении</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
-    <string name="notification_channel_upload_description">Показывает выполнение отправки</string>
+    <string name="notification_channel_upload_description">Ход выполнения передачи файлов на сервер</string>
     <string name="notification_channel_media_name">Мультимедийный проигрыватель </string>
     <string name="notification_channel_media_description">Состояние воспроизведения музыки</string>
     <string name="notification_channel_file_sync_name">Синхронизация файлов</string>
@@ -793,7 +793,7 @@
     <string name="new_media_folder_videos">видео</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="dismiss">Отклонить</string>
-    <string name="feedback_no_mail_app">Нет приложения для отправки писем!</string>
+    <string name="feedback_no_mail_app">Отсутствует приложение для работы с эл. почтой.</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
@@ -805,6 +805,7 @@
     <string name="stream_not_possible_headline">Встроенное потоковое вещание невозможно</string>
     <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
     <string name="folder_already_exists">Папка уже существует</string>
+    <string name="actionbar_open_as_richdocument">Открыть при помощи Collabora</string>
     <string name="notification_icon">Значок уведомления</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="file_delete">Удалить</string>
@@ -824,4 +825,14 @@
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
+    <string name="create_new_document">Создать документ</string>
+    <string name="create_new_spreadsheet">Создать таблицу</string>
+    <string name="create_new_presentation">Создать презентацию</string>
+    <string name="select_template">Выбрать шаблон</string>
+    <string name="filename_hint">Имя файла</string>
+    <string name="thumbnail">Миниатюра</string>
+    <string name="enter_filename">Введите имя файла…</string>
+    <string name="create_file_from_template">Создание файла на основе шаблона…</string>
+    <string name="error_retrieving_templates">Ошибка получения шаблона</string>
+</resources>

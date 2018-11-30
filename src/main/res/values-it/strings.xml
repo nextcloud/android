@@ -795,6 +795,7 @@
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="folder_already_exists">La cartella esiste già</string>
+    <string name="actionbar_open_as_richdocument">Apri con Collabora</string>
     <string name="notification_icon">Icona di notifica</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="file_delete">Elimina</string>
@@ -814,4 +815,14 @@
     <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
     <string name="share_via_link_hide_download">Nascondi scaricamento</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Caricamento del documento non riuscito!</string>
+    <string name="create_new_document">Crea nuovo documento</string>
+    <string name="create_new_spreadsheet">Crea nuovo foglio elettronico</string>
+    <string name="create_new_presentation">Crea nuova presentazione</string>
+    <string name="select_template">Seleziona modello</string>
+    <string name="filename_hint">Nome file</string>
+    <string name="thumbnail">Miniatura</string>
+    <string name="enter_filename">Digita il nome del file</string>
+    <string name="create_file_from_template">Crea file da modello...</string>
+    <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
+</resources>
