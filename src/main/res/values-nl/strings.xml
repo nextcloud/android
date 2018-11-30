@@ -795,6 +795,7 @@
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
     <string name="folder_already_exists">Map bestaat al</string>
+    <string name="actionbar_open_as_richdocument">Openen met Collabora</string>
     <string name="notification_icon">Meldingenpictogram</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="file_delete">Verwijderen</string>
@@ -814,4 +815,12 @@
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="share_via_link_hide_download">Verberg download</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Kon document niet laden!</string>
+    <string name="create_new_document">Creëer nieuw document</string>
+    <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>
+    <string name="create_new_presentation">Creëer nieuwe presentatie</string>
+    <string name="select_template">Kies sjabloon</string>
+    <string name="enter_filename">Geef een bestandsnaam op</string>
+    <string name="create_file_from_template">Creëren bestand vanaf sjabloon...</string>
+    <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
+</resources>

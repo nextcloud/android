@@ -805,6 +805,7 @@
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
     <string name="folder_already_exists">Složka už existuje</string>
+    <string name="actionbar_open_as_richdocument">Otevřít pomocí Collabora</string>
     <string name="notification_icon">Ikona oznámení</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="file_delete">Smazat</string>
@@ -824,4 +825,14 @@
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
     <string name="share_via_link_hide_download">Skrýt stahování</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
+    <string name="create_new_document">Vytvořit nový dokument</string>
+    <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
+    <string name="create_new_presentation">Vytvořit novou prezentaci</string>
+    <string name="select_template">Vybrat šablonu</string>
+    <string name="filename_hint">Název souboru</string>
+    <string name="thumbnail">Náhled</string>
+    <string name="enter_filename">Zadejte název souboru</string>
+    <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
+    <string name="error_retrieving_templates">Chyba při získávání šablon</string>
+</resources>

@@ -798,6 +798,7 @@ Veuillez contacter votre administrateur</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
+    <string name="actionbar_open_as_richdocument">Ouvrir dans Collabora</string>
     <string name="notification_icon">Icône de notification</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="file_delete">Supprimer</string>
@@ -817,4 +818,14 @@ Veuillez contacter votre administrateur</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
+    <string name="create_new_document">Créer une nouveau document</string>
+    <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>
+    <string name="create_new_presentation">Créer une nouvelle présentation</string>
+    <string name="select_template">Sélectionnez un modèle</string>
+    <string name="filename_hint">Nom du fichier</string>
+    <string name="thumbnail">Miniature</string>
+    <string name="enter_filename">Veuillez saisir un nom de fichier</string>
+    <string name="create_file_from_template">Création du fichier à partir du modèle…</string>
+    <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
+</resources>
