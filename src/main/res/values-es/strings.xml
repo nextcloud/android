@@ -795,6 +795,7 @@
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
+    <string name="actionbar_open_as_richdocument">Abrir con Collabora</string>
     <string name="notification_icon">Icono de notificaciones</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="file_delete">Eliminar</string>
@@ -814,4 +815,9 @@
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
 
+    <string name="create_new_document">Crear nuevo documento</string>
+    <string name="create_new_spreadsheet">Crear nueva hoja de cálculo</string>
+    <string name="create_new_presentation">Crear nueva presentación</string>
+    <string name="filename_hint">Nombre de archivo</string>
+    <string name="thumbnail">Miniatura</string>
     </resources>

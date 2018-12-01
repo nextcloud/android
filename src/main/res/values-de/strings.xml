@@ -815,6 +815,10 @@
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="share_via_link_hide_download">Download verbergen</string>
 
+    <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
+    <string name="create_new_document">Neues Dokument erstellen</string>
+    <string name="create_new_spreadsheet">Neue Tabelle erstellen</string>
+    <string name="create_new_presentation">Neue Präsentation erstellen</string>
     <string name="select_template">Vorlage auswählen</string>
     <string name="filename_hint">Dateiname</string>
     <string name="thumbnail">Vorschaubild</string>
