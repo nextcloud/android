@@ -812,6 +812,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet for å bruke eksternt program.</string>
     <string name="folder_already_exists">Mappe finnes allerede</string>
+    <string name="actionbar_open_as_richdocument">Åpne med Collabora</string>
     <string name="notification_icon">Ikon for notifisering</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="file_delete">Slett</string>
@@ -822,4 +823,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="permission_deny">ikke tillatt</string>
     <string name="permission_allow">Tillatt</string>
+    <string name="filename_hint">Filnavn</string>
+    <string name="thumbnail">Miniatyrbilde</string>
     </resources>

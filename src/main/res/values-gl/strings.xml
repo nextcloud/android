@@ -91,7 +91,7 @@
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos</string>
     <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
-    <string name="file_list_loading">Cargando...</string>
+    <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi estabelecida unha aplicación para manexar este tipo de ficheiro.</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
@@ -129,7 +129,7 @@
     <string name="common_back">Atrás</string>
     <string name="common_save">Gardar</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">Cargando...</string>
+    <string name="common_loading">Cargando…</string>
     <string name="common_unknown">descoñecido</string>
     <string name="common_error_unknown">Erro descoñecido</string>
     <string name="common_pending">Pendente</string>
@@ -142,7 +142,7 @@
     <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Enviar dende…</string>
     <string name="uploader_info_dirname">Nome do cartafol</string>
-    <string name="uploader_upload_in_progress_ticker">Enviando...</string>
+    <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_upload_succeeded_content_single">Enviado %1$s</string>
@@ -168,7 +168,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Agardando pola WiFi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Agardando a saír do modo de aforro de enerxía</string>
     <string name="uploads_view_later_waiting_to_upload">Agardando para enviar</string>
-    <string name="downloader_download_in_progress_ticker">Descargando...</string>
+    <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descargado</string>
     <string name="downloader_download_succeeded_content">Descargado %1$s</string>
@@ -418,7 +418,7 @@
 	<string name="log_send_history_button">Enviar o historial</string>
 	<string name="log_send_no_mail_app">Non se atopou ningunha aplicación para o envío de rexistros. Instale un cliente de correo-e.</string>
 	<string name="log_send_mail_subject">Atoparonse %1$s aplicacións de rexistros para Android</string>
-    <string name="log_progress_dialog_text">Cargando datos...</string>
+    <string name="log_progress_dialog_text">Cargando datos…</string>
 
 	<string name="saml_authentication_required_text">Requírese o contrasinal</string>
 	<string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
@@ -497,7 +497,7 @@
     <string name="share_with_edit_title">Compartir con %1$s</string>
     <string name="share_via_link_unset_password">Sen estabelecer</string>
 
-    <string name="share_search">Nome, ID da nube federada ou enderezo de correo...</string>
+    <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
 
     <string name="search_users_and_groups_hint">Buscar usuarios e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
@@ -641,9 +641,9 @@
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_license">Licenza</string>
     <string name="prefs_gpl_v2">GNU Licenza Pública Xeral, versión 2</string>
-    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións de envío por depender de servizos propietarios de Google Play.</string>
-    <string name="push_notifications_old_login">Non hai notificacións de envío debido a ter un acceso á sesión caducado. Considere volver engadir a súa conta.</string>
-    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións de envío.</string>
+    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións «push» por depender de servizos propietarios de Google Play.</string>
+    <string name="push_notifications_old_login">Non hai notificacións «push» por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
+    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións «push».</string>
 
     <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
     <string name="date_unknown">Descoñecido</string>
@@ -742,4 +742,107 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="drawer_header_background">Imaxe de fondo do cabeceira do caixón</string>
     <string name="account_icon">Icona da conta</string>
 
-    </resources>
+    <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
+    <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
+    <string name="end_to_end_encryption_decrypting">Descifrando...</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
+    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
+    <string name="end_to_end_encryption_generating_keys">Xerando chaves novas…</string>
+    <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
+    <string name="end_to_end_encryption_title">Estabelecer o cifrado</string>
+    <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
+    <string name="end_to_end_encryption_not_supported">O cifrado só funciona en KitKat (4.4) e posteriores.</string>
+    <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
+    <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
+    <string name="end_to_end_encryption_password">Contrasinal…</string>
+    <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas chaves. Ténteo de novo</string>
+    <string name="end_to_end_encryption_dialog_close">Pechar</string>
+    <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
+    <string name="untrusted_domain">Acceder a través dun dominio fiábel. Lea a documentación para obter máis más información.</string>
+    <string name="notification_channel_push_name">Notificacións «push»</string>
+    <string name="notification_channel_push_description">Amosa as notificacións «push» enviadas polo servidor: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
+    <string name="sendbutton_description">Icona do botón de envío</string>
+
+    <string name="oauth_2_0_auth_end_point_address_hint">Enderezo do punto final de autenticación</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Enderezo do punto final de acceso</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_password">Contrasinal</string>
+    <string name="add_to_cloud">Engadir en %1$s</string>
+    <string name="upload_files">Enviar ficheiros</string>
+    <string name="upload_content_from_other_apps">Enviar contido dende outras aplicacións</string>
+    <string name="create_new_folder">Crear un cartafol novo</string>
+    <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
+    <string name="tags">Etiquetas</string>
+    <string name="sharee_add_failed">Produciuse un fallo ao engadir unha compartición</string>
+    <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
+    <string name="updating_share_failed">Produciuse un fallo ao actualizar elementos compartidos</string>
+    <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para amosar o mnemotécnico, active as credenciais do dispositivo
+</string>
+    <string name="whats_new_device_credentials_title">Use a protección interna do dispositivo Android</string>
+    <string name="login">Acceder</string>
+    <string name="signup_with_provider">Rexistrarse cun provedor</string>
+    <string name="host_your_own_server">Hospede o seu propio servidor</string>
+    <string name="first_run_1_text">Manteña os seus dados seguros e baixo o seu control</string>
+    <string name="first_run_2_text">Colaboración segura e intercambio de ficheiros</string>
+    <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
+    <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web</string>
+    <string name="whats_new_device_credentials_content">Use calquera cousa, como un patrón, un contrasinal, un pin ou a súa pegada dactilar para manter os seus datos a seguros.</string>
+    <string name="restore_button_description">Restaurar ficheiro eliminado</string>
+	<string name="restore">Restaurar ficheiro</string>
+    <string name="new_version_was_created">Creouse unha versión nova</string>
+    <string name="new_comment">Comentario novo…</string>
+    <string name="error_comment_file">Produciuse un erro ao comentar o ficheiro</string>
+    <string name="file_version_restored_successfully">Versión do ficheiro restaurada satisfactoriamente.</string>
+    <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
+    <string name="notification_channel_general_name">Notificacións xerais</string>
+    <string name="notification_channel_general_description">Amosar notificacións para novos cartafoles de medios e semellantes</string>
+    <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
+    <string name="new_media_folder_photos">foto</string>
+    <string name="new_media_folder_videos">vídeo</string>
+    <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
+    <string name="dismiss">Desbotar</string>
+    <string name="feedback_no_mail_app">Non hai ningunha aplicación para enviar correos!</string>
+    <string name="drawer_item_trashbin">Ficheiros eliminados</string>
+    <string name="trashbin_activity_title">Ficheiros eliminados</string>
+    <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
+    <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
+    <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s</string>
+    <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s</string>
+    <string name="trashbin_not_emptied">Non foi posíbel eliminar permanentemente o ficheiro!</string>
+    <string name="stream">Fluxo con…</string>
+    <string name="stream_not_possible_headline">Non é posíbel facer fluxos internos</string>
+    <string name="stream_not_possible_message">Descargue o medio ou use unha aplicación externa.</string>
+    <string name="folder_already_exists">Xa existe o cartafol</string>
+    <string name="actionbar_open_as_richdocument">Abrir con Collabora</string>
+    <string name="notification_icon">Icona de notificación</string>
+    <string name="folder_confirm_create">Crear</string>
+    <string name="file_delete">Eliminar</string>
+    <string name="file_keep">Manter</string>
+    <string name="file_rename">Renomear</string>
+    <string name="fab_label">Engadir ou enviar</string>
+    <string name="account_creation_failed">Produciuse un fallo ao crear a conta</string>
+    <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s no Nextcloud?</string>
+    <string name="permission_deny">Denegar</string>
+    <string name="permission_allow">Permitir</string>
+    <string name="share_send_note">Nota para o destinatario</string>
+    <string name="note_confirm">Enviar</string>
+    <string name="send_note">Enviar nota o destinatario</string>
+    <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
+    <string name="hint_note">Nota</string>
+    <string name="no_browser_available">Non hai ningunha aplicación para manexar ligazóns</string>
+    <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
+    <string name="share_via_link_hide_download">Agachar a descarga</string>
+
+    <string name="richdocuments_failed_to_load_document">Produciuse un fallo ao cargar o documento!</string>
+    <string name="create_new_document">Crear un documento novo</string>
+    <string name="create_new_spreadsheet">Crear unha folla de cálculo nova</string>
+    <string name="create_new_presentation">Crear unha presentación nova</string>
+    <string name="select_template">Seleccionar o modelo</string>
+    <string name="filename_hint">Nome do ficheiro</string>
+    <string name="thumbnail">Miniatura</string>
+    <string name="enter_filename">Escriba o nome do ficheiro</string>
+    <string name="create_file_from_template">Creando o ficheiro dende un modelo…</string>
+    <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
+</resources>
