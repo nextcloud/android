@@ -56,7 +56,8 @@
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
-            android:hint="@string/hidden_character">
+            android:hint="@string/hidden_character"
+            android:textCursorDrawable="@null">
             <requestFocus/>
         </EditText>
 
@@ -66,7 +67,8 @@
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
-            android:hint="@string/hidden_character"/>
+            android:hint="@string/hidden_character"
+            android:textCursorDrawable="@null" />
 
         <EditText
             android:id="@+id/txt2"
@@ -74,7 +76,8 @@
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
-            android:hint="@string/hidden_character"/>
+            android:hint="@string/hidden_character"
+            android:textCursorDrawable="@null" />
 
         <EditText
             android:id="@+id/txt3"
@@ -82,7 +85,8 @@
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
-            android:hint="@string/hidden_character"/>
+            android:hint="@string/hidden_character"
+            android:textCursorDrawable="@null" />
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
