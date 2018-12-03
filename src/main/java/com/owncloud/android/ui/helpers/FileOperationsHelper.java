@@ -254,7 +254,9 @@ public class FileOperationsHelper {
             if (launchables.isEmpty()) {
                 Account account = mFileActivity.getAccount();
                 OCCapability capability = mFileActivity.getStorageManager().getCapability(account.name);
-                if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType())) {
+                if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                    android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+                    capability.getRichDocumentsDirectEditing().isTrue()) {
                     openFileAsRichDocument(file, mFileActivity);
                     return;
                 } else {
@@ -368,7 +370,7 @@ public class FileOperationsHelper {
     private Uri getFileUri(OCFile file, String... officeExtensions) {
         if (file.getFileName().contains(".") &&
                 Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                        lastIndexOf(".") + 1, file.getFileName().length())) &&
+                        lastIndexOf(".") + 1)) &&
                 !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
             return file.getLegacyExposedFileUri(mFileActivity);
         } else {

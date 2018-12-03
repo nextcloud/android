@@ -89,7 +89,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
                 ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
-        if (capability.getRichDocuments().isTrue()) {
+        if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue()) {
             templates.setVisibility(View.VISIBLE);
         }
 
