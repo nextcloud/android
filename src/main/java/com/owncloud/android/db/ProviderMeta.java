@@ -177,6 +177,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_ACTIVITY = "activity";
         public static final String CAPABILITIES_RICHDOCUMENT = "richdocument";
         public static final String CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST = "richdocument_mimetype_list";
+        public static final String CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING = "richdocument_direct_editing";
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
