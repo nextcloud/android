@@ -1891,7 +1891,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MICRO, capability.getVersionMicro());
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_STRING, capability.getVersionString());
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_EDITION, capability.getVersionEdition());
-        cv.put(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL, capability.getCorePollinterval());
+        cv.put(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL, capability.getCorePollInterval());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED, capability.getFilesSharingApiEnabled().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED,
                 capability.getFilesSharingPublicEnabled().getValue());
@@ -1934,6 +1934,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
                 TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
+            .getValue());
 
         if (capabilityExists(account.name)) {
             if (getContentResolver() != null) {
@@ -2036,7 +2038,7 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_STRING)));
             capability.setVersionEdition(c.getString(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_EDITION)));
-            capability.setCorePollinterval(c.getInt(c
+            capability.setCorePollInterval(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL)));
             capability.setFilesSharingApiEnabled(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED))));
@@ -2092,6 +2094,8 @@ public class FileDataStorageManager {
             capability.setRichDocuments(CapabilityBooleanType.fromValue(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT))));
             String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
+            capability.setRichDocumentsDirectEditing(CapabilityBooleanType.fromValue(c.getInt(
+                c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING))));
             if (mimetypes == null) {
                 mimetypes = "";
             }

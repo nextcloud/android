@@ -908,7 +908,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         }
 
                         if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                            android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API) {
+                            android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+                            capability.getRichDocumentsDirectEditing().isTrue()) {
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
                             // automatic download, preview on finish
