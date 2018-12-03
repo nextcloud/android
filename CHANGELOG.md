@@ -1,3 +1,17 @@
+## 3.4.0 (December, 2018)
+- hide download when creating share links
+- direct editing files with Collabora (Collabora Server >=4.0)
+- sort deleted files by deletion date by default
+- set/edit notes on shares
+- search inside of text files
+- actions on notifications
+- remember last path on upload
+- share file to Talk room
+- show local size in "on device" view
+- bug fixes
+
+For full list please see https://github.com/nextcloud/android/milestone/25
+
 ## 3.3.2 (November, 2, 2018)
 - fix fingerprint not working on certain devices
 
