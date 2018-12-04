@@ -279,7 +279,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
             swipeListRefreshLayout.setRefreshing(false);
         }
 
-        if (emptyContentMessage != null) {
+        if (emptyContentMessage != null && emptyContentHeadline != null && emptyContentIcon != null) {
             emptyContentHeadline.setText(R.string.common_error);
             emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
             emptyContentMessage.setText(message);
