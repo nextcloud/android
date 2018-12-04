@@ -744,7 +744,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
 
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
     <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
-    <string name="end_to_end_encryption_decrypting">Descifrando...</string>
+    <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
     <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
     <string name="end_to_end_encryption_generating_keys">Xerando chaves novas…</string>

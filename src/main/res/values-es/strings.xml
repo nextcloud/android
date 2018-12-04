@@ -823,6 +823,6 @@
     <string name="filename_hint">Nombre de archivo</string>
     <string name="thumbnail">Miniatura</string>
     <string name="enter_filename">Por favor, introduce un nombre de archivo</string>
-    <string name="create_file_from_template">Creando archivo desde la plantilla...</string>
+    <string name="create_file_from_template">Creando archivo desde la plantilla…</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
 </resources>
