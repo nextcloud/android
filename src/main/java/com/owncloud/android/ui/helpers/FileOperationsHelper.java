@@ -372,7 +372,7 @@ public class FileOperationsHelper {
                 Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
                         lastIndexOf(".") + 1)) &&
                 !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            return file.getLegacyExposedFileUri(mFileActivity);
+            return file.getLegacyExposedFileUri();
         } else {
             return file.getExposedFileUri(mFileActivity);
         }
