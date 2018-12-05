@@ -54,14 +54,18 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private static final String TAG = OCFile.class.getSimpleName();
 
-    /** android internal ID of the file */
-    @Getter @Setter private long fileId;
+    @Getter
+    @Setter
+    private long fileId; // android internal ID of the file
     @Getter @Setter private long parentId;
     @Getter @Setter private long fileLength;
-    /** UNIX timestamp of the time the file was created */
-    @Getter @Setter private long creationTimestamp;
-    /** UNIX timestamp of the file modification time */
-    @Getter @Setter private long modificationTimestamp;
+    @Getter
+    @Setter
+    private long creationTimestamp; // UNIX timestamp of the time the file was created
+
+    @Getter
+    @Setter
+    private long modificationTimestamp; // UNIX timestamp of the file modification time
     /** UNIX timestamp of the modification time, corresponding to the value returned by the server
      * in the last synchronization of THE CONTENTS of this file.
      */
@@ -73,29 +77,24 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private long lastSyncDateForProperties;
     @Getter @Setter private long lastSyncDateForData;
     @Getter @Setter private boolean availableOffline;
-    private boolean mHasPreview;
-
+    @Getter
+    @Setter
+    private boolean previewAvailable;
     @Getter private String etag;
-
     @Getter @Setter private boolean sharedViaLink;
     @Getter @Setter private String publicLink;
-
     @Getter @Setter private String permissions;
-    /** The fileid namespaced by the instance fileId, globally unique */
-    @Getter @Setter private String remoteId;
-
+    @Getter
+    @Setter
+    private String remoteId; // The fileid namespaced by the instance fileId, globally unique
     @Getter @Setter private boolean updateThumbnailNeeded;
-
     @Getter @Setter private boolean downloading;
-
-    @Getter @Setter private String etagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
-
+    @Getter
+    @Setter
+    private String etagInConflict; // Only saves file etag in the server, when there is a conflict
     @Getter @Setter private boolean sharedWithSharee;
-
     @Getter @Setter private boolean favorite;
-
     @Getter @Setter private boolean encrypted;
-
     @Getter @Setter private WebdavEntry.MountType mountType;
 
     /**
@@ -241,7 +240,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return mimeType != null && mimeType.equals(MimeType.DIRECTORY);
+        return MimeType.DIRECTORY.equals(mimeType);
     }
 
 
@@ -305,7 +304,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
 
-    public Uri getLegacyExposedFileUri(Context context) {
+    public Uri getLegacyExposedFileUri() {
         if (localPath == null || localPath.length() == 0) {
             return null;
         }
@@ -333,7 +332,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             } catch (IllegalArgumentException ex) {
                 // Could not share file using FileProvider URI scheme.
                 // Fall back to legacy URI parsing.
-                getLegacyExposedFileUri(context);
+                getLegacyExposedFileUri();
             }
         }
 
@@ -370,7 +369,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public void setFileName(String name) {
         Log_OC.d(TAG, "OCFile name changing from " + remotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
-                !remotePath.equals(ROOT_PATH)) {
+            !ROOT_PATH.equals(remotePath)) {
             String parent = new File(this.getRemotePath()).getParent();
             parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
             remotePath = parent + name;
@@ -459,10 +458,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
     }
 
+    @NonNull
     @Override
     public String toString() {
         String asString = "[fileId=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
-                "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
+            "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
         return String.format(asString, fileId, getFileName(), mimeType, isDown(),
             localPath, remotePath, parentId, availableOffline,
             etag, favorite);
@@ -497,7 +497,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isInConflict() {
-        return etagInConflict != null && !etagInConflict.equals("");
+        return etagInConflict != null && !"".equals(etagInConflict);
     }
 
     public boolean isSharedWithMe() {
@@ -513,14 +513,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean canWrite() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
-    }
-
-    public boolean hasPreview() {
-        return mHasPreview;
-    }
-
-    public void setHasPreview(boolean hasPreview) {
-        this.mHasPreview = hasPreview;
     }
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {

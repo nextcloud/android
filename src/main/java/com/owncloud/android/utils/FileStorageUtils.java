@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -177,7 +177,7 @@ public final class FileStorageUtils {
             file.setEncrypted(remote.getIsEncrypted());
         }
         file.setMountType(remote.getMountType());
-        file.setHasPreview(remote.hasPreview());
+        file.setPreviewAvailable(remote.hasPreview());
 
         return file;
     }

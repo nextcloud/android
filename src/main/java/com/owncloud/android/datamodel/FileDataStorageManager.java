@@ -476,7 +476,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
         cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, file.getMountType().ordinal());
-        cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.hasPreview() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.isPreviewAvailable() ? 1 : 0);
         return cv;
     }
 
@@ -970,7 +970,7 @@ public class FileDataStorageManager {
             }
             file.setMountType(WebdavEntry.MountType.values()[c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
-            file.setHasPreview(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
+            file.setPreviewAvailable(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
         }
         return file;
     }
