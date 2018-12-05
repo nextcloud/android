@@ -28,7 +28,7 @@
     <string name="drawer_item_videos">Vidéos</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Historique des envois</string>
-    <string name="drawer_item_activities">Activités</string>
+    <string name="drawer_item_activities">Activité</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
