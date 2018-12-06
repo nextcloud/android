@@ -31,7 +31,7 @@ For full list please see https://github.com/nextcloud/android/milestone/26
 - Fix push notification on gplay release
 
 ## 3.2.3 (August, 21, 2018)
-- Fix crash on Android Android 4.x
+- Fix crash on Android 4.x
 
 ## 3.2.2 (August, 20, 2018)
 - New simple signup screen
