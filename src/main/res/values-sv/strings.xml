@@ -732,6 +732,7 @@
     <string name="action_empty_trashbin">Töm papperskorgen</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
     <string name="folder_already_exists">Mapp finns redan</string>
+    <string name="actionbar_open_as_richdocument">Öppna med Collabora</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="file_delete">Radera</string>
     <string name="file_keep">Behåll</string>
