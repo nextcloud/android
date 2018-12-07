@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.nextcloud.android.sso.aidl.IInputStreamService;
@@ -58,6 +59,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
@@ -207,6 +209,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         method.setQueryString(convertMapToNVP(request.getParameter()));
         method.addRequestHeader("OCS-APIREQUEST", "true");
+
+        for(Map.Entry<String, List<String>> header : request.getHeader().entrySet()) {
+            // https://stackoverflow.com/a/3097052
+            method.addRequestHeader(header.getKey(), TextUtils.join(",", header.getValue()));
+        }
 
         client.setFollowRedirects(request.isFollowRedirects());
         int status = client.executeMethod(method);
