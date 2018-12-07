@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
-    <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
     <string name="share_privilege_unshare">Hætta deilingu</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Engar aðlagaðar myndir tiltækar.</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
-    <string name="resized_images_download_full_image">Sækja alla myndina?</string>
 
     <string name="store_short_desc">Nextcloud Android forritið gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu þínu.</string>
     <string name="store_full_desc">Nextcloud-forritið fyrir Android er opið og frjálst, og gefur þér frelsi á ferðinni.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóninn þinn\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>

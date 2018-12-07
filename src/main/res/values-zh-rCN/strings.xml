@@ -502,7 +502,6 @@
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
-    <string name="share_sharee_unavailable">升级服务器版本以允许用户之间的共享。\n请与您的管理员联系</string>
     <string name="share_privilege_unshare">未分享</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
@@ -645,7 +644,6 @@
 
     <string name="resized_image_not_possible">重整大小的图片不可用。</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
-    <string name="resized_images_download_full_image">下载完整图片？</string>
 
     <string name="store_short_desc">Nextcloud 安卓应用程序可让您访问Nextcloud上的所有文件。</string>
     <string name="store_full_desc">著佐权自由的 Nextcloud Android 应用，给您的手机更多自由。\n\n特色：\n* 简单，现代样式，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人分享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账户支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVdroid 来快速设置日历 &amp; 联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步 &amp; 分享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>

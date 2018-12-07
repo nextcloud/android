@@ -493,7 +493,6 @@
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>
-    <string name="share_sharee_unavailable">Päivitä uudempaan versioon salliaksesi jakamisen käyttäjien välillä suoraan työpöydältä tai kännykästä.\nOta yhteyttä ylläpitoon</string>
     <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_privilege_can_share">voi jakaa</string>
     <string name="share_privilege_can_edit">voi muokata</string>
@@ -637,7 +636,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="resized_image_not_possible">Uuden kokoista kuvaa ei ole saatavilla.
 </string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
-    <string name="resized_images_download_full_image">Ladataanko koko kuva?</string>
 
     <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="drawer_current_account">Nykyinen tili</string>

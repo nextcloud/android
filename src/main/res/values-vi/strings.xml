@@ -446,8 +446,6 @@
 
     <string name="date_unknown">Không xác định</string>
 
-    <string name="resized_images_download_full_image">Tải ảnh đầy đủ?</string>
-
     <string name="store_short_desc">Hệ thống là ứng dụng Android cho phép modile truy cập tất cả các tập tin của bạn trên máy chủ.</string>
     <string name="drawer_current_account">Tài khoản hiện tại</string>
     <string name="drawer_end_account">Tài khoản gần đây</string>

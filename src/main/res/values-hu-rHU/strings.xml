@@ -507,8 +507,6 @@
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
-    <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
-Lépj kapcsolatba a rendszergazdával</string>
     <string name="share_privilege_unshare">Megosztás visszavonása</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
@@ -652,7 +650,6 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <string name="resized_image_not_possible">Nincs elérhető átméretezett kép.</string>
     <string name="resized_image_not_possible_download">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
-    <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
     <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
     <string name="store_full_desc">A nyílt forrású Nextcloud android app segítségével hozzáférhetsz a saját Nextcloudod fájljaihoz.

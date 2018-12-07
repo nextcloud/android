@@ -460,7 +460,6 @@
     <string name="share_email_clarification">%1$s (correo electrónico)</string>
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
 
-    <string name="share_sharee_unavailable">Actualice la versión del servidor para permitir compartir entre usuarios desde sus clientes. Póngase en contacto con su administrador</string>
     <string name="share_privilege_unshare">No compartir</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
@@ -602,7 +601,6 @@
 
     <string name="resized_image_not_possible">No hay imagen redimensionada disponible.</string>
     <string name="resized_image_not_possible_download">¿No hay imagen redimensionada disponible. Descargar imagen completa?</string>
-    <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
 
     <string name="store_short_desc">La aplicación de Android Nextcloud le da acceso móvil a todos los archivos en su Nextcloud.</string>
     <string name="drawer_current_account">Cuenta actual</string>

@@ -37,7 +37,7 @@
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
-    <string name="prefs_lock">Verrouiller</string>
+    <string name="prefs_lock">Verrouillage</string>
     <string name="prefs_lock_title">Verrouillage utilisé</string>
     <string name="prefs_lock_none">Aucun</string>
     <string name="prefs_lock_using_passcode">Code de sécurité</string>
@@ -508,8 +508,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
 
-    <string name="share_sharee_unavailable">Désolé, la version du serveur n\'autorise pas le partage entre utilisateurs depuis leur client.
-Veuillez contacter votre administrateur</string>
     <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_can_edit">peut modifier</string>
@@ -653,7 +651,6 @@ Veuillez contacter votre administrateur</string>
 
     <string name="resized_image_not_possible">Aucune image réduite disponible.</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
-    <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
 
     <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>
     <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVdroid pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>

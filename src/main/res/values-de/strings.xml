@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
-    <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktieren Sie Ihren Administrator</string>
     <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Kein verkleinertes Bild verfügbar.</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
-    <string name="resized_images_download_full_image">Originalbild herunterladen?</string>
 
     <string name="store_short_desc">Die Nextcloud Android App erlaubt Ihnen den Zugriff auf alle Dateien in Ihrer Nextcloud.</string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.\n\nEigenschaften:\n* Einfache, moderne Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Photos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVdroid für einfaches Konfigurieren von Kalender &amp; Kontakte Synchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud unter https://nextcloud.com an.</string>

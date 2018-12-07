@@ -499,7 +499,6 @@
     <string name="share_email_clarification">%1$s (e-pasts)</string>
     <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
 
-    <string name="share_sharee_unavailable">Atjaunojiet servera versiju lai atļautu koplietošanu starp lietotājiem.\nLūdzu sazinieties ar administratoru.</string>
     <string name="share_privilege_unshare">Pārtraukt dalīšanos</string>
     <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_can_edit">var rediģēt</string>
@@ -603,8 +602,6 @@
     <string name="fallback_weblogin_back">Atpakaļ</string>
     <string name="prefs_license">Licence</string>
     <string name="date_unknown">Nezināms</string>
-
-    <string name="resized_images_download_full_image">Lejupeilādēt pilno attēlu?</string>
 
     <string name="drawer_current_account">Pašreizējais konts</string>
     <string name="drawer_end_account">Pēdējais konts</string>

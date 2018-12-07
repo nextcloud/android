@@ -404,6 +404,4 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_license">Licens</string>
     <string name="date_unknown">Ukendt</string>
 
-    <string name="resized_images_download_full_image">Download hele billedet?</string>
-
     </resources>

@@ -503,8 +503,6 @@
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
     <string name="date_unknown">Desconocido</string>
 
-    <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
-
     <string name="drawer_current_account">Cuenta actual</string>
     <string name="drawer_middle_account">Cuenta intermedia</string>
     <string name="drawer_end_account">Última cuenta</string>

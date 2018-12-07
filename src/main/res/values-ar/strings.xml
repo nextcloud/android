@@ -374,8 +374,6 @@
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>
 
-    <string name="resized_images_download_full_image">هل تود تنزيل الصورة بأكملها ؟</string>
-
     <string name="drawer_current_account">الحساب الحالي</string>
     <string name="drawer_middle_account">الحساب الوسيط</string>
     <string name="drawer_end_account">آخِر حساب</string>
