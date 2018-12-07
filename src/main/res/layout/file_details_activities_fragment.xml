@@ -32,7 +32,7 @@
         android:layout_marginStart="@dimen/standard_padding"
         android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/commentInputField"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,14 +55,14 @@
             android:src="@drawable/ic_send" />
     </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_containing_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
         android:visibility="visible">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -71,9 +71,9 @@
             android:scrollbars="vertical"
             android:visibility="visible"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_containing_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,6 +81,6 @@
         android:visibility="visible">
 
         <include layout="@layout/empty_list"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

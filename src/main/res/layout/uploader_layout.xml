@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -62,7 +61,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
 
-		<android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:theme="@style/Button"
             android:id="@+id/uploader_cancel"
             style="@style/ownCloud.Button"
@@ -74,7 +73,7 @@
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"/>
 
-		<android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
 		    android:id="@+id/uploader_choose_folder"
 			android:theme="@style/Button.Primary"
 		    android:layout_width="fill_parent"

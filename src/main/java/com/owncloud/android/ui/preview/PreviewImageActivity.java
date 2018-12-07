@@ -28,9 +28,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -55,6 +52,9 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -113,13 +113,13 @@ public class PreviewImageActivity extends FileActivity implements
                         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     }
                 });
-         
+
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
             mRequestWaitingForBinder = false;
         }
-        
+
     }
 
     private void initViewPager() {
@@ -162,7 +162,7 @@ public class PreviewImageActivity extends FileActivity implements
     public void onStart() {
         super.onStart();
     }
-    
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -173,7 +173,7 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
-        
+
         if (operation instanceof RemoveFileOperation) {
             finish();
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -181,7 +181,7 @@ public class PreviewImageActivity extends FileActivity implements
 
         }
     }
-    
+
     private void onSynchronizeFileOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             supportInvalidateOptionsMenu();
@@ -198,7 +198,7 @@ public class PreviewImageActivity extends FileActivity implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-                
+
             if (component.equals(new ComponentName(PreviewImageActivity.this,
                     FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloaderBinder) service;
@@ -214,7 +214,7 @@ public class PreviewImageActivity extends FileActivity implements
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             }
-            
+
         }
 
         @Override
@@ -236,17 +236,17 @@ public class PreviewImageActivity extends FileActivity implements
     public void onStop() {
         super.onStop();
     }
-    
-    
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
-        
+
         switch(item.getItemId()){
         case android.R.id.home:
             if (isDrawerOpen()) {
@@ -260,7 +260,7 @@ public class PreviewImageActivity extends FileActivity implements
         	returnValue = super.onOptionsItemSelected(item);
             break;
         }
-        
+
         return returnValue;
     }
 
@@ -270,7 +270,7 @@ public class PreviewImageActivity extends FileActivity implements
         super.onResume();
 
         mDownloadFinishReceiver = new DownloadFinishReceiver();
-        
+
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
         filter.addAction(FileDownloader.getDownloadAddedMessage());
         registerReceiver(mDownloadFinishReceiver, filter);
@@ -280,17 +280,17 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onPostResume() {
         super.onPostResume();
     }
-    
+
     @Override
     public void onPause() {
         if (mDownloadFinishReceiver != null){
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
-        
+
         super.onPause();
     }
-    
+
 
     private void backToDisplayActivity() {
         finish();
@@ -317,7 +317,7 @@ public class PreviewImageActivity extends FileActivity implements
     public void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
-            
+
         } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
@@ -329,7 +329,7 @@ public class PreviewImageActivity extends FileActivity implements
     /**
      * This method will be invoked when a new page becomes selected. Animation is not necessarily
      * complete.
-     * 
+     *
      *  @param  position        Position index of the new selected page
      */
     @Override
@@ -358,11 +358,11 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
     }
-    
+
     /**
-     * Called when the scroll state changes. Useful for discovering when the user begins dragging, 
+     * Called when the scroll state changes. Useful for discovering when the user begins dragging,
      * when the pager is automatically settling to the current page. when it is fully stopped/idle.
-     * 
+     *
      * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */
     @Override
@@ -373,13 +373,13 @@ public class PreviewImageActivity extends FileActivity implements
     /**
      * This method will be invoked when the current page is scrolled, either as part of a
      * programmatically initiated smooth scroll or a user initiated touch scroll.
-     * 
-     * @param   position                Position index of the first page currently being displayed. 
+     *
+     * @param   position                Position index of the first page currently being displayed.
      *                                  Page position+1 will be visible if positionOffset is
      *                                  nonzero.
      * @param   positionOffset          Value from [0, 1) indicating the offset from the page
      *                                  at position.
-     * @param   positionOffsetPixels    Value in pixels indicating the offset from position. 
+     * @param   positionOffsetPixels    Value in pixels indicating the offset from position.
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -388,7 +388,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     * 
+     *
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.
      */
@@ -397,7 +397,7 @@ public class PreviewImageActivity extends FileActivity implements
         public void onReceive(Context context, Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            if (getAccount().name.equals(accountName) && 
+            if (getAccount().name.equals(accountName) &&
                     downloadedRemotePath != null) {
 
                 OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
@@ -406,18 +406,18 @@ public class PreviewImageActivity extends FileActivity implements
                         FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position))
                 // <= mViewPager.getOffscreenPageLimit();
-                
+
                 if (position >= 0 &&
                         intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
                     if (downloadWasFine) {
-                        mPreviewImagePagerAdapter.updateFile(position, file);   
-                        
+                        mPreviewImagePagerAdapter.updateFile(position, file);
+
                     } else {
                         mPreviewImagePagerAdapter.updateWithDownloadError(position);
                     }
                     mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation
                                                                         // of new fragments
-                    
+
                 } else {
                     Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
                 }
@@ -461,12 +461,12 @@ public class PreviewImageActivity extends FileActivity implements
             if (!MimeTypeUtil.isImage(file)) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
-            
+
             // Update file according to DB file, if it is possible
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
                 file = getStorageManager().getFileById(file.getFileId());
             }
-            
+
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager
@@ -485,16 +485,16 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     public void onBrowsedDownTo(OCFile folder) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         // TODO Auto-generated method stub
-        
+
     }
-    
-    
+
+
     @SuppressLint("InlinedApi")
 	private void hideSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
@@ -506,7 +506,7 @@ public class PreviewImageActivity extends FileActivity implements
             |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
         );
     }
-    
+
     @SuppressLint("InlinedApi")
     private void showSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(

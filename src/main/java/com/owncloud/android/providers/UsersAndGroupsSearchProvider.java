@@ -31,8 +31,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.BaseColumns;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -53,6 +51,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -104,7 +105,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         if (getContext() == null) {
             return false;
         }
-        
+
         AUTHORITY = getContext().getResources().getString(R.string.users_and_groups_search_authority);
         ACTION_SHARE_WITH = getContext().getResources().getString(R.string.users_and_groups_share_with);
         DATA_USER = AUTHORITY + ".data.user";
@@ -124,7 +125,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * returns sharee from server
-     * 
+     *
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formatted as

@@ -22,9 +22,6 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.text.InputType;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
@@ -36,11 +33,15 @@ import android.widget.LinearLayout;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.DialogFragment;
+
 
 
 /**
  *  Dialog to input authentication credentials
- * 
+ *
  */
 public class CredentialsDialogFragment extends DialogFragment
     implements DialogInterface.OnClickListener {
@@ -50,7 +51,7 @@ public class CredentialsDialogFragment extends DialogFragment
 
     private EditText mUsernameET;
     private EditText mPasswordET;
-    
+
     private String mUsernameStr;
     private String mPasswordStr;
 
@@ -91,9 +92,9 @@ public class CredentialsDialogFragment extends DialogFragment
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.addView(mUsernameET);
         ll.addView(mPasswordET);
-        
+
         ll.requestFocus();
-        
+
         setRetainInstance(true);
 
         Builder authDialog = new AlertDialog
@@ -110,7 +111,7 @@ public class CredentialsDialogFragment extends DialogFragment
         if (window != null) {
             window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
-        
+
         return d;
     }
 
@@ -135,7 +136,7 @@ public class CredentialsDialogFragment extends DialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_POSITIVE) { 
+        if (which == AlertDialog.BUTTON_POSITIVE) {
 
             String username = mUsernameET.getText().toString();
             String password = mPasswordET.getText().toString();
@@ -150,8 +151,8 @@ public class CredentialsDialogFragment extends DialogFragment
 
         dialog.dismiss();
     }
-    
-    
+
+
     @Override
     public void onDestroyView() {
       if (getDialog() != null && getRetainInstance()) {

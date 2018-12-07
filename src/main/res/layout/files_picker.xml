@@ -53,7 +53,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/folder_picker_btn_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

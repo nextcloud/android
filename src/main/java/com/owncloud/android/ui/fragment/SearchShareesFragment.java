@@ -26,9 +26,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +41,10 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
 
 /**
  * Fragment for Searching sharees (users and groups)
@@ -111,7 +112,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         View view = inflater.inflate(R.layout.search_users_groups_layout, container, false);
 
         // Get the SearchView and set the searchable configuration
-        SearchView searchView = (SearchView) view.findViewById(R.id.searchView);
+        SearchView searchView = view.findViewById(R.id.searchView);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(
                 getActivity().getComponentName())   // assumes parent activity is the searchable activity
@@ -177,7 +178,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         );
 
         // Show data
-        ListView usersList = (ListView) getView().findViewById(R.id.searchUsersListView);
+        ListView usersList = getView().findViewById(R.id.searchUsersListView);
 
         if (mShares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);

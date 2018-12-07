@@ -23,10 +23,11 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 
 import com.owncloud.android.R;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 
 public class ConfirmationDialogFragment extends DialogFragment {
@@ -38,14 +39,14 @@ public class ConfirmationDialogFragment extends DialogFragment {
     public final static String ARG_POSITIVE_BTN_RES = "positive_btn_res";
     public final static String ARG_NEUTRAL_BTN_RES = "neutral_btn_res";
     public final static String ARG_NEGATIVE_BTN_RES = "negative_btn_res";
-    
+
     public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
 
     private ConfirmationDialogFragmentListener mListener;
-    
+
     /**
      * Public factory method to create new ConfirmationDialogFragment instances.
-     * 
+     *
      * @param messageResId      Resource id for a message to show in the dialog.
      * @param messageArguments  Arguments to complete the message, if it's a format string. May be null.
      * @param titleResId        Resource id for a text to show in the title.
@@ -79,7 +80,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         frag.setArguments(args);
         return frag;
     }
-    
+
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
         mListener = listener;
     }
@@ -144,13 +145,15 @@ public class ConfirmationDialogFragment extends DialogFragment {
         }
       return builder.create();
     }
-    
-    
+
+
     public interface ConfirmationDialogFragmentListener {
-        public void onConfirmation(String callerTag);
-        public void onNeutral(String callerTag);
-        public void onCancel(String callerTag);
+        void onConfirmation(String callerTag);
+
+        void onNeutral(String callerTag);
+
+        void onCancel(String callerTag);
     }
-    
+
 }
 

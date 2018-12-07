@@ -29,10 +29,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +46,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 /**
- * Dialog showing a list activities able to resolve a given Intent, 
+ * Dialog showing a list activities able to resolve a given Intent,
  * filtering out the activities matching give package names.
  */
 public class ShareLinkToDialog  extends DialogFragment {
-    
+
     private final static String TAG =  ShareLinkToDialog.class.getSimpleName();
     private final static String ARG_INTENT =  ShareLinkToDialog.class.getSimpleName() +
             ".ARG_INTENT";
@@ -64,7 +65,7 @@ public class ShareLinkToDialog  extends DialogFragment {
 
     private ActivityAdapter mAdapter;
     private Intent mIntent;
-    
+
     public static ShareLinkToDialog newInstance(Intent intent, String... packagesToExclude) {
         ShareLinkToDialog f = new ShareLinkToDialog();
         Bundle args = new Bundle();
@@ -73,12 +74,12 @@ public class ShareLinkToDialog  extends DialogFragment {
         f.setArguments(args);
         return f;
     }
-    
+
     public ShareLinkToDialog() {
         super();
         Log_OC.d(TAG, "constructor");
     }
-    
+
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -97,9 +98,9 @@ public class ShareLinkToDialog  extends DialogFragment {
                 it.remove();
             }
         }
-        
+
         boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
-        
+
         if (!sendAction) {
             // add activity for copy to clipboard
             Intent copyToClipboardIntent = new Intent(getActivity(), CopyToClipboardActivity.class);
@@ -108,33 +109,33 @@ public class ShareLinkToDialog  extends DialogFragment {
                 activities.add(copyToClipboard.get(0));
             }
         }
-        
-        Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
+
+        Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm));
         mAdapter = new ActivityAdapter(getActivity(), pm, activities);
-        
+
         return createSelector(sendAction);
     }
 
     private AlertDialog createSelector(final boolean sendAction) {
-    
+
         int titleId;
         if (sendAction) {
             titleId = R.string.activity_chooser_send_file_title;
         } else {
             titleId = R.string.activity_chooser_title;
         }
-        
+
         return new AlertDialog.Builder(getActivity())
                     .setTitle(titleId)
                     .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Add the information of the chosen activity to the intent to send 
+                            // Add the information of the chosen activity to the intent to send
                             ResolveInfo chosen = mAdapter.getItem(which);
                             ActivityInfo actInfo = chosen.activityInfo;
                             ComponentName name=new ComponentName(
-                                    actInfo.applicationInfo.packageName, 
-                                    actInfo.name);
+                                actInfo.applicationInfo.packageName,
+                                actInfo.name);
                             mIntent.setComponent(name);
 
                             // Send the file
@@ -143,16 +144,16 @@ public class ShareLinkToDialog  extends DialogFragment {
         })
         .create();
     }
-    
+
     class ActivityAdapter extends ArrayAdapter<ResolveInfo> {
-        
+
         private PackageManager mPackageManager;
-        
+
         ActivityAdapter(Context context, PackageManager pm, List<ResolveInfo> apps) {
             super(context, R.layout.activity_row, apps);
             this.mPackageManager = pm;
         }
-        
+
         @Override
         public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
@@ -163,12 +164,12 @@ public class ShareLinkToDialog  extends DialogFragment {
             bindView(position, view);
             return view;
         }
-        
+
         private View newView(ViewGroup parent) {
             return((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
                     inflate(R.layout.activity_row, parent, false);
         }
-        
+
         private void bindView(int position, View row) {
             TextView label = row.findViewById(R.id.title);
             label.setText(getItem(position).loadLabel(mPackageManager));

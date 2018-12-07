@@ -21,7 +21,6 @@ package com.owncloud.android.ui.adapter;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.components.SendButtonData;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.ViewHolder> {
 

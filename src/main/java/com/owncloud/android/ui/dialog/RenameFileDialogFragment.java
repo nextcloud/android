@@ -21,18 +21,15 @@
 package com.owncloud.android.ui.dialog;
 
 /**
- *  Dialog to input a new name for an {@link OCFile} being renamed.  
- * 
- *  Triggers the rename operation. 
+ *  Dialog to input a new name for an {@link OCFile} being renamed.
+ *
+ *  Triggers the rename operation.
  */
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -47,10 +44,14 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 
 /**
- *  Dialog to input a new name for a file or folder to rename.  
- * 
+ *  Dialog to input a new name for a file or folder to rename.
+ *
  *  Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
@@ -62,7 +63,7 @@ public class RenameFileDialogFragment
 
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
-     * 
+     *
      * @param file            File to rename.
      * @return                Dialog ready to show.
      */
@@ -72,7 +73,7 @@ public class RenameFileDialogFragment
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
         return frag;
-        
+
     }
 
     @Override
@@ -97,7 +98,7 @@ public class RenameFileDialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.edit_box_dialog, null);
 
-        // Setup layout 
+        // Setup layout
         String currentName = mTargetFile.getFileName();
         EditText inputText = v.findViewById(R.id.user_input);
         inputText.setText(currentName);
@@ -112,7 +113,7 @@ public class RenameFileDialogFragment
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
-        // Build the dialog  
+        // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                 .setPositiveButton(R.string.file_rename, this)
@@ -125,18 +126,18 @@ public class RenameFileDialogFragment
         if (window != null) {
             window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
-        
-        return d;
-    }    
 
-    
+        return d;
+    }
+
+
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFileName = 
+            String newFileName =
                 ((TextView)(getDialog().findViewById(R.id.user_input)))
                     .getText().toString().trim();
-            
+
             if (newFileName.length() <= 0) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
@@ -144,7 +145,7 @@ public class RenameFileDialogFragment
 
             if (!FileUtils.isValidName(newFileName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
-                    
+
                 return;
             }
 

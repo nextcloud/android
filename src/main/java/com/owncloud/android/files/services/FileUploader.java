@@ -42,7 +42,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
 import android.os.Process;
-import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
 import com.evernote.android.job.JobRequest;
@@ -83,6 +82,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Nullable;
+
+import androidx.core.app.NotificationCompat;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
@@ -525,7 +526,7 @@ public class FileUploader extends Service
         Log_OC.d(TAG, "Starting command with id " + startId);
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
-        
+
         if (intent == null) {
             Log_OC.e(TAG, "Intent is null");
             return Service.START_NOT_STICKY;
@@ -1166,7 +1167,7 @@ public class FileUploader extends Service
             if (mNotificationManager == null) {
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
-            
+
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
         // due to lack of Wifi, no notification is shown

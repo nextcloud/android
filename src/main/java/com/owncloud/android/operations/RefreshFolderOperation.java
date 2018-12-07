@@ -22,8 +22,6 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -51,6 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 
 /**

@@ -21,8 +21,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +37,9 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.
@@ -48,7 +49,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_ERROR = "ERROR";
-    
+
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_ACCOUNT = "ACCOUNT" ;
@@ -93,7 +94,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     /**
      * Creates an empty details fragment.
-     * 
+     *
      * It's necessary to keep a public constructor without parameters; the system uses it when tries to
      * reinstantiate a fragment automatically.
      */
@@ -142,7 +143,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
-        
+
         (mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

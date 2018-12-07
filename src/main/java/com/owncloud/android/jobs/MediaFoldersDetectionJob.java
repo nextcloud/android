@@ -30,8 +30,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
@@ -50,6 +48,9 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
@@ -110,9 +111,9 @@ public class MediaFoldersDetectionJob extends Job {
                         if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder, account) == null) {
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_photos)),
-                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1,
-                                            imageMediaFolder.length()),
-                                    account, imageMediaFolder, 1);
+                                             imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1
+                                             ),
+                                             account, imageMediaFolder, 1);
                         }
                     }
 
@@ -120,9 +121,9 @@ public class MediaFoldersDetectionJob extends Job {
                         if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder, account) == null) {
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_videos)),
-                                    videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1,
-                                            videoMediaFolder.length()),
-                                    account, videoMediaFolder, 2);
+                                             videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1
+                                             ),
+                                             account, videoMediaFolder, 2);
                         }
                     }
                 }
