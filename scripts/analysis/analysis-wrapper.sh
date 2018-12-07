@@ -74,12 +74,27 @@ else
 
     # add comment with results
     lintResultNew=$(grep "Lint Report.* [0-9]* warnings" build/reports/lint/lint.html | cut -f2 -d':' |cut -f1 -d'<')
+
     lintErrorNew=$(echo $lintResultNew | grep "[0-9]* error" -o | cut -f1 -d" ")
+    if ( [ -z $lintErrorNew ] ); then
+        lintErrorNew=0
+    fi
+
     lintWarningNew=$(echo $lintResultNew | grep "[0-9]* warning" -o | cut -f1 -d" ")
+    if ( [ -z $lintWarningNew ] ); then
+        lintWarningNew=0
+    fi
 
     lintResultOld=$(curl 2>/dev/null https://raw.githubusercontent.com/nextcloud/android/$stableBranch/scripts/analysis/lint-results.txt)
     lintErrorOld=$(echo $lintResultOld | grep "[0-9]* error" -o | cut -f1 -d" ")
+    if ( [ -z $lintErrorOld ] ); then
+        lintErrorOld=0
+    fi
+
     lintWarningOld=$(echo $lintResultOld | grep "[0-9]* warning" -o | cut -f1 -d" ")
+    if ( [ -z $lintWarningOld ] ); then
+        lintWarningOld=0
+    fi
 
     lintResult="<h1>Lint</h1><table width='500' cellpadding='5' cellspacing='2'><tr class='tablerow0'><td>Type</td><td><a href='https://www.kaminsky.me/nc-dev/"$repository"-lint/"$stableBranch".html'>$stableBranch</a></td><td><a href='https://www.kaminsky.me/nc-dev/"$repository"-lint/"$6".html'>PR</a></td></tr><tr class='tablerow1'><td>Warnings</td><td>"$lintWarningOld"</td><td>"$lintWarningNew"</td></tr><tr class='tablerow0'><td>Errors</td><td>"$lintErrorOld"</td><td>"$lintErrorNew"</td></tr></table>"
     findbugsResultNew=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html |head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s"#Summary#<a href=\"https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html\">FindBugs</a> (new)#" | tr "\"" "\'" | tr -d "\n")
