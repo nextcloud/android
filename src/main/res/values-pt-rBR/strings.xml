@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
-    <string name="share_sharee_unavailable">Atualize a versão do servidor para permitir o compartilhamento entre usuários.\nPor favor contacte o administrador</string>
     <string name="share_privilege_unshare">Descompartilhar</string>
     <string name="share_privilege_can_share">pode compartilhar</string>
     <string name="share_privilege_can_edit">pode editar</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Não há imagem redimensionada disponível.</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
-    <string name="resized_images_download_full_image">Baixar imagem completa?</string>
 
     <string name="store_short_desc">O aplicativo Android Nextcloud oferece acesso móvel a todos os arquivos do servidor Nextcloud.</string>
     <string name="store_full_desc">O aplicativo de código aberto Nextcloud, lhe dá liberdade móvel. \n\nRecursos:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n * Envio de arquivos para seu servidor Nextcloud\n * Compartilhá-los com outros\n * Manter seus arquivos e pastas favoritos sincronizados\n * Pesquisa em todas as pastas no seu servidor\n * Envio automático de fotos e vídeos tirados pelo seu dispositivo\n * Manter-se atualizado com notificações\n * Suporte a múltiplas contas\n * Acesso seguro aos seus dados com impressão digital ou PIN\n * Integração com o DAVdroid para fácil configuração da sincronização do Calendário &amp; Contatos\n\nInforme todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android\n\nNovo para Nextcloud?  Nextcloud é um servidor privado de comunicação, sincronismo &amp; compartilhamento. É um software livre e você mesmo pode hospedá-lo ou pagar uma empresa para fazê-lo. Dessa forma, você controla suas fotos, calendários e dados de contato, seus documentos e tudo mais.\n\nSaiba mais sobre o Nextcloud em https://nextcloud.com</string>

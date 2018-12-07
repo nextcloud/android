@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
-    <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента. \nМоля, уведомете системния админинстратор</string>
     <string name="share_privilege_unshare">Прекрати споделянето</string>
     <string name="share_privilege_can_share">може да споделя</string>
     <string name="share_privilege_can_edit">може да редактира</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Няма наличнo оразмеренo изображение.</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
-    <string name="resized_images_download_full_image">Сваляне на пълноразмерната версия?</string>
 
     <string name="store_short_desc">Приложението Nextcloud за Android осигурява достъп до всичките ви файлове в Nextcloud.</string>
     <string name="drawer_current_account">Текущ профил</string>

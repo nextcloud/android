@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
-    <string name="share_sharee_unavailable">Actualice a versión do servidor para permitir compartir entre usuarios dende os seus clientes.\nContacte co administrador</string>
     <string name="share_privilege_unshare">Deixar de compartir</string>
     <string name="share_privilege_can_share">pode compartir</string>
     <string name="share_privilege_can_edit">pode editar</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">No se dispón da imaxe noutros tamaños.</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala en tamaño total?</string>
-    <string name="resized_images_download_full_image">Descargar a imaxe en tamaño total?</string>
 
     <string name="store_short_desc">A aplicación para Android de Nextcloud dálle acceso a todos os seus ficheiros no seu Nextcloud.</string>
     <string name="store_full_desc">A aplicación libre para Android de Nextcloud, dálle liberdade móbil.

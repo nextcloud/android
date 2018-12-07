@@ -593,8 +593,6 @@
 
     <string name="date_unknown">Άγνωστο</string>
 
-    <string name="resized_images_download_full_image">Λήψη πλήρους εικόνας;</string>
-
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_middle_account">Μεσαίος λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>

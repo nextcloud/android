@@ -514,7 +514,6 @@
     <string name="share_room_clarification">%1$s (konverzace)</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>
 
-    <string name="share_sharee_unavailable">Aby bylo možné, aby uživatelé mohli mezi sebou sdílet ze svých klientů, přejděte na novější verzi Nextcloud serveru.\nObraťte se na svého správce</string>
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
@@ -660,7 +659,6 @@
 
     <string name="resized_image_not_possible">Nejsou k dispozici žádné zmenšené obrázky.</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
-    <string name="resized_images_download_full_image">Stáhnout obrázek v plné velikosti?</string>
 
     <string name="store_short_desc">Aplikace Nextcloud pro Android poskytuje přístup ke všem souborům na vašem Nextcloud.</string>
     <string name="store_full_desc">Svobodná (copyleft) aplikace Nextcloud pro Android, poskytující mobilní svobodu.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, hodící se k vzhledu vašeho serveru\n* Nahrávání souborů na Nextcloud server\n* Jejich sdílení s ostatními\n* Synchronizace vašich oblíbených souborů a složek\n* Hledání napříč všemi složkami na serveru\n* Automatické nahrávání fotek a videí pořízených vaším zařízením\n* Doručování oznámení\n* Podpora vícero účtů\n* Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu\n* Začlenění DAVdroid pro snadný přístup ke kalendáři &amp; synchronizaci kontaktů\n\nJakékoli problémy prosím hlaste na https://github.com/nextcloud/android/issues a o aplikaci diskutujte na https://help.nextcloud.com/c/clients/android\n\nJeště Nextcloud neznáte? Nextcloud je server pro soukromou synchronizaci souborů &amp;, sdílení a komunikaci. Je to svobodný software a můžete ho buď provozovat sami nebo si pronajímat od nějaké společnosti. Tím vy vládnete svým fotkám, údajům v kalendáři a kontaktech, dokumentům a všemu ostatnímu.\n\nPodívejte se na Nextcloud na https://nextcloud.com</string>

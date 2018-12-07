@@ -511,7 +511,6 @@
     <string name="share_email_clarification">%1$s (דוא״ל)</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
 
-    <string name="share_sharee_unavailable">יש לשדרג את גרסת השרת כדי לאפשר שיתוף בין משתמשים ישירות מתוך הלקוח שלהם.\nנא ליצור קשר עם המנהל</string>
     <string name="share_privilege_unshare">ביטול שיתוף</string>
     <string name="share_privilege_can_share">ניתן לשתף</string>
     <string name="share_privilege_can_edit">ניתן לערוך</string>
@@ -651,7 +650,6 @@
 
     <string name="resized_image_not_possible">אין תמונות מוקטנות זמינות.</string>
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
-    <string name="resized_images_download_full_image">להוריד את התמונה המלאה?</string>
 
     <string name="store_short_desc">יישומון Nextcloud ל־Android מעניק לך גישה דרך הטלפון הנייד לכל הקבצים שלך ב־Nextcloud.</string>
     <string name="drawer_current_account">חשבון נוכחי</string>

@@ -514,7 +514,6 @@
     <string name="share_room_clarification">%1$s (konwersacja)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
-    <string name="share_sharee_unavailable">Zaktualizuj serwer aby umożliwić udostępnianie plików pomiędzy użytkownikami z poziomu klienta.\nSkontaktuj się ze swoim administratorem</string>
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
@@ -660,7 +659,6 @@
 
     <string name="resized_image_not_possible">Niedostępna wersja ze zmienionym rozmiarem.</string>
     <string name="resized_image_not_possible_download">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
-    <string name="resized_images_download_full_image">Pobrać pełen obraz?</string>
 
     <string name="store_short_desc">Przy użyciu aplikacji mobilnej Nextcloud na Android\'a uzyskasz dostęp do wszystkich plików z twojego Nextcloud\'a.</string>
     <string name="store_full_desc">Oparta na Open Source aplikacja Nexcloud Android umożliwia dostęp do wszystkich twoich plików w Nextcloud.\n\nFunkcje:\n* Prosty i nowoczesny wygląd\n* Wysyłaj swoje pliki na swój serwer Nextcloud* Dawaj innym dostęp do twoich plików\n* Synchronizuj wybrane pliki i katalogi z serwerem\n* Automatycznie wysyłaj zdjęcia i filmy robione urządzeniem\n* Wsparcie dla wielu kont\n\nZgłaszaj błędy na https://github.com/nextcloud/android/issues i dyskutuj na temat tej aplikacji na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud jest prywatnym serwerem synchronizacji współdzielenia plików oraz komunikacji. Jego źródła są całkowicie otwarte, więc możesz korzystać z niego na własnym serwerze albo możesz zapłacić za to firmie trzeciej. W ten sposób kontrolujesz swoje zdjęcia, kalendarz, dane kontaktowe, twoje dokumenty i inne dane.\n\nZobacz Nextcloud na https://nextcloud.com</string>

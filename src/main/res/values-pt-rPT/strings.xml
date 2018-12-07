@@ -476,8 +476,6 @@
     <string name="prefs_gpl_v2">GNU - Licença Pública Geral, Versão 2</string>
     <string name="date_unknown">Desconhecido</string>
 
-    <string name="resized_images_download_full_image">Transferir imagem completa?</string>
-
     <string name="activity_icon">Actividade</string>
     <string name="file_icon">Ficheiro</string>
     <string name="user_icon">Utilizador</string>

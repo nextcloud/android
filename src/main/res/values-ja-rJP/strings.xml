@@ -500,7 +500,6 @@
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
 
-    <string name="share_sharee_unavailable">クライアント内のユーザー間で共有できるように、サーバーのバージョンをアップグレードしてください。管理者に連絡してください</string>
     <string name="share_privilege_unshare">共有解除</string>
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
@@ -642,7 +641,6 @@
 
     <string name="resized_image_not_possible">サイズ変更された画像はありません。</string>
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
-    <string name="resized_images_download_full_image">フルイメージをダウンロードしますか？</string>
 
     <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
     <string name="drawer_current_account">現在のアカウント</string>

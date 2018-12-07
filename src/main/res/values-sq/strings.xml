@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
-    <string name="share_sharee_unavailable">Përditësoni versionin e serverit për të lejuar ndarjen midis përdoruesve brenda klientëve të tyre.\nJu lutemi të kontaktoni administratorin tuaj</string>
     <string name="share_privilege_unshare">Hiqe ndarjen</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Nuk ka në gjëndje asnjë imazh me përmasa të reja.</string>
     <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
-    <string name="resized_images_download_full_image">Shkarko imazhin e plotë?</string>
 
     <string name="store_short_desc">Aplikacioni Android i Nextcloud jep akses te të gjithë skedarët në Nextcloud-in tuaj.</string>
     <string name="store_full_desc">Aplikacioni copyleft për Android Nextcloud, që ju ofron liri në celularin tuaj.\n\nKarakteristika:\n* Ndërfaqe e thjeshtë, moderne, e përshtatshme për strukturën e serverit tuaj\n* Ngarko skedarët në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Mbani skedarët dhe dosjet e tua të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkoni automatikisht fotot dhe videot e marra nga pajisja juaj\n* Qëndroni të përditësuar me njoftimet\n* Mbështetje me shumë llogari\n* Qasje e sigurt në të dhënat tuaja me gjurmët e gishtave ose PIN-in\n* Integrimi me DAVdroid për konfigurim të lehtë të kalendarit &amp; \nSinkronizimi i kontakteve\nJu lutem raportoni problematikat në https://github.com/nextcloud/android/issues dhe bisedoni rreth aplikacionit në https://help.nextcloud.com/c/clients/android\n\nI ri në Nextcloud? Nextcloud është sinkronizim privat &amp; shpërndarje dhe komunikim në server. Është software pa pagesë, dhe mund ta strehosh vetë ose të paguash një kompani për ta bërë atë për ju. Në këtë mënyrë, ju jeni në kontroll të fotove tuaja, kalendarin tuaj dhe të dhënat e kontaktit, dokumentet tuaja dhe gjithçka tjetër.\n\nVizito https://nextcloud.com</string>

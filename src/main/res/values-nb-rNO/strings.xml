@@ -506,7 +506,6 @@
     <string name="share_room_clarification">%1$s(samtale)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
-    <string name="share_sharee_unavailable">Tjeneren må oppdateres for å tillatte deling mellom brukere via klientenheter.\nKontakt administrator</string>
     <string name="share_privilege_unshare">Avslutt deling</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
@@ -650,7 +649,6 @@
 
     <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig.</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
-    <string name="resized_images_download_full_image">Last ned hele bildet?</string>
 
     <string name="store_short_desc">Nextcloud på Android gir tilgang til alle Nextcloud-filer via mobilen.</string>
     <string name="store_full_desc">Den copyleft-lisensierte, frie programvaren Nextcloud for Android gir deg tilgang til alle dine filene i din Nextcloud.
