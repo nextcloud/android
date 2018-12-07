@@ -18,7 +18,7 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
+<androidx.drawerlayout.widget.DrawerLayout android:id="@+id/drawer_layout"
                                         xmlns:android="http://schemas.android.com/apk/res/android"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -60,7 +60,7 @@
                     android:text="@string/participate_testing_bug_text"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-                <android.support.v7.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/participate_testing_report"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -204,4 +204,4 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
-</android.support.v4.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

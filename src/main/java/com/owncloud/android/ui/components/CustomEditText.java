@@ -32,7 +32,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 /**
  * Custom edit text to support fixed suffix or prefix
  */
-public class CustomEditText extends android.support.v7.widget.AppCompatEditText {
+public class CustomEditText extends androidx.appcompat.widget.AppCompatEditText {
     private Rect fixedRect = new Rect();
     private String fixedText = "";
     private boolean isPrefixFixed;

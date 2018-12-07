@@ -24,9 +24,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -41,16 +38,20 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 /**
- *  Dialog to input the name for a new folder to create.  
- * 
+ *  Dialog to input the name for a new folder to create.
+ *
  *  Triggers the folder creation when name is confirmed.
  */
 public class CreateFolderDialogFragment
         extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
-    
+
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     private OCFile mParentFolder;
@@ -67,7 +68,7 @@ public class CreateFolderDialogFragment
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         frag.setArguments(args);
         return frag;
-        
+
     }
 
     @Override
@@ -92,13 +93,13 @@ public class CreateFolderDialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.edit_box_dialog, null);
 
-        // Setup layout 
+        // Setup layout
         EditText inputText = v.findViewById(R.id.user_input);
         inputText.setText("");
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
-        // Build the dialog  
+        // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                 .setPositiveButton(R.string.folder_confirm_create, this)
@@ -111,18 +112,18 @@ public class CreateFolderDialogFragment
         if (window != null) {
             window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
-        
+
         return d;
-    }    
-    
-    
+    }
+
+
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFolderName = 
+            String newFolderName =
                     ((TextView)(getDialog().findViewById(R.id.user_input)))
                         .getText().toString().trim();
-            
+
             if (newFolderName.length() <= 0) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;

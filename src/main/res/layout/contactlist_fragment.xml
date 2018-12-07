@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/contactlist_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -49,7 +49,7 @@
                 android:src="@drawable/uploader_list_separator"
                 android:contentDescription="@null"/>
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/contactlist_restore_selected"
                 style="@style/Button.Borderless"
                 android:layout_width="match_parent"

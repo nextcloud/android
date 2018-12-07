@@ -30,20 +30,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.ColorUtils;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.widget.CompoundButtonCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Window;
@@ -52,12 +38,27 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.widget.CompoundButtonCompat;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Utility class with methods for client side theming.

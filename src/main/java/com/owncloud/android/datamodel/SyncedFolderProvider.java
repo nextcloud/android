@@ -26,7 +26,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
@@ -36,6 +35,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+
+import androidx.annotation.NonNull;
 
 /**
  * Database provider for handling the persistence aspects of {@link SyncedFolder}s.

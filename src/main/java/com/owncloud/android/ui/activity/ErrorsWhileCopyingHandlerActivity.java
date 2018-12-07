@@ -26,9 +26,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,14 +47,18 @@ import com.owncloud.android.utils.FileStorageUtils;
 import java.io.File;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 
 /**
  * Activity reporting errors occurred when local files uploaded to an ownCloud account with an app
  * in version under 1.3.16 where being copied to the ownCloud local folder.
- * 
+ *
  * Allows the user move the files to the ownCloud local folder. let them unlinked to the remote
  * files.
- * 
+ *
  * Shown when the error notification summarizing the list of errors is clicked by the user.
  */
 public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implements OnClickListener {
@@ -72,7 +73,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
 
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
-    
+
     protected Account mAccount;
     protected FileDataStorageManager mStorageManager;
     protected List<String> mLocalPaths;
@@ -80,7 +81,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
     protected ArrayAdapter<String> mAdapter;
     protected Handler mHandler;
     private DialogFragment mCurrentDialog;
-    
+
     /**
      * {@link}
      */
@@ -99,20 +100,20 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
         }
-        
+
         /// load generic layout
         setContentView(R.layout.generic_explanation);
-        
+
         /// customize text message
-        TextView textView = (TextView) findViewById(R.id.message);
+        TextView textView = findViewById(R.id.message);
         String appName = getString(R.string.app_name);
         String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation),
                 appName, appName, appName, appName, mAccount.name);
         textView.setText(message);
         textView.setMovementMethod(new ScrollingMovementMethod());
-        
+
         /// load the list of local and remote files that failed
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
         if (mLocalPaths != null && mLocalPaths.size() > 0) {
             mAdapter = new ErrorsWhileCopyingListAdapter();
             listView.setAdapter(mAdapter);
@@ -120,11 +121,11 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             listView.setVisibility(View.GONE);
             mAdapter = null;
         }
-        
+
         /// customize buttons
-        Button cancelBtn = (Button) findViewById(R.id.cancel);
-        Button okBtn = (Button) findViewById(R.id.ok);
-        
+        Button cancelBtn = findViewById(R.id.cancel);
+        Button okBtn = findViewById(R.id.ok);
+
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);
@@ -135,7 +136,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
          * remote files as the secondary text.
          */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
-        
+
         ErrorsWhileCopyingListAdapter() {
             super(ErrorsWhileCopyingHandlerActivity.this, android.R.layout.two_line_list_item,
                     android.R.id.text1, mLocalPaths);
@@ -145,8 +146,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         public boolean isEnabled(int position) {
             return false;
         }
-        
-        /**
+
+            /**
          * {@inheritDoc}
          */
         @Override
@@ -160,14 +161,14 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             if (view != null)  {
                 String localPath = getItem(position);
                 if (localPath != null) {
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                    TextView text1 = view.findViewById(android.R.id.text1);
                     if (text1 != null) {
                         text1.setText(String.format(getString(R.string.foreign_files_local_text), localPath));
                     }
                 }
                 if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 &&
                         position < mRemotePaths.size()) {
-                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                    TextView text2 = view.findViewById(android.R.id.text2);
                     String remotePath = mRemotePaths.get(position);
                     if (text2 != null && remotePath != null) {
                         text2.setText(String.format(getString(R.string.foreign_files_remote_text), remotePath));
@@ -181,7 +182,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
     /**
      * Listener method to perform the MOVE / CANCEL action available in this activity.
-     * 
+     *
      * @param v     Clicked view (button MOVE or CANCEL)
      */
     @Override
@@ -189,19 +190,19 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         if (v.getId() == R.id.ok) {
             /// perform movement operation in background thread
             Log_OC.d(TAG, "Clicked MOVE, start movement");
-            new MoveFilesTask().execute();            
-            
+            new MoveFilesTask().execute();
+
         } else if (v.getId() == R.id.cancel) {
             /// just finish
             Log_OC.d(TAG, "Clicked CANCEL, bye");
             finish();
-            
+
         } else {
             Log_OC.e(TAG, "Clicked phantom button, id: " + v.getId());
         }
     }
 
-    
+
     /**
      * Asynchronous task performing the move of all the local files to the ownCloud folder.
      */
@@ -217,11 +218,11 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
             findViewById(R.id.ok).setEnabled(false);
         }
-        
-        
+
+
         /**
          * Performs the movement
-         * 
+         *
          * @return     'False' when the movement of any file fails.
          */
         @Override
@@ -239,10 +240,10 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
                     mStorageManager.saveFile(file);
                     mRemotePaths.remove(0);
                     mLocalPaths.remove(0);
-                        
+
                 } else {
                     // FAIL
-                    return false;   
+                    return false;
                 }
             }
             return true;
@@ -263,7 +264,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
             findViewById(R.id.ok).setEnabled(true);
-            
+
             if (result) {
                 // nothing else to do in this activity
                 DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_success);

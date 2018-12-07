@@ -24,7 +24,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
@@ -88,6 +87,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.annotation.RequiresApi;
 
 
 /**

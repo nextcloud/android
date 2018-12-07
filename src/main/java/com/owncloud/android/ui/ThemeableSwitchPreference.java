@@ -25,14 +25,15 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.preference.SwitchPreference;
-import android.support.annotation.RequiresApi;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.owncloud.android.utils.ThemeUtils;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 
 /**

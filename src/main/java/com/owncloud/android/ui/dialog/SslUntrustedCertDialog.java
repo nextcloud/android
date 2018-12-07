@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,24 +45,26 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 
+import androidx.fragment.app.DialogFragment;
+
 /**
  * Dialog to show information about an untrusted certificate and allow the user
  * to decide trust on it or not.
- * 
+ *
  * Abstract implementation of common functionality for different dialogs that
  * get the information about the error and the certificate from different classes.
  */
 public class SslUntrustedCertDialog extends DialogFragment {
-    
+
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
-    
+
     protected View mView;
     protected SslErrorHandler mHandler;
     protected X509Certificate m509Certificate;
 
     private ErrorViewAdapter mErrorViewAdapter;
     private CertificateViewAdapter mCertificateViewAdapter;
-    
+
     public static SslUntrustedCertDialog newInstanceForEmptySslError(SslError error, SslErrorHandler handler) {
         if (error == null) {
             throw new IllegalArgumentException("Trying to create instance with parameter error == null");
@@ -77,7 +78,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
         dialog.mCertificateViewAdapter = new SslCertificateViewAdapter(error.getCertificate());
         return dialog;
     }
-    
+
     public static SslUntrustedCertDialog newInstanceForFullSslError(CertificateCombinedException sslException) {
         if (sslException == null) {
             throw new IllegalArgumentException("Trying to create instance with parameter sslException == null");
@@ -88,7 +89,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
         dialog.mCertificateViewAdapter = new X509CertificateViewAdapter(sslException.getServerCertificate());
         return dialog;
     }
-    
+
     public static SslUntrustedCertDialog newInstanceForFullSslError(X509Certificate cert, SslError error, SslErrorHandler handler) {
         if (cert == null) {
             throw new IllegalArgumentException("Trying to create instance with parameter cert == null");
@@ -106,8 +107,8 @@ public class SslUntrustedCertDialog extends DialogFragment {
         dialog.mCertificateViewAdapter = new X509CertificateViewAdapter(cert);
         return dialog;
     }
-    
-    
+
+
     @Override
     public void onAttach(Activity activity) {
         Log_OC.d(TAG, "onAttach");
@@ -117,7 +118,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
         }
     }
 
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate, savedInstanceState is " + savedInstanceState);
@@ -126,7 +127,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
         setCancelable(false);
         mView = null;
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
@@ -138,14 +139,14 @@ public class SslUntrustedCertDialog extends DialogFragment {
         } else {
             ((ViewGroup)mView.getParent()).removeView(mView);
         }
-        
-        Button ok = (Button) mView.findViewById(R.id.ok);
+
+        Button ok = mView.findViewById(R.id.ok);
         ok.setOnClickListener(new OnCertificateTrusted());
-        
-        Button cancel = (Button) mView.findViewById(R.id.cancel);
+
+        Button cancel = mView.findViewById(R.id.cancel);
         cancel.setOnClickListener(new OnCertificateNotTrusted());
-        
-        Button details = (Button) mView.findViewById(R.id.details_btn);
+
+        Button details = mView.findViewById(R.id.details_btn);
         details.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -163,10 +164,10 @@ public class SslUntrustedCertDialog extends DialogFragment {
             }
 
         });
-        
+
         return mView;
     }
-    
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -184,9 +185,9 @@ public class SslUntrustedCertDialog extends DialogFragment {
         }
         super.onDestroyView();
     }
-    
+
     private class OnCertificateNotTrusted implements OnClickListener {
-        
+
         @Override
         public void onClick(View v) {
             getDialog().cancel();
@@ -196,8 +197,8 @@ public class SslUntrustedCertDialog extends DialogFragment {
             ((OnSslUntrustedCertListener)getActivity()).onCancelCertificate();
         }
     }
-    
-    
+
+
     private class OnCertificateTrusted implements OnClickListener {
 
         @Override
@@ -217,20 +218,22 @@ public class SslUntrustedCertDialog extends DialogFragment {
                 }
             }
         }
-        
+
     }
-    
-    
+
+
     public interface OnSslUntrustedCertListener {
-        public void onSavedCertificate();
-        public void onFailedSavingCertificate();
-        public void onCancelCertificate();
+        void onSavedCertificate();
+
+        void onFailedSavingCertificate();
+
+        void onCancelCertificate();
     }
-    
+
     public interface ErrorViewAdapter {
         void updateErrorView(View mView);
     }
-    
+
     public interface CertificateViewAdapter {
         void updateCertificateView(View mView);
     }

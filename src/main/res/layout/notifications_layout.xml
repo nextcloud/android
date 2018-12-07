@@ -18,7 +18,7 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
                                         android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
@@ -42,14 +42,14 @@
             android:layout_above="@+id/bottom_navigation_view"
             android:layout_below="@+id/navigation_bar">
 
-            <android.support.v4.widget.SwipeRefreshLayout
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:footerDividersEnabled="false"
                 android:visibility="visible">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@android:id/list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -61,9 +61,9 @@
                     android:scrollbars="vertical"
                     android:visibility="visible"/>
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <android.support.v4.widget.SwipeRefreshLayout
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,11 +71,11 @@
                 android:visibility="visible">
 
                 <include layout="@layout/empty_list"/>
-            </android.support.v4.widget.SwipeRefreshLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </FrameLayout>
 
-        <android.support.design.widget.BottomNavigationView
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,4 +94,4 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
-</android.support.v4.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

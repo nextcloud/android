@@ -22,8 +22,6 @@
 package com.owncloud.android.util;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -50,7 +48,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import androidx.annotation.RequiresApi;
+import androidx.test.runner.AndroidJUnit4;
+
+import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;

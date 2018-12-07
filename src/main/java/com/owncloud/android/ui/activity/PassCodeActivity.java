@@ -27,8 +27,6 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -40,11 +38,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class    PassCodeActivity extends AppCompatActivity {
 
@@ -99,7 +100,7 @@ public class    PassCodeActivity extends AppCompatActivity {
         mPassCodeEditTexts[0] = findViewById(R.id.txt0);
         ThemeUtils.colorEditText(mPassCodeEditTexts[0], elementColor);
         mPassCodeEditTexts[0].requestFocus();
-        
+
         mPassCodeEditTexts[1] = findViewById(R.id.txt1);
         ThemeUtils.colorEditText(mPassCodeEditTexts[1], elementColor);
 
@@ -113,7 +114,7 @@ public class    PassCodeActivity extends AppCompatActivity {
         if (window != null) {
             window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
-        
+
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
             mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);

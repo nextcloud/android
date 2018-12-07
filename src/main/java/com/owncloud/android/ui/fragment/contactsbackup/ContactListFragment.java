@@ -38,13 +38,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,6 +58,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -93,6 +87,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ezvcard.Ezvcard;
@@ -706,9 +706,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                         .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
             }
 
-            if (!checkedVCards.contains(verifiedPosition)) {
-                checkedVCards.add(verifiedPosition);
-            }
+            checkedVCards.add(verifiedPosition);
             if (checkedVCards.size() == SINGLE_SELECTION) {
                 EventBus.getDefault().post(new VCardToggleEvent(true));
             }
@@ -717,9 +715,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 holder.getName().getCheckMarkDrawable().clearColorFilter();
             }
 
-            if (checkedVCards.contains(verifiedPosition)) {
-                checkedVCards.remove(verifiedPosition);
-            }
+            checkedVCards.remove(verifiedPosition);
 
             if (checkedVCards.isEmpty()) {
                 EventBus.getDefault().post(new VCardToggleEvent(false));

@@ -36,7 +36,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
 import com.owncloud.android.R;
@@ -69,6 +68,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+
+import androidx.core.app.NotificationCompat;
 
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {

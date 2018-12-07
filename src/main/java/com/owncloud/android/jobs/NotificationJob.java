@@ -27,8 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -50,6 +48,9 @@ import java.security.PrivateKey;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 
 public class NotificationJob extends Job {
     public static final String TAG = "NotificationJob";

@@ -31,10 +31,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +58,11 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.db.PreferenceManager.getSortOrderByFolder;
 

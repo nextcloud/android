@@ -1,7 +1,5 @@
 package com.owncloud.android;
 
-import android.support.test.runner.AndroidJUnit4;
-
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -10,6 +8,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import androidx.test.runner.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertTrue;
 
