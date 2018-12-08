@@ -406,6 +406,9 @@
     <string name="file_migration_use_data_folder">利用</string>
 
     <string name="file_migration_source_not_readable_title">ソースフォルダが読み込めません！</string>
+    <string name="file_migration_source_not_readable">ストレージの場所を %1$s?\n\nNoteに変更しますか？:すべてのデータを再度ダウンロードする必要がああります。
+</string>
+
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
     <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
@@ -558,6 +561,10 @@
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
+    <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.
+
+インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。
+n新しく拡張された自動アップロードをお楽しみください。</string>
     <string name="synced_folders_preferences_folder_path">%1$sの</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
@@ -643,6 +650,26 @@
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
 
     <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
+    <string name="store_full_desc">いつでもどこでも使えるコピーレフトで自由な Nextcloud Androidアプリ。
+特徴：
+*サーバーのテーマにぴったりの簡単で現代的なインターフェース
+*Nextcloudサーバーへのファイルアップロード
+*他のユーザーとの共有
+*お気に入りのファイルとフォルダを同期
+*サーバー上のすべてのフォルダを検索
+*デバイスで撮影した写真やビデオの自動アップロード
+*通知機能で最新情報を
+*マルチアカウントのサポート
+ *指紋やPINによるデータへの安全なアクセス
+* DAVdroidとの統合でカレンダー＆連絡先の同期
+
+https://github.com/nextcloud/android/issuesですべての問題を報告し、https://help.nextcloud.com/c/clients/androidでこのアプリについてディスカッションしよう。
+
+Nextcloudは初めてですか？ 
+Nextcloudはプライベートファイルの同期＆共有およびコミュニケーションサーバーです。自由なソフトウェアで、自分でホストすることも、企業から購入することもできます。そうすれば、写真、カレンダー、連絡先のデータ、あなたの書類などすべてを管理できます。
+
+https://nextcloud.comでNextCloudをチェックしてください</string>
+
     <string name="drawer_current_account">現在のアカウント</string>
     <string name="drawer_middle_account">ミドルアカウント</string>
     <string name="drawer_end_account">最後のアカウント</string>
@@ -673,6 +700,11 @@
     <string name="what_s_new_image">新しいイメージとは</string>
 
     <string name="store_short_dev_desc">Nextcloud Devアプリケーションは開発スナップショットであり、並列にインストールすることができます。</string>
+    <string name="store_full_dev_desc">いつでもどこでも使えるコピーレフトで自由なNextcloudのAndroidアプリ。
+これは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！
+
+公式開発の正規バージョンはF-droidからインストールできます。</string>
+
     <string name="prefs_category_dev">開発者</string>
     <string name="dev_version_no_information_available">情報がありません。</string>
     <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
@@ -801,8 +833,14 @@
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
 
+    <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="create_new_document">新しい文書を作成する</string>
     <string name="create_new_spreadsheet">新しいスプレッドシートを作成する</string>
     <string name="create_new_presentation">新しいプレゼンテーションを作成する</string>
+    <string name="select_template">テンプレートを選択する</string>
     <string name="filename_hint">ファイル名</string>
-    </resources>
+    <string name="thumbnail">サムネイル</string>
+    <string name="enter_filename">ファイル名を入力してください</string>
+    <string name="create_file_from_template">テンプレートからファイルを作成する</string>
+    <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
+</resources>
