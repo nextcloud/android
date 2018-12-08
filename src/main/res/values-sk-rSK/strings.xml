@@ -803,6 +803,7 @@
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
     <string name="folder_already_exists">Priečinok už existuje</string>
+    <string name="actionbar_open_as_richdocument">Otvoriť s Collabora</string>
     <string name="notification_icon">Ikona notifikácie</string>
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="file_delete">Zmazať</string>
@@ -822,4 +823,14 @@
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">Nepodarilo sa načítať dokument!</string>
+    <string name="create_new_document">Vytvoriť nový dokument</string>
+    <string name="create_new_spreadsheet">Vytvoriť novú tabuľku</string>
+    <string name="create_new_presentation">Vytvoriť novú prezentáciu</string>
+    <string name="select_template">Vybrať šablónu</string>
+    <string name="filename_hint">Názov súboru</string>
+    <string name="thumbnail">Náhľad</string>
+    <string name="enter_filename">Zadajte prosím názov súboru</string>
+    <string name="create_file_from_template">Vytvára sa súbor podľa šablóny</string>
+    <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
+</resources>

@@ -365,6 +365,7 @@
     <string name="activity_chooser_send_file_title">Dërgoje</string>
 
     <string name="copy_link">Kopjoje lidhjen</string>
+    <string name="clipboard_text_copied">Linku u kopjua</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
     <string name="clipboard_unexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
@@ -793,6 +794,7 @@
     <string name="stream_not_possible_headline">Rrjedhja e brendshme nuk është e mundur</string>
     <string name="stream_not_possible_message">Ju lutemi të shkarkoni mediat ose të përdorni aplikacionin e jashtëm.</string>
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
+    <string name="actionbar_open_as_richdocument">Hape me Collabora</string>
     <string name="notification_icon">Ikona e njoftimit</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="file_delete">Fshini</string>
@@ -803,6 +805,23 @@
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="permission_deny">Refuzo</string>
     <string name="permission_allow">Lejo</string>
+    <string name="share_send_note">Shënim për marrësin</string>
     <string name="note_confirm">Dërgo</string>
+    <string name="send_note">Dërgo shënim për marrësin</string>
+    <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
     <string name="hint_note">Shënim</string>
-    </resources>
+    <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
+    <string name="no_pdf_app_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar PDF</string>
+    <string name="share_via_link_hide_download">Fshih shkarkimin</string>
+
+    <string name="richdocuments_failed_to_load_document">Dështoi ngarkimi i dokumentit!</string>
+    <string name="create_new_document">Krijo një dokument te ri</string>
+    <string name="create_new_spreadsheet">Krijo një spreadsheet të ri</string>
+    <string name="create_new_presentation">Krijo një prezantim të ri</string>
+    <string name="select_template">Zgjidh shabllonin</string>
+    <string name="filename_hint">Emri i skedarit</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="enter_filename">Ju lutemi shkruani një emër skedari</string>
+    <string name="create_file_from_template">Duke krijuar skedar nga shablloni...</string>
+    <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
+</resources>
