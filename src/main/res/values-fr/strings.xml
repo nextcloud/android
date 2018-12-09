@@ -10,12 +10,12 @@
     <string name="actionbar_send_file">Envoyer</string>
     <string name="actionbar_sort">Trier</string>
     <string name="sort_by">Trier par</string>
-    <string name="menu_item_sort_by_name_a_z">De A à Z</string>
-    <string name="menu_item_sort_by_name_z_a">De Z à A</string>
-    <string name="menu_item_sort_by_date_newest_first">Le plus récent en premier</string>
-    <string name="menu_item_sort_by_date_oldest_first">Le plus ancien en premier</string>
-    <string name="menu_item_sort_by_size_biggest_first">Le plus grand en premier</string>
-    <string name="menu_item_sort_by_size_smallest_first">Le plus petit en premier</string>
+    <string name="menu_item_sort_by_name_a_z">Nom : de A à Z</string>
+    <string name="menu_item_sort_by_name_z_a">Nom : de Z à A</string>
+    <string name="menu_item_sort_by_date_newest_first">Date : Récent d\'abord</string>
+    <string name="menu_item_sort_by_date_oldest_first">Date : Ancien d\'abord</string>
+    <string name="menu_item_sort_by_size_biggest_first">Taille : Grand d\'abord</string>
+    <string name="menu_item_sort_by_size_smallest_first">Taille : Petit d\'abord</string>
 
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_home">Accueil</string>
