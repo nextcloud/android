@@ -788,6 +788,7 @@
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
     <string name="folder_already_exists">目录已经存在</string>
+    <string name="actionbar_open_as_richdocument">使用Collabora打开</string>
     <string name="notification_icon">通知图标</string>
     <string name="folder_confirm_create">创建</string>
     <string name="file_delete">删除</string>
@@ -805,4 +806,11 @@
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
 
-    </resources>
+    <string name="richdocuments_failed_to_load_document">载入文档失败</string>
+    <string name="select_template">选择模板</string>
+    <string name="filename_hint">文件名</string>
+    <string name="thumbnail">缩略图</string>
+    <string name="enter_filename">请输入文件名</string>
+    <string name="create_file_from_template">使用模板创建文件中...</string>
+    <string name="error_retrieving_templates">检索模板时出错</string>
+</resources>
