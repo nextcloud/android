@@ -150,11 +150,11 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Envoi échoué, reconnectez-vous</string>
+    <string name="uploader_upload_failed_credentials_error">L\'envoi a échoué, reconnectez-vous</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">En cours</string>
-    <string name="uploads_view_group_failed_uploads">Envoi échoué / Nouvel envoi possible</string>
+    <string name="uploads_view_group_failed_uploads">Erreur d\'envoi / Nouvel envoi possible</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
@@ -515,8 +515,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_privilege_can_edit_change">Peut modifier</string>
     <string name="share_privilege_can_edit_delete">Peut supprimer</string>
 
-    <string name="action_retry_uploads">Relancer les envois échoués</string>
-    <string name="action_clear_failed_uploads">Effacer les envois échoués</string>
+    <string name="action_retry_uploads">Relancer les envois en erreur</string>
+    <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
     <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
     <string name="action_force_rescan">Actualiser</string>
 
