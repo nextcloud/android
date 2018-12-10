@@ -21,7 +21,7 @@
 
 package com.owncloud.android.ui.interfaces;
 
-import com.owncloud.android.lib.resources.files.FileVersion;
+import com.owncloud.android.lib.resources.files.model.FileVersion;
 
 public interface VersionListInterface {
 

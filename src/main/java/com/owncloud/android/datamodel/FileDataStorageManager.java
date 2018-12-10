@@ -41,8 +41,8 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
@@ -209,12 +209,10 @@ public class FileDataStorageManager {
         if (sameRemotePath ||
                 fileExists(file.getFileId())) {  // for renamed files; no more delete and create
 
-            OCFile oldFile;
+
             if (sameRemotePath) {
-                oldFile = getFileByPath(file.getRemotePath());
+                OCFile oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
-            } else {
-                oldFile = getFileById(file.getFileId());
             }
 
             overridden = true;
@@ -269,7 +267,7 @@ public class FileDataStorageManager {
             OCFile returnFile;
             if (parentFile == null) {
                 // remote request
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(parentPath);
+                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
                 RemoteOperationResult result = operation.execute(getAccount(), context);
                 if (result.isSuccess()) {
                     OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
@@ -400,7 +398,7 @@ public class FileDataStorageManager {
         if (results != null) {
             long newId;
             Iterator<OCFile> filesIt = updatedFiles.iterator();
-            OCFile file = null;
+            OCFile file;
             for (ContentProviderResult result : results) {
                 if (filesIt.hasNext()) {
                     file = filesIt.next();
@@ -653,8 +651,8 @@ public class FileDataStorageManager {
             /// 2. prepare a batch of update operations to change all the descendants
             ArrayList<ContentProviderOperation> operations = new ArrayList<>(c.getCount());
             String defaultSavePath = FileStorageUtils.getSavePath(account.name);
-            List<String> originalPathsToTriggerMediaScan = new ArrayList<String>();
-            List<String> newPathsToTriggerMediaScan = new ArrayList<String>();
+            List<String> originalPathsToTriggerMediaScan = new ArrayList<>();
+            List<String> newPathsToTriggerMediaScan = new ArrayList<>();
             if (c.moveToFirst()) {
                 int lengthOfOldPath = file.getRemotePath().length();
                 int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
@@ -891,7 +889,7 @@ public class FileDataStorageManager {
     }
 
     private Cursor getFileCursorForValue(String key, String value) {
-        Cursor c = null;
+        Cursor c;
         if (getContentResolver() != null) {
             c = getContentResolver()
                     .query(ProviderTableMeta.CONTENT_URI,
@@ -1125,7 +1123,7 @@ public class FileDataStorageManager {
      * @return First {@link OCShare} instance found in DB bound to the file in 'path'
      */
     public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
-        Cursor cursor = null;
+        Cursor cursor;
         if (shareWith == null) {
             shareWith = "";
         }
@@ -1511,7 +1509,7 @@ public class FileDataStorageManager {
 
     public void removeSharesForFile(String remotePath) {
         resetShareFlagInAFile(remotePath);
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         operations = prepareRemoveSharesInFile(remotePath, operations);
         // apply operations in batch
         if (operations.size() > 0) {
@@ -1533,7 +1531,7 @@ public class FileDataStorageManager {
 
     public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
         resetShareFlagsInFolder(folder);
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         operations = prepareRemoveSharesInFolder(folder, operations);
 
         if (shares != null) {
@@ -1667,8 +1665,8 @@ public class FileDataStorageManager {
                 cursor = null;
             }
         }
-        ArrayList<OCShare> shares = new ArrayList<OCShare>();
-        OCShare share = null;
+        ArrayList<OCShare> shares = new ArrayList<>();
+        OCShare share;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -2009,7 +2007,7 @@ public class FileDataStorageManager {
     }
 
     public OCCapability getCapability(String accountName) {
-        OCCapability capability = null;
+        OCCapability capability;
         Cursor c = getCapabilityCursorForAccount(accountName);
 
         if (c.moveToFirst()) {

@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activities;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -39,7 +40,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activities.data.Injection;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -179,7 +180,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int visibleItemCount = recyclerView.getChildCount();
@@ -230,7 +231,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         super.onResume();
 
         setDrawerMenuItemChecked(R.id.nav_activity);
-        
+
         setupContent();
     }
 

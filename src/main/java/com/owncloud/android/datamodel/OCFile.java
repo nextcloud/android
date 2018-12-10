@@ -35,7 +35,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ServerFileInterface;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;

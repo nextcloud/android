@@ -53,8 +53,8 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.CheckEtagOperation;
-import com.owncloud.android.lib.resources.files.FileVersion;
+import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -81,6 +81,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -201,7 +202,8 @@ public class FileOperationsHelper {
             }
 
             // check for changed eTag
-            CheckEtagOperation checkEtagOperation = new CheckEtagOperation(file.getRemotePath(), file.getEtag());
+            CheckEtagRemoteOperation checkEtagOperation = new CheckEtagRemoteOperation(file.getRemotePath(),
+                file.getEtag());
             RemoteOperationResult result = checkEtagOperation.execute(account, mFileActivity);
 
             // eTag changed, sync file

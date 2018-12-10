@@ -47,16 +47,16 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
+import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.LockFileRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
+import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.resources.files.GetMetadataOperation;
-import com.owncloud.android.lib.resources.files.LockFileOperation;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.resources.files.StoreMetadataOperation;
-import com.owncloud.android.lib.resources.files.UnlockFileOperation;
-import com.owncloud.android.lib.resources.files.UpdateMetadataOperation;
-import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -116,8 +116,8 @@ public class UploadFileOperation extends SyncOperation {
     private String mFolderUnlockToken;
     private boolean mRemoteFolderToBeCreated;
     private boolean mForceOverwrite;
-    private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
-    private int mCreatedBy = CREATED_BY_USER;
+    private int mLocalBehaviour;
+    private int mCreatedBy;
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
@@ -136,7 +136,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private Context mContext;
 
-    private UploadRemoteFileOperation mUploadOperation;
+    private UploadFileRemoteOperation mUploadOperation;
 
     protected RequestEntity mEntity;
 
@@ -391,7 +391,8 @@ public class UploadFileOperation extends SyncOperation {
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         // the parent folder should exist as it is a resume of a broken upload
         if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
-            UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
+            UnlockFileRemoteOperation unlockFileOperation = new UnlockFileRemoteOperation(parent.getLocalId(),
+                mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
             if (!unlockFileOperationResult.isSuccess()) {
@@ -445,7 +446,7 @@ public class UploadFileOperation extends SyncOperation {
             /***** E2E *****/
 
             // Lock folder
-            LockFileOperation lockFileOperation = new LockFileOperation(parentFile.getLocalId());
+            LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId());
             RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client, true);
 
             if (lockFileOperationResult.isSuccess()) {
@@ -460,7 +461,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Update metadata
-            GetMetadataOperation getMetadataOperation = new GetMetadataOperation(parentFile.getLocalId());
+            GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
             RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client, true);
 
             DecryptedFolderMetadata metadata;
@@ -573,12 +574,12 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             /// perform the upload
-            if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
+            if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE) {
+                mUploadOperation = new ChunkedFileUploadRemoteOperation(mContext, encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
                         mFile.getEtagInConflict(), timeStamp);
             } else {
-                mUploadOperation = new UploadRemoteFileOperation(encryptedTempFile.getAbsolutePath(),
+                mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
                         mFile.getEtagInConflict(), timeStamp);
             }
@@ -622,13 +623,13 @@ public class UploadFileOperation extends SyncOperation {
                 RemoteOperationResult uploadMetadataOperationResult;
                 if (metadataExists) {
                     // update metadata
-                    UpdateMetadataOperation storeMetadataOperation = new UpdateMetadataOperation(parentFile.getLocalId(),
-                            serializedFolderMetadata, token);
+                    UpdateMetadataRemoteOperation storeMetadataOperation = new UpdateMetadataRemoteOperation(
+                        parentFile.getLocalId(), serializedFolderMetadata, token);
                     uploadMetadataOperationResult = storeMetadataOperation.execute(client, true);
                 } else {
                     // store metadata
-                    StoreMetadataOperation storeMetadataOperation = new StoreMetadataOperation(parentFile.getLocalId(),
-                            serializedFolderMetadata);
+                    StoreMetadataRemoteOperation storeMetadataOperation = new StoreMetadataRemoteOperation(
+                        parentFile.getLocalId(), serializedFolderMetadata);
                     uploadMetadataOperationResult = storeMetadataOperation.execute(client, true);
                 }
 
@@ -699,7 +700,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
-            return new UnlockFileOperation(parentFolder.getLocalId(), token).execute(client, true);
+            return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client, true);
         } else {
             return new RemoteOperationResult(new Exception("No token available"));
         }
@@ -812,11 +813,11 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // perform the upload
-            if (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+            if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE) {
+                mUploadOperation = new ChunkedFileUploadRemoteOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
             } else {
-                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
             }
 
@@ -1312,7 +1313,7 @@ public class UploadFileOperation extends SyncOperation {
             path = getRemotePath();
         }
 
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path);
+        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(path);
         RemoteOperationResult result = operation.execute(client, mFile.isEncrypted());
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));

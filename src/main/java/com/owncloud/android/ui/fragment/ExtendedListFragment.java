@@ -66,7 +66,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -305,8 +305,8 @@ public class ExtendedListFragment extends Fragment
                     public void run() {
                         if (AccountUtils.hasSearchSupport(AccountUtils.
                                 getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
-                            EventBus.getDefault().post(new SearchEvent(query, SearchOperation.SearchType.FILE_SEARCH,
-                                    SearchEvent.UnsetType.NO_UNSET));
+                            EventBus.getDefault().post(new SearchEvent(query,
+                                SearchRemoteOperation.SearchType.FILE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
                         } else {
                             OCFileListAdapter fileListListAdapter = (OCFileListAdapter) adapter;
                             fileListListAdapter.getFilter().filter(query);
