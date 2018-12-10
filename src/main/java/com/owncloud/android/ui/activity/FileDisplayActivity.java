@@ -84,6 +84,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -97,7 +98,6 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateNoteForShareOperation;
@@ -1779,7 +1779,7 @@ public class FileDisplayActivity extends HookActivity
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UnshareOperation) {
             onUpdateShareInformation(result, R.string.unsharing_failed);
-        } else if (operation instanceof RestoreFileVersionOperation) {
+        } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         } else if (operation instanceof UpdateNoteForShareOperation) {
             onUpdateNoteForShareOperationFinish(result);
