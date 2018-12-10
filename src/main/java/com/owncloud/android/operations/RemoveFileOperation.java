@@ -31,7 +31,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.resources.files.RemoveRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 
@@ -46,14 +46,14 @@ public class RemoveFileOperation extends SyncOperation {
     private Account account;
     private boolean inBackground;
     private Context context;
-    
-    
+
+
     /**
      * Constructor
-     * 
-     * @param remotePath            RemotePath of the OCFile instance describing the remote file or 
+     *
+     * @param remotePath            RemotePath of the OCFile instance describing the remote file or
      *                              folder to remove from the server
-     * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is 
+     * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is
      *                              removed.
      */
     public RemoveFileOperation(String remotePath, boolean onlyLocalCopy, Account account, boolean inBackground,
@@ -64,11 +64,11 @@ public class RemoveFileOperation extends SyncOperation {
         this.inBackground = inBackground;
         this.context = context;
     }
-    
-    
+
+
     /**
      * Getter for the file to remove (or removed, if the operation was successfully performed).
-     * 
+     *
      * @return      File to remove or already removed.
      */
     public OCFile getFile() {
@@ -78,10 +78,10 @@ public class RemoveFileOperation extends SyncOperation {
     public boolean isInBackground() {
         return inBackground;
     }
-    
+
     /**
      * Performs the remove operation
-     * 
+     *
      * @param   client      Client object to communicate with the remote ownCloud server.
      */
     @Override
@@ -103,25 +103,25 @@ public class RemoveFileOperation extends SyncOperation {
                 operation = new RemoveRemoteEncryptedFileOperation(remotePath, parent.getLocalId(), account, context,
                         fileToRemove.getEncryptedFileName());
             } else {
-                operation = new RemoveRemoteFileOperation(remotePath);
+                operation = new RemoveFileRemoteOperation(remotePath);
             }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
             }
-            
+
         } else {
             localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, false, true));
             if (!localRemovalFailed) {
                 result = new RemoteOperationResult(ResultCode.OK);
             }
         }
-        
+
         if (localRemovalFailed) {
             result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_REMOVED);
         }
-        
+
         return result;
     }
-    
+
 }

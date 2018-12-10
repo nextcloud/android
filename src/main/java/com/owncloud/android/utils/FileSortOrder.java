@@ -21,7 +21,7 @@
 package com.owncloud.android.utils;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.TrashbinFile;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 
 import java.io.File;
 import java.util.Collections;

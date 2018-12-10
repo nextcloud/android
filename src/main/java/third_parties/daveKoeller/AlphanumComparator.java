@@ -24,7 +24,7 @@
 
 package third_parties.daveKoeller;
 
-import com.owncloud.android.lib.resources.files.ServerFileInterface;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 
 import java.io.File;
 import java.io.Serializable;
@@ -34,17 +34,17 @@ import java.util.Comparator;
 
 /*
  * This is an updated version with enhancements made by Daniel Migowski, Andre Bogus, and David Koelle
- *  * 
+ *  *
  * To convert to use Templates (Java 1.5+):
  * - Change "implements Comparator" to "implements Comparator<String>"
  * - Change "compare(Object o1, Object o2)" to "compare(String s1, String s2)"
  * - Remove the type checking and casting in compare().
- * 
+ *
  * To use this class:
  * Use the static "sort" method from the java.util.Collections class:
  * Collections.sort(your list, new AlphanumComparator());
- * 
- * Adapted to fit 
+ *
+ * Adapted to fit
  * https://github.com/nextcloud/server/blob/9a4253ef7c34f9dc71a6a9f7828a10df769f0c32/tests/lib/NaturalSortTest.php
  * by Tobias Kaminsky
  */
@@ -155,7 +155,7 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
                 BigInteger thatChunkValue = new BigInteger(thatChunk.substring(0, countThat));
 
                 result = thisChunkValue.compareTo(thatChunkValue);
-                
+
                 if (result == 0) {
                     // value is equal, compare leading zeros
                     result = Integer.compare(thisChunkZeroCount, thatChunkZeroCount);

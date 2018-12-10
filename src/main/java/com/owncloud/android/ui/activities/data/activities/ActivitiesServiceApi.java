@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -19,7 +19,7 @@
 package com.owncloud.android.ui.activities.data.activities;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 
 import java.util.List;
 

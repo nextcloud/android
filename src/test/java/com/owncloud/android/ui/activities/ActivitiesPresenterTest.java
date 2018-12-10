@@ -20,7 +20,7 @@ package com.owncloud.android.ui.activities;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.BaseActivity;

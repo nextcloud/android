@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -33,9 +33,9 @@ import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -78,9 +78,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Locally cached information about folder to synchronize */
     private OCFile mLocalFolder;
 
-    /** Files and folders contained in the synchronized folder after a successful operation */
-    //private List<OCFile> mChildren;
-
     /** Counter of conflicts found between local and remote files */
     private int mConflictsFound;
 
@@ -113,19 +110,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mAccount = account;
         mContext = context;
         mRemoteFolderChanged = false;
-        mFilesForDirectDownload = new Vector<OCFile>();
-        mFilesToSyncContents = new Vector<SyncOperation>();
+        mFilesForDirectDownload = new Vector<>();
+        mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
     }
 
-
-    public int getConflictsFound() {
-        return mConflictsFound;
-    }
-
-    public int getFailsInFileSyncsFound() {
-        return mFailsInFileSyncsFound;
-    }
 
     /**
      * Performs the synchronization.
@@ -134,7 +123,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = null;
+        RemoteOperationResult result;
         mFailsInFileSyncsFound = 0;
         mConflictsFound = 0;
 
@@ -178,7 +167,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // remote request
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
+        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
         RemoteOperationResult result = operation.execute(client);
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
@@ -215,7 +204,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(mRemotePath);
+        ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
         RemoteOperationResult result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + mRemotePath);
 
@@ -253,8 +242,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * Synchronizes the data retrieved from the server about the contents of the target folder
      * with the current data in the local database.
      *
-     * Grants that mChildren is updated with fresh data after execution.
-     *
      * @param folderAndFiles Remote folder and children files in Folder
      */
     private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
@@ -284,9 +271,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // loop to synchronize every child
-        OCFile remoteFile = null;
-        OCFile localFile = null;
-        OCFile updatedFile = null;
+        OCFile remoteFile;
+        OCFile localFile;
+        OCFile updatedFile;
         RemoteFile r;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server

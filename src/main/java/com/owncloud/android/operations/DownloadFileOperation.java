@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -34,7 +34,7 @@ import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.DownloadFileRemoteOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -49,7 +49,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Remote mDownloadOperation performing the download of a file to an ownCloud server
  */
 public class DownloadFileOperation extends RemoteOperation {
-    
+
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
     private Account mAccount;
 
@@ -60,13 +60,13 @@ public class DownloadFileOperation extends RemoteOperation {
     private long mModificationTimestamp;
     private String mEtag = "";
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-    
-    private DownloadRemoteFileOperation mDownloadOperation;
+
+    private DownloadFileRemoteOperation mDownloadOperation;
     private String mActivityName;
     private String mPackageName;
 
 
-    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName, 
+    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
                                  String packageName, Context context) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
@@ -76,7 +76,7 @@ public class DownloadFileOperation extends RemoteOperation {
             throw new IllegalArgumentException("Illegal null file in DownloadFileOperation " +
                     "creation");
         }
-        
+
         mAccount = account;
         mFile = file;
         mBehaviour = behaviour;
@@ -89,7 +89,7 @@ public class DownloadFileOperation extends RemoteOperation {
     public Account getAccount() {
         return mAccount;
     }
-    
+
     public OCFile getFile() {
         return mFile;
     }
@@ -107,15 +107,15 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
     }
-    
+
     public String getTmpPath() {
         return FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
     }
-    
+
     public String getTmpFolder() {
         return FileStorageUtils.getTemporalPath(mAccount.name);
     }
-    
+
     public String getRemotePath() {
         return mFile.getRemotePath();
     }
@@ -138,11 +138,11 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         return mimeType;
     }
-    
+
     public long getSize() {
         return mFile.getFileLength();
     }
-    
+
     public long getModificationTimestamp() {
         return mModificationTimestamp > 0 ? mModificationTimestamp : mFile.getModificationTimestamp();
     }
@@ -168,14 +168,14 @@ public class DownloadFileOperation extends RemoteOperation {
         File tmpFile = new File(getTmpPath());
 
         String tmpFolder =  getTmpFolder();
-        
-        mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
+
+        mDownloadOperation = new DownloadFileRemoteOperation(mFile.getRemotePath(), tmpFolder);
         Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
         while (listener.hasNext()) {
             mDownloadOperation.addDatatransferProgressListener(listener.next());
         }
         result = mDownloadOperation.execute(client, client.useNextcloudUserAgent());
-        
+
         if (result.isSuccess()) {
             mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
             mEtag = mDownloadOperation.getEtag();
@@ -217,7 +217,7 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());
-        
+
         return result;
     }
 
@@ -234,7 +234,7 @@ public class DownloadFileOperation extends RemoteOperation {
             mDataTransferListeners.add(listener);
         }
     }
-    
+
     public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.remove(listener);

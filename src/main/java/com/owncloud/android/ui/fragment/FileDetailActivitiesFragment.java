@@ -54,10 +54,10 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
-import com.owncloud.android.lib.resources.activities.models.RichObject;
-import com.owncloud.android.lib.resources.files.FileVersion;
-import com.owncloud.android.lib.resources.files.ReadFileVersionsOperation;
+import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
+import com.owncloud.android.lib.resources.activities.model.RichObject;
+import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CommentFileOperation;
@@ -247,7 +247,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int visibleItemCount = recyclerView.getChildCount();
@@ -289,7 +289,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                 isLoadingActivities = true;
 
-                GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation(
+                GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation(
                         file.getLocalId());
 
                 if (pageUrl != null) {
@@ -301,7 +301,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
-                    ReadFileVersionsOperation readFileVersionsOperation = new ReadFileVersionsOperation(
+                    ReadFileVersionsRemoteOperation readFileVersionsOperation = new ReadFileVersionsRemoteOperation(
                             file.getLocalId(), userId);
 
                     RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);

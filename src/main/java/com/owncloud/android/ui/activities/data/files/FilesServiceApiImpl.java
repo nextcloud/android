@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -33,8 +33,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -80,8 +80,8 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                         getClientFor(ocAccount, MainApp.getAppContext());
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                 // always update file as it could be an old state saved in database
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(fileUrl);
-                RemoteOperationResult resultRemoteFileOp = operation.execute(ownCloudClient);
+                RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
+
                 if (resultRemoteFileOp.isSuccess()) {
                     OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
                     remoteOcFile = baseActivity.getStorageManager().saveFileWithParent(temp, context);

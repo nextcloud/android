@@ -20,7 +20,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.resources.files.CopyRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.CopyFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 
@@ -74,13 +74,7 @@ public class CopyFileOperation extends SyncOperation {
         if (mFile.isFolder()) {
             targetPath += OCFile.PATH_SEPARATOR;
         }
-        CopyRemoteFileOperation operation = new CopyRemoteFileOperation(
-                mSrcPath,
-                targetPath,
-                false
-        );
-
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = new CopyFileRemoteOperation(mSrcPath, targetPath, false).execute(client);
 
         /// 3. local copy
         if (result.isSuccess()) {

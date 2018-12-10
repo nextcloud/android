@@ -52,7 +52,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileVersion;
+import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
@@ -195,7 +195,7 @@ public class OperationsService extends Service {
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
 
-            Pair<Account, String> itemSyncKey =  new Pair<Account , String>(account, remotePath);
+            Pair<Account, String> itemSyncKey = new Pair<>(account, remotePath);
 
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
@@ -431,7 +431,7 @@ public class OperationsService extends Service {
 
             //Log_OC.e(TAG, "nextOperation init" );
 
-            Pair<Target, RemoteOperation> next = null;
+            Pair<Target, RemoteOperation> next;
             synchronized(mPendingOperations) {
                 next = mPendingOperations.peek();
             }
@@ -746,12 +746,7 @@ public class OperationsService extends Service {
             final OnRemoteOperationListener listener = listeners.next();
             final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
             if (handler != null) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        listener.onRemoteOperationFinish(operation, result);
-                    }
-                });
+                handler.post(() -> listener.onRemoteOperationFinish(operation, result));
                 count += 1;
             }
         }

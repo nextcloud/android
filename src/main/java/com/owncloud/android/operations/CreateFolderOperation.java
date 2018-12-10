@@ -27,9 +27,9 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
-import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -61,12 +61,11 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
-        RemoteOperationResult result = operation.execute(client, true);
+        RemoteOperationResult result = new CreateFolderRemoteOperation(mRemotePath, mCreateFullPath).execute(client);
 
         if (result.isSuccess()) {
-            ReadRemoteFolderOperation remoteFolderOperation = new ReadRemoteFolderOperation(mRemotePath);
-            RemoteOperationResult remoteFolderOperationResult = remoteFolderOperation.execute(client, true);
+            RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(mRemotePath)
+                .execute(client, true);
 
             createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
             saveFolderInDB();
@@ -79,7 +78,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation instanceof CreateRemoteFolderOperation) {
+        if (operation instanceof CreateFolderRemoteOperation) {
             onCreateRemoteFolderOperationFinish(result);
         }
     }

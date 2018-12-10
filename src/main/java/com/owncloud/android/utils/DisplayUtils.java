@@ -69,7 +69,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
@@ -463,7 +463,7 @@ public final class DisplayUtils {
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
-        String serverName = account.name.substring(account.name.lastIndexOf('@') + 1, account.name.length());
+        String serverName = account.name.substring(account.name.lastIndexOf('@') + 1);
         String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
         String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
@@ -589,14 +589,14 @@ public final class DisplayUtils {
                                 break;
                             case R.id.nav_bar_favorites:
                                 SearchEvent favoritesEvent = new SearchEvent("",
-                                        SearchOperation.SearchType.FAVORITE_SEARCH,
+                                    SearchRemoteOperation.SearchType.FAVORITE_SEARCH,
                                         SearchEvent.UnsetType.UNSET_DRAWER);
 
                                 switchToSearchFragment(activity, favoritesEvent);
                                 break;
                             case R.id.nav_bar_photos:
                                 SearchEvent photosEvent = new SearchEvent("image/%",
-                                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                                    SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
                                         SearchEvent.UnsetType.UNSET_DRAWER);
 
                                 switchToSearchFragment(activity, photosEvent);
