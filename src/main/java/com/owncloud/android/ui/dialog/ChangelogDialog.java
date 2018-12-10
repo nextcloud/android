@@ -22,11 +22,12 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.webkit.WebView;
 
 import com.owncloud.android.R;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 
 /**
@@ -40,7 +41,7 @@ public class ChangelogDialog extends DialogFragment {
 
     /**
      * Public factory method to get dialog instances.
-     * 
+     *
      * @param cancelable    If 'true', the dialog can be cancelled by the user input
      *                      (BACK button, touch outside...)
      * @return              New dialog instance, ready to show.
@@ -53,20 +54,20 @@ public class ChangelogDialog extends DialogFragment {
         return fragment;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        /// load the custom view to insert in the dialog, between title and 
+        /// load the custom view to insert in the dialog, between title and
         WebView webview = new WebView(getActivity());
         webview.loadUrl("file:///android_res/raw/" +
                 getResources().getResourceEntryName(R.raw.changelog) + ".html");
-        
+
         /// build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        
+
         Dialog dialog = builder.setView(webview)
                                 .setIcon(R.mipmap.ic_launcher)
                                 //.setTitle(R.string.whats_new)
@@ -77,11 +78,11 @@ public class ChangelogDialog extends DialogFragment {
                                         dialog.dismiss();
                                     }
                                 }).create();
-        
+
         dialog.setCancelable(getArguments().getBoolean(ARG_CANCELABLE));
         return dialog;
-    } 
-    
+    }
+
     /**
      * {@inheritDoc}
      *-/
@@ -92,13 +93,13 @@ public class ChangelogDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_changelog, container);
         mEditText = (EditText) view.findViewById(R.id.txt_your_name);
         getDialog().setTitle(R.string.whats_new);
-        
-        /// read full contents of the change log file (don't make it too big)
+
+    /// read full contents of the change log file (don't make it too big)
         InputStream changeLogStream = getResources().openRawResource(R.raw.changelog);
         Scanner scanner = new java.util.Scanner(changeLogStream).useDelimiter("\\A");
         String text = scanner.hasNext() ? scanner.next() : "";
-        
-        /// make clickable the links in the change log file
+
+    /// make clickable the links in the change log file
         SpannableString sText = new SpannableString(text);
         Linkify.addLinks(sText, Linkify.ALL);
 

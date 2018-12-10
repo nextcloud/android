@@ -53,7 +53,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/file_details_username_text_size" />
 
-        <android.support.v7.widget.AppCompatCheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/allowEditing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -181,7 +181,7 @@
             android:layout_height="1dp"
             android:background="@color/list_divider_background" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
             app:tabTextAppearance="@style/AppTabTextAppearance"
             android:background="@color/white" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"/>

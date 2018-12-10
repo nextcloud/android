@@ -32,8 +32,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,6 +65,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -181,7 +182,7 @@ public class ManageAccountsActivity extends FileActivity
         resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
         resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
         setResult(RESULT_OK, resultIntent);
-        
+
         super.onBackPressed();
     }
 
@@ -338,7 +339,7 @@ public class ManageAccountsActivity extends FileActivity
                     mDownloaderBinder.cancel(account);
                 }
             }
-            
+
             if (AccountUtils.getCurrentOwnCloudAccount(this) == null) {
                 String accountName = "";
                 Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));

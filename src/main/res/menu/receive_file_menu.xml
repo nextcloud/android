@@ -25,7 +25,7 @@
         android:contentDescription="@string/actionbar_search"
         android:icon="@drawable/ic_search"
         android:title="@string/actionbar_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_switch_account"

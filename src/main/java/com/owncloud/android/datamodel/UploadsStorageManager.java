@@ -26,7 +26,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.OCUpload;
@@ -39,6 +38,8 @@ import com.owncloud.android.operations.UploadFileOperation;
 
 import java.util.Calendar;
 import java.util.Observable;
+
+import androidx.annotation.Nullable;
 
 /**
  * Database helper for storing list of files to be uploaded, including status
@@ -343,7 +344,7 @@ public class UploadsStorageManager extends Observable {
 
         if (account != null) {
             return getUploads(
-                    ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
                             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -353,8 +354,7 @@ public class UploadsStorageManager extends Observable {
                             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                             " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
-            );
+                account.name);
         } else {
             return new OCUpload[0];
         }
@@ -375,7 +375,7 @@ public class UploadsStorageManager extends Observable {
                         "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                         " ) AND " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "!= " + UploadResult.VIRUS_DETECTED.getValue()
-                , new String[]{String.valueOf(UploadStatus.UPLOAD_FAILED.value)});
+            , String.valueOf(UploadStatus.UPLOAD_FAILED.value));
     }
 
     public OCUpload[] getFinishedUploadsForCurrentAccount() {
@@ -383,7 +383,7 @@ public class UploadsStorageManager extends Observable {
 
         if (account != null) {
             return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                    ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{account.name});
+                                  ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", account.name);
         } else {
             return new OCUpload[0];
         }
@@ -411,8 +411,7 @@ public class UploadsStorageManager extends Observable {
                             AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                             AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
-            );
+                              account.name);
         } else {
             return new OCUpload[0];
         }

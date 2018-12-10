@@ -24,7 +24,6 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import com.google.gson.reflect.TypeToken;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -43,6 +42,8 @@ import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * Remote operation performing the removal of a remote encrypted file or folder

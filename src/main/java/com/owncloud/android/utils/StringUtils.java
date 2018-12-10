@@ -20,11 +20,12 @@
 
 package com.owncloud.android.utils;
 
-import android.support.annotation.ColorInt;
 import android.text.TextUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.ColorInt;
 
 /**
  * Helper class for handling and manipulating strings.

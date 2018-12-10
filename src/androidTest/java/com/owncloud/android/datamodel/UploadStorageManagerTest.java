@@ -3,9 +3,6 @@ package com.owncloud.android.datamodel;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.owncloud.android.db.OCUpload;
 
@@ -16,6 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 /**
  * Created by JARP on 6/7/17.

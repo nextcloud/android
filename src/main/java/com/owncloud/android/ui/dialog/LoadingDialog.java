@@ -21,8 +21,6 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +31,13 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+
 public class LoadingDialog extends DialogFragment {
 
     private String mMessage;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class LoadingDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create a view by inflating desired layout
         View v = inflater.inflate(R.layout.loading_dialog, container,  false);
-        
+
         // set value
         TextView tv = v.findViewById(R.id.loadingText);
         tv.setText(mMessage);
@@ -63,7 +64,7 @@ public class LoadingDialog extends DialogFragment {
         ProgressBar progressBar = v.findViewById(R.id.loadingBar);
         progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
-        
+
         return v;
     }
 

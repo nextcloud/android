@@ -1,19 +1,19 @@
 /*
  * Nextcloud Android client application
- * 
+ *
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud.
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,7 +23,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.ExternalLink;
@@ -32,6 +31,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Database provider for handling the persistence aspects of {@link com.owncloud.android.lib.common.ExternalLink}s.

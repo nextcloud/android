@@ -122,7 +122,7 @@
                 android:text="@string/share_no_users"
                 android:textSize="@dimen/share_file_layout_text_size"/>
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addUserButton"
                 style="@style/ownCloud.Button"
                 android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             android:paddingRight="@dimen/standard_padding"
             >
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/shareViaLinkSectionSwitch"
                 style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     android:layout_marginBottom="@dimen/standard_half_margin"
                     >
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/shareViaLinkEditPermissionSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                     android:layout_marginBottom="@dimen/standard_half_margin"
                     >
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/shareViaLinkFileListingPermissionSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/shareViaLinkPasswordSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -290,7 +290,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/shareViaLinkExpirationSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -333,7 +333,7 @@
 
                 </RelativeLayout>
 
-                <android.support.v7.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/shareViaLinkGetLinkButton"
                     style="@style/ownCloud.Button"
                     android:layout_width="match_parent"

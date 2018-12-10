@@ -24,12 +24,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.v4.app.NotificationCompat;
 
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Random;
 
+import androidx.core.app.NotificationCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class NotificationUtils {
@@ -47,12 +47,12 @@ public final class NotificationUtils {
     }
 
     /**
-     * Factory method for {@link android.support.v4.app.NotificationCompat.Builder} instances.
+     * Factory method for {@link androidx.core.app.NotificationCompat.Builder} instances.
      *
      * Not strictly needed from the moment when the minimum API level supported by the app
      * was raised to 14 (Android 4.0).
      *
-     * Formerly, returned a customized implementation of {@link android.support.v4.app.NotificationCompat.Builder}
+     * Formerly, returned a customized implementation of {@link androidx.core.app.NotificationCompat.Builder}
      * for Android API levels >= 8 and < 14.
      *
      * Kept in place for the extra abstraction level; notifications in the app need a review, and they
@@ -68,18 +68,18 @@ public final class NotificationUtils {
     @SuppressFBWarnings("DMI")
     public static void cancelWithDelay(final NotificationManager notificationManager, final int notificationId,
                                        long delayInMillis) {
-    
+
         HandlerThread thread = new HandlerThread(
                 "NotificationDelayerThread_" + (new Random(System.currentTimeMillis())).nextInt(),
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
-        
-        Handler handler = new Handler(thread.getLooper()); 
-        handler.postDelayed(new Runnable() { 
-             public void run() { 
+
+        Handler handler = new Handler(thread.getLooper());
+        handler.postDelayed(new Runnable() {
+            public void run() {
                  notificationManager.cancel(notificationId);
                  ((HandlerThread)Thread.currentThread()).getLooper().quit();
-             } 
+            }
         }, delayInMillis);
     }
 }

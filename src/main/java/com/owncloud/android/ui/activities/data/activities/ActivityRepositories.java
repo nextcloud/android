@@ -18,7 +18,7 @@
  */
 package com.owncloud.android.ui.activities.data.activities;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class ActivityRepositories {
 

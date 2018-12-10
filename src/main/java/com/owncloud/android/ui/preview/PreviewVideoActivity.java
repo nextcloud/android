@@ -29,7 +29,6 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -39,6 +38,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  *  Activity implementing a basic video player.

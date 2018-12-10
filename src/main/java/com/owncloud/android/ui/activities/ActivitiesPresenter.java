@@ -19,9 +19,6 @@
 
 package com.owncloud.android.ui.activities;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
@@ -29,6 +26,9 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.BaseActivity;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
 

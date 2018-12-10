@@ -22,7 +22,6 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * This Adapter populates a ListView with all accounts within the app.
@@ -135,7 +136,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         } else {
             actionView.setOnClickListener(v -> mListener.createAccount());
         }
-        
+
         return actionView;
     }
 

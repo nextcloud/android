@@ -24,13 +24,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 
 public class IndeterminateProgressDialog extends DialogFragment {
@@ -41,7 +42,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
 
     /**
      * Public factory method to get dialog instances.
-     * 
+     *
      * @param messageId     Resource id for a message to show in the dialog.
      * @param cancelable    If 'true', the dialog can be cancelled by the user input (BACK button, touch outside...)
      * @return              New dialog instance, ready to show.
@@ -56,7 +57,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
         return fragment;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -75,7 +76,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
 
             }
         });
-        
+
         /// set message
         int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
         progressDialog.setMessage(getString(messageId));
@@ -96,10 +97,10 @@ public class IndeterminateProgressDialog extends DialogFragment {
             };
             progressDialog.setOnKeyListener(keyListener);
         }
-        
+
         return progressDialog;
-    }    
-    
+    }
+
 }
 
 

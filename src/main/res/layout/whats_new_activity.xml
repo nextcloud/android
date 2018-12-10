@@ -37,12 +37,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/primary_button_text_color"/>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/contentPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="82">
-    </android.support.v4.view.ViewPager>
+        android:layout_weight="82"></androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +54,7 @@
         android:orientation="horizontal"
         android:weightSum="3">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/skip"
             style="@style/Button.Borderless.Login"
             android:layout_width="0dp"
