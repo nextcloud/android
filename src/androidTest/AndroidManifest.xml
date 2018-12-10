@@ -25,8 +25,8 @@
     the normal release/debug builds.
 -->
 
-<manifest
-    package="${applicationId}.test"
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18"/>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="${applicationId}.test">
+
+    <uses-sdk tools:overrideLibrary="android_libs.ub_uiautomator" />
 </manifest>
