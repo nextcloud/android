@@ -27,9 +27,9 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.PermissionUtil;
@@ -185,8 +185,8 @@ public final class MediaProvider {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
             cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
                     null, null, null);
-        } 
-        
+        }
+
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 

@@ -22,7 +22,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -40,6 +39,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * <p>Helper class for detecting the right icon for a file or folder,

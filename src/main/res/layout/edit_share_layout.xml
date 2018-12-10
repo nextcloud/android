@@ -52,7 +52,7 @@
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin">
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/share_privilege_can_edit"
@@ -63,7 +63,7 @@
             style="@style/TextAppearance.AppCompat.Body2"
             />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditCreateCheckBox"
@@ -71,7 +71,7 @@
             android:visibility="gone"
             />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditChangeCheckBox"
@@ -79,7 +79,7 @@
             android:visibility="gone"
             />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditDeleteCheckBox"
@@ -87,7 +87,7 @@
             android:visibility="gone"
             />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/share_privilege_can_share"

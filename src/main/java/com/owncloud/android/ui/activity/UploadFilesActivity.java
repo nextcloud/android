@@ -30,17 +30,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,6 +58,18 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Displays local files and let the user choose what of them wants to upload
@@ -247,10 +248,10 @@ public class UploadFilesActivity extends FileActivity implements
         int fontColor = ThemeUtils.fontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        EditText editText = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText editText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
-        ImageView searchClose = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        ImageView searchClose = mSearchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(fontColor);
 
 
@@ -328,7 +329,7 @@ public class UploadFilesActivity extends FileActivity implements
         if (mSearchView == null) {
             return false;
         } else {
-            View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+            View mSearchEditFrame = mSearchView.findViewById(androidx.appcompat.R.id.search_edit_frame);
             return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
         }
     }

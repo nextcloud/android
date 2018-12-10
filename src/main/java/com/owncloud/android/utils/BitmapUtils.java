@@ -26,9 +26,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.media.ExifInterface;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -37,6 +34,10 @@ import org.apache.commons.codec.binary.Hex;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.exifinterface.media.ExifInterface;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -81,12 +82,12 @@ public final class BitmapUtils {
 
 
     /**
-     * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing 
+     * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing
      * the memory overload and covering a target surface of reqWidth x reqHeight if the original
-     * image is big enough. 
+     * image is big enough.
      *
      * @param options       Bitmap decoding options; options.outHeight and options.inHeight should
-     *                      be set. 
+     *                      be set.
      * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
      * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
      * @return The largest inSampleSize value that is a power of 2 and keeps both
@@ -128,12 +129,12 @@ public final class BitmapUtils {
         int h = Math.round(scale * height);
         return Bitmap.createScaledBitmap(bitmap, w, h, true);
     }
-    
+
     /**
-     * Rotate bitmap according to EXIF orientation. 
-     * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
+     * Rotate bitmap according to EXIF orientation.
+     * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
      * @param bitmap Bitmap to be rotated
-     * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
+     * @param storagePath Path to source file of bitmap. Needed for EXIF information.
      * @return correctly EXIF-rotated bitmap
      */
     public static Bitmap rotateImage(Bitmap bitmap, String storagePath) {
@@ -371,7 +372,7 @@ public final class BitmapUtils {
         if (bitmap == null) {
             return null;
         }
-        
+
         RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
         roundedBitmap.setCircular(true);
         return roundedBitmap;

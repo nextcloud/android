@@ -26,12 +26,11 @@
               android:orientation="vertical"
               android:padding="@dimen/standard_padding">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
 
     <EditText
         android:id="@+id/filename"

@@ -22,8 +22,6 @@
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -48,6 +46,9 @@ import org.apache.commons.httpclient.ConnectTimeoutException;
 
 import java.io.File;
 import java.net.SocketTimeoutException;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Class to choose proper error messages to show to the user depending on the results of operations,

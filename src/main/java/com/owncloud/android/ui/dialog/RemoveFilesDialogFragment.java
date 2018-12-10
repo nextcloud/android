@@ -22,7 +22,6 @@ package com.owncloud.android.ui.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.ActionMode;
 
 import com.owncloud.android.R;
@@ -33,6 +32,8 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import androidx.annotation.NonNull;
 
 /**
  *  Dialog requiring confirmation before removing a collection of given OCFiles.
@@ -63,7 +64,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
     /**
      * Public factory method to create new RemoveFilesDialogFragment instances.
-     * 
+     *
      * @param files           Files to remove.
      * @return                Dialog ready to show.
      */
@@ -109,7 +110,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
-        
+
         return frag;
     }
 
@@ -132,7 +133,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
         int color = ThemeUtils.primaryAccentColor(getActivity());
 
-        android.support.v7.app.AlertDialog alertDialog = (android.support.v7.app.AlertDialog) getDialog();
+        androidx.appcompat.app.AlertDialog alertDialog = (androidx.appcompat.app.AlertDialog) getDialog();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
@@ -144,11 +145,11 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         mTargetFiles = getArguments().getParcelableArrayList(ARG_TARGET_FILES);
-        
+
         setOnConfirmationListener(this);
-        
+
         return dialog;
-    }    
+    }
 
     /**
      * Performs the removal of the target file, both locally and in the server and
@@ -160,7 +161,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         cg.getFileOperationsHelper().removeFiles(mTargetFiles, false, false);
         finishActionMode();
     }
-    
+
     /**
      * Performs the removal of the local copy of the target file
      */

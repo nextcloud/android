@@ -27,7 +27,6 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.BitmapUtils;
@@ -36,6 +35,8 @@ import com.owncloud.android.utils.NextcloudServer;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 /**
  * A Drawable object that draws text (1 character) on top of a circular/filled background.

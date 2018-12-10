@@ -68,7 +68,7 @@
             android:paddingEnd="@dimen/zero"
             android:paddingTop="@dimen/standard_padding">
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sync_enabled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                     android:paddingRight="@dimen/zero"
                     android:paddingEnd="@dimen/zero">
 
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_on_wifi_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -305,7 +305,7 @@
                     android:paddingRight="@dimen/zero"
                     android:paddingEnd="@dimen/zero">
 
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_on_charging_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -368,7 +368,7 @@
                     android:paddingRight="@dimen/zero"
                     android:paddingEnd="@dimen/zero">
 
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_path_use_subfolders_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -420,7 +420,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/delete"
             style="@style/Button.Borderless.Destructive"
             android:layout_width="wrap_content"
@@ -435,14 +435,14 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cancel"
                 style="@style/Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/common_cancel"/>
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/save"
                 style="@style/Button.Borderless"
                 android:layout_width="wrap_content"

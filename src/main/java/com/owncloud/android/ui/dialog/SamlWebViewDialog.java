@@ -27,9 +27,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +42,10 @@ import com.owncloud.android.authentication.SsoWebViewClient;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 
 /**
  * Dialog to show the WebView for SAML Authentication
@@ -55,10 +56,10 @@ public class SamlWebViewDialog extends DialogFragment {
 
     private static final String ARG_INITIAL_URL = "INITIAL_URL";
     private static final String ARG_TARGET_URL = "TARGET_URL";
-    
+
     private WebView mSsoWebView;
     private SsoWebViewClient mWebViewClient;
-    
+
     private String mInitialUrl;
     private String mTargetUrl;
 
@@ -80,7 +81,7 @@ public class SamlWebViewDialog extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     public void onAttach(Activity activity) {
         Log_OC.v(TAG, "onAttach");
@@ -89,22 +90,22 @@ public class SamlWebViewDialog extends DialogFragment {
             mSsoWebViewClientListener = (SsoWebViewClientListener) activity;
             Handler mHandler = new Handler();
             mWebViewClient = new SsoWebViewClient(activity, mHandler, mSsoWebViewClientListener);
-            
-       } catch (ClassCastException e) {
+
+        } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     SsoWebViewClientListener.class.getSimpleName());
         }
     }
 
-    
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate, savedInstanceState is " + savedInstanceState);
         super.onCreate(savedInstanceState);
-        
+
         setRetainInstance(true);
-        
+
         CookieSyncManager.createInstance(getActivity().getApplicationContext());
 
         if (savedInstanceState == null) {
@@ -114,28 +115,28 @@ public class SamlWebViewDialog extends DialogFragment {
             mInitialUrl = savedInstanceState.getString(ARG_INITIAL_URL);
             mTargetUrl = savedInstanceState.getString(ARG_TARGET_URL);
         }
-        
+
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_ownCloud_Dialog);
     }
-    
+
     @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
-        
-        // Inflate layout of the dialog  
+
+        // Inflate layout of the dialog
         RelativeLayout ssoRootView = (RelativeLayout) inflater.inflate(R.layout.sso_dialog,
                 container, false);  // null parent view because it will go in the dialog layout
-        
+
         if (mSsoWebView == null) {
             // initialize the WebView
             mSsoWebView = new SsoWebView(getActivity().getApplicationContext());
             mSsoWebView.setFocusable(true);
             mSsoWebView.setFocusableInTouchMode(true);
             mSsoWebView.setClickable(true);
-            
+
             WebSettings webSettings = mSsoWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
@@ -154,13 +155,13 @@ public class SamlWebViewDialog extends DialogFragment {
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeAllCookie();
-            
+
             mSsoWebView.loadUrl(mInitialUrl);
         }
-        
+
         mWebViewClient.setTargetUrl(mTargetUrl);
         mSsoWebView.setWebViewClient(mWebViewClient);
-        
+
         // add the webview into the layout
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -168,7 +169,7 @@ public class SamlWebViewDialog extends DialogFragment {
                 );
         ssoRootView.addView(mSsoWebView, layoutParams);
         ssoRootView.requestLayout();
-        
+
         return ssoRootView;
     }
 
@@ -176,7 +177,7 @@ public class SamlWebViewDialog extends DialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         Log_OC.v(TAG, "onSaveInstanceState being CALLED");
         super.onSaveInstanceState(outState);
-        
+
         // save URLs
         outState.putString(ARG_INITIAL_URL, mInitialUrl);
         outState.putString(ARG_TARGET_URL, mTargetUrl);
@@ -189,18 +190,18 @@ public class SamlWebViewDialog extends DialogFragment {
         if (mSsoWebView.getParent() != null) {
             ((ViewGroup)mSsoWebView.getParent()).removeView(mSsoWebView);
         }
-        
+
         mSsoWebView.setWebViewClient(null);
-        
+
         // Work around bug: http://code.google.com/p/android/issues/detail?id=17423
         Dialog dialog = getDialog();
         if (dialog != null) {
             dialog.setOnDismissListener(null);
         }
-        
+
         super.onDestroyView();
     }
-    
+
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "onDestroy");
@@ -214,19 +215,19 @@ public class SamlWebViewDialog extends DialogFragment {
         mWebViewClient = null;
         super.onDetach();
     }
-    
+
     @Override
     public void onCancel (DialogInterface dialog) {
         Log_OC.d(TAG, "onCancel");
         super.onCancel(dialog);
     }
-    
+
     @Override
     public void onDismiss (DialogInterface dialog) {
         Log_OC.d(TAG, "onDismiss");
         super.onDismiss(dialog);
     }
-    
+
     @Override
     public void onStart() {
         Log_OC.v(TAG, "onStart");
@@ -252,7 +253,7 @@ public class SamlWebViewDialog extends DialogFragment {
         mSsoWebView.onPause();
         super.onPause();
     }
-    
+
     @Override
     public int show (FragmentTransaction transaction, String tag) {
         Log_OC.v(TAG, "show (transaction)");
@@ -264,5 +265,5 @@ public class SamlWebViewDialog extends DialogFragment {
         Log_OC.v(TAG, "show (manager)");
         super.show(manager, tag);
     }
-    
+
 }

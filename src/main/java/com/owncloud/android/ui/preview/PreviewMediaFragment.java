@@ -38,9 +38,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,6 +74,10 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 
 /**
@@ -382,7 +383,7 @@ public class PreviewMediaFragment extends FileFragment implements
             mf.filter(menu, true);
         }
 
-        // additional restriction for this fragment 
+        // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         MenuItem item = menu.findItem(R.id.action_rename_file);
         if (item != null) {
@@ -501,7 +502,7 @@ public class PreviewMediaFragment extends FileFragment implements
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
 
-        // load the video file in the video player 
+        // load the video file in the video player
         // when done, VideoHelper#onPrepared() will be called
         if (getFile().isDown()) {
             mVideoPreview.setVideoURI(getFile().getStorageUri());

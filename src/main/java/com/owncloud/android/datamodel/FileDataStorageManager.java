@@ -33,7 +33,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
@@ -63,6 +62,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import androidx.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 

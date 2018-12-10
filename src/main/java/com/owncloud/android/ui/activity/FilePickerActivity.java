@@ -22,13 +22,14 @@
 package com.owncloud.android.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.FileSortOrder;
+
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * File picker of remote files

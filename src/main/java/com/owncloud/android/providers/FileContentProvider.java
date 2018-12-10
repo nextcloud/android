@@ -40,7 +40,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
@@ -58,6 +57,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 /**
  * The ContentProvider for the ownCloud App.

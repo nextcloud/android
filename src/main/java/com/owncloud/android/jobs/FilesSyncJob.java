@@ -27,8 +27,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
-import android.support.media.ExifInterface;
 import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
@@ -57,6 +55,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import androidx.annotation.NonNull;
+import androidx.exifinterface.media.ExifInterface;
 
 /*
     Job that:

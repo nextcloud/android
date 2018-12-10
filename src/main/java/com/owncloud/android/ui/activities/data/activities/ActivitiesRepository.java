@@ -18,11 +18,11 @@
  */
 package com.owncloud.android.ui.activities.data.activities;
 
-import android.support.annotation.NonNull;
-
 import com.owncloud.android.lib.common.OwnCloudClient;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Main entry point for accessing activities data.
