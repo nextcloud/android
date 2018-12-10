@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -66,7 +67,6 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.RestoreFileVersionOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -708,8 +708,8 @@ public class OperationsService extends Service {
                     case ACTION_RESTORE_VERSION:
                         FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
                         String userId = operationIntent.getStringExtra(EXTRA_USER_ID);
-                        operation = new RestoreFileVersionOperation(fileVersion.getRemoteId(),
-                                fileVersion.getFileName(), userId);
+                        operation = new RestoreFileVersionRemoteOperation(fileVersion.getRemoteId(),
+                                                                          fileVersion.getFileName(), userId);
                         break;
 
                     default:
