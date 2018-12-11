@@ -50,6 +50,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
+import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -359,7 +360,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     public void markCommentsAsRead() {
         new Thread(() -> {
             if (file.getUnreadCommentsCount() > 0) {
-                MarkCommentsAsReadOperation unreadOperation = new MarkCommentsAsReadOperation(file.getLocalId());
+                MarkCommentsAsReadRemoteOperation unreadOperation = new MarkCommentsAsReadRemoteOperation(
+                    file.getLocalId());
                 RemoteOperationResult remoteOperationResult = unreadOperation.execute(ownCloudClient);
 
                 if (remoteOperationResult.isSuccess()) {

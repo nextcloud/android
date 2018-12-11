@@ -13,7 +13,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  
+
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
@@ -56,6 +56,21 @@
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/shared_via_link"
             android:contentDescription="@string/shared_icon_shared_via_link"/>
+
+        <ImageView
+            android:id="@+id/unreadComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/unread_comments"
+            android:focusable="true"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
+            android:layout_marginRight="@dimen/standard_quarter_margin"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
+            android:alpha="0.3"
+            android:src="@drawable/ic_comment"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/localFileIndicator"
