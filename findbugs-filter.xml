@@ -8,4 +8,5 @@
     <Match>
         <Class name="~.*\.R\$.*"/>
     </Match>
+    <Bug pattern="PATH_TRAVERSAL_IN" />
 </FindBugsFilter>
