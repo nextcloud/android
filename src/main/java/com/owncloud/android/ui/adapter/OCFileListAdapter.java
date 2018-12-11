@@ -506,7 +506,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void showShareIcon(OCFileListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.shared;
 
-        if (gridViewHolder instanceof OCFileListItemViewHolder) {
+        if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
             sharedIconView.setVisibility(View.VISIBLE);
 
             if (file.isSharedWithSharee() || file.isSharedWithMe()) {
@@ -852,7 +852,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final ImageView localFileIndicator;
         private final ImageView shared;
         private final ImageView checkbox;
-        protected final ImageView unreadComments;
+        final ImageView unreadComments;
         private final LinearLayout itemLayout;
 
         private OCFileListGridImageViewHolder(View itemView) {
