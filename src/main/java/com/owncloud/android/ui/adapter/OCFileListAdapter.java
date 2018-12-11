@@ -293,16 +293,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         ocFileListFragmentInterface.onLongItemClicked(file));
             }
 
+            // unread comments
+            if (file.getUnreadCommentsCount() > 0) {
+                gridViewHolder.unreadComments.setVisibility(View.VISIBLE);
+                gridViewHolder.unreadComments.setOnClickListener(view -> ocFileListFragmentInterface
+                    .showActivityDetailView(file));
+            } else {
+                gridViewHolder.unreadComments.setVisibility(View.GONE);
+            }
+
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
-
-                if (file.getUnreadCommentsCount() > 0) {
-                    itemViewHolder.unreadComments.setVisibility(View.VISIBLE);
-                    itemViewHolder.unreadComments.setOnClickListener(view ->
-                            ocFileListFragmentInterface.showActivityDetailView(file));
-                } else {
-                    itemViewHolder.unreadComments.setVisibility(View.GONE);
-                }
 
                 if (onlyOnDevice) {
                     File localFile = new File(file.getStoragePath());
@@ -504,19 +505,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void showShareIcon(OCFileListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.shared;
-        sharedIconView.setVisibility(View.VISIBLE);
 
-        if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-            sharedIconView.setImageResource(R.drawable.shared_via_users);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
-        } else if (file.isSharedViaLink()) {
-            sharedIconView.setImageResource(R.drawable.shared_via_link);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
+        if (gridViewHolder instanceof OCFileListItemViewHolder) {
+            sharedIconView.setVisibility(View.VISIBLE);
+
+            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+                sharedIconView.setImageResource(R.drawable.shared_via_users);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
+            } else if (file.isSharedViaLink()) {
+                sharedIconView.setImageResource(R.drawable.shared_via_link);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
+            } else {
+                sharedIconView.setImageResource(R.drawable.ic_unshared);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
+            }
+            sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {
-            sharedIconView.setImageResource(R.drawable.ic_unshared);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
+            sharedIconView.setVisibility(View.GONE);
         }
-        sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
     }
 
     /**
@@ -819,7 +825,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final TextView fileSize;
         private final TextView lastModification;
         private final ImageView overflowMenu;
-        private final ImageView unreadComments;
 
         private OCFileListItemViewHolder(View itemView) {
             super(itemView);
@@ -827,7 +832,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             fileSize = itemView.findViewById(R.id.file_size);
             lastModification = itemView.findViewById(R.id.last_mod);
             overflowMenu = itemView.findViewById(R.id.overflow_menu);
-            unreadComments = itemView.findViewById(R.id.unreadComments);
         }
     }
 
@@ -848,6 +852,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final ImageView localFileIndicator;
         private final ImageView shared;
         private final ImageView checkbox;
+        protected final ImageView unreadComments;
         private final LinearLayout itemLayout;
 
         private OCFileListGridImageViewHolder(View itemView) {
@@ -859,6 +864,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             localFileIndicator = itemView.findViewById(R.id.localFileIndicator);
             shared = itemView.findViewById(R.id.sharedIcon);
             checkbox = itemView.findViewById(R.id.custom_checkbox);
+            unreadComments = itemView.findViewById(R.id.unreadComments);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
         }
     }
