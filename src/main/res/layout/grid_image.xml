@@ -70,8 +70,7 @@
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
             android:focusable="true"
-            android:alpha="0.3"
-            android:src="@drawable/ic_comment"
+            android:src="@drawable/ic_comment_grid"
             android:visibility="gone" />
 
         <ImageView
