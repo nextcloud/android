@@ -79,7 +79,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/upload_files_btn_cancel"
-            android:theme="@style/Button"
+            android:theme="@style/OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
