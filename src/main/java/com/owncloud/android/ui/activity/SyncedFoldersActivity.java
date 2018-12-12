@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -698,7 +699,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private void showBatteryOptimizationInfo() {
 
-        boolean isSpecialManufacturer = SPECIAL_MANUFACTURER.contains(Build.MANUFACTURER.toLowerCase());
+        boolean isSpecialManufacturer = SPECIAL_MANUFACTURER.contains(Build.MANUFACTURER.toLowerCase(Locale.ROOT));
 
         if ((isSpecialManufacturer && checkIfBatteryOptimizationEnabled()) || checkIfBatteryOptimizationEnabled()) {
             AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
@@ -707,6 +708,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 .setPositiveButton(getString(R.string.battery_optimization_disable), (dialog, which) -> {
                     // show instant upload
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        @SuppressLint("BatteryLife")
                         Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
                                                    Uri.parse("package:" + BuildConfig.APPLICATION_ID));
 
