@@ -164,7 +164,6 @@
             android:paddingLeft="@dimen/standard_half_padding"
             android:paddingRight="@dimen/list_item_share_right_margin"
             android:paddingStart="@dimen/standard_half_padding"
-            android:alpha="0.3"
             android:src="@drawable/ic_comment"
             android:visibility="gone"/>
 
