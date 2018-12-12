@@ -19,7 +19,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- General ownCloud app style -->
-	<style name="Theme.ownCloud" parent="Theme.MaterialComponents.Light.DarkActionBar">
+	<style name="Theme.ownCloud" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 		<item name="actionModeBackground">@color/action_mode_background</item>
@@ -34,7 +34,7 @@
         <item name="fontFamily">@font/nunito_regular</item>
 	</style>
 
-	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
@@ -56,7 +56,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -119,6 +119,11 @@
 		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
 
+    <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="colorAccent">@color/transparent</item>
+        <item name="android:textColor">@color/primary_dark</item>
+    </style>
+
 	<style name="Button.Primary" parent="Button">
 		<item name="colorButtonNormal">@color/primary_button_background_color</item>
 		<item name="android:textColor">@color/primary_button_text_color</item>
@@ -180,7 +185,7 @@
 
 
 	<style name="Theme.ownCloud.Widget.ActionBar"
-		parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
+		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
 		<item name="android:background">@color/primary</item>
 		<item name="background">@color/primary</item>
     	<item name="android:textColor">#ffffff</item>
