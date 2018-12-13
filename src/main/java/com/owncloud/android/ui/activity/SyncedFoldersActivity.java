@@ -701,7 +701,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         boolean isSpecialManufacturer = SPECIAL_MANUFACTURER.contains(Build.MANUFACTURER.toLowerCase(Locale.ROOT));
 
-        if ((isSpecialManufacturer && checkIfBatteryOptimizationEnabled()) || checkIfBatteryOptimizationEnabled()) {
+        if (isSpecialManufacturer && checkIfBatteryOptimizationEnabled() || checkIfBatteryOptimizationEnabled()) {
             AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
