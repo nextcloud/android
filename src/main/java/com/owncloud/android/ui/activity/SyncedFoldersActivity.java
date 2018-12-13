@@ -22,10 +22,15 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +43,7 @@ import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -72,12 +78,14 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS;
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
 
@@ -88,6 +96,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
 
     public static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
+    public static final List<String> SPECIAL_MANUFACTURER = Arrays.asList("Samsung", "Huawei", "Xiaomi");
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
@@ -511,6 +520,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         if (syncedFolderDisplayItem.isEnabled()) {
             FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem);
+
+            showBatteryOptimizationInfo();
         } else {
             String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolderDisplayItem.getId();
             arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
@@ -601,6 +612,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         mSyncedFolderPreferencesDialogFragment = null;
+
+        if (syncedFolder.getEnabled()) {
+            showBatteryOptimizationInfo();
+        }
     }
 
     @Override
@@ -680,5 +695,62 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         super.onResume();
 
         setDrawerMenuItemChecked(R.id.nav_synced_folders);
+    }
+
+    private void showBatteryOptimizationInfo() {
+
+        boolean isSpecialManufacturer = SPECIAL_MANUFACTURER.contains(Build.MANUFACTURER.toLowerCase(Locale.ROOT));
+
+        if (isSpecialManufacturer && checkIfBatteryOptimizationEnabled() || checkIfBatteryOptimizationEnabled()) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                .setTitle(getString(R.string.battery_optimization_title))
+                .setMessage(getString(R.string.battery_optimization_message))
+                .setPositiveButton(getString(R.string.battery_optimization_disable), (dialog, which) -> {
+                    // show instant upload
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        @SuppressLint("BatteryLife")
+                        Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                                   Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    } else {
+                        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                        if (getPackageManager().resolveActivity(powerUsageIntent, 0) != null) {
+                            startActivity(powerUsageIntent);
+                        } else {
+                            dialog.dismiss();
+                            DisplayUtils.showSnackMessage(this, getString(R.string.battery_optimization_no_setting));
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
+                .setIcon(R.drawable.ic_battery_alert)
+                .show();
+
+            int color = ThemeUtils.primaryAccentColor(this);
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        }
+    }
+
+    /**
+     * Check if battery optimization is enabled. If unknown, fallback to true.
+     *
+     * @return true if battery optimization is enabled
+     */
+    private boolean checkIfBatteryOptimizationEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
+            if (powerManager == null) {
+                return true;
+            }
+
+            return !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID);
+        } else {
+            return true;
+        }
     }
 }
