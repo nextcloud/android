@@ -77,25 +77,22 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private long lastSyncDateForProperties;
     @Getter @Setter private long lastSyncDateForData;
     @Getter @Setter private boolean availableOffline;
-    @Getter
-    @Setter
-    private boolean previewAvailable;
+    @Getter @Setter private boolean previewAvailable;
     @Getter private String etag;
     @Getter @Setter private boolean sharedViaLink;
     @Getter @Setter private String publicLink;
     @Getter @Setter private String permissions;
-    @Getter
-    @Setter
-    private String remoteId; // The fileid namespaced by the instance fileId, globally unique
+    @Getter @Setter private String remoteId; // The fileid namespaced by the instance fileId, globally unique
     @Getter @Setter private boolean updateThumbnailNeeded;
     @Getter @Setter private boolean downloading;
-    @Getter
-    @Setter
-    private String etagInConflict; // Only saves file etag in the server, when there is a conflict
+    @Getter @Setter private String etagInConflict; // Only saves file etag in the server, when there is a conflict
     @Getter @Setter private boolean sharedWithSharee;
     @Getter @Setter private boolean favorite;
     @Getter @Setter private boolean encrypted;
     @Getter @Setter private WebdavEntry.MountType mountType;
+    @Getter
+    @Setter
+    private int unreadCommentsCount;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call

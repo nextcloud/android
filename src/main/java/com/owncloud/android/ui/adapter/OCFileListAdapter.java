@@ -181,6 +181,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
+    public void refreshCommentsCount(String fileId) {
+        for (OCFile file : mFiles) {
+            if (file.getRemoteId().equals(fileId)) {
+                file.setUnreadCommentsCount(0);
+                break;
+            }
+        }
+
+        for (OCFile file : mFilesAll) {
+            if (file.getRemoteId().equals(fileId)) {
+                file.setUnreadCommentsCount(0);
+                break;
+            }
+        }
+
+        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+    }
+
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
         int filesSize = mFiles.size();
         for (int i = 0; i < filesSize; i++) {
@@ -273,6 +291,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.itemLayout.setLongClickable(true);
                 gridViewHolder.itemLayout.setOnLongClickListener(v ->
                         ocFileListFragmentInterface.onLongItemClicked(file));
+            }
+
+            // unread comments
+            if (file.getUnreadCommentsCount() > 0) {
+                gridViewHolder.unreadComments.setVisibility(View.VISIBLE);
+                gridViewHolder.unreadComments.setOnClickListener(view -> ocFileListFragmentInterface
+                    .showActivityDetailView(file));
+            } else {
+                gridViewHolder.unreadComments.setVisibility(View.GONE);
             }
 
             if (holder instanceof OCFileListItemViewHolder) {
@@ -478,19 +505,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void showShareIcon(OCFileListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.shared;
-        sharedIconView.setVisibility(View.VISIBLE);
 
-        if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-            sharedIconView.setImageResource(R.drawable.shared_via_users);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
-        } else if (file.isSharedViaLink()) {
-            sharedIconView.setImageResource(R.drawable.shared_via_link);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
+        if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
+            sharedIconView.setVisibility(View.VISIBLE);
+
+            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+                sharedIconView.setImageResource(R.drawable.shared_via_users);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
+            } else if (file.isSharedViaLink()) {
+                sharedIconView.setImageResource(R.drawable.shared_via_link);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
+            } else {
+                sharedIconView.setImageResource(R.drawable.ic_unshared);
+                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
+            }
+            sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {
-            sharedIconView.setImageResource(R.drawable.ic_unshared);
-            sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
+            sharedIconView.setVisibility(View.GONE);
         }
-        sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
     }
 
     /**
@@ -820,6 +852,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final ImageView localFileIndicator;
         private final ImageView shared;
         private final ImageView checkbox;
+        final ImageView unreadComments;
         private final LinearLayout itemLayout;
 
         private OCFileListGridImageViewHolder(View itemView) {
@@ -831,6 +864,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             localFileIndicator = itemView.findViewById(R.id.localFileIndicator);
             shared = itemView.findViewById(R.id.sharedIcon);
             checkbox = itemView.findViewById(R.id.custom_checkbox);
+            unreadComments = itemView.findViewById(R.id.unreadComments);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
         }
     }
