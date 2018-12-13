@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +30,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.ThemeUtils;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -60,13 +59,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
     private Unbinder unbinder;
     private OCFileListBottomSheetActions actions;
-    private OCCapability capability;
+    private FileActivity fileActivity;
 
-    public OCFileListBottomSheetDialog(@NonNull Context context, OCCapability capability,
-                                       OCFileListBottomSheetActions actions) {
-        super(context);
+    public OCFileListBottomSheetDialog(FileActivity fileActivity, OCFileListBottomSheetActions actions) {
+        super(fileActivity);
         this.actions = actions;
-        this.capability = capability;
+        this.fileActivity = fileActivity;
     }
 
     @Override
@@ -89,6 +87,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
                 ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
+        OCCapability capability = fileActivity.getCapabilities();
         if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue()) {
             templates.setVisibility(View.VISIBLE);
         }
