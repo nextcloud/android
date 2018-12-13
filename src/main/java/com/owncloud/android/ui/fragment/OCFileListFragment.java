@@ -906,9 +906,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 .isMediaStreamingSupported()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        }
-
-                        if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                        } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                             android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
                             capability.getRichDocumentsDirectEditing().isTrue()) {
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
