@@ -103,6 +103,8 @@
     <string name="file_list_empty_headline_server_search_videos">Ni video posnetkov</string>
     <string name="file_list_empty_headline_server_search_photos">Ni slik in fotografij</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
+    <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
+    <string name="file_list_empty_recently_modified_filter">V zadnjih 7. dneh ni bila spremenjena nobena datoteka.</string>
     <string name="file_list_empty_recently_added">Ni nedavno dodanih datotek</string>
     <string name="file_list_empty_recently_added_filter">Ni nedavno dodanih datotek.</string>
     <string name="file_list_empty_text_photos">Naloži kakšno sliko ali vključi samodejno nalaganje.</string>

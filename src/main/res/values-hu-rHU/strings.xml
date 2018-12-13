@@ -801,7 +801,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_file_not_deleted">%1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">%1$s nem állítható vissza!</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
-    <string name="stream">Streamelni vele...</string>
+    <string name="stream">Streamelni vele…</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="notification_icon">Értesítő ikon</string>
     <string name="folder_confirm_create">Létrehozás</string>
