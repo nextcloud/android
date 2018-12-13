@@ -172,6 +172,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        if (fileDataStorageManager == null) {
+            fileDataStorageManager = new FileDataStorageManager(account, fileDisplayActivity.getContentResolver());
+        }
+
         setupView();
 
         return view;
