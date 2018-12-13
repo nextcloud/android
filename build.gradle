@@ -253,7 +253,7 @@ dependencies {
 
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.1'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
