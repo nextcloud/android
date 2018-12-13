@@ -1,0 +1,9 @@
+3.4.0 RC2 (December, 13, 2018)
+
+- bug fixes found in RC1
+- crash on resume when in file details
+- crash on resume when opening FAB
+- crash when deleted files was closed prior file listing was completed
+- SSO: add request header for deck app
+
+For a detailed list, please visit: https://github.com/nextcloud/android/milestone/25
