@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/standard_eighth_margin"
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
-            style="@style/ownCloud.SearchView"/>
+            style="@style/ownCloud.SearchView" />
 
         <LinearLayout
             android:id="@+id/share_by_link_container"
@@ -71,7 +71,7 @@
                 android:paddingBottom="@dimen/standard_quarter_margin"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_content_copy"
-                android:layout_gravity="start|center"/>
+                android:layout_gravity="start|center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/share_by_link_allow_editing"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"
-                android:text="@string/edit_permission_label"/>
+                android:text="@string/edit_permission_label" />
 
             <ImageView
                 android:id="@+id/overflow_menu_share_link"
