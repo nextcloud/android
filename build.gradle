@@ -247,7 +247,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.4'
     // dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
     // Android JUnit Runner
     androidTestImplementation 'androidx.test:runner:1.1.0'
 
