@@ -829,7 +829,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="no_browser_available">Ingen program tilgjengelig for å håndtere lenker</string>
     <string name="no_pdf_app_available">Ingen program tilgjengelig for å håndtere PDF</string>
     <string name="share_via_link_hide_download">Gjem nedlasting</string>
-
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="create_new_spreadsheet">Opprett nytt regneark</string>
@@ -840,4 +839,4 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="enter_filename">Oppgi filnavn</string>
     <string name="create_file_from_template">Oppretter fil fra mal...</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
-</resources>
+    </resources>

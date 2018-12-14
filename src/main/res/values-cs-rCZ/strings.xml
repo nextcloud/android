@@ -822,7 +822,6 @@
     <string name="no_browser_available">Není k dispozici aplikace pro práci s odkazy</string>
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
     <string name="share_via_link_hide_download">Skrýt stahování</string>
-
     <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
@@ -833,4 +832,4 @@
     <string name="enter_filename">Zadejte název souboru</string>
     <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
-</resources>
+    </resources>

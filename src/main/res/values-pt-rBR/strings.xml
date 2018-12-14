@@ -812,7 +812,6 @@
     <string name="no_browser_available">Nenhum aplicativo disponível para lidar com links</string>
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
-
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="create_new_spreadsheet">Criar nova planilha</string>
@@ -823,4 +822,4 @@
     <string name="enter_filename">Digite um nome de arquivo</string>
     <string name="create_file_from_template">Criando arquivo a partir do modelo…</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
-</resources>
+    </resources>
