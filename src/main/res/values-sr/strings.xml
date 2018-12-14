@@ -817,7 +817,6 @@
     <string name="no_browser_available">Нема апликације која зна да отвори везу</string>
     <string name="no_pdf_app_available">Нема апликације која зна да ради са PDF-овима</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
-
     <string name="richdocuments_failed_to_load_document">Грешка приликом учитавања документа!</string>
     <string name="create_new_document">Направи нови документ</string>
     <string name="create_new_spreadsheet">Направи нову табелу</string>
@@ -828,4 +827,4 @@
     <string name="enter_filename">Унесите име фајла</string>
     <string name="create_file_from_template">Направите фајл из шаблона…</string>
     <string name="error_retrieving_templates">Грешка при учитавању шаблона</string>
-</resources>
+    </resources>

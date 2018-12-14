@@ -361,7 +361,7 @@
     <string name="file_migration_preparing">Persiapan untuk migrasi…</string>
     <string name="file_migration_checking_destination">Memeriksa tujuan…</string>
     <string name="file_migration_saving_accounts_configuration">Menyimpan konfigurasi akun…</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Menunggu sinkronisasi penuh...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Menunggu sinkronisasi penuh…</string>
     <string name="file_migration_migrating">Memindahkan data…</string>
     <string name="file_migration_updating_index">Memperbarui indeks…</string>
     <string name="file_migration_cleaning">Membersihkan…</string>
@@ -626,7 +626,6 @@
     <string name="note_could_not_sent">Tidak dapat mengirim catatan</string>
     <string name="hint_note">Catatan</string>
     <string name="share_via_link_hide_download">Sembunyikan unduhan</string>
-
     <string name="richdocuments_failed_to_load_document">Gagal memuat dokumen!</string>
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="create_new_spreadsheet">Buat lembar kerja baru</string>
@@ -637,4 +636,4 @@
     <string name="enter_filename">Tolong masukan nama berkas baru</string>
     <string name="create_file_from_template">Membuat berkas dari template…</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
-</resources>
+    </resources>

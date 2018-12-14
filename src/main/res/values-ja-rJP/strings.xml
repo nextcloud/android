@@ -810,7 +810,6 @@
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
-
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="create_new_document">新しい文書を作成する</string>
     <string name="create_new_spreadsheet">新しいスプレッドシートを作成する</string>
@@ -821,4 +820,4 @@
     <string name="enter_filename">ファイル名を入力してください</string>
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
-</resources>
+    </resources>
