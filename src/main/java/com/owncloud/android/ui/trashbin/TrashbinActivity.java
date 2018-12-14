@@ -85,6 +85,8 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     private TrashbinListAdapter trashbinListAdapter;
     private TrashbinPresenter trashbinPresenter;
 
+    private boolean active = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +108,8 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     @Override
     protected void onStart() {
         super.onStart();
+
+        active = true;
 
         setupContent();
     }
@@ -229,6 +233,8 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     @Override
     protected void onPause() {
         super.onPause();
+        active = false;
+
         trashbinListAdapter.cancelAllPendingTasks();
     }
 
@@ -253,13 +259,17 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
 
     @Override
     public void showTrashbinFolder(List<Object> trashbinFiles) {
-        trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
-        swipeListRefreshLayout.setRefreshing(false);
+        if (active) {
+            trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
+            swipeListRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void removeFile(TrashbinFile file) {
-        trashbinListAdapter.removeFile(file);
+        if (active) {
+            trashbinListAdapter.removeFile(file);
+        }
     }
 
     @Override
@@ -269,23 +279,26 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
 
     @Override
     public void showSnackbarError(int message, TrashbinFile file) {
-        swipeListRefreshLayout.setRefreshing(false);
-        Snackbar.make(recyclerView, String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG).show();
+        if (active) {
+            swipeListRefreshLayout.setRefreshing(false);
+            Snackbar.make(recyclerView, String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG)
+                .show();
+        }
     }
 
     @Override
     public void showError(int message) {
-        if (swipeListRefreshLayout != null) {
+        if (active) {
             swipeListRefreshLayout.setRefreshing(false);
-        }
 
-        if (emptyContentMessage != null && emptyContentHeadline != null && emptyContentIcon != null) {
-            emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
-            emptyContentMessage.setText(message);
+            if (emptyContentMessage != null) {
+                emptyContentHeadline.setText(R.string.common_error);
+                emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
+                emptyContentMessage.setText(message);
 
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentIcon.setVisibility(View.VISIBLE);
+                emptyContentMessage.setVisibility(View.VISIBLE);
+                emptyContentIcon.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
