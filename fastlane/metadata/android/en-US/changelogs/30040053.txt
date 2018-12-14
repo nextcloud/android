@@ -1,0 +1,5 @@
+3.4.0 RC3 (December, 14, 2018)
+
+- use android-job fork with fix for Android 9.x
+
+For a detailed list, please visit: https://github.com/nextcloud/android/milestone/25
