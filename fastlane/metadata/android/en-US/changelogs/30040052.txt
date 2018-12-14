@@ -1,4 +1,4 @@
-3.4.0 RC2 (December, 13, 2018)
+3.4.0 RC2 (December, 14, 2018)
 
 - bug fixes found in RC1
 - crash on resume when in file details
