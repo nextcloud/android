@@ -735,15 +735,15 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_STORAGE_PATH + TEXT
                 + ProviderTableMeta.FILE_ACCOUNT_OWNER + TEXT
                 + ProviderTableMeta.FILE_LAST_SYNC_DATE + INTEGER
-                + ProviderTableMeta.FILE_KEEP_IN_SYNC + INTEGER
                 + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + INTEGER
                 + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + INTEGER
                 + ProviderTableMeta.FILE_ETAG + TEXT
+                       + ProviderTableMeta.FILE_ETAG_ON_SERVER + TEXT
                 + ProviderTableMeta.FILE_SHARED_VIA_LINK + INTEGER
                 + ProviderTableMeta.FILE_PUBLIC_LINK + TEXT
                 + ProviderTableMeta.FILE_PERMISSIONS + " TEXT null,"
                 + ProviderTableMeta.FILE_REMOTE_ID + " TEXT null,"
-                + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
+                       + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
                 + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
                 + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
@@ -1852,6 +1852,24 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 41 && newVersion >= 41) {
+                Log_OC.i(SQL, "Entering in the #41 add eTagOnServer");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        ADD_COLUMN + ProviderTableMeta.FILE_ETAG_ON_SERVER + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

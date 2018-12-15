@@ -834,34 +834,6 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline) {
-        List<OCFile> alreadyRightStateList = new ArrayList<>();
-        for (OCFile file : files) {
-            if (file.isAvailableOffline() == isAvailableOffline) {
-                alreadyRightStateList.add(file);
-            }
-        }
-
-        files.removeAll(alreadyRightStateList);
-
-        for (OCFile file : files) {
-            toggleOfflineFile(file, isAvailableOffline);
-        }
-    }
-
-
-    public void toggleOfflineFile(OCFile file, boolean isAvailableOffline) {
-        if (file.isAvailableOffline() != isAvailableOffline) {
-            file.setAvailableOffline(isAvailableOffline);
-            mFileActivity.getStorageManager().saveFile(file);
-
-            /// immediate content synchronization
-            if (file.isAvailableOffline()) {
-                syncFile(file);
-            }
-        }
-    }
-
     public void renameFile(OCFile file, String newFilename) {
         // RenameFile
         Intent service = new Intent(mFileActivity, OperationsService.class);
