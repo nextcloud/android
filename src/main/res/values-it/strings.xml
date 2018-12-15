@@ -812,6 +812,8 @@
     <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
     <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
     <string name="share_via_link_hide_download">Nascondi scaricamento</string>
+    <string name="unread_comments">Sono presenti commenti non letti</string>
+
     <string name="richdocuments_failed_to_load_document">Caricamento del documento non riuscito!</string>
     <string name="create_new_document">Crea nuovo documento</string>
     <string name="create_new_spreadsheet">Crea nuovo foglio elettronico</string>
@@ -822,4 +824,9 @@
     <string name="enter_filename">Digita il nome del file</string>
     <string name="create_file_from_template">Crea file da modello…</string>
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
-    </resources>
+    <string name="battery_optimization_title">Ottimizzazione batteria</string>
+    <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
+    <string name="battery_optimization_disable">disabilita</string>
+    <string name="battery_optimization_close">Chiudi</string>
+    <string name="battery_optimization_no_setting">Impossibile avviare direttamente le impostazioni della batteria. Modificale manualmente nelle impostazioni</string>
+</resources>
