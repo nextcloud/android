@@ -58,30 +58,18 @@
             android:contentDescription="@string/favorite"
             android:src="@drawable/badge_favorite" />
 
-        <ImageView
-            android:id="@+id/keptOfflineIcon"
-            android:layout_width="@dimen/list_item_kept_offline_icon_layout_width"
-            android:layout_height="@dimen/list_item_kept_offline_icon_layout_height"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="@dimen/list_item_kept_offline_icon_layout_right_end_margin"
-            android:layout_marginRight="@dimen/list_item_kept_offline_icon_layout_right_end_margin"
-            android:contentDescription="@string/available_offline_icon"
-            android:src="@drawable/ic_available_offline" />
-
-        <ImageView
-            android:id="@+id/localFileIndicator"
-            android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
-            android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:contentDescription="@string/downloader_download_succeeded_ticker"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_synced" />
+            <ImageView
+                android:id="@+id/localFileIndicator"
+                android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
+                android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_marginRight="@dimen/standard_quarter_margin"
+                android:contentDescription="@string/downloader_download_succeeded_ticker"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_synced" />
 
     </RelativeLayout>
 

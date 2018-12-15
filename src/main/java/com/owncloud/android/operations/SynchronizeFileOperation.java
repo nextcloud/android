@@ -246,7 +246,6 @@ public class SynchronizeFileOperation extends SyncOperation {
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
                         mServerFile.setFavorite(mLocalFile.isFavorite());
-                        mServerFile.setAvailableOffline(mLocalFile.isAvailableOffline());
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());
@@ -264,6 +263,13 @@ public class SynchronizeFileOperation extends SyncOperation {
                 // safe blanket: sync'ing a not in-conflict file will clean wrong conflict markers in ancestors
                 if (result.getCode() != ResultCode.SYNC_CONFLICT) {
                     getStorageManager().saveConflict(mLocalFile, null);
+                }
+            } else {
+                // remote file does not exist, deleting local copy
+                boolean deleteResult = getStorageManager().removeFile(mLocalFile, true, true);
+
+                if (!deleteResult) {
+                    Log_OC.e(TAG, "Removal of local copy failed (remote file does not exist any longer).");
                 }
             }
 

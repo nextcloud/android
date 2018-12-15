@@ -181,7 +181,6 @@ public class MainApp extends MultiDexApplication {
                 .build()
                 .schedule();
 
-
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
