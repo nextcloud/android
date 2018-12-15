@@ -814,6 +814,8 @@ Attention la suppression est irréversible.</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
+    <string name="unread_comments">Il y a des commentaire non lus</string>
+
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="create_new_document">Créer une nouveau document</string>
     <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>
@@ -824,4 +826,7 @@ Attention la suppression est irréversible.</string>
     <string name="enter_filename">Veuillez saisir un nom de fichier</string>
     <string name="create_file_from_template">Création du fichier à partir du modèle…</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
+    <string name="battery_optimization_title">Optimisation de la batterie</string>
+    <string name="battery_optimization_disable">désactiver</string>
+    <string name="battery_optimization_close">Fermer</string>
     </resources>
