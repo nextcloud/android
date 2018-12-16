@@ -265,10 +265,6 @@
     <string name="auth_access_failed">访问已失败: %1$s</string>
     <string name="auth_illegal_login_used">非法登录地址</string>
 
-    <string name="favorite">可以设置离线</string>
-    <string name="unfavorite">不可以设置离线</string>
-    <string name="favorite_real">添加收藏</string>
-    <string name="unset_favorite_real">取消收藏</string>
     <string name="encrypted">设置为加密</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="common_rename">重命名</string>
@@ -657,7 +653,6 @@
     <string name="user_icon">用户</string>
     <string name="favorite_icon">收藏</string>
     <string name="synced_icon">已同步</string>
-    <string name="available_offline_icon">离线可用</string>
     <string name="checkbox">复选框</string>
     <string name="shared_icon_share">共享</string>
     <string name="shared_icon_shared_via_link">通过链接共享</string>
@@ -806,6 +801,8 @@
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
     <string name="richdocuments_failed_to_load_document">载入文档失败</string>
+    <string name="create_new_document">新建文档</string>
+    <string name="create_new_spreadsheet">新建表格</string>
     <string name="select_template">选择模板</string>
     <string name="filename_hint">文件名</string>
     <string name="thumbnail">缩略图</string>

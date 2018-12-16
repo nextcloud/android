@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
     <string name="auth_illegal_login_used">Kullanılan veri adresi geçersiz</string>
 
-    <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
-    <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
-    <string name="favorite_real">Sık kullanılanlara ekle</string>
-    <string name="unset_favorite_real">Sık kullanılanlardan kaldır</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Kullanıcı</string>
     <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
     <string name="synced_icon">Eşitle</string>
-    <string name="available_offline_icon">Çevrimdışı kullanılabilir</string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="shared_icon_share">paylaş</string>
     <string name="shared_icon_shared_via_link">bağlantı ile paylaşılmış</string>

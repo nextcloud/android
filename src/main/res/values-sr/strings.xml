@@ -269,10 +269,6 @@
     <string name="auth_access_failed">Неуспео приступ: %1$s</string>
     <string name="auth_illegal_login_used">Искоришћена неисправна адреса за податке пријаве</string>
 
-    <string name="favorite">Постави као доступно и ван мреже</string>
-    <string name="unfavorite">Склони да буде доступно и ван мреже</string>
-    <string name="favorite_real">Додај у омиљене</string>
-    <string name="unset_favorite_real">Уклони из омиљених</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="common_rename">Преименуј</string>
@@ -667,7 +663,6 @@
     <string name="user_icon">Корисник </string>
     <string name="favorite_icon">Омиљени</string>
     <string name="synced_icon">Синхронизовано</string>
-    <string name="available_offline_icon">Досступно ван мреже</string>
     <string name="checkbox">Штиклирање</string>
     <string name="shared_icon_share">дељење</string>
     <string name="shared_icon_shared_via_link">дељено путем везе</string>
@@ -817,6 +812,8 @@
     <string name="no_browser_available">Нема апликације која зна да отвори везу</string>
     <string name="no_pdf_app_available">Нема апликације која зна да ради са PDF-овима</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
+    <string name="unread_comments">Постоје непрочитани коментари</string>
+
     <string name="richdocuments_failed_to_load_document">Грешка приликом учитавања документа!</string>
     <string name="create_new_document">Направи нови документ</string>
     <string name="create_new_spreadsheet">Направи нову табелу</string>
@@ -827,4 +824,9 @@
     <string name="enter_filename">Унесите име фајла</string>
     <string name="create_file_from_template">Направите фајл из шаблона…</string>
     <string name="error_retrieving_templates">Грешка при учитавању шаблона</string>
-    </resources>
+    <string name="battery_optimization_title">Оптимизација батерије</string>
+    <string name="battery_optimization_message">Ваш уређај можда има укључену оптимизацију батерије. Аутоматско отпремање ради само ако искључите ову апликацију из оптимизације батерије.</string>
+    <string name="battery_optimization_disable">искључи</string>
+    <string name="battery_optimization_close">Затвори</string>
+    <string name="battery_optimization_no_setting">Не могу да покренем поставке батерије. Искључите је ручно у поставкама.</string>
+</resources>

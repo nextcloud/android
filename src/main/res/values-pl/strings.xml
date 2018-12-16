@@ -271,10 +271,6 @@
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
     <string name="auth_illegal_login_used">Użyto błędny URL danych logowania</string>
 
-    <string name="favorite">Ustaw jako dostępne offline</string>
-    <string name="unfavorite">Odznacz jako dostępne offline</string>
-    <string name="favorite_real">Dodaj do ulubionych</string>
-    <string name="unset_favorite_real">Usuń z ulubionych</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="common_rename">Zmień nazwę</string>
@@ -672,7 +668,6 @@
     <string name="user_icon">Użytkownik</string>
     <string name="favorite_icon">Ulubione</string>
     <string name="synced_icon">Zsynchronizowano</string>
-    <string name="available_offline_icon">Dostępne offline</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>

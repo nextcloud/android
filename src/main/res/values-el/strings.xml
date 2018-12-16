@@ -243,10 +243,6 @@
     <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
-    <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
-    <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
-    <string name="favorite_real">Προσθήκη στα αγαπημένα</string>
-    <string name="unset_favorite_real">Αφαίρεση από τα αγαπημένα</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="common_rename">Μετονομασία</string>
@@ -600,7 +596,6 @@
     <string name="file_icon">Αρχείο</string>
     <string name="user_icon">Χρήστης</string>
     <string name="favorite_icon">Αγαπημένο</string>
-    <string name="available_offline_icon">Διαθέσιμα εκτός σύνδεσης</string>
     <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>

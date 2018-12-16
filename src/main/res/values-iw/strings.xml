@@ -270,10 +270,6 @@
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
     <string name="auth_illegal_login_used">נעשה שימוש בכתובת נתוני כניסה שגויה</string>
 
-    <string name="favorite">הגדר כזמין באופן לא מקוון</string>
-    <string name="unfavorite">ביטול הגדרה כזמין באופן לא מקוון</string>
-    <string name="favorite_real">הוספה למועדפים</string>
-    <string name="unset_favorite_real">הסרה מהמועדפים</string>
     <string name="encrypted">הגדרה כמוצפן</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
     <string name="common_rename">שינוי שם</string>
@@ -661,7 +657,6 @@
     <string name="user_icon">משתמש</string>
     <string name="favorite_icon">סימון כמועדף</string>
     <string name="synced_icon">מסונכרן</string>
-    <string name="available_offline_icon">זמין ללא חיבור</string>
     <string name="checkbox">תיבת סימון</string>
     <string name="shared_icon_share">שיתוף</string>
     <string name="shared_icon_shared_via_link">משותף דרך קישור</string>

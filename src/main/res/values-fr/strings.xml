@@ -269,10 +269,6 @@ Attention la suppression est irréversible.</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
     <string name="auth_illegal_login_used">Utilisation d\'une URL d\'identification non autorisée</string>
 
-    <string name="favorite">Rendre disponible hors-ligne</string>
-    <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
-    <string name="favorite_real">Ajouter aux favoris</string>
-    <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="common_rename">Renommer</string>
@@ -601,7 +597,7 @@ Attention la suppression est irréversible.</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
-    <string name="activities_no_results_message">Aucun ajout, changement ou un partage à afficher</string>
+    <string name="activities_no_results_message">Aucun événement d\'ajout, de modification ou de partage pour l\'instant</string>
     <string name="prefs_category_about">À propos</string>
 
     <string name="actionbar_contacts">Sauvegarde des contacts</string>
@@ -664,7 +660,6 @@ Attention la suppression est irréversible.</string>
     <string name="user_icon">Utilisateur</string>
     <string name="favorite_icon">Favoris</string>
     <string name="synced_icon">Synchronisé</string>
-    <string name="available_offline_icon">Disponible hors-ligne</string>
     <string name="checkbox">Case à cocher</string>
     <string name="shared_icon_share">partage</string>
     <string name="shared_icon_shared_via_link">partagé par lien</string>

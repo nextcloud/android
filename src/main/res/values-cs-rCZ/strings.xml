@@ -271,10 +271,6 @@
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
     <string name="auth_illegal_login_used">Byla použita neplatná přihlašovací URL</string>
 
-    <string name="favorite">Nastavit jako dostupné offline</string>
-    <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
-    <string name="favorite_real">Přidat do oblíbených</string>
-    <string name="unset_favorite_real">Odebrat z oblíbených</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="common_rename">Přejmenovat</string>
@@ -672,7 +668,6 @@
     <string name="user_icon">Uživatel</string>
     <string name="favorite_icon">Oblíbené</string>
     <string name="synced_icon">Synchronizováno</string>
-    <string name="available_offline_icon">Dostupné offline</string>
     <string name="checkbox">Zatržítko</string>
     <string name="shared_icon_share">sdílet</string>
     <string name="shared_icon_shared_via_link">sdílet odkazem</string>

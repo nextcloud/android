@@ -244,8 +244,6 @@
 	<string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
 	<string name="auth_can_not_auth_against_server">Không thể chứng thực với máy chủ này</string>
     <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
-    <string name="favorite_real">Thêm vào ưa thích</string>
-    <string name="unset_favorite_real">Xóa khỏi ưa thích</string>
     <string name="encrypted">Đặt mã hóa</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
     <string name="common_rename">Sửa tên</string>
@@ -454,7 +452,6 @@
     <string name="user_icon">Người dùng</string>
     <string name="favorite_icon">Ưa thích</string>
     <string name="synced_icon">Đã đồng bộ</string>
-    <string name="available_offline_icon">Có sẵn cho ngoại tuyến</string>
     <string name="checkbox">Hộp chọn</string>
     <string name="shared_icon_share">chia sẽ</string>
     <string name="shared_icon_shared_via_link">liên kết đã chia sẽ</string>

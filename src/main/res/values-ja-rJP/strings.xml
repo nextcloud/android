@@ -265,10 +265,6 @@
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
     <string name="auth_illegal_login_used">不正なログインデータURLを使用しています</string>
 
-    <string name="favorite">オフラインで利用可能に設定</string>
-    <string name="unfavorite">オフラインで利用不可に設定</string>
-    <string name="favorite_real">お気に入りに追加</string>
-    <string name="unset_favorite_real">お気に入りから削除</string>
     <string name="encrypted">暗号化設定</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
@@ -657,7 +653,6 @@
     <string name="user_icon">ユーザー</string>
     <string name="favorite_icon">お気に入り</string>
     <string name="synced_icon">同期した</string>
-    <string name="available_offline_icon">オフラインで利用可能</string>
     <string name="checkbox">チェックボックス</string>
     <string name="shared_icon_share">共有</string>
     <string name="shared_icon_shared_via_link">リンク経由で共有</string>

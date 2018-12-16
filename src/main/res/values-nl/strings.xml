@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
 
-    <string name="favorite">Offline beschikbaar maken</string>
-    <string name="unfavorite">Niet langer offline beschikbaar maken</string>
-    <string name="favorite_real">Aan favorieten toevoegen</string>
-    <string name="unset_favorite_real">Verwijderen uit favorieten</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="common_rename">Hernoemen</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Gebruiker</string>
     <string name="favorite_icon">Favoriet</string>
     <string name="synced_icon">gesynchroniseerd</string>
-    <string name="available_offline_icon">Offline beschikbaar</string>
     <string name="checkbox">Aanvinkvakje</string>
     <string name="shared_icon_share">delen</string>
     <string name="shared_icon_shared_via_link">gedeeld via link</string>
@@ -719,7 +714,7 @@
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>
-    <string name="account_icon">Account icoon</string>
+    <string name="account_icon">Accountpictogram</string>
 
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
@@ -812,6 +807,8 @@
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="share_via_link_hide_download">Verberg download</string>
+    <string name="unread_comments">Er zijn ongelezen reacties</string>
+
     <string name="richdocuments_failed_to_load_document">Kon document niet laden!</string>
     <string name="create_new_document">Creëer nieuw document</string>
     <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>
@@ -822,4 +819,9 @@
     <string name="enter_filename">Geef een bestandsnaam op</string>
     <string name="create_file_from_template">Creëren bestand vanaf sjabloon…</string>
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
-    </resources>
+    <string name="battery_optimization_title">Batterij-optimalisatie</string>
+    <string name="battery_optimization_message">Op je toestel kan batterij optimalisatie ingeschakeld zijn. AutoUpload werkt alleen als je dat voor deze app uitschakelt.</string>
+    <string name="battery_optimization_disable">uitschakelen</string>
+    <string name="battery_optimization_close">Sluiten</string>
+    <string name="battery_optimization_no_setting">Kan de batterin-instellingen niet direct wijzigen. Pas handmatig in bij Instellingen.</string>
+</resources>

@@ -236,10 +236,6 @@
 	<string name="auth_fail_get_user_name">Su servidor no está devolviendo una ID de usuario correcta, póngase en contacto con un administrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no se ha agregado a este dispositivo.</string>
-    <string name="favorite">Establer como disponible sin conexión</string>
-    <string name="unfavorite">Establecer como disponible con conexión</string>
-    <string name="favorite_real">Añadir a favoritos</string>
-    <string name="unset_favorite_real">Borrar de favoritos</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="unset_encrypted">Cifrado no establecido</string>
     <string name="common_rename">Renombrar</string>
@@ -612,7 +608,6 @@
     <string name="user_icon">Usuario</string>
     <string name="favorite_icon">Favorito</string>
     <string name="synced_icon">Sincronizado</string>
-    <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared_via_link">compartido a través del Link</string>
