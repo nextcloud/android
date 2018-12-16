@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
     <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
 
-    <string name="favorite">Als Offline verfügbar markieren</string>
-    <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
-    <string name="favorite_real">Zu den Favoriten hinzufügen</string>
-    <string name="unset_favorite_real">Von Favoriten entfernen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="common_rename">Umbenennen</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Nutzer</string>
     <string name="favorite_icon">Favoriten</string>
     <string name="synced_icon">Synchronisiert</string>
-    <string name="available_offline_icon">Offline verfügbar</string>
     <string name="checkbox">Checkbox</string>
     <string name="shared_icon_share">Teilen</string>
     <string name="shared_icon_shared_via_link">Über einen Link geteilt</string>

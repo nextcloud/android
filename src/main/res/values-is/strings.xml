@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_illegal_login_used">Notaði óleyfileg slóð á innskráningargögn</string>
 
-    <string name="favorite">Stilla sem tiltækt án nettengingar</string>
-    <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
-    <string name="favorite_real">Bæta í eftirlæti</string>
-    <string name="unset_favorite_real">Fjarlægja úr eftirlætum</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="common_rename">Endurnefna</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Notandi</string>
     <string name="favorite_icon">Eftirlæti</string>
     <string name="synced_icon">Samstillt</string>
-    <string name="available_offline_icon">Tiltækt án nettengingar</string>
     <string name="checkbox">Hakreitur</string>
     <string name="shared_icon_share">deila</string>
     <string name="shared_icon_shared_via_link">deilt með tengli</string>

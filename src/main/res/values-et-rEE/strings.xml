@@ -224,8 +224,6 @@
 	<string name="auth_can_not_auth_against_server">Selle serveri vastu autentimine ebaõnnestus</string>
     <string name="auth_account_does_not_exist">Seda kontot pole veel sellesse seadmesse lisatud</string>
     <string name="auth_access_failed">Ligipääs ebaõnnestus: %1$s</string>
-    <string name="favorite_real">Lisa lemmikutesse</string>
-    <string name="unset_favorite_real">Eemalda lemmikutest</string>
     <string name="encrypted">Määra krüpteerituks</string>
     <string name="unset_encrypted">Eemalda krüpteering</string>
     <string name="common_rename">Nimeta ümber</string>

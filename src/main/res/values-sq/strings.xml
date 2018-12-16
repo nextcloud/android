@@ -268,10 +268,6 @@
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
     <string name="auth_illegal_login_used">URL e të dhënave të përdorur për t\'u identifikimit e paligjshme </string>
 
-    <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
-    <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
-    <string name="favorite_real">U shtua te të parapëlqyerat</string>
-    <string name="unset_favorite_real">U hoq nga të parapëlqyerat</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="common_rename">Riemërtojeni</string>
@@ -663,7 +659,6 @@
     <string name="user_icon">Përdorues</string>
     <string name="favorite_icon">E parapëlqyer</string>
     <string name="synced_icon">i sinkronizuar</string>
-    <string name="available_offline_icon">I disponueshëm jo në linjë</string>
     <string name="checkbox">Checkbox</string>
     <string name="shared_icon_share">ndaje</string>
     <string name="shared_icon_shared_via_link">shpërndarë me anë të lidhjes</string>

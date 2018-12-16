@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
     <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
 
-    <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
-    <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
-    <string name="favorite_real">Hozzáadás a kedvencekhez</string>
-    <string name="unset_favorite_real">Eltávolítás a kedvencekből</string>
     <string name="encrypted">Titkosítottra állítás</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>
@@ -681,7 +677,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="user_icon">Felhasználó</string>
     <string name="favorite_icon">Kedvenc</string>
     <string name="synced_icon">Szinkronizált</string>
-    <string name="available_offline_icon">Offline elérhető</string>
     <string name="checkbox">Pipáló</string>
     <string name="shared_icon_share">megosztás</string>
     <string name="shared_icon_shared_via_link">link által megosztott</string>

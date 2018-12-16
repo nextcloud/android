@@ -113,13 +113,13 @@
     <string name="file_list_empty_text_videos_filter">Няма видеоклипове.</string>
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>
     <string name="trashbin_empty_message">От тук можете да възстановите изтрити файлове</string>
-    <string name="upload_list_empty_headline">Няма налични качвания</string>
+    <string name="upload_list_empty_headline">Няма файлове</string>
     <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматично качване.</string>
     <string name="file_list_folder">папка</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
     <string name="filedetails_renamed_in_upload_msg">Файлът е преименуван на %1$s по време на качването</string>
-    <string name="list_layout">Оформление на списъка с потоци</string>
+    <string name="list_layout">Оформление на списъка с емисии</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
@@ -137,7 +137,7 @@
     <string name="common_send">Изпращане</string>
     <string name="about_title">Относно</string>
     <string name="delete_account">Изтриване</string>
-    <string name="delete_account_warning">Изтриване на профила %s?\n\nИзтриването е необратима операция.</string>
+    <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активен потребител</string>
     <string name="upload_chooser_title">Качи от...</string>
@@ -259,18 +259,14 @@
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-    <string name="auth_connecting_auth_server">Свързване към сървър за идентификация</string>
+    <string name="auth_connecting_auth_server">Свързване към сървър за удостоверяване</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
-	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
+	<string name="auth_can_not_auth_against_server">Неуспешно удостоверяване към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
     <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
     <string name="auth_illegal_login_used">Използван е невалиден URL с данни за вход</string>
 
-    <string name="favorite">Сваляне, за офлайн достъп</string>
-    <string name="unfavorite">Отмяна като достъпна офлайн</string>
-    <string name="favorite_real">Добави към любимите</string>
-    <string name="unset_favorite_real">Премахни от любимите</string>
     <string name="encrypted">Включване на криптиране</string>
     <string name="unset_encrypted">Изключи криптиране</string>
     <string name="common_rename">Преименуване</string>
@@ -497,7 +493,7 @@
     <string name="share_with_edit_title">Споделете с %1$s</string>
     <string name="share_via_link_unset_password">Зануляване</string>
 
-    <string name="share_search">Име, cloud ID или имейл адрес...</string>
+    <string name="share_search">Име, Federated Cloud ID или имейл адрес...</string>
 
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
     <string name="share_group_clarification">%1$s (група)</string>
@@ -516,7 +512,7 @@
     <string name="action_retry_uploads">Новият опит се провали</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
     <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
-    <string name="action_force_rescan">Принудено повторно сканиране</string>
+    <string name="action_force_rescan">Сканирай наново</string>
 
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
@@ -539,9 +535,9 @@
     <string name="drawer_synced_folders">Автоматично качване</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогни с тестването</string>
-    <string name="participate_testing_bug_text">Открили сте грешка? Нещо е странно?</string>
+    <string name="participate_testing_bug_text">Открили сте грешка? Нещо странно?</string>
     <string name="participate_testing_report_text">Докладвайте за проблем чрез Github</string>
-    <string name="participate_testing_version_text">Интересувате ли се да ни помогнете с тестването на следващата версия?</string>
+    <string name="participate_testing_version_text">Желаете ли се да помогнете с тестването на следващата версия?</string>
     <string name="participate_beta_headline">Тестване на бета версия</string>
     <string name="participate_beta_text">Това включва всички най-нови функционалности. Грешки и проблеми могат да възникнат, ако и когато възникнат, моля да докладвате.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -602,10 +598,10 @@
     <string name="activities_no_results_message">Все още няма действия като добавяне, промени и споделяния</string>
     <string name="prefs_category_about">Относно</string>
 
-    <string name="actionbar_contacts">Създай резервно копие на контактите</string>
+    <string name="actionbar_contacts">Резервни копия на контактите</string>
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
     <string name="contacts_backup_button">Създай резервно копие сега</string>
-    <string name="contacts_automatic_backup">Автоматично създаване на резервно копие</string>
+    <string name="contacts_automatic_backup">Автоматично създаване</string>
     <string name="contacts_last_backup">Последно резервно копие</string>
     <string name="contacts_read_permission">Нужно е разрешение за да прочетете листът с контакти</string>
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
@@ -660,7 +656,6 @@
     <string name="user_icon">Потребител</string>
     <string name="favorite_icon">Любими</string>
     <string name="synced_icon">Синхронизиран</string>
-    <string name="available_offline_icon">Достъпен офлайн</string>
     <string name="shared_icon_share">сподели</string>
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
     <string name="shared_icon_shared">споделено</string>
@@ -712,6 +707,7 @@
     <string name="feedback_no_mail_app">Няма налично приложение за изпращане на имейл.</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
     <string name="trashbin_activity_title">Изтрити файлове</string>
+    <string name="action_empty_trashbin">Изпразни кошчето</string>
     <string name="trashbin_loading_failed">Зареждането на кошчето се провали!</string>
     <string name="trashbin_file_not_deleted">Файлът %1$s не може да бъде изтрит!</string>
     <string name="trashbin_file_not_restored">Файлът %1$s не може да бъде възстановен!</string>

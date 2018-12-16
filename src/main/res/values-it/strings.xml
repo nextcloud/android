@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
     <string name="auth_illegal_login_used">Utilizzato URL di dati di accesso non consentito</string>
 
-    <string name="favorite">Imposta come disponibile non in linea</string>
-    <string name="unfavorite">Rimuovi come disponibile non in linea</string>
-    <string name="favorite_real">Aggiungi ai preferiti</string>
-    <string name="unset_favorite_real">Rimuovi dai preferiti</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="common_rename">Rinomina</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Utente</string>
     <string name="favorite_icon">Preferito</string>
     <string name="synced_icon">Sincronizzato</string>
-    <string name="available_offline_icon">Disponibile non in linea</string>
     <string name="checkbox">Casella di selezione</string>
     <string name="shared_icon_share">condivisione</string>
     <string name="shared_icon_shared_via_link">condiviso tramite collegamento</string>

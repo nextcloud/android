@@ -266,10 +266,6 @@
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
     <string name="auth_illegal_login_used">Nepareizs pierakstīšanās datu URL izmantots</string>
 
-    <string name="favorite">Iestatīt kā pieejamu bezsaistē</string>
-    <string name="unfavorite">Iestatiet, ka pieejams bezsaistē</string>
-    <string name="favorite_real">Pievienot izlasei</string>
-    <string name="unset_favorite_real">Noņemt no izlases</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="common_rename">Pārsaukt</string>

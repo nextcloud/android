@@ -248,10 +248,6 @@
 	<string name="auth_fail_get_user_name">Tu servidor no esta regresando un user ID correcto, por favor contacta a tu adminsitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no ha sido agregada a este dispositivo </string>
-    <string name="favorite">Establer como disponible sin conexión</string>
-    <string name="unfavorite">Establecer como disponible con conexión</string>
-    <string name="favorite_real">Agregar a favoritos</string>
-    <string name="unset_favorite_real">Eliminar de favoritos</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="common_rename">Renombrar</string>
@@ -636,7 +632,6 @@
     <string name="activity_icon">Actividad</string>
     <string name="file_icon">Archivo</string>
     <string name="user_icon">Usuario</string>
-    <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared">compartido</string>

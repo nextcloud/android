@@ -246,8 +246,6 @@
     <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
 	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
-    <string name="favorite">Marca com a disponible fora de línia</string>
-    <string name="unfavorite">Desmarca com a disponible fora de línia</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>
     <string name="common_rename">Reanomena</string>

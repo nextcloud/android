@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
     <string name="auth_illegal_login_used">Ugyldig påloggingsdata for URL er brukt</string>
 
-    <string name="favorite">Sett som tilgjengelig frakoblet</string>
-    <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
-    <string name="favorite_real">Legg til i favoritter</string>
-    <string name="unset_favorite_real">Fjern fra favoritter</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="common_rename">Gi nytt navn</string>
@@ -679,7 +675,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="user_icon">Bruker</string>
     <string name="favorite_icon">Favoritt</string>
     <string name="synced_icon">Synkronisert</string>
-    <string name="available_offline_icon">Tilgjengelig frakoblet</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="shared_icon_share">del</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>

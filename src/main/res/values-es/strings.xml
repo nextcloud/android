@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
     <string name="auth_illegal_login_used">Se ha usado una URL ilegal de datos de entrada</string>
 
-    <string name="favorite">Marcar como disponible sin conexión</string>
-    <string name="unfavorite">Desmarcar como disponible sin conexión</string>
-    <string name="favorite_real">Añadir a favoritos</string>
-    <string name="unset_favorite_real">Eliminar de favoritos</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
     <string name="common_rename">Renombrar</string>
@@ -662,7 +658,6 @@
     <string name="user_icon">Usuario</string>
     <string name="favorite_icon">Favorito</string>
     <string name="synced_icon">Sincronizado</string>
-    <string name="available_offline_icon">Disponible sin conexión</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="shared_icon_share">compartido</string>
     <string name="shared_icon_shared_via_link">compartidos vía enlace</string>

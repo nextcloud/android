@@ -220,10 +220,6 @@
 	<string name="auth_fail_get_user_name">Jūsų serveris negrąžina teisingo naudotojo ID, susisiekite su administratoriumi</string>
 	<string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
-    <string name="favorite">Nustatykite prieinamumą (statusą)</string>
-    <string name="unfavorite">Išjungti kaip neprieinamą (statusą)</string>
-    <string name="favorite_real">Pridėti į mėgstamus</string>
-    <string name="unset_favorite_real">Šalinti iš mėgstamų</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_remove">Ištrinti</string>
     <string name="confirmation_remove_file_alert">Ar tikrai norite ištrinti %1$s?</string>

@@ -271,10 +271,6 @@
     <string name="auth_access_failed">Prístup zamietnutý: %1$s</string>
     <string name="auth_illegal_login_used">Použitá nedovolená prihlasovacia URL</string>
 
-    <string name="favorite">Dostupné v režime offline</string>
-    <string name="unfavorite">Nedostupné v režime offline</string>
-    <string name="favorite_real">Pridať k obľúbeným</string>
-    <string name="unset_favorite_real">Odstrániť z obľúbených</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="common_rename">Premenovať</string>
@@ -672,7 +668,6 @@
     <string name="user_icon">Používateľ</string>
     <string name="favorite_icon">Obľúbené</string>
     <string name="synced_icon">Zosynchronizované</string>
-    <string name="available_offline_icon">Dostupné offline</string>
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="shared_icon_share">sprístupniť</string>
     <string name="shared_icon_shared_via_link">sprístupnené prostredníctvom odkazu</string>

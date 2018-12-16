@@ -267,10 +267,6 @@
     <string name="auth_access_failed">Acceso fallado: %1$s</string>
     <string name="auth_illegal_login_used">Usouse un URL de datos de acceso ilegal</string>
 
-    <string name="favorite">Estabelecer como dispoñíbel sen conexión</string>
-    <string name="unfavorite">Estabelecer como NON dispoñíbel con conexión</string>
-    <string name="favorite_real">Engadir aos marcadores</string>
-    <string name="unset_favorite_real">Retirar dos marcadores</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="common_rename">Renomear</string>
@@ -680,7 +676,6 @@ Coñeza o Nextcloud en https://nextcloud.com</string>
     <string name="user_icon">Usuario</string>
     <string name="favorite_icon">Favorito</string>
     <string name="synced_icon">Sincronizado</string>
-    <string name="available_offline_icon">Dispoñíbel sen conexión</string>
     <string name="checkbox">Caixa de verificación</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared_via_link">compartido por ligazón</string>
