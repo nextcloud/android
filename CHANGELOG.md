@@ -1,4 +1,4 @@
-## 3.4.0 (December, 2018)
+## 3.4.0 (December, 17, 2018)
 - hide download when creating share links
 - direct editing files with Collabora (Collabora Server >=4.0)
 - sort deleted files by deletion date by default
@@ -8,9 +8,9 @@
 - remember last path on upload
 - share file to Talk room
 - show local size in "on device" view
+- SSO: add request header for deck app
 - bug fixes
-
-For full list please see https://github.com/nextcloud/android/milestone/25
+For a detailed list, please visit: https://github.com/nextcloud/android/milestone/25
 
 ## 3.3.2 (November, 02, 2018)
 - fix fingerprint not working on certain devices
