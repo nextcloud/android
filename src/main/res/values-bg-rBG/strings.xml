@@ -726,4 +726,10 @@
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="permission_deny">Не</string>
     <string name="permission_allow">Да</string>
+    <string name="hint_note">Бележка</string>
+    <string name="select_template">Изберете шаблон</string>
+    <string name="filename_hint">Име на файла</string>
+    <string name="thumbnail">Миниатюра</string>
+    <string name="enter_filename">Въведете име на файла</string>
+    <string name="create_file_from_template">Създаване на файл от шаблон…</string>
     </resources>

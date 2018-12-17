@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
     <string name="auth_illegal_login_used">Kullanılan veri adresi geçersiz</string>
 
+    <string name="favorite">Sık Kullanılanlara Ekle</string>
+    <string name="unset_favorite">Sık kullanılanlardan kaldır</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>

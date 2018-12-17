@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
     <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
 
+    <string name="favorite">Zu den Favoriten hinzufügen</string>
+    <string name="unset_favorite">Aus den Favoriten entfernen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="common_rename">Umbenennen</string>

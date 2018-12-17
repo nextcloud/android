@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
     <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
 
+    <string name="favorite">Hozzáadás a kedvencekhez </string>
+    <string name="unset_favorite">Eltávolítás a kedvencekből</string>
     <string name="encrypted">Titkosítottra állítás</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>
@@ -812,4 +814,19 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="send_note">Megjegyzés küldése a címzettnek</string>
     <string name="note_could_not_sent">Nem sikerült elküldeni a jegyzetet</string>
     <string name="hint_note">Megjegyzés</string>
+    <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
+
+    <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>
+    <string name="create_new_document">Új dokumentum létrehozása</string>
+    <string name="create_new_spreadsheet">Új munkafüzet létrehozása</string>
+    <string name="create_new_presentation">Új bemutató létrehozása</string>
+    <string name="select_template">Sablon kiválasztása</string>
+    <string name="filename_hint">Fájlnév</string>
+    <string name="thumbnail">Előnézet</string>
+    <string name="enter_filename">Kérlek adj meg egy fájlnevet</string>
+    <string name="create_file_from_template">Fájl készítése sablonból...</string>
+    <string name="error_retrieving_templates">Hiba történt a sablon lékérésekor</string>
+    <string name="battery_optimization_title">Akkumlátor optimalizálás</string>
+    <string name="battery_optimization_disable">letilt</string>
+    <string name="battery_optimization_close">Bezár</string>
     </resources>

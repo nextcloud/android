@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
 
+    <string name="favorite">Toevoegen aan favorieten</string>
+    <string name="unset_favorite">Verwijderen uit favorieten</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="common_rename">Hernoemen</string>
