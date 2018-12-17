@@ -57,7 +57,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 4
 def versionPatch = 0
-def versionBuild = 53 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
