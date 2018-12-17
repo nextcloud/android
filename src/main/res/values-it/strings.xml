@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
     <string name="auth_illegal_login_used">Utilizzato URL di dati di accesso non consentito</string>
 
+    <string name="favorite">Aggiungi ai preferiti</string>
+    <string name="unset_favorite">Rimuovi dai preferiti</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="common_rename">Rinomina</string>
