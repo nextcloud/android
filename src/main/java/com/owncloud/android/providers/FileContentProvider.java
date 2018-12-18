@@ -817,8 +817,9 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT + INTEGER
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + INTEGER
                 + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT + INTEGER
-            + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST + TEXT
-            + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING + " INTEGER );");
+                       + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST + TEXT
+                       + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING + INTEGER
+                       + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES + " INTEGER );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -1869,7 +1870,25 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
-                        ADD_COLUMN + ProviderTableMeta.FILE_ETAG_ON_SERVER + " TEXT ");
+                                   ADD_COLUMN + ProviderTableMeta.FILE_ETAG_ON_SERVER + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 42 && newVersion >= 42) {
+                Log_OC.i(SQL, "Entering in the #42 add richDocuments templates");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
