@@ -1,0 +1,3 @@
+3.4.1 RC1 (December, 18, 2018)
+
+- fix possible crash on Android 9
