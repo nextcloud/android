@@ -206,7 +206,7 @@ android {
 
 dependencies {
     // dependencies for app building
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project('nextcloud-android-library')
     genericImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'
     gplayImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'
