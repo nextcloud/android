@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Access failed: %1$s</string>
     <string name="auth_illegal_login_used">Illegal login data URL used</string>
 
+    <string name="favorite">Add to favorites</string>
+    <string name="unset_favorite">Remove from favourites</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
@@ -807,6 +809,8 @@
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="share_via_link_hide_download">Hide download</string>
+    <string name="unread_comments">Unread comments exist</string>
+
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_spreadsheet">Create new spreadsheet</string>
@@ -817,4 +821,9 @@
     <string name="enter_filename">Please enter a filename</string>
     <string name="create_file_from_template">Creating file from template…</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
-    </resources>
+    <string name="battery_optimization_title">Battery optimization</string>
+    <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
+    <string name="battery_optimization_disable">disable</string>
+    <string name="battery_optimization_close">Close</string>
+    <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
+</resources>
