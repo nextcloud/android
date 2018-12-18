@@ -824,7 +824,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="filename_hint">Fájlnév</string>
     <string name="thumbnail">Előnézet</string>
     <string name="enter_filename">Kérlek adj meg egy fájlnevet</string>
-    <string name="create_file_from_template">Fájl készítése sablonból...</string>
+    <string name="create_file_from_template">Fájl készítése sablonból…</string>
     <string name="error_retrieving_templates">Hiba történt a sablon lékérésekor</string>
     <string name="battery_optimization_title">Akkumlátor optimalizálás</string>
     <string name="battery_optimization_disable">letilt</string>
