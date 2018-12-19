@@ -471,7 +471,7 @@
         <item quantity="other">%d selectate</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Se încarcă notificările...</string>
+    <string name="notifications_loading_activity">Se încarcă notificările…</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="upload_file_dialog_filename">Numele fișierului</string>
     <string name="upload_file_dialog_filetype">Tipul fișierului</string>
