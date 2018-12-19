@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
     <string name="auth_illegal_login_used">Ugyldig påloggingsdata for URL er brukt</string>
 
+    <string name="favorite">Legg til i favoritter</string>
+    <string name="unset_favorite">Fjern fra favoritter</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="common_rename">Gi nytt navn</string>
@@ -824,6 +826,8 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="no_browser_available">Ingen program tilgjengelig for å håndtere lenker</string>
     <string name="no_pdf_app_available">Ingen program tilgjengelig for å håndtere PDF</string>
     <string name="share_via_link_hide_download">Gjem nedlasting</string>
+    <string name="unread_comments">Det er uleste kommentarer</string>
+
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="create_new_spreadsheet">Opprett nytt regneark</string>
@@ -834,4 +838,9 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="enter_filename">Oppgi filnavn</string>
     <string name="create_file_from_template">Oppretter fil fra mal...</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
-    </resources>
+    <string name="battery_optimization_title">Batterioptimalisering</string>
+    <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer applikasjonen fra optimalisering.</string>
+    <string name="battery_optimization_disable">Deaktiver</string>
+    <string name="battery_optimization_close">Lukk</string>
+    <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
+</resources>
