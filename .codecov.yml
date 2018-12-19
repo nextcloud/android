@@ -1,4 +1,5 @@
 codecov:
+    token: df7b84c0-3ab4-48a7-8ba2-1ad8ddbc96e1
   branch: master
   ci:
     - drone.nextcloud.com
