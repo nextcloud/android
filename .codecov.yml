@@ -1,4 +1,5 @@
 codecov:
+  bot: nextcloud-android-bot
     token: df7b84c0-3ab4-48a7-8ba2-1ad8ddbc96e1
   branch: master
   ci:
@@ -11,7 +12,10 @@ coverage:
 
 comment:
   layout: "header, diff, changes, uncovered, tree"
-  behavior: default
+  require_changes: false
+  require_base: no
+  require_head: no
+  behavior: spammy
 
 ignore:
   - "src/main/res/values*/*"
