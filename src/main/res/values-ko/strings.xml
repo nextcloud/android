@@ -31,10 +31,14 @@
     <string name="drawer_item_activities">활동</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_quota">%2$s 중 %1$s 사용됨</string>
+    <string name="drawer_quota_unlimited">%1$s 사용됨</string>
+	<string name="drawer_close">사이드바 닫기</string>
+    <string name="drawer_open">사이드바 열기</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_lock">잠금</string>
+    <string name="prefs_lock_using_passcode">암호</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
     <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
@@ -250,6 +254,8 @@
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
     <string name="auth_access_failed">접근 실패: %1$s</string>
+    <string name="favorite">즐겨찾기에 추가</string>
+    <string name="unset_favorite">즐겨찾기에서 제거</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="common_rename">이름 바꾸기</string>
@@ -343,6 +349,7 @@
     <string name="activity_chooser_send_file_title">보내기</string>
 
     <string name="copy_link">링크 주소 복사</string>
+    <string name="clipboard_text_copied">링크 복사됨</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_unexpected_error">클립보드에 복사 중 알수없는 오류 발생</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
@@ -475,6 +482,7 @@
     <string name="share_email_clarification">%1$s(이메일)</string>
     <string name="share_known_remote_clarification">%1$s(%2$s에서)</string>
 
+    <string name="share_privilege_unshare">공유 해제</string>
     <string name="share_privilege_can_share">공유 가능</string>
     <string name="share_privilege_can_edit">편집 가능</string>
     <string name="share_privilege_can_edit_create">생성가능</string>
@@ -618,7 +626,16 @@
     <string name="drawer_middle_account">중간 계정</string>
     <string name="drawer_end_account">마지막 계정</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
+    <string name="activity_icon">활동</string>
+    <string name="file_icon">파일</string>
+    <string name="user_icon">사용자</string>
+    <string name="favorite_icon">즐겨찾기</string>
+    <string name="synced_icon">동기화됨</string>
     <string name="checkbox">체크 상자</string>
+    <string name="shared_icon_share">공유</string>
+    <string name="shared_icon_shared_via_link">링크로 공유됨</string>
+    <string name="shared_icon_shared">공유됨</string>
+    <string name="overflow_menu">메뉴 더 보기</string>
     <string name="sort_by_name_ascending">가나다순</string>
     <string name="sort_by_modification_date_ascending">새 항목 먼저</string>
     <string name="sort_by_size_descending">큰 것 먼저</string>
@@ -689,11 +706,23 @@
     <string name="end_to_end_encryption_dialog_close">닫기</string>
     <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
+    <string name="untrusted_domain">신뢰할 수 없는 도메인으로 접근했습니다. 더 많은 정보를 보려면 문서를 참조하십시오.</string>
     <string name="notification_channel_push_name">푸쉬 알림</string>
+    <string name="sendbutton_description">보내기 버튼 아이콘</string>
+
+    <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
+    <string name="hint_name">이름</string>
+    <string name="hint_password">암호</string>
+    <string name="add_to_cloud">%1$s(으)로 추가</string>
     <string name="upload_files">파일 업로드</string>
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
     <string name="create_new_folder">새 폴더 생성</string>
     <string name="uploads_view_upload_status_virus_detected">파이러스 탐지됨. 업로드를 완료할 수 없습니다!</string>
+    <string name="tags">태그</string>
+    <string name="sharee_add_failed">공유사용자 추가 실패</string>
+    <string name="unsharing_failed">공유 해제 실패</string>
+    <string name="updating_share_failed">공유 갱신 실패</string>
+    <string name="login">로그인</string>
     <string name="whats_new_device_credentials_content">데이터를 보호하기 위해 패턴, 비밀번호, PIN 또는 지문을 사용합니다</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
 	<string name="new_version_was_created">새 버전 생성됨</string>
