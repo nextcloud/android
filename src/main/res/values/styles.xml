@@ -110,11 +110,11 @@
 		<!--<item name="suggestionRowLayout">...</item>-->
 	</style>
 
-	<style name="ownCloud.Button" parent="Widget.MaterialComponents.Button">
+	<style name="ownCloud.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
 		<item name="colorButtonNormal">@color/primary</item>
 	</style>
 
-	<style name="Button" parent="Widget.MaterialComponents.Button">
+	<style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
 		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
 		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
@@ -171,7 +171,6 @@
 		<item name="android:windowBackground">@drawable/launch_screen</item>
 	</style>
 
-
 	<!-- Progress bar -->
 	<style name="Widget.ownCloud.TopProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
 		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
@@ -182,7 +181,6 @@
         <item name="android:windowFullscreen">true</item>
 		<item name="colorAccent">@color/color_accent</item>
     </style>
-
 
 	<style name="Theme.ownCloud.Widget.ActionBar"
 		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
@@ -251,7 +249,6 @@
 		<item name="android:maxLength">1</item>
 		<item name="android:password">true</item>
 		<item name="android:maxLines">1</item>
-
     </style>
 
     <style name="Theme.ownCloud.NoActionBar">
