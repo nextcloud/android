@@ -18,10 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include
         layout="@layout/toolbar_standard" />
@@ -63,16 +64,16 @@
         android:padding="@dimen/standard_padding">
 
         <com.google.android.material.button.MaterialButton
-            android:theme="@style/Button"
+            android:theme="@style/OutlinedButton"
             android:id="@+id/uploader_cancel"
-            style="@style/ownCloud.Button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:text="@string/common_cancel"
             android:layout_marginRight="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"/>
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
 		    android:id="@+id/uploader_choose_folder"
@@ -81,7 +82,8 @@
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"
 		    android:layout_weight="1"
-		    android:text="@string/uploader_btn_upload_text" />
+		    android:text="@string/uploader_btn_upload_text"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
 	</LinearLayout>
 </LinearLayout>

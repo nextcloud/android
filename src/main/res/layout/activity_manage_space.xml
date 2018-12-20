@@ -17,9 +17,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/general_description"
@@ -40,6 +41,7 @@
         android:layout_margin="@dimen/standard_margin"
         android:theme="@style/Button.Primary"
         style="@style/Button.Primary"
-        android:contentDescription="@string/manage_space_clear_data"/>
+        android:contentDescription="@string/manage_space_clear_data"
+        app:cornerRadius="@dimen/button_corner_radius" />
 
 </LinearLayout>

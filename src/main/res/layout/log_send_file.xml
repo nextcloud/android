@@ -17,10 +17,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1" >
+    android:weightSum="1">
 
     <include
         layout="@layout/toolbar_standard" />
@@ -59,12 +60,15 @@
 
         <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteLogHistoryButton"
-        android:theme="@style/Button"
+        android:theme="@style/OutlinedButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_weight="1"
-        android:text="@string/prefs_log_delete_history_button" />
+        android:text="@string/prefs_log_delete_history_button"
+        android:layout_marginEnd="@dimen/standard_quarter_margin"
+        android:layout_marginRight="@dimen/standard_quarter_margin"
+        app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
         android:id="@+id/sendLogHistoryButton"
@@ -73,7 +77,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_weight="1"
-        android:text="@string/log_send_history_button" />
+        android:text="@string/log_send_history_button"
+        android:layout_marginStart="@dimen/standard_quarter_margin"
+        android:layout_marginLeft="@dimen/standard_quarter_margin"
+        app:cornerRadius="@dimen/button_corner_radius" />
 
     </LinearLayout>
 

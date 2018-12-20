@@ -18,11 +18,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="@dimen/standard_padding" >
+    android:padding="@dimen/standard_padding">
 
     <TextView
         android:id="@+id/header"
@@ -94,6 +96,7 @@
         android:theme="@style/Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/common_cancel" />
+        android:text="@string/common_cancel"
+        app:cornerRadius="@dimen/button_corner_radius" />
 
 </LinearLayout>

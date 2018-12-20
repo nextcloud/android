@@ -20,9 +20,10 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,29 +64,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/login"
+                android:theme="@style/Button.Login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:maxWidth="500dp"
+                android:maxWidth="400dp"
                 android:minWidth="300dp"
                 android:textStyle="bold"
-                android:text="@string/login"/>
+                android:text="@string/login"
+                android:padding="@dimen/standard_padding"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/signup"
+                android:theme="@style/Button.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
                 android:maxWidth="500dp"
                 android:minWidth="300dp"
                 android:textStyle="bold"
-                android:text="@string/signup_with_provider"/>
+                android:padding="@dimen/standard_padding"
+                android:text="@string/signup_with_provider"
+                app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
         <TextView

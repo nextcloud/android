@@ -132,6 +132,7 @@
 
 	<style name="Button.Login" parent="Button">
 		<item name="colorButtonNormal">@color/white</item>
+        <item name="colorAccent">@color/white</item>
 		<item name="android:textColor">@color/primary_dark</item>
 	</style>
 

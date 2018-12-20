@@ -87,7 +87,7 @@
             android:layout_weight="1"
             android:text="@string/common_cancel"
             android:theme="@style/OutlinedButton"
-            app:cornerRadius="120dp" />
+            app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/upload_files_btn_upload"
@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:text="@string/uploader_btn_upload_text"
             android:theme="@style/Button.Primary"
-            app:cornerRadius="120dp" />
+            app:cornerRadius="@dimen/button_corner_radius" />
 
 	</LinearLayout>
 

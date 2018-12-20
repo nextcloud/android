@@ -15,10 +15,10 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<ScrollView
-    android:id="@+id/shareScroll"
+<ScrollView android:id="@+id/shareScroll"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.owncloud.android.ui.fragment.ShareFileFragment">
@@ -130,7 +130,8 @@
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/share_add_user_or_group"
                 android:text="@string/share_add_user_or_group"
-                android:theme="@style/Button.Primary"/>
+                android:theme="@style/Button.Primary"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
         </LinearLayout>
 
@@ -341,7 +342,8 @@
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/share_get_public_link_button"
                     android:text="@string/share_get_public_link_button"
-                    android:theme="@style/Button.Primary"/>
+                    android:theme="@style/Button.Primary"
+                    app:cornerRadius="@dimen/button_corner_radius" />
 
             </LinearLayout>
 
