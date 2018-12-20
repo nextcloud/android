@@ -175,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-					<EditText
+					<com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/oAuthEntryPoint_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-					<EditText
+					<com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/oAuthEntryPoint_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
 					android:layout_height="wrap_content"
 					android:visibility="gone">
 
-				<EditText
+				<com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/account_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
 					app:passwordToggleDrawable="@drawable/password_visibility_selector"
 					app:passwordToggleTint="@color/white">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/account_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt0"
             android:focusable="true"
             style="@style/PassCodeStyle"
@@ -61,9 +61,9 @@
             android:hint="@string/hidden_character"
             android:textCursorDrawable="@null">
             <requestFocus/>
-        </EditText>
+        </com.google.android.material.textfield.TextInputEditText>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt1"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
@@ -72,7 +72,7 @@
             android:hint="@string/hidden_character"
             android:textCursorDrawable="@null" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt2"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
@@ -81,7 +81,7 @@
             android:hint="@string/hidden_character"
             android:textCursorDrawable="@null" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt3"
             style="@style/PassCodeStyle"
             android:cursorVisible="true"

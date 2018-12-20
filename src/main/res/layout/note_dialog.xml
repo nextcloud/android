@@ -20,21 +20,29 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="clip_horizontal"
-              android:orientation="vertical"
-              android:padding="@dimen/standard_padding">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/standard_padding">
 
-    <EditText
-        android:id="@+id/user_input"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_note"
-        android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
-        android:minLines="3"
-        android:lines="5"
-        android:scrollbars="vertical"
-        android:importantForAutofill="no"/>
+        style="@style/TextInputLayout"
+        android:hint="@string/hint_note">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
+            android:lines="5"
+            android:minLines="3"
+            android:scrollbars="vertical" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>
