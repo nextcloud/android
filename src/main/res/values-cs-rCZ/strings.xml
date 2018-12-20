@@ -271,6 +271,7 @@
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
     <string name="auth_illegal_login_used">Byla použita neplatná přihlašovací URL</string>
 
+    <string name="favorite">Přidat do oblíbených</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="common_rename">Přejmenovat</string>

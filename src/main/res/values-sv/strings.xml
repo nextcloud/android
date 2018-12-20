@@ -256,6 +256,7 @@
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_account_does_not_exist">Kontot har ännu inte lagts till på den här enheten</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
+    <string name="favorite">Lägg till favoriter</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="common_rename">Byt namn</string>
@@ -667,12 +668,15 @@
     <string name="share">Dela</string>
     <string name="link">Länk</string>
 
+    <string name="notification_channel_upload_name">Ladda upp aviseringskanal</string>
+    <string name="notification_channel_download_name">Ladda ner aviseringskanal</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
     <string name="notification_channel_media_name">Mediaspelare</string>
     <string name="notification_channel_media_description">Musikspelarens förlopp</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
+    <string name="notification_channel_file_observer_name">Filobservatör</string>
     <string name="notification_channel_file_observer_description">Övervakar filer för ändringar</string>
 
     <string name="account_not_found">Kontot hittades inte!</string>
