@@ -26,13 +26,14 @@ import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 
 /**
  * Custom edit text to support fixed suffix or prefix
  */
-public class CustomEditText extends androidx.appcompat.widget.AppCompatEditText {
+public class CustomEditText extends TextInputEditText {
     private Rect fixedRect = new Rect();
     private String fixedText = "";
     private boolean isPrefixFixed;

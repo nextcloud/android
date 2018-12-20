@@ -41,7 +41,7 @@
         android:textIsSelectable="true"
         android:visibility="gone" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/encryption_passwordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

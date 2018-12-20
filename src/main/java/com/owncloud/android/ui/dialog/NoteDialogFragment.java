@@ -24,6 +24,8 @@ package com.owncloud.android.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -58,8 +62,11 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     private OCShare share;
     private Unbinder unbinder;
 
+    @BindView(R.id.user_input_container)
+    TextInputLayout noteEditTextInputLayout;
+
     @BindView(R.id.user_input)
-    EditText noteEditText;
+    TextInputEditText noteEditText;
 
     public static NoteDialogFragment newInstance(OCShare share) {
         NoteDialogFragment frag = new NoteDialogFragment();
@@ -107,7 +114,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         // Setup layout
         noteEditText.setText(share.getNote());
         noteEditText.requestFocus();
-        noteEditText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, accentColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
