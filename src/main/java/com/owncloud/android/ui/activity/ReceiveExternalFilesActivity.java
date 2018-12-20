@@ -800,11 +800,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
-                btnNewFolder.setOnClickListener(this);
+            btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
+            btnNewFolder.setOnClickListener(this);
 
-                mListView.setOnItemClickListener(this);
-            }
+            mListView.setOnItemClickListener(this);
         }
+    }
 
     protected void setupEmptyList() {
         mEmptyListContainer = findViewById(R.id.empty_list_view);

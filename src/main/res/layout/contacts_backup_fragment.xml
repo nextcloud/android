@@ -19,9 +19,10 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/contacts_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contacts_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,7 +75,8 @@
                 android:layout_margin="@dimen/standard_margin"
                 android:layout_weight="1"
                 android:text="@string/contacts_backup_button"
-                android:theme="@style/Button.Primary"/>
+                android:theme="@style/Button.Primary"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_datepicker"
@@ -84,7 +86,8 @@
                 android:layout_weight="1"
                 android:text="@string/contacts_preference_choose_date"
                 android:theme="@style/Button"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
     </LinearLayout>

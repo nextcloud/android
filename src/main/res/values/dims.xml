@@ -140,5 +140,6 @@
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="permission_dialog_text_padding">56dp</dimen>
+    <dimen name="button_corner_radius">120dp</dimen>
     <integer name="media_grid_width">4</integer>
 </resources>

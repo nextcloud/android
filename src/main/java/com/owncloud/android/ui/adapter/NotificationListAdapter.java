@@ -45,6 +45,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -135,12 +136,13 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         // add action buttons
         holder.buttons.removeAllViews();
-        Button button;
+        MaterialButton button;
 
 
         for (Action action : notification.getActions()) {
-            button = new Button(notificationsActivity);
+            button = new MaterialButton(notificationsActivity);
             button.setText(action.label);
+            button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
             if (action.primary) {
                 button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true),
