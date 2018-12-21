@@ -56,8 +56,8 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 3
 def versionMinor = 4
-def versionPatch = 0
-def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionPatch = 1
+def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
@@ -209,9 +209,9 @@ dependencies {
     // dependencies for app building
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation project('nextcloud-android-library')
-    genericImplementation "com.github.nextcloud:android-library:1.2.0"
-    gplayImplementation "com.github.nextcloud:android-library:1.2.0"
-    versionDevImplementation "com.github.nextcloud:android-library:1.2.0"
+    genericImplementation "com.github.nextcloud:android-library:1.2.1"
+    gplayImplementation "com.github.nextcloud:android-library:1.2.1"
+    versionDevImplementation "com.github.nextcloud:android-library:1.2.1"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
