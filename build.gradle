@@ -109,6 +109,10 @@ shot {
 }
 
 android {
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     lintOptions {
         abortOnError false
         htmlReport true

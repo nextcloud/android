@@ -36,12 +36,14 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  *  Dialog to input the name for a new folder to create.
@@ -49,13 +51,16 @@ import androidx.fragment.app.DialogFragment;
  *  Triggers the folder creation when name is confirmed.
  */
 public class CreateFolderDialogFragment
-        extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
-    private OCFile mParentFolder;
+    OCFile mParentFolder;
+
+    Dialog localDialog;
+    FragmentActivity activity;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
@@ -79,6 +84,8 @@ public class CreateFolderDialogFragment
         int color = ThemeUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
+        localDialog = getDialog();
+        activity = getActivity();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
@@ -104,10 +111,10 @@ public class CreateFolderDialogFragment
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
-                .setPositiveButton(R.string.folder_confirm_create, this)
-                .setNegativeButton(R.string.common_cancel, this)
-                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
-                        accentColor));
+            .setPositiveButton(R.string.folder_confirm_create, this)
+            .setNegativeButton(R.string.common_cancel, this)
+            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
+                                                 accentColor));
         Dialog d = builder.create();
 
         Window window = d.getWindow();
@@ -121,24 +128,50 @@ public class CreateFolderDialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFolderName =
-                    ((TextView)(getDialog().findViewById(R.id.user_input)))
-                        .getText().toString().trim();
+        if (which != android.app.AlertDialog.BUTTON_POSITIVE) {
+            return;
+        }
 
+        String newFolderName =
+            ((TextView) (localDialog.findViewById(R.id.user_input)))
+                .getText().toString().trim();
             if (TextUtils.isEmpty(newFolderName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
             }
 
-            if (!FileUtils.isValidName(newFolderName)) {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
+        try {
+            new Controller(((ComponentsGetter) getActivity()).getFileOperationsHelper())
+                .verifyAndCreateFolder(which, newFolderName);
+        } catch (RuntimeException e) {
+            DisplayUtils.showSnackMessage(getActivity(), e.getMessage());
+        }
+    }
 
-                return;
+    class Controller {
+        FileOperationsHelper fileOperationsHelper;
+
+        Controller(FileOperationsHelper fileOperationsHelper) {
+            this.fileOperationsHelper = fileOperationsHelper;
+        }
+
+        public void verifyAndCreateFolder(int which, String newFolderName) {
+            if (which == AlertDialog.BUTTON_POSITIVE) {
+
+                if (newFolderName.length() <= 0) {
+                    throw new RuntimeException(String.valueOf(R.string.filename_empty));
+                }
+
+                if (!FileUtils.isValidName(newFolderName)) {
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
+                    return;
+                }
+
+                String path = mParentFolder.getRemotePath();
+                path += newFolderName + OCFile.PATH_SEPARATOR;
+
+                fileOperationsHelper.createFolder(path, false);
             }
-
-            String path = mParentFolder.getRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path, false);
         }
     }
 }
