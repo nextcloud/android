@@ -192,6 +192,7 @@
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</item>
     </plurals>
+    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到本地%1$s資料夾，以防止多重帳號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中本地與遠端檔案之間的連結。</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="foreign_files_move">移動全部</string>
     <string name="foreign_files_success">已經移動所有檔案</string>
@@ -265,6 +266,8 @@
     <string name="auth_access_failed">存取失敗：%1$s</string>
     <string name="auth_illegal_login_used">使用了不合法的登入資料URL</string>
 
+    <string name="favorite">加到我的最愛</string>
+    <string name="unset_favorite">從最愛中移除</string>
     <string name="encrypted">設為已加密的</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="common_rename">重新命名</string>
@@ -382,7 +385,16 @@
 
     <string name="file_migration_dialog_title">更新儲存路徑</string>
     <string name="file_migration_preparing">準備遷移…</string>
+    <string name="file_migration_checking_destination">檢查目的地…</string>
+    <string name="file_migration_saving_accounts_configuration">正在儲存帳戶設置…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">等待完整同步…</string>
+    <string name="file_migration_migrating">資料移動中…</string>
+    <string name="file_migration_updating_index">更新索引中…</string>
+    <string name="file_migration_cleaning">清理中…</string>
+    <string name="file_migration_restoring_accounts_configuration">回復帳戶設置中…</string>
     <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">需要更多空間</string>
+    <string name="file_migration_failed_not_writable">無法寫入目的檔案</string>
     <string name="file_migration_override_data_folder">取代</string>
     <string name="file_migration_use_data_folder">使用</string>
 

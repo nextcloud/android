@@ -572,7 +572,10 @@
     <string name="version_dev_download">Atsisiųsti</string>
 
     <string name="send">Siųsti</string>
+    <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
+    <string name="notification_channel_upload_description">Rodo įkėlimo eigą</string>
     <string name="notification_channel_media_name">Medijos leistuvė</string>
+    <string name="notification_channel_media_description">Muzikos grotuvo eiga</string>
     <string name="notification_channel_file_observer_name">Failų stebėtojas</string>
     <string name="notification_channel_file_observer_description">Stebi failų pakeitimus</string>
 
@@ -586,11 +589,19 @@
     <string name="end_to_end_encryption_wrong_password">Klaida iššifruojant. Neteisingas slaptažodis?</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gaunami raktai…</string>
+    <string name="end_to_end_encryption_title">Nustatyti šifravimą</string>
+    <string name="end_to_end_encryption_not_supported">Šifravimas veikia tik KitKat(4.4) ir naujesnėse versijose.</string>
     <string name="end_to_end_encryption_not_enabled">Ištisinis šifravimas yra išjungtas serveryje.</string>
+    <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_password">Slaptažodis…</string>
+    <string name="end_to_end_encryption_dialog_close">Užverti</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="hint_password">Slaptažodis</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
+    <string name="upload_files">Įkelti failus</string>
     <string name="create_new_folder">Sukurti naują aplanką</string>
+    <string name="uploads_view_upload_status_virus_detected">Aptiktas virusas. Įkėlimas negali būti užbaigtas!</string>
+    <string name="tags">Žymės</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
 	<string name="restore">Atkurti failą</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
@@ -608,6 +619,7 @@
     <string name="folder_confirm_create">Sukurti</string>
     <string name="file_delete">Ištrinti</string>
     <string name="file_rename">Pervadinti</string>
+    <string name="account_creation_failed">Paskyros sukūrimas nepavyko</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="permission_deny">Drausti</string>
     <string name="permission_allow">Leisti</string>
