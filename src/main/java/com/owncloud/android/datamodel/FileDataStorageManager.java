@@ -1935,6 +1935,8 @@ public class FileDataStorageManager {
                 TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
             .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichdocumentsTemplatesAvailable()
+            .getValue());
 
         if (capabilityExists(account.name)) {
             if (getContentResolver() != null) {
@@ -2092,9 +2094,11 @@ public class FileDataStorageManager {
                     c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_ACTIVITY))));
             capability.setRichDocuments(CapabilityBooleanType.fromValue(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT))));
-            String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
             capability.setRichDocumentsDirectEditing(CapabilityBooleanType.fromValue(c.getInt(
                 c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING))));
+            capability.setRichdocumentsTemplatesAvailable(CapabilityBooleanType.fromValue(c.getInt(
+                c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES))));
+            String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
             if (mimetypes == null) {
                 mimetypes = "";
             }
