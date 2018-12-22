@@ -361,56 +361,185 @@
     <string name="activity_chooser_send_file_title">Sendi</string>
 
     <string name="copy_link">Kopii ligilon</string>
-    <string name="forbidden_permissions_rename">por alinomigi ĉi tiun dosieron</string>
-    <string name="forbidden_permissions_delete">por forigi ĉi tiun dosieron</string>
-    <string name="share_link_forbidden_permissions">por kunhavigi ĉi tiun dosieron</string>
-    <string name="unshare_link_forbidden_permissions">por malkunhavigi ĉi tiun dosieron</string>
-    <string name="update_link_forbidden_permissions">por ĝisdatigi ĉi tiun kunhavon</string>
+    <string name="clipboard_text_copied">Ligilo kopiita</string>
+    <string name="clipboard_no_text_to_copy">Neniu teksto ricevita por kopii tondujen</string>
+    <string name="clipboard_unexpected_error">Neatendita eraro dum kopiado al tondujo</string>
+    <string name="clipboard_label">Teksto kopiita el %1$s</string>
+
+    <string name="error_cant_bind_to_operations_service">Grava eraro: ne eblas plenumi operaciojn</string>
+
+    <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
+    <string name="network_error_socket_timeout_exception">Eraro okazis dum atendo el la servilo. Ne eblis plenumi la taskon</string>
+    <string name="network_error_connect_timeout_exception">Eraro okazis dum atendo el la servilo. Ne eblis plenumi la taskon</string>
+    <string name="network_host_not_available">Ne eblis plenumi la taskon: la servilo ne disponeblas</string>
+
+    <string name="forbidden_permissions">Vi ne estas permesita %s</string>
+    <string name="forbidden_permissions_rename">alinomi ĉi tiun dosieron</string>
+    <string name="forbidden_permissions_delete">forigi ĉi tiun dosieron</string>
+    <string name="share_link_forbidden_permissions">kunhavigi ĉi tiun dosieron</string>
+    <string name="unshare_link_forbidden_permissions">malkunhavigi ĉi tiun dosieron</string>
+    <string name="update_link_forbidden_permissions">ĝisdatigi ĉi tiun kunhavon</string>
+    <string name="forbidden_permissions_create">krei ĉi tiun dosieron</string>
+    <string name="uploader_upload_forbidden_permissions">alŝuti al ĉi tiu dosierujo</string>
     <string name="downloader_download_file_not_found">La dosiero ne plu disponeblas en la servilo</string>
 
-    <string name="prefs_add_account">Aldoni konton</string>
-    <string name="actionbar_logger">Protokoloj</string>
-	<string name="log_send_history_button">Sendi historion</string>
-	<string name="log_send_mail_subject">%1$s protokoloj de Android-aplikaĵoj</string>
-    <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
-	<string name="actionbar_move">Movi</string>
-    <string name="folder_picker_choose_button_text">Elekti</string>
+    <string name="file_migration_dialog_title">Ĝisdatigante la vojon al memoro</string>
+    <string name="file_migration_preparing">Preparante la datummigradon...</string>
+    <string name="file_migration_checking_destination">Kontrolante la celon...</string>
+    <string name="file_migration_saving_accounts_configuration">Konservante la kontagordon...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Atendante la plenan sinkronigon...</string>
+    <string name="file_migration_migrating">Movante datumojn...</string>
+    <string name="file_migration_updating_index">Ĝisdatigante la indekson...</string>
+    <string name="file_migration_cleaning">Purigante...</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaŭrante la kontagordon...</string>
+    <string name="file_migration_ok_finished">Finita</string>
+    <string name="file_migration_failed_not_enough_space">Pli da diskospaco bezonata</string>
+    <string name="file_migration_failed_not_writable">Ne eblis skribi al la celdosiero</string>
+    <string name="file_migration_failed_not_readable">Ne eblis legi fontodosiero</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud-dosierujo jam ekzistas</string>
+    <string name="file_migration_failed_while_coping">Fiaskis dum datummigrado</string>
+    <string name="file_migration_failed_while_updating_index">Ne eblis ĝisdatigi la indekson</string>
 
+    <string name="file_migration_directory_already_exists">Datumdosierujo jam ekzistas. Elektu unu opcion:</string>
+    <string name="file_migration_override_data_folder">Anstataŭigi</string>
+    <string name="file_migration_use_data_folder">Uzi</string>
+
+    <string name="file_migration_source_not_readable_title">Fontodosierujo ne legeblas!</string>
+    <string name="file_migration_source_not_readable">Ĉu vi plu volas ŝanĝi la lokon de la datumoj al %1$s?\n\nNotu: ĉiuj datumoj estos denove elŝutitaj.</string>
+
+    <string name="prefs_add_account">Aldoni konton</string>
+    <string name="drawer_manage_accounts">Administri kontojn</string>
+    <string name="auth_redirect_non_secure_connection_title">La sekura konekto alidirektas al nesekura vojo.</string>
+
+	<string name="actionbar_logger">Protokoloj</string>
+	<string name="log_send_history_button">Sendi historion</string>
+	<string name="log_send_no_mail_app">Neniu aplikaĵo trovebla por sendi protokolojn. Bonvolu instali retpoŝtilon.</string>
+	<string name="log_send_mail_subject">Protokoloj de Android-aplikaĵo %1$s</string>
+    <string name="log_progress_dialog_text">Ŝargante datumojn...</string>
+
+	<string name="saml_authentication_required_text">Pasvorto bezonata</string>
+	<string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
+	<string name="actionbar_move">Movi</string>
+    <string name="actionbar_copy">Kopii</string>
+	<string name="file_list_empty_moving">Nenio ĉi tie. Vi povas aldoni dosierujon.</string>
+	<string name="folder_picker_choose_button_text">Elekti</string>
+
+    <string name="move_file_not_found">Ne eblas movi dosieron. Bonvolu kontroli, ĉu ĝi ekzistas.</string>
+    <string name="move_file_invalid_into_descendent">Ne eblas movi dosierujon en unu el ĝiaj idoj</string>
+    <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="move_file_error">Eraro okazis, dum provo movi ĉi tiun dosieron aŭ dosierujon</string>
     <string name="forbidden_permissions_move">por movi ĉi tiun dosieron</string>
 
 
     <string name="copy_file_not_found">Ne eblas kopii. Bonvolu kontroli, ĉu la dosiero ekzistas.</string>
+    <string name="copy_file_invalid_into_descendent">Ne eblas kopii dosierujon en unu el ĝiaj idoj</string>
+    <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="copy_file_error">Eraro okazis, dum provo kopii ĉi tiun dosieron aŭ dosierujon</string>
     <string name="forbidden_permissions_copy">por kopii ĉi tiun dosieron</string>
 
     <string name="prefs_category_details">Detaloj</string>
 
-    <string name="subject_user_shared_with_you">%1$s kunhavigis “%2$s” kun vi</string>
-    <string name="subject_shared_with_you">“%1$s” kunhaviĝis kun vi</string>
+    <string name="sync_folder_failed_content">Sinkronigo de dosierujo %1$s ne estis plenumita</string>
 
-    <string name="auth_refresh_button">Freŝigi konekton</string>
+	<string name="subject_user_shared_with_you">%1$s kunhavigis „%2$s“ kun vi</string>
+    <string name="subject_shared_with_you">„%1$s“ estis kunhavigita kun vi</string>
+
+    <string name="auth_refresh_button">Aktualigi konekton</string>
     <string name="auth_host_address">Servila adreso</string>
     <string name="common_error_out_memory">Nesufiĉa memoro</string>
 
     <string name="username">Uzantonomo</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d dosierujo</item>
+        <item quantity="other">%1$d dosierujoj</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d dosiero</item>
+        <item quantity="other">%1$d dosieroj</item>
+    </plurals>
+    <string name="set_picture_as">Uzi la bildon kiel</string>
+    <string name="set_as">Uzi kiel</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">La origina dosiero estos...</string>
+    <string name="prefs_instant_behaviour_title">La origina dosiero estos...</string>
+    <string name="select_all">Elekti ĉion</string>
+    <string name="deselect_all">Malelekti ĉion</string>
+
     <string name="pref_behaviour_entries_keep_file">konservita en origina dosierujo</string>
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
+    <string name="pref_behaviour_entries_delete_file">forigita</string>
+    <string name="prefs_storage_path">Vojo al datummemoro</string>
+
     <string name="share_dialog_title">Kunhavigo</string>
+    <string name="share_file">Kunhavigi %1$s</string>
     <string name="share_with_user_section_title">Kunhavigi kun uzantoj kaj grupoj</string>
-    <string name="share_no_users">Nenio da datumoj kunhaviĝis kun uzantoj ankoraŭ</string>
+    <string name="share_no_users">Neniu datumo ankoraŭ kunhavigita kun uzantoj</string>
     <string name="share_add_user_or_group">Aldoni uzanton aŭ grupon</string>
+    <string name="share_via_link_edit_permission_label">Permesi modifon</string>
+    <string name="share_via_link_password_label">Protekti per pasvorto</string>
+    <string name="share_via_link_password_title">Sekurigita</string>
+    <string name="share_via_link_expiration_date_label">Uzi limdaton</string>
+    <string name="share_via_link_menu_password_label">Protekti per pasvorto (%1$s)</string>
+    <string name="share_expiration_date_label">Senvalidiĝas je %1$s</string>
+    <string name="share_no_expiration_date_label">Uzi limdaton</string>
     <string name="share_via_link_section_title">Kunhavigi ligilon</string>
+    <string name="share_via_link_send_link_label">Sendi ligilon</string>
+    <string name="share_password_title">pasvorte protektita</string>
+    <string name="share_no_password_title">Uzi pasvorton</string>
+    <string name="edit_permission_label">modifi</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Kaŝi dosierliston</string>
     <string name="share_get_public_link_button">Ekhavi ligilon</string>
+    <string name="share_with_title">Kunhavigi kun...</string>
+    <string name="share_with_edit_title">Kunhavigi kun %1$s</string>
+    <string name="share_via_link_unset_password">Malprotekti</string>
+
+    <string name="share_search">Nomo, federnuba identigilo aŭ retpoŝtadreso...</string>
+
     <string name="search_users_and_groups_hint">Serĉi uzantojn kaj grupojn</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
-    <string name="share_privilege_can_share">kunhavebla</string>
+    <string name="share_remote_clarification">%1$s (fora)</string>
+    <string name="share_email_clarification">%1$s (retpoŝtadreso)</string>
+    <string name="share_room_clarification">%1$s (dialogo)</string>
+    <string name="share_known_remote_clarification">%1$s (el %2$s)</string>
+
+    <string name="share_privilege_unshare">Malkunhavigi</string>
+    <string name="share_privilege_can_share">povas kunhavigi</string>
     <string name="share_privilege_can_edit">povas redakti</string>
+    <string name="share_privilege_can_edit_create">povas krei</string>
+    <string name="share_privilege_can_edit_change">povas ŝanĝi</string>
+    <string name="share_privilege_can_edit_delete">povas forigi</string>
+
+    <string name="action_retry_uploads">Reprovi malsukcesajn alŝutojn</string>
+    <string name="action_clear_failed_uploads">Vakigi malsukcesajn alŝutojn</string>
+    <string name="action_clear_successful_uploads">Vakigi sukcesajn alsûtojn</string>
+    <string name="action_force_rescan">Aktualigi nun</string>
+
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
 
     <string name="manage_space_title">Administri spacon</string>
+    <string name="manage_space_description">Agordoj, datumbazo kaj servilatestiloj el la servilo %1$s estos forigita porĉiame. \n\nElŝutitaj dosieroj estos konservitaj.\n\nTiu operacio povas longe daŭri.</string>
     <string name="manage_space_clear_data">Forviŝi datumojn</string>
 
+    <string name="permission_storage_access">Pliaj permesoj bezonataj por el- kaj alŝuti dosierojn.</string>
+    <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo.</string>
+    <string name="confirmation_remove_files_alert">Ĉu vi ja volas forigi la elektitajn elementojn?</string>
+    <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
+    <string name="maintenance_mode">La servilo estas en reĝimo de prizorgado</string>
+    <string name="offline_mode">Neniu reta konekto</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Atendante ŝargon de via aparato</string>
+    <string name="actionbar_search">Serĉi</string>
+    <string name="files_drop_not_supported">Tio estas funkcio de Nextcloud, bonvolu ĝisdatigi.</string>
+    <string name="learn_more">Scii pli</string>
+    <string name="drawer_synced_folders">Aŭtomata alsûto</string>
+    <string name="drawer_participate">Partopreni</string>
+    <string name="participate_testing_headline">Helpi per testado</string>
+    <string name="participate_testing_bug_text">Vi trovis eraron? Ion stranga?</string>
+    <string name="participate_testing_report_text">Raporti problemon per GitHub</string>
+    <string name="participate_testing_version_text">Ĉu vi pretas helpi testante la proksiman version?</string>
+    <string name="participate_beta_headline">Testu la beta-version</string>
+    <string name="participate_beta_text">Ĝi enhavas ĉiujn venontajn funkciojn, kaj ĝi estas freŝfreŝa. Eraroj povas okazi: se kaj kiam tio okazas, bonvolu raporti ilin.</string>
+    <string name="participate_release_candidate_headline">Testa antaŭversio</string>
     </resources>

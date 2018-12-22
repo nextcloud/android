@@ -265,6 +265,8 @@
     <string name="auth_access_failed">访问已失败: %1$s</string>
     <string name="auth_illegal_login_used">非法登录地址</string>
 
+    <string name="favorite">添加到收藏列表</string>
+    <string name="unset_favorite">从收藏列表移除</string>
     <string name="encrypted">设置为加密</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="common_rename">重命名</string>
@@ -800,6 +802,8 @@
     <string name="no_browser_available">没有可用来打开链接的应用</string>
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
+    <string name="unread_comments">有未读评论</string>
+
     <string name="richdocuments_failed_to_load_document">载入文档失败</string>
     <string name="create_new_document">新建文档</string>
     <string name="create_new_spreadsheet">新建表格</string>
