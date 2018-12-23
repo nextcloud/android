@@ -267,6 +267,8 @@
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
     <string name="auth_illegal_login_used">Se ha usado una URL ilegal de datos de entrada</string>
 
+    <string name="favorite">Añadir a favoritos</string>
+    <string name="unset_favorite">Eliminar de favoritos</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
     <string name="common_rename">Renombrar</string>
@@ -807,6 +809,8 @@
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
+    <string name="unread_comments">Hay comentarios no leídos</string>
+
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_spreadsheet">Crear nueva hoja de cálculo</string>
@@ -817,4 +821,9 @@
     <string name="enter_filename">Por favor, introduce un nombre de archivo</string>
     <string name="create_file_from_template">Creando archivo desde la plantilla…</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
-    </resources>
+    <string name="battery_optimization_title">Optimización de batería</string>
+    <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
+    <string name="battery_optimization_disable">desactivar</string>
+    <string name="battery_optimization_close">Cerrar</string>
+    <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
+</resources>

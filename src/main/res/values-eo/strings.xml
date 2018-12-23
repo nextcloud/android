@@ -542,4 +542,156 @@
     <string name="participate_beta_headline">Testu la beta-version</string>
     <string name="participate_beta_text">Ĝi enhavas ĉiujn venontajn funkciojn, kaj ĝi estas freŝfreŝa. Eraroj povas okazi: se kaj kiam tio okazas, bonvolu raporti ilin.</string>
     <string name="participate_release_candidate_headline">Testa antaŭversio</string>
+    <string name="participate_release_candidate_text">La testa antaŭversio (RC, el la angla „release candidate“) estas ekfoto de la venonta versio kaj devus esti stabila. Per testado de via sistemo, vi povas helpi. Uzu tiun RC-version per registriĝo en „Play Store“ aŭ per la sekcio „Versioj“ de „F-Droid“.</string>
+    <string name="participate_contribute_headline">Aktive kontribuu</string>
+    <string name="participate_contribute_irc_text">Partoprenu babilante per IRC (interreta relajsa babilo, angle „internet relay chat“):</string>
+    <string name="participate_contribute_forum_text">Helpu la aliajn uzantojn per</string>
+    <string name="participate_contribute_forum_forum">forumo</string>
+    <string name="participate_contribute_translate_translate">Traduku</string>
+    <string name="participate_contribute_translate_text">la aplikaĵon</string>
+    <string name="participate_contribute_github_text">Reviziu, korekti kaj kodu, vidu ĉi tie %1$s por pli da detaloj</string>
+    <string name="participate_rc_play_store">Havu testan antaŭversion el „Play Store“ de Google</string>
+    <string name="participate_rc_fdroid">Havu testan antaŭversion el la aplikaĵo „F-Droid“</string>
+    <string name="participate_dev_fdroid">Havu beta-version el la aplikaĵo „F-Droid“</string>
+    <string name="participate_dev_direct_download">Elŝutu beta-version senpere</string>
+    <string name="move_to">Movi al...</string>
+    <string name="copy_to">Kopii al...</string>
+    <string name="choose_remote_folder">Elekti foran dosierujon...</string>
+    <string name="choose_local_folder">Elekti lokan dosierujon...</string>
+    <string name="synced_folders_loading_folders">Ŝargante dosieruojn...</string>
+    <string name="synced_folders_no_results">Neniu aŭdovida dosierujo troveblas</string>
+    <string name="synced_folders_preferences">Agordoj pri aŭtomata alŝuto</string>
+    <string name="synced_folders_new_info">Oni tute elrenovigis tuj-alŝutadon. Reagordu vian aŭtomatan alŝuton pere de la ĉefa menuo.\n\nUzu la novan, kaj pli kapablan, aŭtomatan alŝuton.</string>
+    <string name="synced_folders_preferences_folder_path">Pri %1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d elektita</item>
+        <item quantity="other">%d elektitaj</item>
+    </plurals>
+
+    <string name="notifications_loading_activity">Ŝargante sciigojn...</string>
+    <string name="notifications_no_results_headline">Neniu sciigo</string>
+    <string name="notifications_no_results_message">Bonvolu rekontroli pli poste.</string>
+
+    <string name="upload_file_dialog_title">Entajpu la alŝutotan dosiernomon kaj ĝian tipon </string>
+    <string name="upload_file_dialog_filename">Dosiernomo</string>
+    <string name="upload_file_dialog_filetype">Dosiertipo</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Eltiraĵa teksto-dosiero(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Interreta ŝparvoj-dosiero(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">„Google Maps“ ŝparvoj-dosiero(%s)</string>
+
+    <string name="storage_description_default">Defaŭlta</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Novaĵoj en %1$s</string>
+    <string name="whats_new_skip">Preterpasi</string>
+
+    <!-- User information -->
+    <string name="user_info_email">Retpoŝtadreso</string>
+    <string name="user_info_phone">Telefonnumero</string>
+    <string name="user_info_address">Adreso</string>
+    <string name="user_info_website">Retejo</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_retrieval_error">Eraro dum ricevo de informoj pri uzanto</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Neniu aktivaĵo</string>
+    <string name="activities_no_results_message">Neniu evento kiel aldonojn, ŝanĝojn kaj kunhavojn</string>
+    <string name="prefs_category_about">Pri</string>
+
+    <string name="actionbar_contacts">Savkopii kontaktaron</string>
+    <string name="actionbar_contacts_restore">Restaŭri kontaktaron</string>
+    <string name="contacts_backup_button">Savkopii nun</string>
+    <string name="contacts_automatic_backup">Aŭtomata savkopio</string>
+    <string name="contacts_last_backup">Lasta savkopio</string>
+    <string name="contacts_read_permission">Permeso por legi kontaktojn bezonata</string>
+    <string name="contaclist_restore_selected">Restaŭri elektitajn kontaktojn</string>
+    <string name="contactlist_account_chooser_title">Elekti konton importota</string>
+    <string name="contactlist_no_permission">Permeso ne donita, nenio importiĝis.</string>
+    <string name="contacts_preference_choose_date">Elekti daton</string>
+    <string name="contacts_preference_backup_never">neniam</string>
+    <string name="contacts_preferences_no_file_found">Neniu dosiero trovebla</string>
+    <string name="contacts_preferences_something_strange_happened">Ne eblis trovi vian lastan savkopion!</string>
+    <string name="contacts_preferences_backup_scheduled">Savkopiado estas planita kaj komenciĝos tre baldaŭ</string>
+    <string name="contacts_preferences_import_scheduled">Importado estas planita kaj komenciĝos tre baldaŭ</string>
+
+    <string name="drawer_logout">Elsaluti</string>
+    <string name="picture_set_as_no_app">Neniu aplikaĵo trovita por uzi tiun bildon</string>
+    <string name="privacy">Privateco</string>
+    <string name="file_not_found">Netrovita dosiero</string>
+    <string name="file_not_synced">La dosiero ne eblis sinkroniĝi. Nun montriĝas lasta disponebla versio.</string>
+
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Agordi propran dosierujon</string>
+    <string name="autoupload_create_new_custom_folder">Krei novan agordon por propra dosierujo</string>
+    <string name="synced_folders_configure_folders">Agordi dosierujojn</string>
+
+    <string name="test_server_button">Testi konekton al servilo</string>
+    <string name="resharing_is_not_allowed">Re-kunhavigi ne estas permesita</string>
+    <string name="fallback_weblogin_back">Antaŭen</string>
+    <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>
+
+    <string name="foreground_service_upload">Alŝutante dosierojn...</string>
+    <string name="foreground_service_download">Elŝutante dosierojn...</string>
+
+    <string name="prefs_sourcecode">Havi fontkodo</string>
+    <string name="prefs_license">Permesilo</string>
+    <string name="prefs_gpl_v2">Ĝenerala Publika Permesilo, versio 2</string>
+    <string name="push_notifications_not_implemented">Tujaj sciigoj estas malebligitaj pro dependeco al proprietaj „Google Play“-servoj.</string>
+    <string name="push_notifications_old_login">Neniu tujaj sciigoj pro malaktuala ensaluto-seanco. Bonvolu eble re-aldoni vian konton.</string>
+    <string name="push_notifications_temp_error">Tujaj sciigoj momente ne disponeblas.</string>
+
+    <string name="sync_in_progress">Prenante plej freŝa versio de la dosiero.</string>
+    <string name="date_unknown">Nekonata</string>
+
+    <string name="resized_image_not_possible">Neniu regrandigita bildo disponeblas.</string>
+    <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti origina bildo?</string>
+
+    <string name="store_short_desc">Nextcloud Android ebligas aliri al ĉiuj viaj dosieroj en via Nextcloud.</string>
+    <string name="store_full_desc">La aplikaĵo Nextcloud Android estas rajtoceda 🄯 kaj donas al vi movan liberecon.\n\nFunkcioj:\n* Facila kaj moderna fasado, taŭga por la etoso de via servilo\n* Alŝutu dosierojn al via Nextcloud-servilo\n* Kunhavigu ilin kun aliuloj\n* Sinkronigu vian pli ŝatatajn dosierojn kaj dosierujojn\n* Serĉu tra ĉiuj dosierujoj el via servilo\n* Aûtomata alŝuto de fotoj kaj videaĵoj faritaj pere de via aparato\n* Sciigoj por resti informita\n* Plurkontaj subteno\n* Sekurigu aliron al viaj datumoj per fingropremaĵo aŭ persona identiga numero (PIN)\n* Kunlaboro kun aplikaĵo DAVdroid por facile agordi sinkronigon de kalendaroj kaj kontaktaro\n\nBonvolu sciigi al ni ĉiujn problemojn aŭ erarojn al https://github.com/nextcloud/android/issues kaj priparoli tiun aplikaĵon ĉi tie: https://help.nextcloud.com/c/clients/android\n\nNextcloud estas nova por vi? Nextcloud estas servilo por sinkronigo kaj kunhavigo de dosieroj. Ĝi estas libera programo, kaj vi mem povas gastiigi ĝin aŭ vi povas pagi firmaon. Tial, vi kontrolas viajn fotojn, kalendarojn kaj kontaktojn, dokumentojn, k.c.\n\nVidu Nextcloud ĉe https://nextcloud.com</string>
+
+    <string name="drawer_current_account">Nuna konto</string>
+    <string name="drawer_middle_account">Meza konto</string>
+    <string name="drawer_end_account">Lasta konto</string>
+    <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
+    <string name="activity_icon">Aktivaĵoj</string>
+    <string name="file_icon">Dosiero</string>
+    <string name="user_icon">Uzanto</string>
+    <string name="favorite_icon">Pliŝatataj</string>
+    <string name="synced_icon">Sinkronigita</string>
+    <string name="checkbox">Markobutono</string>
+    <string name="shared_icon_share">kunhavo</string>
+    <string name="shared_icon_shared_via_link">kunhavigita per ligilo</string>
+    <string name="shared_icon_shared">kunhavigita</string>
+    <string name="overflow_menu">Pliaj menuoj</string>
+    <string name="sort_by_name_ascending">A→Z</string>
+    <string name="sort_by_modification_date_ascending">Pli novaj unue</string>
+    <string name="sort_by_size_descending">Pli grandaj unue</string>
+    <string name="sort_by_size_ascending">Malpli grandaj unue</string>
+    <string name="sort_by_name_descending">Z→A</string>
+    <string name="sort_by_modification_date_descending">Malpli novaj unue</string>
+    <string name="synced_folders_type">Tipo</string>
+    <string name="sync_status_button">Butono pri la sinkroniga stato</string>
+    <string name="synced_folder_settings_button">Butono pri agordoj</string>
+    <string name="synced_folder_custom_folder_image">Propra dosierujo-bildo</string>
+    <string name="upload_item_action_button">Butono pri alŝuto</string>
+    <string name="forward">Antaŭen</string>
+    <string name="what_s_new_image">Bildo pri Kio nova</string>
+
+    <string name="store_short_dev_desc">La beta-aplikaĵo Nextcloud estas ekfoto de la nuna versio kodata kaj ĝi povas esti instalita samtempe.</string>
+    <string name="store_full_dev_desc">La rajtoceda 🄯 aplikaĵo Nextcloud Android donas al vi movan liberecon.\n\nTio estas la oficiala programista verso, kiu montras ĉiutagan specimenon de ĉiu nova netestista funkcio, kiu povas malstabiligi la aplikaĵon kaj okazigi perdon de datumoj. Tiu aplikaĵo celas al uzantoj, kiuj volas testi kaj raporti pri eraroj. Ne uzu ĝin por via grava laboro!\n\nKaj la beta-versio kaj la ĉiutaga versio disponeblas per „F-Droid“, kaj ili povas samtempe uziĝi.</string>
+
+    <string name="prefs_category_dev">Prog</string>
+    <string name="dev_version_no_information_available">Neniu informo disponebla.</string>
+    <string name="dev_version_no_new_version_available">Neniu nova version disponebla.</string>
+    <string name="folder_icon">Piktogramo de dosierujo</string>
+    <string name="dev_version_new_version_available">Nova versio disponebla</string>
+    <string name="version_dev_download">Elŝuti</string>
+
+    <string name="send">Sendi</string>
+    <string name="share">Kunhavigi</string>
+    <string name="link">Ligilo</string>
+
+    <string name="notification_channel_upload_name">Kanalo por sciigi alŝuton</string>
+    <string name="notification_channel_download_name">Kanalo por sciigi elŝuton</string>
     </resources>
