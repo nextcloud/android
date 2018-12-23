@@ -1,0 +1,3 @@
+3.4.1 (December, 23, 2018)
+
+- fix wrong detection of direct editing capability for RichDocuments
