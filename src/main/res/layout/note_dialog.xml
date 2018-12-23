@@ -41,7 +41,8 @@
             android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
             android:lines="5"
             android:minLines="3"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:gravity="top"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
