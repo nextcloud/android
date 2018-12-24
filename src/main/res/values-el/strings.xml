@@ -37,6 +37,8 @@
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
+    <string name="prefs_lock">Κλείδωμα</string>
+    <string name="prefs_lock_title">Κλείδωμα με χρήση</string>
     <string name="prefs_lock_none">Τίποτα</string>
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
@@ -110,6 +112,7 @@
     <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_empty_text_videos_filter">Δεν υπάρχουν βίντεο.</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
+    <string name="trashbin_empty_message">Από εδώ θα μπορείτε να ανακτήσετε τα διαγραμμένα αρχεία</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
@@ -181,10 +184,17 @@
     <string name="sync_fail_content_unauthorized">Εσφαλμένο συνθηματικό για τον %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (συγκρούσεις: %2$d)</item>
+        <item quantity="other">Αδύνατος συγχρονισμός %1$d αρχείων (συγκρούσεις: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
     <string name="foreign_files_move">Μετακίνηση όλων</string>
     <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
+    <string name="foreign_files_fail">Αδυναμία μετακίνησης μερικών αρχείων</string>
+    <string name="foreign_files_local_text">Τοπικά: %1$s</string>
+    <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
@@ -209,6 +219,7 @@
     <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
     <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
     <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
+    <string name="media_err_unknown">Η ενσωματωμένη εφαρμογή αναπαραγωγής πολυμέσων δεν μπορεί να αναπαράγει το αρχείο πολυμέσων</string>
     <string name="media_rewind_description">Κουμπί ταχείας κίνησης πίσω</string>
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
@@ -222,6 +233,7 @@
 	<string name="auth_not_configured_title">Εσφαλμένες ρυθμίσεις διακομιστή</string>
 	<string name="auth_account_not_new">Ένας λογαριασμός για τον ίδιο χρήστη και διακομιστή υπάρχει ήδη στη συσκευή</string>
 	<string name="auth_account_not_the_same">Ο χρήστης που εισάγατε δεν ταιριάζει με το χρήστη αυτού του λογαριασμού</string>
+	<string name="auth_unknown_error_http_title">Παρουσιάστηκε άγνωστο σφάλμα HTTP!</string>
 	<string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα!</string>
 	<string name="auth_unknown_error_exception_title">Άγνωστο σφάλμα: %1$s</string>
 	<string name="auth_unknown_host_title">Αδυναμία εύρεσης κεντρικού υπολογιστή</string>
@@ -243,6 +255,9 @@
     <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
+    <string name="auth_access_failed">Αποτυχία πρόσβασης: %1$s</string>
+    <string name="favorite">Προσθήκη στα αγαπημένα</string>
+    <string name="unset_favorite">Αφαίρεση από τα αγαπημένα</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="common_rename">Μετονομασία</string>
@@ -251,9 +266,12 @@
     <string name="remove_success_msg">Διαγράφηκε</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
+    <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
+    <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου κατέχει τουλάχιστο ένα μη έγκυρο χαρακτήρα</string>
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
@@ -264,6 +282,7 @@
     <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string>
     <string name="oauth_login_connection">Σύνδεση στον διακομιστή OAuth 2.0…</string>
 
+    <string name="ssl_validator_header">Δεν ήταν δυνατή η επαλήθευση της ταυτότητας του διακομιστή</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Οι έγκυρες ημερομηνίες του πιστοποιητικού του διακομιστή είναι στο μέλλον</string>
@@ -330,6 +349,7 @@
 
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
+    <string name="clipboard_unexpected_error">Μη αναμενόμενο σφάλμα κατά την αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>

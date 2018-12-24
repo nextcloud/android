@@ -841,9 +841,9 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="enter_filename">Escriba o nome do ficheiro</string>
     <string name="create_file_from_template">Creando o ficheiro dende un modelo…</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
-    <string name="battery_optimization_title">Optimización de batería</string>
-    <string name="battery_optimization_message">O seu dispositivo podería ter habilitadas as optimizacións de batería. A Subida Automática só funciona correctamete se exclúe esta app de elas.</string>
+    <string name="battery_optimization_title">Optimización da batería</string>
+    <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
     <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
-    <string name="battery_optimization_no_setting">Non puido entrar nos axustes de batería automáticamente. Por favor, fágao de xeito manual.</string>
+    <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
 </resources>
