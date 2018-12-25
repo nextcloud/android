@@ -272,6 +272,7 @@
     <string name="auth_illegal_login_used">Byla použita neplatná přihlašovací URL</string>
 
     <string name="favorite">Přidat do oblíbených</string>
+    <string name="unset_favorite">Odebrat z oblíbených</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="common_rename">Přejmenovat</string>
@@ -818,6 +819,8 @@
     <string name="no_browser_available">Není k dispozici aplikace pro práci s odkazy</string>
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
     <string name="share_via_link_hide_download">Skrýt stahování</string>
+    <string name="unread_comments">Existuje nepřečtený komentář</string>
+
     <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
@@ -828,4 +831,8 @@
     <string name="enter_filename">Zadejte název souboru</string>
     <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
-    </resources>
+    <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
+    <string name="battery_optimization_disable">vypnout</string>
+    <string name="battery_optimization_close">Zavřít</string>
+    <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
+</resources>
