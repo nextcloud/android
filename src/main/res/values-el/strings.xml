@@ -442,14 +442,14 @@
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_as">Ορισμός ως</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι…</string>
-    <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι…</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Το αρχικό αρχείο θα…</string>
+    <string name="prefs_instant_behaviour_title">Το αρχικό αρχείο θα…</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
-    <string name="pref_behaviour_entries_keep_file">διατήρηση στον αρχικό φάκελο</string>
-    <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
-    <string name="pref_behaviour_entries_delete_file">διαγράφηκε</string>
+    <string name="pref_behaviour_entries_keep_file">διατηρηθεί στον αρχικό φάκελο</string>
+    <string name="pref_behaviour_entries_move">μετακινηθεί στον φάκελο εφαρμογών</string>
+    <string name="pref_behaviour_entries_delete_file">διαγραφεί</string>
     <string name="prefs_storage_path">Διαδρομή αποθηκευτικού χώρου</string>
 
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
@@ -527,6 +527,7 @@
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
+    <string name="participate_dev_fdroid">Λάβετε την υπό ανάπτυξη έκδοση από την εφαρμογή F-Droid</string>
     <string name="participate_dev_direct_download">Απευθείας λήψη της υπό ανάπτυξη έκδοσης</string>
     <string name="move_to">Μετακίνηση σε…</string>
     <string name="copy_to">Αντιγραφή σε…</string>
@@ -580,6 +581,7 @@
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
+    <string name="contactlist_no_permission">Δεν δόθηκαν δικαιώματα, τίποτα δεν εισήχθη.</string>
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
@@ -598,6 +600,8 @@
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="fallback_weblogin_back">Πίσω</string>
+    <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
+
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων…</string>
     <string name="foreground_service_download">Λήψη αρχείων…</string>
 
@@ -609,6 +613,7 @@
 
     <string name="date_unknown">Άγνωστο</string>
 
+    <string name="resized_image_not_possible">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος.</string>
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_middle_account">Μεσαίος λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
@@ -616,6 +621,7 @@
     <string name="file_icon">Αρχείο</string>
     <string name="user_icon">Χρήστης</string>
     <string name="favorite_icon">Αγαπημένο</string>
+    <string name="synced_icon">Συγχρονίστηκε</string>
     <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>
@@ -630,6 +636,7 @@
     <string name="sync_status_button">Κουμπί κατάστασης συγχρονισμού</string>
     <string name="synced_folder_settings_button">Κουμπί ρυθμίσεων</string>
     <string name="synced_folder_custom_folder_image">Προσαρμοσμένη εικόνα φακέλου</string>
+    <string name="forward">Προώθηση</string>
     <string name="dev_version_no_information_available">Καμία διαθέσιμη πληροφορία.</string>
     <string name="dev_version_no_new_version_available">Καμία διαθέσιμη νέα έκδοση.</string>
     <string name="folder_icon">Εικονίδιο φακέλου</string>
@@ -672,8 +679,10 @@
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="tags">Ετικέτες</string>
+    <string name="unsharing_failed">Απέτυχε η αναίρεση διαμοιρασμού</string>
     <string name="login">Είσοδος</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
+    <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
     <string name="whats_new_device_credentials_content">Χρησιμοποιήστε οποιοδήποτε μοτίβο, συνθηματικό, pin ή δακτυλικό αποτύπωμα για να διατηρήσετε ασφαλή τα δεδομένα σας.</string>
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
 	<string name="restore">Επαναφορά αρχείου</string>
@@ -695,11 +704,38 @@
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
+    <string name="actionbar_open_as_richdocument">Άνοιγμα με Collabora</string>
     <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="file_delete">Διαγραφή</string>
     <string name="file_keep">Διατήρηση</string>
     <string name="file_rename">Μετονομασία</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
+    <string name="account_creation_failed">Αποτυχία δημιουργίας λογαριασμού</string>
+    <string name="permission_deny">Απόρριψη</string>
     <string name="permission_allow">Επιτρέπεται</string>
-    </resources>
+    <string name="share_send_note">Σημείωση στον παραλήπτη</string>
+    <string name="note_confirm">Αποστολή</string>
+    <string name="send_note">Αποστολή σημείωσης στον παραλήπτη</string>
+    <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
+    <string name="hint_note">Σημείωση</string>
+    <string name="no_browser_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό συνδέσμων</string>
+    <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
+    <string name="share_via_link_hide_download">Απόκρυψη λήψης</string>
+    <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
+
+    <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
+    <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
+    <string name="create_new_spreadsheet">Δημιουργία νέου λογιστικού φύλλου</string>
+    <string name="create_new_presentation">Δημιουργία νέας παρουσίασης</string>
+    <string name="select_template">Επιλογή προτύπου</string>
+    <string name="filename_hint">Όνομα αρχείου</string>
+    <string name="thumbnail">Μικρογραφία</string>
+    <string name="enter_filename">Παρακαλούμε εισάγετε όνομα αρχείου</string>
+    <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο...</string>
+    <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
+    <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
+    <string name="battery_optimization_disable">απενεργοποίηση</string>
+    <string name="battery_optimization_close">Κλείσιμο</string>
+    <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
+</resources>
