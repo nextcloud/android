@@ -109,6 +109,7 @@
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_videos_filter">Inga videor.</string>
     <string name="trashbin_empty_headline">Inga raderade filer</string>
+    <string name="trashbin_empty_message">Du kommer att kunna återställa borttagna filer härifrån</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
@@ -232,6 +233,7 @@
 	<string name="auth_not_configured_title">Felaktig konfiguration</string>
 	<string name="auth_account_not_new">Ett konto för samma användare och server finns redan på enheten</string>
 	<string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>
+	<string name="auth_unknown_error_http_title">Okänt HTTP-fel uppstod!</string>
 	<string name="auth_unknown_error_title">Okänt fel inträffade!</string>
 	<string name="auth_unknown_error_exception_title">Okänt fel: %1$s</string>
 	<string name="auth_unknown_host_title">Kunde inte hitta värden</string>
@@ -351,6 +353,7 @@
     <string name="copy_link">Kopiera länk</string>
     <string name="clipboard_text_copied">Länk kopierad</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
+    <string name="clipboard_unexpected_error">Oväntat fel vid kopiering till urklipp</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritiskt fel: Oförmögen att utföra operationerna</string>
@@ -507,6 +510,7 @@
     <string name="manage_space_clear_data">Rensa data</string>
 
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller ned filer</string>
+    <string name="local_file_not_found_message">Filen hittades inte i det lokala filsystemet</string>
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
@@ -657,6 +661,8 @@
     <string name="what_s_new_image">Vad är nytt-bild</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev-appen är en utveckling ögonblicksbild och kan installeras parallellt.</string>
+    <string name="store_full_dev_desc">Copyleft libre Nextcloud Android-appen, ger dig mobil frihet.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte den för ditt produktiva arbete!\n\nBåde den officiella dev och vanliga versionen finns på F-droid, och kan vara installerade samtidigt.</string>
+
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Ingen tillgänglig information.</string>
     <string name="dev_version_no_new_version_available">Ingen ny version tillgänglig.</string>
@@ -712,10 +718,15 @@
     <string name="untrusted_domain">Åtkomst via opålitlig domän. Se dokumentation för ytterligare information.</string>
     <string name="notification_channel_push_name">Push-meddelanden</string>
     <string name="notification_channel_push_description">Visa push-meddelanden som skickas av servern: Omnämnanden i kommentarer, mottagning av nya fjärrandelar, meddelanden som publiceras av en administratör o.s.v.</string>
+    <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
+
     <string name="hint_name">Namn</string>
     <string name="hint_password">Lösenord</string>
+    <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="upload_files">Ladda upp filer</string>
+    <string name="upload_content_from_other_apps">Ladda upp innehåll från andra appar</string>
     <string name="create_new_folder">Skapa ny mapp</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="tags">Taggar</string>
     <string name="login">Logga in</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>
@@ -726,15 +737,21 @@
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="restore_button_description">Återställ raderad fil</string>
 	<string name="restore">Återställ fil</string>
+    <string name="new_version_was_created">Ny version skapades</string>
     <string name="new_comment">Ny kommentar…</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
+    <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="dismiss">Avfärda</string>
+    <string name="feedback_no_mail_app">Ingen app finns att skicka e-post!</string>
     <string name="drawer_item_trashbin">Raderade filer</string>
     <string name="trashbin_activity_title">Raderade filer</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
+    <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
+    <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="actionbar_open_as_richdocument">Öppna med Collabora</string>
     <string name="folder_confirm_create">Skapa</string>

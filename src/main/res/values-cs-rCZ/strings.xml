@@ -418,7 +418,7 @@
 
 	<string name="actionbar_logger">Záznamy událostí</string>
 	<string name="log_send_history_button">Historie odesílání</string>
-	<string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte e-mailového klienta.</string>
+	<string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte emailového klienta.</string>
 	<string name="log_send_mail_subject">Záznamy událostí v aplikaci %1$s pro Android</string>
     <string name="log_progress_dialog_text">Načítání dat…</string>
 
@@ -503,12 +503,12 @@
     <string name="share_with_edit_title">Sdílet s %1$s</string>
     <string name="share_via_link_unset_password">Zrušit nastavení</string>
 
-    <string name="share_search">Jméno, sdružené cloud ID, nebo e-mailová adresa…</string>
+    <string name="share_search">Jméno, sdružené cloud ID, nebo emailová adresa…</string>
 
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
-    <string name="share_email_clarification">%1$s (e-mail)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>
 
@@ -597,7 +597,7 @@
     <string name="whats_new_skip">Přeskočit</string>
 
     <!-- User information -->
-    <string name="user_info_email">E-mail</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Telefonní číslo</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_website">Webové stránky</string>
@@ -771,7 +771,7 @@
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
     <string name="first_run_1_text">Mějte svá data zabezpečená a pod svou správou</string>
     <string name="first_run_2_text">Zabezpečená spolupráce &amp; výměna souborů</string>
-    <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendáře &amp; kontakty</string>
+    <string name="first_run_3_text">Snadno použitelný webový emailový klient, kalendáře &amp; kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, online schůzky &amp; webové konference</string>
     <string name="whats_new_device_credentials_content">Pro zabezpečení svých dat použijte cokoli – ať už odemykací obrazec, heslo, pin kód nebo otisk prstu.</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
@@ -788,7 +788,7 @@
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Verze aplikace na straně serveru dosáhla konce své životnosti – přejděte na novou!</string>
     <string name="dismiss">Zavřít</string>
-    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání e-mailů!</string>
+    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání emailů!</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
