@@ -258,6 +258,8 @@
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_account_does_not_exist">Kontot har ännu inte lagts till på den här enheten</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
+    <string name="auth_illegal_login_used">Illegal URL för inloggningsdata användes</string>
+
     <string name="favorite">Lägg till favoriter</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>

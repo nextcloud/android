@@ -796,7 +796,9 @@
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的Nextcloud 帐户%2$s？</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_allow">允许</string>
+    <string name="share_send_note">收件人备注</string>
     <string name="note_confirm">发送</string>
+    <string name="send_note">发送备注到收件人</string>
     <string name="note_could_not_sent">无法发送笔记</string>
     <string name="hint_note">备注</string>
     <string name="no_browser_available">没有可用来打开链接的应用</string>
@@ -807,10 +809,16 @@
     <string name="richdocuments_failed_to_load_document">载入文档失败</string>
     <string name="create_new_document">新建文档</string>
     <string name="create_new_spreadsheet">新建表格</string>
+    <string name="create_new_presentation">新建演示</string>
     <string name="select_template">选择模板</string>
     <string name="filename_hint">文件名</string>
     <string name="thumbnail">缩略图</string>
     <string name="enter_filename">请输入文件名</string>
     <string name="create_file_from_template">使用模板创建文件中...</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
-    </resources>
+    <string name="battery_optimization_title">电池优化</string>
+    <string name="battery_optimization_message">您的设备可能已启用电池优化。 如果您从中排除此应用，则自动加载只能单独工作。</string>
+    <string name="battery_optimization_disable">禁用</string>
+    <string name="battery_optimization_close">关闭</string>
+    <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
+</resources>

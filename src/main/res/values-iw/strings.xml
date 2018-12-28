@@ -270,6 +270,8 @@
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
     <string name="auth_illegal_login_used">נעשה שימוש בכתובת נתוני כניסה שגויה</string>
 
+    <string name="favorite">הוספה למועדפים</string>
+    <string name="unset_favorite">הסרה מהמועדפים</string>
     <string name="encrypted">הגדרה כמוצפן</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
     <string name="common_rename">שינוי שם</string>
@@ -363,6 +365,7 @@
     <string name="activity_chooser_send_file_title">שליחה</string>
 
     <string name="copy_link">העתקת קישור</string>
+    <string name="clipboard_text_copied">הקישור הועתק</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
     <string name="clipboard_unexpected_error">אירעה שגיאה בזמן העתקה ללוח</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>
@@ -505,6 +508,7 @@
     <string name="share_group_clarification">%1$s (קבוצה)</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_email_clarification">%1$s (דוא״ל)</string>
+    <string name="share_room_clarification">%1$s (דיון)</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
 
     <string name="share_privilege_unshare">ביטול שיתוף</string>
@@ -573,6 +577,7 @@
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
 
+    <string name="upload_file_dialog_title">נא לציין שם קובץ וסוג קובץ לשליחה</string>
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
     <string name="upload_file_dialog_filetype_snippet_text">קובץ מקטע טקסט(‎.txt)</string>
@@ -779,10 +784,34 @@
     <string name="stream_not_possible_headline">אין תמיכה בהזרמה פנימית</string>
     <string name="stream_not_possible_message">נא להוריד את המדיה במקום או להשתמש ביישומון חיצוני.</string>
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
+    <string name="actionbar_open_as_richdocument">פתיחה עם Collabora</string>
     <string name="notification_icon">סמל התראה</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="file_delete">מחיקה</string>
     <string name="file_keep">שימור</string>
     <string name="file_rename">שינוי שם</string>
     <string name="fab_label">הוספה או העלאה</string>
-    </resources>
+    <string name="account_creation_failed">יצירת החשבון נכשלה</string>
+    <string name="single_sign_on_request_token" formatted="true">לאפשר ל־%1$s לגשת לחשבון שלך ב־ Nextcloud %2$s?</string>
+    <string name="permission_deny">לדחות</string>
+    <string name="permission_allow">לאפשר</string>
+    <string name="share_send_note">מסר לנמען</string>
+    <string name="note_confirm">שליחה</string>
+    <string name="send_note">שליחת מסר לנמען</string>
+    <string name="note_could_not_sent">לא ניתן לשלוח מסר</string>
+    <string name="hint_note">מסר</string>
+    <string name="no_browser_available">אין יישומון שיכול לטפל בקישורים</string>
+    <string name="no_pdf_app_available">אין יישומים זמינים לטיפול ב־PDF</string>
+    <string name="share_via_link_hide_download">הסתרת הורדה</string>
+    <string name="select_template">בחירת תבנית</string>
+    <string name="filename_hint">שם קובץ</string>
+    <string name="thumbnail">תמונה ממוזערת</string>
+    <string name="enter_filename">נא להקליד שם קובץ</string>
+    <string name="create_file_from_template">נוצר קובץ מתבנית…</string>
+    <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
+    <string name="battery_optimization_title">מיטוב סוללה</string>
+    <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
+    <string name="battery_optimization_disable">השבתה</string>
+    <string name="battery_optimization_close">סגירה</string>
+    <string name="battery_optimization_no_setting">לא ניתן להפעיל את הגדרות הסוללה ישירות. נא להגדיר ידנית דרך ההגדרות.</string>
+</resources>
