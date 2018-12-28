@@ -93,7 +93,7 @@ public class ParticipateActivity extends FileActivity {
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = findViewById(R.id.participate_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
+        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }
 

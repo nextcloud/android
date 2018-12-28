@@ -718,7 +718,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
             // GetLink button
             MaterialButton getLinkButton = getGetLinkButton();
-            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()),
                     PorterDuff.Mode.SRC_ATOP);
             getLinkButton.setVisibility(View.VISIBLE);
             getLinkButton.setOnClickListener(new View.OnClickListener() {
