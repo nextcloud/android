@@ -52,7 +52,6 @@
 
             <com.google.android.material.button.MaterialButton
             android:id="@+id/centeredRefreshButton"
-            style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -60,7 +59,8 @@
             android:theme="@style/Button"
             android:text="@string/auth_check_server"
             android:visibility="gone"
-            android:contentDescription="@string/auth_check_server"/>
+            android:contentDescription="@string/auth_check_server"
+            app:cornerRadius="@dimen/button_corner_radius"/>
 
         <TextView
             android:id="@+id/instructions_message"
@@ -273,7 +273,8 @@
             android:enabled="false"
             android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:cornerRadius="@dimen/button_corner_radius"/>
         </LinearLayout>
 
     </LinearLayout>

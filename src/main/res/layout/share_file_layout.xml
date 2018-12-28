@@ -124,7 +124,6 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addUserButton"
-                style="@style/ownCloud.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -336,7 +335,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/shareViaLinkGetLinkButton"
-                    style="@style/ownCloud.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
