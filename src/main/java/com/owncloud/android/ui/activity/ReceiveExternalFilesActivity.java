@@ -789,7 +789,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount(), this));
+            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 

@@ -199,7 +199,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = ThemeUtils.primaryDarkColor(getContext());
+        mSystemBarColor = ThemeUtils.primaryColor(getContext());
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
         mProgressBarColor = ThemeUtils.primaryColor(getContext());
         mMultiChoiceModeListener = new MultiChoiceModeListener();
@@ -444,7 +444,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void showActivityDetailView(OCFile file) {
         mContainerActivity.showDetails(file, 0);
     }
-    
+
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
