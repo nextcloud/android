@@ -265,6 +265,8 @@
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
     <string name="auth_illegal_login_used">不正なログインデータURLを使用しています</string>
 
+    <string name="favorite">お気に入りに追加</string>
+    <string name="unset_favorite">お気に入りから削除</string>
     <string name="encrypted">暗号化設定</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="common_rename">名前を変更</string>
@@ -815,4 +817,7 @@
     <string name="enter_filename">ファイル名を入力してください</string>
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
+    <string name="battery_optimization_title">バッテリー最適化</string>
+    <string name="battery_optimization_disable">無効にする</string>
+    <string name="battery_optimization_close">閉じる</string>
     </resources>

@@ -814,6 +814,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="send_note">Megjegyzés küldése a címzettnek</string>
     <string name="note_could_not_sent">Nem sikerült elküldeni a jegyzetet</string>
     <string name="hint_note">Megjegyzés</string>
+    <string name="share_via_link_hide_download">Letöltés elrejtése</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
 
     <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>

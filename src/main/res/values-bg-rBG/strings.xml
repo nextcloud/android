@@ -71,7 +71,7 @@
     <string name="uploader_btn_upload_text">Качване</string>
     <string name="uploader_btn_alternative_text">Избиране</string>
     <string name="uploader_top_message">Изберете папка в която да се качват</string>
-    <string name="uploader_wrn_no_account_title">Няма открит профил</string>
+    <string name="uploader_wrn_no_account_title">Не е открит профил</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
@@ -688,6 +688,7 @@
     <string name="userinfo_no_info_text">Добавете име, снимка и данни за контакт към профила си.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_password">Парола…</string>
+    <string name="untrusted_domain">Достъп през недоверен домейн. Моля прочетете документацията за повече информация. </string>
     <string name="hint_name">Име</string>
     <string name="hint_password">Парола</string>
     <string name="add_to_cloud">Добави към %1$s</string>

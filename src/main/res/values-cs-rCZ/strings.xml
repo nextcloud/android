@@ -832,6 +832,7 @@
     <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
+    <string name="battery_optimization_message">Vaše zařízení má zapnuté snížení vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_disable">vypnout</string>
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
