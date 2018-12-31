@@ -135,6 +135,7 @@
     <string name="delete_account">Ezabatu kontua</string>
     <string name="avatar">avatar</string>
     <string name="active_user">Erabiltzaile aktiboa</string>
+    <string name="upload_chooser_title">Igo hemendik…</string>
     <string name="uploader_info_dirname">Karpetaren izena</string>
     <string name="uploader_upload_in_progress_ticker">Kargatzen…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
@@ -173,6 +174,7 @@
     <string name="sync_fail_in_favourites_ticker">edukien sinkronizazioak huts egin du</string>
     <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da iadanik existitzen</string>
+    <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="pass_code_enter_pass_code">Zure pasahitza sar ezazu mesedez</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
@@ -182,6 +184,7 @@
     <string name="pass_code_wrong">Okerreko pasahitza</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
 
+    <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
     <string name="media_err_nothing_to_play">Ez da euskarri fitxategia aurkitu</string>
     <string name="media_err_not_in_owncloud">Fitxategia ez dago kontu baliagarri batean</string>
     <string name="media_err_unsupported">Onartzen ez de euskarri kodeka</string>
@@ -277,6 +280,7 @@ Mesedez, baimendu berriz</string>
     <string name="instant_upload_path">/BerehalakoIgoerak</string>
     <string name="conflict_title">Fitxategi gatazka</string>
     <string name="conflict_keep_both">Mantendu biak</string>
+    <string name="conflict_use_local_version">bertsio lokala</string>
     <string name="conflict_use_server_version">zerbitzariaren bertsioa</string>
 
     <string name="preview_sorry">Barkatu</string>
@@ -304,6 +308,7 @@ Mesedez, baimendu berriz</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_ok_finished">Amaituta</string>
     <string name="file_migration_failed_not_enough_space">Leku gehiago behar da</string>
+    <string name="file_migration_override_data_folder">Ordeztu</string>
     <string name="file_migration_use_data_folder">Erabili</string>
 
     <string name="prefs_add_account">Gehitu kontua</string>
@@ -342,6 +347,14 @@ Mesedez, baimendu berriz</string>
 
     <string name="username">Erabiltzaile-izena</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">karpeta %1$d</item>
+        <item quantity="other">%1$d karpeta</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">Fitxategi %1$d</item>
+        <item quantity="other">%1$d fitxategi</item>
+    </plurals>
     <string name="set_picture_as">Erabili argazkia</string>
     <string name="set_as">Ezarri honela</string>
 
@@ -362,6 +375,7 @@ Mesedez, baimendu berriz</string>
     <string name="share_via_link_password_label">Pasahitzarekin babestu</string>
     <string name="share_via_link_section_title">Elkarbanatu lotura</string>
     <string name="share_via_link_send_link_label">Bidali esteka</string>
+    <string name="share_password_title">Pasahitzez babestua</string>
     <string name="share_no_password_title">Ezarri pasahitza</string>
     <string name="edit_permission_label">editatu</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fitxategi zerrenda ezkutatu</string>
@@ -463,8 +477,10 @@ Mesedez, baimendu berriz</string>
     <string name="drawer_current_account">Uneko kontua</string>
     <string name="drawer_middle_account">Tarteko kontua</string>
     <string name="drawer_end_account">Azken kontua</string>
+    <string name="activity_icon">Jarduera</string>
     <string name="file_icon">Fitxategia</string>
     <string name="user_icon">Erabiltzailea</string>
+    <string name="favorite_icon">Gogokoa</string>
     <string name="shared_icon_share">partekatu</string>
     <string name="shared_icon_shared_via_link">partekatu esteka bidez</string>
     <string name="shared_icon_shared">partekatua</string>
@@ -493,14 +509,24 @@ Mesedez, baimendu berriz</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>
     <string name="hint_name">Izena</string>
     <string name="hint_password">Pasahitza</string>
+    <string name="upload_files">Igo fitxategiak</string>
+    <string name="create_new_folder">Sortu karpeta berria</string>
+    <string name="tags">Etiketak</string>
+    <string name="restore_button_description">Berreskuratu ezabatutako fitxategia</string>
+	<string name="restore">Berreskuratu fitxategia</string>
     <string name="new_version_was_created">Bertsio berria sortu da</string>
+    <string name="new_comment">Iruzkin berria...</string>
+    <string name="new_media_folder_photos">argazkia</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
+    <string name="action_empty_trashbin">Hustu zakarrontzia</string>
     <string name="actionbar_open_as_richdocument">Ireki Collabora-rekin</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="file_delete">Ezabatu</string>
     <string name="file_keep">Mantendu</string>
     <string name="file_rename">Aldatu izena</string>
     <string name="fab_label">Gehitu edo igo</string>
+    <string name="note_confirm">Bidali</string>
+    <string name="hint_note">Oharra</string>
     <string name="battery_optimization_close">Itxi</string>
     </resources>
