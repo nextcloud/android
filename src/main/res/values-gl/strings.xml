@@ -517,7 +517,7 @@
     <string name="action_force_rescan">Forzar un novo escaneo</string>
 
     <string name="action_switch_grid_view">Vista como grella</string>
-    <string name="action_switch_list_view">Vista como lista</string>
+    <string name="action_switch_list_view">Ver como lista</string>
 
     <string name="manage_space_title">Administrar o espazo</string>
     <string name="manage_space_description">Van ser eliminados permanentemente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
