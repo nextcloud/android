@@ -16,15 +16,10 @@ class Controller {
         if (newFolderName.length() <= 0) {
             throw new RuntimeException(String.valueOf(R.string.filename_empty));
         }
-        boolean serverWithForbiddenChars = fileOperationsHelper.isVersionWithForbiddenCharacters();
 
-        if (!FileUtils.isValidName(newFolderName, serverWithForbiddenChars)) {
+        if (!FileUtils.isValidName(newFolderName)) {
 
-            if (serverWithForbiddenChars) {
-                //DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
-            } else {
-                //DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
-            }
+            //DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
 
             return;
         }

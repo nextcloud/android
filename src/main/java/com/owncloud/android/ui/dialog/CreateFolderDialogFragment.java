@@ -163,7 +163,7 @@ public class CreateFolderDialogFragment
                 }
 
                 if (!FileUtils.isValidName(newFolderName)) {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
                     return;
                 }
 
