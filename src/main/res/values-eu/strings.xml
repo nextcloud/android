@@ -185,6 +185,9 @@
     <string name="pass_code_stored">Pasahitza gordeta</string>
 
     <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
+    <string name="media_state_playing">%1$s (erreproduzitzen)</string>
+    <string name="media_state_loading">%1$s (kargatzen)</string>
+    <string name="media_event_done">%1$s erreprodukzioa amaitua</string>
     <string name="media_err_nothing_to_play">Ez da euskarri fitxategia aurkitu</string>
     <string name="media_err_not_in_owncloud">Fitxategia ez dago kontu baliagarri batean</string>
     <string name="media_err_unsupported">Onartzen ez de euskarri kodeka</string>
@@ -196,6 +199,7 @@
     <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
     <string name="media_forward_description">Azkar aurreratu botoia</string>
 
+    <string name="auth_getting_authorization">Baimena eskuratzen…</string>
     <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
 	<string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
 	<string name="auth_connection_established">Konexioa ezarri da</string>
@@ -203,6 +207,7 @@
 	<string name="auth_not_configured_title">gaizki egindako server konfigurazioa</string>
 	<string name="auth_account_not_new">Gailu honetan erabiltzaile eta zerbitzari honetarako iadanik existitzen da kontu bat. </string>
 	<string name="auth_account_not_the_same">Sartutako erabiltzaileak ez du bat egiten kontu honetako erabiltzailearekin</string>
+	<string name="auth_unknown_error_http_title">HTTP akats ezezaguna gertatu da!</string>
 	<string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>
 	<string name="auth_unknown_error_exception_title">Akats ezezaguna: %1$s</string>
 	<string name="auth_unknown_host_title">Ezin da ostalaria topatu</string>
@@ -305,6 +310,7 @@ Mesedez, baimendu berriz</string>
     <string name="unshare_link_forbidden_permissions">fitxategiaren konpartitzea kentzeko</string>
     <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
 
+    <string name="file_migration_updating_index">Indizea eguneratzen…</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_ok_finished">Amaituta</string>
     <string name="file_migration_failed_not_enough_space">Leku gehiago behar da</string>
@@ -314,6 +320,7 @@ Mesedez, baimendu berriz</string>
     <string name="prefs_add_account">Gehitu kontua</string>
     <string name="drawer_manage_accounts">Kudeatu kontuak</string>
     <string name="actionbar_logger">Egunkariak</string>
+	<string name="log_send_history_button">Historia bidali</string>
 	<string name="log_send_mail_subject">%1$s Android aplikazioaren egunerokoak</string>
     <string name="log_progress_dialog_text">Datuak kargatzen…</string>
 
