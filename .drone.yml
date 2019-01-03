@@ -35,7 +35,7 @@ pipeline:
     when:
       matrix:
         FLAVOR: Analysis
-        
+
   notify:
       image: drillster/drone-email
       host: $EMAIL_HOST
@@ -59,7 +59,7 @@ matrix:
 
 services:
   server:
-    image: nextcloudci/server:server-1
+      image: nextcloudci/server:server-3
     when:
       matrix:
         FLAVOR: Gplay
