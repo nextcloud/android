@@ -1,67 +1,67 @@
 pipeline:
-  compile:
-    image: nextcloudci/android:android-42
-    commands:
-      # build app and assemble APK
-      - sh -c "if [ '${FLAVOR}' != 'Analysis' ]; then ./gradlew assemble${FLAVOR}; fi"
-    when:
-      matrix:
-        FLAVOR: [Generic, Gplay]
+    compile:
+        image: nextcloudci/android:android-42
+        commands:
+        # build app and assemble APK
+        - sh -c "if [ '${FLAVOR}' != 'Analysis' ]; then ./gradlew assemble${FLAVOR}; fi"
+        when:
+            matrix:
+                FLAVOR: [Generic, Gplay]
 
-  test:
-    image: nextcloudci/android:android-42
-    privileged: true
-    commands:
-      - emulator -avd android-27 -no-window -no-audio &
-      - ./wait_for_emulator.sh
-      - ./gradlew assembleGplayDebug
-      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit"
-      - ./gradlew installGplayDebugAndroidTest
-      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
-      - ./gradlew combinedTestReport
-      - curl -o codecov.sh https://codecov.io/bash
-      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
-    secrets: [ LOG_USERNAME, LOG_PASSWORD ]
-    when:
-      matrix:
-        FLAVOR: Gplay
+    test:
+        image: nextcloudci/android:android-42
+        privileged: true
+        commands:
+        - emulator -avd android-27 -no-window -no-audio &
+        - ./wait_for_emulator.sh
+        - ./gradlew assembleGplayDebug
+        - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit"
+        - ./gradlew installGplayDebugAndroidTest
+        - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
+        - ./gradlew combinedTestReport
+        - curl -o codecov.sh https://codecov.io/bash
+        - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+        secrets: [ LOG_USERNAME, LOG_PASSWORD ]
+        when:
+            matrix:
+                FLAVOR: Gplay
 
-  analysis:
-    image: nextcloudci/android:android-42
-    commands:
-      - export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
-      - scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
-    secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
-    when:
-      matrix:
-        FLAVOR: Analysis
+    analysis:
+        image: nextcloudci/android:android-42
+        commands:
+        - export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
+        - scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
+        secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
+        when:
+            matrix:
+                FLAVOR: Analysis
 
-  notify:
-      image: drillster/drone-email
-      host: $EMAIL_HOST
-      port: 587
-      username: $EMAIL_USERNAME
-      password: $EMAIL_PASSWORD
-      from: nextcloud-drone@kaminsky.me
-      recipients_only: true
-      recipients: [ $EMAIL_RECIPIENTS ]
-      secrets: [ EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_RECIPIENTS, EMAIL_HOST ]
-      when:
-        event: push
-        status: failure
-        branch: master
+    notify:
+        image: drillster/drone-email
+        host: $EMAIL_HOST
+        port: 587
+        username: $EMAIL_USERNAME
+        password: $EMAIL_PASSWORD
+        from: nextcloud-drone@kaminsky.me
+        recipients_only: true
+        recipients: [ $EMAIL_RECIPIENTS ]
+        secrets: [ EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_RECIPIENTS, EMAIL_HOST ]
+        when:
+            event: push
+            status: failure
+            branch: master
 
 matrix:
-  FLAVOR:
+    FLAVOR:
     - Generic
     - Gplay
     - Analysis
 
 services:
-  server:
-      image: nextcloudci/server:server-3
-    when:
-      matrix:
-        FLAVOR: Gplay
+    server:
+        image: nextcloudci/server:server-3
+        when:
+            matrix:
+                FLAVOR: Gplay
 
 branches: master
