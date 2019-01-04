@@ -225,7 +225,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:9.0.0-rc2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.4'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
