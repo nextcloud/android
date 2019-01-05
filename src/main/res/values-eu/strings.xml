@@ -104,17 +104,21 @@
     <string name="file_list_empty_headline_server_search_photos">Argazkirik ez</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_recently_modified">Azken 7 egunetan aldatu den fitxategirik ez da aurkitu</string>
+    <string name="file_list_empty_recently_modified_filter">Ez da fitxategirik aldatu azken 7 egunetan.</string>
     <string name="file_list_empty_recently_added">Oraintsu gehitu den fitxategirik ez da topatu</string>
+    <string name="file_list_empty_recently_added_filter">Ez da fitxategirik gehitu azkenaldian.</string>
     <string name="file_list_empty_text_photos">Igo argazki batzuk edo auto-igotzea aktiba ezazu</string>
     <string name="file_list_empty_text_photos_filter">Argazkirik ez.</string>
     <string name="file_list_empty_text_videos">Igo bideo batzuk edo auto-igotzea aktiba ezazu.</string>
     <string name="file_list_empty_text_videos_filter">Bideorik ez.</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
+    <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="file_list_folder">karpeta</string>
     <string name="filedetails_download">Deskargatu</string>
     <string name="filedetails_sync_file">Sinkronizatu</string>
+    <string name="filedetails_renamed_in_upload_msg">Fitxategia %1$s bezala berrizendatu da kargatzerakoan</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
     <string name="action_send_share">Bidali/Partekatu</string>
     <string name="common_yes">Bai</string>
@@ -133,6 +137,7 @@
     <string name="common_send">Bidali</string>
     <string name="about_title">Honi buruz</string>
     <string name="delete_account">Ezabatu kontua</string>
+    <string name="delete_account_warning">%s kontua kendu eta fitxategi lokal guztiak ezabatu?\n\nBehin ezabatuta ezin da atzera egin.</string>
     <string name="avatar">avatar</string>
     <string name="active_user">Erabiltzaile aktiboa</string>
     <string name="upload_chooser_title">Igo hemendik…</string>
@@ -143,6 +148,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s igota</string>
     <string name="uploader_upload_failed_ticker">igotzeak huts egin du</string>
     <string name="uploader_upload_failed_content_single">Ezin da %1$s igo</string>
+    <string name="uploader_upload_failed_credentials_error">Kargatzeak huts egin du, hasi saioa berriz</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Zerbitzariaren ziurtagiria ez da fidagarria</string>
     <string name="uploads_view_title">Igoerak</string>
     <string name="uploads_view_group_current_uploads">Unekoa</string>
     <string name="uploads_view_group_finished_uploads">Igoa</string>
@@ -166,22 +173,34 @@
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
     <string name="downloader_download_failed_content">Ezin da %1$s jaitsi</string>
     <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
+    <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="common_choose_account">Hautatu kontua</string>
     <string name="common_switch_account">Kontua trukatu</string>
     <string name="sync_fail_ticker">Sinkronizazio errorea</string>
+    <string name="sync_fail_ticker_unauthorized">Sinkronizazioak huts egin du, hasi saioa berriz</string>
+    <string name="sync_fail_content">Ezin izan da %1$s sinkronizatu</string>
     <string name="sync_fail_content_unauthorized">%1$s pasahitz ezegokia</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkituak </string>
     <string name="sync_fail_in_favourites_ticker">edukien sinkronizazioak huts egin du</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Ezin izan da fitxategi %1$d sinkronizatu (gatazkak: %2$d)</item>
+        <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da iadanik existitzen</string>
+    <string name="foreign_files_move">Guztia mugitu</string>
+    <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
+    <string name="foreign_files_fail">Fitxategi batzuk ezin izan dira mugitu</string>
     <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="pass_code_enter_pass_code">Zure pasahitza sar ezazu mesedez</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
     <string name="pass_code_configure_your_pass_code_explanation">Pasahitza eskatuko da aplikazioa abiatzen den aldiro</string>
     <string name="pass_code_reenter_your_pass_code">Sartu pasahitza berriro</string>
+    <string name="pass_code_remove_your_pass_code">Ezabatu zure pasahizta</string>
     <string name="pass_code_mismatch">Pasahitzak ez dira berdinak</string>
     <string name="pass_code_wrong">Okerreko pasahitza</string>
+    <string name="pass_code_removed">Pasahitza ezabatuta</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
 
     <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
@@ -200,7 +219,8 @@
     <string name="media_forward_description">Azkar aurreratu botoia</string>
 
     <string name="auth_getting_authorization">Baimena eskuratzen…</string>
-    <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
+    <string name="auth_trying_to_login">Saioa hasten saiatzen…</string>
+	<string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
 	<string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
 	<string name="auth_connection_established">Konexioa ezarri da</string>
 	<string name="auth_testing_connection">Konexioa probatzen</string>
