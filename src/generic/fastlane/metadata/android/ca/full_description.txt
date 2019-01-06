@@ -1,0 +1,18 @@
+La versió lliure i llicenciada com a \"copyleft\" de l'app de Nextcloud per a Android us dona llibertat de moviment.
+
+Característiques:\* Fàcil, interfície moderna, associada a l'aspecte del vostre servidor
+* Pugeu fitxers al vostre servidor Nextcloud
+* Compartiu-los amb d'altres
+* Mantingueu els vostres fitxers i carpetes preferits sincronitzats
+* Cerqueu a través de totes les carpetes del vostre servidor
+* Pujada automàtica de les fotos i vídeos fets des del vostre dispositiu
+* Mantingueu les notificacions actualitzades
+* Suport per a multi-usuari
+* Accés segur a les vostres dades a través d'empremta digital o PIN
+* Integració amb DAVdroid per una configuració senzilla del calendari & i sincronització de contactes
+
+Si us plau informeu de totes les incidències a https://github.com/nextcloud/android/issues i debateu sobre aquesta app a https://help.nextcloud.com/c/clients/android
+
+Nou a Nextcloud? Nextcloud és un servidor de comunicacions per a mantenir fitxers privats sincronitzats i compartir &. És programari lliure i podeu allotjar-los vos mateix o pagar a una empresa perquè ho faci per a vos. D'aquesta manera, teniu el control de les vostres fotos, calendaris i dades dels contactes, els vostres documents i tota la resta.
+
+Proveu Nextcloud a https://nextcloud.com

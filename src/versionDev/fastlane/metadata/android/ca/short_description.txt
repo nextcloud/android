@@ -1,0 +1,1 @@
+L'app Nextcloud Dev és una instantània de desenvolupament que es pot instal·lar 
