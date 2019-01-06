@@ -271,6 +271,8 @@
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
     <string name="auth_illegal_login_used">Неверный URL входа в систему</string>
 
+    <string name="favorite">Добавить в избранное</string>
+    <string name="unset_favorite">Убрать из избранного</string>
     <string name="encrypted">Зашифровать</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="common_rename">Переименовать</string>
@@ -817,6 +819,8 @@
     <string name="no_browser_available">Отсутствует приложение, которое может обрабатывать переход по ссылкам</string>
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
+    <string name="unread_comments">Имеются непрочитанные комментарии</string>
+
     <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
     <string name="create_new_document">Создать документ</string>
     <string name="create_new_spreadsheet">Создать таблицу</string>
@@ -827,4 +831,9 @@
     <string name="enter_filename">Введите имя файла…</string>
     <string name="create_file_from_template">Создание файла на основе шаблона…</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
-    </resources>
+    <string name="battery_optimization_title">Оптимизация использования батареи</string>
+    <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
+    <string name="battery_optimization_disable">отключить</string>
+    <string name="battery_optimization_close">Закрыть</string>
+    <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
+</resources>
