@@ -59,10 +59,10 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     private Unbinder unbinder;
 
     @BindView(R.id.user_input_container)
-    TextInputLayout noteEditTextInputLayout;
+    public TextInputLayout noteEditTextInputLayout;
 
     @BindView(R.id.user_input)
-    TextInputEditText noteEditText;
+    public TextInputEditText noteEditText;
 
     public static NoteDialogFragment newInstance(OCShare share) {
         NoteDialogFragment frag = new NoteDialogFragment();
