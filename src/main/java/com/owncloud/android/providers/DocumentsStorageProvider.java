@@ -58,6 +58,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.Preferences;
@@ -154,7 +155,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         final FileCursor resultCursor = new FileCursor(projection);
-        
+
         for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
             resultCursor.addFile(file);
         }
@@ -299,6 +300,27 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 ParcelFileDescriptor.open(realFile, ParcelFileDescriptor.MODE_READ_ONLY),
                 0,
                 AssetFileDescriptor.UNKNOWN_LENGTH);
+    }
+
+    @Override
+    public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
+        long docId = Long.parseLong(documentId);
+        updateCurrentStorageManagerIfNeeded(docId);
+
+        OCFile file = currentStorageManager.getFileById(docId);
+
+        if (file == null) {
+            throw new FileNotFoundException("File " + documentId + " not found!");
+        }
+
+        RemoteOperationResult result = new RenameFileOperation(file.getRemotePath(), displayName)
+            .execute(client, currentStorageManager);
+
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to rename document with documentId " + documentId);
+        }
+
+        return null;
     }
 
     @Override

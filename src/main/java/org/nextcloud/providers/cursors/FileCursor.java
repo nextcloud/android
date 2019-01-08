@@ -57,6 +57,10 @@ public class FileCursor extends MatrixCursor {
             flags = flags | Document.FLAG_DIR_SUPPORTS_CREATE;
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            flags = Document.FLAG_SUPPORTS_RENAME | flags;
+        }
+
         newRow().add(Document.COLUMN_DOCUMENT_ID, Long.toString(file.getFileId()))
                 .add(Document.COLUMN_DISPLAY_NAME, file.getFileName())
                 .add(Document.COLUMN_LAST_MODIFIED, file.getModificationTimestamp())
