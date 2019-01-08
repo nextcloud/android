@@ -96,7 +96,7 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
-        if (isCallerNotAllowed()) {
+        if (isCallerNotAllowed(uri)) {
             return -1;
         }
 
@@ -114,7 +114,7 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private int delete(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
-        if (isCallerNotAllowed()) {
+        if (isCallerNotAllowed(uri)) {
             return -1;
         }
 
@@ -248,7 +248,7 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        if (isCallerNotAllowed()) {
+        if (isCallerNotAllowed(uri)) {
             return null;
         }
 
@@ -476,7 +476,7 @@ public class FileContentProvider extends ContentProvider {
                 break;
 
             default:
-                if (isCallerNotAllowed()) {
+                if (isCallerNotAllowed(uri)) {
                     return null;
                 }
         }
@@ -643,7 +643,7 @@ public class FileContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-        if (isCallerNotAllowed()) {
+        if (isCallerNotAllowed(uri)) {
             return -1;
         }
 
@@ -1023,9 +1023,25 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
-    private boolean isCallerNotAllowed() {
-        String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
-        return callingPackage == null || !callingPackage.equals(mContext.getPackageName());
+    private boolean isCallerNotAllowed(Uri uri) {
+        switch (mUriMatcher.match(uri)) {
+            case SHARES:
+            case CAPABILITIES:
+            case UPLOADS:
+            case SYNCED_FOLDERS:
+            case EXTERNAL_LINKS:
+            case ARBITRARY_DATA:
+            case VIRTUAL:
+            case FILESYSTEM:
+                String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
+                return callingPackage == null || !callingPackage.equals(mContext.getPackageName());
+
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+            default:
+                return false;
+        }
     }
 
     class DataBaseHelper extends SQLiteOpenHelper {
