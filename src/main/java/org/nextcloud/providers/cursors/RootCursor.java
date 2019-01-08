@@ -46,8 +46,7 @@ public class RootCursor extends MatrixCursor {
     }
 
     public void addRoot(Account account, Context context) {
-        final FileDataStorageManager manager =
-                new FileDataStorageManager(account, context.getContentResolver());
+        final FileDataStorageManager manager = new FileDataStorageManager(account, context.getContentResolver());
         final OCFile mainDir = manager.getFileByPath("/");
 
         newRow().add(Root.COLUMN_ROOT_ID, account.name)
