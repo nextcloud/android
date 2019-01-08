@@ -1,4 +1,4 @@
-/**
+/*
  *   nextCloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -49,7 +49,7 @@ public class FileCursor extends MatrixCursor {
         final int iconRes = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
         final String mimeType = file.isFolder() ? Document.MIME_TYPE_DIR : file.getMimeType();
         final String imagePath = MimeTypeUtil.isImage(file) && file.isDown() ? file.getStoragePath() : null;
-        int flags = imagePath != null ? Document.FLAG_SUPPORTS_THUMBNAIL : 0;
+        int flags = Document.FLAG_SUPPORTS_WRITE | (imagePath != null ? Document.FLAG_SUPPORTS_THUMBNAIL : 0);
 
         if (file.isFolder()) {
             flags = flags | Document.FLAG_DIR_SUPPORTS_CREATE;
