@@ -86,7 +86,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+            thumbnail.compress(Bitmap.CompressFormat.PNG, 90, bos);
             byte[] bitmapData = bos.toByteArray();
 
             //write the bytes in file
