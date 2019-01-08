@@ -54,7 +54,7 @@ public class RootCursor extends MatrixCursor {
                 .add(Root.COLUMN_SUMMARY, account.name)
                 .add(Root.COLUMN_TITLE, context.getString(R.string.app_name))
                 .add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
-                .add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_SEARCH);
+            .add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_SEARCH);
 
     }
 
