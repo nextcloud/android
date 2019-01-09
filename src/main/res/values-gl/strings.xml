@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">Aplicación %1$s Android</string>
+    <string name="about_android">Aplicativo %1$s Android</string>
     <string name="about_version">versión %1$s</string>
     <string name="actionbar_sync">Recargar a conta</string>
     <string name="actionbar_open_with">Abrir con</string>
@@ -92,7 +92,7 @@
     <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos</string>
     <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
     <string name="file_list_loading">Cargando…</string>
-    <string name="file_list_no_app_for_file_type">Non foi estabelecida unha aplicación para manexar este tipo de ficheiro.</string>
+    <string name="file_list_no_app_for_file_type">Non foi estabelecido un aplicativo para manexar este tipo de ficheiro.</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
     <string name="file_list_empty_headline_search">Non hai resultados neste cartafol</string>
@@ -163,7 +163,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_conflict">Conflito</string>
-    <string name="uploads_view_upload_status_service_interrupted">Aplicación rematada</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Agardando pola WiFi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Agardando a saír do modo de aforro de enerxía</string>
@@ -193,7 +193,7 @@
         <item quantity="one">Produciuse un fallo ao copiar %1$d ficheiros do cartafol %2$s en</item>
         <item quantity="other">Produciuse un fallo ao copiar%1$d ficheiros do cartafol %2$s en</item>
     </plurals>
-    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
+    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores deste aplicativo foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_success">Foron movidos todos os ficheiros</string>
@@ -206,7 +206,7 @@
     <string name="credentials_disabled">Credenciais eliminadas</string>
 
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de seguridade</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de seguridade cada vez que inicie a aplicación</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de seguridade cada vez que inicie o aplicativo</string>
     <string name="pass_code_reenter_your_pass_code">Por favor introduza de novo o seu código de seguridade</string>
     <string name="pass_code_remove_your_pass_code">Elimine o seu código de seguridade</string>
     <string name="pass_code_mismatch">Os códigos de seguridade non son iguais</string>
@@ -414,8 +414,8 @@
 
 	<string name="actionbar_logger">Rexistros</string>
 	<string name="log_send_history_button">Enviar o historial</string>
-	<string name="log_send_no_mail_app">Non se atopou ningunha aplicación para o envío de rexistros. Instale un cliente de correo-e.</string>
-	<string name="log_send_mail_subject">Atoparonse %1$s aplicacións de rexistros para Android</string>
+	<string name="log_send_no_mail_app">Non se atopou ningún aplicativo para o envío de rexistros. Instale un cliente de correo-e.</string>
+	<string name="log_send_mail_subject">Atoparonse %1$s aplicativos de rexistros para Android</string>
     <string name="log_progress_dialog_text">Cargando datos…</string>
 
 	<string name="saml_authentication_required_text">Requírese o contrasinal</string>
@@ -468,7 +468,7 @@
     <string name="deselect_all">Desmarcar todo</string>
 
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
-    <string name="pref_behaviour_entries_move">movido cara o cartafol da aplicación</string>
+    <string name="pref_behaviour_entries_move">movido cara o cartafol do aplicativo</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="prefs_storage_path">Ruta de almacenamento</string>
 
@@ -549,7 +549,7 @@
     <string name="participate_contribute_forum_text">Axude a outros no</string>
     <string name="participate_contribute_forum_forum">foro</string>
     <string name="participate_contribute_translate_translate">Traducir</string>
-    <string name="participate_contribute_translate_text">a aplicación</string>
+    <string name="participate_contribute_translate_text">o aplicativo</string>
     <string name="participate_contribute_github_text">Revise, corrixa e escriba código, vexa %1$s para obter máis detalles</string>
     <string name="participate_rc_play_store">Obteña a versión candidata no Google Play Store</string>
     <string name="participate_rc_fdroid">Obteña a versión candidata no F-Droid</string>
@@ -617,7 +617,7 @@
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
 
     <string name="drawer_logout">Saír</string>
-    <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que estabelecer unha imaxe</string>
+    <string name="picture_set_as_no_app">Non se atopou un aplicativo co que estabelecer unha imaxe</string>
     <string name="privacy">Privacidade</string>
     <string name="file_not_found">Ficheiro non atopado</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
@@ -648,8 +648,8 @@
     <string name="resized_image_not_possible">No se dispón da imaxe noutros tamaños.</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala en tamaño total?</string>
 
-    <string name="store_short_desc">A aplicación para Android de Nextcloud dálle acceso a todos os seus ficheiros no seu Nextcloud.</string>
-    <string name="store_full_desc">A aplicación libre para Android de Nextcloud, dálle liberdade móbil.
+    <string name="store_short_desc">O apli para Android de Nextcloud dálle acceso a todos os seus ficheiros no seu Nextcloud.</string>
+    <string name="store_full_desc">O apli libre para Android de Nextcloud, dálle liberdade móbil.
 
 Características:
 * Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor
@@ -663,9 +663,9 @@ Características:
 * Acceso seguro aos seus datos con pegada dixital ou pin
 * Integración con DAVdroid para facilitar a configuración da sincronización de calendarios e contactos
 
-Agradecémoslle que nos informe de calquera erro en https://github.com/nextcloud/android/issues, pode conversar sobre esta aplicación en https://help.nextcloud.com/c/clients/android
+Agradecémoslle que nos informe de calquera erro en https://github.com/nextcloud/android/issues, pode conversar sobre este apli en https://help.nextcloud.com/c/clients/android
 
-Es novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, axenda de contactos, documentos e todo o demais.
+E novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, axenda de contactos, documentos e todo o demais.
 
 Coñeza o Nextcloud en https://nextcloud.com</string>
 
@@ -698,7 +698,7 @@ Coñeza o Nextcloud en https://nextcloud.com</string>
     <string name="what_s_new_image">Imaxe de Que hai de novo</string>
 
     <string name="store_short_dev_desc">O Nextcloud Dev é unha instantánea de desenvolvemento e pode instalarse en paralelo</string>
-    <string name="store_full_dev_desc">A aplicación libre para Android de Nextcloud, dálle liberdade móbil.
+    <string name="store_full_dev_desc">O apli libre para Android de Nextcloud, dálle liberdade móbil.
 Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria de calquera nova funcionalidade aínda non probada, o que pode provocar inestabilidade e perda de datos. Esta aplicación está destinada a usuarios que queren probar e informar de fallos (en caso de producirse). Non a use para o día a día!\n\nTanto a versión oficial de desenvolvemento como a normal están dispoñíbeis no F-Droid e poden instalarse xuntas.</string>
 
     <string name="prefs_category_dev">Desenvolvemento</string>
@@ -765,7 +765,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="hint_password">Contrasinal</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
     <string name="upload_files">Enviar ficheiros</string>
-    <string name="upload_content_from_other_apps">Enviar contido dende outras aplicacións</string>
+    <string name="upload_content_from_other_apps">Enviar contido dende outros aplicativos</string>
     <string name="create_new_folder">Crear un cartafol novo</string>
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
     <string name="tags">Etiquetas</string>
@@ -798,7 +798,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="new_media_folder_videos">vídeo</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
     <string name="dismiss">Desbotar</string>
-    <string name="feedback_no_mail_app">Non hai ningunha aplicación para enviar correos!</string>
+    <string name="feedback_no_mail_app">Non hai ningún aplicativo para enviar correos!</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
@@ -808,7 +808,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="trashbin_not_emptied">Non foi posíbel eliminar permanentemente o ficheiro!</string>
     <string name="stream">Fluxo con…</string>
     <string name="stream_not_possible_headline">Non é posíbel facer fluxos internos</string>
-    <string name="stream_not_possible_message">Descargue o medio ou use unha aplicación externa.</string>
+    <string name="stream_not_possible_message">Descargue o medio ou use un aplicativo externo.</string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="actionbar_open_as_richdocument">Abrir con Collabora</string>
     <string name="notification_icon">Icona de notificación</string>
@@ -826,8 +826,8 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="send_note">Enviar nota o destinatario</string>
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
     <string name="hint_note">Nota</string>
-    <string name="no_browser_available">Non hai ningunha aplicación para manexar ligazóns</string>
-    <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
+    <string name="no_browser_available">Non hai ningún aplicativo para manexar ligazóns</string>
+    <string name="no_pdf_app_available">Non hai ningún aplicativo para manexar PDF</string>
     <string name="share_via_link_hide_download">Agachar a descarga</string>
     <string name="unread_comments">Existen comentarios sen ler</string>
 
@@ -842,7 +842,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="create_file_from_template">Creando o ficheiro dende un modelo…</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="battery_optimization_title">Optimización da batería</string>
-    <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
+    <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe este aplicativo.</string>
     <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
