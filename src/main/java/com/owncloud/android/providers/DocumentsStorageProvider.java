@@ -76,9 +76,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
         if (appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_PASSCODE) ||
                 appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_DEVICE_CREDENTIALS)) {
-            return new FileCursor(new String[]{});
+            return new FileCursor();
         }
-        
+
         initiateStorageMap();
 
         final RootCursor result = new RootCursor(projection);
@@ -91,7 +91,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public Cursor queryDocument(String documentId, String[] projection) throws FileNotFoundException {
+    public Cursor queryDocument(String documentId, String[] projection) {
         final long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
@@ -114,8 +114,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder)
-            throws FileNotFoundException {
+    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder) {
 
         final long folderId = Long.parseLong(parentDocumentId);
         updateCurrentStorageManagerIfNeeded(folderId);
@@ -230,7 +229,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public Cursor querySearchDocuments(String rootId, String query, String[] projection) throws FileNotFoundException {
+    public Cursor querySearchDocuments(String rootId, String query, String[] projection) {
         updateCurrentStorageManagerIfNeeded(rootId);
 
         OCFile root = mCurrentStorageManager.getFileByPath("/");
