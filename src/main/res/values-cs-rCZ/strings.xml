@@ -52,7 +52,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Adresa serveru pro účet pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
-    <string name="prefs_daily_contacts_sync_summary">Denní záloha vašich kontaktů</string>
+    <string name="prefs_daily_contacts_sync_summary">Každodenní záloha vašich kontaktů</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
