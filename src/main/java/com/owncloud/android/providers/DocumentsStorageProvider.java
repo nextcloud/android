@@ -53,6 +53,9 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CopyFileOperation;
+import com.owncloud.android.operations.MoveFileOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.Preferences;
@@ -234,6 +237,81 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 ParcelFileDescriptor.open(realFile, ParcelFileDescriptor.MODE_READ_ONLY),
                 0,
                 AssetFileDescriptor.UNKNOWN_LENGTH);
+    }
+
+    @Override
+    public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
+        long sourceId = Long.parseLong(sourceDocumentId);
+        long targetId = Long.parseLong(targetParentDocumentId);
+        updateCurrentStorageManagerIfNeeded(sourceId);
+
+        OCFile file = currentStorageManager.getFileById(sourceId);
+        OCFile targetFolder = currentStorageManager.getFileById(targetId);
+
+        if (file == null) {
+            throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
+        }
+
+        if (targetFolder == null) {
+            throw new FileNotFoundException("File " + targetParentDocumentId + " not found!");
+        }
+
+        RemoteOperationResult result = new CopyFileOperation(file.getRemotePath(), targetFolder.getRemotePath())
+            .execute(client, currentStorageManager);
+
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
+                                                + " to " + targetParentDocumentId);
+        }
+
+        Account account = currentStorageManager.getAccount();
+
+        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder, System.currentTimeMillis(),
+                                                                        false, false, true, currentStorageManager,
+                                                                        account, getContext()).execute(client);
+
+        if (!updateParent.isSuccess()) {
+            throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
+                                                + " to " + targetParentDocumentId);
+        }
+
+        String newPath = targetFolder.getRemotePath() + file.getFileName();
+
+        if (file.isFolder()) {
+            newPath = newPath + "/";
+        }
+        OCFile newFile = currentStorageManager.getFileByPath(newPath);
+
+        return String.valueOf(newFile.getFileId());
+    }
+
+    @Override
+    public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
+        throws FileNotFoundException {
+        long sourceId = Long.parseLong(sourceDocumentId);
+        long targetId = Long.parseLong(targetParentDocumentId);
+        updateCurrentStorageManagerIfNeeded(sourceId);
+
+        OCFile file = currentStorageManager.getFileById(sourceId);
+        OCFile targetFolder = currentStorageManager.getFileById(targetId);
+
+        if (file == null) {
+            throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
+        }
+
+        if (targetFolder == null) {
+            throw new FileNotFoundException("File " + targetParentDocumentId + " not found!");
+        }
+
+        RemoteOperationResult result = new MoveFileOperation(file.getRemotePath(), targetFolder.getRemotePath())
+            .execute(client, currentStorageManager);
+
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to move document with documentId " + sourceDocumentId
+                                                + " to " + targetParentDocumentId);
+        }
+
+        return String.valueOf(file.getFileId());
     }
 
     @Override
