@@ -32,6 +32,7 @@ import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
@@ -47,6 +48,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -57,6 +59,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.UriUtils;
 
 import org.nextcloud.providers.cursors.FileCursor;
 import org.nextcloud.providers.cursors.RootCursor;
@@ -228,12 +231,26 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         OCFile file = currentStorageManager.getFileById(docId);
 
-        File realFile = new File(file.getStoragePath());
+        if (file == null) {
+            throw new FileNotFoundException("File with id " + documentId + " not found!");
+        }
 
-        return new AssetFileDescriptor(
-                ParcelFileDescriptor.open(realFile, ParcelFileDescriptor.MODE_READ_ONLY),
-                0,
-                AssetFileDescriptor.UNKNOWN_LENGTH);
+        Context context = getContext();
+
+        if (context == null) {
+            throw new FileNotFoundException("Context may not be null!");
+        }
+
+        boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
+                                                                   + file.getRemoteId());
+
+        if (!exists) {
+            ThumbnailsCacheManager.generateThumbnailFromOCFile(file);
+        }
+
+        Uri uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME + context.getResources().getString(
+            R.string.image_cache_provider_authority) + file.getRemotePath());
+        return context.getContentResolver().openAssetFileDescriptor(uri, "r");
     }
 
     @Override
