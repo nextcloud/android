@@ -1,5 +1,5 @@
-/**
- *   nextCloud Android client application
+/*
+ *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
  *   Copyright (C) 2016  Bartosz Przybylski <bart.p.pl@gmail.com>
@@ -21,6 +21,8 @@
 package com.owncloud.android.providers;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
@@ -46,7 +48,11 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.Preferences;
@@ -57,6 +63,7 @@ import org.nextcloud.providers.cursors.RootCursor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,18 +74,19 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final String TAG = "DocumentsStorageProvider";
 
-    private FileDataStorageManager mCurrentStorageManager;
-    private static Map<Long, FileDataStorageManager> mRootIdToStorageManager;
+    private FileDataStorageManager currentStorageManager;
+    private Map<Long, FileDataStorageManager> rootIdToStorageManager;
+    private OwnCloudClient client;
 
     @Override
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
 
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        if (appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_PASSCODE) ||
-                appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_DEVICE_CREDENTIALS)) {
-            return new FileCursor(new String[]{});
+        if (Preferences.LOCK_PASSCODE.equals(appPrefs.getString(Preferences.PREFERENCE_LOCK, "")) ||
+            Preferences.LOCK_DEVICE_CREDENTIALS.equals(appPrefs.getString(Preferences.PREFERENCE_LOCK, ""))) {
+            return new FileCursor();
         }
-        
+
         initiateStorageMap();
 
         final RootCursor result = new RootCursor(projection);
@@ -96,16 +104,21 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         updateCurrentStorageManagerIfNeeded(docId);
 
         final FileCursor result = new FileCursor(projection);
-        if (mCurrentStorageManager == null) {
-            for(long key : mRootIdToStorageManager.keySet()) {
-                if (mRootIdToStorageManager.get(key).getFileById(docId) != null) {
-                    mCurrentStorageManager = mRootIdToStorageManager.get(key);
+        if (currentStorageManager == null) {
+
+            for (Map.Entry<Long, FileDataStorageManager> entry : rootIdToStorageManager.entrySet()) {
+                if (entry.getValue().getFileById(docId) != null) {
+                    currentStorageManager = entry.getValue();
                     break;
                 }
             }
         }
 
-        OCFile file = mCurrentStorageManager.getFileById(docId);
+        if (currentStorageManager == null) {
+            throw new FileNotFoundException("File with " + documentId + " not found");
+        }
+
+        OCFile file = currentStorageManager.getFileById(docId);
         if (file != null) {
             result.addFile(file);
         }
@@ -114,16 +127,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder)
-            throws FileNotFoundException {
+    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder) {
 
         final long folderId = Long.parseLong(parentDocumentId);
         updateCurrentStorageManagerIfNeeded(folderId);
 
         final FileCursor result = new FileCursor(projection);
 
-        final OCFile browsedDir = mCurrentStorageManager.getFileById(folderId);
-        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir, false)) {
+        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
+        for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
             result.addFile(file);
         }
 
@@ -137,10 +149,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
-        OCFile file = mCurrentStorageManager.getFileById(docId);
+        OCFile file = currentStorageManager.getFileById(docId);
 
-        Account account = mCurrentStorageManager.getAccount();
+        if (file == null) {
+            throw new FileNotFoundException("File with id " + documentId + " not found!");
+        }
+
+        Account account = currentStorageManager.getAccount();
         Context context = getContext();
+
+        if (context == null) {
+            throw new FileNotFoundException("Context may not be null!");
+        }
 
         if (!file.isDown()) {
 
@@ -155,10 +175,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             do {
                 if (!waitOrGetCancelled(cancellationSignal)) {
-                    return null;
+                    throw new FileNotFoundException("File with id " + documentId + " not found!");
                 }
-                file = mCurrentStorageManager.getFileById(docId);
+                file = currentStorageManager.getFileById(docId);
 
+                if (file == null) {
+                    throw new FileNotFoundException("File with id " + documentId + " not found!");
+                }
             } while (!file.isDown());
         } else {
             OCFile finalFile = file;
@@ -219,7 +242,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
-        OCFile file = mCurrentStorageManager.getFileById(docId);
+        OCFile file = currentStorageManager.getFileById(docId);
+
+        if (file == null) {
+            throw new FileNotFoundException("File with id " + documentId + " not found!");
+        }
 
         File realFile = new File(file.getStoragePath());
 
@@ -230,10 +257,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public Cursor querySearchDocuments(String rootId, String query, String[] projection) throws FileNotFoundException {
+    public Cursor querySearchDocuments(String rootId, String query, String[] projection) {
         updateCurrentStorageManagerIfNeeded(rootId);
 
-        OCFile root = mCurrentStorageManager.getFileByPath("/");
+        OCFile root = currentStorageManager.getFileByPath("/");
         FileCursor result = new FileCursor(projection);
 
         for (OCFile f : findFiles(root, query)) {
@@ -245,7 +272,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @SuppressLint("LongLogTag")
     private void updateCurrentStorageManagerIfNeeded(long docId) {
-        if (mRootIdToStorageManager == null) {
+        if (rootIdToStorageManager == null) {
             try {
                 queryRoots(FileCursor.DEFAULT_DOCUMENT_PROJECTION);
             } catch (FileNotFoundException e) {
@@ -253,32 +280,46 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             }
         }
 
-        if (mCurrentStorageManager == null ||
-                (mRootIdToStorageManager.containsKey(docId) &&
-                        mCurrentStorageManager != mRootIdToStorageManager.get(docId))) {
-            mCurrentStorageManager = mRootIdToStorageManager.get(docId);
+        if (currentStorageManager == null ||
+            rootIdToStorageManager.containsKey(docId) && currentStorageManager != rootIdToStorageManager.get(docId)) {
+            currentStorageManager = rootIdToStorageManager.get(docId);
+        }
+
+        try {
+            Account account = currentStorageManager.getAccount();
+            OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, getContext());
+        } catch (OperationCanceledException | IOException | AuthenticatorException |
+            com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Log_OC.e(TAG, "Failed to set client", e);
         }
     }
 
     private void updateCurrentStorageManagerIfNeeded(String rootId) {
-        for (FileDataStorageManager data : mRootIdToStorageManager.values()) {
+        for (FileDataStorageManager data : rootIdToStorageManager.values()) {
             if (data.getAccount().name.equals(rootId)) {
-                mCurrentStorageManager = data;
+                currentStorageManager = data;
             }
         }
     }
 
-    private void initiateStorageMap() {
+    @SuppressLint("UseSparseArrays")
+    private void initiateStorageMap() throws FileNotFoundException {
 
-        mRootIdToStorageManager = new HashMap<>();
+        rootIdToStorageManager = new HashMap<>();
 
-        ContentResolver contentResolver = getContext().getContentResolver();
+        Context context = getContext();
+
+        if (context == null) {
+            throw new FileNotFoundException("Context may not be null!");
+        }
+
+        ContentResolver contentResolver = context.getContentResolver();
 
         for (Account account : AccountUtils.getAccounts(getContext())) {
-            final FileDataStorageManager storageManager =
-                    new FileDataStorageManager(account, contentResolver);
+            final FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
             final OCFile rootDir = storageManager.getFileByPath("/");
-            mRootIdToStorageManager.put(rootDir.getFileId(), storageManager);
+            rootIdToStorageManager.put(rootDir.getFileId(), storageManager);
         }
     }
 
@@ -294,7 +335,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     List<OCFile> findFiles(OCFile root, String query) {
         List<OCFile> result = new ArrayList<>();
-        for (OCFile f : mCurrentStorageManager.getFolderContent(root, false)) {
+        for (OCFile f : currentStorageManager.getFolderContent(root, false)) {
             if (f.isFolder()) {
                 result.addAll(findFiles(f, query));
             } else if (f.getFileName().contains(query)) {
