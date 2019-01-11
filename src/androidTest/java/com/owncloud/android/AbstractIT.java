@@ -52,6 +52,7 @@ public abstract class AbstractIT {
                         Integer.toString(com.owncloud.android.authentication.AccountUtils.ACCOUNT_VERSION));
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "http://" + baseUrl);
+                accountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, username);
             }
 
             account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(context,
