@@ -112,6 +112,7 @@
         <activity android:name=".ui.activities.ActivitiesActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".ui.activity.SyncedFoldersActivity"/>
+        <receiver android:name="com.owncloud.android.jobs.MediaFoldersDetectionJob$NotificationReceiver" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />

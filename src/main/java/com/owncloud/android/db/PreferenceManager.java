@@ -67,6 +67,7 @@ public final class PreferenceManager {
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
     public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
+    private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
     private PreferenceManager() {
     }
@@ -548,6 +549,14 @@ public final class PreferenceManager {
 
     public static void setShowDetailedTimestamp(Context context, boolean showDetailedTimestamp) {
         saveBooleanPreference(context, AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp);
+    }
+
+    public static boolean isShowMediaScanNotifications(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, true);
+    }
+
+    public static void setShowMediaScanNotifications(Context context, boolean value) {
+        saveBooleanPreference(context, PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, value);
     }
 
     private static void saveBooleanPreference(Context context, String key, boolean value) {
