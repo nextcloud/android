@@ -553,13 +553,17 @@ public class FileDisplayActivity extends HookActivity
                 String dataString = intent.getDataString();
                 String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
 
-                ArrayList<String> shareeNames = new ArrayList<>();
-                for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(), getAccount().name)) {
-                    shareeNames.add(share.getShareWith());
+                ArrayList<String> existingSharees = new ArrayList<>();
+                for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(),
+                                                                               getAccount().name)) {
+                    existingSharees.add(share.getShareType() + "_" + share.getShareWith());
                 }
 
-                if (!shareeNames.contains(shareWith)) {
-                    doShareWith(shareWith, data.getAuthority());
+                String dataAuthority = data.getAuthority();
+                ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
+
+                if (!existingSharees.contains(shareType + "_" + shareWith)) {
+                    doShareWith(shareWith, shareType);
                 }
 
             } else {
@@ -567,19 +571,12 @@ public class FileDisplayActivity extends HookActivity
             }
     }
 
-    private void doShareWith(String shareeName, String dataAuthority) {
-
-        ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
-
-        getFileOperationsHelper().shareFileWithSharee(
-                getFile(),
-                shareeName,
-                shareType,
-                getAppropiatePermissions(shareType)
-        );
+    private void doShareWith(String shareeName, ShareType shareType) {
+        getFileOperationsHelper().shareFileWithSharee(getFile(), shareeName, shareType,
+                                                      getAppropriatePermissions(shareType));
     }
 
-    private int getAppropiatePermissions(ShareType shareType) {
+    private int getAppropriatePermissions(ShareType shareType) {
 
         // check if the Share is FEDERATED
         boolean isFederated = ShareType.FEDERATED.equals(shareType);
