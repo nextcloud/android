@@ -803,8 +803,8 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
-    <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s</string>
-    <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s</string>
+    <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
+    <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar permanentemente o ficheiro!</string>
     <string name="stream">Fluxo con…</string>
     <string name="stream_not_possible_headline">Non é posíbel facer fluxos internos</string>
