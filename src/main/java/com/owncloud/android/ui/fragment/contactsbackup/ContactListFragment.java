@@ -690,7 +690,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (checked) {
                 checkedTextView.getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
             } else {
                 checkedTextView.getCheckMarkDrawable().clearColorFilter();
             }
@@ -703,7 +703,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         if (holder.getName().isChecked()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.getName().getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP);
+                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
             }
 
             checkedVCards.add(verifiedPosition);

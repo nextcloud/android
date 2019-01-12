@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -63,7 +64,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
@@ -81,13 +81,13 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     public SwitchCompat backupSwitch;
 
     @BindView(R.id.contacts_datepicker)
-    public AppCompatButton contactsDatePickerBtn;
+    public MaterialButton contactsDatePickerBtn;
 
     @BindView(R.id.contacts_last_backup_timestamp)
     public TextView lastBackup;
 
     @BindView(R.id.contacts_backup_now)
-    public AppCompatButton backupNow;
+    public MaterialButton backupNow;
 
     private Date selectedDate;
     private boolean calendarPickerOpen;
@@ -183,7 +183,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         contactsDatePickerBtn.setTextColor(fontColor);
 
-        AppCompatButton chooseDate = view.findViewById(R.id.contacts_datepicker);
+        MaterialButton chooseDate = view.findViewById(R.id.contacts_datepicker);
         chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 

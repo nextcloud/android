@@ -124,7 +124,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext());
         account = getArguments().getParcelable(ARG_ACCOUNT);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
@@ -137,13 +137,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         textView = v.findViewById(R.id.encryption_status);
         passphraseTextView = v.findViewById(R.id.encryption_passphrase);
         passwordField = v.findViewById(R.id.encryption_passwordInput);
-        passwordField.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        passwordField.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
 
         Drawable wrappedDrawable = DrawableCompat.wrap(passwordField.getBackground());
-        DrawableCompat.setTint(wrappedDrawable, accentColor);
+        DrawableCompat.setTint(wrappedDrawable, primaryColor);
         passwordField.setBackgroundDrawable(wrappedDrawable);
 
-        return createDialog(accentColor, v);
+        return createDialog(primaryColor, v);
     }
 
     @NonNull

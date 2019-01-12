@@ -34,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -49,7 +50,6 @@ import java.io.File;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
@@ -78,8 +78,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private TextView mRemoteFolderSummary;
 
     private SyncedFolderParcelable mSyncedFolder;
-    private AppCompatButton mCancel;
-    private AppCompatButton mSave;
+    private MaterialButton mCancel;
+    private MaterialButton mSave;
     private boolean behaviourDialogShown;
     private AlertDialog behaviourDialog;
 

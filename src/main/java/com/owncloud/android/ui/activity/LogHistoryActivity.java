@@ -81,7 +81,8 @@ public class LogHistoryActivity extends ToolbarActivity {
         }
         Button deleteHistoryButton = findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = findViewById(R.id.sendLogHistoryButton);
-        sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
+        sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
+        deleteHistoryButton.setTextColor(ThemeUtils.primaryColor(this, true));
         TextView logTV = findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
