@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Device credentials</string>
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
     <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
-    <string name="prefs_expert_mode">Expert mode</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
@@ -689,7 +688,6 @@
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status button</string>
     <string name="synced_folder_settings_button">Settings button</string>
-    <string name="synced_folder_custom_folder_image">Custom folder image</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="forward">Forward</string>
     <string name="what_s_new_image">What\'s new image</string>
