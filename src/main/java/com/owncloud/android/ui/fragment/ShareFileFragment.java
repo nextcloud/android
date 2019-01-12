@@ -39,6 +39,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -60,7 +61,6 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
@@ -717,8 +717,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             }
 
             // GetLink button
-            AppCompatButton getLinkButton = getGetLinkButton();
-            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+            MaterialButton getLinkButton = getGetLinkButton();
+            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()),
                     PorterDuff.Mode.SRC_ATOP);
             getLinkButton.setVisibility(View.VISIBLE);
             getLinkButton.setOnClickListener(new View.OnClickListener() {
@@ -873,8 +873,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         return getView().findViewById(R.id.shareViaLinkHideFileListingPermissionSection);
     }
 
-    private AppCompatButton getGetLinkButton() {
-        return (AppCompatButton) getView().findViewById(R.id.shareViaLinkGetLinkButton);
+    private MaterialButton getGetLinkButton() {
+        return (MaterialButton) getView().findViewById(R.id.shareViaLinkGetLinkButton);
     }
 
     /**

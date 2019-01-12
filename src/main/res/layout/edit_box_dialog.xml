@@ -24,7 +24,7 @@
     android:orientation="vertical"
     android:padding="@dimen/standard_padding">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/user_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

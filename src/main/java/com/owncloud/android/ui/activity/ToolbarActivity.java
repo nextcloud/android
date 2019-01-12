@@ -63,7 +63,6 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected void setupToolbar(boolean useBackgroundImage) {
         int primaryColor = ThemeUtils.primaryColor(this, false);
-        int primaryDarkColor = ThemeUtils.primaryDarkColor(this);
         int fontColor = ThemeUtils.fontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,14 +73,14 @@ public abstract class ToolbarActivity extends BaseActivity {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this, false));
+            ThemeUtils.colorToolbarProgressBar(this, primaryColor);
         }
         mInfoBox = findViewById(R.id.info_box);
         mInfoBoxMessage = findViewById(R.id.info_box_message);
 
         mPreviewImage = findViewById(R.id.preview_image);
 
-        ThemeUtils.colorStatusBar(this, primaryDarkColor);
+        ThemeUtils.colorStatusBar(this, primaryColor);
 
         if (toolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);

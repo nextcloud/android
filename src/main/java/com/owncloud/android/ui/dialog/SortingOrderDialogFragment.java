@@ -30,13 +30,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.DialogFragment;
 
 /**
@@ -51,7 +51,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     private View mView;
     private View[] mTaggedViews;
-    private AppCompatButton mCancel;
+    private MaterialButton mCancel;
     private String mCurrentSortOrderName;
 
     public static SortingOrderDialogFragment newInstance(FileSortOrder sortOrder) {

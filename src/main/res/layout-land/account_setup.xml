@@ -58,9 +58,8 @@
 			    android:orientation="vertical"
 			    android:padding="@dimen/standard_half_padding" >
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
 					android:id="@+id/centeredRefreshButton"
-					style="@style/ownCloud.Button"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_horizontal"
@@ -68,7 +67,8 @@
 					android:theme="@style/Button"
 					android:text="@string/auth_check_server"
 					android:visibility="gone"
-					android:contentDescription="@string/auth_check_server"/>
+					android:contentDescription="@string/auth_check_server"
+                    app:cornerRadius="@dimen/button_corner_radius"/>
 
 				<TextView
                     android:id="@+id/instructions_message"
@@ -175,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-					<EditText
+					<com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/oAuthEntryPoint_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-					<EditText
+					<com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/oAuthEntryPoint_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
 					android:layout_height="wrap_content"
 					android:visibility="gone">
 
-				<EditText
+				<com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/account_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
 					app:passwordToggleDrawable="@drawable/password_visibility_selector"
 					app:passwordToggleTint="@color/white">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/account_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -281,7 +281,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_half_padding">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
 			android:id="@+id/buttonOK"
 			android:theme="@style/Button.Login"
 			style="@style/Button.Login"
@@ -292,7 +292,8 @@
 			android:enabled="false"
 			android:text="@string/setup_btn_connect"
 			android:contentDescription="@string/setup_btn_connect"
-			android:visibility="gone"/>
+			android:visibility="visible"
+            app:cornerRadius="@dimen/button_corner_radius"/>
 	</LinearLayout>
 
 </RelativeLayout>

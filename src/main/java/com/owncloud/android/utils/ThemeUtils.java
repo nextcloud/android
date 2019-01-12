@@ -40,6 +40,7 @@ import android.widget.SeekBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -365,6 +366,26 @@ public final class ThemeUtils {
         if (activity instanceof ToolbarActivity) {
             ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
         }
+    }
+
+    /**
+     * Sets the color of the  TextInputLayout to {@code color} for hint text and box stroke.
+     *
+     * @param textInputLayout the TextInputLayout instance
+     * @param color the color to be used for the hint text and box stroke
+     */
+    public static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+        textInputLayout.setBoxStrokeColor(color);
+        textInputLayout.setDefaultHintTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                Color.GRAY,
+                color
+            }
+        ));
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
