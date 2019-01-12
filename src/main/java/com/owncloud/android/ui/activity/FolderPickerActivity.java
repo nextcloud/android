@@ -411,7 +411,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
      */
     private void initControls() {
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel);
-        mCancelBtn.setOnClickListener(this);
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
 
         if (mChooseBtn != null) {
@@ -421,6 +420,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         if (mCancelBtn != null) {
             mCancelBtn.setTextColor(ThemeUtils.primaryColor(this, true));
+            mCancelBtn.setOnClickListener(this);
         }
     }
 
