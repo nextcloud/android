@@ -23,8 +23,10 @@ package com.owncloud.android.jobs;
 
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,8 @@ import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFoldersModel;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -48,9 +52,11 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import lombok.NoArgsConstructor;
 
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
@@ -60,6 +66,9 @@ public class MediaFoldersDetectionJob extends Job {
 
     private static final String ACCOUNT_NAME_GLOBAL = "global";
     private static final String KEY_MEDIA_FOLDERS = "media_folders";
+    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
+
+    private static String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
 
     @NonNull
     @Override
@@ -78,11 +87,11 @@ public class MediaFoldersDetectionJob extends Job {
         List<String> imageMediaFolderPaths = new ArrayList<>();
         List<String> videoMediaFolderPaths = new ArrayList<>();
 
-        for (MediaFolder imageMediaFolder: imageMediaFolders) {
+        for (MediaFolder imageMediaFolder : imageMediaFolders) {
             imageMediaFolderPaths.add(imageMediaFolder.absolutePath);
         }
 
-        for (MediaFolder videoMediaFolder: videoMediaFolders) {
+        for (MediaFolder videoMediaFolder : videoMediaFolders) {
             imageMediaFolderPaths.add(videoMediaFolder.absolutePath);
         }
 
@@ -92,38 +101,41 @@ public class MediaFoldersDetectionJob extends Job {
 
             // Store updated values
             arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(new
-                    MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)));
+                MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)));
 
-            imageMediaFolderPaths.removeAll(mediaFoldersModel.getImageMediaFolders());
-            videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
-            if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
-                Account[] accounts = AccountUtils.getAccounts(getContext());
-                List<Account> accountList = new ArrayList<>();
-                for (Account account : accounts) {
-                    if (!arbitraryDataProvider.getBooleanValue(account, ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
-                        accountList.add(account);
-                    }
-                }
+            if (PreferenceManager.isShowMediaScanNotifications(context)) {
+                imageMediaFolderPaths.removeAll(mediaFoldersModel.getImageMediaFolders());
+                videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
-                for (Account account : accountList) {
-                    for (String imageMediaFolder : imageMediaFolderPaths) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder, account) == null) {
-                            sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
-                                    context.getString(R.string.new_media_folder_photos)),
-                                             imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1
-                                             ),
-                                             account, imageMediaFolder, 1);
+                if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
+                    Account[] accounts = AccountUtils.getAccounts(getContext());
+                    List<Account> accountList = new ArrayList<>();
+                    for (Account account : accounts) {
+                        if (!arbitraryDataProvider.getBooleanValue(account, ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
+                            accountList.add(account);
                         }
                     }
 
-                    for (String videoMediaFolder : videoMediaFolderPaths) {
-                        if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder, account) == null) {
-                            sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
+                    for (Account account : accountList) {
+                        for (String imageMediaFolder : imageMediaFolderPaths) {
+                            if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder, account) == null) {
+                                sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
+                                    context.getString(R.string.new_media_folder_photos)),
+                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1
+                                    ),
+                                    account, imageMediaFolder, 1);
+                            }
+                        }
+
+                        for (String videoMediaFolder : videoMediaFolderPaths) {
+                            if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder, account) == null) {
+                                sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_videos)),
-                                             videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1
-                                             ),
-                                             account, videoMediaFolder, 2);
+                                    videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1
+                                    ),
+                                    account, videoMediaFolder, 2);
+                            }
                         }
                     }
                 }
@@ -139,8 +151,11 @@ public class MediaFoldersDetectionJob extends Job {
     }
 
     private void sendNotification(String contentTitle, String subtitle, Account account, String path, int type) {
+        int notificationId = new Random().nextInt();
+
         Context context = getContext();
         Intent intent = new Intent(getContext(), SyncedFoldersActivity.class);
+        intent.putExtra(NOTIFICATION_ID, notificationId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, account.name);
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path);
@@ -149,22 +164,76 @@ public class MediaFoldersDetectionJob extends Job {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
-                context, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(getContext()))
-                .setSubText(account.name)
-                .setContentTitle(contentTitle)
-                .setContentText(subtitle)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+            context, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
+            .setColor(ThemeUtils.primaryColor(getContext()))
+            .setSubText(account.name)
+            .setContentTitle(contentTitle)
+            .setContentText(subtitle)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent);
+
+        Intent disableDetection = new Intent(context, NotificationReceiver.class);
+        disableDetection.putExtra(NOTIFICATION_ID, notificationId);
+        disableDetection.setAction(DISABLE_DETECTION_CLICK);
+
+        PendingIntent disableIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId,
+            disableDetection,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        );
+        notificationBuilder.addAction(
+            new NotificationCompat.Action(
+                R.drawable.ic_close,
+                context.getString(R.string.disable_new_media_folder_detection_notifications),
+                disableIntent
+            )
+        );
+
+        PendingIntent configureIntent = PendingIntent.getActivity(
+            context,
+            notificationId,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        );
+        notificationBuilder.addAction(
+            new NotificationCompat.Action(
+                R.drawable.ic_settings,
+                context.getString(R.string.configure_new_media_folder_detection_notifications),
+                configureIntent
+            )
+        );
 
         NotificationManager notificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+            context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (notificationManager != null) {
-            notificationManager.notify(0, notificationBuilder.build());
+            notificationManager.notify(notificationId, notificationBuilder.build());
+        }
+    }
+
+
+    public static class NotificationReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
+
+            if (DISABLE_DETECTION_CLICK.equals(action)) {
+                Log_OC.d(this, "Disable media scan notifications");
+                PreferenceManager.setShowMediaScanNotifications(context, false);
+                cancel(context, notificationId);
+            }
+        }
+
+        private void cancel(Context context, int notificationId) {
+            NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
+            notificationManager.cancel(notificationId);
         }
     }
 }

@@ -96,6 +96,7 @@ public class Preferences extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
+    public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
@@ -114,6 +115,7 @@ public class Preferences extends PreferenceActivity
 
     private ListPreference mLock;
     private SwitchPreference mShowHiddenFiles;
+    private SwitchPreference mShowMediaScanNotifications;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -506,14 +508,41 @@ public class Preferences extends PreferenceActivity
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
+        boolean fShowMediaScanNotifications = com.owncloud.android.db.PreferenceManager
+            .isShowMediaScanNotifications(this);
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 
-        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled) {
+        setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
+
+        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled
+            && fShowMediaScanNotifications) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }
+    }
+
+    private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
+                                                 boolean fShowMediaScanNotifications) {
+        mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
+
+        if (fShowMediaScanNotifications) {
+            preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
+        } else {
+            mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
+
+            mShowMediaScanNotifications.setOnPreferenceClickListener(preference -> {
+                com.owncloud.android.db.PreferenceManager.setShowMediaScanNotifications(
+                    this,
+                    mShowMediaScanNotifications.isChecked()
+                );
+                preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
+
+                return true;
+            });
+        }
+
     }
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
