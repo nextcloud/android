@@ -28,10 +28,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,8 +62,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.owncloud.android.ui.activity.Preferences.PREFERENCE_EXPERT_MODE;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -278,12 +274,9 @@ public class UploadListActivity extends FileActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (appPrefs.getBoolean(PREFERENCE_EXPERT_MODE, false)) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.upload_list_menu, menu);
-            this.menu = menu;
-        }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.upload_list_menu, menu);
+        this.menu = menu;
 
         return true;
     }
