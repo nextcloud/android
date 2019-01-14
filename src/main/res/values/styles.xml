@@ -31,7 +31,6 @@
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
 		<item name="android:windowBackground">@color/background_color</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="fontFamily">@font/nunito_regular</item>
 	</style>
 
 	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
@@ -89,19 +88,13 @@
 		<item name="android:textColorPrimary">@color/primary</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:buttonStyle">@style/nextcloudButtonStyle</item>
 	</style>
 
 	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:buttonStyle">@style/nextcloudButtonStyle</item>
 	</style>
-
-    <style name="nextcloudButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="fontFamily">@font/nunito_bold</item>
-    </style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
@@ -124,21 +117,18 @@
 		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
 		<item name="android:textColor">@color/secondary_button_text_color</item>
         <item name="android:textAllCaps">false</item>
-        <item name="fontFamily">@font/nunito_bold</item>
 	</style>
 
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorAccent">@color/transparent</item>
         <item name="android:textColor">@color/primary_dark</item>
         <item name="android:textAllCaps">false</item>
-        <item name="fontFamily">@font/nunito_bold</item>
     </style>
 
     <style name="OutlineLogindButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorAccent">@color/transparent</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
-        <item name="fontFamily">@font/nunito_bold</item>
         <item name="strokeColor">@color/white</item>
     </style>
 
@@ -155,18 +145,15 @@
 
 	<style name="Button.Borderless" parent="Widget.MaterialComponents.Button.TextButton">
 		<item name="android:textColor">@drawable/borderless_btn</item>
-        <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
 	<style name="Button.Borderless.Destructive" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="fontFamily">@font/nunito_bold</item>
 		<item name="android:textColor">@color/highlight_textColor_Warning</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
 	<style name="Button.Borderless.Login" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="fontFamily">@font/nunito_bold</item>
 		<item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
 	</style>
