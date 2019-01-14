@@ -277,7 +277,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         updateCurrentStorageManagerIfNeeded(docId);
 
         OCFile parent = currentStorageManager.getFileById(docId);
-        Account account = currentStorageManager.getAccount();
 
         if (parent == null) {
             throw new FileNotFoundException("Parent file not found");
