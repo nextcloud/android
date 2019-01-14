@@ -550,7 +550,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (showDetailedTimestamp) {
             fileModifiedTimestamp.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
         } else {
-            fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), file.getModificationTimestamp()));
+            fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
+                                                                            file.getModificationTimestamp()));
         }
     }
 
