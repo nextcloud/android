@@ -81,6 +81,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     public static String DATA_USER;
     public static String DATA_GROUP;
+    public static String DATA_ROOM;
     public static String DATA_REMOTE;
 
     private UriMatcher mUriMatcher;
@@ -109,11 +110,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         ACTION_SHARE_WITH = getContext().getResources().getString(R.string.users_and_groups_share_with);
         DATA_USER = AUTHORITY + ".data.user";
         DATA_GROUP = AUTHORITY + ".data.group";
+        DATA_ROOM = AUTHORITY + ".data.room";
         DATA_REMOTE = AUTHORITY + ".data.remote";
 
         sShareTypes.put(DATA_USER, ShareType.USER);
         sShareTypes.put(DATA_GROUP, ShareType.GROUP);
-        sShareTypes.put(DATA_GROUP, ShareType.ROOM);
+        sShareTypes.put(DATA_ROOM, ShareType.ROOM);
         sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
         sShareTypes.put(DATA_REMOTE, ShareType.EMAIL);
 
@@ -188,6 +190,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
             Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();
+            Uri roomBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_ROOM).build();
             Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
 
             FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
@@ -241,7 +244,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         case ROOM:
                             icon = R.drawable.ic_chat_bubble;
                             displayName = getContext().getString(R.string.share_room_clarification, userName);
-                            dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
+                            dataUri = Uri.withAppendedPath(roomBaseUri, shareWith);
                             break;
 
                         default:
