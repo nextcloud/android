@@ -692,9 +692,13 @@ public class UploadFileOperation extends SyncOperation {
             if (!unlockFolderResult.isSuccess()) {
                 return unlockFolderResult;
             }
-
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
+        }
+
+        // delete temporal file
+        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
+            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
         }
 
         return result;
@@ -894,6 +898,11 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
+        // delete temporal file
+        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
+            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
+        }
+
         return result;
     }
 
@@ -902,7 +911,8 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult result = null;
 
         if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY && !mOriginalStoragePath.equals(expectedPath)) {
-            String temporalPath = FileStorageUtils.getInternalTemporalPath(mAccount.name, mContext) + mFile.getRemotePath();
+            String temporalPath = FileStorageUtils.getInternalTemporalPath(mAccount.name, mContext) +
+                mFile.getRemotePath();
             mFile.setStoragePath(temporalPath);
             File temporalFile = new File(temporalPath);
 
@@ -979,11 +989,6 @@ public class UploadFileOperation extends SyncOperation {
                 FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
                 break;
         }
-
-        // delete temporal file
-        String temporalPath = FileStorageUtils.getInternalTemporalPath(mAccount.name, mContext) + mFile.getRemotePath();
-        temporalFile = new File(temporalPath);
-        temporalFile.delete();
     }
 
     /**
