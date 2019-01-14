@@ -47,6 +47,7 @@ public final class PreferenceManager {
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
+    private static final String AUTO_PREF__SHOW_DETAILED_TIMESTAMP = "detailed_timestamp";
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
@@ -539,6 +540,14 @@ public final class PreferenceManager {
 
     public static void setLockTimestamp(Context context, long timestamp) {
         saveLongPreference(context, PREF__LOCK_TIMESTAMP, timestamp);
+    }
+
+    public static boolean isShowDetailedTimestamp(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, false);
+    }
+
+    public static void setShowDetailedTimestamp(Context context, boolean showDetailedTimestamp) {
+        saveBooleanPreference(context, AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp);
     }
 
     private static void saveBooleanPreference(Context context, String key, boolean value) {
