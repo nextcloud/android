@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   @author Andy Scherzinger
- *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2011 Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
  *
@@ -44,6 +44,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -249,6 +250,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             cancelButton.setOnClickListener(this);
             favoriteIcon.setOnClickListener(this);
             overflowMenu.setOnClickListener(this);
+            fileModifiedTimestamp.setOnClickListener(this);
 
             updateFileDetails(false, false);
         }
@@ -452,6 +454,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 onOverflowIconClicked(v);
                 break;
             }
+            case R.id.modified: {
+                boolean flag = !PreferenceManager.isShowDetailedTimestamp(getContext());
+                PreferenceManager.setShowDetailedTimestamp(getContext(), flag);
+                setFileModificationTimestamp(getFile(), flag);
+            }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
                 break;
@@ -508,7 +515,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 fileName.setVisibility(View.GONE);
             }
             fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-            fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), file.getModificationTimestamp()));
+
+            boolean showDetailedTimestamp = PreferenceManager.isShowDetailedTimestamp(getContext());
+            setFileModificationTimestamp(file, showDetailedTimestamp);
+
             setFilePreview(file);
             setFavoriteIconStatus(file.isFavorite());
 
@@ -534,6 +544,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         setupViewPager();
 
         getView().invalidate();
+    }
+
+    private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
+        if (showDetailedTimestamp) {
+            fileModifiedTimestamp.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+        } else {
+            fileModifiedTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
+                                                                            file.getModificationTimestamp()));
+        }
     }
 
     private void setFavoriteIconStatus(boolean isFavorite) {
