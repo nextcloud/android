@@ -53,6 +53,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.Preferences;
@@ -268,6 +269,34 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         return result;
+    }
+
+    @Override
+    public String createDocument(String documentId, String mimeType, String displayName) throws FileNotFoundException {
+        long docId = Long.parseLong(documentId);
+        updateCurrentStorageManagerIfNeeded(docId);
+
+        OCFile parent = currentStorageManager.getFileById(docId);
+
+        if (parent == null) {
+            throw new FileNotFoundException("Parent file not found");
+        }
+
+        CreateFolderOperation createFolderOperation = new CreateFolderOperation(parent.getRemotePath() + displayName
+                                                                                    + "/", true);
+        RemoteOperationResult result = createFolderOperation.execute(client, currentStorageManager);
+
+
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to create document with name " +
+                                                displayName + " and documentId " + documentId);
+        }
+
+
+        String newDirPath = parent.getRemotePath() + displayName + "/";
+        OCFile newFolder = currentStorageManager.getFileByPath(newDirPath);
+
+        return String.valueOf(newFolder.getFileId());
     }
 
     @SuppressLint("LongLogTag")
