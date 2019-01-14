@@ -840,4 +840,5 @@
     <string name="battery_optimization_disable">disable</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
+    <string name="file_details_no_content">Failed to load details</string>
 </resources>
