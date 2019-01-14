@@ -845,4 +845,6 @@
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
     <string name="file_details_no_content">Failed to load details</string>
+    <string name="uploader_upload_files_behaviour_not_writable">not writable, thus only copy possible</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
 </resources>
