@@ -56,7 +56,6 @@ import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import lombok.NoArgsConstructor;
 
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
