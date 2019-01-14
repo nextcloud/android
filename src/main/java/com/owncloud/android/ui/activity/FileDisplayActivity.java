@@ -2029,14 +2029,22 @@ public class FileDisplayActivity extends HookActivity
         chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
     }
 
-    private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int errorString) {
+    private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int defaultError) {
+        Snackbar snackbar;
         Fragment fileDetailFragment = getSecondFragment();
 
         if (result.isSuccess()) {
             updateFileFromDB();
             refreshListOfFilesFragment(false);
         } else if (fileDetailFragment.getView() != null) {
-            Snackbar snackbar = Snackbar.make(fileDetailFragment.getView(), errorString, Snackbar.LENGTH_LONG);
+            String errorResponse = result.getData().size() > 0 ? result.getData().get(0).toString() : "";
+
+            if (!TextUtils.isEmpty(errorResponse)) {
+                snackbar = Snackbar.make(fileDetailFragment.getView(), errorResponse, Snackbar.LENGTH_LONG);
+            } else {
+                snackbar = Snackbar.make(fileDetailFragment.getView(), defaultError, Snackbar.LENGTH_LONG);
+            }
+
             ThemeUtils.colorSnackbar(this, snackbar);
             snackbar.show();
         }
