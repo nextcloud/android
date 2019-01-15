@@ -529,20 +529,7 @@ public class Preferences extends PreferenceActivity
 
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
-        } else {
-            mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
-
-            mShowMediaScanNotifications.setOnPreferenceClickListener(preference -> {
-                com.owncloud.android.db.PreferenceManager.setShowMediaScanNotifications(
-                    this,
-                    mShowMediaScanNotifications.isChecked()
-                );
-                preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
-
-                return true;
-            });
         }
-
     }
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
