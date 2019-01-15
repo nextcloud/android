@@ -115,7 +115,6 @@ public class Preferences extends PreferenceActivity
 
     private ListPreference mLock;
     private SwitchPreference mShowHiddenFiles;
-    private SwitchPreference mShowMediaScanNotifications;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -525,7 +524,7 @@ public class Preferences extends PreferenceActivity
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
                                                  boolean fShowMediaScanNotifications) {
-        mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
+        SwitchPreference mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
 
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
