@@ -147,7 +147,7 @@ android {
         exclude 'META-INF/LICENSE'
     }
 
-    task checkstyle(type: Checkstyle) {
+    tasks.register("checkstyle", Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
         source 'src'
@@ -156,7 +156,7 @@ android {
         classpath = files()
     }
 
-    task pmd(type: Pmd) {
+    tasks.register("pmd", Pmd) {
         ruleSetFiles = files("${project.rootDir}/pmd-ruleset.xml")
         ignoreFailures = false
         ruleSets = []
@@ -177,7 +177,7 @@ android {
         }
     }
 
-    task findbugs(type: FindBugs) {
+    tasks.register("findbugs", FindBugs) {
         ignoreFailures = false
         effort = "max"
         reportLevel = "medium"
@@ -296,7 +296,7 @@ android.applicationVariants.all { variant ->
     }
 }
 
-task combinedTestReport(type: JacocoReport) {
+tasks.register("combinedTestReport", JacocoReport) {
 
     reports {
         xml.enabled = true
