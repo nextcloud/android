@@ -1,0 +1,4 @@
+3.4.2 RC1 (January, 15, 2019)
+
+- fix sharing to group
+- show correct share error messages
