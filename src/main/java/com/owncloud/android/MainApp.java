@@ -148,8 +148,7 @@ public class MainApp extends MultiDexApplication {
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
 
-        if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled) ||
-                appPrefs.getBoolean(Preferences.PREFERENCE_EXPERT_MODE, false)) {
+        if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");

@@ -96,7 +96,6 @@ public class Preferences extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
-    public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
@@ -115,7 +114,6 @@ public class Preferences extends PreferenceActivity
 
     private ListPreference mLock;
     private SwitchPreference mShowHiddenFiles;
-    private SwitchPreference mExpertMode;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -127,8 +125,6 @@ public class Preferences extends PreferenceActivity
 
     public static class PreferenceKeys {
         public static final String STORAGE_PATH = "storage_path";
-        public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
-        public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
     }
 
     @SuppressWarnings("deprecation")
@@ -336,11 +332,8 @@ public class Preferences extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
-                appPrefs.getBoolean(PREFERENCE_EXPERT_MODE, false);
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {
@@ -518,39 +511,8 @@ public class Preferences extends PreferenceActivity
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 
-        setupExpertModePreference(preferenceCategoryDetails, fSyncedFolderLightEnabled);
-
         if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
-        }
-    }
-
-    private void setupExpertModePreference(PreferenceCategory preferenceCategoryDetails,
-                                           boolean fSyncedFolderLightEnabled) {
-        mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
-
-        if (fSyncedFolderLightEnabled) {
-            preferenceCategoryDetails.removePreference(mExpertMode);
-        } else {
-            mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
-            mExpertMode.setOnPreferenceClickListener(preference -> {
-                SharedPreferences appPrefs =
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = appPrefs.edit();
-                editor.putBoolean(PREFERENCE_EXPERT_MODE, mExpertMode.isChecked());
-                editor.apply();
-
-                if (mExpertMode.isChecked()) {
-                    Log_OC.startLogging(getApplicationContext());
-                } else {
-                    if (!BuildConfig.DEBUG &&
-                            !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
-                        Log_OC.stopLogging();
-                    }
-                }
-
-                return true;
-            });
         }
     }
 
