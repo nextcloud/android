@@ -34,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -74,45 +75,60 @@ import butterknife.Unbinder;
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
     private static final String TAG = FileDetailFragment.class.getSimpleName();
-    public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
-    public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
+    private static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
+    static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
     private static final String ARG_ACTIVE_TAB = "TAB";
 
-    @Nullable @BindView(R.id.progressBlock)
+    @BindView(R.id.detail_container)
+    LinearLayout detailContainer;
+
+    @BindView(R.id.progressBlock)
     View downloadProgressContainer;
 
-    @Nullable @BindView(R.id.cancelBtn)
+    @BindView(R.id.cancelBtn)
     ImageButton cancelButton;
 
-    @Nullable @BindView(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    @Nullable @BindView(R.id.progressText)
+    @BindView(R.id.progressText)
     TextView progressText;
 
-    @Nullable @BindView(R.id.filename)
+    @BindView(R.id.filename)
     TextView fileName;
 
-    @Nullable @BindView(R.id.size)
+    @BindView(R.id.size)
     TextView fileSize;
 
-    @Nullable @BindView(R.id.modified)
+    @BindView(R.id.modified)
     TextView fileModifiedTimestamp;
 
-    @Nullable @BindView(R.id.favorite)
+    @BindView(R.id.favorite)
     ImageView favoriteIcon;
 
-    @Nullable @BindView(R.id.overflow_menu)
+    @BindView(R.id.overflow_menu)
     ImageView overflowMenu;
 
-    @Nullable @BindView(R.id.tab_layout)
+    @BindView(R.id.tab_layout)
     TabLayout tabLayout;
 
-    @Nullable @BindView(R.id.pager)
+    @BindView(R.id.pager)
     ViewPager viewPager;
+
+    @BindView(R.id.empty_list_view)
+    public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.empty_list_view_headline)
+    public TextView emptyContentHeadline;
+
+    @BindView(R.id.empty_list_icon)
+    public ImageView emptyContentIcon;
+
+    @BindView(R.id.empty_list_progress)
+    public ProgressBar emptyContentProgressBar;
 
     private int layout;
     private View view;
@@ -120,7 +136,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private Account account;
     private Unbinder unbinder;
 
-    public ProgressListener progressListener;
+    private ProgressListener progressListener;
     private ToolbarActivity activity;
     private int activeTab;
 
@@ -166,12 +182,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * Creates an empty details fragment.
      *
      * It's necessary to keep a public constructor without parameters; the system uses it when tries
-     * to reinstantiate a fragment automatically.
+     * to reinstate a fragment automatically.
      */
     public FileDetailFragment() {
         super();
         account = null;
-        layout = R.layout.empty_list;
+        layout = R.layout.file_details_fragment;
         progressListener = null;
     }
 
@@ -223,21 +239,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setFile(getArguments().getParcelable(ARG_FILE));
-        account = getArguments().getParcelable(ARG_ACCOUNT);
-        activeTab = getArguments().getInt(ARG_ACTIVE_TAB, 0);
+        Bundle arguments = getArguments();
+
+        if (arguments == null) {
+            throw new IllegalArgumentException("Arguments may not be null");
+        }
+
+        setFile(arguments.getParcelable(ARG_FILE));
+        account = arguments.getParcelable(ARG_ACCOUNT);
+        activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
 
         if (savedInstanceState != null) {
             setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
-        if (getFile() != null && account != null) {
-            layout = R.layout.file_details_fragment;
-        }
-
         view = inflater.inflate(layout, null);
         unbinder = ButterKnife.bind(this, view);
+
+        if (getFile() == null || account == null) {
+            showEmptyContent();
+        }
 
         return view;
     }
@@ -256,7 +278,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-    public void onOverflowIconClicked(View view) {
+    private void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.file_details_actions_menu);
         prepareOptionsMenu(popup.getMenu());
@@ -685,7 +707,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-    public void leaveTransferProgress() {
+    private void leaveTransferProgress() {
         if (progressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().
@@ -695,6 +717,18 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileUploaderBinder().
                         removeDatatransferProgressListener(progressListener, account, getFile());
             }
+        }
+    }
+
+    private void showEmptyContent() {
+        if (emptyContentContainer != null) {
+            detailContainer.setVisibility(View.GONE);
+
+            emptyContentHeadline.setText(R.string.file_details_no_content);
+
+            emptyContentProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setImageResource(R.drawable.ic_list_empty_error);
+            emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
 
