@@ -760,4 +760,5 @@
     <string name="file_delete">Radera</string>
     <string name="file_keep">Behåll</string>
     <string name="file_rename">Byt namn</string>
+    <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     </resources>

@@ -47,7 +47,10 @@
     <string name="prefs_help">Pagalba</string>
     <string name="prefs_recommend">Rekomenduok draugui</string>
     <string name="prefs_feedback">Atsiliepimai</string>
-    <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
+    <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
+	<string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
+    <string name="recommend_urls">%1$s arba %2$s</string>
+
     <string name="auth_check_server">Patikrinti serverį</string>
     <string name="auth_host_url">Serverio adresas https://…</string>
     <string name="auth_username">Naudotojo vardas</string>
