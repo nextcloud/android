@@ -67,7 +67,7 @@ public class MediaFoldersDetectionJob extends Job {
     private static final String KEY_MEDIA_FOLDERS = "media_folders";
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
 
-    private static String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
+    private static final String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
 
     @NonNull
     @Override
