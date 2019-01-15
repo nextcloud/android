@@ -31,19 +31,23 @@
         android:layout_gravity="top|start"
         android:contentDescription="@null"
         android:src="@drawable/background"
-        app:layout_constraintTop_toTopOf="@+id/permissionText" />
+        app:layout_constraintTop_toTopOf="@+id/permissionText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/permissionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/zero"
-        android:paddingLeft="@dimen/permission_dialog_text_padding"
+        android:paddingStart="@dimen/zero"
         android:paddingRight="@dimen/zero"
-        android:paddingStart="@dimen/permission_dialog_text_padding"
+        android:paddingLeft="@dimen/zero"
         android:paddingBottom="@dimen/standard_padding"
         android:textSize="@dimen/permission_dialog_text_size"
         app:layout_constraintBottom_toTopOf="@+id/btnGrant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Grant Nextcloud News access to your Nextcloud account incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com?" />
 
