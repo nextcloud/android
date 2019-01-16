@@ -23,6 +23,8 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -131,6 +133,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
             path = getIntent().getStringExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_PATH);
             type = getIntent().getIntExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_TYPE, -1);
+
+            // Cancel notification
+            int notificationId = getIntent().getIntExtra(MediaFoldersDetectionJob.NOTIFICATION_ID, 0);
+            NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Activity.NOTIFICATION_SERVICE);
+            notificationManager.cancel(notificationId);
         }
 
         // setup toolbar

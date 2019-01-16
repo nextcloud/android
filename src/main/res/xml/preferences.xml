@@ -47,6 +47,10 @@
 		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:title="@string/prefs_enable_media_scan_notifications"
+            android:summary="@string/prefs_enable_media_scan_notifications_summary"
+            android:key="show_media_scan_notifications"/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
