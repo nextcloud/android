@@ -317,7 +317,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             .execute(client, currentStorageManager);
 
         if (!result.isSuccess()) {
-            throw new FileNotFoundException("Failed to rename document with documentId " + documentId);
+            throw new FileNotFoundException("Failed to rename document with documentId " + documentId + ": " +
+                                                result.getException());
         }
 
         return null;
