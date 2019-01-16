@@ -42,6 +42,8 @@ import android.provider.DocumentsProvider;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -54,6 +56,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
@@ -128,20 +131,35 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return result;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
-    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder) {
+    public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder)
+        throws FileNotFoundException {
 
         final long folderId = Long.parseLong(parentDocumentId);
         updateCurrentStorageManagerIfNeeded(folderId);
 
-        final FileCursor result = new FileCursor(projection);
-
         final OCFile browsedDir = currentStorageManager.getFileById(folderId);
-        for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
-            result.addFile(file);
+
+        Account account = currentStorageManager.getAccount();
+
+        if (Device.getNetworkType(getContext()).equals(JobRequest.NetworkType.UNMETERED)) {
+            RemoteOperationResult result = new RefreshFolderOperation(browsedDir, System.currentTimeMillis(), false,
+                                                                      false, true, currentStorageManager, account,
+                                                                      getContext()).execute(client);
+
+            if (!result.isSuccess()) {
+                throw new FileNotFoundException("Failed to update document " + parentDocumentId);
+            }
         }
 
-        return result;
+        final FileCursor resultCursor = new FileCursor(projection);
+        
+        for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
+            resultCursor.addFile(file);
+        }
+
+        return resultCursor;
     }
 
     @SuppressLint("LongLogTag")
