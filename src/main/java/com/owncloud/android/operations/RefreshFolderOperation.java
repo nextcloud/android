@@ -114,6 +114,11 @@ public class RefreshFolderOperation extends RemoteOperation {
     /** 'True' means that Etag will be ignored */
     private boolean mIgnoreETag;
 
+    /**
+     * 'True' means that no share and no capabilities will be updated
+     */
+    private boolean mOnlyFileMetadata;
+
     private List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
@@ -148,6 +153,28 @@ public class RefreshFolderOperation extends RemoteOperation {
         mForgottenLocalFiles = new HashMap<>();
         mRemoteFolderChanged = false;
         mIgnoreETag = ignoreETag;
+        mOnlyFileMetadata = false;
+        mFilesToSyncContents = new Vector<>();
+    }
+
+    public RefreshFolderOperation(OCFile folder,
+                                  long currentSyncTime,
+                                  boolean syncFullAccount,
+                                  boolean ignoreETag,
+                                  boolean onlyFileMetadata,
+                                  FileDataStorageManager dataStorageManager,
+                                  Account account,
+                                  Context context) {
+        mLocalFolder = folder;
+        mCurrentSyncTime = currentSyncTime;
+        mSyncFullAccount = syncFullAccount;
+        mStorageManager = dataStorageManager;
+        mAccount = account;
+        mContext = context;
+        mForgottenLocalFiles = new HashMap<>();
+        mRemoteFolderChanged = false;
+        mIgnoreETag = ignoreETag;
+        mOnlyFileMetadata = onlyFileMetadata;
         mFilesToSyncContents = new Vector<>();
     }
 
@@ -185,7 +212,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
-        if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
+        if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
             updateOCVersion(client);
             updateUserProfile();
         }
@@ -214,7 +241,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             );
         }
 
-        if (result.isSuccess() && !mSyncFullAccount) {
+        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
             refreshSharesForFolder(client); // share result is ignored
         }
 
