@@ -139,8 +139,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final long folderId = Long.parseLong(parentDocumentId);
         updateCurrentStorageManagerIfNeeded(folderId);
 
-        final FileCursor resultCursor = new FileCursor(projection);
-
         final OCFile browsedDir = currentStorageManager.getFileById(folderId);
 
         Account account = currentStorageManager.getAccount();
@@ -155,6 +153,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             }
         }
 
+        final FileCursor resultCursor = new FileCursor(projection);
+        
         for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
             resultCursor.addFile(file);
         }
