@@ -56,6 +56,7 @@ import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
@@ -68,6 +69,12 @@ public class MediaFoldersDetectionJob extends Job {
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
 
     private static final String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
+
+    @SuppressFBWarnings(
+        value = "PREDICTABLE_RANDOM",
+        justification = "Only used for notification id, so predictability is no issue here."
+    )
+    private Random randomId = new Random();
 
     @NonNull
     @Override
@@ -150,7 +157,7 @@ public class MediaFoldersDetectionJob extends Job {
     }
 
     private void sendNotification(String contentTitle, String subtitle, Account account, String path, int type) {
-        int notificationId = new Random().nextInt();
+        int notificationId = randomId.nextInt();
 
         Context context = getContext();
         Intent intent = new Intent(getContext(), SyncedFoldersActivity.class);
