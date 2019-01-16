@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Prihlasovacie údaje zariadenia</string>
     <string name="prefs_lock_device_credentials_enabled">Prihlasovacie údaje zariadenia povolené</string>
     <string name="prefs_lock_device_credentials_not_setup">Prihlasovacie údaje zariadenia neboli nastavené.</string>
-    <string name="prefs_expert_mode">Expertný režim</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
@@ -682,7 +681,6 @@
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Tlačidlo stavu synchronizácie</string>
     <string name="synced_folder_settings_button">Tlačidlo nastavenia</string>
-    <string name="synced_folder_custom_folder_image">Vlastný obrázok priečinku</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
     <string name="forward">Preposlať</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>

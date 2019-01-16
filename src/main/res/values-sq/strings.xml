@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
     <string name="prefs_lock_device_credentials_enabled">Kredencialet e pajisjes janë aktivizuar</string>
     <string name="prefs_lock_device_credentials_not_setup">Nuk janë krijuar kredencialet për asnjë pajisje</string>
-    <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
@@ -673,7 +672,6 @@
     <string name="synced_folders_type">Tipi</string>
     <string name="sync_status_button">Butoni i statusit të sinkronizimit</string>
     <string name="synced_folder_settings_button">Butoni i konfigurimeve</string>
-    <string name="synced_folder_custom_folder_image">Imazhi i skedarëve të zakonshëm</string>
     <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
     <string name="forward">Përpara</string>
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>

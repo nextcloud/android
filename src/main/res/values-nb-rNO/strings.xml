@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Enhetens legitimasjon</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
     <string name="prefs_lock_device_credentials_not_setup">Ingen legitimasjon for enhet er satt opp.</string>
-    <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
@@ -691,7 +690,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Synkroniseringsstatusknapp</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
-    <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
     <string name="forward">Fremover</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
@@ -843,4 +841,4 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
-</resources>
+    </resources>

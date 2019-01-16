@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Poświadczenia urządzenia</string>
     <string name="prefs_lock_device_credentials_enabled">Poświadczenia urządzenia włączone</string>
     <string name="prefs_lock_device_credentials_not_setup">Nie ustawiono żadnych poświadczeń urządzenia</string>
-    <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
@@ -682,7 +681,6 @@
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Przycisk status synchronizacji</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
-    <string name="synced_folder_custom_folder_image">Obraz własnego foldera</string>
     <string name="upload_item_action_button">
 Przycisk wysyłania elementu</string>
     <string name="forward">Prześlij dalej</string>

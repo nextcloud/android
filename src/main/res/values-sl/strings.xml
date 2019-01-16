@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Poverila naprave</string>
     <string name="prefs_lock_device_credentials_enabled">Poverila naprave so omogočena</string>
     <string name="prefs_lock_device_credentials_not_setup">Ni nastavljenih poveril naprave</string>
-    <string name="prefs_expert_mode">Napredni način</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>

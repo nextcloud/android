@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Gailuaren egiaztagiriak</string>
     <string name="prefs_lock_device_credentials_enabled">Gailuaren egiaztagiriak gaituta</string>
     <string name="prefs_lock_device_credentials_not_setup">Ez da gailuko egiaztagiririk ezarri.</string>
-    <string name="prefs_expert_mode">Modu aurreratua</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_log_delete_history_button">Ezabatu historiala</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>

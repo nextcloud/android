@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
     <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
     <string name="prefs_lock_device_credentials_not_setup">Ierīces akreditācijas dati nav uzstādīti.</string>
-    <string name="prefs_expert_mode">Eksperta režīms</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>

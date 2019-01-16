@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">設備認證方式</string>
     <string name="prefs_lock_device_credentials_enabled">設備認證方式已啟動</string>
     <string name="prefs_lock_device_credentials_not_setup">未設定任何設備認證方式</string>
-    <string name="prefs_expert_mode">專家模式</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>

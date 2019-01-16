@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Autentificarea dispozitivului</string>
     <string name="prefs_lock_device_credentials_enabled">Autentificarea dispozitivului activată</string>
     <string name="prefs_lock_device_credentials_not_setup">Nu au fost create autentificări pentru dispozitiv.</string>
-    <string name="prefs_expert_mode">Mod expert</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
     <string name="prefs_log_delete_history_button">Șterge istoricul</string>
     <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>

@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Aparataj aŭtentigiloj</string>
     <string name="prefs_lock_device_credentials_enabled">Aparataj aŭtentigiloj ebligitaj</string>
     <string name="prefs_lock_device_credentials_not_setup">Neniu aparata aŭtentigilo estis agordita</string>
-    <string name="prefs_expert_mode">Reĝimo kun pli da funkcioj</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
     <string name="prefs_log_delete_history_button">Forviŝi historion</string>
     <string name="prefs_calendar_contacts">Sinkronigi kalendaron &amp; kontaktaron</string>
@@ -674,7 +673,6 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Butono pri la sinkroniga stato</string>
     <string name="synced_folder_settings_button">Butono pri agordoj</string>
-    <string name="synced_folder_custom_folder_image">Propra dosierujo-bildo</string>
     <string name="upload_item_action_button">Butono pri alŝuto</string>
     <string name="forward">Antaŭen</string>
     <string name="what_s_new_image">Bildo pri Kio nova</string>
@@ -826,4 +824,4 @@
     <string name="battery_optimization_disable">malebligi</string>
     <string name="battery_optimization_close">Fermi</string>
     <string name="battery_optimization_no_setting">Ne eblis malfermi agordon pri baterio. Bonvolu fari tion permane.</string>
-</resources>
+    </resources>

@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">פרטי זיהוי להתקן</string>
     <string name="prefs_lock_device_credentials_enabled">פרטי זיהוי להתקן פעילים</string>
     <string name="prefs_lock_device_credentials_not_setup">לא הוגדרו פרטי זיהוי להתקן.</string>
-    <string name="prefs_expert_mode">מצב מומחה</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
@@ -676,7 +675,6 @@
     <string name="synced_folders_type">סוג</string>
     <string name="sync_status_button">כפתור מצב סנכרון</string>
     <string name="synced_folder_settings_button">כפתור הגדרות</string>
-    <string name="synced_folder_custom_folder_image">תמונת תיקייה בהתאמה אישית</string>
     <string name="upload_item_action_button">כפתור פעולת העלאת פריט</string>
     <string name="forward">העברה</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
@@ -814,4 +812,4 @@
     <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_no_setting">לא ניתן להפעיל את הגדרות הסוללה ישירות. נא להגדיר ידנית דרך ההגדרות.</string>
-</resources>
+    </resources>

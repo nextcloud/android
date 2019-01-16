@@ -42,7 +42,6 @@
     <string name="prefs_lock_none">Tidak ada</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
-    <string name="prefs_expert_mode">Mode Ahli</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>

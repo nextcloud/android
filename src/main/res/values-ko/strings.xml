@@ -40,7 +40,6 @@
     <string name="prefs_lock">잠금</string>
     <string name="prefs_lock_using_passcode">암호</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
-    <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_log_delete_history_button">과거 기록 삭제</string>
     <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
@@ -645,7 +644,6 @@
     <string name="synced_folders_type">종류</string>
     <string name="sync_status_button">동기화 상태 단추</string>
     <string name="synced_folder_settings_button">설정 단추</string>
-    <string name="synced_folder_custom_folder_image">사용자 정의 폴더 사진</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
     <string name="forward">앞으로</string>
     <string name="what_s_new_image">새로운 기능 사진</string>

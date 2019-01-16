@@ -34,7 +34,6 @@
     <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
-    <string name="prefs_expert_mode">ექპერტ-რეჟიმი</string>
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>
     <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია</string>
@@ -578,7 +577,6 @@
     <string name="synced_folders_type">სახეობა</string>
     <string name="sync_status_button">სინქ. სტატუსის ღილაკი</string>
     <string name="synced_folder_settings_button">პარამეტრების ღილაკი</string>
-    <string name="synced_folder_custom_folder_image">პერსონალიზირებული დირექტორიის სურათი</string>
     <string name="upload_item_action_button">ელემენტის ატვირთვის ქმედების ღილაკი</string>
     <string name="forward">წინ</string>
     <string name="what_s_new_image">რა არის ახალი სურათი</string>

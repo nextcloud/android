@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_device_credentials_enabled">Укључени акредитиви уређаја</string>
     <string name="prefs_lock_device_credentials_not_setup">Нема подешених акредитива уређаја.</string>
-    <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
@@ -679,7 +678,6 @@
     <string name="synced_folders_type">Тип</string>
     <string name="sync_status_button">Дугме статус синхронизације</string>
     <string name="synced_folder_settings_button">Дугме поставки</string>
-    <string name="synced_folder_custom_folder_image">Слика произвољне фасцикле</string>
     <string name="upload_item_action_button">Дугме отпремања ставке</string>
     <string name="forward">Проследи</string>
     <string name="what_s_new_image">Слика шта је ново</string>
@@ -831,4 +829,4 @@
     <string name="battery_optimization_disable">искључи</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_no_setting">Не могу да покренем поставке батерије. Искључите је ручно у поставкама.</string>
-</resources>
+    </resources>
