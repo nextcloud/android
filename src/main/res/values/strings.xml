@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
     <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
+    <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVdroid (v1.3.0+) for current account</string>
@@ -788,6 +790,8 @@
     <string name="notification_channel_general_name">General notifications</string>
     <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
     <string name="new_media_folder_detected">New %1$s media folder detected.</string>
+    <string name="configure_new_media_folder_detection_notifications">Configure</string>
+    <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
