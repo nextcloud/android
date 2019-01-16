@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_device_credentials_enabled">Apparaatinloggegevens ingeschakeld</string>
     <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
-    <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
@@ -674,7 +673,6 @@
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status knop</string>
     <string name="synced_folder_settings_button">Instellingen knop</string>
-    <string name="synced_folder_custom_folder_image">Maatwerkmap afbeelding</string>
     <string name="upload_item_action_button">Upload object actie knop</string>
     <string name="forward">Doorsturen</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
@@ -826,4 +824,4 @@
     <string name="battery_optimization_disable">uitschakelen</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_no_setting">Kan de batterin-instellingen niet direct wijzigen. Pas handmatig in bij Instellingen.</string>
-</resources>
+    </resources>

@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Eszköz hitelesítők</string>
     <string name="prefs_lock_device_credentials_enabled">Eszköz hitelesítő engedélyezve</string>
     <string name="prefs_lock_device_credentials_not_setup">Eszköz hitelesítő nincs beállítva</string>
-    <string name="prefs_expert_mode">Szakértő mód</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
@@ -693,7 +692,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="synced_folders_type">Típus</string>
     <string name="sync_status_button">Szinkronizálás állapota gomb</string>
     <string name="synced_folder_settings_button">Beállítások gomb</string>
-    <string name="synced_folder_custom_folder_image">Egyéni mappa kép</string>
     <string name="upload_item_action_button">Elem feltöltése gomb</string>
     <string name="forward">Tovább</string>
     <string name="what_s_new_image">Mi újság gomb</string>

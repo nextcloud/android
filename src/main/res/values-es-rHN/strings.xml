@@ -34,7 +34,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
-    <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
@@ -508,7 +507,6 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón de status de sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
-    <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
     <string name="upload_item_action_button">Botón de cargar elemento</string>
     <string name="forward">Adelante</string>
     <string name="what_s_new_image">Imagen de qué es nuevo</string>

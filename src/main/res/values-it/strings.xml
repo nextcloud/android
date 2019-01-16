@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenziali di dispositivo abilitate</string>
     <string name="prefs_lock_device_credentials_not_setup">Non son state configurate credenziali di dispositivo</string>
-    <string name="prefs_expert_mode">Modalità esperta</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
@@ -674,7 +673,6 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Pulsante stato di sincronizzazione</string>
     <string name="synced_folder_settings_button">Pulsante impostazioni</string>
-    <string name="synced_folder_custom_folder_image">Immagine cartella personalizzata</string>
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
     <string name="forward">Inoltra</string>
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
@@ -826,4 +824,4 @@
     <string name="battery_optimization_disable">disabilita</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_no_setting">Impossibile avviare direttamente le impostazioni della batteria. Modificale manualmente nelle impostazioni</string>
-</resources>
+    </resources>

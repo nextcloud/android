@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
     <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
-    <string name="prefs_expert_mode">专家模式</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
@@ -669,7 +668,6 @@
     <string name="synced_folders_type">类型</string>
     <string name="sync_status_button">同步状态按钮</string>
     <string name="synced_folder_settings_button">设置按钮</string>
-    <string name="synced_folder_custom_folder_image">自定义图片文件夹</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
     <string name="forward">向前</string>
     <string name="what_s_new_image">有什么新图片</string>
@@ -821,4 +819,4 @@
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
-</resources>
+    </resources>

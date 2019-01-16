@@ -39,7 +39,6 @@
     <string name="prefs_lock">Lukusta</string>
     <string name="prefs_lock_title">Lukusta kasutades</string>
     <string name="prefs_lock_using_passcode">Parooli</string>
-    <string name="prefs_expert_mode">Edasijõudnute režiim</string>
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>
     <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
     <string name="prefs_calendar_contacts">Sünkroniseeri kalender &amp; kontaktid</string>

@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Aygıt kimlik doğrulama bilgileri</string>
     <string name="prefs_lock_device_credentials_enabled">Aygıt kimlik doğrulama bilgileri kullanılıyor</string>
     <string name="prefs_lock_device_credentials_not_setup">Herhangi bir aygıt kimliği doğrulama bilgisi ayarlanmamış</string>
-    <string name="prefs_expert_mode">Uzman kipi</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
@@ -674,7 +673,6 @@
     <string name="synced_folders_type">Tür</string>
     <string name="sync_status_button">Eşitleme durumu düğmesi</string>
     <string name="synced_folder_settings_button">Ayarlar düğmesi</string>
-    <string name="synced_folder_custom_folder_image">Özel klasör görseli</string>
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
     <string name="forward">İlet</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
@@ -826,4 +824,4 @@
     <string name="battery_optimization_disable">devre dışı bırak</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_no_setting">Pil ayarları açılamadı. Lütfen ayarlar bölümünden el ile ayarlayın.</string>
-</resources>
+    </resources>

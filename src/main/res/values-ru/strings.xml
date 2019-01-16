@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
     <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
-    <string name="prefs_expert_mode">Экспертный режим</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
@@ -684,7 +683,6 @@
     <string name="synced_folders_type">Тип</string>
     <string name="sync_status_button">Кнопка статуса синхронизации</string>
     <string name="synced_folder_settings_button">Кнопка настроек</string>
-    <string name="synced_folder_custom_folder_image">Пользовательское изображение папки</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
     <string name="forward">Вперёд</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
@@ -836,4 +834,4 @@
     <string name="battery_optimization_disable">отключить</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
-</resources>
+    </resources>

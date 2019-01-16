@@ -43,7 +43,6 @@
     <string name="prefs_lock_using_device_credentials">Contraseña del dispositivo</string>
     <string name="prefs_lock_device_credentials_enabled">Contraseña del dispositivo habilitada</string>
     <string name="prefs_lock_device_credentials_not_setup">No se ha configurado la contraseña del dispositivo.</string>
-    <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
@@ -622,7 +621,6 @@
     <string name="synced_folders_type">Escribir</string>
     <string name="sync_status_button">Botón de estado de sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
-    <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
     <string name="upload_item_action_button">Subir botón de acción del elemento</string>
     <string name="forward">Reenviar</string>
     <string name="store_short_dev_desc">La aplicación Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo.</string>

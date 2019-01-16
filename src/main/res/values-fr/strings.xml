@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
     <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
     <string name="prefs_lock_device_credentials_not_setup">Aucune information d\'identification du terminal n\'a été configurée</string>
-    <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
@@ -676,7 +675,6 @@ Attention la suppression est irréversible.</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Bouton de statut de la synchronisation</string>
     <string name="synced_folder_settings_button">Bouton des paramètres</string>
-    <string name="synced_folder_custom_folder_image">Image de dossier personnalisée</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="forward">Suivant</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
@@ -828,4 +826,4 @@ Attention la suppression est irréversible.</string>
     <string name="battery_optimization_disable">désactiver</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
-</resources>
+    </resources>

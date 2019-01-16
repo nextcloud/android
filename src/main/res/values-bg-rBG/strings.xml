@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Удостоверяване от устройството</string>
     <string name="prefs_lock_device_credentials_enabled">Удостоверяването от устройството е включено</string>
     <string name="prefs_lock_device_credentials_not_setup">Удостоверяването от устройството е настроено.</string>
-    <string name="prefs_expert_mode">Експертен режим</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>

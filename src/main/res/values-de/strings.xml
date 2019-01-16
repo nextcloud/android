@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Geräte-Anmeldedaten</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
     <string name="prefs_lock_device_credentials_not_setup">Keine Geräte-Anmeldedaten eingerichtet.</string>
-    <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
@@ -674,7 +673,6 @@
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Status-synchronisieren-Button</string>
     <string name="synced_folder_settings_button">Einstellungs-Button</string>
-    <string name="synced_folder_custom_folder_image">Eigenes-Verzeichnis-Bild</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="forward">Weiterleiten</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
@@ -826,4 +824,4 @@
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
-</resources>
+    </resources>

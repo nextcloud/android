@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Credencials del dispositiu</string>
     <string name="prefs_lock_device_credentials_enabled">Credencials del dispositiu activades</string>
     <string name="prefs_lock_device_credentials_not_setup">No s\'han configurat les credencials del dispositiu.</string>
-    <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
@@ -667,7 +666,6 @@
     <string name="synced_folders_type">Tipus</string>
     <string name="sync_status_button">Botó de l\'estat de la sincronització</string>
     <string name="synced_folder_settings_button">Botó de paràmetres</string>
-    <string name="synced_folder_custom_folder_image">Carpeta d\'imatges personalitzada</string>
     <string name="forward">Endavant</string>
     <string name="store_short_dev_desc">L\'app Nextcloud Dev és una instantània de desenvolupament que es pot instal·lar en paral·lel.</string>
     <string name="screenshot_01_gridView">Un lloc segur per totes les vostres dades</string>

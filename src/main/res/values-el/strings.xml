@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_device_credentials_enabled">Ενεργοποιημένα διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_device_credentials_not_setup">Δεν έχουν ρυθμιστεί διαπιστευτήρια συσκευής</string>
-    <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
@@ -348,6 +347,7 @@
     <string name="activity_chooser_send_file_title">Αποστολή</string>
 
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
+    <string name="clipboard_text_copied">Ο σύνδεσμος αντιγράφηκε</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_unexpected_error">Μη αναμενόμενο σφάλμα κατά την αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
@@ -635,7 +635,6 @@
     <string name="synced_folders_type">Τύπος</string>
     <string name="sync_status_button">Κουμπί κατάστασης συγχρονισμού</string>
     <string name="synced_folder_settings_button">Κουμπί ρυθμίσεων</string>
-    <string name="synced_folder_custom_folder_image">Προσαρμοσμένη εικόνα φακέλου</string>
     <string name="forward">Προώθηση</string>
     <string name="dev_version_no_information_available">Καμία διαθέσιμη πληροφορία.</string>
     <string name="dev_version_no_new_version_available">Καμία διαθέσιμη νέα έκδοση.</string>
@@ -738,4 +737,4 @@
     <string name="battery_optimization_disable">απενεργοποίηση</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
-</resources>
+    </resources>

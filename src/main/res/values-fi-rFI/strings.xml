@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
     <string name="prefs_lock_device_credentials_enabled">Laitteen kirjautumistiedot käytössä</string>
     <string name="prefs_lock_device_credentials_not_setup">Laitteelle ei ole määritelty kirjautumistietoja.</string>
-    <string name="prefs_expert_mode">Asiantuntijatila</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>

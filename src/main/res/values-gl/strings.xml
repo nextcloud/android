@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Non foi estabelecida ningunha credencial de dispositivo</string>
-    <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
@@ -268,7 +267,7 @@
     <string name="auth_illegal_login_used">Usouse un URL de datos de acceso ilegal</string>
 
     <string name="favorite">Engadir a favoritos</string>
-    <string name="unset_favorite">Eliminar dos favoritos</string>
+    <string name="unset_favorite">Retirar dos favoritos</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="common_rename">Renomear</string>
@@ -692,7 +691,6 @@ Coñeza o Nextcloud en https://nextcloud.com</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón do estado da sincronización</string>
     <string name="synced_folder_settings_button">Botón de axustes</string>
-    <string name="synced_folder_custom_folder_image">Imaxe do cartafol personalizado</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
     <string name="forward">Adiante</string>
     <string name="what_s_new_image">Imaxe de Que hai de novo</string>
@@ -846,4 +844,4 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
-</resources>
+    </resources>

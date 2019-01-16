@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
     <string name="prefs_lock_device_credentials_enabled">Bật chứng nhận thiết bị</string>
     <string name="prefs_lock_device_credentials_not_setup">Không có thông tin đăng nhập thiết bị nào được thiết lập.</string>
-    <string name="prefs_expert_mode">Chế độ chuyên gia</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_log_delete_history_button">Xóa lịch sử</string>
     <string name="prefs_calendar_contacts">Đồng bộ lịch &amp; danh bạ</string>
@@ -458,7 +457,6 @@
     <string name="shared_icon_shared">đã chia sẽ</string>
     <string name="sync_status_button">Nút trạng thái đồng bộ</string>
     <string name="synced_folder_settings_button">Nút thiết đặt</string>
-    <string name="synced_folder_custom_folder_image">Tùy chỉnh hình ảnh thư mục</string>
     <string name="folder_icon">Biểu tượng thư mục</string>
     <string name="dev_version_new_version_available">Phiên bản mới</string>
     <string name="version_dev_download">Tải về</string>

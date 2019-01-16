@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_lock_device_credentials_enabled">Auðkenni tækis virkjuð</string>
     <string name="prefs_lock_device_credentials_not_setup">Engin auðkenni tækis hafa verið sett inn.</string>
-    <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
@@ -672,7 +671,6 @@
     <string name="synced_folders_type">Tegund</string>
     <string name="sync_status_button">Hnappur fyrir stöðu samstillingar</string>
     <string name="synced_folder_settings_button">Stillingahnappur</string>
-    <string name="synced_folder_custom_folder_image">Sérsniðin mynd möppu</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
     <string name="forward">Áfram</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>

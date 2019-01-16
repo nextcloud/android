@@ -44,7 +44,6 @@
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
-    <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
@@ -669,7 +668,6 @@
     <string name="synced_folders_type">タイプ</string>
     <string name="sync_status_button">同期ステータスボタン</string>
     <string name="synced_folder_settings_button">設定ボタン</string>
-    <string name="synced_folder_custom_folder_image">カスタムフォルダイメージ</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
     <string name="forward">転送</string>
     <string name="what_s_new_image">新しいイメージとは</string>

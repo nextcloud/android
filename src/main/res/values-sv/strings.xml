@@ -41,7 +41,6 @@
     <string name="prefs_lock_none">Ingen
 </string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
-    <string name="prefs_expert_mode">Expertläge</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
@@ -657,7 +656,6 @@
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Synkstatus-knapp</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>
-    <string name="synced_folder_custom_folder_image">Anpassad mappbild</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
     <string name="forward">Vidarebefordra</string>
     <string name="what_s_new_image">Vad är nytt-bild</string>
