@@ -58,6 +58,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@SuppressFBWarnings(value = "PREDICTABLE_RANDOM", justification = "Only used for notification id.")
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
 
@@ -70,10 +71,6 @@ public class MediaFoldersDetectionJob extends Job {
 
     private static final String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
 
-    @SuppressFBWarnings(
-        value = "PREDICTABLE_RANDOM",
-        justification = "Only used for notification id, so predictability is no issue here."
-    )
     private Random randomId = new Random();
 
     @NonNull
