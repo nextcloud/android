@@ -266,6 +266,8 @@
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_illegal_login_used">Notaði óleyfileg slóð á innskráningargögn</string>
 
+    <string name="favorite">Bæta í eftirlæti</string>
+    <string name="unset_favorite">Fjarlægja úr eftirlætum</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="common_rename">Endurnefna</string>
@@ -786,6 +788,7 @@
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
     <string name="folder_already_exists">Mappa er þegar til</string>
+    <string name="actionbar_open_as_richdocument">Opna með Collabora</string>
     <string name="notification_icon">Tilkynningatákn</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="file_delete">Eyða</string>
@@ -804,4 +807,22 @@
     <string name="no_browser_available">Ekkert forrit tiltækt til að meðhöndla tengla</string>
     <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
     <string name="share_via_link_hide_download">Fela niðurhal</string>
-    </resources>
+    <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
+
+    <string name="richdocuments_failed_to_load_document">Mistókst að hlaða inn skjali!</string>
+    <string name="create_new_document">Búa til nýtt skjal</string>
+    <string name="create_new_spreadsheet">Búa til nýtt töflureiknisskjal</string>
+    <string name="create_new_presentation">Búa til nýja kynningu</string>
+    <string name="select_template">Veldu sniðmát</string>
+    <string name="filename_hint">Skráarheiti</string>
+    <string name="thumbnail">Smámynd</string>
+    <string name="enter_filename">Settu inn skráarheiti</string>
+    <string name="create_file_from_template">Bý til skrá út frá sniðmáti…</string>
+    <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
+    <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
+    <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
+    <string name="battery_optimization_disable">gera óvirkt</string>
+    <string name="battery_optimization_close">Loka</string>
+    <string name="battery_optimization_no_setting">Tekst ekki að ræsa rafhlöðustillingar beint. Lagaðu þetta handvirkt í stillingunum.</string>
+    <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
+</resources>
