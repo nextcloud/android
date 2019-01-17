@@ -834,4 +834,5 @@
     <string name="battery_optimization_disable">отключить</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
-    </resources>
+    <string name="file_details_no_content">Не удалось получить подробные сведения</string>
+</resources>
