@@ -14,12 +14,13 @@ repository="android"
 ruby scripts/analysis/lint-up.rb $1 $2 $3
 lintValue=$?
 
+ruby scripts/analysis/findbugs-up.rb $1 $2 $3
+findbugsValue=$?
+
 # exit codes:
 # 0: count was reduced
 # 1: count was increased
 # 2: count stayed the same
-
-./gradlew findbugs
 
 echo "Branch: $3"
 
@@ -100,7 +101,16 @@ else
     findbugsResultNew=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/findbugs/findbugs.html |head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s"#Summary#<a href=\"https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html\">FindBugs</a> (new)#" | tr "\"" "\'" | tr -d "\n")
     findbugsResultOld=$(curl 2>/dev/null https://www.kaminsky.me/nc-dev/$repository-findbugs/findbugs-summary-$stableBranch.html | tr "\"" "\'" | tr -d "\r\n" | sed s"#FindBugs#<a href=\"https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html\">FindBugs</a>#" | tr "\"" "\'" | tr -d "\n")
 
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage \" }"
+
+    if ( [ $lintValue -eq 1 ] ) ; then
+        lintMessage="<h1>Lint increased!</h1>"
+    fi
+
+    if ( [ $findbugsValue -eq 1 ] ) ; then
+        findbugsMessage="<h1>Findbugs increased!</h1>"
+    fi
+
+    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage \" }"
 
     if [ $checkLibrary -eq 1 ]; then
         exit 1
