@@ -138,7 +138,6 @@
     <dimen name="toolbar_user_information_layout_margin">12dp</dimen>
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
-    <dimen name="permission_dialog_text_padding">56dp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
     <integer name="media_grid_width">4</integer>
 </resources>
