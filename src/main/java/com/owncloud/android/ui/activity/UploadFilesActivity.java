@@ -436,7 +436,7 @@ public class UploadFilesActivity extends FileActivity implements
      * @param hasEnoughSpaceAvailable 'True' when there is space enough to copy all the selected files.
      */
     @Override
-    public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String[] filesToUpload) {
+    public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
