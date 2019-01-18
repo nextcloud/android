@@ -30,13 +30,13 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,6 +56,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.util.Set;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindString;
@@ -74,11 +76,7 @@ public class UploadListActivity extends FileActivity {
 
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
-    private Menu menu;
-
     private UploadListAdapter uploadListAdapter;
-
-    private UploadsStorageManager uploadStorageManager;
 
     public SwipeRefreshLayout swipeListRefreshLayout;
 
@@ -113,8 +111,6 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        uploadStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
         setContentView(R.layout.upload_list_layout);
         unbinder = ButterKnife.bind(this);
@@ -183,6 +179,25 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
+        // scan for missing auto uploads files
+        Set<Job> jobs = JobManager.instance().getAllJobsForTag(FilesSyncJob.TAG);
+
+        if (jobs.size() == 0) {
+            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+            persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
+            new JobRequest.Builder(FilesSyncJob.TAG)
+                .setExact(1_000L)
+                .setUpdateCurrent(false)
+                .setExtras(persistableBundleCompat)
+                .build()
+                .schedule();
+        }
+
+        // retry failed uploads
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        new Thread(() -> requester.retryFailedUploads(this, null, null)).start();
+
+        // update UI
         uploadListAdapter.loadUploadItemsFromDb();
         swipeListRefreshLayout.setRefreshing(false);
     }
@@ -229,56 +244,11 @@ public class UploadListActivity extends FileActivity {
                 }
                 break;
 
-            case R.id.action_retry_uploads:
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-
-                new Thread(() -> requester.retryFailedUploads(this, null, null)).start();
-
-                if (menu != null) {
-                    menu.removeItem(R.id.action_retry_uploads);
-                }
-                break;
-
-            case R.id.action_clear_failed_uploads:
-                uploadStorageManager.clearFailedButNotDelayedUploads();
-                uploadListAdapter.loadUploadItemsFromDb();
-                break;
-
-            case R.id.action_clear_successfull_uploads:
-                uploadStorageManager.clearSuccessfulUploads();
-                uploadListAdapter.loadUploadItemsFromDb();
-                break;
-
-            case R.id.action_force_rescan:
-                PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-                persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
-                new JobRequest.Builder(FilesSyncJob.TAG)
-                        .setExact(1_000L)
-                        .setUpdateCurrent(false)
-                        .setExtras(persistableBundleCompat)
-                        .build()
-                        .schedule();
-
-                if (menu != null) {
-                    menu.removeItem(R.id.action_force_rescan);
-                }
-
-                break;
-
             default:
                 retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.upload_list_menu, menu);
-        this.menu = menu;
-
-        return true;
     }
 
     @Override

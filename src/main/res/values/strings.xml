@@ -513,11 +513,6 @@
     <string name="share_privilege_can_edit_change">can change</string>
     <string name="share_privilege_can_edit_delete">can delete</string>
 
-    <string name="action_retry_uploads">Retry failed uploads</string>
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
-    <string name="action_clear_successful_uploads">Clear successful uploads</string>
-    <string name="action_force_rescan">Force rescan</string>
-
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
 
@@ -857,4 +852,5 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="delete_entries">Delete entries</string>
 </resources>
