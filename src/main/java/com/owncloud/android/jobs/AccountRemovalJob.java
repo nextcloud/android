@@ -74,10 +74,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // disable contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-
-            if (am != null) {
-                am.removeAccount(account, this, null);
-            }
+            am.removeAccount(account, this, null);
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
