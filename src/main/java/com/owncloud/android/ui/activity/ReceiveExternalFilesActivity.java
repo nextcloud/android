@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -783,6 +784,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
             btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this),
                         PorterDuff.Mode.SRC_ATOP);
             btnChooseFolder.setTextColor(ThemeUtils.fontColor(this));
+
+            if (mFile.canWrite()) {
+                btnChooseFolder.setEnabled(true);
+                ThemeUtils.tintDrawable(btnChooseFolder.getBackground(),
+                                        ThemeUtils.primaryColor(getAccount(), true, this));
+            } else {
+                btnChooseFolder.setEnabled(false);
+                ThemeUtils.tintDrawable(btnChooseFolder.getBackground(), Color.GRAY);
+            }
 
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
