@@ -979,7 +979,7 @@ public class FileDisplayActivity extends HookActivity
                 }
 
                 @Override
-                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String[] filesToUpload) {
+                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
                     Log_OC.d(this, "onCheckAvailableSpaceFinish");
 
                     if (hasEnoughSpaceAvailable) {

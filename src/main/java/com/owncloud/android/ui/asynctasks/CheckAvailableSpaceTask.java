@@ -75,6 +75,6 @@ public class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
     public interface CheckAvailableSpaceListener {
         void onCheckAvailableSpaceStart();
 
-        void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String[] filesToUpload);
+        void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload);
     }
 }
