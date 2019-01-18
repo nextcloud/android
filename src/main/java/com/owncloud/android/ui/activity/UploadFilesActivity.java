@@ -216,6 +216,8 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog = null;
         }
 
+        checkWritableFolder(mCurrentDir);
+
         Log_OC.d(TAG, "onCreate() end");
     }
 
@@ -351,6 +353,7 @@ public class UploadFilesActivity extends FileActivity implements
             popDirname();
             mFileListFragment.onNavigateUp();
             mCurrentDir = mFileListFragment.getCurrentDirectory();
+            checkWritableFolder(mCurrentDir);
 
             if (mCurrentDir.getParentFile() == null) {
                 ActionBar actionBar = getSupportActionBar();
@@ -393,6 +396,7 @@ public class UploadFilesActivity extends FileActivity implements
         }
         mDirectories.insert(directory.getName(), 0);
         mCurrentDir = directory;
+        checkWritableFolder(mCurrentDir);
     }
 
     /**
@@ -458,6 +462,25 @@ public class UploadFilesActivity extends FileActivity implements
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void checkWritableFolder(File folder) {
+        boolean canWriteIntoFolder = folder.canWrite();
+        mBehaviourSpinner.setEnabled(canWriteIntoFolder);
+
+        TextView textView = findViewById(R.id.upload_files_upload_files_behaviour_text);
+
+        if (canWriteIntoFolder) {
+            textView.setText(getString(R.string.uploader_upload_files_behaviour));
+            int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
+            mBehaviourSpinner.setSelection(localBehaviour);
+        } else {
+            mBehaviourSpinner.setSelection(1);
+            textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
+                                 .append(" ")
+                                 .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
+                                 .toString());
+        }
     }
 
     /**
