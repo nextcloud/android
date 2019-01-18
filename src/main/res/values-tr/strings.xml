@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Aygıt kimlik doğrulama bilgileri kullanılıyor</string>
     <string name="prefs_lock_device_credentials_not_setup">Herhangi bir aygıt kimliği doğrulama bilgisi ayarlanmamış</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
+    <string name="prefs_enable_media_scan_notifications">Ortam tarama bildirimleri görüntülensin</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Yeni bulunan ortam klasörleri bildirilsin</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
@@ -772,6 +774,8 @@
     <string name="notification_channel_general_name">Genel bildirimler</string>
     <string name="notification_channel_general_description">Yeni ortam klasörleri ve benzerleri için bildirimler görüntülensin</string>
     <string name="new_media_folder_detected">Yeni %1$s ortam klasörü bulundu.</string>
+    <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
+    <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
     <string name="new_media_folder_photos">fotoğraf</string>
     <string name="new_media_folder_videos">görüntü</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
@@ -824,4 +828,5 @@
     <string name="battery_optimization_disable">devre dışı bırak</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_no_setting">Pil ayarları açılamadı. Lütfen ayarlar bölümünden el ile ayarlayın.</string>
-    </resources>
+    <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
+</resources>
