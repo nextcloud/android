@@ -96,6 +96,12 @@ public class ConfirmationDialogFragment extends DialogFragment {
             throw new IllegalArgumentException("Arguments may not be null");
         }
 
+        Activity activity = getActivity();
+
+        if (activity == null) {
+            throw new IllegalArgumentException("Activity may not be null");
+        }
+
         Object[] messageArguments = arguments.getStringArray(ARG_MESSAGE_ARGUMENTS);
         int messageId = arguments.getInt(ARG_MESSAGE_RESOURCE_ID, -1);
         int titleId = arguments.getInt(ARG_TITLE_ID, -1);
@@ -105,12 +111,6 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
         if (messageArguments == null) {
             messageArguments = new String[]{};
-        }
-
-        Activity activity = getActivity();
-
-        if (activity == null) {
-            throw new IllegalArgumentException("Activity may not be null");
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
