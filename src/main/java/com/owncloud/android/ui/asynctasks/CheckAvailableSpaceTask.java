@@ -36,7 +36,7 @@ public class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
     private String[] paths;
     private CheckAvailableSpaceListener callback;
 
-    public CheckAvailableSpaceTask(CheckAvailableSpaceListener callback, String[] paths) {
+    public CheckAvailableSpaceTask(CheckAvailableSpaceListener callback, String... paths) {
         this.paths = paths;
         this.callback = callback;
     }
@@ -57,10 +57,11 @@ public class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
      */
     @Override
     protected Boolean doInBackground(Boolean... params) {
+        File localFile;
         long total = 0;
         for (int i = 0; paths != null && i < paths.length; i++) {
             String localPath = paths[i];
-            File localFile = new File(localPath);
+            localFile = new File(localPath);
             total += localFile.length();
         }
         return FileStorageUtils.getUsableSpace() >= total;

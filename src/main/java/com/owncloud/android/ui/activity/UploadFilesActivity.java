@@ -483,7 +483,7 @@ public class UploadFilesActivity extends FileActivity implements
                 R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes, -1,
                 R.string.common_no
             );
-            dialog.setOnConfirmationListener(UploadFilesActivity.this);
+            dialog.setOnConfirmationListener(this);
             dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
         }
     }

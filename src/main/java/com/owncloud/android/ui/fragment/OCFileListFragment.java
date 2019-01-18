@@ -419,7 +419,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void directCameraUpload() {
-        FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) getActivity());
+        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
 
         if (fileDisplayActivity != null) {
             fileDisplayActivity.getFileOperationsHelper()
