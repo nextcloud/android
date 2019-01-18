@@ -48,10 +48,9 @@ public class FileCursor extends MatrixCursor {
 
         final int iconRes = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
         final String mimeType = file.isFolder() ? Document.MIME_TYPE_DIR : file.getMimeType();
-        final String imagePath = MimeTypeUtil.isImage(file) && file.isDown() ? file.getStoragePath() : null;
         int flags = Document.FLAG_SUPPORTS_DELETE |
             Document.FLAG_SUPPORTS_WRITE |
-            (imagePath != null ? Document.FLAG_SUPPORTS_THUMBNAIL : 0);
+            (MimeTypeUtil.isImage(file) ? Document.FLAG_SUPPORTS_THUMBNAIL : 0);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             flags = Document.FLAG_SUPPORTS_COPY | Document.FLAG_SUPPORTS_MOVE | Document.FLAG_SUPPORTS_REMOVE | flags;

@@ -193,6 +193,10 @@ public final class ThumbnailsCacheManager {
         }
     }
 
+    public static boolean containsBitmap(String key) {
+        return mThumbnailCache.containsKey(key);
+    }
+
     public static Bitmap getBitmapFromDiskCache(String key) {
         synchronized (mThumbnailsDiskCacheLock) {
             // Wait while disk cache is started from background thread
@@ -1164,6 +1168,55 @@ public final class ThumbnailsCacheManager {
             }
 
             addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
+        }
+    }
+
+    public static void generateThumbnailFromOCFile(OCFile file) {
+        int pxW;
+        int pxH;
+        pxW = pxH = getThumbnailDimension();
+        String imageKey = PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId());
+
+        GetMethod getMethod = null;
+
+        try {
+            Bitmap thumbnail = null;
+
+            String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+                pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+
+            Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
+            getMethod = new GetMethod(uri);
+            getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+
+            getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
+                                       RemoteOperation.OCS_API_HEADER_VALUE);
+
+            int status = mClient.executeMethod(getMethod);
+            if (status == HttpStatus.SC_OK) {
+                InputStream inputStream = getMethod.getResponseBodyAsStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+            } else {
+                mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+            }
+
+            // Add thumbnail to cache
+            if (thumbnail != null) {
+                // Handle PNG
+                if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                    thumbnail = handlePNG(thumbnail, pxW, pxH);
+                }
+
+                Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
+                addBitmapToCache(imageKey, thumbnail);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, e.getMessage(), e);
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
         }
     }
 }

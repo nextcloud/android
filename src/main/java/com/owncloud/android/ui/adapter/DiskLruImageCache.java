@@ -108,7 +108,7 @@ public class DiskLruImageCache {
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
         String validKey = convertToValidKey(key);
-        
+
         try {
             snapshot = mDiskCache.get(validKey);
             if (snapshot == null) {

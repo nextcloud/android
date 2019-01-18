@@ -75,13 +75,13 @@ public class ContactsImportJob extends Job {
             cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
                     null, null, null);
 
-            TreeMap<VCard, Long> ownContactList = new TreeMap<>(new ContactListFragment.VCardComparator());
+            TreeMap<VCard, Long> ownContactMap = new TreeMap<>(new ContactListFragment.VCardComparator());
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 for (int i = 0; i < cursor.getCount(); i++) {
                     VCard vCard = getContactFromCursor(cursor);
                     if (vCard != null) {
-                        ownContactList.put(vCard, cursor.getLong(cursor.getColumnIndex("NAME_RAW_CONTACT_ID")));
+                        ownContactMap.put(vCard, cursor.getLong(cursor.getColumnIndex("NAME_RAW_CONTACT_ID")));
                     }
                     cursor.moveToNext();
                 }
@@ -91,10 +91,10 @@ public class ContactsImportJob extends Job {
             for (int checkedItem : intArray) {
                 VCard vCard = vCards.get(checkedItem);
                 if (ContactListFragment.getDisplayName(vCard).length() != 0) {
-                    if (!ownContactList.containsKey(vCard)) {
+                    if (!ownContactMap.containsKey(vCard)) {
                         operations.insertContact(vCard);
                     } else {
-                        operations.updateContact(vCard, ownContactList.get(vCard));
+                        operations.updateContact(vCard, ownContactMap.get(vCard));
                     }
                 } else {
                     operations.insertContact(vCard); //Insert All the contacts without name
