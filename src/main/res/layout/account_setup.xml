@@ -281,7 +281,7 @@
             android:id="@+id/scanQR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_qrcode"
+            android:src="@drawable/qrcode_scan"
             android:theme="@style/Button.Login"
             android:background="@color/transparent"
             android:contentDescription="@string/scanQR_description" />
