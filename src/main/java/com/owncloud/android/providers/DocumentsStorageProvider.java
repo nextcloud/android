@@ -337,16 +337,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         long sourceId = Long.parseLong(sourceDocumentId);
-        long targetId = Long.parseLong(targetParentDocumentId);
+
         updateCurrentStorageManagerIfNeeded(sourceId);
 
         OCFile file = currentStorageManager.getFileById(sourceId);
-        OCFile targetFolder = currentStorageManager.getFileById(targetId);
-
         if (file == null) {
             throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
         }
 
+        long targetId = Long.parseLong(targetParentDocumentId);
+        OCFile targetFolder = currentStorageManager.getFileById(targetId);
         if (targetFolder == null) {
             throw new FileNotFoundException("File " + targetParentDocumentId + " not found!");
         }
