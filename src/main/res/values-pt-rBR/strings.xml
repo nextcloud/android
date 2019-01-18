@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Nenhuma credencial de dispositivo definida</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
+    <string name="prefs_enable_media_scan_notifications">Mostrar notificações de varredura de mídia</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre pastas de mídia recém-encontradas</string>
     <string name="prefs_log_delete_history_button">Excluir histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
@@ -772,6 +774,8 @@
     <string name="notification_channel_general_name">Notificações gerais</string>
     <string name="notification_channel_general_description">Mostrar notificações de novas pastas de mídia e semelhantes</string>
     <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
+    <string name="configure_new_media_folder_detection_notifications">Configurar</string>
+    <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
