@@ -384,7 +384,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
         throws FileNotFoundException {
         long sourceId = Long.parseLong(sourceDocumentId);
-        long targetId = Long.parseLong(targetParentDocumentId);
+
         updateCurrentStorageManagerIfNeeded(sourceId);
 
         OCFile file = currentStorageManager.getFileById(sourceId);
@@ -393,6 +393,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
         }
 
+        long targetId = Long.parseLong(targetParentDocumentId);
         OCFile targetFolder = currentStorageManager.getFileById(targetId);
 
         if (targetFolder == null) {
