@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
     <string name="prefs_lock_device_credentials_not_setup">Keine Geräte-Anmeldedaten eingerichtet.</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
+    <string name="prefs_enable_media_scan_notifications">Benachrichtigungen der Mediensuche anzeigen</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Über neu gefundene Medienordner informieren</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
@@ -772,6 +774,8 @@
     <string name="notification_channel_general_name">Allgemeine Benachrichtigungen</string>
     <string name="notification_channel_general_description">Für neue Medienordner und ähnliches Benachrichtigungen anzeigen</string>
     <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
+    <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
@@ -824,4 +828,5 @@
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
-    </resources>
+    <string name="file_details_no_content">Fehler beim Laden der Details</string>
+</resources>

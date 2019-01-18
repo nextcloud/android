@@ -40,7 +40,7 @@
     <string name="prefs_lock">Bloquear</string>
     <string name="prefs_lock_title">Bloquear usando</string>
     <string name="prefs_lock_none">Ningún</string>
-    <string name="prefs_lock_using_passcode">Código de acceso</string>
+    <string name="prefs_lock_using_passcode">Código de seguridade</string>
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Non foi estabelecida ningunha credencial de dispositivo</string>
@@ -317,7 +317,7 @@
     <string name="ssl_validator_label_signature">Sinatura:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo non está dispoñíbel no seu teléfono.</string>
-    <string name="ssl_validator_label_certificate_fingerprint">Pegada dactilar</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Pegada</string>
     <string name="certificate_load_problem">Existe un problema ao cargar o certificado.</string>
     <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
     <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
@@ -659,7 +659,7 @@ Características:
 * Enviar instantaneamente fotos e vídeos feitos no seu móbil ou tableta Android
 * Manterse ao día coas notificacións
 * Admite múltiples contas
-* Acceso seguro aos seus datos con pegada dixital ou pin
+* Acceso seguro aos seus datos con pegada dactilar ou pin
 * Integración con DAVdroid para facilitar a configuración da sincronización de calendarios e contactos
 
 Agradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre este apli en https://help.nextcloud.com/c/clients/android

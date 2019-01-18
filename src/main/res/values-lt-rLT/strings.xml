@@ -195,6 +195,7 @@
     <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
     <string name="media_forward_description">Prasukimo mygtukas</string>
 
+    <string name="auth_getting_authorization">Gaunamos prieigos teisės…</string>
     <string name="auth_trying_to_login">Bandoma prisijungti…</string>
 	<string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
 	<string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
@@ -495,6 +496,7 @@
         <item quantity="other">%d pasirinktos</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Įkeliami pranešimai…</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau</string>
 
@@ -609,6 +611,8 @@
     <string name="error_comment_file">Klaida komentuojant failą</string>
     <string name="file_version_restored_successfully">Failo versija sėkmingai atkurta.</string>
     <string name="file_version_restored_error">Klaida atkuriant failo versiją!</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfigūruoti</string>
+    <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
     <string name="drawer_item_trashbin">Ištrinti failai</string>
     <string name="trashbin_activity_title">Ištrinti failai</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
@@ -623,4 +627,10 @@
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="permission_deny">Drausti</string>
     <string name="permission_allow">Leisti</string>
+    <string name="note_confirm">Siųsti</string>
+    <string name="filename_hint">Failo pavadinimas</string>
+    <string name="thumbnail">Miniatiūra</string>
+    <string name="enter_filename">Įveskite failo pavadinimą</string>
+    <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
+    <string name="battery_optimization_close">Užverti</string>
     </resources>

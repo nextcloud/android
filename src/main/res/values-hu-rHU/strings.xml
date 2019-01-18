@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Eszköz hitelesítő engedélyezve</string>
     <string name="prefs_lock_device_credentials_not_setup">Eszköz hitelesítő nincs beállítva</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
+    <string name="prefs_enable_media_scan_notifications">Média keresési értesítések megjelenítése</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Értesítés az újonnan talált médiamappákról</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása a fiókhoz</string>
