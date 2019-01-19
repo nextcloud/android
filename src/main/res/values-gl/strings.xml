@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Non foi estabelecida ningunha credencial de dispositivo</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
+    <string name="prefs_enable_media_scan_notifications">Amosar as notificacións de escaneo de medios</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notificar cando se atopen novos cartafoles de medios</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
     <string name="prefs_calendar_contacts_summary">Estabelecer DAVdroid (v1.3.0 +) para a conta actual</string>
@@ -286,7 +288,7 @@
     <string name="filename_forbidden_charaters_from_server">O nome de ficheiro contén algún carácter incorrecto</string>
     <string name="filename_empty">O nome de ficheiro non pode estar baleiro</string>
     <string name="wait_a_moment">Agarde un chisco…</string>
-    <string name="wait_checking_credentials">Comprobando as credenciais almacenadas</string>
+    <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="filedisplay_no_file_selected">Non seleccionou ningún ficheiro</string>
     <string name="activity_chooser_title">Enviar a ligazón a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro desde o almacenamento privado</string>
@@ -318,7 +320,7 @@
     <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo non está dispoñíbel no seu teléfono.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Pegada</string>
-    <string name="certificate_load_problem">Existe un problema ao cargar o certificado.</string>
+    <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
     <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
     <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
 
@@ -333,8 +335,8 @@
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="conflict_title">Conflito de ficheiro</string>
-    <string name="conflict_message">Que ficheiros quere manter? Se selecciona ámbalas dúas versións, engadiráselle un número ao nome do ficheiro local.</string>
-    <string name="conflict_keep_both">Manter ambos</string>
+    <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ámbalas dúas versións, engadiráselle un número ao nome do ficheiro local.</string>
+    <string name="conflict_keep_both">Conservar ambos</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión no servidor</string>
 
@@ -472,7 +474,7 @@
     <string name="prefs_storage_path">Ruta de almacenamento</string>
 
     <string name="share_dialog_title">Compartindo</string>
-    <string name="share_file">Compartir con %1$s</string>
+    <string name="share_file">Compartir %1$s</string>
     <string name="share_with_user_section_title">Compartir con usuarios e grupos</string>
     <string name="share_no_users">Aínda non hai datos compartidos con usuarios</string>
     <string name="share_add_user_or_group">Engadir usuario ou grupo</string>
@@ -512,10 +514,10 @@
 
     <string name="action_retry_uploads">Tentar de novo os envíos fallados</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
-    <string name="action_clear_successful_uploads">Limpar os envíos atisfactorios</string>
+    <string name="action_clear_successful_uploads">Limpar os envíos satisfactorios</string>
     <string name="action_force_rescan">Forzar un novo escaneo</string>
 
-    <string name="action_switch_grid_view">Vista como grella</string>
+    <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
 
     <string name="manage_space_title">Administrar o espazo</string>
@@ -679,7 +681,7 @@ Coñeza o Nextcloud en https://nextcloud.com</string>
     <string name="synced_icon">Sincronizado</string>
     <string name="checkbox">Caixa de verificación</string>
     <string name="shared_icon_share">compartir</string>
-    <string name="shared_icon_shared_via_link">compartido por ligazón</string>
+    <string name="shared_icon_shared_via_link">compartido mediante ligazón</string>
     <string name="shared_icon_shared">compartido</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="sort_by_name_ascending">A - Z</string>
@@ -767,7 +769,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="create_new_folder">Crear un cartafol novo</string>
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
     <string name="tags">Etiquetas</string>
-    <string name="sharee_add_failed">Produciuse un fallo ao engadir unha compartición</string>
+    <string name="sharee_add_failed">Produciuse un fallo ao engadir un recurso compartido</string>
     <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
     <string name="updating_share_failed">Produciuse un fallo ao actualizar elementos compartidos</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
@@ -792,6 +794,8 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="notification_channel_general_name">Notificacións xerais</string>
     <string name="notification_channel_general_description">Amosar notificacións para novos cartafoles de medios e semellantes</string>
     <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
+    <string name="configure_new_media_folder_detection_notifications">Configurar</string>
+    <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
@@ -844,4 +848,5 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
+    <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     </resources>
