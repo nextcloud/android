@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
     <string name="prefs_lock_device_credentials_not_setup">Nebyly nastaveny žádné přihlašovací údaje zařízení.</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
+    <string name="prefs_enable_media_scan_notifications">Zobrazit oznámení skenování médií</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Oznamovat nalezení nových složek s médii</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
@@ -782,6 +784,8 @@
     <string name="notification_channel_general_name">Obecná oznámení</string>
     <string name="notification_channel_general_description">Zobrazovat oznámení o nových složkách s médii a podobně</string>
     <string name="new_media_folder_detected">Zjištěna nová složka s médii %1$s.</string>
+    <string name="configure_new_media_folder_detection_notifications">Nastavit</string>
+    <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Verze aplikace na straně serveru dosáhla konce své životnosti – přejděte na novou!</string>
@@ -835,4 +839,4 @@
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
-</resources>
+    </resources>

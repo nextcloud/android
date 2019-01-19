@@ -829,4 +829,4 @@
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
-</resources>
+    </resources>
