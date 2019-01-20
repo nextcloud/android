@@ -549,6 +549,7 @@
     <string name="test_server_button">Prisijunkite prie serverio</string>
     <string name="resharing_is_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="fallback_weblogin_back">Atgal</string>
+    <string name="foreground_service_upload">Įkeliami failai…</string>
     <string name="foreground_service_download">Atsisiunčiami failai…</string>
 
     <string name="prefs_sourcecode">Gauti išeities kodą</string>
@@ -632,5 +633,6 @@
     <string name="thumbnail">Miniatiūra</string>
     <string name="enter_filename">Įveskite failo pavadinimą</string>
     <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
+    <string name="battery_optimization_disable">išjungti</string>
     <string name="battery_optimization_close">Užverti</string>
     </resources>
