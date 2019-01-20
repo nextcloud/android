@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">設備認證方式已啟動</string>
     <string name="prefs_lock_device_credentials_not_setup">未設定任何設備認證方式</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
+    <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
+    <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
     <string name="prefs_calendar_contacts_summary">設定目前帳戶所使用的 DAVdroid (V1.3.0+)</string>
@@ -489,12 +491,17 @@
     <string name="share_get_public_link_button">取得連結</string>
     <string name="share_with_title">分享給</string>
     <string name="share_with_edit_title">與 %1$s 分享</string>
+    <string name="share_via_link_unset_password">解除設定</string>
+
+    <string name="share_search">姓名，聯盟雲ID或Email信箱…</string>
+
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
 
+    <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_privilege_can_share">可分享</string>
     <string name="share_privilege_can_edit">可編輯</string>
     <string name="share_privilege_can_edit_create">允許新增</string>
