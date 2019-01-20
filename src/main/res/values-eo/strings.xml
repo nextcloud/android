@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Aparataj aŭtentigiloj ebligitaj</string>
     <string name="prefs_lock_device_credentials_not_setup">Neniu aparata aŭtentigilo estis agordita</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
+    <string name="prefs_enable_media_scan_notifications">Montri sciigoj pri aŭdvidaj dosierujoj</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Sciigi pri novaj aŭdvidaj dosierujoj trovitaj</string>
     <string name="prefs_log_delete_history_button">Forviŝi historion</string>
     <string name="prefs_calendar_contacts">Sinkronigi kalendaron &amp; kontaktaron</string>
     <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVdroid (versio 1.3.0 kaj posta) por la nuna konto</string>
@@ -772,6 +774,8 @@
     <string name="notification_channel_general_name">Ĝeneralaj sciigoj</string>
     <string name="notification_channel_general_description">Montri sciigoj pri novaj aŭdovidaj dosierujoj k.s.</string>
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
+    <string name="configure_new_media_folder_detection_notifications">Agordi</string>
+    <string name="disable_new_media_folder_detection_notifications">Malŝalti</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">videaĵo</string>
     <string name="outdated_server">La servilo nun malaktualas, bonvolu ĝisdatigi ĝin!</string>
@@ -824,4 +828,7 @@
     <string name="battery_optimization_disable">malebligi</string>
     <string name="battery_optimization_close">Fermi</string>
     <string name="battery_optimization_no_setting">Ne eblis malfermi agordon pri baterio. Bonvolu fari tion permane.</string>
-    </resources>
+    <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
+    <string name="uploader_upload_files_behaviour_not_writable">fonta dosierujo estas nurlega: dosiero estos nur alŝutita</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">konservita en origina dosierujo, ĉar ĝi estas nurlega</string>
+</resources>

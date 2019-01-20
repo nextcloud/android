@@ -829,4 +829,6 @@
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
-    </resources>
+    <string name="uploader_upload_files_behaviour_not_writable">Quellverzeichnis ist nur lesbar; Datei wird nur hochgeladen</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
+</resources>
