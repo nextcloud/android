@@ -87,7 +87,7 @@
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/common_cancel"
-            android:theme="@style/OutlinedButton"
+            style="@style/OutlinedButton"
             app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
