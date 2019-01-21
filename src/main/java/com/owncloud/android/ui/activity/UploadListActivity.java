@@ -182,7 +182,7 @@ public class UploadListActivity extends FileActivity {
         // scan for missing auto uploads files
         Set<Job> jobs = JobManager.instance().getAllJobsForTag(FilesSyncJob.TAG);
 
-        if (jobs.size() == 0) {
+        if (jobs.isEmpty()) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
             new JobRequest.Builder(FilesSyncJob.TAG)
