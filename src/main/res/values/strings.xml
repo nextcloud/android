@@ -849,4 +849,5 @@
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="uploader_upload_files_behaviour_not_writable">source folder is read-only; file will only be uploaded</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
+    <string name="scanQR_description">Login via QR code</string>
 </resources>
