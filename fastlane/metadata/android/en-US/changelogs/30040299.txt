@@ -1,0 +1,5 @@
+3.4.2 (January, 21, 2019)
+
+- fix sharing to group
+- show correct share error messages
+- fix bug when searching for user/group if Talk is disabled
