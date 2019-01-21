@@ -81,6 +81,7 @@
     <color name="selected_item_background">#ECECEC</color>
 
     <!--<color name="background_material_light">#ef4</color>-->
+    <color name="drawer_menu_icon">#757575</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
