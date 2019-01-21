@@ -495,14 +495,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 accountClicked(menuItem.getTitle().toString());
                 break;
             default:
+                if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
+                    menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
+                    // external link clicked
+                    externalLinkClicked(menuItem);
+                } else {
+                    Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
+                }
                 break;
-        }
-
-        if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK && menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
-            // external link clicked
-            externalLinkClicked(menuItem);
-        } else {
-            Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }
     }
 
