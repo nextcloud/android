@@ -76,5 +76,6 @@
     <color name="selected_item_background">#616161</color>
 
     <!--<color name="background_material_light">#555555</color>-->
+    <color name="drawer_menu_icon">#ffffff</color>
 
 </resources>
