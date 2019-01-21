@@ -991,7 +991,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     menuItem.getIcon().clearColorFilter();
-                    menuItem.setTitle(Html.fromHtml("<font color='" + ThemeUtils.colorToHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColor)) + "'>" + menuItem.getTitle() + "</font>"));
+                    ThemeUtils.tintDrawable(menuItem.getIcon(), ContextCompat.getColor(this, R.color.drawer_menu_icon));
+                    menuItem.setTitle(Html.fromHtml("<font color='" + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.textColor)) + "'>" + menuItem.getTitle() + "</font>"));
                 }
             }
 
@@ -1070,7 +1071,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             float density = getResources().getDisplayMetrics().density;
             final int size = Math.round(24 * density);
-            int greyColor = getResources().getColor(R.color.standard_grey);
+            int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
