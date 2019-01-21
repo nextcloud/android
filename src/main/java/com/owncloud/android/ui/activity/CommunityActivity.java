@@ -93,7 +93,7 @@ public class CommunityActivity extends FileActivity {
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = findViewById(R.id.community_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
+        reportButton.setBackgroundColor(ThemeUtils.primaryColor(this,true));
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }
 
