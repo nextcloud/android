@@ -130,7 +130,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_direct_camera_upload"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
