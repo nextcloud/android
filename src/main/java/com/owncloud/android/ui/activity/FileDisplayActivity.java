@@ -96,6 +96,7 @@ import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -180,6 +181,7 @@ public class FileDisplayActivity extends HookActivity
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
+    public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -967,6 +969,33 @@ public class FileDisplayActivity extends HookActivity
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
+        } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
+                (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+
+            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
+                @Override
+                public void onCheckAvailableSpaceStart() {
+                    Log_OC.d(this, "onCheckAvailableSpaceStart");
+                }
+
+                @Override
+                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
+                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
+
+                    if (hasEnoughSpaceAvailable) {
+                        File file = new File(filesToUpload[0]);
+                        File renamedFile = new File(file.getParent() + "/" + FileOperationsHelper.getCapturedImageName());
+
+                        if (!file.renameTo(renamedFile)) {
+                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
+                            return;
+                        }
+
+                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                                                           FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                    }
+                }
+            }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
             final Intent fData = data;
@@ -992,11 +1021,9 @@ public class FileDisplayActivity extends HookActivity
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
             );
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 
     private void exitSelectionMode() {
@@ -1008,6 +1035,17 @@ public class FileDisplayActivity extends HookActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
+        int behaviour;
+
+        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
+            behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+        } else {
+            behaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
+        }
+        requestUploadOfFilesFromFileSystem(filePaths, behaviour);
+    }
+
+    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
@@ -1036,16 +1074,16 @@ public class FileDisplayActivity extends HookActivity
 
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.uploadNewFile(
-                    this,
-                    getAccount(),
-                    filePaths,
-                    remotePaths,
-                    null,           // MIME type will be detected from file name
-                    behaviour,
-                    false,          // do not create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER,
-                    false,
-                    false
+                this,
+                getAccount(),
+                filePaths,
+                remotePaths,
+                null,           // MIME type will be detected from file name
+                behaviour,
+                false,          // do not create parent folder if not existent
+                UploadFileOperation.CREATED_BY_USER,
+                false,
+                false
             );
 
         } else {
