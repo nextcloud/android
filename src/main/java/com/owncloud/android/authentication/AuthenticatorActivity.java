@@ -2024,7 +2024,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void startQRScanner() {
-        Intent i = new Intent(AuthenticatorActivity.this, QrCodeActivity.class);
+        Intent i = new Intent(this, QrCodeActivity.class);
         startActivityForResult(i, REQUEST_CODE_QR_SCAN);
     }
 
