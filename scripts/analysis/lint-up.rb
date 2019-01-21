@@ -178,7 +178,7 @@ previous_git_email = previous_git_email.strip
 
 # update git user name and email for this script
 system ("git config --local user.name '"  + git_user + "'")
-system ("git config --local user.email '.'") # set email blank
+system ("git config --local user.email 'android@nextcloud.com'")
 system ("git remote rm origin")
 system ("git remote add origin https://" + git_user + ":" + git_token + "@github.com/nextcloud/android")
 
@@ -186,7 +186,7 @@ system ("git remote add origin https://" + git_user + ":" + git_token + "@github
 system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 
 # commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
-system ('git commit -m "Drone: update Lint results to reflect reduced error/warning count [skip ci]" ')
+system ('git commit -sm "Drone: update Lint results to reflect reduced error/warning count [skip ci]" ')
 
 # push to origin
 system ('git push origin HEAD:' + git_branch)
