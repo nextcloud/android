@@ -27,14 +27,14 @@ group_defaults:
 
 groups:
   code-review:
-    required: 2
+    required: 1
     reject_value: -99
     users:
       - AndyScherzinger
       - tobiasKaminsky
       - mario
       - przybylski
-      - ardevd 
+      - ardevd
 
   design-review:
     conditions:
@@ -45,5 +45,5 @@ groups:
     required: 1
     reject_value: -99
     users:
-      - jancborchardt 
+      - jancborchardt
       - eppfel
