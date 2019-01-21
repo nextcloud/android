@@ -58,7 +58,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import androidx.annotation.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending,active, completed. Filtering possible.
@@ -436,7 +435,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case FILE_ERROR:
                 status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_file_error);
                 break;
-            case PRIVILEDGES_ERROR:
+            case PRIVILEGES_ERROR:
                 status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error);
                 break;
             case NETWORK_CONNECTION:
@@ -466,13 +465,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 status = mParentActivity.getString(R.string.maintenance_mode);
                 break;
             case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                status =
-                        mParentActivity.getString(
+                status = mParentActivity.getString(
                                 R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
                         );
                 break;
             case UNKNOWN:
                 status = mParentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
+                break;
+            case LOCK_FAILED:
+                status = mParentActivity.getString(R.string.upload_lock_failed);
                 break;
             case DELAYED_IN_POWER_SAVE_MODE:
                 status = mParentActivity.getString(
@@ -481,8 +482,23 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case VIRUS_DETECTED:
                 status = mParentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
                 break;
+            case LOCAL_STORAGE_FULL:
+                status = mParentActivity.getString(R.string.upload_local_storage_full);
+                break;
+            case OLD_ANDROID_API:
+                status = mParentActivity.getString(R.string.upload_old_android);
+                break;
+            case SYNC_CONFLICT:
+                status = mParentActivity.getString(R.string.upload_sync_conflict);
+                break;
+            case CANNOT_CREATE_FILE:
+                status = mParentActivity.getString(R.string.upload_cannot_create_file);
+                break;
+            case LOCAL_STORAGE_NOT_COPIED:
+                status = mParentActivity.getString(R.string.upload_local_storage_not_copied);
+                break;
             default:
-                status = "New fail result but no description for the user";
+                status = mParentActivity.getString(R.string.upload_unknown_error);
                 break;
         }
 
@@ -656,14 +672,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 }
             }
 
-            @SuppressFBWarnings("Bx")
             private int compareUploadId(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload1.getFixedUploadId()).compareTo(upload2.getFixedUploadId());
+                return Long.compare(upload1.getFixedUploadId(), upload2.getFixedUploadId());
             }
 
-            @SuppressFBWarnings("Bx")
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload2.getFixedUploadEndTimeStamp()).compareTo(upload1.getFixedUploadEndTimeStamp());
+                return Long.compare(upload2.getFixedUploadEndTimeStamp(), upload1.getFixedUploadEndTimeStamp());
             }
         };
     }

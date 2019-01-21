@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author masensio
@@ -29,7 +29,7 @@ public enum UploadResult {
     FOLDER_ERROR(3),
     CONFLICT_ERROR(4),
     FILE_ERROR(5),
-    PRIVILEDGES_ERROR(6),
+    PRIVILEGES_ERROR(6),
     CANCELLED(7),
     FILE_NOT_FOUND(8),
     DELAYED_FOR_WIFI(9),
@@ -39,7 +39,12 @@ public enum UploadResult {
     LOCK_FAILED(13),
     DELAYED_IN_POWER_SAVE_MODE(14),
     SSL_RECOVERABLE_PEER_UNVERIFIED(15),
-    VIRUS_DETECTED(16);
+    VIRUS_DETECTED(16),
+    LOCAL_STORAGE_FULL(17),
+    OLD_ANDROID_API(18),
+    SYNC_CONFLICT(19),
+    CANNOT_CREATE_FILE(20),
+    LOCAL_STORAGE_NOT_COPIED(21);
 
     private final int value;
 
@@ -68,7 +73,7 @@ public enum UploadResult {
             case 5:
                 return FILE_ERROR;
             case 6:
-                return PRIVILEDGES_ERROR;
+                return PRIVILEGES_ERROR;
             case 7:
                 return CANCELLED;
             case 8:
@@ -89,8 +94,18 @@ public enum UploadResult {
                 return SSL_RECOVERABLE_PEER_UNVERIFIED;
             case 16:
                 return VIRUS_DETECTED;
+            case 17:
+                return LOCAL_STORAGE_FULL;
+            case 18:
+                return OLD_ANDROID_API;
+            case 19:
+                return SYNC_CONFLICT;
+            case 20:
+                return CANNOT_CREATE_FILE;
+            case 21:
+                return LOCAL_STORAGE_NOT_COPIED;
         }
-        return null;
+        return UNKNOWN;
     }
 
     public static UploadResult fromOperationResult(RemoteOperationResult result) {
@@ -115,9 +130,15 @@ public enum UploadResult {
             case CONFLICT:
                 return CONFLICT_ERROR;
             case LOCAL_STORAGE_NOT_COPIED:
-                return FILE_ERROR;
+                return LOCAL_STORAGE_NOT_COPIED;
+            case LOCAL_STORAGE_FULL:
+                return LOCAL_STORAGE_FULL;
+            case OLD_ANDROID_API:
+                return OLD_ANDROID_API;
+            case SYNC_CONFLICT:
+                return SYNC_CONFLICT;
             case FORBIDDEN:
-                return PRIVILEDGES_ERROR;
+                return PRIVILEGES_ERROR;
             case CANCELLED:
                 return CANCELLED;
             case DELAYED_FOR_WIFI:
@@ -139,6 +160,8 @@ public enum UploadResult {
                 return LOCK_FAILED;
             case VIRUS_DETECTED:
                 return VIRUS_DETECTED;
+            case CANNOT_CREATE_FILE:
+                return CANNOT_CREATE_FILE;
             default:
                 return UNKNOWN;
         }
