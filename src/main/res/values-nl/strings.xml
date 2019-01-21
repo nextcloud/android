@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Apparaatinloggegevens ingeschakeld</string>
     <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
+    <string name="prefs_enable_media_scan_notifications">Tonen mediascan meldingen</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Melden van nieuw gevonden mediamappen</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
@@ -772,6 +774,8 @@
     <string name="notification_channel_general_name">Algemene meldingen</string>
     <string name="notification_channel_general_description">Tonen meldingen voor nieuwe mediamappen en dergelijke</string>
     <string name="new_media_folder_detected">Nieuwe%1$smedia map gevonden.</string>
+    <string name="configure_new_media_folder_detection_notifications">Configureren</string>
+    <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
@@ -824,4 +828,7 @@
     <string name="battery_optimization_disable">uitschakelen</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_no_setting">Kan de batterin-instellingen niet direct wijzigen. Pas handmatig in bij Instellingen.</string>
-    </resources>
+    <string name="file_details_no_content">Kon details niet laden</string>
+    <string name="uploader_upload_files_behaviour_not_writable">bronmap is Alleen-lezen; bestand wordt alleen geüploaded</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
+</resources>
