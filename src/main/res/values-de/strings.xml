@@ -831,4 +831,4 @@
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
     <string name="uploader_upload_files_behaviour_not_writable">Quellverzeichnis ist nur lesbar; Datei wird nur hochgeladen</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
-</resources>
+    </resources>
