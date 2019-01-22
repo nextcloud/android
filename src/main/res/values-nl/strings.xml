@@ -831,4 +831,4 @@
     <string name="file_details_no_content">Kon details niet laden</string>
     <string name="uploader_upload_files_behaviour_not_writable">bronmap is Alleen-lezen; bestand wordt alleen geüploaded</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
-</resources>
+    </resources>

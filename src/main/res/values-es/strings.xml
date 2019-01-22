@@ -829,4 +829,6 @@
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
+    <string name="uploader_upload_files_behaviour_not_writable">la carpeta de origen es de solo lectura; el archivo únicamente se subirá</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     </resources>

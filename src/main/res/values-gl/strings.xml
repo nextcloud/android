@@ -851,4 +851,4 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     <string name="uploader_upload_files_behaviour_not_writable">o cartafol de orixe é de só lectura; O ficheiro só se enviará</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
-</resources>
+    </resources>
