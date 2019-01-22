@@ -213,7 +213,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onResume() {
         super.onResume();
 
-        if (getFile()!= null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
+        if (previewLoaded && getFile() != null && MimeTypeUtil.isImage(getFile())) {
             activatePreviewImage();
         }
     }
@@ -259,6 +259,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
         if (getFile() == null || account == null) {
             showEmptyContent();
+        } else {
+            emptyContentContainer.setVisibility(View.GONE);
         }
 
         return view;
@@ -317,7 +319,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 viewPager.setCurrentItem(tab.getPosition());
 
                 if (tab.getPosition() == 0) {
-                    getFileDetailActivitiesFragment().markCommentsAsRead();
+                    FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
+
+                    if (fragment != null) {
+                        fragment.markCommentsAsRead();
+                    }
                 }
             }
 
@@ -602,7 +608,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setFilePreview(OCFile file) {
         Bitmap resizedImage;
 
-        if (MimeTypeUtil.isImage(file) && activity != null) {
+        if (activity != null && MimeTypeUtil.isImage(file)) {
             String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
@@ -722,6 +728,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     private void showEmptyContent() {
         if (emptyContentContainer != null) {
+            emptyContentContainer.setVisibility(View.VISIBLE);
             detailContainer.setVisibility(View.GONE);
 
             emptyContentHeadline.setText(R.string.file_details_no_content);
