@@ -831,4 +831,4 @@
     <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
     <string name="uploader_upload_files_behaviour_not_writable">fonta dosierujo estas nurlega: dosiero estos nur alŝutita</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">konservita en origina dosierujo, ĉar ĝi estas nurlega</string>
-</resources>
+    </resources>

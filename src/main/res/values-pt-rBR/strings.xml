@@ -831,4 +831,4 @@
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="uploader_upload_files_behaviour_not_writable">a pasta de origem é somente leitura; o arquivo só será enviado</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
-</resources>
+    </resources>
