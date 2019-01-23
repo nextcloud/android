@@ -838,7 +838,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="battery_optimization_title">Batterioptimalisering</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer applikasjonen fra optimalisering.</string>
-    <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
     </resources>
