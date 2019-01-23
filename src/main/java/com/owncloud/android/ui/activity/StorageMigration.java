@@ -22,7 +22,6 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -38,6 +37,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * @author Bartosz Przybylski
