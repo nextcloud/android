@@ -24,7 +24,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.text.Spannable;
