@@ -126,14 +126,12 @@ public final class ThemeUtils {
     }
 
     public static int primaryColor(Account account, boolean replaceWhite, Context context) {
-        OCCapability capability = getCapability(account, context);
-
         if (context==null) {
             return 255;
         }
 
         try {
-            int color = Color.parseColor(capability.getServerColor());
+            int color = Color.parseColor(getCapability(account, context).getServerColor());
             if (replaceWhite && Color.WHITE == color) {
                 return Color.GRAY;
             } else {
