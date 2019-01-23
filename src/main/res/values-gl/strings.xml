@@ -251,7 +251,7 @@
 	<string name="auth_ssl_general_error_title">Produciuse un fallo ao preparar o SSL</string>
 	<string name="auth_ssl_unverified_server_title">Non foi posíbel verificar a identidade do servidor SSL</string>
 	<string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
-	<string name="auth_wrong_connection_title">Non foi posíbel establecer a conexión</string>
+	<string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
 	<string name="auth_secure_connection">Estabeleceuse unha conexión segura</string>
 	<string name="auth_unauthorized">Nome de usuario ou contrasinal incorrecto</string>
 	<string name="auth_oauth_error">A autorización non foi aceptada</string>
@@ -845,7 +845,6 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="battery_optimization_title">Optimización da batería</string>
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe este aplicativo.</string>
-    <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>

@@ -828,6 +828,5 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="create_file_from_template">Fájl készítése sablonból…</string>
     <string name="error_retrieving_templates">Hiba történt a sablon lékérésekor</string>
     <string name="battery_optimization_title">Akkumlátor optimalizálás</string>
-    <string name="battery_optimization_disable">letilt</string>
     <string name="battery_optimization_close">Bezár</string>
     </resources>

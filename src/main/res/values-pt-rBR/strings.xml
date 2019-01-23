@@ -746,6 +746,7 @@
     <string name="hint_password">Senha</string>
     <string name="add_to_cloud">Adicionar à %1$s</string>
     <string name="upload_files">Enviar arquivos</string>
+    <string name="upload_direct_camera_upload">Envio da câmera</string>
     <string name="upload_content_from_other_apps">Enviar conteúdo de outros aplicativos</string>
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus encontrado. Envio não foi finalizado!</string>
@@ -825,10 +826,18 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="battery_optimization_title">Otimização da bateria</string>
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
-    <string name="battery_optimization_disable">desativar</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_no_setting">Não é possível iniciar as configurações da bateria diretamente. Ajuste manualmente nas configurações.</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
+    <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="uploader_upload_files_behaviour_not_writable">a pasta de origem é somente leitura; o arquivo só será enviado</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
-    </resources>
+    <string name="scanQR_description">Entrar via código QR</string>
+    <string name="upload_unknown_error">Erro desconhecido</string>
+    <string name="upload_lock_failed">Falha ao bloquear pasta</string>
+    <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
+    <string name="upload_old_android"><![CDATA[Criptografia só é possível com >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
+    <string name="upload_cannot_create_file">Não foi possível criar o arquivo local</string>
+    <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
+</resources>

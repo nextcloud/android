@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
     <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
+    <string name="prefs_enable_media_scan_notifications">显示媒体扫描通知</string>
+    <string name="prefs_enable_media_scan_notifications_summary">有关于新发现的媒体文件夹的通知</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
     <string name="prefs_calendar_contacts_summary">为当前账户设置 DAVdroid (v1.3.0+)</string>
@@ -739,6 +741,7 @@
     <string name="hint_password">密码</string>
     <string name="add_to_cloud">添加到%1$s</string>
     <string name="upload_files">上传文件</string>
+    <string name="upload_direct_camera_upload">从相机上传</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
     <string name="create_new_folder">创建新文件夹</string>
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。不能完成上传！</string>
@@ -767,6 +770,8 @@
     <string name="notification_channel_general_name">通用提醒</string>
     <string name="notification_channel_general_description">有新消息时显示通知</string>
     <string name="new_media_folder_detected">检测到新的%1$s媒体目录。</string>
+    <string name="configure_new_media_folder_detection_notifications">用户配置</string>
+    <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="new_media_folder_photos">照片</string>
     <string name="new_media_folder_videos">视频</string>
     <string name="outdated_server">服务器即将寿命终止，请升级！</string>
@@ -816,7 +821,18 @@
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="battery_optimization_title">电池优化</string>
     <string name="battery_optimization_message">您的设备可能已启用电池优化。 如果您从中排除此应用，则自动加载只能单独工作。</string>
-    <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
-    </resources>
+    <string name="file_details_no_content">加载详情失败</string>
+    <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
+    <string name="uploader_upload_files_behaviour_not_writable">原始文件夹是只读的，文件将只会被上传</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
+    <string name="scanQR_description">通过扫描二维码登录</string>
+    <string name="upload_unknown_error">未知错误</string>
+    <string name="upload_lock_failed">锁定文件夹失败</string>
+    <string name="upload_local_storage_full">本地存储已满</string>
+    <string name="upload_old_android">加密功能仅适用于安卓5.0及以上版本</string>
+    <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
+    <string name="upload_cannot_create_file">无法新建本地文件</string>
+    <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
+</resources>

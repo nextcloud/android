@@ -746,6 +746,7 @@
     <string name="hint_password">Passwort</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="upload_files">Dateien hochladen</string>
+    <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
@@ -825,10 +826,18 @@
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
-    <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
+    <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="uploader_upload_files_behaviour_not_writable">Quellverzeichnis ist nur lesbar; Datei wird nur hochgeladen</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
-    </resources>
+    <string name="scanQR_description">Anmelden mit QR-Code</string>
+    <string name="upload_unknown_error">Unbekannter Fehler</string>
+    <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
+    <string name="upload_local_storage_full">Lokaler Speicher voll</string>
+    <string name="upload_old_android"><![CDATA[Verschlüsselung ist nur möglich mit >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
+    <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
+    <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
+</resources>
