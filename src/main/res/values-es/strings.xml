@@ -746,6 +746,7 @@
     <string name="hint_password">Contraseña</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
     <string name="upload_files">Subir archivos</string>
+    <string name="upload_direct_camera_upload">Subir de la cámara</string>
     <string name="upload_content_from_other_apps">Subir contenido desde otras apps</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
@@ -825,10 +826,14 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="battery_optimization_title">Optimización de batería</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
-    <string name="battery_optimization_disable">desactivar</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
+    <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="uploader_upload_files_behaviour_not_writable">la carpeta de origen es de solo lectura; el archivo únicamente se subirá</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
+    <string name="scanQR_description">Entrar vía código QR</string>
+    <string name="upload_unknown_error">Error desconocido</string>
+    <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
+    <string name="upload_local_storage_full">Almacenamiento local lleno</string>
     </resources>

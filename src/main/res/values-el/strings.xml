@@ -734,7 +734,6 @@
     <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο...</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
-    <string name="battery_optimization_disable">απενεργοποίηση</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
     </resources>

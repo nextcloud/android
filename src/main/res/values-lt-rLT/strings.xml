@@ -597,6 +597,7 @@
     <string name="end_to_end_encryption_not_enabled">Ištisinis šifravimas yra išjungtas serveryje.</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_password">Slaptažodis…</string>
+    <string name="end_to_end_encryption_unsuccessful">Nepavyko įrašyti raktų, bandykite dar kartą.</string>
     <string name="end_to_end_encryption_dialog_close">Užverti</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="hint_password">Slaptažodis</string>
@@ -621,6 +622,8 @@
     <string name="trashbin_file_not_deleted">Nepavyko ištrinti failo %1$s!</string>
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
     <string name="folder_already_exists">Aplankas jau yra</string>
+    <string name="actionbar_open_as_richdocument">Atverti naudojant Collabora</string>
+    <string name="notification_icon">Pranešimo piktograma</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="file_delete">Ištrinti</string>
     <string name="file_rename">Pervadinti</string>
@@ -633,6 +636,8 @@
     <string name="thumbnail">Miniatiūra</string>
     <string name="enter_filename">Įveskite failo pavadinimą</string>
     <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
-    <string name="battery_optimization_disable">išjungti</string>
     <string name="battery_optimization_close">Užverti</string>
+    <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
+    <string name="upload_unknown_error">Nežinoma klaida</string>
+    <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     </resources>

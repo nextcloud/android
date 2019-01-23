@@ -816,6 +816,5 @@
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
-    <string name="battery_optimization_disable">無効にする</string>
     <string name="battery_optimization_close">閉じる</string>
     </resources>

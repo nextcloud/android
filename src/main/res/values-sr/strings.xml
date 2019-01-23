@@ -826,7 +826,6 @@
     <string name="error_retrieving_templates">Грешка при учитавању шаблона</string>
     <string name="battery_optimization_title">Оптимизација батерије</string>
     <string name="battery_optimization_message">Ваш уређај можда има укључену оптимизацију батерије. Аутоматско отпремање ради само ако искључите ову апликацију из оптимизације батерије.</string>
-    <string name="battery_optimization_disable">искључи</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_no_setting">Не могу да покренем поставке батерије. Искључите је ручно у поставкама.</string>
     </resources>

@@ -831,7 +831,6 @@
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
-    <string name="battery_optimization_disable">отключить</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>

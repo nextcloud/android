@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Prihlasovacie údaje zariadenia povolené</string>
     <string name="prefs_lock_device_credentials_not_setup">Prihlasovacie údaje zariadenia neboli nastavené.</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
+    <string name="prefs_enable_media_scan_notifications">Zobrazovať notifikácie vyhľadávania médií</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Upozorniť na nové mediálne priečinky</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>
@@ -270,6 +272,8 @@
     <string name="auth_access_failed">Prístup zamietnutý: %1$s</string>
     <string name="auth_illegal_login_used">Použitá nedovolená prihlasovacia URL</string>
 
+    <string name="favorite">Pridať do obľúbených</string>
+    <string name="unset_favorite">Odstrániť z obľúbených</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="common_rename">Premenovať</string>
@@ -752,6 +756,7 @@
     <string name="hint_password">Heslo</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
     <string name="upload_files">Nahrať súbory</string>
+    <string name="upload_direct_camera_upload">Nahrať z fotoaparátu</string>
     <string name="upload_content_from_other_apps">Nahrať obsah z iných aplikácií</string>
     <string name="create_new_folder">Vytvoriť nový priečinok</string>
     <string name="uploads_view_upload_status_virus_detected">Bol zistený víru.  Nahrávanie nebude ukončené!</string>
@@ -780,6 +785,8 @@
     <string name="notification_channel_general_name">Všeobecné notifikácie</string>
     <string name="notification_channel_general_description">Zobraziť notifikácie pre nové mediálne priečinky a podobne</string>
     <string name="new_media_folder_detected">Nový%1$smediálny priečinok nájdený.</string>
+    <string name="configure_new_media_folder_detection_notifications">Nastaviť</string>
+    <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
@@ -815,6 +822,8 @@
     <string name="no_browser_available">Aplikácia na prácu s linkami nenájdená</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
+    <string name="unread_comments">Existujú neprečítané komentáre</string>
+
     <string name="richdocuments_failed_to_load_document">Nepodarilo sa načítať dokument!</string>
     <string name="create_new_document">Vytvoriť nový dokument</string>
     <string name="create_new_spreadsheet">Vytvoriť novú tabuľku</string>
@@ -825,4 +834,20 @@
     <string name="enter_filename">Zadajte prosím názov súboru</string>
     <string name="create_file_from_template">Vytvára sa súbor podľa šablóny</string>
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
-    </resources>
+    <string name="battery_optimization_title">Optimalizácia batérie</string>
+    <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
+    <string name="battery_optimization_close">Zatvoriť</string>
+    <string name="battery_optimization_no_setting">Nieje možné otvoriť nastavenia batérie priamo. Prosím upravte ich ručne v nastaveniach. </string>
+    <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
+    <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
+    <string name="uploader_upload_files_behaviour_not_writable">zdrojový priečinok je iba na čítanie; súbor bude iba odoslaný</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
+    <string name="scanQR_description">Prihlásiť sa pomocou QR kódu</string>
+    <string name="upload_unknown_error">Neznáma chyba</string>
+    <string name="upload_lock_failed">Uzamknutie priečinka zlyhalo</string>
+    <string name="upload_local_storage_full">Lokálne úložište je plné</string>
+    <string name="upload_old_android"><![CDATA[Šifrovanie je možné iba na >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Chyba synchronizácie, prosím vyriešte manuálne</string>
+    <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
+    <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
+</resources>
