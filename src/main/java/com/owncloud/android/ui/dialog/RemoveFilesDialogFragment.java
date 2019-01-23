@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  *  Dialog requiring confirmation before removing a collection of given OCFiles.
@@ -133,7 +133,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
         int color = ThemeUtils.primaryAccentColor(getActivity());
 
-        androidx.appcompat.app.AlertDialog alertDialog = (androidx.appcompat.app.AlertDialog) getDialog();
+        AlertDialog alertDialog = (AlertDialog) getDialog();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
