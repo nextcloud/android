@@ -27,8 +27,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -81,6 +79,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -174,7 +174,7 @@ public class UserInfoActivity extends FileActivity {
                 onBackPressed();
                 break;
             case R.id.delete_account:
-                openAccountRemovalConfirmationDialog(account, getFragmentManager(), false);
+                openAccountRemovalConfirmationDialog(account, getSupportFragmentManager(), false);
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
