@@ -789,6 +789,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_general_name">Generelle varsel</string>
     <string name="notification_channel_general_description">Vis varsel for nye media mapper og lignende</string>
     <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
+    <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Tjener er ikke lengre supportert, ver vennlig å oppgradere!</string>
@@ -838,6 +839,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="battery_optimization_title">Batterioptimalisering</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer applikasjonen fra optimalisering.</string>
+    <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
     </resources>

@@ -132,7 +132,7 @@
     <string name="common_error">Erro</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_unknown">descoñecido</string>
-    <string name="common_error_unknown">Erro descoñecido</string>
+    <string name="common_error_unknown">Produciuse un erro descoñecido</string>
     <string name="common_pending">Pendente</string>
     <string name="common_delete">Eliminar</string>
     <string name="common_send">Enviar</string>
@@ -765,6 +765,7 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="hint_password">Contrasinal</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
     <string name="upload_files">Enviar ficheiros</string>
+    <string name="upload_direct_camera_upload">Enviar dende a cámara</string>
     <string name="upload_content_from_other_apps">Enviar contido dende outros aplicativos</string>
     <string name="create_new_folder">Crear un cartafol novo</string>
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
@@ -845,9 +846,19 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="battery_optimization_title">Optimización da batería</string>
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe este aplicativo.</string>
+    <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
+    <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="uploader_upload_files_behaviour_not_writable">o cartafol de orixe é de só lectura; O ficheiro só se enviará</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
-    </resources>
+    <string name="scanQR_description">Acceder cun código QR</string>
+    <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
+    <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
+    <string name="upload_local_storage_full">O almacenamento local está cheo</string>
+    <string name="upload_old_android"><![CDATA[O cifrado só é posíbel con >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
+    <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
+    <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
+</resources>

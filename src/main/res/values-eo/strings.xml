@@ -746,6 +746,7 @@
     <string name="hint_password">Pasvorto</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
     <string name="upload_files">Alŝuti dosierojn</string>
+    <string name="upload_direct_camera_upload">Alŝuti el fotilo</string>
     <string name="upload_content_from_other_apps">Alŝuti enhavon el aliaj aplikaĵoj</string>
     <string name="create_new_folder">Krei novan dosierujon</string>
     <string name="uploads_view_upload_status_virus_detected">Komputila viruso eltrovita. Alŝuto ne povas plui!</string>
@@ -825,9 +826,19 @@
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="battery_optimization_title">Bateria optimumigo</string>
     <string name="battery_optimization_message">Bateria optimumigo estas eble ŝaltita en via aparato. Aŭtomata alŝuto bone funkcias nur se vi esceptas tiun aplikaĵon el bateria optimumigo.</string>
+    <string name="battery_optimization_disable">Malŝalti</string>
     <string name="battery_optimization_close">Fermi</string>
     <string name="battery_optimization_no_setting">Ne eblis malfermi agordon pri baterio. Bonvolu fari tion permane.</string>
     <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
+    <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
     <string name="uploader_upload_files_behaviour_not_writable">fonta dosierujo estas nurlega: dosiero estos nur alŝutita</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">konservita en origina dosierujo, ĉar ĝi estas nurlega</string>
-    </resources>
+    <string name="scanQR_description">Ensaluti pere de rapidresponda (QR) kodon</string>
+    <string name="upload_unknown_error">Nekonata eraro</string>
+    <string name="upload_lock_failed">Ŝlosado de dosierujo malsukcesis</string>
+    <string name="upload_local_storage_full">Loka konservejo plenas</string>
+    <string name="upload_old_android">Ĉifrado ner eblas kun ⩾ Android 5.0</string>
+    <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
+    <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
+    <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
+</resources>
