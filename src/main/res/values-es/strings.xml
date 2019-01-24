@@ -826,6 +826,7 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="battery_optimization_title">Optimización de batería</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
+    <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -836,4 +837,8 @@
     <string name="upload_unknown_error">Error desconocido</string>
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>
-    </resources>
+    <string name="upload_old_android"><![CDATA[El cifrado solo es posible con  >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Conflicto al sincronizar. Por favor, resuélvelo manualmente</string>
+    <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
+    <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
+</resources>

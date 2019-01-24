@@ -636,6 +636,8 @@
     <string name="thumbnail">Miniatiūra</string>
     <string name="enter_filename">Įveskite failo pavadinimą</string>
     <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
+    <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
+    <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
     <string name="upload_unknown_error">Nežinoma klaida</string>

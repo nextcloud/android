@@ -45,6 +45,7 @@
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
+    <string name="prefs_enable_media_scan_notifications_summary">新たに見つかったメディアフォルダを通知する</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
@@ -742,6 +743,7 @@
     <string name="hint_password">パスワード</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="upload_files">アップロードファイル</string>
+    <string name="upload_direct_camera_upload">カメラからアップロード</string>
     <string name="upload_content_from_other_apps">他のアプリからコンテンツをアップロードする</string>
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
@@ -805,6 +807,8 @@
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
+    <string name="unread_comments">未読のコメントが存在します</string>
+
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="create_new_document">新しい文書を作成する</string>
     <string name="create_new_spreadsheet">新しいスプレッドシートを作成する</string>

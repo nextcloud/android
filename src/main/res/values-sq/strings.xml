@@ -771,6 +771,7 @@
     <string name="notification_channel_general_name">Njoftime të përgjithshme</string>
     <string name="notification_channel_general_description">Shfaq njoftimet për dosjet e mediave të reja dhe të ngjashme</string>
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
+    <string name="disable_new_media_folder_detection_notifications">Çaktivizoje</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
@@ -816,4 +817,6 @@
     <string name="enter_filename">Ju lutemi shkruani një emër skedari</string>
     <string name="create_file_from_template">Duke krijuar skedar nga shablloni...</string>
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
+    <string name="battery_optimization_disable">Çaktivizoje</string>
+    <string name="battery_optimization_close">Mbylleni</string>
     </resources>
