@@ -476,7 +476,7 @@
     <string name="select_all">Vybrat vše</string>
     <string name="deselect_all">Odznačit vše</string>
 
-    <string name="pref_behaviour_entries_keep_file">ponechán ve výchozí složce</string>
+    <string name="pref_behaviour_entries_keep_file">ponechán v původní složce</string>
     <string name="pref_behaviour_entries_move">přesunut do složky aplikace</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
     <string name="prefs_storage_path">Popis umístění úložiště</string>
@@ -756,6 +756,7 @@
     <string name="hint_password">Heslo</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
     <string name="upload_files">Nahrát soubory</string>
+    <string name="upload_direct_camera_upload">Nahrát z kamery</string>
     <string name="upload_content_from_other_apps">Nahrát obsah z ostatních aplikací</string>
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
@@ -835,7 +836,19 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
     <string name="battery_optimization_message">Vaše zařízení má zapnuté snížení vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
+    <string name="battery_optimization_disable">Vypnout</string>
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
-    </resources>
+    <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
+    <string name="uploader_upload_files_behaviour_not_writable">zdrojová složka je pouze pro čtení, soubor bude pouze nahrán</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
+    <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
+    <string name="upload_unknown_error">Neznámá chyba</string>
+    <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
+    <string name="upload_local_storage_full">Místní úložiště je plné</string>
+    <string name="upload_old_android"><![CDATA[Šifrování je možné pouze na verzi systému Android 5.0 a novější]]></string>
+    <string name="upload_sync_conflict">Konflikt synchronizace, vyřešte ručně</string>
+    <string name="upload_cannot_create_file">Nedaří se vytvořit místní soubor</string>
+    <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
+</resources>

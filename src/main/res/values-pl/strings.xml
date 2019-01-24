@@ -784,6 +784,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="notification_channel_general_name">Powiadomienia ogólne</string>
     <string name="notification_channel_general_description">Pokazuj powiadomienia dla nowych folderów mediów i podobnych</string>
     <string name="new_media_folder_detected">Nowy %1$s katalog mediów wykryty.</string>
+    <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>

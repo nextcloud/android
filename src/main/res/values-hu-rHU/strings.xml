@@ -786,6 +786,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
     <string name="notification_channel_general_name">Általános értesítések</string>
+    <string name="disable_new_media_folder_detection_notifications">Letiltás</string>
     <string name="new_media_folder_photos">Fénykép</string>
     <string name="new_media_folder_videos">Videó</string>
     <string name="outdated_server">A szerver elérte életciklusa végét, kérem frissítsen!</string>

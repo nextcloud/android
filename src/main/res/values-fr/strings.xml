@@ -826,6 +826,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
+    <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>

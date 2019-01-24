@@ -836,6 +836,7 @@
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="battery_optimization_title">Optimalizácia batérie</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
+    <string name="battery_optimization_disable">Zakázať</string>
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_no_setting">Nieje možné otvoriť nastavenia batérie priamo. Prosím upravte ich ručne v nastaveniach. </string>
     <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
