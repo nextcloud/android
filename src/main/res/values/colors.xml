@@ -31,7 +31,7 @@
     <color name="fg_default">#000000</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
-    <color name="filelist_icon_backgorund">#DDDDDD</color>
+    <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
@@ -82,6 +82,8 @@
 
     <!--<color name="background_material_light">#ef4</color>-->
     <color name="drawer_menu_icon">#757575</color>
+    <color name="date_picker_header_text">#ffffff</color>
+    <color name="date_picker_header_bg">#757575</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
