@@ -28,7 +28,7 @@
     <color name="textColor_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
-    <color name="filelist_icon_backgorund">#DDDDDD</color>
+    <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
@@ -77,5 +77,7 @@
 
     <!--<color name="background_material_light">#555555</color>-->
     <color name="drawer_menu_icon">#ffffff</color>
+    <color name="date_picker_header_text">#616161</color>
+    <color name="date_picker_header_bg">#111111</color>
 
 </resources>

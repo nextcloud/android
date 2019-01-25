@@ -19,5 +19,5 @@
 -->
 <shape
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="@color/filelist_icon_backgorund" android:endColor="@color/filelist_icon_backgorund" android:angle="0"/>
+    <gradient android:startColor="@color/filelist_icon_background" android:endColor="@color/filelist_icon_background" android:angle="0" />
 </shape>

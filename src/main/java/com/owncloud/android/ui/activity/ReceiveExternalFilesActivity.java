@@ -399,6 +399,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             final EditText userInput = view.findViewById(R.id.user_input);
             setFilename(userInput, selectPos);
+            userInput.setHighlightColor(ThemeUtils.primaryColor(getContext()));
             userInput.requestFocus();
 
             final Spinner spinner = view.findViewById(R.id.file_type);
