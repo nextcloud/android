@@ -573,9 +573,11 @@
     <string name="tags">Etiquetas</string>
     <string name="login">Iniciar Sessão</string>
     <string name="new_comment">Novo comentário…</string>
+    <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vídeo</string>
     <string name="dismiss">Dispensar</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
+    <string name="battery_optimization_disable">Desativar</string>
     </resources>

@@ -44,7 +44,7 @@
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Non foi estabelecida ningunha credencial de dispositivo</string>
-    <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
+    <string name="prefs_show_hidden_files">Amosar ficheiros agachados</string>
     <string name="prefs_enable_media_scan_notifications">Amosar as notificacións de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar cando se atopen novos cartafoles de medios</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
