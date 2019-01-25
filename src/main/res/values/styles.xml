@@ -37,7 +37,8 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="colorSecondary">@color/textColor</item>
         <item name="android:colorSecondary">@color/textColor</item>
-	</style>
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+    </style>
 
 	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 		<item name="colorPrimary">#424242</item>
@@ -47,16 +48,29 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="colorSecondary">@color/textColor</item>
         <item name="android:colorSecondary">@color/textColor</item>
-	</style>
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+    </style>
 
 	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
-		<item name="colorAccent">#757575</item>
+        <item name="android:colorAccent">@color/date_picker_header_bg</item>
+        <item name="colorAccent">@color/date_picker_header_bg</item>
         <item name="android:textAllCaps">false</item>
-	</style>
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+        <!--&lt;!&ndash; TODO change these references &ndash;&gt;-->
+        <item name="colorControlHighlight">@color/date_picker_header_bg</item>
+        <item name="colorControlActivated">@color/textColor</item>
+    </style>
 
-	<style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="DatePickerStyle" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:headerBackground">@color/date_picker_header_bg</item>
+        <item name="android:datePickerMode">calendar</item>
+    </style>
+
+    <style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
@@ -65,7 +79,7 @@
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
 	</style>
 
-	<!-- seperate action bar style for activities without an action bar -->
+	<!-- separate action bar style for activities without an action bar -->
 	<style name="Theme.ownCloud.Toolbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
@@ -97,7 +111,8 @@
 		<item name="android:textColorPrimary">@color/primary</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-	</style>
+        <item name="android:colorBackground">@color/background_color</item>
+    </style>
 
 	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
@@ -219,7 +234,8 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
-	</style>
+        <item name="android:windowBackground">@color/background_color</item>
+    </style>
 
 	<style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
 		<item name="windowNoTitle">true</item>
