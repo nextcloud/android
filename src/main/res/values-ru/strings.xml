@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
     <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
+    <string name="prefs_enable_media_scan_notifications">Показывать уведомления о сканировании медиафайлов</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Уведомлять о найденных новых каталогах с медиафайлами</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVdroid (v1.3.0+) для текущего аккаунта</string>
@@ -754,6 +756,7 @@
     <string name="hint_password">Пароль</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="upload_files">Отправить файлы</string>
+    <string name="upload_direct_camera_upload">Передача фотографий камеры</string>
     <string name="upload_content_from_other_apps">Отправить из других приложений</string>
     <string name="create_new_folder">Создать новую папку</string>
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Передача не может быть завершена!</string>
@@ -782,6 +785,8 @@
     <string name="notification_channel_general_name">Общие уведомления</string>
     <string name="notification_channel_general_description">Выводить уведомление при обнаружении новых папок с медиафайлами</string>
     <string name="new_media_folder_detected">Обнаружена новая папка с фото или видеофайлами: «%1$s».</string>
+    <string name="configure_new_media_folder_detection_notifications">Настроить</string>
+    <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="new_media_folder_photos">фото</string>
     <string name="new_media_folder_videos">видео</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
@@ -831,7 +836,19 @@
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
+    <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
-    </resources>
+    <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
+    <string name="uploader_upload_files_behaviour_not_writable">исходный каталог доступен только для чтения, файл будет только передан на сервер</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
+    <string name="scanQR_description">Войти с использованием QR кода</string>
+    <string name="upload_unknown_error">Неизвестная ошибка</string>
+    <string name="upload_lock_failed">Не удалось заблокировать папку</string>
+    <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>
+    <string name="upload_old_android"><![CDATA[Шифрование возможно только версии Android 5.0 или старше]]></string>
+    <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
+    <string name="upload_cannot_create_file">Невозможно создать локальный файл</string>
+    <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
+</resources>

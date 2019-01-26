@@ -113,7 +113,7 @@
     <string name="file_list_empty_text_videos">Envíe algún vídeo ou active o envío automático.</string>
     <string name="file_list_empty_text_videos_filter">Non hai vídeos.</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
-    <string name="trashbin_empty_message">Poderá recuperar ficheiros borrados de aquí</string>
+    <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>
     <string name="file_list_folder">cartafol</string>
