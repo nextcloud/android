@@ -84,8 +84,10 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -150,6 +152,9 @@ public class UploadFileOperation extends SyncOperation {
     final private PowerManagementService powerManagementService;
 
     private boolean encryptedAncestor;
+
+    private List<String> excludedFilesyncPatterns=new ArrayList<String>();
+
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
@@ -228,6 +233,8 @@ public class UploadFileOperation extends SyncOperation {
         // Ignore power save mode only if user explicitly created this upload
         mIgnoringPowerSaveMode = mCreatedBy == CREATED_BY_USER;
         mFolderUnlockToken = upload.getFolderUnlockToken();
+
+        excludedFilesyncPatterns.add(".thumbdata*");
     }
 
     public boolean isWifiRequired() {
@@ -739,7 +746,45 @@ public class UploadFileOperation extends SyncOperation {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         }
 
+        if(isBlacklistedFile(originalFile.getName())){
+            Log_OC.d(TAG, "name: "+originalFile.getName()+" is blacklisted. Not uploading.");
+            //Todo: Proper returncode to ignore this result. Currently the app displays "Wrong username or password" which is not correct.
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.UNAUTHORIZED);
+        }
+
         return remoteOperationResult;
+    }
+
+    private boolean isBlacklistedFile(String fileName){
+        boolean isBlacklisted=false;
+        for (String pattern : excludedFilesyncPatterns) {
+            if (fileName.matches(createRegexFromGlob(pattern))) {
+                Log_OC.d(TAG, "Blacklisted file: '"+fileName+"' matched with pattern :'"+pattern+"'");
+                isBlacklisted = true;
+            }
+        }
+
+        return isBlacklisted;
+    }
+
+    //https://stackoverflow.com/questions/1247772/is-there-an-equivalent-of-java-util-regex-for-glob-type-patterns
+    private static String createRegexFromGlob(String glob)
+    {
+        String out = "^";
+        for(int i = 0; i < glob.length(); ++i)
+        {
+            final char c = glob.charAt(i);
+            switch(c)
+            {
+                case '*': out += ".*"; break;
+                case '?': out += '.'; break;
+                case '.': out += "\\."; break;
+                case '\\': out += "\\\\"; break;
+                default: out += c;
+            }
+        }
+        out += '$';
+        return out;
     }
 
     private RemoteOperationResult normalUpload(OwnCloudClient client) {
