@@ -654,6 +654,7 @@
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
 
     <string name="screenshot_01_gridView">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
+    <string name="screenshot_04_accounts">Σύνδεση σε διαφορετικούς λογαριασμούς</string>
     <string name="userinfo_no_info_headline">Δεν ορίστηκαν προσωπικές πληροφορίες</string>
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
 
@@ -676,7 +677,10 @@
     <string name="hint_password">Συνθηματικό</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
+    <string name="upload_direct_camera_upload">Μεταφόρτωση από την φωτογραφική μηχανή</string>
+    <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
+    <string name="uploads_view_upload_status_virus_detected">Ανιχνεύθηκε ιός. Η μεταφόρτωση δεν μπορεί να ολοκληρωθεί!</string>
     <string name="tags">Ετικέτες</string>
     <string name="unsharing_failed">Απέτυχε η αναίρεση διαμοιρασμού</string>
     <string name="login">Είσοδος</string>
@@ -691,6 +695,8 @@
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
+    <string name="configure_new_media_folder_detection_notifications">Ρύθμιση</string>
+    <string name="disable_new_media_folder_detection_notifications">Απενεργοποίηση</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
     <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
@@ -734,6 +740,11 @@
     <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο...</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
+    <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
-    </resources>
+    <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
+    <string name="upload_unknown_error">Άγνωστο σφάλμα</string>
+    <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
+    <string name="upload_local_storage_not_copied">Το αρχείο δεν μπορεί να αντιγραφεί σε τοπικό αποθηκευτικό χώρο</string>
+</resources>

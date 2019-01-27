@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Credenziali di dispositivo abilitate</string>
     <string name="prefs_lock_device_credentials_not_setup">Non son state configurate credenziali di dispositivo</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
+    <string name="prefs_enable_media_scan_notifications">Mostra notifiche di scansione dei supporti</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notifica per le nuove cartelle multimediali trovate</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
@@ -744,6 +746,7 @@
     <string name="hint_password">Password</string>
     <string name="add_to_cloud">Aggiungi a %1$s</string>
     <string name="upload_files">Carica file</string>
+    <string name="upload_direct_camera_upload">Carica dalla fotocamera</string>
     <string name="upload_content_from_other_apps">Carica contenuti da altre applicazioni</string>
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="uploads_view_upload_status_virus_detected">Virus rilevato! Impossibile caricare il file!</string>
@@ -823,7 +826,19 @@
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="battery_optimization_title">Ottimizzazione batteria</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
+    <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_no_setting">Impossibile avviare direttamente le impostazioni della batteria. Modificale manualmente nelle impostazioni</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
-    </resources>
+    <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
+    <string name="uploader_upload_files_behaviour_not_writable">la cartella di origine è in sola lettura,  i file saranno solo caricati</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">lasciato nella cartella originale, poiché è in sola lettura</string>
+    <string name="scanQR_description">Accedi tramite codice QR</string>
+    <string name="upload_unknown_error">Errore sconosciuto</string>
+    <string name="upload_lock_failed">Blocco della cartella non riuscito</string>
+    <string name="upload_local_storage_full">Archiviazione locale piena</string>
+    <string name="upload_old_android"><![CDATA[La cifratura è possibile solo con >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Conflitto di sincronizzazione, risolvi manualmente</string>
+    <string name="upload_cannot_create_file">Impossibile creare il file locale</string>
+    <string name="upload_local_storage_not_copied">Il file non può essere copiato nell\'archiviazione locale</string>
+</resources>
