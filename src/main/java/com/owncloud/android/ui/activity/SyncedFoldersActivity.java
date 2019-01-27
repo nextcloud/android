@@ -65,6 +65,7 @@ import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.ui.dialog.PatternBlacklistEditorDialogFragment;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
@@ -87,6 +88,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -581,6 +583,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     false, getAccount().name, FileUploader.LOCAL_BEHAVIOUR_FORGET, false,
                     clock.getCurrentTime(), null, MediaFolderType.CUSTOM, false);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
+            }
+
+            case R.id.action_edit_blacklist_patterns: {
+                Log.d(TAG, "Show edit pattern list");
+                DialogFragment editor = PatternBlacklistEditorDialogFragment.newInstance(
+                    R.string.blacklist_editor_exclude_pattern_title);
+                editor.show(getSupportFragmentManager(), "test");
             }
 
             default:

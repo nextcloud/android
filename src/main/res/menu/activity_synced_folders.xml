@@ -31,5 +31,8 @@
             android:title="@string/autoupload_disable_power_save_check"
             android:visible="false"
             android:checkable="true" />
+        <item
+            android:id="@+id/action_edit_blacklist_patterns"
+            android:title="@string/autoupload_blacklist_pattern"/>
     </group>
 </menu>
