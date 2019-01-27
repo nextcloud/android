@@ -40,7 +40,10 @@
     <string name="prefs_lock">잠금</string>
     <string name="prefs_lock_using_passcode">암호</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
+    <string name="prefs_lock_device_credentials_enabled">기기 인증 활성화됨</string>
+    <string name="prefs_lock_device_credentials_not_setup">기기 인증이 설정되지 않았습니다.</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
+    <string name="prefs_enable_media_scan_notifications_summary">새로 발견된 미디어 폴더 알림</string>
     <string name="prefs_log_delete_history_button">과거 기록 삭제</string>
     <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_summary">현재 계정을 위해 DAVdroid(버전 1.3.0 이상)를 설정하십시오</string>
@@ -106,6 +109,7 @@
     <string name="file_list_empty_text_photos_filter">사진이 없습니다.</string>
     <string name="file_list_empty_text_videos">비디오를 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="file_list_empty_text_videos_filter">동영상이 없습니다.</string>
+    <string name="trashbin_empty_headline">삭제된 파일 없음</string>
     <string name="trashbin_empty_message">여기에서 삭제된 파일을 복구할 수 있습니다.</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
@@ -194,6 +198,9 @@
     <string name="foreign_files_remote_text">원격: %1$s</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
     <string name="pass_code_enter_pass_code">암호를 입력하십시오</string>
+    <string name="default_credentials_wrong">인증 정보 틀림</string>
+    <string name="credentials_disabled">인증 비활성화됨</string>
+
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
     <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
     <string name="pass_code_reenter_your_pass_code">암호를 다시 입력하십시오</string>
@@ -215,6 +222,7 @@
     <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍할 수 없음</string>
     <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
+    <string name="media_err_playing">%1$s을(를) 재생 중 알 수 없는 오류 발생</string>
     <string name="media_rewind_description">되감기 단추</string>
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
     <string name="media_forward_description">빨리감기 단추</string>
@@ -505,6 +513,8 @@
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>
+    <string name="offline_mode">네트워크에 연결할 수 없음</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">충전 대기 중</string>
     <string name="actionbar_search">검색</string>
     <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다. 업데이트하십시오.</string>
@@ -533,6 +543,7 @@
     <string name="move_to">다음으로 이동</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="choose_remote_folder">대상 폴더 선택</string>
+    <string name="choose_local_folder">로컬 폴더 선택</string>
     <string name="synced_folders_loading_folders">폴더 불러오는 중…</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없습니다.</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>
@@ -555,6 +566,8 @@
 
     <string name="storage_description_default">기본값</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">%1$s의 새로운 것</string>
     <string name="whats_new_skip">건너뛰기</string>
 
     <!-- User information -->

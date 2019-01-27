@@ -765,6 +765,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="hint_password">Jelszó</string>
     <string name="add_to_cloud">Hozzáadás ehhez %1$s</string>
     <string name="upload_files">Fájlok feltöltése</string>
+    <string name="upload_direct_camera_upload">Feltöltés kameráról</string>
     <string name="upload_content_from_other_apps">Más alkalmazásból származó tartalom feltöltése</string>
     <string name="create_new_folder">Új mappa létrehozása</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus észlelése. Feltöltés nem fejezhető be.</string>
@@ -773,6 +774,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="unsharing_failed">Megosztás visszavonási hiba</string>
     <string name="updating_share_failed">Megosztás frissítési hiba</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus</string>
+    <string name="prefs_e2e_no_device_credentials">Emlékeztető megmutatásához kérlek engedélyezd az eszköz hitelesítését.</string>
     <string name="whats_new_device_credentials_title">Használja az Android eszköz belső védelmét</string>
     <string name="login">Bejelentkezés</string>
     <string name="signup_with_provider">Feliratkozás szolgáltatóval</string>
@@ -787,6 +789,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
     <string name="notification_channel_general_name">Általános értesítések</string>
+    <string name="new_media_folder_detected">Új%1$s média mappa észlelhető.</string>
+    <string name="configure_new_media_folder_detection_notifications">Beállít</string>
     <string name="disable_new_media_folder_detection_notifications">Letiltás</string>
     <string name="new_media_folder_photos">Fénykép</string>
     <string name="new_media_folder_videos">Videó</string>
@@ -809,6 +813,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="file_rename">Átnevez</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="account_creation_failed">Fiók létrehozás sikertelen</string>
+    <string name="single_sign_on_request_token" formatted="true">Engedélyezed, hogy %1$s hozzáférjen a %2$sNextcloud fiókodhoz?</string>
     <string name="permission_deny">Megtagad</string>
     <string name="permission_allow">Engedélyez</string>
     <string name="share_send_note">Megjegyzés a címzettnek</string>
@@ -816,6 +821,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="send_note">Megjegyzés küldése a címzettnek</string>
     <string name="note_could_not_sent">Nem sikerült elküldeni a jegyzetet</string>
     <string name="hint_note">Megjegyzés</string>
+    <string name="no_browser_available">Nincs elérhető alkalmazás hivatkozások kezeléséhez</string>
+    <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="share_via_link_hide_download">Letöltés elrejtése</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
 
@@ -830,7 +837,19 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="create_file_from_template">Fájl készítése sablonból…</string>
     <string name="error_retrieving_templates">Hiba történt a sablon lékérésekor</string>
     <string name="battery_optimization_title">Akkumlátor optimalizálás</string>
+    <string name="battery_optimization_message">Az eszközön akkumlátor optimalizáló lehet engedélyezve. Az Autofeltöltés csak akkor működik megfelelően, ha ez az alkalmazás nincs köztük.</string>
     <string name="battery_optimization_disable">Letiltás</string>
     <string name="battery_optimization_close">Bezár</string>
+    <string name="battery_optimization_no_setting">Nem lehet az akkumlátor beállításokat közvetlenül elindítani. Kérlek módosítsd manuálisan a beállításokban.</string>
+    <string name="file_details_no_content">Hiba a részletek betöltésekor</string>
+    <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
+    <string name="uploader_upload_files_behaviour_not_writable">a forrás mappa csak olvasható; a fájl csak fel lesz töltve</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
+    <string name="scanQR_description">Belépés QR kóddal</string>
     <string name="upload_unknown_error">Ismeretlen hiba</string>
-    </resources>
+    <string name="upload_lock_failed">A mappa zárolása nem lehetséges</string>
+    <string name="upload_local_storage_full">A helyi tároló megtelt</string>
+    <string name="upload_sync_conflict">Szinkronizációs ütközés, kérlek javítsd manuálisan</string>
+    <string name="upload_cannot_create_file">Nem lehet a helyi fájlt létrehozni</string>
+    <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
+</resources>

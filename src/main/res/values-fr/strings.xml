@@ -831,9 +831,11 @@ Attention la suppression est irréversible.</string>
     <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
+    <string name="uploader_upload_files_behaviour_not_writable">Le dossier source est en lecture seule: le fichier sera uniquement téléversé</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="scanQR_description">Connexion par code QR</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
+    <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_old_android"><![CDATA[Encrypter n\'est possible que pour les versions d\'Android 5.0 et plus]]></string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre par vous-même</string>

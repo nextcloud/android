@@ -274,7 +274,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
     <string name="ssl_validator_reason_hostname_not_verified">- naslov URL ni skladen z imenom gostitelja potrdila</string>
     <string name="ssl_validator_question">Ali vseeno želite zaupati potrdilu?</string>
-    <string name="ssl_validator_not_saved">Ne morem shraniti certifikata</string>
+    <string name="ssl_validator_not_saved">Potrdila ni mogoče shraniti</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_btn_details_hide">Skrij</string>
     <string name="ssl_validator_label_subject">Izdano za:</string>

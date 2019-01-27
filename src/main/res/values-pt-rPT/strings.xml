@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Não foram configuradas credenciais de dispositivo.</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
+    <string name="prefs_enable_media_scan_notifications">Mostrar notificações de análise de multimédia</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre novas pastas multimédia encontradas</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para a conta atual</string>
@@ -224,6 +226,7 @@
     <string name="media_err_malformed">O ficheiro de multimédia tem codificação incorreta</string>
     <string name="media_err_timeout">Tentativa de reproduzir o ficheiro expirou</string>
     <string name="media_err_invalid_progressive_playback">O ficheiro de multimédia não pode ser transmitido</string>
+    <string name="media_err_unknown">O leitor multimédia pré-configurado é incapaz de reproduzir o ficheiro de multimédia</string>
     <string name="media_err_playing">Erro inesperado ao tentar reproduzir %1$s</string>
     <string name="media_rewind_description">Botão de Retroceder</string>
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
@@ -332,6 +335,7 @@
     <string name="instant_upload_path">/Envio Instantâneo </string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">Conflito de ficheiro</string>
+    <string name="conflict_message">Quais os ficheiros que pretende manter? Se seleccionar ambas as versões, o ficheiro local terá um número adicionado ao se nome</string>
     <string name="conflict_keep_both">Manter ambos</string>
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão servidor</string>
@@ -407,8 +411,11 @@
 
     <string name="prefs_add_account">Adicionar conta</string>
     <string name="drawer_manage_accounts">Gerir contas</string>
-    <string name="actionbar_logger">Registos de Alterações</string>
+    <string name="auth_redirect_non_secure_connection_title">Conexão segura redireccionada através de uma rota insegura.</string>
+
+	<string name="actionbar_logger">Registos de Alterações</string>
 	<string name="log_send_history_button">Histórico de envio</string>
+	<string name="log_send_no_mail_app">Nenhuma aplicação de envio de registos encontrada. Por favor, instale um cliente e-mail.</string>
 	<string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
     <string name="log_progress_dialog_text">A carregar dados…</string>
 
@@ -416,19 +423,27 @@
 	<string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
+	<string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta.</string>
 	<string name="folder_picker_choose_button_text">Escolher</string>
 
+    <string name="move_file_not_found">Não é possível mover o ficheiro. Por favor, verifique se este existe</string>
+    <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
+    <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
     <string name="forbidden_permissions_move">para mover este ficheiro</string>
 
 
     <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
+    <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
+    <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
     <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
 
     <string name="prefs_category_details">Detalhes</string>
 
-    <string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
+    <string name="sync_folder_failed_content">Não foi possível concluir a sincronização da pasta %1$s</string>
+
+	<string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
     <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
 
     <string name="auth_refresh_button">Recarregar ligação</string>
@@ -445,6 +460,9 @@
         <item quantity="one">%1$d ficheiro</item>
         <item quantity="other">%1$d ficheiros</item>
     </plurals>
+    <string name="set_picture_as">Usar imagem como</string>
+    <string name="set_as">Definir como</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será…</string>
     <string name="prefs_instant_behaviour_title">O ficheiro original será…</string>
     <string name="select_all">Selecionar tudo</string>
@@ -453,15 +471,19 @@
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
+    <string name="prefs_storage_path">Path de armazenamento</string>
+
     <string name="share_dialog_title">Partilha</string>
     <string name="share_file">Partilhar %1$s</string>
     <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
     <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
     <string name="share_add_user_or_group">Adicionar utilizador ou grupo</string>
     <string name="share_via_link_edit_permission_label">Permitir edição</string>
+    <string name="share_via_link_password_label">Proteger com palavra-passe</string>
     <string name="share_via_link_password_title">Protegido</string>
     <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
     <string name="share_via_link_menu_password_label">Protegido com Senha (%1$s)</string>
+    <string name="share_expiration_date_label">Expira %1$s</string>
     <string name="share_no_expiration_date_label">Definir a data de expiração</string>
     <string name="share_via_link_section_title">Compartilhar hiperligação</string>
     <string name="share_via_link_send_link_label">Enviar hiperligação</string>
@@ -472,12 +494,15 @@
     <string name="share_get_public_link_button">Obter ligação</string>
     <string name="share_with_title">Partilhar com…</string>
     <string name="share_with_edit_title">Partilhar com %1$s</string>
+    <string name="share_via_link_unset_password">Retirar</string>
+
     <string name="share_search">Nome, Id. da nuvem federada ou endereço de e-mail…</string>
 
     <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s (conversação)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_privilege_unshare">Cancelar partilha</string>
@@ -487,27 +512,73 @@
     <string name="share_privilege_can_edit_change">pode alterar</string>
     <string name="share_privilege_can_edit_delete">pode apagar</string>
 
+    <string name="action_retry_uploads">Repetir envios falhados</string>
+    <string name="action_clear_failed_uploads">Limpar envios falhados</string>
+    <string name="action_clear_successful_uploads">Limpar envios bem sucedidos</string>
+    <string name="action_force_rescan">Forçar reanálise</string>
+
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
 
     <string name="manage_space_title">Gerir espaço</string>
+    <string name="manage_space_description">As configurações, base de dados e certificados de servidor referentes aos dados de %1$s serão permanentemente eliminados. \n\nOs ficheiros transferidos serão mantidos.\n\nEste processo pode ser demorado.</string>
     <string name="manage_space_clear_data">Limpar dados</string>
 
+    <string name="permission_storage_access">Permissões adicionais são necessárias para enviar e transferir ficheiros.</string>
+    <string name="local_file_not_found_message">Ficheiros não encontrados no sistema de ficheiros local</string>
+    <string name="confirmation_remove_files_alert">Quer realmente remover os itens seleccionados?</string>
+    <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="maintenance_mode">Servidor em manutenção</string>
+    <string name="offline_mode">Sem conexão à Internet</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">A aguardar carregamento</string>
     <string name="actionbar_search">Procura</string>
+    <string name="files_drop_not_supported">Esta é uma nova funcionalidade do Nextcloud, por favor, atualize.</string>
     <string name="learn_more">Conheça melhor</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
     <string name="drawer_participate">Participe</string>
+    <string name="participate_testing_headline">Ajude-nos testando</string>
+    <string name="participate_testing_bug_text">Encontrou um erro? Ocorrências estranhas?</string>
     <string name="participate_testing_report_text">Reportar um problema no Github</string>
+    <string name="participate_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
+    <string name="participate_beta_headline">Teste a versão de desenvolvimento</string>
+    <string name="participate_beta_text">Inclui todas as futuras e mais recentes funcionalidades. Falhas/erros podem ocorrer, se e quando tal acontecer, por favor, reporte as suas descobertas.</string>
+    <string name="participate_release_candidate_headline">Versão candidata a lançamento</string>
+    <string name="participate_release_candidate_text">A versão candidata a lançamento (RC) é um snapshot da próxima versão e é espectável que seja estável. Através do teste da sua configuração individual pode ajudar-nos a assegurá-lo. Para testar, inscreva-se na loja Play ou verifique a secção \"Version\" do F-Droid.</string>
+    <string name="participate_contribute_headline">Contribua activamente</string>
+    <string name="participate_contribute_irc_text">Junte-se à conversação em IRC:</string>
+    <string name="participate_contribute_forum_text">Ajude outros em</string>
+    <string name="participate_contribute_forum_forum">fórum</string>
     <string name="participate_contribute_translate_translate">Traduzir</string>
+    <string name="participate_contribute_translate_text">a aplicação</string>
+    <string name="participate_contribute_github_text">Reveja, emende e escreva código, veja %1$s para detalhes</string>
+    <string name="participate_rc_play_store">Obter versão candidata a lançamento a partir da loja Google Play</string>
+    <string name="participate_rc_fdroid">Obter versão candidata a lançamento a partir da aplicação F-Droid</string>
+    <string name="participate_dev_fdroid">Obter versão de desenvolvimento a partir da aplicação F-Droid</string>
+    <string name="participate_dev_direct_download">Transfira a versão de desenvolvimento directamente</string>
     <string name="move_to">Movido para…</string>
+    <string name="copy_to">Copiar para…</string>
+    <string name="choose_remote_folder">Escolher pasta remota…</string>
+    <string name="choose_local_folder">Escolher pasta local…</string>
+    <string name="synced_folders_loading_folders">A carregar pastas…</string>
+    <string name="synced_folders_no_results">Não foram encontrados pastas multimédia.</string>
+    <string name="synced_folders_preferences">Preferências de envio automático</string>
+    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
+Aproveite o novo e melhorado envio automático.</string>
+    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
 
+    <string name="notifications_loading_activity">A carregar notificações…</string>
+    <string name="notifications_no_results_headline">Sem notificações</string>
+    <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
+
+    <string name="upload_file_dialog_title">Introduza o nome e tipo de ficheiro a enviar</string>
     <string name="upload_file_dialog_filename">Nome do ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Fragmento de ficheiro de texto(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Atalhos(%s) de Internet</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atalho do Google Maps</string>
 
@@ -524,60 +595,273 @@
     <string name="user_info_website">Site da Internet</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <string name="user_information_retrieval_error">Erro ao obter informação do utilizador</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Ainda sem atividade</string>
+    <string name="activities_no_results_message">Ainda sem eventos como adições, alterações ou partilhas</string>
     <string name="prefs_category_about">Sobre</string>
 
+    <string name="actionbar_contacts">Fazer cópia de segurança dos contactos</string>
+    <string name="actionbar_contacts_restore">Restaurar contactos</string>
+    <string name="contacts_backup_button">Fazer cópia de segurança agora</string>
+    <string name="contacts_automatic_backup">Cópia de segurança automática</string>
+    <string name="contacts_last_backup">Última cópia de segurança</string>
+    <string name="contacts_read_permission">Necessária permissão para ler a lista de contactos</string>
+    <string name="contaclist_restore_selected">Restaurar contactos seleccionados</string>
+    <string name="contactlist_account_chooser_title">Escolher conta a importar</string>
+    <string name="contactlist_no_permission">Sem permissão concedida, nada para importar.</string>
+    <string name="contacts_preference_choose_date">Escolher data</string>
     <string name="contacts_preference_backup_never">nunca</string>
+    <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
+    <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
+    <string name="contacts_preferences_backup_scheduled">Cópia de segurança planeada e irá começar em breve</string>
+    <string name="contacts_preferences_import_scheduled">Importar planeamento e irá começar em breve</string>
+
     <string name="drawer_logout">Terminar sessão</string>
+    <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
     <string name="privacy">Privacidade</string>
     <string name="file_not_found">Ficheiro não encontrado</string>
+    <string name="file_not_synced">O ficheiro não pôde ser sincronizado. Está a ser exibida a última versão disponível.</string>
+
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Definir uma pasta personalizada</string>
+    <string name="autoupload_create_new_custom_folder">Criar nova estrutura de pasta personalizada</string>
+    <string name="synced_folders_configure_folders">Configurar pastas</string>
+
+    <string name="test_server_button">Testar conexão ao servidor</string>
     <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="fallback_weblogin_back">Anterior</string>
+    <string name="fallback_weblogin_text">Reverter para método de início de sessão anterior</string>
+
     <string name="foreground_service_upload">A enviar ficheiros…</string>
     <string name="foreground_service_download">A transferir os ficheiros…</string>
 
+    <string name="prefs_sourcecode">Obter código fonte</string>
     <string name="prefs_license">Licença</string>
     <string name="prefs_gpl_v2">GNU - Licença Pública Geral, Versão 2</string>
+    <string name="push_notifications_not_implemented">Notificações \"push\" desactivadas devido a dependências sobre serviços proprietários Google Play.</string>
+    <string name="push_notifications_old_login">Sem notificações \"push\" devido a sessão de acesso de desatualizada. Por favor, considere readicionar a sua conta.</string>
+    <string name="push_notifications_temp_error">Notificações \"push\" actualmente não disponíveis.</string>
+
+    <string name="sync_in_progress">Obter a versão mais recente do ficheiro.</string>
     <string name="date_unknown">Desconhecido</string>
 
+    <string name="resized_image_not_possible">Nenhuma imagem redimensionada disponível.</string>
+    <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
+
+    <string name="store_short_desc">A aplicação Nextcloud  para Android permite acesso móvel a todos os ficheiros no seu Nextlcloud.</string>
+    <string name="store_full_desc">A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
+
+Funcionalidades:
+* Fácil, interface moderna, adaptado ao tema do seu servidor
+* Envie ficheiros para o seu servidor Nextcloud
+* Partilhe-os com outras pessoas
+* Mantenha os seus ficheiros e pastas favoritos sincronizados
+* Pesquise através de todas as pastas no seu servidor
+* Envio automático de fotos e vídeos capturados pelo seu dispositivo
+* Mantenha-se actualizado com notificações
+* Suporte para várias contas
+* Aceda aos seus dados de forma segura usando a impressão digital ou PIN
+* Integração com DAVdroid para configuração fácil do Calendário &amp; Sincronização de contactos
+
+Por favor, reporte todos os problemas em https://github.com/nextcloud/android/issues e discuta sobre esta aplicação em https://help.nextcloud.com/c/clients/android
+
+É novo na Nextcloud? A Nextcloud é um servidor privado de comunicação, sincronização &amp; partilha de ficheiros.
+É Open Source, e pode ser hospedado por si ou pagar a uma empresa para o fazer.
+Assim, está sob o controlo das suas fotos, calendário e dados de contacto, dos seus documentos e de tudo o resto.
+Dê uma vista de olhos no Nextcloud em: https://nextcloud.com</string>
+
+    <string name="drawer_current_account">Conta actual</string>
+    <string name="drawer_middle_account">Conta intermédia</string>
+    <string name="drawer_end_account">Última conta</string>
+    <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
     <string name="activity_icon">Actividade</string>
     <string name="file_icon">Ficheiro</string>
     <string name="user_icon">Utilizador</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="synced_icon">Sincronizado</string>
+    <string name="checkbox">Caixa de selecção</string>
+    <string name="shared_icon_share">partilhar</string>
     <string name="shared_icon_shared_via_link">Partilhado via hiperligação</string>
     <string name="shared_icon_shared">partilhado</string>
+    <string name="overflow_menu">Menu mais</string>
+    <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_modification_date_ascending">Recentes primeiro</string>
     <string name="sort_by_size_descending">Maiores primeiro</string>
     <string name="sort_by_size_ascending">Mais pequenos primeiro</string>
+    <string name="sort_by_name_descending">Z - A</string>
     <string name="sort_by_modification_date_descending">Antigos primeiro</string>
     <string name="synced_folders_type">Tipo</string>
+    <string name="sync_status_button">Botão de estado de sincronização</string>
     <string name="synced_folder_settings_button">Botão de Configurações</string>
+    <string name="upload_item_action_button">Botão de acção de envio de item</string>
     <string name="forward">Avançar</string>
+    <string name="what_s_new_image">Imagem de novidades</string>
+
+    <string name="store_short_dev_desc">A aplicação Nextcloud Dev é um snapshot de desenvolvimento e pode estar instalado em simultâneo.</string>
+    <string name="store_full_dev_desc">A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
+Esta é a versão de desenvolvimento oficial, e contem uma amostra diária das novas funcionalidades, ainda não testadas, o que pode causar instabilidade e perda de dados. Esta aplicação é destinada a utilizadores dispostos a tester e reportar erros caso estes ocorram. Não utilize esta aplicação em ambiente de produção!
+
+Tanto a versão oficial dev como a versão regular estão disponíveis no F-droid, e podem estar instaladas em simultâneo.</string>
+
+    <string name="prefs_category_dev">Desenvolvimento</string>
+    <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
+    <string name="dev_version_no_new_version_available">Nenhuma nova versão disponível</string>
+    <string name="folder_icon">Ícone de pasta</string>
+    <string name="dev_version_new_version_available">Nova versão disponível</string>
     <string name="version_dev_download">Transferir</string>
 
     <string name="send">Enviar</string>
     <string name="share">Partilhar</string>
     <string name="link">Hiperligação</string>
 
+    <string name="notification_channel_upload_name">Canal de notificação de envio</string>
     <string name="notification_channel_download_name">Canal de notificação de transferências</string>
     <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
+    <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
+    <string name="notification_channel_media_name">Leitor multimédia</string>
+    <string name="notification_channel_media_description">Progresso do leitor de música</string>
+    <string name="notification_channel_file_sync_name">Sincronização de ficheiros</string>
+    <string name="notification_channel_file_sync_description">Mostra o progresso de sincronização de ficheiros e resultados</string>
+    <string name="notification_channel_file_observer_name">Observador de ficheiros</string>
+    <string name="notification_channel_file_observer_description">Monitoriza alterações nos ficheiros</string>
+
+    <string name="account_not_found">Conta não encontrada!</string>
+
+    <string name="screenshot_01_gridView">Um local seguro para todos os seus dados</string>
+    <string name="screenshot_02_listView">Explore e partilhe ficheiros facilmente</string>
+    <string name="screenshot_03_drawer">Aceda a actividade, partilhas, ficheiros offline e mais, rapidamente</string>
+    <string name="screenshot_04_accounts">Ligue-se a contas diferentes</string>
+    <string name="screenshot_05_autoUpload">Envie automaticamente as suas fotos &amp; vídeos</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contactos com DAVdroid</string>
+
+    <string name="userinfo_no_info_headline">Sem informação pessoal definida</string>
+    <string name="userinfo_no_info_text">Adicione nome, imagem e detalhes de contacto à sua página de perfil.</string>
+    <string name="drawer_header_background">Imagem de fundo de drawer header</string>
+    <string name="account_icon">Ícone de conta</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">A pasta não está vazia.</string>
+    <string name="end_to_end_encryption_wrong_password">Erro ao encriptar. Palavra-passe errada?</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
+    <string name="end_to_end_encryption_retrieving_keys">A extrair chaves…</string>
+    <string name="end_to_end_encryption_enter_password">Por favor, introduza a sua palavra-passe para desencriptar a chave privada.</string>
+    <string name="end_to_end_encryption_generating_keys">A gerar novas chaves…</string>
+    <string name="end_to_end_encryption_keywords_description">As 12 palavras juntas formam uma palavra-passe muito forte, permitindo que apenas você veja e utilize os seus ficheiros encriptados. Por favor, aponte-as e mantenha-as num lugar seguro.</string>
+    <string name="end_to_end_encryption_title">Definir encriptação</string>
+    <string name="end_to_end_encryption_passphrase_title">Tome nota da sua palavra-passe de encriptação de 12 palavras</string>
+    <string name="end_to_end_encryption_not_supported">Encriptação apenas funciona em KitKat(4.4) e superior.</string>
     <string name="end_to_end_encryption_not_enabled">Encriptação ponto-a-ponto desativada no servidor.</string>
+    <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_password">Palavra-passe…</string>
+    <string name="end_to_end_encryption_unsuccessful">Não foi possível guardar as chaves, por favor, tente novamente.</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
+    <string name="end_to_end_encryption_storing_keys">A guardar chaves</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
+    <string name="untrusted_domain">Acesso através de domínio não confiável. Por favor, verifique a documentação para mais informações.</string>
+    <string name="notification_channel_push_name">Notificações \"push\"</string>
+    <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções em comentários, recepção de partilhas remotas, anúncios publicados por um administrador etc.</string>
+    <string name="sendbutton_description">Botão de envio</string>
+
+    <string name="oauth_2_0_auth_end_point_address_hint">Endereço end point de autenticação</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Aceder a endereço de end point</string>
     <string name="hint_name">Nome</string>
     <string name="hint_password">Palavra-passe</string>
+    <string name="add_to_cloud">Adicionar a %1$s</string>
     <string name="upload_files">Carregar ficheiros</string>
+    <string name="upload_direct_camera_upload">Enviar pela camâra</string>
+    <string name="upload_content_from_other_apps">Envie conteúdo a partir de outras aplicações</string>
     <string name="create_new_folder">Criar nova pasta</string>
+    <string name="uploads_view_upload_status_virus_detected">Vírus detectado. O envio não pode ser completado!</string>
     <string name="tags">Etiquetas</string>
+    <string name="sharee_add_failed">Adição de destinatário da partilha falhou</string>
+    <string name="unsharing_failed">Cancelamento da partilha falhou</string>
+    <string name="updating_share_failed">Actualização da partilha falhou</string>
+    <string name="prefs_e2e_mnemonic">Mnemónica E2</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar a mnemónica, por favor, ative as credenciais do dispositivo.</string>
+    <string name="whats_new_device_credentials_title">Utilize a protecção de dispositivo interna do Android</string>
     <string name="login">Iniciar Sessão</string>
+    <string name="signup_with_provider">Registar com fornecedor</string>
+    <string name="host_your_own_server">Hospede o seu próprio servidor</string>
+    <string name="first_run_1_text">Mantenha os seus dados seguros e sob o seu controlo</string>
+    <string name="first_run_2_text">Colaboração &amp; partilha de ficheiros segura</string>
+    <string name="first_run_3_text">Email web fácil de utilizar, calendarização &amp; contactos</string>
+    <string name="first_run_4_text">Partilha de ecrã, reuniões online &amp; conferências web</string>
+    <string name="whats_new_device_credentials_content">Use um padrão, palavra-passe, pin ou a sua impressão digital para manter os seus dados seguros.</string>
+    <string name="restore_button_description">Restaurar ficheiro apagado</string>
+	<string name="restore">Restaurar ficheiro</string>
+    <string name="new_version_was_created">Uma nova versão foi criada</string>
     <string name="new_comment">Novo comentário…</string>
+    <string name="error_comment_file">Erro ao comentar ficheiro</string>
+    <string name="file_version_restored_successfully">Sucesso a restaurar a versão do ficheiro.</string>
+    <string name="file_version_restored_error">Erro ao restaurar a versão do ficheiro!</string>
+    <string name="notification_channel_general_name">Notificações gerais</string>
+    <string name="notification_channel_general_description">Mostrar notificações de novas pastas multimédia e similares</string>
+    <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
+    <string name="configure_new_media_folder_detection_notifications">Configure</string>
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="dismiss">Dispensar</string>
+    <string name="feedback_no_mail_app">Nenhuma aplicação disponível para enviar e-mails!</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
+    <string name="action_empty_trashbin">Esvaziar cesto do lixo</string>
+    <string name="trashbin_loading_failed">Carregamento do cesto do lixo falhou!</string>
+    <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>
+    <string name="trashbin_file_not_restored">Ficheiro %1$s não pôde ser restaurado!</string>
+    <string name="trashbin_not_emptied">Os ficheiros não puderam ser permanentemente apagados!</string>
+    <string name="stream">Transmita com…</string>
+    <string name="stream_not_possible_headline">Transmissão interna não é possível</string>
+    <string name="stream_not_possible_message">Por favor, como opção, transfira media ou utilize uma aplicação externa.</string>
+    <string name="folder_already_exists">A pasta já existe</string>
+    <string name="actionbar_open_as_richdocument">Abrir com Collabora</string>
+    <string name="notification_icon">Ícone de notificação</string>
+    <string name="folder_confirm_create">Criar</string>
+    <string name="file_delete">Apagar</string>
+    <string name="file_keep">Manter</string>
+    <string name="file_rename">Renomear</string>
+    <string name="fab_label">Adicionar ou enviar</string>
+    <string name="account_creation_failed">Criação de conta falhou</string>
+    <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
+    <string name="permission_deny">Negar</string>
+    <string name="permission_allow">Permitir</string>
+    <string name="share_send_note">Nota para o destinatário</string>
+    <string name="note_confirm">Enviar</string>
+    <string name="send_note">Enviar nota para o destinatário</string>
+    <string name="note_could_not_sent">Não foi possível enviar a nota</string>
+    <string name="hint_note">Nota</string>
+    <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
+    <string name="no_pdf_app_available">Nenhuma aplicação disponível para lidar com PDF</string>
+    <string name="share_via_link_hide_download">Esconder transferência</string>
+    <string name="unread_comments">Existem comentários não lidos</string>
+
+    <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
+    <string name="create_new_document">Criar novo documento</string>
+    <string name="create_new_spreadsheet">Criar nova folha de cálculo</string>
+    <string name="create_new_presentation">Criar nova apresentação</string>
+    <string name="select_template">Seleccionar modelo</string>
+    <string name="filename_hint">Nome do ficheiro</string>
+    <string name="thumbnail">Miniatura</string>
+    <string name="enter_filename">Por favor, introduza um nome para o ficheiro</string>
+    <string name="create_file_from_template">A criar ficheiro a partir de modelo...</string>
+    <string name="error_retrieving_templates">Erro ao obter modelos</string>
+    <string name="battery_optimization_title">Optimização de bateria</string>
+    <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
     <string name="battery_optimization_disable">Desativar</string>
-    </resources>
+    <string name="battery_optimization_close">Fechar</string>
+    <string name="battery_optimization_no_setting">Impossível aceder às configurações de bateria directamente. Por favor, ajuste manualmente as configurações.</string>
+    <string name="file_details_no_content">Falha ao carregar detalhes</string>
+    <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
+    <string name="uploader_upload_files_behaviour_not_writable">ficheiro fonte é read-only; o ficheiro será apenas enviado</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, dado ser readonly</string>
+    <string name="scanQR_description">acesso através de código QR</string>
+    <string name="upload_unknown_error">Erro desconhecido</string>
+    <string name="upload_lock_failed">Falha ao trancar pasta</string>
+    <string name="upload_local_storage_full">Armazenamento local cheio</string>
+    <string name="upload_old_android"><![CDATA[Encriptação apenas possível com >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Conflito de sincronização, por favor, resolva-o manualmente</string>
+    <string name="upload_cannot_create_file">Não é possível criar ficheiro local</string>
+    <string name="upload_local_storage_not_copied">O ficheiro não pôde ser copiado para o armazenamento local</string>
+</resources>
