@@ -87,7 +87,7 @@
     <string name="file_list_seconds_ago">преди секунди</string>
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="folder_list_empty_headline">Няма папки</string>
-    <string name="file_list_empty">Качете файлове или синхронизирай с устройства.</string>
+    <string name="file_list_empty">Качете файлове или синхронизирайте с устройства.</string>
     <string name="file_list_empty_favorites_filter_list">Файлове и папки които маркирате като любими ще се показват тук</string>
     <string name="file_list_empty_favorites_filter">Търсенето ви не откри любими файлове.</string>
     <string name="file_list_loading">Зареждане…</string>
@@ -106,14 +106,14 @@
     <string name="file_list_empty_recently_modified_filter">Няма модифицирани файлове през последните 7 дни.</string>
     <string name="file_list_empty_recently_added">Няма наскоро добавени файлове</string>
     <string name="file_list_empty_recently_added_filter">Няма наскоро добавени файлове.</string>
-    <string name="file_list_empty_text_photos">Качете снимки или активирайте автоматично качване.</string>
+    <string name="file_list_empty_text_photos">Качете снимки или активирайте автоматичното качване.</string>
     <string name="file_list_empty_text_photos_filter">Няма снимки.</string>
-    <string name="file_list_empty_text_videos">Качете видеоклипове или активирайте автоматично качване.</string>
+    <string name="file_list_empty_text_videos">Качете видеоклипове или активирайте автоматичното качване.</string>
     <string name="file_list_empty_text_videos_filter">Няма видеоклипове.</string>
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>
     <string name="trashbin_empty_message">От тук можете да възстановите изтрити файлове</string>
     <string name="upload_list_empty_headline">Няма файлове</string>
-    <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматично качване.</string>
+    <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматичното качване.</string>
     <string name="file_list_folder">папка</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
@@ -273,7 +273,7 @@
     <string name="common_rename">Преименуване</string>
     <string name="common_remove">Изтриване</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде изтрит?</string>
-    <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието им да бъдат изтрито?</string>
+    <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="remove_success_msg">Изтрито</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
@@ -487,7 +487,7 @@
     <string name="share_via_link_send_link_label">Изпратете връзката</string>
     <string name="share_password_title">Защитена с парола</string>
     <string name="share_no_password_title">Задайте парола</string>
-    <string name="edit_permission_label">редактирай</string>
+    <string name="edit_permission_label">редактиране</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_get_public_link_button">Вземи връзка</string>
     <string name="share_with_title">Споделете чрез ...</string>
@@ -510,7 +510,7 @@
     <string name="share_privilege_can_edit_change">може да променя</string>
     <string name="share_privilege_can_edit_delete">може да изтрива</string>
 
-    <string name="action_retry_uploads">Новият опит се провали</string>
+    <string name="action_retry_uploads">Нов опит за провалените</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
     <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
     <string name="action_force_rescan">Сканирай наново</string>
@@ -604,7 +604,7 @@
     <string name="contacts_backup_button">Създай резервно копие сега</string>
     <string name="contacts_automatic_backup">Автоматично създаване</string>
     <string name="contacts_last_backup">Последно резервно копие</string>
-    <string name="contacts_read_permission">Нужно е разрешение за да прочетете листът с контакти</string>
+    <string name="contacts_read_permission">Нужно е разрешение за четене на контактите</string>
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
     <string name="contactlist_account_chooser_title">Изберете профил за внасяне</string>
     <string name="contactlist_no_permission">Няма предоставен достъп, нищо не е внесено.</string>
@@ -687,6 +687,8 @@
 
     <string name="screenshot_01_gridView">Сигурен дом за всички ваши данни</string>
     <string name="screenshot_04_accounts">Свързване към други профили</string>
+    <string name="screenshot_06_davdroid">Синхронизиране на календар и контакти с DAVdroid</string>
+
     <string name="userinfo_no_info_text">Добавете име, снимка и данни за контакт към профила си.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_password">Парола…</string>
@@ -730,10 +732,20 @@
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="permission_deny">Не</string>
     <string name="permission_allow">Да</string>
+    <string name="share_send_note">Бележка за получателя</string>
+    <string name="note_confirm">Изпрати</string>
+    <string name="send_note">Изпращане на бележка</string>
+    <string name="note_could_not_sent">Бележката не може да бъде изпратена</string>
     <string name="hint_note">Бележка</string>
+    <string name="create_new_document">Нов документ</string>
+    <string name="create_new_spreadsheet">Нова таблица</string>
+    <string name="create_new_presentation">Нова презентация</string>
     <string name="select_template">Изберете шаблон</string>
     <string name="filename_hint">Име на файла</string>
     <string name="thumbnail">Миниатюра</string>
     <string name="enter_filename">Въведете име на файла</string>
     <string name="create_file_from_template">Създаване на файл от шаблон…</string>
+    <string name="battery_optimization_title">Оптимизация на батерията</string>
+    <string name="upload_unknown_error">Неизвестна грешка</string>
+    <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     </resources>

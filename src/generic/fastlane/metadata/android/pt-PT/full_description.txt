@@ -1,0 +1,20 @@
+A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
+
+Funcionalidades:
+* Fácil, interface moderna, adaptado ao tema do seu servidor
+* Envie ficheiros para o seu servidor Nextcloud
+* Partilhe-os com outras pessoas
+* Mantenha os seus ficheiros e pastas favoritos sincronizados
+* Pesquise através de todas as pastas no seu servidor
+* Envio automático de fotos e vídeos capturados pelo seu dispositivo
+* Mantenha-se actualizado com notificações
+* Suporte para várias contas
+* Aceda aos seus dados de forma segura usando a impressão digital ou PIN
+* Integração com DAVdroid para configuração fácil do Calendário & Sincronização de contactos
+
+Por favor, reporte todos os problemas em https://github.com/nextcloud/android/issues e discuta sobre esta aplicação em https://help.nextcloud.com/c/clients/android
+
+É novo na Nextcloud? A Nextcloud é um servidor privado de comunicação, sincronização & partilha de ficheiros.
+É Open Source, e pode ser hospedado por si ou pagar a uma empresa para o fazer.
+Assim, está sob o controlo das suas fotos, calendário e dados de contacto, dos seus documentos e de tudo o resto.
+Dê uma vista de olhos no Nextcloud em: https://nextcloud.com
