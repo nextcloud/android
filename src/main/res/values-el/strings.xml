@@ -211,6 +211,7 @@
     <string name="media_notif_ticker">%1$sαναπαραγωγή μουσικής</string>
     <string name="media_state_playing">%1$s(αναπαραγωγή)</string>
     <string name="media_state_loading">%1$s(φόρτωση)</string>
+    <string name="media_event_done">%1$s αναπαραγωγή τελείωσε</string>
     <string name="media_err_nothing_to_play">Δεν βρέθηκαν αρχεία πολυμέσων</string>
     <string name="media_err_not_in_owncloud">Το αρχείο δεν είναι έγκυρος λογαριασμός</string>
     <string name="media_err_unsupported">Δεν υποστηρίζεται η μορφή κωδικοποιήσης πολυμέσων</string>
@@ -219,6 +220,7 @@
     <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
     <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
     <string name="media_err_unknown">Η ενσωματωμένη εφαρμογή αναπαραγωγής πολυμέσων δεν μπορεί να αναπαράγει το αρχείο πολυμέσων</string>
+    <string name="media_err_playing">Απροσδόκητο σφάλμα κατά την προσπάθεια αναπαραγωγής του %1$s</string>
     <string name="media_rewind_description">Κουμπί ταχείας κίνησης πίσω</string>
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
@@ -253,7 +255,9 @@
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
     <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
+	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
+    <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει ακόμα στη συσκευή</string>
     <string name="auth_access_failed">Αποτυχία πρόσβασης: %1$s</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="unset_favorite">Αφαίρεση από τα αγαπημένα</string>
@@ -261,6 +265,8 @@
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Διαγραφή</string>
+    <string name="confirmation_remove_file_alert">Θέλετε σίγουρα να διαγράψετε το %1$s;</string>
+    <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="remove_success_msg">Διαγράφηκε</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
@@ -315,6 +321,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
@@ -354,6 +361,9 @@
 
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
 
+    <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
+    <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή για τον διακομιστή. Η λειτουργία δεν μπορεί να ολοκληρωθεί</string>
+    <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή για τον διακομιστή. Η λειτουργία δεν μπορεί να ολοκληρωθεί</string>
     <string name="network_host_not_available">Η λειτουργία δεν μπορεί να ολοκληρωθεί. Ο διακομιστής δεν είναι διαθέσιμος</string>
 
     <string name="forbidden_permissions">Δεν έχετε δικαιώματα %s</string>
@@ -422,7 +432,9 @@
 
     <string name="prefs_category_details">Λεπτομέρειες</string>
 
-    <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+    <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
+
+	<string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
 
     <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
@@ -473,12 +485,15 @@
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
     <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
+    <string name="share_via_link_unset_password">Απενεργοποίηση</string>
+
     <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου...</string>
 
     <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
     <string name="share_group_clarification">%1$s (ομάδα)</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
+    <string name="share_room_clarification">%1$s (συνομιλιία)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
     <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
@@ -516,6 +531,7 @@
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="participate_testing_report_text">Αναφορά προβλήματος στο GitHub</string>
+    <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -607,6 +623,7 @@
 
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_license">Άδεια χρήσης</string>
+    <string name="prefs_gpl_v2">Γενική Άδεια Δημόσιας Χρήσης GNU, έκδοση 2</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
     <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
     <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>
