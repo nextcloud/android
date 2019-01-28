@@ -39,6 +39,7 @@ import android.view.View;
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -153,7 +154,8 @@ public abstract class FileActivity extends DrawerActivity
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this);
         Account account = null;
-        if(savedInstanceState != null) {
+
+        if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
             mFileOperationsHelper.setOpIdWaitingFor(
@@ -166,6 +168,12 @@ public abstract class FileActivity extends DrawerActivity
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
                     false);
         }
+
+        Thread t = new Thread(() -> {
+            // best place, before any access to AccountManager or database
+            AccountUtils.updateAccountVersion(this);
+        });
+        t.start();
 
         setAccount(account, savedInstanceState != null);
 
