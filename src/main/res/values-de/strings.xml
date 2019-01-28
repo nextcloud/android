@@ -93,7 +93,7 @@
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
     <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in Ihrem Verlauf gefunden.</string>
     <string name="file_list_loading">Lade…</string>
-    <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
+    <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
@@ -108,14 +108,14 @@
     <string name="file_list_empty_recently_modified_filter">Keine Dateien in den letzten 7 Tagen geändert.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
     <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien.</string>
-    <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload!</string>
+    <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload.</string>
     <string name="file_list_empty_text_photos_filter">Keine Fotos.</string>
-    <string name="file_list_empty_text_videos">Laden Sie Videos hoch oder aktivieren Sie den Sofortupload!</string>
+    <string name="file_list_empty_text_videos">Laden Sie Videos hoch oder aktivieren Sie den Sofortupload.</string>
     <string name="file_list_empty_text_videos_filter">Keine Videos.</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
     <string name="trashbin_empty_message">Hier können gelöschte Dateien wiederhergestellt werden</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
-    <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload!</string>
+    <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
@@ -609,7 +609,7 @@
     <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
-    <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert!</string>
+    <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
     <string name="contacts_preference_choose_date">Datum auswählen</string>
     <string name="contacts_preference_backup_never">nie</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>

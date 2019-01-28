@@ -38,10 +38,16 @@
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_lock">Lås</string>
+    <string name="prefs_lock_title">Lås med</string>
     <string name="prefs_lock_none">Ingen
 </string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
+    <string name="prefs_lock_using_device_credentials">Enhetens inloggningsuppgifter</string>
+    <string name="prefs_lock_device_credentials_enabled">Enhetens inloggningsuppgifter aktiverade</string>
+    <string name="prefs_lock_device_credentials_not_setup">Inga inloggningsuppgifter aktiverade för enheten.</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
+    <string name="prefs_enable_media_scan_notifications">Visa meddelanden om mediescanning</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Meddela om nya media-mappar</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>
@@ -198,6 +204,9 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
+    <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
+    <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
+
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
@@ -219,6 +228,7 @@
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_unknown">Den inbyggda mediaspelaren kan inte spela upp mediefilen</string>
+    <string name="media_err_playing">Oväntat fel uppstod vid uppspelning av %1$s</string>
     <string name="media_rewind_description">Bakåtspolningsknapp</string>
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_forward_description">Snappspolningsknapp</string>
@@ -260,6 +270,7 @@
     <string name="auth_illegal_login_used">Illegal URL för inloggningsdata användes</string>
 
     <string name="favorite">Lägg till favoriter</string>
+    <string name="unset_favorite">Ta bort från favoriter</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="common_rename">Byt namn</string>
@@ -489,6 +500,7 @@
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
+    <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
 
     <string name="share_privilege_unshare">Sluta dela</string>
@@ -515,6 +527,8 @@
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
+    <string name="offline_mode">Ingen internetanslutning</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
     <string name="actionbar_search">Sök</string>
     <string name="files_drop_not_supported">Detta är en Nextcloud-funktion, vänligen uppgradera.</string>
@@ -644,6 +658,7 @@
     <string name="favorite_icon">Favoritisera</string>
     <string name="synced_icon">Synkroniserad</string>
     <string name="checkbox">Kryssruta</string>
+    <string name="shared_icon_share">dela</string>
     <string name="shared_icon_shared_via_link">delad via länk</string>
     <string name="shared_icon_shared">delad</string>
     <string name="overflow_menu">Mer Meny</string>
@@ -724,10 +739,12 @@
     <string name="hint_password">Lösenord</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="upload_files">Ladda upp filer</string>
+    <string name="upload_direct_camera_upload">Ladda upp från kamera</string>
     <string name="upload_content_from_other_apps">Ladda upp innehåll från andra appar</string>
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="tags">Taggar</string>
+    <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="login">Logga in</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="host_your_own_server">Använd egen server</string>
@@ -741,6 +758,8 @@
     <string name="new_comment">Ny kommentar…</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
+    <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
@@ -754,9 +773,35 @@
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="actionbar_open_as_richdocument">Öppna med Collabora</string>
+    <string name="notification_icon">Meddelandeikon</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="file_delete">Radera</string>
     <string name="file_keep">Behåll</string>
     <string name="file_rename">Byt namn</string>
+    <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
+    <string name="permission_deny">Neka</string>
+    <string name="permission_allow">Tillåt</string>
+    <string name="share_send_note">Notering till mottagare</string>
+    <string name="note_confirm">Skicka</string>
+    <string name="send_note">Skicka notering till mottagare</string>
+    <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
+    <string name="share_via_link_hide_download">Dölj nedladdning</string>
+    <string name="unread_comments">Olästa kommentarer finns</string>
+
+    <string name="richdocuments_failed_to_load_document">Kunde inte ladda dokument!</string>
+    <string name="create_new_document">Skapa nytt dokument</string>
+    <string name="create_new_spreadsheet">Skapa nytt kalkylblad</string>
+    <string name="create_new_presentation">Skapa ny presentation</string>
+    <string name="select_template">Välj mall</string>
+    <string name="filename_hint">Filnamn</string>
+    <string name="enter_filename">Ange ett filnamn</string>
+    <string name="create_file_from_template">Skapar fil från mall...</string>
+    <string name="battery_optimization_title">Batterioptimering</string>
+    <string name="battery_optimization_disable">Inaktivera</string>
+    <string name="battery_optimization_close">Stäng</string>
+    <string name="file_details_no_content">Kunde inte ladda detaljer</string>
+    <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
+    <string name="scanQR_description">Logga in via QR-kod</string>
+    <string name="upload_unknown_error">Okänt fel</string>
     </resources>

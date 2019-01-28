@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Credencials del dispositiu activades</string>
     <string name="prefs_lock_device_credentials_not_setup">No s\'han configurat les credencials del dispositiu.</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
+    <string name="prefs_enable_media_scan_notifications">Mostra notificacions de cerca de mitjans</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre noves carpetes amb multimedia</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) al compte actual</string>
@@ -188,6 +190,10 @@
         <item quantity="other">No s\'han pogut sincronitzar els fitxers %1$d (hi ha conflictes amb %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">No s\'han pogut copiar %1$d fitxer des de la carpeta %2$s a dins</item>
+        <item quantity="other">No s\'han pogut copiar %1$d fitxers des de la carpeta %2$s a dins</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versió 1.3.16, els fitxers pujats des d\'un dispositiu es copien a la carpeta local %1$s per evitar la pèrdua de dades quan un sol fitxer es sincronitza entre múltiples comptes.\n\nA causa d\'aquest canvi, tots els fitxers pujats amb versions anteriors d\'aquesta app s\'han copiat a la carpeta %2$s. No obstant, s\'ha evitat un error en completar aquesta operació durant la sincronització de comptes. Podríeu deixar el fitxer tal com està i eliminar l\'enllaç a %3$s, o moure el fitxer/s a la carpeta %1$s i conservar l\'enllaç cap a %4$s.\n\nA continuació es mostren el(s) fitxer(s) local(s) i els remots a %5$s, on hi estaven enllaçats.</string>
     <string name="sync_current_folder_was_removed">La carpeta%1$s ja no existeix</string>
     <string name="foreign_files_move">Mou tots</string>
@@ -645,6 +651,7 @@
     <string name="store_full_desc">La versió lliure i llicenciada com a \"copyleft\" de l\'app de Nextcloud per a Android us dona llibertat de moviment.\n\nCaracterístiques:\* Fàcil, interfície moderna, associada a l\'aspecte del vostre servidor\n* Pugeu fitxers al vostre servidor Nextcloud\n* Compartiu-los amb d\'altres\n* Mantingueu els vostres fitxers i carpetes preferits sincronitzats\n* Cerqueu a través de totes les carpetes del vostre servidor\n* Pujada automàtica de les fotos i vídeos fets des del vostre dispositiu\n* Mantingueu les notificacions actualitzades\n* Suport per a multi-usuari\n* Accés segur a les vostres dades a través d\'empremta digital o PIN\n* Integració amb DAVdroid per una configuració senzilla del calendari &amp; i sincronització de contactes\n\nSi us plau informeu de totes les incidències a https://github.com/nextcloud/android/issues i debateu sobre aquesta app a https://help.nextcloud.com/c/clients/android\n\nNou a Nextcloud? Nextcloud és un servidor de comunicacions per a mantenir fitxers privats sincronitzats i compartir &amp;. És programari lliure i podeu allotjar-los vos mateix o pagar a una empresa perquè ho faci per a vos. D\'aquesta manera, teniu el control de les vostres fotos, calendaris i dades dels contactes, els vostres documents i tota la resta.\n\nProveu Nextcloud a https://nextcloud.com</string>
 
     <string name="drawer_current_account">Compte actual</string>
+    <string name="drawer_middle_account">Compte mitjà</string>
     <string name="drawer_end_account">Últim compte</string>
     <string name="contactlist_item_icon">Icona d\'usuari per a la llista de contactes</string>
     <string name="activity_icon">Activitat</string>
@@ -667,7 +674,11 @@
     <string name="sync_status_button">Botó de l\'estat de la sincronització</string>
     <string name="synced_folder_settings_button">Botó de paràmetres</string>
     <string name="forward">Endavant</string>
+    <string name="what_s_new_image">Imatge de novetats</string>
+
     <string name="store_short_dev_desc">L\'app Nextcloud Dev és una instantània de desenvolupament que es pot instal·lar en paral·lel.</string>
+    <string name="dev_version_no_information_available">Sense info disponible</string>
+    <string name="dev_version_no_new_version_available">Cap versió nova disponible.</string>
     <string name="screenshot_01_gridView">Un lloc segur per totes les vostres dades</string>
     <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i guardeu-la en un lloc segur.</string>
     <string name="end_to_end_encryption_not_supported">L\'encriptació només funciona en KitKat(4.4) o més noves.</string>
