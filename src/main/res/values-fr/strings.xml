@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
     <string name="prefs_lock_device_credentials_not_setup">Aucune information d\'identification du terminal n\'a été configurée</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
+    <string name="prefs_enable_media_scan_notifications">Afficher les notifications d\'analyse multimédia</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Notifier les nouveaux dossiers multimédias trouvés</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
@@ -837,8 +839,8 @@ Attention la suppression est irréversible.</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_local_storage_full">Stockage local plein</string>
-    <string name="upload_old_android"><![CDATA[Encrypter n\'est possible que pour les versions d\'Android 5.0 et plus]]></string>
-    <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre par vous-même</string>
+    <string name="upload_old_android"><![CDATA[L\'encryptage n\'est possible que pour les versions d\'Android 5.0 et plus]]></string>
+    <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
 </resources>

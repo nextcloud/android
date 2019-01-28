@@ -45,6 +45,8 @@
     <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
     <string name="prefs_lock_device_credentials_not_setup">Ingen legitimasjon for enhet er satt opp.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
+    <string name="prefs_enable_media_scan_notifications">Vis mediaskannvarsler</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Varsle om nye mediamapper</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
@@ -761,6 +763,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="hint_password">Passord</string>
     <string name="add_to_cloud">Legg til %1$s</string>
     <string name="upload_files">Last opp filer</string>
+    <string name="upload_direct_camera_upload">Last opp fra kamera</string>
     <string name="upload_content_from_other_apps">Last opp innhold fra andre programmer</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
@@ -789,6 +792,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_general_name">Generelle varsel</string>
     <string name="notification_channel_general_description">Vis varsel for nye media mapper og lignende</string>
     <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
@@ -842,4 +846,16 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
-    </resources>
+    <string name="file_details_no_content">Klarte ikke å laste inn detaljer</string>
+    <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="uploader_upload_files_behaviour_not_writable">kildemappen har kun leserettigheter; filen vil kun bli lastet opp</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
+    <string name="scanQR_description">Legg inn med QR-kode</string>
+    <string name="upload_unknown_error">Ukjent feil</string>
+    <string name="upload_lock_failed">Låsing av mappe feilet</string>
+    <string name="upload_local_storage_full">Lokal lagring full</string>
+    <string name="upload_old_android"><![CDATA[Kryptering er kun mulig med >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
+    <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>
+    <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokal lagring</string>
+</resources>
