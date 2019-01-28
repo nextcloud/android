@@ -75,7 +75,7 @@ public final class ConnectivityUtils {
 
                     if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
                         return !(status == HttpStatus.SC_NO_CONTENT &&
-                                (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
+                            (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
                     } else {
                         if (status == HttpStatus.SC_OK) {
                             try {
@@ -99,14 +99,14 @@ public final class ConnectivityUtils {
             } catch (OperationCanceledException | AuthenticatorException e) {
                 Log_OC.e(TAG, e.getMessage());
             }
-        } else if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-            return false;
+        } else {
+            return Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY);
         }
 
         return true;
     }
 
-    private static boolean isOnlineWithWifi(Context context) {
+    public static boolean isOnlineWithWifi(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
