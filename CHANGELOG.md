@@ -1,3 +1,13 @@
+## 3.4.2 (January, 21, 2019)
+- fix sharing to group
+- show correct share error messages
+- fix bug when searching for user/group if Talk is disabled
+
+For full list please see https://github.com/nextcloud/android/milestone/29
+
+## 3.4.1 (December, 23, 2018)
+- fix wrong detection of direct editing capability for RichDocuments
+
 ## 3.4.0 (December, 17, 2018)
 - hide download when creating share links
 - direct editing files with Collabora (Collabora Server >=4.0)
