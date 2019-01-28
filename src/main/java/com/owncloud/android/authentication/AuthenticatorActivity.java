@@ -1963,10 +1963,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
-            // include account version with the new account
-            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                    Integer.toString(AccountUtils.ACCOUNT_VERSION));
-
             /// add the new account as default in preferences, if there is none already
             Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
             if (defaultAccount == null) {
@@ -1995,11 +1991,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     UserInfo userInfo = (UserInfo) authResult.getData().get(0);
                     mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
                     mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
+                    mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
+                                            Integer.toString(AccountUtils.ACCOUNT_VERSION_WITH_PROPER_ID));
+
                 } catch (ClassCastException c) {
-                    Log_OC.w(TAG, "Couldn't get display name for " + username);
+                    mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
+                                            Integer.toString(AccountUtils.ACCOUNT_VERSION));
+                    Log_OC.w(TAG, "Couldn't get display name and user id for " + username);
                 }
             } else {
-                Log_OC.w(TAG, "Couldn't get display name for " + username);
+                mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
+                                        Integer.toString(AccountUtils.ACCOUNT_VERSION));
+                Log_OC.w(TAG, "Couldn't get display name and user id for " + username);
             }
 
             if (isSaml) {
