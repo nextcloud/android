@@ -234,6 +234,7 @@ public final class AccountUtils {
                 String displayName;
                 String newAccountName;
                 Account newAccount;
+                GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
 
                 for (Account account : ocAccounts) {
                     // build new account name
@@ -245,7 +246,6 @@ public final class AccountUtils {
                         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getClientFor(ocAccount, context);
 
-                        GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
                         RemoteOperationResult result = remoteUserNameOperation.execute(client);
 
                         if (result.isSuccess()) {
