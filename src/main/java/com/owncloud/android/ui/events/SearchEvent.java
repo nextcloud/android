@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -23,44 +23,27 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 
 import org.parceler.Parcel;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Search event
  */
 @Parcel
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SearchEvent {
-    private String searchQuery;
-
-    private SearchRemoteOperation.SearchType searchType;
-
-    private UnsetType unsetType;
+    public String searchQuery;
+    public SearchRemoteOperation.SearchType searchType;
+    public UnsetType unsetType;
 
     public enum UnsetType {
         NO_UNSET,
         UNSET_DRAWER,
         UNSET_BOTTOM_NAV_BAR
-    }
-
-    public SearchEvent() {
-
-    }
-
-    public SearchEvent(String searchQuery, SearchRemoteOperation.SearchType searchType, UnsetType unsetType) {
-
-        this.searchQuery = searchQuery;
-        this.searchType = searchType;
-        this.unsetType = unsetType;
-
-    }
-
-    public UnsetType getUnsetType() {
-        return unsetType;
-    }
-
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
-    public SearchRemoteOperation.SearchType getSearchType() {
-        return searchType;
     }
 }

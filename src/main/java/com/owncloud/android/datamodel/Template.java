@@ -38,9 +38,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Template {
 
-    private int id;
-    private String name;
-    private String thumbnailLink;
-    private String type;
-    private String extension;
+    public int id;
+    public String name;
+    public String thumbnailLink;
+    public String type;
+    public String extension;
 }
