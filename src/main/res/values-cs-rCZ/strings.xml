@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Oznamovat nalezení nových složek s médii</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
-    <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresa serveru pro účet pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
     <string name="prefs_daily_contacts_sync_summary">Každodenní záloha vašich kontaktů</string>
@@ -660,8 +658,6 @@
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
 
     <string name="store_short_desc">Aplikace Nextcloud pro Android poskytuje přístup ke všem souborům na vašem Nextcloud.</string>
-    <string name="store_full_desc">Svobodná (copyleft) aplikace Nextcloud pro Android, poskytující mobilní svobodu.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, hodící se k vzhledu vašeho serveru\n* Nahrávání souborů na Nextcloud server\n* Jejich sdílení s ostatními\n* Synchronizace vašich oblíbených souborů a složek\n* Hledání napříč všemi složkami na serveru\n* Automatické nahrávání fotek a videí pořízených vaším zařízením\n* Doručování oznámení\n* Podpora vícero účtů\n* Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu\n* Začlenění DAVdroid pro snadný přístup ke kalendáři &amp; synchronizaci kontaktů\n\nJakékoli problémy prosím hlaste na https://github.com/nextcloud/android/issues a o aplikaci diskutujte na https://help.nextcloud.com/c/clients/android\n\nJeště Nextcloud neznáte? Nextcloud je server pro soukromou synchronizaci souborů &amp;, sdílení a komunikaci. Je to svobodný software a můžete ho buď provozovat sami nebo si pronajímat od nějaké společnosti. Tím vy vládnete svým fotkám, údajům v kalendáři a kontaktech, dokumentům a všemu ostatnímu.\n\nPodívejte se na Nextcloud na https://nextcloud.com</string>
-
     <string name="drawer_current_account">Stávající účet</string>
     <string name="drawer_middle_account">Prostřední účet</string>
     <string name="drawer_end_account">Poslední účet</string>
@@ -721,8 +717,6 @@
     <string name="screenshot_03_drawer">Rychlý přístup k aktivitě, sdílením, souborům offline a dalšímu</string>
     <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
     <string name="screenshot_05_autoUpload">Automaticky nahrávat své fotky &amp; videa</string>
-    <string name="screenshot_06_davdroid">Synchronizujte kalendář &amp; kontakty s DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Osobní údaje nejsou nastaveny</string>
     <string name="userinfo_no_info_text">Na své profilové stránce přidejte jméno, obrázek a kontaktní údaje.</string>
     <string name="drawer_header_background">Obrázek na pozadí hlavičky panelu</string>

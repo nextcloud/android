@@ -48,8 +48,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">新たに見つかったメディアフォルダを通知する</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
-    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">アカウントのサーバーアドレスをDAVdroidで解決できませんでした</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_daily_contacts_sync_summary">連絡先のデイリーバックアップ</string>
@@ -644,8 +642,6 @@
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
 
     <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
-    <string name="store_full_desc">いつでもどこでも使えるコピーレフトで自由な Nextcloud Androidアプリ。\n特徴：\n*サーバーのテーマにぴったりの簡単で現代的なインターフェース\n*Nextcloudサーバーへのファイルアップロード\n*他のユーザーとの共有\n*お気に入りのファイルとフォルダを同期\n*サーバー上のすべてのフォルダを検索\n*デバイスで撮影した写真やビデオの自動アップロード\n*通知機能で最新情報を\n*マルチアカウントのサポート\n *指紋やPINによるデータへの安全なアクセス\n* DAVdroidとの統合でカレンダー＆連絡先の同期\n\nhttps://github.com/nextcloud/android/issuesですべての問題を報告し、https://help.nextcloud.com/c/clients/androidでこのアプリについてディスカッションしよう。\n\nNextcloudは初めてですか？\nNextcloudはプライベートファイルの同期＆共有およびコミュニケーションサーバーです。自由なソフトウェアで、自分でホストすることも、企業から購入することもできます。そうすれば、写真、カレンダー、連絡先のデータ、あなたの書類などすべてを管理できます。\n\nhttps://nextcloud.comでNextCloudをチェックしてください</string>
-
     <string name="drawer_current_account">現在のアカウント</string>
     <string name="drawer_middle_account">ミドルアカウント</string>
     <string name="drawer_end_account">最後のアカウント</string>
@@ -708,8 +704,6 @@
     <string name="screenshot_03_drawer">アクティビティ、共有、オフラインファイルなどに素早くアクセス</string>
     <string name="screenshot_04_accounts">別のアカウントに接続する</string>
     <string name="screenshot_05_autoUpload">写真を自動的にアップロード &amp; ビデオ</string>
-    <string name="screenshot_06_davdroid">同期カレンダー &amp; DAVdroidとのコンタクト</string>
-
     <string name="userinfo_no_info_headline">個人情報が設定されていない</string>
     <string name="userinfo_no_info_text">プロフィールページに名前、写真、連絡先の詳細を追加します。</string>
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>

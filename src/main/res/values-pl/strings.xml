@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Powiadamiaj o nowo znalezionych folderach multimedialnych</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
-    <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera przypisany do tego konta nie został rozpoznany dla DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_daily_contacts_sync_summary">Codzienna kopia zapasowa Twoich kontaktów</string>
@@ -660,8 +658,6 @@
     <string name="resized_image_not_possible_download">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
 
     <string name="store_short_desc">Przy użyciu aplikacji mobilnej Nextcloud na Android\'a uzyskasz dostęp do wszystkich plików z twojego Nextcloud\'a.</string>
-    <string name="store_full_desc">Oparta na Open Source aplikacja Nexcloud Android umożliwia dostęp do wszystkich twoich plików w Nextcloud.\n\nFunkcje:\n* Prosty i nowoczesny wygląd\n* Wysyłaj swoje pliki na swój serwer Nextcloud* Dawaj innym dostęp do twoich plików\n* Synchronizuj wybrane pliki i katalogi z serwerem\n* Automatycznie wysyłaj zdjęcia i filmy robione urządzeniem\n* Wsparcie dla wielu kont\n\nZgłaszaj błędy na https://github.com/nextcloud/android/issues i dyskutuj na temat tej aplikacji na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud jest prywatnym serwerem synchronizacji współdzielenia plików oraz komunikacji. Jego źródła są całkowicie otwarte, więc możesz korzystać z niego na własnym serwerze albo możesz zapłacić za to firmie trzeciej. W ten sposób kontrolujesz swoje zdjęcia, kalendarz, dane kontaktowe, twoje dokumenty i inne dane.\n\nZobacz Nextcloud na https://nextcloud.com</string>
-
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
@@ -723,8 +719,6 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="screenshot_03_drawer">Uzyskaj szybki dostęp do aktywności, udostępnień, plików offline i innych</string>
     <string name="screenshot_04_accounts">Podłącz się do innego konta</string>
     <string name="screenshot_05_autoUpload">Automatycznie wysyłaj zdjęcia i obrazy.</string>
-    <string name="screenshot_06_davdroid">Synchronizuj kalnedarz i kontakty z DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="drawer_header_background">Tło nagłówka menu rozwijanego</string>

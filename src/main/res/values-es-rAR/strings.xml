@@ -46,8 +46,6 @@
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
-    <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">La dirección del servidor para la cuenta no se pudo resolver para DAVdroid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronizacion del calendario &amp; contactos </string>
     <string name="prefs_daily_contacts_sync_summary">Backup diario de tus contactos</string>
     <string name="prefs_help">Ayuda</string>

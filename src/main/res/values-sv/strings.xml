@@ -50,8 +50,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Meddela om nya media-mappar</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
-    <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen för kontot kunde inte hittas för DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup av dina kontakter</string>
@@ -331,6 +329,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -494,6 +493,8 @@
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_with_title">Delad med…</string>
     <string name="share_with_edit_title">Dela med %1$s</string>
+    <string name="share_via_link_unset_password">Inaktivera</string>
+
     <string name="share_search">Namn, federerat moln-ID eller e-postadress…</string>
 
     <string name="search_users_and_groups_hint">Sök användare och grupper</string>
@@ -707,8 +708,6 @@
     <string name="screenshot_03_drawer">Snabbt komma åt aktivitet, delningar, offline-filer och mer</string>
     <string name="screenshot_04_accounts">Anslut till olika konton</string>
     <string name="screenshot_05_autoUpload">Ladda automatiskt upp dina foton &amp; videor</string>
-    <string name="screenshot_06_davdroid">Synkronisera kalender &amp; kontakter med DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Ingen personlig info inställd</string>
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="account_icon">Kontoikon</string>
@@ -744,7 +743,11 @@
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="tags">Taggar</string>
+    <string name="sharee_add_failed">Misslyckades lägga till delning</string>
+    <string name="unsharing_failed">Sluta dela misslyckades</string>
+    <string name="updating_share_failed">Uppdatera delning misslyckades</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
+    <string name="whats_new_device_credentials_title">Använd Android-enhetens interna skydd</string>
     <string name="login">Logga in</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="host_your_own_server">Använd egen server</string>
@@ -752,12 +755,17 @@
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
+    <string name="whats_new_device_credentials_content">Använd något som ett mönster, lösenord, pin-kod eller fingeravtryck för att hålla din data säker.</string>
     <string name="restore_button_description">Återställ raderad fil</string>
 	<string name="restore">Återställ fil</string>
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="new_comment">Ny kommentar…</string>
+    <string name="error_comment_file">Fel vid kommentering av fil</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
+    <string name="notification_channel_general_name">Allmänna notifieringar</string>
+    <string name="notification_channel_general_description">Visa notifieringar för nya media-mappar och liknande</string>
+    <string name="new_media_folder_detected">Ny %1$s media-mapp upptäckt.</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
     <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="new_media_folder_photos">bild</string>
@@ -768,9 +776,13 @@
     <string name="drawer_item_trashbin">Raderade filer</string>
     <string name="trashbin_activity_title">Raderade filer</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
+    <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="stream">Streama med…</string>
+    <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
+    <string name="stream_not_possible_message">Var god ladda ner media istället eller använd en extern app.</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="actionbar_open_as_richdocument">Öppna med Collabora</string>
     <string name="notification_icon">Meddelandeikon</string>
@@ -779,6 +791,7 @@
     <string name="file_keep">Behåll</string>
     <string name="file_rename">Byt namn</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
+    <string name="account_creation_failed">Skapa konto misslyckades</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     <string name="permission_deny">Neka</string>
     <string name="permission_allow">Tillåt</string>
@@ -786,6 +799,9 @@
     <string name="note_confirm">Skicka</string>
     <string name="send_note">Skicka notering till mottagare</string>
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
+    <string name="hint_note">Anteckning</string>
+    <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
+    <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="share_via_link_hide_download">Dölj nedladdning</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
 
@@ -795,13 +811,25 @@
     <string name="create_new_presentation">Skapa ny presentation</string>
     <string name="select_template">Välj mall</string>
     <string name="filename_hint">Filnamn</string>
+    <string name="thumbnail">Ikon</string>
     <string name="enter_filename">Ange ett filnamn</string>
     <string name="create_file_from_template">Skapar fil från mall...</string>
+    <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
     <string name="battery_optimization_title">Batterioptimering</string>
+    <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_close">Stäng</string>
+    <string name="battery_optimization_no_setting">Kan inte starta batterinställningarna direkt. Justera manuellt i inställningarna.</string>
     <string name="file_details_no_content">Kunde inte ladda detaljer</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
+    <string name="uploader_upload_files_behaviour_not_writable">källmappen är skrivskyddad; filen kommer bara att laddas upp</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
     <string name="upload_unknown_error">Okänt fel</string>
-    </resources>
+    <string name="upload_lock_failed">Misslyckades låsa mappen</string>
+    <string name="upload_local_storage_full">Lokal lagring full</string>
+    <string name="upload_old_android"><![CDATA[Kryptering är bara möjligt med >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
+    <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
+    <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
+</resources>

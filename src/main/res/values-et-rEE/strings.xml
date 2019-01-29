@@ -42,8 +42,6 @@
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>
     <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
     <string name="prefs_calendar_contacts">Sünkroniseeri kalender &amp; kontaktid</string>
-    <string name="prefs_calendar_contacts_summary">Seadista käesoleva konto jaoks DAVdroid (v1.3.0+)</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Kasutaja jaoks seadistatud serveri aadressi ei õnnestunud DAVdroidi jaoks lahendada</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole installeeritud</string>
     <string name="prefs_daily_contacts_sync_summary">Igapäevane varundus sinu kontaktidest</string>
     <string name="prefs_help">Abiinfo</string>

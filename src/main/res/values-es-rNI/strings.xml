@@ -37,7 +37,6 @@
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
-    <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_no_store_error">No ha sido instalado ni F-Droid o Google Play </string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronizacion del calendario &amp; contactos </string>
     <string name="prefs_daily_contacts_sync_summary">Respaldo diario de tus contactos</string>

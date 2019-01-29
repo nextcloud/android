@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre noves carpetes amb multimedia</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
-    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) al compte actual</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid no ha pogut resoldre l\'adreça del servidor pel compte</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play estan instal·lats</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de contactes de calendari&amp;</string>
     <string name="prefs_daily_contacts_sync_summary">Còpia de seguretat diària dels teus contactes</string>
@@ -648,8 +646,6 @@
     <string name="resized_image_not_possible_download">No hi ha cap imatge redimensionada. Voleu descarregar la imatge a la resolució original?</string>
 
     <string name="store_short_desc">L\'app de Nextcloud per a Android demana dona accés mòbil per a tots els fitxers del vostre Nextcloud.</string>
-    <string name="store_full_desc">La versió lliure i llicenciada com a \"copyleft\" de l\'app de Nextcloud per a Android us dona llibertat de moviment.\n\nCaracterístiques:\* Fàcil, interfície moderna, associada a l\'aspecte del vostre servidor\n* Pugeu fitxers al vostre servidor Nextcloud\n* Compartiu-los amb d\'altres\n* Mantingueu els vostres fitxers i carpetes preferits sincronitzats\n* Cerqueu a través de totes les carpetes del vostre servidor\n* Pujada automàtica de les fotos i vídeos fets des del vostre dispositiu\n* Mantingueu les notificacions actualitzades\n* Suport per a multi-usuari\n* Accés segur a les vostres dades a través d\'empremta digital o PIN\n* Integració amb DAVdroid per una configuració senzilla del calendari &amp; i sincronització de contactes\n\nSi us plau informeu de totes les incidències a https://github.com/nextcloud/android/issues i debateu sobre aquesta app a https://help.nextcloud.com/c/clients/android\n\nNou a Nextcloud? Nextcloud és un servidor de comunicacions per a mantenir fitxers privats sincronitzats i compartir &amp;. És programari lliure i podeu allotjar-los vos mateix o pagar a una empresa perquè ho faci per a vos. D\'aquesta manera, teniu el control de les vostres fotos, calendaris i dades dels contactes, els vostres documents i tota la resta.\n\nProveu Nextcloud a https://nextcloud.com</string>
-
     <string name="drawer_current_account">Compte actual</string>
     <string name="drawer_middle_account">Compte mitjà</string>
     <string name="drawer_end_account">Últim compte</string>
