@@ -40,7 +40,6 @@
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>
     <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir kontaktus</string>
-    <string name="prefs_calendar_contacts_summary">Nustatykite \"DAVdroid\" versiją (v1.3.0 +) esamame profilyje</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus &amp; kontaktų sinchronizavimas nustatytas</string>
     <string name="prefs_help">Pagalba</string>

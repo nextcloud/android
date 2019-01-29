@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Melden van nieuw gevonden mediamappen</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
-    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor deze account kon niet worden gevonden voor DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Noch F-Droid, noch Google Play is geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync instellingen</string>
     <string name="prefs_daily_contacts_sync_summary">Dagelijkse back-up van je contactpersonen</string>
@@ -650,8 +648,6 @@
     <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
 
     <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
-    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is je persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
-
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
@@ -711,8 +707,6 @@
     <string name="screenshot_03_drawer">Benader snel je activiteiten, gedeelde bestanden, off-line bestanden en meer</string>
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp; video\'s uploaden</string>
-    <string name="screenshot_06_davdroid">Synchroniseer agenda &amp; contactpersonen met DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>

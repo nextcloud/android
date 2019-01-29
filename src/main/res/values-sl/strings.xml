@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
-    <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutni račun</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Naslova strežnika za račun ni mogoče razrešiti za DAVDroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>

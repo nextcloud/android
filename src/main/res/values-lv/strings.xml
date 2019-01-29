@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
-    <string name="prefs_calendar_contacts_summary">Kontam iestatīt DAVdroid (v1.3.0+)</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Servera adresi šim kontam nevar sasniegt priekš DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktu sinhronizācija ir izveidota</string>
     <string name="prefs_daily_contacts_sync_summary">Ikdieniška kontaktu dublēšana</string>

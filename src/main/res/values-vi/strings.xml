@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_log_delete_history_button">Xóa lịch sử</string>
     <string name="prefs_calendar_contacts">Đồng bộ lịch &amp; danh bạ</string>
-    <string name="prefs_calendar_contacts_summary">Thiết lập DAVdroid (v1.3.0+) cho tài khoản hiện tại</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Địa chỉ máy chủ cho tài khoản không sử dụng được cho DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Không có F-Droid hoặc Google Play nào được cài đặt</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Thiết lập đồng bộ lịch &amp; danh bạ</string>
     <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>

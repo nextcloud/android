@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Varsle om nye mediamapper</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
-    <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for konto ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av kontakter</string>
@@ -650,25 +648,6 @@
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
 
     <string name="store_short_desc">Nextcloud på Android gir tilgang til alle Nextcloud-filer via mobilen.</string>
-    <string name="store_full_desc">Den copyleft-lisensierte, frie programvaren Nextcloud for Android gir deg tilgang til alle dine filene i din Nextcloud.
-
-Egenskaper:
-* Enkelt, moderne brukergrensesnitt, i samsvar med din tjeners draktvalg.
-* Last opp filer til din Nextcloud-tjener
-* Del filer med andre
-* Hold dine favorittfiler og mapper synkroniserte
-* Søk i alle mappene på tjeneren din
-* Direkteopplasting av bilder og filmer fra din mobile enhet
-* Hold deg oppdatert med varsler
-* Støtte for flere brukerkonti
-* Sikker tilgang til din data med fingeravtrykk eller PIN
-* Integrasjon med DAVdroid for enkelt oppsett av kalender og kontakt -synkronisering.
-Meld inn alle problemer til https://github.com/nextcloud/android/issues og diskuter programmet på https://help.nextcloud.com/c/clients/android
-
-Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling. Den er helt fri kildekode og du kan drifte den selv, eller betale noen for å gjøre det for deg. På denne måten har du kontroll på dine bilder, kalender, kontakter, dokumenter og alt annet.
-
-Sjekk ut Nextcloud på https://nextcloud.com</string>
-
     <string name="drawer_current_account">Nåværende konto</string>
     <string name="drawer_middle_account">Mellomkonto</string>
     <string name="drawer_end_account">Siste konto</string>
@@ -728,8 +707,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="screenshot_03_drawer">Rask tilgang til aktivitet, delinger, frakoblede filer og mer</string>
     <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
     <string name="screenshot_05_autoUpload">Last opp bilder og videoer automatisk</string>
-    <string name="screenshot_06_davdroid">Synkroniser kalender og kontakter med DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på profilsiden.</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>

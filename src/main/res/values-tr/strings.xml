@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Yeni bulunan ortam klasörleri bildirilsin</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
-    <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid sunucu adı ya da adresi çözümlenemedi.</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
     <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
@@ -650,8 +648,6 @@
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
 
     <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
-    <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza yükleme\n* Dosyalarınızı başkalarıyla paylaşma\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama yapma\n* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme\n* Bildirimler ile güncel kalma\n* Birden çok hesap desteği\n*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme\n* Davdroid bütünleştirmesi ile takvim ve kişileri eşitleme\n\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için https://nextcloud.com adresinden web sitemize bakabilirsiniz.</string>
-
     <string name="drawer_current_account">Geçerli hesap</string>
     <string name="drawer_middle_account">Orta hesap</string>
     <string name="drawer_end_account">Son hesap</string>
@@ -711,8 +707,6 @@
     <string name="screenshot_03_drawer">İşlem, paylaşım, çevrimdışı dosyalar ve diğer özelliklere kolayca erişin</string>
     <string name="screenshot_04_accounts">Farklı hesaplara bağlanın</string>
     <string name="screenshot_05_autoUpload">Fotoğraf ve görüntülerinizi otomatik olarak yükleyin</string>
-    <string name="screenshot_06_davdroid">DAVdroid ile Takvim ve Kişileri eşitleme</string>
-
     <string name="userinfo_no_info_headline">Herhangi bir kişisel bilgi ayarlanmamış</string>
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>

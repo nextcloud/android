@@ -45,10 +45,10 @@
     <string name="prefs_lock_device_credentials_enabled">Auðkenni tækis virkjuð</string>
     <string name="prefs_lock_device_credentials_not_setup">Engin auðkenni tækis hafa verið sett inn.</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
+    <string name="prefs_enable_media_scan_notifications">Birta tilkynningar vegna skönnunar eftir margmiðlunarefni</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Láta vita um nýfundnar möppur með margmiðlunarefni</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
-    <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þennan aðgang</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang aðgangsins fyrir DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
     <string name="prefs_daily_contacts_sync_summary">Daglegt öryggisafrit af tengiliðum</string>
@@ -648,8 +648,6 @@
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
 
     <string name="store_short_desc">Nextcloud Android forritið gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu þínu.</string>
-    <string name="store_full_desc">Nextcloud-forritið fyrir Android er opið og frjálst, og gefur þér frelsi á ferðinni.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóninn þinn\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>
-
     <string name="drawer_current_account">Núverandi notandaaðgangur</string>
     <string name="drawer_middle_account">Mið-notandaaðgangur</string>
     <string name="drawer_end_account">Síðasti notandaaðgangur</string>
@@ -709,8 +707,6 @@
     <string name="screenshot_03_drawer">Vertu snögg(ur) að skoða sameignir, virkni, skrár án netaðgangs og fleira</string>
     <string name="screenshot_04_accounts">Tengstu mismunandi notandaaðgöngum</string>
     <string name="screenshot_05_autoUpload">Sjálfvirk innsending mynda &amp; myndskeiða</string>
-    <string name="screenshot_06_davdroid">Samstilltu dagatal &amp; tengiliði með DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Engar persónulegar upplýsingar stilltar</string>
     <string name="userinfo_no_info_text">Bættu nafni, mynd og tengiliðaupplýsingum á forsíðuna þína.</string>
     <string name="drawer_header_background">Bakgrunnsmynd á haus hliðarspjalds</string>
@@ -744,6 +740,7 @@
     <string name="hint_password">Lykilorð</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
     <string name="upload_files">Senda inn skrár</string>
+    <string name="upload_direct_camera_upload">Senda inn úr myndavél</string>
     <string name="upload_content_from_other_apps">Senda inn efni frá öðrum forritum</string>
     <string name="create_new_folder">Búa til nýja möppu</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
@@ -772,6 +769,8 @@
     <string name="notification_channel_general_name">Almennar tilkynningar</string>
     <string name="notification_channel_general_description">Birta tilkynningar fyrir nýjar gagnamöppur og þvíumlíkt</string>
     <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
+    <string name="configure_new_media_folder_detection_notifications">Uppsetning</string>
+    <string name="disable_new_media_folder_detection_notifications">Gera óvirkt</string>
     <string name="new_media_folder_photos">ljósmyndum</string>
     <string name="new_media_folder_videos">myndskeiðum</string>
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
@@ -821,7 +820,19 @@
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
+    <string name="battery_optimization_disable">Gera óvirkt</string>
     <string name="battery_optimization_close">Loka</string>
     <string name="battery_optimization_no_setting">Tekst ekki að ræsa rafhlöðustillingar beint. Lagaðu þetta handvirkt í stillingunum.</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
-    </resources>
+    <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
+    <string name="uploader_upload_files_behaviour_not_writable">upprunamappan er skrifvarin; skráin verður aðeins send inn</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
+    <string name="scanQR_description">Skrá inn með QR-kóða</string>
+    <string name="upload_unknown_error">Óþekkt villa</string>
+    <string name="upload_lock_failed">Læsing möppu mistókst</string>
+    <string name="upload_local_storage_full">Staðvær gagnageymsla er full</string>
+    <string name="upload_old_android"><![CDATA[Dulritun er aðeins möguleg með >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">Árekstur í samstillingu, leystu þetta handvirkt</string>
+    <string name="upload_cannot_create_file">Get ekki búið til skrá á tölvu</string>
+    <string name="upload_local_storage_not_copied">Skrá var ekki hægt að afrita í staðværa gagnageymslu</string>
+</resources>

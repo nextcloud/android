@@ -49,8 +49,6 @@
     <string name="prefs_enable_media_scan_notifications_summary">Sciigi pri novaj aŭdvidaj dosierujoj trovitaj</string>
     <string name="prefs_log_delete_history_button">Forviŝi historion</string>
     <string name="prefs_calendar_contacts">Sinkronigi kalendaron kaj kontaktaron</string>
-    <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVdroid (versio 1.3.0 kaj posta) por la nuna konto</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">La adreson de la servilo el la nuna konto ne trovis la aplikaĵo DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nek „F-Droid“ nek „Google Play“ estas instalita</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendara kaj kontaktara sinkronigo agordita</string>
     <string name="prefs_daily_contacts_sync_summary">Ĉiutaga savkopio de via kontaktaro</string>
@@ -650,8 +648,6 @@
     <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti originan bildon?</string>
 
     <string name="store_short_desc">La aplikaĵo Nextcloud por Android ebligas aliri al ĉiuj viaj dosieroj en via Nextcloud.</string>
-    <string name="store_full_desc">La aplikaĵo Nextcloud por Android estas rajtoceda 🄯 kaj donas al vi movan liberecon.\n\nFunkcioj:\n* Facila kaj moderna fasado, taŭga por la etoso de via servilo\n* Alŝutu dosierojn al via Nextcloud-servilo\n* Kunhavigu ilin kun aliuloj\n* Sinkronigu viajn pli ŝatatajn dosierojn kaj dosierujojn\n* Serĉu tra ĉiuj dosierujoj el via servilo\n* Aŭtomata alŝuto de fotoj kaj videaĵoj faritaj pere de via aparato\n* Sciigoj por resti informita\n* Plurkonta subteno\n* Sekurigu aliron al viaj datumoj per fingropremaĵo aŭ persona identiga numero (PIN)\n* Kunlaboro kun aplikaĵo DAVdroid por facile agordi sinkronigon de kalendaroj kaj kontaktaro\n\nBonvolu sciigi al ni ĉiujn problemojn aŭ erarojn al https://github.com/nextcloud/android/issues kaj priparoli tiun aplikaĵon ĉi tie: https://help.nextcloud.com/c/clients/android\n\nĈu Nextcloud estas nova por vi? Nextcloud estas servilo por sinkronigo kaj kunhavigo de dosieroj. Ĝi estas libera programo, kaj vi mem povas gastigi ĝin aŭ vi povas pagi firmaon. Tial, vi kontrolas viajn fotojn, kalendarojn kaj kontaktojn, dokumentojn, k.c.\n\nVidu Nextcloud ĉe https://nextcloud.com</string>
-
     <string name="drawer_current_account">Nuna konto</string>
     <string name="drawer_middle_account">Meza konto</string>
     <string name="drawer_end_account">Lasta konto</string>
@@ -711,8 +707,6 @@
     <string name="screenshot_03_drawer">Rapide aliru al aktivaĵoj, kunhavoj, senkonekte haveblaj dosieroj kaj pli</string>
     <string name="screenshot_04_accounts">Konektu al pluraj kontoj</string>
     <string name="screenshot_05_autoUpload">Aŭtomate alŝutu viajn fotojn kaj videaĵojn</string>
-    <string name="screenshot_06_davdroid">Sinkronigu kalendarojn kaj kontaktaron per DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Neniu persona informo entajpita</string>
     <string name="userinfo_no_info_text">Aldonu nomon, bildon kaj kontaktodetalojn al via profilo.</string>
     <string name="drawer_header_background">Fona bildo de flankmenuo</string>
