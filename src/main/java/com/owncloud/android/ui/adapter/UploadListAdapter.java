@@ -501,7 +501,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 status = parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
                 break;
             case LOCK_FAILED:
-                status = mParentActivity.getString(R.string.upload_lock_failed);
+                status = parentActivity.getString(R.string.upload_lock_failed);
                 break;
             case DELAYED_IN_POWER_SAVE_MODE:
                 status = parentActivity.getString(
@@ -511,22 +511,22 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 status = parentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
                 break;
             case LOCAL_STORAGE_FULL:
-                status = mParentActivity.getString(R.string.upload_local_storage_full);
+                status = parentActivity.getString(R.string.upload_local_storage_full);
                 break;
             case OLD_ANDROID_API:
-                status = mParentActivity.getString(R.string.upload_old_android);
+                status = parentActivity.getString(R.string.upload_old_android);
                 break;
             case SYNC_CONFLICT:
-                status = mParentActivity.getString(R.string.upload_sync_conflict);
+                status = parentActivity.getString(R.string.upload_sync_conflict);
                 break;
             case CANNOT_CREATE_FILE:
-                status = mParentActivity.getString(R.string.upload_cannot_create_file);
+                status = parentActivity.getString(R.string.upload_cannot_create_file);
                 break;
             case LOCAL_STORAGE_NOT_COPIED:
-                status = mParentActivity.getString(R.string.upload_local_storage_not_copied);
+                status = parentActivity.getString(R.string.upload_local_storage_not_copied);
                 break;
             default:
-                status = mParentActivity.getString(R.string.upload_unknown_error);
+                status = parentActivity.getString(R.string.upload_unknown_error);
                 break;
         }
 
