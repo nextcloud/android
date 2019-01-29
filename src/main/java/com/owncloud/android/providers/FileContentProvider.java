@@ -1757,9 +1757,11 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #34 add redirect to external links");
                 db.beginTransaction();
                 try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER "); // boolean
-
+                    if (!checkIfColumnExists(db, ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME,
+                                             ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME +
+                                       ADD_COLUMN + ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER "); // boolean
+                    }
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
