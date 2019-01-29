@@ -74,7 +74,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                    getWhatsNew(this));
+                                                                              getWhatsNew());
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
@@ -150,7 +150,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private static boolean shouldShow(Context context) {
-        return !(context instanceof PassCodeActivity) && getWhatsNew(context).length > 0;
+        return !(context instanceof PassCodeActivity) && getWhatsNew().length > 0;
     }
 
     @Override
@@ -173,16 +173,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         return AccountUtils.getCurrentOwnCloudAccount(context) == null;
     }
 
-    static private FeatureItem[] getWhatsNew(Context context) {
-        int itemVersionCode = 30030099;
-
-        if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
-                && PreferenceManager.getLastSeenVersionCode(context) < itemVersionCode) {
-            return new FeatureItem[]{new FeatureItem(R.drawable.whats_new_device_credentials,
-                    R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
-                    false, false)};
-        } else {
-            return new FeatureItem[0];
-        }
+    static private FeatureItem[] getWhatsNew() {
+        return new FeatureItem[0];
     }
 }
