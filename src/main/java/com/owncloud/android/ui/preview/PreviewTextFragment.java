@@ -477,6 +477,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         final List<String> unsupportedTypes = new LinkedList<>();
         unsupportedTypes.add("text/richtext");
         unsupportedTypes.add("text/rtf");
+        unsupportedTypes.add("text/calendar");
         unsupportedTypes.add("text/vnd.abc");
         unsupportedTypes.add("text/vnd.fmi.flexstor");
         unsupportedTypes.add("text/vnd.rn-realtext");
