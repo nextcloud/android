@@ -1,0 +1,15 @@
+3.5.0 RC1 (January, 29, 2019)
+
+- Chunked upload: 1mb on wifi, 10mb on wlan
+- switch to Material design
+- Option to not show notifications for new media folders
+- Add support for QR codes & deep links
+- Direct camera upload
+- Fully working Document provider
+- Detail view: show complete date on click
+- Show correct share error message
+- Use default/device font
+- Sync all downloaded
+- Add battery optimization warning
+
+For full list please see https://github.com/nextcloud/android/milestone/28
