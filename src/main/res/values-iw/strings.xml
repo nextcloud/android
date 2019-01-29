@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
-    <string name="prefs_calendar_contacts_summary">הגדרת DAVdroid (v1.3.0+)‎ עבור החשבון הנוכחי</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפענח את כתובת השרת של החשבון עבור DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">לא מותקנים F-Droid או Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">הגדרת סנכרון לוח שנה ואנשי קשר</string>
     <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
@@ -708,8 +706,6 @@
     <string name="screenshot_03_drawer">גישה מהירה לפעילות, שיתופים, קבצים בלתי מקוונים ועוד</string>
     <string name="screenshot_04_accounts">התחברות לחשבונות אחרים</string>
     <string name="screenshot_05_autoUpload">העלאת התמונות והסרטונים שלך אוטומטית</string>
-    <string name="screenshot_06_davdroid">סנכרון לוח שנה ואנשי קשר עם DAVdroid</string>
-
     <string name="userinfo_no_info_headline">לא הוגדרו פרטים אישיים</string>
     <string name="userinfo_no_info_text">הוספת שם, תמונה ופרטי קשר לעמוד הפרופיל שלך.</string>
     <string name="drawer_header_background">תמונת רקע של כותרת מגירה</string>

@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
-    <string name="prefs_calendar_contacts_summary">Aseta DAVdroid (v1.3.0+) nykyiselle käyttäjälle</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Käyttäjän palvelin osoitetta ei voitu selvittää DAVdroidille</string>
     <string name="prefs_calendar_contacts_no_store_error">Sekä F-Droid että Google Play asentamatta</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
     <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
@@ -694,8 +692,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_03_drawer">Pääsy nopeasti toimiin, jakoihin, yhteydettömän tilan tiedostoihin ja paljon muuhun</string>
     <string name="screenshot_04_accounts">Yhdistä eri tileihin</string>
     <string name="screenshot_05_autoUpload">Lähetä kuvat &amp; videot automaattisesti</string>
-    <string name="screenshot_06_davdroid">Synkronoi kalenteri &amp; yhteystiedot DAVdroidilla</string>
-
     <string name="userinfo_no_info_headline">Henkilökohtaisia tietoja ei ole asetettu</string>
     <string name="userinfo_no_info_text">Lisää nimi, kuva ja yhteystiedot profiilisivullasi.</string>
     <string name="account_icon">Tilikuvake</string>

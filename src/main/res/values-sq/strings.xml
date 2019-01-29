@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
-    <string name="prefs_calendar_contacts_summary">Vendos DAVdroid (v1.3.0+)  për llogarinë aktuale</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për këtë llogari nuk mund të zgjidhet për DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_daily_contacts_sync_summary">Backup i përditshëm i kontakteve</string>
@@ -647,8 +645,6 @@
     <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
 
     <string name="store_short_desc">Aplikacioni Android i Nextcloud jep akses te të gjithë skedarët në Nextcloud-in tuaj.</string>
-    <string name="store_full_desc">Aplikacioni copyleft për Android Nextcloud, që ju ofron liri në celularin tuaj.\n\nKarakteristika:\n* Ndërfaqe e thjeshtë, moderne, e përshtatshme për strukturën e serverit tuaj\n* Ngarko skedarët në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Mbani skedarët dhe dosjet e tua të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkoni automatikisht fotot dhe videot e marra nga pajisja juaj\n* Qëndroni të përditësuar me njoftimet\n* Mbështetje me shumë llogari\n* Qasje e sigurt në të dhënat tuaja me gjurmët e gishtave ose PIN-in\n* Integrimi me DAVdroid për konfigurim të lehtë të kalendarit &amp; \nSinkronizimi i kontakteve\nJu lutem raportoni problematikat në https://github.com/nextcloud/android/issues dhe bisedoni rreth aplikacionit në https://help.nextcloud.com/c/clients/android\n\nI ri në Nextcloud? Nextcloud është sinkronizim privat &amp; shpërndarje dhe komunikim në server. Është software pa pagesë, dhe mund ta strehosh vetë ose të paguash një kompani për ta bërë atë për ju. Në këtë mënyrë, ju jeni në kontroll të fotove tuaja, kalendarin tuaj dhe të dhënat e kontaktit, dokumentet tuaja dhe gjithçka tjetër.\n\nVizito https://nextcloud.com</string>
-
     <string name="drawer_current_account">Llogaria e tanishme</string>
     <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
@@ -708,8 +704,6 @@
     <string name="screenshot_03_drawer">Akseso shpejtë aktivitetin, ndarjet, skedarët offlie dhe shumë të tjera</string>
     <string name="screenshot_04_accounts">Lidhuni me llogari të ndryshme</string>
     <string name="screenshot_05_autoUpload">Ngarko automatikisht fotot &amp;videot</string>
-    <string name="screenshot_06_davdroid">Sinkronizo kalendarin &amp;kontaktet me DAVdroid</string>
-
     <string name="userinfo_no_info_headline">Nuk është vendosur asnjë info personale</string>
     <string name="userinfo_no_info_text">Shto emër, foto dhe detajet e kontaktit në faqen tuaj të profilit.</string>
     <string name="drawer_header_background">Imazhi në background i drawer header</string>

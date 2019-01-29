@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
-    <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адресът на сървъра за акаунта не може да бъде намерен от DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календар &amp; синхронизацията на контакти е настроена</string>
     <string name="prefs_daily_contacts_sync_summary">Дневно копие на вашите контакти</string>
@@ -687,8 +685,6 @@
 
     <string name="screenshot_01_gridView">Сигурен дом за всички ваши данни</string>
     <string name="screenshot_04_accounts">Свързване към други профили</string>
-    <string name="screenshot_06_davdroid">Синхронизиране на календар и контакти с DAVdroid</string>
-
     <string name="userinfo_no_info_text">Добавете име, снимка и данни за контакт към профила си.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_password">Парола…</string>

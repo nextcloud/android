@@ -47,8 +47,6 @@
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_log_delete_history_button">Ezabatu historiala</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
-    <string name="prefs_calendar_contacts_summary">Konfiguratu DAVdroid (v1.3.0+) kontu honetarako</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroidek ezin izan du zerbitzariaren helbidea ebatzi zure kontuarentzat</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
     <string name="prefs_daily_contacts_sync_summary">Zure kontaktuen eguneroko babeskopia</string>

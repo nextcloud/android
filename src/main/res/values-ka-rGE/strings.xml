@@ -37,8 +37,6 @@
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>
     <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია</string>
-    <string name="prefs_calendar_contacts_summary">მიმდნარე ანგარიშზე DAVdroid (v1.3.0+)-ის დაყენება</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">ანგარიშის სერვერის მისამართი DAVdroid-ისთვის ვერ დგინდება</string>
     <string name="prefs_calendar_contacts_no_store_error">არც Google Play-ა დაყენებული, არც F-Droid-ი</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">კალენდრისა და კონტაქტების სინქრონიზაცია დაყენებულია</string>
     <string name="prefs_daily_contacts_sync_summary">კონტაქტების ყოველდღიური ბექაფი</string>
@@ -561,8 +559,6 @@
     <string name="resized_image_not_possible_download">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი. გადმოვწეროთ მთლიანი სურათი?</string>
 
     <string name="store_short_desc">Nextcloud Android აპლიკაცია, იძლევა თქვენს Nextcloud-ზე ყველა არსებულ ფაილთან მობილური წვდომის საშუალებას.</string>
-    <string name="store_full_desc">ღია Nextcloud Android აპლიკაცია, გაწვდით მობილურ თავისუფლებას.\n\nფუნქციები:\n* თქვენს სერვერის თემაზე მორგებული, მარტივი, თანამედროვე ინტერფეისი\n* ატვირთეთ თქვენი ფაილები თქვენს Nexcloud სერვერზე\n* გააზიარეთ ისინი სხვებთან\n* სინქრონიზირებულად იქონიეთ რჩეული ფაილები და დირექტორიები\n* მოიძიეთ არსებულ დირექორიებში\n* ავტომატურად ატვირთეთ თქვენი მოწყობილობით გადაღებული ფოტოები და ვიდეოები\n* არ ჩამოუვარდეთ შეტყობინებებს\n* მულტი-ანგარიშების მხარდაჭერა\n* დაცული წვდომა თქვენს მონაცემებზე PIN-ით ან თითის ანაბეჭდებით\n* ინტეგრაცია DAVdroid-თან კალენდარისა და კონტაქტების სინქრონიზაციის მარტივი მოწყობითვის\n\nგთხოვთ გვამცნობოთ ნებისმიერი პრობლემის შესახებ https://github.com/nextcloud/android/issues მისამართზე და განვიხილოთ ეს აპლიკაცია https://help.nextcloud.com/c/clients/android ბმულზე.\n\nახალია თქვენთვის Nextcloud-ი? Nextcloud-ი პირადი ფილების სინქრონიზაციის, გაზიარებისა და კომუნიკაციის სერვერია. ის სრულად ღიაა, შეგიძლიათ თავად დააყენოთ ან სერვერზე გასამართად გადაუხადოთ კომპანიას. ამ გზით თქვენი ფოტოები, კალენდარი, საკონტაქტო ინფორმაცია, დოკუმენტები და ყველაფერი სხვა თქვენს კონტროლს ქვეშაა.\n\nიხილეთ Nextcloud https://nextcloud.com მისამართზე.</string>
-
     <string name="drawer_current_account">მიმდინარე ანგარიში</string>
     <string name="drawer_middle_account">შუა ანგარიში</string>
     <string name="drawer_end_account">ბოლო ანგარიში</string>
@@ -612,8 +608,6 @@
     <string name="screenshot_03_drawer">იქონიეთ სწრაფი წვდომა აქტივობებზე, გაზიარებებზე, ოფლაინ ფაილებზე და ა.შ.</string>
     <string name="screenshot_04_accounts">დაუკავშირდით სხვა ანგარიშებს</string>
     <string name="screenshot_05_autoUpload">ავტომატურად ატვირთეთ თქვენი ფოტოები და ვიდეოები</string>
-    <string name="screenshot_06_davdroid">კალენდრისა და კონტაქტების სინქ DAVdroid-თან</string>
-
     <string name="userinfo_no_info_headline">პირადი ინფორმაციის კომპლექტი არაა</string>
     <string name="userinfo_no_info_text">დაამატეთ სახელი, ფოტო და საკონტაქტო დეტალები თქვენს პროფილის გვერდზე.</string>
     <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
