@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DecryptedPushMessage;
 import com.owncloud.android.datamodel.SignatureVerification;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -88,7 +89,7 @@ public class NotificationJob extends Job {
                                 DecryptedPushMessage.class);
 
                         // We ignore Spreed messages for now
-                        if (!decryptedPushMessage.getApp().equals("spreed")) {
+                        if (!"spreed".equals(decryptedPushMessage.getApp())) {
                             sendNotification(decryptedPushMessage.getSubject(), signatureVerification.getAccount());
                         }
                     }
@@ -112,23 +113,27 @@ public class NotificationJob extends Job {
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(context))
-                .setShowWhen(true)
-                .setSubText(account.name)
-                .setContentTitle(contentTitle)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
+            .setColor(ThemeUtils.primaryColor(account, false, context))
+            .setShowWhen(true)
+            .setSubText(account.name)
+            .setContentTitle(contentTitle)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_PUSH);
         }
 
         NotificationManager notificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+            context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, notificationBuilder.build());
+        if (notificationManager != null) {
+            notificationManager.notify(0, notificationBuilder.build());
+        } else {
+            Log_OC.e(this, "Cannot notify about received push notification: NotificationManager is null");
+        }
     }
 }
