@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre pastas de mídia recém-encontradas</string>
     <string name="prefs_log_delete_history_button">Excluir histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor para a conta não pôde ser encontrado para DAVx5 (conhecido como  DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuração da sincronização de calendário &amp; contatos</string>
     <string name="prefs_daily_contacts_sync_summary">Backup diário de seus contatos</string>
@@ -648,6 +650,8 @@
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
 
     <string name="store_short_desc">O aplicativo Android Nextcloud oferece acesso móvel a todos os arquivos do servidor Nextcloud.</string>
+    <string name="store_full_desc">O aplicativo de código aberto Nextcloud para Android oferece liberdade móvel.\n\nCaracterísticas:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Envia arquivos para o servidor Nextcloud\n* Compartilha com outras pessoas\n* Mantém seus arquivos e pastas favoritas sincronizados\n* Pesquisa em todas as pastas do servidor\n* Envio automático de fotos e vídeos feitos pelo seu dispositivo\n* Atualiza-se com as notificações\n* Suporte a várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx5 (conhecido como DAVdroid) para facilitar a sincronização do calendário &amp; contatos\n\nReporte qualquer problema em https://github.com/nextcloud/android/issues e fale sobre este aplicativo em https://help.nextcloud.com/c/clients/android\n\nÉ novo para o Nextcloud? Nextcloud é um servidor privado de comunicação &amp; compartilhamento. É software livre e você pode auto-hospedá-lo ou pagar uma empresa para fazer isso. Dessa forma, você está no controle de suas fotos, calendário, dados de contato, documentos e tudo mais.\n\nSaiba mais em https://nextcloud.com</string>
+
     <string name="drawer_current_account">Conta atual</string>
     <string name="drawer_middle_account">Conta média</string>
     <string name="drawer_end_account">Última conta</string>
@@ -707,6 +711,8 @@
     <string name="screenshot_03_drawer">Acesse as atividades, compartilhamentos, arquivos offline e muito mais</string>
     <string name="screenshot_04_accounts">Conecte com diferentes contas</string>
     <string name="screenshot_05_autoUpload">Envie suas fotos &amp; vídeos automaticamente</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contatos com DAVx5 (conhecida como DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">Informações privadas não encontradas</string>
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
