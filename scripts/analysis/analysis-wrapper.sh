@@ -116,9 +116,13 @@ else
         exit 1
     fi
 
-    if [ $lintValue -eq 2 ]; then
+    if [ ! $lintValue -eq 2 ]; then
+        exit $lintValue
+    fi
+
+    if [ $findbugsValue -eq 2 ]; then
         exit 0
     else
-        exit $lintValue
+        exit $findbugsValue
     fi
 fi
