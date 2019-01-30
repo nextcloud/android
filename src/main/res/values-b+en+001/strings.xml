@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
     <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
@@ -648,6 +650,8 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The Nextcloud Android app gives mobile access to all files on your Nextcloud.</string>
+    <string name="store_full_desc">The copylefted libre Nextcloud Android app, giving you mobile freedom.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
@@ -707,6 +711,8 @@
     <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
     <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sync calendar &amp; contacts with DAVx5 (formerly known as DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>

@@ -8,7 +8,7 @@ L'applicazione libera e priva di copyright per Android di Nextcloud ti offre lib
 * Tieniti aggiornato con le notifiche
 * Supporto di più account
 * Proteggi l'accesso ai tuoi dati con impronta digitale o PIN
-* Integrazione con DAVdroid per una facile configurazione della sincronizzazione di calendari e contatti
+* Integrazione con DAVx5 (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti
 
 Segnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android
 

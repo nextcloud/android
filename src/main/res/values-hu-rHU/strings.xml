@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Értesítés az újonnan talált médiamappákról</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
+    <string name="prefs_calendar_contacts_summary">DAVx5 (régi nevén DAVdroid) (v1.3.0+) beállítása a jelenlegi fiókhoz</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVx5 (régi nevén DAVdroid) számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Se az F-Droid se a Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a &amp; naptárhoz</string>
     <string name="prefs_daily_contacts_sync_summary">Névjegyek napi mentése</string>
@@ -649,6 +651,26 @@
     <string name="resized_image_not_possible_download">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
 
     <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
+    <string name="store_full_desc">A szabad Nextcloud androidos alkalmazás, amely mobil szabadságot biztosít.
+
+Szolgáltatások:
+* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
+* Fájlok feltöltése a Nextcloud kiszolgálódra
+* Fájlmegosztás másokkal
+* Kedvenc fájljaid és mappáid szinkronizálása
+* Keresés a kiszolgáló mappái között
+* Az eszközöddel készített videók és képek automatikus feltöltése
+* Értesítések fogadása
+* Több fiók támogatása
+* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
+* Kapcsolódás DAVx5-tel (régi nevén DAVdroid) a naptár és névjegy szinkronizálás megkönnyítéséhez
+
+Jelents minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
+
+Új neked a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet te magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, névjegyeidnek, fájljaidnak és minden egyebednek.
+
+A Nextcloud itt érhető el: https://nextcloud.com</string>
+
     <string name="drawer_current_account">Jelenlegi fiók</string>
     <string name="drawer_middle_account">Középső fiók</string>
     <string name="drawer_end_account">Utolsó fiók</string>
@@ -708,6 +730,8 @@
     <string name="screenshot_03_drawer">Férj hozzá gyorsan az aktivitáshoz, megosztáshoz, offline fájlokhoz és még máshoz</string>
     <string name="screenshot_04_accounts">Kapcsolódás más fiókokhoz</string>
     <string name="screenshot_05_autoUpload">Automatikus Fotó &amp; videó feltöltés</string>
+    <string name="screenshot_06_davdroid">Naptár és névjegyek szinkronizálása DAVx5 (régi nevén DAVdroid) segítségével</string>
+
     <string name="userinfo_no_info_headline">Nincs személyes információ beállítva</string>
     <string name="userinfo_no_info_text">Név, kép és kapcsolat adatok hozzáadása a profil oldaladhoz.</string>
     <string name="drawer_header_background">Háttérkép a fiók fejléchez</string>
@@ -756,6 +780,9 @@
     <string name="signup_with_provider">Feliratkozás szolgáltatóval</string>
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
     <string name="first_run_1_text">Tarts az adataid biztonságban és a felügyeleted alatt</string>
+    <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
+    <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
+    <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="whats_new_device_credentials_content">Használj mintát, jelszót, pin kódot, vagy az ujjlenyomatodat annak érdekében, hogy az adataidat biztonságban tartsd.</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
 	<string name="restore">Fájl visszaállítása</string>
@@ -765,6 +792,7 @@
     <string name="file_version_restored_successfully">Sikeresen visszaállított fájl verzió.</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállítása során.</string>
     <string name="notification_channel_general_name">Általános értesítések</string>
+    <string name="notification_channel_general_description">Értesítések megjelenítése az új médiamappák és hasonlók esetén</string>
     <string name="new_media_folder_detected">Új%1$s média mappa észlelhető.</string>
     <string name="configure_new_media_folder_detection_notifications">Beállít</string>
     <string name="disable_new_media_folder_detection_notifications">Letiltás</string>
@@ -781,7 +809,9 @@
     <string name="trashbin_file_not_restored">%1$s nem állítható vissza!</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     <string name="stream">Streamelni vele…</string>
+    <string name="stream_not_possible_message">Helyette töltsd le a médiát, vagy használj külső alkalmazást.</string>
     <string name="folder_already_exists">A mappa már létezik</string>
+    <string name="actionbar_open_as_richdocument">Megnyitás a Collaborával</string>
     <string name="notification_icon">Értesítő ikon</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="file_delete">Törlés</string>
@@ -825,6 +855,7 @@
     <string name="upload_unknown_error">Ismeretlen hiba</string>
     <string name="upload_lock_failed">A mappa zárolása nem lehetséges</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
+    <string name="upload_old_android"><![CDATA[Titkosítás csak >= Android 5.0 esetén lehetséges]]></string>
     <string name="upload_sync_conflict">Szinkronizációs ütközés, kérlek javítsd manuálisan</string>
     <string name="upload_cannot_create_file">Nem lehet a helyi fájlt létrehozni</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
