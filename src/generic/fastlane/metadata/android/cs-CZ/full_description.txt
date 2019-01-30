@@ -1,19 +1,19 @@
-Svobodná (copyleft) aplikace Nextcloud pro Android, poskytující mobilní svobodu.
+Svobodně licencovaná Nexcloud Android aplikace, dávající vám mobilní svobodu.
 
 Funkce:
-* Snadno použitelné moderní rozhraní, hodící se k vzhledu vašeho serveru
-* Nahrávání souborů na Nextcloud server
-* Jejich sdílení s ostatními
-* Synchronizace vašich oblíbených souborů a složek
-* Hledání napříč všemi složkami na serveru
-* Automatické nahrávání fotek a videí pořízených vaším zařízením
-* Doručování oznámení
-* Podpora vícero účtů
+* Snadno použitelné moderní rozhraní, přizpůsobené vzhledu, používaném na vašem serveru
+* Nahrávejte soubory na svůj Nextcloud server
+* Sdílejte je s ostatními
+* Udržujte své oblíbené soubory a složky synchronizované
+* Hledejte napříč všemi složkami na svém serveru
+* Automaticky nahrávejte své fotky a videa, pořízená zařízením
+* Udržujte si přehled pomocí oznámení
+* Podporuje vícero účtů
 * Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu
-* Začlenění DAVdroid pro snadný přístup ke kalendáři & synchronizaci kontaktů
+* Napojení na DAVx5 (dříve známé pod názvem DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
 
-Jakékoli problémy prosím hlaste na https://github.com/nextcloud/android/issues a o aplikaci diskutujte na https://help.nextcloud.com/c/clients/android
+ Veškeré nalezené problémy hlaste na https://github.com/nextcloud/android/issues a diskutujte o aplikaci na https://help.nextcloud.com/c/clients/android
 
-Ještě Nextcloud neznáte? Nextcloud je server pro soukromou synchronizaci souborů &, sdílení a komunikaci. Je to svobodný software a můžete ho buď provozovat sami nebo si pronajímat od nějaké společnosti. Tím vy vládnete svým fotkám, údajům v kalendáři a kontaktech, dokumentům a všemu ostatnímu.
+Noví v Nextcloud? Nextcloud je soukromý server pro synchronizaci souborů a jejich sdílení, dále pro komunikaci. Jedná se o svobodný software a můžete ho hostovat svými silami nebo za to zaplatit nějaké společnosti. Tím máte pod kontrolou své fotky, kalendář a kontakty, dokumenty a vše ostatní.
 
 Podívejte se na Nextcloud na https://nextcloud.com

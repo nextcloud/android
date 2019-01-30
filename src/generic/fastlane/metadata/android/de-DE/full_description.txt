@@ -1,19 +1,19 @@
 Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.
 
 Eigenschaften:
-* Einfache, moderne Oberfläche
+* Einfache, moderne an Ihr Theme angepasste Oberfläche
 * Laden Sie Ihre Dateien auf Ihren Nextcloud Server
 * Teilen Sie Ihre Dateien mit anderen
-* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden
+* Halten Sie Ihre favorisierten Dateien und Verzeichnisse synchron
 * Suche über alle Ordner auf Ihrem Server
-* Automatisches Hochladen von Photos und Videos von Ihrem Gerät
+* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät
 * Bleiben Sie auf dem Laufenden durch Benachrichtigungen
 * Mehrere Konten gleichzeitig
 * Geschützter Zugriff durch Fingerabdruck oder PIN
-* Integration mit DAVdroid für einfaches Konfigurieren von Kalender & Kontakte Synchronisierung
+* Integration mit DAVx5 (zuvor DAVdroid) für einfaches Konfigurieren der Kalender- & Kontakte-Synchronisation
 
 Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android
 
 Was ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch & -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.
 
-Schauen Sie sich Nextcloud unter https://nextcloud.com an.
+Schauen Sie sich Nextcloud an unter https://nextcloud.com.

@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Обавештавај о новопронађеним мултимедијалним фасциклама</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
+    <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (раније знан и као ДАВдроид) (в1.3.0+) за тренутни налог</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (раније знан и као ДАВдроид) не може да разлучи адресу сервера овог налога</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календар и синхронизација контаката подешени</string>
     <string name="prefs_daily_contacts_sync_summary">Дневно архивирање ваших контаката</string>
@@ -653,6 +655,8 @@
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скини оригиналну слику?</string>
 
     <string name="store_short_desc">Некстклауд Андроид апликација даје мобилни приступ Вашим фајловима на Некстклауд серверу.</string>
+    <string name="store_full_desc">Некстклауд андроид апликација отвореног кода Вам даје мобилну слободу.\nОсобине:\n* Лако и модерно сучеље, потпуно усклађено са темом са сервера\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx5-ом (раније знаном и као ДАВдроид) за брзо подешавање синхронизације календара &amp; контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова &amp; комуникацију. Потпуно је отвореног кода и можете да га сами хостовати или платити компанији да то ради за Вас. На овај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
+
     <string name="drawer_current_account">Тренутни налог</string>
     <string name="drawer_middle_account">Средишњи налог</string>
     <string name="drawer_end_account">Последњи налог</string>
@@ -712,6 +716,8 @@
     <string name="screenshot_03_drawer">Брзо приступајте активностима, дељеним фајловима, фајловима ван мреже и још више</string>
     <string name="screenshot_04_accounts">Повежите се на различите налоге</string>
     <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
+    <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте са DAVx5-ом (раније знаном и као ДАВдроид)</string>
+
     <string name="userinfo_no_info_headline">Нису постављени лични подаци</string>
     <string name="userinfo_no_info_text">Додајте име, слику и детаље контакта на Вашу профилну страну.</string>
     <string name="drawer_header_background">Позадинска слика заглавља фиоке</string>
