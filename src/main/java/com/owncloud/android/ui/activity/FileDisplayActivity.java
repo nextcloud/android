@@ -2075,7 +2075,13 @@ public class FileDisplayActivity extends HookActivity
             updateFileFromDB();
             refreshListOfFilesFragment(false);
         } else if (fileDetailFragment.getView() != null) {
-            String errorResponse = result.getData().size() > 0 ? result.getData().get(0).toString() : "";
+            String errorResponse;
+
+            if (result.getData() != null && result.getData().size() > 0) {
+                errorResponse = result.getData().get(0).toString();
+            } else {
+                errorResponse = "";
+            }
 
             if (!TextUtils.isEmpty(errorResponse)) {
                 snackbar = Snackbar.make(fileDetailFragment.getView(), errorResponse, Snackbar.LENGTH_LONG);
