@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * Copyright (C) 2018 Edvard Holst
@@ -93,7 +93,12 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     }
 
     @Override
-    public void stopLoadingActivity() {
+    public void onStop() {
         activityStopped = true;
+    }
+
+    @Override
+    public void onResume() {
+        activityStopped = false;
     }
 }

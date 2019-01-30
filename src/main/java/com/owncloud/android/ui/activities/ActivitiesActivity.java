@@ -230,6 +230,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onResume() {
         super.onResume();
 
+        mActionListener.onResume();
+
         setDrawerMenuItemChecked(R.id.nav_activity);
 
         setupContent();
@@ -325,6 +327,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onStop() {
         super.onStop();
 
-        mActionListener.stopLoadingActivity();
+        mActionListener.onStop();
     }
 }
