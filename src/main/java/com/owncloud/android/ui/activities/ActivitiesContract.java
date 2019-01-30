@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -42,6 +42,8 @@ public interface ActivitiesContract {
 
         void openActivity(String fileUrl, BaseActivity baseActivity);
 
-        void stopLoadingActivity();
+        void onStop();
+
+        void onResume();
     }
 }
