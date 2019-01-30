@@ -404,6 +404,18 @@ public class FileDisplayActivity extends HookActivity
                 }
                 return;
             }
+            case PermissionUtil.PERMISSIONS_CAMERA: {
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    getFileOperationsHelper()
+                        .uploadFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+                } else {
+                    // permission denied
+                    return;
+                }
+                return;
+            }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
