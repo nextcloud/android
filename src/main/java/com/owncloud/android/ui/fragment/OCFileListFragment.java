@@ -30,6 +30,7 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -97,6 +98,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;

@@ -23,6 +23,7 @@
 
 package com.owncloud.android.ui.helpers;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -70,6 +71,7 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -988,7 +990,11 @@ public class FileOperationsHelper {
         pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
         if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            activity.startActivityForResult(pictureIntent, requestCode);
+            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
+                activity.startActivityForResult(pictureIntent, requestCode);
+            } else {
+                PermissionUtil.requestCameraPermission(activity);
+            }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
         }
