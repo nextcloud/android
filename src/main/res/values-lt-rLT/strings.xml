@@ -561,7 +561,9 @@
     <string name="date_unknown">Nežinoma</string>
 
     <string name="store_short_desc">Nextcloud Android programėlė suteikia jums mobiliąją prieigą prie jūsų visų Nextcloud esančių failų.</string>
+    <string name="activity_icon">Veikla</string>
     <string name="file_icon">Failas</string>
+    <string name="user_icon">Naudotojas</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="sort_by_name_ascending">A - Ž</string>
     <string name="sort_by_name_descending">Ž - A</string>
@@ -631,6 +633,10 @@
     <string name="permission_deny">Drausti</string>
     <string name="permission_allow">Leisti</string>
     <string name="note_confirm">Siųsti</string>
+    <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
+    <string name="create_new_document">Sukurti naują dokumentą</string>
+    <string name="create_new_spreadsheet">Sukurti naują skaičiuoklę</string>
+    <string name="create_new_presentation">Sukurti naują pateiktį</string>
     <string name="filename_hint">Failo pavadinimas</string>
     <string name="thumbnail">Miniatiūra</string>
     <string name="enter_filename">Įveskite failo pavadinimą</string>
