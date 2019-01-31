@@ -107,7 +107,7 @@
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>
-    <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
+    <string name="mail_feedback">android@nextcloud.com</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
 
