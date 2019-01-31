@@ -190,13 +190,14 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         } else {
             /// local copy in the device -> need to think a bit more before do anything
-
             if (mServerFile == null) {
                 ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
                 result = operation.execute(client);
                 if (result.isSuccess()) {
                     mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
+                } else if (result.getCode() == ResultCode.NO_NETWORK_CONNECTION) {
+                    return result;
                 }
             }
 
