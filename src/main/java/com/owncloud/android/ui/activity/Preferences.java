@@ -357,9 +357,8 @@ public class Preferences extends PreferenceActivity
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(preference -> {
                     String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                    Intent intent = new Intent(Intent.ACTION_SENDTO,
-                        Uri.fromParts("mailto", "", null));
-                    intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { getString(R.string.mail_feedback) });
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "", null));
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_feedback)});
                     intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
