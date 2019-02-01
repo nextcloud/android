@@ -55,6 +55,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
+import static com.owncloud.android.ui.activity.UploadFilesActivity.REQUEST_CODE_KEY;
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
@@ -386,6 +387,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 Intent action = new Intent(getActivity(), UploadFilesActivity.class);
                 action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
+                action.putExtra(REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER);
                 getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
             }
         });
