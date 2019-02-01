@@ -20,6 +20,8 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -31,6 +33,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,17 +140,38 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         holder.buttons.removeAllViews();
         MaterialButton button;
 
+        Resources resources = notificationsActivity.getResources();
+
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
+
+            int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
+
+            if (action.primary) {
+                button.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
+                button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
+                button.setTypeface(button.getTypeface(), Typeface.BOLD);
+            } else {
+                button.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.grey_200)));
+                button.setStrokeWidth(3);
+
+                button.getBackground().setColorFilter(resources.getColor(R.color.transparent),
+                                                      PorterDuff.Mode.SRC_ATOP);
+                button.setTextColor(primaryColor);
+                button.setTypeface(button.getTypeface(), Typeface.BOLD);
+            }
+
             button.setText(action.label);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            if (action.primary) {
-                button.getBackground().setColorFilter(ThemeUtils.primaryColor(notificationsActivity, true),
-                        PorterDuff.Mode.SRC_ATOP);
-                button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
-            }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                             ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(20, 0, 20, 0);
+            button.setLayoutParams(params);
+            button.setGravity(Gravity.CENTER);
+
+            button.setPadding(40, 40, 40, 40);
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
