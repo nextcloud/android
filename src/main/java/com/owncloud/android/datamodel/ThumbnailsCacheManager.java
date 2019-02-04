@@ -115,19 +115,29 @@ public final class ThumbnailsCacheManager {
 
                 if (mThumbnailCache == null) {
                     try {
-                        // Check if media is mounted or storage is built-in, if so,
-                        // try and use external cache dir; otherwise use internal cache dir
-                        File cacheDir = MainApp.getAppContext().getExternalCacheDir();
+                        File cacheDir = MainApp.getAppContext().getCacheDir();
 
-                        if (cacheDir != null) {
-                            String cachePath = cacheDir.getPath() + File.separator + CACHE_FOLDER;
-                            Log_OC.d(TAG, "create dir: " + cachePath);
-                            File diskCacheDir = new File(cachePath);
-                            mThumbnailCache = new DiskLruImageCache(diskCacheDir, DISK_CACHE_SIZE, mCompressFormat,
-                                    mCompressQuality);
-                        } else {
+                        if (cacheDir == null) {
                             throw new FileNotFoundException("Thumbnail cache could not be opened");
                         }
+
+                        String cachePath = cacheDir.getPath() + File.separator + CACHE_FOLDER;
+                        Log_OC.d(TAG, "thumbnail cache dir: " + cachePath);
+                        File diskCacheDir = new File(cachePath);
+
+                        // migrate from external cache to internal cache
+                        File oldCacheDir = MainApp.getAppContext().getExternalCacheDir();
+
+                        if (oldCacheDir != null && oldCacheDir.exists()) {
+                            String cacheOldPath = oldCacheDir.getPath() + File.separator + CACHE_FOLDER;
+                            File diskOldCacheDir = new File(cacheOldPath);
+
+                            FileStorageUtils.copyDirs(diskOldCacheDir, diskCacheDir);
+                            FileStorageUtils.deleteRecursive(diskOldCacheDir);
+                        }
+
+                        mThumbnailCache = new DiskLruImageCache(diskCacheDir, DISK_CACHE_SIZE, mCompressFormat,
+                                                                mCompressQuality);
                     } catch (Exception e) {
                         Log_OC.d(TAG, e.getMessage());
                         mThumbnailCache = null;
