@@ -10,16 +10,16 @@ import lombok.Setter;
 
 @NoArgsConstructor
 public class MenuItemParcelable implements Parcelable {
-    @Getter @Setter int mMenuItemId;
-    @Getter @Setter String mMenuText;
+    @Getter @Setter int menuItemId;
+    @Getter @Setter String menuText;
 
     public MenuItemParcelable(MenuItem menuItem) {
-        mMenuItemId = menuItem.getItemId();
-        mMenuText = menuItem.getTitle().toString();
+        menuItemId = menuItem.getItemId();
+        menuText = menuItem.getTitle().toString();
     }
 
     public MenuItemParcelable(Parcel read) {
-        mMenuItemId = read.readInt();
+        menuItemId = read.readInt();
     }
 
     public static final Parcelable.Creator<MenuItemParcelable> CREATOR =
@@ -43,6 +43,6 @@ public class MenuItemParcelable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mMenuItemId);
+        dest.writeInt(menuItemId);
     }
 }
