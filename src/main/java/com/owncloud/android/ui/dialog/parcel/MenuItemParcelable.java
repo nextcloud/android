@@ -4,11 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.MenuItem;
 
-public class MenuItemParcelable implements Parcelable {
-    int mMenuItemId;
-    String mMenuText;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    public MenuItemParcelable() {}
+@NoArgsConstructor
+public class MenuItemParcelable implements Parcelable {
+    @Getter @Setter int mMenuItemId;
+    @Getter @Setter String mMenuText;
 
     public MenuItemParcelable(MenuItem menuItem) {
         mMenuItemId = menuItem.getItemId();
@@ -17,22 +20,6 @@ public class MenuItemParcelable implements Parcelable {
 
     public MenuItemParcelable(Parcel read) {
         mMenuItemId = read.readInt();
-    }
-
-    public void setMenuItemId(int id) {
-        mMenuItemId = id;
-    }
-
-    public int getMenuItemId() {
-        return mMenuItemId;
-    }
-
-    public String getMenuText() {
-        return mMenuText;
-    }
-
-    public void setMenuText(String mMenuText) {
-        this.mMenuText = mMenuText;
     }
 
     public static final Parcelable.Creator<MenuItemParcelable> CREATOR =
