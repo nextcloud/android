@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -27,9 +27,12 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
+@NoArgsConstructor
 public class SyncedFolderParcelable implements Parcelable {
     private String mFolderName;
     private String mLocalPath;
@@ -43,9 +46,6 @@ public class SyncedFolderParcelable implements Parcelable {
     private long mId;
     private String mAccount;
     private int mSection;
-
-    public SyncedFolderParcelable() {
-    }
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         mId = syncedFolderDisplayItem.getId();

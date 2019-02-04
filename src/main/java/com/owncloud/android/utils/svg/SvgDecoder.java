@@ -21,21 +21,17 @@ import com.caverock.androidsvg.SVGParseException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * Decodes an SVG internal representation from an {@link InputStream}.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
     private int height = -1;
     private int width = -1;
-
-    public SvgDecoder(){
-
-    }
-
-    public SvgDecoder(int height, int width) {
-        this.height = height;
-        this.width = width;
-    }
 
     public Resource<SVG> decode(InputStream source, int w, int h) throws IOException {
         try {
