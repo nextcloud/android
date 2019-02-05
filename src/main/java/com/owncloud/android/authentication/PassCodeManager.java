@@ -110,8 +110,7 @@ public final class PassCodeManager {
     }
 
     private void setUnlockTimestamp(Activity activity) {
-        Long timestamp = System.currentTimeMillis();
-        PreferenceManager.setLockTimestamp(activity, timestamp);
+        PreferenceManager.setLockTimestamp(activity, System.currentTimeMillis());
     }
 
     private boolean passCodeShouldBeRequested(Long timestamp) {
@@ -120,7 +119,7 @@ public final class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        return PreferenceManager.getLockPreference(MainApp.getAppContext()).equals(Preferences.LOCK_PASSCODE);
+        return Preferences.LOCK_PASSCODE.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()));
     }
 
     private boolean deviceCredentialsShouldBeRequested(Long timestamp, Activity activity) {
@@ -129,7 +128,7 @@ public final class PassCodeManager {
     }
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
-        return PreferenceManager.getLockPreference(MainApp.getAppContext()).equals(Preferences.LOCK_DEVICE_CREDENTIALS)
+        return Preferences.LOCK_DEVICE_CREDENTIALS.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()))
                 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                         (PreferenceManager.isUseFingerprint(MainApp.getAppContext())
                                 && DeviceCredentialUtils.areCredentialsAvailable(activity));

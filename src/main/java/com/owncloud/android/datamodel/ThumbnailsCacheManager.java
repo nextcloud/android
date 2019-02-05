@@ -289,7 +289,7 @@ public final class ThumbnailsCacheManager {
 
                     if (bitmap != null) {
                         // Handle PNG
-                        if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                        if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
                             bitmap = handlePNG(bitmap, pxW, pxH);
                         }
 
@@ -318,7 +318,7 @@ public final class ThumbnailsCacheManager {
                             }
 
                                 // Handle PNG
-                                if (thumbnail != null && file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
                                     thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
                                 }
 
@@ -536,7 +536,7 @@ public final class ThumbnailsCacheManager {
 
                         if (bitmap != null) {
                             // Handle PNG
-                            if (ocFile.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                            if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
                                 bitmap = handlePNG(bitmap, pxW, pxH);
                             }
 
@@ -588,7 +588,7 @@ public final class ThumbnailsCacheManager {
                                 }
 
                                 // Handle PNG
-                                if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
                                     thumbnail = handlePNG(thumbnail, pxW, pxH);
                                 }
                             } catch (Exception e) {
@@ -1173,7 +1173,7 @@ public final class ThumbnailsCacheManager {
 
         if (bitmap != null) {
             // Handle PNG
-            if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+            if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
                 bitmap = handlePNG(bitmap, pxW, pxH);
             }
 
@@ -1214,7 +1214,7 @@ public final class ThumbnailsCacheManager {
             // Add thumbnail to cache
             if (thumbnail != null) {
                 // Handle PNG
-                if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
                     thumbnail = handlePNG(thumbnail, pxW, pxH);
                 }
 
