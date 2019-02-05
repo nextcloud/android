@@ -198,6 +198,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String EMPTY_STRING = "";
 
     private static final int REQUEST_CODE_QR_SCAN = 101;
+    public static final int REQUEST_CODE_FIRST_RUN = 102;
 
 
     /// parameters from EXTRAs in starter Intent
@@ -978,6 +979,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onNewIntent(Intent intent) {
         Log_OC.d(TAG, "onNewIntent()");
+
+        if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
+            super.finish();
+        }
+
         Uri data = intent.getData();
         if (data != null && data.toString().startsWith(getString(R.string.oauth2_redirect_uri))) {
             mNewCapturedUriFromOAuth2Redirection = data;
