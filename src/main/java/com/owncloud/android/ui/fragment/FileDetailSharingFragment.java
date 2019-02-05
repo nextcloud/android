@@ -288,7 +288,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             if (TextUtils.isEmpty(file.getPublicLink())) {
                 fileOperationsHelper.getFileWithLink(file);
             } else {
-                fileDisplayActivity.showShareLinkDialog(file.getPublicLink());
+                FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file.getPublicLink());
             }
         }
     }
@@ -382,7 +382,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             }
             case R.id.action_share_send_link: {
                 if(shareByLink.isChecked() && file.isSharedViaLink() && !TextUtils.isEmpty(file.getPublicLink())) {
-                    fileDisplayActivity.showShareLinkDialog(file.getPublicLink());
+                    FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file.getPublicLink());
                 } else {
                     showSendLinkTo();
                 }
