@@ -197,7 +197,7 @@ public class    PassCodeActivity extends AppCompatActivity {
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
         for (int i = 0; i < passCodeIndex; i++) {
-            if (mPassCodeEditTexts[i].getText().toString().equals("")) {
+            if ("".equals(mPassCodeEditTexts[i].getText().toString())) {
                 mPassCodeEditTexts[i].requestFocus();
                 break;
             }
