@@ -143,7 +143,7 @@
             android:id="@+id/upload_right_button"
             android:layout_width="@dimen/upload_list_item_image_size"
             android:layout_height="@dimen/upload_list_item_image_size"
-            android:layout_gravity="center"
+            android:layout_gravity="center|end"
             android:background="@android:color/transparent"
             android:contentDescription="@string/upload_item_action_button" />
     </FrameLayout>
