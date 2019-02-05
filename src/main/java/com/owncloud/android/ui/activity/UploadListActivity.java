@@ -30,6 +30,8 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -74,6 +76,8 @@ public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
+    private UploadsStorageManager uploadStorageManager;
+
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     private UploadListAdapter uploadListAdapter;
@@ -111,6 +115,8 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        uploadStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
         setContentView(R.layout.upload_list_layout);
         unbinder = ButterKnife.bind(this);
@@ -233,6 +239,14 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.upload_list_menu, menu);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
@@ -242,6 +256,10 @@ public class UploadListActivity extends FileActivity {
                 } else {
                     openDrawer();
                 }
+                break;
+            case R.id.action_clear_failed_uploads:
+                uploadStorageManager.clearFailedButNotDelayedUploads();
+                uploadListAdapter.loadUploadItemsFromDb();
                 break;
 
             default:

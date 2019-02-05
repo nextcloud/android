@@ -96,7 +96,19 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             toggleSectionExpanded(section);
         });
 
-        headerViewHolder.delete.setOnClickListener(v -> {
+        switch (group.type) {
+            case CURRENT:
+                headerViewHolder.action.setImageResource(R.drawable.ic_close);
+                break;
+            case FINISHED:
+                headerViewHolder.action.setImageResource(R.drawable.ic_close);
+                break;
+            case FAILED:
+                headerViewHolder.action.setImageResource(R.drawable.ic_sync);
+                break;
+        }
+
+        headerViewHolder.action.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT:
                     FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
@@ -111,7 +123,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     uploadsStorageManager.clearSuccessfulUploads();
                     break;
                 case FAILED:
-                    uploadsStorageManager.clearFailedButNotDelayedUploads();
+                    new Thread(() -> new FileUploader.UploadRequester()
+                        .retryFailedUploads(parentActivity, null, null)).start();
                     break;
             }
 
@@ -591,8 +604,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @BindView(R.id.upload_list_title)
         TextView title;
 
-        @BindView(R.id.upload_list_delete)
-        ImageView delete;
+        @BindView(R.id.upload_list_action)
+        ImageView action;
 
         HeaderViewHolder(View itemView) {
             super(itemView);

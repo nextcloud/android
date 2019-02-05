@@ -513,6 +513,8 @@
     <string name="share_privilege_can_edit_change">can change</string>
     <string name="share_privilege_can_edit_delete">can delete</string>
 
+    <string name="action_clear_failed_uploads">Clear failed uploads</string>
+
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
 
