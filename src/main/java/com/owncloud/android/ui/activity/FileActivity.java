@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -69,13 +69,16 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -653,5 +656,50 @@ public abstract class FileActivity extends DrawerActivity
         } else {
             DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG);
         }
+    }
+
+    public static void copyAndShareFileLink(FileActivity activity, String link) {
+        ClipboardUtil.copyToClipboard(activity, link, false);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
+                                          Snackbar.LENGTH_LONG)
+            .setAction(R.string.share, v -> showShareLinkDialog(activity, link));
+        ThemeUtils.colorSnackbar(activity, snackbar);
+        snackbar.show();
+    }
+
+    public static void showShareLinkDialog(FileActivity activity, String link) {
+        // Create dialog to allow the user choose an app to send the link
+        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+
+        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+        intentToShareLink.setType("text/plain");
+
+        String username;
+        try {
+            OwnCloudAccount oca = new OwnCloudAccount(activity.getAccount(), activity);
+            if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                username = oca.getDisplayName();
+            } else {
+                username = com.owncloud.android.lib.common.accounts.AccountUtils
+                    .getUsernameForAccount(activity.getAccount());
+            }
+        } catch (Exception e) {
+            username = com.owncloud.android.lib.common.accounts.AccountUtils
+                .getUsernameForAccount(activity.getAccount());
+        }
+
+        if (username != null) {
+            intentToShareLink.putExtra(Intent.EXTRA_SUBJECT,
+                                       activity.getString(R.string.subject_user_shared_with_you, username,
+                                                          activity.getFile().getFileName()));
+        } else {
+            intentToShareLink.putExtra(Intent.EXTRA_SUBJECT,
+                                       activity.getString(R.string.subject_shared_with_you,
+                                                          activity.getFile().getFileName()));
+        }
+
+        String[] packagesToExclude = new String[]{activity.getPackageName()};
+        DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+        chooserDialog.show(activity.getSupportFragmentManager(), FileDisplayActivity.FTAG_CHOOSER_DIALOG);
     }
 }

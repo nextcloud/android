@@ -68,7 +68,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -98,7 +97,6 @@ import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
@@ -115,7 +113,6 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
-import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -141,7 +138,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -166,8 +162,8 @@ public class FileDisplayActivity extends HookActivity
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
 
-    private static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
-    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
+    public static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
+    public static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -1975,7 +1971,7 @@ public class FileDisplayActivity extends HookActivity
                 }
             }
 
-            copyAndShareFileLink(link);
+            copyAndShareFileLink(this, link);
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
@@ -2025,60 +2021,6 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void copyAndShareFileLink(String link) {
-        ClipboardUtil.copyToClipboard(this, link, false);
-        Snackbar snackbar = Snackbar.make(
-                findViewById(android.R.id.content),
-                R.string.clipboard_text_copied,
-                Snackbar.LENGTH_LONG
-        ).setAction(R.string.share, v -> showShareLinkDialog(link));
-        ThemeUtils.colorSnackbar(this, snackbar);
-        snackbar.show();
-    }
-
-    public void showShareLinkDialog(String link) {
-        // Create dialog to allow the user choose an app to send the link
-        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-
-        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-        intentToShareLink.setType("text/plain");
-
-        String username;
-        try {
-            OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
-            if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
-                username = oca.getDisplayName();
-            } else {
-                username = AccountUtils.getUsernameForAccount(getAccount());
-            }
-        } catch (Exception e) {
-            username = AccountUtils.getUsernameForAccount(getAccount());
-        }
-
-        if (username != null) {
-            intentToShareLink.putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    getString(
-                            R.string.subject_user_shared_with_you,
-                            username,
-                            getFile().getFileName()
-                    )
-            );
-        } else {
-            intentToShareLink.putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    getString(
-                            R.string.subject_shared_with_you,
-                            getFile().getFileName()
-                    )
-            );
-        }
-
-        String[] packagesToExclude = new String[]{getPackageName()};
-        DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
-        chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-    }
-
     private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int defaultError) {
         Snackbar snackbar;
         Fragment fileDetailFragment = getSecondFragment();
@@ -2117,7 +2059,13 @@ public class FileDisplayActivity extends HookActivity
      * @return A {@link FileDetailFragment} instance, or null
      */
     private FileDetailFragment getShareFileFragment() {
-        return (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
+
+        if (fragment instanceof FileDetailFragment) {
+            return (FileDetailFragment) fragment;
+        } else {
+            return null;
+        }
     }
 
     /**
