@@ -178,6 +178,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+        FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, currentDirectory);
+        mFiles = sortOrder.sortCloudFiles(mFiles);
+
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
