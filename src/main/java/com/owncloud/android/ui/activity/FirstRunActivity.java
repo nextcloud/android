@@ -54,6 +54,7 @@ import androidx.viewpager.widget.ViewPager;
 public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
+    public static final String EXTRA_EXIT = "EXIT";
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
     private ProgressIndicator progressIndicator;
@@ -157,6 +158,12 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
         if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
             super.onBackPressed();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), AuthenticatorActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(EXTRA_EXIT, true);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -188,7 +195,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         }
 
         if (isFirstRun(context) && context instanceof AuthenticatorActivity) {
-            context.startActivity(new Intent(context, FirstRunActivity.class));
+            ((AuthenticatorActivity) context).startActivityForResult(new Intent(context, FirstRunActivity.class),
+                                                                     AuthenticatorActivity.REQUEST_CODE_FIRST_RUN);
             return true;
         } else {
             return false;
