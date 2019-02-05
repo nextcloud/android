@@ -345,6 +345,24 @@ public final class FileStorageUtils {
         }
     }
 
+    public static boolean copyDirs(File sourceFolder, File targetFolder) {
+        if (!targetFolder.mkdirs()) {
+            return false;
+        }
+
+        for (File f : sourceFolder.listFiles()) {
+            if (f.isDirectory()) {
+                if (!copyDirs(f, new File(targetFolder, f.getName()))) {
+                    return false;
+                }
+            } else if (!FileStorageUtils.copyFile(f, new File(targetFolder, f.getName()))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static void deleteRecursively(File file, FileDataStorageManager storageManager) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
@@ -354,6 +372,16 @@ public final class FileStorageUtils {
 
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
         file.delete();
+    }
+
+    public static boolean deleteRecursive(File file) {
+        boolean res = true;
+        if (file.isDirectory()) {
+            for (File c : file.listFiles()) {
+                res = deleteRecursive(c) && res;
+            }
+        }
+        return file.delete() && res;
     }
 
     public static void checkIfFileFinishedSaving(OCFile file) {
