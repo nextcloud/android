@@ -573,9 +573,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             } else if (value.startsWith("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
                 loginUrlInfo.serverAddress = URLDecoder.decode(
                         value.substring(("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length()));
-            } else {
-                // error illegal URL element detected
-                throw new IllegalArgumentException("Illegal magic login URL element detected: " + value);
             }
         }
 
