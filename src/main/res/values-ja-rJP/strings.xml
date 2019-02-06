@@ -773,7 +773,7 @@
     <string name="feedback_no_mail_app">メールを送信するアプリはありません！</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
-    <string name="action_empty_trashbin">空のゴミ箱</string>
+    <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>

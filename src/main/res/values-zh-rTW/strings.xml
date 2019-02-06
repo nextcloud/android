@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
+    <string name="prefs_calendar_contacts_summary">為目前使用者帳戶設定DAVx5協定(以前稱為DAVdroid)(版本v1.3.0以上)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">此帳戶的伺服器位址無法被 DAVx5(以前稱為DAVdroid) 解析</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
@@ -497,6 +499,7 @@
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_room_clarification">%1$s(交談)</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
 
     <string name="share_privilege_unshare">撤回分享</string>
@@ -536,12 +539,14 @@
     <string name="participate_testing_report_text">在 GitHub 上回報問題</string>
     <string name="participate_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
     <string name="participate_beta_headline">測試開發版本</string>
+    <string name="participate_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
     <string name="participate_release_candidate_headline">最終測試版</string>
     <string name="participate_contribute_headline">積極貢獻</string>
     <string name="participate_contribute_forum_text">幫助其他人</string>
     <string name="participate_contribute_forum_forum">論壇</string>
     <string name="participate_contribute_translate_translate">翻譯</string>
     <string name="participate_contribute_translate_text">應用程式</string>
+    <string name="participate_rc_play_store">從Google Play商店取得正式發行版</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>

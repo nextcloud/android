@@ -45,8 +45,12 @@
     <string name="prefs_lock_device_credentials_enabled">פרטי זיהוי להתקן פעילים</string>
     <string name="prefs_lock_device_credentials_not_setup">לא הוגדרו פרטי זיהוי להתקן.</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
+    <string name="prefs_enable_media_scan_notifications">הצגת התראות על סריקת מדיה</string>
+    <string name="prefs_enable_media_scan_notifications_summary">הצגת התראות על תיקיות מדיה חדשות שנמצאו</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
+    <string name="prefs_calendar_contacts_summary">הגדרת DAVx5 (לשעבר DAVdroid) (v1.3.0+‎) לחשבון הנוכחי</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפתור את כתובת השרת לחשבון עבור DAVx5 (לשעבר DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">לא מותקנים F-Droid או Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">הגדרת סנכרון לוח שנה ואנשי קשר</string>
     <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
@@ -551,6 +555,7 @@
     <string name="participate_contribute_forum_forum">בפורום</string>
     <string name="participate_contribute_translate_translate">תרגום</string>
     <string name="participate_contribute_translate_text">היישומון</string>
+    <string name="participate_contribute_github_text">ניתן לסקור, להוסיף ולכתוב קוד, %1$s לפרטים</string>
     <string name="participate_rc_play_store">קבלת מועמד להפצה מהחנות Google Play</string>
     <string name="participate_rc_fdroid">קבלת מועמד להפצה מהיישומון F-Droid</string>
     <string name="participate_dev_fdroid">קבלת מהדורת פיתוח מהיישומון F-Droid</string>
@@ -677,6 +682,7 @@
     <string name="forward">העברה</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
 
+    <string name="store_short_dev_desc">יישומון הפיתוח של Nextcloud הוא יישומון למטרות פיתוח ולא ניתן להתקין אותו במקביל.</string>
     <string name="prefs_category_dev">פיתוח</string>
     <string name="dev_version_no_information_available">אין מידע זמין.</string>
     <string name="dev_version_no_new_version_available">לא קיימת גרסה חדשה.</string>
@@ -706,6 +712,8 @@
     <string name="screenshot_03_drawer">גישה מהירה לפעילות, שיתופים, קבצים בלתי מקוונים ועוד</string>
     <string name="screenshot_04_accounts">התחברות לחשבונות אחרים</string>
     <string name="screenshot_05_autoUpload">העלאת התמונות והסרטונים שלך אוטומטית</string>
+    <string name="screenshot_06_davdroid">סנכרון לוח שנה ואנשי קשר מול DAVx5 (לשעבר DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">לא הוגדרו פרטים אישיים</string>
     <string name="userinfo_no_info_text">הוספת שם, תמונה ופרטי קשר לעמוד הפרופיל שלך.</string>
     <string name="drawer_header_background">תמונת רקע של כותרת מגירה</string>
@@ -717,6 +725,7 @@
     <string name="end_to_end_encryption_retrieving_keys">המפתחות מתקבלים…</string>
     <string name="end_to_end_encryption_enter_password">נא להקליד ססמה כדי לפענח את המפתח הפרטי.</string>
     <string name="end_to_end_encryption_generating_keys">נוצרים מפתחות חדשים…</string>
+    <string name="end_to_end_encryption_keywords_description">כל 12 המילים יחד מתגבשות לכדי ססמה חזקה מאוד, שמאפשרת לך לצפות ולהשתמש בקבצים המוצפנים שלך. נא לכתוב אותה ולשמור במקום בטוח.</string>
     <string name="end_to_end_encryption_title">הגדרת הצפנה</string>
     <string name="end_to_end_encryption_passphrase_title">נא להכין עותק של ססמת ההצפנה שלך המורכבת מ־12 מילים</string>
     <string name="end_to_end_encryption_not_supported">הצפנה עובדת על KitKat(4.4) ומעלה בלבד.</string>
@@ -727,14 +736,18 @@
     <string name="end_to_end_encryption_dialog_close">סגירה</string>
     <string name="end_to_end_encryption_storing_keys">אחסון מפתחות</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
+    <string name="untrusted_domain">גישה דרך שם מתחם בלתי מהימן. נא לעיין בתיעוד לקבלת פרטים נוספים.</string>
     <string name="notification_channel_push_name">התרעות בדחיפה</string>
     <string name="notification_channel_push_description">הצגת הודעות בדחיפה שנשלחות על ידי השרת: אזכורים בתגובות, קבלת שיתופים מרוחקים חדשים, הכרזות שפורסמו על ידי מנהל ועוד.</string>
     <string name="sendbutton_description">סמל כפתור שליחה</string>
 
+    <string name="oauth_2_0_auth_end_point_address_hint">כתובת נקודת קצה לאימות</string>
+    <string name="oauth_2_0_access_end_point_address_hint">כתובת נקודת קצה  לגישה</string>
     <string name="hint_name">שם</string>
     <string name="hint_password">ססמה</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
     <string name="upload_files">העלאת קבצים</string>
+    <string name="upload_direct_camera_upload">העלאה מהמצלמה</string>
     <string name="upload_content_from_other_apps">העלאת תוכן מיישומונים אחרים</string>
     <string name="create_new_folder">יצירת תיקייה חדשה</string>
     <string name="uploads_view_upload_status_virus_detected">התגלה וירוס. לא ניתן להשלים העלאה!</string>
@@ -762,6 +775,8 @@
     <string name="notification_channel_general_name">התראות כלליות</string>
     <string name="notification_channel_general_description">הצגת התראות לתיקיות מדיה חדשות ודומות</string>
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
+    <string name="configure_new_media_folder_detection_notifications">הגדרה</string>
+    <string name="disable_new_media_folder_detection_notifications">השבתה</string>
     <string name="new_media_folder_photos">תמונות</string>
     <string name="new_media_folder_videos">סרטונים</string>
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
@@ -797,6 +812,12 @@
     <string name="no_browser_available">אין יישומון שיכול לטפל בקישורים</string>
     <string name="no_pdf_app_available">אין יישומים זמינים לטיפול ב־PDF</string>
     <string name="share_via_link_hide_download">הסתרת הורדה</string>
+    <string name="unread_comments">יש תגובות שלא נקראו</string>
+
+    <string name="richdocuments_failed_to_load_document">טעינת המסמך נכשלה!</string>
+    <string name="create_new_document">יצירת מסמך חדש</string>
+    <string name="create_new_spreadsheet">יצירת גיליון חדש</string>
+    <string name="create_new_presentation">יצירת מצגת חדשה</string>
     <string name="select_template">בחירת תבנית</string>
     <string name="filename_hint">שם קובץ</string>
     <string name="thumbnail">תמונה ממוזערת</string>
@@ -805,6 +826,19 @@
     <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
     <string name="battery_optimization_title">מיטוב סוללה</string>
     <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
+    <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_no_setting">לא ניתן להפעיל את הגדרות הסוללה ישירות. נא להגדיר ידנית דרך ההגדרות.</string>
-    </resources>
+    <string name="file_details_no_content">טעינת הפרטים נכשלה</string>
+    <string name="error_starting_direct_camera_upload">הפעלת המצלמה נכשלה</string>
+    <string name="uploader_upload_files_behaviour_not_writable">תיקיית המקור היא לקריאה בלבד, הקובץ אך ורק יועלה</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">נשאר בתיקייה המקומית כיוון שהיא לקריאה בלבד</string>
+    <string name="scanQR_description">כניסה עם קוד QR</string>
+    <string name="upload_unknown_error">שגיאה בלתי ידועה</string>
+    <string name="upload_lock_failed">נעילת התיקייה נכשלה</string>
+    <string name="upload_local_storage_full">האחסון המקומי מלא</string>
+    <string name="upload_old_android"><![CDATA[הצפנה זמינה רק עם >= Android 5.0]]></string>
+    <string name="upload_sync_conflict">סתירת סנכרון, נא לפתור ידנית</string>
+    <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>
+    <string name="upload_local_storage_not_copied">לא ניתן להעתיק קובץ לאחסון המקומי</string>
+</resources>

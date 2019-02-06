@@ -1,0 +1,19 @@
+Nextcloud Android app copylefted libre, giver mobil frihed.
+
+Fremviser:
+* Nem, moderne brugerflade, tilpasset til din servers tema
+* Send filer til din Nextcloud server
+* Del dem med andre
+* Hold dine favorit filer og mapper i sync
+* Søg henover alle foldere på din server
+* Auto Upload photos og videoer taget med din device
+* Hold dig opdateret med notifikationer
+* Understøttelse af multiple konti
+* Sikret tilgang til dine data med fingeraftryk eller PIN
+* Integration med DAVx5 (tidligere kendt som DAVdroid) for let adgang til kalender & kontakt synkronisering
+
+ Venligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter denne app på https://help.nextcloud.com/c/clients/android
+
+ Ny på Nextcloud? Nextcloud er en privat fil synkronisering & dele og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.
+
+ Tjek Nextcloud på https://nextcloud.com

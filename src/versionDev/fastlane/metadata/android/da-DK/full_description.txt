@@ -1,0 +1,4 @@
+Nextcloud Android app copylefted libre, giver dig mobil frihed.
+Dette er den officielle udviklingsversion, fremvisende daglige udgaver af nye utestede funktioner, hvilket kan give ustabilitet og data tab. Appen er for brugere villige til at teste og rapportere bugs, skulle de forekomme. Brug den ikke til dit arbejde!
+
+Både den officielle udviklingsversion og den almindelige version er tilgængelige på F-droid, og kan installeres samtidigt.
