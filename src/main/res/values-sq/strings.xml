@@ -45,8 +45,12 @@
     <string name="prefs_lock_device_credentials_enabled">Kredencialet e pajisjes janë aktivizuar</string>
     <string name="prefs_lock_device_credentials_not_setup">Nuk janë krijuar kredencialet për asnjë pajisje</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
+    <string name="prefs_enable_media_scan_notifications">Shfaqni njoftimet e skanimit të medias</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Njoftoni për dosjet e mediave të sapo gjetura</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
+    <string name="prefs_calendar_contacts_summary">Konfiguro DAVx5 (i njohur më parë si DAVdroid) (v1.3.0+) për llogarinë rrjedhëse</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për llogarinë nuk mund të zgjidhet për DAVx5 (i njohur më parë si DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_daily_contacts_sync_summary">Backup i përditshëm i kontakteve</string>
@@ -265,6 +269,8 @@
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
     <string name="auth_illegal_login_used">URL e të dhënave të përdorur për t\'u identifikimit e paligjshme </string>
 
+    <string name="favorite">Shtoje tek të parapëlqyerat</string>
+    <string name="unset_favorite">Hiqe nga të parapëlqyerat</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="common_rename">Riemërtojeni</string>
@@ -645,6 +651,8 @@
     <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
 
     <string name="store_short_desc">Aplikacioni Android i Nextcloud jep akses te të gjithë skedarët në Nextcloud-in tuaj.</string>
+    <string name="store_full_desc">Aplikacioni Android Copyleft libre Nextcloud , që ju jep liri të lëvizshme.\n\nFeatures:\n* Ndërfaqe e lehtë, moderne, e përshtatshme për temën e serverit tuaj\n* Ngarkoni skedarë në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Ruan skedarët dhe dosjet tuaja të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkim automatik për fotot dhe videot e marra nga pajisja juaj\n* Ju mban të përditësuar me njoftimet\n* Mbështetje për shumë llogari\n* Qasje e sigurtë në të dhënat tuaja me gjurmë gishtash ose PIN\n* Integrimi me DAVx5 (i njohur më parë si DAVdroid) për konfigurim të lehtë të kalendarit&amp; Sinkronizimi i kontakteve\n\nJu lutemi raportoni të gjitha çështjet në https://github.com/nextcloud/android/issues dhe diskutoni këtë aplikacion në https://help.nextcloud.com/c/clients/android\n\nI ri në Nexcloud? Nextcloud është një skedar  sinkronizimi privat&amp; server komunikimi dhe shpërndarës. Është software pa pagesë, dhe ju mund ta hostoni ose të paguani një kompani për ta bërë atë për ju. Në këtë mënyrë, ti kontrollon fotot, kalendarin tënd dhe të dhënat e kontaktit, dokumentet e tua dhe gjithçka tjetër.\n\nShikoni Nextcloud në https://nextcloud.com</string>
+
     <string name="drawer_current_account">Llogaria e tanishme</string>
     <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
