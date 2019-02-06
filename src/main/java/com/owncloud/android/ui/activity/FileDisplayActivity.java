@@ -1411,14 +1411,23 @@ public class FileDisplayActivity extends HookActivity
                                 // TODO refactor and make common
                                 if (checkForRemoteOperationError(synchResult)) {
                                     requestCredentialsUpdate(context);
-                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                        synchResult.getCode())) {
-                                    showUntrustedCertDialog(synchResult);
-                                } else if (ResultCode.MAINTENANCE_MODE.equals(synchResult.getCode())) {
-                                    showInfoBox(R.string.maintenance_mode);
-                                } else if (ResultCode.NO_NETWORK_CONNECTION.equals(synchResult.getCode()) ||
-                                        ResultCode.HOST_NOT_AVAILABLE.equals(synchResult.getCode())) {
-                                    showInfoBox(R.string.offline_mode);
+                                } else {
+                                    switch (synchResult.getCode()) {
+                                        case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                                            showUntrustedCertDialog(synchResult);
+                                            break;
+
+                                        case MAINTENANCE_MODE:
+                                            showInfoBox(R.string.maintenance_mode);
+                                            break;
+
+                                        case NO_NETWORK_CONNECTION:
+                                            showInfoBox(R.string.offline_mode);
+                                            break;
+
+                                        case HOST_NOT_AVAILABLE:
+                                            showInfoBox(R.string.host_not_available);
+                                    }
                                 }
                             }
                         }
