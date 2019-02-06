@@ -201,6 +201,14 @@ public final class MimeTypeUtil {
         return isImage(mimeType) || isVideo(mimeType);
     }
 
+    public static boolean isImageOrVideo(File file) {
+        return isImage(file) || isVideo(file);
+    }
+
+    public static boolean isImageOrVideo(ServerFileInterface file) {
+        return isImage(file) || isVideo(file);
+    }
+
     /**
      * @return 'True' if the mime type defines image
      */
