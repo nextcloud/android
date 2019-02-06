@@ -497,7 +497,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == mFiles.size()) {
             return VIEWTYPE_FOOTER;
         } else {
-            if (MimeTypeUtil.isImage(getItem(position))) {
+            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
                 return VIEWTYPE_IMAGE;
             } else {
                 return VIEWTYPE_ITEM;

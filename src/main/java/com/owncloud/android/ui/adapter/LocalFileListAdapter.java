@@ -70,6 +70,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
+    private static final int VIEWTYPE_IMAGE = 2;
 
     public LocalFileListAdapter(boolean localFolderPickerMode, File directory,
                                 LocalFileListFragmentInterface localFileListFragmentInterface, Context context) {
@@ -144,7 +145,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             if (file != null) {
-                LocalFileListGridViewHolder gridViewHolder = (LocalFileListGridViewHolder) holder;
+                LocalFileListGridImageViewHolder gridViewHolder = (LocalFileListGridImageViewHolder) holder;
 
                 // checkbox
                 if (isCheckedFile(file)) {
@@ -170,7 +171,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                         .onItemClicked(finalFile));
 
-                gridViewHolder.fileName.setText(file.getName());
 
                 if (holder instanceof LocalFileListItemViewHolder) {
                     LocalFileListItemViewHolder itemViewHolder = (LocalFileListItemViewHolder) holder;
@@ -187,11 +187,16 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                             file.lastModified()));
                 }
 
-                if (gridView && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file) ||
+                if (gridViewHolder instanceof LocalFileListGridItemViewHolder) {
+                    LocalFileListGridItemViewHolder itemVH = (LocalFileListGridItemViewHolder) gridViewHolder;
+                    itemVH.fileName.setText(file.getName());
+
+                    if (gridView && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file) ||
                         localFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold)) {
-                    gridViewHolder.fileName.setVisibility(View.GONE);
-                } else {
-                    gridViewHolder.fileName.setVisibility(View.VISIBLE);
+                        itemVH.fileName.setVisibility(View.GONE);
+                    } else {
+                        itemVH.fileName.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }
@@ -251,8 +256,16 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (position == mFiles.size()) {
             return VIEWTYPE_FOOTER;
         } else {
-            return VIEWTYPE_ITEM;
+            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
+                return VIEWTYPE_IMAGE;
+            } else {
+                return VIEWTYPE_ITEM;
+            }
         }
+    }
+
+    private File getItem(int position) {
+        return mFiles.get(position);
     }
 
     @NonNull
@@ -263,7 +276,16 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             case VIEWTYPE_ITEM:
                 if (gridView) {
                     View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, parent, false);
-                    return new LocalFileListGridViewHolder(itemView);
+                    return new LocalFileListGridItemViewHolder(itemView);
+                } else {
+                    View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+                    return new LocalFileListItemViewHolder(itemView);
+                }
+
+            case VIEWTYPE_IMAGE:
+                if (gridView) {
+                    View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_image, parent, false);
+                    return new LocalFileListGridImageViewHolder(itemView);
                 } else {
                     View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
                     return new LocalFileListItemViewHolder(itemView);
@@ -408,7 +430,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.gridView = gridView;
     }
 
-    private static class LocalFileListItemViewHolder extends LocalFileListGridViewHolder {
+    private static class LocalFileListItemViewHolder extends LocalFileListGridItemViewHolder {
         private final TextView fileSize;
         private final TextView lastModification;
         private final TextView fileSeparator;
@@ -424,23 +446,31 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    static class LocalFileListGridViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView thumbnail;
-        private final TextView fileName;
-        private final ImageView checkbox;
-        private final LinearLayout itemLayout;
+    static class LocalFileListGridImageViewHolder extends RecyclerView.ViewHolder {
+        protected final ImageView thumbnail;
+        protected final ImageView checkbox;
+        protected final LinearLayout itemLayout;
 
-        private LocalFileListGridViewHolder(View itemView) {
+        private LocalFileListGridImageViewHolder(View itemView) {
             super(itemView);
 
             thumbnail = itemView.findViewById(R.id.thumbnail);
-            fileName = itemView.findViewById(R.id.Filename);
             checkbox = itemView.findViewById(R.id.custom_checkbox);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
 
             itemView.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
             itemView.findViewById(R.id.favorite_action).setVisibility(View.GONE);
             itemView.findViewById(R.id.localFileIndicator).setVisibility(View.GONE);
+        }
+    }
+
+    static class LocalFileListGridItemViewHolder extends LocalFileListGridImageViewHolder {
+        private final TextView fileName;
+
+        private LocalFileListGridItemViewHolder(View itemView) {
+            super(itemView);
+
+            fileName = itemView.findViewById(R.id.Filename);
         }
     }
 
