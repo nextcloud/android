@@ -47,7 +47,7 @@
     <string name="prefs_show_hidden_files">Amosar ficheiros agachados</string>
     <string name="prefs_enable_media_scan_notifications">Amosar as notificacións de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar cando se atopen novos cartafoles de medios</string>
-    <string name="prefs_log_delete_history_button">Borrar historial</string>
+    <string name="prefs_log_delete_history_button">Eliminar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
     <string name="prefs_calendar_contacts_summary">Estabelecer DAVx5 (anteriormente coñecido como DAVdroid) (v1.3.0 +) para a conta actual</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Non foi posíbel resolver o enderezo do servidor para a conta de DAVx5 (anteriormente coñecido como DAVdroid)</string>

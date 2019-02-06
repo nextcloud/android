@@ -50,6 +50,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Meddela om nya media-mappar</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Sätt upp DAVx5 (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen för kontot kunde inte hittas för DAVx5 (tidigare DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup av dina kontakter</string>
@@ -708,6 +710,8 @@
     <string name="screenshot_03_drawer">Snabbt komma åt aktivitet, delningar, offline-filer och mer</string>
     <string name="screenshot_04_accounts">Anslut till olika konton</string>
     <string name="screenshot_05_autoUpload">Ladda automatiskt upp dina foton &amp; videor</string>
+    <string name="screenshot_06_davdroid">Synkronisera kalender &amp; kontakter med DAVx5 (tidigare DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">Ingen personlig info inställd</string>
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="account_icon">Kontoikon</string>
