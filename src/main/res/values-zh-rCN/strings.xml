@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">有关于新发现的媒体文件夹的通知</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
+    <string name="prefs_calendar_contacts_summary">为当前帐户设置 DAVx5（以前称为DAVdroid）(v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5（以前称为DAVdroid）无法解析该帐户的服务器地址</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历 &amp; 联系人同步设置</string>
     <string name="prefs_daily_contacts_sync_summary">联系人每日备份</string>

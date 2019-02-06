@@ -838,6 +838,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
     <string name="uploader_upload_files_behaviour_not_writable">folder źródłowy jest tylko do odczytu; plik zostanie tylko przesłany</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">przechowywane w oryginalnym folderze, jak jest to tylko do odczytu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="upload_unknown_error">Nieznany błąd</string>
     <string name="upload_lock_failed">Nie udało się zablokować folderu</string>

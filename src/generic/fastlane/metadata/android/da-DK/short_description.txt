@@ -1,0 +1,1 @@
+Nextcloud Android appen giver mobil adgang til alle filer på din Nextcloud.
