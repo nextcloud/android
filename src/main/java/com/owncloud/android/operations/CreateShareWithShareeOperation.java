@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.Getter;
+
 /**
  * Creates a new private share for a given file.
  */
@@ -42,10 +44,10 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
     protected FileDataStorageManager mStorageManager;
 
-    private String mPath;
-    private String mShareeName;
-    private ShareType mShareType;
-    private int mPermissions;
+    @Getter private String path;
+    private String shareeName;
+    private ShareType shareType;
+    private int permissions;
 
     private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
             ShareType.GROUP, ShareType.FEDERATED, ShareType.EMAIL, ShareType.ROOM));
@@ -64,22 +66,22 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         if (!supportedShareTypes.contains(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
-        mPath = path;
-        mShareeName = shareeName;
-        mShareType = shareType;
-        mPermissions = permissions;
+        this.path = path;
+        this.shareeName = shareeName;
+        this.shareType = shareType;
+        this.permissions = permissions;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         CreateRemoteShareOperation operation = new CreateRemoteShareOperation(
-                mPath,
-                mShareType,
-                mShareeName,
+            path,
+            shareType,
+            shareeName,
                 false,
                 "",
-                mPermissions
+            permissions
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
@@ -93,19 +95,15 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         return result;
     }
 
-    public String getPath() {
-        return mPath;
-    }
-
     private void updateData(OCShare share) {
         // Update DB with the response
-        share.setPath(mPath);
-        share.setIsFolder(mPath.endsWith(FileUtils.PATH_SEPARATOR));
+        share.setPath(path);
+        share.setFolder(path.endsWith(FileUtils.PATH_SEPARATOR));
 
         getStorageManager().saveShare(share);
 
         // Update OCFile with data from share: ShareByLink  and publicLink
-        OCFile file = getStorageManager().getFileByPath(mPath);
+        OCFile file = getStorageManager().getFileByPath(path);
         if (file!=null) {
             file.setSharedWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
             getStorageManager().saveFile(file);

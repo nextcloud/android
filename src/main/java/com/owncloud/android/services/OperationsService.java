@@ -578,7 +578,7 @@ public class OperationsService extends Service {
                             updateLinkOperation.setPassword(password);
 
                             long expirationDate = operationIntent.getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0);
-                            updateLinkOperation.setExpirationDate(expirationDate);
+                            updateLinkOperation.setExpirationDateInMillis(expirationDate);
 
                             boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                 false);
@@ -597,7 +597,7 @@ public class OperationsService extends Service {
 
                             long expirationDateInMillis = operationIntent
                                     .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
-                            updateShare.setExpirationDate(expirationDateInMillis);
+                            updateShare.setExpirationDateInMillis(expirationDateInMillis);
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                             updateShare.setPassword(password);

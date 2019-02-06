@@ -91,7 +91,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue() &&
-            capability.getRichdocumentsTemplatesAvailable().isTrue()) {
+            capability.getRichDocumentsTemplatesAvailable().isTrue()) {
             templates.setVisibility(View.VISIBLE);
         }
 

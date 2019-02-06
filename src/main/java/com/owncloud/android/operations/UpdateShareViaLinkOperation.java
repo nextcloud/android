@@ -31,17 +31,21 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * Updates an existing public share for a given file
  */
 public class UpdateShareViaLinkOperation extends SyncOperation {
 
-    private String path;
-    private String password;
-    private Boolean publicUpload;
-    private Boolean hideFileDownload;
-    private long expirationDateInMillis;
+    @Getter private String path;
+    @Getter @Setter private String password;
+    /** Enable upload permissions to update in Share resource. */
+    @Setter private Boolean publicUpload;
+    @Setter private Boolean hideFileDownload;
+    @Setter private long expirationDateInMillis;
 
     /**
      * Constructor
@@ -51,43 +55,6 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     public UpdateShareViaLinkOperation(String path) {
         this.path = path;
         expirationDateInMillis = 0;
-    }
-
-    /**
-     * Set password to update in public link.
-     *
-     * @param password      Password to set to the public link.
-     *                      Empty string clears the current password.
-     *                      Null results in no update applied to the password.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Set expiration date to update in Share resource.
-     *
-     * @param expirationDateInMillis    Expiration date to set to the public link.
-     *                                  A negative value clears the current expiration date.
-     *                                  Zero value (start-of-epoch) results in no update done on
-     *                                  the expiration date.
-     */
-    public void setExpirationDate(long expirationDateInMillis) {
-        this.expirationDateInMillis = expirationDateInMillis;
-    }
-
-    public void setHideFileDownload(boolean hideFileDownload) {
-        this.hideFileDownload = hideFileDownload;
-    }
-
-    /**
-     * Enable upload permissions to update in Share resource.
-     *
-     * @param publicUpload    Upload Permission to set to the public link.
-     *                        Null results in no update applied to the upload permission.
-     */
-    public void setPublicUpload(Boolean publicUpload) {
-        this.publicUpload = publicUpload;
     }
 
     @Override
@@ -119,21 +86,13 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         return result;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(path);
         if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setIsFolder(true);
+            share.setFolder(true);
         } else {
-            share.setIsFolder(false);
+            share.setFolder(false);
         }
 
         getStorageManager().saveShare(share);   // TODO info about having a password? ask to Gonzalo

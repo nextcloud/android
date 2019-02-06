@@ -174,7 +174,7 @@ public class DownloadFileOperation extends RemoteOperation {
         while (listener.hasNext()) {
             mDownloadOperation.addDatatransferProgressListener(listener.next());
         }
-        result = mDownloadOperation.execute(client, client.useNextcloudUserAgent());
+        result = mDownloadOperation.execute(client, client.isUseNextcloudUserAgent());
 
         if (result.isSuccess()) {
             mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
