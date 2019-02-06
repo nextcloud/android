@@ -50,13 +50,13 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
                 long o1Date;
                 long o2Date;
                 if (o1 instanceof Activity) {
-                    o1Date = ((Activity) o1).datetime.getTime();
+                    o1Date = ((Activity) o1).getDatetime().getTime();
                 } else {
                     o1Date = ((FileVersion) o1).getModifiedTimestamp();
                 }
 
                 if (o2 instanceof Activity) {
-                    o2Date = ((Activity) o2).datetime.getTime();
+                    o2Date = ((Activity) o2).getDatetime().getTime();
                 } else {
                     o2Date = ((FileVersion) o2).getModifiedTimestamp();
                 }
