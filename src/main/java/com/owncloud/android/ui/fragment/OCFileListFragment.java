@@ -240,15 +240,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity = (FileFragment.ContainerActivity) context;
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement " +
-                    FileFragment.ContainerActivity.class.getSimpleName());
+            throw new IllegalArgumentException(context.toString() + " must implement " +
+                    FileFragment.ContainerActivity.class.getSimpleName(), e);
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) context);
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement " +
-                    SwipeRefreshLayout.OnRefreshListener.class.getSimpleName());
+            throw new IllegalArgumentException(context.toString() + " must implement " +
+                    SwipeRefreshLayout.OnRefreshListener.class.getSimpleName(), e);
         }
     }
 

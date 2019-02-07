@@ -104,8 +104,8 @@ public class FileFragment extends Fragment {
             mContainerActivity = (ContainerActivity) activity;
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    ContainerActivity.class.getSimpleName());
+            throw new IllegalArgumentException(activity.toString() + " must implement " +
+                    ContainerActivity.class.getSimpleName(), e);
         }
     }
 
