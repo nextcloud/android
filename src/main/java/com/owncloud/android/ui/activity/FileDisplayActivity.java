@@ -1427,6 +1427,11 @@ public class FileDisplayActivity extends HookActivity
 
                                         case HOST_NOT_AVAILABLE:
                                             showInfoBox(R.string.host_not_available);
+                                            break;
+
+                                        default:
+                                            // nothing to do
+                                            break;
                                     }
                                 }
                             }
