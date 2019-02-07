@@ -145,7 +145,7 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Creates an empty fragment for image previews.
      *
-     * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
      * (for instance, when the device is turned a aside).
      *
      * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
@@ -159,6 +159,11 @@ public class PreviewImageFragment extends FileFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+
+        if (args == null) {
+            throw new IllegalArgumentException("Arguments may not be null!");
+        }
+
         setFile(args.getParcelable(ARG_FILE));
         // TODO better in super, but needs to check ALL the class extending FileFragment;
         // not right now
@@ -266,9 +271,7 @@ public class PreviewImageFragment extends FileFragment {
                     }
                 }
                 mMultiView.setVisibility(View.GONE);
-                if (getResources() != null) {
-                    mImageView.setBackgroundColor(getResources().getColor(R.color.black));
-                }
+                mImageView.setBackgroundColor(getResources().getColor(R.color.black));
                 mImageView.setVisibility(View.VISIBLE);
 
             } else {
@@ -713,7 +716,11 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     private void togglePreviewImageFullScreen() {
-        ((PreviewImageActivity) getActivity()).toggleFullScreen();
+        Activity activity = getActivity();
+
+        if (activity != null) {
+            ((PreviewImageActivity) activity).toggleFullScreen();
+        }
         toggleImageBackground();
     }
 
@@ -721,7 +728,7 @@ public class PreviewImageFragment extends FileFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
                 && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
                 MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
-                && getActivity() instanceof PreviewImageActivity && getResources() != null) {
+            && getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
             if (mImageView.getDrawable() instanceof LayerDrawable) {
