@@ -1299,9 +1299,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         /// be gentle with the user
-        IndeterminateProgressDialog dialog =
-                IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
-        dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
+        IndeterminateProgressDialog dialog = IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login,
+                                                                                     true);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(dialog, WAIT_DIALOG_TAG);
+        ft.commitAllowingStateLoss();
 
         /// validate credentials accessing the root folder
         OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
