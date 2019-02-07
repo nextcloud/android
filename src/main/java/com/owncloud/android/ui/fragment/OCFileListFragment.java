@@ -703,14 +703,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         MenuItem menuItemOrig;
 
-        if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_SORT)) {
+        if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_SORT) {
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
             }
 
-        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_GRID_AND_SORT)) {
+        } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT) {
             if (menu.findItem(R.id.action_switch_view) == null) {
                 menuItemOrig = mOriginalMenuItems.get(0);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
@@ -722,9 +722,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
             }
-        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_SEARCH)) {
+        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SEARCH) {
             menu.removeItem(R.id.action_search);
-        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH)) {
+        } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH) {
             if (menu.findItem(R.id.action_switch_view) == null) {
                 menuItemOrig = mOriginalMenuItems.get(0);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
@@ -742,23 +742,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
             }
-        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_SORT)) {
+        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SORT) {
             menu.removeItem(R.id.action_sort);
             menu.removeItem(R.id.action_search);
-        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_GRID_AND_SORT)) {
+        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT) {
             menu.removeItem(R.id.action_sort);
             menu.removeItem(R.id.action_switch_view);
             menu.removeItem(R.id.action_search);
         }
-
     }
 
     /**
      * Call this, when the user presses the up button.
-     * <p>
+     *
      * Tries to move up the current folder one level. If the parent folder was removed from the
      * database, it continues browsing up until finding an existing folders.
-     * <p/>
+     *
      * return       Count of folder levels browsed up.
      */
     public int onBrowseUp() {
@@ -1345,7 +1344,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
 
-        if (currentSearchType != null && !currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
+        if (SearchType.FILE_SEARCH != currentSearchType && getActivity() != null) {
             getActivity().invalidateOptionsMenu();
         }
     }
@@ -1353,21 +1352,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setEmptyView(SearchEvent event) {
 
         if (event != null) {
-            if (SearchRemoteOperation.SearchType.FILE_SEARCH.equals(event.getSearchType())) {
+            if (SearchRemoteOperation.SearchType.FILE_SEARCH == event.getSearchType()) {
                 setEmptyListMessage(SearchType.FILE_SEARCH);
-            } else if (event.getSearchType().equals(SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH)) {
+            } else if (event.getSearchType() == SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH) {
                 if ("image/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.PHOTO_SEARCH);
                 } else if ("video/%".equals(event.getSearchQuery())) {
                     setEmptyListMessage(SearchType.VIDEO_SEARCH);
                 }
-            } else if (SearchRemoteOperation.SearchType.FAVORITE_SEARCH.equals(event.getSearchType())) {
+            } else if (SearchRemoteOperation.SearchType.FAVORITE_SEARCH == event.getSearchType()) {
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-            } else if (SearchRemoteOperation.SearchType.RECENTLY_ADDED_SEARCH.equals(event.getSearchType())) {
+            } else if (SearchRemoteOperation.SearchType.RECENTLY_ADDED_SEARCH == event.getSearchType()) {
                 setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-            } else if (SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH.equals(event.getSearchType())) {
+            } else if (SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH == event.getSearchType()) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-            } else if (SearchRemoteOperation.SearchType.SHARED_SEARCH.equals(event.getSearchType())) {
+            } else if (SearchRemoteOperation.SearchType.SHARED_SEARCH == event.getSearchType()) {
                 setEmptyListMessage(SearchType.SHARED_FILTER);
             }
         }
@@ -1438,9 +1437,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         setFabVisible(false);
 
-        if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
+        if (event.getUnsetType() == SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR) {
             unsetAllMenuItems(false);
-        } else if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_DRAWER)) {
+        } else if (event.getUnsetType() == SearchEvent.UnsetType.UNSET_DRAWER) {
             unsetAllMenuItems(true);
         }
 
@@ -1471,7 +1470,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         };
 
-        if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
+        if (currentSearchType == SearchType.PHOTO_SEARCH) {
             new Handler(Looper.getMainLooper()).post(this::switchToGridView);
         } else {
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
@@ -1480,7 +1479,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         final RemoteOperation remoteOperation;
-        if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
+        if (currentSearchType != SearchType.SHARED_FILTER) {
             boolean searchOnlyFolders = false;
             if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
                 searchOnlyFolders = true;
