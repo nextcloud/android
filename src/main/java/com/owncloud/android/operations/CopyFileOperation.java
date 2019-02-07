@@ -31,11 +31,8 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class CopyFileOperation extends SyncOperation {
 
-    //private static final String TAG = MoveFileOperation.class.getSimpleName();
-
-    private String mSrcPath;
-    private String mTargetParentPath;
-    private OCFile mFile;
+    private String srcPath;
+    private String targetParentPath;
 
     /**
      * Constructor
@@ -44,13 +41,11 @@ public class CopyFileOperation extends SyncOperation {
      * @param targetParentPath Path to the folder where the file will be copied into.
      */
     public CopyFileOperation(String srcPath, String targetParentPath) {
-        mSrcPath = srcPath;
-        mTargetParentPath = targetParentPath;
-        if (!mTargetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-            mTargetParentPath += OCFile.PATH_SEPARATOR;
+        this.srcPath = srcPath;
+        this.targetParentPath = targetParentPath;
+        if (!this.targetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+            this.targetParentPath += OCFile.PATH_SEPARATOR;
         }
-
-        mFile = null;
     }
 
     /**
@@ -61,24 +56,24 @@ public class CopyFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         /// 1. check copy validity
-        if (mTargetParentPath.startsWith(mSrcPath)) {
+        if (targetParentPath.startsWith(srcPath)) {
             return new RemoteOperationResult(ResultCode.INVALID_COPY_INTO_DESCENDANT);
         }
-        mFile = getStorageManager().getFileByPath(mSrcPath);
-        if (mFile == null) {
+        OCFile file = getStorageManager().getFileByPath(srcPath);
+        if (file == null) {
             return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
         }
 
         /// 2. remote copy
-        String targetPath = mTargetParentPath + mFile.getFileName();
-        if (mFile.isFolder()) {
+        String targetPath = targetParentPath + file.getFileName();
+        if (file.isFolder()) {
             targetPath += OCFile.PATH_SEPARATOR;
         }
-        RemoteOperationResult result = new CopyFileRemoteOperation(mSrcPath, targetPath, false).execute(client);
+        RemoteOperationResult result = new CopyFileRemoteOperation(srcPath, targetPath, false).execute(client);
 
         /// 3. local copy
         if (result.isSuccess()) {
-            getStorageManager().copyLocalFile(mFile, targetPath);
+            getStorageManager().copyLocalFile(file, targetPath);
         }
         // TODO handle ResultCode.PARTIAL_COPY_DONE in client Activity, for the moment
 

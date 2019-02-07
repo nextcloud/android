@@ -72,8 +72,8 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    LocalFileListFragment.ContainerActivity.class.getSimpleName());
+            throw new IllegalArgumentException(activity.toString() + " must implement " +
+                    LocalFileListFragment.ContainerActivity.class.getSimpleName(), e);
         }
     }
 

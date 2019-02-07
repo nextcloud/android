@@ -576,7 +576,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         try {
             mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnShareFragmentInteractionListener");
+            throw new IllegalArgumentException(
+                activity.toString() + " must implement OnShareFragmentInteractionListener", e);
         }
     }
 
