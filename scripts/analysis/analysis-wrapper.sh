@@ -74,7 +74,7 @@ else
     fi
 
     # add comment with results
-    lintResultNew=$(grep "Lint Report.* [0-9]* warnings" build/reports/lint/lint.html | cut -f2 -d':' |cut -f1 -d'<')
+    lintResultNew=$(grep "Lint Report.* [0-9]* warning" build/reports/lint/lint.html | cut -f2 -d':' |cut -f1 -d'<')
 
     lintErrorNew=$(echo $lintResultNew | grep "[0-9]* error" -o | cut -f1 -d" ")
     if ( [ -z $lintErrorNew ] ); then
