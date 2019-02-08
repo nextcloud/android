@@ -226,7 +226,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
         for (SyncedFolder syncedFolder : syncedFolderArrayList) {
             if (currentAccount != null && syncedFolder.getAccount().equals(currentAccount.name)) {
-                currentAccountSyncedFoldersList.add(syncedFolder);
+
+                // delete non-existing & disabled synced folders
+                if (!new File(syncedFolder.getLocalPath()).exists() && !syncedFolder.isEnabled()) {
+                    mSyncedFolderProvider.deleteSyncedFolder(syncedFolder.getId());
+                } else {
+                    currentAccountSyncedFoldersList.add(syncedFolder);
+                }
             }
         }
 
