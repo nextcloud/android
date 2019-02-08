@@ -92,9 +92,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                      group.getGroupName(), group.getGroupItemCount()));
         headerViewHolder.title.setTextColor(ThemeUtils.primaryAccentColor(parentActivity));
 
-        headerViewHolder.title.setOnClickListener(v -> {
-            toggleSectionExpanded(section);
-        });
+        headerViewHolder.title.setOnClickListener(v -> toggleSectionExpanded(section));
 
         switch (group.type) {
             case CURRENT:
@@ -125,6 +123,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 case FAILED:
                     new Thread(() -> new FileUploader.UploadRequester()
                         .retryFailedUploads(parentActivity, null, null)).start();
+                    break;
+
+                default:
+                    // do nothing
                     break;
             }
 
@@ -615,34 +617,34 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     static class ItemViewHolder extends SectionedViewHolder {
         @BindView(R.id.upload_name)
-        TextView name;
+        public TextView name;
 
         @BindView(R.id.thumbnail)
-        ImageView thumbnail;
+        public ImageView thumbnail;
 
         @BindView(R.id.upload_file_size)
-        TextView fileSize;
+        public TextView fileSize;
 
         @BindView(R.id.upload_date)
-        TextView date;
+        public TextView date;
 
         @BindView(R.id.upload_status)
-        TextView status;
+        public TextView status;
 
         @BindView(R.id.upload_account)
-        TextView account;
+        public TextView account;
 
         @BindView(R.id.upload_remote_path)
-        TextView remotePath;
+        public TextView remotePath;
 
         @BindView(R.id.upload_progress_bar)
-        ProgressBar progressBar;
+        public ProgressBar progressBar;
 
         @BindView(R.id.upload_right_button)
-        ImageButton button;
+        public  ImageButton button;
 
         @BindView(R.id.upload_list_item_layout)
-        LinearLayout itemLayout;
+        public LinearLayout itemLayout;
 
         ItemViewHolder(View itemView) {
             super(itemView);
