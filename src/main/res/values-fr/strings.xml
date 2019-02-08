@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Notifier les nouveaux dossiers multimédias trouvés</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
+    <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVx5 (autrefois connu comme DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
@@ -650,6 +652,8 @@ Attention la suppression est irréversible.</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
 
     <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>
+    <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVx5 (autrefois connu comme DAVdroid) pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>
+
     <string name="drawer_current_account">Compte actuel</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
@@ -709,6 +713,8 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_03_drawer">Accédez rapidement aux fichiers hors-connexion, partagez, consultez l\'activé et bien plus</string>
     <string name="screenshot_04_accounts">Connectez-vous avec plusieurs comptes</string>
     <string name="screenshot_05_autoUpload">Téléversez instantanément vos photos &amp; vidéos</string>
+    <string name="screenshot_06_davdroid">Synchronisez Agenda &amp; Contacts avec DAVx5 (autrefois connue comme DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">Aucunes informations personnelles renseignées</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>

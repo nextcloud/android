@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Varsle om nye mediamapper</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Konfigurer DAVx5 (tidligere DAVdroid) (v1.3.0+)  for gjeldende konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adresse til tjener kan ikke nås for DAVx5 (tidligere DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av kontakter</string>
@@ -707,6 +709,8 @@
     <string name="screenshot_03_drawer">Rask tilgang til aktivitet, delinger, frakoblede filer og mer</string>
     <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
     <string name="screenshot_05_autoUpload">Last opp bilder og videoer automatisk</string>
+    <string name="screenshot_06_davdroid">Synkroniser kalender &amp;kontakter med DAVx5 (tidligere DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på profilsiden.</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
