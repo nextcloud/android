@@ -78,7 +78,7 @@ public class UploadListActivity extends FileActivity {
 
     private UploadsStorageManager uploadStorageManager;
 
-    private UploadMessagesReceiver mUploadMessagesReceiver;
+    private UploadMessagesReceiver uploadMessagesReceiver;
 
     private UploadListAdapter uploadListAdapter;
 
@@ -216,12 +216,12 @@ public class UploadListActivity extends FileActivity {
         setDrawerMenuItemChecked(R.id.nav_uploads);
 
         // Listen for upload messages
-        mUploadMessagesReceiver = new UploadMessagesReceiver();
+        uploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
         uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
-        registerReceiver(mUploadMessagesReceiver, uploadIntentFilter);
+        registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
 
@@ -230,9 +230,9 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onPause() {
         Log_OC.v(TAG, "onPause() start");
-        if (mUploadMessagesReceiver != null) {
-            unregisterReceiver(mUploadMessagesReceiver);
-            mUploadMessagesReceiver = null;
+        if (uploadMessagesReceiver != null) {
+            unregisterReceiver(uploadMessagesReceiver);
+            uploadMessagesReceiver = null;
         }
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
