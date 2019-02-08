@@ -45,9 +45,12 @@
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
+    <string name="prefs_enable_media_scan_notifications">メディアのスキャン結果通知を表示する</string>
     <string name="prefs_enable_media_scan_notifications_summary">新たに見つかったメディアフォルダを通知する</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
+    <string name="prefs_calendar_contacts_summary">DAVx5 (旧称 DAVdroid) (v1.3.0+) を現在のアカウントに設定する</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">このアカウントのDAVx5 (f旧称 DAVdroid)用サーバアドレスが解決できませんでした</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_daily_contacts_sync_summary">連絡先のデイリーバックアップ</string>
@@ -642,6 +645,8 @@
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
 
     <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
+    <string name="store_full_desc">あなたにモバイル・フリーダムをもたらすコピーレフト化された無償の Nextcloud Android アプリ。\n\nフィーチャー：\n* 簡単でモダンなインタフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダーや連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期・共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細はhttps://nextcloud.comまで。</string>
+
     <string name="drawer_current_account">現在のアカウント</string>
     <string name="drawer_middle_account">ミドルアカウント</string>
     <string name="drawer_end_account">最後のアカウント</string>
@@ -704,6 +709,8 @@
     <string name="screenshot_03_drawer">アクティビティ、共有、オフラインファイルなどに素早くアクセス</string>
     <string name="screenshot_04_accounts">別のアカウントに接続する</string>
     <string name="screenshot_05_autoUpload">写真を自動的にアップロード &amp; ビデオ</string>
+    <string name="screenshot_06_davdroid">カレンダー&amp;連絡先をDAVx5 (旧称 DAVdroid)で同期する</string>
+
     <string name="userinfo_no_info_headline">個人情報が設定されていない</string>
     <string name="userinfo_no_info_text">プロフィールページに名前、写真、連絡先の詳細を追加します。</string>
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
@@ -766,6 +773,8 @@
     <string name="notification_channel_general_name">一般的な通知</string>
     <string name="notification_channel_general_description">新しいメディアフォルダなどの通知を表示する</string>
     <string name="new_media_folder_detected">新しい %1$s メディアフォルダが検出されました。</string>
+    <string name="configure_new_media_folder_detection_notifications">構成</string>
+    <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="new_media_folder_photos">写真</string>
     <string name="new_media_folder_videos">ビデオ</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
@@ -773,7 +782,7 @@
     <string name="feedback_no_mail_app">メールを送信するアプリはありません！</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
-    <string name="action_empty_trashbin">空のゴミ箱</string>
+    <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
@@ -814,5 +823,20 @@
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
+    <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
+    <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_close">閉じる</string>
-    </resources>
+    <string name="battery_optimization_no_setting">バッテリーの設定を直接変更できません。手動で設定を調整してください。</string>
+    <string name="file_details_no_content">詳細のロードに失敗しました</string>
+    <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
+    <string name="uploader_upload_files_behaviour_not_writable">ソースフォルダーが読み取り専用のため、ファイルのアップロードのみ行ないます</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
+    <string name="scanQR_description">QRコードを用いてログイン</string>
+    <string name="upload_unknown_error">不明なエラー</string>
+    <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
+    <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
+    <string name="upload_old_android"><![CDATA[暗号化はAndroid 5.0以降で可能]]></string>
+    <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
+    <string name="upload_cannot_create_file">ローカルファイルが作成できません</string>
+    <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
+</resources>

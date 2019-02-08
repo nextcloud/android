@@ -49,6 +49,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Powiadamiaj o nowo znalezionych folderach multimedialnych</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
+    <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera skojarzony z tym kontem nie został rozpoznany przez DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_daily_contacts_sync_summary">Codzienna kopia zapasowa Twoich kontaktów</string>
@@ -658,6 +660,8 @@
     <string name="resized_image_not_possible_download">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
 
     <string name="store_short_desc">Przy użyciu aplikacji mobilnej Nextcloud na Android\'a uzyskasz dostęp do wszystkich plików z twojego Nextcloud\'a.</string>
+    <string name="store_full_desc">Rozpowszechniana bez ograniczeń aplikacja NextCloud (Android), zapewniająca mobilną swobodę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do motywu serwera\n* Przesyłanie plików na serwer NextCloud\n* Udostępnianie ich innym użytkownikom\n* Synchronizacja Twoich ulubionych plików i folderów\n* Przeszukiwanie wszystkich folderów na serwerze\n* Automatyczne przesyłanie na serwer zdjęć i filmów\n* Otrzymywanie powiadomień na bierząco\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub PIN\n* Integracja z DAVx5 (dawniej DAVdroid) aby łatwiej skonfigurować kalendarz&amp; synchronizację kontaktów\n\nWszelkie problemy z aplikacją proszę zgłaszać do Nextcloud https://github.com/nextcloud/android/issues, forum dyskusyjne dla aplikacji znajduje się na https://help.nextcloud.com/c/clients/android\n\nNowy Nextcloud zapewnia poufną synchronizację danych&amp; udostępnianie plików oraz komunikację. Jest darmowym oprogramowaniem, które możesz wykorzystać samodzielnie lub zlecić odpłatnie instalację firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę na swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i pozostałymi poufnymi danymi.\n\nWypróbuj Nextcloud https://nextcloud.com</string>
+
     <string name="drawer_current_account">Bieżące konto</string>
     <string name="drawer_middle_account">Konto poprzednie</string>
     <string name="drawer_end_account">Konto ostatnie</string>
@@ -719,6 +723,8 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="screenshot_03_drawer">Uzyskaj szybki dostęp do aktywności, udostępnień, plików offline i innych</string>
     <string name="screenshot_04_accounts">Podłącz się do innego konta</string>
     <string name="screenshot_05_autoUpload">Automatycznie wysyłaj zdjęcia i obrazy.</string>
+    <string name="screenshot_06_davdroid">Synchronizuj kalendarz &amp; kontakty z DAVx5 (wcześniej znanym jako DAVdroid)</string>
+
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="drawer_header_background">Tło nagłówka menu rozwijanego</string>
@@ -838,6 +844,7 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
     <string name="uploader_upload_files_behaviour_not_writable">folder źródłowy jest tylko do odczytu; plik zostanie tylko przesłany</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">przechowywane w oryginalnym folderze, jak jest to tylko do odczytu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="upload_unknown_error">Nieznany błąd</string>
     <string name="upload_lock_failed">Nie udało się zablokować folderu</string>
