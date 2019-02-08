@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ownCloud Android client application
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
   Copyright (C) 2012-2013 ownCloud Inc.
@@ -23,22 +22,7 @@
         android:checkableBehavior="none">
 
         <item
-            android:id="@+id/action_retry_uploads"
-            android:title="@string/action_retry_uploads"/>
-        <item
             android:id="@+id/action_clear_failed_uploads"
-            android:title="@string/action_clear_failed_uploads"/>
-
-        <item
-            android:id="@+id/action_clear_successfull_uploads"
-            android:title="@string/action_clear_successful_uploads"/>
-    </group>
-    <group
-        android:id="@+id/upload_list_force_scan"
-        android:checkableBehavior="none">
-
-        <item
-            android:id="@+id/action_force_rescan"
-            android:title="@string/action_force_rescan"/>
+            android:title="@string/action_clear_failed_uploads" />
     </group>
 </menu>
