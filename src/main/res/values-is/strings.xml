@@ -510,10 +510,7 @@
     <string name="share_privilege_can_edit_change">getur breytt</string>
     <string name="share_privilege_can_edit_delete">getur eytt</string>
 
-    <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
-    <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
-    <string name="action_force_rescan">Þvinga endurskönnun</string>
 
     <string name="action_switch_grid_view">Reitir</string>
     <string name="action_switch_list_view">Listi</string>
@@ -835,4 +832,4 @@
     <string name="upload_sync_conflict">Árekstur í samstillingu, leystu þetta handvirkt</string>
     <string name="upload_cannot_create_file">Get ekki búið til skrá á tölvu</string>
     <string name="upload_local_storage_not_copied">Skrá var ekki hægt að afrita í staðværa gagnageymslu</string>
-</resources>
+    </resources>

@@ -392,9 +392,8 @@
     <string name="share_privilege_can_edit_change">có thể chỉnh sửa</string>
     <string name="share_privilege_can_edit_delete">có thể xóa</string>
 
-    <string name="action_retry_uploads">Thử lại các tải lên bị lỗi</string>
     <string name="action_clear_failed_uploads">Dọn dẹp các tải lên bị lỗi</string>
-    <string name="action_clear_successful_uploads">Dọn dẹp các tải lên đã hoàn tất</string>
+
     <string name="manage_space_title">Quản lý dung lượng</string>
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
 

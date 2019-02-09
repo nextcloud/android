@@ -514,10 +514,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_privilege_can_edit_change">Peut modifier</string>
     <string name="share_privilege_can_edit_delete">Peut supprimer</string>
 
-    <string name="action_retry_uploads">Relancer les envois en erreur</string>
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
-    <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
-    <string name="action_force_rescan">Actualiser</string>
 
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
@@ -843,4 +840,4 @@ Attention la suppression est irréversible.</string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
-</resources>
+    </resources>

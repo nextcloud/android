@@ -501,10 +501,7 @@
     <string name="share_privilege_can_edit_change">δυνατότητα αλλαγής</string>
     <string name="share_privilege_can_edit_delete">δυνατότητα διαγραφής</string>
 
-    <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
-    <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
-    <string name="action_force_rescan">Επιβολή σάρωσης</string>
 
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
@@ -762,4 +759,4 @@
     <string name="upload_unknown_error">Άγνωστο σφάλμα</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="upload_local_storage_not_copied">Το αρχείο δεν μπορεί να αντιγραφεί σε τοπικό αποθηκευτικό χώρο</string>
-</resources>
+    </resources>

@@ -508,10 +508,7 @@
     <string name="share_privilege_can_edit_change">може да променя</string>
     <string name="share_privilege_can_edit_delete">може да изтрива</string>
 
-    <string name="action_retry_uploads">Нов опит за провалените</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
-    <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
-    <string name="action_force_rescan">Сканирай наново</string>
 
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>

@@ -512,10 +512,7 @@
     <string name="share_privilege_can_edit_change">kan endre</string>
     <string name="share_privilege_can_edit_delete">kan slette</string>
 
-    <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
-    <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
-    <string name="action_force_rescan">Tving reskanning</string>
 
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
@@ -839,4 +836,4 @@
     <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokal lagring</string>
-</resources>
+    </resources>
