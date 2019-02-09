@@ -498,10 +498,7 @@
     <string name="share_privilege_can_edit_change">voi muuttaa</string>
     <string name="share_privilege_can_edit_delete">voi poistaa</string>
 
-    <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
-    <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
-    <string name="action_force_rescan">Pakota uudelleenskannaus</string>
 
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
@@ -790,4 +787,4 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_old_android"><![CDATA[Salaus on mahdollista vain Androidin versiolla 5.0 ja sitä uudemmilla]]></string>
     <string name="upload_cannot_create_file">Paikallista tiedostoa ei voi luoda</string>
     <string name="upload_local_storage_not_copied">Tiedostoa ei voitu kopioida paikalliseen tallennustilaan</string>
-</resources>
+    </resources>

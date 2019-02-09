@@ -463,10 +463,7 @@
 
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
-    <string name="action_retry_uploads">Reintentar cargas fallidas</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
-    <string name="action_clear_successful_uploads">Borrar cargas exitosas</string>
-    <string name="action_force_rescan">Forzar rescaneo</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>

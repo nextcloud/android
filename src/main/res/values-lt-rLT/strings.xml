@@ -443,10 +443,7 @@
 
     <string name="share_privilege_can_share">gali dalintis</string>
     <string name="share_privilege_can_edit">gali redaguoti</string>
-    <string name="action_retry_uploads">Pabandyti iš naujo nepavykusius įkėlimus</string>
     <string name="action_clear_failed_uploads">Išvalyti baigtus įkėlimus</string>
-    <string name="action_clear_successful_uploads">Išvalyti sėkmingus įkėlimus</string>
-    <string name="action_force_rescan">Inicijuoti skenavimą iš naujo</string>
 
     <string name="action_switch_grid_view">Tinklelio vaizdas</string>
     <string name="action_switch_list_view">Sąrašas</string>

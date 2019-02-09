@@ -10,10 +10,10 @@
     <string name="actionbar_send_file">Küldés</string>
     <string name="actionbar_sort">Rendezés</string>
     <string name="sort_by">Rendezés elve</string>
-    <string name="menu_item_sort_by_name_a_z">A - Z</string>
-    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_name_a_z">A – Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z – A</string>
     <string name="menu_item_sort_by_date_newest_first">Újabbak elöl</string>
-    <string name="menu_item_sort_by_date_oldest_first">Régebbieak elöl</string>
+    <string name="menu_item_sort_by_date_oldest_first">Régebbiek elöl</string>
     <string name="menu_item_sort_by_size_biggest_first">Nagyobbak elöl</string>
     <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
 
@@ -513,10 +513,7 @@
     <string name="share_privilege_can_edit_change">módosíthat</string>
     <string name="share_privilege_can_edit_delete">törölhet</string>
 
-    <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
-    <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>
-    <string name="action_force_rescan">Újra-átfésülés kényszerítése</string>
 
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
@@ -859,4 +856,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_sync_conflict">Szinkronizációs ütközés, kérlek javítsd manuálisan</string>
     <string name="upload_cannot_create_file">Nem lehet a helyi fájlt létrehozni</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
-</resources>
+    </resources>

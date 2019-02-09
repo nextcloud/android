@@ -520,10 +520,7 @@
     <string name="share_privilege_can_edit_change">Разрешить изменять</string>
     <string name="share_privilege_can_edit_delete">Разрешить удалять</string>
 
-    <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
-    <string name="action_clear_successful_uploads">Убрать успешные</string>
-    <string name="action_force_rescan">Перепроверить список</string>
 
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
@@ -851,4 +848,4 @@
     <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_cannot_create_file">Невозможно создать локальный файл</string>
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
-</resources>
+    </resources>
