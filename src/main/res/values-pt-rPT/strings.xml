@@ -510,10 +510,7 @@
     <string name="share_privilege_can_edit_change">pode alterar</string>
     <string name="share_privilege_can_edit_delete">pode apagar</string>
 
-    <string name="action_retry_uploads">Repetir envios falhados</string>
     <string name="action_clear_failed_uploads">Limpar envios falhados</string>
-    <string name="action_clear_successful_uploads">Limpar envios bem sucedidos</string>
-    <string name="action_force_rescan">Forçar reanálise</string>
 
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
@@ -839,4 +836,4 @@ Tanto a versão oficial dev como a versão regular estão disponíveis no F-droi
     <string name="upload_sync_conflict">Conflito de sincronização, por favor, resolva-o manualmente</string>
     <string name="upload_cannot_create_file">Não é possível criar ficheiro local</string>
     <string name="upload_local_storage_not_copied">O ficheiro não pôde ser copiado para o armazenamento local</string>
-</resources>
+    </resources>

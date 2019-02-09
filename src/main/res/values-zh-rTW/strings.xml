@@ -509,10 +509,7 @@
     <string name="share_privilege_can_edit_change">允許更動</string>
     <string name="share_privilege_can_edit_delete">允許刪除</string>
 
-    <string name="action_retry_uploads">重試失敗的上傳</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
-    <string name="action_clear_successful_uploads">清除成功的上傳</string>
-    <string name="action_force_rescan">強制重新掃描</string>
 
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -818,4 +815,4 @@
     <string name="upload_sync_conflict">同步發生衝突，請手動處理</string>
     <string name="upload_cannot_create_file">無法建立本地檔案</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到本地資料夾</string>
-</resources>
+    </resources>

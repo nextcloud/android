@@ -512,10 +512,7 @@
     <string name="share_privilege_can_edit_change">pode cambiar</string>
     <string name="share_privilege_can_edit_delete">pode eliminar</string>
 
-    <string name="action_retry_uploads">Tentar de novo os envíos fallados</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
-    <string name="action_clear_successful_uploads">Limpar os envíos satisfactorios</string>
-    <string name="action_force_rescan">Forzar un novo escaneo</string>
 
     <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
@@ -861,4 +858,4 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
-</resources>
+    </resources>

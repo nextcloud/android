@@ -510,10 +510,7 @@
     <string name="share_privilege_can_edit_change">düzenleyebilir</string>
     <string name="share_privilege_can_edit_delete">silebilir</string>
 
-    <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
-    <string name="action_clear_successful_uploads">Sorunsuz yüklemeler temizlensin</string>
-    <string name="action_force_rescan">Yeniden tarama dayatılsın</string>
 
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
@@ -835,4 +832,4 @@
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözün</string>
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
-</resources>
+    </resources>
