@@ -456,16 +456,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int foldersCount = 0;
         int count = mFiles.size();
         OCFile file;
+        final boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
         for (int i = 0; i < count; i++) {
             file = getItem(i);
             if (file.isFolder()) {
                 foldersCount++;
             } else {
-                if (!file.isHidden()) {
+                if (!file.isHidden() || showHiddenFiles) {
                     filesCount++;
                 }
             }
         }
+
 
         return generateFooterText(filesCount, foldersCount);
     }
