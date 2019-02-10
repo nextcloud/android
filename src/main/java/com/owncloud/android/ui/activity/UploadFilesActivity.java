@@ -25,6 +25,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -91,7 +91,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll;
     private boolean mLocalFolderPickerMode;
     private LocalFileListFragment mFileListFragment;
-    protected Button mUploadBtn;
+    protected MaterialButton mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
@@ -177,7 +177,8 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelButton.setOnClickListener(this);
 
         mUploadBtn = findViewById(R.id.upload_files_btn_upload);
-        mUploadBtn.setBackgroundColor(ThemeUtils.primaryColor(this,true));
+        mUploadBtn.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+        mUploadBtn.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = preferences.getUploaderBehaviour();

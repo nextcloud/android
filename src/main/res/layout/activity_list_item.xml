@@ -26,7 +26,7 @@
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
     android:paddingLeft="@dimen/standard_padding"
-    android:background="@color/background_color">
+    android:background="@color/bg_default">
 
     <ImageView
         android:id="@+id/activity_icon"

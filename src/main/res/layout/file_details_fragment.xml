@@ -134,7 +134,7 @@
                     android:id="@+id/overflow_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/background_color"
+                    android:background="@color/bg_default"
                     android:contentDescription="@string/overflow_menu"
                     android:src="@drawable/ic_dots_vertical" />
             </LinearLayout>
@@ -193,7 +193,7 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background_color"
+                android:background="@color/bg_default"
                 app:tabGravity="center"
                 app:tabMode="fixed"
                 app:tabTextColor="@color/textColor"

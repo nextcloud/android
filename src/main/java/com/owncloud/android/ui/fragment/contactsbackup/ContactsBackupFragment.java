@@ -449,7 +449,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 }
             });
 
+            datePickerDialog.setTitle("");
             datePickerDialog.show();
+            // TODO How do we deal with primary colours that are too light or dark
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
                     R.string.contacts_preferences_something_strange_happened);

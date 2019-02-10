@@ -155,7 +155,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
                             ThemeUtils.primaryColor(mContext)));
                 } else {
-                    gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
+                    gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                     gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
                 }
 
