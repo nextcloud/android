@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -24,9 +25,10 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.TAG;
 
 public class PatternBlacklistEditorDialogFragment extends DialogFragment {
 
-    protected View mView;
-    protected LinearLayout scrollViewContainer;
-    private List<String> excludedFilesyncPatterns=new ArrayList<String>();
+    private View mView;
+    private ListView scrollViewContainer;
+    private ArrayList<String> excludedFilesyncPatterns=new ArrayList<String>();
+    private PatternBlacklistEditorDialogListFragment adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,18 +43,37 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
 
-        mView = inflater.inflate(R.layout.pattern_blacklist_editor_layout, container, false);
+        mView = inflater.inflate(R.layout.pattern_blacklist_editor_layout, container, true);
 
         excludedFilesyncPatterns.add(".uselessfile*");
         excludedFilesyncPatterns.add(".thumbnails*");
         excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
+        excludedFilesyncPatterns.add(".thumbdata*");
 
         scrollViewContainer = mView.findViewById(R.id.details_scroll_container);
 
-
         for (String pattern : excludedFilesyncPatterns) {
-            scrollViewContainer.addView(createListElement(getContext(),pattern));
+            //scrollViewContainer.addView(createListElement(getContext(),pattern));
         }
+
+
+        adapter = new PatternBlacklistEditorDialogListFragment(this.getContext(), excludedFilesyncPatterns);
+        scrollViewContainer.setAdapter(adapter);
+
 
 
         EditText et = mView.findViewById(R.id.add_new_edit_text);
@@ -101,16 +122,10 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
     }
 
 
-    private void removePattern(String pattern, LinearLayout container){
-        Log.e("remove", pattern);
-        excludedFilesyncPatterns.remove(pattern);
-        scrollViewContainer.removeView(container);
-    }
-
     private void addNewPattern(String patternToAdd){
 
         boolean foundPattern=false;
-        for (String pattern : excludedFilesyncPatterns) {
+        for (String pattern : adapter.getList()) {
            if(patternToAdd.equals(pattern)){
                foundPattern=true;
            }
@@ -120,33 +135,10 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
             Log.e("add", "found pattern already: "+patternToAdd);
         }else{
             Log.e("add", "added pattern: "+patternToAdd);
-            scrollViewContainer.addView(createListElement(getContext(),patternToAdd));
-            excludedFilesyncPatterns.add(patternToAdd);
+            //scrollViewContainer.addView(createListElement(getContext(),patternToAdd));
+            adapter.add(patternToAdd);
         }
 
-
-
     }
 
-    private LinearLayout createListElement(Context c, String pattern){
-        LinearLayout lContainer = new LinearLayout(c);
-        lContainer.setOrientation(LinearLayout.VERTICAL);
-
-        TextView tv = new TextView(c);
-        tv.setText(pattern);
-        lContainer.addView(tv);
-
-        ImageButton ib = new ImageButton(c);
-        ib.setImageResource(R.drawable.ic_action_delete_grey);
-        ib.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        ib.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    removePattern(pattern, lContainer);
-                }
-            });
-        lContainer.addView(ib);
-        return lContainer;
-    }
 }

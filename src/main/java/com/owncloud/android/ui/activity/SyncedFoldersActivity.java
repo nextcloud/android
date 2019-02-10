@@ -583,6 +583,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     false, getAccount().name, FileUploader.LOCAL_BEHAVIOUR_FORGET, false,
                     clock.getCurrentTime(), null, MediaFolderType.CUSTOM, false);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
+                break;
             }
 
             case R.id.action_edit_blacklist_patterns: {
@@ -590,6 +591,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 DialogFragment editor = PatternBlacklistEditorDialogFragment.newInstance(
                     R.string.blacklist_editor_exclude_pattern_title);
                 editor.show(getSupportFragmentManager(), "test");
+                break;
             }
 
             default:

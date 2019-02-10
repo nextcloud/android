@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pattern_blacklist_editor_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/standard_half_padding"
+    android:paddingBottom="@dimen/standard_half_padding">
+
+    <TextView
+        android:id="@+id/pattern_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="middle"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_half_padding"
+        android:singleLine="true"
+        android:text="@string/placeholder_filename"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/two_line_primary_text_size" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/delete_pattern_button"
+        android:layout_width="@dimen/upload_list_item_image_size"
+        android:layout_height="@dimen/upload_list_item_image_size"
+        android:layout_gravity="center|end"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/upload_item_action_button"
+        android:src="@drawable/nav_trashbin"
+        tools:src="@drawable/ic_action_delete_grey" />
+
+</LinearLayout>
