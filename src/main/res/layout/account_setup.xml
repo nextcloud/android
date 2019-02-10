@@ -26,7 +26,7 @@
             android:fillViewport="true"
             android:orientation="vertical"
             android:id="@+id/scroll"
-    >
+            android:background="@color/primary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,191 +35,191 @@
         android:orientation="vertical"
         android:padding="@dimen/standard_padding" >
 
-		<ImageView
-			android:id="@+id/thumbnail"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/standard_padding"
-			android:src="@drawable/logo"
-			android:contentDescription="@string/app_name"/>
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_padding"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="302dp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/standard_half_padding">
 
             <com.google.android.material.button.MaterialButton
-            android:id="@+id/centeredRefreshButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/alternate_margin"
-            android:theme="@style/Button"
-            android:text="@string/auth_check_server"
-            android:visibility="gone"
-            android:contentDescription="@string/auth_check_server"
-            app:cornerRadius="@dimen/button_corner_radius"
-                style="@style/Button.Primary" />
+                android:id="@+id/centeredRefreshButton"
+                style="@style/Button.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_check_server"
+                android:text="@string/auth_check_server"
+                android:theme="@style/Button"
+                android:visibility="gone"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
-        <TextView
-            android:id="@+id/instructions_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:text="@string/auth_expired_basic_auth_toast"
-            android:visibility="gone"
-            android:layout_marginBottom="@dimen/alternate_margin"
-            android:textColor="@color/login_text_color"
-            android:contentDescription="@string/auth_expired_basic_auth_toast"/>
+            <TextView
+                android:id="@+id/instructions_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_expired_basic_auth_toast"
+                android:text="@string/auth_expired_basic_auth_toast"
+                android:textColor="@color/login_text_color"
+                android:visibility="gone" />
 
             <FrameLayout
-	        android:id="@+id/hostUrlFrame"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/zero">
+                android:id="@+id/hostUrlFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/zero"
+                android:background="@color/primary">
 
                 <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_hostUrl"
-                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.owncloud.android.ui.components.CustomEditText
-                    android:id="@+id/hostUrlInput"
+                    android:id="@+id/input_layout_hostUrl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:contentDescription="@string/auth_host_address"
-                    android:drawablePadding="@dimen/alternate_half_padding"
-                    android:inputType="textUri"
-                    android:paddingRight="@dimen/alternate_padding_right"
-                    android:paddingEnd="@dimen/alternate_padding_right"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingLeft="@dimen/zero"
-                    android:textColor="@color/login_text_color"
-                    android:textColorHint="@color/login_text_color">
+                    app:boxBackgroundColor="@color/primary"
+                    app:hintTextColor="@color/fg_inverse">
 
-                    <requestFocus/>
-                </com.owncloud.android.ui.components.CustomEditText>
+                    <com.owncloud.android.ui.components.CustomEditText
+                        android:id="@+id/hostUrlInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:contentDescription="@string/auth_host_address"
+                        android:drawablePadding="@dimen/alternate_half_padding"
+                        android:inputType="textUri"
+                        android:paddingStart="@dimen/zero"
+                        android:paddingLeft="@dimen/zero"
+                        android:paddingEnd="@dimen/alternate_padding_right"
+                        android:paddingRight="@dimen/alternate_padding_right"
+                        android:textColor="@color/login_text_color"
+                        android:theme="@style/Nextcloud.EditText.Login">
+
+                        <requestFocus />
+                    </com.owncloud.android.ui.components.CustomEditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/testServerButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginRight="@dimen/alternate_half_padding"
-                android:layout_marginEnd="@dimen/alternate_half_padding"
-                android:padding="@dimen/zero"
-                android:scaleType="fitCenter"
-                android:src="@drawable/arrow_right"
-                android:tint="@color/login_text_color"
-                android:background="@android:color/transparent"
-                android:onClick="onTestServerConnectionClick"
-                android:contentDescription="@string/test_server_button"
-                />
+                <ImageButton
+                    android:id="@+id/testServerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/alternate_half_padding"
+                    android:layout_marginRight="@dimen/alternate_half_padding"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/test_server_button"
+                    android:onClick="onTestServerConnectionClick"
+                    android:padding="@dimen/zero"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/arrow_right"
+                    android:tint="@color/login_text_color" />
 
-            <ImageButton
-                android:id="@+id/embeddedRefreshButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginRight="@dimen/alternate_half_padding"
-                android:layout_marginEnd="@dimen/alternate_half_padding"
-                android:padding="@dimen/zero"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_refresh"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/auth_refresh_button"
-			    />
-		</FrameLayout>
+                <ImageButton
+                    android:id="@+id/embeddedRefreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/alternate_half_padding"
+                    android:layout_marginRight="@dimen/alternate_half_padding"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/auth_refresh_button"
+                    android:padding="@dimen/zero"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_action_refresh"
+                    android:visibility="gone" />
+            </FrameLayout>
 
-		<TextView
-            android:id="@+id/server_status_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/alternate_margin"
-            android:drawableLeft="@android:drawable/stat_notify_sync"
-            android:drawableStart="@android:drawable/stat_notify_sync"
-            android:drawablePadding="@dimen/alternate_half_padding"
-            android:gravity="center_vertical"
-            android:textColor="@color/login_text_color"
-            android:text="@string/auth_testing_connection"
-            android:minHeight="@dimen/display_text_min_height"
-            android:contentDescription="@string/auth_testing_connection"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_account_username"
-            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_username"
+            <TextView
+                android:id="@+id/server_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/auth_username"
-                android:inputType="textNoSuggestions"
-                android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:autofillHints="username"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_account_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:visibility="gone"
-            app:passwordToggleDrawable="@drawable/password_visibility_selector"
-            app:passwordToggleTint="@color/login_text_hint_color">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_testing_connection"
+                android:drawableStart="@android:drawable/stat_notify_sync"
+                android:drawableLeft="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
-                android:ems="10"
-                android:hint="@string/auth_password"
-                android:inputType="textPassword"
-                android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:autofillHints="password"/>
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/display_text_min_height"
+                android:text="@string/auth_testing_connection"
+                android:textColor="@color/login_text_color" />
+
+            <CheckBox
+                android:id="@+id/oauth_onOff_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:contentDescription="@string/oauth_check_onoff"
+                android:onClick="onCheckClick"
+                android:text="@string/oauth_check_onoff"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/login_text_hint_color" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_oAuthEntryPoint_1"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content">
+
+
             </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/auth_status_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/alternate_margin"
-            android:drawableLeft="@android:drawable/stat_notify_sync"
-            android:drawableStart="@android:drawable/stat_notify_sync"
-            android:drawablePadding="@dimen/alternate_half_padding"
-            android:gravity="center_vertical"
-            android:text="@string/auth_unauthorized"
-            android:textColor="@color/login_text_color"
-            android:contentDescription="@string/auth_unauthorized"/>
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:id="@+id/input_layout_account_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:visibility="gone"
+                app:passwordToggleDrawable="@drawable/password_visibility_selector"
+                app:passwordToggleTint="@color/login_text_hint_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/account_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="password"
+                    android:drawablePadding="@dimen/alternate_half_padding"
+                    android:ems="10"
+                    android:hint="@string/auth_password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/login_text_color"
+                    android:textColorHint="@color/login_text_hint_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/auth_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_unauthorized"
+                android:drawableStart="@android:drawable/stat_notify_sync"
+                android:drawableLeft="@android:drawable/stat_notify_sync"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:gravity="center_vertical"
+                android:text="@string/auth_unauthorized"
+                android:textColor="@color/login_text_color" />
 
             <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonOK"
-            android:theme="@style/Button.Login"
-            style="@style/Button.Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="@dimen/standard_padding"
-            android:enabled="false"
-            android:text="@string/setup_btn_connect"
-            android:contentDescription="@string/setup_btn_connect"
-            android:visibility="gone"
-            app:cornerRadius="@dimen/button_corner_radius"/>
+                android:id="@+id/buttonOK"
+                style="@style/Button.Login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/setup_btn_connect"
+                android:enabled="false"
+                android:padding="@dimen/standard_padding"
+                android:text="@string/setup_btn_connect"
+                android:theme="@style/Button.Login"
+                android:visibility="gone"
+                app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
         <ImageButton

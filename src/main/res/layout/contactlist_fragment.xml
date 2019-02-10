@@ -39,7 +39,7 @@
             android:id="@+id/contactlist_restore_selected_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_color"
+            android:background="@color/bg_default"
             android:orientation="vertical"
             android:visibility="gone">
 

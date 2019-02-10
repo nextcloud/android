@@ -30,7 +30,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -330,7 +329,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
                                                                                  ThemeUtils.primaryColor(mContext)));
             } else {
-                gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
+                gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
             }
 
@@ -597,7 +596,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
+                    thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
