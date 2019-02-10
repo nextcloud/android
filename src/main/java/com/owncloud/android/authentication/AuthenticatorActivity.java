@@ -410,7 +410,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             new Handler().postDelayed(() -> DisplayUtils.createSnackbar(mLoginWebView,
                                                                         R.string.fallback_weblogin_text,
                                                                         Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(R.color.white))
+                .setActionTextColor(getResources().getColor(R.color.fg_inverse))
                 .setAction(R.string.fallback_weblogin_back, v -> {
                     mLoginWebView.setVisibility(View.INVISIBLE);
                     webViewLoginMethod = false;

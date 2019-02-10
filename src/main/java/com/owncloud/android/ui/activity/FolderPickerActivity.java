@@ -26,6 +26,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -37,10 +38,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -90,8 +91,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private boolean mSearchOnlyFolders;
     private boolean mDoNotEnterEncryptedFolder;
 
-    protected Button mCancelBtn;
-    protected Button mChooseBtn;
+    protected MaterialButton mCancelBtn;
+    protected MaterialButton mChooseBtn;
     private String caption;
     @Inject AppPreferences preferences;
 
@@ -416,7 +417,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
 
         if (mChooseBtn != null) {
-            mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
+            mChooseBtn.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            mChooseBtn.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
             mChooseBtn.setOnClickListener(this);
         }
 

@@ -692,10 +692,8 @@ public class SettingsActivity extends PreferenceActivity
         loadStoragePath();
 
         SwitchPreference themePref = (SwitchPreference) findPreference(getString(R.string.prefs_key_theme));
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        themePref.setSummary(appPrefs.getBoolean(com.owncloud.android.db.PreferenceManager.PREF__DARK_THEME,
-                            false) ?
+        themePref.setSummary(preferences.isDarkThemeEnabled() ?
                             getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light));
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
             MainApp.setAppTheme((Boolean) newValue);
@@ -739,7 +737,7 @@ public class SettingsActivity extends PreferenceActivity
         Window window = getWindow();
         if (window != null) {
             window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                    .getColor(getResources(), R.color.background_color, null)));
+                    .getColor(getResources(), R.color.bg_default, null)));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.setStatusBarColor(ThemeUtils.primaryColor(this));

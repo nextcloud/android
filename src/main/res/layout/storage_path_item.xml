@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/white"
+        android:background="@color/bg_default"
         android:contentDescription="@string/user_icon"
         android:paddingStart="@dimen/standard_padding"
         android:paddingLeft="@dimen/standard_padding"
@@ -50,7 +50,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/fg_default"
         android:textSize="@dimen/file_details_username_text_size"
         tools:text="DCIM" />
 </LinearLayout>

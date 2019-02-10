@@ -250,7 +250,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(getResources().getColor(R.color.background_color));
+                    thumbnailView.setBackgroundColor(getResources().getColor(R.color.bg_default));
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),

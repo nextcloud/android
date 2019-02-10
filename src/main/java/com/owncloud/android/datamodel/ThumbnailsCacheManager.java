@@ -1173,7 +1173,7 @@ public final class ThumbnailsCacheManager {
         Bitmap resultBitmap = Bitmap.createBitmap(pxW, pxH, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(resultBitmap);
 
-        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color));
+        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.bg_default));
         c.drawBitmap(bitmap, 0, 0, null);
 
         return resultBitmap;

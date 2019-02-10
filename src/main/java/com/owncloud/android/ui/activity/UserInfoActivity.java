@@ -26,7 +26,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;

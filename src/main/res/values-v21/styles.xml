@@ -32,6 +32,6 @@
 
     <style name="Theme.ownCloud.Toolbar.Drawer">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:colorBackground">@color/background_color</item>
+        <item name="android:colorBackground">@color/bg_default</item>
     </style>
 </resources>
