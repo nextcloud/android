@@ -61,6 +61,11 @@ public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<Strin
 
     public void addNewPattern(String patternToAdd){
 
+        //pattern cannot be empty
+        if(patternToAdd.isEmpty() || patternToAdd == ""){
+            return;
+        }
+
         boolean foundPattern=false;
         for (String pattern : patternList) {
             if(patternToAdd.equals(pattern)){
