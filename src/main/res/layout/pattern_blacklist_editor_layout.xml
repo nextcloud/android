@@ -71,14 +71,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add new" />
+                android:hint="@string/pattern_blacklist_editor_new_hint" />
 
             <ImageButton
                 android:id="@+id/add_pattern_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_plus" />
+                android:layout_width="@dimen/upload_list_item_image_size"
+                android:layout_height="@dimen/upload_list_item_image_size"
+                android:layout_gravity="center|end"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/upload_item_action_button"
+                android:src="@drawable/ic_plus"
+                tools:src="@drawable/ic_plus" />
 
         </LinearLayout>
 
