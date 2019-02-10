@@ -838,4 +838,5 @@
     <string name="upload_sync_conflict">Conflitto di sincronizzazione, risolvi manualmente</string>
     <string name="upload_cannot_create_file">Impossibile creare il file locale</string>
     <string name="upload_local_storage_not_copied">Il file non può essere copiato nell\'archiviazione locale</string>
-    </resources>
+    <string name="delete_entries">Elimina voci</string>
+</resources>
