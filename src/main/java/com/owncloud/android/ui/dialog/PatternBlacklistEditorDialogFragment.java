@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.dialog;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import com.owncloud.android.R;
+import com.owncloud.android.ui.activity.Preferences;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.TAG;
@@ -27,7 +31,6 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
 
     private View mView;
     private ListView scrollViewContainer;
-    private ArrayList<String> excludedFilesyncPatterns=new ArrayList<String>();
     private PatternBlacklistEditorDialogListFragment adapter;
 
     @Override
@@ -45,33 +48,14 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
 
         mView = inflater.inflate(R.layout.pattern_blacklist_editor_layout, container, true);
 
-        excludedFilesyncPatterns.add(".uselessfile*");
-        excludedFilesyncPatterns.add(".thumbnails*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
-        excludedFilesyncPatterns.add(".thumbdata*");
 
         scrollViewContainer = mView.findViewById(R.id.details_scroll_container);
 
-        for (String pattern : excludedFilesyncPatterns) {
-            //scrollViewContainer.addView(createListElement(getContext(),pattern));
-        }
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        ArrayList<String> list = new ArrayList<String>(sharedpreferences.getStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES));
 
 
-        adapter = new PatternBlacklistEditorDialogListFragment(this.getContext(), excludedFilesyncPatterns);
+        adapter = new PatternBlacklistEditorDialogListFragment(this.getContext(), list);
         scrollViewContainer.setAdapter(adapter);
 
 
@@ -81,8 +65,7 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("haha", "new!: "+et.getText() );
-                    addNewPattern(et.getText().toString());
+                    adapter.addNewPattern(et.getText().toString());
                 }
             });
 
@@ -106,6 +89,10 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
     }
 
     private void save() {
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, new HashSet<String>(adapter.getList()));
+        editor.apply();
         close();
     }
 
@@ -121,24 +108,5 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
         return frag;
     }
 
-
-    private void addNewPattern(String patternToAdd){
-
-        boolean foundPattern=false;
-        for (String pattern : adapter.getList()) {
-           if(patternToAdd.equals(pattern)){
-               foundPattern=true;
-           }
-        }
-
-        if(foundPattern){
-            Log.e("add", "found pattern already: "+patternToAdd);
-        }else{
-            Log.e("add", "added pattern: "+patternToAdd);
-            //scrollViewContainer.addView(createListElement(getContext(),patternToAdd));
-            adapter.add(patternToAdd);
-        }
-
-    }
 
 }

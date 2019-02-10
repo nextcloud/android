@@ -24,6 +24,7 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -42,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -62,6 +64,8 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -756,8 +760,12 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean isBlacklistedFile(String fileName){
+
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        List<String> list = new ArrayList<String>(sharedpreferences.getStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES));
+
         boolean isBlacklisted=false;
-        for (String pattern : excludedFilesyncPatterns) {
+        for (String pattern : list) {
             if (fileName.matches(createRegexFromGlob(pattern))) {
                 Log_OC.d(TAG, "Blacklisted file: '"+fileName+"' matched with pattern :'"+pattern+"'");
                 isBlacklisted = true;
@@ -780,7 +788,7 @@ public class UploadFileOperation extends SyncOperation {
                 case '?': out += '.'; break;
                 case '.': out += "\\."; break;
                 case '\\': out += "\\\\"; break;
-                default: out += c;
+                default: out += c; break;
             }
         }
         out += '$';

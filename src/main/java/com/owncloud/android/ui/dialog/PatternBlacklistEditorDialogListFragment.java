@@ -37,18 +37,14 @@ public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<Strin
         TextView label = (TextView) view.findViewById(R.id.pattern_name);
         ImageButton ib = (ImageButton) view.findViewById(R.id.delete_pattern_button);
 
-        ib.setTag(position);
         ib.setOnClickListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    removePattern(pattern, (Integer) v.getTag());
+                    removePattern(pattern);
                 }
             });
-
-
         label.setText(pattern);
-
         return view;
     }
 
@@ -57,9 +53,24 @@ public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<Strin
     }
 
 
-    private void removePattern(String pattern, int pos){
+    private void removePattern(String pattern){
         patternList.remove(pattern);
-        remove(getItem(pos));
+        notifyDataSetChanged();
+
+    }
+
+    public void addNewPattern(String patternToAdd){
+
+        boolean foundPattern=false;
+        for (String pattern : patternList) {
+            if(patternToAdd.equals(pattern)){
+                foundPattern=true;
+            }
+        }
+
+        if(!foundPattern){
+            patternList.add(patternToAdd);
+        }
         notifyDataSetChanged();
 
     }
