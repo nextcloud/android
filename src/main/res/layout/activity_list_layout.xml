@@ -57,7 +57,7 @@
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollbars="vertical"
                     android:visibility="visible"
-                    android:background="@color/background_color" />
+                    android:background="@color/bg_default" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
