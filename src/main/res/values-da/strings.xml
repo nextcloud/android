@@ -120,7 +120,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_download">Hent</string>
-    <string name="filedetails_sync_file">Synkronisere</string>
+    <string name="filedetails_sync_file">Synkronisér</string>
     <string name="filedetails_renamed_in_upload_msg">File omdøbt %1$sunder overførelse</string>
     <string name="list_layout">Liste layout</string>
     <string name="action_send_share">Send/Del</string>
@@ -840,4 +840,5 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
-    </resources>
+    <string name="delete_entries">Slet poster</string>
+</resources>
