@@ -9,7 +9,7 @@ Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarını
 * Bildirimler ile güncel kalma
 * Birden çok hesap desteği
 *Parmak izi ya da PIN kodu ile verilerinize güvenli erişme
-* Davdroid bütünleştirmesi ile takvim ve kişileri eşitleme
+* DAVx5 (eski adı DAVdroid) bütünleştirmesi ile takvim ve kişileri eşitleme
 
 Kullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz
 
