@@ -1,17 +1,12 @@
 package com.owncloud.android.ui.dialog;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -23,14 +18,11 @@ import com.owncloud.android.ui.activity.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.TAG;
 
 public class PatternBlacklistEditorDialogFragment extends DialogFragment {
 
-    private View mView;
-    private ListView scrollViewContainer;
     private PatternBlacklistEditorDialogListFragment adapter;
 
     @Override
@@ -46,10 +38,10 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
 
-        mView = inflater.inflate(R.layout.pattern_blacklist_editor_layout, container, true);
+        View mView = inflater.inflate(R.layout.pattern_blacklist_editor_layout, container, true);
 
 
-        scrollViewContainer = mView.findViewById(R.id.details_scroll_container);
+        ListView scrollViewContainer = mView.findViewById(R.id.details_scroll_container);
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         ArrayList<String> list = new ArrayList<String>(sharedpreferences.getStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES));
