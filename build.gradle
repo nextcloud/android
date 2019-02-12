@@ -58,7 +58,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 5
 def versionPatch = 0
-def versionBuild = 53 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 54 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
@@ -210,9 +210,9 @@ dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project('nextcloud-android-library')
-    genericImplementation 'com.github.nextcloud:android-library:1.3.2'
-    gplayImplementation 'com.github.nextcloud:android-library:1.3.2'
-    versionDevImplementation 'com.github.nextcloud:android-library:1.3.2'
+    genericImplementation 'com.github.nextcloud:android-library:1.3.3'
+    gplayImplementation 'com.github.nextcloud:android-library:1.3.3'
+    versionDevImplementation 'com.github.nextcloud:android-library:1.3.3'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
