@@ -264,7 +264,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:17.0.0'
 
     compileOnly "org.projectlombok:lombok:1.18.6"
-    annotationProcessor "org.projectlombok:lombok:1.18.4"
+    annotationProcessor "org.projectlombok:lombok:1.18.6"
 
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
 
