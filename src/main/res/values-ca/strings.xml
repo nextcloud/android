@@ -508,10 +508,7 @@
     <string name="share_privilege_can_edit_change">pot canviar</string>
     <string name="share_privilege_can_edit_delete">pot esborrar</string>
 
-    <string name="action_retry_uploads">Reintenta les pujades fallides</string>
     <string name="action_clear_failed_uploads">Netejar les pujades fallides</string>
-    <string name="action_clear_successful_uploads">Netejar les pujades correctes</string>
-    <string name="action_force_rescan">Forçar un re-escaneig</string>
 
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>

@@ -93,8 +93,8 @@ import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED
 public class SyncedFoldersActivity extends FileActivity implements SyncedFolderAdapter.ClickListener,
         SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
 
-    public static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
-    public static final List<String> SPECIAL_MANUFACTURER = Arrays.asList("Samsung", "Huawei", "Xiaomi");
+    private static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
+    private static final List<String> SPECIAL_MANUFACTURER = Arrays.asList("Samsung", "Huawei", "Xiaomi");
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
@@ -226,7 +226,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
         for (SyncedFolder syncedFolder : syncedFolderArrayList) {
             if (currentAccount != null && syncedFolder.getAccount().equals(currentAccount.name)) {
-                currentAccountSyncedFoldersList.add(syncedFolder);
+
+                // delete non-existing & disabled synced folders
+                if (!new File(syncedFolder.getLocalPath()).exists() && !syncedFolder.isEnabled()) {
+                    mSyncedFolderProvider.deleteSyncedFolder(syncedFolder.getId());
+                } else {
+                    currentAccountSyncedFoldersList.add(syncedFolder);
+                }
             }
         }
 

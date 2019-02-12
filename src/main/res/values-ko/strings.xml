@@ -494,10 +494,7 @@
     <string name="share_privilege_can_edit_change">변경가능</string>
     <string name="share_privilege_can_edit_delete">삭제가능</string>
 
-    <string name="action_retry_uploads">실패한 업로드 다시 시도</string>
     <string name="action_clear_failed_uploads">실패한 업로드 삭제</string>
-    <string name="action_clear_successful_uploads">성공한 업로드 삭제</string>
-    <string name="action_force_rescan">강제로 다시 검사</string>
 
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>

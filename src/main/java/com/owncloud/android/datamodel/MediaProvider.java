@@ -118,8 +118,8 @@ public final class MediaProvider {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
 
-                        // check if valid path
-                        if (filePath != null && filePath.lastIndexOf('/') > 0) {
+                        // check if valid path and file exists
+                        if (filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists()) {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }

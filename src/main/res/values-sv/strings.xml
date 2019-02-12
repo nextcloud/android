@@ -513,10 +513,7 @@
     <string name="share_privilege_can_edit_change">kan ändra</string>
     <string name="share_privilege_can_edit_delete">kan radera</string>
 
-    <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
-    <string name="action_clear_successful_uploads">Ta bort lyckade uppladdningar</string>
-    <string name="action_force_rescan">Tvinga ny genomsökning</string>
 
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
@@ -836,4 +833,4 @@
     <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
-</resources>
+    </resources>
