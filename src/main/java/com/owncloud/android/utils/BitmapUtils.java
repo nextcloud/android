@@ -45,6 +45,13 @@ import androidx.exifinterface.media.ExifInterface;
 public final class BitmapUtils {
     public static final String TAG = BitmapUtils.class.getSimpleName();
 
+    private static final int INDEX_RED = 0;
+    private static final int INDEX_GREEN = 1;
+    private static final int INDEX_BLUE = 2;
+    private static final int INDEX_HUE = 0;
+    private static final int INDEX_SATURATION = 1;
+    private static final int INDEX_LUMINATION = 2;
+
     private BitmapUtils() {
         // utility class -> private constructor
     }
@@ -300,22 +307,22 @@ public final class BitmapUtils {
         }
 
         // Reduce values bigger than rgb requirements
-        rgb[0] = rgb[0] % 255;
-        rgb[1] = rgb[1] % 255;
-        rgb[2] = rgb[2] % 255;
+        rgb[INDEX_RED] = rgb[INDEX_RED] % 255;
+        rgb[INDEX_GREEN] = rgb[INDEX_GREEN] % 255;
+        rgb[INDEX_BLUE] = rgb[INDEX_BLUE] % 255;
 
-        double[] hsl = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+        double[] hsl = rgbToHsl(rgb[INDEX_RED], rgb[INDEX_GREEN], rgb[INDEX_BLUE]);
 
         // Classic formula to check the brightness for our eye
         // If too bright, lower the sat
-        double bright = Math.sqrt(0.299 * Math.pow(rgb[0], 2) + 0.587 * Math.pow(rgb[1], 2) + 0.114
-                * Math.pow(rgb[2], 2));
+        double bright = Math.sqrt(0.299 * Math.pow(rgb[INDEX_RED], 2) + 0.587 * Math.pow(rgb[INDEX_GREEN], 2) + 0.114
+                * Math.pow(rgb[INDEX_BLUE], 2));
 
         if (bright >= 200) {
             sat = 60;
         }
 
-        return new int[]{(int) (hsl[0] * 360), sat, lum};
+        return new int[]{(int) (hsl[INDEX_HUE] * 360), sat, lum};
     }
 
     private static double[] rgbToHsl(double rUntrimmed, double gUntrimmed, double bUntrimmed) {
@@ -346,9 +353,9 @@ public final class BitmapUtils {
         }
 
         double[] hsl = new double[]{0.0, 0.0, 0.0};
-        hsl[0] = h;
-        hsl[1] = s;
-        hsl[2] = l;
+        hsl[INDEX_HUE] = h;
+        hsl[INDEX_SATURATION] = s;
+        hsl[INDEX_LUMINATION] = l;
 
         return hsl;
     }

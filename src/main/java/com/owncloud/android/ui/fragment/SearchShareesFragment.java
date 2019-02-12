@@ -195,8 +195,8 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         try {
             mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new IllegalArgumentException(activity.toString()
+                    + " must implement OnFragmentInteractionListener", e);
         }
     }
 

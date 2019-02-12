@@ -28,15 +28,12 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 
 /**
- * Operation mmoving an {@link OCFile} to a different folder.
+ * Operation moving an {@link OCFile} to a different folder.
  */
 public class MoveFileOperation extends SyncOperation {
 
-    //private static final String TAG = MoveFileOperation.class.getSimpleName();
-
-    private String mSrcPath;
-    private String mTargetParentPath;
-    private OCFile mFile;
+    private String srcPath;
+    private String targetParentPath;
 
     /**
      * Constructor
@@ -45,13 +42,11 @@ public class MoveFileOperation extends SyncOperation {
      * @param targetParentPath  Path to the folder where the file will be moved into.
      */
     public MoveFileOperation(String srcPath, String targetParentPath) {
-        mSrcPath = srcPath;
-        mTargetParentPath = targetParentPath;
-        if (!mTargetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-            mTargetParentPath += OCFile.PATH_SEPARATOR;
+        this.srcPath = srcPath;
+        this.targetParentPath = targetParentPath;
+        if (!this.targetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+            this.targetParentPath += OCFile.PATH_SEPARATOR;
         }
-
-        mFile = null;
     }
 
     /**
@@ -62,29 +57,27 @@ public class MoveFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         /// 1. check move validity
-        if (mTargetParentPath.startsWith(mSrcPath)) {
+        if (targetParentPath.startsWith(srcPath)) {
             return new RemoteOperationResult(ResultCode.INVALID_MOVE_INTO_DESCENDANT);
         }
-        mFile = getStorageManager().getFileByPath(mSrcPath);
-        if (mFile == null) {
+        OCFile file = getStorageManager().getFileByPath(srcPath);
+        if (file == null) {
             return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
         }
 
         /// 2. remote move
-        String targetPath = mTargetParentPath + mFile.getFileName();
-        if (mFile.isFolder()) {
+        String targetPath = targetParentPath + file.getFileName();
+        if (file.isFolder()) {
             targetPath += OCFile.PATH_SEPARATOR;
         }
-        RemoteOperationResult result = new MoveFileRemoteOperation(mSrcPath, targetPath, false).execute(client);
+        RemoteOperationResult result = new MoveFileRemoteOperation(srcPath, targetPath, false).execute(client);
 
         /// 3. local move
         if (result.isSuccess()) {
-            getStorageManager().moveLocalFile(mFile, targetPath, mTargetParentPath);
+            getStorageManager().moveLocalFile(file, targetPath, targetParentPath);
         }
         // TODO handle ResultCode.PARTIAL_MOVE_DONE in client Activity, for the moment
 
         return result;
     }
-
-
 }
