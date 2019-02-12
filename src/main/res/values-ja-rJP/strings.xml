@@ -508,10 +508,7 @@
     <string name="share_privilege_can_edit_change">変更可能</string>
     <string name="share_privilege_can_edit_delete">削除可能</string>
 
-    <string name="action_retry_uploads">失敗したアップロードを再試行する</string>
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
-    <string name="action_clear_successful_uploads">成功したアップロードをクリアする</string>
-    <string name="action_force_rescan">強制再スキャン</string>
 
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
@@ -839,4 +836,4 @@
     <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_cannot_create_file">ローカルファイルが作成できません</string>
     <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
-</resources>
+    </resources>

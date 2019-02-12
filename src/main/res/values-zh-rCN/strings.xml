@@ -508,10 +508,7 @@
     <string name="share_privilege_can_edit_change">可以修改</string>
     <string name="share_privilege_can_edit_delete">允许删除</string>
 
-    <string name="action_retry_uploads">重试失败上传任务</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
-    <string name="action_clear_successful_uploads">清除成功上传任务</string>
-    <string name="action_force_rescan">强制重新扫描</string>
 
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -832,4 +829,4 @@
     <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
-</resources>
+    </resources>

@@ -520,10 +520,7 @@
     <string name="share_privilege_can_edit_change">הרשאות לערוך</string>
     <string name="share_privilege_can_edit_delete">האשרות למחוק</string>
 
-    <string name="action_retry_uploads">לנסות העלאות שנכשלו מחדש</string>
     <string name="action_clear_failed_uploads">פינוי העלאות שנכשלו</string>
-    <string name="action_clear_successful_uploads">פינוי העלאות שהצליחו</string>
-    <string name="action_force_rescan">אילוץ סריקה מחדש</string>
 
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
@@ -846,4 +843,5 @@
     <string name="upload_sync_conflict">סתירת סנכרון, נא לפתור ידנית</string>
     <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>
     <string name="upload_local_storage_not_copied">לא ניתן להעתיק קובץ לאחסון המקומי</string>
+    <string name="delete_entries">מחיקת רשומות</string>
 </resources>

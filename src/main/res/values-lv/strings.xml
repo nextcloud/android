@@ -507,10 +507,7 @@
     <string name="share_privilege_can_edit_change">var mainīt</string>
     <string name="share_privilege_can_edit_delete">var dzēst</string>
 
-    <string name="action_retry_uploads">Atkārtot neizdevušās augšupielādes</string>
     <string name="action_clear_failed_uploads">Notīrīt neizdevušās augšupielādes</string>
-    <string name="action_clear_successful_uploads">Notīrīt sekmīgās augšupielādes</string>
-    <string name="action_force_rescan">Piespiest pārskanēšanu</string>
 
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>

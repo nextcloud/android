@@ -512,10 +512,7 @@
     <string name="share_privilege_can_edit_change">povas ŝanĝi</string>
     <string name="share_privilege_can_edit_delete">povas forigi</string>
 
-    <string name="action_retry_uploads">Reprovi malsukcesajn alŝutojn</string>
     <string name="action_clear_failed_uploads">Vakigi malsukcesajn alŝutojn</string>
-    <string name="action_clear_successful_uploads">Vakigi sukcesajn alsûtojn</string>
-    <string name="action_force_rescan">Aktualigi nun</string>
 
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
@@ -841,4 +838,4 @@
     <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
-</resources>
+    </resources>

@@ -512,10 +512,7 @@
     <string name="share_privilege_can_edit_change">kann ändern</string>
     <string name="share_privilege_can_edit_delete">kann löschen</string>
 
-    <string name="action_retry_uploads">Fehlgeschlagene Uploads neu starten</string>
     <string name="action_clear_failed_uploads">Fehlgeschlagene Uploads entfernen</string>
-    <string name="action_clear_successful_uploads">Lösche erfolgreich hochgeladene Dateien</string>
-    <string name="action_force_rescan">Neuen Scan erzwingen</string>
 
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
@@ -841,4 +838,5 @@
     <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
+    <string name="delete_entries">Einträgen entfernen</string>
 </resources>
