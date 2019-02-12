@@ -305,7 +305,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // click on item
         if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            if (UploadResult.CREDENTIAL_ERROR.equals(item.getLastResult())) {
+            if (UploadResult.CREDENTIAL_ERROR == item.getLastResult()) {
                 itemViewHolder.itemLayout.setOnClickListener(v ->
                                                                  parentActivity.getFileOperationsHelper().checkCurrentCredentials(
                                                                      item.getAccount(parentActivity)));
@@ -714,8 +714,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 if (upload2 == null) {
                     return 1;
                 }
-                if (UploadStatus.UPLOAD_IN_PROGRESS.equals(upload1.getFixedUploadStatus())) {
-                    if (!UploadStatus.UPLOAD_IN_PROGRESS.equals(upload2.getFixedUploadStatus())) {
+                if (UploadStatus.UPLOAD_IN_PROGRESS == upload1.getFixedUploadStatus()) {
+                    if (UploadStatus.UPLOAD_IN_PROGRESS != upload2.getFixedUploadStatus()) {
                         return -1;
                     }
                     // both are in progress
@@ -724,7 +724,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     } else if (upload2.isFixedUploadingNow()) {
                         return 1;
                     }
-                } else if (upload2.getFixedUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                } else if (upload2.getFixedUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                     return 1;
                 }
                 if (upload1.getFixedUploadEndTimeStamp() == 0 || upload2.getFixedUploadEndTimeStamp() == 0) {

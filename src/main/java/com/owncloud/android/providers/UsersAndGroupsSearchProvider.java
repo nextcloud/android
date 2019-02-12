@@ -75,15 +75,15 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static String AUTHORITY;
+    static String AUTHORITY;
     public static String ACTION_SHARE_WITH;
 
     public static final String CONTENT = "content";
 
-    public static String DATA_USER;
-    public static String DATA_GROUP;
-    public static String DATA_ROOM;
-    public static String DATA_REMOTE;
+    static String DATA_USER;
+    static String DATA_GROUP;
+    static String DATA_ROOM;
+    static String DATA_REMOTE;
 
     private UriMatcher mUriMatcher;
 
