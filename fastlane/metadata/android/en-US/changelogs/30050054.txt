@@ -1,0 +1,5 @@
+3.5.0 RC4 (February, 12, 2019)
+
+- Fix chunked upload on userIds with whitespace
+
+For full list please see https://github.com/nextcloud/android/milestone/28
