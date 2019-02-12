@@ -414,10 +414,7 @@ Mesedez, baimendu berriz</string>
 
     <string name="share_privilege_can_share">elkarbana dezake</string>
     <string name="share_privilege_can_edit">editatu dezake</string>
-    <string name="action_retry_uploads">Erroredun igoerak berriz saiatu</string>
     <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
-    <string name="action_clear_successful_uploads">Ondo igo diren igoerak garbitu</string>
-    <string name="action_force_rescan">Bireskaneatzea behartu</string>
 
     <string name="action_switch_grid_view">Sare ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>

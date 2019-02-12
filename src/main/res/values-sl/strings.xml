@@ -465,10 +465,7 @@
     <string name="share_privilege_can_edit_change">lahko spremeni</string>
     <string name="share_privilege_can_edit_delete">lahko izbriše</string>
 
-    <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
     <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
-    <string name="action_clear_successful_uploads">Pobriši uspela nalaganja</string>
-    <string name="action_force_rescan">Vsili osvežitev</string>
 
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>

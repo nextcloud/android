@@ -92,8 +92,8 @@ public class SamlWebViewDialog extends DialogFragment {
             mWebViewClient = new SsoWebViewClient(activity, mHandler, mSsoWebViewClientListener);
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    SsoWebViewClientListener.class.getSimpleName());
+            throw new IllegalArgumentException(activity.toString() + " must implement " +
+                    SsoWebViewClientListener.class.getSimpleName(), e);
         }
     }
 

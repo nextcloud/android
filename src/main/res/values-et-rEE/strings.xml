@@ -383,9 +383,8 @@
     <string name="share_privilege_can_edit_change">saab muuta</string>
     <string name="share_privilege_can_edit_delete">saab kustutada</string>
 
-    <string name="action_retry_uploads">Proovi ebaõnnestunud üleslaadimisi uuesti</string>
     <string name="action_clear_failed_uploads">Puhasta ebaõnnestunud üleslaadimised</string>
-    <string name="action_clear_successful_uploads">Puhasta õnnestunud üleslaadimised</string>
+
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
 

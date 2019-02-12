@@ -518,10 +518,7 @@
     <string name="share_privilege_can_edit_change">môže zmeniť</string>
     <string name="share_privilege_can_edit_delete">môže odstrániť</string>
 
-    <string name="action_retry_uploads">Zopakovať zlyhané nahrávania</string>
     <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
-    <string name="action_clear_successful_uploads">Odstrániť úspešné nahrávania</string>
-    <string name="action_force_rescan">Vynútiť prehľadávanie</string>
 
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
@@ -845,4 +842,4 @@
     <string name="upload_sync_conflict">Chyba synchronizácie, prosím vyriešte manuálne</string>
     <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
-</resources>
+    </resources>

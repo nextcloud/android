@@ -510,10 +510,7 @@
     <string name="share_privilege_can_edit_change">puede cambiar</string>
     <string name="share_privilege_can_edit_delete">puede eliminar</string>
 
-    <string name="action_retry_uploads">Reintentar cargas fallidas</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
-    <string name="action_clear_successful_uploads">Limpiar subidas exitosas</string>
-    <string name="action_force_rescan">Forzar reescaneo</string>
 
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -835,4 +832,4 @@
     <string name="upload_sync_conflict">Conflicto al sincronizar. Por favor, resuélvelo manualmente</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
-</resources>
+    </resources>

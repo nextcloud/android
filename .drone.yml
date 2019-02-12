@@ -15,13 +15,13 @@ pipeline:
         - emulator -avd android-27 -no-window -no-audio &
         - ./wait_for_emulator.sh
         - ./gradlew assembleGplayDebug
-        - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit"
+        - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
         - ./gradlew installGplayDebugAndroidTest
-        - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT"
+        - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
         - ./gradlew combinedTestReport
         - curl -o codecov.sh https://codecov.io/bash
         - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
-        secrets: [ LOG_USERNAME, LOG_PASSWORD ]
+        secrets: [ LOG_USERNAME, LOG_PASSWORD, GIT_USERNAME, GIT_TOKEN ]
         when:
             matrix:
                 FLAVOR: Gplay

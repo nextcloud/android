@@ -520,10 +520,7 @@
     <string name="share_privilege_can_edit_change">może zmienić</string>
     <string name="share_privilege_can_edit_delete">może usunąć</string>
 
-    <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
-    <string name="action_clear_successful_uploads">Wyczyść udane wysyłanie</string>
-    <string name="action_force_rescan">Wymuś indeksowanie</string>
 
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
@@ -853,4 +850,5 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnego magazynu</string>
+    <string name="delete_entries">Usuń wpisy</string>
 </resources>

@@ -456,16 +456,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int foldersCount = 0;
         int count = mFiles.size();
         OCFile file;
+        final boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
         for (int i = 0; i < count; i++) {
             file = getItem(i);
             if (file.isFolder()) {
                 foldersCount++;
             } else {
-                if (!file.isHidden()) {
+                if (!file.isHidden() || showHiddenFiles) {
                     filesCount++;
                 }
             }
         }
+
 
         return generateFooterText(filesCount, foldersCount);
     }
@@ -584,17 +586,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // early exit
         if (objects.size() > 0 && mStorageManager != null) {
-            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+            if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
                 parseVirtuals(objects, searchType);
             }
         }
 
-        if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&
-                !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
-                !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
-                !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
+        if (searchType != ExtendedListFragment.SearchType.PHOTO_SEARCH &&
+                searchType != ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER &&
+                searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH &&
+                searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
             FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {

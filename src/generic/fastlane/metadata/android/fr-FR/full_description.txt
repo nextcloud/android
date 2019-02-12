@@ -9,7 +9,7 @@ Fonctionnalitées :
 * Rester à jour avec vos notifications
 * Utilisation de plusieurs comptes
 * Accès sécurisé à vos données avec votre empreinte digitale ou code PIN
-* Intégration avec DAVdroid pour une synchronisation facile des contacts & agenda
+* Intégration avec DAVx5 (autrefois connu comme DAVdroid) pour une synchronisation facile des contacts & agenda
 
 S'il vous plait, rapporter les bogues à l'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l'adresse suivante : https://help.nextcloud.com/c/clients/android
 

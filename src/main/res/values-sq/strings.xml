@@ -513,10 +513,7 @@
     <string name="share_privilege_can_edit_change">mund të ndryshohet</string>
     <string name="share_privilege_can_edit_delete">mund të fshihet</string>
 
-    <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
-    <string name="action_clear_successful_uploads">Fshi ngarkimet e suksesshme</string>
-    <string name="action_force_rescan">Riskanim i detyruar</string>
 
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
