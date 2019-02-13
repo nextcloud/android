@@ -276,6 +276,7 @@ dependencies {
 
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
     findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
+    findbugsPlugins 'jp.f.dev.findbugs.detect.android:AndroidFindbugs:0.5'
 
     implementation 'com.google.dagger:dagger:2.21'
     implementation 'com.google.dagger:dagger-android:2.21'
