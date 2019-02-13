@@ -127,6 +127,7 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Locale;
@@ -1939,7 +1940,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             username = webViewUser;
         }
         if (isOAuth) {
-            username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
+            username = "OAuth_user" + new SecureRandom().nextLong();
         }
 
         String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, username);
