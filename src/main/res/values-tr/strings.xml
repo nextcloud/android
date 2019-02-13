@@ -810,7 +810,6 @@
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
     <string name="share_via_link_hide_download">İndirmeyi gizle</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
-
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
     <string name="create_new_document">Yeni belge</string>
     <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>

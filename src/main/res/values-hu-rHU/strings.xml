@@ -828,7 +828,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="share_via_link_hide_download">Letöltés elrejtése</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
-
     <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>
     <string name="create_new_document">Új dokumentum létrehozása</string>
     <string name="create_new_spreadsheet">Új munkafüzet létrehozása</string>

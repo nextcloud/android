@@ -810,7 +810,6 @@
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="share_via_link_hide_download">Verberg download</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
-
     <string name="richdocuments_failed_to_load_document">Kon document niet laden!</string>
     <string name="create_new_document">Creëer nieuw document</string>
     <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>

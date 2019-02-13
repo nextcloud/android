@@ -808,7 +808,6 @@ Tanto a versão oficial dev como a versão regular estão disponíveis no F-droi
     <string name="no_pdf_app_available">Nenhuma aplicação disponível para lidar com PDF</string>
     <string name="share_via_link_hide_download">Esconder transferência</string>
     <string name="unread_comments">Existem comentários não lidos</string>
-
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="create_new_spreadsheet">Criar nova folha de cálculo</string>

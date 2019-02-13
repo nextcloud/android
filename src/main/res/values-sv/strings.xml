@@ -805,7 +805,6 @@
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="share_via_link_hide_download">Dölj nedladdning</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
-
     <string name="richdocuments_failed_to_load_document">Kunde inte ladda dokument!</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="create_new_spreadsheet">Skapa nytt kalkylblad</string>
