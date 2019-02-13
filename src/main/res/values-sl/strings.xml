@@ -74,9 +74,9 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Končaj</string>
     <string name="uploader_error_title_no_file_to_upload">Ni izbrane datoteke za pošiljanje</string>
     <string name="uploader_error_message_no_file_to_upload">Prejeti podatki ne vključujejo nobene veljavne datoteke.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Te datoteke ni mogoče naložiti</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Te datoteke ni mogoče poslati</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
-    <string name="uploader_error_message_source_file_not_found">Datoteke določene za nalaganje ne najdem. Prosim preveri, če sploh obstaja.</string>
+    <string name="uploader_error_message_source_file_not_found">Datoteke, izbrane za pošiljanje v oblak, ni mogoče najti. Ali datoteka obstaja?</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusi znova poslati kasneje.</string>
     <string name="uploader_upload_files_behaviour">Možnost pošiljanja:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s.</string>
@@ -85,7 +85,7 @@
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty_headline">Ni datotek</string>
     <string name="folder_list_empty_headline">Ni map</string>
-    <string name="file_list_empty">Pošiljanje datotek in usklajevanje datotek z naprave.</string>
+    <string name="file_list_empty">Pošljite nekaj datotek v oblak, ali pa uskladite vsebino z drugimi napravami.</string>
     <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, označene kot priljubljene, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo zadetkov iskanja.</string>
     <string name="file_list_loading">Poteka nalaganje…</string>
@@ -104,16 +104,17 @@
     <string name="file_list_empty_recently_modified_filter">V zadnjih 7. dneh ni bila spremenjena nobena datoteka.</string>
     <string name="file_list_empty_recently_added">Ni nedavno dodanih datotek</string>
     <string name="file_list_empty_recently_added_filter">Ni nedavno dodanih datotek.</string>
-    <string name="file_list_empty_text_photos">Naloži kakšno sliko ali vključi samodejno nalaganje.</string>
+    <string name="file_list_empty_text_photos">Pošljite kakšno sliko, ali pa omogočite samodejno nalaganje.</string>
     <string name="file_list_empty_text_photos_filter">Ni slik in fotografij.</string>
-    <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
+    <string name="file_list_empty_text_videos">Pošljite kakšen video, ali pa omogočite samodejno nalaganje.</string>
     <string name="file_list_empty_text_videos_filter">Ni video posnetkov.</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
-    <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
-    <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
+    <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
+    <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_sync_file">Uskladi</string>
+    <string name="filedetails_renamed_in_upload_msg">Datoteka je bila pmed nalaganjem reimenovana v %1$s.</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
@@ -133,14 +134,14 @@
     <string name="delete_account">Odstrani račun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Dejavni uporabnik</string>
-    <string name="upload_chooser_title">Pošlji iz…</string>
+    <string name="upload_chooser_title">Pošlji iz …</string>
     <string name="uploader_info_dirname">Ime mape</string>
-    <string name="uploader_upload_in_progress_ticker">Poteka pošiljanje…</string>
-    <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
+    <string name="uploader_upload_in_progress_ticker">Poteka pošiljanje …</string>
+    <string name="uploader_upload_in_progress_content">%1$d%% Poteka pošiljanje %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Poslano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
-    <string name="uploader_upload_failed_content_single">Ni mogoče naložiti %1$s</string>
+    <string name="uploader_upload_failed_content_single">Ni mogoče poslati %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Potrdilo strežnika ni vredno zaupanja</string>
     <string name="uploads_view_title">Poslano</string>
@@ -300,9 +301,9 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_charging">Nalagaj samo med polnjenjem</string>
+    <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
-    <string name="auto_upload_path">/SamodejnoNalaganje</string>
+    <string name="auto_upload_path">/SamodejnoPošiljanje</string>
     <string name="conflict_title">Neskladje datotek</string>
     <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
     <string name="conflict_keep_both">Ohrani obe</string>
@@ -348,7 +349,7 @@
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
     <string name="forbidden_permissions_create">za ustvarjanje datoteke</string>
-    <string name="uploader_upload_forbidden_permissions">za nalaganje te mape</string>
+    <string name="uploader_upload_forbidden_permissions">za pošiljanje v to mapo</string>
     <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
 
     <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
@@ -465,7 +466,7 @@
     <string name="share_privilege_can_edit_change">lahko spremeni</string>
     <string name="share_privilege_can_edit_delete">lahko izbriše</string>
 
-    <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
+    <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
 
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
@@ -480,7 +481,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="learn_more">Prikaži več</string>
-    <string name="drawer_synced_folders">Samodejno nalaganje</string>
+    <string name="drawer_synced_folders">Samodejno pošiljanje</string>
     <string name="drawer_participate">Možnosti sodelovanja</string>
     <string name="participate_testing_headline">Pomoč s preizkušanjem</string>
     <string name="participate_testing_bug_text">Ali ste našli hrošča, neustrezno delovanje?</string>
@@ -494,8 +495,8 @@
     <string name="participate_contribute_translate_text">programa</string>
     <string name="synced_folders_loading_folders">Poteka nalaganje map…</string>
     <string name="synced_folders_no_results">Map s predstavno vsebino ni mogoče najti.</string>
-    <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
-    <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
+    <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>
+    <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbran</item>
@@ -507,7 +508,7 @@
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
 
-    <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
+    <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_file_dialog_filename">Ime datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internetna bližnjica(%s)</string>
@@ -544,7 +545,7 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
 
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
-    <string name="foreground_service_upload">Poteka nalaganje datotek…</string>
+    <string name="foreground_service_upload">Poteka pošiljanje datotek …</string>
     <string name="foreground_service_download">Poteka prejemanje datotek…</string>
 
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>

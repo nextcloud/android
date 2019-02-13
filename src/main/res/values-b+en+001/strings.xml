@@ -810,7 +810,6 @@
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
-
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_spreadsheet">Create new spreadsheet</string>
@@ -838,4 +837,5 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
-    </resources>
+    <string name="delete_entries">Delete entries</string>
+</resources>

@@ -812,7 +812,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="share_via_link_hide_download">Skjul download</string>
     <string name="unread_comments">Der er ulæste kommentarer</string>
-
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
     <string name="create_new_document">Lav nyt dokument</string>
     <string name="create_new_spreadsheet">Lav nyt regneark</string>

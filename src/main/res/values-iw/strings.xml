@@ -815,7 +815,6 @@
     <string name="no_pdf_app_available">אין יישומים זמינים לטיפול ב־PDF</string>
     <string name="share_via_link_hide_download">הסתרת הורדה</string>
     <string name="unread_comments">יש תגובות שלא נקראו</string>
-
     <string name="richdocuments_failed_to_load_document">טעינת המסמך נכשלה!</string>
     <string name="create_new_document">יצירת מסמך חדש</string>
     <string name="create_new_spreadsheet">יצירת גיליון חדש</string>

@@ -812,7 +812,6 @@ Attention la suppression est irréversible.</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
-
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="create_new_document">Créer une nouveau document</string>
     <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>

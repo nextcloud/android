@@ -740,7 +740,6 @@
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="share_via_link_hide_download">Απόκρυψη λήψης</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
-
     <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
     <string name="create_new_spreadsheet">Δημιουργία νέου λογιστικού φύλλου</string>

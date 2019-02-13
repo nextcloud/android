@@ -815,7 +815,6 @@
     <string name="no_pdf_app_available">Нема апликације која зна да ради са PDF-овима</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>
-
     <string name="richdocuments_failed_to_load_document">Грешка приликом учитавања документа!</string>
     <string name="create_new_document">Направи нови документ</string>
     <string name="create_new_spreadsheet">Направи нову табелу</string>
@@ -843,4 +842,5 @@
     <string name="upload_sync_conflict">Конфликт приликом синхронизације, разрешите га ручно</string>
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
-    </resources>
+    <string name="delete_entries">Обриши уносе</string>
+</resources>
