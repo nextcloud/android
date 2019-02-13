@@ -5,22 +5,21 @@
   @author Tobias Kaminsky
   Copyright (C) 2018 Tobias Kaminsky
   Copyright (C) 2018 Nextcloud GmbH.
- 
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
- 
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   GNU General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,7 +27,8 @@
     android:paddingTop="@dimen/standard_padding"
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="@dimen/standard_padding">
+    android:paddingLeft="@dimen/standard_padding"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/notification_icon"
@@ -49,13 +49,27 @@
         android:layout_toRightOf="@id/notification_icon"
         android:layout_toEndOf="@id/notification_icon">
 
-        <TextView
-            android:id="@+id/notification_subject"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            tools:text="@string/placeholder_filename"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/notification_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                tools:text="@string/placeholder_filename" />
+
+            <ImageView
+                android:id="@+id/notification_dismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                android:contentDescription="@string/dismiss_notification_description" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/notification_message"

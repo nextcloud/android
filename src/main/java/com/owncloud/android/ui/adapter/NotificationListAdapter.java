@@ -27,7 +27,6 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -50,25 +49,18 @@ import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.lib.resources.notifications.models.RichObject;
 import com.owncloud.android.ui.activity.NotificationsActivity;
+import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
+import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +133,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
-
+        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client, holder, notificationsActivity);
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
@@ -175,12 +167,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
-
-                new ExecuteActionTask(holder).execute(action);
+                task.execute(action);
             });
 
             holder.buttons.addView(button);
         }
+
+        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification, holder,
+                                                                          notificationsActivity).execute());
     }
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
@@ -211,67 +205,23 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         return ssb;
     }
 
-    private class ExecuteActionTask extends AsyncTask<Action, Void, Boolean> {
+    public void removeNotification(NotificationViewHolder holder) {
+        int position = holder.getAdapterPosition();
 
-        private NotificationViewHolder holder;
-
-        ExecuteActionTask(NotificationViewHolder holder) {
-            this.holder = holder;
-        }
-
-        @Override
-        protected Boolean doInBackground(Action... actions) {
-            HttpMethod method;
-            Action action = actions[0];
-
-            switch (action.type) {
-                case "GET":
-                    method = new GetMethod(action.link);
-                    break;
-
-                case "POST":
-                    method = new PostMethod(action.link);
-                    break;
-
-                case "DELETE":
-                    method = new DeleteMethod(action.link);
-                    break;
-
-                default:
-                    // do nothing
-                    return false;
-            }
-
-            method.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-
-            int status;
-            try {
-                status = client.executeMethod(method);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Execution of notification action failed: " + e);
-                return false;
-            }
-
-            return status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            if (success) {
-                int position = holder.getAdapterPosition();
-
-                if (position >= 0 && position < notificationsList.size()) {
-                    notificationsList.remove(position);
-                    notifyItemRemoved(position);
-                }
-            } else {
-                setButtonEnabled(holder, true);
-                DisplayUtils.showSnackMessage(notificationsActivity, "Failed to execute action!");
-            }
+        if (position >= 0 && position < notificationsList.size()) {
+            notificationsList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, notificationsList.size());
         }
     }
 
-    private void setButtonEnabled(NotificationViewHolder holder, boolean enabled) {
+    public void removeAllNotifications() {
+        notificationsList.clear();
+        notifyDataSetChanged();
+    }
+
+
+    public void setButtonEnabled(NotificationViewHolder holder, boolean enabled) {
         for (int i = 0; i < holder.buttons.getChildCount(); i++) {
             holder.buttons.getChildAt(i).setEnabled(enabled);
         }
@@ -310,7 +260,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         return notificationsList.size();
     }
 
-    static class NotificationViewHolder extends RecyclerView.ViewHolder {
+    public static class NotificationViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.notification_icon)
         public ImageView icon;
         @BindView(R.id.notification_subject)
@@ -321,6 +271,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         public TextView dateTime;
         @BindView(R.id.notification_buttons)
         public LinearLayout buttons;
+        @BindView(R.id.notification_dismiss)
+        public ImageView dismiss;
 
         private NotificationViewHolder(View itemView) {
             super(itemView);
