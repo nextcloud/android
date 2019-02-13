@@ -133,7 +133,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
-
+        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client, holder, notificationsActivity);
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
@@ -167,8 +167,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
-
-                new NotificationExecuteActionTask(client, holder, notificationsActivity).execute(action);
+                task.execute(action);
             });
 
             holder.buttons.addView(button);
