@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2015 ownCloud Inc.
@@ -27,7 +27,7 @@ import android.os.Process;
 
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import androidx.core.app.NotificationCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -70,16 +70,13 @@ public final class NotificationUtils {
                                        long delayInMillis) {
 
         HandlerThread thread = new HandlerThread(
-                "NotificationDelayerThread_" + (new Random(System.currentTimeMillis())).nextInt(),
-                Process.THREAD_PRIORITY_BACKGROUND);
+            "NotificationDelayerThread_" + new SecureRandom().nextInt(), Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
 
         Handler handler = new Handler(thread.getLooper());
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                 notificationManager.cancel(notificationId);
-                 ((HandlerThread)Thread.currentThread()).getLooper().quit();
-            }
+        handler.postDelayed(() -> {
+            notificationManager.cancel(notificationId);
+            ((HandlerThread) Thread.currentThread()).getLooper().quit();
         }, delayInMillis);
     }
 }

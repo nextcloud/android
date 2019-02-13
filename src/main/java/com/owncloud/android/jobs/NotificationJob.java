@@ -56,7 +56,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -74,7 +74,7 @@ public class NotificationJob extends Job {
     private static final String PUSH_NOTIFICATION_ID = "PUSH_NOTIFICATION_ID";
     private static final String NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID";
 
-    private Random randomId = new Random();
+    private SecureRandom randomId = new SecureRandom();
 
     @NonNull
     @Override
