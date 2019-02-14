@@ -51,6 +51,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -797,7 +798,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (mStorageManager == null) {
-            mStorageManager = new FileDataStorageManager(user.toPlatformAccount(), activity.getContentResolver());
+            mStorageManager = new FileDataStorageManagerImpl(user.toPlatformAccount(), activity.getContentResolver());
         }
 
         if (clear) {
@@ -863,7 +864,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
-                    file = mStorageManager.saveFileWithParent(file, activity);
+                    file = mStorageManager.saveFileWithParent(file);
 
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
@@ -924,7 +925,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     mStorageManager.saveFile(ocFile);
                 } else {
 
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
+                    ocFile = mStorageManager.saveFileWithParent(ocFile);
 
                     // also sync folder content
                     if (ocFile.isFolder()) {

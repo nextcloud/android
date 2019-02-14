@@ -275,7 +275,7 @@ public class FileContentProvider extends ContentProvider {
                 String[] whereArgs = new String[]{remotePath, accountName};
                 Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
                 // ugly patch; serious refactorization is needed to reduce work in
-                // FileDataStorageManager and bring it to FileContentProvider
+                // FileDataStorageManagerImpl and bring it to FileContentProvider
                 if (doubleCheck == null || !doubleCheck.moveToFirst()) {
                     if (doubleCheck != null) {
                         doubleCheck.close();

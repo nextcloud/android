@@ -91,7 +91,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
             OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);
-            ocFile = storageManager.saveFileWithParent(ocFile, fileDisplayActivity);
+            ocFile = storageManager.saveFileWithParent(ocFile);
 
             // also sync folder content
             OCFile toSync;

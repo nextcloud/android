@@ -21,7 +21,6 @@
 
 package com.owncloud.android.providers;
 
-import android.accounts.Account;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -35,6 +34,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -63,8 +63,8 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
     private OCFile getFile(Uri uri) {
         User user = accountManager.getUser();
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user.toPlatformAccount(),
-                MainApp.getAppContext().getContentResolver());
+        FileDataStorageManager fileDataStorageManager = new FileDataStorageManagerImpl(user.toPlatformAccount(),
+                                                                                       MainApp.getAppContext());
 
         return fileDataStorageManager.getFileByPath(uri.getPath());
     }

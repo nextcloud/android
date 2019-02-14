@@ -39,6 +39,7 @@ import android.util.Pair;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -435,10 +436,8 @@ public class OperationsService extends Service {
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
 
-                            mStorageManager = new FileDataStorageManager(
-                                mLastTarget.mAccount,
-                                    mService.getContentResolver()
-                            );
+                            mStorageManager = new FileDataStorageManagerImpl(mLastTarget.mAccount,
+                                                                             mService.getBaseContext());
                         } else {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mServerUrl, null);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().

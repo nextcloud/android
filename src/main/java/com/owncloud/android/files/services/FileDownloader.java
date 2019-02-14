@@ -42,6 +42,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -439,10 +440,7 @@ public class FileDownloader extends Service
                     if (mCurrentAccount == null ||
                             !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
                         mCurrentAccount = mCurrentDownload.getAccount();
-                        mStorageManager = new FileDataStorageManager(
-                                mCurrentAccount,
-                                getContentResolver()
-                        );
+                        mStorageManager = new FileDataStorageManagerImpl(mCurrentAccount, getBaseContext());
                     }   // else, reuse storage manager from previous operation
 
                     // always get client from client manager, to get fresh credentials in case
@@ -506,7 +504,7 @@ public class FileDownloader extends Service
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         if (MimeTypeUtil.isMedia(mCurrentDownload.getMimeType())) {
-            FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+            mStorageManager.triggerMediaScan(file.getStoragePath());
         }
         mStorageManager.saveConflict(file, null);
     }

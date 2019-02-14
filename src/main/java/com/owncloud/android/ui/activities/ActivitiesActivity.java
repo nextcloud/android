@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
@@ -168,7 +169,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                                                                           PorterDuff.Mode.SRC_IN);
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManagerImpl(getAccount(), this);
         adapter = new ActivityListAdapter(this, getUserAccountManager(), this, storageManager,
         getCapabilities(), false);
         recyclerView.setAdapter(adapter);

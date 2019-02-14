@@ -27,7 +27,6 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
@@ -55,6 +54,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader;
@@ -223,7 +223,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             OCFile finalFile = ocFile;
             Thread syncThread = new Thread(() -> {
                 try {
-                    FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+                    FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, context);
                     RemoteOperationResult result = new SynchronizeFileOperation(finalFile, null, account,
                                                                                 true, context)
                         .execute(storageManager, context);
@@ -638,10 +638,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         rootIdToStorageManager.clear();
 
-        ContentResolver contentResolver = getContext().getContentResolver();
-
         for (Account account : accountManager.getAccounts()) {
-            final FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
+            final FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, getContext());
             rootIdToStorageManager.put(account.hashCode(), storageManager);
         }
     }

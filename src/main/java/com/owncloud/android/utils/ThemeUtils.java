@@ -51,6 +51,7 @@ import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -631,7 +632,7 @@ public final class ThemeUtils {
         }
 
         if (account != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+            FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, context);
             return storageManager.getCapability(account.name);
         } else {
             return new OCCapability();

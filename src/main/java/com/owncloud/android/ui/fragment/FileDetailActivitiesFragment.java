@@ -45,6 +45,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -244,7 +245,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, requireActivity().getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, requireActivity());
         operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(account.name);

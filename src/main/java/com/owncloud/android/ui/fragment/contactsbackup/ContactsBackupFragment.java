@@ -43,6 +43,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.jobs.ContactsBackupJob;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -213,8 +214,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         AsyncTask<String, Integer, Boolean> task = new AsyncTask<String, Integer, Boolean>() {
             @Override
             protected Boolean doInBackground(String... path) {
-                FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        contactsPreferenceActivity.getContentResolver());
+                FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account,
+                                                                                       contactsPreferenceActivity);
 
                 OCFile folder = storageManager.getFileByPath(path[0]);
 

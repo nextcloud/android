@@ -44,6 +44,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -202,7 +203,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         unbinder = ButterKnife.bind(this, view);
 
         if (fileDataStorageManager == null) {
-            fileDataStorageManager = new FileDataStorageManager(account, fileDisplayActivity.getContentResolver());
+            fileDataStorageManager = new FileDataStorageManagerImpl(account, fileDisplayActivity);
         }
 
         setupView();

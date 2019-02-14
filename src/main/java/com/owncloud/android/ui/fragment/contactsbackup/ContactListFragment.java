@@ -63,6 +63,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.jobs.ContactsImportJob;
@@ -515,8 +516,8 @@ public class ContactListFragment extends FileFragment implements Injectable {
             if (FileDownloader.getDownloadFinishMessage().equalsIgnoreCase(intent.getAction())) {
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
 
-                FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        context.getContentResolver());
+                FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account,
+                                                                                       context);
                 ocFile = storageManager.getFileByPath(downloadedRemotePath);
                 loadContactsTask.execute();
             }

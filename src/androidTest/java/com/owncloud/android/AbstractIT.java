@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -88,7 +89,7 @@ public abstract class AbstractIT {
     }
 
     FileDataStorageManager getStorageManager() {
-        return new FileDataStorageManager(account, targetContext.getContentResolver());
+        return new FileDataStorageManagerImpl(account, targetContext.getContentResolver());
     }
 
     private static void createDummyFiles() throws IOException {

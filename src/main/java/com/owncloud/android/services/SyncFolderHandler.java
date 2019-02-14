@@ -28,6 +28,7 @@ import android.os.Message;
 import android.util.Pair;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.IndexedForest;
@@ -105,10 +106,7 @@ class SyncFolderHandler extends Handler {
 
                 if (mCurrentAccount == null || !mCurrentAccount.equals(account)) {
                     mCurrentAccount = account;
-                    mStorageManager = new FileDataStorageManager(
-                            account,
-                            mService.getContentResolver()
-                    );
+                    mStorageManager = new FileDataStorageManagerImpl(account, mService.getBaseContext());
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
@@ -123,7 +121,7 @@ class SyncFolderHandler extends Handler {
             } catch (AccountsException | IOException e) {
                 sendBroadcastFinishedSyncFolder(account, remotePath, false);
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, new RemoteOperationResult(e));
-                
+
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
                 mPendingOperations.removePayload(account.name, remotePath);

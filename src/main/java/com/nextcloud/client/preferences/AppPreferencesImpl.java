@@ -30,6 +30,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
@@ -585,7 +586,8 @@ public final class AppPreferencesImpl implements AppPreferences {
         }
 
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(), context.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManagerImpl(user.toPlatformAccount(),
+                                                                               context);
 
         String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
         OCFile prefFolder = folder;

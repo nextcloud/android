@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.nextcloud.client.logger.Logger;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
@@ -33,6 +34,8 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
+
+import javax.inject.Inject;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -49,6 +52,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     protected String mRemotePath;
     private boolean mCreateFullPath;
     private RemoteFile createdRemoteFolder;
+    @Inject Logger logger;
 
     /**
      * Constructor
@@ -63,8 +67,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new CreateFolderRemoteOperation(mRemotePath, mCreateFullPath).execute(client);
+    public RemoteOperationResult run(OwnCloudClient client) {
+        RemoteOperationResult result = createCreateFolderRemoteOperation(mRemotePath, mCreateFullPath).execute(client);
 
         if (result.isSuccess()) {
             RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(mRemotePath)
@@ -77,6 +81,14 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         }
 
         return result;
+    }
+
+    public CreateFolderRemoteOperation createCreateFolderRemoteOperation(String remotePath, boolean createFullPath) {
+        return new CreateFolderRemoteOperation(remotePath, createFullPath);
+    }
+
+    public ReadFolderRemoteOperation createReadFolderRemoteOperation(String remotePath) {
+        return new ReadFolderRemoteOperation(remotePath);
     }
 
     @Override
@@ -124,7 +136,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             newDir.setPermissions(createdRemoteFolder.getPermissions());
             getStorageManager().saveFile(newDir);
 
-            Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
+            logger.d(TAG, "Create directory " + mRemotePath + " in Database");
         }
     }
 

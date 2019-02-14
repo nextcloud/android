@@ -44,6 +44,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -107,7 +108,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
 
             removeAccount(account, accountManager);
 
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+            FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, context);
 
             // remove all files
             removeFiles(account, storageManager);

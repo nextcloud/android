@@ -38,11 +38,14 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
@@ -94,7 +97,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
         mRemotePaths = intent.getStringArrayListExtra(EXTRA_REMOTE_PATHS);
         mLocalPaths = intent.getStringArrayListExtra(EXTRA_LOCAL_PATHS);
-        mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+        mStorageManager = new FileDataStorageManagerImpl(mAccount, this);
         mHandler = new Handler();
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -150,8 +153,9 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             /**
          * {@inheritDoc}
          */
-        @Override
-        public View getView (int position, View convertView, @NonNull ViewGroup parent) {
+            @NotNull
+            @Override
+            public View getView (int position, View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
             if (view == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(

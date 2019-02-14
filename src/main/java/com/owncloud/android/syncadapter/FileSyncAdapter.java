@@ -36,7 +36,7 @@ import android.os.Bundle;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -154,7 +154,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
-        this.setStorageManager(new FileDataStorageManager(account, providerClient));
+        this.setStorageManager(new FileDataStorageManagerImpl(account, providerClient, getContext()));
 
         try {
             this.initClientForCurrentAccount();

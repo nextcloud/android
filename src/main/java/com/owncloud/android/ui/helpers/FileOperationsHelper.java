@@ -51,6 +51,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -196,8 +197,8 @@ public class FileOperationsHelper {
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
             Account account = fileActivity.getAccount();
-            FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
-                                                                               fileActivity.getContentResolver());
+            FileDataStorageManager storageManager = new FileDataStorageManagerImpl(fileActivity.getAccount(),
+                                                                                   fileActivity);
 
             // check if file is in conflict (this is known due to latest folder refresh)
             if (file.isInConflict()) {
@@ -296,7 +297,7 @@ public class FileOperationsHelper {
                 public void run() {
                     User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
+                        new FileDataStorageManagerImpl(user.toPlatformAccount(), fileActivity);
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;

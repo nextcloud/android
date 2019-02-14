@@ -47,7 +47,7 @@ public abstract class SyncOperation extends RemoteOperation {
      * Do not call this method from the main thread.
      *
      * This method should be used whenever an ownCloud account is available, instead of
-     * {@link #execute(OwnCloudClient, com.owncloud.android.datamodel.FileDataStorageManager)}.
+     * {@link #execute(OwnCloudClient, FileDataStorageManager)}.
      *
      * @param storageManager
      * @param context   Android context for the component calling the method.
@@ -77,11 +77,9 @@ public abstract class SyncOperation extends RemoteOperation {
      * @param storageManager
 	 * @return			Result of the operation.
 	 */
-	public RemoteOperationResult execute(OwnCloudClient client,
-                                         FileDataStorageManager storageManager) {
+    public RemoteOperationResult execute(OwnCloudClient client, FileDataStorageManager storageManager) {
         if (storageManager == null) {
-            throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                    "NULL storage manager");
+            throw new IllegalArgumentException("Trying to execute a sync operation with a NULL storage manager");
         }
         this.storageManager = storageManager;
 		return super.execute(client);
@@ -103,7 +101,7 @@ public abstract class SyncOperation extends RemoteOperation {
      * @return                  Thread were the remote operation is executed.
      */
 	/*
-    public Thread execute(FileDataStorageManager storageManager,
+    public Thread execute(FileDataStorageManagerImpl storageManager,
     Context context, OnRemoteOperationListener listener, Handler listenerHandler, Activity callerActivity) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation

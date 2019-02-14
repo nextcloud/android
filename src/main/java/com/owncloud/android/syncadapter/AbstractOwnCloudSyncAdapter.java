@@ -46,7 +46,7 @@ import lombok.Setter;
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
- * 
+ *
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
  */
 abstract class AbstractOwnCloudSyncAdapter extends

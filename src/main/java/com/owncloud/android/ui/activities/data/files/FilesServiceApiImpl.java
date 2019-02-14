@@ -102,7 +102,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
 
                 if (resultRemoteFileOp.isSuccess()) {
                     OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
-                    remoteOcFile = baseActivity.getStorageManager().saveFileWithParent(temp, context);
+                    remoteOcFile = baseActivity.getStorageManager().saveFileWithParent(temp);
 
                     if (remoteOcFile.isFolder()) {
                         // perform folder synchronization
