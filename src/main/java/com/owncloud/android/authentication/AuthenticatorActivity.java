@@ -1920,6 +1920,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * TODO Decide how to name the OAuth accounts
      */
     @SuppressFBWarnings("DMI")
+    @SuppressLint("TrulyRandom")
     private boolean createAccount(RemoteOperationResult authResult) {
         String accountType = MainApp.getAccountType(this);
 
