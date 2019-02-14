@@ -127,6 +127,7 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Locale;
@@ -1919,6 +1920,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * TODO Decide how to name the OAuth accounts
      */
     @SuppressFBWarnings("DMI")
+    @SuppressLint("TrulyRandom")
     private boolean createAccount(RemoteOperationResult authResult) {
         String accountType = MainApp.getAccountType(this);
 
@@ -1939,7 +1941,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             username = webViewUser;
         }
         if (isOAuth) {
-            username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
+            username = "OAuth_user" + new SecureRandom().nextLong();
         }
 
         String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, username);

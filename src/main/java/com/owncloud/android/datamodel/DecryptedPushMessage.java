@@ -32,9 +32,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+/*
+ * Push data from server, https://github.com/nextcloud/notifications/blob/master/docs/push-v2.md#encrypted-subject-data
+ */
 public class DecryptedPushMessage {
     public String app;
     public String type;
     public String subject;
     public String id;
+    public int nid;
 }
