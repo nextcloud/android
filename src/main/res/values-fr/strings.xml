@@ -839,5 +839,6 @@ Attention la suppression est irréversible.</string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
+    <string name="host_not_available">Serveur indisponible</string>
     <string name="delete_entries">Supprimer les éléments</string>
-</resources>
+    </resources>

@@ -837,5 +837,6 @@
     <string name="upload_sync_conflict">Sync-konflikt, los het a.u.b. manueel op</string>
     <string name="upload_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
     <string name="upload_local_storage_not_copied">Bestand kan niet naar de lokale opschlag gekopieerd worden</string>
+    <string name="host_not_available">Server niet beschikbaar</string>
     <string name="delete_entries">Verwijder records</string>
-</resources>
+    </resources>

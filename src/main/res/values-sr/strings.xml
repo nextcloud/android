@@ -843,4 +843,4 @@
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
     <string name="delete_entries">Обриши уносе</string>
-</resources>
+    </resources>

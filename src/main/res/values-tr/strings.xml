@@ -837,5 +837,6 @@
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözün</string>
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
+    <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="delete_entries">Kayıtları sil</string>
-</resources>
+    </resources>

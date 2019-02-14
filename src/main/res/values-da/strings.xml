@@ -840,4 +840,4 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
     <string name="delete_entries">Slet poster</string>
-</resources>
+    </resources>

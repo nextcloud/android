@@ -39,9 +39,9 @@
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>
-    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir kontaktus</string>
+    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus &amp; kontaktų sinchronizavimas nustatytas</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus ir adresatų sinchronizavimas nustatytas</string>
     <string name="prefs_help">Pagalba</string>
     <string name="prefs_recommend">Rekomenduok draugui</string>
     <string name="prefs_feedback">Atsiliepimai</string>
@@ -520,13 +520,13 @@
     <string name="activities_no_results_headline">Kol kas jokių veiksmų</string>
     <string name="prefs_category_about">Apie</string>
 
-    <string name="actionbar_contacts">Išsaugoti atsarginę kontaktų kopiją</string>
-    <string name="actionbar_contacts_restore">Atkurti kontaktus</string>
+    <string name="actionbar_contacts">Pasidaryti atsarginę adresatų kopiją</string>
+    <string name="actionbar_contacts_restore">Atkurti adresatus</string>
     <string name="contacts_backup_button">Atgal į viršų</string>
     <string name="contacts_automatic_backup">Automatinė atsarginė kopija</string>
     <string name="contacts_last_backup">Paskutinė atsarginė kopija</string>
-    <string name="contacts_read_permission">Reikalingas leidimas skaityti sąrašą</string>
-    <string name="contaclist_restore_selected">Atkurti pasirinktus kontaktus</string>
+    <string name="contacts_read_permission">Reikalingas leidimas skaityti adresatų sąrašą</string>
+    <string name="contaclist_restore_selected">Atkurti pasirinktus adresatus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
     <string name="contacts_preference_choose_date">Pasirinkite datą</string>
     <string name="contacts_preference_backup_never">Niekada</string>
