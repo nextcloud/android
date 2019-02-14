@@ -46,10 +46,12 @@ import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
@@ -78,7 +80,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
-    CheckAvailableSpaceTask.CheckAvailableSpaceListener {
+    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener {
 
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
     private static final int SINGLE_DIR = 1;
@@ -116,6 +118,7 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     public static final String REQUEST_CODE_KEY = "requestCode";
     private int requestCode;
+    private LocalStoragePathPickerDialogFragment dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,12 +155,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         // Drop-down navigation
         mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
-        File currDir = mCurrentDir;
-        while(currDir != null && currDir.getParentFile() != null) {
-            mDirectories.add(currDir.getName());
-            currDir = currDir.getParentFile();
-        }
-        mDirectories.add(File.separator);
+        fillDirectoryDropdown();
 
         // Inflate and set the layout view
         setContentView(R.layout.upload_files_layout);
@@ -222,6 +220,15 @@ public class UploadFilesActivity extends FileActivity implements
         checkWritableFolder(mCurrentDir);
 
         Log_OC.d(TAG, "onCreate() end");
+    }
+
+    private void fillDirectoryDropdown() {
+        File currentDir = mCurrentDir;
+        while (currentDir != null && currentDir.getParentFile() != null) {
+            mDirectories.add(currentDir.getName());
+            currentDir = currentDir.getParentFile();
+        }
+        mDirectories.add(File.separator);
     }
 
     /**
@@ -306,11 +313,22 @@ public class UploadFilesActivity extends FileActivity implements
                 }
                 break;
             }
+            case R.id.action_choose_storage_path: {
+                showLocalStoragePathPickerDialog();
+            }
             default:
                 retval = super.onOptionsItemSelected(item);
                 break;
         }
         return retval;
+    }
+
+    private void showLocalStoragePathPickerDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog = LocalStoragePathPickerDialogFragment.newInstance();
+        dialog.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT);
     }
 
     @Override
@@ -354,6 +372,13 @@ public class UploadFilesActivity extends FileActivity implements
                 finish();
                 return;
             }
+
+            File parentFolder = mCurrentDir.getParentFile();
+            if (!parentFolder.canRead()) {
+                showLocalStoragePathPickerDialog();
+                return;
+            }
+
             popDirname();
             mFileListFragment.onNavigateUp();
             mCurrentDir = mFileListFragment.getCurrentDirectory();
@@ -485,6 +510,20 @@ public class UploadFilesActivity extends FileActivity implements
             );
             dialog.setOnConfirmationListener(this);
             dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
+        }
+    }
+
+    @Override
+    public void chosenPath(String path) {
+        if (getListOfFilesFragment() instanceof LocalFileListFragment) {
+            File file = new File(path);
+            ((LocalFileListFragment) getListOfFilesFragment()).listDirectory(file);
+            onDirectoryClick(file);
+
+            mCurrentDir = new File(path);
+            mDirectories.clear();
+
+            fillDirectoryDropdown();
         }
     }
 
@@ -658,5 +697,14 @@ public class UploadFilesActivity extends FileActivity implements
         }
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
+    }
+
+    @Override
+    protected void onStop() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+
+        super.onStop();
     }
 }

@@ -19,9 +19,16 @@
 
 package com.owncloud.android.utils;
 
+import android.Manifest;
 import android.accounts.Account;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -39,13 +46,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static android.os.Build.VERSION.SDK_INT;
 
 
 /**
@@ -54,7 +65,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class FileStorageUtils {
     private static final String TAG = FileStorageUtils.class.getSimpleName();
 
-    public static final String PATTERN_YYYY_MM = "yyyy/MM/";
+    private static final String PATTERN_YYYY_MM = "yyyy/MM/";
+    private static final String DEFAULT_FALLBACK_STORAGE_PATH = "/storage/sdcard0";
 
     private FileStorageUtils() {
         // utility class -> private constructor
@@ -129,7 +141,7 @@ public final class FileStorageUtils {
      * @param date: date in microseconds since 1st January 1970
      * @return string: yyyy/mm/
      */
-    private static String getSubpathFromDate(long date, Locale currentLocale) {
+    private static String getSubPathFromDate(long date, Locale currentLocale) {
         if (date == 0) {
             return "";
         }
@@ -156,7 +168,7 @@ public final class FileStorageUtils {
                                                   Boolean subfolderByDate) {
         String subPath = "";
         if (subfolderByDate) {
-            subPath = getSubpathFromDate(dateTaken, current);
+            subPath = getSubPathFromDate(dateTaken, current);
         }
 
         return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
@@ -393,5 +405,130 @@ public final class FileStorageUtils {
             file = storageManager.getFileById(file.getParentId());
         }
         return false;
+    }
+
+    /**
+     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/54652548223d151f089bdc6fc868b13ca5ab20a9/app/src
+     * /main/java/com/amaze/filemanager/activities/MainActivity.java#L620 on 14.02.2019
+     */
+    @SuppressFBWarnings(value = "DMI_HARDCODED_ABSOLUTE_FILENAME", 
+        justification = "Default Android fallback storage path")
+    public static List<String> getStorageDirectories(Activity activity) {
+        // Final set of paths
+        final List<String> rv = new ArrayList<>();
+        // Primary physical SD-CARD (not emulated)
+        final String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
+        // All Secondary SD-CARDs (all exclude primary) separated by ":"
+        final String rawSecondaryStoragesStr = System.getenv("SECONDARY_STORAGE");
+        // Primary emulated SD-CARD
+        final String rawEmulatedStorageTarget = System.getenv("EMULATED_STORAGE_TARGET");
+        if (TextUtils.isEmpty(rawEmulatedStorageTarget)) {
+            // Device has physical external storage; use plain paths.
+            if (TextUtils.isEmpty(rawExternalStorage)) {
+                // EXTERNAL_STORAGE undefined; falling back to default.
+                // Check for actual existence of the directory before adding to list
+                if (new File(DEFAULT_FALLBACK_STORAGE_PATH).exists()) {
+                    rv.add(DEFAULT_FALLBACK_STORAGE_PATH);
+                } else {
+                    //We know nothing else, use Environment's fallback
+                    rv.add(Environment.getExternalStorageDirectory().getAbsolutePath());
+                }
+            } else {
+                rv.add(rawExternalStorage);
+            }
+        } else {
+            // Device has emulated storage; external storage paths should have
+            // userId burned into them.
+            final String rawUserId;
+            if (SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                rawUserId = "";
+            } else {
+                final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                final String[] folders = OCFile.PATH_SEPARATOR.split(path);
+                final String lastFolder = folders[folders.length - 1];
+                boolean isDigit = false;
+                try {
+                    Integer.valueOf(lastFolder);
+                    isDigit = true;
+                } catch (NumberFormatException ignored) {
+                }
+                rawUserId = isDigit ? lastFolder : "";
+            }
+            // /storage/emulated/0[1,2,...]
+            if (TextUtils.isEmpty(rawUserId)) {
+                rv.add(rawEmulatedStorageTarget);
+            } else {
+                rv.add(rawEmulatedStorageTarget + File.separator + rawUserId);
+            }
+        }
+        // Add all secondary storages
+        if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
+            // All Secondary SD-CARDs splited into array
+            final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
+            Collections.addAll(rv, rawSecondaryStorages);
+        }
+        if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(activity)) {
+            rv.clear();
+        }
+        if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            String strings[] = getExtSdCardPathsForActivity(activity);
+            File f;
+            for (String s : strings) {
+                f = new File(s);
+                if (!rv.contains(s) && canListFiles(f)) {
+                    rv.add(s);
+                }
+            }
+        }
+
+        return rv;
+    }
+
+    /**
+     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/d11e0d2874c6067910e58e059859431a31ad6aee/app/src
+     * /main/java/com/amaze/filemanager/activities/superclasses/PermissionsActivity.java#L47 on
+     * 14.02.2019
+     */
+    private static boolean checkStoragePermission(Activity activity) {
+        // Verify that all required contact permissions have been granted.
+        return ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/616f2a696823ab0e64ea7a017602dc08e783162e/app/src
+     * /main/java/com/amaze/filemanager/filesystem/FileUtil.java#L764 on 14.02.2019
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static String[] getExtSdCardPathsForActivity(Context context) {
+        List<String> paths = new ArrayList<>();
+        for (File file : context.getExternalFilesDirs("external")) {
+            if (file != null) {
+                int index = file.getAbsolutePath().lastIndexOf("/Android/data");
+                if (index < 0) {
+                    Log_OC.w(TAG, "Unexpected external file dir: " + file.getAbsolutePath());
+                } else {
+                    String path = file.getAbsolutePath().substring(0, index);
+                    try {
+                        path = new File(path).getCanonicalPath();
+                    } catch (IOException e) {
+                        // Keep non-canonical path.
+                    }
+                    paths.add(path);
+                }
+            }
+        }
+        if (paths.isEmpty()) {
+            paths.add("/storage/sdcard1");
+        }
+        return paths.toArray(new String[0]);
+    }
+
+    /**
+     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/9cf1fd5ff1653c692cb54cf6bc71b572c19a11cd/app/src
+     * /main/java/com/amaze/filemanager/utils/files/FileUtils.java#L754 on 14.02.2019
+     */
+    private static boolean canListFiles(File f) {
+        return f.canRead() && f.isDirectory();
     }
 }
