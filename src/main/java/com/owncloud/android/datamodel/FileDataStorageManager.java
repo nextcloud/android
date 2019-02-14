@@ -1202,10 +1202,10 @@ public class FileDataStorageManager {
             share.setToken(c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_TOKEN)));
             share.setSharedWithDisplayName(
                     c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)));
-            share.setIsFolder(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1);
+            share.setFolder(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1);
             share.setUserId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_USER_ID)));
-            share.setIdRemoteShared(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
-            share.setIsPasswordProtected(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED)) == 1);
+            share.setRemoteId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
+            share.setPasswordProtected(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED)) == 1);
             share.setNote(c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_NOTE)));
             share.setHideFileDownload(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD)) == 1);
         }
@@ -1913,7 +1913,7 @@ public class FileDataStorageManager {
                 capability.getFilesSharingFederationOutgoing().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING,
                 capability.getFilesSharingFederationIncoming().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING, capability.getFilesBigFileChuncking().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING, capability.getFilesBigFileChunking().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE, capability.getFilesUndelete().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
@@ -1929,13 +1929,13 @@ public class FileDataStorageManager {
                 .getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN, capability.getServerBackgroundPlain()
                 .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_ACTIVITY, capability.isActivityEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_ACTIVITY, capability.getActivity().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
                 TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
             .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichdocumentsTemplatesAvailable()
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
             .getValue());
 
         if (capabilityExists(account.name)) {
@@ -2065,7 +2065,7 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING))));
             capability.setFilesSharingFederationIncoming(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING))));
-            capability.setFilesBigFileChuncking(CapabilityBooleanType.fromValue(c.getInt(c
+            capability.setFilesBigFileChunking(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING))));
             capability.setFilesUndelete(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE))));
@@ -2096,7 +2096,7 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT))));
             capability.setRichDocumentsDirectEditing(CapabilityBooleanType.fromValue(c.getInt(
                 c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING))));
-            capability.setRichdocumentsTemplatesAvailable(CapabilityBooleanType.fromValue(c.getInt(
+            capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.fromValue(c.getInt(
                 c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES))));
             String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
             if (mimetypes == null) {
