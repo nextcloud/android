@@ -855,4 +855,12 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="storage_choose_location">Choose storage location</string>
+    <string name="storage_internal_storage">Internal storage</string>
+    <string name="storage_camera">Camera</string>
+    <string name="storage_pictures">Pictures</string>
+    <string name="storage_movies">Movies</string>
+    <string name="storage_music">Music</string>
+    <string name="storage_documents">Documents</string>
+    <string name="storage_downloads">Downloads</string>
 </resources>
