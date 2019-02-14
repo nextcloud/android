@@ -847,5 +847,6 @@
     <string name="upload_sync_conflict">Konflikt synchronizace, vyřešte ručně</string>
     <string name="upload_cannot_create_file">Nedaří se vytvořit místní soubor</string>
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
+    <string name="host_not_available">Server není k dispozici</string>
     <string name="delete_entries">Smazat položky</string>
-</resources>
+    </resources>

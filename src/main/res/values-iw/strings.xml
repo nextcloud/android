@@ -843,4 +843,4 @@
     <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>
     <string name="upload_local_storage_not_copied">לא ניתן להעתיק קובץ לאחסון המקומי</string>
     <string name="delete_entries">מחיקת רשומות</string>
-</resources>
+    </resources>

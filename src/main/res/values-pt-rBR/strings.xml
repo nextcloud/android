@@ -837,5 +837,6 @@
     <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
     <string name="upload_cannot_create_file">Não foi possível criar o arquivo local</string>
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
+    <string name="host_not_available">Servidor indisponível</string>
     <string name="delete_entries">Excluir entradas</string>
-</resources>
+    </resources>

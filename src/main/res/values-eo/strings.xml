@@ -837,5 +837,6 @@
     <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
+    <string name="host_not_available">Servilo nedisponebla</string>
     <string name="delete_entries">Forigi elementojn</string>
-</resources>
+    </resources>
