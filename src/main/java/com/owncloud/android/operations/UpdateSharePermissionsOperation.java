@@ -32,17 +32,20 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * Updates an existing private share for a given file.
  */
 public class UpdateSharePermissionsOperation extends SyncOperation {
 
-    private long mShareId;
-    private int mPermissions;
-    private long mExpirationDateInMillis;
-    private String mPassword;
-    private String mPath;
+    private long shareId;
+    @Setter private int permissions;
+    @Setter private long expirationDateInMillis;
+    @Getter @Setter private String password;
+    @Getter private String path;
 
     /**
      * Constructor
@@ -50,62 +53,29 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
      * @param shareId Private {@link OCShare} to update. Mandatory argument
      */
     public UpdateSharePermissionsOperation(long shareId) {
-        mShareId = shareId;
-        mPermissions = -1;
-        mExpirationDateInMillis = 0L;
-        mPassword = null;
-    }
-
-    /**
-     * Set password to update in private share.
-     *
-     * @param password      Password to set to the private share.
-     *                      Empty string clears the current password.
-     *                      Null results in no update applied to the password.
-     */
-    public void setPassword(String password) {
-        mPassword = password;
-    }
-
-    /**
-     * Set permissions to update in private share.
-     *
-     * @param permissions   Permissions to set to the private share.
-     *                      Values <= 0 result in no update applied to the permissions.
-     */
-    public void setPermissions(int permissions) {
-        mPermissions = permissions;
-    }
-
-    /**
-     * Set expiration date to update private share.
-     *
-     * @param expirationDateInMillis    Expiration date to set to the public link.
-     *                                  A negative value clears the current expiration date.
-     *                                  Zero value (start-of-epoch) results in no update done on
-     *                                  the expiration date.
-     */
-    public void setExpirationDate(long expirationDateInMillis) {
-        mExpirationDateInMillis = expirationDateInMillis;
+        this.shareId = shareId;
+        permissions = -1;
+        expirationDateInMillis = 0L;
+        password = null;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
 
-        OCShare share = getStorageManager().getShareById(mShareId); // ShareType.USER | ShareType.GROUP
+        OCShare share = getStorageManager().getShareById(shareId); // ShareType.USER | ShareType.GROUP
 
         if (share == null) {
             // TODO try to get remote share before failing?
             return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
-        mPath = share.getPath();
+        path = share.getPath();
 
         // Update remote share with password
         UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(share.getRemoteId());
-        updateOp.setPassword(mPassword);
-        updateOp.setPermissions(mPermissions);
-        updateOp.setExpirationDate(mExpirationDateInMillis);
+        updateOp.setPassword(password);
+        updateOp.setPermissions(permissions);
+        updateOp.setExpirationDate(expirationDateInMillis);
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
@@ -121,24 +91,16 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         return result;
     }
 
-    public String getPath() {
-        return mPath;
-    }
-
-    public String getPassword() {
-        return mPassword;
-    }
-
     private void updateData(OCShare share) {
         // Update DB with the response
-        share.setPath(mPath);   // TODO - check if may be moved to UpdateRemoteShareOperation
-        if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setIsFolder(true);
+        share.setPath(path);   // TODO - check if may be moved to UpdateRemoteShareOperation
+        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
+            share.setFolder(true);
         } else {
-            share.setIsFolder(false);
+            share.setFolder(false);
         }
 
-        share.setIsPasswordProtected(!TextUtils.isEmpty(mPassword));
+        share.setPasswordProtected(!TextUtils.isEmpty(password));
         getStorageManager().saveShare(share);
     }
 }

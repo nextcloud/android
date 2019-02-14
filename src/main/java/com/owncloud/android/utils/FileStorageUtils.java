@@ -188,12 +188,12 @@ public final class FileStorageUtils {
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
-        file.setFavorite(remote.getIsFavorite());
+        file.setFavorite(remote.isFavorite());
         if (file.isFolder()) {
-            file.setEncrypted(remote.getIsEncrypted());
+            file.setEncrypted(remote.isEncrypted());
         }
         file.setMountType(remote.getMountType());
-        file.setPreviewAvailable(remote.hasPreview());
+        file.setPreviewAvailable(remote.isHasPreview());
         file.setUnreadCommentsCount(remote.getUnreadCommentsCount());
 
         return file;

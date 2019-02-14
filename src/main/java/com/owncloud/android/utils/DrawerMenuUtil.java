@@ -76,7 +76,7 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterActivityMenuItem(Menu menu, @Nullable OCCapability capability) {
-        if (capability != null && capability.isActivityEnabled().isFalse()) {
+        if (capability != null && capability.getActivity().isFalse()) {
             filterMenuItems(menu, R.id.nav_activity);
         }
     }
