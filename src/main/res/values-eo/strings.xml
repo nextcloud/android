@@ -839,4 +839,6 @@
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
     <string name="host_not_available">Servilo nedisponebla</string>
     <string name="delete_entries">Forigi elementojn</string>
+    <string name="dismiss_notification_description">Forsendi sciigon</string>
+    <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
     </resources>

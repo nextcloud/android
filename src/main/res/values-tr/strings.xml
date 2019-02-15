@@ -839,4 +839,6 @@
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="delete_entries">Kayıtları sil</string>
+    <string name="dismiss_notification_description">Bildirimi yok say</string>
+    <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
     </resources>

@@ -839,4 +839,6 @@
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="host_not_available">Servidor indisponível</string>
     <string name="delete_entries">Excluir entradas</string>
+    <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="action_empty_notifications">Limpar todas as notificações</string>
     </resources>

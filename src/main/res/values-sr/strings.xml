@@ -842,5 +842,8 @@
     <string name="upload_sync_conflict">Конфликт приликом синхронизације, разрешите га ручно</string>
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
+    <string name="host_not_available">Сервер није доступан</string>
     <string name="delete_entries">Обриши уносе</string>
+    <string name="dismiss_notification_description">Склони обавештење</string>
+    <string name="action_empty_notifications">Очисти сва обавештења</string>
     </resources>

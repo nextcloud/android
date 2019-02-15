@@ -837,5 +837,8 @@
     <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
+    <string name="host_not_available">Server nicht verfügbar</string>
     <string name="delete_entries">Einträgen entfernen</string>
+    <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
+    <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
     </resources>
