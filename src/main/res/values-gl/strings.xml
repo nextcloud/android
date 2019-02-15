@@ -859,4 +859,6 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="host_not_available">Servidor non dispoñíbel</string>
     <string name="delete_entries">Eliminar entradas</string>
+    <string name="dismiss_notification_description">Rexeitar a notificación</string>
+    <string name="action_empty_notifications">Limpar todas as notificacións</string>
     </resources>

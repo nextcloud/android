@@ -841,4 +841,6 @@ Attention la suppression est irréversible.</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="delete_entries">Supprimer les éléments</string>
+    <string name="dismiss_notification_description">Ignorer la notification</string>
+    <string name="action_empty_notifications">Effacer toutes les notifications</string>
     </resources>

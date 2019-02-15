@@ -849,4 +849,6 @@
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="host_not_available">Server není k dispozici</string>
     <string name="delete_entries">Smazat položky</string>
+    <string name="dismiss_notification_description">Zahodit oznámení</string>
+    <string name="action_empty_notifications">Vyčistit všechna oznámení</string>
     </resources>
