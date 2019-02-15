@@ -1,6 +1,6 @@
 3.5.0 (February, 13, 2019)
 
-- Chunked upload: 1mb on wifi, 10mb on wlan
+- Chunked upload: 1mb on mobile, 10mb on wlan
 - switch to Material design
 - Option to not show notifications for new media folders
 - Add support for QR codes & deep links
