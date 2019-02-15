@@ -30,6 +30,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -42,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -393,9 +395,18 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
             if (!url.isEmpty()) {
                 richDocumentsWebView.webview.loadUrl(url);
+
+                new Handler().postDelayed(() -> {
+                    if (richDocumentsWebView.webview.getVisibility() != View.VISIBLE) {
+                        DisplayUtils.createSnackbar(richDocumentsWebView.findViewById(android.R.id.content),
+                                                    R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
+                            .setActionTextColor(richDocumentsWebView.getResources().getColor(R.color.white))
+                            .setAction(R.string.fallback_weblogin_back, v -> richDocumentsWebView.closeView()).show();
+                    }
+                }, 10 * 1000);
             } else {
                 Toast.makeText(richDocumentsWebView.getApplicationContext(),
-                    R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
+                               R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
                 richDocumentsWebView.finish();
             }
         }

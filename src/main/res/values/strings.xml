@@ -857,6 +857,7 @@
     <string name="delete_entries">Delete entries</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
     <string name="action_empty_notifications">Clear all notifications</string>
+    <string name="timeout_richDocuments">Loading takes very long…</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="notification_action_failed">Failed to execute action.</string>
