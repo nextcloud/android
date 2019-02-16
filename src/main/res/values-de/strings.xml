@@ -841,4 +841,8 @@
     <string name="delete_entries">Einträgen entfernen</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
     <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
-    </resources>
+    <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
+    <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
+    <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
+    <string name="remove_push_notification">Entfernen</string>
+</resources>

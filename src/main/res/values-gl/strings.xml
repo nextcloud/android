@@ -861,4 +861,8 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="delete_entries">Eliminar entradas</string>
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
-    </resources>
+    <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
+    <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
+    <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
+    <string name="remove_push_notification">Retirar</string>
+</resources>

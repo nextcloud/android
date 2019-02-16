@@ -832,4 +832,12 @@
     <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
-    </resources>
+    <string name="host_not_available">Server inte tillgänglig</string>
+    <string name="delete_entries">Radera poster</string>
+    <string name="dismiss_notification_description">Avfärda notifiering</string>
+    <string name="action_empty_notifications">Rensa alla notifieringar</string>
+    <string name="clear_notifications_failed">Kunde inte rensa notifieringar.</string>
+    <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
+    <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
+    <string name="remove_push_notification">Ta bort</string>
+</resources>
