@@ -1207,16 +1207,16 @@ public class FileUploader extends Service
 
         mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
 
-        // Show the result: success or fail notification
+        // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
+            !uploadResult.isSuccess() &&
             !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
             !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
 
-            int tickerId = uploadResult.isSuccess() ? R.string.uploader_upload_succeeded_ticker :
-                    R.string.uploader_upload_failed_ticker;
+            int tickerId = R.string.uploader_upload_failed_ticker;
 
             String content;
 
@@ -1255,10 +1255,6 @@ public class FileUploader extends Service
                 ));
 
             } else {
-                mNotificationBuilder.setContentText(content);
-            }
-
-            if (!uploadResult.isSuccess() && !needsToUpdateCredentials ) {
                 //in case of failure, do not show details file view (because there is no file!)
                 Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
                 showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
@@ -1270,15 +1266,6 @@ public class FileUploader extends Service
 
             mNotificationBuilder.setContentText(content);
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
-
-            if (uploadResult.isSuccess()) {
-                mPendingUploads.remove(upload.getAccount().name, upload.getFile().getRemotePath());
-                // remove success notification, with a delay of 2 seconds
-                NotificationUtils.cancelWithDelay(
-                        mNotificationManager,
-                        R.string.uploader_upload_succeeded_ticker,
-                        2000);
-            }
         }
     }
 
