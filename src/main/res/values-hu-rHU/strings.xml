@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android alkalmazás</string>
+    <string name="about_android">%1$s androidos alkalmazás</string>
     <string name="about_version">verzió %1$s</string>
     <string name="actionbar_sync">Fiók frissítése</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>

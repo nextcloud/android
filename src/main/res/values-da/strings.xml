@@ -839,5 +839,12 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
+    <string name="host_not_available">Server ikke tilgængelig</string>
     <string name="delete_entries">Slet poster</string>
-    </resources>
+    <string name="dismiss_notification_description">Fjern notifikation</string>
+    <string name="action_empty_notifications">Ryd alle notifikationer</string>
+    <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
+    <string name="remove_notification_failed">Fjernelse af notifikation fejlede</string>
+    <string name="notification_action_failed">Handling fejlede</string>
+    <string name="remove_push_notification">Fjern</string>
+</resources>

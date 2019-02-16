@@ -590,6 +590,7 @@
     <string name="end_to_end_encryption_wrong_password">Klaida iššifruojant. Neteisingas slaptažodis?</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gaunami raktai…</string>
+    <string name="end_to_end_encryption_generating_keys">Generuojami nauji raktai…</string>
     <string name="end_to_end_encryption_title">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_not_supported">Šifravimas veikia tik KitKat(4.4) ir naujesnėse versijose.</string>
     <string name="end_to_end_encryption_not_enabled">Ištisinis šifravimas yra išjungtas serveryje.</string>

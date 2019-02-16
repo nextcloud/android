@@ -843,4 +843,8 @@ Attention la suppression est irréversible.</string>
     <string name="delete_entries">Supprimer les éléments</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
-    </resources>
+    <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
+    <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
+    <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
+    <string name="remove_push_notification">Supprimer</string>
+</resources>
