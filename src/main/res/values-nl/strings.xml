@@ -839,4 +839,11 @@
     <string name="upload_local_storage_not_copied">Bestand kan niet naar de lokale opschlag gekopieerd worden</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="delete_entries">Verwijder records</string>
-    </resources>
+    <string name="dismiss_notification_description">Handel melding af</string>
+    <string name="action_empty_notifications">Handel alle meldingen af</string>
+    <string name="timeout_richDocuments">Het laden duurt erg lang...</string>
+    <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
+    <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
+    <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
+    <string name="remove_push_notification">Verwijder</string>
+</resources>

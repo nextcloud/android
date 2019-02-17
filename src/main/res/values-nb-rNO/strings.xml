@@ -245,7 +245,7 @@
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
 	<string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
 	<string name="auth_unknown_host_title">Fant ikke vert</string>
-	<string name="auth_incorrect_path_title">Finner ikke tjenerinstans</string>
+	<string name="auth_incorrect_path_title">Finner ikke tjener</string>
 	<string name="auth_timeout_title">Tjeneren brukte for lang tid på å svare</string>
 	<string name="auth_incorrect_address_title">Feil format på tjeneradresse</string>
 	<string name="auth_ssl_general_error_title">Oppstart av SSL mislyktes</string>
@@ -647,6 +647,8 @@
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
 
     <string name="store_short_desc">Nextcloud på Android gir tilgang til alle Nextcloud-filer via mobilen.</string>
+    <string name="store_full_desc">Nextcloud Android app gir deg gratis, copyleft mobil frihet. Copyleft gir deg rett til å bruke og distribuere programmet under samme vilkår. \n\nFunksjoner:\n* Enkelt, moderne grensesnitt, tilpasset tema på din serveren\n* Last opp filer til Nextcloud-serveren din\n* Del med andre\n* Hold favorittfiler og mapper synkronisert\n* Søk på tvers av alle mappene på serveren din\n* Automatisk opplasting for bilder og videoer tatt av enheten din\n* Hold deg oppdatert med varsler\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN-kode\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkel oppsett av kalender &amp; kontakt synkronisering\n\nVennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter denne appen på https://help.nextcloud.com/c/clients/android\n\nNy til Nextcloud? Nextcloud er en privat filsynkroniserings &amp; delings- og kommunikasjonsserver. Det er gratis programvare, og du kan være vert for det selv eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene, kalenderen din og kontaktdata, dokumentene dine og alt annet.\n\nLer mer om Nextcloud på https://nextcloud.com</string>
+
     <string name="drawer_current_account">Nåværende konto</string>
     <string name="drawer_middle_account">Mellomkonto</string>
     <string name="drawer_end_account">Siste konto</string>
@@ -835,4 +837,13 @@
     <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokal lagring</string>
-    </resources>
+    <string name="host_not_available">Tjener er ikke tilgjengelig</string>
+    <string name="delete_entries">Slett oppførigner</string>
+    <string name="dismiss_notification_description">Ingen varsel</string>
+    <string name="action_empty_notifications">Slett alle varsel</string>
+    <string name="timeout_richDocuments">Lasting tar lang tid...</string>
+    <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
+    <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
+    <string name="notification_action_failed">Feilet å utføre aksjon.</string>
+    <string name="remove_push_notification">Fjern</string>
+</resources>

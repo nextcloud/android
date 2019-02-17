@@ -841,6 +841,7 @@
     <string name="delete_entries">Excluir entradas</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
     <string name="action_empty_notifications">Limpar todas as notificações</string>
+    <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
