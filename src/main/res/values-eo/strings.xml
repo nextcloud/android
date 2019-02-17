@@ -841,6 +841,7 @@
     <string name="delete_entries">Forigi elementojn</string>
     <string name="dismiss_notification_description">Forsendi sciigon</string>
     <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
+    <string name="timeout_richDocuments">Ŝargo daŭras longe...</string>
     <string name="clear_notifications_failed">Malsukcesis forviŝi sciigojn.</string>
     <string name="remove_notification_failed">Malsukcesis forigi sciigon.</string>
     <string name="notification_action_failed">Malsukcesis plenumi agon.</string>
