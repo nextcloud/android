@@ -30,6 +30,9 @@ apply plugin: 'jacoco-android'
 
 configurations.all {
     exclude group: 'com.google.firebase', module: 'firebase-core'
+    exclude group: 'com.google.firebase', module: 'firebase-analytics'
+    exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+
     // check for updates every build
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
