@@ -1,9 +1,25 @@
+## 3.5.0 (February, 13, 2019)
+
+- Chunked upload: 1MB on mobile data, 10MB on Wi-Fi
+- Switch to Material Design
+- Option to not show notifications for new media folders
+- Add support for QR codes & deep links
+- Direct camera upload
+- Fully working Document provider
+- Detail view: Show complete date upon click
+- Show correct share error message
+- Use default/device font
+- Sync all downloaded
+- Add battery optimization warning
+
+For a full list, please see https://github.com/nextcloud/android/milestone/28
+
 ## 3.4.2 (January, 21, 2019)
 - fix sharing to group
 - show correct share error messages
 - fix bug when searching for user/group if Talk is disabled
 
-For full list please see https://github.com/nextcloud/android/milestone/29
+For a full list, please see https://github.com/nextcloud/android/milestone/29
 
 ## 3.4.1 (December, 23, 2018)
 - fix wrong detection of direct editing capability for RichDocuments
@@ -20,12 +36,13 @@ For full list please see https://github.com/nextcloud/android/milestone/29
 - show local size in "on device" view
 - SSO: add request header for deck app
 - bug fixes
-For a detailed list, please visit: https://github.com/nextcloud/android/milestone/25
+
+For a full list, please see https://github.com/nextcloud/android/milestone/25
 
 ## 3.3.2 (November, 02, 2018)
 - fix fingerprint not working on certain devices
 
-For full list please see https://github.com/nextcloud/android/milestone/27
+For a full list, please see https://github.com/nextcloud/android/milestone/27
 
 ## 3.3.1 (October, 29, 2018)
 Bugfix release
@@ -34,7 +51,7 @@ Bugfix release
 - fixed setup DAVdroid via settings
 - hide edit option on shares, if not allowed
 
-For full list please see https://github.com/nextcloud/android/milestone/26
+For a full list, please see https://github.com/nextcloud/android/milestone/26
 
 ## 3.3.0 (September, 19, 2018)
 - Support for Trashbin (Nc14+)
