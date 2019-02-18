@@ -837,5 +837,13 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
-    </resources>
+    <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="action_empty_notifications">Clear all notifications</string>
+    <string name="timeout_richDocuments">Loading takes very long…</string>
+    <string name="clear_notifications_failed">Failed to clear notifications.</string>
+    <string name="remove_notification_failed">Failed to remove notification.</string>
+    <string name="notification_action_failed">Failed to execute action.</string>
+    <string name="remove_push_notification">Remove</string>
+</resources>

@@ -841,6 +841,7 @@
     <string name="delete_entries">Elimina voci</string>
     <string name="dismiss_notification_description">Cancella notifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
+    <string name="timeout_richDocuments">Il caricamento richiede molto tempo...</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="notification_action_failed">Esecuzione dell\'azione non riuscita.</string>
