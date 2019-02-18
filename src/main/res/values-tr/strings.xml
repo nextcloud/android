@@ -841,4 +841,9 @@
     <string name="delete_entries">Kayıtları sil</string>
     <string name="dismiss_notification_description">Bildirimi yok say</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
-    </resources>
+    <string name="timeout_richDocuments">Yükleme işlemi çok zaman alıyor…</string>
+    <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
+    <string name="remove_notification_failed">Bildirim silinemedi.</string>
+    <string name="notification_action_failed">İşlem yapılamadı.</string>
+    <string name="remove_push_notification">Sil</string>
+</resources>
