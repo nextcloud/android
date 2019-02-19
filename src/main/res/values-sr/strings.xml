@@ -846,4 +846,9 @@
     <string name="delete_entries">Обриши уносе</string>
     <string name="dismiss_notification_description">Склони обавештење</string>
     <string name="action_empty_notifications">Очисти сва обавештења</string>
-    </resources>
+    <string name="timeout_richDocuments">Учитавање траје предуго…</string>
+    <string name="clear_notifications_failed">Грешка при чишћењу обавештења.</string>
+    <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
+    <string name="notification_action_failed">Грешка приликом извршавања акције.</string>
+    <string name="remove_push_notification">Уклони</string>
+</resources>

@@ -80,7 +80,7 @@
     <string name="uploader_error_message_no_file_to_upload">Odebrane dane nie zawierają prawidłowego pliku.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie jest autoryzowany do odczytu odebranego pliku</string>
-    <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Proszę sprawdzić czy plik istnieje.</string>
+    <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Sprawdź, czy plik istnieje.</string>
     <string name="uploader_error_message_source_file_not_copied">Nie udało się skopiować pliku do tymczasowego katalogu. Spróbuj ponownie.</string>
     <string name="uploader_upload_files_behaviour">Opcja wysłania:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do katalogu %1$s</string>
@@ -261,12 +261,12 @@
 	<string name="auth_oauth_error">Nieudana autoryzacja</string>
 	<string name="auth_oauth_error_access_denied">Dostęp zabroniony przez serwer autoryzacji</string>
 	<string name="auth_wtf_reenter_URL">Nieoczekiwany stan. Podaj ponownie adres serwera</string>
-	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
+	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Autoryzuj ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
-	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
+	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Zaloguj się ponownie</string>
     <string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania…</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
-	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem</string>
+	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Skontaktuj się z administratorem</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto nie jest jeszcze dodane na tym urządzeniu</string>
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
@@ -355,11 +355,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
-	<string name="share_link_file_no_exist">Nie można udostępnić. Proszę sprawdzić, czy plik istnieje</string>
+	<string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje</string>
 	<string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
-	<string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>
+	<string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje</string>
 	<string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
-    <string name="update_link_file_no_exist">Nie można zaktualizować. Proszę sprawdzić czy plik istnieje.</string>
+    <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_file_error">Wystąpił błąd podczas aktualizacji udziału</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
@@ -579,7 +579,7 @@
 
     <string name="notifications_loading_activity">Ładuję powiadomienia…</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
-    <string name="notifications_no_results_message">Proszę sprawdź później</string>
+    <string name="notifications_no_results_message">Sprawdź później.</string>
 
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ pliku do wysłania</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
@@ -647,7 +647,7 @@
     <string name="prefs_license">Licencja</string>
     <string name="prefs_gpl_v2">Publiczna Licencja GNU, wersja 2</string>
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
-    <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
+    <string name="push_notifications_old_login">Brak powiadomień push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
 
     <string name="sync_in_progress">Pobieranie najnowszej wersji pliku</string>
@@ -791,9 +791,9 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="dismiss">Anuluj</string>
     <string name="feedback_no_mail_app">Brak dostępnej aplikacji do wysyłki wiadomości email!</string>
-    <string name="drawer_item_trashbin">Usunięto pliki</string>
-    <string name="trashbin_activity_title">Usunięto pliki</string>
-    <string name="action_empty_trashbin">Pusty kosz</string>
+    <string name="drawer_item_trashbin">Usunięte pliki</string>
+    <string name="trashbin_activity_title">Usunięte pliki</string>
+    <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="trashbin_loading_failed">Ładowanie kosza nie powiodło się!</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
@@ -849,5 +849,13 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnego magazynu</string>
+    <string name="host_not_available">Serwer jest niedostępny</string>
     <string name="delete_entries">Usuń wpisy</string>
-    </resources>
+    <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
+    <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
+    <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
+    <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
+    <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
+    <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
+    <string name="remove_push_notification">Usuń</string>
+</resources>
