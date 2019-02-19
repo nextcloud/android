@@ -862,4 +862,5 @@
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="remove_push_notification">Remove</string>
+    <string name="new_notification">New Notification</string>
 </resources>

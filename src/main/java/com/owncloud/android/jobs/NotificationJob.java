@@ -195,7 +195,7 @@ public class NotificationJob extends Job {
                 .setColor(ThemeUtils.primaryColor(account, false, context))
                 .setShowWhen(true)
                 .setSubText(account.name)
-                .setContentTitle("New Notification")
+                .setContentTitle(context.getString(R.string.new_notification))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
