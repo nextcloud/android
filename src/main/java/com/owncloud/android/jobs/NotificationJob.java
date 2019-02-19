@@ -182,7 +182,7 @@ public class NotificationJob extends Job {
                                                                                actionIntent,
                                                                                PendingIntent.FLAG_CANCEL_CURRENT);
 
-                notificationBuilder.addAction(new NotificationCompat.Action(R.drawable.ic_close, action.label,
+                notificationBuilder.addAction(new NotificationCompat.Action(R.drawable.ic_notification, action.label,
                                                                             actionPendingIntent));
             }
         }
