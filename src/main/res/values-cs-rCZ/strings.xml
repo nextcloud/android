@@ -851,6 +851,7 @@
     <string name="delete_entries">Smazat položky</string>
     <string name="dismiss_notification_description">Zahodit oznámení</string>
     <string name="action_empty_notifications">Vyčistit všechna oznámení</string>
+    <string name="timeout_richDocuments">Načítání trvá velmi dlouho…</string>
     <string name="clear_notifications_failed">Oznámení se nepodařilo vyčistit.</string>
     <string name="remove_notification_failed">Oznámení se nepodařilo odebrat.</string>
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
