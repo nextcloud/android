@@ -75,6 +75,7 @@ import javax.crypto.NoSuchPaddingException;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class NotificationJob extends Job {
     public static final String TAG = "NotificationJob";
@@ -276,6 +277,8 @@ public class NotificationJob extends Job {
             }
         }
 
+        @SuppressFBWarnings(value = "HTTP_PARAMETER_POLLUTION",
+            justification = "link and type are from server and expected to be safe")
         private int executeAction(String actionType, String actionLink, OwnCloudClient client) {
             HttpMethod method;
 
