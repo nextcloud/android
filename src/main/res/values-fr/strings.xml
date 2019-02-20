@@ -756,4 +756,16 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
-    </resources>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d dossier</item>
+        <item quantity="other">%1$d dossiers</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fichier</item>
+        <item quantity="other">%1$d fichiers</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d sélectionné</item>
+        <item quantity="other">%d sélectionnés</item>
+    </plurals>
+</resources>

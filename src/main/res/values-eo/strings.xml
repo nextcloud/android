@@ -754,4 +754,24 @@
     <string name="whats_new_device_credentials_title">Uzi la Androidan internan protekton de la aparato</string>
     <string name="whats_new_skip">Preterpasi</string>
     <string name="whats_new_title">Novaĵoj en %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Ne eblis sinkronigi %1$d dosieron (konfliktoj: %2$d)</item>
+        <item quantity="other">Ne eblis sinkronigi %1$d dosierojn (konfliktoj: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Malsukcesis kopii %1$d dosieron el la dosierujo %2$s en</item>
+        <item quantity="other">Malsukcesis kopii %1$d dosierojn el la dosierujo %2$s en</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d dosierujo</item>
+        <item quantity="other">%1$d dosierujoj</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d dosiero</item>
+        <item quantity="other">%1$d dosieroj</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d elektitaj</item>
+        <item quantity="other">%d elektitaj</item>
+    </plurals>
+</resources>

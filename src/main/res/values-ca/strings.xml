@@ -193,6 +193,7 @@
     <string name="fallback_weblogin_text">Revertiu l\'antic mètode d\'inici de sessió</string>
     <string name="favorite">Afegix a preferits</string>
     <string name="favorite_icon">Preferits</string>
+    <string name="file_delete">Esborrar</string>
     <string name="file_icon">Fitxer</string>
     <string name="file_list_empty">Puja continguts o sincronitza els teus dispositius.</string>
     <string name="file_list_empty_favorite_headline">No s\'ha marcat cap preferit</string>
@@ -242,6 +243,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Esperant la sincronització completa…</string>
     <string name="file_not_found">Fitxer no trobat</string>
     <string name="file_not_synced">El fitxer no s\'ha pogut sincronitzar. Se\'n mostra l\'última versió disponible.</string>
+    <string name="file_rename">Reanomena</string>
     <string name="filedetails_download">Baixa</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$s durant la càrrega</string>
     <string name="filedetails_sync_file">Sincronitza</string>
@@ -249,7 +251,9 @@
     <string name="filename_empty">El nom del fitxer no pot estar buit</string>
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté com a mínim un caràcter invàlid</string>
+    <string name="filename_hint">Nom de fitxer</string>
     <string name="files_drop_not_supported">Aquesta és una funcionalitat de Nextcloud, si us plau, actualitzeu.</string>
+    <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
     <string name="folder_picker_choose_button_text">Escull</string>
     <string name="forbidden_permissions">No teniu permisos%s</string>
@@ -266,9 +270,12 @@
     <string name="foreign_files_remote_text">Remot: %1$s</string>
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
+    <string name="hint_name">Nom</string>
+    <string name="hint_password">Contrasenya</string>
     <string name="instant_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="learn_more">Més informació</string>
+    <string name="link">Enllaç</string>
     <string name="list_layout">Disposició llistada</string>
     <string name="local_file_list_empty">No hi ha fitxers en aquesta carpeta</string>
     <string name="local_file_not_found_message">No es troba el fitxer al sistema de fitxers local</string>
@@ -277,6 +284,7 @@
     <string name="log_send_history_button">Enviar història</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap app d\'enviament de registres. Si us plau instal·leu un client de correu electrònic.</string>
+    <string name="login">Inici de sessió</string>
     <string name="maintenance_mode">Servidor en mode de manteniment</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">S\'eliminarà la configuració, la base de dades i els certificats del servidor de %1$s de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot tardar una estona.</string>
@@ -312,6 +320,10 @@
     <string name="network_error_socket_exception">S\'ha produït un error durant la connexió al servidor</string>
     <string name="network_error_socket_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
     <string name="network_host_not_available">No s\'ha pogut realitzar l\'operació, el servidor no està disponible.</string>
+    <string name="new_comment">Comentari nou…</string>
+    <string name="new_media_folder_photos">Fotografia</string>
+    <string name="new_media_folder_videos">Video</string>
+    <string name="note_confirm">Envia</string>
     <string name="notifications_loading_activity">Carregant notificacions…</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
@@ -347,6 +359,7 @@
     <string name="pass_code_removed">S\'ha eliminat el codi d\'accés</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
+    <string name="permission_allow">Permetre</string>
     <string name="permission_storage_access">Es necessiten permisos addicionals per a pujar i baixar fitxers.</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap app amb la que definir cap foto</string>
     <string name="placeholder_fileSize">389 KB</string>
@@ -404,6 +417,7 @@
     <string name="recommend_text">Et vull convidar a utilitzar %1$s al teu dispositiu.\nDescarrega\'l aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
+    <string name="remove_push_notification">Esborrar</string>
     <string name="remove_success_msg">Esborrat</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut reanomenar la còpia local, proveu-ho amb amb un altre nom</string>
@@ -416,6 +430,7 @@
     <string name="screenshot_01_gridView">Un lloc segur per totes les vostres dades</string>
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
     <string name="select_all">Selecciona tot</string>
+    <string name="send">Envia</string>
     <string name="set_as">Configura com</string>
     <string name="set_picture_as">Usa la foto com</string>
     <string name="setup_btn_connect">Connecta</string>
@@ -520,7 +535,10 @@
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipus</string>
     <string name="synced_icon">Sincronitzat</string>
+    <string name="tags">Etiquetes</string>
     <string name="test_server_button">Proveu la connexió amb el servidor</string>
+    <string name="thumbnail">Miniatura</string>
+    <string name="trashbin_activity_title">Fitxers esborrats</string>
     <string name="trashbin_empty_headline">No hi ha cap fitxer eliminat</string>
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers eliminats</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>

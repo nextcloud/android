@@ -754,4 +754,24 @@
     <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
+        <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Failed to copy %1$d file from the %2$s folder into</item>
+        <item quantity="other">Failed to copy %1$d files from the %2$s folder into</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d folder</item>
+        <item quantity="other">%1$d folders</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d file</item>
+        <item quantity="other">%1$d files</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+</resources>
