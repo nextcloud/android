@@ -32,11 +32,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -48,11 +50,14 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 
+import java.lang.reflect.Field;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -388,6 +393,20 @@ public final class ThemeUtils {
         ));
     }
 
+    public static void themeEditText(EditText editText, int color) {
+        editText.setHighlightColor(color);
+        setTextViewCursorColor(editText, color);
+        setTextViewHandlesColor(editText, color);
+    }
+
+    public static void themeSearchView(SearchView searchView, int color) {
+        SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+
+        editText.setHighlightColor(color);
+        ThemeUtils.setTextViewCursorColor(editText, color);
+        ThemeUtils.setTextViewHandlesColor(editText, color);
+    }
+
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
         CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
                 new int[][]{
@@ -470,6 +489,90 @@ public final class ThemeUtils {
             return storageManager.getCapability(account.name);
         } else {
             return new OCCapability();
+        }
+    }
+
+    /**
+     * Lifted from SO.
+     * @see             https://stackoverflow.com/questions/25996032/how-to-change-programmatically-edittext-cursor-color-in-android#26543290
+     * @param view      TextView to be styled
+     * @param color     The desired cursor colour
+     */
+    public static void setTextViewCursorColor(EditText view, @ColorInt int color) {
+        try {
+            // Get the cursor resource id
+            Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
+            field.setAccessible(true);
+            int drawableResId = field.getInt(view);
+
+            // Get the editor
+            // TODO check this in API 15
+            field = TextView.class.getDeclaredField("mEditor");
+            field.setAccessible(true);
+            Object editor = field.get(view);
+
+            // Get the drawable and set a color filter
+            Drawable drawable = ContextCompat.getDrawable(view.getContext(), drawableResId);
+            drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            Drawable[] drawables = {drawable, drawable};
+
+            // Set the drawables
+            field = editor.getClass().getDeclaredField("mCursorDrawable");
+            field.setAccessible(true);
+            field.set(editor, drawables);
+        } catch (Exception ignored) { }
+    }
+
+
+    /**
+     * Set the color of the handles when you select text in a
+     * {@link android.widget.EditText} or other view that extends {@link TextView}.
+     *
+     * @param view
+     *     The {@link TextView} or a {@link View} that extends {@link TextView}.
+     * @param color
+     *     The color to set for the text handles
+     *
+     * @see https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4
+     */
+    public static void setTextViewHandlesColor(TextView view, int color) {
+        try {
+            Field editorField = TextView.class.getDeclaredField("mEditor");
+            if (!editorField.isAccessible()) {
+                editorField.setAccessible(true);
+            }
+
+            Object editor = editorField.get(view);
+            Class<?> editorClass = editor.getClass();
+
+            String[] handleNames = {"mSelectHandleLeft", "mSelectHandleRight", "mSelectHandleCenter"};
+            String[] resNames = {"mTextSelectHandleLeftRes", "mTextSelectHandleRightRes", "mTextSelectHandleRes"};
+
+            for (int i = 0; i < handleNames.length; i++) {
+                Field handleField = editorClass.getDeclaredField(handleNames[i]);
+                if (!handleField.isAccessible()) {
+                    handleField.setAccessible(true);
+                }
+
+                Drawable handleDrawable = (Drawable) handleField.get(editor);
+
+                if (handleDrawable == null) {
+                    Field resField = TextView.class.getDeclaredField(resNames[i]);
+                    if (!resField.isAccessible()) {
+                        resField.setAccessible(true);
+                    }
+                    int resId = resField.getInt(view);
+                    handleDrawable = view.getResources().getDrawable(resId);
+                }
+
+                if (handleDrawable != null) {
+                    Drawable drawable = handleDrawable.mutate();
+                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    handleField.set(editor, drawable);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

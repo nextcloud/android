@@ -83,6 +83,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import static com.owncloud.android.utils.ThemeUtils.themeSearchView;
+
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener,
         SearchView.OnCloseListener {
@@ -181,6 +183,7 @@ public class ExtendedListFragment extends Fragment
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
+        themeSearchView(searchView, ThemeUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 
