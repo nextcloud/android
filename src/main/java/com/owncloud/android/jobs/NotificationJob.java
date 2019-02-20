@@ -62,6 +62,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -183,8 +184,14 @@ public class NotificationJob extends Job {
                                                                                actionIntent,
                                                                                PendingIntent.FLAG_CANCEL_CURRENT);
 
-                notificationBuilder.addAction(new NotificationCompat.Action(R.drawable.ic_notification, action.label,
-                                                                            actionPendingIntent));
+                int icon;
+                if (action.primary) {
+                    icon = R.drawable.ic_check_circle;
+                } else {
+                    icon = R.drawable.ic_check_circle_outline;
+                }
+
+                notificationBuilder.addAction(new NotificationCompat.Action(icon, action.label, actionPendingIntent));
             }
         }
 
@@ -293,6 +300,10 @@ public class NotificationJob extends Job {
 
                 case "DELETE":
                     method = new DeleteMethod(actionLink);
+                    break;
+
+                case "PUT":
+                    method = new PutMethod(actionLink);
                     break;
 
                 default:

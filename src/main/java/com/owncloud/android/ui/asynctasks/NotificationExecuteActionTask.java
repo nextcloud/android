@@ -14,6 +14,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 
 import java.io.IOException;
 
@@ -46,6 +47,10 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
 
             case "DELETE":
                 method = new DeleteMethod(action.link);
+                break;
+
+            case "PUT":
+                method = new PutMethod(action.link);
                 break;
 
             default:
