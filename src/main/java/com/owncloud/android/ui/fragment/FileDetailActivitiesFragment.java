@@ -196,6 +196,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 ThemeUtils.primaryAccentColor(getContext()),
                 PorterDuff.Mode.SRC_ATOP
         );
+//        ThemeUtils.colorEditText(commentInput, ThemeUtils.primaryAccentColor(getContext()));
+        ThemeUtils.themeEditText(commentInput, ThemeUtils.primaryColor(getContext()));
 
         return view;
     }
