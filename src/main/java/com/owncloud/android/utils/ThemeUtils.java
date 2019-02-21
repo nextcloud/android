@@ -91,6 +91,22 @@ public final class ThemeUtils {
         }
     }
 
+    public static int primaryContrastColor(Context context) {
+        OCCapability capability = getCapability(context);
+
+        try {
+            float adjust = 0;
+//            if (darkTheme(context)) {
+//                adjust = +0.1f;
+//            } else {
+//                adjust = -0.1f;
+//            }
+            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.75f);
+        } catch (Exception e) {
+            return context.getResources().getColor(R.color.color_accent);
+        }
+    }
+
     public static int primaryDarkColor(Context context) {
         return primaryDarkColor(null, context);
     }
@@ -345,7 +361,7 @@ public final class ThemeUtils {
      */
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
-        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.fg_inverse));
     }
 
     /**
@@ -393,18 +409,34 @@ public final class ThemeUtils {
         ));
     }
 
-    public static void themeEditText(EditText editText, int color) {
-        editText.setHighlightColor(color);
+    public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
+        if (editText == null) { return; }
+
+        int color = primaryColor(context);
+        // Don't theme the view when it is already on a theme'd background
+        if (themedBackground) {
+            if (darkTheme(context)) {
+                color = ContextCompat.getColor(context, R.color.themed_fg);
+            } else {
+                color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
+            }
+        } else {
+            float[] colorHSL = colorToHSL(color);
+            if (colorHSL[2] >= 0.92) {
+                color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
+            }
+        }
+
+        editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setTextViewCursorColor(editText, color);
-        setTextViewHandlesColor(editText, color);
+        setTextViewHandlesColor(context, editText, color);
     }
 
-    public static void themeSearchView(SearchView searchView, int color) {
-        SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+    public static void themeSearchView(Context context, SearchView searchView, boolean themedBackground) {
+        if (searchView == null) { return; }
 
-        editText.setHighlightColor(color);
-        ThemeUtils.setTextViewCursorColor(editText, color);
-        ThemeUtils.setTextViewHandlesColor(editText, color);
+        SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+        themeEditText(context, editText, themedBackground);
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
@@ -535,7 +567,7 @@ public final class ThemeUtils {
      *
      * @see https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4
      */
-    public static void setTextViewHandlesColor(TextView view, int color) {
+    public static void setTextViewHandlesColor(Context context, TextView view, int color) {
         try {
             Field editorField = TextView.class.getDeclaredField("mEditor");
             if (!editorField.isAccessible()) {
@@ -562,7 +594,8 @@ public final class ThemeUtils {
                         resField.setAccessible(true);
                     }
                     int resId = resField.getInt(view);
-                    handleDrawable = view.getResources().getDrawable(resId);
+//                    handleDrawable = view.getResources().getDrawable(resId);
+                    handleDrawable = ContextCompat.getDrawable(context, resId);
                 }
 
                 if (handleDrawable != null) {
