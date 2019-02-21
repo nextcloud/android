@@ -27,6 +27,9 @@
     <color name="textColor">@color/black</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
+    <color name="fg_default">#000000</color>
+    <color name="fg_contrast">#656565</color>
+    <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
@@ -42,5 +45,9 @@
 
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_warning">#e9322d</color>
+
+    <!-- Excluded from future app dark theme -->
+    <color name="themed_fg">#FFFFFF</color>
+    <color name="themed_fg_inverse">#000000</color>
 
 </resources>

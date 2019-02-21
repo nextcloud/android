@@ -183,7 +183,7 @@ public class ExtendedListFragment extends Fragment
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        themeSearchView(searchView, ThemeUtils.primaryAccentColor(getContext()));
+        themeSearchView(getContext(), searchView, true);
 
         final Handler handler = new Handler();
 
