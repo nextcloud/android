@@ -655,4 +655,24 @@
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">%1$d файл не може да бъде синхронизиран (конфликти: %2$d)</item>
+        <item quantity="other">%1$d файла не могат да бъдат синхронизирани (конфликти: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d файл от папката %2$s не може да бъде копиран в</item>
+        <item quantity="other">%1$d файла от папката %2$s  не могат да бъдат копирани в</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d папка</item>
+        <item quantity="other">%1$d папки</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d файл</item>
+        <item quantity="other">%1$d файла</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d избран</item>
+        <item quantity="other">%d избрани</item>
+    </plurals>
+</resources>

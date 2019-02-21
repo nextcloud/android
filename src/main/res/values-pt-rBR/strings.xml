@@ -754,4 +754,24 @@
     <string name="whats_new_device_credentials_title">Use a proteção interna do dispositivo Android</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
+        <item quantity="other">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Erro ao copiar %1$d arquivo da pasta %2$s</item>
+        <item quantity="other">Erro ao copiar %1$d arquivos da pasta %2$s</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d pasta</item>
+        <item quantity="other">%1$d pastas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d arquivo</item>
+        <item quantity="other">%1$d arquivos</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+</resources>
