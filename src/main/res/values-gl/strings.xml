@@ -774,4 +774,24 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="whats_new_device_credentials_title">Use a protección interna do dispositivo Android</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
+        <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Produciuse un fallo ao copiar%1$d ficheiro do cartafol %2$s en</item>
+        <item quantity="other">Produciuse un fallo ao copiar%1$d ficheiros do cartafol %2$s en</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d cartafol</item>
+        <item quantity="other">%1$d cartafoles</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d ficheiro</item>
+        <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+</resources>
