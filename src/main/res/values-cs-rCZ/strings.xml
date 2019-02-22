@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Zjištěna nová složka s médii %1$s.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nové oznámení</string>
     <string name="new_version_was_created">Byla vytvořena nová verze</string>
     <string name="no_browser_available">Není k dispozici aplikace pro práci s odkazy</string>
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
@@ -754,4 +755,34 @@
     <string name="whats_new_device_credentials_title">Použít vnitřní ochranu Android zařízení</string>
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
+        <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
+        <item quantity="many">Nedaří se synchronizovat %1$d souborů (konflikty: %2$d)</item>
+        <item quantity="other">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nepodařilo se zkopírovat %1$d soubor ze složky %2$s do</item>
+        <item quantity="few">Nepodařilo se zkopírovat %1$d soubory ze složky %2$s do</item>
+        <item quantity="many">Nepodařilo se zkopírovat %1$d souborů ze složky %2$s do</item>
+        <item quantity="other">Nepodařilo se zkopírovat %1$d soubory ze složky %2$s do</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d složka</item>
+        <item quantity="few">%1$d složky</item>
+        <item quantity="many">%1$d složek</item>
+        <item quantity="other">%1$d složky</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d soubor</item>
+        <item quantity="few">%1$d soubory</item>
+        <item quantity="many">%1$d souborů</item>
+        <item quantity="other">%1$d soubory</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d vybrán</item>
+        <item quantity="few">%d vybrány</item>
+        <item quantity="many">%d vybraných</item>
+        <item quantity="other">%d vybrané</item>
+    </plurals>
+</resources>

@@ -380,6 +380,7 @@ Attention la suppression est irréversible.</string>
     <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vidéo</string>
+    <string name="new_notification">Nouvelle notification</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
@@ -756,6 +757,14 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
+        <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Impossible de copier %1$d fichier du dossier %2$s dans</item>
+        <item quantity="other">Impossible de copier %1$d fichiers du dossier %2$s dans</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>
         <item quantity="other">%1$d dossiers</item>

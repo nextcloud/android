@@ -79,7 +79,7 @@
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
     <string name="auth_wtf_reenter_URL">Nieoczekiwany stan. Podaj ponownie adres serwera</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym folderze, jak jest tylko do odczytu</string>
-    <string name="auto_upload_on_wifi">Przesyłaj tylko w niemierzonym Wi-Fi</string>
+    <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Nowy %1$s katalog mediów wykryty.</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
+    <string name="new_notification">Nowe powiadomienie</string>
     <string name="new_version_was_created">Powstała nowa wersja</string>
     <string name="no_browser_available">Brak aplikacji obsługującej odnośniki</string>
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
@@ -756,4 +757,34 @@ Przycisk wysyłania elementu</string>
     <string name="whats_new_device_credentials_title">Korzystaj z wbudowanego zabezpieczenia systemu Android</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nie udała się synchronizacja %1$d pliku (konflikty: %2$d)</item>
+        <item quantity="few">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
+        <item quantity="many">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
+        <item quantity="other">Nie udała się synchronizacja %1$d pliki (konflikty: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nie udało się skopiować %1$d pliku z katalogu %2$s do</item>
+        <item quantity="few">Nie udało się skopiować %1$d plików z katalogu %2$s do</item>
+        <item quantity="many">Nie udało się skopiować %1$d plików z katalogu %2$s do</item>
+        <item quantity="other">Nie udało się skopiować %1$d plików z katalogu %2$s do</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d katalog</item>
+        <item quantity="few">%1$d katalogi</item>
+        <item quantity="many">%1$d katalogów</item>
+        <item quantity="other">%1$d katalogów</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d plik</item>
+        <item quantity="few">%1$d pliki</item>
+        <item quantity="many">%1$d plików</item>
+        <item quantity="other">%1$d plików</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d wybrany</item>
+        <item quantity="few">%d wybrane</item>
+        <item quantity="many">%d wybranych</item>
+        <item quantity="other">%d wybranych</item>
+    </plurals>
+</resources>
