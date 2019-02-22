@@ -64,7 +64,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import static com.owncloud.android.db.PreferenceManager.getSortOrderByFolder;
+import static com.nextcloud.client.preferences.PreferenceManager.getSortOrderByFolder;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener, OnEnforceableRefreshListener {

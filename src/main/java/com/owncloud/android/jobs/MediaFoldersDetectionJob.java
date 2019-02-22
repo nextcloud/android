@@ -43,7 +43,7 @@ import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFoldersModel;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;

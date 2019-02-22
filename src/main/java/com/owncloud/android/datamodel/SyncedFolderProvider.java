@@ -27,7 +27,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
