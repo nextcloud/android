@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificación</string>
     <string name="new_version_was_created">Creouse unha versión nova</string>
     <string name="no_browser_available">Non hai ningún aplicativo para manexar ligazóns</string>
     <string name="no_pdf_app_available">Non hai ningún aplicativo para manexar PDF</string>
