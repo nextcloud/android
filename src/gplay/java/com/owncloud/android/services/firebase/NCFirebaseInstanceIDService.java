@@ -23,9 +23,9 @@ import android.text.TextUtils;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.utils.PushUtils;
 
 public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
