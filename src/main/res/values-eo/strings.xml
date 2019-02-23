@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">videaĵo</string>
+    <string name="new_notification">Nova sciigo</string>
     <string name="new_version_was_created">Nova versio estis kreita</string>
     <string name="no_browser_available">Neniu aplikaĵo disponeblas por trakti legilojn</string>
     <string name="no_pdf_app_available">Neniu aplikaĵo disponeblas por trakti PDF-dosieron</string>

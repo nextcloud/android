@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
+    <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>

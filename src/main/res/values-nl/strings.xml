@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Nieuwe%1$smedia map gevonden.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nieuwe Melding</string>
     <string name="new_version_was_created">Nieuwe versie gecreëerd</string>
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
@@ -754,4 +755,20 @@
     <string name="whats_new_device_credentials_title">Gebruik de interne Android\'s apparaatbeveiliging</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
+        <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mappen</item>
+        <item quantity="other">%1$d mappen</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d bestanden</item>
+        <item quantity="other">%1$d bestanden</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d geselecteerd</item>
+        <item quantity="other">%d geselecteerd</item>
+    </plurals>
+</resources>
