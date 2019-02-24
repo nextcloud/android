@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Пронађена је нова мултимедијална фасцикла са %1$s</string>
     <string name="new_media_folder_photos">сликама</string>
     <string name="new_media_folder_videos">видео записима</string>
+    <string name="new_notification">Ново обавештење</string>
     <string name="new_version_was_created">Направљена је нова верзија</string>
     <string name="no_browser_available">Нема апликације која зна да отвори везу</string>
     <string name="no_pdf_app_available">Нема апликације која зна да ради са PDF-овима</string>
@@ -754,4 +755,29 @@
     <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>
+        <item quantity="few">Не могу да синхронизујем %1$d фајла (конфликата: %2$d)</item>
+        <item quantity="other">Не могу да синхронизујем%1$d фајлова (конфликата: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Грешка приликом копирања %1$d фајла из фасцикле %2$s</item>
+        <item quantity="few">Грешка приликом копирања %1$d фајла из фасцикле %2$s</item>
+        <item quantity="other">Грешка приликом копирања %1$d фајлова из фасцикле %2$s</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d фасцикла</item>
+        <item quantity="few">%1$d фасцикле</item>
+        <item quantity="other">%1$d фасцикли</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d фајл</item>
+        <item quantity="few">%1$d фајла</item>
+        <item quantity="other">%1$d фајлова</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d одабран</item>
+        <item quantity="few">%d одабрана</item>
+        <item quantity="other">%d одабраних</item>
+    </plurals>
+</resources>
