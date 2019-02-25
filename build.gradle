@@ -86,12 +86,11 @@ android {
         minSdkVersion 14
         targetSdkVersion 28
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         // arguments to be passed to functional tests
-        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
-        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
-        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
+        testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
+        testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
 
         multiDexEnabled true
 
@@ -254,6 +253,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.24.5'
     // dependencies for instrumented tests
     // JUnit4 Rules
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.1'
     // Android JUnit Runner
     androidTestImplementation 'androidx.test:runner:1.1.1'
