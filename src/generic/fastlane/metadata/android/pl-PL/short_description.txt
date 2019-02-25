@@ -1,1 +1,1 @@
-Aplikacja Nextcloud dla systemu Android zapewnia mobilny dostęp do wszystkich pl
+Aplikacja Nextcloud dla Androida zapewnia mobilny dostęp do plików na serwerze.

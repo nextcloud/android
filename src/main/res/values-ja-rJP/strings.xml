@@ -8,6 +8,7 @@
     <string name="account_not_found">アカウントが見つかりません！</string>
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
     <string name="action_clear_successful_uploads">成功したアップロードをクリアする</string>
+    <string name="action_empty_notifications">全ての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="action_force_rescan">強制再スキャン</string>
     <string name="action_retry_uploads">失敗したアップロードを再試行する</string>
@@ -92,6 +93,7 @@
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
+    <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -320,6 +322,7 @@
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
+    <string name="host_not_available">サーバーが利用できません</string>
     <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -373,6 +376,7 @@
     <string name="new_media_folder_detected">新しい %1$s メディアフォルダが検出されました。</string>
     <string name="new_media_folder_photos">写真</string>
     <string name="new_media_folder_videos">ビデオ</string>
+    <string name="new_notification">新しい通知</string>
     <string name="new_version_was_created">新しいバージョンが作成されました</string>
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
@@ -495,6 +499,8 @@
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
     <string name="remove_fail_msg">削除失敗</string>
+    <string name="remove_notification_failed">通知の削除に失敗</string>
+    <string name="remove_push_notification">削除</string>
     <string name="remove_success_msg">削除済み</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
@@ -748,4 +754,13 @@
     <string name="whats_new_device_credentials_title">Androidのデバイス内部保護を使用する</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
-    </resources>
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">%1$d フォルダ</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">%1$d ファイル</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d 選択</item>
+    </plurals>
+</resources>

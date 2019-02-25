@@ -8,6 +8,7 @@
     <string name="account_not_found">账户未找到</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_clear_successful_uploads">清除成功上传任务</string>
+    <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
     <string name="action_force_rescan">强制重新扫描</string>
     <string name="action_retry_uploads">重试失败上传任务</string>
@@ -92,6 +93,7 @@
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
+    <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">收到没有文字复制到剪贴板</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -166,6 +168,7 @@
     <string name="digest_algorithm_not_available">算法不可用。</string>
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="dismiss">忽略</string>
+    <string name="dismiss_notification_description">忽略通知</string>
     <string name="downloader_download_failed_content">无法下载 %1$s</string>
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
@@ -375,6 +378,7 @@
     <string name="new_media_folder_detected">检测到新的%1$s媒体目录。</string>
     <string name="new_media_folder_photos">照片</string>
     <string name="new_media_folder_videos">视频</string>
+    <string name="new_notification">新通知</string>
     <string name="new_version_was_created">已创建新的版本</string>
     <string name="no_browser_available">没有可用来打开链接的应用</string>
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
@@ -497,6 +501,8 @@
     <string name="recommend_text">我想邀请你在你的设备上使用%1$s。\n这里下载：%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
     <string name="remove_fail_msg">删除失败</string>
+    <string name="remove_notification_failed">移除通知失败</string>
+    <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
     <string name="rename_dialog_title">请输出新的名字</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
@@ -747,4 +753,13 @@
     <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
-    </resources>
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">%1$d文件夹</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">%1$d文件</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d选定</item>
+    </plurals>
+</resources>
