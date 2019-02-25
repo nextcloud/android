@@ -614,7 +614,7 @@
     <string name="storage_description_default">Domyślny</string>
     <string name="store_full_desc">Rozpowszechniana bez ograniczeń aplikacja NextCloud (Android), zapewniająca mobilną swobodę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do motywu serwera\n* Wysyłanie plików na serwer NextCloud\n* Udostępnianie ich innym użytkownikom\n* Synchronizacja Twoich ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne wysyłanie na serwer zdjęć i filmów\n* Otrzymywanie powiadomień na bierząco\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub PIN\n* Integracja z DAVx5 (dawniej DAVdroid), aby łatwiej skonfigurować kalendarz&amp; synchronizację kontaktów\n\nWszelkie problemy z aplikacją proszę zgłaszać do Nextcloud https://github.com/nextcloud/android/issues, forum dyskusyjne dla aplikacji znajduje się na https://help.nextcloud.com/c/clients/android\n\nNowy Nextcloud zapewnia poufną synchronizację danych&amp; udostępnianie plików oraz komunikację. Jest darmowym oprogramowaniem, które możesz wykorzystać samodzielnie lub zlecić odpłatnie instalację firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i pozostałymi poufnymi danymi.\n\nWypróbuj Nextcloud https://nextcloud.com</string>
     <string name="store_full_dev_desc">Aplikacja Nextcloud na Android jest wolnym oprogramowaniem na licencji copyleft, co zapewnia pełną mobilną wolność.\nTo jest oficjalna wersja rozwojowa (development version), w której można zapoznać się z codzienną porcją nowych i nieprzetestowanych funkcji, co może powodować niestabilne działanie i utratę danych. Ta aplikacja jest dla osób, które chcą ją testować i zgłaszać ewentualne błędy. Nie używaj tej aplikacji do pracy produkcyjnej!\n\nW serwisie F-droid dostępna jest zarówno wersja deweloperska, jak i zwykła wersja tej aplikacji i można zainstalować obie z nich równocześnie.</string>
-    <string name="store_short_desc">Aplikacja Nextcloud dla systemu Android zapewnia mobilny dostęp do wszystkich plików na Twoim serwerze Nextcloud.</string>
+    <string name="store_short_desc">Aplikacja Nextcloud dla Androida zapewnia mobilny dostęp do plików na serwerze.</string>
     <string name="store_short_dev_desc">
 Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować równolegle.</string>
     <string name="stream">Przesyłaj strumieniowo...</string>
@@ -751,7 +751,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
-    <string name="what_s_new_image">Jaki jest nowe zdjęcie</string>
+    <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_device_credentials_content">Użyj gestu, hasła, pinu lub odcisku palca, aby przechowywać bezpiecznie dane.</string>
     <string name="whats_new_device_credentials_title">Korzystaj z wbudowanego zabezpieczenia systemu Android</string>
     <string name="whats_new_skip">Pomiń</string>
