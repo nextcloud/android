@@ -66,6 +66,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentActivity;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Utility class with methods for client side theming.
@@ -75,6 +76,7 @@ public final class ThemeUtils {
     private static final String TAG = ThemeUtils.class.getSimpleName();
 
     private static final int INDEX_LUMINATION = 2;
+    private static final double MAX_LIGHTNESS = 0.92;
 
     private ThemeUtils() {
         // utility class -> private constructor
@@ -91,22 +93,6 @@ public final class ThemeUtils {
                 adjust = -0.1f;
             }
             return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.35f);
-        } catch (Exception e) {
-            return context.getResources().getColor(R.color.color_accent);
-        }
-    }
-
-    public static int primaryContrastColor(Context context) {
-        OCCapability capability = getCapability(context);
-
-        try {
-            float adjust = 0;
-//            if (darkTheme(context)) {
-//                adjust = +0.1f;
-//            } else {
-//                adjust = -0.1f;
-//            }
-            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.75f);
         } catch (Exception e) {
             return context.getResources().getColor(R.color.color_accent);
         }
@@ -196,6 +182,17 @@ public final class ThemeUtils {
                 return Color.BLACK;
             }
         }
+    }
+
+    /**
+     * Tests if light color is set
+     * @return  true if primaryColor is lighter than MAX_LIGHTNESS
+     */
+    public static boolean lightTheme(Context context) {
+        int primaryColor = primaryColor(context);
+        float[] hsl = colorToHSL(primaryColor);
+
+        return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
     }
 
     /**
@@ -379,6 +376,14 @@ public final class ThemeUtils {
         Window window = fragmentActivity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
             window.setStatusBarColor(color);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                View decor = window.getDecorView();
+                if (lightTheme(fragmentActivity.getApplicationContext())) {
+                    decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    decor.setSystemUiVisibility(0);
+                }
+            }
         }
     }
 
@@ -426,9 +431,8 @@ public final class ThemeUtils {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
             }
         } else {
-            float[] colorHSL = colorToHSL(color);
-            if (colorHSL[INDEX_LUMINATION] >= 0.92) {
-                color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
+            if (lightTheme(context)) {
+                color = ContextCompat.getColor(context, R.color.fg_default);
             }
         }
 
@@ -531,11 +535,14 @@ public final class ThemeUtils {
 
     /**
      * Lifted from SO.
-     * @see             https://stackoverflow.com/questions/25996032/how-to-change-programmatically-edittext-cursor-color-in-android#26543290
+     * FindBugs surpressed because of lack of public API to alter the cursor color.
+     *
      * @param view      TextView to be styled
      * @param color     The desired cursor colour
+     * @see             <a href="https://stackoverflow.com/questions/25996032/how-to-change-programmatically-edittext-cursor-color-in-android#26543290">StackOverflow url</a>
      */
-    public static void setTextViewCursorColor(EditText view, @ColorInt int color) {
+    @SuppressFBWarnings
+    private static void setTextViewCursorColor(EditText view, @ColorInt int color) {
         try {
             // Get the cursor resource id
             Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
@@ -543,7 +550,6 @@ public final class ThemeUtils {
             int drawableResId = field.getInt(view);
 
             // Get the editor
-            // TODO check this in API 15
             field = TextView.class.getDeclaredField("mEditor");
             field.setAccessible(true);
             Object editor = field.get(view);
@@ -557,22 +563,26 @@ public final class ThemeUtils {
             field = editor.getClass().getDeclaredField("mCursorDrawable");
             field.setAccessible(true);
             field.set(editor, drawables);
-        } catch (Exception ignored) { }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "setTextViewCursorColor", e);
+        }
     }
 
 
     /**
      * Set the color of the handles when you select text in a
      * {@link android.widget.EditText} or other view that extends {@link TextView}.
+     * FindBugs surpressed because of lack of public API to alter the {@link TextView} handles color.
      *
      * @param view
      *     The {@link TextView} or a {@link View} that extends {@link TextView}.
      * @param color
      *     The color to set for the text handles
      *
-     * @see https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4
+     * @see <a href="https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4">External reference</a>
      */
-    public static void setTextViewHandlesColor(Context context, TextView view, int color) {
+    @SuppressFBWarnings
+    private static void setTextViewHandlesColor(Context context, TextView view, int color) {
         try {
             Field editorField = TextView.class.getDeclaredField("mEditor");
             if (!editorField.isAccessible()) {
