@@ -47,6 +47,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 
@@ -70,6 +71,10 @@ import androidx.fragment.app.FragmentActivity;
  * Utility class with methods for client side theming.
  */
 public final class ThemeUtils {
+
+    private static final String TAG = ThemeUtils.class.getSimpleName();
+
+    private static final int INDEX_LUMINATION = 2;
 
     private ThemeUtils() {
         // utility class -> private constructor
@@ -165,7 +170,7 @@ public final class ThemeUtils {
 
             float[] hsl = colorToHSL(primaryColor);
 
-            if (hsl[2] > 0.8) {
+            if (hsl[INDEX_LUMINATION] > 0.8) {
                 return context.getResources().getColor(R.color.elementFallbackColor);
             } else {
                 return primaryColor;
@@ -201,7 +206,7 @@ public final class ThemeUtils {
         int primaryColor = primaryColor(context);
         float[] hsl = colorToHSL(primaryColor);
 
-        return hsl[2] <= 0.55;
+        return hsl[INDEX_LUMINATION] <= 0.55;
     }
 
     /**
@@ -277,9 +282,9 @@ public final class ThemeUtils {
         float[] hsl = colorToHSL(color);
 
         if (threshold == -1f) {
-            hsl[2] += lightnessDelta;
+            hsl[INDEX_LUMINATION] += lightnessDelta;
         } else {
-            hsl[2] = Math.min(hsl[2] + lightnessDelta, threshold);
+            hsl[INDEX_LUMINATION] = Math.min(hsl[INDEX_LUMINATION] + lightnessDelta, threshold);
         }
 
         return ColorUtils.HSLToColor(hsl);
@@ -422,7 +427,7 @@ public final class ThemeUtils {
             }
         } else {
             float[] colorHSL = colorToHSL(color);
-            if (colorHSL[2] >= 0.92) {
+            if (colorHSL[INDEX_LUMINATION] >= 0.92) {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
             }
         }
@@ -594,7 +599,6 @@ public final class ThemeUtils {
                         resField.setAccessible(true);
                     }
                     int resId = resField.getInt(view);
-//                    handleDrawable = view.getResources().getDrawable(resId);
                     handleDrawable = ContextCompat.getDrawable(context, resId);
                 }
 
@@ -605,7 +609,7 @@ public final class ThemeUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Error setting TextView handles color", e);
         }
     }
 }

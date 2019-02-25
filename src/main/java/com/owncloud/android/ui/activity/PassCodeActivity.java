@@ -39,7 +39,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
@@ -100,20 +99,20 @@ public class    PassCodeActivity extends AppCompatActivity {
 
         mPassCodeEditTexts[0] = findViewById(R.id.txt0);
         ThemeUtils.colorEditText(mPassCodeEditTexts[0], elementColor);
-        ThemeUtils.themeEditText(MainApp.getAppContext(), mPassCodeEditTexts[0], false);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[0], false);
         mPassCodeEditTexts[0].requestFocus();
 
         mPassCodeEditTexts[1] = findViewById(R.id.txt1);
         ThemeUtils.colorEditText(mPassCodeEditTexts[1], elementColor);
-        ThemeUtils.themeEditText(MainApp.getAppContext(), mPassCodeEditTexts[1], false);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[1], false);
 
         mPassCodeEditTexts[2] = findViewById(R.id.txt2);
         ThemeUtils.colorEditText(mPassCodeEditTexts[2], elementColor);
-        ThemeUtils.themeEditText(MainApp.getAppContext(), mPassCodeEditTexts[2], false);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[2], false);
 
         mPassCodeEditTexts[3] = findViewById(R.id.txt3);
         ThemeUtils.colorEditText(mPassCodeEditTexts[3], elementColor);
-        ThemeUtils.themeEditText(MainApp.getAppContext(), mPassCodeEditTexts[3], false);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[3], false);
 
         Window window = getWindow();
         if (window != null) {
