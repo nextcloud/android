@@ -8,6 +8,7 @@
     <string name="account_not_found">Účet sa nenašiel!</string>
     <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
     <string name="action_clear_successful_uploads">Odstrániť úspešné nahrávania</string>
+    <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdni kôš</string>
     <string name="action_force_rescan">Vynútiť prehľadávanie</string>
     <string name="action_retry_uploads">Zopakovať zlyhané nahrávania</string>
@@ -92,6 +93,7 @@
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="choose_local_folder">Vyberte miestny priečinok…</string>
     <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
+    <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
     <string name="clipboard_text_copied">Odkaz skopírovaný</string>
@@ -165,6 +167,7 @@
     <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="dismiss">Odmietnuť</string>
+    <string name="dismiss_notification_description">Odmietnuť upozornenie</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
@@ -320,6 +323,7 @@
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
+    <string name="host_not_available">Server nie je dostupný</string>
     <string name="host_your_own_server">Hostiť vlastný server</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -373,11 +377,13 @@
     <string name="new_media_folder_detected">Nový%1$smediálny priečinok nájdený.</string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nové upozornenie</string>
     <string name="new_version_was_created">Nová verzia bola vytvorená</string>
     <string name="no_browser_available">Aplikácia na prácu s linkami nenájdená</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
     <string name="note_confirm">Odoslať</string>
     <string name="note_could_not_sent">Nebolo možné odoslať poznámku</string>
+    <string name="notification_action_failed">Nepodarilo sa vykonať akciu.</string>
     <string name="notification_channel_download_description">Zobrazuje postup sťahovania</string>
     <string name="notification_channel_download_name">Kanál oznámení o stiahnutí</string>
     <string name="notification_channel_file_observer_description">Sleduje zmeny v súboroch</string>
@@ -493,6 +499,8 @@
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
     <string name="remove_fail_msg">Zmazanie zlyhalo</string>
+    <string name="remove_notification_failed">Odstránenie upozornenia zlyhalo.</string>
+    <string name="remove_push_notification">Odstrániť</string>
     <string name="remove_success_msg">Zmazané</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="rename_local_fail_msg">Nepodarilo sa premenovať lokálnu kópiu, skúste iné meno</string>
@@ -634,6 +642,7 @@
     <string name="tags">Štítky</string>
     <string name="test_server_button">Test serverového pripojenia</string>
     <string name="thumbnail">Náhľad</string>
+    <string name="timeout_richDocuments">Načítanie trvá veľmi dlho...</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory</string>

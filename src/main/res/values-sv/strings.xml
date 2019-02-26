@@ -377,6 +377,7 @@
     <string name="new_media_folder_detected">Ny %1$s media-mapp upptäckt.</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nytt meddelande</string>
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
