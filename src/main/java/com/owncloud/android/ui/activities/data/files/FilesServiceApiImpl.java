@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -101,16 +102,16 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                 return true;
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.e(TAG, "Account not found", e);
-                errorMessage = "Account not found";
+                errorMessage = baseActivity.getString(R.string.account_not_found);
             } catch (IOException e) {
                 Log_OC.e(TAG, "IO error", e);
-                errorMessage = "IO error";
+                errorMessage = baseActivity.getString(R.string.io_error);
             } catch (OperationCanceledException e) {
                 Log_OC.e(TAG, "Operation has been canceled", e);
-                errorMessage = "Operation has been canceled";
+                errorMessage = baseActivity.getString(R.string.operation_canceled);
             } catch (AuthenticatorException e) {
                 Log_OC.e(TAG, "Authentication Exception", e);
-                errorMessage = "Authentication Exception";
+                errorMessage = baseActivity.getString(R.string.authentication_exception);
             }
 
             return false;
@@ -125,7 +126,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                     callback.onLoaded(remoteOcFile);
                     return;
                 } else {
-                    errorMessage = "File not found";
+                    errorMessage = baseActivity.getString(R.string.file_not_found);
                 }
             }
 
