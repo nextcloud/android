@@ -20,11 +20,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_search"
-          android:icon="@drawable/ic_search"
-          android:title="@string/actionbar_search"
-          android:contentDescription="@string/actionbar_search"
+        android:contentDescription="@string/actionbar_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/actionbar_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-          app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_choose_storage_path"
+        android:icon="@drawable/ic_sd"
+        android:title="@string/actionbar_search"
+        android:contentDescription="@string/actionbar_search"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_select_all"
         android:checkable="true"
