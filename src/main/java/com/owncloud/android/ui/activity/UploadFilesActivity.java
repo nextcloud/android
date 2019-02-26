@@ -315,6 +315,7 @@ public class UploadFilesActivity extends FileActivity implements
             }
             case R.id.action_choose_storage_path: {
                 showLocalStoragePathPickerDialog();
+                break;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
