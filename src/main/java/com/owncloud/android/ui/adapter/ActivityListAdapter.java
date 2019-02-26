@@ -72,6 +72,7 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -407,7 +408,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return DisplayUtils.getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS, 0);
         } else {
-            return DateFormat.format("EEEE, MMMM d", modificationTimestamp);
+            String pattern = "EEEE, MMMM d";
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEEE, MMMM d");
+            }
+            return DateFormat.format(pattern, modificationTimestamp);
         }
     }
 
