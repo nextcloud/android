@@ -8,6 +8,7 @@
     <string name="account_not_found">¡Cuenta no encontrada!</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_clear_successful_uploads">Limpiar subidas exitosas</string>
+    <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>
     <string name="action_force_rescan">Forzar reescaneo</string>
     <string name="action_retry_uploads">Reintentar cargas fallidas</string>
@@ -92,6 +93,7 @@
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
+    <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -158,6 +160,7 @@
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Eliminar cuenta %s y borrar todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
+    <string name="delete_entries">Eliminar entradas</string>
     <string name="deselect_all">Desmarcar todos</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
@@ -165,6 +168,7 @@
     <string name="digest_algorithm_not_available">Este algoritmo no está disponible en tu teléfono.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Descartar</string>
+    <string name="dismiss_notification_description">Descartar notificación</string>
     <string name="downloader_download_failed_content">No se ha podido descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descarga fallida, vuelve a iniciar sesión</string>
     <string name="downloader_download_failed_ticker">Fallo al descargar</string>
@@ -320,6 +324,7 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contraseña</string>
+    <string name="host_not_available">Servidor no disponible</string>
     <string name="host_your_own_server">Aloja tu propio servidor</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
@@ -373,11 +378,13 @@
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nueve notificación</string>
     <string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">No se puede enviar la nota</string>
+    <string name="notification_action_failed">Fallo al ejecutar la acción.</string>
     <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
     <string name="notification_channel_download_name">Canal de notificaciones de bajadas</string>
     <string name="notification_channel_file_observer_description">Monitorea los cambios en archivos</string>
@@ -445,7 +452,9 @@
     <string name="pref_behaviour_entries_move">movido a la carpeta de la app</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (antes conocido como DAVdroid) no ha podido resolver la dirección del servidor para la cuenta.</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
@@ -493,6 +502,8 @@
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
+    <string name="remove_notification_failed">Fallo al quitar notificación.</string>
+    <string name="remove_push_notification">Quitar</string>
     <string name="remove_success_msg">Eliminado</string>
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
@@ -511,6 +522,7 @@
     <string name="screenshot_03_drawer">Accede rápidamente a tu actividad, recursos compartidos, archivos sin conexión y más</string>
     <string name="screenshot_04_accounts">Conectarse a cuentas diferentes</string>
     <string name="screenshot_05_autoUpload">Sube automáticamente tus fotos y vídeos</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendario y contactos con DAVx5 (antes conocido como DAVdroid)</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Escoge plantilla</string>
@@ -600,6 +612,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es de una fecha que aún no ha llegado</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincide con el nombre de dominio del certificado</string>
     <string name="storage_description_default">Por defecto</string>
+    <string name="store_full_desc">La app (copyleft y software libre) Nextcloud para Android te da libertad móvil.\n\nCaracterísticas\n* Interfaz sencilla y moderna, adaptada al tema de tu servidor\n* Sube tus archivos a tu servidor Nextcloud\n* Comparte tus archivos con otros\n* Mantén sincronizados tus archivos y carpetas favoritos\n* Busca en todas las carpetas del servidor\n* Subida automática de fotos y vídeos realizados con tu dispositivo\n* Mantente al tanto de todo mediante las notificaciones\n* Soporte de múltiples cuentas\n* Acceso seguro a tus datos con huella dactilar o PIN\n* Integración con  DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos\n\nPor favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y discute la app en https://help.nextcloud.com/c/clients/android\n\n¿Eres nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar, compartir y comunicarte. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tienes el control de tus fotos, tus calendarios y los datos de contactos, tus documentos y todo lo demás.\n\nConoce Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La app de Android de Nextcloud es copyleft y software libre y te da libertad móvil.\nEsta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que quieran probar e informar de fallos (en caso de producirse). ¡No la uses para tu día a día!\n\nTanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.</string>
     <string name="store_short_desc">La app Android de Nextcloud te da acceso móvil a todos tus archivos en tu Nextcloud</string>
     <string name="store_short_dev_desc">Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo</string>
@@ -634,6 +647,7 @@
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="timeout_richDocuments">La carga está tardando mucho tiempo…</string>
     <string name="trashbin_activity_title">Archivos eliminados</string>
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí</string>
@@ -741,4 +755,12 @@
     <string name="whats_new_device_credentials_title">Usar la protección interna del dispositivo Android</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
+        <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d carpeta</item>
+        <item quantity="other">%1$d carpetas</item>
+    </plurals>
     </resources>
