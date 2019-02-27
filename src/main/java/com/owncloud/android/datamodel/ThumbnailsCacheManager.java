@@ -550,7 +550,7 @@ public final class ThumbnailsCacheManager {
 
                 if (thumbnail == null) {
                     // check if resized version is available
-                    String resizedImageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
+                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
                     Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
 
                     if (resizedImage != null) {
@@ -1168,7 +1168,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1186,7 +1186,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId());
+        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
 
         GetMethod getMethod = null;
 
