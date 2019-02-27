@@ -391,7 +391,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     private void registerFabListener() {
-        FileActivity activity = ((FileActivity) getActivity());
+        FileActivity activity = (FileActivity) getActivity();
         getFabMain().setOnClickListener(v -> {
             new OCFileListBottomSheetDialog(activity, this).show();
         });
