@@ -254,7 +254,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         File file = new File(ocFile.getStoragePath());
         int accessMode = ParcelFileDescriptor.parseMode(mode);
-        boolean isWrite = (mode.indexOf('w') != -1);
+        boolean isWrite = mode.indexOf('w') != -1;
 
         final OCFile oldFile = ocFile;
         final OCFile newFile = ocFile;
