@@ -2,12 +2,13 @@ package com.owncloud.android;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNull;
@@ -32,6 +33,9 @@ public class FileIT extends AbstractIT {
 
         // folder exists
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
+
+        // cleanup
+        new RemoveFileOperation(path, false, account, false, context).execute(client, getStorageManager());
     }
 
     @Test
@@ -46,5 +50,8 @@ public class FileIT extends AbstractIT {
 
         // folder exists
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
+
+        // cleanup
+        new RemoveFileOperation("/testFolder/", false, account, false, context).execute(client, getStorageManager());
     }
 }
