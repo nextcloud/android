@@ -64,6 +64,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -858,7 +859,7 @@ public final class ThumbnailsCacheManager {
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
-        private @Nullable
+        private @NotNull
         Drawable doAvatarInBackground() {
             Bitmap avatar = null;
 
@@ -923,7 +924,6 @@ public final class ThumbnailsCacheManager {
                             // everything else
                             mClient.exhaustResponse(get.getResponseBodyAsStream());
                             break;
-
                     }
                 } catch (Exception e) {
                     try {
@@ -936,15 +936,17 @@ public final class ThumbnailsCacheManager {
                         get.releaseConnection();
                     }
                 }
-
-                try {
-                    return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error generating fallback avatar");
-                }
             }
 
-            return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
+            if (avatar == null) {
+                try {
+                    return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                } catch (Exception e1) {
+                    return mResources.getDrawable(R.drawable.ic_user);
+                }
+            } else {
+                return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
+            }
         }
     }
 

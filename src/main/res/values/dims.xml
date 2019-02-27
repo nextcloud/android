@@ -49,6 +49,7 @@
     <dimen name="list_item_avatar_icon_margin">20dp</dimen>
     <dimen name="list_item_avatar_text_margin">20dp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
+    <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
     <dimen name="account_item_layout_height">72dp</dimen>
