@@ -380,8 +380,8 @@ public class EditShareFragment extends Fragment {
                 }
                 if (canEditCompound.isChecked() && allDisabled) {
                     toggleDisablingListener(canEditCompound);
-                    for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
-                        getView().findViewById(sSubordinateCheckBoxIds[i]).setVisibility(View.GONE);
+                    for (int sSubordinateCheckBoxId : sSubordinateCheckBoxIds) {
+                        getView().findViewById(sSubordinateCheckBoxId).setVisibility(View.GONE);
                     }
                 }
             }

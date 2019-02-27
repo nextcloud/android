@@ -819,13 +819,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Vector<OCFile> filteredFiles = new Vector<>();
 
             if (!TextUtils.isEmpty(constraint)) {
-                for (int i = 0; i < mFilesAll.size(); i++) {
-                    OCFile currentFile = mFilesAll.get(i);
-                    if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
-                            currentFile.getFileName().toLowerCase(Locale.getDefault()).contains(
+                for (OCFile file : mFilesAll) {
+                    if (file.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
+                        file.getFileName().toLowerCase(Locale.getDefault()).contains(
                                     constraint.toString().toLowerCase(Locale.getDefault())) &&
-                            !filteredFiles.contains(currentFile)) {
-                        filteredFiles.add(currentFile);
+                            !filteredFiles.contains(file)) {
+                        filteredFiles.add(file);
                     }
                 }
             }
