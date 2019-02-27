@@ -133,7 +133,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         Resources resources = notificationsActivity.getResources();
         NotificationExecuteActionTask task = new NotificationExecuteActionTask(client, holder, notificationsActivity);
-
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20, 0, 20, 0);
+        
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
@@ -156,9 +159,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             button.setText(action.label);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                             ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20, 0, 20, 0);
             button.setLayoutParams(params);
             button.setGravity(Gravity.CENTER);
 
