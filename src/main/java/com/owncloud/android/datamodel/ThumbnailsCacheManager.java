@@ -73,7 +73,6 @@ import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -665,7 +664,7 @@ public final class ThumbnailsCacheManager {
         private enum Type {IMAGE, VIDEO}
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
-        private String mImageKey = null;
+        private String mImageKey;
         private Context mContext;
 
         public MediaThumbnailGenerationTask(ImageView imageView, Context context) {
