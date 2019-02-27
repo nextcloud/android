@@ -85,7 +85,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     private TrashbinListAdapter trashbinListAdapter;
     private TrashbinPresenter trashbinPresenter;
 
-    private boolean active = false;
+    private boolean active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
