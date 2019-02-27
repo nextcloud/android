@@ -116,7 +116,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
-        final FileCursor result = new FileCursor(projection);
         if (currentStorageManager == null) {
 
             for (Map.Entry<Long, FileDataStorageManager> entry : rootIdToStorageManager.entrySet()) {
@@ -131,6 +130,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File with id " + documentId + " not found");
         }
 
+        final FileCursor result = new FileCursor(projection);
         OCFile file = currentStorageManager.getFileById(docId);
         if (file != null) {
             result.addFile(file);
@@ -147,16 +147,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final long folderId = Long.parseLong(parentDocumentId);
         updateCurrentStorageManagerIfNeeded(folderId);
 
-        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
-
-        Account account = currentStorageManager.getAccount();
-
         Context context = getContext();
 
         if (context == null) {
             throw new FileNotFoundException("Context may not be null");
         }
 
+        Account account = currentStorageManager.getAccount();
+        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
         if (Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
             RemoteOperationResult result = new RefreshFolderOperation(browsedDir, System.currentTimeMillis(), false,
                                                                       false, true, currentStorageManager, account,
@@ -189,13 +187,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File not found: " + documentId);
         }
 
-        Account account = currentStorageManager.getAccount();
         Context context = getContext();
 
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
 
+        Account account = currentStorageManager.getAccount();
         if (!ocFile.isDown()) {
             Intent i = new Intent(getContext(), FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
