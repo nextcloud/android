@@ -84,9 +84,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private boolean favorite;
     @Getter @Setter private boolean encrypted;
     @Getter @Setter private WebdavEntry.MountType mountType;
-    @Getter
-    @Setter
-    private int unreadCommentsCount;
+    @Getter @Setter private int unreadCommentsCount;
+    @Getter @Setter private String ownerId;
+    @Getter @Setter private String ownerDisplayName;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
