@@ -346,10 +346,11 @@ public class FileDataStorageManager {
 
         // prepare operations to remove files in the given folder
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-        String[] whereArgs;
+        String[] whereArgs = new String[2];
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {
-                whereArgs = new String[]{account.name, file.getRemotePath()};
+                whereArgs[0] = account.name;
+                whereArgs[1] = file.getRemotePath();
                 if (file.isFolder()) {
                     operations.add(ContentProviderOperation.newDelete(
                             ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, file.getFileId()))
@@ -1577,9 +1578,10 @@ public class FileDataStorageManager {
             List<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         if (shares != null) {
+            ContentValues cv;
             // prepare operations to insert or update files to save in the given folder
             for (OCShare share : shares) {
-                ContentValues cv = new ContentValues();
+                cv = new ContentValues();
                 cv.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
                 cv.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
                 cv.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
