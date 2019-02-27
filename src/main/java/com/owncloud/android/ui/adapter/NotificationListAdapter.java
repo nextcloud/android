@@ -74,7 +74,6 @@ import butterknife.ButterKnife;
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
-    private static final String TAG = NotificationListAdapter.class.getSimpleName();
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
     private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
