@@ -36,10 +36,6 @@ public final class DeviceCredentialUtils {
 
     private static final String TAG = DeviceCredentialUtils.class.getSimpleName();
 
-    private static final int AUTHENTICATION_DURATION_SECONDS = 30;
-
-    private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
-
     private DeviceCredentialUtils() {
         // utility class -> private constructor
     }

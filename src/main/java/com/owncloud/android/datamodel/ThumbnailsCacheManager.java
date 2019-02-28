@@ -73,7 +73,6 @@ import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -551,7 +550,7 @@ public final class ThumbnailsCacheManager {
 
                 if (thumbnail == null) {
                     // check if resized version is available
-                    String resizedImageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
+                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
                     Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
 
                     if (resizedImage != null) {
@@ -665,7 +664,7 @@ public final class ThumbnailsCacheManager {
         private enum Type {IMAGE, VIDEO}
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
-        private String mImageKey = null;
+        private String mImageKey;
         private Context mContext;
 
         public MediaThumbnailGenerationTask(ImageView imageView, Context context) {
@@ -1169,7 +1168,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1187,7 +1186,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId());
+        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
 
         GetMethod getMethod = null;
 
