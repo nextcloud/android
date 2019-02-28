@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -36,7 +37,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -62,18 +73,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener {
@@ -222,6 +221,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             ThemeUtils.themeSearchView(getContext(), searchView, false);
         } else {
             searchView.setVisibility(View.GONE);
+            shareByLinkContainer.setVisibility(View.GONE);
             noList.setText(R.string.reshare_not_allowed);
         }
     }
@@ -296,9 +296,13 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
 
         if (shares.size() > 0) {
+            AccountManager accountManager = AccountManager.get(getContext());
+            String userId = accountManager.getUserData(account,
+                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(), fileDisplayActivity, shares,
-                account, file, this));
+            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(),
+                fileDisplayActivity, shares, account, file, this, userId));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);
