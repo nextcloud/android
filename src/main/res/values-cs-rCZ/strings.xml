@@ -78,6 +78,7 @@
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
     <string name="auth_wtf_reenter_URL">Neočekávaný stav; zadejte znovu adresu serveru</string>
+    <string name="authentication_exception">Výjimka ověření</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neplacené Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">vst/výstup. chyba</string>
     <string name="learn_more">Zjistit více</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Náhled seznamu</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string>
     <string name="oauth_login_connection">Připojování k OAuth 2.0 serveru…</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
+    <string name="operation_canceled">Operace byla zrušena</string>
     <string name="outdated_server">Verze aplikace na straně serveru dosáhla konce své životnosti – přejděte na novou!</string>
     <string name="overflow_menu">Další nabídka</string>
     <string name="participate_beta_headline">Vyzkoušet noční sestavení</string>
@@ -611,7 +614,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru není důvěryhodný</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- certifikát serveru ještě nezačal platit (datum začátku platnosti je v budoucnosti)</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL adresa neodpovídá názvu stroje v certifikátu</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Zvolte umístění úložiště</string>
     <string name="storage_description_default">Výchozí</string>
+    <string name="storage_documents">Dokumenty</string>
+    <string name="storage_downloads">Stahování</string>
+    <string name="storage_internal_storage">Vnitřní úložiště</string>
+    <string name="storage_movies">Videa</string>
+    <string name="storage_music">Hudba</string>
+    <string name="storage_pictures">Obrázky</string>
     <string name="store_full_desc">Svobodně licencovaná Nexcloud Android aplikace, dávající vám mobilní svobodu.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, přizpůsobené vzhledu, používaném na vašem serveru\n* Nahrávejte soubory na svůj Nextcloud server\n* Sdílejte je s ostatními\n* Udržujte své oblíbené soubory a složky synchronizované\n* Hledejte napříč všemi složkami na svém serveru\n* Automaticky nahrávejte své fotky a videa, pořízená zařízením\n* Udržujte si přehled pomocí oznámení\n* Podporuje vícero účtů\n* Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu\n* Napojení na DAVx5 (dříve známé pod názvem DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů\n\n Veškeré nalezené problémy hlaste na https://github.com/nextcloud/android/issues a diskutujte o aplikaci na https://help.nextcloud.com/c/clients/android\n\nNoví v Nextcloud? Nextcloud je soukromý server pro synchronizaci souborů a jejich sdílení, dále pro komunikaci. Jedná se o svobodný software a můžete ho hostovat svými silami nebo za to zaplatit nějaké společnosti. Tím máte pod kontrolou své fotky, kalendář a kontakty, dokumenty a vše ostatní.\n\nPodívejte se na Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Svobodná (copyleft) aplikace Nexcloud pro Android, dává vám mobilní svobodu.\nToto je oficiální vývojová verze, obsahující denní vzorek všech nových nevyzkoušených funkcí, které mohou způsobovat nestabilitu a vést ke ztrátě dat. Aplikace v tomto stádiu vývoje je určena uživatelům, kteří jsou ochotní zkoušet a hlásit chyby, které se vyskytnou. Nepoužívejte pro svou produkční práci!\n\nObě oficiální verze, jak vývojová tak ostrá jsou k dispozici na F-droid a je možné je mít nainstalované souběžně.</string>
     <string name="store_short_desc">Aplikace Nextcloud pro Android poskytuje přístup ke všem souborům na vašem Nextcloud.</string>

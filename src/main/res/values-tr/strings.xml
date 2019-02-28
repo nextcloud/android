@@ -78,6 +78,7 @@
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="auth_wtf_reenter_URL">Beklenilmeyen durum; Lütfen sunucu adresini yeniden yazın</string>
+    <string name="authentication_exception">Kimlik Doğrulama İstisnası</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnız kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="io_error">Giriş Çıkış sorunu</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
     <string name="link">Bağlantı</string>
     <string name="list_layout">Liste düzeni</string>
@@ -378,6 +380,7 @@
     <string name="new_media_folder_detected">Yeni %1$s ortam klasörü bulundu.</string>
     <string name="new_media_folder_photos">fotoğraf</string>
     <string name="new_media_folder_videos">görüntü</string>
+    <string name="new_notification">Yeni Bildirim</string>
     <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
     <string name="no_browser_available">Bağlantıları işleyecek bir uygulama bulunamadı</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
@@ -407,6 +410,7 @@
     <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string>
     <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
+    <string name="operation_canceled">İşlem iptal edildi</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
@@ -610,7 +614,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi gelecekte</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Adres, sertifikadaki sunucu adı ile eşleşmiyor</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Depolama konumunu seçin</string>
     <string name="storage_description_default">Varsayılan</string>
+    <string name="storage_documents">Belgeler</string>
+    <string name="storage_downloads">İndirmeler</string>
+    <string name="storage_internal_storage">İç depolama</string>
+    <string name="storage_movies">Filmler</string>
+    <string name="storage_music">Müzikler</string>
+    <string name="storage_pictures">Fotoğraflar</string>
     <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza yükleme\n* Dosyalarınızı başkalarıyla paylaşma\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama yapma\n* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme\n* Bildirimler ile güncel kalma\n* Birden çok hesap desteği\n*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme\n* DAVx5 (eski adı DAVdroid) bütünleştirmesi ile takvim ve kişileri eşitleme\n\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için https://nextcloud.com adresinden web sitemize bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması size mobil özgürlük sağlar.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
@@ -754,4 +766,24 @@
     <string name="whats_new_device_credentials_title">Android iç aygıt koruması kullanılsın</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
+        <item quantity="other">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d dosya %2$s klasöründen şuraya kopyalanamadı</item>
+        <item quantity="other">%1$d dosya %2$s klasöründen şuraya kopyalanamadı</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d klasör</item>
+        <item quantity="other">%1$d klasör</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d dosya</item>
+        <item quantity="other">%1$d dosya</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seçilmiş</item>
+        <item quantity="other">%d seçilmiş</item>
+    </plurals>
+</resources>

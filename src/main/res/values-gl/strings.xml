@@ -78,6 +78,7 @@
     <string name="auth_username">Nome de usuario</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="auth_wtf_reenter_URL">Estado non agardado; introduza de novo o enderezo do servidor</string>
+    <string name="authentication_exception">Excepción de autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con WiFi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="io_error">Erro de E/S</string>
     <string name="learn_more">Aprender máis</string>
     <string name="link">Ligazón</string>
     <string name="list_layout">Ver como lista</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Acceder con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando co servidor OAuth 2.0…</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
+    <string name="operation_canceled">A operación foi cancelada</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="participate_beta_headline">Probar a versión de desenvolvemento</string>
@@ -612,7 +615,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- As datas de validez do certificado son do futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- O URL non coincide co nome de máquina no certificado</string>
+    <string name="storage_camera">Cámara</string>
+    <string name="storage_choose_location">Escolla a localización do almacenamento</string>
     <string name="storage_description_default">Predeterminado</string>
+    <string name="storage_documents">Documentos</string>
+    <string name="storage_downloads">Descargas</string>
+    <string name="storage_internal_storage">Almacenamento interno</string>
+    <string name="storage_movies">Filmes</string>
+    <string name="storage_music">Música</string>
+    <string name="storage_pictures">Imaxes</string>
     <string name="store_full_desc">O apli libre para Android de Nextcloud, dálle liberdade móbil.
 
 Características:

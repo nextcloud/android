@@ -76,6 +76,7 @@
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
+    <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
     <string name="clipboard_text_copied">Nuoroda nukopijuota</string>
@@ -264,6 +265,7 @@
     <string name="foreign_files_move">Perkelti visus</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="hint_password">Slaptažodis</string>
+    <string name="host_not_available">Serveris neprieinamas</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Sužinoti daugiau</string>
@@ -311,8 +313,10 @@
     <string name="network_error_socket_timeout_exception">Laukiant serverio, įvyko klaida. Nepavyko užbaigti operacijos</string>
     <string name="network_host_not_available">Serveris nepasiekiamas, operacija negali būti atlikta</string>
     <string name="new_comment">Naujas komentaras…</string>
+    <string name="new_notification">Naujas pranešimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
     <string name="note_confirm">Siųsti</string>
+    <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
     <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
     <string name="notification_channel_file_observer_description">Stebi failų pakeitimus</string>
     <string name="notification_channel_file_observer_name">Failų stebėtojas</string>
@@ -326,6 +330,7 @@
     <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string>
     <string name="oauth_login_connection">Jungiamasi prie OAuth 2.0 serverio…</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
+    <string name="operation_canceled">Operacijos atsisakyta</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="participate_beta_headline">Testuoti dev versiją</string>
     <string name="participate_beta_text">Tai yra ateities funkcijos ir jos yra nepatikrintos. Klaidos ar netikslumai gali pasitaikyti, tuo atveju, informuokite apie savo pastebėjimus.</string>
@@ -395,6 +400,7 @@
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
+    <string name="remove_push_notification">Šalinti</string>
     <string name="remove_success_msg">Ištrinta</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
