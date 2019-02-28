@@ -74,7 +74,6 @@ import butterknife.ButterKnife;
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
-    private static final String TAG = NotificationListAdapter.class.getSimpleName();
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
     private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
@@ -134,7 +133,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         Resources resources = notificationsActivity.getResources();
         NotificationExecuteActionTask task = new NotificationExecuteActionTask(client, holder, notificationsActivity);
-
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20, 0, 20, 0);
+        
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
@@ -157,9 +159,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             button.setText(action.label);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                             ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20, 0, 20, 0);
             button.setLayoutParams(params);
             button.setGravity(Gravity.CENTER);
 

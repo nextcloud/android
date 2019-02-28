@@ -875,6 +875,7 @@ public class FileContentProvider extends ContentProvider {
             String username;
             String oldAccountName;
             String newAccountName;
+            String[] accountOwner = new String[1];
 
             for (Account account : accounts) {
                 // build both old and new account name
@@ -888,10 +889,11 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     ContentValues cv = new ContentValues();
                     cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, newAccountName);
+                    accountOwner[0] = oldAccountName;
                     int num = db.update(ProviderTableMeta.FILE_TABLE_NAME,
                                         cv,
                                         ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                        new String[]{oldAccountName});
+                                        accountOwner);
 
                     Log_OC.d(SQL, "Updated account in database: old name == " + oldAccountName +
                         ", new name == " + newAccountName + " (" + num + " rows updated )");
@@ -944,6 +946,8 @@ public class FileContentProvider extends ContentProvider {
                 File newAccountFolder = new File(newAccountPath);
                 oldAccountFolder.renameTo(newAccountFolder);
 
+                String[] storagePath = new String[1];
+
                 // update database
                 do {
                     // Update database
@@ -955,10 +959,11 @@ public class FileContentProvider extends ContentProvider {
 
                     ContentValues cv = new ContentValues();
                     cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newPath);
+                    storagePath[0] = oldPath;
                     db.update(ProviderTableMeta.FILE_TABLE_NAME,
                               cv,
                               ProviderTableMeta.FILE_STORAGE_PATH + "=?",
-                              new String[]{oldPath});
+                              storagePath);
 
                     Log_OC.v(SQL, "Updated path of downloaded file: old file name == " + oldPath +
                         ", new file name == " + newPath);
