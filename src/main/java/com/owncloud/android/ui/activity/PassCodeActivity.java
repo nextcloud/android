@@ -99,16 +99,20 @@ public class    PassCodeActivity extends AppCompatActivity {
 
         mPassCodeEditTexts[0] = findViewById(R.id.txt0);
         ThemeUtils.colorEditText(mPassCodeEditTexts[0], elementColor);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[0], false);
         mPassCodeEditTexts[0].requestFocus();
 
         mPassCodeEditTexts[1] = findViewById(R.id.txt1);
         ThemeUtils.colorEditText(mPassCodeEditTexts[1], elementColor);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[1], false);
 
         mPassCodeEditTexts[2] = findViewById(R.id.txt2);
         ThemeUtils.colorEditText(mPassCodeEditTexts[2], elementColor);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[2], false);
 
         mPassCodeEditTexts[3] = findViewById(R.id.txt3);
         ThemeUtils.colorEditText(mPassCodeEditTexts[3], elementColor);
+        ThemeUtils.themeEditText(this, mPassCodeEditTexts[3], false);
 
         Window window = getWindow();
         if (window != null) {

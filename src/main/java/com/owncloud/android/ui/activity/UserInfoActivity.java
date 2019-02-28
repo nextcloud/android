@@ -338,7 +338,7 @@ public class UserInfoActivity extends FileActivity {
         public void onStart() {
             super.onStart();
 
-            int color = ThemeUtils.primaryColor(getActivity());
+            int color = ThemeUtils.primaryAccentColor(getActivity());
 
             AlertDialog alertDialog = (AlertDialog) getDialog();
 

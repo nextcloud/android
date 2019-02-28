@@ -197,6 +197,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 PorterDuff.Mode.SRC_ATOP
         );
 
+        ThemeUtils.themeEditText(getContext(), commentInput, false);
+
         return view;
     }
 

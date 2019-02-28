@@ -32,11 +32,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,14 +47,18 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+
+import java.lang.reflect.Field;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -60,11 +66,17 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentActivity;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Utility class with methods for client side theming.
  */
 public final class ThemeUtils {
+
+    private static final String TAG = ThemeUtils.class.getSimpleName();
+
+    private static final int INDEX_LUMINATION = 2;
+    private static final double MAX_LIGHTNESS = 0.92;
 
     private ThemeUtils() {
         // utility class -> private constructor
@@ -144,7 +156,7 @@ public final class ThemeUtils {
 
             float[] hsl = colorToHSL(primaryColor);
 
-            if (hsl[2] > 0.8) {
+            if (hsl[INDEX_LUMINATION] > 0.8) {
                 return context.getResources().getColor(R.color.elementFallbackColor);
             } else {
                 return primaryColor;
@@ -173,6 +185,17 @@ public final class ThemeUtils {
     }
 
     /**
+     * Tests if light color is set
+     * @return  true if primaryColor is lighter than MAX_LIGHTNESS
+     */
+    public static boolean lightTheme(Context context) {
+        int primaryColor = primaryColor(context);
+        float[] hsl = colorToHSL(primaryColor);
+
+        return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
+    }
+
+    /**
      * Tests if dark color is set
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
@@ -180,7 +203,7 @@ public final class ThemeUtils {
         int primaryColor = primaryColor(context);
         float[] hsl = colorToHSL(primaryColor);
 
-        return hsl[2] <= 0.55;
+        return hsl[INDEX_LUMINATION] <= 0.55;
     }
 
     /**
@@ -256,9 +279,9 @@ public final class ThemeUtils {
         float[] hsl = colorToHSL(color);
 
         if (threshold == -1f) {
-            hsl[2] += lightnessDelta;
+            hsl[INDEX_LUMINATION] += lightnessDelta;
         } else {
-            hsl[2] = Math.min(hsl[2] + lightnessDelta, threshold);
+            hsl[INDEX_LUMINATION] = Math.min(hsl[INDEX_LUMINATION] + lightnessDelta, threshold);
         }
 
         return ColorUtils.HSLToColor(hsl);
@@ -340,7 +363,7 @@ public final class ThemeUtils {
      */
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
-        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.fg_inverse));
     }
 
     /**
@@ -353,6 +376,14 @@ public final class ThemeUtils {
         Window window = fragmentActivity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
             window.setStatusBarColor(color);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                View decor = window.getDecorView();
+                if (lightTheme(fragmentActivity.getApplicationContext())) {
+                    decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    decor.setSystemUiVisibility(0);
+                }
+            }
         }
     }
 
@@ -386,6 +417,35 @@ public final class ThemeUtils {
                 color
             }
         ));
+    }
+
+    public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
+        if (editText == null) { return; }
+
+        int color = primaryColor(context);
+        // Don't theme the view when it is already on a theme'd background
+        if (themedBackground) {
+            if (darkTheme(context)) {
+                color = ContextCompat.getColor(context, R.color.themed_fg);
+            } else {
+                color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
+            }
+        } else {
+            if (lightTheme(context)) {
+                color = ContextCompat.getColor(context, R.color.fg_default);
+            }
+        }
+
+        editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
+        setTextViewCursorColor(editText, color);
+        setTextViewHandlesColor(context, editText, color);
+    }
+
+    public static void themeSearchView(Context context, SearchView searchView, boolean themedBackground) {
+        if (searchView == null) { return; }
+
+        SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+        themeEditText(context, editText, themedBackground);
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
@@ -470,6 +530,96 @@ public final class ThemeUtils {
             return storageManager.getCapability(account.name);
         } else {
             return new OCCapability();
+        }
+    }
+
+    /**
+     * Lifted from SO.
+     * FindBugs surpressed because of lack of public API to alter the cursor color.
+     *
+     * @param view      TextView to be styled
+     * @param color     The desired cursor colour
+     * @see             <a href="https://stackoverflow.com/questions/25996032/how-to-change-programmatically-edittext-cursor-color-in-android#26543290">StackOverflow url</a>
+     */
+    @SuppressFBWarnings
+    private static void setTextViewCursorColor(EditText view, @ColorInt int color) {
+        try {
+            // Get the cursor resource id
+            Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
+            field.setAccessible(true);
+            int drawableResId = field.getInt(view);
+
+            // Get the editor
+            field = TextView.class.getDeclaredField("mEditor");
+            field.setAccessible(true);
+            Object editor = field.get(view);
+
+            // Get the drawable and set a color filter
+            Drawable drawable = ContextCompat.getDrawable(view.getContext(), drawableResId);
+            drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            Drawable[] drawables = {drawable, drawable};
+
+            // Set the drawables
+            field = editor.getClass().getDeclaredField("mCursorDrawable");
+            field.setAccessible(true);
+            field.set(editor, drawables);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "setTextViewCursorColor", e);
+        }
+    }
+
+
+    /**
+     * Set the color of the handles when you select text in a
+     * {@link android.widget.EditText} or other view that extends {@link TextView}.
+     * FindBugs surpressed because of lack of public API to alter the {@link TextView} handles color.
+     *
+     * @param view
+     *     The {@link TextView} or a {@link View} that extends {@link TextView}.
+     * @param color
+     *     The color to set for the text handles
+     *
+     * @see <a href="https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4">External reference</a>
+     */
+    @SuppressFBWarnings
+    private static void setTextViewHandlesColor(Context context, TextView view, int color) {
+        try {
+            Field editorField = TextView.class.getDeclaredField("mEditor");
+            if (!editorField.isAccessible()) {
+                editorField.setAccessible(true);
+            }
+
+            Object editor = editorField.get(view);
+            Class<?> editorClass = editor.getClass();
+
+            String[] handleNames = {"mSelectHandleLeft", "mSelectHandleRight", "mSelectHandleCenter"};
+            String[] resNames = {"mTextSelectHandleLeftRes", "mTextSelectHandleRightRes", "mTextSelectHandleRes"};
+
+            for (int i = 0; i < handleNames.length; i++) {
+                Field handleField = editorClass.getDeclaredField(handleNames[i]);
+                if (!handleField.isAccessible()) {
+                    handleField.setAccessible(true);
+                }
+
+                Drawable handleDrawable = (Drawable) handleField.get(editor);
+
+                if (handleDrawable == null) {
+                    Field resField = TextView.class.getDeclaredField(resNames[i]);
+                    if (!resField.isAccessible()) {
+                        resField.setAccessible(true);
+                    }
+                    int resId = resField.getInt(view);
+                    handleDrawable = ContextCompat.getDrawable(context, resId);
+                }
+
+                if (handleDrawable != null) {
+                    Drawable drawable = handleDrawable.mutate();
+                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    handleField.set(editor, drawable);
+                }
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error setting TextView handles color", e);
         }
     }
 }
