@@ -78,6 +78,7 @@
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado. Entre o endereço do servidor novamente</string>
+    <string name="authentication_exception">Exceção de Autenticação</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Hospeda teu próprio servidor</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="io_error">Erro de IO</string>
     <string name="learn_more">Saiba mais</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout listado</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Entrar com OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0…</string>
     <string name="offline_mode">Sem conexão à internet</string>
+    <string name="operation_canceled">Operação cancelada</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="overflow_menu">Mais menus</string>
     <string name="participate_beta_headline">Teste a versão dev</string>
@@ -611,7 +614,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- A URL do host não confere com o host do certificado</string>
+    <string name="storage_camera">Câmera</string>
+    <string name="storage_choose_location">Escolher o local de armazenamento</string>
     <string name="storage_description_default">Padrão</string>
+    <string name="storage_documents">Documentos</string>
+    <string name="storage_downloads">Baixados</string>
+    <string name="storage_internal_storage">Armazenamento interno</string>
+    <string name="storage_movies">Filmes</string>
+    <string name="storage_music">Música</string>
+    <string name="storage_pictures">Imagens</string>
     <string name="store_full_desc">O aplicativo de código aberto Nextcloud para Android oferece liberdade móvel.\n\nCaracterísticas:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Envia arquivos para o servidor Nextcloud\n* Compartilha com outras pessoas\n* Mantém seus arquivos e pastas favoritas sincronizados\n* Pesquisa em todas as pastas do servidor\n* Envio automático de fotos e vídeos feitos pelo seu dispositivo\n* Atualiza-se com as notificações\n* Suporte a várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx5 (conhecido como DAVdroid) para facilitar a sincronização do calendário &amp; contatos\n\nReporte qualquer problema em https://github.com/nextcloud/android/issues e fale sobre este aplicativo em https://help.nextcloud.com/c/clients/android\n\nÉ novo para o Nextcloud? Nextcloud é um servidor privado de comunicação &amp; compartilhamento. É software livre e você pode auto-hospedá-lo ou pagar uma empresa para fazer isso. Dessa forma, você está no controle de suas fotos, calendário, dados de contato, documentos e tudo mais.\n\nSaiba mais em https://nextcloud.com</string>
     <string name="store_full_dev_desc">O aplicativo de código aberto Nextcloud, lhe dá liberdade móvel.\nEsta é a versão oficial de desenvolvimento, com uma amostra diária de qualquer nova funcionalidade não testada, o que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e informar erros se eles ocorrerem. Não o use em ambiente de produção!\n\nAmbas as versões de desenvolvimento e regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
     <string name="store_short_desc">O aplicativo Android Nextcloud oferece acesso móvel a todos os arquivos do servidor Nextcloud.</string>

@@ -78,6 +78,7 @@
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="auth_wtf_reenter_URL">Problème inattendu ; veuillez saisir à nouveau l\'adresse du serveur</string>
+    <string name="authentication_exception">Exception d\'authentification</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/EnvoiAuto</string>
@@ -330,6 +331,7 @@ Attention la suppression est irréversible.</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">Erreur E/S</string>
     <string name="learn_more">En savoir plus</string>
     <string name="link">Lien</string>
     <string name="list_layout">Affichage en liste</string>
@@ -410,6 +412,7 @@ Attention la suppression est irréversible.</string>
     <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string>
     <string name="oauth_login_connection">Connexion au serveur OAuth 2.0…</string>
     <string name="offline_mode">Aucune connexion Internet</string>
+    <string name="operation_canceled">L\'opération a été annulée</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="overflow_menu">Plus de menu</string>
     <string name="participate_beta_headline">Testez la version Bêta</string>
@@ -613,7 +616,15 @@ Attention la suppression est irréversible.</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Le certificat du serveur n\'est pas encore valide</string>
     <string name="ssl_validator_reason_hostname_not_verified">- L\'URL ne correspond pas au nom d\'hôte du certificat</string>
+    <string name="storage_camera">Appareil photo</string>
+    <string name="storage_choose_location">Sélectionnez l\'emplacement de stockage</string>
     <string name="storage_description_default">Défaut</string>
+    <string name="storage_documents">Documents</string>
+    <string name="storage_downloads">Téléchargements</string>
+    <string name="storage_internal_storage">Stockage interne</string>
+    <string name="storage_movies">Vidéos</string>
+    <string name="storage_music">Musique</string>
+    <string name="storage_pictures">Images</string>
     <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVx5 (autrefois connu comme DAVdroid) pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>
     <string name="store_full_dev_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nC\'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l\'instabilité et la perte de données. L\'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s\'ils surviennent. Ne l\'utilisez pas pour votre travail productif ! \n\nLa version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps. </string>
     <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>

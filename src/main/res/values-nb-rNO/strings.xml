@@ -378,6 +378,7 @@
     <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nytt varsel</string>
     <string name="new_version_was_created">Ny versjon er opprettet</string>
     <string name="no_browser_available">Ingen program tilgjengelig for å håndtere lenker</string>
     <string name="no_pdf_app_available">Ingen program tilgjengelig for å håndtere PDF</string>
@@ -407,6 +408,7 @@
     <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
     <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener…</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
+    <string name="operation_canceled">Operasjonen har blitt avbrutt</string>
     <string name="outdated_server">Tjener er ikke lengre supportert, ver vennlig å oppgradere!</string>
     <string name="overflow_menu">Mer meny</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
@@ -610,7 +612,14 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tjenersertifikatets gyldige datoer er i fremtiden</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Nettadressen samsvarer ikke med vertsnavnet i sertifikatet</string>
+    <string name="storage_camera">Kamera</string>
     <string name="storage_description_default">Standard</string>
+    <string name="storage_documents">Dokumenter</string>
+    <string name="storage_downloads">Nedlastinger</string>
+    <string name="storage_internal_storage">Intern lagring</string>
+    <string name="storage_movies">Filmer</string>
+    <string name="storage_music">Musikk</string>
+    <string name="storage_pictures">Bilder</string>
     <string name="store_full_desc">Nextcloud Android app gir deg gratis, copyleft mobil frihet. Copyleft gir deg rett til å bruke og distribuere programmet under samme vilkår. \n\nFunksjoner:\n* Enkelt, moderne grensesnitt, tilpasset tema på din serveren\n* Last opp filer til Nextcloud-serveren din\n* Del med andre\n* Hold favorittfiler og mapper synkronisert\n* Søk på tvers av alle mappene på serveren din\n* Automatisk opplasting for bilder og videoer tatt av enheten din\n* Hold deg oppdatert med varsler\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN-kode\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkel oppsett av kalender &amp; kontakt synkronisering\n\nVennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter denne appen på https://help.nextcloud.com/c/clients/android\n\nNy til Nextcloud? Nextcloud er en privat filsynkroniserings &amp; delings- og kommunikasjonsserver. Det er gratis programvare, og du kan være vert for det selv eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene, kalenderen din og kontaktdata, dokumentene dine og alt annet.\n\nLer mer om Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Det frie copyleft Nextcloud Android programmet, gir deg tilgang til filene i din Nextcloud.\nDette er den offisielle utviklingsversjonen, som gir deg et daglig innblikk i ny utestet funksjonalitet, som kan forårsake ustabilitet og datatap. Programmet er myntet på brukere som er villige til å teste, og rapportere feil om de inntreffer. Ikke bruk det til produktivt arbeid!\n\n\Både offisiell vanlig- og dev-versjon er tilgjengelig på F-droid, og kan installeres samtidig.</string>
     <string name="store_short_desc">Nextcloud på Android gir tilgang til alle Nextcloud-filer via mobilen.</string>
@@ -754,4 +763,12 @@
     <string name="whats_new_device_credentials_title">Bruk Android\'s interne enhets beskyttelse</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$dmappe</item>
+        <item quantity="other">%1$dmapper</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$dfil</item>
+        <item quantity="other">%1$dfiler</item>
+    </plurals>
     </resources>
