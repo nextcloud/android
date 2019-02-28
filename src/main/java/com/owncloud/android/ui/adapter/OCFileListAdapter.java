@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -40,6 +41,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -77,6 +79,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -100,6 +103,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final FileDownloader.FileDownloaderBinder downloaderBinder;
     private final FileUploader.FileUploaderBinder uploaderBinder;
     private final OperationsService.OperationsServiceBinder operationsServiceBinder;
+    private final String userId;
     private Context mContext;
     private AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
@@ -123,6 +127,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
+    private boolean showShareAvatar;
 
     public OCFileListAdapter(
         Context context,
@@ -145,6 +150,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         downloaderBinder = transferServiceGetter.getFileDownloaderBinder();
         uploaderBinder = transferServiceGetter.getFileUploaderBinder();
         operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
+
+        if (account != null) {
+            AccountManager accountManager = AccountManager.get(mContext);
+            userId = accountManager.getUserData(account,
+                                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+        } else {
+            userId = "";
+        }
+
+        // TODO change when https://github.com/nextcloud/server/pull/14429 is merged
+        showShareAvatar = false;
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -328,26 +344,65 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
 
-                if (file.isSharedWithMe() && file.getOwnerId() != null && !multiSelect && !gridView &&
+                Resources resources = mContext.getResources();
+                float avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius);
+
+                if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !multiSelect && !gridView &&
                     !mHideItemOptions) {
-                    itemViewHolder.sharedAvatar.setVisibility(View.VISIBLE);
+                    itemViewHolder.sharedAvatars.setVisibility(View.VISIBLE);
+                    itemViewHolder.sharedAvatars.removeAllViews();
 
-                    Resources resources = mContext.getResources();
+                    String fileOwner = file.getOwnerId();
+                    ArrayList<String> sharees = (ArrayList<String>) file.getSharees();
 
-                    float avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius);
-
-                    if (file.getOwnerId().contains("@")) {
-                        showFederatedShareAvatar(file, avatarRadius, resources, itemViewHolder);
-                    } else {
-                        itemViewHolder.sharedAvatar.setTag(file.getOwnerId());
-                        DisplayUtils.setAvatar(account, file.getOwnerId(), this, avatarRadius, resources,
-                                               itemViewHolder.sharedAvatar, mContext);
+                    // use fileOwner if not oneself, then add at first
+                    if (!fileOwner.equals(userId) && !sharees.contains(fileOwner)) {
+                        sharees.add(fileOwner);
                     }
 
-                    itemViewHolder.sharedAvatar.setOnClickListener(view ->
-                                                                       ocFileListFragmentInterface.showShareDetailView(file));
+                    Collections.reverse(sharees);
+
+                    Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
+
+                    int shareeSize = Math.min(sharees.size(), 3);
+                    int w = DisplayUtils.convertDpToPixel(40, mContext);
+                    int margin = DisplayUtils.convertDpToPixel(24, mContext);
+                    int size = 60 * (shareeSize - 1) + w;
+
+                    for (int i = 0; i < shareeSize; i++) {
+                        String sharee = file.getSharees().get(i);
+
+                        ImageView avatar = new ImageView(mContext);
+
+                        if (i == 0 && sharees.size() > 3) {
+                            avatar.setImageResource(R.drawable.ic_people);
+                        } else {
+                            if (sharee.contains("@")) {
+                                showFederatedShareAvatar(sharee, avatarRadius, resources, avatar);
+                            } else {
+                                avatar.setTag(sharee);
+                                DisplayUtils.setAvatar(account, sharee, this, avatarRadius, resources,
+                                                       avatar, mContext);
+                                Log_OC.d(TAG, "avatar: " + sharee);
+                            }
+                        }
+
+                        avatar.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
+
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(w, w);
+                        layoutParams.setMargins(0, 0, i * margin, 0);
+                        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                        avatar.setLayoutParams(layoutParams);
+                        itemViewHolder.sharedAvatars.addView(avatar);
+
+                        ViewGroup.LayoutParams rememberParam = itemViewHolder.sharedAvatars.getLayoutParams();
+                        rememberParam.width = size;
+
+                        itemViewHolder.sharedAvatars.setLayoutParams(rememberParam);
+                    }
                 } else {
-                    itemViewHolder.sharedAvatar.setVisibility(View.GONE);
+                    itemViewHolder.sharedAvatars.setVisibility(View.GONE);
+                    itemViewHolder.sharedAvatars.removeAllViews();
                 }
 
                 if (onlyOnDevice) {
@@ -435,13 +490,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void showFederatedShareAvatar(OCFile file, float avatarRadius, Resources resources,
-                                          OCFileListItemViewHolder itemViewHolder) {
+    private void showFederatedShareAvatar(String user, float avatarRadius, Resources resources, ImageView avatar) {
         // maybe federated share
-        String userId = file.getOwnerId().split("@")[0];
-        String server = file.getOwnerId().split("@")[1];
+        String[] split = user.split("@");
+        String userId = split[0];
+        String server = split[1];
 
-        String url = "https://" + server + "/avatar/" + userId + "/" +
+        String url = "https://" + server + "/index.php/avatar/" + userId + "/" +
             DisplayUtils.convertDpToPixel(avatarRadius, mContext);
 
         Drawable placeholder;
@@ -452,21 +507,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             placeholder = resources.getDrawable(R.drawable.account_circle_white);
         }
 
-        itemViewHolder.sharedAvatar.setTag(null);
+        avatar.setTag(null);
         Glide.with(mContext).load(url)
             .asBitmap()
             .placeholder(placeholder)
             .error(placeholder)
-            .into(new BitmapImageViewTarget(itemViewHolder.sharedAvatar) {
+            .into(new BitmapImageViewTarget(avatar) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable =
                         RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
                     circularBitmapDrawable.setCircular(true);
-                    itemViewHolder.sharedAvatar.setImageDrawable(circularBitmapDrawable);
+                    avatar.setImageDrawable(circularBitmapDrawable);
                 }
             });
-    }
+        }
 
     private void setThumbnail(OCFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
@@ -586,11 +641,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
             sharedIconView.setVisibility(View.VISIBLE);
 
-            if (file.isSharedWithSharee()) {
-                sharedIconView.setImageResource(R.drawable.shared_via_users);
-                sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
-            } else if (file.isSharedWithMe()) {
-                sharedIconView.setVisibility(View.GONE);
+            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+                if (showShareAvatar) {
+                    sharedIconView.setVisibility(View.GONE);
+                } else {
+                    sharedIconView.setVisibility(View.VISIBLE);
+                    sharedIconView.setImageResource(R.drawable.shared_via_users);
+                    sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared));
+                }
             } else if (file.isSharedViaLink()) {
                 sharedIconView.setImageResource(R.drawable.shared_via_link);
                 sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_shared_via_link));
@@ -925,8 +983,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @BindView(R.id.overflow_menu)
         public ImageView overflowMenu;
 
-        @BindView(R.id.sharedAvatar)
-        public ImageView sharedAvatar;
+        @BindView(R.id.sharedAvatars)
+        public RelativeLayout sharedAvatars;
 
         private OCFileListItemViewHolder(View itemView) {
             super(itemView);

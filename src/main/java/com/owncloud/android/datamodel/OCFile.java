@@ -28,21 +28,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.MimeType;
-
-import java.io.File;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 import lombok.Getter;
 import lombok.Setter;
 import third_parties.daveKoeller.AlphanumComparator;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
@@ -88,6 +88,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private String ownerId;
     @Getter @Setter private String ownerDisplayName;
     @Getter @Setter String note;
+    @Getter @Setter private List<String> sharees = new ArrayList<>();
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
