@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">%1$s ile paylaş</string>
     <string name="share_with_title">Şununla paylaş…</string>
     <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
+    <string name="shared_avatar_desc">Paylaşılmış kullanıcının avatarı</string>
     <string name="shared_icon_share">paylaş</string>
     <string name="shared_icon_shared">paylaşılmış</string>
     <string name="shared_icon_shared_via_link">bağlantı ile paylaşılmış</string>
+    <string name="shared_with_you_by">Sizinle %1$s ile paylaşılmış</string>
     <string name="sharee_add_failed">Paylaşım eklenemedi</string>
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>

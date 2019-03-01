@@ -581,6 +581,7 @@ Attention la suppression est irréversible.</string>
     <string name="shared_icon_share">partage</string>
     <string name="shared_icon_shared">partagé</string>
     <string name="shared_icon_shared_via_link">partagé par lien</string>
+    <string name="shared_with_you_by">Partagé avec vous par %1$s</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>

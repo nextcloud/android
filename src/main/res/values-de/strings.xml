@@ -78,6 +78,7 @@
     <string name="auth_username">Benutzername</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="auth_wtf_reenter_URL">Unerwarteter Zustand, bitte geben Sie die Adresse des Servers erneut ein</string>
+    <string name="authentication_exception">Fehler bei der Authentifizierung</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Eigenen Server betreiben</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="io_error">IO Fehler</string>
     <string name="learn_more">Mehr</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout der Liste</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
     <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server…</string>
     <string name="offline_mode">Keine Internetverbindung</string>
+    <string name="operation_canceled">Vorgang abgebrochen</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
@@ -573,9 +576,11 @@
     <string name="share_with_edit_title">Teile mit %1$s</string>
     <string name="share_with_title">Teilen mit…</string>
     <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
+    <string name="shared_avatar_desc">Avatar des geteilten Nutzers</string>
     <string name="shared_icon_share">Teilen</string>
     <string name="shared_icon_shared">geteilt</string>
     <string name="shared_icon_shared_via_link">Über einen Link geteilt</string>
+    <string name="shared_with_you_by">Geteilt mit Ihnen von %1$s</string>
     <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
@@ -611,7 +616,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Das Gültigkeitsdatum des Serverzertifikats liegt in der Zukunft</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Speicherort auswählen</string>
     <string name="storage_description_default">Standard</string>
+    <string name="storage_documents">Dokumente</string>
+    <string name="storage_downloads">Downloads</string>
+    <string name="storage_internal_storage">Interner Speicher</string>
+    <string name="storage_movies">Filme</string>
+    <string name="storage_music">Musik</string>
+    <string name="storage_pictures">Bilder</string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.\n\nEigenschaften:\n* Einfache, moderne an Ihr Theme angepasste Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Halten Sie Ihre favorisierten Dateien und Verzeichnisse synchron\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVx5 (zuvor DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisation\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud an unter https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Die Open Source Nextcloud Android App ermöglicht es Ihnen auf all Ihre Dateien in Ihrer Nextcloud zuzugreifen.\nDies ist die offizielle Entwicklungsversion und beinhaltet brandaktuelle, ungetestete Funktionalität, welche zu Instabilität oder Datenverlust führen kann. Die App richtet sich an Nutzende, die bereit sind neue Funktionalität auszutesten und Fehler zurückzumelden, sollten sie auftreten. Verwenden Sie diese Version nicht für den produktiven Einsatz!\n\nDie Entwicklungsversion kann neben der offiziellen Nextcloud App installiert werden, welche auch bei F-Droid verfügbar ist.</string>
     <string name="store_short_desc">Die Nextcloud Android App erlaubt Ihnen den Zugriff auf alle Dateien in Ihrer Nextcloud.</string>
