@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
     <string name="share_with_title">Compartilhar com…</string>
     <string name="share_with_user_section_title">Compartilhar com usuários e grupos</string>
+    <string name="shared_avatar_desc">Avatar de usuário compartilhado</string>
     <string name="shared_icon_share">compartilhar</string>
     <string name="shared_icon_shared">compartilhado</string>
     <string name="shared_icon_shared_via_link">compartilhado via link</string>
+    <string name="shared_with_you_by">Compartilhado com você por %1$s</string>
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>

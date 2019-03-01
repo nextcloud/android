@@ -12,7 +12,7 @@
     <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="action_force_rescan">Wymuś indeksowanie</string>
     <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
-    <string name="action_send_share">Udostępnij</string>
+    <string name="action_send_share">Wyślij/udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>
@@ -255,7 +255,7 @@
     <string name="file_list_empty_recently_modified_filter">Brak plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Pliki i katalogi, które współdzielisz pokażą się tutaj</string>
-    <string name="file_list_empty_shared_headline">Nic nie jest jeszcze współdzielone</string>
+    <string name="file_list_empty_shared_headline">Nic nie jest udostępnione</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
@@ -414,7 +414,7 @@
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="participate_beta_headline">Sprawdź wersję deweloperską</string>
-    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i jest bardzo ryzykowna. Mogą występować błędy, które proszę zgłaszać do nas, jak się pojawią.</string>
+    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i jest mało stabilna. Przy występowaniu błędów, proszę zgłosić do nas.</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_forum_text">Pomóż innym na</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod, zajrzyj do %1$s, aby poznać szczegóły</string>
@@ -426,8 +426,8 @@
     <string name="participate_dev_fdroid">Pobierz wersję deweloperską z F-Droid</string>
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
-    <string name="participate_release_candidate_headline">Release candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się, że będzie stabilna. Testowanie indywidualnej konfiguracji może pomóc w tym. Zarejestruj się, aby przetestować w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_release_candidate_headline">Release Candidate</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się, że będzie stabilna. Testowanie indywidualnej konfiguracji może pomóc nam w tym. Zarejestruj się, aby przetestować w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
@@ -446,7 +446,7 @@
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_filename">tekst_zastępczy.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tekst zastępczy</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -540,14 +540,14 @@
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
-    <string name="share_file">Współdziel %1$s</string>
+    <string name="share_file">Udostępnij %1$s</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub katalogu</string>
     <string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje</string>
-    <string name="share_link_forbidden_permissions">do współdzielenia tego pliku</string>
+    <string name="share_link_forbidden_permissions">do udostępniania tego pliku</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
@@ -557,8 +557,8 @@
     <string name="share_privilege_can_edit_change">może zmienić</string>
     <string name="share_privilege_can_edit_create">może utworzyć</string>
     <string name="share_privilege_can_edit_delete">może usunąć</string>
-    <string name="share_privilege_can_share">może współdzielić</string>
-    <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
+    <string name="share_privilege_can_share">może udostępnić</string>
+    <string name="share_privilege_unshare">Zatrzymaj współdzielenie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (konwersacja)</string>
     <string name="share_search">Nazwa, ID chmury federalnej lub adres e-mail…</string>
@@ -573,12 +573,14 @@
     <string name="share_via_link_section_title">Udostępnij link</string>
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
-    <string name="share_with_edit_title">Współdziel z %1$s</string>
-    <string name="share_with_title">Współdziel z…</string>
-    <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
+    <string name="share_with_edit_title">Udostępnij dla %1$s</string>
+    <string name="share_with_title">Udostępnij dla…</string>
+    <string name="share_with_user_section_title">Udostępnij dla użytkowników i grup</string>
+    <string name="shared_avatar_desc">Avatar użytkownika udostępniającego</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared">udostępniono</string>
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
+    <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
@@ -645,7 +647,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego katalogu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do katalogu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do katalogu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, które były powiązane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zagubione.</string>
     <string name="sync_in_progress">Pobieranie najnowszej wersji pliku</string>
-    <string name="sync_status_button">Przycisk status synchronizacji</string>
+    <string name="sync_status_button">Przycisk statusu synchronizacji</string>
     <string name="sync_string_files">Pliki</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
@@ -678,7 +680,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="update_link_file_error">Wystąpił błąd podczas próby aktualizacji udostępniania</string>
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_forbidden_permissions">aby zaktualizować te udostępnianie</string>
-    <string name="updating_share_failed">Zmiana udostępnienia nie powiodła się</string>
+    <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
     <string name="upload_content_from_other_apps">Wyślij zawartość z innych aplikacji</string>

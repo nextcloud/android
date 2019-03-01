@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">Sdílet s %1$s</string>
     <string name="share_with_title">Sdílet s…</string>
     <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
+    <string name="shared_avatar_desc">Avatar od sdíleného uživatele</string>
     <string name="shared_icon_share">sdílet</string>
     <string name="shared_icon_shared">sdílené</string>
     <string name="shared_icon_shared_via_link">sdílet odkazem</string>
+    <string name="shared_with_you_by">Sdílí s vámi %1$s</string>
     <string name="sharee_add_failed">Přidání sdílejícího se nezdařilo</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Umožnit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>

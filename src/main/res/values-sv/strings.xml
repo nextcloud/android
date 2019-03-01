@@ -78,6 +78,7 @@
     <string name="auth_username">Användarnamn</string>
     <string name="auth_wrong_connection_title">Kunde inte upprätta anslutning</string>
     <string name="auth_wtf_reenter_URL">Oväntat tillstånd, var god ange server-adress igen</string>
+    <string name="authentication_exception">Fel vid autentisering</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -327,6 +328,7 @@
     <string name="host_your_own_server">Använd egen server</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="io_error">IO-fel</string>
     <string name="learn_more">Lär dig mer</string>
     <string name="link">Länk</string>
     <string name="list_layout">Listad layout</string>
@@ -405,6 +407,7 @@
     <string name="oauth_check_onoff">Logga in med OAuth 2.0</string>
     <string name="oauth_login_connection">Ansluter till OAuth 2.0 server…</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="operation_canceled">Operationen har avbrutits</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="overflow_menu">Mer Meny</string>
     <string name="participate_beta_headline">Testa utvecklingsversionen</string>
@@ -570,9 +573,11 @@
     <string name="share_with_edit_title">Dela med %1$s</string>
     <string name="share_with_title">Delad med…</string>
     <string name="share_with_user_section_title">Dela med användare och grupper</string>
+    <string name="shared_avatar_desc">Profilbild från delad användare</string>
     <string name="shared_icon_share">dela</string>
     <string name="shared_icon_shared">delad</string>
     <string name="shared_icon_shared_via_link">delad via länk</string>
+    <string name="shared_with_you_by">Delad med dig av %1$s</string>
     <string name="sharee_add_failed">Misslyckades lägga till delning</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
@@ -608,7 +613,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servercertifikatet är för nytt</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Webbadressen matchar inte värdnamnet i certifikatet</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Välj lagringsplats</string>
     <string name="storage_description_default">Standard</string>
+    <string name="storage_documents">Dokument</string>
+    <string name="storage_downloads">Nedladdningar</string>
+    <string name="storage_internal_storage">Intern lagring</string>
+    <string name="storage_movies">Filmer</string>
+    <string name="storage_music">Musik</string>
+    <string name="storage_pictures">Bilder</string>
     <string name="store_full_dev_desc">Copyleft libre Nextcloud Android-appen, ger dig mobil frihet.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte den för ditt produktiva arbete!\n\nBåde den officiella dev och vanliga versionen finns på F-droid, och kan vara installerade samtidigt.</string>
     <string name="store_short_desc">Nextcloud Android-appen ger mobilåtkomst till alla filer på ditt Nextcloud.</string>
     <string name="store_short_dev_desc">Nextcloud Dev-appen är en utveckling ögonblicksbild och kan installeras parallellt.</string>

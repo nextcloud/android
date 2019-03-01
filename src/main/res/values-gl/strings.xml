@@ -78,7 +78,7 @@
     <string name="auth_username">Nome de usuario</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="auth_wtf_reenter_URL">Estado non agardado; introduza de novo o enderezo do servidor</string>
-    <string name="authentication_exception">Excepción de autenticación</string>
+    <string name="authentication_exception">Produciuse unha excepción na autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con WiFi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
@@ -577,9 +577,11 @@
     <string name="share_with_edit_title">Compartir con %1$s</string>
     <string name="share_with_title">Compartir con…</string>
     <string name="share_with_user_section_title">Compartir con usuarios e grupos</string>
+    <string name="shared_avatar_desc">Avatar de usuario compartido</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared">compartido</string>
     <string name="shared_icon_shared_via_link">compartido mediante ligazón</string>
+    <string name="shared_with_you_by">Compartido con vostede por %1$s</string>
     <string name="sharee_add_failed">Produciuse un fallo ao engadir un recurso compartido</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s no Nextcloud?</string>
