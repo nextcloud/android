@@ -9,7 +9,7 @@
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
     <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
-    <string name="action_empty_trashbin">Tøm søppelbøtte</string>
+    <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_force_rescan">Tving reskanning</string>
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_send_share">Send/del</string>
@@ -86,7 +86,7 @@
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
-    <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer applikasjonen fra optimalisering.</string>
+    <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer appen fra optimalisering.</string>
     <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
     <string name="battery_optimization_title">Batterioptimalisering</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
@@ -556,7 +556,7 @@
     <string name="share_privilege_can_edit_create">kan opprette</string>
     <string name="share_privilege_can_edit_delete">kan slette</string>
     <string name="share_privilege_can_share">kan dele</string>
-    <string name="share_privilege_unshare">Avslutt deling</string>
+    <string name="share_privilege_unshare">Opphev deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
     <string name="share_search">Navn, sammenknyttet sky-ID eller e-postadresse…</string>
@@ -577,6 +577,7 @@
     <string name="shared_icon_share">del</string>
     <string name="shared_icon_shared">delt</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
+    <string name="shared_with_you_by">Delt med deg av %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
@@ -613,6 +614,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serversertifikatets gyldige datoer er i fremtiden</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Nettadressen samsvarer ikke med vertsnavnet i sertifikatet</string>
     <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Velg lagringssted</string>
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumenter</string>
     <string name="storage_downloads">Nedlastinger</string>
@@ -661,14 +663,14 @@
     <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
-    <string name="trashbin_loading_failed">Innlesing av søppelbøtte feilet!</string>
+    <string name="trashbin_loading_failed">Innlesing av papirkurv feilet!</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
-    <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>
-    <string name="unshare_link_forbidden_permissions">å avslutte deling av denne filen</string>
+    <string name="unshare_link_file_error">En oppstod en feil  ved oppheving av delingen av denne filen eller mappen</string>
+    <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
+    <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
     <string name="update_link_file_error">Det oppstod en feil ved oppdatering av delingen</string>
@@ -771,4 +773,8 @@
         <item quantity="one">%1$dfil</item>
         <item quantity="other">%1$dfiler</item>
     </plurals>
-    </resources>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valgt</item>
+        <item quantity="other">%d valgte</item>
+    </plurals>
+</resources>
