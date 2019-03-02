@@ -92,8 +92,8 @@
     <string name="battery_optimization_title">Optymalizacja baterii</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
     <string name="checkbox">Pole checkbox</string>
-    <string name="choose_local_folder">Wybierz lokalny katalog…</string>
-    <string name="choose_remote_folder">Wybierz zdalny katalog…</string>
+    <string name="choose_local_folder">Wybierz katalog lokalny…</string>
+    <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
@@ -205,7 +205,7 @@
     <string name="drawer_quota">Wykorzystane: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">Wykorzystane: %1$s</string>
     <string name="drawer_synced_folders">Automatyczne wysyłanie</string>
-    <string name="edit_permission_label">edytuj</string>
+    <string name="edit_permission_label">edytowanie</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
@@ -239,7 +239,7 @@
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="file_icon">Plik</string>
     <string name="file_keep">Zachowaj</string>
-    <string name="file_list_empty">Wyślij zawartość lub zsynchronizuj ją z urządzeniami.</string>
+    <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
     <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i katalogi oznaczone jako ulubione</string>
@@ -266,7 +266,7 @@
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
-    <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
+    <string name="file_migration_dialog_title">Aktualizacja lokalizacji zapisywania</string>
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jedno z następujących:</string>
     <string name="file_migration_failed_dir_already_exists">Katalog Nextcloud już istnieje</string>
     <string name="file_migration_failed_not_enough_space">Potrzeba więcej miejsca</string>
@@ -280,7 +280,7 @@
     <string name="file_migration_preparing">Przygotowywanie migracji…</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta…</string>
     <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta…</string>
-    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę przechowywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
+    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę lokalizacji zapisywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
     <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
     <string name="file_migration_updating_index">Aktualizacja indeksu…</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -414,11 +414,11 @@
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="participate_beta_headline">Sprawdź wersję deweloperską</string>
-    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i jest mało stabilna. Przy występowaniu błędów, proszę zgłosić do nas.</string>
+    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy występowaniu błędów, proszę je zgłosić do nas.</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_forum_text">Pomóż innym na</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod, zajrzyj do %1$s, aby poznać szczegóły</string>
-    <string name="participate_contribute_headline">Aktywnie uczestniczyć</string>
+    <string name="participate_contribute_headline">Aktywne uczestniczenie</string>
     <string name="participate_contribute_irc_text">Dołącz do kanału na IRC:</string>
     <string name="participate_contribute_translate_text">aplikację</string>
     <string name="participate_contribute_translate_translate">Tłumacz</string>
@@ -427,8 +427,8 @@
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="participate_release_candidate_headline">Release Candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się, że będzie stabilna. Testowanie indywidualnej konfiguracji może pomóc nam w tym. Zarejestruj się, aby przetestować w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
-    <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś dziwnego?</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Testowanie indywidualnej konfiguracji może nam w tym pomóc. Zarejestruj się, aby przetestować w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam w testowaniu następnej wersji?</string>
@@ -490,7 +490,7 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
-    <string name="prefs_storage_path">Ścieżka przechowywania</string>
+    <string name="prefs_storage_path">Lokalizacja zapisywania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
     <string name="preview_image_description">Podgląd</string>
@@ -617,7 +617,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certyfikat serwera jest wystawiony w przyszłości</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL nie pasuje do nazwy hosta w certyfikacie</string>
     <string name="storage_camera">Aparat</string>
-    <string name="storage_choose_location">Wybierz miejsce przechowywania</string>
+    <string name="storage_choose_location">Wybierz lokalizację katalogu</string>
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_documents">Dokumenty</string>
     <string name="storage_downloads">Pobrane</string>
@@ -683,7 +683,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
-    <string name="upload_content_from_other_apps">Wyślij zawartość z innych aplikacji</string>
+    <string name="upload_content_from_other_apps">Wyślij pliki z innych aplikacji</string>
     <string name="upload_direct_camera_upload">Wyślij z aparatu</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
@@ -694,7 +694,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="upload_files">Wyślij plik</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
-    <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz automatyczne wysyłanie.</string>
+    <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
     <string name="upload_local_storage_full">Pamięć lokalna pełna</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
