@@ -51,7 +51,7 @@
     <string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
     <string name="auth_getting_authorization">Genehmigung erhalten…</string>
     <string name="auth_host_address">Serveradresse</string>
-    <string name="auth_host_url">Server-Adresse https://…</string>
+    <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
     <string name="auth_incorrect_address_title">Falsches Adressformat für den Server</string>
     <string name="auth_incorrect_path_title">Server nicht gefunden</string>

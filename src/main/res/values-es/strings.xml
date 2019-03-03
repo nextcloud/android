@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">Compartir con %1$s</string>
     <string name="share_with_title">Compartir con…</string>
     <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
+    <string name="shared_avatar_desc">Avatar del usuario compartido</string>
     <string name="shared_icon_share">compartido</string>
     <string name="shared_icon_shared">compartido</string>
     <string name="shared_icon_shared_via_link">compartidos vía enlace</string>
+    <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="signup_with_provider">Registrarse con un proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
