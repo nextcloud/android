@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">Kunhavigi kun %1$s</string>
     <string name="share_with_title">Kunhavigi kun...</string>
     <string name="share_with_user_section_title">Kunhavigi kun uzantoj kaj grupoj</string>
+    <string name="shared_avatar_desc">Avataro el kunhavuzanto</string>
     <string name="shared_icon_share">kunhavo</string>
     <string name="shared_icon_shared">kunhavigita</string>
     <string name="shared_icon_shared_via_link">kunhavigita per ligilo</string>
+    <string name="shared_with_you_by">Kunhavigita kun vi de %1$s</string>
     <string name="sharee_add_failed">Aldono de kunhavigito malsukecsis</string>
     <string name="signup_with_provider">Registriĝi per provizanto</string>
     <string name="single_sign_on_request_token" formatted="true">Ĉu permesi al %1$s aliri al via Nextcloud-konto %2$s?</string>
