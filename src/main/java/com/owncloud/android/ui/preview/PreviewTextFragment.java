@@ -364,11 +364,11 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mContainerActivity.getStorageManager() != null) {
+        if (containerActivity.getStorageManager() != null) {
             FileMenuFilter mf = new FileMenuFilter(
                     getFile(),
-                    mContainerActivity.getStorageManager().getAccount(),
-                    mContainerActivity,
+                    containerActivity.getStorageManager().getAccount(),
+                containerActivity,
                     getActivity(),
                     false
             );
@@ -410,7 +410,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 if(getFile().isSharedWithMe() && !getFile().canReshare()){
                     DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
                 } else {
-                    mContainerActivity.getFileOperationsHelper().sendShareFile(getFile());
+                    containerActivity.getFileOperationsHelper().sendShareFile(getFile());
                 }
                 return true;
             }
@@ -428,7 +428,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 return true;
             }
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
+                containerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
 
@@ -447,7 +447,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
     private void seeDetails() {
-        mContainerActivity.showDetails(getFile());
+        containerActivity.showDetails(getFile());
     }
 
     @Override
@@ -463,7 +463,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
      * Opens the previewed file with an external application.
      */
     private void openFile() {
-        mContainerActivity.getFileOperationsHelper().openFile(getFile());
+        containerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
 

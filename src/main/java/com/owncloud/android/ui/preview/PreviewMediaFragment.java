@@ -372,11 +372,11 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mContainerActivity.getStorageManager() != null) {
+        if (containerActivity.getStorageManager() != null) {
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
-                mContainerActivity.getStorageManager().getAccount(),
-                mContainerActivity,
+                containerActivity.getStorageManager().getAccount(),
+                containerActivity,
                 getActivity(),
                 false
             );
@@ -462,7 +462,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
+                containerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
             default:
@@ -482,12 +482,12 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private void seeDetails() {
         stopPreview(false);
-        mContainerActivity.showDetails(getFile());
+        containerActivity.showDetails(getFile());
     }
 
     private void sendShareFile() {
         stopPreview(false);
-        mContainerActivity.getFileOperationsHelper().sendShareFile(getFile());
+        containerActivity.getFileOperationsHelper().sendShareFile(getFile());
     }
 
     private void prepareVideo() {
@@ -793,7 +793,7 @@ public class PreviewMediaFragment extends FileFragment implements
      */
     private void openFile() {
         stopPreview(true);
-        mContainerActivity.getFileOperationsHelper().openFile(getFile());
+        containerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
 

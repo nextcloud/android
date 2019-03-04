@@ -553,12 +553,14 @@ public final class PreferenceManager implements AppPreferences {
         saveLongPreference(context, PREF__LOCK_TIMESTAMP, timestamp);
     }
 
-    public static boolean isShowDetailedTimestamp(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, false);
+    @Override
+    public boolean isShowDetailedTimestampEnabled() {
+        return preferences.getBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, false);
     }
 
-    public static void setShowDetailedTimestamp(Context context, boolean showDetailedTimestamp) {
-        saveBooleanPreference(context, AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp);
+    @Override
+    public void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp) {
+        preferences.edit().putBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp).apply();
     }
 
     public static boolean isShowMediaScanNotifications(Context context) {
