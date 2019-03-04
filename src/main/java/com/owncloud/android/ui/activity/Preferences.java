@@ -506,7 +506,7 @@ public class Preferences extends PreferenceActivity
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
-        boolean fShowMediaScanNotifications = com.owncloud.android.db.PreferenceManager
+        boolean fShowMediaScanNotifications = com.nextcloud.client.preferences.PreferenceManager
             .isShowMediaScanNotifications(this);
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
