@@ -48,7 +48,6 @@ package com.owncloud.android.ui.adapter;
     import com.owncloud.android.datamodel.OCFile;
     import com.owncloud.android.datamodel.ThumbnailsCacheManager;
     import com.owncloud.android.datamodel.VirtualFolderType;
-    import com.owncloud.android.db.PreferenceManager;
     import com.owncloud.android.db.ProviderMeta;
     import com.owncloud.android.files.services.FileDownloader;
     import com.owncloud.android.files.services.FileUploader;
@@ -71,6 +70,8 @@ package com.owncloud.android.ui.adapter;
     import com.owncloud.android.utils.FileStorageUtils;
     import com.owncloud.android.utils.MimeTypeUtil;
     import com.owncloud.android.utils.ThemeUtils;
+
+    import com.nextcloud.client.preferences.PreferenceManager;
 
     import java.io.File;
     import java.util.ArrayList;

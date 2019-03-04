@@ -24,7 +24,7 @@ import android.content.Context;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SignatureVerification;
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.preferences.PreferenceManager;
 
 import java.security.Key;
 

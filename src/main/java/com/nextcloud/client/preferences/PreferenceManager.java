@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.db;
+package com.nextcloud.client.preferences;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -36,7 +36,7 @@ import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_
 /**
  * Helper to simplify reading of Preferences all around the app
  */
-public final class PreferenceManager {
+public final class PreferenceManager implements AppPreferences {
     /**
      * Constant to access value of last path selected by the user to upload a file shared from other app.
      * Value handled by the app without direct access in the UI.
@@ -69,7 +69,15 @@ public final class PreferenceManager {
     public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
-    private PreferenceManager() {
+    private final SharedPreferences preferences;
+
+    public static AppPreferences fromContext(Context context) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context.getApplicationContext());
+        return new PreferenceManager(prefs);
+    }
+
+    PreferenceManager(SharedPreferences preferences) {
+        this.preferences = preferences;
     }
 
     public static void setKeysReInit(Context context) {
@@ -88,12 +96,14 @@ public final class PreferenceManager {
         return getDefaultSharedPreferences(context).getString(PREF__PUSH_TOKEN, "");
     }
 
-    public static boolean instantPictureUploadEnabled(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
+    @Override
+    public boolean instantPictureUploadEnabled() {
+        return preferences.getBoolean(PREF__INSTANT_UPLOADING, false);
     }
 
-    public static boolean instantVideoUploadEnabled(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
+    @Override
+    public boolean instantVideoUploadEnabled() {
+        return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
     }
 
     public static boolean instantPictureUploadPathUseSubfolders(Context context) {
@@ -592,5 +602,23 @@ public final class PreferenceManager {
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
         return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+    }
+
+    @Override
+    public void removeLegacyPreferences() {
+        preferences.edit()
+                .remove("instant_uploading")
+                .remove("instant_video_uploading")
+                .remove("instant_upload_path")
+                .remove("instant_upload_path_use_subfolders")
+                .remove("instant_upload_on_wifi")
+                .remove("instant_upload_on_charging")
+                .remove("instant_video_upload_path")
+                .remove("instant_video_upload_path_use_subfolders")
+                .remove("instant_video_upload_on_wifi")
+                .remove("instant_video_uploading")
+                .remove("instant_video_upload_on_charging")
+                .remove("prefs_instant_behaviour")
+                .apply();
     }
 }

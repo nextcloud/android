@@ -51,7 +51,8 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -113,6 +114,7 @@ public class MainApp extends MultiDexApplication {
     private static boolean mOnlyOnDevice;
 
     private SharedPreferences appPrefs;
+
     @SuppressWarnings("unused")
     private boolean mBound;
 
@@ -507,23 +509,9 @@ public class MainApp extends MultiDexApplication {
 
     private static void updateToAutoUpload() {
             Context context = getAppContext();
-            if (PreferenceManager.instantPictureUploadEnabled(context) ||
-                    PreferenceManager.instantVideoUploadEnabled(context)){
-
-                // remove legacy shared preferences
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                editor.remove("instant_uploading")
-                        .remove("instant_video_uploading")
-                        .remove("instant_upload_path")
-                        .remove("instant_upload_path_use_subfolders")
-                        .remove("instant_upload_on_wifi")
-                        .remove("instant_upload_on_charging")
-                        .remove("instant_video_upload_path")
-                        .remove("instant_video_upload_path_use_subfolders")
-                        .remove("instant_video_upload_on_wifi")
-                        .remove("instant_video_uploading")
-                        .remove("instant_video_upload_on_charging")
-                        .remove("prefs_instant_behaviour").apply();
+            AppPreferences preferences = PreferenceManager.fromContext(context);
+            if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()){
+                preferences.removeLegacyPreferences();
 
                 // show info pop-up
                 try {

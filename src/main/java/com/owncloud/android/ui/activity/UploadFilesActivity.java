@@ -43,7 +43,7 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
