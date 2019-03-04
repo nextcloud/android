@@ -408,7 +408,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (gridView && gridImage) {
                     gridItemViewHolder.fileName.setVisibility(View.GONE);
                 } else {
-                    if (gridView && ocFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold) {
+                    if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
                         gridItemViewHolder.fileName.setVisibility(View.GONE);
                     } else {
                         gridItemViewHolder.fileName.setVisibility(View.VISIBLE);

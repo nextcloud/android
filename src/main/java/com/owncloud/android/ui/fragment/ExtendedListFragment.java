@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -51,6 +52,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -103,6 +105,7 @@ public class ExtendedListFragment extends Fragment
     private int maxColumnSizePortrait = 5;
     private int maxColumnSizeLandscape = 10;
 
+    private AppPreferences preferences;
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected LinearLayout mEmptyListContainer;
@@ -161,7 +164,7 @@ public class ExtendedListFragment extends Fragment
 
     public void switchToGridView() {
         if (!isGridEnabled()) {
-            getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnSize()));
+            getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnsCount()));
         }
     }
 
@@ -353,6 +356,12 @@ public class ExtendedListFragment extends Fragment
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        preferences = PreferenceManager.fromContext(context);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
@@ -365,7 +374,7 @@ public class ExtendedListFragment extends Fragment
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mScale = PreferenceManager.getGridColumns(getContext());
+        mScale = preferences.getGridColumns();
         setGridViewColumns(1f);
 
         mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
@@ -409,7 +418,7 @@ public class ExtendedListFragment extends Fragment
         public boolean onScale(ScaleGestureDetector detector) {
             setGridViewColumns(detector.getScaleFactor());
 
-            PreferenceManager.setGridColumns(getContext(), mScale);
+            preferences.setGridColumns(mScale);
 
             getRecyclerView().getAdapter().notifyDataSetChanged();
 
@@ -470,7 +479,7 @@ public class ExtendedListFragment extends Fragment
             mHeightCell = 0;
         }
 
-        mScale = PreferenceManager.getGridColumns(getContext());
+        mScale = preferences.getGridColumns();
     }
 
 
@@ -485,10 +494,10 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
 
-        PreferenceManager.setGridColumns(getContext(), mScale);
+        preferences.setGridColumns(mScale);
     }
 
-    public int getColumnSize() {
+    public int getColumnsCount() {
         return Math.round(mScale);
     }
 
@@ -798,7 +807,7 @@ public class ExtendedListFragment extends Fragment
             maxColumnSize = maxColumnSizePortrait;
         }
 
-        if (isGridEnabled() && getColumnSize() > maxColumnSize) {
+        if (isGridEnabled() && getColumnsCount() > maxColumnSize) {
             ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
         }
     }
