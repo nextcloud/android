@@ -20,6 +20,7 @@
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,10 +57,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="middle"
-                        android:text="@string/placeholder_filename"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="@string/placeholder_filename"/>
 
                     <LinearLayout
                         android:id="@+id/filedetails"
@@ -83,8 +84,8 @@
                             android:id="@+id/size"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/placeholder_fileSize"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            tools:text="@string/placeholder_fileSize" />
 
                         <TextView
                             android:id="@+id/file_separator"
@@ -100,12 +101,12 @@
                             android:textSize="@dimen/two_line_secondary_text_size" />
 
                         <TextView
-                            android:id="@+id/modified"
+                            android:id="@+id/last_modification_timestamp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="@string/placeholder_media_time"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            tools:text="@string/placeholder_media_time" />
 
                         <ImageView
                             android:layout_width="wrap_content"
