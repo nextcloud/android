@@ -27,5 +27,8 @@ public interface AppPreferences {
     void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
     boolean isShowDetailedTimestampEnabled();
 
+    boolean isShowMediaScanNotifications();
+    void setShowMediaScanNotifications(boolean showMediaScanNotification);
+
     void removeLegacyPreferences();
 }

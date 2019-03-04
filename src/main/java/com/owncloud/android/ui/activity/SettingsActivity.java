@@ -49,6 +49,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.URLUtil;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -101,28 +102,25 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
     private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
-
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
 
     private static final String DAV_PATH = "/remote.php/dav";
 
     public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
 
-    /**
-     * The user's server base uri.
-     */
-    private Uri mUri;
+    private Uri serverBaseUri;
 
-    private ListPreference mLock;
-    private SwitchPreference mShowHiddenFiles;
-    private AppCompatDelegate mDelegate;
+    private ListPreference lock;
+    private SwitchPreference showHiddenFiles;
+    private AppCompatDelegate delegate;
 
-    private ListPreference mPrefStoragePath;
-    private String mStoragePath;
+    private ListPreference prefStoragePath;
+    private String storagePath;
     private String pendingLock;
 
-    private Account mAccount;
-    private ArbitraryDataProvider mArbitraryDataProvider;
+    private Account account;
+    private ArbitraryDataProvider arbitraryDataProvider;
+    private AppPreferences preferences;
 
     public static class PreferenceKeys {
         public static final String STORAGE_PATH = "storage_path";
@@ -135,6 +133,8 @@ public class SettingsActivity extends PreferenceActivity
         if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
+
+        preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(this);
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
@@ -150,8 +150,8 @@ public class SettingsActivity extends PreferenceActivity
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
-        mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        mArbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
         // retrieve user's base uri
         setupBaseUri();
@@ -411,7 +411,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
-        String mnemonic = mArbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
+        String mnemonic = arbitraryDataProvider.getValue(account.name, EncryptionUtils.MNEMONIC);
 
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
@@ -506,8 +506,7 @@ public class SettingsActivity extends PreferenceActivity
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
-        boolean fShowMediaScanNotifications = com.nextcloud.client.preferences.PreferenceManager
-            .isShowMediaScanNotifications(this);
+        boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
@@ -532,26 +531,26 @@ public class SettingsActivity extends PreferenceActivity
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
                                             boolean fShowHiddenFilesEnabled) {
-        mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+        showHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
         if (fShowHiddenFilesEnabled) {
-            mShowHiddenFiles.setOnPreferenceClickListener(preference -> {
+            showHiddenFiles.setOnPreferenceClickListener(preference -> {
                 SharedPreferences appPrefs =
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = appPrefs.edit();
-                editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
+                editor.putBoolean("show_hidden_files_pref", showHiddenFiles.isChecked());
                 editor.apply();
                 return true;
             });
         } else {
-            preferenceCategoryDetails.removePreference(mShowHiddenFiles);
+            preferenceCategoryDetails.removePreference(showHiddenFiles);
         }
     }
 
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
-        mLock = (ListPreference) findPreference(PREFERENCE_LOCK);
-        if (mLock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
+        lock = (ListPreference) findPreference(PREFERENCE_LOCK);
+        if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
             ArrayList<String> lockEntries = new ArrayList<>(3);
             lockEntries.add(getString(R.string.prefs_lock_none));
             lockEntries.add(getString(R.string.prefs_lock_using_passcode));
@@ -575,10 +574,10 @@ public class SettingsActivity extends PreferenceActivity
             String[] lockValuesArr = new String[lockValues.size()];
             lockValuesArr = lockValues.toArray(lockValuesArr);
 
-            mLock.setEntries(lockEntriesArr);
-            mLock.setEntryValues(lockValuesArr);
-            mLock.setSummary(mLock.getEntry());
-            mLock.setOnPreferenceChangeListener((preference, o) -> {
+            lock.setEntries(lockEntriesArr);
+            lock.setEntryValues(lockValuesArr);
+            lock.setSummary(lock.getEntry());
+            lock.setOnPreferenceChangeListener((preference, o) -> {
                 pendingLock = LOCK_NONE;
                 String oldValue = ((ListPreference) preference).getValue();
                 String newValue = (String) o;
@@ -593,7 +592,7 @@ public class SettingsActivity extends PreferenceActivity
                 return false;
             });
         } else {
-            preferenceCategoryDetails.removePreference(mLock);
+            preferenceCategoryDetails.removePreference(lock);
         }
     }
 
@@ -611,10 +610,10 @@ public class SettingsActivity extends PreferenceActivity
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
-                    arbitraryDataProvider.getBooleanValue(mAccount, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+                    arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
             pUploadOnWifiCheckbox.setOnPreferenceClickListener(preference -> {
-                arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
                         String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
                 return true;
@@ -649,8 +648,8 @@ public class SettingsActivity extends PreferenceActivity
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
-                mLock.setValue(LOCK_DEVICE_CREDENTIALS);
-                mLock.setSummary(mLock.getEntry());
+                this.lock.setValue(LOCK_DEVICE_CREDENTIALS);
+                this.lock.setSummary(this.lock.getEntry());
             }
         }
     }
@@ -671,8 +670,8 @@ public class SettingsActivity extends PreferenceActivity
         preferenceCategoryGeneral.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_general),
                 accentColor));
 
-        mPrefStoragePath = (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
-        if (mPrefStoragePath != null) {
+        prefStoragePath = (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
+        if (prefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
             String[] values = new String[storageOptions.length];
@@ -680,17 +679,17 @@ public class SettingsActivity extends PreferenceActivity
                 entries[i] = storageOptions[i].getDescription();
                 values[i] = storageOptions[i].getPath();
             }
-            mPrefStoragePath.setEntries(entries);
-            mPrefStoragePath.setEntryValues(values);
+            prefStoragePath.setEntries(entries);
+            prefStoragePath.setEntryValues(values);
 
-            mPrefStoragePath.setOnPreferenceChangeListener((preference, newValue) -> {
+            prefStoragePath.setOnPreferenceChangeListener((preference, newValue) -> {
                 String newPath = (String) newValue;
 
-                if (mStoragePath.equals(newPath)) {
+                if (storagePath.equals(newPath)) {
                     return true;
                 }
 
-                StorageMigration storageMigration = new StorageMigration(this, mStoragePath, newPath);
+                StorageMigration storageMigration = new StorageMigration(this, storagePath, newPath);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 
@@ -755,10 +754,10 @@ public class SettingsActivity extends PreferenceActivity
         davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
             // arguments
-            if (mUri != null) {
-                davDroidLoginIntent.putExtra("url", mUri.toString() + DAV_PATH);
+            if (serverBaseUri != null) {
+                davDroidLoginIntent.putExtra("url", serverBaseUri.toString() + DAV_PATH);
             }
-            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(mAccount.name));
+            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed
@@ -782,8 +781,8 @@ public class SettingsActivity extends PreferenceActivity
         // retrieve and set user's base URI
         Thread t = new Thread(() -> {
             try {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
-                mUri = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+                serverBaseUri = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
                         getApplicationContext()).getBaseUri();
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error retrieving user's base URI", e);
@@ -814,14 +813,14 @@ public class SettingsActivity extends PreferenceActivity
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
                 }
                 appPrefs.apply();
-                mLock.setValue(LOCK_PASSCODE);
-                mLock.setSummary(mLock.getEntry());
+                lock.setValue(LOCK_PASSCODE);
+                lock.setSummary(lock.getEntry());
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
-                mLock.setValue(LOCK_NONE);
-                mLock.setSummary(mLock.getEntry());
+                lock.setValue(LOCK_NONE);
+                lock.setSummary(lock.getEntry());
 
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
                 if (!LOCK_NONE.equals(pendingLock)) {
@@ -835,8 +834,8 @@ public class SettingsActivity extends PreferenceActivity
                 data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                         RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
-            mLock.setValue(LOCK_NONE);
-            mLock.setSummary(mLock.getEntry());
+            lock.setValue(LOCK_NONE);
+            lock.setSummary(lock.getEntry());
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
@@ -850,7 +849,7 @@ public class SettingsActivity extends PreferenceActivity
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-                    String mnemonic = arbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
+                    String mnemonic = arbitraryDataProvider.getValue(account.name, EncryptionUtils.MNEMONIC);
 
                     int accentColor = ThemeUtils.primaryAccentColor(this);
 
@@ -932,10 +931,10 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private AppCompatDelegate getDelegate() {
-        if (mDelegate == null) {
-            mDelegate = AppCompatDelegate.create(this, null);
+        if (delegate == null) {
+            delegate = AppCompatDelegate.create(this, null);
         }
-        return mDelegate;
+        return delegate;
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
@@ -973,14 +972,14 @@ public class SettingsActivity extends PreferenceActivity
     private void saveStoragePath(String newStoragePath) {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mStoragePath = newStoragePath;
-        MainApp.setStoragePath(mStoragePath);
+        storagePath = newStoragePath;
+        MainApp.setStoragePath(storagePath);
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(PreferenceKeys.STORAGE_PATH, mStoragePath);
+        editor.putString(PreferenceKeys.STORAGE_PATH, storagePath);
         editor.apply();
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
-        mPrefStoragePath.setSummary(storageDescription);
-        mPrefStoragePath.setValue(newStoragePath);
+        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
+        prefStoragePath.setSummary(storageDescription);
+        prefStoragePath.setValue(newStoragePath);
     }
 
     /**
@@ -990,10 +989,10 @@ public class SettingsActivity extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // Load storage path from shared preferences. Use private internal storage by default.
-        mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH,
+        storagePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH,
                 getApplicationContext().getFilesDir().getAbsolutePath());
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
-        mPrefStoragePath.setSummary(storageDescription);
+        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
+        prefStoragePath.setSummary(storageDescription);
     }
 
     @Override
