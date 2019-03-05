@@ -30,5 +30,8 @@ public interface AppPreferences {
     boolean isShowMediaScanNotifications();
     void setShowMediaScanNotifications(boolean showMediaScanNotification);
 
+    float getGridColumns();
+    void setGridColumns(float gridColumns);
+
     void removeLegacyPreferences();
 }

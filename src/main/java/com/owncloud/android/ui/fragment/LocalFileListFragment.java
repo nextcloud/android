@@ -169,7 +169,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         }
     }
 
-
     /**
      * Call this, when the user presses the up button
      */
@@ -287,7 +286,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
 
         if (!isGridEnabled()) {
             RecyclerView.LayoutManager layoutManager;
-            layoutManager = new GridLayoutManager(getContext(), getColumnSize());
+            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {

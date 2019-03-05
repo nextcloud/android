@@ -1233,7 +1233,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         RecyclerView.LayoutManager layoutManager;
         if (grid) {
-            layoutManager = new GridLayoutManager(getContext(), getColumnSize());
+            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {

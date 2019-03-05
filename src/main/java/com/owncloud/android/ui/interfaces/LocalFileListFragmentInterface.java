@@ -28,9 +28,7 @@ import java.io.File;
  * Interface for communication between {@link com.owncloud.android.ui.fragment.LocalFileListFragment}
  * and {@link LocalFileListAdapter}
  */
-
 public interface LocalFileListFragmentInterface {
-    int getColumnSize();
-
+    int getColumnsCount();
     void onItemClicked(File file);
 }
