@@ -41,9 +41,9 @@ import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
  */
 public class FileFragment extends Fragment {
 
-    private OCFile mFile;
+    private OCFile file;
 
-    protected ContainerActivity mContainerActivity;
+    protected ContainerActivity containerActivity;
 
 
     /**
@@ -53,7 +53,7 @@ public class FileFragment extends Fragment {
      * tries to reinstantiate a fragment automatically.
      */
     public FileFragment() {
-        mFile = null;
+        file = null;
     }
 
     @Override
@@ -85,12 +85,12 @@ public class FileFragment extends Fragment {
      * @return The {@link OCFile} hold
      */
     public OCFile getFile() {
-        return mFile;
+        return file;
     }
 
 
     protected void setFile(OCFile file) {
-        mFile = file;
+        this.file = file;
     }
 
 
@@ -101,7 +101,7 @@ public class FileFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mContainerActivity = (ContainerActivity) activity;
+            containerActivity = (ContainerActivity) activity;
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(activity.toString() + " must implement " +
@@ -115,7 +115,7 @@ public class FileFragment extends Fragment {
      */
     @Override
     public void onDetach() {
-        mContainerActivity = null;
+        containerActivity = null;
         super.onDetach();
     }
 
