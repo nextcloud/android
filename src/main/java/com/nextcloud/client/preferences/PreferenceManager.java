@@ -508,21 +508,21 @@ public final class PreferenceManager implements AppPreferences {
     /**
      * Gets the grid columns which the user has set last.
      *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
      * @return grid columns     grid columns
      */
-    public static float getGridColumns(Context context) {
-        return getDefaultSharedPreferences(context).getFloat(AUTO_PREF__GRID_COLUMNS, 4.0f);
+    @Override
+    public float getGridColumns() {
+        return preferences.getFloat(AUTO_PREF__GRID_COLUMNS, 4.0f);
     }
 
     /**
      * Saves the grid columns which the user has set last.
      *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
      * @param gridColumns the uploader behavior
      */
-    public static void setGridColumns(Context context, float gridColumns) {
-        saveFloatPreference(context, AUTO_PREF__GRID_COLUMNS, gridColumns);
+    @Override
+    public void setGridColumns(float gridColumns) {
+        preferences.edit().putFloat(AUTO_PREF__GRID_COLUMNS, gridColumns).apply();
     }
 
     /**

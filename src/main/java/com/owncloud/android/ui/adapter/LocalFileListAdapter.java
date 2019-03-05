@@ -192,7 +192,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     itemVH.fileName.setText(file.getName());
 
                     if (gridView && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file) ||
-                        localFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold)) {
+                        localFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold)) {
                         itemVH.fileName.setVisibility(View.GONE);
                     } else {
                         itemVH.fileName.setVisibility(View.VISIBLE);
