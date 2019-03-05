@@ -15,6 +15,9 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
@@ -69,6 +72,8 @@ public abstract class AbstractIT {
             client = OwnCloudClientFactory.createOwnCloudClient(account, context);
 
             createDummyFiles();
+
+            waitForServer(client, baseUrl);
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -103,5 +108,27 @@ public abstract class AbstractIT {
         }
         writer.flush();
         writer.close();
+    }
+
+    private static void waitForServer(OwnCloudClient client, Uri baseUrl) {
+        GetMethod get = new GetMethod(baseUrl + "/status.php");
+
+        try {
+            int i = 0;
+            while (client.executeMethod(get) != HttpStatus.SC_OK && i < 3) {
+                System.out.println("wait…");
+                Thread.sleep(60 * 1000);
+                i++;
+            }
+
+            if (i == 3) {
+                Assert.fail("Server not ready!");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
