@@ -24,8 +24,24 @@ public interface AppPreferences {
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
 
-    void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
+    /**
+     * Gets the selected file extension position the user selected to do the
+     * last upload of a url file shared from other app.
+     *
+     * @return selectedPos     the selected file extension position.
+     */
+    int getUploadUrlFileExtensionUrlSelectedPos();
+
+    /**
+     * Saves the selected file extension position the user selected to do the
+     * last upload of a url file shared from other app.
+     *
+     * @param selectedPos the selected file extension position.
+     */
+    void setUploadUrlFileExtensionUrlSelectedPos(int selectedPos);
+
     boolean isShowDetailedTimestampEnabled();
+    void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
 
     boolean isShowMediaScanNotifications();
     void setShowMediaScanNotifications(boolean showMediaScanNotification);

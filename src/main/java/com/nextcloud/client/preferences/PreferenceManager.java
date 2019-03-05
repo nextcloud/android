@@ -135,26 +135,14 @@ public final class PreferenceManager implements AppPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
     }
 
-    /**
-     * Gets the selected file extension position the user selected to do the last upload of a url file shared from other
-     * app.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return selectedPos     the selected file extension position.
-     */
-    public static int getUploadUrlFileExtensionUrlSelectedPos(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
+    @Override
+    public int getUploadUrlFileExtensionUrlSelectedPos() {
+        return preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
     }
 
-    /**
-     * Saves the selected file extension position the user selected to do the last upload of a url file shared from
-     * other app.
-     *
-     * @param context     Caller {@link Context}, used to access to shared preferences manager.
-     * @param selectedPos the selected file extension position.
-     */
-    public static void setUploadUrlFileExtensionUrlSelectedPos(Context context, int selectedPos) {
-        saveIntPreference(context, AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos);
+    @Override
+    public void setUploadUrlFileExtensionUrlSelectedPos(int selectedPos) {
+        preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos).apply();
     }
 
     /**
