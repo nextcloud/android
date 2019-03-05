@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio
@@ -92,9 +92,9 @@ public class ManageSpaceActivity extends AppCompatActivity {
             SharedPreferences appPrefs = PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext());
 
-            String lockPref = appPrefs.getString(Preferences.PREFERENCE_LOCK, Preferences.LOCK_NONE);
-            boolean passCodeEnable = Preferences.LOCK_PASSCODE.equals(
-                    appPrefs.getString(Preferences.PREFERENCE_LOCK, ""));
+            String lockPref = appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, SettingsActivity.LOCK_NONE);
+            boolean passCodeEnable = SettingsActivity.LOCK_PASSCODE.equals(
+                appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, ""));
 
             String passCodeDigits[] = new String[4];
             if (passCodeEnable) {
@@ -121,7 +121,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 appPrefsEditor.putString(PassCodeActivity.PREFERENCE_PASSCODE_D4, passCodeDigits[3]);
             }
 
-            appPrefsEditor.putString(Preferences.PREFERENCE_LOCK, lockPref);
+            appPrefsEditor.putString(SettingsActivity.PREFERENCE_LOCK, lockPref);
             result = result && appPrefsEditor.commit();
 
             return result;

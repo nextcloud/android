@@ -471,7 +471,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                         openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                     startActivity(settingsIntent);
                 }
                 break;

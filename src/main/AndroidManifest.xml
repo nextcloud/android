@@ -142,7 +142,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.Preferences"
+            android:name=".ui.activity.SettingsActivity"
             android:theme="@style/Theme.ownCloud" >
         </activity>
         <activity

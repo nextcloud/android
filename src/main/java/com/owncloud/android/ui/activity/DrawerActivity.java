@@ -54,6 +54,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.navigation.NavigationView;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -62,7 +63,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -383,7 +383,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 showFiles(false);
                 break;
             case R.id.nav_bar_settings:
-                Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(settingsIntent);
                 break;
             default:
@@ -446,7 +446,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivity(contactsIntent);
                 break;
             case R.id.nav_settings:
-                Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(settingsIntent);
                 break;
             case R.id.nav_participate:

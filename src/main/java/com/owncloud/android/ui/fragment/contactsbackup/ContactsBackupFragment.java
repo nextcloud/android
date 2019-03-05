@@ -49,11 +49,13 @@ import com.owncloud.android.jobs.ContactsBackupJob;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
-import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -106,7 +108,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
         if (ThemeUtils.themingEnabled(getContext())) {
@@ -271,7 +273,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                         contactsPreferenceActivity.openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getContext(), Preferences.class);
+                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
                     startActivity(settingsIntent);
                 }
                 retval = true;
@@ -463,7 +465,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (datePickerDialog != null) {
             outState.putBoolean(KEY_CALENDAR_PICKER_OPEN, datePickerDialog.isShowing());
