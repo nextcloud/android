@@ -187,22 +187,21 @@ public class SynchronizeFileOperation extends SyncOperation {
             /// easy decision
             requestForDownload(mLocalFile);
             result = new RemoteOperationResult(ResultCode.OK);
-
         } else {
             /// local copy in the device -> need to think a bit more before do anything
             if (mServerFile == null) {
                 ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
                 result = operation.execute(client);
+
                 if (result.isSuccess()) {
                     mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
-                } else if (result.getCode() == ResultCode.NO_NETWORK_CONNECTION) {
+                } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
                     return result;
                 }
             }
 
             if (mServerFile != null) {
-
                 /// check changes in server and local file
                 boolean serverChanged;
                 if (mLocalFile.getEtag() == null || mLocalFile.getEtag().length() == 0) {
@@ -269,7 +268,9 @@ public class SynchronizeFileOperation extends SyncOperation {
                 // remote file does not exist, deleting local copy
                 boolean deleteResult = getStorageManager().removeFile(mLocalFile, true, true);
 
-                if (!deleteResult) {
+                if (deleteResult) {
+                    result = new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+                } else {
                     Log_OC.e(TAG, "Removal of local copy failed (remote file does not exist any longer).");
                 }
             }
