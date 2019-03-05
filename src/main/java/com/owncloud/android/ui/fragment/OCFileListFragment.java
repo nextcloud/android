@@ -439,11 +439,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public int getColumnsCount() {
-        return super.getColumnsCount();
-    }
-
-    @Override
     public void onShareIconClick(OCFile file) {
         if (file.isFolder()) {
             mContainerActivity.showDetails(file, 1);

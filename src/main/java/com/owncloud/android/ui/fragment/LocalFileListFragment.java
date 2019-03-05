@@ -169,11 +169,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         }
     }
 
-    @Override
-    public int getColumnsCount() {
-        return super.getColumnsCount();
-    }
-
     /**
      * Call this, when the user presses the up button
      */
