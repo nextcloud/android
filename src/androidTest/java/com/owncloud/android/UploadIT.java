@@ -28,7 +28,7 @@ public class UploadIT extends AbstractIT {
 
         RemoteOperationResult result = testUpload(ocUpload);
 
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
         new RemoveFileOperation("/testUpload/", false, account, false, context).execute(client, getStorageManager());
@@ -41,7 +41,7 @@ public class UploadIT extends AbstractIT {
 
         RemoteOperationResult result = testUpload(ocUpload);
 
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
         new RemoveFileOperation("/testUpload/", false, account, false, context).execute(client, getStorageManager());
@@ -54,7 +54,7 @@ public class UploadIT extends AbstractIT {
 
         RemoteOperationResult result = testUpload(ocUpload);
 
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
         new RemoveFileOperation("/testUpload/", false, account, false, context).execute(client, getStorageManager());
@@ -101,7 +101,7 @@ public class UploadIT extends AbstractIT {
         newUpload.setRemoteFolderToBeCreated();
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
         new RemoveFileOperation("/testUpload/", false, account, false, context).execute(client, getStorageManager());

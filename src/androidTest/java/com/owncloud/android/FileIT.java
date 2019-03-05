@@ -29,7 +29,7 @@ public class FileIT extends AbstractIT {
         SyncOperation syncOp = new CreateFolderOperation(path, true);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
 
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // folder exists
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
@@ -46,7 +46,7 @@ public class FileIT extends AbstractIT {
 
         SyncOperation syncOp = new CreateFolderOperation(path, true);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
-        assertTrue(result.isSuccess());
+        assertTrue(result.toString(), result.isSuccess());
 
         // folder exists
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
