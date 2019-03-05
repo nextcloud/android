@@ -135,90 +135,44 @@ public final class PreferenceManager implements AppPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
     }
 
-    /**
-     * Gets the selected file extension position the user selected to do the last upload of a url file shared from other
-     * app.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return selectedPos     the selected file extension position.
-     */
-    public static int getUploadUrlFileExtensionUrlSelectedPos(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
+    @Override
+    public int getUploadUrlFileExtensionUrlSelectedPos() {
+        return preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
     }
 
-    /**
-     * Saves the selected file extension position the user selected to do the last upload of a url file shared from
-     * other app.
-     *
-     * @param context     Caller {@link Context}, used to access to shared preferences manager.
-     * @param selectedPos the selected file extension position.
-     */
-    public static void setUploadUrlFileExtensionUrlSelectedPos(Context context, int selectedPos) {
-        saveIntPreference(context, AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos);
+    @Override
+    public void setUploadUrlFileExtensionUrlSelectedPos(int selectedPos) {
+        preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos).apply();
     }
 
-    /**
-     * Gets the selected map file extension position the user selected to do the last upload of a url file shared
-     * from other app.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return selectedPos     the selected file extension position.
-     */
-    public static int getUploadMapFileExtensionUrlSelectedPos(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, 0);
+    @Override
+    public int getUploadMapFileExtensionUrlSelectedPos() {
+        return preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, 0);
     }
 
-    /**
-     * Saves the selected map file extension position the user selected to do the last upload of a url file shared from
-     * other app.
-     *
-     * @param context     Caller {@link Context}, used to access to shared preferences manager.
-     * @param selectedPos the selected file extension position.
-     */
-    public static void setUploadMapFileExtensionUrlSelectedPos(Context context, int selectedPos) {
-        saveIntPreference(context, AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, selectedPos);
+    @Override
+    public void setUploadMapFileExtensionUrlSelectedPos(int selectedPos) {
+        preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, selectedPos).apply();
     }
 
-    /**
-     * Gets the path where the user selected to do the last upload of a file shared from other app.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return path     Absolute path to a folder, as previously stored by {@link #setLastUploadPath(Context, String)},
-     * or empty String if never saved before.
-     */
-    public static String getLastUploadPath(Context context) {
-        return getDefaultSharedPreferences(context).getString(AUTO_PREF__LAST_UPLOAD_PATH, "");
+    @Override
+    public String getUploadFromLocalLastPath() {
+        return preferences.getString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, "");
     }
 
-    /**
-     * Saves the path where the user selected to do the last upload of a file shared from other app.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param path    Absolute path to a folder.
-     */
-    public static void setLastUploadPath(Context context, String path) {
-        saveStringPreference(context, AUTO_PREF__LAST_UPLOAD_PATH, path);
+    @Override
+    public void setUploadFromLocalLastPath(String path) {
+        preferences.edit().putString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, path).apply();
     }
 
-    /**
-     * Gets the last local path where the user selected to do an upload from.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return path     Absolute path to a folder, as previously stored by
-     * {@link #setUploadFromLocalLastPath(Context, String)}, or empty String if never saved before.
-     */
-    public static String getUploadFromLocalLastPath(Context context) {
-        return getDefaultSharedPreferences(context).getString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, "");
+    @Override
+    public String getLastUploadPath() {
+        return preferences.getString(AUTO_PREF__LAST_UPLOAD_PATH, "");
     }
 
-    /**
-     * Saves the path where the user selected to do the last local upload of a file from.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param path    Absolute path to a folder.
-     */
-    public static void setUploadFromLocalLastPath(Context context, String path) {
-        saveStringPreference(context, AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, path);
+    @Override
+    public void setLastUploadPath(String path) {
+        preferences.edit().putString(AUTO_PREF__LAST_UPLOAD_PATH, path).apply();
     }
 
     /**
