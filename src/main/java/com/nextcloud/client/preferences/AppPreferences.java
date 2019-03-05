@@ -24,5 +24,8 @@ public interface AppPreferences {
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
 
+    void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
+    boolean isShowDetailedTimestampEnabled();
+
     void removeLegacyPreferences();
 }
