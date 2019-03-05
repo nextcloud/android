@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2015 ownCloud Inc.
@@ -38,7 +38,7 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
         String instantUploadPath = getIntent().getStringExtra(KEY_INSTANT_UPLOAD_PATH);
 
-        // The caller activity (Preferences) is not a FileActivity, so it has no OCFile, only a path.
+        // The caller activity (SettingsActivity) is not a FileActivity, so it has no OCFile, only a path.
         OCFile folder = new OCFile(instantUploadPath);
 
         setFile(folder);

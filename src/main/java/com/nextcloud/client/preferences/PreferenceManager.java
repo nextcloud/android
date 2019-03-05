@@ -28,7 +28,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
@@ -228,7 +228,7 @@ public final class PreferenceManager implements AppPreferences {
      * @return lock     lock preference value.
      */
     public static String getLockPreference(Context context) {
-        return getDefaultSharedPreferences(context).getString(Preferences.PREFERENCE_LOCK, "");
+        return getDefaultSharedPreferences(context).getString(SettingsActivity.PREFERENCE_LOCK, "");
     }
 
     /**
@@ -238,7 +238,7 @@ public final class PreferenceManager implements AppPreferences {
      * @return useFingerprint     is lock via fingerprint preference.
      */
     public static boolean isUseFingerprint(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false);
+        return getDefaultSharedPreferences(context).getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
     }
 
     /**

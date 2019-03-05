@@ -131,10 +131,10 @@ public class    PassCodeActivity extends AppCompatActivity {
                 mPassCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
             }
             if(mConfirmingPassCode){
-                //the app was in the passcodeconfirmation
+                // the app was in the passcodeconfirmation
                 requestPassCodeConfirmation();
             }else{
-                /// pass code preference has just been activated in Preferences;
+                // pass code preference has just been activated in SettingsActivity;
                 // will receive and confirm pass code value
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
 
@@ -143,7 +143,7 @@ public class    PassCodeActivity extends AppCompatActivity {
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
-            /// pass code preference has just been disabled in Preferences;
+            // pass code preference has just been disabled in SettingsActivity;
             // will confirm user knows pass code, then remove it
             mPassCodeHdr.setText(R.string.pass_code_remove_your_pass_code);
             mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
