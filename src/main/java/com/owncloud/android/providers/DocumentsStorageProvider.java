@@ -67,7 +67,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
 
@@ -95,8 +95,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
 
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        if (Preferences.LOCK_PASSCODE.equals(appPrefs.getString(Preferences.PREFERENCE_LOCK, "")) ||
-            Preferences.LOCK_DEVICE_CREDENTIALS.equals(appPrefs.getString(Preferences.PREFERENCE_LOCK, ""))) {
+        if (SettingsActivity.LOCK_PASSCODE.equals(appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, "")) ||
+            SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, ""))) {
             return new FileCursor();
         }
 

@@ -84,10 +84,10 @@ import androidx.core.content.res.ResourcesCompat;
  *
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
-public class Preferences extends PreferenceActivity
+public class SettingsActivity extends PreferenceActivity
         implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface {
 
-    private static final String TAG = Preferences.class.getSimpleName();
+    private static final String TAG = SettingsActivity.class.getSimpleName();
 
     public static final String PREFERENCE_LOCK= "lock";
 

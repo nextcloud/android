@@ -27,11 +27,11 @@ import android.os.PowerManager;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.owncloud.android.MainApp;
 import com.nextcloud.client.preferences.PreferenceManager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.PassCodeActivity;
-import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 
 import java.util.HashSet;
@@ -119,7 +119,7 @@ public final class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        return Preferences.LOCK_PASSCODE.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()));
+        return SettingsActivity.LOCK_PASSCODE.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()));
     }
 
     private boolean deviceCredentialsShouldBeRequested(Long timestamp, Activity activity) {
@@ -128,7 +128,7 @@ public final class PassCodeManager {
     }
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
-        return Preferences.LOCK_DEVICE_CREDENTIALS.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()))
+        return SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(PreferenceManager.getLockPreference(MainApp.getAppContext()))
                 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                         (PreferenceManager.isUseFingerprint(MainApp.getAppContext())
                                 && DeviceCredentialUtils.areCredentialsAvailable(activity));

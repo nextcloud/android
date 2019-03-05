@@ -40,6 +40,8 @@ import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -51,8 +53,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -60,7 +60,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
-import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -132,8 +132,8 @@ public class MainApp extends MultiDexApplication {
 
         fixStoragePath();
 
-        MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH,
-                getApplicationContext().getFilesDir().getAbsolutePath());
+        MainApp.storagePath = appPrefs.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                                 getApplicationContext().getFilesDir().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
@@ -243,12 +243,12 @@ public class MainApp extends MultiDexApplication {
         if (!PreferenceManager.getStoragePathFix(this)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
-                String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
+                String storagePath = appPrefs.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH, "");
                 if (TextUtils.isEmpty(storagePath)) {
                     if (PreferenceManager.getLastSeenVersionCode(this) != 0) {
                         // We already used the app, but no storage is set - fix that!
-                        appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
-                                Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                        appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                                  Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                         appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                     } else {
                         // find internal storage path that's indexable
@@ -256,8 +256,8 @@ public class MainApp extends MultiDexApplication {
                         for (StoragePoint storagePoint : storagePoints) {
                             if (storagePoint.getStorageType().equals(StoragePoint.StorageType.INTERNAL) &&
                                     storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
-                                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
-                                        storagePoint.getPath()).commit();
+                                appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                                          storagePoint.getPath()).commit();
                                 appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                                 set = true;
                                 break;
@@ -267,8 +267,8 @@ public class MainApp extends MultiDexApplication {
                         if (!set) {
                             for (StoragePoint storagePoint : storagePoints) {
                                 if (storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
-                                    appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
-                                            storagePoint.getPath()).commit();
+                                    appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                                              storagePoint.getPath()).commit();
                                     appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                                     set = true;
                                     break;
@@ -284,8 +284,8 @@ public class MainApp extends MultiDexApplication {
                 }
             } else {
                 if (TextUtils.isEmpty(storagePath)) {
-                    appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
-                            Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                    appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                              Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                 }
                 appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                 PreferenceManager.setStoragePathFix(this, true);

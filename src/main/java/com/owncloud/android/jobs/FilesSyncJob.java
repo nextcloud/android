@@ -42,7 +42,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeType;
@@ -152,7 +152,7 @@ public class FilesSyncJob extends Job {
             if (lightVersion) {
                 needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging);
                 needsWifi = account == null || arbitraryDataProvider.getBooleanValue(account.name,
-                        Preferences.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
+                                                                                     SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
                 String uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour);
                 uploadAction = getUploadAction(uploadActionString);
 
