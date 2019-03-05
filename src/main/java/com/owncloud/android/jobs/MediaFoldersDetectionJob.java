@@ -36,6 +36,7 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.google.gson.Gson;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -106,8 +107,8 @@ public class MediaFoldersDetectionJob extends Job {
             arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(new
                 MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)));
 
-
-            if (PreferenceManager.isShowMediaScanNotifications(context)) {
+            final AppPreferences preferences = PreferenceManager.fromContext(getContext());
+            if (preferences.isShowMediaScanNotifications()) {
                 imageMediaFolderPaths.removeAll(mediaFoldersModel.getImageMediaFolders());
                 videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
@@ -225,10 +226,11 @@ public class MediaFoldersDetectionJob extends Job {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
+            final AppPreferences preferences = PreferenceManager.fromContext(context);
 
             if (DISABLE_DETECTION_CLICK.equals(action)) {
                 Log_OC.d(this, "Disable media scan notifications");
-                PreferenceManager.setShowMediaScanNotifications(context, false);
+                preferences.setShowMediaScanNotifications(false);
                 cancel(context, notificationId);
             }
         }
