@@ -8,6 +8,7 @@
     <string name="account_not_found">Llogaria nuk u gjet!</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
     <string name="action_clear_successful_uploads">Fshi ngarkimet e suksesshme</string>
+    <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
     <string name="action_empty_trashbin">Boshatis koshin e plehrave</string>
     <string name="action_force_rescan">Riskanim i detyruar</string>
     <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
@@ -77,6 +78,8 @@
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_wrong_connection_title">S’u vendos dot lidhja</string>
     <string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni adresën e serverit</string>
+    <string name="authentication_exception">Përjashtim nga autentifikimi</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">mbajtur në dosjen origjinale, pasi ajo është e vetëm e lexueshme</string>
     <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
@@ -84,10 +87,14 @@
     <string name="avatar">Avatari</string>
     <string name="battery_optimization_close">Mbylleni</string>
     <string name="battery_optimization_disable">Çaktivizoje</string>
+    <string name="battery_optimization_message">Pajisja juaj mund të aktivizohet nga optimizimi i baterisë. AutoUpload funksionon  si duhet vetëm nëse e përjashton këtë aplikacion nga ai.</string>
+    <string name="battery_optimization_no_setting">Nuk mund të fillojnë drejtpërdrejt cilësimet e baterisë. Ju lutemi përshtateni manualisht tek cilësimet.</string>
+    <string name="battery_optimization_title">Optimizimi i baterive</string>
     <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Zgjidhni dosjen lokale…</string>
     <string name="choose_remote_folder">Zhgjidhni dosjen remote…</string>
+    <string name="clear_notifications_failed">Dështoi pastrimi i njoftimeve.</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
     <string name="clipboard_text_copied">Linku u kopjua</string>
@@ -111,6 +118,7 @@
     <string name="common_switch_account">Ndrysho Llogarinë</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_yes">Po</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfiguro</string>
     <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
@@ -153,6 +161,7 @@
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
+    <string name="delete_entries">Fshini shënimet</string>
     <string name="deselect_all">Hiqi të gjithë</string>
     <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>
     <string name="dev_version_no_information_available">Nuk ka informacion në gjëndje.</string>
@@ -160,6 +169,7 @@
     <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i gatshëm në telefonin tuaj.</string>
     <string name="disable_new_media_folder_detection_notifications">Çaktivizoje</string>
     <string name="dismiss">Hiq</string>
+    <string name="dismiss_notification_description">Hiq lajmërimin</string>
     <string name="downloader_download_failed_content">S\'mund të shkarkohej %1$s</string>
     <string name="downloader_download_failed_credentials_error">Shkarkimi dështoi, hyni përsëri</string>
     <string name="downloader_download_failed_ticker">Shkarkimi dështoi</string>
@@ -218,6 +228,7 @@
     <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
     <string name="error_comment_file">Gabim gjatë komentimit të skedarit</string>
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
+    <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>
     <string name="fallback_weblogin_back">Prapa</string>
     <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
@@ -225,6 +236,7 @@
     <string name="favorite_icon">E parapëlqyer</string>
     <string name="feedback_no_mail_app">Nuk ka asnjë aplikacion në dispozicion për të dërguar mesazhe!</string>
     <string name="file_delete">Fshini</string>
+    <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>
     <string name="file_icon">Skedar </string>
     <string name="file_keep">Mbaje</string>
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
@@ -313,9 +325,11 @@
     <string name="hint_name">Emër</string>
     <string name="hint_note">Shënim</string>
     <string name="hint_password">Fjalëkalimi</string>
+    <string name="host_not_available">Serveri nuk është i disponueshëm</string>
     <string name="host_your_own_server">Hostoni serverin tuaj</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">Gabim IO</string>
     <string name="learn_more">Mësoni më shumë</string>
     <string name="link">Link</string>
     <string name="list_layout">Strukturë e listuar</string>
@@ -367,11 +381,13 @@
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
+    <string name="new_notification">Njoftim i ri</string>
     <string name="new_version_was_created">U krijua versioni i ri</string>
     <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
     <string name="no_pdf_app_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar PDF</string>
     <string name="note_confirm">Dërgo</string>
     <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
+    <string name="notification_action_failed">Dështoi ekzekutimi i veprimeve.</string>
     <string name="notification_channel_download_description">Tregon progresin e shkarkimit</string>
     <string name="notification_channel_download_name">Shkarko kanalin e njoftimeve</string>
     <string name="notification_channel_file_observer_description">Monitoron skedarët për ndryshime</string>
