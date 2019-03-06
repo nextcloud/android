@@ -109,5 +109,8 @@ public interface AppPreferences {
     float getGridColumns();
     void setGridColumns(float gridColumns);
 
+    long getLockTimestamp();
+    void setLockTimestamp(long timestamp);
+
     void removeLegacyPreferences();
 }

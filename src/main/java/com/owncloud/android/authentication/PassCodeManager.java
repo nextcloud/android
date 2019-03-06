@@ -78,7 +78,7 @@ public final class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        Long timestamp = PreferenceManager.getLockTimestamp(activity);
+        Long timestamp = PreferenceManager.fromContext(activity).getLockTimestamp();
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
@@ -110,7 +110,7 @@ public final class PassCodeManager {
     }
 
     private void setUnlockTimestamp(Activity activity) {
-        PreferenceManager.setLockTimestamp(activity, System.currentTimeMillis());
+        PreferenceManager.fromContext(activity).setLockTimestamp(System.currentTimeMillis());
     }
 
     private boolean passCodeShouldBeRequested(Long timestamp) {
