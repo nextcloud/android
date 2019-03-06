@@ -1,15 +1,21 @@
 package com.nextcloud.client.preferences;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestPreferenceManager {
+
+    @Mock
+    private Context testContext;
 
     @Mock
     private SharedPreferences sharedPreferences;
@@ -21,10 +27,9 @@ public class TestPreferenceManager {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         when(editor.remove(anyString())).thenReturn(editor);
         when(sharedPreferences.edit()).thenReturn(editor);
-        appPreferences = new PreferenceManager(sharedPreferences);
+        appPreferences = new PreferenceManager(testContext, sharedPreferences);
     }
 
     @Test

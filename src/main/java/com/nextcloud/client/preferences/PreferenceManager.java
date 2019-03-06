@@ -27,7 +27,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -69,14 +68,17 @@ public final class PreferenceManager implements AppPreferences {
     public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
+    private final Context context;
     private final SharedPreferences preferences;
 
     public static AppPreferences fromContext(Context context) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context.getApplicationContext());
-        return new PreferenceManager(prefs);
+        Context appContext = context.getApplicationContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(appContext);
+        return new PreferenceManager(appContext, prefs);
     }
 
-    PreferenceManager(SharedPreferences preferences) {
+    PreferenceManager(Context appContext, SharedPreferences preferences) {
+        this.context = appContext;
         this.preferences = preferences;
     }
 
@@ -218,39 +220,24 @@ public final class PreferenceManager implements AppPreferences {
         setFolderPreference(context, PREF__FOLDER_LAYOUT, folder, layout_name);
     }
 
-    /**
-     * Get preferred folder sort order.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
-     */
-    public static FileSortOrder getSortOrderByFolder(Context context, OCFile folder) {
+    @Override
+    public FileSortOrder getSortOrderByFolder(OCFile folder) {
         return FileSortOrder.sortOrders.get(getFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder,
             FileSortOrder.sort_a_to_z.name));
     }
 
-    /**
-     * Set preferred folder sort order.
-     *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
-     * @param sortOrder the sort order
-     */
-    public static void setSortOrder(Context context, OCFile folder, FileSortOrder sortOrder) {
+    @Override
+    public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
         setFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder, sortOrder.name);
     }
 
-    public static FileSortOrder getSortOrderByType(Context context, FileSortOrder.Type type) {
-        return getSortOrderByType(context, type, FileSortOrder.sort_a_to_z);
+    @Override
+    public FileSortOrder getSortOrderByType(FileSortOrder.Type type) {
+        return getSortOrderByType(type, FileSortOrder.sort_a_to_z);
     }
 
-    /**
-     * Get preferred folder sort order.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
-     */
-    public static FileSortOrder getSortOrderByType(Context context, FileSortOrder.Type type,
-                                                   FileSortOrder defaultOrder) {
+    @Override
+    public FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
 
         if (account == null) {
@@ -264,16 +251,10 @@ public final class PreferenceManager implements AppPreferences {
         return value.isEmpty() ? defaultOrder : FileSortOrder.sortOrders.get(value);
     }
 
-    /**
-     * Set preferred folder sort order.
-     *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
-     * @param sortOrder the sort order
-     */
-    public static void setSortOrder(Context context, FileSortOrder.Type type, FileSortOrder sortOrder) {
+    @Override
+    public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-
         dataProvider.storeOrUpdateKeyValue(account.name, PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
@@ -296,11 +277,7 @@ public final class PreferenceManager implements AppPreferences {
         }
 
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
-
-        if (storageManager == null) {
-            storageManager = new FileDataStorageManager(account, context.getContentResolver());
-        }
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
         String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
         while (folder != null && value.isEmpty()) {

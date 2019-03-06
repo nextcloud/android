@@ -134,6 +134,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String DESKTOP_FILE_SUFFIX = ".desktop";
     public static final int SINGLE_PARENT = 1;
 
+    private AppPreferences preferences;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -159,7 +160,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
     private ProgressBar mEmptyListProgress;
-    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,7 +255,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     public void onSortingOrderChosen(FileSortOrder newSortOrder) {
-        PreferenceManager.setSortOrder(getBaseContext(), mFile, newSortOrder);
+        preferences.setSortOrder(mFile, newSortOrder);
         populateDirectoryList();
     }
 
@@ -876,7 +876,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private List<OCFile> sortFileList(List<OCFile> files) {
-        FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(this, mFile);
+        FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
         return sortOrder.sortCloudFiles(files);
     }
 
@@ -1098,7 +1098,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 break;
             case R.id.action_sort:
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    PreferenceManager.getSortOrderByFolder(this, mFile));
+                    preferences.getSortOrderByFolder(mFile));
                 mSortingOrderDialogFragment.show(getSupportFragmentManager(),
                         SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
                 break;

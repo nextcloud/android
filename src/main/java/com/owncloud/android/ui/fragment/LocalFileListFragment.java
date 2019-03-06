@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -48,6 +51,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LocalFileListFragment extends ExtendedListFragment implements LocalFileListFragmentInterface {
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
 
+    private AppPreferences preferences;
+
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
 
@@ -56,6 +61,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
 
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        preferences = PreferenceManager.fromContext(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +122,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                mContainerActivity.getInitialDirectory(), this, getActivity());
+                mContainerActivity.getInitialDirectory(), this, preferences, getActivity());
         setRecyclerViewAdapter(mAdapter);
 
         listDirectory(mContainerActivity.getInitialDirectory());
