@@ -242,7 +242,7 @@
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
     <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
-    <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i katalogi oznaczone jako ulubione</string>
+    <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i katalogi oznaczone jako ulubione.</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
@@ -427,7 +427,7 @@
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="participate_release_candidate_headline">Release Candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Testowanie indywidualnej konfiguracji może nam w tym pomóc. Zarejestruj się, aby przetestować w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
@@ -470,7 +470,7 @@
     <string name="prefs_enable_media_scan_notifications">Pokaż powiadomienia o skanowaniu multimediów</string>
     <string name="prefs_enable_media_scan_notifications_summary">Powiadamiaj o nowo znalezionych katalogach multimedialnych</string>
     <string name="prefs_feedback">Opinie</string>
-    <string name="prefs_gpl_v2">Publiczna Licencja GNU, wersja 2</string>
+    <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
@@ -490,7 +490,7 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
-    <string name="prefs_storage_path">Lokalizacja zapisywania</string>
+    <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
     <string name="preview_image_description">Podgląd</string>
@@ -664,7 +664,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
-    <string name="trashbin_empty_message">Stąd będziesz mógł odzyskać usunięte pliki</string>
+    <string name="trashbin_empty_message">Stąd będziesz mógł odzyskać usunięte pliki.</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
     <string name="trashbin_loading_failed">Ładowanie kosza nie powiodło się!</string>

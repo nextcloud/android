@@ -604,6 +604,8 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- תוקף תעודת השרת מתייחס לתאריכים בעתיד</string>
     <string name="ssl_validator_reason_hostname_not_verified">- הכתובת אינה תואמת לשם המארח בתעודה</string>
     <string name="storage_description_default">ברירת מחדל</string>
+    <string name="storage_documents">מסמכי</string>
+    <string name="storage_downloads">הורדות</string>
     <string name="store_short_desc">יישומון Nextcloud ל־Android מעניק לך גישה דרך הטלפון הנייד לכל הקבצים שלך ב־Nextcloud.</string>
     <string name="store_short_dev_desc">יישומון הפיתוח של Nextcloud הוא יישומון למטרות פיתוח ולא ניתן להתקין אותו במקביל.</string>
     <string name="stream">הזרמה עם…</string>

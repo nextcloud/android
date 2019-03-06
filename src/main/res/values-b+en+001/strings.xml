@@ -78,6 +78,7 @@
     <string name="auth_username">Username</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
     <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
+    <string name="authentication_exception">Authentication Exception</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Host your own server</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">IO error</string>
     <string name="learn_more">Learn more</string>
     <string name="link">Link</string>
     <string name="list_layout">Listed layout</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
     <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
     <string name="offline_mode">No internet connection</string>
+    <string name="operation_canceled">Operation has been canceled</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="participate_beta_headline">Test the dev version</string>
@@ -573,9 +576,11 @@
     <string name="share_with_edit_title">Share with %1$s</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_with_user_section_title">Share with users and groups</string>
+    <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_icon_share">share</string>
     <string name="shared_icon_shared">shared</string>
     <string name="shared_icon_shared_via_link">shared via link</string>
+    <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
@@ -611,7 +616,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- The server certificate valid dates are in the future</string>
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
+    <string name="storage_camera">Camera</string>
+    <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_description_default">Default</string>
+    <string name="storage_documents">Documents</string>
+    <string name="storage_downloads">Downloads</string>
+    <string name="storage_internal_storage">Internal storage</string>
+    <string name="storage_movies">Movies</string>
+    <string name="storage_music">Music</string>
+    <string name="storage_pictures">Pictures</string>
     <string name="store_full_desc">The copylefted libre Nextcloud Android app, giving you mobile freedom.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="store_full_dev_desc">The copylefted libre Nextcloud Android app, gives you mobile freedom.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
     <string name="store_short_desc">The Nextcloud Android app gives mobile access to all files on your Nextcloud.</string>
