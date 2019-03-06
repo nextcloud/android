@@ -1,4 +1,4 @@
-    /*
+/*
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -21,74 +21,74 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.accounts.Account;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-    import android.accounts.Account;
-    import android.content.ContentValues;
-    import android.content.Context;
-    import android.content.res.Resources;
-    import android.graphics.Bitmap;
-    import android.graphics.Color;
-    import android.graphics.drawable.Drawable;
-    import android.os.Handler;
-    import android.os.Looper;
-    import android.text.TextUtils;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.widget.Filter;
-    import android.widget.ImageView;
-    import android.widget.LinearLayout;
-    import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.ProviderMeta;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.RemoteOperationFailedException;
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
+import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
-    import com.bumptech.glide.Glide;
-    import com.bumptech.glide.request.target.BitmapImageViewTarget;
-    import com.owncloud.android.R;
-    import com.owncloud.android.authentication.AccountUtils;
-    import com.owncloud.android.datamodel.FileDataStorageManager;
-    import com.owncloud.android.datamodel.OCFile;
-    import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-    import com.owncloud.android.datamodel.VirtualFolderType;
-    import com.owncloud.android.db.ProviderMeta;
-    import com.owncloud.android.files.services.FileDownloader;
-    import com.owncloud.android.files.services.FileUploader;
-    import com.owncloud.android.lib.common.operations.RemoteOperation;
-    import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-    import com.owncloud.android.lib.common.utils.Log_OC;
-    import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-    import com.owncloud.android.lib.resources.files.model.RemoteFile;
-    import com.owncloud.android.lib.resources.shares.OCShare;
-    import com.owncloud.android.lib.resources.shares.ShareType;
-    import com.owncloud.android.operations.RefreshFolderOperation;
-    import com.owncloud.android.operations.RemoteOperationFailedException;
-    import com.owncloud.android.services.OperationsService;
-    import com.owncloud.android.ui.TextDrawable;
-    import com.owncloud.android.ui.activity.ComponentsGetter;
-    import com.owncloud.android.ui.fragment.ExtendedListFragment;
-    import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
-    import com.owncloud.android.utils.DisplayUtils;
-    import com.owncloud.android.utils.FileSortOrder;
-    import com.owncloud.android.utils.FileStorageUtils;
-    import com.owncloud.android.utils.MimeTypeUtil;
-    import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.client.preferences.PreferenceManager;
 
-    import com.nextcloud.client.preferences.PreferenceManager;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.Vector;
 
-    import java.io.File;
-    import java.util.ArrayList;
-    import java.util.HashSet;
-    import java.util.List;
-    import java.util.Locale;
-    import java.util.Set;
-    import java.util.Vector;
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    import androidx.annotation.NonNull;
-    import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-    import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-    import androidx.recyclerview.widget.RecyclerView;
-    import butterknife.BindView;
-    import butterknife.ButterKnife;
-
-    /**
+/**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
  */
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -99,6 +99,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final FileUploader.FileUploaderBinder uploaderBinder;
     private final OperationsService.OperationsServiceBinder operationsServiceBinder;
     private Context mContext;
+    private AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
@@ -121,12 +122,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
 
-    public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
+    public OCFileListAdapter(Context context, AppPreferences preferences, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
                              boolean gridView) {
 
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         mContext = context;
+        this.preferences = preferences;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mHideItemOptions = argHideItemOptions;
         this.gridView = gridView;
@@ -188,7 +190,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, currentDirectory);
+        FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         mFiles = sortOrder.sortCloudFiles(mFiles);
 
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
@@ -623,7 +625,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!limitToMimeType.isEmpty()) {
                 mFiles = filterByMimeType(mFiles, limitToMimeType);
             }
-            FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, directory);
+            FileSortOrder sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
@@ -667,7 +669,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 searchType != ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER &&
                 searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH &&
                 searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
-            FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, folder);
+            FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
             mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
@@ -773,7 +775,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(mContext, folder, sortOrder);
+        preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
     }
@@ -847,7 +849,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
-                FileSortOrder sortOrder = PreferenceManager.getSortOrderByFolder(mContext, currentDirectory);
+                FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
                 mFiles = sortOrder.sortCloudFiles(mFiles);
             }
 

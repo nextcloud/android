@@ -20,6 +20,9 @@
 
 package com.nextcloud.client.preferences;
 
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.FileSortOrder;
+
 public interface AppPreferences {
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
@@ -116,6 +119,35 @@ public interface AppPreferences {
 
     boolean isAutoUploadInitialized();
     void setAutoUploadInit(boolean autoUploadInit);
+
+    /**
+     * Get preferred folder sort order.
+     *
+     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     */
+    FileSortOrder getSortOrderByFolder(OCFile folder);
+
+    /**
+     * Set preferred folder sort order.
+     *
+     * @param sortOrder the sort order
+     */
+    void setSortOrder(OCFile folder, FileSortOrder sortOrder);
+
+    /**
+     * Set preferred folder sort order.
+     *
+     * @param sortOrder the sort order
+     */
+    void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder);
+
+    /**
+     * Get preferred folder sort order.
+     *
+     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     */
+    FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder);
+    FileSortOrder getSortOrderByType(FileSortOrder.Type type);
 
     boolean isShowDetailedTimestampEnabled();
     void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
