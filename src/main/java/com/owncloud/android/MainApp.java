@@ -303,7 +303,8 @@ public class MainApp extends MultiDexApplication {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries();
             } else {
-                PreferenceManager.setAutoUploadSplitEntries(getAppContext(), true);
+                AppPreferences preferences = PreferenceManager.fromContext(getAppContext());
+                preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
 
@@ -536,7 +537,8 @@ public class MainApp extends MultiDexApplication {
     private static void updateAutoUploadEntries() {
         // updates entries to reflect their true paths
         Context context = getAppContext();
-        if (!PreferenceManager.getAutoUploadPathsUpdate(context)) {
+        AppPreferences preferences = PreferenceManager.fromContext(context);
+        if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
                     new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
             syncedFolderProvider.updateAutoUploadPaths(mContext);
@@ -545,7 +547,8 @@ public class MainApp extends MultiDexApplication {
 
     private static void splitOutAutoUploadEntries() {
         Context context = getAppContext();
-        if (!PreferenceManager.getAutoUploadSplitEntries(context)) {
+        AppPreferences preferences = PreferenceManager.fromContext(context);
+        if (!preferences.isAutoUploadSplitEntriesEnabled()) {
             // magic to split out existing synced folders in two when needed
             // otherwise, we migrate them to their proper type (image or video)
             Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
@@ -593,13 +596,14 @@ public class MainApp extends MultiDexApplication {
                 syncedFolderProvider.deleteSyncedFolder(id);
             }
 
-            PreferenceManager.setAutoUploadSplitEntries(context, true);
+            preferences.setAutoUploadSplitEntriesEnabled(true);
         }
     }
 
     private static void initiateExistingAutoUploadEntries() {
         new Thread(() -> {
-            if (!PreferenceManager.getAutoUploadInit(getAppContext())) {
+            AppPreferences preferences = PreferenceManager.fromContext(getAppContext());
+            if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
                         new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
 
@@ -609,7 +613,7 @@ public class MainApp extends MultiDexApplication {
                     }
                 }
 
-                PreferenceManager.setAutoUploadInit(getAppContext(), true);
+                preferences.setAutoUploadInit(true);
             }
 
         }).start();
