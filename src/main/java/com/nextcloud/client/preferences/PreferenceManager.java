@@ -354,10 +354,6 @@ public final class PreferenceManager implements AppPreferences {
         return preferenceName + "_" + folderIdString;
     }
 
-    public static boolean getAutoUploadInit(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_INIT, false);
-    }
-
     /**
      * Gets the legacy cleaning flag last set.
      *
@@ -376,25 +372,34 @@ public final class PreferenceManager implements AppPreferences {
         return getDefaultSharedPreferences(context).getBoolean(PREF__FIX_STORAGE_PATH, false);
     }
 
-
-    /**
-     * Gets the auto upload paths flag last set.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the legacy cleaning flag, default is false
-     */
-    public static boolean getAutoUploadPathsUpdate(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false);
+    @Override
+    public boolean isAutoUploadPathsUpdateEnabled() {
+        return preferences.getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false);
     }
 
-    /**
-     * Gets the auto upload split out flag last set.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the legacy cleaning flag, default is false
-     */
-    public static boolean getAutoUploadSplitEntries(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false);
+    @Override
+    public void setAutoUploadPathsUpdateEnabled(boolean pathUpdate) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate).apply();
+    }
+
+    @Override
+    public boolean isAutoUploadSplitEntriesEnabled() {
+        return preferences.getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false);
+    }
+
+    @Override
+    public void setAutoUploadSplitEntriesEnabled(boolean splitOut) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut).apply();
+    }
+
+    @Override
+    public boolean isAutoUploadInitialized() {
+        return preferences.getBoolean(PREF__AUTO_UPLOAD_INIT, false);
+    }
+
+    @Override
+    public void setAutoUploadInit(boolean autoUploadInit) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_INIT, autoUploadInit).apply();
     }
 
     /**
@@ -413,30 +418,6 @@ public final class PreferenceManager implements AppPreferences {
 
     public static void setStoragePathFix(Context context, boolean storagePathFix) {
         saveBooleanPreference(context, PREF__FIX_STORAGE_PATH, storagePathFix);
-    }
-
-    public static void setAutoUploadInit(Context context, boolean autoUploadInit) {
-        saveBooleanPreference(context, PREF__AUTO_UPLOAD_INIT, autoUploadInit);
-    }
-
-    /**
-     * Saves the legacy cleaning flag which the user has set last.
-     *
-     * @param context    Caller {@link Context}, used to access to shared preferences manager.
-     * @param pathUpdate flag if it is a auto upload path update
-     */
-    public static void setAutoUploadPathsUpdate(Context context, boolean pathUpdate) {
-        saveBooleanPreference(context, PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate);
-    }
-
-    /**
-     * Saves the flag for split entries magic
-     *
-     * @param context    Caller {@link Context}, used to access to shared preferences manager.
-     * @param splitOut flag if it is a auto upload path update
-     */
-    public static void setAutoUploadSplitEntries(Context context, boolean splitOut) {
-        saveBooleanPreference(context, PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut);
     }
 
     @Override
