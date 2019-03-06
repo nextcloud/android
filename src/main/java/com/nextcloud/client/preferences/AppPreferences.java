@@ -24,8 +24,70 @@ public interface AppPreferences {
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
 
-    void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
+    /**
+     * Gets the selected file extension position the user selected to do the
+     * last upload of a url file shared from other app.
+     *
+     * @return selectedPos     the selected file extension position.
+     */
+    int getUploadUrlFileExtensionUrlSelectedPos();
+
+    /**
+     * Saves the selected file extension position the user selected to do the
+     * last upload of a url file shared from other app.
+     *
+     * @param selectedPos the selected file extension position.
+     */
+    void setUploadUrlFileExtensionUrlSelectedPos(int selectedPos);
+
+    /**
+     * Gets the selected map file extension position the user selected to
+     * do the last upload of a url file shared from other app.
+     *
+     * @return selectedPos     the selected file extension position.
+     */
+    int getUploadMapFileExtensionUrlSelectedPos();
+
+    /**
+     * Saves the selected map file extension position the user selected to
+     * do the last upload of a url file shared from other app.
+     *
+     * @param selectedPos the selected file extension position.
+     */
+    void setUploadMapFileExtensionUrlSelectedPos(int selectedPos);
+
+    /**
+     * Gets the last local path where the user selected to do an upload from.
+     *
+     * @return path     Absolute path to a folder, as previously stored by
+     * {@link #setUploadFromLocalLastPath(String)}, or empty String if never saved before.
+     */
+    String getUploadFromLocalLastPath();
+
+    /**
+     * Saves the path where the user selected to do the last local upload of a file from.
+     *
+     * @param path    Absolute path to a folder.
+     */
+    void setUploadFromLocalLastPath(String path);
+
+    /**
+     * Gets the path where the user selected to do the last upload of a file shared from other app.
+     *
+     * @return path     Absolute path to a folder, as previously stored by {@link #setLastUploadPath(String)},
+     * or empty String if never saved before.
+     */
+    String getLastUploadPath();
+
+    /**
+     * Saves the path where the user selected to do the last upload of a file shared from other app.
+     *
+     * @param path    Absolute path to a folder.
+     */
+    void setLastUploadPath(String path);
+
     boolean isShowDetailedTimestampEnabled();
+    void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
 
     boolean isShowMediaScanNotifications();
     void setShowMediaScanNotifications(boolean showMediaScanNotification);

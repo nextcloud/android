@@ -60,6 +60,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -158,6 +159,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
     private ProgressBar mEmptyListProgress;
+    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +177,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
         super.onCreate(savedInstanceState);
+        preferences = PreferenceManager.fromContext(this);
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
@@ -340,6 +343,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         private int mFileCategory;
 
         private Spinner mSpinner;
+        private AppPreferences preferences;
 
         public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
             DialogInputUploadFilename dialog = new DialogInputUploadFilename();
@@ -348,6 +352,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             args.putString(KEY_EXTRA_TEXT, extraText);
             dialog.setArguments(args);
             return dialog;
+        }
+
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            preferences = PreferenceManager.fromContext(context);
         }
 
         @NonNull
@@ -401,7 +411,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
                 adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
 
-                selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
+                selectPos = preferences.getUploadUrlFileExtensionUrlSelectedPos();
                 mFileCategory = CATEGORY_URL;
             } else if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
@@ -421,7 +431,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
                 adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
 
-                selectPos = PreferenceManager.getUploadMapFileExtensionUrlSelectedPos(getActivity());
+                selectPos = preferences.getUploadMapFileExtensionUrlSelectedPos();
                 mFileCategory = CATEGORY_MAPS_URL;
             }
 
@@ -501,10 +511,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         private void saveSelection(int selectPos) {
             switch (mFileCategory) {
                 case CATEGORY_URL:
-                    PreferenceManager.setUploadUrlFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    preferences.setUploadUrlFileExtensionUrlSelectedPos(selectPos);
                     break;
                 case CATEGORY_MAPS_URL:
-                    PreferenceManager.setUploadMapFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    preferences.setUploadMapFileExtensionUrlSelectedPos(selectPos);
                     break;
                 default:
                     Log_OC.d(TAG, "Simple text snippet only: no selection to be persisted");
@@ -948,7 +958,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
-        PreferenceManager.setLastUploadPath(this, mUploadPath);
+        preferences.setLastUploadPath(mUploadPath);
 
         if (resultCode == UriUploader.UriUploaderResultCode.OK) {
             finish();
@@ -1022,7 +1032,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         if (mParents.empty()) {
-            String lastPath = PreferenceManager.getLastUploadPath(this);
+            String lastPath = preferences.getLastUploadPath();
             // "/" equals root-directory
             if ("/".equals(lastPath)) {
                 mParents.add("");

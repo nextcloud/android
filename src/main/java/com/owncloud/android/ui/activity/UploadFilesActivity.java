@@ -42,6 +42,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -119,11 +120,13 @@ public class UploadFilesActivity extends FileActivity implements
     public static final String REQUEST_CODE_KEY = "requestCode";
     private int requestCode;
     private LocalStoragePathPickerDialogFragment dialog;
+    private AppPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
+        preferences = PreferenceManager.fromContext(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -136,7 +139,7 @@ public class UploadFilesActivity extends FileActivity implements
                     .getExternalStorageDirectory().getAbsolutePath()));
             mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
-            String lastUploadFrom = PreferenceManager.getUploadFromLocalLastPath(this);
+            String lastUploadFrom = preferences.getUploadFromLocalLastPath();
 
             if (!lastUploadFrom.isEmpty()) {
                 mCurrentDir = new File(lastUploadFrom);
@@ -631,8 +634,9 @@ public class UploadFilesActivity extends FileActivity implements
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            PreferenceManager.setUploadFromLocalLastPath(this, mCurrentDir.getAbsolutePath());
-
+            if(mCurrentDir != null) {
+                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+            }
             if (mLocalFolderPickerMode) {
                 Intent data = new Intent();
                 if (mCurrentDir != null) {
