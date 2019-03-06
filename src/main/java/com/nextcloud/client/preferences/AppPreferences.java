@@ -143,5 +143,19 @@ public interface AppPreferences {
     long getLockTimestamp();
     void setLockTimestamp(long timestamp);
 
+    /**
+     * Gets the last seen version code right before updating.
+     *
+     * @return grid columns     grid columns
+     */
+    int getLastSeenVersionCode();
+
+    /**
+     * Saves the version code as the last seen version code.
+     *
+     * @param versionCode the app's version code
+     */
+    void setLastSeenVersionCode(int versionCode);
+
     void removeLegacyPreferences();
 }

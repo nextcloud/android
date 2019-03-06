@@ -450,24 +450,14 @@ public final class PreferenceManager implements AppPreferences {
         preferences.edit().putFloat(AUTO_PREF__GRID_COLUMNS, gridColumns).apply();
     }
 
-    /**
-     * Gets the last seen version code right before updating.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return grid columns     grid columns
-     */
-    public static int getLastSeenVersionCode(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, 0);
+    @Override
+    public int getLastSeenVersionCode() {
+        return preferences.getInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, 0);
     }
 
-    /**
-     * Saves the version code as the last seen version code.
-     *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
-     * @param versionCode the app's version code
-     */
-    public static void setLastSeenVersionCode(Context context, int versionCode) {
-        saveIntPreference(context, AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode);
+    @Override
+    public void setLastSeenVersionCode(int versionCode) {
+        preferences.edit().putInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode).apply();
     }
 
     public long getLockTimestamp() {
