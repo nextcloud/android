@@ -439,24 +439,14 @@ public final class PreferenceManager implements AppPreferences {
         saveBooleanPreference(context, PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut);
     }
 
-    /**
-     * Gets the uploader behavior which the user has set last.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return uploader behavior     the uploader behavior
-     */
-    public static int getUploaderBehaviour(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
+    @Override
+    public int getUploaderBehaviour() {
+        return preferences.getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
     }
 
-    /**
-     * Saves the uploader behavior which the user has set last.
-     *
-     * @param context           Caller {@link Context}, used to access to shared preferences manager.
-     * @param uploaderBehaviour the uploader behavior
-     */
-    public static void setUploaderBehaviour(Context context, int uploaderBehaviour) {
-        saveIntPreference(context, AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour);
+    @Override
+    public void setUploaderBehaviour(int uploaderBehaviour) {
+        preferences.edit().putInt(AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour).apply();
     }
 
     /**

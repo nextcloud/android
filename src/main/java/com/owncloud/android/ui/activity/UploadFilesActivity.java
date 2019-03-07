@@ -180,7 +180,7 @@ public class UploadFilesActivity extends FileActivity implements
         mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);
 
-        int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
+        int localBehaviour = preferences.getUploaderBehaviour();
 
         // file upload spinner
         mBehaviourSpinner = findViewById(R.id.upload_files_spinner_behaviour);
@@ -479,7 +479,7 @@ public class UploadFilesActivity extends FileActivity implements
                 data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
                 setResult(RESULT_OK_AND_MOVE, data);
 
-                PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_MOVE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 
@@ -499,8 +499,7 @@ public class UploadFilesActivity extends FileActivity implements
                 }
 
                 // store behaviour
-                PreferenceManager.setUploaderBehaviour(getApplicationContext(),
-                                                       mBehaviourSpinner.getSelectedItemPosition());
+                preferences.setUploaderBehaviour(mBehaviourSpinner.getSelectedItemPosition());
             }
 
             finish();
@@ -586,7 +585,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         if (canWriteIntoFolder) {
             textView.setText(getString(R.string.uploader_upload_files_behaviour));
-            int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
+            int localBehaviour = preferences.getUploaderBehaviour();
             mBehaviourSpinner.setSelection(localBehaviour);
         } else {
             mBehaviourSpinner.setSelection(1);

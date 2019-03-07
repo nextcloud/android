@@ -92,6 +92,20 @@ public interface AppPreferences {
     boolean isShowMediaScanNotifications();
     void setShowMediaScanNotifications(boolean showMediaScanNotification);
 
+    /**
+     * Gets the uploader behavior which the user has set last.
+     *
+     * @return uploader behavior     the uploader behavior
+     */
+    int getUploaderBehaviour();
+
+    /**
+     * Saves the uploader behavior which the user has set last.
+     *
+     * @param uploaderBehaviour the uploader behavior
+     */
+    void setUploaderBehaviour(int uploaderBehaviour);
+
     float getGridColumns();
     void setGridColumns(float gridColumns);
 
