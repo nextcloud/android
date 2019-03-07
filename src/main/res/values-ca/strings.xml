@@ -100,7 +100,7 @@
     <string name="common_pending">Pendent</string>
     <string name="common_remove">Esborra</string>
     <string name="common_rename">Reanomena</string>
-    <string name="common_save">Guarda</string>
+    <string name="common_save">Desa</string>
     <string name="common_send">Envia</string>
     <string name="common_switch_account">Canvia el compte</string>
     <string name="common_unknown">desconegut</string>
@@ -397,7 +397,7 @@
     <string name="prefs_lock_title">Bloqueig en ús</string>
     <string name="prefs_lock_using_device_credentials">Credencials del dispositiu</string>
     <string name="prefs_lock_using_passcode">Codi d\'accés</string>
-    <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
+    <string name="prefs_log_delete_history_button">Esborra l\'historial</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
