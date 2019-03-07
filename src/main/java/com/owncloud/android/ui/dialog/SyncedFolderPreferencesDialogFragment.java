@@ -229,6 +229,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.getSubfolderByDate());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
+
+        checkAndUpdateSaveButtonState();
     }
 
     /**
@@ -278,9 +280,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private void checkAndUpdateSaveButtonState() {
         if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
-            mView.findViewById(R.id.save).setEnabled(true);
+            mSave.setEnabled(true);
+            mSave.setAlpha(alphaEnabled);
         } else {
-            mView.findViewById(R.id.save).setEnabled(false);
+            mSave.setEnabled(false);
+            mSave.setAlpha(alphaDisabled);
         }
 
         checkWritableFolder();
