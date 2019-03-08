@@ -27,6 +27,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -262,7 +263,8 @@ public class SyncedFolderProvider extends Observable {
         }
 
         if (context != null) {
-            PreferenceManager.setAutoUploadPathsUpdate(context, true);
+            AppPreferences preferences = PreferenceManager.fromContext(context);
+            preferences.setAutoUploadPathsUpdateEnabled(true);
         }
     }
 
