@@ -54,6 +54,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.navigation.NavigationView;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -203,6 +204,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
+
+    private AppPreferences preferences;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -1150,6 +1153,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        preferences = PreferenceManager.fromContext(this);
+
         if (savedInstanceState != null) {
             mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
             mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
@@ -1254,7 +1259,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             if (result == RequestCredentialsActivity.KEY_CHECK_RESULT_CANCEL) {
                 Log_OC.d(TAG, "PassCodeManager cancelled");
-                PreferenceManager.setLockTimestamp(this, 0);
+                preferences.setLockTimestamp(0);
                 finish();
             }
         }
