@@ -36,6 +36,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -58,11 +59,13 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
     private ProgressIndicator progressIndicator;
+    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_run_activity);
+        preferences = PreferenceManager.fromContext(this);
 
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
 
@@ -168,7 +171,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
     private void onFinish() {
-        PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
+        preferences.setLastSeenVersionCode(MainApp.getVersionCode());
     }
 
     @Override

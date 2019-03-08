@@ -113,7 +113,8 @@ public class MainApp extends MultiDexApplication {
 
     private static boolean mOnlyOnDevice;
 
-    private SharedPreferences appPrefs;
+    private SharedPreferences sharedPreferences;
+    private AppPreferences preferences;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -128,11 +129,11 @@ public class MainApp extends MultiDexApplication {
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();
 
-        appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         fixStoragePath();
 
-        MainApp.storagePath = appPrefs.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+        MainApp.storagePath = sharedPreferences.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                                  getApplicationContext().getFilesDir().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
@@ -243,22 +244,22 @@ public class MainApp extends MultiDexApplication {
         if (!PreferenceManager.getStoragePathFix(this)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
-                String storagePath = appPrefs.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH, "");
+                String storagePath = sharedPreferences.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH, "");
                 if (TextUtils.isEmpty(storagePath)) {
-                    if (PreferenceManager.getLastSeenVersionCode(this) != 0) {
+                    if (preferences.getLastSeenVersionCode() != 0) {
                         // We already used the app, but no storage is set - fix that!
-                        appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                        sharedPreferences.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                                   Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
-                        appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                        sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                     } else {
                         // find internal storage path that's indexable
                         boolean set = false;
                         for (StoragePoint storagePoint : storagePoints) {
                             if (storagePoint.getStorageType().equals(StoragePoint.StorageType.INTERNAL) &&
                                     storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
-                                appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                sharedPreferences.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                                           storagePoint.getPath()).commit();
-                                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                                sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                                 set = true;
                                 break;
                             }
@@ -267,9 +268,9 @@ public class MainApp extends MultiDexApplication {
                         if (!set) {
                             for (StoragePoint storagePoint : storagePoints) {
                                 if (storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
-                                    appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                                    sharedPreferences.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                                               storagePoint.getPath()).commit();
-                                    appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                                    sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                                     set = true;
                                     break;
                                 }
@@ -279,15 +280,15 @@ public class MainApp extends MultiDexApplication {
                     }
                     PreferenceManager.setStoragePathFix(this, true);
                 } else {
-                    appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                    sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                     PreferenceManager.setStoragePathFix(this, true);
                 }
             } else {
                 if (TextUtils.isEmpty(storagePath)) {
-                    appPrefs.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
+                    sharedPreferences.edit().putString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                               Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                 }
-                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
                 PreferenceManager.setStoragePathFix(this, true);
             }
         }
