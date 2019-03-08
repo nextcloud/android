@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -53,11 +54,13 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
+    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
+        preferences = PreferenceManager.fromContext(this);
 
         int fontColor = getResources().getColor(R.color.login_text_color);
 
@@ -136,7 +139,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private void onFinish() {
-        PreferenceManager.setLastSeenVersionCode(this, MainApp.getVersionCode());
+        preferences.setLastSeenVersionCode(MainApp.getVersionCode());
     }
 
     public static void runIfNeeded(Context context) {
@@ -173,11 +176,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         return AccountUtils.getCurrentOwnCloudAccount(context) == null;
     }
 
-    static private FeatureItem[] getWhatsNew(Context context) {
+    private static FeatureItem[] getWhatsNew(Context context) {
         int itemVersionCode = 30030099;
+        AppPreferences preferences = PreferenceManager.fromContext(context);
 
         if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
-                && PreferenceManager.getLastSeenVersionCode(context) < itemVersionCode) {
+                && preferences.getLastSeenVersionCode() < itemVersionCode) {
             return new FeatureItem[]{new FeatureItem(R.drawable.whats_new_device_credentials,
                     R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
                     false, false)};
