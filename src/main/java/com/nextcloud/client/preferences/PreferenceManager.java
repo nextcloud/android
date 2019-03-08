@@ -489,12 +489,12 @@ public final class PreferenceManager implements AppPreferences {
         saveIntPreference(context, AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode);
     }
 
-    public static long getLockTimestamp(Context context) {
-        return getDefaultSharedPreferences(context).getLong(PREF__LOCK_TIMESTAMP, 0);
+    public long getLockTimestamp() {
+        return preferences.getLong(PREF__LOCK_TIMESTAMP, 0);
     }
 
-    public static void setLockTimestamp(Context context, long timestamp) {
-        saveLongPreference(context, PREF__LOCK_TIMESTAMP, timestamp);
+    public void setLockTimestamp(long timestamp) {
+        preferences.edit().putLong(PREF__LOCK_TIMESTAMP, timestamp).apply();
     }
 
     @Override
