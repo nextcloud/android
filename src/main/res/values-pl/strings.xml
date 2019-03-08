@@ -427,7 +427,7 @@
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="participate_release_candidate_headline">Release Candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie swojej indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
@@ -658,7 +658,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Zsynchronizowano</string>
-    <string name="tags">Tagi</string>
+    <string name="tags">Etykiety</string>
     <string name="test_server_button">Sprawdź połączenie z serwerem</string>
     <string name="thumbnail">Miniatura</string>
     <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>

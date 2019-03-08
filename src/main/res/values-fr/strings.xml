@@ -578,6 +578,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
     <string name="share_with_title">Partager avec…</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
+    <string name="shared_avatar_desc">Avatar de l\'utilisateur partagé</string>
     <string name="shared_icon_share">partage</string>
     <string name="shared_icon_shared">partagé</string>
     <string name="shared_icon_shared_via_link">partagé par lien</string>
