@@ -414,7 +414,7 @@
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="participate_beta_headline">Sprawdź wersję deweloperską</string>
-    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy występowaniu błędów, proszę je zgłosić do nas.</string>
+    <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy występowaniu błędów, proszę zgłosić je do nas.</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_forum_text">Pomóż innym na</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod, zajrzyj do %1$s, aby poznać szczegóły</string>
@@ -427,7 +427,7 @@
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="participate_release_candidate_headline">Release Candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie swojej indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie indywidualnej konfiguracji przez użytkownika. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
@@ -551,7 +551,7 @@
     <string name="share_link_password_title">Wprowadź hasło</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
-    <string name="share_no_users">Brak danych współdzielonych z użytkownikami</string>
+    <string name="share_no_users">Brak danych udostępnionych użytkownikom</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_privilege_can_edit">może edytować</string>
     <string name="share_privilege_can_edit_change">może zmienić</string>
