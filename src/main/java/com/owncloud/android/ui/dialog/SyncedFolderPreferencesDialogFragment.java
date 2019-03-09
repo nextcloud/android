@@ -195,10 +195,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
 
         mCancel = view.findViewById(R.id.cancel);
-        mCancel.setTextColor(accentColor);
+        ThemeUtils.themeDialogActionButton(mCancel);
 
         mSave = view.findViewById(R.id.save);
-        mSave.setTextColor(accentColor);
+        ThemeUtils.themeDialogActionButton(mSave);
 
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
