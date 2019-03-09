@@ -38,6 +38,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -384,6 +385,24 @@ public final class ThemeUtils {
             new int[]{
                 Color.GRAY,
                 color
+            }
+        ));
+    }
+
+    public static void themeDialogActionButton(MaterialButton button) {
+        if (button == null ) return;
+
+        Context context = button.getContext();
+        int accentColor = ThemeUtils.primaryAccentColor(button.getContext());
+        int disabledColor = ContextCompat.getColor(context, R.color.disabled_text);
+        button.setTextColor(new ColorStateList(
+            new int[][]{
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+            },
+            new int[]{
+                accentColor,
+                disabledColor
             }
         ));
     }
