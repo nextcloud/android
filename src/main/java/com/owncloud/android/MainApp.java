@@ -130,7 +130,7 @@ public class MainApp extends MultiDexApplication {
         DisplayUtils.useCompatVectorIfNeeded();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        preferences = PreferenceManager.fromContext(this);
         fixStoragePath();
 
         MainApp.storagePath = sharedPreferences.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
