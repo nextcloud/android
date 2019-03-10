@@ -3,8 +3,8 @@
     <string name="about_android">%1$s Aplicació d\'Android</string>
     <string name="about_title">Quant a</string>
     <string name="about_version">versió %1$s</string>
-    <string name="action_clear_failed_uploads">Netejar les pujades fallides</string>
-    <string name="action_clear_successful_uploads">Netejar les pujades correctes</string>
+    <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
+    <string name="action_clear_successful_uploads">Neteja les pujades completades</string>
     <string name="action_force_rescan">Forçar un re-escaneig</string>
     <string name="action_retry_uploads">Reintenta les pujades fallides</string>
     <string name="action_send_share">Envia/Comparteix</string>
@@ -14,8 +14,8 @@
     <string name="actionbar_contacts_restore">Restaurar contactes</string>
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_logger">Registres</string>
-    <string name="actionbar_mkdir">Carpeta nova</string>
-    <string name="actionbar_move">Moure</string>
+    <string name="actionbar_mkdir">Crea una carpeta</string>
+    <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_as_richdocument">Obre amb Collabora </string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
@@ -28,8 +28,9 @@
     <string name="activities_no_results_headline">Encara no hi ha activitat</string>
     <string name="activities_no_results_message">Encara no hi ha esdeveniments com ara afegits, modificacions o comparticions.</string>
     <string name="activity_chooser_send_file_title">Envia</string>
-    <string name="activity_chooser_title">Enviar l\'enllaç a…</string>
+    <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
+    <string name="add_to_cloud">Afegeix a %1$s</string>
     <string name="auth_access_failed">Accés fallit: %1$s</string>
     <string name="auth_account_does_not_exist">Aquest compte encara no s\'ha afegit al dispositiu</string>
     <string name="auth_account_not_new">Ja existeix un compte per al mateix usuari i servidor al dispositiu</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
+    <string name="battery_optimization_title">Optimització de la bateria</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
@@ -136,12 +138,17 @@
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_to">Copia a…</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
+    <string name="create_new_document">Crea un nou document</string>
+    <string name="create_new_folder">Crea una nova carpeta</string>
+    <string name="create_new_presentation">Crea una nova presentació</string>
+    <string name="create_new_spreadsheet">Crea un nou full de càlcul</string>
     <string name="credentials_disabled">Credencials desactivades</string>
     <string name="date_unknown">Desconegut</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Elimina el compte</string>
     <string name="delete_account_warning">Esborrar el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="deselect_all">desseleccionar-ho tot </string>
+    <string name="dev_version_new_version_available">Hi ha una nova versió disponible</string>
     <string name="dev_version_no_information_available">Sense info disponible</string>
     <string name="dev_version_no_new_version_available">Cap versió nova disponible.</string>
     <string name="digest_algorithm_not_available">Aquest algorisme de resum no és disponible al vostre telèfon.</string>
@@ -181,7 +188,7 @@
     <string name="drawer_quota">Usats %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilitzat</string>
     <string name="drawer_synced_folders">Pujada automàtica</string>
-    <string name="edit_permission_label">editar</string>
+    <string name="edit_permission_label">edita</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>
     <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i guardeu-la en un lloc segur.</string>
@@ -254,6 +261,7 @@
     <string name="filename_hint">Nom de fitxer</string>
     <string name="files_drop_not_supported">Aquesta és una funcionalitat de Nextcloud, si us plau, actualitzeu.</string>
     <string name="folder_confirm_create">Crea</string>
+    <string name="folder_icon">Icona de la carpeta</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
     <string name="folder_picker_choose_button_text">Escull</string>
     <string name="forbidden_permissions">No teniu permisos%s</string>
@@ -271,6 +279,7 @@
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
     <string name="hint_name">Nom</string>
+    <string name="hint_note">Nota</string>
     <string name="hint_password">Contrasenya</string>
     <string name="instant_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
@@ -324,6 +333,9 @@
     <string name="new_media_folder_photos">Fotografia</string>
     <string name="new_media_folder_videos">Video</string>
     <string name="note_confirm">Envia</string>
+    <string name="notification_channel_media_name">Reproductor multimèdia</string>
+    <string name="notification_channel_upload_description">Mostra el progrés de pujada</string>
+    <string name="notification_icon">Icona de notificació</string>
     <string name="notifications_loading_activity">Carregant notificacions…</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
@@ -434,6 +446,7 @@
     <string name="set_as">Configura com</string>
     <string name="set_picture_as">Usa la foto com</string>
     <string name="setup_btn_connect">Connecta</string>
+    <string name="share">Comparteix</string>
     <string name="share_add_user_or_group">Afegeix usuari o group</string>
     <string name="share_dialog_title">Compartint</string>
     <string name="share_email_clarification">%1$s (correu electrònic)</string>
@@ -472,7 +485,7 @@
     <string name="share_with_edit_title">Comparteix amb %1$s</string>
     <string name="share_with_title">Comparteix amb…</string>
     <string name="share_with_user_section_title">Comparteix amb usuaris i grups</string>
-    <string name="shared_icon_share">compartir</string>
+    <string name="shared_icon_share">comparteix</string>
     <string name="shared_icon_shared">compartit</string>
     <string name="shared_icon_shared_via_link">Compartit a través d\'un enllaç</string>
     <string name="sort_by">Ordena per</string>
@@ -613,6 +626,7 @@
     <string name="user_info_website">Pàgina web</string>
     <string name="user_information_retrieval_error">Error recuperant la informació d\'usuari</string>
     <string name="username">Nom d\'usuari</string>
+    <string name="version_dev_download">Baixa</string>
     <string name="wait_a_moment">Espereu un moment…</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>

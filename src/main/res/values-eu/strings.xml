@@ -3,9 +3,12 @@
     <string name="about_android">%1$s Android aplikazioa</string>
     <string name="about_title">Honi buruz</string>
     <string name="about_version">%1$s bertsioa</string>
+    <string name="account_creation_failed">Kontuaren sorrerak huts egin du</string>
     <string name="account_icon">Kontuaren ikonoa</string>
     <string name="account_not_found">Ez da kontua aurkitu!</string>
     <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
+    <string name="action_clear_successful_uploads">Garbitu ondo amaitutako igoerak</string>
+    <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
     <string name="action_empty_trashbin">Hustu zakarrontzia</string>
     <string name="action_send_share">Bidali/Partekatu</string>
     <string name="action_switch_grid_view">Sare ikuspegia</string>
@@ -67,7 +70,11 @@ Mesedez, baimendu berriz</string>
     <string name="auth_wtf_reenter_URL">Egoera ezezaguna, zerbitzariaren helbidea berriz sartu mesedez</string>
     <string name="avatar">avatar</string>
     <string name="battery_optimization_close">Itxi</string>
+    <string name="battery_optimization_disable">Desaktibatu</string>
+    <string name="battery_optimization_title">Bateria optimizazioa</string>
     <string name="certificate_load_problem">Arazo bat dago egiaztagiria kargatzean</string>
+    <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
+    <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="clipboard_text_copied">Esteka kopiatu da</string>
     <string name="common_back">Atzera</string>
     <string name="common_cancel">Ezeztatu</string>
@@ -88,6 +95,7 @@ Mesedez, baimendu berriz</string>
     <string name="common_switch_account">Kontua trukatu</string>
     <string name="common_unknown">ezezaguna</string>
     <string name="common_yes">Bai</string>
+    <string name="configure_new_media_folder_detection_notifications">Konfiguratu</string>
     <string name="confirmation_remove_files_alert">Hautatutako elementuak benetan borratu nahi dituzu?</string>
     <string name="confirmation_remove_folders_alert">Hautatutako elementuak eta bere edukiak benetan borratu nahi dituzu?</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
@@ -122,6 +130,7 @@ Mesedez, baimendu berriz</string>
     <string name="dev_version_no_information_available">Ez dago informaziorik eskuragarri.</string>
     <string name="dev_version_no_new_version_available">Ez dago bertsio berriagorik</string>
     <string name="digest_algorithm_not_available">Digest algoritmoa ez dago erabilgarri zure telefonoan.</string>
+    <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="downloader_download_failed_content">Ezin da %1$s jaitsi</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
@@ -160,9 +169,12 @@ Mesedez, baimendu berriz</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>
+    <string name="end_to_end_encryption_folder_not_empty">Karpeta hau ez dago hutsik</string>
     <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen…</string>
     <string name="end_to_end_encryption_password">Pasahitza…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gakoak eskuratzen…</string>
+    <string name="end_to_end_encryption_storing_keys">Gakoak gordetzen</string>
+    <string name="end_to_end_encryption_title">Ezarri zifratzea</string>
     <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s karpeta lokalera kopiatu</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="fallback_weblogin_back">Atzera</string>
@@ -197,6 +209,7 @@ Mesedez, baimendu berriz</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_failed_not_enough_space">Leku gehiago behar da</string>
+    <string name="file_migration_migrating">Datuak lekuz aldatzen...</string>
     <string name="file_migration_ok_finished">Amaituta</string>
     <string name="file_migration_override_data_folder">Ordeztu</string>
     <string name="file_migration_updating_index">Indizea eguneratzen…</string>
@@ -208,6 +221,7 @@ Mesedez, baimendu berriz</string>
     <string name="filedetails_sync_file">Sinkronizatu</string>
     <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
     <string name="filename_forbidden_characters">Debekatutako karaktereak: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_hint">Fitxategi-izena</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
     <string name="folder_picker_choose_button_text">Aukeratu</string>
@@ -233,6 +247,7 @@ Mesedez, baimendu berriz</string>
     <string name="log_progress_dialog_text">Datuak kargatzen…</string>
     <string name="log_send_history_button">Historia bidali</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunerokoak</string>
+    <string name="login">Hasi saioa</string>
     <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
     <string name="manage_space_clear_data">Datuak garbitu</string>
     <string name="manage_space_description">Ezarpenak, %1$sren datubase eta zerbitzariaren ziurtagiriak betirako borratuko dira.\n\n Jaitsitako fitxategiak ez dira ikutuko.\n\n Prozesu honek denbora behar du</string>
@@ -264,6 +279,8 @@ Mesedez, baimendu berriz</string>
     <string name="move_to">Mugitu hona…</string>
     <string name="new_comment">Iruzkin berria...</string>
     <string name="new_media_folder_photos">argazkia</string>
+    <string name="new_media_folder_videos">bideoa</string>
+    <string name="new_notification">Jakinarazpen berria</string>
     <string name="new_version_was_created">Bertsio berria sortu da</string>
     <string name="note_confirm">Bidali</string>
     <string name="notifications_loading_activity">Jakinarazpenak kargatzen…</string>
@@ -291,6 +308,8 @@ Mesedez, baimendu berriz</string>
     <string name="pass_code_removed">Pasahitza ezabatuta</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
     <string name="pass_code_wrong">Okerreko pasahitza</string>
+    <string name="permission_allow">Baimendu</string>
+    <string name="permission_deny">Ukatu</string>
     <string name="permission_storage_access">Fitxategiak igo eta jaisteko baimen gehigarriak behar dira</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">kokalekua.txt</string>
