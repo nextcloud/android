@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s na Android</string>
+    <string name="about_android">%1$s na Androida</string>
     <string name="about_title">O aplikacji</string>
     <string name="about_version">wersja %1$s</string>
     <string name="account_creation_failed">Błąd tworzenia konta</string>
@@ -254,7 +254,7 @@
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_recently_modified_filter">Brak plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
-    <string name="file_list_empty_shared">Pliki i katalogi, które współdzielisz pokażą się tutaj</string>
+    <string name="file_list_empty_shared">Pliki i katalogi, które współdzielisz pokażą się tutaj.</string>
     <string name="file_list_empty_shared_headline">Nic nie jest udostępnione</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
@@ -302,7 +302,7 @@
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
     <string name="first_run_2_text">Bezpieczna współpraca i wymiana plikami</string>
     <string name="first_run_3_text">Prosty klient pocztowy, kalendarz i kontakty.</string>
-    <string name="first_run_4_text">Współdzielenie ekranu, spotkania online &amp; konferencje internetowe</string>
+    <string name="first_run_4_text">Współdzielenie ekranu, spotkania online &amp; w konferencji internetowej</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_icon">Ikona katalogu</string>
@@ -427,7 +427,7 @@
     <string name="participate_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="participate_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="participate_release_candidate_headline">Release Candidate</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Może nam w tym pomóc, testowanie indywidualnej konfiguracji przez użytkownika. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącego wydania i oczekuje się od niej, że będzie stabilna. Testowanie indywidualnej konfiguracji przez użytkownika może w tym pomóc. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="participate_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
@@ -558,7 +558,7 @@
     <string name="share_privilege_can_edit_create">może utworzyć</string>
     <string name="share_privilege_can_edit_delete">może usunąć</string>
     <string name="share_privilege_can_share">może udostępnić</string>
-    <string name="share_privilege_unshare">Zatrzymaj współdzielenie</string>
+    <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (konwersacja)</string>
     <string name="share_search">Nazwa, ID chmury federalnej lub adres e-mail…</string>
@@ -683,7 +683,7 @@ Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować r�
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
-    <string name="upload_content_from_other_apps">Wyślij pliki z innych aplikacji</string>
+    <string name="upload_content_from_other_apps">Wyślij z innej aplikacji</string>
     <string name="upload_direct_camera_upload">Wyślij z aparatu</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>

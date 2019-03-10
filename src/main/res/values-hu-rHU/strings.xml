@@ -78,6 +78,7 @@
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_wrong_connection_title">A kapcsolat létrehozása sikertelen</string>
     <string name="auth_wtf_reenter_URL">Váratlan állapot, adja meg újra a kiszolgáló címét</string>
+    <string name="authentication_exception">Hitelesítési kivétel</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">IO hiba</string>
     <string name="learn_more">Tudjon meg többet</string>
     <string name="link">Hivatkozás</string>
     <string name="list_layout">Listás elrendezés</string>
@@ -378,6 +380,7 @@
     <string name="new_media_folder_detected">Új %1$s médiamappa észlelhető.</string>
     <string name="new_media_folder_photos">fénykép</string>
     <string name="new_media_folder_videos">videó</string>
+    <string name="new_notification">Új értesítés</string>
     <string name="new_version_was_created">Új verzió létrehozva</string>
     <string name="no_browser_available">Nincs elérhető alkalmazás hivatkozások kezeléséhez</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
@@ -407,6 +410,7 @@
     <string name="oauth_check_onoff">Bejelentkezés OAuth 2.0-val</string>
     <string name="oauth_login_connection">Csatlakozás az OAuth 2.0 kiszolgálóhoz…</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
+    <string name="operation_canceled">Művelet megszakítva</string>
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
     <string name="overflow_menu">További menü</string>
     <string name="participate_beta_headline">Fejlesztési verzió tesztelése</string>
@@ -610,7 +614,14 @@
     <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
+    <string name="storage_camera">Kamera</string>
     <string name="storage_description_default">Alapértelmezett</string>
+    <string name="storage_documents">Dokumentumok</string>
+    <string name="storage_downloads">Letöltések</string>
+    <string name="storage_internal_storage">Belső tárhely</string>
+    <string name="storage_movies">Filmek</string>
+    <string name="storage_music">Zene</string>
+    <string name="storage_pictures">Képek</string>
     <string name="store_full_desc">A szabad Nextcloud androidos alkalmazás, amely mobil szabadságot biztosít.
 
 Szolgáltatások:
@@ -772,4 +783,20 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="whats_new_device_credentials_title">Használja az androidos eszköz belső védelmét</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
+        <item quantity="other">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mappa</item>
+        <item quantity="other">%1$d mappák</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fájl</item>
+        <item quantity="other">%1$d fájlok</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d kiválasztott</item>
+        <item quantity="other">%d kiválasztott</item>
+    </plurals>
+</resources>

@@ -78,6 +78,7 @@
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen</string>
     <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer het serveradres opnieuw in</string>
+    <string name="authentication_exception">Authenticatiefout</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Host je eigen server</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">Fout bij een lees- of schrijfactie</string>
     <string name="learn_more">Meer weten</string>
     <string name="link">Link</string>
     <string name="list_layout">Lijstoverzicht</string>
@@ -408,6 +410,7 @@
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
     <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>
     <string name="offline_mode">Geen internet verbinding</string>
+    <string name="operation_canceled">De bewerking werd geannuleerd</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
     <string name="overflow_menu">Meer menu</string>
     <string name="participate_beta_headline">Test de dev versie</string>
@@ -573,9 +576,11 @@
     <string name="share_with_edit_title">Deel met %1$s</string>
     <string name="share_with_title">Deel met…</string>
     <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
+    <string name="shared_avatar_desc">Avatar van een gedeelde gebruiker</string>
     <string name="shared_icon_share">delen</string>
     <string name="shared_icon_shared">deelde</string>
     <string name="shared_icon_shared_via_link">gedeeld via link</string>
+    <string name="shared_with_you_by">Gedeeld met u door %1$s</string>
     <string name="sharee_add_failed">Toevoegen ontvanger mislukt</string>
     <string name="signup_with_provider">Aanmelden bij provider</string>
     <string name="single_sign_on_request_token" formatted="true">Toestaan dat%1$s je Nextcloud account %2$sbenadert?</string>
@@ -611,9 +616,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Het servercertificaat is nog niet geldig</string>
     <string name="ssl_validator_reason_hostname_not_verified">- De URL komt niet overeen met de hostname in het certificaat</string>
+    <string name="storage_camera">Camera</string>
+    <string name="storage_choose_location">Kies een opslaglocatie</string>
     <string name="storage_description_default">Standaard</string>
     <string name="storage_documents">Documenten</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_internal_storage">Interne opslag</string>
+    <string name="storage_movies">Films</string>
+    <string name="storage_music">Muziek</string>
+    <string name="storage_pictures">Afbeeldingen</string>
     <string name="store_full_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVx5 (vroeger bekend als DAVdroid) voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is een privé bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
     <string name="store_full_dev_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar is in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
     <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
@@ -760,6 +771,10 @@
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Fout bij het kopiëren van %1$d bestand uit de map %2$snaar</item>
+        <item quantity="other">Fout bij het kopiëren van %1$d bestanden uit de map %2$s naar</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappen</item>
