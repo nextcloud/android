@@ -32,6 +32,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -86,10 +88,12 @@ public class PreviewImageActivity extends FileActivity implements
     private boolean mRequestWaitingForBinder;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private View mFullScreenAnchorView;
+    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = PreferenceManager.fromContext(this);
 
         final ActionBar actionBar = getSupportActionBar();
 
@@ -144,8 +148,14 @@ public class PreviewImageActivity extends FileActivity implements
                 parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             }
 
-            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), this);
+            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(
+                getSupportFragmentManager(),
+                parentFolder,
+                getAccount(),
+                getStorageManager(),
+                MainApp.isOnlyOnDevice(),
+                preferences
+            );
         }
 
         mViewPager = findViewById(R.id.fragmentPager);

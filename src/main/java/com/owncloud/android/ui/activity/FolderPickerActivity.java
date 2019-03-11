@@ -39,6 +39,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -63,8 +65,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import static com.nextcloud.client.preferences.PreferenceManager.getSortOrderByFolder;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener, OnEnforceableRefreshListener {
@@ -91,12 +91,14 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected Button mCancelBtn;
     protected Button mChooseBtn;
     private String caption;
+    private AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
 
         super.onCreate(savedInstanceState);
+        preferences = PreferenceManager.fromContext(this);
 
         if (this instanceof FilePickerActivity) {
             setContentView(R.layout.files_picker);
@@ -331,7 +333,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    getSortOrderByFolder(this, getListOfFilesFragment().getCurrentFile()));
+                    preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
                 mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;

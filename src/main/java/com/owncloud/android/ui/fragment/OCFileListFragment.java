@@ -49,6 +49,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -161,6 +162,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private static final int SINGLE_SELECTION = 1;
 
+    private AppPreferences preferences;
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile;
@@ -236,6 +238,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         Log_OC.i(TAG, "onAttach");
+        preferences = PreferenceManager.fromContext(context);
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
 
@@ -339,7 +342,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
-        mAdapter = new OCFileListAdapter(getActivity(), mContainerActivity, this, hideItemOptions,
+        mAdapter = new OCFileListAdapter(getActivity(), preferences, mContainerActivity, this, hideItemOptions,
                 isGridViewPreferred(mFile));
         setRecyclerViewAdapter(mAdapter);
 

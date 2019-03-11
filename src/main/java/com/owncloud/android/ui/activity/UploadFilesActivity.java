@@ -118,9 +118,10 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     public static final String REQUEST_CODE_KEY = "requestCode";
+
+    private AppPreferences preferences;
     private int requestCode;
     private LocalStoragePathPickerDialogFragment dialog;
-    private AppPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -299,7 +300,7 @@ public class UploadFilesActivity extends FileActivity implements
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    PreferenceManager.getSortOrderByType(this, FileSortOrder.Type.uploadFilesView));
+                    preferences.getSortOrderByType(FileSortOrder.Type.uploadFilesView));
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
                 break;

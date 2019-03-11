@@ -30,6 +30,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
@@ -81,6 +82,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     @BindString(R.string.trashbin_empty_message)
     public String noResultsMessage;
 
+    private AppPreferences preferences;
     private Unbinder unbinder;
     private TrashbinListAdapter trashbinListAdapter;
     private TrashbinPresenter trashbinPresenter;
@@ -91,6 +93,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        preferences = PreferenceManager.fromContext(this);
         trashbinPresenter = new TrashbinPresenter(new RemoteTrashbinRepository(this), this);
 
         setContentView(R.layout.trashbin_activity);
@@ -124,7 +127,11 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
         emptyContentMessage.setText(noResultsMessage);
         emptyContentMessage.setVisibility(View.VISIBLE);
 
-        trashbinListAdapter = new TrashbinListAdapter(this, getStorageManager(), this);
+        trashbinListAdapter = new TrashbinListAdapter(
+            this,
+            getStorageManager(),
+            preferences,
+            this);
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFooter(true);
@@ -167,8 +174,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    PreferenceManager.getSortOrderByType(this, FileSortOrder.Type.trashBinView,
-                        FileSortOrder.sort_new_to_old));
+                    preferences.getSortOrderByType(FileSortOrder.Type.trashBinView, FileSortOrder.sort_new_to_old));
                 mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;
