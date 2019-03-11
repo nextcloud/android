@@ -1,19 +1,19 @@
-Rozpowszechniana bez ograniczeń aplikacja NextCloud (Android), zapewniająca mobilną swobodę.
+Rozpowszechniana bez ograniczeń aplikacja Nextcloud na Androida, zapewniająca mobilną swobodę.
 
 Funkcje:
 * Łatwy, nowoczesny interfejs, dostosowany do motywu serwera
-* Przesyłanie plików na serwer NextCloud
+* Wysyłanie plików na serwer Nextcloud
 * Udostępnianie ich innym użytkownikom
-* Synchronizacja Twoich ulubionych plików i folderów
-* Przeszukiwanie wszystkich folderów na serwerze
-* Automatyczne przesyłanie na serwer zdjęć i filmów
-* Otrzymywanie powiadomień na bierząco
+* Synchronizacja ulubionych plików i katalogów
+* Przeszukiwanie wszystkich katalogów na serwerze
+* Automatyczne wysyłanie na serwer zdjęć i filmów
+* Otrzymywanie na bieżąco powiadomień
 * Obsługa wielu kont
 * Bezpieczny dostęp do danych za pomocą odcisku palca lub PIN
-* Integracja z DAVx5 (dawniej DAVdroid) aby łatwiej skonfigurować kalendarz& synchronizację kontaktów
+* Integracja z DAVx5 (dawniej DAVdroid) dla łatwiejszej konfiguracji kalendarza & i synchronizacji kontaktów
 
-Wszelkie problemy z aplikacją proszę zgłaszać do Nextcloud https://github.com/nextcloud/android/issues, forum dyskusyjne dla aplikacji znajduje się na https://help.nextcloud.com/c/clients/android
+Wszelkie problemy z aplikacją proszę zgłaszać na Nextcloud https://github.com/nextcloud/android/issues, jeśli chcesz porozmawiać na jej temat odwiedź https://help.nextcloud.com/c/clients/android
 
-Nowy Nextcloud zapewnia poufną synchronizację danych& udostępnianie plików oraz komunikację. Jest darmowym oprogramowaniem, które możesz wykorzystać samodzielnie lub zlecić odpłatnie instalację firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę na swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i pozostałymi poufnymi danymi.
+Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji udostępnianych plików & oraz komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i pozostałymi poufnymi danymi.
 
-Wypróbuj Nextcloud https://nextcloud.com
+Sprawdź Nextcloud na https://nextcloud.com

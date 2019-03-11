@@ -1,4 +1,4 @@
-La app copyleft de software libre Nextcloud para Android te da libertad móvil.
+La app (copyleft y software libre) Nextcloud para Android te da libertad móvil.
 
 Características
 * Interfaz sencilla y moderna, adaptada al tema de tu servidor
@@ -10,7 +10,7 @@ Características
 * Mantente al tanto de todo mediante las notificaciones
 * Soporte de múltiples cuentas
 * Acceso seguro a tus datos con huella dactilar o PIN
-* Integración con DAVdroid para configurar fácilmente la sincronización de calendarios y contactos
+* Integración con  DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos
 
 Por favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y discute la app en https://help.nextcloud.com/c/clients/android
 
