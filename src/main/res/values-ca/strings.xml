@@ -21,7 +21,7 @@
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
     <string name="actionbar_send_file">Envia</string>
-    <string name="actionbar_settings">Configuració</string>
+    <string name="actionbar_settings">Paràmetres</string>
     <string name="actionbar_sort">Ordena</string>
     <string name="actionbar_sync">Actualitza el compte</string>
     <string name="active_user">Usuari actiu</string>
@@ -175,7 +175,7 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Afegit recentment</string>
     <string name="drawer_item_recently_modified">Modificat recentment</string>
-    <string name="drawer_item_settings">Configuració</string>
+    <string name="drawer_item_settings">Paràmetres</string>
     <string name="drawer_item_shared">Compartit</string>
     <string name="drawer_item_trashbin">Fitxers esborrats</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>
@@ -296,7 +296,7 @@
     <string name="login">Inici de sessió</string>
     <string name="maintenance_mode">Servidor en mode de manteniment</string>
     <string name="manage_space_clear_data">Neteja dades</string>
-    <string name="manage_space_description">S\'eliminarà la configuració, la base de dades i els certificats del servidor de %1$s de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot tardar una estona.</string>
+    <string name="manage_space_description">S\'eliminaran els paràmetres, la base de dades i els certificats del servidor de %1$s de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot tardar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
     <string name="media_err_invalid_progressive_playback">El fitxer multimèdia no es pot reproduir</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>

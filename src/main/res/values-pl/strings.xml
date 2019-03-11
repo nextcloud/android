@@ -402,7 +402,7 @@
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_upload_name">Kanał powiadomień wysyłania</string>
     <string name="notification_icon">Ikona powiadomień</string>
-    <string name="notifications_loading_activity">Ładuję powiadomienia…</string>
+    <string name="notifications_loading_activity">Odczytywanie powiadomień…</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
     <string name="oauth_2_0_access_end_point_address_hint">Adres dostępu</string>
