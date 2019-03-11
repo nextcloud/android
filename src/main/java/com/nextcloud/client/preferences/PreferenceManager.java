@@ -50,6 +50,7 @@ public final class PreferenceManager implements AppPreferences {
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
+    private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     public static final String PREF__KEYS_MIGRATION = "keysMigration";
     private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
@@ -103,8 +104,14 @@ public final class PreferenceManager implements AppPreferences {
         return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
     }
 
-    public static boolean showHiddenFilesEnabled(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
+    @Override
+    public boolean isShowHiddenFilesEnabled() {
+        return preferences.getBoolean(PREF__SHOW_HIDDEN_FILES, false);
+    }
+
+    @Override
+    public void setShowHiddenFilesEnabled(boolean enabled) {
+        preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply();
     }
 
     @Override

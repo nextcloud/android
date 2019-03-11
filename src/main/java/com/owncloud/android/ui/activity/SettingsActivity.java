@@ -534,11 +534,7 @@ public class SettingsActivity extends PreferenceActivity
         showHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
-                SharedPreferences appPrefs =
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = appPrefs.edit();
-                editor.putBoolean("show_hidden_files_pref", showHiddenFiles.isChecked());
-                editor.apply();
+                preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
                 return true;
             });
         } else {
