@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -60,20 +61,22 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TRASHBIN_FOOTER = 101;
     private static final String TAG = TrashbinListAdapter.class.getSimpleName();
 
-    private TrashbinActivityInterface trashbinActivityInterface;
+    private final TrashbinActivityInterface trashbinActivityInterface;
     private List<TrashbinFile> files;
-    private Context context;
-    private Account account;
-    private FileDataStorageManager storageManager;
+    private final Context context;
+    private final Account account;
+    private final FileDataStorageManager storageManager;
+    private final AppPreferences preferences;
 
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
     public TrashbinListAdapter(TrashbinActivityInterface trashbinActivityInterface,
-                               FileDataStorageManager storageManager, Context context) {
+                               FileDataStorageManager storageManager, AppPreferences preferences, Context context) {
         this.files = new ArrayList<>();
         this.trashbinActivityInterface = trashbinActivityInterface;
         this.account = AccountUtils.getCurrentOwnCloudAccount(context);
         this.storageManager = storageManager;
+        this.preferences = preferences;
         this.context = context;
     }
 
@@ -86,7 +89,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             files.add((TrashbinFile) file);
         }
 
-        files = PreferenceManager.getSortOrderByType(context, FileSortOrder.Type.trashBinView,
+        files = preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
             FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
@@ -282,7 +285,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(context, FileSortOrder.Type.trashBinView, sortOrder);
+        preferences.setSortOrder(FileSortOrder.Type.trashBinView, sortOrder);
         files = sortOrder.sortTrashbinFiles(files);
         notifyDataSetChanged();
     }

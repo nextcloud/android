@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.nextcloud.client.preferences.PreferenceManager;
@@ -60,6 +61,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private static final int showFilenameColumnThreshold = 4;
+    private AppPreferences preferences;
     private Context mContext;
     private List<File> mFiles = new ArrayList<>();
     private List<File> mFilesAll = new ArrayList<>();
@@ -73,7 +75,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEWTYPE_IMAGE = 2;
 
     public LocalFileListAdapter(boolean localFolderPickerMode, File directory,
-                                LocalFileListFragmentInterface localFileListFragmentInterface, Context context) {
+                                LocalFileListFragmentInterface localFileListFragmentInterface, AppPreferences preferences, Context context) {
+        this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
         swapDirectory(directory);
@@ -317,7 +320,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
 
-        FileSortOrder sortOrder = PreferenceManager.getSortOrderByType(mContext, FileSortOrder.Type.localFileListView);
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
         mFiles = sortOrder.sortLocalFiles(mFiles);
 
         // Fetch preferences for showing hidden files
@@ -333,7 +336,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(mContext, FileSortOrder.Type.localFileListView, sortOrder);
+        preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
         mFiles = sortOrder.sortLocalFiles(mFiles);
         notifyDataSetChanged();
     }
