@@ -24,6 +24,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
 public interface AppPreferences {
+    void setKeysReInitEnabled();
+    boolean isKeysReInitEnabled();
+
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
 
