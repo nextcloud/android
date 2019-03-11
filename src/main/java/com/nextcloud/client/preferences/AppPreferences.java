@@ -89,6 +89,35 @@ public interface AppPreferences {
      */
     void setLastUploadPath(String path);
 
+    String getLockPreference();
+    void setLockPreference(String lockPreference);
+
+    /**
+     * Set pass code composed of 4 digits (as strings).
+     *
+     * @todo This must be refactored further to use a passcode stype
+     * @param d1 1st digit
+     * @param d2 2nd digit
+     * @param d3 3rd digit
+     * @param d4 4th digit
+     */
+    void setPassCode(String d1, String d2, String d3, String d4);
+
+    /**
+     * Get 4-digit passcode as array of strings. Strings may be null.
+     *
+     * @return 4 strings with digits or nulls
+     */
+    String[] getPassCode();
+
+    /**
+     * Gets the unlock via fingerprint preference configured by the user.
+     *
+     * @implNote  this is always false
+     * @return useFingerprint     is unlock with fingerprint enabled
+     */
+    boolean isFingerprintUnlockEnabled();
+
     /**
      * Gets the auto upload paths flag last set.
      *
@@ -190,4 +219,11 @@ public interface AppPreferences {
     void setLastSeenVersionCode(int versionCode);
 
     void removeLegacyPreferences();
+
+    /**
+     * Clears all user preferences.
+     *
+     * @implNote this clears only shared preferences, not preferences kept in account manager
+     */
+    void clear();
 }

@@ -174,8 +174,9 @@ public final class DisplayUtils {
      * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
      */
     public static String convertMIMEtoPrettyPrint(String mimetype) {
-        if (mimeType2HumanReadable.containsKey(mimetype)) {
-            return mimeType2HumanReadable.get(mimetype);
+        final String humanReadableMime = mimeType2HumanReadable.get(mimetype);
+        if (humanReadableMime != null) {
+            return humanReadableMime;
         }
         if (mimetype.split("/").length >= MIMETYPE_PARTS_COUNT) {
             return mimetype.split("/")[1].toUpperCase(Locale.getDefault()) + " file";
