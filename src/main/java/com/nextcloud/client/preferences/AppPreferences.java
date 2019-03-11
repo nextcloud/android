@@ -83,6 +83,23 @@ public interface AppPreferences {
     String getLastUploadPath();
 
     /**
+     * Get preferred folder display type.
+     *
+     * @param folder Folder
+     * @return preference value, default is
+     * {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
+     */
+    String getFolderLayout(OCFile folder);
+
+    /**
+     * Set preferred folder display type.
+     *
+     * @param folder Folder
+     * @param layout_name preference value
+     */
+    void setFolderLayout(OCFile folder, String layout_name);
+
+    /**
      * Saves the path where the user selected to do the last upload of a file shared from other app.
      *
      * @param path    Absolute path to a folder.
