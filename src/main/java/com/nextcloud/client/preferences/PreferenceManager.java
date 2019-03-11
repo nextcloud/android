@@ -50,11 +50,6 @@ public final class PreferenceManager implements AppPreferences {
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
-    private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
-    private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
-    private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
-    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS
-            = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     public static final String PREF__KEYS_MIGRATION = "keysMigration";
     private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
@@ -106,31 +101,6 @@ public final class PreferenceManager implements AppPreferences {
     @Override
     public boolean instantVideoUploadEnabled() {
         return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
-    }
-
-    public static boolean instantPictureUploadPathUseSubfolders(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS, false);
-    }
-
-    public static boolean instantPictureUploadViaWiFiOnly(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_ON_WIFI, false);
-    }
-
-    public static boolean instantVideoUploadPathUseSubfolders(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS, false);
-    }
-
-    public static boolean instantVideoUploadViaWiFiOnly(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI, false);
-    }
-
-    public static boolean instantPictureUploadWhenChargingOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
-    }
-
-    public static boolean instantVideoUploadWhenChargingOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging",
-                false);
     }
 
     public static boolean showHiddenFilesEnabled(Context context) {
@@ -284,29 +254,6 @@ public final class PreferenceManager implements AppPreferences {
             folder = storageManager.getFileById(folder.getParentId());
             value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
         }
-        return value.isEmpty() ? defaultValue : value;
-    }
-
-    /**
-     * Get preference value for a view.
-     *
-     * @param context        Context object.
-     * @param preferenceName Name of the preference to lookup.
-     * @param type           view which view
-     * @param defaultValue   Fallback value in case nothing is set.
-     * @return Preference value
-     */
-    public static String getTypePreference(Context context, String preferenceName, String type, String defaultValue) {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-
-        if (account == null) {
-            return defaultValue;
-        }
-
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-
-        String value = dataProvider.getValue(account.name, preferenceName + "_" + type);
-
         return value.isEmpty() ? defaultValue : value;
     }
 
@@ -470,30 +417,10 @@ public final class PreferenceManager implements AppPreferences {
         appPreferences.putBoolean(key, value).apply();
     }
 
-    private static void saveStringPreference(Context context, String key, String value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putString(key, value).apply();
-    }
-
     private static void saveStringPreferenceNow(Context context, String key, String value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putString(key, value);
         appPreferences.apply();
-    }
-
-    private static void saveIntPreference(Context context, String key, int value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putInt(key, value).apply();
-    }
-
-    private static void saveFloatPreference(Context context, String key, float value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putFloat(key, value).apply();
-    }
-
-    private static void saveLongPreference(Context context, String key, long value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putLong(key, value).apply();
     }
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
