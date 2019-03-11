@@ -77,12 +77,14 @@ public final class PreferenceManager implements AppPreferences {
         this.preferences = preferences;
     }
 
-    public static void setKeysReInit(Context context) {
-        saveBooleanPreference(context, PREF__KEYS_REINIT, true);
+    @Override
+    public void setKeysReInitEnabled() {
+        preferences.edit().putBoolean(PREF__KEYS_REINIT, true).apply();
     }
 
-    public static boolean getKeysReInit(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__KEYS_REINIT, false);
+    @Override
+    public boolean isKeysReInitEnabled() {
+        return preferences.getBoolean(PREF__KEYS_REINIT, false);
     }
 
     public static void setPushToken(Context context, String pushToken) {
