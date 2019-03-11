@@ -1201,11 +1201,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile folder) {
-        return FOLDER_LAYOUT_GRID.equals(PreferenceManager.getFolderLayout(getActivity(), folder));
+        return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
     }
 
     public void setListAsPreferred() {
-        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_LIST);
+        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_LIST);
         switchToListView();
     }
 
@@ -1216,7 +1216,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void setGridAsPreferred() {
-        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_GRID);
+        preferences.setFolderLayout(mFile, FOLDER_LAYOUT_GRID);
         switchToGridView();
     }
 
