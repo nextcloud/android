@@ -197,26 +197,13 @@ public final class PreferenceManager implements AppPreferences {
         return getDefaultSharedPreferences(context).getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
     }
 
-    /**
-     * Get preferred folder display type.
-     *
-     * @param context Caller {@link Context}, used to access to preferences manager.
-     * @param folder Folder
-     * @return preference value, default is
-     * {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
-     */
-    public static String getFolderLayout(Context context, OCFile folder) {
+    @Override
+    public String getFolderLayout(OCFile folder) {
         return getFolderPreference(context, PREF__FOLDER_LAYOUT, folder, FOLDER_LAYOUT_LIST);
     }
 
-    /**
-     * Set preferred folder display type.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param folder Folder
-     * @param layout_name preference value
-     */
-    public static void setFolderLayout(Context context, OCFile folder, String layout_name) {
+    @Override
+    public void setFolderLayout(OCFile folder, String layout_name) {
         setFolderPreference(context, PREF__FOLDER_LAYOUT, folder, layout_name);
     }
 
