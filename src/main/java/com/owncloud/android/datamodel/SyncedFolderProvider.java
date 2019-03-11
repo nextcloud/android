@@ -29,6 +29,7 @@ import android.net.Uri;
 
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -46,17 +47,19 @@ public class SyncedFolderProvider extends Observable {
     static private final String TAG = SyncedFolderProvider.class.getSimpleName();
 
     private ContentResolver mContentResolver;
+    private AppPreferences preferences;
 
     /**
      * constructor.
      *
      * @param contentResolver the ContentResolver to work with.
      */
-    public SyncedFolderProvider(ContentResolver contentResolver) {
+    public SyncedFolderProvider(ContentResolver contentResolver, AppPreferences preferences) {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
         mContentResolver = contentResolver;
+        this.preferences = preferences;
     }
 
     /**
@@ -271,19 +274,18 @@ public class SyncedFolderProvider extends Observable {
     /**
      * delete any records of synchronized folders that are not within the given list of ids.
      *
-     * @param context the context.
-     * @param ids     the list of ids to be excluded from deletion.
+     * @param ids          the list of ids to be excluded from deletion.
      * @return number of deleted records.
      */
-    public int deleteSyncedFoldersNotInList(Context context, List<Long> ids) {
+    public int deleteSyncedFoldersNotInList(List<Long> ids) {
         int result = mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
                 new String[]{String.valueOf(ids)}
         );
 
-        if (result > 0 && context != null) {
-            PreferenceManager.setLegacyClean(context, true);
+        if(result > 0) {
+            preferences.setLegacyClean(true);
         }
 
         return result;

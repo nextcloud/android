@@ -72,7 +72,12 @@ public final class PreferenceManager implements AppPreferences {
     public static AppPreferences fromContext(Context context) {
         Context appContext = context.getApplicationContext();
         SharedPreferences prefs = getDefaultSharedPreferences(appContext);
+
         return new PreferenceManager(appContext, prefs);
+    }
+
+    public static SharedPreferences getDefaultSharedPreferences(Context context) {
+        return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 
     PreferenceManager(Context appContext, SharedPreferences preferences) {
@@ -191,6 +196,7 @@ public final class PreferenceManager implements AppPreferences {
         };
     }
 
+    @Override
     public boolean isFingerprintUnlockEnabled() {
         return preferences.getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
     }
@@ -243,72 +249,34 @@ public final class PreferenceManager implements AppPreferences {
         dataProvider.storeOrUpdateKeyValue(account.name, PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
-    /**
-     * Get preference value for a folder.
-     * If folder is not set itself, it finds an ancestor that is set.
-     *
-     * @param context Context object.
-     * @param preferenceName Name of the preference to lookup.
-     * @param folder Folder.
-     * @param defaultValue Fallback value in case no ancestor is set.
-     * @return Preference value
-     */
-    public static String getFolderPreference(Context context, String preferenceName, OCFile folder,
-                                             String defaultValue) {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-
-        if (account == null) {
-            return defaultValue;
-        }
-
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
-
-        String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
-        while (folder != null && value.isEmpty()) {
-            folder = storageManager.getFileById(folder.getParentId());
-            value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
-        }
-        return value.isEmpty() ? defaultValue : value;
+    @Override
+    public boolean isLegacyClean() {
+        return preferences.getBoolean(PREF__LEGACY_CLEAN, false);
     }
 
-    /**
-     * Set preference value for a folder.
-     *
-     * @param context Context object.
-     * @param preferenceName Name of the preference to set.
-     * @param folder Folder.
-     * @param value Preference value to set.
-     */
-    public static void setFolderPreference(Context context, String preferenceName, OCFile folder, String value) {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        dataProvider.storeOrUpdateKeyValue(account.name, getKeyFromFolder(preferenceName, folder), value);
+    @Override
+    public void setLegacyClean(boolean isLegacyClean) {
+        preferences.edit().putBoolean(PREF__LEGACY_CLEAN, isLegacyClean);
     }
 
-    private static String getKeyFromFolder(String preferenceName, OCFile folder) {
-        final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
-                FileDataStorageManager.ROOT_PARENT_ID);
-
-        return preferenceName + "_" + folderIdString;
+    @Override
+    public boolean isKeysMigrationEnabled() {
+        return preferences.getBoolean(PREF__KEYS_MIGRATION, false);
     }
 
-    /**
-     * Gets the legacy cleaning flag last set.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the legacy cleaning flag, default is false
-     */
-    public static boolean getLegacyClean(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__LEGACY_CLEAN, false);
+    @Override
+    public void setKeysMigrationEnabled(boolean keysMigration) {
+        preferences.edit().putBoolean(PREF__KEYS_MIGRATION, keysMigration).apply();
     }
 
-    public static boolean getKeysMigration(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__KEYS_MIGRATION, false);
+    @Override
+    public boolean isStoragePathFixEnabled() {
+        return preferences.getBoolean(PREF__FIX_STORAGE_PATH, false);
     }
 
-    public static boolean getStoragePathFix(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(PREF__FIX_STORAGE_PATH, false);
+    @Override
+    public void setStoragePathFixEnabled(boolean storagePathFixEnabled) {
+        preferences.edit().putBoolean(PREF__FIX_STORAGE_PATH, storagePathFixEnabled).apply();
     }
 
     @Override
@@ -339,24 +307,6 @@ public final class PreferenceManager implements AppPreferences {
     @Override
     public void setAutoUploadInit(boolean autoUploadInit) {
         preferences.edit().putBoolean(PREF__AUTO_UPLOAD_INIT, autoUploadInit).apply();
-    }
-
-    /**
-     * Saves the legacy cleaning flag which the user has set last.
-     *
-     * @param context     Caller {@link Context}, used to access to shared preferences manager.
-     * @param legacyClean flag if it is a legacy cleaning
-     */
-    public static void setLegacyClean(Context context, boolean legacyClean) {
-        saveBooleanPreference(context, PREF__LEGACY_CLEAN, legacyClean);
-    }
-
-    public static void setKeysMigration(Context context, boolean keysMigration) {
-        saveBooleanPreference(context, PREF__KEYS_MIGRATION, keysMigration);
-    }
-
-    public static void setStoragePathFix(Context context, boolean storagePathFix) {
-        saveBooleanPreference(context, PREF__FIX_STORAGE_PATH, storagePathFix);
     }
 
     @Override
@@ -399,10 +349,12 @@ public final class PreferenceManager implements AppPreferences {
         preferences.edit().putInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode).apply();
     }
 
+    @Override
     public long getLockTimestamp() {
         return preferences.getLong(PREF__LOCK_TIMESTAMP, 0);
     }
 
+    @Override
     public void setLockTimestamp(long timestamp) {
         preferences.edit().putLong(PREF__LOCK_TIMESTAMP, timestamp).apply();
     }
@@ -427,21 +379,6 @@ public final class PreferenceManager implements AppPreferences {
         preferences.edit().putBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, value).apply();
     }
 
-    private static void saveBooleanPreference(Context context, String key, boolean value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putBoolean(key, value).apply();
-    }
-
-    private static void saveStringPreferenceNow(Context context, String key, String value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putString(key, value);
-        appPreferences.apply();
-    }
-
-    public static SharedPreferences getDefaultSharedPreferences(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-    }
-
     @Override
     public void removeLegacyPreferences() {
         preferences.edit()
@@ -463,5 +400,55 @@ public final class PreferenceManager implements AppPreferences {
     @Override
     public void clear() {
         preferences.edit().clear().apply();
+    }
+
+    /**
+     * Get preference value for a folder.
+     * If folder is not set itself, it finds an ancestor that is set.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to lookup.
+     * @param folder Folder.
+     * @param defaultValue Fallback value in case no ancestor is set.
+     * @return Preference value
+     */
+    private static String getFolderPreference(Context context, String preferenceName, OCFile folder,
+                                              String defaultValue) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            return defaultValue;
+        }
+
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+
+        String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
+        while (folder != null && value.isEmpty()) {
+            folder = storageManager.getFileById(folder.getParentId());
+            value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
+        }
+        return value.isEmpty() ? defaultValue : value;
+    }
+
+    /**
+     * Set preference value for a folder.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to set.
+     * @param folder Folder.
+     * @param value Preference value to set.
+     */
+    private static void setFolderPreference(Context context, String preferenceName, OCFile folder, String value) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        dataProvider.storeOrUpdateKeyValue(account.name, getKeyFromFolder(preferenceName, folder), value);
+    }
+
+    private static String getKeyFromFolder(String preferenceName, OCFile folder) {
+        final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
+            FileDataStorageManager.ROOT_PARENT_ID);
+
+        return preferenceName + "_" + folderIdString;
     }
 }
