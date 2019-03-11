@@ -51,6 +51,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -112,6 +114,7 @@ public class UserInfoActivity extends FileActivity {
 
     @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
 
+    private AppPreferences preferences;
     private float mCurrentAccountAvatarRadiusDimension;
 
     private Unbinder unbinder;
@@ -123,7 +126,7 @@ public class UserInfoActivity extends FileActivity {
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
-
+        preferences = PreferenceManager.fromContext(this);
         Bundle bundle = getIntent().getExtras();
 
         account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));
@@ -439,7 +442,7 @@ public class UserInfoActivity extends FileActivity {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer();
+        PushUtils.pushRegistrationToServer(preferences.getPushToken());
     }
 
 
