@@ -205,6 +205,27 @@ public interface AppPreferences {
     FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder);
     FileSortOrder getSortOrderByType(FileSortOrder.Type type);
 
+
+    /**
+     * Gets the legacy cleaning flag last set.
+     *
+     * @return ascending order     the legacy cleaning flag, default is false
+     */
+    boolean isLegacyClean();
+
+    /**
+     * Saves the legacy cleaning flag which the user has set last.
+     *
+     * @param legacyClean flag if it is a legacy cleaning
+     */
+    void setLegacyClean(boolean legacyClean);
+
+    boolean isKeysMigrationEnabled();
+    void setKeysMigrationEnabled(boolean enabled);
+
+    boolean isStoragePathFixEnabled();
+    void setStoragePathFixEnabled(boolean enabled);
+
     boolean isShowDetailedTimestampEnabled();
     void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
 

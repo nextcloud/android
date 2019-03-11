@@ -243,7 +243,7 @@ public class MainApp extends MultiDexApplication {
 
     @SuppressLint("ApplySharedPref") // commit is done on purpose to write immediately
     private void fixStoragePath() {
-        if (!PreferenceManager.getStoragePathFix(this)) {
+        if (!preferences.isStoragePathFixEnabled()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
                 String storagePath = sharedPreferences.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH, "");
@@ -280,10 +280,10 @@ public class MainApp extends MultiDexApplication {
 
                         }
                     }
-                    PreferenceManager.setStoragePathFix(this, true);
+                    preferences.setStoragePathFixEnabled(true);
                 } else {
                     sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
-                    PreferenceManager.setStoragePathFix(this, true);
+                    preferences.setStoragePathFixEnabled(true);
                 }
             } else {
                 if (TextUtils.isEmpty(storagePath)) {
@@ -291,7 +291,7 @@ public class MainApp extends MultiDexApplication {
                                               Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                 }
                 sharedPreferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
-                PreferenceManager.setStoragePathFix(this, true);
+                preferences.setStoragePathFixEnabled(true);
             }
         }
     }
@@ -543,7 +543,7 @@ public class MainApp extends MultiDexApplication {
         AppPreferences preferences = PreferenceManager.fromContext(context);
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
@@ -557,7 +557,7 @@ public class MainApp extends MultiDexApplication {
             Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
             ContentResolver contentResolver = context.getContentResolver();
 
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences);
 
             final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true);
             final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true);
@@ -608,7 +608,7 @@ public class MainApp extends MultiDexApplication {
             AppPreferences preferences = PreferenceManager.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
-                        new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+                        new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
@@ -627,10 +627,11 @@ public class MainApp extends MultiDexApplication {
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
         Context context = getAppContext();
+        AppPreferences preferences = PreferenceManager.fromContext(context);
 
-        if (!PreferenceManager.getLegacyClean(context)) {
+        if (!preferences.isLegacyClean()) {
             SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(context.getContentResolver());
+                    new SyncedFolderProvider(context.getContentResolver(), preferences);
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
@@ -649,9 +650,12 @@ public class MainApp extends MultiDexApplication {
             ids.addAll(syncedFolders.values());
 
             if (ids.size() > 0) {
-                syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
+                int deletedCount = syncedFolderProvider.deleteSyncedFoldersNotInList(ids);
+                if(deletedCount > 0) {
+                    preferences.setLegacyClean(true);
+                }
             } else {
-                PreferenceManager.setLegacyClean(context, true);
+                preferences.setLegacyClean(true);
             }
         }
     }
