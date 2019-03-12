@@ -522,7 +522,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int foldersCount = 0;
         int count = mFiles.size();
         OCFile file;
-        final boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
+        final boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
         for (int i = 0; i < count; i++) {
             file = getItem(i);
             if (file.isFolder()) {
@@ -619,7 +619,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
 
-            if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
+            if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
             }
             if (!limitToMimeType.isEmpty()) {
@@ -846,7 +846,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles.clear();
             if (ocFiles != null && ocFiles.size() > 0) {
                 mFiles.addAll(ocFiles);
-                if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
+                if (!preferences.isShowHiddenFilesEnabled()) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
                 FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
