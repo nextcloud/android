@@ -324,7 +324,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         mFiles = sortOrder.sortLocalFiles(mFiles);
 
         // Fetch preferences for showing hidden files
-        boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
+        boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
         if (!showHiddenFiles) {
             mFiles = filterHiddenFiles(mFiles);
         }

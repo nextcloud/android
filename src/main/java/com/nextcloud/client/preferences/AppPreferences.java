@@ -27,6 +27,9 @@ public interface AppPreferences {
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
 
+    boolean isShowHiddenFilesEnabled();
+    void setShowHiddenFilesEnabled(boolean enabled);
+
     /**
      * Gets the selected file extension position the user selected to do the
      * last upload of a url file shared from other app.
