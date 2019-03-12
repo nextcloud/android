@@ -2563,7 +2563,7 @@ public class FileDisplayActivity extends HookActivity
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        if (!PreferenceManager.getKeysReInit(getApplicationContext())) {
+        if (!preferences.isKeysReInitEnabled()) {
             PushUtils.reinitKeys();
         } else {
             PushUtils.pushRegistrationToServer();
