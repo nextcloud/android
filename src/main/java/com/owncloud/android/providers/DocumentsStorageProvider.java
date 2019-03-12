@@ -45,6 +45,7 @@ import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -93,10 +94,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
-
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        if (SettingsActivity.LOCK_PASSCODE.equals(appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, "")) ||
-            SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(appPrefs.getString(SettingsActivity.PREFERENCE_LOCK, ""))) {
+        Context context = MainApp.getAppContext();
+        AppPreferences preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(context);
+        if (SettingsActivity.LOCK_PASSCODE.equals(preferences.getLockPreference()) ||
+            SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(preferences.getLockPreference())) {
             return new FileCursor();
         }
 

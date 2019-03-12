@@ -115,6 +115,7 @@ public class MainApp extends MultiDexApplication {
 
     private SharedPreferences sharedPreferences;
     private AppPreferences preferences;
+    private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -132,6 +133,7 @@ public class MainApp extends MultiDexApplication {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preferences = PreferenceManager.fromContext(this);
         fixStoragePath();
+        passCodeManager = new PassCodeManager(preferences);
 
         MainApp.storagePath = sharedPreferences.getString(SettingsActivity.PreferenceKeys.STORAGE_PATH,
                                                  getApplicationContext().getFilesDir().getAbsolutePath());
@@ -190,13 +192,13 @@ public class MainApp extends MultiDexApplication {
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
                 WhatsNewActivity.runIfNeeded(activity);
-                PassCodeManager.getPassCodeManager().onActivityCreated(activity);
+                passCodeManager.onActivityCreated(activity);
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
-                PassCodeManager.getPassCodeManager().onActivityStarted(activity);
+                passCodeManager.onActivityStarted(activity);
             }
 
             @Override
@@ -212,7 +214,7 @@ public class MainApp extends MultiDexApplication {
             @Override
             public void onActivityStopped(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                PassCodeManager.getPassCodeManager().onActivityStopped(activity);
+                passCodeManager.onActivityStopped(activity);
             }
 
             @Override
