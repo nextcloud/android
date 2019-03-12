@@ -39,6 +39,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
@@ -47,7 +48,7 @@ import java.util.Arrays;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class    PassCodeActivity extends AppCompatActivity {
+public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -64,6 +65,7 @@ public class    PassCodeActivity extends AppCompatActivity {
     public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
+    private AppPreferences preferences;
     private Button mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -88,6 +90,7 @@ public class    PassCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
+        preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(this);
 
         int elementColor = ThemeUtils.elementColor(this);
 
@@ -308,15 +311,10 @@ public class    PassCodeActivity extends AppCompatActivity {
      *
      * @return     'True' if entered pass code equals to the saved one.
      */
-    protected boolean checkPassCode(){
-        SharedPreferences appPrefs = PreferenceManager
-            .getDefaultSharedPreferences(getApplicationContext());
+    protected boolean checkPassCode() {
 
-        String savedPassCodeDigits[] = new String[4];
-        savedPassCodeDigits[0] = appPrefs.getString(PREFERENCE_PASSCODE_D1, null);
-        savedPassCodeDigits[1] = appPrefs.getString(PREFERENCE_PASSCODE_D2, null);
-        savedPassCodeDigits[2] = appPrefs.getString(PREFERENCE_PASSCODE_D3, null);
-        savedPassCodeDigits[3] = appPrefs.getString(PREFERENCE_PASSCODE_D4, null);
+
+        String savedPassCodeDigits[] = preferences.getPassCode();
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {

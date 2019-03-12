@@ -27,6 +27,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -63,6 +64,7 @@ public final class PreferenceManager implements AppPreferences {
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
     public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
+    private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -156,24 +158,39 @@ public final class PreferenceManager implements AppPreferences {
         preferences.edit().putString(AUTO_PREF__LAST_UPLOAD_PATH, path).apply();
     }
 
-    /**
-     * Gets the lock preference configured by the user.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return lock     lock preference value.
-     */
-    public static String getLockPreference(Context context) {
-        return getDefaultSharedPreferences(context).getString(SettingsActivity.PREFERENCE_LOCK, "");
+    @Override
+    public String getLockPreference() {
+        return preferences.getString(PREF__LOCK, SettingsActivity.LOCK_NONE);
     }
 
-    /**
-     * Gets the lock via fingerprint preference configured by the user.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return useFingerprint     is lock via fingerprint preference.
-     */
-    public static boolean isUseFingerprint(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
+    @Override
+    public void setLockPreference(String lockPreference) {
+        preferences.edit().putString(PREF__LOCK, lockPreference).apply();
+    }
+
+    @Override
+    public void setPassCode(String d1, String d2, String d3, String d4) {
+        preferences
+            .edit()
+            .putString(PassCodeActivity.PREFERENCE_PASSCODE_D1, d1)
+            .putString(PassCodeActivity.PREFERENCE_PASSCODE_D2, d2)
+            .putString(PassCodeActivity.PREFERENCE_PASSCODE_D3, d3)
+            .putString(PassCodeActivity.PREFERENCE_PASSCODE_D4, d4)
+            .apply();
+    }
+
+    @Override
+    public String[] getPassCode() {
+        return new String[] {
+            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D1, null),
+            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D2, null),
+            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D3, null),
+            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D4, null),
+        };
+    }
+
+    public boolean isFingerprintUnlockEnabled() {
+        return preferences.getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
     }
 
     @Override
@@ -439,5 +456,10 @@ public final class PreferenceManager implements AppPreferences {
                 .remove("instant_video_upload_on_charging")
                 .remove("prefs_instant_behaviour")
                 .apply();
+    }
+
+    @Override
+    public void clear() {
+        preferences.edit().clear().apply();
     }
 }
