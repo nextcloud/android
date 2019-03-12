@@ -15,7 +15,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.3') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
@@ -58,7 +58,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 5
 def versionPatch = 1
-def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
