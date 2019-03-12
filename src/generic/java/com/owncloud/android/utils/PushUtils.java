@@ -40,7 +40,7 @@ public final class PushUtils {
 
     public static void reinitKeys() {
         Context context = MainApp.getAppContext();
-        PreferenceManager.setKeysReInit(context);
+        PreferenceManager.fromContext(context).setKeysReInitEnabled();
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {

@@ -374,7 +374,7 @@ public final class PushUtils {
         FileUtils.deleteQuietly(publicKeyFile);
 
         pushRegistrationToServer();
-        PreferenceManager.setKeysReInit(context);
+        PreferenceManager.fromContext(context).setKeysReInitEnabled();
     }
 
     private static void migratePushKeys() {
