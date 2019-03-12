@@ -10,6 +10,6 @@
 - Show correct share error message
 - Use default/device font
 - Sync all downloaded
-- Add battery optimization warning
+- Battery optimization warning
 
 For a full list, please see https://github.com/nextcloud/android/milestone/28
