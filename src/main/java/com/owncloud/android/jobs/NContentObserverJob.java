@@ -27,6 +27,7 @@ import android.os.Build;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PowerUtils;
@@ -65,7 +66,8 @@ public class NContentObserverJob extends JobService {
 
     private void checkAndStartFileSyncJob() {
         if (!PowerUtils.isPowerSaveMode(getApplicationContext()) &&
-                new SyncedFolderProvider(getContentResolver()).countEnabledSyncedFolders() > 0) {
+                new SyncedFolderProvider(getContentResolver(),
+                    PreferenceManager.fromContext(getApplicationContext())).countEnabledSyncedFolders() > 0) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 
