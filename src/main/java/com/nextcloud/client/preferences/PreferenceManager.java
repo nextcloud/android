@@ -90,12 +90,14 @@ public final class PreferenceManager implements AppPreferences {
         return preferences.getBoolean(PREF__KEYS_REINIT, false);
     }
 
-    public static void setPushToken(Context context, String pushToken) {
-        saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
+    @Override
+    public void setPushToken(String pushToken) {
+        preferences.edit().putString(PREF__PUSH_TOKEN, pushToken).apply();
     }
 
-    public static String getPushToken(Context context) {
-        return getDefaultSharedPreferences(context).getString(PREF__PUSH_TOKEN, "");
+    @Override
+    public String getPushToken() {
+        return preferences.getString(PREF__PUSH_TOKEN, "");
     }
 
     @Override

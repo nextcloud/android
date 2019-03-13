@@ -34,7 +34,7 @@ public final class PushUtils {
     private PushUtils() {
     }
 
-    public static void pushRegistrationToServer() {
+    public static void pushRegistrationToServer(final String pushToken) {
         // do nothing
     }
 
