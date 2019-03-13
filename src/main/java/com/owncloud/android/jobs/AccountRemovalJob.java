@@ -29,6 +29,7 @@ import android.content.Context;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -92,7 +93,8 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
 
             // remove synced folders set for account
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver(),
+                PreferenceManager.fromContext(context));
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
 
             List<Long> syncedFolderIds = new ArrayList<>();
