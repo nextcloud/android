@@ -29,6 +29,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -193,8 +194,7 @@ public final class PushUtils {
         }
     }
 
-    public static void pushRegistrationToServer() {
-        String token = PreferenceManager.getPushToken(MainApp.getAppContext());
+    public static void pushRegistrationToServer(final String token) {
         arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
@@ -373,8 +373,10 @@ public final class PushUtils {
         FileUtils.deleteQuietly(privateKeyFile);
         FileUtils.deleteQuietly(publicKeyFile);
 
-        pushRegistrationToServer();
-        PreferenceManager.fromContext(context).setKeysReInitEnabled();
+        AppPreferences preferences = PreferenceManager.fromContext(context);
+        String pushToken = preferences.getPushToken();
+        pushRegistrationToServer(pushToken);
+        preferences.setKeysReInitEnabled();
     }
 
     private static void migratePushKeys() {
