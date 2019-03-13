@@ -78,6 +78,7 @@
     <string name="auth_username">Brugernavn</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
     <string name="auth_wtf_reenter_URL">Uventet tilstand, indtast venligst server adressen igen</string>
+    <string name="authentication_exception">Undtagelse ved adgangskontrol</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Vær vært for egen server</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
+    <string name="io_error">IO fejl</string>
     <string name="learn_more">Lær mere</string>
     <string name="link">Link</string>
     <string name="list_layout">Liste layout</string>
@@ -378,6 +380,7 @@
     <string name="new_media_folder_detected">Ny %1$s medie mappe opdaget.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Ny Notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
@@ -407,6 +410,7 @@
     <string name="oauth_check_onoff">Log ind med OAuth 2.0</string>
     <string name="oauth_login_connection">Forbinder til OAuth 2.0 server...</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
+    <string name="operation_canceled">Operation annulleret.</string>
     <string name="outdated_server">Serveren har nået sit livs ende, opgrader venligst!</string>
     <string name="overflow_menu">Mere menu</string>
     <string name="participate_beta_headline">Test versionen under udvikling</string>
@@ -574,9 +578,11 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_with_edit_title">Del med %1$s</string>
     <string name="share_with_title">Del med...</string>
     <string name="share_with_user_section_title">Del med brugere eller grupper</string>
+    <string name="shared_avatar_desc">Avatar fra delt bruger</string>
     <string name="shared_icon_share">Del</string>
     <string name="shared_icon_shared">Delt</string>
     <string name="shared_icon_shared_via_link">Delt via link</string>
+    <string name="shared_with_you_by">Delt med dig af %1$s</string>
     <string name="sharee_add_failed">Tilføj deler fejlet</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud account %2$s?</string>
@@ -612,7 +618,15 @@ Enheds legitimationsoplysninger er sat op
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Vælg placering af lageret</string>
     <string name="storage_description_default">Standard</string>
+    <string name="storage_documents">Dokumenter</string>
+    <string name="storage_downloads">Downloads</string>
+    <string name="storage_internal_storage">Internt lager</string>
+    <string name="storage_movies">Film</string>
+    <string name="storage_music">Musik</string>
+    <string name="storage_pictures">Billeder</string>
     <string name="store_full_desc">Nextcloud Android app copylefted libre, giver mobil frihed.\n\nFremviser:\n* Nem, moderne brugerflade, tilpasset til din servers tema\n* Send filer til din Nextcloud server\n* Del dem med andre\n* Hold dine favorit filer og mapper i sync\n* Søg henover alle foldere på din server\n* Auto Upload photos og videoer taget med din device\n* Hold dig opdateret med notifikationer\n* Understøttelse af multiple konti\n* Sikret tilgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx5 (tidligere kendt som DAVdroid) for let adgang til kalender &amp; kontakt synkronisering\n\n Venligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter denne app på https://help.nextcloud.com/c/clients/android\n\n Ny på Nextcloud? Nextcloud er en privat fil synkronisering &amp; dele og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.\n\n Tjek Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Nextcloud Android app copylefted libre, giver dig mobil frihed.\nDette er den officielle udviklingsversion, fremvisende daglige udgaver af nye utestede funktioner, hvilket kan give ustabilitet og data tab. Appen er for brugere villige til at teste og rapportere bugs, skulle de forekomme. Brug den ikke til dit arbejde!\n\nBåde den officielle udviklingsversion og den almindelige version er tilgængelige på F-droid, og kan installeres samtidigt.</string>
     <string name="store_short_desc">Nextcloud Android appen giver mobil adgang til alle filer på din Nextcloud.</string>
@@ -648,6 +662,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="tags">Mærkater</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thumbnail">Miniature</string>
+    <string name="timeout_richDocuments">Indlæsning tager lang tid…</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
     <string name="trashbin_empty_message">Du vil kunne gendanne slettede filer herfra</string>
@@ -755,4 +770,24 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_device_credentials_title">Brug Android enhedens interne beskyttelse</string>
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
+        <item quantity="other">Kunne ikke synkronisere %1$d filer (konflikter: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d fil fra %2$s mappe kunne ikke kopieres ind</item>
+        <item quantity="other">%1$d filer fra %2$s mappe kunne ikke kopieres ind</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mappe</item>
+        <item quantity="other">%1$d mapper</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fil</item>
+        <item quantity="other">%1$d filer</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valgt</item>
+        <item quantity="other">%d valgt</item>
+    </plurals>
+</resources>
