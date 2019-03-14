@@ -764,4 +764,24 @@
     <string name="whats_new_device_credentials_title">Använd Android-enhetens interna skydd</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
+        <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Kunde inte kopiera %1$d fil från %2$s mappen till</item>
+        <item quantity="other">Kunde inte kopiera %1$d filer från %2$s mappen till</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mapp</item>
+        <item quantity="other">%1$d mappar</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fil</item>
+        <item quantity="other">%1$d filer</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d vald</item>
+        <item quantity="other">%d vald</item>
+    </plurals>
+</resources>
