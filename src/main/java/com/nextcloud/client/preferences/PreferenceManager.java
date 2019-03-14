@@ -256,7 +256,7 @@ public final class PreferenceManager implements AppPreferences {
 
     @Override
     public void setLegacyClean(boolean isLegacyClean) {
-        preferences.edit().putBoolean(PREF__LEGACY_CLEAN, isLegacyClean);
+        preferences.edit().putBoolean(PREF__LEGACY_CLEAN, isLegacyClean).apply();
     }
 
     @Override
