@@ -576,9 +576,11 @@
     <string name="share_with_edit_title">Megosztás vele: %1$s</string>
     <string name="share_with_title">Megosztás vele…</string>
     <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal</string>
+    <string name="shared_avatar_desc">Avatár a megosztott felhasználótól</string>
     <string name="shared_icon_share">megosztás</string>
     <string name="shared_icon_shared">megosztva</string>
     <string name="shared_icon_shared_via_link">hivatkozással megosztva</string>
+    <string name="shared_with_you_by">%1$s megosztotta Önnel</string>
     <string name="sharee_add_failed">A megosztás hozzáadása sikertelen</string>
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
@@ -615,6 +617,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
     <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Háttértároló helyének kiválasztása</string>
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_documents">Dokumentumok</string>
     <string name="storage_downloads">Letöltések</string>
@@ -786,6 +789,10 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
         <item quantity="other">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d fájl a(z) %2$s mappába másolása sikertelen</item>
+        <item quantity="other">%1$d fájl a(z) %2$s mappába másolása sikertelen</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>

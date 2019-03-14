@@ -633,4 +633,12 @@
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d carpeta</item>
+        <item quantity="other">%1$d carpetes</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fitxer</item>
+        <item quantity="other">%1$d fitxers</item>
+    </plurals>
     </resources>

@@ -233,7 +233,7 @@
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>
-    <string name="favorite_icon">Ulubione</string>
+    <string name="favorite_icon">Ulubiony</string>
     <string name="feedback_no_mail_app">Brak aplikacji do wysyłania wiadomości!</string>
     <string name="file_delete">Usuń</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
@@ -300,9 +300,9 @@
     <string name="filename_hint">Nazwa pliku</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
-    <string name="first_run_2_text">Bezpieczna współpraca i wymiana plikami</string>
-    <string name="first_run_3_text">Prosty klient pocztowy, kalendarz i kontakty.</string>
-    <string name="first_run_4_text">Współdzielenie ekranu, spotkania online &amp; w konferencji internetowej</string>
+    <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
+    <string name="first_run_3_text">Prosty klient pocztowy, kalendarz i kontakty</string>
+    <string name="first_run_4_text">Współdzielenie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_icon">Ikona katalogu</string>
@@ -500,7 +500,7 @@
     <string name="privacy">Prywatność</string>
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
-    <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
+    <string name="push_notifications_temp_error">Powiadomienia push nie są obecnie dostępne.</string>
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
