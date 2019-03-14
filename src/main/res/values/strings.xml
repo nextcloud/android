@@ -37,8 +37,8 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_lock">Lock</string>
-    <string name="prefs_lock_title">Lock using</string>
+    <string name="prefs_lock">App passcode</string>
+    <string name="prefs_lock_title">Protect app using</string>
     <string name="prefs_lock_none">None</string>
     <string name="prefs_lock_using_passcode">Passcode</string>
     <string name="prefs_lock_using_device_credentials">Device credentials</string>
