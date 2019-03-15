@@ -80,7 +80,8 @@ public class MediaFoldersDetectionJob extends Job {
         Context context = getContext();
         ContentResolver contentResolver = context.getContentResolver();
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
+            PreferenceManager.fromContext(context));
         Gson gson = new Gson();
         String arbitraryDataString;
         MediaFoldersModel mediaFoldersModel;

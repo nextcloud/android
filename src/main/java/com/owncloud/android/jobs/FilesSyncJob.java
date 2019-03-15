@@ -31,6 +31,7 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -103,7 +104,8 @@ public class FilesSyncJob extends Job {
         // Create all the providers we'll need
         final ContentResolver contentResolver = context.getContentResolver();
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
+            PreferenceManager.fromContext(context));
 
         Locale currentLocale = context.getResources().getConfiguration().locale;
         SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
