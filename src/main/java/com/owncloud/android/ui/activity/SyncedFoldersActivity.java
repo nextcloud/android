@@ -42,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -187,7 +188,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         mAdapter = new SyncedFolderAdapter(this, gridWidth, this, lightVersion);
-        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
+        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(),
+            PreferenceManager.fromContext(this));
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);

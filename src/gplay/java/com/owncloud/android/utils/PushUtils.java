@@ -381,8 +381,8 @@ public final class PushUtils {
 
     private static void migratePushKeys() {
         Context context = MainApp.getAppContext();
-
-        if (!PreferenceManager.getKeysMigration(context)) {
+        AppPreferences preferences = PreferenceManager.fromContext(context);
+        if (!preferences.isKeysMigrationEnabled()) {
             String oldKeyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
                     + File.separator + "nc-keypair";
             File oldPrivateKeyFile = new File(oldKeyPath, "push_key.priv");
@@ -394,7 +394,7 @@ public final class PushUtils {
 
             if ((privateKeyFile.exists() && publicKeyFile.exists()) ||
                     (!oldPrivateKeyFile.exists() && !oldPublicKeyFile.exists())) {
-                PreferenceManager.setKeysMigration(context, true);
+                preferences.setKeysMigrationEnabled(true);
             } else {
                 if (oldPrivateKeyFile.exists()) {
                     FileStorageUtils.moveFile(oldPrivateKeyFile, privateKeyFile);
@@ -405,7 +405,7 @@ public final class PushUtils {
                 }
 
                 if (privateKeyFile.exists() && publicKeyFile.exists()) {
-                    PreferenceManager.setKeysMigration(context, true);
+                    preferences.setKeysMigrationEnabled(true);
                 }
             }
         }
