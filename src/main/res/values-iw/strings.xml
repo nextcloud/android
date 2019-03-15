@@ -8,6 +8,7 @@
     <string name="account_not_found">החשבון לא נמצא!</string>
     <string name="action_clear_failed_uploads">פינוי העלאות שנכשלו</string>
     <string name="action_clear_successful_uploads">פינוי העלאות שהצליחו</string>
+    <string name="action_empty_notifications">פינוי כל ההתראות</string>
     <string name="action_empty_trashbin">פינוי סל האשפה</string>
     <string name="action_force_rescan">אילוץ סריקה מחדש</string>
     <string name="action_retry_uploads">לנסות העלאות שנכשלו מחדש</string>
@@ -77,6 +78,7 @@
     <string name="auth_username">שם משתמש</string>
     <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
     <string name="auth_wtf_reenter_URL">מצב בלתי צפוי, יש להקליד את כתובת השרת שוב</string>
+    <string name="authentication_exception">חריגת אימות</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">נשאר בתיקייה המקומית כיוון שהיא לקריאה בלבד</string>
     <string name="auto_upload_on_wifi">להעלות רק ברשת אלחוטית ללא מדידת כמות</string>
     <string name="auto_upload_path">/העלאה אוטומטית</string>
@@ -92,6 +94,7 @@
     <string name="checkbox">תיבת סימון</string>
     <string name="choose_local_folder">נא לבחור בתיקייה מקומית…</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
+    <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
     <string name="clipboard_text_copied">הקישור הועתק</string>
@@ -166,6 +169,7 @@
     <string name="digest_algorithm_not_available">אלגוריתם digest זה אינו זמין במכשיר הטלפון החכם שלך.</string>
     <string name="disable_new_media_folder_detection_notifications">השבתה</string>
     <string name="dismiss">התעלמות</string>
+    <string name="dismiss_notification_description">התעלמות מהתראה</string>
     <string name="downloader_download_failed_content">לא ניתן להוריד את %1$s</string>
     <string name="downloader_download_failed_credentials_error">ההורדה נכשלה, יש להיכנס שוב</string>
     <string name="downloader_download_failed_ticker">ההורדה נכשלה</string>
@@ -321,9 +325,11 @@
     <string name="hint_name">שם</string>
     <string name="hint_note">מסר</string>
     <string name="hint_password">ססמה</string>
+    <string name="host_not_available">השרת אינו זמין</string>
     <string name="host_your_own_server">אירוח שרת משלך</string>
     <string name="instant_upload_on_charging">להעלות רק בעת טעינה</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">שגיאת קלט פלט</string>
     <string name="learn_more">לקריאה נוספת</string>
     <string name="link">קישור</string>
     <string name="list_layout">פריסה מוצגת</string>
@@ -374,11 +380,13 @@
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
     <string name="new_media_folder_photos">תמונות</string>
     <string name="new_media_folder_videos">סרטונים</string>
+    <string name="new_notification">התראה חדשה</string>
     <string name="new_version_was_created">נוצרה גרסה חדשה</string>
     <string name="no_browser_available">אין יישומון שיכול לטפל בקישורים</string>
     <string name="no_pdf_app_available">אין יישומים זמינים לטיפול ב־PDF</string>
     <string name="note_confirm">שליחה</string>
     <string name="note_could_not_sent">לא ניתן לשלוח מסר</string>
+    <string name="notification_action_failed">הפעלת הפעולה נכשלה.</string>
     <string name="notification_channel_download_description">מציג תהליך הורדה</string>
     <string name="notification_channel_download_name">ערוץ דיווחי הורדה</string>
     <string name="notification_channel_file_observer_description">מעקב אחר שינויים בקבצים</string>
@@ -402,6 +410,7 @@
     <string name="oauth_check_onoff">כניסה עם OAuth 2.0</string>
     <string name="oauth_login_connection">התחברות אל שרת oAuth2…</string>
     <string name="offline_mode">אין חיבור לאינטרנט</string>
+    <string name="operation_canceled">הפעולה בוטלה.</string>
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="overflow_menu">תפריט עוד</string>
     <string name="participate_beta_headline">בדיקת גרסת הפיתוח</string>
@@ -495,6 +504,7 @@
     <string name="recommend_text">אשמח להזמין אותך להשתמש ב־%1$s במכשיר שלך.\nניתן להוריד מכאן: %2$s</string>
     <string name="recommend_urls">%1$s או %2$s</string>
     <string name="remove_fail_msg">המחיקה נכשלה</string>
+    <string name="remove_notification_failed">הסרת ההתראה נכשלה.</string>
     <string name="remove_push_notification">הסרה</string>
     <string name="remove_success_msg">נמחק</string>
     <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -565,9 +575,11 @@
     <string name="share_with_edit_title">שיתף עם %1$s</string>
     <string name="share_with_title">שיתף עם…</string>
     <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>
+    <string name="shared_avatar_desc">תמונה ייצוגית מהמשתמש השיתופי</string>
     <string name="shared_icon_share">שיתוף</string>
     <string name="shared_icon_shared">משותף</string>
     <string name="shared_icon_shared_via_link">משותף דרך קישור</string>
+    <string name="shared_with_you_by">שותף אתך על ידי %1$s</string>
     <string name="sharee_add_failed">הוספת נמען השיתוף נכשלה</string>
     <string name="signup_with_provider">נא להירשם עם ספק</string>
     <string name="single_sign_on_request_token" formatted="true">לאפשר ל־%1$s לגשת לחשבון שלך ב־ Nextcloud %2$s?</string>
@@ -603,9 +615,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- תעודת השרת אינה מהימנה</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- תוקף תעודת השרת מתייחס לתאריכים בעתיד</string>
     <string name="ssl_validator_reason_hostname_not_verified">- הכתובת אינה תואמת לשם המארח בתעודה</string>
+    <string name="storage_camera">מצלמה</string>
+    <string name="storage_choose_location">בחירת מיקום אחסון</string>
     <string name="storage_description_default">ברירת מחדל</string>
     <string name="storage_documents">מסמכי</string>
     <string name="storage_downloads">הורדות</string>
+    <string name="storage_internal_storage">אחסון פנימי</string>
+    <string name="storage_movies">סרטים</string>
+    <string name="storage_music">מוזיקה</string>
+    <string name="storage_pictures">תמונות</string>
     <string name="store_short_desc">יישומון Nextcloud ל־Android מעניק לך גישה דרך הטלפון הנייד לכל הקבצים שלך ב־Nextcloud.</string>
     <string name="store_short_dev_desc">יישומון הפיתוח של Nextcloud הוא יישומון למטרות פיתוח ולא ניתן להתקין אותו במקביל.</string>
     <string name="stream">הזרמה עם…</string>
@@ -639,6 +657,7 @@
     <string name="tags">תגיות</string>
     <string name="test_server_button">בדיקת החיבור לשרת</string>
     <string name="thumbnail">תמונה ממוזערת</string>
+    <string name="timeout_richDocuments">הטעינה אורכת זמן רב…</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
     <string name="trashbin_empty_message">תהיה לך אפשרות לשחזר קבצים דרך כאן</string>

@@ -302,7 +302,7 @@
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
     <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
     <string name="first_run_3_text">Prosty klient pocztowy, kalendarz i kontakty</string>
-    <string name="first_run_4_text">Współdzielenie ekranu, spotkania online i konferencje internetowe</string>
+    <string name="first_run_4_text">Współdzielenie ekranu, spotkania i konferencje online</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_icon">Ikona katalogu</string>
