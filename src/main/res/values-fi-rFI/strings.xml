@@ -625,6 +625,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_internal_storage">Sisäinen tallennustila</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>
+    <string name="storage_pictures">Kuvat</string>
     <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
     <string name="stream">Suoratoista käyttämällä...</string>
@@ -713,6 +714,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploader_upload_failed_ticker">Lähetys epäonnistui</string>
     <string name="uploader_upload_files_behaviour">Lähetysasetus:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto %1$s kansioon</string>
+    <string name="uploader_upload_files_behaviour_not_writable">lähdekansio on vain lukuoikeus; tiedosto ladataan palvelimelle, ei muuta</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Poista tiedosto lähdekansiosta</string>
     <string name="uploader_upload_forbidden_permissions">lähettää tähän kansioon</string>

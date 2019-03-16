@@ -78,6 +78,7 @@
     <string name="auth_username">Nome de utilizador</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer ligação</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado. Digite novamente o endereço do servidor</string>
+    <string name="authentication_exception">Excepção de autenticação</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, dado ser readonly</string>
     <string name="auto_upload_on_wifi">Carregar ficheiros apenas em redes Wi-Fi sem contagem do tráfego</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Hospede o seu próprio servidor</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
+    <string name="io_error">Erro de IO</string>
     <string name="learn_more">Conheça melhor</string>
     <string name="link">Hiperligação</string>
     <string name="list_layout">Layout listado</string>
@@ -378,6 +380,7 @@
     <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Uma nova versão foi criada</string>
     <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
     <string name="no_pdf_app_available">Nenhuma aplicação disponível para lidar com PDF</string>
@@ -407,6 +410,7 @@
     <string name="oauth_check_onoff">Fazer login com OAuth 2.0</string>
     <string name="oauth_login_connection">A ligar ao servidor OAuth 2.0…</string>
     <string name="offline_mode">Sem conexão à Internet</string>
+    <string name="operation_canceled">A operação foi cancelada</string>
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
     <string name="participate_beta_headline">Teste a versão de desenvolvimento</string>
@@ -572,9 +576,11 @@
     <string name="share_with_edit_title">Partilhar com %1$s</string>
     <string name="share_with_title">Partilhar com…</string>
     <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
+    <string name="shared_avatar_desc">Avatar do utilizador partilhado</string>
     <string name="shared_icon_share">partilhar</string>
     <string name="shared_icon_shared">partilhado</string>
     <string name="shared_icon_shared_via_link">Partilhado via hiperligação</string>
+    <string name="shared_with_you_by">Partilhado consigo por %1$s</string>
     <string name="sharee_add_failed">Adição de destinatário da partilha falhou</string>
     <string name="signup_with_provider">Registar com fornecedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
@@ -610,7 +616,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>
     <string name="ssl_validator_reason_hostname_not_verified">- O URL não corresponde com o nome de anfitrião no certificado.</string>
+    <string name="storage_camera">Câmera</string>
+    <string name="storage_choose_location">Escolher a localização do armazenamento</string>
     <string name="storage_description_default">Por defeito</string>
+    <string name="storage_documents">Documentos</string>
+    <string name="storage_downloads">Transferências</string>
+    <string name="storage_internal_storage">Armazenamento interno</string>
+    <string name="storage_movies">Filmes</string>
+    <string name="storage_music">Música</string>
+    <string name="storage_pictures">Imagens</string>
     <string name="store_full_desc">A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
 
 Funcionalidades:
@@ -668,6 +682,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Testar conexão ao servidor</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="timeout_richDocuments">O carregamento é demorado...</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
     <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados a partir daqui</string>
@@ -775,4 +790,24 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="whats_new_device_credentials_title">Utilize a protecção de dispositivo interna do Android</string>
     <string name="whats_new_skip">Passar à frente</string>
     <string name="whats_new_title">Novo em %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Não foi possível sincronizar o %1$d ficheiro (conflitos: %2$d)</item>
+        <item quantity="other">Não foi possível sincronizar %1$d ficheiros (conflitos: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Falha ao copiar %1$d ficheiro da pasta %2$s para </item>
+        <item quantity="other">Falha ao copiar %1$d ficheiros da pasta %2$s para</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d pasta</item>
+        <item quantity="other">%1$d pastas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d ficheiro</item>
+        <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+</resources>
