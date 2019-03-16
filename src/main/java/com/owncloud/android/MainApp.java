@@ -25,6 +25,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,9 +42,12 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.nextcloud.client.di.ActivityInjector;
+import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.authentication.AccountUtils;
@@ -73,8 +77,14 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dagger.android.HasServiceInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import javax.inject.Inject;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +101,10 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different
  * classes
  */
-public class MainApp extends MultiDexApplication {
+public class MainApp extends MultiDexApplication implements
+    HasActivityInjector,
+    HasSupportFragmentInjector,
+    HasServiceInjector {
 
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_14;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_12;
@@ -112,7 +125,19 @@ public class MainApp extends MultiDexApplication {
     private static boolean mOnlyOnDevice;
 
     private SharedPreferences sharedPreferences;
-    private AppPreferences preferences;
+
+    @Inject
+    AppPreferences preferences;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Service> dispatchingServiceInjector;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -122,6 +147,14 @@ public class MainApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DaggerAppComponent.builder()
+            .application(this)
+            .build()
+            .inject(this);
+
+        registerActivityLifecycleCallbacks(new ActivityInjector());
+
         JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
 
@@ -656,5 +689,20 @@ public class MainApp extends MultiDexApplication {
                 preferences.setLegacyClean(true);
             }
         }
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingFragmentInjector;
+    }
+
+    @Override
+    public AndroidInjector<Service> serviceInjector() {
+        return dispatchingServiceInjector;
     }
 }
