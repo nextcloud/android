@@ -1,0 +1,4 @@
+La applicació lliure i copyleft Nextcloud Android, us dona llibertat mòbil.
+Aquesta és la versió de desenvolupament, proporcionant una mostra diària de qualsevol funcionalitat no provada, que pot causar inestabilitat i pèrdua de dades. L'aplicació és per usuaris disposats a provar i informar de les errades que puguin ocórrer. No la feu servir per a la vostra feina productiva!
+
+Tant la versió oficial de desenvolumapent com la versió normal estan disponibles a l'F-droid, i es poden tenir instaŀlades alhora.
