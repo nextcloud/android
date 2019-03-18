@@ -519,7 +519,7 @@
     <string name="richdocuments_failed_to_load_document">Malsukcesis ŝargi dokumenton!</string>
     <string name="saml_authentication_required_text">Pasvorto bezonata</string>
     <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
-    <string name="scanQR_description">Ensaluti pere de rapidresponda (QR) kodon</string>
+    <string name="scanQR_description">Ensaluti pere de rapidresponda (QR) kodo</string>
     <string name="screenshot_01_gridView">Sekura hejmo por ĉiuj viaj datumoj</string>
     <string name="screenshot_02_listView">Esploru kaj kunhavigu viajn dosierojn facile</string>
     <string name="screenshot_03_drawer">Rapide aliru al aktivaĵoj, kunhavoj, senkonekte haveblaj dosieroj kaj pli</string>
