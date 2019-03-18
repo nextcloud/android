@@ -31,7 +31,6 @@ import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
 import com.nextcloud.android.sso.aidl.ParcelFileDescriptorUtil;
@@ -42,7 +41,6 @@ import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
-
 import org.apache.commons.httpclient.HttpConnection;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpState;
@@ -71,6 +69,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_HTTP_REQUEST_FAILED;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_INVALID_REQUEST_URL;
@@ -310,7 +309,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(SSO_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE);
-        String hash = sharedPreferences.getString(callingPackageName, "");
+        String hash = sharedPreferences.getString(callingPackageName + DELIMITER + request.getAccountName(), "");
         return validateToken(hash, request.getToken());
     }
 

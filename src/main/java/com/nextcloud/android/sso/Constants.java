@@ -10,6 +10,7 @@ public class Constants {
     public static final String NEXTCLOUD_SSO_EXCEPTION = "NextcloudSsoException";
     public static final String NEXTCLOUD_SSO = "NextcloudSSO";
     public static final String NEXTCLOUD_FILES_ACCOUNT = "NextcloudFilesAccount";
+    public static final String DELIMITER = "_";
 
 
     // Custom Exceptions
