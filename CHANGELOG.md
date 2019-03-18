@@ -1,3 +1,16 @@
+## 3.5.1 (March, 18, 2019)
+
+- fixed SSO dialog
+- abort sync on no connection
+- fix chunked upload
+- fix federated share
+- fix button disabled state in folder sync preferences
+- add storage picker to upload local chooser
+- updated translations
+
+For a full list, please see https://github.com/nextcloud/android/milestone/31
+
+
 ## 3.5.0 (February, 13, 2019)
 
 - Chunked upload: 1MB on mobile data, 10MB on Wi-Fi
