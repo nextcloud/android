@@ -12,7 +12,7 @@
     <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="action_force_rescan">Wymuś indeksowanie</string>
     <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
-    <string name="action_send_share">Wyślij/udostępnij</string>
+    <string name="action_send_share">Wyślij/Udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>
