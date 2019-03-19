@@ -20,9 +20,9 @@
 package com.nextcloud.client.preferences;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -41,6 +41,8 @@ public final class PreferenceManager implements AppPreferences {
      * Constant to access value of last path selected by the user to upload a file shared from other app.
      * Value handled by the app without direct access in the UI.
      */
+    public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
+    public static final String STORAGE_PATH = "storage_path";
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
@@ -48,12 +50,11 @@ public final class PreferenceManager implements AppPreferences {
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
     private static final String AUTO_PREF__SHOW_DETAILED_TIMESTAMP = "detailed_timestamp";
-    public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
-    public static final String PREF__KEYS_MIGRATION = "keysMigration";
+    private static final String PREF__KEYS_MIGRATION = "keysMigration";
     private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
     private static final String PREF__KEYS_REINIT = "keysReinit";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
@@ -62,7 +63,7 @@ public final class PreferenceManager implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
-    public static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
+    private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
 
@@ -76,7 +77,7 @@ public final class PreferenceManager implements AppPreferences {
         return new PreferenceManager(appContext, prefs);
     }
 
-    public static SharedPreferences getDefaultSharedPreferences(Context context) {
+    private static SharedPreferences getDefaultSharedPreferences(Context context) {
         return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 
@@ -245,6 +246,11 @@ public final class PreferenceManager implements AppPreferences {
     @Override
     public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            throw new IllegalArgumentException("Account may not be null!");
+        }
+
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         dataProvider.storeOrUpdateKeyValue(account.name, PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
@@ -402,6 +408,26 @@ public final class PreferenceManager implements AppPreferences {
         preferences.edit().clear().apply();
     }
 
+    @Override
+    public String getStoragePath(String defaultPath) {
+        return preferences.getString(STORAGE_PATH, defaultPath);
+    }
+
+    @SuppressLint("ApplySharedPref")
+    @Override
+    public void setStoragePath(String path) {
+        preferences.edit().putString(STORAGE_PATH, path).commit();  // commit synchronously
+    }
+
+    /**
+     * Removes keys migration key from shared preferences.
+     */
+    @SuppressLint("ApplySharedPref")
+    @Override
+    public void removeKeysMigrationPreference() {
+        preferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit(); // commit synchronously
+    }
+
     /**
      * Get preference value for a folder.
      * If folder is not set itself, it finds an ancestor that is set.
@@ -441,6 +467,11 @@ public final class PreferenceManager implements AppPreferences {
      */
     private static void setFolderPreference(Context context, String preferenceName, OCFile folder, String value) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            throw new IllegalArgumentException("Account may not be null!");
+        }
+
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         dataProvider.storeOrUpdateKeyValue(account.name, getKeyFromFolder(preferenceName, folder), value);
     }
