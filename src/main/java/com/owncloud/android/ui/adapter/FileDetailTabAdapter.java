@@ -71,6 +71,6 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return file.canReshare() ? 2 : 1;
+        return 2;
     }
 }

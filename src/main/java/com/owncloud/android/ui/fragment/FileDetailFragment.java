@@ -302,10 +302,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         tabLayout.removeAllTabs();
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.drawer_item_activities));
-
-        if (getFile().canReshare()) {
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
-        }
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));

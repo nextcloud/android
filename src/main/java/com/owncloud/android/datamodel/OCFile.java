@@ -87,6 +87,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private int unreadCommentsCount;
     @Getter @Setter private String ownerId;
     @Getter @Setter private String ownerDisplayName;
+    @Getter @Setter String note;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
