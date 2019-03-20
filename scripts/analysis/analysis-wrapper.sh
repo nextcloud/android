@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #1: GIT_USERNAME
 #2: GIT_TOKEN
@@ -110,7 +110,18 @@ else
         findbugsMessage="<h1>Findbugs increased!</h1>"
     fi
 
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage \" }"
+    # check gplay limitation: all changelog files must only have 500 chars
+    gplayLimitation=$(scripts/checkGplayLimitation.sh)
+
+    if [ ! -z "$gplayLimitation" ]; then
+        gplayLimitation="<h1>Following files are beyond 500 char limit:</h1><br><br>"$gplayLimitation
+    fi
+
+    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation \" }"
+
+    if [ ! -z "$gplayLimitation" ]; then
+        exit 1
+    fi
 
     if [ $checkLibrary -eq 1 ]; then
         exit 1
