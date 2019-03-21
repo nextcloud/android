@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Guardar em sub-pastas de acordo com o ano e o mês</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar Subpastas</string>
     <string name="prefs_license">Licença</string>
-    <string name="prefs_lock">Bloquear</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Não foram configuradas credenciais de dispositivo.</string>
     <string name="prefs_lock_none">nenhum</string>
-    <string name="prefs_lock_title">Bloquear, utilizando</string>
     <string name="prefs_lock_using_device_credentials">Credenciais de dispositivo</string>
     <string name="prefs_lock_using_passcode">Código</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>

@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
     <string name="prefs_license">Лиценца</string>
-    <string name="prefs_lock">Закључавање</string>
     <string name="prefs_lock_device_credentials_enabled">Укључени акредитиви уређаја</string>
     <string name="prefs_lock_device_credentials_not_setup">Нема подешених акредитива уређаја.</string>
     <string name="prefs_lock_none">Ништа</string>
-    <string name="prefs_lock_title">Закључај користећи</string>
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_using_passcode">Код</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>

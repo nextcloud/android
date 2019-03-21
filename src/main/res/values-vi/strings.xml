@@ -270,11 +270,9 @@
     <string name="prefs_feedback">Phản hồi</string>
     <string name="prefs_help">Giúp đỡ</string>
     <string name="prefs_imprint">Đánh dấu</string>
-    <string name="prefs_lock">Khóa</string>
     <string name="prefs_lock_device_credentials_enabled">Bật chứng nhận thiết bị</string>
     <string name="prefs_lock_device_credentials_not_setup">Không có thông tin đăng nhập thiết bị nào được thiết lập.</string>
     <string name="prefs_lock_none">Không có</string>
-    <string name="prefs_lock_title">Đang khóa</string>
     <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
     <string name="prefs_lock_using_passcode">Mật mã</string>
     <string name="prefs_log_delete_history_button">Xóa lịch sử</string>

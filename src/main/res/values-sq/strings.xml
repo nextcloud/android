@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
     <string name="prefs_license">Liçensë</string>
-    <string name="prefs_lock">Kyç</string>
     <string name="prefs_lock_device_credentials_enabled">Kredencialet e pajisjes janë aktivizuar</string>
     <string name="prefs_lock_device_credentials_not_setup">Nuk janë krijuar kredencialet për asnjë pajisje</string>
     <string name="prefs_lock_none">Asnjë</string>
-    <string name="prefs_lock_title">Kyç përdorimin</string>
     <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
     <string name="prefs_lock_using_passcode">Kodkalimi</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>

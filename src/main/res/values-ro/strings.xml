@@ -349,11 +349,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_license">Licență</string>
-    <string name="prefs_lock">Blocare</string>
     <string name="prefs_lock_device_credentials_enabled">Autentificarea dispozitivului activată</string>
     <string name="prefs_lock_device_credentials_not_setup">Nu au fost create autentificări pentru dispozitiv.</string>
     <string name="prefs_lock_none">Niciuna</string>
-    <string name="prefs_lock_title">Blocare utilizând</string>
     <string name="prefs_lock_using_device_credentials">Autentificarea dispozitivului</string>
     <string name="prefs_lock_using_passcode">Parolă</string>
     <string name="prefs_log_delete_history_button">Șterge istoricul</string>

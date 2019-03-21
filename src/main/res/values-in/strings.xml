@@ -364,9 +364,7 @@
     <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
-    <string name="prefs_lock">Kunci</string>
     <string name="prefs_lock_none">Tidak ada</string>
-    <string name="prefs_lock_title">Kunci menggunakan</string>
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>

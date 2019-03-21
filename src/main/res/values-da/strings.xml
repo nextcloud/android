@@ -478,13 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre i undermapper baseret på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
     <string name="prefs_license">Licens</string>
-    <string name="prefs_lock">Lås</string>
     <string name="prefs_lock_device_credentials_enabled">Enheds legitimationsoplysninger aktiveret</string>
     <string name="prefs_lock_device_credentials_not_setup">Ingen 
 Enheds legitimationsoplysninger er sat op
 </string>
     <string name="prefs_lock_none">Ingen</string>
-    <string name="prefs_lock_title">Lås ved brug af</string>
     <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_log_delete_history_button">Slet historik</string>

@@ -474,12 +474,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_license">Licens</string>
-    <string name="prefs_lock">Lås</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens inloggningsuppgifter aktiverade</string>
     <string name="prefs_lock_device_credentials_not_setup">Inga inloggningsuppgifter aktiverade för enheten.</string>
     <string name="prefs_lock_none">Ingen
 </string>
-    <string name="prefs_lock_title">Lås med</string>
     <string name="prefs_lock_using_device_credentials">Enhetens inloggningsuppgifter</string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>

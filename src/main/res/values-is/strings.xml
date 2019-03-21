@@ -466,11 +466,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_license">Notkunarleyfi</string>
-    <string name="prefs_lock">Læsa</string>
     <string name="prefs_lock_device_credentials_enabled">Auðkenni tækis virkjuð</string>
     <string name="prefs_lock_device_credentials_not_setup">Engin auðkenni tækis hafa verið sett inn.</string>
     <string name="prefs_lock_none">Ekkert</string>
-    <string name="prefs_lock_title">Læsa með</string>
     <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>

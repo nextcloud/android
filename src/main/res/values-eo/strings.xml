@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Konservi en subdosierujoj laŭ jaro kaj monato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uzi subdosierujojn</string>
     <string name="prefs_license">Permesilo</string>
-    <string name="prefs_lock">Ŝlosi</string>
     <string name="prefs_lock_device_credentials_enabled">Aparataj akreditiloj ebligitaj</string>
     <string name="prefs_lock_device_credentials_not_setup">Neniu aparata akreditilo estis agordita</string>
     <string name="prefs_lock_none">Nenio</string>
-    <string name="prefs_lock_title">Ŝlosi per</string>
     <string name="prefs_lock_using_device_credentials">Aparataj akreditiloj</string>
     <string name="prefs_lock_using_passcode">Pasvorto</string>
     <string name="prefs_log_delete_history_button">Forviŝi historion</string>

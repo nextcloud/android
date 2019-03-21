@@ -270,8 +270,6 @@
     <string name="prefs_help">Abiinfo</string>
     <string name="prefs_imprint">Impressum</string>
     <string name="prefs_license">Litsents</string>
-    <string name="prefs_lock">Lukusta</string>
-    <string name="prefs_lock_title">Lukusta kasutades</string>
     <string name="prefs_lock_using_passcode">Parooli</string>
     <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>

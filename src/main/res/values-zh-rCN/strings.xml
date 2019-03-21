@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_license">许可证</string>
-    <string name="prefs_lock">锁定</string>
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
     <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
     <string name="prefs_lock_none">没有</string>
-    <string name="prefs_lock_title">使用锁</string>
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">密码</string>
     <string name="prefs_log_delete_history_button">删除历史</string>

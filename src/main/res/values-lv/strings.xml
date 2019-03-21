@@ -351,11 +351,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Saglabāt apakšmapēs pēc gada un mēneša</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
-    <string name="prefs_lock">Aizslēgt</string>
     <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
     <string name="prefs_lock_device_credentials_not_setup">Ierīces akreditācijas dati nav uzstādīti.</string>
     <string name="prefs_lock_none">Nav</string>
-    <string name="prefs_lock_title">Aizslēgt izmantojot</string>
     <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
     <string name="prefs_lock_using_passcode">Kods</string>
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
