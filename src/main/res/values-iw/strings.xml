@@ -477,11 +477,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">אחסון בתת־תיקיות בהפרדה לשנה וחודש</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">שימוש בתת־תיקיות</string>
     <string name="prefs_license">רישיון</string>
-    <string name="prefs_lock">נעילה</string>
     <string name="prefs_lock_device_credentials_enabled">פרטי זיהוי להתקן פעילים</string>
     <string name="prefs_lock_device_credentials_not_setup">לא הוגדרו פרטי זיהוי להתקן.</string>
     <string name="prefs_lock_none">ללא</string>
-    <string name="prefs_lock_title">נעילה בעזרת</string>
     <string name="prefs_lock_using_device_credentials">פרטי זיהוי להתקן</string>
     <string name="prefs_lock_using_passcode">צופן נעילה</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>

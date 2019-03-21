@@ -429,11 +429,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_license">Άδεια χρήσης</string>
-    <string name="prefs_lock">Κλείδωμα</string>
     <string name="prefs_lock_device_credentials_enabled">Ενεργοποιημένα διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_device_credentials_not_setup">Δεν έχουν ρυθμιστεί διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_none">Τίποτα</string>
-    <string name="prefs_lock_title">Κλείδωμα με χρήση</string>
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>

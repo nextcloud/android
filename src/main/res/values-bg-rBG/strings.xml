@@ -408,11 +408,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_license">Лиценз</string>
-    <string name="prefs_lock">Заключване</string>
     <string name="prefs_lock_device_credentials_enabled">Удостоверяването от устройството е включено</string>
     <string name="prefs_lock_device_credentials_not_setup">Удостоверяването от устройството е настроено.</string>
     <string name="prefs_lock_none">Без</string>
-    <string name="prefs_lock_title">Заключване чрез</string>
     <string name="prefs_lock_using_device_credentials">Удостоверяване от устройството</string>
     <string name="prefs_lock_using_passcode">Код за достъп</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>

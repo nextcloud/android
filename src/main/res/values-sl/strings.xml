@@ -320,11 +320,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_license">Dovoljenje</string>
-    <string name="prefs_lock">Zakleni</string>
     <string name="prefs_lock_device_credentials_enabled">Poverila naprave so omogočena</string>
     <string name="prefs_lock_device_credentials_not_setup">Ni nastavljenih poveril naprave</string>
     <string name="prefs_lock_none">Brez</string>
-    <string name="prefs_lock_title">Zaklepanje</string>
     <string name="prefs_lock_using_device_credentials">Poverila naprave</string>
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>

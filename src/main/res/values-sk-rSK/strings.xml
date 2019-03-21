@@ -472,11 +472,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_license">Licencia</string>
-    <string name="prefs_lock">Uzamknúť</string>
     <string name="prefs_lock_device_credentials_enabled">Prihlasovacie údaje zariadenia povolené</string>
     <string name="prefs_lock_device_credentials_not_setup">Prihlasovacie údaje zariadenia neboli nastavené.</string>
     <string name="prefs_lock_none">Žiadny</string>
-    <string name="prefs_lock_title">Uzamknúť pomocou</string>
     <string name="prefs_lock_using_device_credentials">Prihlasovacie údaje zariadenia</string>
     <string name="prefs_lock_using_passcode">Heslo</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>

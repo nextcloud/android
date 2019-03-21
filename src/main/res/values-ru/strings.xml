@@ -78,6 +78,7 @@
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="auth_wtf_reenter_URL">Неожиданное состояние, укажите адрес сервера повторно</string>
+    <string name="authentication_exception">Ошибка аутентификации</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
     <string name="auto_upload_path">/Автозагрузка</string>
@@ -476,11 +477,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Будут созданы папки года и вложенные в них папки номеров месяцев</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_license">Лицензия</string>
-    <string name="prefs_lock">Блокировка</string>
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
     <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
     <string name="prefs_lock_none">Не использовать</string>
-    <string name="prefs_lock_title">Способ блокирования</string>
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_using_passcode">Блокировка кодом</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
@@ -768,6 +767,12 @@
         <item quantity="few">%1$d каталога</item>
         <item quantity="many">%1$d каталогов</item>
         <item quantity="other">%1$d каталогов</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d файл</item>
+        <item quantity="few">%1$d файла</item>
+        <item quantity="many">%1$d файлов</item>
+        <item quantity="other">%1$d файла</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>

@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Przechowuj w podkatalogach na podstawie roku i miesiąca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
     <string name="prefs_license">Licencja</string>
-    <string name="prefs_lock">Blokada</string>
     <string name="prefs_lock_device_credentials_enabled">Poświadczenia urządzenia włączone</string>
     <string name="prefs_lock_device_credentials_not_setup">Nie ustawiono żadnych poświadczeń urządzenia</string>
     <string name="prefs_lock_none">Brak</string>
-    <string name="prefs_lock_title">Zablokuj używając</string>
     <string name="prefs_lock_using_device_credentials">Poświadczenia urządzenia</string>
     <string name="prefs_lock_using_passcode">Kod PIN</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>

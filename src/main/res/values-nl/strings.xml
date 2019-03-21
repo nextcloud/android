@@ -478,11 +478,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_license">Licentie</string>
-    <string name="prefs_lock">Slot</string>
     <string name="prefs_lock_device_credentials_enabled">Apparaatinloggegevens ingeschakeld</string>
     <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
     <string name="prefs_lock_none">Geen</string>
-    <string name="prefs_lock_title">Beveiligd door</string>
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>

@@ -454,11 +454,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_license">授權</string>
-    <string name="prefs_lock">鎖定</string>
     <string name="prefs_lock_device_credentials_enabled">設備認證方式已啟動</string>
     <string name="prefs_lock_device_credentials_not_setup">未設定任何設備認證方式</string>
     <string name="prefs_lock_none">無</string>
-    <string name="prefs_lock_title">使用上鎖</string>
     <string name="prefs_lock_using_device_credentials">設備認證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>

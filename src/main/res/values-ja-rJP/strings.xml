@@ -472,11 +472,9 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_license">ライセンス</string>
-    <string name="prefs_lock">ロック</string>
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_lock_none">なし</string>
-    <string name="prefs_lock_title">ロックを使用</string>
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
