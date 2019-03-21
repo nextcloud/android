@@ -707,7 +707,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     protected void onStop() {
         if (dialog != null) {
-            dialog.dismiss();
+            dialog.dismissAllowingStateLoss();
         }
 
         super.onStop();
