@@ -118,6 +118,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             newDir.setRemoteId(createdRemoteFolder.getRemoteId());
             newDir.setModificationTimestamp(System.currentTimeMillis());
             newDir.setEncrypted(FileStorageUtils.checkEncryptionStatus(newDir, getStorageManager()));
+            newDir.setPermissions(createdRemoteFolder.getPermissions());
             getStorageManager().saveFile(newDir);
 
             Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
