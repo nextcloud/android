@@ -22,7 +22,8 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ActionMode;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -31,9 +32,6 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 /**
  *  Dialog requiring confirmation before removing a collection of given OCFiles.
@@ -75,11 +73,10 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
         boolean containsFolder = false;
         boolean containsDown = false;
-        boolean containsFavorite = false;
+
         for (OCFile file: files) {
             containsFolder |= file.isFolder();
             containsDown |= file.isDown();
-            containsFavorite |= file.isFavorite();
         }
 
         if (files.size() == SINGLE_SELECTION) {
@@ -97,9 +94,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
                 R.string.confirmation_remove_files_alert;
         }
 
-        int localRemoveButton = (!containsFavorite && (containsFolder || containsDown)) ?
-            R.string.confirmation_remove_local :
-            -1;
+        int localRemoveButton = (containsFolder || containsDown) ? R.string.confirmation_remove_local : -1;
 
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
         if (files.size() == SINGLE_SELECTION) {
