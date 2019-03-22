@@ -162,7 +162,6 @@ public class MainApp extends MultiDexApplication implements
         DisplayUtils.useCompatVectorIfNeeded();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        preferences = PreferenceManager.fromContext(this);
         fixStoragePath();
         passCodeManager = new PassCodeManager(preferences);
 
