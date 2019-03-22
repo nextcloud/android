@@ -7,7 +7,11 @@
     <string name="account_icon">帳號圖示</string>
     <string name="account_not_found">沒有找到任何帳戶</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
+    <string name="action_clear_successful_uploads">清除成功的上傳紀錄</string>
+    <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
+    <string name="action_force_rescan">強制重新掃描</string>
+    <string name="action_retry_uploads">重試未成功的上傳項目</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -74,6 +78,8 @@
     <string name="auth_username">使用者名稱</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="auth_wtf_reenter_URL">未知的狀態，請重新輸入伺服器位址</string>
+    <string name="authentication_exception">驗證異常</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
@@ -88,6 +94,7 @@
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本地資料夾…</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
+    <string name="clear_notifications_failed">清空通知訊息失敗</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -154,6 +161,7 @@
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除帳戶</string>
     <string name="delete_account_warning">移除帳號%s並刪除所有本地檔案?\n\n刪除後將無法恢復。</string>
+    <string name="delete_entries">刪除條目</string>
     <string name="deselect_all">取消全選</string>
     <string name="dev_version_new_version_available">有新版本</string>
     <string name="dev_version_no_information_available">沒用資訊</string>
@@ -161,6 +169,7 @@
     <string name="digest_algorithm_not_available">這種加密演算法在您的手機中無法使用</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
+    <string name="dismiss_notification_description">清除通知訊息。</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>

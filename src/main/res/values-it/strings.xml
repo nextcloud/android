@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_license">Licenza</string>
+    <string name="prefs_lock">Codice di sicurezza</string>
     <string name="prefs_lock_device_credentials_enabled">Credenziali di dispositivo abilitate</string>
     <string name="prefs_lock_device_credentials_not_setup">Non son state configurate credenziali di dispositivo</string>
     <string name="prefs_lock_none">Nessuno</string>
+    <string name="prefs_lock_title">Prtoteggi l\'applicazione utilizzando</string>
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_using_passcode">Codice di sicurezza</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
+    <string name="reshare_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resized_image_not_possible">Immagine ridimensionata non disponibile.</string>
     <string name="resized_image_not_possible_download">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>

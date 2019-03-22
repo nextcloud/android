@@ -404,6 +404,8 @@
     <string name="notifications_loading_activity">Laddnings notifieringar…</string>
     <string name="notifications_no_results_headline">Inga notifieringar</string>
     <string name="notifications_no_results_message">Var god kolla igen senare.</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Åtkomst slutpunktsadress</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Auth slutpunktsadress</string>
     <string name="oauth_check_onoff">Logga in med OAuth 2.0</string>
     <string name="oauth_login_connection">Ansluter till OAuth 2.0 server…</string>
     <string name="offline_mode">Ingen internetanslutning</string>
@@ -474,10 +476,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_license">Licens</string>
+    <string name="prefs_lock">App-lösenkod</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens inloggningsuppgifter aktiverade</string>
     <string name="prefs_lock_device_credentials_not_setup">Inga inloggningsuppgifter aktiverade för enheten.</string>
     <string name="prefs_lock_none">Ingen
 </string>
+    <string name="prefs_lock_title">Skydda appen med</string>
     <string name="prefs_lock_using_device_credentials">Enhetens inloggningsuppgifter</string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
@@ -506,6 +510,7 @@
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
     <string name="rename_server_fail_msg">Namnbytning är inte möjligt, namnet är redan taget</string>
+    <string name="reshare_not_allowed">Dela vidare är inte tillåtet</string>
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
     <string name="resized_image_not_possible">Ingen storleksändrad bild tillgänglig.</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
