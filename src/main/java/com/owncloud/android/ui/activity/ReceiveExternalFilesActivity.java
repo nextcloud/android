@@ -107,6 +107,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -151,7 +152,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String mSubjectText;
     private String mExtraText;
 
-    private final static String FILENAME_ENCODING = "UTF-8";
+    private final static Charset FILENAME_ENCODING = Charset.forName("UTF-8");
 
     private LinearLayout mEmptyListContainer;
     private TextView mEmptyListMessage;
@@ -575,14 +576,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             safeFilename = safeFilename.replaceAll("=", "_");
             safeFilename = safeFilename.replaceAll(",", "_");
 
-            try {
-                int maxLength = 128;
-                if (safeFilename.getBytes(FILENAME_ENCODING).length > maxLength) {
-                    safeFilename = new String(safeFilename.getBytes(FILENAME_ENCODING), 0, maxLength, FILENAME_ENCODING);
-                }
-            } catch (UnsupportedEncodingException e) {
-                Log_OC.e(TAG, "rename failed ", e);
-                return null;
+            int maxLength = 128;
+            if (safeFilename.getBytes(FILENAME_ENCODING).length > maxLength) {
+                safeFilename = new String(safeFilename.getBytes(FILENAME_ENCODING), 0, maxLength, FILENAME_ENCODING);
             }
             return safeFilename;
         }

@@ -39,15 +39,20 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.google.android.material.tabs.TabLayout;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -63,19 +68,13 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
+import javax.inject.Inject;
 import java.lang.ref.WeakReference;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * This Fragment is used to display the details about a file.
  */
-public class FileDetailFragment extends FileFragment implements OnClickListener {
+public class FileDetailFragment extends FileFragment implements OnClickListener, Injectable {
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     private static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
@@ -141,7 +140,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private ProgressListener progressListener;
     private ToolbarActivity activity;
     private int activeTab;
-    private AppPreferences preferences;
+
+    @Inject
+    AppPreferences preferences;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -215,7 +216,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        preferences = PreferenceManager.fromContext(activity);
     }
 
     @Override
