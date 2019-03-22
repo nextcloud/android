@@ -48,7 +48,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.URLUtil;
-
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.res.ResourcesCompat;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -72,13 +77,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
-
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -121,10 +119,6 @@ public class SettingsActivity extends PreferenceActivity
     private Account account;
     private ArbitraryDataProvider arbitraryDataProvider;
     private AppPreferences preferences;
-
-    public static class PreferenceKeys {
-        public static final String STORAGE_PATH = "storage_path";
-    }
 
     @SuppressWarnings("deprecation")
     @Override
@@ -666,7 +660,7 @@ public class SettingsActivity extends PreferenceActivity
         preferenceCategoryGeneral.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_general),
                 accentColor));
 
-        prefStoragePath = (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
+        prefStoragePath = (ListPreference) findPreference(com.nextcloud.client.preferences.PreferenceManager.STORAGE_PATH);
         if (prefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -966,12 +960,11 @@ public class SettingsActivity extends PreferenceActivity
      * Save storage path
      */
     private void saveStoragePath(String newStoragePath) {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         storagePath = newStoragePath;
         MainApp.setStoragePath(storagePath);
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(PreferenceKeys.STORAGE_PATH, storagePath);
+        editor.putString(com.nextcloud.client.preferences.PreferenceManager.STORAGE_PATH, storagePath);
         editor.apply();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
         prefStoragePath.setSummary(storageDescription);
@@ -982,10 +975,9 @@ public class SettingsActivity extends PreferenceActivity
      * Load storage path set on preferences
      */
     private void loadStoragePath() {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // Load storage path from shared preferences. Use private internal storage by default.
-        storagePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH,
+        storagePath = appPrefs.getString(com.nextcloud.client.preferences.PreferenceManager.STORAGE_PATH,
                 getApplicationContext().getFilesDir().getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
         prefStoragePath.setSummary(storageDescription);
