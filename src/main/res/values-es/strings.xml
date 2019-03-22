@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_license">Licencia</string>
+    <string name="prefs_lock">Código de acceso de la app</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciales del dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">No se han configurado las credenciales del dispositivo.</string>
     <string name="prefs_lock_none">Ninguno</string>
+    <string name="prefs_lock_title">Proteger la app usando</string>
     <string name="prefs_lock_using_device_credentials">Credenciales del dispositivo</string>
     <string name="prefs_lock_using_passcode">Código de acceso</string>
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
     <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo, el nombre ya está tomado</string>
+    <string name="reshare_not_allowed">No se permite volver a compartir</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     <string name="resized_image_not_possible">No se dispone de la imagen en otros tamaños. </string>
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>

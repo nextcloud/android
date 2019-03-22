@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Przechowuj w podkatalogach na podstawie roku i miesiąca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
     <string name="prefs_license">Licencja</string>
+    <string name="prefs_lock">Hasło aplikacji</string>
     <string name="prefs_lock_device_credentials_enabled">Poświadczenia urządzenia włączone</string>
     <string name="prefs_lock_device_credentials_not_setup">Nie ustawiono żadnych poświadczeń urządzenia</string>
     <string name="prefs_lock_none">Brak</string>
+    <string name="prefs_lock_title">Chroń aplikację za pomocą</string>
     <string name="prefs_lock_using_device_credentials">Poświadczenia urządzenia</string>
     <string name="prefs_lock_using_passcode">Kod PIN</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
+    <string name="reshare_not_allowed">Udostępnianie jest niedozwolone</string>
     <string name="resharing_is_not_allowed">Udostępnianie jest niedozwolone</string>
     <string name="resized_image_not_possible">Brak obrazu o zmienionym rozmiarze.</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>

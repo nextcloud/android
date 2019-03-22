@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_license">许可证</string>
+    <string name="prefs_lock">应用程序密码</string>
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
     <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
     <string name="prefs_lock_none">没有</string>
+    <string name="prefs_lock_title">保护应用程序</string>
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">密码</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">请输出新的名字</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
+    <string name="reshare_not_allowed">不允许再次共享</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="resized_image_not_possible">重整大小的图片不可用。</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>

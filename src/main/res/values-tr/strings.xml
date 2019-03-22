@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
     <string name="prefs_license">Lisans</string>
+    <string name="prefs_lock">Uygulama parolası</string>
     <string name="prefs_lock_device_credentials_enabled">Aygıt kimlik doğrulama bilgileri kullanılıyor</string>
     <string name="prefs_lock_device_credentials_not_setup">Herhangi bir aygıt kimliği doğrulama bilgisi ayarlanmamış</string>
     <string name="prefs_lock_none">Yok</string>
+    <string name="prefs_lock_title">Uygulama şununla korunsun</string>
     <string name="prefs_lock_using_device_credentials">Aygıt kimlik doğrulama bilgileri</string>
     <string name="prefs_lock_using_passcode">Parola</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
+    <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok.</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>

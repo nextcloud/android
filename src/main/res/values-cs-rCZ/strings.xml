@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podsložkách podle roku a měsíce</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podsložky</string>
     <string name="prefs_license">Licence</string>
+    <string name="prefs_lock">Přístupový kód aplikace</string>
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
     <string name="prefs_lock_device_credentials_not_setup">Nebyly nastaveny žádné přihlašovací údaje zařízení.</string>
     <string name="prefs_lock_none">Žádné</string>
+    <string name="prefs_lock_title">Ochránit aplikací pomocí</string>
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii, použijte jiný název</string>
     <string name="rename_server_fail_msg">Přejmenování není možné, název už je použit</string>
+    <string name="reshare_not_allowed">Sdílet sdílenou složku dál není umožněno</string>
     <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
     <string name="resized_image_not_possible">Nejsou k dispozici žádné zmenšené obrázky.</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>

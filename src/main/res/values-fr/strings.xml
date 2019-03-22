@@ -480,9 +480,11 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_license">Licence</string>
+    <string name="prefs_lock">Mot de passe de l\'application</string>
     <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
     <string name="prefs_lock_device_credentials_not_setup">Aucune information d\'identification du terminal n\'a été configurée</string>
     <string name="prefs_lock_none">Aucun</string>
+    <string name="prefs_lock_title">Verrouillage utilisé : </string>
     <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
     <string name="prefs_lock_using_passcode">Code de sécurité</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
@@ -511,6 +513,7 @@ Attention la suppression est irréversible.</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
+    <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="resized_image_not_possible">Aucune image réduite disponible.</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
