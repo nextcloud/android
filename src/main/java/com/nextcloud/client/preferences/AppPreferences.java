@@ -274,4 +274,10 @@ public interface AppPreferences {
      * @implNote this clears only shared preferences, not preferences kept in account manager
      */
     void clear();
+
+    String getStoragePath(String defaultPath);
+
+    void setStoragePath(String path);
+
+    void removeKeysMigrationPreference();
 }
