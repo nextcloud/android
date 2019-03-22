@@ -56,6 +56,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -132,6 +133,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -149,7 +152,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
-        SendShareDialog.SendShareDialogDownloader {
+        SendShareDialog.SendShareDialogDownloader, Injectable {
 
     public static final String RESTART = "RESTART";
 
@@ -206,7 +209,8 @@ public class FileDisplayActivity extends HookActivity
     private boolean searchOpen;
 
     private SearchView searchView;
-    private AppPreferences preferences;
+    @Inject
+    AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,8 +219,6 @@ public class FileDisplayActivity extends HookActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
         // is valid
-
-        preferences = PreferenceManager.fromContext(this);
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
