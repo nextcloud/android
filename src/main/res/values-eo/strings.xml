@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Konservi en subdosierujoj laŭ jaro kaj monato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uzi subdosierujojn</string>
     <string name="prefs_license">Permesilo</string>
+    <string name="prefs_lock">Aplikaĵa pasvorto</string>
     <string name="prefs_lock_device_credentials_enabled">Aparataj akreditiloj ebligitaj</string>
     <string name="prefs_lock_device_credentials_not_setup">Neniu aparata akreditilo estis agordita</string>
     <string name="prefs_lock_none">Nenio</string>
+    <string name="prefs_lock_title">Protekti la aplikaĵon per</string>
     <string name="prefs_lock_using_device_credentials">Aparataj akreditiloj</string>
     <string name="prefs_lock_using_passcode">Pasvorto</string>
     <string name="prefs_log_delete_history_button">Forviŝi historion</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Enigu novan nomon</string>
     <string name="rename_local_fail_msg">Ne eblis alinomi lokan kopion, provu uzi alian nomon</string>
     <string name="rename_server_fail_msg">Ne eblis alinomi: la nomo jam uziĝas</string>
+    <string name="reshare_not_allowed">Rekunhavigo ne estas permesata</string>
     <string name="resharing_is_not_allowed">Re-kunhavigi ne estas permesita</string>
     <string name="resized_image_not_possible">Neniu regrandigita bildo disponeblas.</string>
     <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti originan bildon?</string>
