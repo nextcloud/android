@@ -35,19 +35,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.viewpager.widget.ViewPager;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.DisplayUtils;
-
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * Activity displaying general feature after a fresh install.
@@ -73,7 +71,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
         Button loginButton = findViewById(R.id.login);
         loginButton.setBackgroundColor(Color.WHITE);
-        loginButton.setTextColor(Color.BLACK);
+        loginButton.setTextColor(getResources().getColor(R.color.primary));
 
         loginButton.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
