@@ -42,7 +42,10 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -54,17 +57,14 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.UUID;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
+import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_ACCESS_DECLINED;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
 import static com.nextcloud.android.sso.Constants.NEXTCLOUD_FILES_ACCOUNT;
 import static com.nextcloud.android.sso.Constants.NEXTCLOUD_SSO;
 import static com.nextcloud.android.sso.Constants.NEXTCLOUD_SSO_EXCEPTION;
 import static com.nextcloud.android.sso.Constants.SSO_SHARED_PREFERENCE;
+
 
 /**
  * Activity for granting access rights to a Nextcloud account, used for SSO.
@@ -180,7 +180,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         String hashedTokenWithSalt = EncryptionUtils.generateSHA512(token);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(packageName, hashedTokenWithSalt);
+        editor.putString(packageName + DELIMITER + account.name, hashedTokenWithSalt);
         editor.apply();
 
         String serverUrl;
