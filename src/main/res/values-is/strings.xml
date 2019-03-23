@@ -8,6 +8,7 @@
     <string name="account_not_found">Notandaaðgangur fannst ekki!</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
+    <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
     <string name="action_empty_trashbin">Tæma ruslafötu</string>
     <string name="action_force_rescan">Þvinga endurskönnun</string>
     <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
@@ -77,6 +78,7 @@
     <string name="auth_username">Notandanafn</string>
     <string name="auth_wrong_connection_title">Gat ekki komið á tengingu</string>
     <string name="auth_wtf_reenter_URL">Óvænt ástand, settu aftur inn vistfang þjónsins</string>
+    <string name="authentication_exception">Frávik við auðkenningu</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
@@ -92,6 +94,7 @@
     <string name="checkbox">Hakreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
+    <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_text_copied">Tengill afritaður</string>
@@ -158,6 +161,7 @@
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
+    <string name="delete_entries">Eyða færslum</string>
     <string name="deselect_all">Afvelja allt</string>
     <string name="dev_version_new_version_available">Ný útgáfa er tiltæk</string>
     <string name="dev_version_no_information_available">Engar upplýsingar tiltækar</string>
@@ -165,6 +169,7 @@
     <string name="digest_algorithm_not_available">Þetta reiknirit fyrir gátsummur er ekki tiltækt á símanum þínum.</string>
     <string name="disable_new_media_folder_detection_notifications">Gera óvirkt</string>
     <string name="dismiss">Hafna</string>
+    <string name="dismiss_notification_description">Afgreiða tilkynningu</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, skráðu þig inn aftur</string>
     <string name="downloader_download_failed_ticker">Niðurhal mistókst</string>
@@ -320,9 +325,11 @@
     <string name="hint_name">Nafn</string>
     <string name="hint_note">Minnispunktur</string>
     <string name="hint_password">Lykilorð</string>
+    <string name="host_not_available">Þjónn er ekki tiltækur</string>
     <string name="host_your_own_server">Hýstu þinn eigin þjón</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
+    <string name="io_error">Inntaks/úttaksvilla</string>
     <string name="learn_more">Læra meira</string>
     <string name="link">Tengill</string>
     <string name="list_layout">Framsetning sem listi</string>
@@ -373,11 +380,13 @@
     <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
     <string name="new_media_folder_photos">ljósmyndum</string>
     <string name="new_media_folder_videos">myndskeiðum</string>
+    <string name="new_notification">Ný tilkynning</string>
     <string name="new_version_was_created">Ný útgáfa var útbúin</string>
     <string name="no_browser_available">Ekkert forrit tiltækt til að meðhöndla tengla</string>
     <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
     <string name="note_confirm">Senda</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
+    <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
     <string name="notification_channel_download_name">Sækja tilkynningarás</string>
     <string name="notification_channel_file_observer_description">Fylgist með breytingum á skrám</string>
@@ -401,6 +410,7 @@
     <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string>
     <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>
     <string name="offline_mode">Engin internettenging</string>
+    <string name="operation_canceled">Hætt hefur verið við aðgerð</string>
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
@@ -445,7 +455,9 @@
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang aðgangsins fyrir DAVx5 (áður þekkt sem DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
+    <string name="prefs_calendar_contacts_summary">Setja upp DAVx5 (áður þekkt sem DAVdroid) (v1.3.0+) fyrir þennan aðgang</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
     <string name="prefs_category_details">Nánar</string>
@@ -466,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_license">Notkunarleyfi</string>
+    <string name="prefs_lock">Lykilkóði forritsins</string>
     <string name="prefs_lock_device_credentials_enabled">Auðkenni tækis virkjuð</string>
     <string name="prefs_lock_device_credentials_not_setup">Engin auðkenni tækis hafa verið sett inn.</string>
     <string name="prefs_lock_none">Ekkert</string>
+    <string name="prefs_lock_title">Verja forritið með</string>
     <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
@@ -491,10 +505,13 @@
     <string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjalltækinu þínu.\nSæktu það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>
     <string name="remove_fail_msg">Eyðing mistókst</string>
+    <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
+    <string name="remove_push_notification">Fjarlægja</string>
     <string name="remove_success_msg">Eytt</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Gat endurnefnt staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
+    <string name="reshare_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resized_image_not_possible">Engar aðlagaðar myndir tiltækar.</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
@@ -509,6 +526,7 @@
     <string name="screenshot_03_drawer">Vertu snögg(ur) að skoða sameignir, virkni, skrár án netaðgangs og fleira</string>
     <string name="screenshot_04_accounts">Tengstu mismunandi notandaaðgöngum</string>
     <string name="screenshot_05_autoUpload">Sjálfvirk innsending mynda &amp; myndskeiða</string>
+    <string name="screenshot_06_davdroid">Samstilltu dagatal &amp; tengiliði með DAVx5 (áður þekkt sem DAVdroid)</string>
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
     <string name="select_all">Velja allt</string>
     <string name="select_template">Veldu sniðmát</string>
@@ -559,9 +577,11 @@
     <string name="share_with_edit_title">Deila með %1$s</string>
     <string name="share_with_title">Deila með…</string>
     <string name="share_with_user_section_title">Deila með notendum eða hópum</string>
+    <string name="shared_avatar_desc">Auðkennismynd frá deildum notanda</string>
     <string name="shared_icon_share">deila</string>
     <string name="shared_icon_shared">deilt</string>
     <string name="shared_icon_shared_via_link">deilt með tengli</string>
+    <string name="shared_with_you_by">Deilt með þér af %1$s</string>
     <string name="sharee_add_failed">Mistókst að bæta við deilingu</string>
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
@@ -597,7 +617,16 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Skilríki þjónsins er með gildistíma í framtíðinni</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Slóðin samsvarar ekki vélarheitinu í skilríkinu</string>
+    <string name="storage_camera">Myndavél</string>
+    <string name="storage_choose_location">Veldu staðsetningu gagnageymslu</string>
     <string name="storage_description_default">Sjálfgefið</string>
+    <string name="storage_documents">Skjöl</string>
+    <string name="storage_downloads">Sóttar skrár</string>
+    <string name="storage_internal_storage">Innri gagnageymsla</string>
+    <string name="storage_movies">Kvikmyndir</string>
+    <string name="storage_music">Tónlist</string>
+    <string name="storage_pictures">Myndir</string>
+    <string name="store_full_desc">Nextcloud-forritið fyrir Android er opið og frjálst, og gefur þér frelsi á ferðinni.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóninn þinn\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>
     <string name="store_full_dev_desc">Frjálsa Nextcloud Android-forritið með opna notkunarleyfinu, gefur þér frelsi á ferðinni.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
     <string name="store_short_desc">Nextcloud Android forritið gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu þínu.</string>
     <string name="store_short_dev_desc">Nextcloud Dev forritið er skyndiþróunarútgáfa (development snapshot) og er hægt að setja upp samhliða þeirri venjulegu.</string>
@@ -632,6 +661,7 @@
     <string name="tags">Merki</string>
     <string name="test_server_button">Prófa tengingu þjóns</string>
     <string name="thumbnail">Smámynd</string>
+    <string name="timeout_richDocuments">Hleðsla tekur langan tíma …</string>
     <string name="trashbin_activity_title">Eyddar skrár</string>
     <string name="trashbin_empty_headline">Engar eyddar skrár</string>
     <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan</string>
@@ -739,4 +769,24 @@
     <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">Nýtt í %1$s?</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Ekki var hægt að samstilla %1$d skrá (árekstrar: %2$d)</item>
+        <item quantity="other">Ekki var hægt að samstilla %1$d skrár (árekstrar: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Mistókst að afrita %1$d skrá úr %2$s möppunni yfir í</item>
+        <item quantity="other">Mistókst að afrita %1$d skrár úr %2$s möppunni yfir í</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mappa</item>
+        <item quantity="other">%1$d möppur</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d skrá</item>
+        <item quantity="other">%1$d skrár</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valið</item>
+        <item quantity="other">%d valið</item>
+    </plurals>
+</resources>

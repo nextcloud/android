@@ -479,9 +479,11 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_license">Lisenssi</string>
+    <string name="prefs_lock">Sovelluksen pääsykoodi</string>
     <string name="prefs_lock_device_credentials_enabled">Laitteen kirjautumistiedot käytössä</string>
     <string name="prefs_lock_device_credentials_not_setup">Laitteelle ei ole määritelty kirjautumistietoja.</string>
     <string name="prefs_lock_none">Ei mitään</string>
+    <string name="prefs_lock_title">Suojaa sovellus käyttäen</string>
     <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
@@ -498,6 +500,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>
     <string name="push_notifications_not_implemented">Push-ilmoitukset ovat pois käytöstä, koska ne riippuvat suljetuista Google Play -palveluista.</string>
+    <string name="push_notifications_old_login">Ei puskusanomia johtuen vanhentuneesta kirjautumisistunnosta. Harkitse tilin uudelleenlisäämistä.</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
@@ -509,6 +512,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
+    <string name="reshare_not_allowed">Uudellenjako ei ole salluttu</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="resized_image_not_possible">Uuden kokoista kuvaa ei ole saatavilla.
 </string>
