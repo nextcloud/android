@@ -337,6 +337,7 @@
     <string name="new_media_folder_detected">Намерена е нова папка съдържаща %1$s.</string>
     <string name="new_media_folder_photos">снимки</string>
     <string name="new_media_folder_videos">видео</string>
+    <string name="new_notification">Ново известие</string>
     <string name="new_version_was_created">Създадена е нова версия</string>
     <string name="note_confirm">Изпрати</string>
     <string name="note_could_not_sent">Бележката не може да бъде изпратена</string>
@@ -528,7 +529,12 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е доверен</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датите на валидност на сървърния сертификат са в бъдещето</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL адресът не съвпада с името на сървъра от сертификата</string>
+    <string name="storage_camera">Камера</string>
     <string name="storage_description_default">Стандартно</string>
+    <string name="storage_documents">Документи</string>
+    <string name="storage_movies">Филми</string>
+    <string name="storage_music">Музика</string>
+    <string name="storage_pictures">Снимки</string>
     <string name="store_short_desc">Приложението Nextcloud за Android осигурява достъп до всичките ви файлове в Nextcloud.</string>
     <string name="stream">Стрийм с...</string>
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>

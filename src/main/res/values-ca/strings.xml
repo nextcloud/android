@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per any i mes</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
     <string name="prefs_license">Llicència</string>
+    <string name="prefs_lock">Codi d\'accés aplicació</string>
     <string name="prefs_lock_device_credentials_enabled">Credencials del dispositiu activades</string>
     <string name="prefs_lock_device_credentials_not_setup">No s\'han configurat les credencials del dispositiu.</string>
     <string name="prefs_lock_none">Cap</string>
+    <string name="prefs_lock_title">Protegir aplicació amb</string>
     <string name="prefs_lock_using_device_credentials">Credencials del dispositiu</string>
     <string name="prefs_lock_using_passcode">Codi d\'accés</string>
     <string name="prefs_log_delete_history_button">Esborra l\'historial</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
+    <string name="reshare_not_allowed">No es pot tornar a compartir</string>
     <string name="resharing_is_not_allowed">No està permesa la re-compartició</string>
     <string name="resized_image_not_possible">No hi ha cap imatge redimensionada.</string>
     <string name="resized_image_not_possible_download">No hi ha cap imatge redimensionada. Voleu descarregar la imatge a la resolució original?</string>
