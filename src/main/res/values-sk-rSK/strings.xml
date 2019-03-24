@@ -606,6 +606,10 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL nezodpovedá hodnote hostname certifikátu</string>
     <string name="storage_description_default">Predvolené</string>
+    <string name="storage_internal_storage">Interné úložisko</string>
+    <string name="storage_movies">Videá</string>
+    <string name="storage_music">Hudba</string>
+    <string name="storage_pictures">Obrázky</string>
     <string name="store_full_dev_desc">Slobodná (copyleft) aplikácia Nextcloud pre Android vám dáva mobilnú slobodu.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
     <string name="store_short_desc">Aplikácia Nextcloud pre Android vám umožňuje pristupovať k súborom na vašom Nextcloud serveri.</string>
     <string name="store_short_dev_desc">Aplikácia Nextcloud Dev je ukážkou stavu vývoja a môže byť nainštalovaná paralelne.</string>

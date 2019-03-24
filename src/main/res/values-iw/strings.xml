@@ -477,9 +477,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">אחסון בתת־תיקיות בהפרדה לשנה וחודש</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">שימוש בתת־תיקיות</string>
     <string name="prefs_license">רישיון</string>
+    <string name="prefs_lock">מילת הצופן של היישומון</string>
     <string name="prefs_lock_device_credentials_enabled">פרטי זיהוי להתקן פעילים</string>
     <string name="prefs_lock_device_credentials_not_setup">לא הוגדרו פרטי זיהוי להתקן.</string>
     <string name="prefs_lock_none">ללא</string>
+    <string name="prefs_lock_title">הגנה על היישומון באמצעות</string>
     <string name="prefs_lock_using_device_credentials">פרטי זיהוי להתקן</string>
     <string name="prefs_lock_using_passcode">צופן נעילה</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
@@ -508,6 +510,7 @@
     <string name="rename_dialog_title">נא להזין שם חדש</string>
     <string name="rename_local_fail_msg">לא ניתן לשנות שם של עותק מקומי, נא לנסות שם אחר</string>
     <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>
+    <string name="reshare_not_allowed">שיתוף מחדש אסור</string>
     <string name="resharing_is_not_allowed">אסור לשתף מחדש</string>
     <string name="resized_image_not_possible">אין תמונות מוקטנות זמינות.</string>
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
@@ -763,4 +766,34 @@
     <string name="whats_new_device_credentials_title">שימוש בהגנה הפנימית של מכשיר ה־Android שלך</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">לא ניתן לסנכרן קובץ %1$d (סתירות: %2$d)</item>
+        <item quantity="two">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
+        <item quantity="many">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
+        <item quantity="other">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">נכשלה העתקתו של קובץ %1$d מהתיקייה %2$s לתוך</item>
+        <item quantity="two">נכשלה העתקתם של %1$d קבצים מהתיקייה %2$s לתוך</item>
+        <item quantity="many">נכשלה העתקתם של %1$d קבצים מהתיקייה %2$s לתוך</item>
+        <item quantity="other">נכשלה העתקתם של %1$d קבצים מהתיקייה %2$s לתוך</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">תיקייה %1$d</item>
+        <item quantity="two">%1$d תיקיות</item>
+        <item quantity="many">%1$d תיקיות</item>
+        <item quantity="other">%1$d תיקיות</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">קובץ %1$d</item>
+        <item quantity="two">%1$d קבצים</item>
+        <item quantity="many">%1$d קבצים</item>
+        <item quantity="other">%1$d קבצים</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">נבחר %d</item>
+        <item quantity="two">נבחרו %d</item>
+        <item quantity="many">נבחרו %d</item>
+        <item quantity="other">נבחרו %d</item>
+    </plurals>
+</resources>
