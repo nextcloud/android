@@ -7,8 +7,11 @@
     <string name="account_icon">Icono de cuenta</string>
     <string name="account_not_found">Cuenta no encontrada!</string>
     <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
+    <string name="action_clear_successful_uploads">Borrar subidas exitosas</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Papelera vacía</string>
+    <string name="action_force_rescan">Forzar reescaneo</string>
+    <string name="action_retry_uploads">Reintentar subidas fallidas</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -75,6 +78,7 @@
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado, favor de reingresar la dirección del servidor</string>
+    <string name="authentication_exception">Excepción de autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantenido en la carpeta original, ya que es de solo lectura.</string>
     <string name="auto_upload_on_wifi">Cargar sólo en Wi-Fi sin medidor</string>
     <string name="auto_upload_path">/SubidasAutomáticas</string>
@@ -325,6 +329,7 @@
     <string name="host_your_own_server">Aloje su propio servidor</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/SubidasInstantáneas</string>
+    <string name="io_error">Error IO</string>
     <string name="learn_more">Conozca más</string>
     <string name="link">Link</string>
     <string name="list_layout">Vista enlistada</string>
@@ -375,6 +380,7 @@
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nueva notifiación</string>
     <string name="new_version_was_created">Nueva versión fue creada</string>
     <string name="no_browser_available">No hay aplicación disponible para manejar enlaces</string>
     <string name="no_pdf_app_available">No hay aplicación disponible para manejar PDF</string>
@@ -404,6 +410,7 @@
     <string name="oauth_check_onoff">Iniciando sesión con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando al servidor OAuth 2.0…</string>
     <string name="offline_mode">Sin conexión a Internet</string>
+    <string name="operation_canceled">Operación ha sido cancelada</string>
     <string name="outdated_server">El servidor ha llegado al final de su vida útil, por favor actualice!</string>
     <string name="overflow_menu">Más menú</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
@@ -471,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_license">Licencia</string>
+    <string name="prefs_lock">Código de acceso de la aplicación</string>
     <string name="prefs_lock_device_credentials_enabled">Contraseña del dispositivo habilitada</string>
     <string name="prefs_lock_device_credentials_not_setup">No se ha configurado la contraseña del dispositivo.</string>
     <string name="prefs_lock_none">Ninguno</string>
+    <string name="prefs_lock_title">Proteger la aplicación usando</string>
     <string name="prefs_lock_using_device_credentials">Contraseña del dispositivo</string>
     <string name="prefs_lock_using_passcode">Contraseña</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
@@ -502,6 +511,7 @@
     <string name="rename_dialog_title">Ingrese un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo cambiar el nombre de la copia local, intente con un nombre diferente</string>
     <string name="rename_server_fail_msg">No se puede renombrar, el nombre ya está utilizado</string>
+    <string name="reshare_not_allowed">No está permitido volver a compartir</string>
     <string name="resharing_is_not_allowed">No se permite volver a compartir</string>
     <string name="resized_image_not_possible">No hay imagen redimensionada disponible.</string>
     <string name="resized_image_not_possible_download">¿No hay imagen redimensionada disponible. Descargar imagen completa?</string>
@@ -567,9 +577,11 @@
     <string name="share_with_edit_title">Compartir con %1$s</string>
     <string name="share_with_title">Compartir con…</string>
     <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
+    <string name="shared_avatar_desc">Avatar de usuario compartido</string>
     <string name="shared_icon_share">compartir</string>
     <string name="shared_icon_shared">compartido</string>
     <string name="shared_icon_shared_via_link">compartido a través del Link</string>
+    <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">No se pudo agregar el archivo compartido</string>
     <string name="signup_with_provider">Registrarse con el proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s acceda a su cuenta de Nextcloud %2$s?</string>
@@ -605,7 +617,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Las fechas del certificado del servidor están en el futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no corresponde con el nombre del servidor en el certificado</string>
+    <string name="storage_camera">Cámara</string>
+    <string name="storage_choose_location">Elija la ubicación de almacenamiento</string>
     <string name="storage_description_default">Predeterminado</string>
+    <string name="storage_documents">Documentos</string>
+    <string name="storage_downloads">Descargas</string>
+    <string name="storage_internal_storage">Almacenamiento interno</string>
+    <string name="storage_movies">Películas</string>
+    <string name="storage_music">Música</string>
+    <string name="storage_pictures">Imágenes</string>
     <string name="store_full_desc">La aplicación libre de Nextcloud para Android, que le brinda libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de su servidor\n* Cargar archivos en su servidor Nextcloud\n* Compartirlos con otros\n* Mantenga sus archivos y carpetas favoritos sincronizados\n* Busque en todas las carpetas de su servidor\n* Cargue automáticamente las fotos y los videos tomados por su dispositivo\n* Manténgase al día con las notificaciones\n* Compatibilidad con múltiples cuentas\n* Acceso seguro a sus datos con huella digital o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para una fácil configuración de calendar &amp; Sincronización de contactos\n\nPor favor, informe todos los problemas en https://github.com/nextcloud/android/issues y discuta esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Nuevo en Nextcloud? Nextcloud es una sincronización de archivos privada &amp; Servidor de acciones y comunicación. Es un software libre, y puede alojarlo usted mismo o pagarle a una empresa para que lo haga por usted. De esa manera, usted tiene el control de sus fotos, su calendario y sus datos de contacto, sus documentos y todo lo demás.\n\n Visite Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La aplicación libre de Nextcloud para Android le ofrece libertad móvil.\nÉsta es la versión de desarrollo oficial, que muestra una muestra diaria de cualquier nueva funcionalidad no probada, que puede causar inestabilidad y pérdida de datos. La aplicación es para usuarios dispuestos a probar y reportar errores en caso de que ocurran. ¡No lo use para su trabajo productivo!\n\nTanto el desarrollador oficial como la versión regular están disponibles en F-droid y se pueden instalar al mismo tiempo.</string>
     <string name="store_short_desc">La aplicación de Android Nextcloud le da acceso móvil a todos los archivos en su Nextcloud.</string>
@@ -749,4 +769,24 @@
     <string name="whats_new_device_credentials_title">Utilizar la protección interna del dispositivo Android.</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">No se pudo sincronizar el archivo %1$d (conflictos: %2$d)</item>
+        <item quantity="other">No se pudieron sincronizar los archivos %1$d (conflictos: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Error al copiar el archivo %1$d de la carpeta %2$s en</item>
+        <item quantity="other">Error al copiar %1$d archivos de la carpeta %2$s en</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d carpeta</item>
+        <item quantity="other">%1$d carpetas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d archivo</item>
+        <item quantity="other">%1$d archivos</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+</resources>
