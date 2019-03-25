@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_license">Licentie</string>
+    <string name="prefs_lock">App-toegangscode</string>
     <string name="prefs_lock_device_credentials_enabled">Apparaatinloggegevens ingeschakeld</string>
     <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
     <string name="prefs_lock_none">Geen</string>
+    <string name="prefs_lock_title">Bescherm app met</string>
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
     <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
+    <string name="reshare_not_allowed">Verder delen niet toegestaan</string>
     <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
     <string name="resized_image_not_possible">Geen verkleinde afbeelding beschikbaar.</string>
     <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>

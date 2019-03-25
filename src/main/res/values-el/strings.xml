@@ -8,6 +8,7 @@
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
+    <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
     <string name="action_empty_trashbin">Άδειασμα κάδου</string>
     <string name="action_force_rescan">Επιβολή σάρωσης</string>
     <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
@@ -87,6 +88,7 @@
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
+    <string name="clear_notifications_failed">Αποτυχία εκκαθάρισης όλων των ειδοποιήσεων</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_text_copied">Ο σύνδεσμος αντιγράφηκε</string>
@@ -158,6 +160,7 @@
     <string name="digest_algorithm_not_available">Ο αλγόριθμος digest δεν είναι διαθέσιμος στο τηλέφωνό σας.</string>
     <string name="disable_new_media_folder_detection_notifications">Απενεργοποίηση</string>
     <string name="dismiss">Αποδέσμευση</string>
+    <string name="dismiss_notification_description">Αποδέσμευση ειδοποίησης</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_download_failed_credentials_error">Η λήψη απέτυχε, συνδεθείτε ξανά</string>
     <string name="downloader_download_failed_ticker">Αποτυχημένη λήψη</string>
@@ -354,12 +357,14 @@
     <string name="new_comment">Νέο σχόλιο…</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
+    <string name="new_notification">Νέα ειδοποίηση</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="no_browser_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό συνδέσμων</string>
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="note_confirm">Αποστολή</string>
     <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
+    <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="notification_channel_media_description">Πρόοδος αναπαραγωγής μουσικής</string>
@@ -454,6 +459,7 @@
     <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
     <string name="recommend_urls">%1$s ή %2$s</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
+    <string name="remove_notification_failed">Αποτυχία αφαίρεσης της ειδοποίησης.</string>
     <string name="remove_success_msg">Διαγράφηκε</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>

@@ -465,6 +465,7 @@
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
     <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
+    <string name="prefs_e2e_mnemonic">תיבת זיכרון להצפנה מקצה לקצה </string>
     <string name="prefs_e2e_no_device_credentials">על מנת להציג שינון, הפעל את אישורי המכשיר.</string>
     <string name="prefs_enable_media_scan_notifications">הצגת התראות על סריקת מדיה</string>
     <string name="prefs_enable_media_scan_notifications_summary">הצגת התראות על תיקיות מדיה חדשות שנמצאו</string>
