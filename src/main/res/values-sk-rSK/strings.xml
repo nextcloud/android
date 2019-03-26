@@ -78,6 +78,7 @@
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_wrong_connection_title">Nepodarilo sa nadviazať spojenie</string>
     <string name="auth_wtf_reenter_URL">Neočakávaný stav, zadajte prosím adresu servera znovu</string>
+    <string name="authentication_exception">Výnimka overenia</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
@@ -160,6 +161,7 @@
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="delete_account_warning">Zmazať účet %s a zmazať všetky lokálne súbory?\n\nZmazanie nebude možné vrátiť späť.</string>
+    <string name="delete_entries">Zmazať položky</string>
     <string name="deselect_all">Odznačiť všetko</string>
     <string name="dev_version_new_version_available">Je dostupná nová verzia</string>
     <string name="dev_version_no_information_available">Nie sú dostupné žiadne informácie.</string>
@@ -327,6 +329,7 @@
     <string name="host_your_own_server">Hostiť vlastný server</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">IO chyba</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Náhľad zoznamu</string>
@@ -407,6 +410,7 @@
     <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
     <string name="oauth_login_connection">Pripájam sa na OAuth 2.0 server…</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
+    <string name="operation_canceled">Operácia bola zrušená</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="participate_beta_headline">Testovať vývojovú verziu</string>
@@ -451,7 +455,9 @@
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Nepodarilo sa zistiť adresu účtu pre DAVx5 (predtým známy ako DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play nie sú nainštalované</string>
+    <string name="prefs_calendar_contacts_summary">Nastaviť DAVx5 (predtým známy ako DAVdroid) (v1.3.0+) pre tento účet</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizácia kalendára &amp; kontaktov úspešne dokončená</string>
     <string name="prefs_category_about">O aplikácii</string>
     <string name="prefs_category_details">Podrobnosti</string>
@@ -472,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_license">Licencia</string>
+    <string name="prefs_lock">Prístupový kód apky</string>
     <string name="prefs_lock_device_credentials_enabled">Prihlasovacie údaje zariadenia povolené</string>
     <string name="prefs_lock_device_credentials_not_setup">Prihlasovacie údaje zariadenia neboli nastavené.</string>
     <string name="prefs_lock_none">Žiadny</string>
+    <string name="prefs_lock_title">Ochrániť apku pomocou</string>
     <string name="prefs_lock_using_device_credentials">Prihlasovacie údaje zariadenia</string>
     <string name="prefs_lock_using_passcode">Heslo</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
@@ -503,6 +511,7 @@
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="rename_local_fail_msg">Nepodarilo sa premenovať lokálnu kópiu, skúste iné meno</string>
     <string name="rename_server_fail_msg">Premenovanie sa nepodarilo, meno sa už používa</string>
+    <string name="reshare_not_allowed">Opätovné sprístupňovanie nie je povolené</string>
     <string name="resharing_is_not_allowed">Sprístupnenie už sprístupnenej položky nie je povolené</string>
     <string name="resized_image_not_possible">Obrázok nedostupný.</string>
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
@@ -517,6 +526,7 @@
     <string name="screenshot_03_drawer">Rýchly prístup k aktivitám, zdieľaniam, offline súborom a viac</string>
     <string name="screenshot_04_accounts">Pripojenia k rôznym účtom</string>
     <string name="screenshot_05_autoUpload">Automaticky nahraj svoje fotky &amp; videá</string>
+    <string name="screenshot_06_davdroid">Synchronizujte kalendár a kontakty pomocou DAVx5 (predtým známy ako DAVdroid)</string>
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_template">Vybrať šablónu</string>
@@ -567,9 +577,11 @@
     <string name="share_with_edit_title">Sprístupniť pre %1$s</string>
     <string name="share_with_title">Zdieľať s…</string>
     <string name="share_with_user_section_title">Sprístupniť používateľom a skupinám</string>
+    <string name="shared_avatar_desc">Avatar od sprístupneného používateľa</string>
     <string name="shared_icon_share">sprístupniť</string>
     <string name="shared_icon_shared">sprístupnené</string>
     <string name="shared_icon_shared_via_link">sprístupnené prostredníctvom odkazu</string>
+    <string name="shared_with_you_by">Sprístupnené vám používateľom %1$s</string>
     <string name="sharee_add_failed">Pridanie sprístupňujúceho sa nepodarilo</string>
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
@@ -605,11 +617,16 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL nezodpovedá hodnote hostname certifikátu</string>
+    <string name="storage_camera">Kamera</string>
+    <string name="storage_choose_location">Vyberte umiestnenie úložiska</string>
     <string name="storage_description_default">Predvolené</string>
+    <string name="storage_documents">Dokumenty</string>
+    <string name="storage_downloads">Sťahovania</string>
     <string name="storage_internal_storage">Interné úložisko</string>
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
     <string name="storage_pictures">Obrázky</string>
+    <string name="store_full_desc">Slobodná (copyleft) aplikácia Nextclodu pre Android, poskytujúca mobilnú slobodu.\n\nFunkcie:\n* Jednoducho použiteľné moderné rozhranie, hodiace sa k vzhľadu vášho servera\n* Nahrávanie súborov na Nextcloud server\n* Ich sprístupnenie s inými ľudmi\n* Synchronizácia vašich obľúbených súborov a priečinkov\n* Vyhľadávanie naprieč všetkými zložkami na serveri\n* Automatické nahrávanie fotiek a videí nasnímaných vašim zariadením\n* Doručovanie notifikácií\n* Podpora viac účtov naraz\n* Zabezpečený prístup k vašim dátam pomocou odtlačku prstu alebo kódom PIN\n* Začlenenie DAVx5 (predtým známy ako DAVdroid) pre jednoduchý prístup ku kalendáru &amp; synchronizácii kontaktov\n\nAkékoľvek problémy prosím hláste na https://github.com/nextcloud/android/issues a o aplikácii môžete diskutovať na https://help.nextcloud.com/c/clients/android\n\nNepoznáte ešte Nextcloud? Nextcloud je server pre súkromnú synchronizáciu súborov &amp;, zdieľanie a komunikáciu. Je to slobodný softvér a môžete si ho prevádzkovať buď sami alebo si ho prenajímať od nejakej spoločnosti. Týmto spôsobom získate plnú vládu nad svojimi fotkami, údajom v kalendári a kontaktoch, dokumentom a všetkým ostatným.\n\nViac zistíte na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Slobodná (copyleft) aplikácia Nextcloud pre Android vám dáva mobilnú slobodu.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
     <string name="store_short_desc">Aplikácia Nextcloud pre Android vám umožňuje pristupovať k súborom na vašom Nextcloud serveri.</string>
     <string name="store_short_dev_desc">Aplikácia Nextcloud Dev je ukážkou stavu vývoja a môže byť nainštalovaná paralelne.</string>
@@ -752,4 +769,34 @@
     <string name="whats_new_device_credentials_title">Použiť vnútornú ochranu zariadenia Android</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
+        <item quantity="few">Nie je možné synchronizovať %1$d súbory (konflikty: %2$d)</item>
+        <item quantity="many">Nie je možné synchronizovať %1$d súborov (konflikty: %2$d)</item>
+        <item quantity="other">Nie je možné synchronizovať %1$d súborov (konflikty: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nepodarilo sa skopírovať %1$d súbor z priečinka %2$s do</item>
+        <item quantity="few">Nepodarilo sa skopírovať %1$d súbory z priečinka %2$s do</item>
+        <item quantity="many">Nepodarilo sa skopírovať %1$d súborov z priečinka %2$s do</item>
+        <item quantity="other">Nepodarilo sa skopírovať %1$d súborov z priečinka %2$s do</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d priečinok</item>
+        <item quantity="few">%1$d priečinky</item>
+        <item quantity="many">%1$d priečinkov</item>
+        <item quantity="other">%1$d priečinkov</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d súbor</item>
+        <item quantity="few">%1$d súbory</item>
+        <item quantity="many">%1$d súborov</item>
+        <item quantity="other">%1$d súborov</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d vybratý</item>
+        <item quantity="few">%d vybraté</item>
+        <item quantity="many">%d vybraných</item>
+        <item quantity="other">%d vybraných</item>
+    </plurals>
+</resources>
