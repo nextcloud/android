@@ -302,6 +302,4 @@ public interface AppPreferences {
     boolean isPowerCheckDisabled();
 
     void setPowerCheckDisabled(boolean value);
-
-    boolean getTheme();
 }
