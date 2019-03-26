@@ -203,8 +203,9 @@ public class DownloadFileOperation extends RemoteOperation {
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
 
-                    FileOutputStream fileOutputStream = new FileOutputStream(tmpFile);
-                    fileOutputStream.write(decryptedBytes);
+                    try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
+                        fileOutputStream.write(decryptedBytes);
+                    }
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
