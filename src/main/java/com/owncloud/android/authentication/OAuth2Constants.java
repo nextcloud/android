@@ -27,6 +27,10 @@ package com.owncloud.android.authentication;
  */
 
 public class OAuth2Constants {
+
+    private OAuth2Constants() {
+        // No instance
+    }
     
     /// Parameters to send to the Authorization Endpoint
     public static final String KEY_RESPONSE_TYPE = "response_type";
