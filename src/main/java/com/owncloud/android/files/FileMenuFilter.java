@@ -184,7 +184,9 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide);
-        filterOpenAsRichDocument(toShow, toHide, capability);
+        if (endToEndEncryptionEnabled) {
+            filterOpenAsRichDocument(toShow, toHide, capability);
+        }
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
