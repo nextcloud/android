@@ -168,7 +168,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Snackbar.make(findViewById(android.R.id.content),R.string.log_send_no_mail_app,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), R.string.log_send_no_mail_app, Snackbar.LENGTH_LONG).show();
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }
 
@@ -182,7 +182,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
         LoadingLogTask(TextView logTV) {
             // Use of a WeakReference to ensure the TextView can be garbage collected
-            textViewReference  = new WeakReference<>(logTV);
+            textViewReference = new WeakReference<>(logTV);
         }
 
         protected String doInBackground(String... args) {
@@ -214,24 +214,24 @@ public class LogHistoryActivity extends ToolbarActivity {
             try {
                 String line;
 
-                for (int i = logFileName.length-1; i >= 0; i--) {
-                    File file = new File(mLogPath,logFileName[i]);
+                for (int i = logFileName.length - 1; i >= 0; i--) {
+                    File file = new File(mLogPath, logFileName[i]);
                     if (file.exists()) {
-                        // Check if FileReader is ready
-                        final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
-                                                                                          Charset.forName("UTF-8"));
-                        if (inputStreamReader.ready()) {
-                            br = new BufferedReader(inputStreamReader);
-                            while ((line = br.readLine()) != null) {
-                                // Append the log info
-                                text.append(line);
-                                text.append('\n');
+                        try (InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
+                                                                                         Charset.forName("UTF-8"))) {
+                            // Check if FileReader is ready
+                            if (inputStreamReader.ready()) {
+                                br = new BufferedReader(inputStreamReader);
+                                while ((line = br.readLine()) != null) {
+                                    // Append the log info
+                                    text.append(line);
+                                    text.append('\n');
+                                }
                             }
                         }
                     }
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Log_OC.d(TAG, e.getMessage());
 
             } finally {
@@ -247,7 +247,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
             return text.toString();
         }
-   }
+    }
 
     /**
      * Show loading dialog
@@ -263,7 +263,7 @@ public class LogHistoryActivity extends ToolbarActivity {
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
