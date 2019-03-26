@@ -585,7 +585,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthTokenType = null;
 
         if (extras != null) {
-            extras.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
+            mAuthTokenType = extras.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
         }
 
         if (mAuthTokenType == null) {
