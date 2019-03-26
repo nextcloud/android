@@ -218,14 +218,15 @@ public class LogHistoryActivity extends ToolbarActivity {
                     File file = new File(mLogPath,logFileName[i]);
                     if (file.exists()) {
                         // Check if FileReader is ready
-                        final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
-                                                                                          Charset.forName("UTF-8"));
-                        if (inputStreamReader.ready()) {
-                            br = new BufferedReader(inputStreamReader);
-                            while ((line = br.readLine()) != null) {
-                                // Append the log info
-                                text.append(line);
-                                text.append('\n');
+                        try (InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
+                                                                                         Charset.forName("UTF-8"))) {
+                            if (inputStreamReader.ready()) {
+                                br = new BufferedReader(inputStreamReader);
+                                while ((line = br.readLine()) != null) {
+                                    // Append the log info
+                                    text.append(line);
+                                    text.append('\n');
+                                }
                             }
                         }
                     }
