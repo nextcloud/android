@@ -35,9 +35,15 @@ public class ProviderMeta {
     public static final int DB_VERSION = 44;
 
     private ProviderMeta() {
+        // No instance
     }
 
     static public class ProviderTableMeta implements BaseColumns {
+
+        private ProviderTableMeta() {
+            // No instance
+        }
+
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
