@@ -30,6 +30,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.nextcloud.client.preferences.PreferenceManager;
@@ -45,6 +46,8 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -58,8 +61,11 @@ import butterknife.Unbinder;
 /**
  * Presenting trashbin data, received from presenter
  */
-public class TrashbinActivity extends FileActivity implements TrashbinActivityInterface,
-        SortingOrderDialogFragment.OnSortingOrderListener, TrashbinContract.View {
+public class TrashbinActivity extends FileActivity implements
+        TrashbinActivityInterface,
+        SortingOrderDialogFragment.OnSortingOrderListener,
+        TrashbinContract.View,
+        Injectable {
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
@@ -82,7 +88,7 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     @BindString(R.string.trashbin_empty_message)
     public String noResultsMessage;
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private Unbinder unbinder;
     private TrashbinListAdapter trashbinListAdapter;
     private TrashbinPresenter trashbinPresenter;
@@ -93,7 +99,6 @@ public class TrashbinActivity extends FileActivity implements TrashbinActivityIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        preferences = PreferenceManager.fromContext(this);
         trashbinPresenter = new TrashbinPresenter(new RemoteTrashbinRepository(this), this);
 
         setContentView(R.layout.trashbin_activity);

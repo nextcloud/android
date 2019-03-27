@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -42,25 +43,26 @@ import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.ThemeUtils;
 
+import javax.inject.Inject;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 /**
  * Activity displaying new features after an update.
  */
-public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
+public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, Injectable {
 
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
-        preferences = PreferenceManager.fromContext(this);
 
         int fontColor = getResources().getColor(R.color.login_text_color);
 
@@ -77,7 +79,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                    getWhatsNew(this));
+                    getWhatsNew(this, preferences));
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
@@ -142,18 +144,18 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         preferences.setLastSeenVersionCode(MainApp.getVersionCode());
     }
 
-    public static void runIfNeeded(Context context) {
+    public static void runIfNeeded(Context context, AppPreferences preferences) {
         if (!context.getResources().getBoolean(R.bool.show_whats_new) || context instanceof WhatsNewActivity) {
             return;
         }
 
-        if (shouldShow(context)) {
+        if (shouldShow(context, preferences)) {
             context.startActivity(new Intent(context, WhatsNewActivity.class));
         }
     }
 
-    private static boolean shouldShow(Context context) {
-        return !(context instanceof PassCodeActivity) && getWhatsNew(context).length > 0;
+    private static boolean shouldShow(Context context, AppPreferences preferences) {
+        return !(context instanceof PassCodeActivity) && getWhatsNew(context, preferences).length > 0;
     }
 
     @Override
@@ -176,9 +178,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         return AccountUtils.getCurrentOwnCloudAccount(context) == null;
     }
 
-    private static FeatureItem[] getWhatsNew(Context context) {
+    private static FeatureItem[] getWhatsNew(Context context, AppPreferences preferences) {
         int itemVersionCode = 30030099;
-        AppPreferences preferences = PreferenceManager.fromContext(context);
 
         if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
                 && preferences.getLastSeenVersionCode() < itemVersionCode) {
