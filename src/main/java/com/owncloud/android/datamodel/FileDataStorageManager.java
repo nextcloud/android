@@ -62,6 +62,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
@@ -2023,6 +2024,7 @@ public class FileDataStorageManager {
         return c;
     }
 
+    @NonNull
     public OCCapability getCapability(String accountName) {
         OCCapability capability;
         Cursor c = getCapabilityCursorForAccount(accountName);
