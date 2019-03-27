@@ -165,7 +165,7 @@ public class FileMenuFilter {
     private void filter(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
-        boolean endToEndEncryptionEnabled = capability != null && capability.getEndToEndEncryption().isTrue();
+        boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
 
         filterDownload(toShow, toHide, synchronizing);
         filterRename(toShow, toHide, synchronizing);
@@ -184,9 +184,7 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide);
-        if (endToEndEncryptionEnabled) {
-            filterOpenAsRichDocument(toShow, toHide, capability);
-        }
+        filterOpenAsRichDocument(toShow, toHide, capability);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
