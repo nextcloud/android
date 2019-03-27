@@ -78,6 +78,7 @@
     <string name="auth_username">Brukernavn</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
     <string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn serveradressen på nytt</string>
+    <string name="authentication_exception">Autentiseringsfeil</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -328,6 +329,7 @@
     <string name="host_your_own_server">Bruk din egen server</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
+    <string name="io_error">IO feil</string>
     <string name="learn_more">Lær mer</string>
     <string name="link">Lenke</string>
     <string name="list_layout">Listevisning</string>

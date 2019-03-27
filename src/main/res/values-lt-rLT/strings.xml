@@ -194,6 +194,8 @@
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
     <string name="fallback_weblogin_back">Atgal</string>
+    <string name="favorite">Pridėti prie svarbiausių</string>
+    <string name="favorite_icon">Svarbiausias</string>
     <string name="file_delete">Ištrinti</string>
     <string name="file_icon">Failas</string>
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
@@ -472,6 +474,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverio liudijimas yra pernelyg naujas</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL neatitinka adreso, kuris yra nurodytas liudijime</string>
     <string name="storage_description_default">Numatytasis</string>
+    <string name="storage_pictures">Paveikslėliai</string>
     <string name="store_short_desc">Nextcloud Android programėlė suteikia jums mobiliąją prieigą prie jūsų visų Nextcloud esančių failų.</string>
     <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
     <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
@@ -571,6 +574,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Svetainė</string>
     <string name="user_information_retrieval_error">Klaida gaunant vartotojo informaciją</string>
+    <string name="userinfo_no_info_headline">Asmeninės informacijos nėra</string>
     <string name="username">Naudotojo vardas</string>
     <string name="version_dev_download">Atsisiųsti</string>
     <string name="wait_a_moment">Palaukite…</string>
