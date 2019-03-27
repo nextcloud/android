@@ -1,0 +1,13 @@
+3.6.0 RC1 (March, 27, 2019)
+
+- remove "expert mode"
+- show warning if server is unavailable
+- delete notification on server
+- actions in notifications
+- add storage path chooser for local file picker
+- show shared user
+- show notes on sharing
+- min supported server is NC12
+- warn on outdated server: <=NC14
+
+For a full list, please see https://github.com/nextcloud/android/milestone/30
