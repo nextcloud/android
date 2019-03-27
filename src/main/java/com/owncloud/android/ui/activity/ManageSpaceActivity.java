@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
@@ -35,15 +36,17 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ManageSpaceActivity extends AppCompatActivity {
+public class ManageSpaceActivity extends AppCompatActivity implements Injectable {
 
     private static final String TAG = ManageSpaceActivity.class.getSimpleName();
     private static final String LIB_FOLDER = "lib";
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +68,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 clearDataTask.execute();
             }
         });
-
-        preferences = PreferenceManager.fromContext(this);
     }
 
     @Override

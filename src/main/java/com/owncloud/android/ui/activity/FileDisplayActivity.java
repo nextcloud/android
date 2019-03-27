@@ -132,6 +132,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -566,7 +567,7 @@ public class FileDisplayActivity extends HookActivity
                 }
 
             } else {
-                Log_OC.e(TAG, "Unexpected intent " + intent.toString());
+                Log_OC.e(TAG, String.format(Locale.US, "Unexpected intent %s", intent));
             }
     }
 

@@ -54,6 +54,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
+
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -78,13 +80,16 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 /**
  * An Activity that allows the user to change the application's settings.
  *
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class SettingsActivity extends PreferenceActivity
-        implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface {
+    implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
+    Injectable {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
@@ -118,7 +123,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private Account account;
     private ArbitraryDataProvider arbitraryDataProvider;
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -127,8 +132,6 @@ public class SettingsActivity extends PreferenceActivity
         if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
-
-        preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(this);
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
