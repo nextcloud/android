@@ -275,7 +275,7 @@ public class UserInfoActivity extends FileActivity {
                 && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                    getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
+                getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
         } else {
             emptyContentContainer.setVisibility(View.GONE);
             userInfoView.setVisibility(View.VISIBLE);

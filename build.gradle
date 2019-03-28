@@ -73,7 +73,7 @@ android {
         abortOnError false
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
-        disable 'MissingTranslation', 'GradleDependency'
+        disable 'MissingTranslation', 'GradleDependency', 'VectorPath', 'IconMissingDensityFolder', 'IconDensities'
     }
 
     dexOptions {
