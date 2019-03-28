@@ -1,0 +1,5 @@
+3.6.0 RC2 (March, 28, 2019)
+
+- fix crash due to missing ownerId
+
+For a full list, please see https://github.com/nextcloud/android/milestone/30
