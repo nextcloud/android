@@ -44,6 +44,8 @@ public final class PassCodeManager {
 
     public static final int PASSCODE_ACTIVITY = 9999;
 
+    private boolean LOCK_PROMPTED = false;
+
     static {
         exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
@@ -84,6 +86,7 @@ public final class PassCodeManager {
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
+            LOCK_PROMPTED = true;
         }
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
@@ -100,7 +103,12 @@ public final class PassCodeManager {
         if (visibleActivitiesCounter > 0) {
             visibleActivitiesCounter--;
         }
-        setUnlockTimestamp(activity);
+        // Only set unlock timestamp if activity is not passcode related
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && !LOCK_PROMPTED) {
+            setUnlockTimestamp(activity);
+        } else {
+            LOCK_PROMPTED = false;
+        }
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null
                 && !powerMgr.isScreenOn()) {
