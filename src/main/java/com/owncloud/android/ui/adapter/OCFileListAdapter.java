@@ -38,12 +38,7 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -83,6 +78,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
+
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -316,7 +318,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
 
-                if (file.isSharedWithMe() && !multiSelect && !gridView && !mHideItemOptions) {
+                if (file.isSharedWithMe() && file.getOwnerId() != null && !multiSelect && !gridView &&
+                    !mHideItemOptions) {
                     itemViewHolder.sharedAvatar.setVisibility(View.VISIBLE);
 
                     Resources resources = mContext.getResources();
