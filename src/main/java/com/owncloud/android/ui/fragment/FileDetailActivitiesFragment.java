@@ -400,7 +400,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void setErrorContent(String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_list_empty_error));
             emptyContentMessage.setText(message);
 
             emptyContentMessage.setVisibility(View.VISIBLE);

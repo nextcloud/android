@@ -761,7 +761,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
-                        R.drawable.ic_list_empty_upload);
+                        R.drawable.uploads);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
 

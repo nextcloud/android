@@ -152,7 +152,9 @@ public class UploadListActivity extends FileActivity {
         recyclerView = findViewById(android.R.id.list);
         recyclerView.setEmptyView(findViewById(R.id.empty_list_view));
         findViewById(R.id.empty_list_progress).setVisibility(View.GONE);
-        emptyContentIcon.setImageResource(R.drawable.ic_list_empty_upload);
+        emptyContentIcon.setImageResource(R.drawable.uploads);
+        emptyContentIcon.getDrawable().mutate();
+        emptyContentIcon.setAlpha(0.5f);
         emptyContentIcon.setVisibility(View.VISIBLE);
         emptyContentHeadline.setText(noResultsHeadline);
         emptyContentMessage.setText(noResultsMessage);

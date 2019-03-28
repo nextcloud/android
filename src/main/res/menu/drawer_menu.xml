@@ -27,12 +27,12 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all_files"
-            android:icon="@drawable/nav_all_files"
+            android:icon="@drawable/all_files"
             android:orderInCategory="0"
             android:title="@string/drawer_item_all_files"/>
         <item
             android:id="@+id/nav_activity"
-            android:icon="@drawable/nav_activity"
+            android:icon="@drawable/ic_activity"
             android:title="@string/drawer_item_activities"/>
         <item
             android:id="@+id/nav_favorites"
@@ -85,7 +85,7 @@
             android:title="@string/drawer_synced_folders"/>
         <item
             android:id="@+id/nav_uploads"
-            android:icon="@drawable/nav_uploads"
+            android:icon="@drawable/uploads"
             android:orderInCategory="2"
             android:title="@string/drawer_item_uploads_list"/>
         <item
@@ -108,7 +108,7 @@
             android:title="@string/prefs_add_account"/>
         <item
             android:id="@+id/drawer_menu_account_manage"
-            android:icon="@drawable/ic_settings"
+            android:icon="@drawable/nav_settings"
             android:orderInCategory="2"
             android:title="@string/drawer_manage_accounts"/>
     </group>
