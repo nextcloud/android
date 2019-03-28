@@ -274,7 +274,7 @@ dependencies {
 
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
 
-    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
     findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
 
     implementation 'com.google.dagger:dagger:2.21'
