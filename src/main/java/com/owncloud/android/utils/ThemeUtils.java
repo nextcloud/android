@@ -559,32 +559,39 @@ public final class ThemeUtils {
      * Lifted from SO.
      * FindBugs surpressed because of lack of public API to alter the cursor color.
      *
-     * @param view      TextView to be styled
+     * @param editText  TextView to be styled
      * @param color     The desired cursor colour
      * @see             <a href="https://stackoverflow.com/questions/25996032/how-to-change-programmatically-edittext-cursor-color-in-android#26543290">StackOverflow url</a>
+     * and https://stackoverflow.com/questions/52564294/setting-edittext-cursor-color-with-reflection-method
      */
     @SuppressFBWarnings
-    private static void setTextViewCursorColor(EditText view, @ColorInt int color) {
+    private static void setTextViewCursorColor(EditText editText, @ColorInt int color) {
         try {
-            // Get the cursor resource id
             Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
             field.setAccessible(true);
-            int drawableResId = field.getInt(view);
+            int drawableResId = field.getInt(editText);
 
             // Get the editor
             field = TextView.class.getDeclaredField("mEditor");
             field.setAccessible(true);
-            Object editor = field.get(view);
+            Object editor = field.get(editText);
 
-            // Get the drawable and set a color filter
-            Drawable drawable = ContextCompat.getDrawable(view.getContext(), drawableResId);
+            Drawable drawable = ContextCompat.getDrawable(editText.getContext(), drawableResId);
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            Drawable[] drawables = {drawable, drawable};
 
-            // Set the drawables
-            field = editor.getClass().getDeclaredField("mCursorDrawable");
-            field.setAccessible(true);
-            field.set(editor, drawables);
+            // Get the cursor resource id
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                // Set the drawables
+                field = editor.getClass().getDeclaredField("mDrawableForCursor");
+                field.setAccessible(true);
+                field.set(editor, drawable);
+            } else {
+                // Set the drawables
+                Drawable[] drawables = {drawable, drawable};
+                field = editor.getClass().getDeclaredField("mCursorDrawable");
+                field.setAccessible(true);
+                field.set(editor, drawables);
+            }
         } catch (Exception e) {
             Log_OC.e(TAG, "setTextViewCursorColor", e);
         }
