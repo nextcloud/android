@@ -81,12 +81,11 @@ public final class PassCodeManager {
     public void onActivityStarted(Activity activity) {
         Long timestamp = PreferenceManager.fromContext(activity).getLockTimestamp();
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
-
+            LOCK_PROMPTED = true;
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
-            LOCK_PROMPTED = true;
         }
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
