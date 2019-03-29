@@ -44,7 +44,7 @@ public final class PassCodeManager {
 
     public static final int PASSCODE_ACTIVITY = 9999;
 
-    private boolean LOCK_PROMPTED;
+    private boolean LOCK_PROMPTED = true;
 
     static {
         exemptOfPasscodeActivities = new HashSet<>();
