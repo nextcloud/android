@@ -489,6 +489,7 @@
 請從這裡下載:%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
     <string name="remove_fail_msg">刪除失敗</string>
+    <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法更名本地複本，請嚐試用不同名稱</string>
@@ -596,6 +597,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- 伺服器憑證的生效日在未來</string>
     <string name="ssl_validator_reason_hostname_not_verified">- 這個伺服器的憑證與使用的 URL 不相符</string>
     <string name="storage_description_default">預設</string>
+    <string name="storage_downloads">下載</string>
     <string name="store_short_desc">Nextcloud Android 應用程式讓您存取您 Nextcloud 上的所有檔案。</string>
     <string name="store_short_dev_desc">Nextcloud 開發應用程式是一個開發版的快照，而且可以同時安裝</string>
     <string name="stream">串流…</string>
