@@ -29,6 +29,7 @@
     <string name="active_user">Aktyvus naudotojas</string>
     <string name="activities_no_results_headline">Kol kas jokių veiksmų</string>
     <string name="activity_chooser_send_file_title">Siųsti</string>
+    <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
@@ -354,6 +355,7 @@
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
     <string name="pass_code_mismatch">Nesutampa užraktas</string>
     <string name="pass_code_reenter_your_pass_code">Įveskite užraktą</string>
+    <string name="pass_code_removed">Leidimo kodas ištrintas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
     <string name="pass_code_wrong">Neteisingas užraktas</string>
     <string name="permission_allow">Leisti</string>
@@ -416,6 +418,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="screenshot_01_gridView">Saugūs namai visiems jūsų duomenims</string>
     <string name="screenshot_02_listView">Lengvai naršykite ir bendrinkite savo failus</string>
+    <string name="screenshot_03_drawer">Greitai pasiekite veiklą, bendruosius išteklius, failus neprisijungus ir dar daugiau</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="send">Siųsti</string>
@@ -444,6 +447,7 @@
     <string name="share_via_link_section_title">Dalintis nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
     <string name="share_with_edit_title">Dalintis su %1$s</string>
+    <string name="share_with_title">Dalintis su…</string>
     <string name="share_with_user_section_title">Bendrinti su naudotojais ir grupėmis</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="sort_by">Rikiuoti pagal</string>
@@ -495,6 +499,7 @@
     <string name="synced_folders_preferences">Pageidaujami nustatymai automatiniam įkėlimui</string>
     <string name="synced_folders_preferences_folder_path">Dėl %1$s</string>
     <string name="synced_folders_type">Tipas</string>
+    <string name="synced_icon">Sinchronizuota</string>
     <string name="tags">Žymės</string>
     <string name="test_server_button">Prisijunkite prie serverio</string>
     <string name="thumbnail">Miniatiūra</string>
