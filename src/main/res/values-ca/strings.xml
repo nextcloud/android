@@ -9,14 +9,14 @@
     <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
     <string name="action_clear_successful_uploads">Neteja les pujades completades</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
-    <string name="action_empty_trashbin">Paperera buida</string>
+    <string name="action_empty_trashbin">Buida la paperera</string>
     <string name="action_force_rescan">Forçar un re-escaneig</string>
     <string name="action_retry_uploads">Reintenta les pujades fallides</string>
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
-    <string name="actionbar_contacts">Còpia de seguretat dels contactes</string>
-    <string name="actionbar_contacts_restore">Restaurar contactes</string>
+    <string name="actionbar_contacts">Fes una còpia de seguretat dels contactes</string>
+    <string name="actionbar_contacts_restore">Restaura els contactes</string>
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_logger">Registres</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
@@ -36,8 +36,8 @@
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
-    <string name="auth_access_failed">Accés fallit: %1$s</string>
-    <string name="auth_account_does_not_exist">Aquest compte encara no s\'ha afegit al dispositiu</string>
+    <string name="auth_access_failed">No s\'ha pogut accedir: %1$s</string>
+    <string name="auth_account_does_not_exist">Encara no s\'ha afegit el compte en aquest dispositiu</string>
     <string name="auth_account_not_new">Ja existeix un compte per al mateix usuari i servidor al dispositiu</string>
     <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
     <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
@@ -162,7 +162,7 @@
     <string name="delete_account">Elimina el compte</string>
     <string name="delete_account_warning">Esborrar el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="delete_entries">Elimina les entrades</string>
-    <string name="deselect_all">desseleccionar-ho tot </string>
+    <string name="deselect_all">No seleccionis res</string>
     <string name="dev_version_new_version_available">Hi ha una nova versió disponible</string>
     <string name="dev_version_no_information_available">Sense info disponible</string>
     <string name="dev_version_no_new_version_available">Cap versió nova disponible.</string>
