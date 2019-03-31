@@ -44,8 +44,6 @@ public final class PassCodeManager {
 
     public static final int PASSCODE_ACTIVITY = 9999;
 
-    private boolean LOCK_PROMPTED = true;
-
     static {
         exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
@@ -61,6 +59,7 @@ public final class PassCodeManager {
 
     private AppPreferences preferences;
     private int visibleActivitiesCounter;
+    private boolean lockPrompted = true;
 
 
     public PassCodeManager(AppPreferences preferences) {
@@ -81,7 +80,7 @@ public final class PassCodeManager {
     public void onActivityStarted(Activity activity) {
         Long timestamp = PreferenceManager.fromContext(activity).getLockTimestamp();
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
-            LOCK_PROMPTED = true;
+            lockPrompted = true;
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -103,10 +102,10 @@ public final class PassCodeManager {
             visibleActivitiesCounter--;
         }
         // Only set unlock timestamp if activity is not passcode related
-        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && !LOCK_PROMPTED) {
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && !lockPrompted) {
             setUnlockTimestamp(activity);
         } else {
-            LOCK_PROMPTED = false;
+            lockPrompted = false;
         }
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null
