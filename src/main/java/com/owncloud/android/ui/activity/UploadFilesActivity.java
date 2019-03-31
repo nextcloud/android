@@ -379,7 +379,7 @@ public class UploadFilesActivity extends FileActivity implements
 
             File parentFolder = mCurrentDir.getParentFile();
             if (!parentFolder.canRead()) {
-                showLocalStoragePathPickerDialog();
+                finish();
                 return;
             }
 
