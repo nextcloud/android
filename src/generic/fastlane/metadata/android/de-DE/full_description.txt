@@ -1,7 +1,7 @@
 Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.
 
 Eigenschaften:
-* Einfache, moderne an Ihr Theme angepasste Oberfläche
+* Einfache, moderne an Ihr Design angepasste Oberfläche
 * Laden Sie Ihre Dateien auf Ihren Nextcloud Server
 * Teilen Sie Ihre Dateien mit anderen
 * Halten Sie Ihre favorisierten Dateien und Verzeichnisse synchron
