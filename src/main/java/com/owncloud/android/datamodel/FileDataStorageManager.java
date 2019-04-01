@@ -1471,7 +1471,7 @@ public class FileDataStorageManager {
         // Reset flags & Remove shares for this files
         String filePath = "";
         for (OCShare share : shares) {
-            if (filePath != share.getPath()) {
+            if (!filePath.equals(share.getPath())) {
                 filePath = share.getPath();
                 resetShareFlagInAFile(filePath);
                 operations = prepareRemoveSharesInFile(filePath, operations);
