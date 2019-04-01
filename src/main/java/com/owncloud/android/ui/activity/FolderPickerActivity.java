@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
@@ -61,13 +62,15 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
-    OnClickListener, OnEnforceableRefreshListener {
+    OnClickListener, OnEnforceableRefreshListener, Injectable {
 
     public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
     public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILES";
@@ -91,14 +94,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected Button mCancelBtn;
     protected Button mChooseBtn;
     private String caption;
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
-
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.fromContext(this);
 
         if (this instanceof FilePickerActivity) {
             setContentView(R.layout.files_picker);

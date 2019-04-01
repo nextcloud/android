@@ -51,6 +51,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
@@ -75,6 +76,8 @@ import org.parceler.Parcels;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -92,7 +95,7 @@ import butterknife.Unbinder;
 /**
  * This Activity presents the user information.
  */
-public class UserInfoActivity extends FileActivity {
+public class UserInfoActivity extends FileActivity implements Injectable {
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
@@ -114,7 +117,7 @@ public class UserInfoActivity extends FileActivity {
 
     @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private float mCurrentAccountAvatarRadiusDimension;
 
     private Unbinder unbinder;
@@ -126,7 +129,6 @@ public class UserInfoActivity extends FileActivity {
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.fromContext(this);
         Bundle bundle = getIntent().getExtras();
 
         account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));

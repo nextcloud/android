@@ -36,6 +36,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
+
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
@@ -47,23 +49,24 @@ import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.DisplayUtils;
 
+import javax.inject.Inject;
+
 /**
  * Activity displaying general feature after a fresh install.
  */
-public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener, Injectable {
 
     public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
     public static final String EXTRA_EXIT = "EXIT";
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
     private ProgressIndicator progressIndicator;
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_run_activity);
-        preferences = PreferenceManager.fromContext(this);
 
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
 

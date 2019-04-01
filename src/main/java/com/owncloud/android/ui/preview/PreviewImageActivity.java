@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
@@ -60,6 +61,8 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -72,7 +75,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
         FileFragment.ContainerActivity,
-        ViewPager.OnPageChangeListener, OnRemoteOperationListener {
+        ViewPager.OnPageChangeListener,
+        OnRemoteOperationListener,
+        Injectable {
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
 
@@ -88,12 +93,11 @@ public class PreviewImageActivity extends FileActivity implements
     private boolean mRequestWaitingForBinder;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private View mFullScreenAnchorView;
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.fromContext(this);
 
         final ActionBar actionBar = getSupportActionBar();
 
