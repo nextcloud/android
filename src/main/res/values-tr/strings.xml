@@ -193,7 +193,7 @@
     <string name="drawer_item_recently_added">Son Eklenenler</string>
     <string name="drawer_item_recently_modified">Son Değiştirilenler</string>
     <string name="drawer_item_settings">Ayarlar</string>
-    <string name="drawer_item_shared">Paylaşıldı</string>
+    <string name="drawer_item_shared">Paylaşılan</string>
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
     <string name="drawer_item_videos">Görüntüler</string>
