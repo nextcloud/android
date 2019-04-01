@@ -283,7 +283,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
             String note = file.getNote();
 
-            if (!note.isEmpty()) {
+            if (!TextUtils.isEmpty(note)) {
                 sharedWithYouNote.setText(file.getNote());
                 sharedWithYouNote.setVisibility(View.VISIBLE);
             } else {
