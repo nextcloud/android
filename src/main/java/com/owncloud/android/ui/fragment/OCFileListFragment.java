@@ -49,6 +49,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -114,6 +115,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -130,7 +133,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment implements
-        OCFileListFragmentInterface, OCFileListBottomSheetActions {
+        OCFileListFragmentInterface,
+        OCFileListBottomSheetActions,
+        Injectable {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -162,7 +167,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private static final int SINGLE_SELECTION = 1;
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile;
@@ -238,7 +243,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         Log_OC.i(TAG, "onAttach");
-        preferences = PreferenceManager.fromContext(context);
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
 

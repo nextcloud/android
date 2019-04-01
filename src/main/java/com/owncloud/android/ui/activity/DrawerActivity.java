@@ -54,8 +54,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.navigation.NavigationView;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -102,6 +102,8 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
@@ -112,7 +114,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
  */
-public abstract class DrawerActivity extends ToolbarActivity implements DisplayUtils.AvatarGenerationListener {
+public abstract class DrawerActivity extends ToolbarActivity
+    implements DisplayUtils.AvatarGenerationListener, Injectable {
+
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
@@ -205,7 +209,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
 
-    private AppPreferences preferences;
+    @Inject
+    AppPreferences preferences;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -1152,8 +1157,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        preferences = PreferenceManager.fromContext(this);
 
         if (savedInstanceState != null) {
             mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);

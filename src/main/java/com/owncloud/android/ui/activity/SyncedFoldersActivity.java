@@ -42,6 +42,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -76,6 +78,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -92,7 +96,7 @@ import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
 public class SyncedFoldersActivity extends FileActivity implements SyncedFolderAdapter.ClickListener,
-        SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
+        SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener, Injectable {
 
     private static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
     private static final List<String> SPECIAL_MANUFACTURER = Arrays.asList("Samsung", "Huawei", "Xiaomi");
@@ -110,6 +114,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private String path;
     private int type;
+    @Inject AppPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,8 +193,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         mAdapter = new SyncedFolderAdapter(this, gridWidth, this, lightVersion);
-        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(),
-            PreferenceManager.fromContext(this));
+        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
