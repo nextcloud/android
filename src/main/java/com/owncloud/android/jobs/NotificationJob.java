@@ -268,7 +268,8 @@ public class NotificationJob extends Job {
 
                         boolean success;
                         if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
-                            success = executeAction(actionType, actionLink, client) == HttpStatus.SC_OK;
+                            int resultCode = executeAction(actionType, actionLink, client);
+                            success = resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED;
                         } else {
                             success = new DeleteNotificationRemoteOperation(numericNotificationId)
                                 .execute(client).isSuccess();
