@@ -219,6 +219,7 @@ android {
             reportLevel = "medium"
             classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${capVariantName}JavaWithJavac/classes/")
             excludeFilter = file("${project.rootDir}/findbugs-filter.xml")
+            pluginClasspath = project.configurations.spotbugsPlugins
             source = fileTree('src/main/java')
             classpath = files()
             include '**/*.java'
@@ -308,8 +309,8 @@ dependencies {
 
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
 
-    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
-    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.3.sb'
 
     implementation 'com.google.dagger:dagger:2.21'
     implementation 'com.google.dagger:dagger-android:2.21'
