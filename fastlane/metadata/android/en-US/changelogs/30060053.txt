@@ -1,0 +1,6 @@
+3.6.0 RC3 (April, 02, 2019)
+
+- fix crash on showing file info due to missing note info
+- fix closing push notification after executing action
+
+For a full list, please see https://github.com/nextcloud/android/milestone/30
