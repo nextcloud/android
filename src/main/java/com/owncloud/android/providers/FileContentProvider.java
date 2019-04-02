@@ -154,7 +154,7 @@ public class FileContentProvider extends ContentProvider {
                 count = db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown uri: " + uri.toString());
+                throw new IllegalArgumentException(String.format(Locale.US, "Unknown uri: %s", uri.toString()));
         }
 
         return count;
@@ -225,7 +225,7 @@ public class FileContentProvider extends ContentProvider {
             case SINGLE_FILE:
                 return ProviderTableMeta.CONTENT_TYPE_ITEM;
             default:
-                throw new IllegalArgumentException("Unknown Uri id: " + uri.toString());
+                throw new IllegalArgumentException(String.format(Locale.US, "Unknown Uri id: %s", uri));
         }
     }
 

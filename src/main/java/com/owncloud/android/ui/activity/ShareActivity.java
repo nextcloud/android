@@ -50,6 +50,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -124,7 +125,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             }
 
         } else {
-            Log_OC.e(TAG, "Unexpected intent " + intent.toString());
+            Log_OC.e(TAG, String.format(Locale.US, "Unexpected intent %s", intent));
         }
     }
 

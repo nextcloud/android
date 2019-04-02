@@ -72,6 +72,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
@@ -117,12 +119,14 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import javax.inject.Inject;
+
 /**
  * This can be used to upload things to an ownCloud instance.
  */
 public class ReceiveExternalFilesActivity extends FileActivity
         implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
-        SortingOrderDialogFragment.OnSortingOrderListener {
+        SortingOrderDialogFragment.OnSortingOrderListener, Injectable {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
@@ -133,7 +137,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String DESKTOP_FILE_SUFFIX = ".desktop";
     public static final int SINGLE_PARENT = 1;
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -176,7 +180,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.fromContext(this);
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
@@ -327,7 +330,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
-    public static class DialogInputUploadFilename extends DialogFragment {
+    public static class DialogInputUploadFilename extends DialogFragment implements Injectable {
         private static final String KEY_SUBJECT_TEXT = "SUBJECT_TEXT";
         private static final String KEY_EXTRA_TEXT = "EXTRA_TEXT";
 
@@ -342,7 +345,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         private int mFileCategory;
 
         private Spinner mSpinner;
-        private AppPreferences preferences;
+        @Inject AppPreferences preferences;
 
         public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
             DialogInputUploadFilename dialog = new DialogInputUploadFilename();
@@ -356,7 +359,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
-            preferences = PreferenceManager.fromContext(context);
         }
 
         @NonNull

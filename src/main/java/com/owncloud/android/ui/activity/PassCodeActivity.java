@@ -39,6 +39,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -46,9 +47,11 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PassCodeActivity extends AppCompatActivity {
+public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -65,7 +68,7 @@ public class PassCodeActivity extends AppCompatActivity {
     public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private Button mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -90,7 +93,6 @@ public class PassCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
-        preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(this);
 
         int elementColor = ThemeUtils.elementColor(this);
 

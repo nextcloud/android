@@ -218,7 +218,7 @@ public class MainApp extends MultiDexApplication implements
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
-                WhatsNewActivity.runIfNeeded(activity);
+                WhatsNewActivity.runIfNeeded(activity, preferences);
                 passCodeManager.onActivityCreated(activity);
             }
 
