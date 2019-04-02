@@ -52,6 +52,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -74,6 +75,8 @@ import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -85,9 +88,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class ExtendedListFragment extends Fragment
-        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener,
-        SearchView.OnCloseListener {
+public class ExtendedListFragment extends Fragment implements
+        OnItemClickListener,
+        OnEnforceableRefreshListener,
+        SearchView.OnQueryTextListener,
+        SearchView.OnCloseListener,
+        Injectable {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -105,7 +111,7 @@ public class ExtendedListFragment extends Fragment
     private int maxColumnSizePortrait = 5;
     private int maxColumnSizeLandscape = 10;
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected LinearLayout mEmptyListContainer;
@@ -358,7 +364,6 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        preferences = PreferenceManager.fromContext(context);
     }
 
     @Override

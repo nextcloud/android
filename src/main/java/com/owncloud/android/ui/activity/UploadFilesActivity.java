@@ -42,6 +42,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
@@ -63,6 +64,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -80,7 +83,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
-    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener {
+    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
     private static final int SINGLE_DIR = 1;
@@ -118,7 +121,7 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     public static final String REQUEST_CODE_KEY = "requestCode";
 
-    private AppPreferences preferences;
+    @Inject AppPreferences preferences;
     private int requestCode;
     private LocalStoragePathPickerDialogFragment dialog;
 
@@ -126,7 +129,6 @@ public class UploadFilesActivity extends FileActivity implements
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.fromContext(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
