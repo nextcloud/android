@@ -508,6 +508,7 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
+    <string name="reshare_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resized_image_not_possible">Отсутствует оптимизированное изображение.</string>
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
@@ -576,6 +577,7 @@
     <string name="shared_icon_share">общий ресурс</string>
     <string name="shared_icon_shared">поделился</string>
     <string name="shared_icon_shared_via_link">поступ по ссылке</string>
+    <string name="shared_with_you_by">С вами поделился %1$s</string>
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>

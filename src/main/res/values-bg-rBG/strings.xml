@@ -6,7 +6,10 @@
     <string name="account_creation_failed">Създаването на профила се провали</string>
     <string name="account_not_found">Няма намерен профил!</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
+    <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
     <string name="action_empty_trashbin">Изпразни кошчето</string>
+    <string name="action_force_rescan">Сканирай наново</string>
+    <string name="action_retry_uploads">Нов опит за провалените</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
@@ -16,6 +19,7 @@
     <string name="actionbar_logger">Журнали</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Преместване</string>
+    <string name="actionbar_open_as_richdocument">Отвори с Collabora</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -72,6 +76,7 @@
     <string name="auth_username">Потребител</string>
     <string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
     <string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
+    <string name="authentication_exception">Грешка при удостоверяването</string>
     <string name="auto_upload_on_wifi">Качване само от Wi-Fi мрежа</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Създаване на нова папка</string>
@@ -152,6 +157,8 @@
     <string name="dev_version_no_information_available">Няма налична информация.</string>
     <string name="dev_version_no_new_version_available">Няма нова версия.</string>
     <string name="digest_algorithm_not_available">Алгоритъмът не се поддържа от вашия телефон.</string>
+    <string name="disable_new_media_folder_detection_notifications">Изключване</string>
+    <string name="dismiss">Отхвърляне</string>
     <string name="downloader_download_failed_content">%1$sне може да бъде изтеглен</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
     <string name="downloader_download_failed_ticker">Изтеглянето е неуспешно.</string>
@@ -434,10 +441,12 @@
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
+    <string name="remove_push_notification">Премахване</string>
     <string name="remove_success_msg">Изтрито</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
+    <string name="reshare_not_allowed">Повторното споделяне е забранено</string>
     <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible">Няма наличнo оразмеренo изображение.</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
@@ -496,6 +505,7 @@
     <string name="shared_icon_share">сподели</string>
     <string name="shared_icon_shared">споделено</string>
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
+    <string name="shared_with_you_by">Споделено с Вас от %1$s</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
     <string name="sort_by_modification_date_ascending">Най-нов</string>
@@ -532,6 +542,7 @@
     <string name="storage_camera">Камера</string>
     <string name="storage_description_default">Стандартно</string>
     <string name="storage_documents">Документи</string>
+    <string name="storage_downloads">Сваляне</string>
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Снимки</string>
