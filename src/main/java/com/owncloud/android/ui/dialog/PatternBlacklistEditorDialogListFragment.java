@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.dialog;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,24 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import lombok.Getter;
 
 public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<String> {
 
-    ArrayList<String> patternList;
+    @Getter
+    private List<String> patternList;
 
-    public PatternBlacklistEditorDialogListFragment(Context context, ArrayList<String> patterns) {
+    public PatternBlacklistEditorDialogListFragment(Context context, List<String> patterns) {
         super(context, 0, patterns);
-        patternList=patterns;
+        patternList = patterns;
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public @NonNull
+    View getView(int position, View view, @NonNull ViewGroup parent) {
 
         String pattern = getItem(position);
 
@@ -32,8 +39,8 @@ public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<Strin
             view = LayoutInflater.from(getContext()).inflate(R.layout.pattern_blacklist_editor_list_item, parent, false);
         }
 
-        TextView label = (TextView) view.findViewById(R.id.pattern_name);
-        ImageButton ib = (ImageButton) view.findViewById(R.id.delete_pattern_button);
+        TextView label = view.findViewById(R.id.pattern_name);
+        ImageButton ib = view.findViewById(R.id.delete_pattern_button);
 
         ib.setOnClickListener(
             new View.OnClickListener() {
@@ -46,35 +53,29 @@ public class PatternBlacklistEditorDialogListFragment extends ArrayAdapter<Strin
         return view;
     }
 
-    public ArrayList<String> getList() {
-        return patternList;
-    }
-
-
-    private void removePattern(String pattern){
+    private void removePattern(String pattern) {
         patternList.remove(pattern);
         notifyDataSetChanged();
 
     }
 
-    public void addNewPattern(String patternToAdd){
+    public void addNewPattern(String patternToAdd) {
 
         //pattern cannot be empty
-        if(patternToAdd.isEmpty() || patternToAdd == ""){
+        if (TextUtils.isEmpty(patternToAdd)) {
             return;
         }
 
-        boolean foundPattern=false;
+        boolean foundPattern = false;
         for (String pattern : patternList) {
-            if(patternToAdd.equals(pattern)){
-                foundPattern=true;
+            if (patternToAdd.equals(pattern)) {
+                foundPattern = true;
             }
         }
 
-        if(!foundPattern){
+        if (!foundPattern) {
             patternList.add(patternToAdd);
         }
         notifyDataSetChanged();
-
     }
 }

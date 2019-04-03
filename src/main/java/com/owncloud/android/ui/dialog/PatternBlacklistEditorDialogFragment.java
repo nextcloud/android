@@ -1,6 +1,5 @@
 package com.owncloud.android.ui.dialog;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,22 +7,25 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.owncloud.android.db.PreferenceManager;
+import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.activity.Preferences;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.TAG;
 
-public class PatternBlacklistEditorDialogFragment extends DialogFragment {
+public class PatternBlacklistEditorDialogFragment extends DialogFragment implements Injectable {
 
     private PatternBlacklistEditorDialogListFragment adapter;
+
+    @Inject AppPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,7 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
 
         ListView scrollViewContainer = mView.findViewById(R.id.details_scroll_container);
 
-        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        ArrayList<String> list = new ArrayList<String>(sharedpreferences.getStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES));
-
+        List<String> list = preferences.getAutoUploadPatternBlackList();
 
         adapter = new PatternBlacklistEditorDialogListFragment(this.getContext(), list);
         scrollViewContainer.setAdapter(adapter);
@@ -81,10 +81,7 @@ public class PatternBlacklistEditorDialogFragment extends DialogFragment {
     }
 
     private void save() {
-        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putStringSet(Preferences.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_KEY, new HashSet<String>(adapter.getList()));
-        editor.apply();
+        preferences.setAutoUploadPatternBlackList(adapter.getPatternList());
         close();
     }
 
