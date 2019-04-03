@@ -20,7 +20,6 @@
 
 package com.owncloud.android.utils;
 
-import android.text.TextUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +37,7 @@ public final class StringUtils {
 
     public static String searchAndColor(String text, String searchText, @ColorInt int color) {
 
-        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchText)) {
+        if (text.isEmpty() || searchText.isEmpty()) {
             return text;
         }
 
