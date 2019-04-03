@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +49,7 @@ public final class StringUtils {
         while (matcher.find()) {
             String replacement = matcher.group().replace(
                 matcher.group(),
-                "<font color='" + color + "'><b>" + matcher.group() + "</b></font>"
+                String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color, matcher.group())
             );
             matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
         }
