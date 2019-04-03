@@ -316,7 +316,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.21'
     implementation 'com.google.dagger:dagger-android-support:2.21'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.22.1'
 
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
