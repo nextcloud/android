@@ -478,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
     <string name="prefs_license">Лиценца</string>
+    <string name="prefs_lock">Апликативни кôд</string>
     <string name="prefs_lock_device_credentials_enabled">Укључени акредитиви уређаја</string>
     <string name="prefs_lock_device_credentials_not_setup">Нема подешених акредитива уређаја.</string>
     <string name="prefs_lock_none">Ништа</string>
+    <string name="prefs_lock_title">Заштитите апликацију уз помоћ</string>
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_using_passcode">Код</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
@@ -509,6 +511,7 @@
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Локална копија не може да се преименује, пробајте друго име</string>
     <string name="rename_server_fail_msg">Преименовање није могуће, име је већ заузето</string>
+    <string name="reshare_not_allowed">Дељење даље није дозвољено</string>
     <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resized_image_not_possible">Нема доступне умањене сличице.</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скини оригиналну слику?</string>
