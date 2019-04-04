@@ -316,7 +316,7 @@ Attention la suppression est irréversible.</string>
     <string name="forbidden_permissions_delete">de supprimer ce fichier</string>
     <string name="forbidden_permissions_move">de déplacer ce fichier</string>
     <string name="forbidden_permissions_rename">de renommer ce fichier</string>
-    <string name="foreground_service_download">Téléchargement des fichiers…</string>
+    <string name="foreground_service_download">Réception de fichiers…</string>
     <string name="foreground_service_upload">Envoi des fichiers…</string>
     <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
     <string name="foreign_files_local_text">Local : %1$s</string>
