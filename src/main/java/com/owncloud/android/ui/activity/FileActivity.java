@@ -69,6 +69,7 @@ import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.asynctasks.CheckRemoteWipeTask;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -80,6 +81,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
+
+import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -394,43 +397,48 @@ public abstract class FileActivity extends DrawerActivity
      *                  be used.
      */
     protected void requestCredentialsUpdate(Context context, Account account) {
+        if (account == null) {
+            account = getAccount();
+        }
 
+        boolean remoteWipeSupported = accountManager.getServerVersion(account).isRemoteWipeSupported();
+
+        if (remoteWipeSupported) {
+            new CheckRemoteWipeTask(account, new WeakReference<>(this)).execute();
+        } else {
+            performCredentialsUpdate(account, context);
+        }
+    }
+
+    public void performCredentialsUpdate(Account account, Context context) {
         try {
             /// step 1 - invalidate credentials of current account
-            if (account == null) {
-                account = getAccount();
-            }
-            OwnCloudClient client;
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
+            OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
+
             if (client != null) {
-                OwnCloudCredentials cred = client.getCredentials();
-                if (cred != null) {
-                    AccountManager am = AccountManager.get(context);
-                    if (cred.authTokenExpires()) {
-                        am.invalidateAuthToken(
-                                account.type,
-                                cred.getAuthToken()
-                        );
+                OwnCloudCredentials credentials = client.getCredentials();
+                if (credentials != null) {
+                    AccountManager accountManager = AccountManager.get(context);
+                    if (credentials.authTokenExpires()) {
+                        accountManager.invalidateAuthToken(account.type, credentials.getAuthToken());
                     } else {
-                        am.clearPassword(account);
+                        accountManager.clearPassword(account);
                     }
                 }
             }
 
             /// step 2 - request credentials to user
-            Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+            Intent updateAccountCredentials = new Intent(context, AuthenticatorActivity.class);
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
             updateAccountCredentials.putExtra(
-                    AuthenticatorActivity.EXTRA_ACTION,
-                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+                AuthenticatorActivity.EXTRA_ACTION,
+                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
-
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
         }
-
     }
 
     /**
