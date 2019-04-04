@@ -509,6 +509,7 @@
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
+    <string name="reshare_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resharing_is_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resized_image_not_possible">Nincs elérhető átméretezett kép.</string>
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
