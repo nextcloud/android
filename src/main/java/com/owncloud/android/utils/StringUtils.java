@@ -38,23 +38,30 @@ public final class StringUtils {
 
     public static String searchAndColor(String text, String searchText, @ColorInt int color) {
 
-        if (text.isEmpty() || searchText.isEmpty()) {
-            return text;
+        if (text != null && searchText != null) {
+
+            if (text.isEmpty() || searchText.isEmpty()) {
+                return text;
+            }
+
+            Matcher matcher = Pattern.compile(searchText,
+                                              Pattern.CASE_INSENSITIVE | Pattern.LITERAL).matcher(text);
+
+            StringBuffer stringBuffer = new StringBuffer();
+
+            while (matcher.find()) {
+                String replacement = matcher.group().replace(
+                    matcher.group(),
+                    String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color,
+                                  matcher.group())
+                );
+                matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
+            }
+            matcher.appendTail(stringBuffer);
+
+            return stringBuffer.toString();
+        } else {
+            return "";
         }
-
-        Matcher matcher = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE | Pattern.LITERAL).matcher(text);
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        while (matcher.find()) {
-            String replacement = matcher.group().replace(
-                matcher.group(),
-                String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color, matcher.group())
-            );
-            matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
-        }
-        matcher.appendTail(stringBuffer);
-
-        return stringBuffer.toString();
     }
 }
