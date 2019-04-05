@@ -33,7 +33,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileActivity;
