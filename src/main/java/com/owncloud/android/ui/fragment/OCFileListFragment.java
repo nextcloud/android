@@ -58,7 +58,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
