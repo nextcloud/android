@@ -26,6 +26,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Helper class for handling and manipulating strings.
@@ -36,11 +38,13 @@ public final class StringUtils {
         // prevent class from being constructed
     }
 
-    public static String searchAndColor(String text, String searchText, @ColorInt int color) {
+    public static @NonNull
+    String searchAndColor(@Nullable String text, @Nullable String searchText,
+                          @ColorInt int color) {
 
-        if (text != null && searchText != null) {
+        if (text != null) {
 
-            if (text.isEmpty() || searchText.isEmpty()) {
+            if (text.isEmpty() || searchText == null || searchText.isEmpty()) {
                 return text;
             }
 
