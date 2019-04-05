@@ -160,6 +160,7 @@
     <string name="default_credentials_wrong">不正な資格情報</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
+    <string name="delete_entries">エントリーを削除</string>
     <string name="deselect_all">選択を全解除</string>
     <string name="dev_version_new_version_available">新しいバージョンが利用可能</string>
     <string name="dev_version_no_information_available">情報がありません。</string>
@@ -326,6 +327,7 @@
     <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">IOエラー</string>
     <string name="learn_more">もっと見る</string>
     <string name="link">リンク</string>
     <string name="list_layout">リスト表示</string>
@@ -472,6 +474,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_license">ライセンス</string>
+    <string name="prefs_lock">アプリパスコード</string>
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_lock_none">なし</string>
@@ -606,7 +609,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- サーバー証明書の有効期限が未来のものです</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLは証明書内のホスト名と一致しません</string>
+    <string name="storage_camera">カメラ</string>
+    <string name="storage_choose_location">ストレージの場所を選択</string>
     <string name="storage_description_default">デフォルト</string>
+    <string name="storage_documents">ドキュメント</string>
+    <string name="storage_downloads">ダウンロード</string>
+    <string name="storage_internal_storage">内部ストレージ</string>
+    <string name="storage_movies">動画</string>
+    <string name="storage_music">音楽</string>
+    <string name="storage_pictures">写真</string>
     <string name="store_full_desc">あなたにモバイル・フリーダムをもたらすコピーレフト化された無償の Nextcloud Android アプリ。\n\nフィーチャー：\n* 簡単でモダンなインタフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダーや連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期・共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細はhttps://nextcloud.comまで。</string>
     <string name="store_full_dev_desc">いつでもどこでも使えるコピーレフトで自由なNextcloudのAndroidアプリ。
 これは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！
@@ -645,6 +656,7 @@
     <string name="tags">タグ</string>
     <string name="test_server_button">テストサーバーの接続</string>
     <string name="thumbnail">サムネイル</string>
+    <string name="timeout_richDocuments">ローディング中 時間がかかります...</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
     <string name="trashbin_empty_headline">削除されたファイルはありません</string>
     <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
@@ -752,6 +764,9 @@
     <string name="whats_new_device_credentials_title">Androidのデバイス内部保護を使用する</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d フォルダ</item>
     </plurals>
