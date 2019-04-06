@@ -28,6 +28,7 @@
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/bg_default</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar.Drawer">
