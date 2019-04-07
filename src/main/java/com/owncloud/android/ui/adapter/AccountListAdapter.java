@@ -22,41 +22,52 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * This Adapter populates a ListView with all accounts within the app.
+ * This Adapter populates a RecyclerView with all accounts within the app.
  */
-public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements DisplayUtils.AvatarGenerationListener {
+public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountViewHolderItem>
+                                implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
     private float mAccountAvatarRadiusDimension;
     private final BaseActivity mContext;
     private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
     private Drawable mTintedCheck;
+    private RecyclerView mRecyclerView;
     private UserAccountManager accountManager;
 
-    public AccountListAdapter(BaseActivity context, UserAccountManager accountManager, List<AccountListItem> values, Drawable tintedCheck) {
-        super(context, -1, values);
+
+    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
+    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
+
+    public AccountListAdapter(BaseActivity context, List<AccountListItem> values, Drawable tintedCheck) {
         this.mContext = context;
         this.accountManager = accountManager;
         this.mValues = values;
@@ -67,41 +78,37 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         this.mTintedCheck = tintedCheck;
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
     @NonNull
     @Override
-    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+    public AccountViewHolderItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AccountViewHolderItem viewHolder;
-        View view = convertView;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.account_item, parent, false);
+        viewHolder = new AccountViewHolderItem(view);
+        viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
+        return viewHolder;
+    }
 
-        if (view == null) {
-            LayoutInflater inflater = mContext.getLayoutInflater();
-            view = inflater.inflate(R.layout.account_item, parent, false);
-
-            viewHolder = new AccountViewHolderItem();
-            viewHolder.imageViewItem = view.findViewById(R.id.user_icon);
-            viewHolder.checkViewItem = view.findViewById(R.id.ticker);
-            viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
-            viewHolder.usernameViewItem = view.findViewById(R.id.user_name);
-            viewHolder.accountViewItem = view.findViewById(R.id.account);
-
-            view.setTag(viewHolder);
-        } else {
-            viewHolder = (AccountViewHolderItem) view.getTag();
-        }
-
+    @Override
+    public void onBindViewHolder(@NonNull AccountViewHolderItem holder, int position) {
         AccountListItem accountListItem = mValues.get(position);
 
         if (accountListItem != null) {
             // create account item
             if (AccountListItem.TYPE_ACCOUNT == accountListItem.getType()) {
                 Account account = accountListItem.getAccount();
-                setAccount(viewHolder, account);
-                setUsername(viewHolder, account);
-                setAvatar(viewHolder, account);
-                setCurrentlyActiveState(viewHolder, account);
+                setAccount(holder, account);
+                setUsername(holder, account);
+                setAvatar(holder, account);
+                setCurrentlyActiveState(holder, account);
 
-                TextView usernameView = viewHolder.usernameViewItem;
-                TextView accountView = viewHolder.accountViewItem;
+                TextView usernameView = (holder).usernameViewItem;
+                TextView accountView = (holder).accountViewItem;
 
                 if (!accountListItem.isEnabled()) {
                     usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -113,21 +120,44 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && mListener != null) {
-                return setupAddAccountListItem(parent);
+                setupAddAccountListItem(holder);
             }
         }
 
-        return view;
+        // OnClickListener for when the user selects an account
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(mContext, UserInfoActivity.class);
+                if (accountListItem.isEnabled()) {
+                    Account account = accountListItem.getAccount();
+                    intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
+                    try {
+                        OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
+                        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                        Log_OC.d(TAG, "Failed to find NC account");
+                    }
+                    mContext.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+                }
+            }
+        });
+
     }
 
+    /**
+     * Sets up a View to be used for adding a new account
+     * @param holder, the holder which contains the View to be used for the Add Account action.
+     */
     @NonNull
-    private View setupAddAccountListItem(ViewGroup parent) {
-        LayoutInflater inflater = mContext.getLayoutInflater();
-        View actionView = inflater.inflate(R.layout.account_action, parent, false);
+    private void setupAddAccountListItem(AccountViewHolderItem holder) {
+        View actionView = holder.itemView;
 
+        holder.accountViewItem.setVisibility(View.INVISIBLE);
+        holder.checkViewItem.setVisibility(View.INVISIBLE);
         TextView userName = actionView.findViewById(R.id.user_name);
         userName.setText(R.string.prefs_add_account);
-        userName.setTextColor(ThemeUtils.primaryColor(getContext(), true));
+        userName.setTextColor(ThemeUtils.primaryColor(mContext, true));
 
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
@@ -140,8 +170,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         } else {
             actionView.setOnClickListener(v -> mListener.createAccount());
         }
-
-        return actionView;
     }
 
     private void setAccount(AccountViewHolderItem viewHolder, Account account) {
@@ -193,6 +221,46 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     }
 
     /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
+    @Override
+    public int getItemCount() {
+        return this.mValues.size();
+    }
+
+    /**
+     * Returns an AccountListItem from the specified position in the mValues list
+     * @param position of the object to be returned
+     * @return An AccountListItem of the specified position
+     */
+    public AccountListItem getItem(int position) {
+        return mValues.get(position);
+    }
+
+    /**
+     * Deletes the elements in the mValues list and notifies the Adapter
+     */
+    public void clear() {
+        final int size = mValues.size();
+        mValues.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
+    /**
+     * Adds all of the items to the data set.
+     * @param items The item list to be added.
+     */
+    public void addAll(List<AccountListItem> items){
+        if(mValues == null){
+            mValues = new ArrayList<>();
+        }
+        mValues.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    /**
      * Listener interface for Activities using the {@link AccountListAdapter}
      */
     public interface AccountListAdapterListener {
@@ -205,11 +273,24 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     /**
      * Account ViewHolderItem to get smooth scrolling.
      */
-    private static class AccountViewHolderItem {
+    static class AccountViewHolderItem extends RecyclerView.ViewHolder {
         private ImageView imageViewItem;
         private ImageView checkViewItem;
 
         private TextView usernameViewItem;
         private TextView accountViewItem;
+
+        private View parentView;
+
+        AccountViewHolderItem(@NonNull View view) {
+            super(view);
+            this.parentView = view;
+            this.imageViewItem = view.findViewById(R.id.user_icon);
+            this.checkViewItem = view.findViewById(R.id.ticker);
+            this.usernameViewItem = view.findViewById(R.id.user_name);
+            this.accountViewItem = view.findViewById(R.id.account);
+        }
+
+
     }
 }
