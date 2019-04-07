@@ -35,9 +35,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -50,7 +47,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.AccountRemovalJob;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
@@ -73,6 +69,8 @@ import javax.inject.Inject;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -85,14 +83,11 @@ public class ManageAccountsActivity extends FileActivity
     public static final String KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED";
     public static final String PENDING_FOR_REMOVAL = UserAccountManager.PENDING_FOR_REMOVAL;
 
-    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
-
-    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
     private static final int KEY_DELETE_CODE = 101;
     private static final int SINGLE_ACCOUNT = 1;
     private static final int MIN_MULTI_ACCOUNT_SIZE = 2;
 
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private AccountListAdapter mAccountListAdapter;
@@ -116,7 +111,7 @@ public class ManageAccountsActivity extends FileActivity
 
         setContentView(R.layout.accounts_layout);
 
-        mListView = findViewById(R.id.account_list);
+        mRecyclerView = findViewById(R.id.account_list);
 
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
@@ -137,30 +132,8 @@ public class ManageAccountsActivity extends FileActivity
 
         mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), getAccountListItems(), mTintedCheck);
 
-        mListView.setAdapter(mAccountListAdapter);
-
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AccountListItem item = mAccountListAdapter.getItem(position);
-
-                if (item != null && item.isEnabled()) {
-                    Account account = item.getAccount();
-                    intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
-                    try {
-                        OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-                        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                        Log_OC.d(TAG, "Failed to find NC account");
-                    }
-
-                    startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
-                }
-            }
-        });
-
+        mRecyclerView.setAdapter(mAccountListAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         initializeComponentGetters();
     }
 
@@ -308,7 +281,7 @@ public class ManageAccountsActivity extends FileActivity
                                         getAccountListItems(),
                                         mTintedCheck
                                 );
-                                mListView.setAdapter(mAccountListAdapter);
+                                mRecyclerView.setAdapter(mAccountListAdapter);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -360,7 +333,7 @@ public class ManageAccountsActivity extends FileActivity
             List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > SINGLE_ACCOUNT) {
                 mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), accountListItemArray, mTintedCheck);
-                mListView.setAdapter(mAccountListAdapter);
+                mRecyclerView.setAdapter(mAccountListAdapter);
             } else {
                 onBackPressed();
             }
@@ -408,8 +381,8 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     private void performAccountRemoval(Account account) {
-        // disable account in list view
-        for (int i = 0; i < mAccountListAdapter.getCount(); i++) {
+        // disable account in recycler view
+        for (int i = 0; i < mAccountListAdapter.getItemCount(); i++) {
             AccountListItem item = mAccountListAdapter.getItem(i);
 
             if (item != null && item.getAccount().equals(account)) {
