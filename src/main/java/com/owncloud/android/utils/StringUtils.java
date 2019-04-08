@@ -20,12 +20,14 @@
 
 package com.owncloud.android.utils;
 
-import android.text.TextUtils;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Helper class for handling and manipulating strings.
@@ -36,25 +38,34 @@ public final class StringUtils {
         // prevent class from being constructed
     }
 
-    public static String searchAndColor(String text, String searchText, @ColorInt int color) {
+    public static @NonNull
+    String searchAndColor(@Nullable String text, @Nullable String searchText,
+                          @ColorInt int color) {
 
-        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchText)) {
-            return text;
+        if (text != null) {
+
+            if (text.isEmpty() || searchText == null || searchText.isEmpty()) {
+                return text;
+            }
+
+            Matcher matcher = Pattern.compile(searchText,
+                                              Pattern.CASE_INSENSITIVE | Pattern.LITERAL).matcher(text);
+
+            StringBuffer stringBuffer = new StringBuffer();
+
+            while (matcher.find()) {
+                String replacement = matcher.group().replace(
+                    matcher.group(),
+                    String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color,
+                                  matcher.group())
+                );
+                matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
+            }
+            matcher.appendTail(stringBuffer);
+
+            return stringBuffer.toString();
+        } else {
+            return "";
         }
-
-        Matcher matcher = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE | Pattern.LITERAL).matcher(text);
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        while (matcher.find()) {
-            String replacement = matcher.group().replace(
-                matcher.group(),
-                "<font color='" + color + "'><b>" + matcher.group() + "</b></font>"
-            );
-            matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
-        }
-        matcher.appendTail(stringBuffer);
-
-        return stringBuffer.toString();
     }
 }
