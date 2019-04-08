@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class StringUtilsTest {
 
     @Test
-    public void searchAndColor_assertCorrectSingleSearchMatch() {
+    public void assertCorrectSingleSearchMatch() {
 
         String text = "this is a simple test";
         String searchText = "simple";
@@ -20,7 +20,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void searchAndColor_assertTextReturnedIfSearchTextIsEmpty() {
+    public void assertTextReturnedIfSearchTextIsEmpty() {
         String helloWorld = "hello world";
         assertEquals("text returned when searchText was not empty",
                      helloWorld, StringUtils.searchAndColor(helloWorld, "", 0));
