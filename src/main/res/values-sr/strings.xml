@@ -634,7 +634,7 @@
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
-    <string name="subject_user_shared_with_you">%1$s подели „%2$s“ са вама</string>
+    <string name="subject_user_shared_with_you">%1$s је поделио \"%2$s\" са вама</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронађени конфликти</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
     <string name="sync_fail_content">Не могу да синхронизујем %1$s</string>
