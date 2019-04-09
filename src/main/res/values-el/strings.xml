@@ -31,6 +31,7 @@
     <string name="actionbar_sync">Ανανέωση λογαριασμού</string>
     <string name="active_user">Ενεργός χρήστης</string>
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
+    <string name="activities_no_results_message">Δεν υπάρχουν ακόμη γεγονότα όπως προσθήκες, αλλαγές και διαμοιρασμοί</string>
     <string name="activity_chooser_send_file_title">Αποστολή</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="activity_icon">Δραστηριότητα</string>
@@ -76,6 +77,7 @@
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_wrong_connection_title">Αδυναμία δημιουργίας σύνδεσης</string>
     <string name="auth_wtf_reenter_URL">Απροσδόκητη κατάσταση, παρακαλoύμε εισάγετε ξανά τη διεύθυνση του διακομιστή</string>
+    <string name="authentication_exception">Παρατυπία Πιστοποίησης</string>
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
     <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
     <string name="autoupload_create_new_custom_folder">Δημιουργήστε νέα διαμόρφωση προσαρμοσμένου φακέλου</string>
@@ -83,6 +85,7 @@
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
+    <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
     <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
@@ -125,6 +128,7 @@
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
+    <string name="contactlist_item_icon">Εικονίδιο χρήστη για τη λίστα επαφών</string>
     <string name="contactlist_no_permission">Δεν δόθηκαν δικαιώματα, τίποτα δεν εισήχθη.</string>
     <string name="contacts_automatic_backup">Αυτόματο εφεδρικό αντίγραφο</string>
     <string name="contacts_backup_button">Εφεδρικό αντίγραφο τώρα</string>
@@ -153,6 +157,7 @@
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
+    <string name="delete_entries">Διαγραφή καταχωρήσεων</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
     <string name="dev_version_new_version_available">Διαθέσιμη νέα έκδοση</string>
     <string name="dev_version_no_information_available">Καμία διαθέσιμη πληροφορία.</string>
@@ -215,6 +220,7 @@
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
+    <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
     <string name="fallback_weblogin_back">Πίσω</string>
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
@@ -222,6 +228,7 @@
     <string name="favorite_icon">Αγαπημένο</string>
     <string name="feedback_no_mail_app">Δεν υπάρχει διαθέσιμη εφαρμογή για αποστολή αλληλογραφίας!</string>
     <string name="file_delete">Διαγραφή</string>
+    <string name="file_details_no_content">Αποτυχία φόρτωσης λεπτομερειών</string>
     <string name="file_icon">Αρχείο</string>
     <string name="file_keep">Διατήρηση</string>
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
@@ -283,6 +290,7 @@
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου κατέχει τουλάχιστο ένα μη έγκυρο χαρακτήρα</string>
     <string name="filename_hint">Όνομα αρχείου</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε αναβαθμίστε.</string>
+    <string name="first_run_1_text">Κρατήστε τα δεδομένα σας ασφαλή και υπό τον έλεγχό σας</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_icon">Εικονίδιο φακέλου</string>
