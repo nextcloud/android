@@ -51,7 +51,7 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
-@PowerMockIgnore({"org.slf4j.*" })
+@PowerMockIgnore({"org.slf4j.*"})
 @PrepareForTest({AccountUtils.class, OwnCloudClientFactory.class, ConnectivityUtils.class})
 public class ConnectivityUtilsTest {
 
@@ -82,6 +82,9 @@ public class ConnectivityUtilsTest {
 
         when(mContext.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(mConnectivityManager);
         when(mConnectivityManager.getActiveNetworkInfo()).thenReturn(mNetworkInfo);
+
+        mockStatic(AccountUtils.class);
+        mockStatic(OwnCloudClientFactory.class);
     }
 
     @Test
@@ -116,8 +119,6 @@ public class ConnectivityUtilsTest {
 
     @Test
     public void isInternetWalled_assertFalseWhenOnOlderNC() throws Exception {
-        mockStatic(AccountUtils.class);
-        mockStatic(OwnCloudClientFactory.class);
         // Ensure we are on WiFi
         when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
         when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
@@ -145,8 +146,6 @@ public class ConnectivityUtilsTest {
 
     @Test
     public void isInternetWalled_assertFalseWhenOnNewerNC() throws Exception {
-        mockStatic(AccountUtils.class);
-        mockStatic(OwnCloudClientFactory.class);
         // Ensure we are on WiFi
         when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
         when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
