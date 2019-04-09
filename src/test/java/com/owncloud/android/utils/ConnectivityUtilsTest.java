@@ -115,7 +115,7 @@ public class ConnectivityUtilsTest {
     }
 
     @Test
-    public void isInternetWalled_assertFalseWhenAllIsGood() throws Exception {
+    public void isInternetWalled_assertFalseWhenOnOlderNC() throws Exception {
         mockStatic(AccountUtils.class);
         mockStatic(OwnCloudClientFactory.class);
         // Ensure we are on WiFi
@@ -124,7 +124,7 @@ public class ConnectivityUtilsTest {
 
         PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(mContext))).thenReturn(mAccount);
         PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(mOcAccount);
-        PowerMockito.when(AccountUtils.getServerVersion(eq(mAccount))).thenReturn(OwnCloudVersion.nextcloud_14);
+        PowerMockito.when(AccountUtils.getServerVersion(eq(mAccount))).thenReturn(OwnCloudVersion.nextcloud_13);
         PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(mAccount), eq(mContext))).thenReturn(mClient);
         PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(mGetMethod);
 
@@ -138,6 +138,30 @@ public class ConnectivityUtilsTest {
         jsonObj.put("maintenance", false);
 
         when(mGetMethod.getResponseBodyAsString()).thenReturn(jsonObj.toString());
+
+        assertFalse("internet was falsely claimed to be walled",
+                    ConnectivityUtils.isInternetWalled(mContext));
+    }
+
+    @Test
+    public void isInternetWalled_assertFalseWhenOnNewerNC() throws Exception {
+        mockStatic(AccountUtils.class);
+        mockStatic(OwnCloudClientFactory.class);
+        // Ensure we are on WiFi
+        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
+
+        PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(mContext))).thenReturn(mAccount);
+        PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(mOcAccount);
+        PowerMockito.when(AccountUtils.getServerVersion(eq(mAccount))).thenReturn(OwnCloudVersion.nextcloud_14);
+        PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(mAccount), eq(mContext))).thenReturn(mClient);
+        PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(mGetMethod);
+
+        // Return SC_NO_CONTENT
+        when(mClient.executeMethod(mGetMethod)).thenReturn(HttpStatus.SC_NO_CONTENT);
+
+        // Content length should be 0.
+        when(mGetMethod.getResponseContentLength()).thenReturn(0L);
 
         assertFalse("internet was falsely claimed to be walled",
                     ConnectivityUtils.isInternetWalled(mContext));
