@@ -33,7 +33,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FilePickerActivity;
 import com.owncloud.android.ui.activity.FirstRunActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.HookActivity;
 import com.owncloud.android.ui.activity.LogHistoryActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
@@ -84,7 +83,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FilePickerActivity filePickerActivity();
     @ContributesAndroidInjector abstract FirstRunActivity firstRunActivity();
     @ContributesAndroidInjector abstract FolderPickerActivity folderPickerActivity();
-    @ContributesAndroidInjector abstract HookActivity hookActivity();
     @ContributesAndroidInjector abstract LogHistoryActivity logHistoryActivity();
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();

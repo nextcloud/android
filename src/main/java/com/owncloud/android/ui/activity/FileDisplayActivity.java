@@ -150,7 +150,7 @@ import androidx.fragment.app.FragmentTransaction;
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
 
-public class FileDisplayActivity extends HookActivity
+public class FileDisplayActivity extends FileActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
         SendShareDialog.SendShareDialogDownloader, Injectable {
