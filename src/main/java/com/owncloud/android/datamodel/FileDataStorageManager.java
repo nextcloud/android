@@ -2140,10 +2140,10 @@ public class FileDataStorageManager {
     public void saveVirtuals(VirtualFolderType type, List<ContentValues> values) {
 
         if (getContentResolver() != null) {
-            getContentResolver().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+            getContentResolver().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[0]));
         } else {
             try {
-                getContentProviderClient().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+                getContentProviderClient().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[0]));
             } catch (RemoteException e) {
                 Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
             }
