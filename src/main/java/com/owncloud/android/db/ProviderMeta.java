@@ -30,12 +30,12 @@ import com.owncloud.android.MainApp;
  * Meta-Class that holds various static field information
  */
 public class ProviderMeta {
+    public static final String DB_NAME = "filelist";
+    public static final int DB_VERSION = 44;
+
     private ProviderMeta() {
         // No instance
     }
-
-    public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 44;
 
     static public class ProviderTableMeta implements BaseColumns {
         public static final String FILE_TABLE_NAME = "filelist";
