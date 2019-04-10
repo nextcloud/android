@@ -369,8 +369,9 @@ public class FileDataStorageManager {
 
                     if (file.isDown()) {
                         String path = file.getStoragePath();
-                        new File(path).delete();
-                        triggerMediaScan(path); // notify MediaScanner about removed file
+                        if (new File(path).delete()) {
+                            triggerMediaScan(path); // notify MediaScanner about removed file
+                        }
                     }
                 }
             }
@@ -727,7 +728,9 @@ public class FileDataStorageManager {
                 File targetFile = new File(targetLocalPath);
                 File targetFolder = targetFile.getParentFile();
                 if (!targetFolder.exists()) {
-                    targetFolder.mkdirs();
+                    if (!targetFolder.mkdirs()) {
+                        Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
+                    }
                 }
                 renamed = localFile.renameTo(targetFile);
             }
@@ -745,7 +748,6 @@ public class FileDataStorageManager {
                 }
             }
         }
-
     }
 
     public void copyLocalFile(OCFile file, String targetPath) {
@@ -759,7 +761,9 @@ public class FileDataStorageManager {
                 File targetFile = new File(defaultSavePath + targetPath);
                 File targetFolder = targetFile.getParentFile();
                 if (!targetFolder.exists()) {
-                    targetFolder.mkdirs();
+                    if (!targetFolder.mkdirs()) {
+                        Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
+                    }
                 }
                 copied = FileStorageUtils.copyFile(localFile, targetFile);
             }
