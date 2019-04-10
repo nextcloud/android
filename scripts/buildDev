@@ -2,13 +2,13 @@
 date=$(date +%Y%m%d)
 
 # use current date for version code/name
-sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle 
-sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle 
+sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
+sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
 
 # build signed apk
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
 
-if [ $? != 0 ] ; then 
+if [ $? != 0 ] ; then
 	echo "Build error!"
 	exit 1
 fi
@@ -32,8 +32,11 @@ mv latest.apk ~/apks/
 # remove all but the latest 5 apks
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
+lastBuildTime=$(date --date="$(git log -1 --format=%ai $(git tag | grep dev | tail -n1))" +%s)
+changelog=$(git log --after=$lastBuildTime --pretty=oneline)
+
 git add build.gradle
-git commit -m "daily dev $date"
+git commit -m "daily dev $date" -m "$changelog"
 git push
 
 git tag dev-$date
