@@ -48,7 +48,6 @@ public class RenameFileOperation extends SyncOperation {
     private OCFile file;
     private String remotePath;
     private String newName;
-    private String newRemotePath;
 
     /**
      * Constructor
@@ -70,6 +69,7 @@ public class RenameFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
+        String newRemotePath = null;
 
         file = getStorageManager().getFileByPath(remotePath);
 
