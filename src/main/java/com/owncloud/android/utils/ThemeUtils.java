@@ -421,7 +421,9 @@ public final class ThemeUtils {
     }
 
     public static void themeDialogActionButton(MaterialButton button) {
-        if (button == null ) return;
+        if (button == null ) {
+            return;
+        }
 
         Context context = button.getContext();
         int accentColor = ThemeUtils.primaryAccentColor(button.getContext());
