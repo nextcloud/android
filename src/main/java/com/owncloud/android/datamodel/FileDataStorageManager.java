@@ -727,10 +727,8 @@ public class FileDataStorageManager {
             if (localFile.exists()) {
                 File targetFile = new File(targetLocalPath);
                 File targetFolder = targetFile.getParentFile();
-                if (!targetFolder.exists()) {
-                    if (!targetFolder.mkdirs()) {
-                        Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
-                    }
+                if (!targetFolder.exists() && !targetFolder.mkdirs()) {
+                    Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
                 }
                 renamed = localFile.renameTo(targetFile);
             }
