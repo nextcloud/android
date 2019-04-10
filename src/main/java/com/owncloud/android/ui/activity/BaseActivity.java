@@ -193,13 +193,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
-     */
-    protected boolean isRedirectingToSetupAccount() {
-        return mRedirectingToSetupAccount;
-    }
-
     public FileDataStorageManager getStorageManager() {
         return mStorageManager;
     }
