@@ -20,7 +20,7 @@ package com.owncloud.android.utils;
 /**
  * Class containing the mime types.
  */
-public class MimeType {
+public final class MimeType {
     public static final String DIRECTORY = "DIR";
     public static final String JPEG = "image/jpeg";
     public static final String TIFF = "image/tiff";
