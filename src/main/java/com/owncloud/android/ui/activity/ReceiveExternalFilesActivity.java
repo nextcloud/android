@@ -114,6 +114,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -767,9 +768,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 files = sortFileList(files);
 
-                List<HashMap<String, Object>> data = new LinkedList<>();
+                List<Map<String, Object>> data = new LinkedList<>();
                 for (OCFile f : files) {
-                    HashMap<String, Object> h = new HashMap<>();
+                    Map<String, Object> h = new HashMap<>();
                     h.put("dirname", f);
                     data.add(h);
                 }
