@@ -66,7 +66,7 @@ public class LogHistoryActivity extends ToolbarActivity {
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
     private Unbinder unbinder;
-    
+
     private String logPath = Log_OC.getLogPath();
     private File logDir;
     private String logText;
