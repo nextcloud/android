@@ -1,10 +1,12 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author sassman
  *   @author David A. Velasco
+ *   @author Andy Scherzinger
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2019 Andy Scherzinger
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,7 +19,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 package com.owncloud.android.syncadapter;
@@ -38,74 +39,41 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 
 import java.io.IOException;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
  * 
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
  */
-public abstract class AbstractOwnCloudSyncAdapter extends
+abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {
 
-    private AccountManager accountManager;
-    private Account account;
-    private ContentProviderClient mContentProviderClient;
-    private FileDataStorageManager mStoreManager;
+    @Getter @Setter private AccountManager accountManager;
+    @Getter @Setter private Account account;
+    @Getter @Setter private ContentProviderClient contentProviderClient;
+    @Getter @Setter private FileDataStorageManager storageManager;
 
-    private OwnCloudClient mClient;
+    @Getter(AccessLevel.PROTECTED) private OwnCloudClient client;
 
-    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
+    AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         this.setAccountManager(AccountManager.get(context));
     }
 
-    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize,
+    AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize,
                                        boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         this.setAccountManager(AccountManager.get(context));
     }
 
-    public AccountManager getAccountManager() {
-        return accountManager;
-    }
-
-    public void setAccountManager(AccountManager accountManager) {
-        this.accountManager = accountManager;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public ContentProviderClient getContentProviderClient() {
-        return mContentProviderClient;
-    }
-
-    public void setContentProviderClient(ContentProviderClient contentProvider) {
-        this.mContentProviderClient = contentProvider;
-    }
-
-    public void setStorageManager(FileDataStorageManager storage_manager) {
-        mStoreManager = storage_manager;
-    }
-
-    public FileDataStorageManager getStorageManager() {
-        return mStoreManager;
-    }
-
-    protected void initClientForCurrentAccount() throws OperationCanceledException,
+    void initClientForCurrentAccount() throws OperationCanceledException,
             AuthenticatorException, IOException, AccountNotFoundException {
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
-        mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+        client = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, getContext());
     }
-    
-    protected OwnCloudClient getClient() {
-        return mClient;
-    }
-    
 }
