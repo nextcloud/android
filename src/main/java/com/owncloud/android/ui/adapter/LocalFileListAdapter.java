@@ -128,7 +128,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         Log_OC.d(TAG, "Returning " + result.size() + " selected files");
 
-        return result.toArray(new String[result.size()]);
+        return result.toArray(new String[0]);
     }
 
     @Override

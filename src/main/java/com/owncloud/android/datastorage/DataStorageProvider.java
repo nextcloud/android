@@ -62,7 +62,7 @@ public class DataStorageProvider {
 
     public StoragePoint[] getAvailableStoragePoints() {
         if (mCachedStoragePoints.size() != 0) {
-            return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
+            return mCachedStoragePoints.toArray(new StoragePoint[0]);
         }
 
         List<String> paths = new ArrayList<>();
@@ -126,7 +126,7 @@ public class DataStorageProvider {
             }
         }
 
-        return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
+        return mCachedStoragePoints.toArray(new StoragePoint[0]);
     }
 
     public String getStorageDescriptionByPath(String path) {
