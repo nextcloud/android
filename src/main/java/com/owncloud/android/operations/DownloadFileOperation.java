@@ -51,26 +51,21 @@ import lombok.Getter;
  * Remote DownloadOperation performing the download of a file to an ownCloud server
  */
 public class DownloadFileOperation extends RemoteOperation {
-
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
-    @Getter
-    private Account account;
-    @Getter
-    private OCFile file;
-    @Getter
-    private String behaviour;
+
+    @Getter private Account account;
+    @Getter private OCFile file;
+    @Getter private String behaviour;
+    @Getter private String etag = "";
+    @Getter private String activityName;
+    @Getter private String packageName;
+
     private Context context;
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
     private long modificationTimestamp;
-    @Getter
-    private String etag = "";
-    private final AtomicBoolean cancellationRequested = new AtomicBoolean(false);
-
     private DownloadFileRemoteOperation downloadOperation;
-    @Getter
-    private String activityName;
-    @Getter
-    private String packageName;
+
+    private final AtomicBoolean cancellationRequested = new AtomicBoolean(false);
 
     public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
                                  String packageName, Context context) {
