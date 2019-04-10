@@ -996,7 +996,7 @@ public class FileDataStorageManager {
 
     // Methods for Shares
     public boolean saveShare(OCShare share) {
-        boolean overriden = false;
+        boolean overridden = false;
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
         cv.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
@@ -1017,7 +1017,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
 
         if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
-            overriden = true;
+            overridden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE, cv,
                         ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
@@ -1048,7 +1048,7 @@ public class FileDataStorageManager {
             }
         }
 
-        return overriden;
+        return overridden;
     }
 
     /**
@@ -2140,10 +2140,10 @@ public class FileDataStorageManager {
     public void saveVirtuals(VirtualFolderType type, List<ContentValues> values) {
 
         if (getContentResolver() != null) {
-            getContentResolver().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+            getContentResolver().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[0]));
         } else {
             try {
-                getContentProviderClient().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+                getContentProviderClient().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[0]));
             } catch (RemoteException e) {
                 Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
             }
