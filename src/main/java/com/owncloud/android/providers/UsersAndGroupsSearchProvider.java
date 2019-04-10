@@ -160,8 +160,6 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     }
 
     private Cursor searchForUsersOrGroups(Uri uri) {
-        MatrixCursor response = null;
-
         String lastPathSegment = uri.getLastPathSegment();
 
         if (lastPathSegment == null) {
@@ -192,19 +190,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             showErrorMessage(result);
         }
 
+        MatrixCursor response = null;
         // convert the responses from the OC server to the expected format
         if (names.size() > 0) {
-            response = new MatrixCursor(COLUMNS);
-            Iterator<JSONObject> namesIt = names.iterator();
-            JSONObject item;
-            String displayName;
-            int icon = 0;
-            Uri dataUri;
-            int count = 0;
-
             if (getContext() == null) {
                 throw new IllegalArgumentException("Context may not be null!");
             }
+
+            response = new MatrixCursor(COLUMNS);
 
             Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();
@@ -217,6 +210,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 .isTrue();
 
             try {
+                Iterator<JSONObject> namesIt = names.iterator();
+                JSONObject item;
+                String displayName;
+                int icon = 0;
+                Uri dataUri;
+                int count = 0;
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
                     dataUri = null;

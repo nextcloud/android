@@ -270,7 +270,7 @@ public final class ThumbnailsCacheManager {
         private Bitmap doResizedImageInBackground() {
             Bitmap thumbnail;
 
-            String imageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
+            String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);
@@ -509,7 +509,7 @@ public final class ThumbnailsCacheManager {
         private Bitmap doThumbnailFromOCFileInBackground() {
             Bitmap thumbnail;
             ServerFileInterface file = (ServerFileInterface) mFile;
-            String imageKey = PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId());
+            String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);

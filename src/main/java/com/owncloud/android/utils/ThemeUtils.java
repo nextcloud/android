@@ -78,6 +78,7 @@ public final class ThemeUtils {
 
     private static final int INDEX_LUMINATION = 2;
     private static final double MAX_LIGHTNESS = 0.92;
+    public static final double LUMINATION_THRESHOLD = 0.8;
 
     private ThemeUtils() {
         // utility class -> private constructor
@@ -157,7 +158,7 @@ public final class ThemeUtils {
 
             float[] hsl = colorToHSL(primaryColor);
 
-            if (hsl[INDEX_LUMINATION] > 0.8) {
+            if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
                 return context.getResources().getColor(R.color.elementFallbackColor);
             } else {
                 return primaryColor;
@@ -421,7 +422,9 @@ public final class ThemeUtils {
     }
 
     public static void themeDialogActionButton(MaterialButton button) {
-        if (button == null ) return;
+        if (button == null ) {
+            return;
+        }
 
         Context context = button.getContext();
         int accentColor = ThemeUtils.primaryAccentColor(button.getContext());

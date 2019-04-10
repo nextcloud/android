@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * Copyright (C) 2016 Nextcloud
@@ -20,14 +20,13 @@ package com.owncloud.android.utils;
 /**
  * Class containing the mime types.
  */
-public class MimeType {
-
-    private MimeType() {
-        // No instance
-    }
-    
+public final class MimeType {
     public static final String DIRECTORY = "DIR";
     public static final String JPEG = "image/jpeg";
     public static final String TIFF = "image/tiff";
     public static final String TEXT_PLAIN = "text/plain";
+
+    private MimeType() {
+        // No instance
+    }
 }

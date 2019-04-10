@@ -121,8 +121,8 @@ public class UriUploader {
 
             if (!contentUris.isEmpty()) {
                 /// content: uris will be copied to temporary files before calling {@link FileUploader}
-                copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
-                        contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
+                copyThenUpload(contentUris.toArray(new Uri[0]),
+                        contentRemotePaths.toArray(new String[0]));
 
             } else if (schemeFileCounter == 0) {
                 mCode = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD;

@@ -30,7 +30,6 @@ import com.owncloud.android.MainApp;
  * Meta-Class that holds various static field information
  */
 public class ProviderMeta {
-
     public static final String DB_NAME = "filelist";
     public static final int DB_VERSION = 44;
 
@@ -39,11 +38,6 @@ public class ProviderMeta {
     }
 
     static public class ProviderTableMeta implements BaseColumns {
-
-        private ProviderTableMeta() {
-            // No instance
-        }
-
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
@@ -250,5 +244,9 @@ public class ProviderMeta {
         public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
         public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
         public static final String FILESYSTEM_CRC32 = "crc32";
+
+        private ProviderTableMeta() {
+            // No instance
+        }
     }
 }
