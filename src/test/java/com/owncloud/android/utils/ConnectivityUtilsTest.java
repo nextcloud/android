@@ -56,32 +56,32 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 public class ConnectivityUtilsTest {
 
     @Mock
-    private Context mContext;
+    private Context context;
 
     @Mock
-    private ConnectivityManager mConnectivityManager;
+    private ConnectivityManager connectivityManager;
 
     @Mock
-    private NetworkInfo mNetworkInfo;
+    private NetworkInfo networkInfo;
 
     @Mock
-    private Account mAccount;
+    private Account account;
 
     @Mock
-    private OwnCloudAccount mOcAccount;
+    private OwnCloudAccount ocAccount;
 
     @Mock
-    private OwnCloudClient mClient;
+    private OwnCloudClient client;
 
     @Mock
-    private GetMethod mGetMethod;
+    private GetMethod getMethod;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        when(mContext.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(mConnectivityManager);
-        when(mConnectivityManager.getActiveNetworkInfo()).thenReturn(mNetworkInfo);
+        when(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager);
+        when(connectivityManager.getActiveNetworkInfo()).thenReturn(networkInfo);
 
         mockStatic(AccountUtils.class);
         mockStatic(OwnCloudClientFactory.class);
@@ -89,80 +89,80 @@ public class ConnectivityUtilsTest {
 
     @Test
     public void isOnlineWithWifi_assertTrueWhenOnWifi() {
-        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(networkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
 
-        assertTrue("Falsely indicated connection not on WiFi", ConnectivityUtils.isOnlineWithWifi(mContext));
+        assertTrue("Falsely indicated connection not on WiFi", ConnectivityUtils.isOnlineWithWifi(context));
     }
 
     @Test
     public void isOnlineWithWifi_assertTrueWhenOnVPNWithAdditionalWiFiConnection() {
-        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_VPN);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(networkInfo.getType()).thenReturn(ConnectivityManager.TYPE_VPN);
         NetworkInfo[] networkInfoList = new NetworkInfo[1];
         NetworkInfo wifiNetworkInfo = mock(NetworkInfo.class);
         when(wifiNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
         when(wifiNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
         networkInfoList[0] = wifiNetworkInfo;
-        when(mConnectivityManager.getAllNetworkInfo()).thenReturn(networkInfoList);
+        when(connectivityManager.getAllNetworkInfo()).thenReturn(networkInfoList);
 
-        assertTrue("Falsely indicated connection not on WiFi", ConnectivityUtils.isOnlineWithWifi(mContext));
+        assertTrue("Falsely indicated connection not on WiFi", ConnectivityUtils.isOnlineWithWifi(context));
     }
 
     @Test
     public void isOnlineWithWifi_assertFalseWhenNotOnWifi() {
-        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_MOBILE);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(networkInfo.getType()).thenReturn(ConnectivityManager.TYPE_MOBILE);
 
-        assertFalse("Falsely indicated connection on WiFi", ConnectivityUtils.isOnlineWithWifi(mContext));
+        assertFalse("Falsely indicated connection on WiFi", ConnectivityUtils.isOnlineWithWifi(context));
     }
 
     @Test
     public void isInternetWalled_assertFalseWhenOnOlderNC() throws Exception {
         // Ensure we are on WiFi
-        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(networkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
 
-        PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(mContext))).thenReturn(mAccount);
-        PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(mOcAccount);
-        PowerMockito.when(AccountUtils.getServerVersion(eq(mAccount))).thenReturn(OwnCloudVersion.nextcloud_13);
-        PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(mAccount), eq(mContext))).thenReturn(mClient);
-        PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(mGetMethod);
+        PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(context))).thenReturn(account);
+        PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(ocAccount);
+        PowerMockito.when(AccountUtils.getServerVersion(eq(account))).thenReturn(OwnCloudVersion.nextcloud_13);
+        PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(account), eq(context))).thenReturn(client);
+        PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(getMethod);
 
         // Return SC_OK
-        when(mClient.executeMethod(mGetMethod)).thenReturn(HttpStatus.SC_OK);
+        when(client.executeMethod(getMethod)).thenReturn(HttpStatus.SC_OK);
 
         // Content length should be > 0.
-        when(mGetMethod.getResponseContentLength()).thenReturn(1024L);
+        when(getMethod.getResponseContentLength()).thenReturn(1024L);
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("maintenance", false);
 
-        when(mGetMethod.getResponseBodyAsString()).thenReturn(jsonObj.toString());
+        when(getMethod.getResponseBodyAsString()).thenReturn(jsonObj.toString());
 
         assertFalse("internet was falsely claimed to be walled",
-                    ConnectivityUtils.isInternetWalled(mContext));
+                    ConnectivityUtils.isInternetWalled(context));
     }
 
     @Test
     public void isInternetWalled_assertFalseWhenOnNewerNC() throws Exception {
         // Ensure we are on WiFi
-        when(mNetworkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(mNetworkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(networkInfo.getType()).thenReturn(ConnectivityManager.TYPE_WIFI);
 
-        PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(mContext))).thenReturn(mAccount);
-        PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(mOcAccount);
-        PowerMockito.when(AccountUtils.getServerVersion(eq(mAccount))).thenReturn(OwnCloudVersion.nextcloud_14);
-        PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(mAccount), eq(mContext))).thenReturn(mClient);
-        PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(mGetMethod);
+        PowerMockito.when(AccountUtils.getCurrentOwnCloudAccount(eq(context))).thenReturn(account);
+        PowerMockito.whenNew(OwnCloudAccount.class).withAnyArguments().thenReturn(ocAccount);
+        PowerMockito.when(AccountUtils.getServerVersion(eq(account))).thenReturn(OwnCloudVersion.nextcloud_14);
+        PowerMockito.when(OwnCloudClientFactory.createOwnCloudClient(eq(account), eq(context))).thenReturn(client);
+        PowerMockito.whenNew(GetMethod.class).withAnyArguments().thenReturn(getMethod);
 
         // Return SC_NO_CONTENT
-        when(mClient.executeMethod(mGetMethod)).thenReturn(HttpStatus.SC_NO_CONTENT);
+        when(client.executeMethod(getMethod)).thenReturn(HttpStatus.SC_NO_CONTENT);
 
         // Content length should be 0.
-        when(mGetMethod.getResponseContentLength()).thenReturn(0L);
+        when(getMethod.getResponseContentLength()).thenReturn(0L);
 
         assertFalse("internet was falsely claimed to be walled",
-                    ConnectivityUtils.isInternetWalled(mContext));
+                    ConnectivityUtils.isInternetWalled(context));
     }
 }
