@@ -439,10 +439,6 @@ public class FileMenuFilter {
         return isSingleSelection() && (MimeTypeUtil.isVideo(file) || MimeTypeUtil.isAudio(file));
     }
 
-    private boolean allFiles() {
-        return mFiles != null && !containsFolder();
-    }
-
     private boolean containsEncryptedFile() {
         for (OCFile file : mFiles) {
             if (!file.isFolder() && file.isEncrypted()) {
