@@ -25,8 +25,7 @@ package com.owncloud.android.authentication;
  * 
  * Includes required and optional parameter NAMES used in the 'authorization code' grant type.
  */
-
-public class OAuth2Constants {
+public final class OAuth2Constants {
     /// Parameters to send to the Authorization Endpoint
     public static final String KEY_RESPONSE_TYPE = "response_type";
     public static final String KEY_REDIRECT_URI = "redirect_uri";
