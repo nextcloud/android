@@ -211,6 +211,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void onAccountCreationSuccessful(AccountManagerFuture<Bundle> future) {
         // no special handling in base activity
+        Log_OC.d(TAG,"onAccountCreationSuccessful");
     }
 
     /**
