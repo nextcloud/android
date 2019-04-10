@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -17,7 +17,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 package com.owncloud.android.syncadapter;
 
@@ -33,18 +32,18 @@ import android.os.IBinder;
 public class FileSyncService extends Service {
     
     // Storage for an instance of the sync adapter
-    private static FileSyncAdapter sSyncAdapter;
+    private static FileSyncAdapter syncAdapter;
     // Object to use as a thread-safe lock
-    private static final Object sSyncAdapterLock = new Object();
+    private static final Object syncAdapterLock = new Object();
     
     /*
      * {@inheritDoc}
      */
     @Override
     public void onCreate() {
-        synchronized (sSyncAdapterLock) {
-            if (sSyncAdapter == null) {
-                sSyncAdapter = new FileSyncAdapter(getApplicationContext(), true);
+        synchronized (syncAdapterLock) {
+            if (syncAdapter == null) {
+                syncAdapter = new FileSyncAdapter(getApplicationContext(), true);
             }
         }
     }
@@ -54,7 +53,7 @@ public class FileSyncService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-       return sSyncAdapter.getSyncAdapterBinder();
+       return syncAdapter.getSyncAdapterBinder();
     }
     
 }
