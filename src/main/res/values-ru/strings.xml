@@ -3,7 +3,7 @@
     <string name="about_android">%1$s для Android</string>
     <string name="about_title">О программе</string>
     <string name="about_version">версия %1$s</string>
-    <string name="account_creation_failed">Сбой при создании аккаунта</string>
+    <string name="account_creation_failed">Ошибка создания учетной записи</string>
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
@@ -410,6 +410,7 @@
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string>
     <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
+    <string name="operation_canceled">Операция отменена</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
@@ -477,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Будут созданы папки года и вложенные в них папки номеров месяцев</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_license">Лицензия</string>
+    <string name="prefs_lock">Код приложения</string>
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
     <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
     <string name="prefs_lock_none">Не использовать</string>
+    <string name="prefs_lock_title">Защита входа в приложение</string>
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_using_passcode">Блокировка кодом</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
@@ -618,6 +621,7 @@
     <string name="storage_description_default">По умолчанию</string>
     <string name="storage_documents">Документы</string>
     <string name="storage_downloads">Загрузки</string>
+    <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>
     <string name="storage_pictures">Изображения</string>
