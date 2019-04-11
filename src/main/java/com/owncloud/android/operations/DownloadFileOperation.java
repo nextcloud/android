@@ -45,26 +45,27 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import lombok.Getter;
+
 /**
- * Remote mDownloadOperation performing the download of a file to an ownCloud server
+ * Remote DownloadOperation performing the download of a file to an ownCloud server
  */
 public class DownloadFileOperation extends RemoteOperation {
-
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
-    private Account mAccount;
 
-    private OCFile mFile;
-    private String mBehaviour;
-    private Context mContext;
-    private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
-    private long mModificationTimestamp;
-    private String mEtag = "";
-    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    @Getter private Account account;
+    @Getter private OCFile file;
+    @Getter private String behaviour;
+    @Getter private String etag = "";
+    @Getter private String activityName;
+    @Getter private String packageName;
 
-    private DownloadFileRemoteOperation mDownloadOperation;
-    private String mActivityName;
-    private String mPackageName;
+    private Context context;
+    private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
+    private long modificationTimestamp;
+    private DownloadFileRemoteOperation downloadOperation;
 
+    private final AtomicBoolean cancellationRequested = new AtomicBoolean(false);
 
     public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
                                  String packageName, Context context) {
@@ -77,60 +78,47 @@ public class DownloadFileOperation extends RemoteOperation {
                     "creation");
         }
 
-        mAccount = account;
-        mFile = file;
-        mBehaviour = behaviour;
-        mActivityName = activityName;
-        mPackageName = packageName;
-        mContext = context;
-    }
-
-
-    public Account getAccount() {
-        return mAccount;
-    }
-
-    public OCFile getFile() {
-        return mFile;
-    }
-
-    public String getBehaviour() {
-        return mBehaviour;
+        this.account = account;
+        this.file = file;
+        this.behaviour = behaviour;
+        this.activityName = activityName;
+        this.packageName = packageName;
+        this.context = context;
     }
 
     public String getSavePath() {
-        if (mFile.getStoragePath() != null) {
-            File path = new File(mFile.getStoragePath());  // re-downloads should be done over the original file
+        if (file.getStoragePath() != null) {
+            File path = new File(file.getStoragePath());  // re-downloads should be done over the original file
             if (path.canWrite()) {
                 return path.getAbsolutePath();
             }
         }
-        return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+        return FileStorageUtils.getDefaultSavePathFor(account.name, file);
     }
 
     public String getTmpPath() {
-        return FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+        return FileStorageUtils.getTemporalPath(account.name) + file.getRemotePath();
     }
 
     public String getTmpFolder() {
-        return FileStorageUtils.getTemporalPath(mAccount.name);
+        return FileStorageUtils.getTemporalPath(account.name);
     }
 
     public String getRemotePath() {
-        return mFile.getRemotePath();
+        return file.getRemotePath();
     }
 
     public String getMimeType() {
-        String mimeType = mFile.getMimeType();
+        String mimeType = file.getMimeType();
         if (mimeType == null || mimeType.length() <= 0) {
             try {
                 mimeType = MimeTypeMap.getSingleton()
                     .getMimeTypeFromExtension(
-                            mFile.getRemotePath().substring(
-                                    mFile.getRemotePath().lastIndexOf('.') + 1));
+                        file.getRemotePath().substring(
+                            file.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
                 Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " +
-                        mFile.getRemotePath());
+                        file.getRemotePath());
             }
         }
         if (mimeType == null) {
@@ -140,22 +128,18 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public long getSize() {
-        return mFile.getFileLength();
+        return file.getFileLength();
     }
 
     public long getModificationTimestamp() {
-        return mModificationTimestamp > 0 ? mModificationTimestamp : mFile.getModificationTimestamp();
-    }
-
-    public String getEtag() {
-        return mEtag;
+        return modificationTimestamp > 0 ? modificationTimestamp : file.getModificationTimestamp();
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         /// perform the download
-        synchronized(mCancellationRequested) {
-            if (mCancellationRequested.get()) {
+        synchronized(cancellationRequested) {
+            if (cancellationRequested.get()) {
                 return new RemoteOperationResult(new OperationCancelledException());
             }
         }
@@ -169,36 +153,38 @@ public class DownloadFileOperation extends RemoteOperation {
 
         String tmpFolder =  getTmpFolder();
 
-        mDownloadOperation = new DownloadFileRemoteOperation(mFile.getRemotePath(), tmpFolder);
-        Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+        downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder);
+        Iterator<OnDatatransferProgressListener> listener = dataTransferListeners.iterator();
         while (listener.hasNext()) {
-            mDownloadOperation.addDatatransferProgressListener(listener.next());
+            downloadOperation.addDatatransferProgressListener(listener.next());
         }
-        result = mDownloadOperation.execute(client, client.isUseNextcloudUserAgent());
+        result = downloadOperation.execute(client, client.isUseNextcloudUserAgent());
 
         if (result.isSuccess()) {
-            mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
-            mEtag = mDownloadOperation.getEtag();
+            modificationTimestamp = downloadOperation.getModificationTimestamp();
+            etag = downloadOperation.getEtag();
             newFile = new File(getSavePath());
-            newFile.getParentFile().mkdirs();
+            if (!newFile.getParentFile().mkdirs()) {
+                Log_OC.e(TAG, "Unable to create parent folder " + newFile.getParentFile().getAbsolutePath());
+            }
 
             // decrypt file
-            if (mFile.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(mAccount, mContext.getContentResolver());
+            if (file.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account, context.getContentResolver());
 
-                OCFile parent = fileDataStorageManager.getFileByPath(mFile.getParentRemotePath());
+                OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
 
-                DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent, client, mContext, mAccount);
+                DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent, client, context, account);
 
                 if (metadata == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
                 byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(mFile.getEncryptedFileName()).getEncrypted().getKey());
+                        .get(file.getEncryptedFileName()).getEncrypted().getKey());
                 byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(mFile.getEncryptedFileName()).getInitializationVector());
+                        .get(file.getEncryptedFileName()).getInitializationVector());
                 byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(mFile.getEncryptedFileName()).getAuthenticationTag());
+                        .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
@@ -211,42 +197,34 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
             moved = tmpFile.renameTo(newFile);
-            newFile.setLastModified(mFile.getModificationTimestamp());
+            newFile.setLastModified(file.getModificationTimestamp());
             if (!moved) {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             }
         }
-        Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +
+        Log_OC.i(TAG, "Download of " + file.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());
 
         return result;
     }
 
     public void cancel() {
-        mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
-        if (mDownloadOperation != null) {
-            mDownloadOperation.cancel();
+        cancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
+        if (downloadOperation != null) {
+            downloadOperation.cancel();
         }
     }
 
 
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
-        synchronized (mDataTransferListeners) {
-            mDataTransferListeners.add(listener);
+        synchronized (dataTransferListeners) {
+            dataTransferListeners.add(listener);
         }
     }
 
     public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        synchronized (mDataTransferListeners) {
-            mDataTransferListeners.remove(listener);
+        synchronized (dataTransferListeners) {
+            dataTransferListeners.remove(listener);
         }
-    }
-
-    public String getActivityName() {
-        return mActivityName;
-    }
-
-    public String getPackageName() {
-        return mPackageName;
     }
 }

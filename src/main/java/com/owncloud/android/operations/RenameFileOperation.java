@@ -34,6 +34,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 import java.io.File;
 import java.io.IOException;
 
+import lombok.Getter;
+
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
@@ -42,10 +44,9 @@ public class RenameFileOperation extends SyncOperation {
 
     private static final String TAG = RenameFileOperation.class.getSimpleName();
 
-    private OCFile mFile;
-    private String mRemotePath;
-    private String mNewName;
-    private String mNewRemotePath;
+    @Getter private OCFile file;
+    private String remotePath;
+    private String newName;
 
     /**
      * Constructor
@@ -55,15 +56,9 @@ public class RenameFileOperation extends SyncOperation {
      * @param newName               New name to set as the name of file.
      */
     public RenameFileOperation(String remotePath, String newName) {
-        mRemotePath = remotePath;
-        mNewName = newName;
-        mNewRemotePath = null;
+        this.remotePath = remotePath;
+        this.newName = newName;
     }
-
-    public OCFile getFile() {
-        return mFile;
-    }
-
 
     /**
      * Performs the rename operation.
@@ -73,32 +68,33 @@ public class RenameFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
+        String newRemotePath = null;
 
-        mFile = getStorageManager().getFileByPath(mRemotePath);
+        file = getStorageManager().getFileByPath(remotePath);
 
         // check if the new name is valid in the local file system
         try {
             if (!isValidNewName()) {
                 return new RemoteOperationResult(ResultCode.INVALID_LOCAL_FILE_NAME);
             }
-            String parent = new File(mFile.getRemotePath()).getParent();
+            String parent = new File(file.getRemotePath()).getParent();
             parent = parent.endsWith(OCFile.PATH_SEPARATOR) ? parent : parent + OCFile.PATH_SEPARATOR;
-            mNewRemotePath =  parent + mNewName;
-            if (mFile.isFolder()) {
-                mNewRemotePath += OCFile.PATH_SEPARATOR;
+            newRemotePath =  parent + newName;
+            if (file.isFolder()) {
+                newRemotePath += OCFile.PATH_SEPARATOR;
             }
 
             // check local overwrite
-            if (getStorageManager().getFileByPath(mNewRemotePath) != null) {
+            if (getStorageManager().getFileByPath(newRemotePath) != null) {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
 
-            result = new RenameFileRemoteOperation(mFile.getFileName(), mFile.getRemotePath(), mNewName,
-                mFile.isFolder()).execute(client);
+            result = new RenameFileRemoteOperation(file.getFileName(), file.getRemotePath(), newName,
+                                                   file.isFolder()).execute(client);
 
             if (result.isSuccess()) {
-                if (mFile.isFolder()) {
-                    getStorageManager().moveLocalFile(mFile, mNewRemotePath, parent);
+                if (file.isFolder()) {
+                    getStorageManager().moveLocalFile(file, newRemotePath, parent);
                     //saveLocalDirectory();
 
                 } else {
@@ -107,8 +103,8 @@ public class RenameFileOperation extends SyncOperation {
             }
 
         } catch (IOException e) {
-            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ?
-                    mNewName : mNewRemotePath) + ": " +
+            Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath ==null) ?
+                newName : newRemotePath) + ": " +
                     (result!= null ? result.getLogMessage() : ""), e);
         }
 
@@ -116,19 +112,19 @@ public class RenameFileOperation extends SyncOperation {
     }
 
     private void saveLocalFile() {
-        mFile.setFileName(mNewName);
+        file.setFileName(newName);
 
         // try to rename the local copy of the file
-        if (mFile.isDown()) {
-            String oldPath = mFile.getStoragePath();
+        if (file.isDown()) {
+            String oldPath = file.getStoragePath();
             File f = new File(oldPath);
             String parentStoragePath = f.getParent();
             if (!parentStoragePath.endsWith(File.separator)) {
                 parentStoragePath += File.separator;
             }
-            if (f.renameTo(new File(parentStoragePath + mNewName))) {
-                String newPath = parentStoragePath + mNewName;
-                mFile.setStoragePath(newPath);
+            if (f.renameTo(new File(parentStoragePath + newName))) {
+                String newPath = parentStoragePath + newName;
+                file.setStoragePath(newPath);
 
                 // notify MediaScanner about removed file
                 getStorageManager().deleteFileInMediaScan(oldPath);
@@ -140,7 +136,7 @@ public class RenameFileOperation extends SyncOperation {
             // TODO - study conditions when this could be a problem
         }
 
-        getStorageManager().saveFile(mFile);
+        getStorageManager().saveFile(file);
     }
 
     /**
@@ -161,14 +157,16 @@ public class RenameFileOperation extends SyncOperation {
      */
     private boolean isValidNewName() throws IOException {
         // check tricky names
-        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator)) {
+        if (newName == null || newName.length() <= 0 || newName.contains(File.separator)) {
             return false;
         }
         // create a test file
         String tmpFolderName = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolderName + mNewName);
+        File testFile = new File(tmpFolderName + newName);
         File tmpFolder = testFile.getParentFile();
-        tmpFolder.mkdirs();
+        if (! tmpFolder.mkdirs()) {
+            Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
+        }
         if (!tmpFolder.isDirectory()) {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }
@@ -176,7 +174,7 @@ public class RenameFileOperation extends SyncOperation {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because
             // the file already existed, that doesn't invalidate the name
         } catch (IOException e) {
-            Log_OC.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
+            Log_OC.i(TAG, "Test for validity of name " + newName + " in the file system failed");
             return false;
         }
         boolean result = testFile.exists() && testFile.isFile();
