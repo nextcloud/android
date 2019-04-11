@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -19,37 +19,16 @@
  */
 package com.owncloud.android.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents a session to an ownCloud instance
  */
-public class OwnCloudSession {
-    private String mSessionName;
-    private String mSessionUrl;
-    private int mEntryId;
-
-    public OwnCloudSession(String name, String url, int entryId) {
-        mSessionName = name;
-        mSessionUrl = url;
-        mEntryId = entryId;
-    }
-
-    public void setName(String name) {
-        mSessionName = name;
-    }
-
-    public String getName() {
-        return mSessionName;
-    }
-
-    public void setUrl(String url) {
-        mSessionUrl = url;
-    }
-
-    public String getUrl() {
-        return mSessionUrl;
-    }
-
-    public int getEntryId() {
-        return mEntryId;
-    }
+@AllArgsConstructor
+class OwnCloudSession {
+    @Getter @Setter private String sessionName;
+    @Getter @Setter private String sessionUrl;
+    @Getter private int entryId;
 }
