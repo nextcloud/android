@@ -132,9 +132,7 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
                 ).show();
             } else {
                 finish();
-                System.exit(0);
             }
-
         }
 
         public boolean clearApplicationData() {

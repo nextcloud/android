@@ -27,8 +27,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -51,6 +49,10 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 public class LogHistoryActivity extends ToolbarActivity {
@@ -63,52 +65,44 @@ public class LogHistoryActivity extends ToolbarActivity {
 
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
-    private String mLogPath = Log_OC.getLogPath();
-    private File logDIR;
-    private String mLogText;
+    private Unbinder unbinder;
 
+    private String logPath = Log_OC.getLogPath();
+    private File logDir;
+    private String logText;
+
+    @BindView(R.id.deleteLogHistoryButton)
+    Button deleteHistoryButton;
+
+    @BindView(R.id.sendLogHistoryButton)
+    Button sendHistoryButton;
+
+    @BindView(R.id.logTV)
+    TextView logTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.log_send_file);
+        unbinder = ButterKnife.bind(this);
+
         setupToolbar();
 
         setTitle(getText(R.string.actionbar_logger));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        Button deleteHistoryButton = findViewById(R.id.deleteLogHistoryButton);
-        Button sendHistoryButton = findViewById(R.id.sendLogHistoryButton);
+
         sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
         deleteHistoryButton.setTextColor(ThemeUtils.primaryColor(this, true));
-        TextView logTV = findViewById(R.id.logTV);
-
-        deleteHistoryButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Log_OC.deleteHistoryLogging();
-                finish();
-            }
-        });
-
-        sendHistoryButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                sendMail();
-            }
-        });
 
         if (savedInstanceState == null) {
-            if (mLogPath != null) {
-                logDIR = new File(mLogPath);
+            if (logPath != null) {
+                logDir = new File(logPath);
             }
 
-            if (logDIR != null && logDIR.isDirectory()) {
+            if (logDir != null && logDir.isDirectory()) {
                 // Show a dialog while log data is being loaded
                 showLoadingDialog();
 
@@ -117,8 +111,8 @@ public class LogHistoryActivity extends ToolbarActivity {
                 task.execute();
             }
         } else {
-            mLogText = savedInstanceState.getString(KEY_LOG_TEXT);
-            logTV.setText(mLogText);
+            logText = savedInstanceState.getString(KEY_LOG_TEXT);
+            logTV.setText(logText);
         }
     }
 
@@ -136,18 +130,24 @@ public class LogHistoryActivity extends ToolbarActivity {
         return retval;
     }
 
+    @OnClick(R.id.deleteLogHistoryButton)
+    void deleteHistoryLogging() {
+        Log_OC.deleteHistoryLogging();
+        finish();
+    }
 
     /**
      * Start activity for sending email with logs attached
      */
-    private void sendMail() {
+    @OnClick(R.id.sendLogHistoryButton)
+    void sendMail() {
         String emailAddress = getString(R.string.mail_logger);
 
         ArrayList<Uri> uris = new ArrayList<>();
 
         // Convert from paths to Android friendly Parcelable Uri's
         for (String file : Log_OC.getLogFileNames()) {
-            File logFile = new File(mLogPath, file);
+            File logFile = new File(logPath, file);
             if (logFile.exists()) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     uris.add(Uri.fromFile(logFile));
@@ -168,7 +168,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Snackbar.make(findViewById(android.R.id.content),R.string.log_send_no_mail_app,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), R.string.log_send_no_mail_app, Snackbar.LENGTH_LONG).show();
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }
 
@@ -182,7 +182,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
         LoadingLogTask(TextView logTV) {
             // Use of a WeakReference to ensure the TextView can be garbage collected
-            textViewReference  = new WeakReference<>(logTV);
+            textViewReference = new WeakReference<>(logTV);
         }
 
         protected String doInBackground(String... args) {
@@ -193,8 +193,8 @@ public class LogHistoryActivity extends ToolbarActivity {
             if (result != null) {
                 final TextView logTV = textViewReference.get();
                 if (logTV != null) {
-                    mLogText = result;
-                    logTV.setText(mLogText);
+                    logText = result;
+                    logTV.setText(logText);
                     dismissLoadingDialog();
                 }
             }
@@ -214,8 +214,8 @@ public class LogHistoryActivity extends ToolbarActivity {
             try {
                 String line;
 
-                for (int i = logFileName.length-1; i >= 0; i--) {
-                    File file = new File(mLogPath,logFileName[i]);
+                for (int i = logFileName.length - 1; i >= 0; i--) {
+                    File file = new File(logPath, logFileName[i]);
                     if (file.exists()) {
                         // Check if FileReader is ready
                         try (InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
@@ -231,8 +231,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                         }
                     }
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Log_OC.d(TAG, e.getMessage());
 
             } finally {
@@ -248,7 +247,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
             return text.toString();
         }
-   }
+    }
 
     /**
      * Show loading dialog
@@ -264,7 +263,7 @@ public class LogHistoryActivity extends ToolbarActivity {
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
@@ -278,7 +277,13 @@ public class LogHistoryActivity extends ToolbarActivity {
 
         if (isChangingConfigurations()) {
             // global state
-            outState.putString(KEY_LOG_TEXT, mLogText);
+            outState.putString(KEY_LOG_TEXT, logText);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
