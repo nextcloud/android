@@ -35,11 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private OCCapability mCapabilities;
 
     /**
-     * Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account}.
-     */
-    private boolean mRedirectingToSetupAccount;
-
-    /**
      * Flag to signal when the value of mAccount was set.
      */
     protected boolean mAccountWasSet;
@@ -117,7 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
-            mRedirectingToSetupAccount = true;
             mAccountWasSet = false;
             mAccountWasRestored = false;
 
@@ -226,7 +220,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         @Override
         public void run(AccountManagerFuture<Bundle> future) {
-            BaseActivity.this.mRedirectingToSetupAccount = false;
             boolean accountWasSet = false;
             if (future != null) {
                 try {
