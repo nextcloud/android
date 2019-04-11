@@ -44,8 +44,7 @@ public class RenameFileOperation extends SyncOperation {
 
     private static final String TAG = RenameFileOperation.class.getSimpleName();
 
-    @Getter
-    private OCFile file;
+    @Getter private OCFile file;
     private String remotePath;
     private String newName;
 
