@@ -3,9 +3,11 @@
  *
  *   @author Bartek Przybylski
  *   @author David A. Velasco
+ *   @author Chris Narkiewicz
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2016 Nextcloud
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -55,6 +57,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -751,7 +754,7 @@ public class SettingsActivity extends PreferenceActivity
             if (serverBaseUri != null) {
                 davDroidLoginIntent.putExtra("url", serverBaseUri.toString() + DAV_PATH);
             }
-            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
+            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(account));
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed

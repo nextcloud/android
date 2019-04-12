@@ -23,19 +23,25 @@ import android.text.TextUtils;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.PushUtils;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
-    private AppPreferences preferences;
+
+    @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        preferences = AppPreferencesImpl.fromContext(this);
+        AndroidInjection.inject(this);
     }
 
     @Override
@@ -43,7 +49,7 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
         //You can implement this method to store the token on your server
         if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
             preferences.setPushToken(FirebaseInstanceId.getInstance().getToken());
-            PushUtils.pushRegistrationToServer(preferences.getPushToken());
+            PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
         }
     }
 }

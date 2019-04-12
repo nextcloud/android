@@ -2,7 +2,9 @@
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
+ *   @author Chris Narkiewicz
  *   Copyright (C) 2016  Bartosz Przybylski <bart.p.pl@gmail.com>
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -43,6 +45,7 @@ import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
@@ -82,6 +85,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class DocumentsStorageProvider extends DocumentsProvider {
 
@@ -90,6 +97,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private FileDataStorageManager currentStorageManager;
     private Map<Long, FileDataStorageManager> rootIdToStorageManager;
     private OwnCloudClient client;
+
+    @Inject UserAccountManager accountManager;
+
+
 
     @Override
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
@@ -104,7 +115,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         final RootCursor result = new RootCursor(projection);
 
-        for (Account account : AccountUtils.getAccounts(getContext())) {
+        for (Account account : accountManager.getAccounts()) {
             result.addRoot(account, getContext());
         }
 
@@ -288,6 +299,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
+        AndroidInjection.inject(this);
         return true;
     }
 
@@ -587,7 +599,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         ContentResolver contentResolver = context.getContentResolver();
 
-        for (Account account : AccountUtils.getAccounts(getContext())) {
+        for (Account account : accountManager.getAccounts()) {
             final FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
             final OCFile rootDir = storageManager.getFileByPath("/");
             rootIdToStorageManager.put(rootDir.getFileId(), storageManager);

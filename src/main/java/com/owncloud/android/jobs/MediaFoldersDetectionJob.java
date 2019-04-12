@@ -3,8 +3,10 @@
  *
  * @author Mario Danic
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
  * Copyright (C) 2018 Mario Danic
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -36,10 +38,10 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.google.gson.Gson;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFoldersModel;
@@ -72,7 +74,12 @@ public class MediaFoldersDetectionJob extends Job {
 
     private static final String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
 
+    private UserAccountManager userAccountManager;
     private Random randomId = new Random();
+
+    MediaFoldersDetectionJob(UserAccountManager accountManager) {
+        this.userAccountManager = accountManager;
+    }
 
     @NonNull
     @Override
@@ -114,7 +121,7 @@ public class MediaFoldersDetectionJob extends Job {
                 videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
                 if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
-                    Account[] accounts = AccountUtils.getAccounts(getContext());
+                    Account[] accounts = userAccountManager.getAccounts();
                     List<Account> accountList = new ArrayList<>();
                     for (Account account : accounts) {
                         if (!arbitraryDataProvider.getBooleanValue(account, ManageAccountsActivity.PENDING_FOR_REMOVAL)) {

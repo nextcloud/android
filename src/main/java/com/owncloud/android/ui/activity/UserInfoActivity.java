@@ -3,9 +3,11 @@
  *
  * @author Mario Danic
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -51,6 +53,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -117,6 +120,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
 
     @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
     private float mCurrentAccountAvatarRadiusDimension;
 
     private Unbinder unbinder;
@@ -443,7 +447,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer(preferences.getPushToken());
+        PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
     }
 
 

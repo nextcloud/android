@@ -103,7 +103,7 @@ public final class AccountUtils {
         return defaultAccount;
     }
 
-    public static Account[] getAccounts(Context context) {
+    private static Account[] getAccounts(Context context) {
         AccountManager accountManager = AccountManager.get(context);
         return accountManager.getAccountsByType(MainApp.getAccountType(context));
     }
@@ -129,20 +129,6 @@ public final class AccountUtils {
             }
         }
         return false;
-    }
-
-    /**
-     * returns the user's name based on the account name.
-     *
-     * @param accountName the account name
-     * @return the user's name
-     */
-    public static String getAccountUsername(String accountName) {
-        if (accountName != null) {
-            return accountName.substring(0, accountName.lastIndexOf('@'));
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -210,141 +196,6 @@ public final class AccountUtils {
 
     public static boolean hasSearchSupport(Account account) {
         return getServerVersion(account).isSearchSupported();
-    }
-
-    /**
-     * Update the accounts in AccountManager to meet the current version of accounts expected by the app, if needed.
-     * <p>
-     * Introduced to handle a change in the structure of stored account names needed to allow different OC servers in
-     * the same domain, but not in the same path.
-     *
-     * @param context Used to access the AccountManager.
-     */
-    public static void updateAccountVersion(Context context) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
-        AccountManager accountMgr = AccountManager.get(context);
-
-        if (currentAccount != null) {
-            String currentAccountVersion = accountMgr.getUserData(currentAccount, Constants.KEY_OC_ACCOUNT_VERSION);
-
-            if (!String.valueOf(ACCOUNT_VERSION_WITH_PROPER_ID).equalsIgnoreCase(currentAccountVersion)) {
-                Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION_WITH_PROPER_ID);
-
-                Account[] ocAccounts = accountMgr.getAccountsByType(MainApp.getAccountType(context));
-                String serverUrl;
-                String username;
-                String displayName;
-                String newAccountName;
-                Account newAccount;
-                GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-
-                for (Account account : ocAccounts) {
-                    // build new account name
-                    serverUrl = accountMgr.getUserData(account, Constants.KEY_OC_BASE_URL);
-
-                    // update user name
-                    try {
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                        OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                            .getClientFor(ocAccount, context);
-
-                        RemoteOperationResult result = remoteUserNameOperation.execute(client);
-
-                        if (result.isSuccess()) {
-                            UserInfo userInfo = (UserInfo) result.getData().get(0);
-                            username = userInfo.id;
-                            displayName = userInfo.displayName;
-                        } else {
-                            // skip account, try it next time
-                            Log_OC.e(TAG, "Error while getting username for account: " + account.name);
-                            continue;
-                        }
-                    } catch (Exception e) {
-                        Log_OC.e(TAG, "Error while getting username: " + e.getMessage());
-                        continue;
-                    }
-
-                    newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
-                        buildAccountName(Uri.parse(serverUrl), username);
-
-                    // migrate to a new account, if needed
-                    if (!newAccountName.equals(account.name)) {
-                        newAccount = migrateAccount(context, currentAccount, accountMgr, serverUrl, newAccountName,
-                                                    account);
-
-                    } else {
-                        // servers which base URL is in the root of their domain need no change
-                        Log_OC.d(TAG, account.name + " needs no upgrade ");
-                        newAccount = account;
-                    }
-
-                    accountMgr.setUserData(newAccount, Constants.KEY_DISPLAY_NAME, displayName);
-                    accountMgr.setUserData(newAccount, Constants.KEY_USER_ID, username);
-
-                    // at least, upgrade account version
-                    Log_OC.d(TAG, "Setting version " + ACCOUNT_VERSION_WITH_PROPER_ID + " to " + newAccountName);
-                    accountMgr.setUserData(newAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                                           Integer.toString(ACCOUNT_VERSION_WITH_PROPER_ID));
-                }
-            }
-        }
-    }
-
-    @NonNull
-    private static Account migrateAccount(Context context, Account currentAccount, AccountManager accountMgr,
-                                          String serverUrl, String newAccountName, Account account) {
-
-        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
-
-        // create the new account
-        Account newAccount = new Account(newAccountName, MainApp.getAccountType(context));
-        String password = accountMgr.getPassword(account);
-        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
-
-        // copy base URL
-        accountMgr.setUserData(newAccount, Constants.KEY_OC_BASE_URL, serverUrl);
-
-        // copy server version
-        accountMgr.setUserData(
-            newAccount,
-            Constants.KEY_OC_VERSION,
-            accountMgr.getUserData(account, Constants.KEY_OC_VERSION)
-        );
-
-        // copy cookies
-        accountMgr.setUserData(
-            newAccount,
-            Constants.KEY_COOKIES,
-            accountMgr.getUserData(account, Constants.KEY_COOKIES)
-        );
-
-        // copy type of authentication
-        final String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
-        if (Boolean.parseBoolean(isSamlStr)) {
-            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
-        }
-
-        final String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
-        if (Boolean.parseBoolean(isOauthStr)) {
-            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
-        }
-
-        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
-        if (isOAuth || isSaml) {
-            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
-        }
-        */
-
-        // don't forget the account saved in preferences as the current one
-        if (currentAccount.name.equals(account.name)) {
-            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
-        }
-
-        // remove the old account
-        accountMgr.removeAccount(account, null, null);
-
-        // will assume it succeeds, not a big deal otherwise
-        return newAccount;
     }
 
     /**
