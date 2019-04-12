@@ -59,6 +59,9 @@
         </value>
       </option>
     </JavaCodeStyleSettings>
+    <MarkdownNavigatorCodeStyleSettings>
+      <option name="RIGHT_MARGIN" value="120" />
+    </MarkdownNavigatorCodeStyleSettings>
     <Objective-C-extensions>
       <file>
         <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Import" />

@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012 Bartek Przybylski
@@ -450,7 +450,7 @@ public class FileDownloader extends Service
 
 
                     /// perform the download
-                    downloadResult = mCurrentDownload.execute(mDownloadClient, mCurrentDownload.getFile().isEncrypted());
+                    downloadResult = mCurrentDownload.execute(mDownloadClient);
                     if (downloadResult.isSuccess()) {
                         saveDownloadedFile();
                     }
@@ -460,11 +460,8 @@ public class FileDownloader extends Service
                     downloadResult = new RemoteOperationResult(e);
 
                 } finally {
-                    Pair<DownloadFileOperation, String> removeResult =
-                            mPendingDownloads.removePayload(
-                                    mCurrentAccount.name,
-                                    mCurrentDownload.getRemotePath()
-                            );
+                    Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.removePayload(
+                        mCurrentAccount.name, mCurrentDownload.getRemotePath());
 
                     /// notify result
                     notifyDownloadResult(mCurrentDownload, downloadResult);

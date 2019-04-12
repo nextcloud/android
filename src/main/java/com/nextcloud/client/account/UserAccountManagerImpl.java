@@ -170,23 +170,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
             accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_COOKIES)
         );
 
-        // copy type of authentication
-        final String isSamlStr = accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_SUPPORTS_SAML_WEB_SSO);
-        if (Boolean.parseBoolean(isSamlStr)) {
-            accountMgr.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
-        }
-
-        final String isOauthStr = accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_SUPPORTS_OAUTH2);
-        if (Boolean.parseBoolean(isOauthStr)) {
-            accountMgr.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
-        }
-
-        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
-        if (isOAuth || isSaml) {
-            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
-        }
-        */
-
         // don't forget the account saved in preferences as the current one
         if (currentAccount.name.equals(account.name)) {
             AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);

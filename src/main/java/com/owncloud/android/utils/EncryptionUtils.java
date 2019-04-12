@@ -219,7 +219,7 @@ public final class EncryptionUtils {
     DecryptedFolderMetadata downloadFolderMetadata(OCFile folder, OwnCloudClient client,
                                                    Context context, Account account) {
         RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
-            .execute(client, true);
+            .execute(client);
 
         if (!getMetadataOperationResult.isSuccess()) {
             return null;

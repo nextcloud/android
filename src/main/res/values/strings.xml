@@ -232,7 +232,6 @@
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast forward button</string>
 
-    <string name="auth_getting_authorization">Getting authorization…</string>
     <string name="auth_trying_to_login">Trying to log in…</string>
     <string name="auth_no_net_conn_title">No network connection</string>
     <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
@@ -257,10 +256,7 @@
     <string name="auth_oauth_error">Unsuccessful authorization</string>
     <string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
     <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
-    <string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
     <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
-    <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-    <string name="auth_connecting_auth_server">Connecting to authentication server…</string>
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
     <string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
@@ -292,10 +288,6 @@
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
-
-    <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
-    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
-
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
@@ -751,8 +743,6 @@
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
 
-    <string name="oauth_2_0_auth_end_point_address_hint">Auth end point address</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>

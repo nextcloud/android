@@ -39,7 +39,6 @@ import android.os.Process;
 import android.util.Pair;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -64,7 +63,6 @@ import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.MoveFileOperation;
-import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -117,9 +115,7 @@ public class OperationsService extends Service {
     public static final String ACTION_UPDATE_SHARE = "UPDATE_SHARE";
     public static final String ACTION_UPDATE_SHARE_NOTE = "UPDATE_SHARE_NOTE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
-    public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
-    public static final String ACTION_GET_USER_AVATAR = "GET_USER_AVATAR";
     public static final String ACTION_RENAME = "RENAME";
     public static final String ACTION_REMOVE = "REMOVE";
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
@@ -638,13 +634,6 @@ public class OperationsService extends Service {
 
                     case ACTION_GET_SERVER_INFO:
                         operation = new GetServerInfoOperation(serverUrl, this);
-                        break;
-
-                    case ACTION_OAUTH2_GET_ACCESS_TOKEN:
-                        String oauth2QueryParameters = operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
-                        operation = new OAuth2GetAccessToken(getString(R.string.oauth2_client_id),
-                                getString(R.string.oauth2_redirect_uri), getString(R.string.oauth2_grant_type),
-                                oauth2QueryParameters);
                         break;
 
                     case ACTION_GET_USER_NAME:
