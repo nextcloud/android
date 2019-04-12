@@ -23,8 +23,10 @@ package com.nextcloud.client.account;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.net.Uri;
+import android.text.TextUtils;
 
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -80,34 +82,30 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return null;
     }
 
-    public void updateAccountVersion() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
+    public void migrateUserId() {
+        boolean success = false;
 
-        if (currentAccount == null) {
+        AppPreferences appPreferences = AppPreferencesImpl.fromContext(context);
+
+        if (appPreferences.isUserIdMigrated()) {
+            // migration done
             return;
         }
 
-        final String currentAccountVersion = accountManager.getUserData(currentAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION);
-        final boolean needsUpdate = !String.valueOf(ACCOUNT_VERSION_WITH_PROPER_ID).equalsIgnoreCase(currentAccountVersion);
-        if (!needsUpdate) {
-            return;
-        }
-
-        Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION_WITH_PROPER_ID);
 
         Account[] ocAccounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
-        String serverUrl;
-        String username;
+        String userId;
         String displayName;
-        String newAccountName;
-        Account newAccount;
         GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
 
         for (Account account : ocAccounts) {
-            // build new account name
-            serverUrl = accountManager.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_BASE_URL);
+            String storedUserId = accountManager.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-            // update user name
+            if (!TextUtils.isEmpty(storedUserId)) {
+                continue;
+            }
+
+            // add userId
             try {
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
                 OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
@@ -117,7 +115,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
                 if (result.isSuccess()) {
                     UserInfo userInfo = (UserInfo) result.getData().get(0);
-                    username = userInfo.id;
+                    userId = userInfo.id;
                     displayName = userInfo.displayName;
                 } else {
                     // skip account, try it next time
@@ -129,68 +127,19 @@ public class UserAccountManagerImpl implements UserAccountManager {
                 continue;
             }
 
-            newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
-                buildAccountName(Uri.parse(serverUrl), username);
+            accountManager.setUserData(account,
+                                       com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_DISPLAY_NAME,
+                                       displayName);
+            accountManager.setUserData(account,
+                                       com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
+                                       userId);
 
-            // migrate to a new account, if needed
-            if (!newAccountName.equals(account.name)) {
-                newAccount = migrateAccount(context, currentAccount, accountManager, serverUrl, newAccountName,
-                                            account);
-
-            } else {
-                // servers which base URL is in the root of their domain need no change
-                Log_OC.d(TAG, account.name + " needs no upgrade ");
-                newAccount = account;
-            }
-
-            accountManager.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_DISPLAY_NAME, displayName);
-            accountManager.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID, username);
-
-            // at least, upgrade account version
-            Log_OC.d(TAG, "Setting version " + ACCOUNT_VERSION_WITH_PROPER_ID + " to " + newAccountName);
-            accountManager.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                   Integer.toString(ACCOUNT_VERSION_WITH_PROPER_ID));
-        }
-    }
-
-    @NonNull
-    private Account migrateAccount(Context context, Account currentAccount, AccountManager accountMgr,
-                                          String serverUrl, String newAccountName, Account account) {
-
-        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
-
-        // create the new account
-        Account newAccount = new Account(newAccountName, MainApp.getAccountType(context));
-        String password = accountMgr.getPassword(account);
-        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
-
-        // copy base URL
-        accountMgr.setUserData(newAccount, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_BASE_URL, serverUrl);
-
-        // copy server version
-        accountMgr.setUserData(
-            newAccount,
-            com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_VERSION,
-            accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_VERSION)
-        );
-
-        // copy cookies
-        accountMgr.setUserData(
-            newAccount,
-            com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_COOKIES,
-            accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_COOKIES)
-        );
-
-        // don't forget the account saved in preferences as the current one
-        if (currentAccount.name.equals(account.name)) {
-            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
+            success = true;
         }
 
-        // remove the old account
-        accountMgr.removeAccount(account, null, null);
-
-        // will assume it succeeds, not a big deal otherwise
-        return newAccount;
+        if (success) {
+            appPreferences.setMigratedUserId(true);
+        }
     }
 
     private String getAccountType() {

@@ -66,8 +66,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
-                                                                                false,
-                                                                                userId);
+                                                                                false);
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(account, fileDisplayActivity);
 
         if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {

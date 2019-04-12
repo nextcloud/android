@@ -186,6 +186,12 @@ public class MainApp extends MultiDexApplication implements
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
+        Thread t = new Thread(() -> {
+            // best place, before any access to AccountManager or database
+            accountManager.migrateUserId();
+        });
+        t.start();
+
         JobManager.create(this).addJobCreator(
             new NCJobCreator(
                 getApplicationContext(),
@@ -204,7 +210,6 @@ public class MainApp extends MultiDexApplication implements
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
-        OwnCloudClientManagerFactory.setNextcloudUserAgent(getNextcloudUserAgent());
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -513,11 +518,6 @@ public class MainApp extends MultiDexApplication implements
     }
 
     public static String getUserAgent() {
-        // Mozilla/5.0 (Android) ownCloud-android/1.7.0
-        return getUserAgent(R.string.user_agent);
-    }
-
-    public static String getNextcloudUserAgent() {
         // Mozilla/5.0 (Android) Nextcloud-android/2.1.0
         return getUserAgent(R.string.nextcloud_user_agent);
     }

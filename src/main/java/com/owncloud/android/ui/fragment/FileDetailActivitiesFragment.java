@@ -24,7 +24,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
@@ -146,7 +145,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
     public String noResultsMessage;
 
     private boolean restoreFileVersionSupported;
-    private String userId;
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
 
@@ -188,10 +186,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
         swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
         swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
 
-        AccountManager accountManager = AccountManager.get(getContext());
-        userId = accountManager.getUserData(account,
-                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
         callback = new VersionListInterface.CommentCallback() {
 
             @Override
@@ -227,7 +221,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         String trimmedComment = commentField.toString().trim();
 
         if (trimmedComment.length() > 0) {
-            new SubmitCommentTask(trimmedComment, userId, file.getLocalId(), callback, ownCloudClient).execute();
+            new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, ownCloudClient).execute();
         }
     }
 
@@ -329,7 +323,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
                     ReadFileVersionsRemoteOperation readFileVersionsOperation = new ReadFileVersionsRemoteOperation(
-                            file.getLocalId(), userId);
+                        file.getLocalId());
 
                     RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
 
@@ -459,21 +453,19 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     @Override
     public void onRestoreClicked(FileVersion fileVersion) {
-        operationsHelper.restoreFileVersion(fileVersion, userId);
+        operationsHelper.restoreFileVersion(fileVersion);
     }
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
         private String message;
-        private String userId;
         private String fileId;
         private VersionListInterface.CommentCallback callback;
         private OwnCloudClient client;
 
-        private SubmitCommentTask(String message, String userId, String fileId,
-                                  VersionListInterface.CommentCallback callback, OwnCloudClient client) {
+        private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
+                                  OwnCloudClient client) {
             this.message = message;
-            this.userId = userId;
             this.fileId = fileId;
             this.callback = callback;
             this.client = client;
@@ -481,7 +473,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId, userId);
+            CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId);
 
             RemoteOperationResult result = commentFileOperation.execute(client);
 
