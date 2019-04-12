@@ -30,10 +30,6 @@
     <bool name="show_provider_or_own_installation">true</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
-    <!-- Flags to setup the authentication methods available in the app -->
-    <string name="auth_method_oauth2">off</string>
-    <string name="auth_method_saml_web_sso">off</string>
-
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>
     <bool name="share_via_link_feature">true</bool>

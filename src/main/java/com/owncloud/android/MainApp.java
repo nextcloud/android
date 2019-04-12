@@ -64,7 +64,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -198,16 +197,8 @@ public class MainApp extends MultiDexApplication implements
 
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
-        boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
-
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
         OwnCloudClientManagerFactory.setNextcloudUserAgent(getNextcloudUserAgent());
-        if (isSamlAuth) {
-            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
-        } else {
-            OwnCloudClientManagerFactory
-                    .setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT_IF_SERVER_SUPPORTS_SERVER_MONITORING);
-        }
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();

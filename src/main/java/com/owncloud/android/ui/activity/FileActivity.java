@@ -605,11 +605,6 @@ public abstract class FileActivity extends DrawerActivity
         dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
 
-    @Override
-    public void onCancelCertificate() {
-        // nothing to do
-    }
-
     public void checkForNewDevVersionNecessary(View view, Context context) {
         if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());

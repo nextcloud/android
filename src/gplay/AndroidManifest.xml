@@ -41,14 +41,6 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.ownCloud.noActionBar.Login">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/oauth2_redirect_scheme" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
 
                 <category android:name="android.intent.category.DEFAULT" />
