@@ -24,7 +24,7 @@ import android.content.Context;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SignatureVerification;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 
 import java.security.Key;
 
@@ -40,7 +40,7 @@ public final class PushUtils {
 
     public static void reinitKeys() {
         Context context = MainApp.getAppContext();
-        PreferenceManager.fromContext(context).setKeysReInitEnabled();
+        AppPreferencesImpl.fromContext(context).setKeysReInitEnabled();
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
