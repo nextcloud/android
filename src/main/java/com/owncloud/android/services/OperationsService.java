@@ -24,8 +24,6 @@ package com.owncloud.android.services;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -47,7 +45,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -105,7 +102,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
-    public static final String EXTRA_USER_ID = "USER_ID";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
 
     public static final String EXTRA_COOKIE = "COOKIE";
@@ -217,14 +213,8 @@ public class OperationsService extends Service {
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service" );
         // Saving cookies
-        try {
-            OwnCloudClientManagerFactory.getDefaultSingleton().
-                    saveAllClients(this, MainApp.getAccountType(getApplicationContext()));
-
-            // TODO - get rid of these exceptions
-        } catch (AccountNotFoundException | IOException | OperationCanceledException | AuthenticatorException e) {
-            Log_OC.d(TAG, e.getMessage(), e);
-        }
+        OwnCloudClientManagerFactory.getDefaultSingleton()
+            .saveAllClients(this, MainApp.getAccountType(getApplicationContext()));
 
         mUndispatchedFinishedOperations.clear();
 
@@ -701,9 +691,8 @@ public class OperationsService extends Service {
 
                     case ACTION_RESTORE_VERSION:
                         FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
-                        String userId = operationIntent.getStringExtra(EXTRA_USER_ID);
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getRemoteId(),
-                                                                          fileVersion.getFileName(), userId);
+                                                                          fileVersion.getFileName());
                         break;
 
                     default:

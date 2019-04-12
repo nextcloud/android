@@ -283,4 +283,13 @@ public interface AppPreferences {
 
     String getCurrentAccountName();
     void setCurrentAccountName(String accountName);
+
+    /**
+     * Gets status of migration to user id, default false
+     *
+     * @return true: migration done: every account has userId, false: pending accounts without userId
+     */
+    boolean isUserIdMigrated();
+
+    void setMigratedUserId(boolean value);
 }

@@ -25,11 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public interface UserAccountManager extends CurrentAccountProvider {
-
-    int ACCOUNT_VERSION = 1;
-    int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
-    String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
-
     /**
      * Get configured NextCloud's user accounts.
      *
@@ -39,14 +34,9 @@ public interface UserAccountManager extends CurrentAccountProvider {
     Account[] getAccounts();
 
     /**
-     * Update the accounts in AccountManager to meet the current
-     * version of accounts expected by the app, if needed.
-     * <p>
-     * Introduced to handle a change in the structure of stored account names
-     * needed to allow different Nextcloud servers in the same domain, but not in
-     * the same path.
+     * Verifies that every account has userId set.
      */
-    void updateAccountVersion();
+    void migrateUserId();
 
     @Nullable
     Account getAccountByName(String name);

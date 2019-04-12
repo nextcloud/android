@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.dialog;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,13 +36,12 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.lib.common.UserInfo;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.DeletePublicKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPublicKeyOperation;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
@@ -253,19 +253,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
 
-            // get user id
-            String userID;
-            GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-            RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account, getContext());
-
-            if (remoteUserNameOperationResult.isSuccess() && remoteUserNameOperationResult.getData() != null) {
-                UserInfo userInfo = (UserInfo) remoteUserNameOperationResult.getData().get(0);
-                userID = userInfo.getId();
-            } else {
-                userID = account.name;
-            }
-
-            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation(userID);
+            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
             RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext());
 
             if (publicKeyResult.isSuccess()) {
@@ -347,22 +335,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 // Create public/private key pair
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
 
-                // get user id
-                String userID;
-                GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-                RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account,
-                                                                                                      getContext());
-
-                if (remoteUserNameOperationResult.isSuccess() &&
-                        remoteUserNameOperationResult.getData() != null) {
-                    UserInfo userInfo = (UserInfo) remoteUserNameOperationResult.getData().get(0);
-                    userID = userInfo.getId();
-                } else {
-                    userID = account.name;
-                }
-
                 // create CSR
-                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userID);
+                AccountManager accountManager = AccountManager.get(getContext());
+                String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
+                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
                 RemoteOperationResult result = operation.execute(account, getContext());

@@ -47,10 +47,10 @@ public abstract class AbstractIT {
             Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
 
             Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
-            String username = arguments.getString("TEST_SERVER_USERNAME");
+            String loginName = arguments.getString("TEST_SERVER_USERNAME");
             String password = arguments.getString("TEST_SERVER_PASSWORD");
 
-            Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType(targetContext));
+            Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
 
             if (!com.owncloud.android.authentication.AccountUtils.exists(temp, targetContext)) {
                 AccountManager accountManager = AccountManager.get(targetContext);
@@ -59,11 +59,11 @@ public abstract class AbstractIT {
                         Integer.toString(com.owncloud.android.authentication.AccountUtils.ACCOUNT_VERSION));
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-                accountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, username);
+                accountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
             }
 
             account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(targetContext,
-                                                                                                username + "@" + baseUrl);
+                                                                                                loginName + "@" + baseUrl);
 
             if (account == null) {
                 throw new ActivityNotFoundException();
