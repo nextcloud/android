@@ -30,7 +30,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -373,7 +373,7 @@ public final class PushUtils {
         FileUtils.deleteQuietly(privateKeyFile);
         FileUtils.deleteQuietly(publicKeyFile);
 
-        AppPreferences preferences = PreferenceManager.fromContext(context);
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         String pushToken = preferences.getPushToken();
         pushRegistrationToServer(pushToken);
         preferences.setKeysReInitEnabled();
@@ -381,7 +381,7 @@ public final class PushUtils {
 
     private static void migratePushKeys() {
         Context context = MainApp.getAppContext();
-        AppPreferences preferences = PreferenceManager.fromContext(context);
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isKeysMigrationEnabled()) {
             String oldKeyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
                     + File.separator + "nc-keypair";

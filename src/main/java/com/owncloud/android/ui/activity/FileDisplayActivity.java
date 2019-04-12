@@ -64,7 +64,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -353,7 +353,7 @@ public class FileDisplayActivity extends FileActivity
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
             int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account,
-                    PreferenceManager.AUTO_PREF__LAST_SEEN_VERSION_CODE);
+                                                                        AppPreferencesImpl.AUTO_PREF__LAST_SEEN_VERSION_CODE);
 
             if (MainApp.getVersionCode() > lastSeenVersion) {
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
@@ -366,8 +366,8 @@ public class FileDisplayActivity extends FileActivity
                     DisplayUtils.showServerOutdatedSnackbar(this);
                 }
 
-                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PreferenceManager.AUTO_PREF__LAST_SEEN_VERSION_CODE,
-                        String.valueOf(MainApp.getVersionCode()));
+                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, AppPreferencesImpl.AUTO_PREF__LAST_SEEN_VERSION_CODE,
+                                                            String.valueOf(MainApp.getVersionCode()));
             }
         }
     }

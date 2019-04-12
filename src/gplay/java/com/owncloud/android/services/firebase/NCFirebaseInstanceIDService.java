@@ -24,7 +24,7 @@ import android.text.TextUtils;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.PushUtils;
 
@@ -35,7 +35,7 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onCreate() {
         super.onCreate();
-        preferences = PreferenceManager.fromContext(this);
+        preferences = AppPreferencesImpl.fromContext(this);
     }
 
     @Override

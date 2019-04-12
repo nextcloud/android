@@ -43,7 +43,7 @@ import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -330,7 +330,7 @@ public class MainApp extends MultiDexApplication implements
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries();
             } else {
-                AppPreferences preferences = PreferenceManager.fromContext(getAppContext());
+                AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
@@ -537,7 +537,7 @@ public class MainApp extends MultiDexApplication implements
 
     private static void updateToAutoUpload() {
             Context context = getAppContext();
-            AppPreferences preferences = PreferenceManager.fromContext(context);
+            AppPreferences preferences = AppPreferencesImpl.fromContext(context);
             if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()){
                 preferences.removeLegacyPreferences();
 
@@ -564,7 +564,7 @@ public class MainApp extends MultiDexApplication implements
     private static void updateAutoUploadEntries() {
         // updates entries to reflect their true paths
         Context context = getAppContext();
-        AppPreferences preferences = PreferenceManager.fromContext(context);
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
                     new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
@@ -574,7 +574,7 @@ public class MainApp extends MultiDexApplication implements
 
     private static void splitOutAutoUploadEntries() {
         Context context = getAppContext();
-        AppPreferences preferences = PreferenceManager.fromContext(context);
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadSplitEntriesEnabled()) {
             // magic to split out existing synced folders in two when needed
             // otherwise, we migrate them to their proper type (image or video)
@@ -629,7 +629,7 @@ public class MainApp extends MultiDexApplication implements
 
     private static void initiateExistingAutoUploadEntries() {
         new Thread(() -> {
-            AppPreferences preferences = PreferenceManager.fromContext(getAppContext());
+            AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
                         new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
@@ -651,7 +651,7 @@ public class MainApp extends MultiDexApplication implements
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
         Context context = getAppContext();
-        AppPreferences preferences = PreferenceManager.fromContext(context);
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
 
         if (!preferences.isLegacyClean()) {
             SyncedFolderProvider syncedFolderProvider =

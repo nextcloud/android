@@ -23,13 +23,13 @@ public class TestPreferenceManager {
     @Mock
     private SharedPreferences.Editor editor;
 
-    private PreferenceManager appPreferences;
+    private AppPreferencesImpl appPreferences;
 
     @Before
     public void setUp() {
         when(editor.remove(anyString())).thenReturn(editor);
         when(sharedPreferences.edit()).thenReturn(editor);
-        appPreferences = new PreferenceManager(testContext, sharedPreferences);
+        appPreferences = new AppPreferencesImpl(testContext, sharedPreferences);
     }
 
     @Test
