@@ -36,7 +36,7 @@ import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_
 /**
  * Helper to simplify reading of Preferences all around the app
  */
-public final class PreferenceManager implements AppPreferences {
+public final class AppPreferencesImpl implements AppPreferences {
     /**
      * Constant to access value of last path selected by the user to upload a file shared from other app.
      * Value handled by the app without direct access in the UI.
@@ -74,14 +74,14 @@ public final class PreferenceManager implements AppPreferences {
         Context appContext = context.getApplicationContext();
         SharedPreferences prefs = getDefaultSharedPreferences(appContext);
 
-        return new PreferenceManager(appContext, prefs);
+        return new AppPreferencesImpl(appContext, prefs);
     }
 
     private static SharedPreferences getDefaultSharedPreferences(Context context) {
         return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 
-    PreferenceManager(Context appContext, SharedPreferences preferences) {
+    AppPreferencesImpl(Context appContext, SharedPreferences preferences) {
         this.context = appContext;
         this.preferences = preferences;
     }
@@ -425,7 +425,7 @@ public final class PreferenceManager implements AppPreferences {
     @SuppressLint("ApplySharedPref")
     @Override
     public void removeKeysMigrationPreference() {
-        preferences.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit(); // commit synchronously
+        preferences.edit().remove(AppPreferencesImpl.PREF__KEYS_MIGRATION).commit(); // commit synchronously
     }
 
     /**

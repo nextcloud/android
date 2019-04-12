@@ -24,7 +24,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.PreferenceManager;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -39,6 +39,6 @@ class AppModule {
 
     @Provides
     AppPreferences preferences(Application application) {
-        return PreferenceManager.fromContext(application);
+        return AppPreferencesImpl.fromContext(application);
     }
 }
