@@ -22,4 +22,9 @@
         <exclude name="ShortVariable" />
         <exclude name="VariableNamingConventions" />
     </rule>
+    <rule ref="rulesets/java/naming.xml/MethodNamingConventions">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test$')]" />
+        </properties>
+    </rule>
 </ruleset>

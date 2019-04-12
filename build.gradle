@@ -169,7 +169,7 @@ android {
     }
 
     tasks.register("pmd", Pmd) {
-        ruleSetFiles = files("${project.rootDir}/pmd-ruleset.xml")
+        ruleSetFiles = files("${project.rootDir}/ruleset.xml")
         ignoreFailures = false
         ruleSets = []
 
