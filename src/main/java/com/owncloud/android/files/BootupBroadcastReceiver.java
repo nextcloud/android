@@ -2,9 +2,11 @@
  * ownCloud Android client application
  *
  * @author David A. Velasco
+ * @author Chris Narkiewicz
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -25,8 +27,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 
 /**
@@ -37,6 +44,9 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
 
+    @Inject
+    UserAccountManager accountManager;
+
     /**
      * Receives broadcast intent reporting that the system was just boot up.
      **
@@ -45,9 +55,11 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
+        AndroidInjection.inject(this, context);
+
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations();
-            MainApp.initContactsBackup();
+            MainApp.initSyncOperations(accountManager);
+            MainApp.initContactsBackup(accountManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }

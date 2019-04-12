@@ -3,7 +3,9 @@
  *
  *   @author Tobias Kaminsky
  *   @author David A. Velasco
+ *   @author Chris Narkiewicz
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -906,7 +908,7 @@ public final class ThumbnailsCacheManager {
                                 String newImageKey = "a_" + mUserId + "_" + mServerName + "_" + newETag;
                                 addBitmapToCache(newImageKey, avatar);
                             } else {
-                                return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                                return TextDrawable.createAvatar(mAccount, mAvatarRadius);
                             }
                             break;
 
@@ -923,7 +925,7 @@ public final class ThumbnailsCacheManager {
                     }
                 } catch (Exception e) {
                     try {
-                        return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                        return TextDrawable.createAvatar(mAccount, mAvatarRadius);
                     } catch (Exception e1) {
                         Log_OC.e(TAG, "Error generating fallback avatar");
                     }
@@ -936,7 +938,7 @@ public final class ThumbnailsCacheManager {
 
             if (avatar == null) {
                 try {
-                    return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                    return TextDrawable.createAvatar(mAccount, mAvatarRadius);
                 } catch (Exception e1) {
                     return mResources.getDrawable(R.drawable.ic_user);
                 }

@@ -3,8 +3,10 @@
  *
  * @author Andy Scherzinger
  * @author Tobias Kaminsiky
+ * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -21,6 +23,7 @@
 
 package com.owncloud.android.ui;
 
+import android.accounts.Account;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -28,6 +31,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.NextcloudServer;
@@ -91,7 +95,7 @@ public class TextDrawable extends Drawable {
      * creates an avatar in form of a TextDrawable with the first letter of the account name in a circle with the
      * given radius.
      *
-     * @param accountName the account name
+     * @param account user account
      * @param radiusInDp  the circle's radius
      * @return the avatar as a TextDrawable
      * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
@@ -99,9 +103,9 @@ public class TextDrawable extends Drawable {
      */
     @NonNull
     @NextcloudServer(max = 12)
-    public static TextDrawable createAvatar(String accountName, float radiusInDp) throws
+    public static TextDrawable createAvatar(Account account, float radiusInDp) throws
             NoSuchAlgorithmException {
-        String username = AccountUtils.getAccountUsername(accountName);
+        String username = UserAccountManager.getUsername(account);
         return createNamedAvatar(username, radiusInDp);
     }
 

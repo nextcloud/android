@@ -20,25 +20,38 @@
 
 package com.nextcloud.client.di;
 
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {ComponentsModule.class})
+@Module(includes = {ComponentsModule.class, VariantComponentsModule.class})
 class AppModule {
 
     @Provides
+    AccountManager accountManager(Application application) {
+        return (AccountManager)application.getSystemService(Context.ACCOUNT_SERVICE);
+    }
+
+    @Provides
     Context context(Application application) {
-        return application.getApplicationContext();
+        return application;
     }
 
     @Provides
     AppPreferences preferences(Application application) {
         return AppPreferencesImpl.fromContext(application);
+    }
+
+    @Provides
+    UserAccountManager userAccountManager(Context context, AccountManager accountManager) {
+        return new UserAccountManagerImpl(context, accountManager);
     }
 }
