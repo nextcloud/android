@@ -2,7 +2,9 @@
  * Nextcloud application
  *
  * @author Mario Danic
+ * @author Chris Narkiewicz
  * Copyright (C) 2017-2018 Mario Danic <mario@lovelyhq.com>
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +40,7 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DecryptedPushMessage;
@@ -92,6 +95,12 @@ public class NotificationJob extends Job {
 
     private SecureRandom randomId = new SecureRandom();
     private Context context;
+    private UserAccountManager accountManager;
+
+    public NotificationJob(final Context context, final UserAccountManager accountManager) {
+        this.context = context;
+        this.accountManager = accountManager;
+    }
 
     @NonNull
     @Override
@@ -109,6 +118,7 @@ public class NotificationJob extends Job {
 
                 try {
                     SignatureVerification signatureVerification = PushUtils.verifySignature(context,
+                                                                                            accountManager,
                                                                                             base64DecodedSignature,
                                                                                             base64DecodedSubject);
 

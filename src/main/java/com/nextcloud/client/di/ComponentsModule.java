@@ -22,6 +22,8 @@ package com.nextcloud.client.di;
 
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
+import com.owncloud.android.files.BootupBroadcastReceiver;
+import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -109,4 +111,8 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailFragment fileDetailFragment();
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
+
+    @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
+
+    @ContributesAndroidInjector abstract DocumentsStorageProvider documentsStorageProvider();
 }

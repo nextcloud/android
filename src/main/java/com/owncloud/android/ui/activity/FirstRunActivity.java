@@ -2,9 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Bartosz Przybylski
+ * @author Chris Narkiewicz
  * Copyright (C) 2015 Bartosz Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2016 Nextcloud.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -37,6 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -60,6 +63,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
     private ProgressIndicator progressIndicator;
+
+    @Inject UserAccountManager userAccountManager;
     @Inject AppPreferences preferences;
 
     @Override
@@ -112,7 +117,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         if (isFirstRun(this)) {
             AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
             if (am != null) {
-                for (Account account : AccountUtils.getAccounts(this)) {
+                for (Account account : userAccountManager.getAccounts()) {
                     am.removeAccount(account, null, null);
                 }
             }

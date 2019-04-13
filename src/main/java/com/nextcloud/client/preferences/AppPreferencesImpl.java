@@ -2,7 +2,9 @@
  * ownCloud Android client application
  *
  * @author David A. Velasco
+ * @author Chris Narkiewicz Chris Narkiewicz
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -71,14 +73,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private final SharedPreferences preferences;
 
     public static AppPreferences fromContext(Context context) {
-        Context appContext = context.getApplicationContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(appContext);
-
-        return new AppPreferencesImpl(appContext, prefs);
-    }
-
-    private static SharedPreferences getDefaultSharedPreferences(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        return new AppPreferencesImpl(context, prefs);
     }
 
     AppPreferencesImpl(Context appContext, SharedPreferences preferences) {

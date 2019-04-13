@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Chris Narkiewicz
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud
+ * Copyright (C) 2919 Chris Narkiewicz
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -31,7 +33,8 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -72,6 +75,14 @@ public class FilesSyncJob extends Job {
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
     private static final String WAKELOCK_TAG_SEPARATION = ":";
 
+    private UserAccountManager userAccountManager;
+    private AppPreferences preferences;
+
+    public FilesSyncJob(UserAccountManager userAccountManager, AppPreferences preferences) {
+        this.userAccountManager = userAccountManager;
+        this.preferences = preferences;
+    }
+
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
@@ -98,14 +109,14 @@ public class FilesSyncJob extends Job {
         boolean lightVersion = resources.getBoolean(R.bool.syncedFolder_light);
 
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
-        FilesSyncHelper.restartJobsIfNeeded();
-        FilesSyncHelper.insertAllDBEntries(skipCustom);
+        FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
+        FilesSyncHelper.insertAllDBEntries(preferences, skipCustom);
 
         // Create all the providers we'll need
         final ContentResolver contentResolver = context.getContentResolver();
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
-                                                                             AppPreferencesImpl.fromContext(context));
+                                                                             preferences);
 
         Locale currentLocale = context.getResources().getConfiguration().locale;
         SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);

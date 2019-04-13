@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Chris Narkiewicz
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud GmbH
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,16 +22,33 @@
  */
 package com.owncloud.android.jobs;
 
+import android.content.Context;
+
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.preferences.AppPreferences;
+
+import androidx.annotation.NonNull;
 
 /**
  * Job creator for android-job
  */
 
 public class NCJobCreator implements JobCreator {
+
+    private final Context context;
+    private final UserAccountManager accountManager;
+    private final AppPreferences preferences;
+
+    public NCJobCreator(Context context, UserAccountManager accountManager, AppPreferences preferences) {
+        this.context = context;
+        this.accountManager = accountManager;
+        this.preferences = preferences;
+    }
+
     @Override
-    public Job create(String tag) {
+    public Job create(@NonNull String tag) {
         switch (tag) {
             case ContactsBackupJob.TAG:
                 return new ContactsBackupJob();
@@ -38,13 +57,13 @@ public class NCJobCreator implements JobCreator {
             case AccountRemovalJob.TAG:
                 return new AccountRemovalJob();
             case FilesSyncJob.TAG:
-                return new FilesSyncJob();
+                return new FilesSyncJob(accountManager, preferences);
             case OfflineSyncJob.TAG:
-                return new OfflineSyncJob();
+                return new OfflineSyncJob(accountManager);
             case NotificationJob.TAG:
-                return new NotificationJob();
+                return new NotificationJob(context, accountManager);
             case MediaFoldersDetectionJob.TAG:
-                return new MediaFoldersDetectionJob();
+                return new MediaFoldersDetectionJob(accountManager);
             default:
                 return null;
         }

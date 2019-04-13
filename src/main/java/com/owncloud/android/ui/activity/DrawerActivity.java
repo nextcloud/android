@@ -3,10 +3,12 @@
  *
  * @author Andy Scherzinger
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2016 Nextcloud
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -54,6 +56,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.navigation.NavigationView;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -704,7 +707,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                             Menu.NONE,
                             MENU_ORDER_ACCOUNT,
                             account.name)
-                            .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
+                            .setIcon(TextDrawable.createAvatar(account, mMenuAccountAvatarRadiusDimension));
                     DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
                             accountMenuItem, this);
                 }
@@ -771,7 +774,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 username.setTextColor(ThemeUtils.fontColor(this));
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
-                username.setText(AccountUtils.getAccountUsername(account.name));
+                username.setText(UserAccountManager.getUsername(account));
             }
 
             View currentAccountView = findNavigationViewChildById(R.id.drawer_current_account);

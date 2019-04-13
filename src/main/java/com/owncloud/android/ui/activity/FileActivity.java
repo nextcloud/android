@@ -2,8 +2,10 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author Chris Narkiewicz
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -37,6 +39,7 @@ import android.os.IBinder;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -77,6 +80,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
+
+import javax.inject.Inject;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -136,7 +141,7 @@ public abstract class FileActivity extends DrawerActivity
     private ServiceConnection mDownloadServiceConnection;
     private ServiceConnection mUploadServiceConnection;
 
-
+    @Inject UserAccountManager accountManager;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -174,7 +179,7 @@ public abstract class FileActivity extends DrawerActivity
 
         Thread t = new Thread(() -> {
             // best place, before any access to AccountManager or database
-            AccountUtils.updateAccountVersion(this);
+            accountManager.updateAccountVersion();
         });
         t.start();
 
