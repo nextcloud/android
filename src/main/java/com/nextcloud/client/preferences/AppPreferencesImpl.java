@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -68,6 +69,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
+    private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -422,6 +424,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void removeKeysMigrationPreference() {
         preferences.edit().remove(AppPreferencesImpl.PREF__KEYS_MIGRATION).commit(); // commit synchronously
+    }
+
+    @Override
+    public String getCurrentAccountName() {
+        return preferences.getString(PREF__SELECTED_ACCOUNT_NAME, null);
+    }
+
+    @Override
+    public void setCurrentAccountName(String accountName) {
+        preferences.edit().putString(PREF__SELECTED_ACCOUNT_NAME, accountName).apply();
     }
 
     /**

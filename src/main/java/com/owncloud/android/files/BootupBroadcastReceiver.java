@@ -29,6 +29,7 @@ import android.content.Intent;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import javax.inject.Inject;
@@ -44,8 +45,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
 
-    @Inject
-    UserAccountManager accountManager;
+    @Inject UserAccountManager accountManager;
+    @Inject UploadsStorageManager uploadsStorageManager;
 
     /**
      * Receives broadcast intent reporting that the system was just boot up.
@@ -58,7 +59,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(accountManager);
+            MainApp.initSyncOperations(uploadsStorageManager, accountManager);
             MainApp.initContactsBackup(accountManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());

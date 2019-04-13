@@ -2,7 +2,10 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author Chris Narkiewicz
+ *
  *   Copyright (C) 2016  ownCloud Inc.
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,6 +22,7 @@
  */
 package com.owncloud.android.ui.preview;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -361,11 +365,11 @@ public class PreviewImageActivity extends FileActivity implements
     @SuppressFBWarnings("DLS")
     @Override
     public void showDetails(OCFile file) {
+        final Account currentAccount = getUserAccountManager().getCurrentAccount();
         final Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT,
-                AccountUtils.getCurrentOwnCloudAccount(this));
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, currentAccount);
         showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(showDetailsIntent);
         finish();

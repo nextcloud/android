@@ -1,7 +1,11 @@
 /*
  *   Nextcloud Android client application
  *
+ *   @author Edvard Holst
+ *   @author Chris Narkiewicz
+ *
  *   Copyright (C) 2018 Edvard Holst
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,6 +28,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -46,10 +51,16 @@ import java.util.List;
 public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     private static final String TAG = ActivitiesServiceApiImpl.class.getSimpleName();
+    private UserAccountManager accountManager;
+
+    public ActivitiesServiceApiImpl(UserAccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
 
     @Override
     public void getAllActivities(String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
-        GetActivityListTask getActivityListTask = new GetActivityListTask(pageUrl, callback);
+        Account account = accountManager.getCurrentAccount();
+        GetActivityListTask getActivityListTask = new GetActivityListTask(account, pageUrl, callback);
         getActivityListTask.execute();
     }
 
@@ -57,11 +68,13 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
         private final ActivitiesServiceCallback<List<Object>> callback;
         private List<Object> activities;
+        private Account account;
         private String pageUrl;
         private String errorMessage;
         private OwnCloudClient ownCloudClient;
 
-        private GetActivityListTask(String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
+        private GetActivityListTask(Account account, String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
+            this.account = account;
             this.pageUrl = pageUrl;
             this.callback = callback;
             activities = new ArrayList<>();
@@ -71,13 +84,12 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         @Override
         protected Boolean doInBackground(Void... voids) {
             final Context context = MainApp.getAppContext();
-            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
             OwnCloudAccount ocAccount;
             try {
-                ocAccount = new OwnCloudAccount(currentAccount, context);
+                ocAccount = new OwnCloudAccount(account, context);
                 ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(account));
 
                 GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation();
                 if (pageUrl != null) {

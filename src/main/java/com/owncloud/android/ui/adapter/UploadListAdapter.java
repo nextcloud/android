@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -122,7 +124,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     break;
                 case FAILED:
                     new Thread(() -> new FileUploader.UploadRequester()
-                        .retryFailedUploads(parentActivity, null, null)).start();
+                        .retryFailedUploads(
+                            parentActivity,
+                            null,
+                            uploadsStorageManager,
+                            null))
+                        .start();
                     break;
 
                 default:
@@ -139,11 +146,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // not needed
     }
 
-    public UploadListAdapter(FileActivity fileActivity) {
+    public UploadListAdapter(final FileActivity fileActivity, final UploadsStorageManager uploadsStorageManager) {
         Log_OC.d(TAG, "UploadListAdapter");
-        parentActivity = fileActivity;
-        uploadsStorageManager = new UploadsStorageManager(parentActivity.getContentResolver(),
-                                                          parentActivity.getApplicationContext());
+        this.parentActivity = fileActivity;
+        this.uploadsStorageManager = uploadsStorageManager;
         uploadGroups = new UploadGroup[3];
 
         shouldShowHeadersForEmptySections(false);

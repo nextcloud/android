@@ -5,8 +5,10 @@
  *  @author masensio
  *  @author Juan Carlos González Cabrero
  *  @author David A. Velasco
+ *  @author Chris Narkiewicz
  *  Copyright (C) 2012  Bartek Przybylski
  *  Copyright (C) 2016 ownCloud Inc.
+ *  Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -73,6 +75,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -285,9 +288,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
-    public static class DialogMultipleAccount extends DialogFragment {
+    public static class DialogMultipleAccount extends DialogFragment implements Injectable {
         private AccountListAdapter mAccountListAdapter;
         private Drawable mTintedCheck;
+
+        @Inject UserAccountManager accountManager;
 
         @NonNull
         @Override
@@ -299,14 +304,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
             int tint = ThemeUtils.primaryColor(getContext());
             DrawableCompat.setTint(mTintedCheck, tint);
 
-            mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);
+            mAccountListAdapter = new AccountListAdapter(parent, accountManager, getAccountListItems(parent), mTintedCheck);
 
             builder.setTitle(R.string.common_choose_account);
             builder.setAdapter(mAccountListAdapter, (dialog, which) -> {
-                final ReceiveExternalFilesActivity parent1 = (ReceiveExternalFilesActivity) getActivity();
-                parent1.setAccount(parent1.mAccountManager.getAccountsByType(
+                final ReceiveExternalFilesActivity parentActivity = (ReceiveExternalFilesActivity) getActivity();
+                parentActivity.setAccount(parentActivity.mAccountManager.getAccountsByType(
                         MainApp.getAccountType(getActivity()))[which], false);
-                parent1.onAccountSet(parent1.mAccountWasRestored);
+                parentActivity.onAccountSet(parentActivity.mAccountWasRestored);
                 dialog.dismiss();
             });
             builder.setCancelable(true);

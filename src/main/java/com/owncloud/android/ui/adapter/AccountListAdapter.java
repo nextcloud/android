@@ -33,7 +33,6 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
@@ -54,10 +53,12 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
     private Drawable mTintedCheck;
+    private UserAccountManager accountManager;
 
-    public AccountListAdapter(BaseActivity context, List<AccountListItem> values, Drawable tintedCheck) {
+    public AccountListAdapter(BaseActivity context, UserAccountManager accountManager, List<AccountListItem> values, Drawable tintedCheck) {
         super(context, -1, values);
         this.mContext = context;
+        this.accountManager = accountManager;
         this.mValues = values;
         if (context instanceof AccountListAdapterListener) {
             this.mListener = (AccountListAdapterListener) context;
@@ -149,7 +150,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     }
 
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getContext());
+        Account currentAccount = accountManager.getCurrentAccount();
         if (currentAccount != null && currentAccount.name.equals(account.name)) {
             viewHolder.checkViewItem.setVisibility(View.VISIBLE);
         } else {

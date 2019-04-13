@@ -37,7 +37,8 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activities.data.Injection;
+import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
+import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
@@ -48,6 +49,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -99,15 +102,15 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     private boolean isLoadingActivities;
 
     private ActivitiesContract.ActionListener mActionListener;
+    @Inject ActivitiesRepository activitiesRepository;
+    @Inject FilesRepository filesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
-        mActionListener = new ActivitiesPresenter(Injection.provideActivitiesRepository(),
-                Injection.provideFilesRepository(),
-                this);
+        mActionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
 
         setContentView(R.layout.activity_list_layout);
         unbinder = ButterKnife.bind(this);
@@ -171,7 +174,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
                 PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-        adapter = new ActivityListAdapter(this, this, storageManager, getCapabilities(), false);
+        adapter = new ActivityListAdapter(this, getUserAccountManager(), this, storageManager, getCapabilities(), false);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -198,7 +201,13 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+            DisplayUtils.setupBottomBar(
+                getUserAccountManager().getCurrentAccount(),
+                bottomNavigationView,
+                getResources(),
+                this,
+                -1
+            );
         }
 
         mActionListener.loadActivities(null);

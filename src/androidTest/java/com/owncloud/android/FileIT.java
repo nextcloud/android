@@ -35,7 +35,7 @@ public class FileIT extends AbstractIT {
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
 
         // cleanup
-        new RemoveFileOperation(path, false, account, false, context).execute(client, getStorageManager());
+        new RemoveFileOperation(path, false, account, false, targetContext).execute(client, getStorageManager());
     }
 
     @Test
@@ -52,6 +52,6 @@ public class FileIT extends AbstractIT {
         assertTrue(getStorageManager().getFileByPath(path).isFolder());
 
         // cleanup
-        new RemoveFileOperation("/testFolder/", false, account, false, context).execute(client, getStorageManager());
+        new RemoveFileOperation("/testFolder/", false, account, false, targetContext).execute(client, getStorageManager());
     }
 }
