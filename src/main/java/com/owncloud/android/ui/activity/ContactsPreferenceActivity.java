@@ -109,7 +109,13 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+            DisplayUtils.setupBottomBar(
+                getUserAccountManager().getCurrentAccount(),
+                bottomNavigationView,
+                getResources(),
+                this,
+                -1
+            );
         }
     }
 

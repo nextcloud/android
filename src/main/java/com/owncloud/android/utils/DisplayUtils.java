@@ -557,12 +557,16 @@ public final class DisplayUtils {
         }
     }
 
-    public static void setupBottomBar(BottomNavigationView view, Resources resources, final Activity activity,
-                                      int checkedMenuItem) {
+    public static void setupBottomBar(
+        Account account,
+        BottomNavigationView view,
+        Resources resources,
+        final Activity activity,
+        int checkedMenuItem
+    ) {
 
         Menu menu = view.getMenu();
 
-        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
         if (!searchSupported) {

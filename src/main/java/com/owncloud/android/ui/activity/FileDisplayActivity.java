@@ -58,16 +58,15 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -214,7 +213,6 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -2367,7 +2365,7 @@ public class FileDisplayActivity extends FileActivity
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2386,7 +2384,7 @@ public class FileDisplayActivity extends FileActivity
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2413,7 +2411,7 @@ public class FileDisplayActivity extends FileActivity
             previewIntent.putExtra(EXTRA_FILE, file);
             previewIntent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, startPlaybackPosition);
             previewIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
     }
@@ -2440,7 +2438,7 @@ public class FileDisplayActivity extends FileActivity
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
             previewIntent.putExtra(TEXT_PREVIEW, true);
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
     }
@@ -2570,9 +2568,9 @@ public class FileDisplayActivity extends FileActivity
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
         if (!preferences.isKeysReInitEnabled()) {
-            PushUtils.reinitKeys(accountManager);
+            PushUtils.reinitKeys(getUserAccountManager());
         } else {
-            PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
+            PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
         }
     }
 

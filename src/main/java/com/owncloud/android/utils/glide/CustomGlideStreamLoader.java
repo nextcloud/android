@@ -2,7 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Alejandro Bautista
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Alejandro Bautista
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -21,16 +24,23 @@ package com.owncloud.android.utils.glide;
 
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
+import com.nextcloud.client.account.CurrentAccountProvider;
 
 import java.io.InputStream;
 
 /**
  * Custom Model for OwnCloudClient
  */
-
 public class CustomGlideStreamLoader implements StreamModelLoader<String> {
+
+    private final CurrentAccountProvider currentAccount;
+
+    public CustomGlideStreamLoader(CurrentAccountProvider currentAccount) {
+        this.currentAccount = currentAccount;
+    }
+
     @Override
     public DataFetcher<InputStream> getResourceFetcher(String url, int width, int height) {
-        return new HttpStreamFetcher(url);
+        return new HttpStreamFetcher(currentAccount, url);
     }
 }

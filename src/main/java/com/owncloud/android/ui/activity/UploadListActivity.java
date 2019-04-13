@@ -81,8 +81,6 @@ public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
-    private UploadsStorageManager uploadStorageManager;
-
     private UploadMessagesReceiver uploadMessagesReceiver;
 
     private UploadListAdapter uploadListAdapter;
@@ -108,7 +106,12 @@ public class UploadListActivity extends FileActivity {
     public String noResultsMessage;
 
     private Unbinder unbinder;
-    @Inject UserAccountManager userAccountManager;
+
+    @Inject
+    protected UserAccountManager userAccountManager;
+
+    @Inject
+    protected UploadsStorageManager uploadsStorageManager;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -121,8 +124,6 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        uploadStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
         setContentView(R.layout.upload_list_layout);
         unbinder = ButterKnife.bind(this);
@@ -150,7 +151,13 @@ public class UploadListActivity extends FileActivity {
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+            DisplayUtils.setupBottomBar(
+                getUserAccountManager().getCurrentAccount(),
+                bottomNavigationView,
+                getResources(),
+                this,
+                -1
+            );
         }
     }
 
@@ -165,7 +172,7 @@ public class UploadListActivity extends FileActivity {
         emptyContentHeadline.setText(noResultsHeadline);
         emptyContentMessage.setText(noResultsMessage);
 
-        uploadListAdapter = new UploadListAdapter(this);
+        uploadListAdapter = new UploadListAdapter(this, uploadsStorageManager);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
         uploadListAdapter.setLayoutManager(lm);
@@ -209,7 +216,7 @@ public class UploadListActivity extends FileActivity {
 
         // retry failed uploads
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        new Thread(() -> requester.retryFailedUploads(this, null, null)).start();
+        new Thread(() -> requester.retryFailedUploads(this, null, uploadsStorageManager,null)).start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
@@ -266,7 +273,7 @@ public class UploadListActivity extends FileActivity {
                 }
                 break;
             case R.id.action_clear_failed_uploads:
-                uploadStorageManager.clearFailedButNotDelayedUploads();
+                uploadsStorageManager.clearFailedButNotDelayedUploads();
                 uploadListAdapter.loadUploadItemsFromDb();
                 break;
 
@@ -281,7 +288,7 @@ public class UploadListActivity extends FileActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
+            FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager);
         }
     }
 
@@ -301,7 +308,7 @@ public class UploadListActivity extends FileActivity {
 
             } else {
                 // already updated -> just retry!
-                FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
+                FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager);
             }
 
         } else {

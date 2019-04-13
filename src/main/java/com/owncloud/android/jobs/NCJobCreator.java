@@ -1,11 +1,13 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
  * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud GmbH
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +30,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 
 import androidx.annotation.NonNull;
 
@@ -40,11 +43,18 @@ public class NCJobCreator implements JobCreator {
     private final Context context;
     private final UserAccountManager accountManager;
     private final AppPreferences preferences;
+    private final UploadsStorageManager uploadsStorageManager;
 
-    public NCJobCreator(Context context, UserAccountManager accountManager, AppPreferences preferences) {
+    public NCJobCreator(
+        Context context,
+        UserAccountManager accountManager,
+        AppPreferences preferences,
+        UploadsStorageManager uploadsStorageManager
+    ) {
         this.context = context;
         this.accountManager = accountManager;
         this.preferences = preferences;
+        this.uploadsStorageManager = uploadsStorageManager;
     }
 
     @Override
@@ -55,9 +65,9 @@ public class NCJobCreator implements JobCreator {
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
-                return new AccountRemovalJob();
+                return new AccountRemovalJob(uploadsStorageManager);
             case FilesSyncJob.TAG:
-                return new FilesSyncJob(accountManager, preferences);
+                return new FilesSyncJob(accountManager, preferences, uploadsStorageManager);
             case OfflineSyncJob.TAG:
                 return new OfflineSyncJob(accountManager);
             case NotificationJob.TAG:

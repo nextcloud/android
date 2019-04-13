@@ -1,3 +1,26 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author Chris Narkiewicz
+ * @author Tobias Kaminsky
+ *
+ * Copyright (C) 2019 Tobias Kaminsky
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
@@ -8,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -32,10 +56,15 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     private static final int VERSION_TYPE = 102;
     private VersionListInterface.View versionListInterface;
 
-    public ActivityAndVersionListAdapter(Context context, ActivityListInterface activityListInterface,
-                                         VersionListInterface.View versionListInterface,
-                                         FileDataStorageManager storageManager, OCCapability capability) {
-        super(context, activityListInterface, storageManager, capability, true);
+    public ActivityAndVersionListAdapter(
+        Context context,
+        CurrentAccountProvider currentAccountProvider,
+        ActivityListInterface activityListInterface,
+        VersionListInterface.View versionListInterface,
+        FileDataStorageManager storageManager,
+        OCCapability capability
+    ) {
+        super(context, currentAccountProvider, activityListInterface, storageManager, capability, true);
 
         this.versionListInterface = versionListInterface;
     }

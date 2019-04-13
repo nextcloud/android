@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -43,18 +44,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
+import dagger.android.AndroidInjection;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     public static final String TAG = DiskLruImageCacheFileProvider.class.getSimpleName();
 
+    @Inject
+    protected UserAccountManager accountManager;
+
     @Override
     public boolean onCreate() {
+        AndroidInjection.inject(this);
         return true;
     }
 
     private OCFile getFile(Uri uri) {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account account = accountManager.getCurrentAccount();
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
                 MainApp.getAppContext().getContentResolver());
 
