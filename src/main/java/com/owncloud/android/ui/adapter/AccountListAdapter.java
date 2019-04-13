@@ -2,7 +2,9 @@
  * ownCloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -29,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -173,7 +176,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             viewHolder.usernameViewItem.setText(oca.getDisplayName());
         } catch (Exception e) {
             Log_OC.w(TAG, "Account not found right after being read; using account name instead");
-            viewHolder.usernameViewItem.setText(AccountUtils.getAccountUsername(account.name));
+            viewHolder.usernameViewItem.setText(UserAccountManager.getUsername(account));
         }
         viewHolder.usernameViewItem.setTag(account.name);
     }

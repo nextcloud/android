@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -42,6 +44,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -59,6 +62,8 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -103,6 +108,7 @@ public class UploadListActivity extends FileActivity {
     public String noResultsMessage;
 
     private Unbinder unbinder;
+    @Inject UserAccountManager userAccountManager;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -275,7 +281,7 @@ public class UploadListActivity extends FileActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartJobsIfNeeded();
+            FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
         }
     }
 
@@ -295,7 +301,7 @@ public class UploadListActivity extends FileActivity {
 
             } else {
                 // already updated -> just retry!
-                FilesSyncHelper.restartJobsIfNeeded();
+                FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
             }
 
         } else {

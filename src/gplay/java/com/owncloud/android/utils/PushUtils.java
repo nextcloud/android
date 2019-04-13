@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Chris Narkiewicz
  * Copyright (C) 2017-2018 Mario Danic
+ * Copyright (C) 2019 Chris Narkiewicz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,6 +31,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
@@ -194,7 +197,7 @@ public final class PushUtils {
         }
     }
 
-    public static void pushRegistrationToServer(final String token) {
+    public static void pushRegistrationToServer(final UserAccountManager accountManager, final String token) {
         arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
@@ -213,7 +216,7 @@ public final class PushUtils {
                 String providerValue;
                 PushConfigurationState accountPushData = null;
                 Gson gson = new Gson();
-                for (Account account : AccountUtils.getAccounts(context)) {
+                for (Account account : accountManager.getAccounts()) {
                     providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH);
                     if (!TextUtils.isEmpty(providerValue)) {
                         accountPushData = gson.fromJson(providerValue,
@@ -359,9 +362,9 @@ public final class PushUtils {
         return -1;
     }
 
-    public static void reinitKeys() {
+    public static void reinitKeys(final UserAccountManager accountManager) {
         Context context = MainApp.getAppContext();
-        Account[] accounts = AccountUtils.getAccounts(context);
+        Account[] accounts = accountManager.getAccounts();
         for (Account account : accounts) {
             deleteRegistrationForAccount(account);
         }
@@ -375,7 +378,7 @@ public final class PushUtils {
 
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         String pushToken = preferences.getPushToken();
-        pushRegistrationToServer(pushToken);
+        pushRegistrationToServer(accountManager, pushToken);
         preferences.setKeysReInitEnabled();
     }
 
@@ -411,13 +414,18 @@ public final class PushUtils {
         }
     }
 
-    public static SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
+    public static SignatureVerification verifySignature(
+        final Context context,
+        final UserAccountManager accountManager,
+        final byte[] signatureBytes,
+        final byte[] subjectBytes
+    ) {
         Signature signature = null;
         PublicKey publicKey;
         SignatureVerification signatureVerification = new SignatureVerification();
         signatureVerification.setSignatureValid(false);
 
-        Account[] accounts = AccountUtils.getAccounts(context);
+        Account[] accounts = accountManager.getAccounts();
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
         String arbitraryValue;
