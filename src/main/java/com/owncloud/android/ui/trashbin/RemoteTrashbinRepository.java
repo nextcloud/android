@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +29,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -49,19 +51,19 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
     private String userId;
     private OwnCloudClient client;
 
-    RemoteTrashbinRepository(Context context) {
-        AccountManager accountManager = AccountManager.get(context);
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-
+    RemoteTrashbinRepository(final Context context, final Account account) {
+        AccountManager platformAccountManager = AccountManager.get(context);
         try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
+            OwnCloudAccount nextcloudAccount = new OwnCloudAccount(account, context);
+            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(nextcloudAccount, context);
         } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage());
         }
 
-        userId = accountManager.getUserData(account,
-                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+        userId = platformAccountManager.getUserData(
+            account,
+            com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID
+        );
     }
 
     public void removeTrashbinFile(TrashbinFile file, OperationCallback callback) {

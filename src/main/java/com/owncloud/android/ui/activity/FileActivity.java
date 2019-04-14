@@ -141,7 +141,8 @@ public abstract class FileActivity extends DrawerActivity
     private ServiceConnection mDownloadServiceConnection;
     private ServiceConnection mUploadServiceConnection;
 
-    @Inject UserAccountManager accountManager;
+    @Inject
+    protected UserAccountManager accountManager;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -160,7 +161,7 @@ public abstract class FileActivity extends DrawerActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
-        mFileOperationsHelper = new FileOperationsHelper(this);
+        mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
         Account account = null;
 
         if (savedInstanceState != null) {

@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +47,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -61,6 +65,8 @@ import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import org.parceler.Parcels;
 
 import java.lang.ref.WeakReference;
+
+import javax.inject.Inject;
 
 import androidx.annotation.RequiresApi;
 import butterknife.BindView;
@@ -93,6 +99,9 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
     @BindView(R.id.filename)
     TextView fileName;
+
+    @Inject
+    protected CurrentAccountProvider currentAccountProvider;
 
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     @Override
@@ -131,7 +140,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                     break;
             }
 
-            Glide.with(this).using(new CustomGlideStreamLoader()).load(template.getThumbnailLink())
+            Glide.with(this).using(new CustomGlideStreamLoader(currentAccountProvider)).load(template.getThumbnailLink())
                 .placeholder(placeholder)
                 .error(placeholder)
                 .into(thumbnail);

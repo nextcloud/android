@@ -39,6 +39,7 @@ import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class UserAccountManagerImpl implements UserAccountManager {
 
@@ -49,7 +50,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     private AccountManager accountManager;
 
     @Inject
-    public UserAccountManagerImpl(Context context, AccountManager accountManager) {
+    public UserAccountManagerImpl(
+        Context context,
+        AccountManager accountManager
+    ) {
         this.context = context;
         this.accountManager = accountManager;
     }
@@ -58,6 +62,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @NonNull
     public Account[] getAccounts() {
         return accountManager.getAccountsByType(getAccountType());
+    }
+
+    @Nullable
+    public Account getCurrentAccount() {
+        return AccountUtils.getCurrentOwnCloudAccount(context);
     }
 
     public void updateAccountVersion() {

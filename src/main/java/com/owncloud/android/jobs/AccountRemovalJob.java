@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -63,6 +66,13 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
     public static final String TAG = "AccountRemovalJob";
     public static final String ACCOUNT = "account";
 
+    private UploadsStorageManager uploadsStorageManager;
+
+    public AccountRemovalJob(UploadsStorageManager uploadStorageManager) {
+        this.uploadsStorageManager = uploadStorageManager;
+
+    }
+
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
@@ -109,8 +119,6 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
 
             syncedFolderProvider.deleteSyncFoldersForAccount(account);
 
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(),
-                    context);
             uploadsStorageManager.removeAccountUploads(account);
 
             FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(context.getContentResolver());
