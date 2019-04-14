@@ -23,8 +23,12 @@ package com.nextcloud.client.di;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
+import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -53,8 +57,10 @@ import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
+import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.errorhandling.ErrorShowActivity;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
+import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -73,6 +79,7 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ActivitiesActivity activitiesActivity();
     @ContributesAndroidInjector abstract AuthenticatorActivity authenticatorActivity();
+    @ContributesAndroidInjector abstract BaseActivity baseActivity();
     @ContributesAndroidInjector abstract ConflictsResolveActivity conflictsResolveActivity();
     @ContributesAndroidInjector abstract ContactsPreferenceActivity contactsPreferenceActivity();
     @ContributesAndroidInjector abstract CopyToClipboardActivity copyToClipboardActivity();
@@ -111,8 +118,14 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailFragment fileDetailFragment();
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
+    @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
+    @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+
+    @ContributesAndroidInjector abstract FileUploader fileUploader();
 
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
 
     @ContributesAndroidInjector abstract DocumentsStorageProvider documentsStorageProvider();
+    @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
+    @ContributesAndroidInjector abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
 }

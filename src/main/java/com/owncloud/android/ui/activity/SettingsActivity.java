@@ -4,6 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   @author Chris Narkiewicz
+ *
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2016 Nextcloud
@@ -126,8 +127,9 @@ public class SettingsActivity extends PreferenceActivity
     private String pendingLock;
 
     private Account account;
-    private ArbitraryDataProvider arbitraryDataProvider;
+    @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -151,8 +153,7 @@ public class SettingsActivity extends PreferenceActivity
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
-        account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        account = accountManager.getCurrentAccount();
 
         // retrieve user's base uri
         setupBaseUri();

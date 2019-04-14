@@ -2,7 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -39,6 +42,8 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -73,6 +78,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -85,7 +92,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FileDetailActivitiesFragment extends Fragment implements ActivityListInterface, VersionListInterface.View {
+public class FileDetailActivitiesFragment extends Fragment implements
+    ActivityListInterface,
+    VersionListInterface.View,
+    Injectable {
+
     private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
@@ -138,6 +149,9 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private String userId;
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
+
+    @Inject
+    protected CurrentAccountProvider accountManager;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -251,7 +265,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityAndVersionListAdapter(getContext(), this, this, storageManager, capability);
+        adapter = new ActivityAndVersionListAdapter(getContext(), accountManager, this, this, storageManager, capability);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -285,7 +299,7 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
      * @param pageUrl String
      */
     private void fetchAndSetData(String pageUrl) {
-        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        final Account currentAccount = accountManager.getCurrentAccount();
         final Context context = MainApp.getAppContext();
         final FragmentActivity activity = getActivity();
 

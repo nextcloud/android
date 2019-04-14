@@ -280,4 +280,7 @@ public interface AppPreferences {
     void setStoragePath(String path);
 
     void removeKeysMigrationPreference();
+
+    String getCurrentAccountName();
+    void setCurrentAccountName(String accountName);
 }

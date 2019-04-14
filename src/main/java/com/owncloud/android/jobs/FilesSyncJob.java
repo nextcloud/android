@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -77,10 +78,16 @@ public class FilesSyncJob extends Job {
 
     private UserAccountManager userAccountManager;
     private AppPreferences preferences;
+    private UploadsStorageManager uploadsStorageManager;
 
-    public FilesSyncJob(UserAccountManager userAccountManager, AppPreferences preferences) {
+    public FilesSyncJob(
+        final UserAccountManager userAccountManager,
+        final AppPreferences preferences,
+        final UploadsStorageManager uploadsStorageManager
+    ) {
         this.userAccountManager = userAccountManager;
         this.preferences = preferences;
+        this.uploadsStorageManager = uploadsStorageManager;
     }
 
     @NonNull
@@ -109,7 +116,7 @@ public class FilesSyncJob extends Job {
         boolean lightVersion = resources.getBoolean(R.bool.syncedFolder_light);
 
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
-        FilesSyncHelper.restartJobsIfNeeded(userAccountManager);
+        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager);
         FilesSyncHelper.insertAllDBEntries(preferences, skipCustom);
 
         // Create all the providers we'll need

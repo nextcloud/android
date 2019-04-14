@@ -1,7 +1,11 @@
 /*
  *   Nextcloud Android client application
  *
+ *   @author Chris Narkiewicz
+ *   @author Edvard Holst
+ *
  *   Copyright (C) 2018 Edvard Holst
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,6 +28,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -49,9 +54,20 @@ public class FilesServiceApiImpl implements FilesServiceApi {
 
     private static final String TAG = FilesServiceApiImpl.class.getSimpleName();
 
+    private UserAccountManager accountManager;
+
+    public FilesServiceApiImpl(UserAccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
+
     @Override
     public void readRemoteFile(String fileUrl, BaseActivity activity, FilesServiceCallback<OCFile> callback) {
-        ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(fileUrl, activity, callback);
+        ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(
+            accountManager.getCurrentAccount(),
+            fileUrl,
+            activity,
+            callback
+        );
         readRemoteFileTask.execute();
     }
 
@@ -62,24 +78,25 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         // TODO: Figure out a better way to do this than passing a BaseActivity reference.
         private final BaseActivity baseActivity;
         private final String fileUrl;
+        private final Account account;
 
-        private ReadRemoteFileTask(String fileUrl, BaseActivity baseActivity, FilesServiceCallback<OCFile> callback) {
+        private ReadRemoteFileTask(Account account, String fileUrl, BaseActivity baseActivity, FilesServiceCallback<OCFile> callback) {
             this.callback = callback;
             this.baseActivity = baseActivity;
             this.fileUrl = fileUrl;
+            this.account = account;
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
             final Context context = MainApp.getAppContext();
             OwnCloudAccount ocAccount;
             OwnCloudClient ownCloudClient;
             try {
-                ocAccount = new OwnCloudAccount(currentAccount, context);
+                ocAccount = new OwnCloudAccount(account, context);
                 ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(account));
                 // always update file as it could be an old state saved in database
                 RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
 

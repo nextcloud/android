@@ -88,6 +88,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
@@ -132,6 +133,8 @@ import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -261,6 +264,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextInputLayout mUsernameInputLayout;
     private TextInputLayout mPasswordInputLayout;
     private boolean forceOldLoginMethod;
+
+    @Inject
+    protected UserAccountManager accountManager;
 
     /**
      * {@inheritDoc}
@@ -1976,7 +1982,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             /// add the new account as default in preferences, if there is none already
-            Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+            Account defaultAccount = accountManager.getCurrentAccount();
             if (defaultAccount == null) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
                 editor.putString("select_oc_account", accountName);
