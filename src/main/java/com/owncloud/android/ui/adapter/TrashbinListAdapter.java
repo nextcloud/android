@@ -69,11 +69,16 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
-    public TrashbinListAdapter(TrashbinActivityInterface trashbinActivityInterface,
-                               FileDataStorageManager storageManager, AppPreferences preferences, Context context) {
+    public TrashbinListAdapter(
+        TrashbinActivityInterface trashbinActivityInterface,
+        FileDataStorageManager storageManager,
+        AppPreferences preferences,
+        Context context,
+        Account account
+    ) {
         this.files = new ArrayList<>();
         this.trashbinActivityInterface = trashbinActivityInterface;
-        this.account = AccountUtils.getCurrentOwnCloudAccount(context);
+        this.account = account;
         this.storageManager = storageManager;
         this.preferences = preferences;
         this.context = context;

@@ -2,9 +2,12 @@
  * ownCloud Android client application
  *
  * @author Mario Danic
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2012-2016 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -52,6 +55,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -111,6 +115,7 @@ public class ExtendedListFragment extends Fragment implements
     private int maxColumnSizeLandscape = 10;
 
     @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected LinearLayout mEmptyListContainer;
@@ -222,8 +227,7 @@ public class ExtendedListFragment extends Fragment implements
                                 setFabVisible(!hasFocus);
                             }
 
-                            boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
-                                    getCurrentOwnCloudAccount(MainApp.getAppContext()));
+                            boolean searchSupported = AccountUtils.hasSearchSupport(accountManager.getCurrentAccount());
 
                             if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
                                 BottomNavigationView bottomNavigationView = getActivity().
@@ -313,8 +317,7 @@ public class ExtendedListFragment extends Fragment implements
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (AccountUtils.hasSearchSupport(AccountUtils.
-                                getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
+                        if (AccountUtils.hasSearchSupport(accountManager.getCurrentAccount())) {
                             EventBus.getDefault().post(new SearchEvent(query,
                                 SearchRemoteOperation.SearchType.FILE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
                         } else {
@@ -400,8 +403,7 @@ public class ExtendedListFragment extends Fragment implements
         mFabMain = v.findViewById(R.id.fab_main);
         ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus, getContext());
 
-        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+        boolean searchSupported = AccountUtils.hasSearchSupport(accountManager.getCurrentAccount());
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFabMain.getLayoutParams();

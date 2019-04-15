@@ -22,12 +22,23 @@ package com.nextcloud.client.di;
 
 import android.accounts.AccountManager;
 import android.app.Application;
+import android.content.ContentResolver;
 import android.content.Context;
 
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
+import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
+import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
+import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesRepository;
+import com.owncloud.android.ui.activities.data.files.FilesRepository;
+import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
+import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -51,7 +62,39 @@ class AppModule {
     }
 
     @Provides
-    UserAccountManager userAccountManager(Context context, AccountManager accountManager) {
+    UserAccountManager userAccountManager(
+        Context context,
+        AccountManager accountManager
+    ) {
         return new UserAccountManagerImpl(context, accountManager);
+    }
+
+    @Provides
+    ArbitraryDataProvider arbitraryDataProvider(Context context) {
+        final ContentResolver resolver = context.getContentResolver();
+        return new ArbitraryDataProvider(resolver);
+    }
+
+    @Provides
+    ActivitiesServiceApi activitiesServiceApi(UserAccountManager accountManager) {
+        return new ActivitiesServiceApiImpl(accountManager);
+    }
+
+    @Provides
+    ActivitiesRepository activitiesRepository(ActivitiesServiceApi api) {
+        return new RemoteActivitiesRepository(api);
+    }
+
+    @Provides
+    FilesRepository filesRepository(UserAccountManager accountManager) {
+        return new RemoteFilesRepository(new FilesServiceApiImpl(accountManager));
+    }
+
+    @Provides UploadsStorageManager uploadsStorageManager(Context context, CurrentAccountProvider currentAccountProvider) {
+        return new UploadsStorageManager(currentAccountProvider, context.getContentResolver(), context);
+    }
+
+    @Provides CurrentAccountProvider currentAccountProvider(UserAccountManager accountManager) {
+        return accountManager;
     }
 }

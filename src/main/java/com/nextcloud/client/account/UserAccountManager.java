@@ -23,7 +23,7 @@ import android.accounts.Account;
 
 import androidx.annotation.NonNull;
 
-public interface UserAccountManager {
+public interface UserAccountManager extends CurrentAccountProvider {
 
     int ACCOUNT_VERSION = 1;
     int ACCOUNT_VERSION_WITH_PROPER_ID = 2;

@@ -2,7 +2,9 @@
  * ownCloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -117,7 +119,7 @@ public class ManageAccountsActivity extends FileActivity
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         mOriginalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        Account currentAccount = getUserAccountManager().getCurrentAccount();
 
         if (currentAccount != null) {
             mOriginalCurrentAccount = currentAccount.name;
@@ -128,7 +130,7 @@ public class ManageAccountsActivity extends FileActivity
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(), mTintedCheck);
+        mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), getAccountListItems(), mTintedCheck);
 
         mListView.setAdapter(mAccountListAdapter);
 
@@ -213,7 +215,7 @@ public class ManageAccountsActivity extends FileActivity
      * @return true if account list has changed, false if not
      */
     private boolean hasCurrentAccountChanged() {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+        Account account = getUserAccountManager().getCurrentAccount();
         if (account == null) {
             return true;
         } else {
@@ -297,6 +299,7 @@ public class ManageAccountsActivity extends FileActivity
                                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
                                 mAccountListAdapter = new AccountListAdapter(
                                         ManageAccountsActivity.this,
+                                        getUserAccountManager(),
                                         getAccountListItems(),
                                         mTintedCheck
                                 );
@@ -340,7 +343,7 @@ public class ManageAccountsActivity extends FileActivity
                 }
             }
 
-            if (AccountUtils.getCurrentOwnCloudAccount(this) == null) {
+            if (getUserAccountManager().getCurrentAccount() == null) {
                 String accountName = "";
                 Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
                 if (accounts.length != 0) {
@@ -351,7 +354,7 @@ public class ManageAccountsActivity extends FileActivity
 
             List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > SINGLE_ACCOUNT) {
-                mAccountListAdapter = new AccountListAdapter(this, accountListItemArray, mTintedCheck);
+                mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), accountListItemArray, mTintedCheck);
                 mListView.setAdapter(mAccountListAdapter);
             } else {
                 onBackPressed();

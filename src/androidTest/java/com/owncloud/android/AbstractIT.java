@@ -38,22 +38,22 @@ public abstract class AbstractIT {
 
     protected static OwnCloudClient client;
     static Account account;
-    protected static Context context;
+    protected static Context targetContext;
 
     @BeforeClass
     public static void beforeAll() {
         try {
-            context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
             Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
 
             Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
             String username = arguments.getString("TEST_SERVER_USERNAME");
             String password = arguments.getString("TEST_SERVER_PASSWORD");
 
-            Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType(context));
+            Account temp = new Account(username + "@" + baseUrl, MainApp.getAccountType(targetContext));
 
-            if (!com.owncloud.android.authentication.AccountUtils.exists(temp, context)) {
-                AccountManager accountManager = AccountManager.get(context);
+            if (!com.owncloud.android.authentication.AccountUtils.exists(temp, targetContext)) {
+                AccountManager accountManager = AccountManager.get(targetContext);
                 accountManager.addAccountExplicitly(temp, password, null);
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
                         Integer.toString(com.owncloud.android.authentication.AccountUtils.ACCOUNT_VERSION));
@@ -62,14 +62,14 @@ public abstract class AbstractIT {
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, username);
             }
 
-            account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(context,
-                    username + "@" + baseUrl);
+            account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(targetContext,
+                                                                                                username + "@" + baseUrl);
 
             if (account == null) {
                 throw new ActivityNotFoundException();
             }
 
-            client = OwnCloudClientFactory.createOwnCloudClient(account, context);
+            client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
 
             createDummyFiles();
 
@@ -86,7 +86,7 @@ public abstract class AbstractIT {
     }
 
     FileDataStorageManager getStorageManager() {
-        return new FileDataStorageManager(account, context.getContentResolver());
+        return new FileDataStorageManager(account, targetContext.getContentResolver());
     }
 
     private static void createDummyFiles() throws IOException {

@@ -2,7 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Alejandro Bautista
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Alejandro Bautista
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -48,6 +51,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -90,15 +94,23 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected OwnCloudClient client;
 
     protected Context context;
+    private CurrentAccountProvider currentAccountProvider;
     private FileDataStorageManager storageManager;
     private OCCapability capability;
     protected List<Object> values;
     private boolean isDetailView;
 
-    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,
-                               FileDataStorageManager storageManager, OCCapability capability, boolean isDetailView) {
+    public ActivityListAdapter(
+        Context context,
+        CurrentAccountProvider currentAccountProvider,
+        ActivityListInterface activityListInterface,
+        FileDataStorageManager storageManager,
+        OCCapability capability,
+        boolean isDetailView
+    ) {
         this.values = new ArrayList<>();
         this.context = context;
+        this.currentAccountProvider = currentAccountProvider;
         this.activityListInterface = activityListInterface;
         this.storageManager = storageManager;
         this.capability = capability;
@@ -237,7 +249,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (MimeTypeUtil.isImageOrVideo(previewObject.getMimeType())) {
             int placeholder = R.drawable.file;
-            Glide.with(context).using(new CustomGlideStreamLoader()).load(previewObject.getSource()).
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(previewObject.getSource()).
                 placeholder(placeholder).error(placeholder).into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
@@ -288,7 +300,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
                     Uri.encode(file.getRemotePath(), "/");
 
-                Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).placeholder(placeholder)
+                Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(uri).placeholder(placeholder)
                     .error(placeholder).into(fileIcon); // using custom fetcher
 
             } else {

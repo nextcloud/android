@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -51,11 +55,18 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     private ClickListener clickListener;
     private Context context;
     private ChooseTemplateDialogFragment.Type type;
+    private CurrentAccountProvider currentAccountProvider;
 
-    public TemplateAdapter(ChooseTemplateDialogFragment.Type type, ClickListener clickListener, Context context) {
+    public TemplateAdapter(
+        ChooseTemplateDialogFragment.Type type,
+        ClickListener clickListener,
+        Context context,
+        CurrentAccountProvider currentAccountProvider
+    ) {
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;
+        this.currentAccountProvider = currentAccountProvider;
     }
 
     @NonNull
@@ -124,7 +135,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
                     break;
             }
 
-            Glide.with(context).using(new CustomGlideStreamLoader()).load(template.getThumbnailLink())
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(template.getThumbnailLink())
                     .placeholder(placeholder)
                     .error(placeholder)
                     .into(thumbnail);

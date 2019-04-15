@@ -120,7 +120,6 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
 
     @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
     private float mCurrentAccountAvatarRadiusDimension;
 
     private Unbinder unbinder;
@@ -145,7 +144,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-        setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        setAccount(getUserAccountManager().getCurrentAccount());
         onAccountSet(false);
 
         boolean useBackgroundImage = URLUtil.isValidUrl(
@@ -447,7 +446,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
+        PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
     }
 
 

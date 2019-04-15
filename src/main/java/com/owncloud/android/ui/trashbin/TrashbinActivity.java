@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +23,7 @@
  */
 package com.owncloud.android.ui.trashbin;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -98,7 +102,9 @@ public class TrashbinActivity extends FileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        trashbinPresenter = new TrashbinPresenter(new RemoteTrashbinRepository(this), this);
+        final Account currentAccount = getUserAccountManager().getCurrentAccount();
+        final RemoteTrashbinRepository trashRepository = new RemoteTrashbinRepository(this, currentAccount);
+        trashbinPresenter = new TrashbinPresenter(trashRepository, this);
 
         setContentView(R.layout.trashbin_activity);
         unbinder = ButterKnife.bind(this);
@@ -135,7 +141,9 @@ public class TrashbinActivity extends FileActivity implements
             this,
             getStorageManager(),
             preferences,
-            this);
+            this,
+            getUserAccountManager().getCurrentAccount()
+        );
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFooter(true);

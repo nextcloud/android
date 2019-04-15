@@ -3,6 +3,7 @@
  *
  * @author Mario Danic
  * @author Chris Narkiewicz
+ *
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -214,14 +215,13 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void restartJobsIfNeeded(UserAccountManager accountManager) {
+    public static void restartJobsIfNeeded(UploadsStorageManager uploadsStorageManager, UserAccountManager accountManager) {
         final Context context = MainApp.getAppContext();
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
         boolean accountExists;
 
-        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
         for (OCUpload failedUpload : failedUploads) {
@@ -243,7 +243,7 @@ public final class FilesSyncHelper {
         new Thread(() -> {
             if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
                     !ConnectivityUtils.isInternetWalled(context)) {
-                uploadRequester.retryFailedUploads(context, null, null);
+                uploadRequester.retryFailedUploads(context, null, uploadsStorageManager, null);
             }
         }).start();
     }

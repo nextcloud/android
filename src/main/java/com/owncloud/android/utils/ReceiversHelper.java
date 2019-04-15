@@ -31,6 +31,7 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 
 /**
  * Helper for setting up network and power receivers
@@ -41,7 +42,10 @@ public final class ReceiversHelper {
         // utility class -> private constructor
     }
 
-    public static void registerNetworkChangeReceiver(final UserAccountManager accountManager) {
+    public static void registerNetworkChangeReceiver(
+        final UploadsStorageManager uploadsStorageManager,
+        final UserAccountManager accountManager
+    ) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -52,7 +56,7 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                    FilesSyncHelper.restartJobsIfNeeded(accountManager);
+                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager);
                 }
             }
         };
@@ -60,7 +64,10 @@ public final class ReceiversHelper {
         context.registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    public static void registerPowerChangeReceiver(final UserAccountManager accountManager) {
+    public static void registerPowerChangeReceiver(
+        final UploadsStorageManager uploadsStorageManager,
+        final UserAccountManager accountManager
+    ) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -71,7 +78,7 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
-                    FilesSyncHelper.restartJobsIfNeeded(accountManager);
+                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager);
                 }
             }
         };
@@ -79,7 +86,10 @@ public final class ReceiversHelper {
         context.registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    public static void registerPowerSaveReceiver(final UserAccountManager accountManager) {
+    public static void registerPowerSaveReceiver(
+        final UploadsStorageManager uploadsStorageManager,
+        final UserAccountManager accountManager
+    ) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -89,7 +99,7 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (!PowerUtils.isPowerSaveMode(context)) {
-                    FilesSyncHelper.restartJobsIfNeeded(accountManager);
+                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager);
                 }
             }
         };
