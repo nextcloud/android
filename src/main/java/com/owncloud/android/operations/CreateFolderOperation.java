@@ -65,7 +65,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         if (result.isSuccess()) {
             RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(mRemotePath)
-                .execute(client, true);
+                .execute(client);
 
             createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
             saveFolderInDB();

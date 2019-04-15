@@ -194,7 +194,6 @@ public class SslUntrustedCertDialog extends DialogFragment {
             if (mHandler != null) {
                 mHandler.cancel();
             }
-            ((OnSslUntrustedCertListener)getActivity()).onCancelCertificate();
         }
     }
 
@@ -226,8 +225,6 @@ public class SslUntrustedCertDialog extends DialogFragment {
         void onSavedCertificate();
 
         void onFailedSavingCertificate();
-
-        void onCancelCertificate();
     }
 
     public interface ErrorViewAdapter {

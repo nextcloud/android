@@ -23,8 +23,6 @@ package com.owncloud.android.authentication;
 
 import android.content.Context;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import java.util.Locale;
@@ -37,9 +35,6 @@ public final class AuthenticatorUrlUtils {
 
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String HTTP_PROTOCOL = "http://";
-
-    private static final String ODAV_PATH = "/remote.php/odav";
-    private static final String SAML_SSO_PATH = "/remote.php/webdav";
 
     private AuthenticatorUrlUtils() {
     }
@@ -55,18 +50,7 @@ public final class AuthenticatorUrlUtils {
      *                          is unknown; versions prior to ownCloud 4 are not supported anymore
      */
     public static String getWebdavPath(OwnCloudVersion version, String authTokenType, Context context) {
-        if (version != null) {
-            String accountType = MainApp.getAccountType(context);
-            if (AccountTypeUtils.getAuthTokenTypeAccessToken(accountType).equals(authTokenType)) {
-                return ODAV_PATH;
-            }
-            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(accountType).equals(authTokenType)) {
-                return SAML_SSO_PATH;
-            }
-
             return WEBDAV_PATH_4_0_AND_LATER;
-        }
-        return null;
     }
 
     public static String normalizeUrlSuffix(String url) {
@@ -99,7 +83,7 @@ public final class AuthenticatorUrlUtils {
 
     public static String trimWebdavSuffix(String url) {
         String trimmedUrl = url;
-        while(trimmedUrl.endsWith("/")) {
+        while (trimmedUrl.endsWith("/")) {
             trimmedUrl = trimmedUrl.substring(0, url.length() - 1);
         }
 
@@ -107,13 +91,7 @@ public final class AuthenticatorUrlUtils {
         if (pos >= 0) {
             trimmedUrl = trimmedUrl.substring(0, pos);
 
-        } else {
-            pos = trimmedUrl.lastIndexOf(ODAV_PATH);
-            if (pos >= 0) {
-                trimmedUrl = trimmedUrl.substring(0, pos);
-            }
         }
-
         return trimmedUrl;
     }
 

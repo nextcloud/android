@@ -151,62 +151,6 @@
             android:minHeight="@dimen/display_text_min_height"
             android:contentDescription="@string/auth_testing_connection"/>
 
-        <CheckBox
-            android:id="@+id/oauth_onOff_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:onClick="onCheckClick"
-            android:text="@string/oauth_check_onoff"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/login_text_hint_color"
-            android:contentDescription="@string/oauth_check_onoff"
-            />
-
-            <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_oAuthEntryPoint_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/oAuthEntryPoint_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/oauth_2_0_auth_end_point_address_hint"
-                android:inputType="textUri"
-                android:maxLines="1"
-                android:text="@string/oauth2_url_endpoint_auth"
-                android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:visibility="gone"
-                android:importantForAutofill="no"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_oAuthEntryPoint_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/oAuthEntryPoint_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/oauth_2_0_access_end_point_address_hint"
-                android:inputType="textUri"
-                android:maxLines="1"
-                android:text="@string/oauth2_url_endpoint_access"
-                android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:importantForAutofill="no"
-                android:visibility="gone" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_account_username"
             android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
