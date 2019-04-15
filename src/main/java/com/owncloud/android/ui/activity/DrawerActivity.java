@@ -356,7 +356,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+        Account account = accountManager.getCurrentAccount();
         filterDrawerMenu(navigationView.getMenu(), account);
     }
 
@@ -545,11 +545,10 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param accountName The account name to be set
      */
     private void accountClicked(String accountName) {
-        if (!AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name.equals(accountName)) {
+        final Account currentAccount = accountManager.getCurrentAccount();
+        if (currentAccount != null && !TextUtils.equals(currentAccount.name, accountName)) {
             AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), accountName);
-
             fetchExternalLinks(true);
-
             restart();
         }
     }
@@ -654,7 +653,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && mDrawerLayout != null) {
             if (persistingAccounts.size() > 0) {
                 repopulateAccountList(persistingAccounts);
-                setAccountInDrawer(AccountUtils.getCurrentOwnCloudAccount(this));
+                setAccountInDrawer(accountManager.getCurrentAccount());
                 populateDrawerOwnCloudAccounts();
 
                 // activate second/end account avatar
@@ -974,15 +973,15 @@ public abstract class DrawerActivity extends ToolbarActivity
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
-                Context context = MainApp.getAppContext();
-                Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+                final Account currentAccount = accountManager.getCurrentAccount();
 
-                if (account == null) {
+                if (currentAccount == null) {
                     return;
                 }
 
+                final Context context = MainApp.getAppContext();
                 AccountManager mAccountMgr = AccountManager.get(context);
-                String userId = mAccountMgr.getUserData(account,
+                String userId = mAccountMgr.getUserData(currentAccount,
                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
                 RemoteOperation getQuotaInfoOperation;
@@ -992,7 +991,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     getQuotaInfoOperation = new GetRemoteUserInfoOperation(userId);
                 }
 
-                RemoteOperationResult result = getQuotaInfoOperation.execute(account, context);
+                RemoteOperationResult result = getQuotaInfoOperation.execute(currentAccount, context);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
@@ -1000,7 +999,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                     // Since we always call this method, might as well put it here
                     if (userInfo.getId() != null) {
-                        mAccountMgr.setUserData(account,
+                        mAccountMgr.setUserData(currentAccount,
                                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
                                 userInfo.getId());
                     }
@@ -1252,7 +1251,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
-                setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+                setAccount(accountManager.getCurrentAccount());
                 updateAccountList();
                 restart();
             } else {
@@ -1334,7 +1333,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        Account currentAccount = accountManager.getCurrentAccount();
 
         mAvatars[0] = currentAccount;
         int j = 0;
@@ -1416,7 +1415,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
-                Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+                Account account = accountManager.getCurrentAccount();
 
                 if (account != null && getStorageManager() != null &&
                         getStorageManager().getCapability(account.name) != null &&

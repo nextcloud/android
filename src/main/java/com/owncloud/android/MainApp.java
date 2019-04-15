@@ -58,6 +58,7 @@ import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.jobs.MediaFoldersDetectionJob;
@@ -135,25 +136,28 @@ public class MainApp extends MultiDexApplication implements
     private static boolean mOnlyOnDevice;
 
     @Inject
-    AppPreferences preferences;
+    protected AppPreferences preferences;
 
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+    protected DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
     @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
+    protected DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
 
     @Inject
-    DispatchingAndroidInjector<Service> dispatchingServiceInjector;
+    protected DispatchingAndroidInjector<Service> dispatchingServiceInjector;
 
     @Inject
-    DispatchingAndroidInjector<ContentProvider> dispatchingContentProviderInjector;
+    protected DispatchingAndroidInjector<ContentProvider> dispatchingContentProviderInjector;
 
     @Inject
-    DispatchingAndroidInjector<BroadcastReceiver> dispatchingBroadcastReceiverInjector;
+    protected DispatchingAndroidInjector<BroadcastReceiver> dispatchingBroadcastReceiverInjector;
 
     @Inject
-    UserAccountManager accountManager;
+    protected UserAccountManager accountManager;
+
+    @Inject
+    protected UploadsStorageManager uploadsStorageManager;
 
     private PassCodeManager passCodeManager;
 
@@ -176,7 +180,14 @@ public class MainApp extends MultiDexApplication implements
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
-        JobManager.create(this).addJobCreator(new NCJobCreator(getApplicationContext(), accountManager, preferences));
+        JobManager.create(this).addJobCreator(
+            new NCJobCreator(
+                getApplicationContext(),
+                accountManager,
+                preferences,
+                uploadsStorageManager
+            )
+        );
         MainApp.mContext = getApplicationContext();
 
         new SecurityUtils();
@@ -217,7 +228,7 @@ public class MainApp extends MultiDexApplication implements
             }
         }
 
-        initSyncOperations(accountManager);
+        initSyncOperations(uploadsStorageManager, accountManager);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -342,7 +353,10 @@ public class MainApp extends MultiDexApplication implements
         }
     }
 
-    public static void initSyncOperations(UserAccountManager accountManager) {
+    public static void initSyncOperations(
+        final UploadsStorageManager uploadsStorageManager,
+        final UserAccountManager accountManager
+    ) {
         updateToAutoUpload();
         cleanOldEntries();
         updateAutoUploadEntries();
@@ -360,18 +374,17 @@ public class MainApp extends MultiDexApplication implements
         initiateExistingAutoUploadEntries();
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
-        FilesSyncHelper.restartJobsIfNeeded(accountManager);
+        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager);
         FilesSyncHelper.scheduleOfflineSyncIfNeeded();
 
-        ReceiversHelper.registerNetworkChangeReceiver(accountManager);
+        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager, accountManager);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver(accountManager
-            );
+            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager, accountManager);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ReceiversHelper.registerPowerSaveReceiver(accountManager);
+            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager, accountManager);
         }
     }
 

@@ -5,8 +5,11 @@
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -42,9 +45,9 @@ import android.webkit.MimeTypeMap;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.StreamMediaFileOperation;
@@ -110,11 +113,14 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_DESKTOP = "desktop";
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     private FileActivity mFileActivity;
+    private CurrentAccountProvider currentAccount;
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-    public FileOperationsHelper(FileActivity fileActivity) {
+    public FileOperationsHelper(FileActivity fileActivity, CurrentAccountProvider currentAccount) {
         mFileActivity = fileActivity;
+        this.currentAccount = currentAccount;
+
     }
 
     @Nullable
@@ -280,7 +286,7 @@ public class FileOperationsHelper {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+                    Account account = currentAccount.getCurrentAccount();
                     FileDataStorageManager storageManager =
                             new FileDataStorageManager(account, mFileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
@@ -391,9 +397,8 @@ public class FileOperationsHelper {
 
     public void streamMediaFile(OCFile file) {
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
-
+        final Account account = currentAccount.getCurrentAccount();
         new Thread(() -> {
-            Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
             RemoteOperationResult result = sfo.execute(account, mFileActivity);
 

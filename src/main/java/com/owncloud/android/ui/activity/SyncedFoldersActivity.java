@@ -133,7 +133,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
             if (account != null && currentAccount != null && !account.equalsIgnoreCase(currentAccount.name)) {
                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
-                setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+                setAccount(getUserAccountManager().getCurrentAccount());
             }
 
             path = getIntent().getStringExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_PATH);
@@ -205,7 +205,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+            DisplayUtils.setupBottomBar(
+                getUserAccountManager().getCurrentAccount(),
+                bottomNavigationView,
+                getResources(),
+                this,
+                -1
+            );
         }
 
         load(gridWidth * 2, false);
@@ -228,7 +234,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        Account currentAccount = getUserAccountManager().getCurrentAccount();
         for (SyncedFolder syncedFolder : syncedFolderArrayList) {
             if (currentAccount != null && syncedFolder.getAccount().equals(currentAccount.name)) {
 

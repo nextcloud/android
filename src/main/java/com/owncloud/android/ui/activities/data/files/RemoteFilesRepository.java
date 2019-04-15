@@ -23,7 +23,7 @@ import com.owncloud.android.ui.activity.BaseActivity;
 
 import androidx.annotation.NonNull;
 
-class RemoteFilesRepository implements FilesRepository {
+public class RemoteFilesRepository implements FilesRepository {
 
     private final FilesServiceApi filesServiceApi;
 

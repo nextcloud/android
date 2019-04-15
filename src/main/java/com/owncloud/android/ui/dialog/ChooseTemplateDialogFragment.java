@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,9 +39,10 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 
+import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.files.CreateFileFromTemplateOperation;
@@ -60,6 +64,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -72,7 +78,7 @@ import butterknife.ButterKnife;
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
 public class ChooseTemplateDialogFragment extends DialogFragment implements DialogInterface.OnClickListener,
-    TemplateAdapter.ClickListener {
+    TemplateAdapter.ClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_TYPE = "TYPE";
@@ -82,6 +88,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     private TemplateAdapter adapter;
     private OCFile parentFolder;
     private OwnCloudClient client;
+    @Inject CurrentAccountProvider currentAccount;
 
     public enum Type {
         DOCUMENT,
@@ -144,7 +151,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         fileName.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         try {
-            Account account = AccountUtils.getCurrentOwnCloudAccount(activity);
+            Account account = currentAccount.getCurrentAccount();
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, activity);
             client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, getContext());
 
@@ -155,7 +162,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
-        adapter = new TemplateAdapter(type, this, getContext());
+        adapter = new TemplateAdapter(type, this, getContext(), currentAccount);
         listView.setAdapter(adapter);
 
         // Build the dialog

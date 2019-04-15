@@ -3,8 +3,10 @@
  *
  * @author Andy Scherzinger
  * @author Mario Danic
+ * @author Chris Narkiewicz
  * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -126,7 +128,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
             if (account != null && (currentAccount == null || !account.equalsIgnoreCase(currentAccount.name))) {
                 AccountUtils.setCurrentOwnCloudAccount(this, account);
-                setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+                setAccount(getUserAccountManager().getCurrentAccount());
                 currentAccount = getAccount();
             }
         }
@@ -244,7 +246,12 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+            DisplayUtils.setupBottomBar(
+                getUserAccountManager().getCurrentAccount(),
+                bottomNavigationView,
+                getResources(),
+                this,
+                -1);
         }
 
         fetchAndSetData();

@@ -2,7 +2,9 @@
  * ownCloud Android client application
  *
  * @author David A. Velasco
+ * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud GmbH.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -142,9 +144,9 @@ public class UploadFileOperation extends SyncOperation {
 
     private RequestEntity mEntity;
 
-    private Account mAccount;
-    private OCUpload mUpload;
-    private UploadsStorageManager uploadsStorageManager;
+    final private Account mAccount;
+    final private OCUpload mUpload;
+    final private UploadsStorageManager uploadsStorageManager;
 
     private boolean encryptedAncestor;
 
@@ -174,7 +176,8 @@ public class UploadFileOperation extends SyncOperation {
         return newFile;
     }
 
-    public UploadFileOperation(Account account,
+    public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
+                               Account account,
                                OCFile file,
                                OCUpload upload,
                                boolean forceOverwrite,
@@ -195,6 +198,7 @@ public class UploadFileOperation extends SyncOperation {
                             + upload.getLocalPath());
         }
 
+        this.uploadsStorageManager = uploadsStorageManager;
         mAccount = account;
         mUpload = upload;
         if (file == null) {
@@ -351,8 +355,6 @@ public class UploadFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
-
-        uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(), mContext);
 
         for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
             if (ocUpload.getUploadId() == getOCUploadId()) {

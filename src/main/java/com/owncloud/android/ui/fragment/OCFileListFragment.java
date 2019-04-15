@@ -5,6 +5,7 @@
  * @author masensio
  * @author David A. Velasco
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
@@ -49,6 +50,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -167,6 +169,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final int SINGLE_SELECTION = 1;
 
     @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile;
@@ -279,7 +282,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), getActivity(), R.id.nav_bar_files);
+            DisplayUtils.setupBottomBar(
+                accountManager.getCurrentAccount(),
+                bottomNavigationView, getResources(),
+                getActivity(),
+                R.id.nav_bar_files
+            );
         }
 
         if (!getResources().getBoolean(R.bool.bottom_toolbar_enabled) || savedInstanceState != null) {
@@ -345,8 +353,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
-        mAdapter = new OCFileListAdapter(getActivity(), preferences, mContainerActivity, this, hideItemOptions,
-                isGridViewPreferred(mFile));
+        mAdapter = new OCFileListAdapter(
+            getActivity(),
+            accountManager.getCurrentAccount(),
+            preferences,
+            mContainerActivity,
+            this,
+            hideItemOptions,
+            isGridViewPreferred(mFile)
+        );
         setRecyclerViewAdapter(mAdapter);
 
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
@@ -927,7 +942,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
                     } else {
-                        Account account = AccountUtils.getCurrentOwnCloudAccount(getContext());
+                        Account account = accountManager.getCurrentAccount();
                         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.name);
 
                         if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(account)
@@ -1160,7 +1175,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     });
                 }
 
-                mAdapter.swapDirectory(directory, storageManager, onlyOnDevice, mLimitToMimeType);
+                mAdapter.swapDirectory(
+                    accountManager.getCurrentAccount(),
+                    directory,
+                    storageManager,
+                    onlyOnDevice,
+                    mLimitToMimeType
+                );
                 if (mFile == null || !mFile.equals(directory)) {
                     getRecyclerView().scrollToPosition(0);
                 }
@@ -1402,7 +1423,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(FavoriteEvent event) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account currentAccount = accountManager.getCurrentAccount();
 
         OwnCloudAccount ocAccount;
         AccountManager mAccountMgr = AccountManager.get(getActivity());
@@ -1482,7 +1503,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
 
-        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        final Account currentAccount = accountManager.getCurrentAccount();
 
         final RemoteOperation remoteOperation;
         if (currentSearchType != SearchType.SHARED_FILTER) {
@@ -1553,7 +1574,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(EncryptionEvent event) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account currentAccount = accountManager.getCurrentAccount();
 
         OwnCloudAccount ocAccount;
         try {
