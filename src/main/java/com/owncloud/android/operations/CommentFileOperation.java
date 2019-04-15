@@ -56,7 +56,7 @@ public class CommentFileOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId, userId).execute(client, true);
+        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId, userId).execute(client);
 
         if (!result.isSuccess()) {
             Log_OC.e(this, "File with Id " + fileId + " could not be commented");

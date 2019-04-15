@@ -94,7 +94,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
         try {
             // Lock folder
-            RemoteOperationResult lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client, true);
+            RemoteOperationResult lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client);
 
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
@@ -105,8 +105,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             }
 
             // refresh metadata
-            RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(parentId)
-                .execute(client, true);
+            RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(parentId).execute(client);
 
             if (getMetadataOperationResult.isSuccess()) {
                 // decrypt metadata
@@ -138,7 +137,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // upload metadata
             RemoteOperationResult uploadMetadataOperationResult = new UpdateMetadataRemoteOperation(parentId,
-                serializedFolderMetadata, token).execute(client, true);
+                                                                                                    serializedFolderMetadata, token).execute(client);
 
             if (!uploadMetadataOperationResult.isSuccess()) {
                 throw new RemoteOperationFailedException("Metadata not uploaded!");
@@ -158,7 +157,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // unlock file
             if (token != null) {
                 RemoteOperationResult unlockFileOperationResult = new UnlockFileRemoteOperation(parentId, token)
-                    .execute(client, true);
+                    .execute(client);
 
                 if (!unlockFileOperationResult.isSuccess()) {
                     Log_OC.e(TAG, "Failed to unlock " + parentId);

@@ -290,7 +290,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
 
         // remote request
-        result = new ReadFileRemoteOperation(remotePath).execute(client, true);
+        result = new ReadFileRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
@@ -332,7 +332,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client, true);
+        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
 
         if (result.isSuccess()) {

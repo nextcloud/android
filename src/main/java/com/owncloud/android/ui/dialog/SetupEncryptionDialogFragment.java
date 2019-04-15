@@ -256,8 +256,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             // get user id
             String userID;
             GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-            RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account,
-                    getContext(), true);
+            RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account, getContext());
 
             if (remoteUserNameOperationResult.isSuccess() && remoteUserNameOperationResult.getData() != null) {
                 UserInfo userInfo = (UserInfo) remoteUserNameOperationResult.getData().get(0);
@@ -267,7 +266,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             }
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation(userID);
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext(), true);
+            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext());
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + account.name);
@@ -280,7 +279,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             }
 
             GetPrivateKeyOperation privateKeyOperation = new GetPrivateKeyOperation();
-            RemoteOperationResult privateKeyResult = privateKeyOperation.execute(account, getContext(), true);
+            RemoteOperationResult privateKeyResult = privateKeyOperation.execute(account, getContext());
 
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + account.name);
@@ -351,8 +350,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 // get user id
                 String userID;
                 GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-                RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation
-                        .execute(account, getContext(), true);
+                RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account,
+                                                                                                      getContext());
 
                 if (remoteUserNameOperationResult.isSuccess() &&
                         remoteUserNameOperationResult.getData() != null) {
@@ -366,7 +365,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userID);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
-                RemoteOperationResult result = operation.execute(account, getContext(), true);
+                RemoteOperationResult result = operation.execute(account, getContext());
 
                 if (result.isSuccess()) {
                     Log_OC.d(TAG, "public key success");
@@ -384,8 +383,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(account, getContext(),
-                        true);
+                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(account, getContext());
 
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");
@@ -400,7 +398,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                     return (String) storePrivateKeyResult.getData().get(0);
                 } else {
                     DeletePublicKeyOperation deletePublicKeyOperation = new DeletePublicKeyOperation();
-                    deletePublicKeyOperation.execute(account, getContext(), true);
+                    deletePublicKeyOperation.execute(account, getContext());
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage());

@@ -40,15 +40,15 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  *  Authenticator for ownCloud accounts.
- * 
+ *
  *  Controller class accessed from the system AccountManager,
  *  providing integration of ownCloud accounts with the Android system.
- * 
+ *
  *  TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
  *  TODO - review completeness
  */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
-    
+
     /**
      * Is used by android system to assign accounts to authenticators.
      * Should be used by application and all extensions.
@@ -59,9 +59,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_ACCOUNT = "account";
 
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
-    
+
     private Context mContext;
-    
+
     private Handler mHandler;
 
     public AccountAuthenticator(Context context) {
@@ -101,17 +101,17 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
 
             setIntentFlags(intent);
-            
+
             bundle.putParcelable(AccountManager.KEY_INTENT, intent);
         } else {
             // Return an error
             bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION);
-            final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name)); 
+            final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name));
             bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
-           
+
             mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
         }
-        
+
         return bundle;
     }
 
@@ -160,7 +160,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
             return e.getFailureBundle();
         }
-        
+
         /// check if required token is stored
         final AccountManager am = AccountManager.get(mContext);
         String accessToken;
@@ -176,7 +176,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
             return result;
         }
-        
+
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
         Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
@@ -184,7 +184,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
         intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
         intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-        
+
 
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -242,10 +242,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         String accountType = MainApp.getAccountType(mContext);
 
         if (!authTokenType.equals(accountType) &&
-                !authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(accountType)) &&
-                !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeAccessToken(accountType)) &&
-                !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeRefreshToken(accountType)) &&
-                !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(accountType))) {
+            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(accountType))) {
             throw new UnsupportedAuthTokenTypeException();
         }
     }
