@@ -2,6 +2,7 @@ package com.owncloud.android.authentication;
 
 import android.os.Bundle;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.utils.GooglePlayUtils;
 
 /**
@@ -24,7 +25,7 @@ import com.owncloud.android.utils.GooglePlayUtils;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class ModifiedAuthenticatorActivity extends AuthenticatorActivity {
+public class ModifiedAuthenticatorActivity extends AuthenticatorActivity implements Injectable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
