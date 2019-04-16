@@ -44,6 +44,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import android.util.Log;
+import android.util.SparseArray;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.UserAccountManager;
@@ -83,9 +84,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -104,10 +103,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
 
+    private static final String ROOT_PATH = "/";
+    public static final String PATH_SEPARATOR = "/";
+
     @Inject UserAccountManager accountManager;
 
-    private static final String ROOT_SEPARATOR = "/";
-    private final Map<Integer, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
+    private static final String DOCUMENTID_SEPARATOR = "/";
+    private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
 
@@ -116,7 +118,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public Cursor queryRoots(String[] projection) {
-        Log.d(TAG, "queryRoots()");
 
         Context context = MainApp.getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
@@ -126,8 +127,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         final RootCursor result = new RootCursor(projection);
-        for (Map.Entry<Integer, FileDataStorageManager> entry : rootIdToStorageManager.entrySet()) {
-            result.addRoot(new Document(entry.getValue(), "/"), getContext());
+        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
+            result.addRoot(new Document(rootIdToStorageManager.valueAt(i), ROOT_PATH), getContext());
         }
 
         return result;
@@ -232,11 +233,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             OCFile finalFile = ocFile;
             Thread syncThread = new Thread(() -> {
                 try {
-                    FileDataStorageManager sm =
-                            new FileDataStorageManager(account, context.getContentResolver());
-                    SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(finalFile, null, account, true, context);
-                    RemoteOperationResult result = sfo.execute(sm, context);
+                    FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+                    RemoteOperationResult result = new SynchronizeFileOperation(finalFile, null, account,
+                                                                                true, context)
+                        .execute(storageManager, context);
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
@@ -333,7 +333,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Uri uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME + context.getResources().getString(
-            R.string.image_cache_provider_authority) + document.getFile().getRemotePath());
+            R.string.image_cache_provider_authority) + document.getRemotePath());
         Log.d(TAG, "open thumbnail, uri=" + uri);
         return context.getContentResolver().openAssetFileDescriptor(uri, "r");
     }
@@ -353,7 +353,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Context may not be null!");
         }
 
-        RemoteOperationResult result = new RenameFileOperation(document.getFile().getRemotePath(), displayName)
+        RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(), displayName)
             .execute(document.getClient(), document.getStorageManager());
 
         if (!result.isSuccess()) {
@@ -388,7 +388,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         FileDataStorageManager storageManager = document.getStorageManager();
 
-        RemoteOperationResult result = new CopyFileOperation(document.getFile().getRemotePath(), targetFolder.getFile().getRemotePath())
+        RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
             .execute(document.getClient(), storageManager);
 
         if (!result.isSuccess()) {
@@ -400,17 +400,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
-                                                                        account, context).execute(targetFolder.getClient());
+                                                                        account, context)
+            .execute(targetFolder.getClient());
 
         if (!updateParent.isSuccess()) {
             throw new FileNotFoundException("Failed to copy document with documentId " + sourceDocumentId
                                                 + " to " + targetParentDocumentId);
         }
 
-        String newPath = targetFolder.getFile().getRemotePath() + document.getFile().getFileName();
+        String newPath = targetFolder.getRemotePath() + document.getFile().getFileName();
 
         if (document.getFile().isFolder()) {
-            newPath = newPath + "/";
+            newPath = newPath + PATH_SEPARATOR;
         }
         Document newFile = new Document(storageManager, newPath);
 
@@ -445,7 +446,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Context may not be null!");
         }
 
-        RemoteOperationResult result = new MoveFileOperation(document.getFile().getRemotePath(), targetFolder.getFile().getRemotePath())
+        RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
             .execute(document.getClient(), document.getStorageManager());
 
         if (!result.isSuccess()) {
@@ -470,7 +471,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return result;
         }
 
-        for (Document d : findFiles(new Document(storageManager, "/"), query)) {
+        for (Document d : findFiles(new Document(storageManager, ROOT_PATH), query)) {
             result.addFile(d);
         }
 
@@ -503,9 +504,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        CreateFolderOperation createFolderOperation = new CreateFolderOperation(targetFolder.getFile().getRemotePath() + displayName
-                                                                                    + "/", true);
-        RemoteOperationResult result = createFolderOperation.execute(targetFolder.getClient(), storageManager);
+        RemoteOperationResult result = new CreateFolderOperation(targetFolder.getRemotePath() + displayName
+                                                                     + PATH_SEPARATOR, true)
+            .execute(targetFolder.getClient(), storageManager);
 
 
         if (!result.isSuccess()) {
@@ -518,13 +519,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OwnCloudClient client = targetFolder.getClient();
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
-                                                                        account, context).execute(client);
+                                                                        account, context)
+            .execute(client);
 
         if (!updateParent.isSuccess()) {
             throw new FileNotFoundException("Failed to create document with documentId " + targetFolder.getDocumentId());
         }
 
-        String newDirPath = targetFolder.getFile().getRemotePath() + displayName + "/";
+        String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         Document newFolder = new Document(storageManager, newDirPath);
 
         context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
@@ -553,7 +555,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(context, account, new String[]{emptyFile.getAbsolutePath()},
-                                new String[]{targetFolder.getFile().getRemotePath() + displayName}, null,
+                                new String[]{targetFolder.getRemotePath() + displayName}, null,
                                 FileUploader.LOCAL_BEHAVIOUR_MOVE, true, UploadFileOperation.CREATED_BY_USER, false,
                                 false);
 
@@ -574,7 +576,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Failed to create document with documentId " + targetFolder.getDocumentId());
         }
 
-        String newFilePath = targetFolder.getFile().getRemotePath() + displayName;
+        String newFilePath = targetFolder.getRemotePath() + displayName;
         Document newFile = new Document(storageManager, newFilePath);
 
         context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
@@ -600,10 +602,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document parentFolder = document.getParent();
 
-        RemoveFileOperation removeFileOperation = new RemoveFileOperation(document.getFile().getRemotePath(), false, document.getAccount(), true,
-                                                                          context);
-
-        RemoteOperationResult result = removeFileOperation.execute(document.getClient(), document.getStorageManager());
+        RemoteOperationResult result = new RemoveFileOperation(document.getRemotePath(), false,
+                                                               document.getAccount(), true, context)
+            .execute(document.getClient(), document.getStorageManager());
 
         if (!result.isSuccess()) {
             throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
@@ -645,16 +646,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private FileDataStorageManager getStorageManager(String rootId) {
-        for (FileDataStorageManager data : rootIdToStorageManager.values()) {
-            if (data.getAccount().name.equals(rootId)) {
-                return data;
+        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
+            FileDataStorageManager storageManager = rootIdToStorageManager.valueAt(i);
+            if (storageManager.getAccount().name.equals(rootId)) {
+                return storageManager;
             }
         }
 
         return null;
     }
 
-    @SuppressLint("UseSparseArrays")
     private void initiateStorageMap() {
 
         rootIdToStorageManager.clear();
@@ -697,7 +698,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private Document toDocument(String documentId) {
-        String[] separated = documentId.split(ROOT_SEPARATOR);
+        String[] separated = documentId.split(DOCUMENTID_SEPARATOR);
         if (separated.length != 2) {
             return null;
         }
@@ -777,9 +778,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         public String getDocumentId() {
-            for (Map.Entry<Integer, FileDataStorageManager> entry : rootIdToStorageManager.entrySet()) {
-                if (Objects.equals(storageManager, entry.getValue())) {
-                    return entry.getKey() + ROOT_SEPARATOR + fileId;
+            for(int i = 0; i < rootIdToStorageManager.size(); i++) {
+                if (Objects.equals(storageManager, rootIdToStorageManager.valueAt(i))) {
+                    return rootIdToStorageManager.keyAt(i) + DOCUMENTID_SEPARATOR + fileId;
                 }
             }
             return null;
@@ -795,6 +796,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         public OCFile getFile() {
             return getStorageManager().getFileById(fileId);
+        }
+
+        public String getRemotePath() {
+            return getFile().getRemotePath();
         }
 
         OwnCloudClient getClient() {
