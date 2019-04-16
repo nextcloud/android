@@ -210,6 +210,7 @@ public final class FileStorageUtils {
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
+        file.setSharees(remote.getSharees());
 
         return file;
     }
