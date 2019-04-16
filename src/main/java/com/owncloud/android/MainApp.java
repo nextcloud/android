@@ -49,7 +49,6 @@ import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -163,9 +162,17 @@ public class MainApp extends MultiDexApplication implements
     @SuppressWarnings("unused")
     private boolean mBound;
 
+    /**
+     * Temporary hack
+     */
+    private static void initGlobalContext(Context context) {
+        mContext = context;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        initGlobalContext(this);
         DaggerAppComponent.builder()
             .application(this)
             .build()
@@ -187,7 +194,6 @@ public class MainApp extends MultiDexApplication implements
                 uploadsStorageManager
             )
         );
-        MainApp.mContext = getApplicationContext();
 
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();
