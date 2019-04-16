@@ -296,7 +296,9 @@
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
 
-        <activity android:name=".ui.activity.PassCodeActivity" />
+        <activity
+            android:name=".ui.activity.PassCodeActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.activity.RequestCredentialsActivity"
             android:launchMode="singleTask" />

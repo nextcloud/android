@@ -242,18 +242,17 @@ public class MainApp extends MultiDexApplication implements
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
                 WhatsNewActivity.runIfNeeded(activity, preferences);
-                passCodeManager.onActivityCreated(activity);
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
-                passCodeManager.onActivityStarted(activity);
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
+                passCodeManager.onActivityStarted(activity);
             }
 
             @Override
