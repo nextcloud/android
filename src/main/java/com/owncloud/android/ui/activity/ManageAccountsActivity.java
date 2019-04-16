@@ -263,39 +263,31 @@ public class ManageAccountsActivity extends FileActivity
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(this),
-                null,
-                null,
-                null,
-                this,
-                new AccountManagerCallback<Bundle>() {
-                    @Override
-                    public void run(AccountManagerFuture<Bundle> future) {
-                        if (future != null) {
-                            try {
-                                Bundle result = future.getResult();
-                                String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                                accountManager.setCurrentOwnCloudAccount(name);
-                                mAccountListAdapter = new AccountListAdapter(
-                                        ManageAccountsActivity.this,
-                                        getUserAccountManager(),
-                                        getAccountListItems(),
-                                        mTintedCheck
-                                );
-                                mRecyclerView.setAdapter(mAccountListAdapter);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mAccountListAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            } catch (OperationCanceledException e) {
-                                Log_OC.d(TAG, "Account creation canceled");
-                            } catch (Exception e) {
-                                Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                            }
-                        }
-                    }
-                }, mHandler);
+                      null,
+                      null,
+                      null,
+                      this,
+                      future -> {
+                          if (future != null) {
+                              try {
+                                  Bundle result = future.getResult();
+                                  String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
+                                  AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
+                                  mAccountListAdapter = new AccountListAdapter(
+                                          ManageAccountsActivity.this,
+                                          getUserAccountManager(),
+                                          getAccountListItems(),
+                                          mTintedCheck
+                                  );
+                                  mRecyclerView.setAdapter(mAccountListAdapter);
+                                  runOnUiThread(() -> mAccountListAdapter.notifyDataSetChanged());
+                              } catch (OperationCanceledException e) {
+                                  Log_OC.d(TAG, "Account creation canceled");
+                              } catch (Exception e) {
+                                  Log_OC.e(TAG, "Account creation finished in exception: ", e);
+                              }
+                          }
+                      }, mHandler);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

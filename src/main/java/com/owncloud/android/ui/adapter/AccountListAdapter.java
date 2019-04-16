@@ -3,6 +3,7 @@
  *
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author Nick Antoniou
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * <p/>
@@ -63,7 +64,6 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     private RecyclerView mRecyclerView;
     private UserAccountManager accountManager;
 
-
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
     private static final int KEY_USER_INFO_REQUEST_CODE = 13;
 
@@ -107,8 +107,23 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
                 setAvatar(holder, account);
                 setCurrentlyActiveState(holder, account);
 
-                TextView usernameView = (holder).usernameViewItem;
-                TextView accountView = (holder).accountViewItem;
+                TextView usernameView = holder.usernameViewItem;
+                TextView accountView = holder.accountViewItem;
+
+                // OnClickListener for when the user selects an account
+                holder.itemView.setOnClickListener(view -> {
+                    final Intent intent = new Intent(mContext, UserInfoActivity.class);
+                    if (accountListItem.isEnabled()) {
+                        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
+                        try {
+                            OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
+                            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+                        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                            Log_OC.d(TAG, "Failed to find NC account");
+                        }
+                        mContext.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+                    }
+                });
 
                 if (!accountListItem.isEnabled()) {
                     usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -124,32 +139,13 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             }
         }
 
-        // OnClickListener for when the user selects an account
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent intent = new Intent(mContext, UserInfoActivity.class);
-                if (accountListItem.isEnabled()) {
-                    Account account = accountListItem.getAccount();
-                    intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
-                    try {
-                        OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-                        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                        Log_OC.d(TAG, "Failed to find NC account");
-                    }
-                    mContext.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
-                }
-            }
-        });
-
     }
 
     /**
      * Sets up a View to be used for adding a new account
-     * @param holder, the holder which contains the View to be used for the Add Account action.
+     *
+     * @param holder the holder which contains the View to be used for the Add Account action
      */
-    @NonNull
     private void setupAddAccountListItem(AccountViewHolderItem holder) {
         View actionView = holder.itemView;
 
@@ -172,11 +168,24 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         }
     }
 
+    /**
+     * Sets the name of the account, in the view holder
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param account the account
+     */
     private void setAccount(AccountViewHolderItem viewHolder, Account account) {
         viewHolder.accountViewItem.setText(DisplayUtils.convertIdn(account.name, false));
         viewHolder.accountViewItem.setTag(account.name);
     }
 
+    /**
+     * Sets the current active state of the account to true if it is the account being used currently,
+     * false otherwise
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param account the account
+     */
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
         Account currentAccount = accountManager.getCurrentAccount();
         if (currentAccount != null && currentAccount.name.equals(account.name)) {
@@ -186,6 +195,12 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         }
     }
 
+    /**
+     * Sets the avatar of the account
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param account the account
+     */
     private void setAvatar(AccountViewHolderItem viewHolder, Account account) {
         try {
             View viewItem = viewHolder.imageViewItem;
@@ -199,6 +214,12 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         }
     }
 
+    /**
+     * Sets the username of the account
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param account the account
+     */
     private void setUsername(AccountViewHolderItem viewHolder, Account account) {
         try {
             OwnCloudAccount oca = new OwnCloudAccount(account, mContext);
@@ -221,7 +242,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     }
 
     /**
-     * Returns the total number of items in the data set held by the adapter.
+     * Returns the total number of items in the data set held by the adapter
      *
      * @return The total number of items in this adapter.
      */
@@ -232,6 +253,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
 
     /**
      * Returns an AccountListItem from the specified position in the mValues list
+     *
      * @param position of the object to be returned
      * @return An AccountListItem of the specified position
      */
@@ -249,8 +271,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     }
 
     /**
-     * Adds all of the items to the data set.
-     * @param items The item list to be added.
+     * Adds all of the items to the data set
+     *
+     * @param items The item list to be added
      */
     public void addAll(List<AccountListItem> items){
         if(mValues == null){
@@ -280,11 +303,8 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         private TextView usernameViewItem;
         private TextView accountViewItem;
 
-        private View parentView;
-
         AccountViewHolderItem(@NonNull View view) {
             super(view);
-            this.parentView = view;
             this.imageViewItem = view.findViewById(R.id.user_icon);
             this.checkViewItem = view.findViewById(R.id.ticker);
             this.usernameViewItem = view.findViewById(R.id.user_name);
