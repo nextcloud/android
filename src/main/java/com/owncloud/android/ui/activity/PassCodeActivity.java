@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
@@ -239,6 +240,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode()) {
                 /// pass code accepted in request, user is allowed to access the app
+                AppPreferencesImpl.fromContext(this).setLockTimestamp(System.currentTimeMillis());
                 hideSoftKeyboard();
                 finish();
 
@@ -248,6 +250,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
+                AppPreferencesImpl.fromContext(this).setLockTimestamp(System.currentTimeMillis());
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
