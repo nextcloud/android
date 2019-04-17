@@ -22,6 +22,7 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -89,8 +90,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         // try to access the root folder, following redirections but not SAML SSO redirections
         result = operation.execute(client);
         String redirectedLocation = result.getRedirectedLocation(); 
-        while (redirectedLocation != null && redirectedLocation.length() > 0 && 
-                !result.isIdPRedirection()) {
+        while (!TextUtils.isEmpty(redirectedLocation) && !result.isIdPRedirection()) {
             client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
             result = operation.execute(client);
             redirectedLocation = result.getRedirectedLocation();

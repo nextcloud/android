@@ -1091,9 +1091,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onOkClick() {
         // this check should be unnecessary
         if (mServerInfo.mVersion == null ||
-                !mServerInfo.mVersion.isVersionValid() ||
-                mServerInfo.mBaseUrl == null ||
-                mServerInfo.mBaseUrl.length() == 0) {
+            !mServerInfo.mVersion.isVersionValid() ||
+            TextUtils.isEmpty(mServerInfo.mBaseUrl)) {
             mServerStatusIcon = R.drawable.ic_alert;
             mServerStatusText = getResources().getString(R.string.auth_wtf_reenter_URL);
             showServerStatus();
@@ -1911,8 +1910,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOperationsServiceBinder.dispatchResultIfFinished((int) mWaitingForOpId, this);
         }
 
-        if (!webViewLoginMethod && mHostUrlInput.getText() != null && mHostUrlInput.getText().length() > 0
-                && !mServerIsChecked) {
+        if (!webViewLoginMethod && !TextUtils.isEmpty(mHostUrlInput.getText()) && !mServerIsChecked) {
             checkOcServer();
         }
     }

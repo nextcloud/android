@@ -25,6 +25,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
@@ -348,7 +349,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
             if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN    &&
-                    (password == null || password.length() == 0)                        &&
+                    TextUtils.isEmpty(password)                                         &&
                     getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
                     // Was tried without password, but not sure that it's optional.
 
