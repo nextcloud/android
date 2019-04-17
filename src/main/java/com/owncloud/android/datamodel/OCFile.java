@@ -69,7 +69,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter private boolean needsUpdatingWhileSaving;
     @Getter @Setter private long lastSyncDateForProperties;
     @Getter @Setter private long lastSyncDateForData;
-    @Getter @Setter private boolean availableOffline;
     @Getter @Setter private boolean previewAvailable;
     @Getter private String etag;
     @Getter private String etagOnServer;
