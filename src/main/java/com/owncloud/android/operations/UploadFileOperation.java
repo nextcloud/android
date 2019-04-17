@@ -27,6 +27,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
@@ -153,7 +154,7 @@ public class UploadFileOperation extends SyncOperation {
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
-        if (mimeType == null || mimeType.length() <= 0) {
+        if (TextUtils.isEmpty(mimeType)) {
             mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
         }
 
@@ -163,7 +164,7 @@ public class UploadFileOperation extends SyncOperation {
         newFile.setLastSyncDateForData(0);
 
         // size
-        if (localPath != null && localPath.length() > 0) {
+        if (!TextUtils.isEmpty(localPath)) {
             File localFile = new File(localPath);
             newFile.setFileLength(localFile.length());
             newFile.setLastSyncDateForData(localFile.lastModified());
@@ -192,7 +193,7 @@ public class UploadFileOperation extends SyncOperation {
         if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         }
-        if (upload.getLocalPath() == null || upload.getLocalPath().length() <= 0) {
+        if (TextUtils.isEmpty(upload.getLocalPath())) {
             throw new IllegalArgumentException(
                     "Illegal file in UploadFileOperation; storage path invalid: "
                             + upload.getLocalPath());

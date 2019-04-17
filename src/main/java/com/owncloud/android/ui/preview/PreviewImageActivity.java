@@ -32,6 +32,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -223,7 +224,7 @@ public class PreviewImageActivity extends FileActivity implements
                 // Detect Failure (403) --> maybe needs password
                 String password = op.getPassword();
                 if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN &&
-                    (password == null || password.length() == 0) &&
+                    TextUtils.isEmpty(password) &&
                     getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
                     // Was tried without password, but not sure that it's optional.
 

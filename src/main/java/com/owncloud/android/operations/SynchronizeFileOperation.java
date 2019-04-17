@@ -24,6 +24,7 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -204,7 +205,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             if (mServerFile != null) {
                 /// check changes in server and local file
                 boolean serverChanged;
-                if (mLocalFile.getEtag() == null || mLocalFile.getEtag().length() == 0) {
+                if (TextUtils.isEmpty(mLocalFile.getEtag())) {
                     // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
                     serverChanged = mServerFile.getModificationTimestamp() !=
                             mLocalFile.getModificationTimestampAtLastSyncForData();

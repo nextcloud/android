@@ -36,6 +36,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import com.owncloud.android.MainApp;
@@ -455,8 +456,7 @@ public class OperationsService extends Service {
                             );
                         } else {
                             OwnCloudCredentials credentials = null;
-                            if (mLastTarget.mCookie != null &&
-                                    mLastTarget.mCookie.length() > 0) {
+                            if (!TextUtils.isEmpty(mLastTarget.mCookie)) {
                                 // just used for GetUserName
                                 // TODO refactor to run GetUserName as AsyncTask in the context of
                                 // AuthenticatorActivity
@@ -558,7 +558,7 @@ public class OperationsService extends Service {
                     case ACTION_CREATE_SHARE_VIA_LINK:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
-                        if (remotePath.length() > 0) {
+                        if (!TextUtils.isEmpty(remotePath)) {
                             operation = new CreateShareViaLinkOperation(remotePath, password);
                         }
                         break;
@@ -567,7 +567,7 @@ public class OperationsService extends Service {
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
-                        if (remotePath != null && remotePath.length() > 0) {
+                        if (!TextUtils.isEmpty(remotePath)) {
                             UpdateShareViaLinkOperation updateLinkOperation = new UpdateShareViaLinkOperation(remotePath);
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
@@ -616,7 +616,7 @@ public class OperationsService extends Service {
                         String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
                         shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
                         int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
-                        if (remotePath.length() > 0) {
+                        if (!TextUtils.isEmpty(remotePath)) {
                             operation = new CreateShareWithShareeOperation(remotePath, shareeName, shareType,
                                     permissions);
                         }
@@ -627,7 +627,7 @@ public class OperationsService extends Service {
                         shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
                         String shareWith = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
 
-                        if (remotePath.length() > 0) {
+                        if (!TextUtils.isEmpty(remotePath)) {
                             operation = new UnshareOperation(remotePath, shareType, shareWith, this);
                         }
                         break;

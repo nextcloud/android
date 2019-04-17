@@ -22,6 +22,7 @@
 package com.owncloud.android.authentication;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -64,7 +65,7 @@ public final class AuthenticatorUrlUtils {
     public static String normalizeUrl(String url, boolean sslWhenUnprefixed) {
         String normalizedUrl = url;
 
-        if (normalizedUrl != null && normalizedUrl.length() > 0) {
+        if (!TextUtils.isEmpty(normalizedUrl)) {
             normalizedUrl = normalizedUrl.trim();
 
             if (!normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL) &&
