@@ -21,6 +21,8 @@
 
 package com.owncloud.android.operations;
 
+import android.text.TextUtils;
+
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -157,7 +159,7 @@ public class RenameFileOperation extends SyncOperation {
      */
     private boolean isValidNewName() throws IOException {
         // check tricky names
-        if (newName == null || newName.length() <= 0 || newName.contains(File.separator)) {
+        if (TextUtils.isEmpty(newName) || newName.contains(File.separator)) {
             return false;
         }
         // create a test file

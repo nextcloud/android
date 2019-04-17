@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -482,7 +483,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     public String getFolderPath() {
         String path = mLocalFolder.getStoragePath();
-        if (path != null && path.length() > 0) {
+        if (!TextUtils.isEmpty(path)) {
             return path;
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mLocalFolder);

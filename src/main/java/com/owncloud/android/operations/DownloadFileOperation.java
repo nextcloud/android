@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -110,7 +111,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
     public String getMimeType() {
         String mimeType = file.getMimeType();
-        if (mimeType == null || mimeType.length() <= 0) {
+        if (TextUtils.isEmpty(mimeType)) {
             try {
                 mimeType = MimeTypeMap.getSingleton()
                     .getMimeTypeFromExtension(
