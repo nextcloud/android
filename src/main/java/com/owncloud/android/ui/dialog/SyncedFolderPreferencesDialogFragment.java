@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,7 +204,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
 
-        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
+        if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
             mLocalFolderPath.setText(
                     DisplayUtils.createTextWithSpan(
                             String.format(
@@ -216,7 +217,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             mLocalFolderSummary.setText(R.string.choose_local_folder);
         }
 
-        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
+        if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
             mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
         } else {
             mRemoteFolderSummary.setText(R.string.choose_remote_folder);

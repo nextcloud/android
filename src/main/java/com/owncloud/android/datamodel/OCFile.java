@@ -28,6 +28,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import com.owncloud.android.R;
@@ -115,7 +117,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public OCFile(String path) {
         resetData();
         needsUpdatingWhileSaving = false;
-        if (path == null || path.length() <= 0 || !path.startsWith(PATH_SEPARATOR)) {
+        if (TextUtils.isEmpty(path) || !path.startsWith(PATH_SEPARATOR)) {
             throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
         }
         remotePath = path;
@@ -262,7 +264,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is
      */
     public boolean existsOnDevice() {
-        if (localPath != null && localPath.length() > 0) {
+        if (!TextUtils.isEmpty(localPath)) {
             return new File(localPath).exists();
         }
         return false;
@@ -283,7 +285,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return A URI to the local copy of the file, or NULL if not stored in the device
      */
     public Uri getStorageUri() {
-        if (localPath == null || localPath.length() == 0) {
+        if (TextUtils.isEmpty(localPath)) {
             return null;
         }
         if (localUri == null) {
@@ -297,7 +299,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
 
     public Uri getLegacyExposedFileUri() {
-        if (localPath == null || localPath.length() == 0) {
+        if (TextUtils.isEmpty(localPath)) {
             return null;
         }
 
@@ -312,7 +314,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         Partly disabled because not all apps understand paths that we get via this method for now
      */
     public Uri getExposedFileUri(Context context) {
-        if (localPath == null || localPath.length() == 0) {
+        if (TextUtils.isEmpty(localPath)) {
             return null;
         }
         if (exposedFileUri == null) {
@@ -360,8 +362,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public void setFileName(String name) {
         Log_OC.d(TAG, "OCFile name changing from " + remotePath);
-        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
-            !ROOT_PATH.equals(remotePath)) {
+        if (!TextUtils.isEmpty(name) && !name.contains(PATH_SEPARATOR) && !ROOT_PATH.equals(remotePath)) {
             String parent = new File(this.getRemotePath()).getParent();
             parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
             remotePath = parent + name;
@@ -468,7 +469,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public long getLocalModificationTimestamp() {
-        if (localPath != null && localPath.length() > 0) {
+        if (!TextUtils.isEmpty(localPath)) {
             File f = new File(localPath);
             return f.lastModified();
         }
@@ -479,7 +480,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return 'True' if the file is hidden
      */
     public boolean isHidden() {
-        return getFileName().length() > 0 && getFileName().charAt(0) == '.';
+        return !TextUtils.isEmpty(getFileName()) && getFileName().charAt(0) == '.';
     }
 
     /**
