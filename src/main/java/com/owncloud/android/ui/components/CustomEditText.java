@@ -30,6 +30,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 /**
  * Custom edit text to support fixed suffix or prefix
  */
@@ -45,7 +47,7 @@ public class CustomEditText extends TextInputEditText {
 
         if (AuthenticatorActivity.DIRECTORY_SERVER_INPUT_TYPE.equals(serverInputType)) {
             isPrefixFixed = true;
-            fixedText = getResources().getString(R.string.server_url) + "/";
+            fixedText = getResources().getString(R.string.server_url) + PATH_SEPARATOR;
         } else if (AuthenticatorActivity.SUBDOMAIN_SERVER_INPUT_TYPE.equals(serverInputType)) {
             isPrefixFixed = false;
             fixedText = "." + getResources().getString(R.string.server_url);
@@ -53,18 +55,6 @@ public class CustomEditText extends TextInputEditText {
 
         if (TextUtils.isEmpty(fixedText)) {
             setHint(R.string.auth_host_url);
-        }
-    }
-
-    public String getFullServerUrl() {
-        if (TextUtils.isEmpty(fixedText)
-                || getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
-                || getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)) {
-            return getText().toString();
-        } else if (isPrefixFixed) {
-            return getResources().getString(R.string.server_url) + "/" + getText().toString();
-        } else {
-            return getText().toString() + "." + getResources().getString(R.string.server_url);
         }
     }
 

@@ -39,6 +39,8 @@ import java.util.Observable;
 
 import androidx.annotation.NonNull;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 /**
  * Database provider for handling the persistence aspects of {@link SyncedFolder}s.
  */
@@ -251,7 +253,7 @@ public class SyncedFolderProvider extends Observable {
         for (SyncedFolder syncedFolder : syncedFolders) {
             if (!new File(syncedFolder.getLocalPath()).exists()) {
                 String localPath = syncedFolder.getLocalPath();
-                if (localPath.endsWith("/")) {
+                if (localPath.endsWith(PATH_SEPARATOR)) {
                     localPath = localPath.substring(0, localPath.lastIndexOf('/'));
                 }
                 localPath = localPath.substring(0, localPath.lastIndexOf('/'));

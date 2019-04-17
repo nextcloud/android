@@ -129,6 +129,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 /**
  * A Fragment that lists all files and folders in a given path.
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
@@ -796,7 +798,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             } else {
-                parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
+                parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
             while (parentDir == null) {
                 parentPath = new File(parentPath).getParent();
@@ -1140,7 +1142,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     if (mFile != null) {
                         directory = mFile;
                     } else {
-                        directory = storageManager.getFileByPath("/");
+                        directory = storageManager.getFileByPath(ROOT_PATH);
                         if (directory == null) {
                             return; // no files, wait for sync
                         }

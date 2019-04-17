@@ -148,6 +148,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
@@ -983,7 +985,7 @@ public class FileDisplayActivity extends FileActivity
 
                     if (hasEnoughSpaceAvailable) {
                         File file = new File(filesToUpload[0]);
-                        File renamedFile = new File(file.getParent() + "/" + FileOperationsHelper.getCapturedImageName());
+                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
 
                         if (!file.renameTo(renamedFile)) {
                             DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");

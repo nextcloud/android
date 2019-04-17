@@ -31,6 +31,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class RootCursor extends MatrixCursor {
@@ -47,7 +49,7 @@ public class RootCursor extends MatrixCursor {
 
     public void addRoot(Account account, Context context) {
         final FileDataStorageManager manager = new FileDataStorageManager(account, context.getContentResolver());
-        final OCFile mainDir = manager.getFileByPath("/");
+        final OCFile mainDir = manager.getFileByPath(ROOT_PATH);
 
         newRow().add(Root.COLUMN_ROOT_ID, account.name)
             .add(Root.COLUMN_DOCUMENT_ID, mainDir.getFileId())
