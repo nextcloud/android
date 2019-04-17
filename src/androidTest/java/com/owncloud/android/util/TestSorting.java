@@ -1,4 +1,4 @@
-package com.owncloud.android.utils;
+package com.owncloud.android.util;
 
 import com.owncloud.android.datamodel.OCFile;
 
