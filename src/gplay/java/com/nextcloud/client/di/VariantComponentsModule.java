@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.di;
 
+import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
 import com.owncloud.android.services.firebase.NCFirebaseInstanceIDService;
 
 import dagger.Module;
@@ -27,4 +28,5 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract class VariantComponentsModule {
     @ContributesAndroidInjector abstract NCFirebaseInstanceIDService ncFirebaseInstanceIDService();
+    @ContributesAndroidInjector abstract ModifiedAuthenticatorActivity modifiedAuthenticatorActivity();
 }
