@@ -34,13 +34,14 @@ import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 
 import java.lang.ref.WeakReference;
 
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 
 /**
  * Async Task to verify the credentials of a user
  */
 public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOperationResult> {
 
-    private static final String REMOTE_PATH = "/";
     private static final boolean SUCCESS_IF_ABSENT = false;
 
     private WeakReference<Context> mWeakContext;
@@ -66,7 +67,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
             client.setCredentials(credentials);
 
             // Operation - try credentials
-            ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(REMOTE_PATH, SUCCESS_IF_ABSENT);
+            ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(ROOT_PATH, SUCCESS_IF_ABSENT);
             result = operation.execute(client);
 
             if (operation.wasRedirected()) {
