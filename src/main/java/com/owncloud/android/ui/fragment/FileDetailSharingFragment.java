@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -222,6 +223,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             ThemeUtils.themeSearchView(getContext(), searchView, false);
         } else {
             searchView.setVisibility(View.GONE);
+            shareByLinkContainer.setVisibility(View.GONE);
             noList.setText(R.string.reshare_not_allowed);
         }
     }
@@ -296,9 +298,14 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
 
         if (shares.size() > 0) {
+            AccountManager accountManager = AccountManager.get(getContext());
+            String userId = accountManager.getUserData(account,
+                                                       com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(), fileDisplayActivity, shares,
-                account, file, this));
+            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(),
+                                                     fileDisplayActivity, shares, account, file, this, userId));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);

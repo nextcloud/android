@@ -1217,7 +1217,7 @@ public class FileDataStorageManager {
             share.setSharedWithDisplayName(
                     c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)));
             share.setFolder(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1);
-            share.setUserId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_USER_ID)));
+            share.setUserId(c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_USER_ID)));
             share.setRemoteId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
             share.setPasswordProtected(c.getInt(c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED)) == 1);
             share.setNote(c.getString(c.getColumnIndex(ProviderTableMeta.OCSHARES_NOTE)));
