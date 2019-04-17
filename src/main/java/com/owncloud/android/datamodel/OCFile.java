@@ -493,7 +493,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isInConflict() {
-        return etagInConflict != null && !"".equals(etagInConflict);
+        return !TextUtils.isEmpty(etagInConflict);
     }
 
     public boolean isSharedWithMe() {

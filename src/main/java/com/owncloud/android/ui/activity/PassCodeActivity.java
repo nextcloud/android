@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -204,7 +205,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
         for (int i = 0; i < passCodeIndex; i++) {
-            if ("".equals(mPassCodeEditTexts[i].getText().toString())) {
+            if (TextUtils.isEmpty(mPassCodeEditTexts[i].getText())) {
                 mPassCodeEditTexts[i].requestFocus();
                 break;
             }
