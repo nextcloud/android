@@ -85,3 +85,23 @@ The app is currently equipped to be built with three flavours:
 [6]: https://developer.android.com/sdk/installing/index.html?pkg=studio
 [7]: https://gradle.org/
 [8]: https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
+### 5. How-To
+
+#### 1. Direct usage of library project
+
+This is handy if one wants to make changes both to files app and library:
+- in files app root: ln -s $pathToLibraryProject nextcloud-android-library
+- uncomment in build.gradle:  
+    - `//    implementation project('nextcloud-android-library')`
+- comment in build.gradle: 
+    - `genericImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
+    - `gplayImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
+    - `versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
+- comment in settings.gradle: 
+    - `include ':'`
+- uncomment in settings.gradle: 
+    - `//include 'nextcloud-android-library'`
+- sync project with gradle files
+
+Now every change in library can be directly used in files app.
