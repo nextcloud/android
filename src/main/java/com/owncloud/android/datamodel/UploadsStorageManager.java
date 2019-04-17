@@ -26,7 +26,6 @@ package com.owncloud.android.datamodel;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -55,19 +54,16 @@ public class UploadsStorageManager extends Observable {
     private static final int SINGLE_RESULT = 1;
 
     private ContentResolver mContentResolver;
-    private Context mContext;
     private CurrentAccountProvider currentAccountProvider;
 
     public UploadsStorageManager(
         CurrentAccountProvider currentAccountProvider,
-        ContentResolver contentResolver,
-        Context context
+        ContentResolver contentResolver
     ) {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
         mContentResolver = contentResolver;
-        mContext = context;
         this.currentAccountProvider = currentAccountProvider;
     }
 
