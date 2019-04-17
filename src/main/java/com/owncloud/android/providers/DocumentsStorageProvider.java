@@ -705,7 +705,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private Document toDocument(String documentId) {
-        String[] separated = documentId.split(DOCUMENTID_SEPARATOR);
+        String[] separated = documentId.split(DOCUMENTID_SEPARATOR, 2);
         if (separated.length != 2) {
             return null;
         }
