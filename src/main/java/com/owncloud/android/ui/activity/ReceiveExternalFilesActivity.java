@@ -43,6 +43,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -750,7 +751,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         boolean notRoot = mParents.size() > 1;
 
         if (actionBar != null) {
-            if ("".equals(current_dir)) {
+            if (TextUtils.isEmpty(current_dir)) {
                 ThemeUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
             } else {
                 ThemeUtils.setColoredTitle(actionBar, current_dir, this);
