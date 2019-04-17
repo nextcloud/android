@@ -88,6 +88,7 @@ import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -147,7 +148,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
     implements OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, OnSslUntrustedCertListener,
-        AuthenticatorAsyncTask.OnAuthenticatorTaskListener {
+    AuthenticatorAsyncTask.OnAuthenticatorTaskListener, Injectable {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
