@@ -140,7 +140,7 @@ public class RenameFileDialogFragment
                 ((TextView)(getDialog().findViewById(R.id.user_input)))
                     .getText().toString().trim();
 
-            if (TextUtils.isEmpty((newFileName))) {
+            if (TextUtils.isEmpty(newFileName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
             }

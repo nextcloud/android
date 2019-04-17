@@ -19,7 +19,7 @@
  */
 
 
-package com.owncloud.android.utils;
+package com.owncloud.android.util;
 
 import android.accounts.Account;
 import android.content.res.Resources;
@@ -28,6 +28,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,9 +64,9 @@ public class ErrorMessageAdapterUnitTest {
     @Test
     public void getErrorCauseMessageForForbiddenRemoval() {
         // Given a mocked set of resources passed to the object under test...
-        when(mMockResources.getString(R.string.forbidden_permissions))
+        Mockito.when(mMockResources.getString(R.string.forbidden_permissions))
             .thenReturn(MOCK_FORBIDDEN_PERMISSIONS);
-        when(mMockResources.getString(R.string.forbidden_permissions_delete))
+        Mockito.when(mMockResources.getString(R.string.forbidden_permissions_delete))
             .thenReturn(MOCK_TO_DELETE);
 
         Account account = new Account("name", ACCOUNT_TYPE);
