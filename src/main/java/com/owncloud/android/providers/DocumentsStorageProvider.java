@@ -107,9 +107,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
 
-    private static final String ROOT_PATH = "/";
-    public static final String PATH_SEPARATOR = "/";
-
     UserAccountManager accountManager;
 
     private static final String DOCUMENTID_SEPARATOR = "/";
@@ -702,7 +699,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private Document toDocument(String documentId) {
-        String[] separated = documentId.split(DOCUMENTID_SEPARATOR);
+        String[] separated = documentId.split(DOCUMENTID_SEPARATOR, 2);
         if (separated.length != 2) {
             return null;
         }
