@@ -22,11 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     android:id="@+id/list_fragment_layout"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/list_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_containing_list"
