@@ -44,7 +44,6 @@ import androidx.annotation.Nullable;
 public class UserAccountManagerImpl implements UserAccountManager {
 
     private static final String TAG = AccountUtils.class.getSimpleName();
-    private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     private Context context;
     private AccountManager accountManager;
