@@ -123,6 +123,9 @@ import java.util.Vector;
 
 import javax.inject.Inject;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 /**
  * This can be used to upload things to an ownCloud instance.
  */
@@ -174,7 +177,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             String parentPath = savedInstanceState.getString(KEY_PARENTS);
 
             if (parentPath != null) {
-                mParents.addAll(Arrays.asList(parentPath.split("/")));
+                mParents.addAll(Arrays.asList(parentPath.split(PATH_SEPARATOR)));
             }
 
             mFile = savedInstanceState.getParcelable(KEY_FILE);
@@ -884,7 +887,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         String full_path = "";
 
         for (String a : dirs) {
-            full_path += a + "/";
+            full_path += a + PATH_SEPARATOR;
         }
         return full_path;
     }
@@ -1034,10 +1037,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mParents.empty()) {
             String lastPath = preferences.getLastUploadPath();
             // "/" equals root-directory
-            if ("/".equals(lastPath)) {
+            if (ROOT_PATH.equals(lastPath)) {
                 mParents.add("");
             } else {
-                String[] dir_names = lastPath.split("/");
+                String[] dir_names = lastPath.split(PATH_SEPARATOR);
                 mParents.clear();
                 mParents.addAll(Arrays.asList(dir_names));
             }

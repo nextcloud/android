@@ -48,6 +48,9 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 public class OfflineSyncJob extends Job {
     public static final String TAG = "OfflineSyncJob";
 
@@ -90,7 +93,7 @@ public class OfflineSyncJob extends Job {
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
                         getContext().getContentResolver());
 
-                OCFile ocRoot = storageManager.getFileByPath("/");
+                OCFile ocRoot = storageManager.getFileByPath(ROOT_PATH);
 
                 if (ocRoot.getStoragePath() == null) {
                     break;
@@ -109,7 +112,7 @@ public class OfflineSyncJob extends Job {
 
     private void recursive(File folder, FileDataStorageManager storageManager, Account account) {
         String downloadFolder = FileStorageUtils.getSavePath(account.name);
-        String folderName = folder.getAbsolutePath().replaceFirst(downloadFolder, "") + "/";
+        String folderName = folder.getAbsolutePath().replaceFirst(downloadFolder, "") + PATH_SEPARATOR;
         Log_OC.d(TAG, folderName + ": enter");
 
         // exit

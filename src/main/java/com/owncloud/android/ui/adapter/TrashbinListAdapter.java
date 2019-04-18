@@ -51,6 +51,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 /**
  * Adapter for the trashbin view
  */
@@ -134,9 +137,9 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String location;
             int lastIndex = file.getOriginalLocation().lastIndexOf('/');
             if (lastIndex != -1) {
-                location = "/" + file.getOriginalLocation().substring(0, lastIndex) + "/";
+                location = ROOT_PATH + file.getOriginalLocation().substring(0, lastIndex) + PATH_SEPARATOR;
             } else {
-                location = "/";
+                location = ROOT_PATH;
             }
             trashbinFileViewHolder.originalLocation.setText(location);
 

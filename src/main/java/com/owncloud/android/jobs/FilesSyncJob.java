@@ -64,6 +64,8 @@ import java.util.TimeZone;
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 /*
     Job that:
         - restarts existing jobs if required
@@ -190,7 +192,7 @@ public class FilesSyncJob extends Job {
             if (!subfolderByDate) {
                 String adaptedPath = file.getAbsolutePath()
                         .replace(syncedFolder.getLocalPath(), "")
-                        .replace("/" + file.getName(), "");
+                        .replace(PATH_SEPARATOR + file.getName(), "");
                 remotePath += adaptedPath;
             }
 

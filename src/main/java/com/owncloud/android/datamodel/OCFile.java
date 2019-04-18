@@ -199,17 +199,17 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (isEncrypted() && !isFolder()) {
             String parentPath = new File(remotePath).getParent();
 
-            if (parentPath.endsWith("/")) {
+            if (parentPath.endsWith(PATH_SEPARATOR)) {
                 return parentPath + getEncryptedFileName();
             } else {
-                return parentPath + "/" + getEncryptedFileName();
+                return parentPath + PATH_SEPARATOR + getEncryptedFileName();
             }
         } else {
             if (isFolder()) {
-                if (remotePath.endsWith("/")) {
+                if (remotePath.endsWith(PATH_SEPARATOR)) {
                     return remotePath;
                 } else {
-                    return remotePath + "/";
+                    return remotePath + PATH_SEPARATOR;
                 }
             } else {
                 return remotePath;
@@ -412,7 +412,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
-        return parentPath.endsWith("/") ? parentPath : parentPath + "/";
+        return parentPath.endsWith(PATH_SEPARATOR) ? parentPath : parentPath + PATH_SEPARATOR;
     }
 
     @Override
