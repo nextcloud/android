@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/share_via_link_section_title"/>
+                    android:text="@string/share_via_link_section_title" />
 
                 <ImageView
                     android:id="@+id/share_link_copy_icon"
@@ -125,7 +125,7 @@
                     android:paddingRight="@dimen/standard_eighth_margin"
                     android:paddingBottom="@dimen/standard_quarter_margin"
                     android:scaleType="fitStart"
-                    android:src="@drawable/ic_content_copy"/>
+                    android:src="@drawable/ic_content_copy" />
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/share_by_link_allow_editing"
@@ -134,7 +134,7 @@
                     android:layout_gravity="center_vertical"
                     android:ellipsize="middle"
                     android:text="@string/edit_permission_label"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </com.google.android.flexbox.FlexboxLayout>
 
             <ImageView
