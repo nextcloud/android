@@ -26,6 +26,8 @@ import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import java.io.File;
 import java.util.List;
 
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+
 /**
  * Coordinates between model and view: querying model, updating view, react to UI input
  */
@@ -33,7 +35,7 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
 
     private TrashbinContract.View trashbinView;
     private TrashbinRepository trashbinRepository;
-    private String currentPath = "/";
+    private String currentPath = ROOT_PATH;
 
     public TrashbinPresenter(TrashbinRepository trashbinRepository, TrashbinContract.View trashbinView) {
         this.trashbinRepository = trashbinRepository;
@@ -48,12 +50,12 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
 
     @Override
     public boolean isRoot() {
-        return !"/".equals(currentPath);
+        return !ROOT_PATH.equals(currentPath);
     }
 
     @Override
     public void navigateUp() {
-        if ("/".equals(currentPath)) {
+        if (ROOT_PATH.equals(currentPath)) {
             trashbinView.close();
         } else {
             currentPath = new File(currentPath).getParent();
@@ -61,7 +63,7 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
             loadFolder();
         }
 
-        trashbinView.setDrawerIndicatorEnabled("/".equals(currentPath));
+        trashbinView.setDrawerIndicatorEnabled(ROOT_PATH.equals(currentPath));
     }
 
     @Override

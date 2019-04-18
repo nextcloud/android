@@ -68,6 +68,8 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.RequiresApi;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 /**
  * Various utilities that make auto upload tick
  */
@@ -188,11 +190,10 @@ public final class FilesSyncHelper {
         String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DATE_MODIFIED};
 
         String path = syncedFolder.getLocalPath();
-        if (!path.endsWith("/")) {
-            path = path + "/%";
-        } else {
-            path = path + "%";
+        if (!path.endsWith(PATH_SEPARATOR)) {
+            path = path + PATH_SEPARATOR;
         }
+        path = path + "%";
 
         String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
         String dateInitiated = arbitraryDataProvider.getValue(GLOBAL, syncedFolderInitiatedKey);
