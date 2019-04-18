@@ -34,7 +34,7 @@ public class UploadIT extends AbstractIT {
     public void setUp() {
         final ContentResolver contentResolver = targetContext.getContentResolver();
         final CurrentAccountProvider currentAccountProvider = () -> AccountUtils.getCurrentOwnCloudAccount(targetContext);
-        storageManager = new UploadsStorageManager(currentAccountProvider, contentResolver, targetContext);
+        storageManager = new UploadsStorageManager(currentAccountProvider, contentResolver);
     }
 
     @Test

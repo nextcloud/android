@@ -90,8 +90,10 @@ class AppModule {
         return new RemoteFilesRepository(new FilesServiceApiImpl(accountManager));
     }
 
-    @Provides UploadsStorageManager uploadsStorageManager(Context context, CurrentAccountProvider currentAccountProvider) {
-        return new UploadsStorageManager(currentAccountProvider, context.getContentResolver(), context);
+    @Provides
+    UploadsStorageManager uploadsStorageManager(Context context,
+                                                CurrentAccountProvider currentAccountProvider) {
+        return new UploadsStorageManager(currentAccountProvider, context.getContentResolver());
     }
 
     @Provides CurrentAccountProvider currentAccountProvider(UserAccountManager accountManager) {
