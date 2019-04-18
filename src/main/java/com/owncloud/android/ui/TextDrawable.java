@@ -32,7 +32,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.NextcloudServer;
 
