@@ -591,17 +591,17 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @SuppressLint("UseSparseArrays")
     private void initiateStorageMap() throws FileNotFoundException {
 
-        rootIdToStorageManager = new HashMap<>();
-
         Context context = getContext();
+
+        final Account[] allAccounts = accountManager.getAccounts();
+        rootIdToStorageManager = new HashMap<>(allAccounts.length);
 
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
 
-        ContentResolver contentResolver = context.getContentResolver();
-
-        for (Account account : accountManager.getAccounts()) {
+        final ContentResolver contentResolver = context.getContentResolver();
+        for (Account account : allAccounts) {
             final FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
             final OCFile rootDir = storageManager.getFileByPath(ROOT_PATH);
             rootIdToStorageManager.put(rootDir.getFileId(), storageManager);

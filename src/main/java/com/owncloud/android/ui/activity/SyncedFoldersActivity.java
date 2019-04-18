@@ -579,7 +579,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         // custom folders newly created aren't in the list already,
         // so triggering a refresh
-        if (MediaFolderType.CUSTOM.equals(syncedFolder.getType()) && syncedFolder.getId() == UNPERSISTED_ID) {
+        if (MediaFolderType.CUSTOM == syncedFolder.getType() && syncedFolder.getId() == UNPERSISTED_ID) {
             SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
                     SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
                     syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),

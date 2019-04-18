@@ -33,7 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * then error AccountManager.ERROR_CODE_CANCELED will be called on the response.
  */
 
-public class AccountAuthenticatorActivity extends AppCompatActivity {
+public abstract class AccountAuthenticatorActivity extends AppCompatActivity {
 
     private AccountAuthenticatorResponse mAccountAuthenticatorResponse;
     private Bundle mResultBundle;

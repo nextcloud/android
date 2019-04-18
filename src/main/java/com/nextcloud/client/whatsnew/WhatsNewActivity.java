@@ -2,9 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Bartosz Przybylski
+ * @author Chris Narkiewicz
  * Copyright (C) 2015 Bartosz Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2016 Nextcloud.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,11 +21,8 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.whatsnew;
 
-package com.owncloud.android.ui.activity;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -31,12 +30,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.MainApp;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
@@ -57,6 +55,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private ProgressIndicator mProgress;
     private ViewPager mPager;
     @Inject AppPreferences preferences;
+    @Inject AppInfo appInfo;
+    @Inject WhatsNewService whatsNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +73,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         if (showWebView) {
             FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
-                    urls);
+                                                                                       urls);
             mProgress.setNumberOfSteps(featuresWebViewAdapter.getCount());
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                    getWhatsNew(this, preferences));
+                                                                              whatsNew.getWhatsNew());
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
@@ -117,7 +117,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         if (showWebView) {
             tv.setText(R.string.app_name);
         } else {
-            tv.setText(String.format(getString(R.string.whats_new_title), MainApp.getVersionName()));
+            tv.setText(String.format(getString(R.string.whats_new_title), appInfo.getFormattedVersionCode()));
         }
 
         updateNextButtonIfNeeded();
@@ -140,21 +140,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private void onFinish() {
-        preferences.setLastSeenVersionCode(MainApp.getVersionCode());
-    }
-
-    public static void runIfNeeded(Context context, AppPreferences preferences) {
-        if (!context.getResources().getBoolean(R.bool.show_whats_new) || context instanceof WhatsNewActivity) {
-            return;
-        }
-
-        if (shouldShow(context, preferences)) {
-            context.startActivity(new Intent(context, WhatsNewActivity.class));
-        }
-    }
-
-    private static boolean shouldShow(Context context, AppPreferences preferences) {
-        return !(context instanceof PassCodeActivity) && getWhatsNew(context, preferences).length > 0;
+        preferences.setLastSeenVersionCode(BuildConfig.VERSION_CODE);
     }
 
     @Override
@@ -172,19 +158,5 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     public void onPageScrollStateChanged(int state) {
         // unused but to be implemented due to abstract parent
     }
-
-    static private boolean isFirstRun(Context context) {
-        return AccountUtils.getCurrentOwnCloudAccount(context) == null;
-    }
-
-    private static FeatureItem[] getWhatsNew(Context context, AppPreferences preferences) {
-        int itemVersionCode = 30030099;
-
-        if (!isFirstRun(context) && MainApp.getVersionCode() >= itemVersionCode
-                && preferences.getLastSeenVersionCode() < itemVersionCode) {
-            return new FeatureItem[0];
-        } else {
-            return new FeatureItem[0];
-        }
-    }
 }
+
