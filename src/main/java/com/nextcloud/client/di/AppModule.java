@@ -24,6 +24,7 @@ import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
@@ -54,6 +55,11 @@ class AppModule {
     @Provides
     Context context(Application application) {
         return application;
+    }
+
+    @Provides
+    Resources resources(Application application) {
+        return application.getResources();
     }
 
     @Provides

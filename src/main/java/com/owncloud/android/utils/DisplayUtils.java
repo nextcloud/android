@@ -85,6 +85,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.IDN;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -649,7 +650,7 @@ public final class DisplayUtils {
      */
     public static String getData(InputStream inputStream) {
 
-        BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream, Charset.defaultCharset()));
         String line;
         StringBuilder text = new StringBuilder();
         try {

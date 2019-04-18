@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Class for loading the version number
@@ -46,7 +47,8 @@ public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... args) {
         try {
             URL url = new URL(args[0]);
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))){
+            final Charset charset = Charset.defaultCharset();
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), charset))) {
                 return Integer.parseInt(in.readLine());
 
             } catch (IOException e) {
