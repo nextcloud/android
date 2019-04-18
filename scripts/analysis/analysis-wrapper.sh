@@ -58,6 +58,9 @@ else
     if [ $baseBranch = "master" -a $(grep "android-library:master" build.gradle -c) -ne 3 ]; then
         checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
         checkLibrary=1
+    elif [ $baseBranch != "master" -a $baseBranch = $stableBranch -a $(grep "android-library:.*SNAPSHOT" build.gradle -c) -ne 0 ]; then
+        checkLibraryMessage="<h1>Android-library is set to a SNAPSHOT in build.gradle</h1>"
+        checkLibrary=1
     else
         checkLibrary=0
     fi
