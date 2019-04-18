@@ -33,7 +33,6 @@ import android.widget.TextView;
 
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;

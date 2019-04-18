@@ -120,13 +120,6 @@ public class MainApp extends MultiDexApplication implements
 
     private static final String TAG = MainApp.class.getSimpleName();
 
-    private static final String AUTH_ON = "on";
-
-    @SuppressWarnings("unused")
-    private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
-    @SuppressWarnings("unused")
-    private static final String POLICY_ALWAYS_NEW_CLIENT = "always new client";
-
     private static Context mContext;
 
     private static String storagePath;

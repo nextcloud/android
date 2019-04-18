@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Alejandro Bautista
@@ -28,7 +28,6 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;

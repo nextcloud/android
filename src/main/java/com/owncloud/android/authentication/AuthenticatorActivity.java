@@ -1859,19 +1859,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public abstract boolean onDrawableTouch(final MotionEvent event);
     }
 
-
-    private void getRemoteUserNameOperation(String sessionCookie) {
-
-        Intent getUserNameIntent = new Intent();
-        getUserNameIntent.setAction(OperationsService.ACTION_GET_USER_NAME);
-        getUserNameIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
-        getUserNameIntent.putExtra(OperationsService.EXTRA_COOKIE, sessionCookie);
-
-        if (mOperationsServiceBinder != null) {
-            mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getUserNameIntent);
-        }
-    }
-
     /**
      * Show untrusted cert dialog
      */
