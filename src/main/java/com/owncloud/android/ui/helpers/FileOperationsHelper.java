@@ -751,6 +751,7 @@ public class FileOperationsHelper {
                     context.getResources().getString(R.string.image_cache_provider_authority) +
                     file.getRemotePath()));
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             mFileActivity.startActivity(Intent.createChooser(sendIntent,
                     context.getString(R.string.actionbar_send_file)));
