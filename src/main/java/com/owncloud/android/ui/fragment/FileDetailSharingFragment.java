@@ -37,17 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -73,6 +63,18 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener {
@@ -246,11 +248,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void setLinkDetailVisible(boolean visible) {
         if (visible) {
-            if (file.isFolder()) {
                 shareByLinkAllowEditing.setVisibility(View.VISIBLE);
-            } else {
-                shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
-            }
             overflowMenuShareLink.setVisibility(View.VISIBLE);
         } else {
             shareByLinkAllowEditing.setVisibility(View.INVISIBLE);

@@ -581,8 +581,13 @@ public class OperationsService extends Service {
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
-                                updateLinkOperation.setPublicUpload(
+                                if (remotePath.endsWith("/")) {
+                                    updateLinkOperation.setPublicUploadOnFolder(
                                         operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false));
+                                } else {
+                                    updateLinkOperation.setPublicUploadOnFile(
+                                        operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false));
+                                }
                             }
                             operation = updateLinkOperation;
                         } else if (shareId > 0) {
