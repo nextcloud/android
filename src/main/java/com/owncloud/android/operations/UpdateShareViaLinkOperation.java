@@ -43,7 +43,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     @Getter private String path;
     @Getter @Setter private String password;
     /** Enable upload permissions to update in Share resource. */
-    @Setter private Boolean publicUpload;
+    @Setter private Boolean publicUploadOnFolder;
+    @Setter private Boolean publicUploadOnFile;
     @Setter private Boolean hideFileDownload;
     @Setter private long expirationDateInMillis;
 
@@ -69,7 +70,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(publicShare.getRemoteId());
         updateOp.setPassword(password);
         updateOp.setExpirationDate(expirationDateInMillis);
-        updateOp.setPublicUpload(publicUpload);
+        updateOp.setPublicUploadOnFolder(publicUploadOnFolder);
+        updateOp.setPublicUploadOnFile(publicUploadOnFile);
         updateOp.setHideFileDownload(hideFileDownload);
         RemoteOperationResult result = updateOp.execute(client);
 
