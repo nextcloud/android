@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -43,7 +44,7 @@ public final class ClipboardUtil {
     }
 
     public static void copyToClipboard(Activity activity, String text, boolean showToast) {
-        if (text != null && text.length() > 0) {
+        if (!TextUtils.isEmpty(text)) {
             try {
                 ClipData clip = ClipData.newPlainText(
                         activity.getString(
