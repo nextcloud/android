@@ -152,31 +152,33 @@
                 android:text="@string/auth_testing_connection"
                 android:textColor="@color/login_text_color" />
 
-            <CheckBox
-                android:id="@+id/oauth_onOff_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:contentDescription="@string/oauth_check_onoff"
-                android:onClick="onCheckClick"
-                android:text="@string/oauth_check_onoff"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/login_text_hint_color" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_oAuthEntryPoint_1"
-                android:layout_width="114dp"
-                android:layout_height="wrap_content">
+                android:id="@+id/input_layout_account_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/primary"
+                app:hintTextColor="@color/fg_inverse"
+                android:visibility="gone">
 
-
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/account_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="username"
+                    android:ems="10"
+                    android:hint="@string/auth_username"
+                    android:inputType="textNoSuggestions"
+                    android:textColor="@color/login_text_color"
+                    android:theme="@style/Nextcloud.EditText.Login"
+                    android:textColorHint="@color/login_text_hint_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
                 android:id="@+id/input_layout_account_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundColor="@color/primary"
+                app:hintTextColor="@color/fg_inverse"
                 android:visibility="gone"
                 app:passwordToggleDrawable="@drawable/password_visibility_selector"
                 app:passwordToggleTint="@color/login_text_hint_color">
@@ -191,6 +193,7 @@
                     android:hint="@string/auth_password"
                     android:inputType="textPassword"
                     android:textColor="@color/login_text_color"
+                    android:theme="@style/Nextcloud.EditText.Login"
                     android:textColorHint="@color/login_text_hint_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
