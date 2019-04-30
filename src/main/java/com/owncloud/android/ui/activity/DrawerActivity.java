@@ -991,7 +991,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     menuItem.getIcon().clearColorFilter();
-                    ThemeUtils.tintDrawable(menuItem.getIcon(), ContextCompat.getColor(this, R.color.drawer_menu_icon));
+                    if(menuItem.getGroupId() != R.id.drawer_menu_accounts
+                        || menuItem.getItemId() == R.id.drawer_menu_account_add
+                        || menuItem.getItemId() == R.id.drawer_menu_account_manage) {
+                        ThemeUtils.tintDrawable(menuItem.getIcon(), ContextCompat.getColor(this, R.color.drawer_menu_icon));
+                    }
                     menuItem.setTitle(Html.fromHtml("<font color='" + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.textColor)) + "'>" + menuItem.getTitle() + "</font>"));
                 }
             }
