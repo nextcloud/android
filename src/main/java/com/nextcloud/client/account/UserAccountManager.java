@@ -22,6 +22,7 @@ package com.nextcloud.client.account;
 import android.accounts.Account;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface UserAccountManager extends CurrentAccountProvider {
 
@@ -46,6 +47,9 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * the same path.
      */
     void updateAccountVersion();
+
+    @Nullable
+    Account getAccountByName(String name);
 
     /**
      * Extract username from account.

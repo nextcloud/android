@@ -60,7 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     @Override
-    protected void onNewIntent (Intent intent) {
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
         Log_OC.v(TAG, "onNewIntent() start");
         Account current = accountManager.getCurrentAccount();
         if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {

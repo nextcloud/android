@@ -68,6 +68,18 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return AccountUtils.getCurrentOwnCloudAccount(context);
     }
 
+    @Override
+    @Nullable
+    public Account getAccountByName(String name) {
+        for (Account account : getAccounts()) {
+            if (account.name.equals(name)) {
+                return account;
+            }
+        }
+
+        return null;
+    }
+
     public void updateAccountVersion() {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
 
