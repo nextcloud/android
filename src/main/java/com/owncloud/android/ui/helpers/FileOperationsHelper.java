@@ -39,6 +39,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -431,7 +432,7 @@ public class FileOperationsHelper {
             Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            if (password != null && password.length() > 0) {
+            if (!TextUtils.isEmpty(password)) {
                 service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
             }
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());

@@ -24,6 +24,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,7 +153,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String password = ((TextView) (getDialog().findViewById(R.id.share_password))).getText().toString();
 
-            if (password.length() <= 0) {
+            if (TextUtils.isEmpty(password)) {
                 DisplayUtils.showSnackMessage(
                         getActivity().findViewById(android.R.id.content),
                         R.string.share_link_empty_password

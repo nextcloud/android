@@ -22,6 +22,7 @@
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -77,11 +78,11 @@ public final class ErrorMessageAdapter {
     ) {
         String message = getSpecificMessageForResultAndOperation(result, operation, res);
 
-        if (message == null || message.length() <= 0) {
+        if (TextUtils.isEmpty(message)) {
             message = getCommonMessageForResult(result, res);
         }
 
-        if (message == null || message.length() <= 0) {
+        if (TextUtils.isEmpty(message)) {
             message = getGenericErrorMessageForOperation(operation, res);
         }
 
@@ -434,7 +435,7 @@ public final class ErrorMessageAdapter {
 
             }
 
-            else if (result.getHttpPhrase() != null && result.getHttpPhrase().length() > 0) {
+            else if (!TextUtils.isEmpty(result.getHttpPhrase())) {
                 // last chance: error message from server
                 message = result.getHttpPhrase();
             }
