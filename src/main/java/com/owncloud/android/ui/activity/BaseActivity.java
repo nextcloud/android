@@ -55,7 +55,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private FileDataStorageManager mStorageManager;
 
     @Override
-    protected void onNewIntent (Intent intent) {
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
         Log_OC.v(TAG, "onNewIntent() start");
         Account current = AccountUtils.getCurrentOwnCloudAccount(this);
         if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {

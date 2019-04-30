@@ -50,6 +50,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -57,7 +58,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -1105,6 +1105,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
+    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
+        listDirectory(directory, null, onlyOnDevice, fromSearch);
+    }
+
     /**
      * Lists the given directory on the view. When the input parameter is null,
      * it will either refresh the last known directory. list the root
@@ -1112,7 +1116,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
+    public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice, boolean fromSearch) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager != null) {
@@ -1157,13 +1161,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     });
                 }
 
-                mAdapter.swapDirectory(directory, storageManager, onlyOnDevice, mLimitToMimeType);
-                if (mFile == null || !mFile.equals(directory)) {
-                    getRecyclerView().scrollToPosition(0);
-                }
+                mAdapter.swapDirectory(
+                    directory,
+                    storageManager,
+                    onlyOnDevice,
+                    mLimitToMimeType
+                );
                 mFile = directory;
 
                 updateLayout();
+
+                mAdapter.setHighlightedItem(file);
+                int position = mAdapter.getItemPosition(file);
+                if (position == -1) {
+                    getRecyclerView().scrollToPosition(0);
+                } else {
+                    getRecyclerView().scrollToPosition(position);
+                }
             }
         }
     }
