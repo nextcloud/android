@@ -576,7 +576,7 @@ public abstract class FileActivity extends DrawerActivity
         fetchExternalLinks(false);
     }
 
-    protected OCFile getCurrentDir() {
+    public OCFile getCurrentDir() {
         OCFile file = getFile();
         if (file != null) {
             if (file.isFolder()) {
