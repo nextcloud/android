@@ -528,7 +528,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Menunggah…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s terunggah</string>
-    <string name="uploader_upload_succeeded_ticker">Diunggah</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
     <string name="uploader_wrn_no_account_text">Tidak ada akun %1$s dalam perangkat Anda. Silakan membuat akun terlebih dahulu.</string>

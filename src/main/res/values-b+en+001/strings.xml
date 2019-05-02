@@ -7,11 +7,8 @@
     <string name="account_icon">Account icon</string>
     <string name="account_not_found">Account not found!</string>
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
-    <string name="action_clear_successful_uploads">Clear successful uploads</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trashbin</string>
-    <string name="action_force_rescan">Force rescan</string>
-    <string name="action_retry_uploads">Retry failed uploads</string>
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>
     <string name="storage_pictures">Pictures</string>
-    <string name="store_full_desc">The copylefted libre Nextcloud Android app, giving you mobile freedom.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
-    <string name="store_full_dev_desc">The copylefted libre Nextcloud Android app, gives you mobile freedom.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
-    <string name="store_short_desc">The Nextcloud Android app gives mobile access to all files on your Nextcloud.</string>
-    <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
-    <string name="uploader_upload_succeeded_ticker">Uploaded</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>

@@ -7,11 +7,8 @@
     <string name="account_icon">アカウントアイコン</string>
     <string name="account_not_found">アカウントが見つかりません！</string>
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
-    <string name="action_clear_successful_uploads">成功したアップロードをクリアする</string>
     <string name="action_empty_notifications">全ての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
-    <string name="action_force_rescan">強制再スキャン</string>
-    <string name="action_retry_uploads">失敗したアップロードを再試行する</string>
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
@@ -78,6 +75,7 @@
     <string name="auth_username">ユーザー名</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
     <string name="auth_wtf_reenter_URL">予期しない状態です。サーバーアドレスをもう一度入力してください</string>
+    <string name="authentication_exception">認証除外</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -168,6 +166,7 @@
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
+    <string name="dismiss_notification_description">通知を閉じる</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
@@ -384,6 +383,7 @@
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="note_confirm">送信</string>
     <string name="note_could_not_sent">メモを送信できませんでした</string>
+    <string name="notification_action_failed">アクションの実行に失敗しました。</string>
     <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
     <string name="notification_channel_download_name">通知チャンネルをダウンロード</string>
     <string name="notification_channel_file_observer_description">変更のファイルを監視する</string>
@@ -407,6 +407,7 @@
     <string name="oauth_check_onoff">OAuth 2.0でログインする</string>
     <string name="oauth_login_connection">OAuth 2.0サーバーに接続中…</string>
     <string name="offline_mode">インターネットに接続されていません</string>
+    <string name="operation_canceled">処理がキャンセルされました</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="overflow_menu">その他のメニュー</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
@@ -478,6 +479,7 @@
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
     <string name="prefs_lock_device_credentials_not_setup">デバイスの資格情報が設定されていません。</string>
     <string name="prefs_lock_none">なし</string>
+    <string name="prefs_lock_title">アプリを保護する方法</string>
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
@@ -487,7 +489,7 @@
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">ストレージの場所</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
-    <string name="prefs_synced_folders_remote_path_title">フォルダーを削除</string>
+    <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_no_local_file">プレビューするローカルファイルはありません</string>
     <string name="preview_image_error_unknown_format">画像を表示できません</string>
@@ -506,6 +508,7 @@
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
+    <string name="reshare_not_allowed">再共有は許可されていません</string>
     <string name="resharing_is_not_allowed">再共有は許可されていません</string>
     <string name="resized_image_not_possible">サイズ変更された画像はありません。</string>
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
@@ -571,9 +574,11 @@
     <string name="share_with_edit_title">%1$s と共有</string>
     <string name="share_with_title">…と共有</string>
     <string name="share_with_user_section_title">ユーザーとグループで共有</string>
+    <string name="shared_avatar_desc">共有ユーザーからのアバター</string>
     <string name="shared_icon_share">共有</string>
     <string name="shared_icon_shared">共有中</string>
     <string name="shared_icon_shared_via_link">リンク経由で共有</string>
+    <string name="shared_with_you_by">%1$sと共有中</string>
     <string name="sharee_add_failed">共有を追加できませんでした</string>
     <string name="signup_with_provider">他のサービスでサインアップ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
@@ -618,13 +623,6 @@
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたにモバイル・フリーダムをもたらすコピーレフト化された無償の Nextcloud Android アプリ。\n\nフィーチャー：\n* 簡単でモダンなインタフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダーや連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期・共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細はhttps://nextcloud.comまで。</string>
-    <string name="store_full_dev_desc">いつでもどこでも使えるコピーレフトで自由なNextcloudのAndroidアプリ。
-これは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！
-
-公式開発の正規バージョンはF-droidからインストールできます。</string>
-    <string name="store_short_desc">NextcloudのAndroidアプリは、あなたのNextcloudのすべてのファイルにモバイルアクセスを提供します。</string>
-    <string name="store_short_dev_desc">Nextcloud Devアプリケーションは開発スナップショットであり、並列にインストールすることができます。</string>
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
@@ -719,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
-    <string name="uploader_upload_succeeded_ticker">アップロード済</string>
     <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
@@ -766,6 +763,9 @@
     <string name="whats_new_title">%1$sの新機能</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">%2$s から %1$d 個のファイルのコピーに失敗</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d フォルダ</item>

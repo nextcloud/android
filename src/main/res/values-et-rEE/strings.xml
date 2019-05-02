@@ -387,7 +387,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% üleslaadimine %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Üleslaadimine…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s üles laetud</string>
-    <string name="uploader_upload_succeeded_ticker">Ülesse laetud</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Lõpeta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Seadista</string>
     <string name="uploader_wrn_no_account_text">Sinu seadmes ei ole ühtegi %1$s kontot. Palun seadista oma konto.</string>

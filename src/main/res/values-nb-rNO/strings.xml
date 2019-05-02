@@ -7,11 +7,8 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto ble ikke funnet!</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
-    <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
-    <string name="action_force_rescan">Tving reskanning</string>
-    <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
@@ -622,10 +619,6 @@
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musikk</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Nextcloud Android-appen gir deg gratis, copyleft mobil frihet. Copyleft gir deg rett til å bruke og distribuere appen under samme vilkår. \n\nFunksjoner:\n* Enkelt, moderne grensesnitt, tilpasset tema på din serveren\n* Last opp filer til Nextcloud-serveren din\n* Del med andre\n* Hold favorittfiler og mapper synkronisert\n* Søk på tvers av alle mappene på serveren din\n* Automatisk opplasting for bilder og videoer tatt av enheten din\n* Hold deg oppdatert med varsler\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN-kode\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkel oppsett av kalender &amp; kontakt synkronisering\n\nVennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter denne appen på https://help.nextcloud.com/c/clients/android\n\nNy til Nextcloud? Nextcloud er en privat filsynkroniserings &amp; delings- og kommunikasjonsserver. Det er gratis programvare, og du kan være vert for det selv eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene, kalenderen din og kontaktdata, dokumentene dine og alt annet.\n\nLer mer om Nextcloud på https://nextcloud.com</string>
-    <string name="store_full_dev_desc">Den frie copyleft Nextcloud Android-appen, gir deg tilgang til filene i din Nextcloud.\nDette er den offisielle utviklingsversjonen, som gir deg et daglig innblikk i ny utestet funksjonalitet, som kan forårsake ustabilitet og datatap. Appen er myntet på brukere som er villige til å teste, og rapportere feil om de inntreffer. Ikke bruk det til produktivt arbeid!\n\n\Både offisiell vanlig- og dev-versjon er tilgjengelig på F-droid, og kan installeres samtidig.</string>
-    <string name="store_short_desc">Nextcloud på Android gir tilgang til alle Nextcloud-filer via mobilen.</string>
-    <string name="store_short_dev_desc">Nextcloud Dev er et øyblikksbygg som kan installeres parallelt </string>
     <string name="stream">Strøm med…</string>
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet, eller bruk ekstern app.</string>
@@ -720,7 +713,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laster opp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lastet opp</string>
-    <string name="uploader_upload_succeeded_ticker">Opplastet</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>

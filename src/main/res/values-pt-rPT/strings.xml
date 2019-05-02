@@ -7,11 +7,8 @@
     <string name="account_icon">Ícone de conta</string>
     <string name="account_not_found">Conta não encontrada!</string>
     <string name="action_clear_failed_uploads">Limpar envios falhados</string>
-    <string name="action_clear_successful_uploads">Limpar envios bem sucedidos</string>
     <string name="action_empty_notifications">Limpar todas as notifcações</string>
     <string name="action_empty_trashbin">Esvaziar cesto do lixo</string>
-    <string name="action_force_rescan">Forçar reanálise</string>
-    <string name="action_retry_uploads">Repetir envios falhados</string>
     <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
@@ -623,31 +620,6 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imagens</string>
-    <string name="store_full_desc">A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
-
-Funcionalidades:
-* Fácil, interface moderna, adaptado ao tema do seu servidor
-* Envie ficheiros para o seu servidor Nextcloud
-* Partilhe-os com outras pessoas
-* Mantenha os seus ficheiros e pastas favoritos sincronizados
-* Pesquise através de todas as pastas no seu servidor
-* Envio automático de fotos e vídeos capturados pelo seu dispositivo
-* Mantenha-se actualizado com notificações
-* Suporte para várias contas
-* Aceda aos seus dados de forma segura usando a impressão digital ou PIN
-* Integração com DAVx5 (anteriormente conhecido como DAVdroid) para configuração fácil do Calendário &amp; sincronização de Contactos
-
-Por favor, reporte todos os problemas em https://github.com/nextcloud/android/issues e discuta sobre esta aplicação em https://help.nextcloud.com/c/clients/android
-
-A Nextcloud é um servidor privado de comunicação, sincronização &amp; partilha de ficheiros. É Open Source, e pode ser hospedado por si ou pagar a uma empresa para o fazer. Assim, está sob o controlo das suas fotos, calendário e dados de contacto, dos seus documentos e de tudo o resto.
-
-Dê uma vista de olhos no Nextcloud em: https://nextcloud.com</string>
-    <string name="store_full_dev_desc">A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
-Esta é a versão de desenvolvimento oficial, e contem uma amostra diária das novas funcionalidades, ainda não testadas, o que pode causar instabilidade e perda de dados. Esta aplicação é destinada a utilizadores dispostos a tester e reportar erros caso estes ocorram. Não utilize esta aplicação em ambiente de produção!
-
-Tanto a versão oficial dev como a versão regular estão disponíveis no F-droid, e podem estar instaladas em simultâneo.</string>
-    <string name="store_short_desc">A aplicação Nextcloud  para Android permite acesso móvel a todos os ficheiros no seu Nextlcloud.</string>
-    <string name="store_short_dev_desc">A aplicação Nextcloud Dev é um snapshot de desenvolvimento e pode estar instalado em simultâneo.</string>
     <string name="stream">Transmita com…</string>
     <string name="stream_not_possible_headline">Transmissão interna não é possível</string>
     <string name="stream_not_possible_message">Por favor, como opção, transfira media ou utilize uma aplicação externa.</string>
@@ -743,7 +715,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploader_upload_in_progress_content">%1$d%%  A enviar %2$s</string>
     <string name="uploader_upload_in_progress_ticker">A enviar…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
-    <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
     <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>

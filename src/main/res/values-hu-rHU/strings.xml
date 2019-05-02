@@ -7,11 +7,8 @@
     <string name="account_icon">Fiók ikon</string>
     <string name="account_not_found">A fiók nem található!</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
-    <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
     <string name="action_empty_trashbin">Kuka ürítése</string>
-    <string name="action_force_rescan">Kényszerített újraellenőrzés</string>
-    <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_send_share">Küldés/Megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
@@ -478,6 +475,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_license">Licenc</string>
+    <string name="prefs_lock">Alkalmazás számkód</string>
     <string name="prefs_lock_device_credentials_enabled">Eszközhitelesítő-adatok engedélyezve</string>
     <string name="prefs_lock_device_credentials_not_setup">Nincsenek eszközhitelesítő-adatok beállítva.</string>
     <string name="prefs_lock_none">Nincs</string>
@@ -624,28 +622,6 @@
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
     <string name="storage_pictures">Képek</string>
-    <string name="store_full_desc">A szabad Nextcloud androidos alkalmazás, amely mobil szabadságot biztosít.
-
-Szolgáltatások:
-* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
-* Fájlok feltöltése a Nextcloud kiszolgálódra
-* Fájlmegosztás másokkal
-* Kedvenc fájljaid és mappáid szinkronizálása
-* Keresés a kiszolgáló mappái között
-* Az eszközöddel készített videók és képek automatikus feltöltése
-* Értesítések fogadása
-* Több fiók támogatása
-* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
-* Kapcsolódás DAVx5-tel (régi nevén DAVdroid) a naptár és névjegy szinkronizálás megkönnyítéséhez
-
-Jelents minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
-
-Új neked a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet te magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, névjegyeidnek, fájljaidnak és minden egyebednek.
-
-A Nextcloud itt érhető el: https://nextcloud.com</string>
-    <string name="store_full_dev_desc">A szabad Nextcloud androidos alkalmazás, amely mobil szabadságot biztosít.\nEz a hivatalos Nextcloud alkalmazás fejlesztői változata, ami napi mintát ad a nem tesztelt, új funkciókról, amelyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
-    <string name="store_short_desc">A Nextcloud androidos alkalmazás segítségével hozzáférhet az összes, a Nextcloudon tárolt fájlához.</string>
-    <string name="store_short_dev_desc">A Nextcloud Dev alkalmazás egy fejlesztői pillanatkép, és párhuzamosan telepíthető.</string>
     <string name="stream">Közvetítés…</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
@@ -740,7 +716,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s feltöltése</string>
     <string name="uploader_upload_in_progress_ticker">Feltöltés…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s feltöltve</string>
-    <string name="uploader_upload_succeeded_ticker">Feltöltve</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Beállítások</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Először állítson be egy fiókot.</string>

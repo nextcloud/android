@@ -7,11 +7,8 @@
     <string name="account_icon">Ikona e llogarisë</string>
     <string name="account_not_found">Llogaria nuk u gjet!</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
-    <string name="action_clear_successful_uploads">Fshi ngarkimet e suksesshme</string>
     <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
     <string name="action_empty_trashbin">Boshatis koshin e plehrave</string>
-    <string name="action_force_rescan">Riskanim i detyruar</string>
-    <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
@@ -627,10 +624,6 @@
     <string name="storage_movies">Filma</string>
     <string name="storage_music">Muzik</string>
     <string name="storage_pictures">Piktura</string>
-    <string name="store_full_desc">Aplikacioni Android Copyleft libre Nextcloud , që ju jep liri të lëvizshme.\n\nFeatures:\n* Ndërfaqe e lehtë, moderne, e përshtatshme për temën e serverit tuaj\n* Ngarkoni skedarë në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Ruan skedarët dhe dosjet tuaja të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkim automatik për fotot dhe videot e marra nga pajisja juaj\n* Ju mban të përditësuar me njoftimet\n* Mbështetje për shumë llogari\n* Qasje e sigurtë në të dhënat tuaja me gjurmë gishtash ose PIN\n* Integrimi me DAVx5 (i njohur më parë si DAVdroid) për konfigurim të lehtë të kalendarit&amp; Sinkronizimi i kontakteve\n\nJu lutemi raportoni të gjitha çështjet në https://github.com/nextcloud/android/issues dhe diskutoni këtë aplikacion në https://help.nextcloud.com/c/clients/android\n\nI ri në Nexcloud? Nextcloud është një skedar  sinkronizimi privat&amp; server komunikimi dhe shpërndarës. Është software pa pagesë, dhe ju mund ta hostoni ose të paguani një kompani për ta bërë atë për ju. Në këtë mënyrë, ti kontrollon fotot, kalendarin tënd dhe të dhënat e kontaktit, dokumentet e tua dhe gjithçka tjetër.\n\nShikoni Nextcloud në https://nextcloud.com</string>
-    <string name="store_full_dev_desc">Aplikacioni copyleft Android Nextcloud, ju ofron liri të lëvizshme.\nKy është versioni zyrtar i zhvillimit, duke shfaqur një shembull të përditshëm të çdo funksionaliteti të ri të paprovuar, që mund të shkaktojë paqëndrueshmëri dhe humbje të të dhënave. Aplikacioni është për përdoruesit që dëshirojnë të testojnë dhe raportojnë gabime nëse ato ndodhin. Mos e përdorni atë për punën tuaj produktive!\n\nPërveç kësaj, versioni dev dhe versioni i rregullt janë në dispozicion në F-droid dhe mund të instalohen në të njëjtën kohë.</string>
-    <string name="store_short_desc">Aplikacioni Android i Nextcloud jep akses te të gjithë skedarët në Nextcloud-in tuaj.</string>
-    <string name="store_short_dev_desc">Aplikacioni Dev është një snapshot zhvillimi dhe mund të instalohet paralelisht.</string>
     <string name="stream">Rrjedh me...</string>
     <string name="stream_not_possible_headline">Rrjedhja e brendshme nuk është e mundur</string>
     <string name="stream_not_possible_message">Ju lutemi të shkarkoni mediat ose të përdorni aplikacionin e jashtëm.</string>
@@ -725,7 +718,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Po ngarkohet %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Po ngarkohet…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s u ngarkua</string>
-    <string name="uploader_upload_succeeded_ticker">U ngarkua</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>

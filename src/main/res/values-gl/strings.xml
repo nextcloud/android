@@ -7,11 +7,8 @@
     <string name="account_icon">Icona da conta</string>
     <string name="account_not_found">Non se atopou a conta!</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
-    <string name="action_clear_successful_uploads">Limpar os envíos satisfactorios</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
-    <string name="action_force_rescan">Forzar un novo escaneo</string>
-    <string name="action_retry_uploads">Tentar de novo os envíos fallados</string>
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
@@ -240,7 +237,7 @@
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
-    <string name="file_list_empty_favorite_headline">Aínda non hay nada marcado como favorito</string>
+    <string name="file_list_empty_favorite_headline">Aínda non hai nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos</string>
     <string name="file_list_empty_headline">Aquí non hai ficheiros</string>
@@ -627,29 +624,6 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imaxes</string>
-    <string name="store_full_desc">O apli libre para Android de Nextcloud, dálle liberdade móbil.
-
-Características:
-* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor
-* Enviar os seus ficheiros ao seu Nextcloud
-* Compartir os seus ficheiros con outras persoas
-* Manter os seus ficheiros e cartafoles favoritos sincronizados
-* Buscar en todos os cartafoles do servidor
-* Enviar instantaneamente fotos e vídeos feitos no seu móbil ou tableta Android
-* Manterse ao día coas notificacións
-* Admite múltiples contas
-* Acceso seguro aos seus datos con pegada dactilar ou pin
-* Integración con DAVx5 (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos
-
-Agradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre este apli en https://help.nextcloud.com/c/clients/android
-
-E novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, axenda de contactos, documentos e todo o demais.
-
-Coñeza o Nextcloud en https://nextcloud.com</string>
-    <string name="store_full_dev_desc">O apli libre para Android de Nextcloud, dálle liberdade móbil.
-Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria de calquera nova funcionalidade aínda non probada, o que pode provocar inestabilidade e perda de datos. Esta aplicación está destinada a usuarios que queren probar e informar de fallos (en caso de producirse). Non a use para o día a día!\n\nTanto a versión oficial de desenvolvemento como a normal están dispoñíbeis no F-Droid e poden instalarse xuntas.</string>
-    <string name="store_short_desc">O apli para Android de Nextcloud dálle acceso a todos os seus ficheiros no seu Nextcloud.</string>
-    <string name="store_short_dev_desc">O Nextcloud Dev é unha instantánea de desenvolvemento e pode instalarse en paralelo</string>
     <string name="stream">Fluxo con…</string>
     <string name="stream_not_possible_headline">Non é posíbel facer fluxos internos</string>
     <string name="stream_not_possible_message">Descargue o medio ou use un aplicativo externo.</string>
@@ -744,7 +718,6 @@ Esta é a versión oficial de desenvolvemento, que presenta unha mostra diaria d
     <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">Enviado %1$s</string>
-    <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Saír</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
     <string name="uploader_wrn_no_account_text">Non existen contas %1$s no seu dispositivo. Estabeleza primeiro unha conta.</string>
