@@ -758,7 +758,6 @@
     <string name="updating_share_failed">Updating share failed</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
-    <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
     <string name="login">Log in</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="host_your_own_server">Host your own server</string>
@@ -766,7 +765,6 @@
     <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
     <string name="first_run_3_text">Easy-to-use web mail, calendering &amp; contacts</string>
     <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
-    <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
