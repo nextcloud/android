@@ -33,6 +33,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
+import android.os.Build;
+import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -91,13 +93,13 @@ public class NotificationJob extends Job {
     private static final String KEY_NOTIFICATION_ACTION_TYPE = "KEY_NOTIFICATION_ACTION_TYPE";
     private static final String PUSH_NOTIFICATION_ID = "PUSH_NOTIFICATION_ID";
     private static final String NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID";
-    public static final String APP_SPREED = "spreed";
+    private static final String APP_SPREED = "spreed";
 
     private SecureRandom randomId = new SecureRandom();
     private Context context;
     private UserAccountManager accountManager;
 
-    public NotificationJob(final Context context, final UserAccountManager accountManager) {
+    NotificationJob(final Context context, final UserAccountManager accountManager) {
         this.context = context;
         this.accountManager = accountManager;
     }
@@ -260,6 +262,21 @@ public class NotificationJob extends Job {
 
             if (numericNotificationId != 0) {
                 new Thread(() -> {
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                        Activity.NOTIFICATION_SERVICE);
+
+                    android.app.Notification oldNotification = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
+                        for (StatusBarNotification statusBarNotification : notificationManager.getActiveNotifications()) {
+                            if (pushNotificationId == statusBarNotification.getId()) {
+                                oldNotification = statusBarNotification.getNotification();
+                                break;
+                            }
+                        }
+
+                        cancel(context, pushNotificationId);
+                    }
+
                     try {
                         Account currentAccount = AccountUtils.getOwnCloudAccountByName(context, accountName);
 
@@ -286,7 +303,11 @@ public class NotificationJob extends Job {
                         }
 
                         if (success) {
-                            cancel(context, pushNotificationId);
+                            if (oldNotification == null) {
+                                cancel(context, pushNotificationId);
+                            }
+                        } else if (notificationManager != null) {
+                            notificationManager.notify(pushNotificationId, oldNotification);
                         }
                     } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
                         IOException | OperationCanceledException | AuthenticatorException e) {
