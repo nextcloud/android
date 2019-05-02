@@ -7,11 +7,8 @@
     <string name="account_icon">Táknmynd fyrir notandaaðgang</string>
     <string name="account_not_found">Notandaaðgangur fannst ekki!</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
-    <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
     <string name="action_empty_trashbin">Tæma ruslafötu</string>
-    <string name="action_force_rescan">Þvinga endurskönnun</string>
-    <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitir</string>
     <string name="action_switch_list_view">Listi</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Kvikmyndir</string>
     <string name="storage_music">Tónlist</string>
     <string name="storage_pictures">Myndir</string>
-    <string name="store_full_desc">Nextcloud-forritið fyrir Android er opið og frjálst, og gefur þér frelsi á ferðinni.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóninn þinn\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>
-    <string name="store_full_dev_desc">Frjálsa Nextcloud Android-forritið með opna notkunarleyfinu, gefur þér frelsi á ferðinni.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
-    <string name="store_short_desc">Nextcloud Android forritið gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu þínu.</string>
-    <string name="store_short_dev_desc">Nextcloud Dev forritið er skyndiþróunarútgáfa (development snapshot) og er hægt að setja upp samhliða þeirri venjulegu.</string>
     <string name="stream">Streyma með…</string>
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Sendi inn %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Sendi inn …</string>
     <string name="uploader_upload_succeeded_content_single">%1$s sent inn</string>
-    <string name="uploader_upload_succeeded_ticker">Sent inn</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>

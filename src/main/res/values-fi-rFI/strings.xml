@@ -7,11 +7,8 @@
     <string name="account_icon">Tilikuvake</string>
     <string name="account_not_found">Tiliä ei löydy!</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
-    <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
     <string name="action_empty_notifications">Hylkää kaikki ilmoitukset</string>
     <string name="action_empty_trashbin">Tyhjennä roskakori</string>
-    <string name="action_force_rescan">Pakota uudelleenskannaus</string>
-    <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
@@ -628,8 +625,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>
     <string name="storage_pictures">Kuvat</string>
-    <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
-    <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
@@ -723,7 +718,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lähetetty</string>
-    <string name="uploader_upload_succeeded_ticker">Lähetetty</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Lopeta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
     <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>

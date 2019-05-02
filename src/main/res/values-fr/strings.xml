@@ -7,11 +7,8 @@
     <string name="account_icon">Icône du compte</string>
     <string name="account_not_found">Compte introuvable !</string>
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
-    <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
-    <string name="action_force_rescan">Actualiser</string>
-    <string name="action_retry_uploads">Relancer les envois en erreur</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
@@ -628,10 +625,6 @@ Attention la suppression est irréversible.</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>
     <string name="storage_pictures">Images</string>
-    <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVx5 (autrefois connu comme DAVdroid) pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>
-    <string name="store_full_dev_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nC\'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l\'instabilité et la perte de données. L\'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s\'ils surviennent. Ne l\'utilisez pas pour votre travail productif ! \n\nLa version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps. </string>
-    <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>
-    <string name="store_short_dev_desc">Nextcloud Dev est une version de travail qui peut être installée en parallèle.</string>
     <string name="stream">Diffuser avec…</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
@@ -726,7 +719,6 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_upload_in_progress_content">Envoi de %2$s : %1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Envoi en cours…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
-    <string name="uploader_upload_succeeded_ticker">Envoyé</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
     <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>

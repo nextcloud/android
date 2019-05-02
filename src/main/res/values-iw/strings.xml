@@ -7,11 +7,8 @@
     <string name="account_icon">סמל חשבון</string>
     <string name="account_not_found">החשבון לא נמצא!</string>
     <string name="action_clear_failed_uploads">פינוי העלאות שנכשלו</string>
-    <string name="action_clear_successful_uploads">פינוי העלאות שהצליחו</string>
     <string name="action_empty_notifications">פינוי כל ההתראות</string>
     <string name="action_empty_trashbin">פינוי סל האשפה</string>
-    <string name="action_force_rescan">אילוץ סריקה מחדש</string>
-    <string name="action_retry_uploads">לנסות העלאות שנכשלו מחדש</string>
     <string name="action_send_share">שליחה/שיתוף</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
@@ -626,8 +623,6 @@
     <string name="storage_movies">סרטים</string>
     <string name="storage_music">מוזיקה</string>
     <string name="storage_pictures">תמונות</string>
-    <string name="store_short_desc">יישומון Nextcloud ל־Android מעניק לך גישה דרך הטלפון הנייד לכל הקבצים שלך ב־Nextcloud.</string>
-    <string name="store_short_dev_desc">יישומון הפיתוח של Nextcloud הוא יישומון למטרות פיתוח ולא ניתן להתקין אותו במקביל.</string>
     <string name="stream">הזרמה עם…</string>
     <string name="stream_not_possible_headline">אין תמיכה בהזרמה פנימית</string>
     <string name="stream_not_possible_message">נא להוריד את המדיה במקום או להשתמש ביישומון חיצוני.</string>
@@ -722,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
     <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s הועלו</string>
-    <string name="uploader_upload_succeeded_ticker">הועלה</string>
     <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>

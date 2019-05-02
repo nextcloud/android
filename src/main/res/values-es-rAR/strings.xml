@@ -7,11 +7,8 @@
     <string name="account_icon">Icono de cuenta</string>
     <string name="account_not_found">Cuenta no encontrada!</string>
     <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
-    <string name="action_clear_successful_uploads">Borrar subidas exitosas</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Papelera vacía</string>
-    <string name="action_force_rescan">Forzar reescaneo</string>
-    <string name="action_retry_uploads">Reintentar subidas fallidas</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imágenes</string>
-    <string name="store_full_desc">La aplicación libre de Nextcloud para Android, que le brinda libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de su servidor\n* Cargar archivos en su servidor Nextcloud\n* Compartirlos con otros\n* Mantenga sus archivos y carpetas favoritos sincronizados\n* Busque en todas las carpetas de su servidor\n* Cargue automáticamente las fotos y los videos tomados por su dispositivo\n* Manténgase al día con las notificaciones\n* Compatibilidad con múltiples cuentas\n* Acceso seguro a sus datos con huella digital o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para una fácil configuración de calendar &amp; Sincronización de contactos\n\nPor favor, informe todos los problemas en https://github.com/nextcloud/android/issues y discuta esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Nuevo en Nextcloud? Nextcloud es una sincronización de archivos privada &amp; Servidor de acciones y comunicación. Es un software libre, y puede alojarlo usted mismo o pagarle a una empresa para que lo haga por usted. De esa manera, usted tiene el control de sus fotos, su calendario y sus datos de contacto, sus documentos y todo lo demás.\n\n Visite Nextcloud en https://nextcloud.com</string>
-    <string name="store_full_dev_desc">La aplicación libre de Nextcloud para Android le ofrece libertad móvil.\nÉsta es la versión de desarrollo oficial, que muestra una muestra diaria de cualquier nueva funcionalidad no probada, que puede causar inestabilidad y pérdida de datos. La aplicación es para usuarios dispuestos a probar y reportar errores en caso de que ocurran. ¡No lo use para su trabajo productivo!\n\nTanto el desarrollador oficial como la versión regular están disponibles en F-droid y se pueden instalar al mismo tiempo.</string>
-    <string name="store_short_desc">La aplicación de Android Nextcloud le da acceso móvil a todos los archivos en su Nextcloud.</string>
-    <string name="store_short_dev_desc">La aplicación Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo.</string>
     <string name="stream">Transmitir con…</string>
     <string name="stream_not_possible_headline">Transmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor descargue los medios en su lugar o use una aplicación externa.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Subiendo…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s cargado</string>
-    <string name="uploader_upload_succeeded_ticker">Cargado</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ajustes</string>
     <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en su dispositivo. Favor de configurar una cuenta primero.</string>

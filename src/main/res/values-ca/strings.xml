@@ -7,11 +7,8 @@
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>
     <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
-    <string name="action_clear_successful_uploads">Neteja les pujades completades</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
     <string name="action_empty_trashbin">Buida la paperera</string>
-    <string name="action_force_rescan">Forçar un re-escaneig</string>
-    <string name="action_retry_uploads">Reintenta les pujades fallides</string>
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Fotos</string>
-    <string name="store_full_desc">La versió lliure i llicenciada com a \"copyleft\" de l\'app de Nextcloud per a Android us dona llibertat de moviment.\n\nCaracterístiques:\* Fàcil, interfície moderna, associada a l\'aspecte del vostre servidor\n* Pugeu fitxers al vostre servidor Nextcloud\n* Compartiu-los amb d\'altres\n* Mantingueu els vostres fitxers i carpetes preferits sincronitzats\n* Cerqueu a través de totes les carpetes del vostre servidor\n* Pujada automàtica de les fotos i vídeos fets des del vostre dispositiu\n* Mantingueu les notificacions actualitzades\n* Suport per a multi-usuari\n* Accés segur a les vostres dades a través d\'empremta digital o PIN\n* Integració amb DAVx5 (anteriorment conegut com a DAVdroid) per una configuració senzilla del calendari i sincronització de contactes\n\nSi us plau informeu de totes les incidències a https://github.com/nextcloud/android/issues i debateu sobre aquesta app a https://help.nextcloud.com/c/clients/android\n\nNou a Nextcloud? Nextcloud és un servidor de comunicacions per mantenir fitxers privats sincronitzats i compartir . És programari lliure i podeu allotjar-los vos mateix o pagar a una empresa perquè ho faci per a vos. D\'aquesta manera, teniu el control de les vostres fotos, calendaris i dades dels contactes, els vostres documents i tota la resta.\n\nProveu Nextcloud a https://nextcloud.com </string>
-    <string name="store_full_dev_desc">La applicació lliure i copyleft Nextcloud Android, us dona llibertat mòbil.\nAquesta és la versió de desenvolupament, proporcionant una mostra diària de qualsevol funcionalitat no provada, que pot causar inestabilitat i pèrdua de dades. L\'aplicació és per usuaris disposats a provar i informar de les errades que puguin ocórrer. No la feu servir per a la vostra feina productiva!\n\nTant la versió oficial de desenvolumapent com la versió normal estan disponibles a l\'F-droid, i es poden tenir instaŀlades alhora.</string>
-    <string name="store_short_desc">L\'app de Nextcloud per a Android demana dona accés mòbil per a tots els fitxers del vostre Nextcloud.</string>
-    <string name="store_short_dev_desc">L\'app Nextcloud Dev és una instantània de desenvolupament que es pot instal·lar en paral·lel.</string>
     <string name="stream">Seqüència amb...</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
     <string name="uploader_upload_in_progress_ticker">S\'està pujant...</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
-    <string name="uploader_upload_succeeded_ticker">Penjat</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
     <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s al dispositiu. Primer configureu un compte.</string>

@@ -7,11 +7,8 @@
     <string name="account_icon">Konta piktogramo</string>
     <string name="account_not_found">Konto ne trovita!</string>
     <string name="action_clear_failed_uploads">Vakigi malsukcesajn alŝutojn</string>
-    <string name="action_clear_successful_uploads">Vakigi sukcesajn alsûtojn</string>
     <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
     <string name="action_empty_trashbin">Malplenigi rubujon</string>
-    <string name="action_force_rescan">Aktualigi nun</string>
-    <string name="action_retry_uploads">Reprovi malsukcesajn alŝutojn</string>
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Videaĵoj</string>
     <string name="storage_music">Muziko</string>
     <string name="storage_pictures">Bildoj</string>
-    <string name="store_full_desc">La aplikaĵo Nextcloud por Android estas rajtoceda 🄯 kaj donas al vi movan liberecon.\n\nFunkcioj:\n* Facila kaj moderna fasado, kiu adaptiĝas al la etoso de via servilo\n* Alŝutu dosierojn al via Nextcloud-servilo\n* Kunhavigu ilin kun aliuloj\n* Sinkronigu viajn pli ŝatatajn dosierojn kaj dosierujojn\n* Serĉu tra ĉiuj dosierujoj el via servilo\n* Aŭtomata alŝuto de fotoj kaj videaĵoj faritaj pere de via aparato\n* Sciigoj por resti informita\n* Plurkonta subteno\n* Sekurigu aliron al viaj datumoj per fingropremaĵo aŭ persona identiga numero (PIN)\n* Kunlaboro kun aplikaĵo DAVx5 (eks-DAVdroid) por facile agordi sinkronigon de kalendaroj kaj kontaktaro\n\nBonvolu sciigi al ni ĉiujn problemojn aŭ erarojn al https://github.com/nextcloud/android/issues kaj priparoli tiun aplikaĵon ĉi tie: https://help.nextcloud.com/c/clients/android\n\nĈu Nextcloud estas nova por vi? Nextcloud estas servilo por sinkronigo kaj kunhavigo de dosieroj. Ĝi estas libera programo, kaj vi mem povas gastigi ĝin aŭ vi povas pagi firmaon. Tial, vi kontrolas viajn fotojn, kalendarojn kaj kontaktojn, dokumentojn, k.c.\n\nVidu Nextcloud ĉe https://nextcloud.com</string>
-    <string name="store_full_dev_desc">La rajtoceda 🄯 aplikaĵo Nextcloud Android donas al vi movan liberecon.\n\nTio estas la oficiala programista versio, kiu montras ĉiutagan specimenon de ĉiu nova netestista funkcio, kiu povas malstabiligi la aplikaĵon kaj okazigi perdon de datumoj. Tiu aplikaĵo celas al uzantoj, kiuj volas testi kaj raporti pri eraroj. Ne uzu ĝin por via grava laboro!\n\nKaj la beta-versio kaj la ĉiutaga versio disponeblas per „F-Droid“, kaj ili povas samtempe uziĝi.</string>
-    <string name="store_short_desc">La aplikaĵo Nextcloud por Android ebligas aliri al ĉiuj viaj dosieroj en via Nextcloud.</string>
-    <string name="store_short_dev_desc">La programista aplikaĵo Nextcloud estas ekfoto de la aktuala versio kaj ĝi povas esti instalita samtempe.</string>
     <string name="stream">Elsendflui per...</string>
     <string name="stream_not_possible_headline">Ena elsendfluo ne eblas</string>
     <string name="stream_not_possible_message">Elŝutu la aŭdovidan dosieron anstataŭe aŭ uzu eksteran aplikaĵon.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Alŝutante %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Alŝutante…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s alŝutiĝis</string>
-    <string name="uploader_upload_succeeded_ticker">Alŝutita</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Forlasi</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Agordi</string>
     <string name="uploader_wrn_no_account_text">Neniu konto %1$s sur via aparato. Bonvolu unue agordi konton.</string>

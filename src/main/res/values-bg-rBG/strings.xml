@@ -6,10 +6,7 @@
     <string name="account_creation_failed">Създаването на профила се провали</string>
     <string name="account_not_found">Няма намерен профил!</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
-    <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
     <string name="action_empty_trashbin">Изпразни кошчето</string>
-    <string name="action_force_rescan">Сканирай наново</string>
-    <string name="action_retry_uploads">Нов опит за провалените</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
@@ -546,7 +543,6 @@
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Снимки</string>
-    <string name="store_short_desc">Приложението Nextcloud за Android осигурява достъп до всичките ви файлове в Nextcloud.</string>
     <string name="stream">Стрийм с...</string>
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>
     <string name="stream_not_possible_message">Моля свалете медиа файла или използвайте външно приложение</string>
@@ -629,7 +625,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Качване…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s качено</string>
-    <string name="uploader_upload_succeeded_ticker">Качени</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>

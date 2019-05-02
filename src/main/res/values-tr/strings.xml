@@ -7,11 +7,8 @@
     <string name="account_icon">Hesap simgesi</string>
     <string name="account_not_found">Hesap bulunamadı!</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
-    <string name="action_clear_successful_uploads">Sorunsuz yüklemeler temizlensin</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
     <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
-    <string name="action_force_rescan">Yeniden tarama dayatılsın</string>
-    <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="action_send_share">Gönder/Paylaş</string>
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Filmler</string>
     <string name="storage_music">Müzikler</string>
     <string name="storage_pictures">Fotoğraflar</string>
-    <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza yükleme\n* Dosyalarınızı başkalarıyla paylaşma\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama yapma\n* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme\n* Bildirimler ile güncel kalma\n* Birden çok hesap desteği\n*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme\n* DAVx5 (eski adı DAVdroid) bütünleştirmesi ile takvim ve kişileri eşitleme\n\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için https://nextcloud.com adresinden web sitemize bakabilirsiniz.</string>
-    <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması size mobil özgürlük sağlar.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
-    <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
-    <string name="store_short_dev_desc">Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.</string>
     <string name="stream">Şununla akıt…</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%%%1$d Yüklenen: %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Yükleniyor…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
-    <string name="uploader_upload_succeeded_ticker">Yüklendi</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
     <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>

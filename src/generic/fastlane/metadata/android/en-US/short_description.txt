@@ -1,1 +1,1 @@
-The Nextcloud Android app gives mobile access to all files on your Nextcloud.
+The self-hosted productivity platform that keeps you in control

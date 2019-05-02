@@ -158,6 +158,7 @@
     <string name="edit_permission_label">editare</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
+    <string name="end_to_end_encryption_dialog_close">Închide</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
@@ -165,6 +166,7 @@
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
     <string name="file_delete">Ștergeți</string>
+    <string name="file_icon">Fișier</string>
     <string name="file_keep">Păstrare</string>
     <string name="file_list_empty">Încărcați conținut sau sincronizați cu dispozitivele dvs!</string>
     <string name="file_list_empty_favorite_headline">Nu aveți favorite încă</string>
@@ -291,6 +293,7 @@
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server; operațiunea nu s-a executat</string>
     <string name="network_host_not_available">Operațiunea nu a putut fi finalizată; serverul este indisponibil</string>
     <string name="new_comment">Comentariu nou…</string>
+    <string name="new_media_folder_photos">poză</string>
     <string name="note_confirm">Trimitere</string>
     <string name="notifications_loading_activity">Se încarcă notificările…</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
@@ -506,7 +509,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Se încarcă %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Încărcare…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s incarcat</string>
-    <string name="uploader_upload_succeeded_ticker">Încărcat</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Renunță</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
     <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi unul mai întâi.</string>
