@@ -436,9 +436,6 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- სერვერის სერტიფიკატის თარიღები მომავალშია</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL არ ემთხვევა სერტიფიკატში არსებულ ჰოსტნეიმს</string>
     <string name="storage_description_default">საწყისი</string>
-    <string name="store_full_dev_desc">ღია Nextcloud Android აპლიკაცია ხელმისაწვდომს ხდის ყველა თქვენს ფაილს Nextcloud-ში.\nეს ოფიციალური Nextcloud აპლიკაციის დეველოპმენტ ვერსიაა და მოიცავს უახლეს, შეუმოწმებელ ფუნქციებს, რამაც შეიძლება გამოიწვიოს არასტაბილურობა და მონაცემების დაკარგვა. აპლიკაცია დამზადებულია მომხმარებლებისთვის, რომლებსაც სურთ ახალი ფუნქციების შემოწმება და გამოჩენილ შეცდომებზე განაცხადის გაკეთება. არ გამოიყენოთ საწარმოო სამუშაოსთვის!\n\nოფიცლუალური დევ. და რეგულარული ვერსია ხელმისაწვდომია F-droid-ზე და შეიძყება დაყენდეს ნებისმიერ დროს.</string>
-    <string name="store_short_desc">Nextcloud Android აპლიკაცია, იძლევა თქვენს Nextcloud-ზე ყველა არსებულ ფაილთან მობილური წვდომის საშუალებას.</string>
-    <string name="store_short_dev_desc">Nextcloud დევ. აპლიკაცია დევ. კადრია და შესაძლებელია მისი პარალელური დაყენება.</string>
     <string name="subject_shared_with_you">გაგიზიარდათ \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s-სგან გაგიზიარდათ \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">წარმოიშვა კონფლიქტი </string>
@@ -500,7 +497,6 @@
     <string name="uploader_upload_forbidden_permissions">ატვირთოთ ამ დირექტორიაში</string>
     <string name="uploader_upload_in_progress_content">%1$d%% ატვირთვა %2$s</string>
     <string name="uploader_upload_succeeded_content_single">ატვირთულია %1$s</string>
-    <string name="uploader_upload_succeeded_ticker">აიტვირთა</string>
     <string name="uploader_wrn_no_account_quit_btn_text">გამოსვლა</string>
     <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>
     <string name="uploader_wrn_no_account_text">ანგარიშები %1$s თქვენს მოწყობილობაზე არაა. გთხოვთ დააყენოთ ანგარიში.</string>

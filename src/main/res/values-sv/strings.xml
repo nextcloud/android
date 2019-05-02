@@ -7,11 +7,8 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Kontot hittades inte!</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
-    <string name="action_clear_successful_uploads">Rensa lyckade uppladdningar</string>
     <string name="action_empty_notifications">Rensa alla notifieringar</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
-    <string name="action_force_rescan">Tvinga ny genomsökning</string>
-    <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_send_share">Skicka/Dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
@@ -625,9 +622,6 @@
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_dev_desc">Copyleft libre Nextcloud Android-appen, ger dig mobil frihet.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte den för ditt produktiva arbete!\n\nBåde den officiella dev och vanliga versionen finns på F-droid, och kan vara installerade samtidigt.</string>
-    <string name="store_short_desc">Nextcloud Android-appen ger mobilåtkomst till alla filer på ditt Nextcloud.</string>
-    <string name="store_short_dev_desc">Nextcloud Dev-appen är en utveckling ögonblicksbild och kan installeras parallellt.</string>
     <string name="stream">Streama med…</string>
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
     <string name="stream_not_possible_message">Var god ladda ner media istället eller använd en extern app.</string>
@@ -722,7 +716,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
-    <string name="uploader_upload_succeeded_ticker">Uppladdad</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
     <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>

@@ -1,4 +1,4 @@
-The copylefted libre Nextcloud Android app, giving you mobile freedom.
+The self-hosted productivity platform that keeps you in control.
 
 Features:
 * Easy, modern interface, suited to the theme of your server

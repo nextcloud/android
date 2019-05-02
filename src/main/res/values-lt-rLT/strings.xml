@@ -6,18 +6,18 @@
     <string name="account_creation_failed">Paskyros sukūrimas nepavyko</string>
     <string name="account_icon">Paskyros piktograma</string>
     <string name="account_not_found">Paskyra nerasta!</string>
-    <string name="action_clear_failed_uploads">Išvalyti baigtus įkėlimus</string>
+    <string name="action_clear_failed_uploads">Išvalyti nepavykusius įkėlimus</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
     <string name="action_send_share">Siųsti/Bendrinti</string>
-    <string name="action_switch_grid_view">Tinklelio vaizdas</string>
-    <string name="action_switch_list_view">Sąrašas</string>
+    <string name="action_switch_grid_view">Tinklelio rodinys</string>
+    <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_contacts">Pasidaryti atsarginę adresatų kopiją</string>
     <string name="actionbar_contacts_restore">Atkurti adresatus</string>
     <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_logger">Žurnalai</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
-    <string name="actionbar_move">perkelti</string>
+    <string name="actionbar_move">Perkelti</string>
     <string name="actionbar_open_as_richdocument">Atverti naudojant Collabora</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
@@ -422,8 +422,9 @@
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="send">Siųsti</string>
+    <string name="send_note">Siųsti pastabą gavėjui</string>
     <string name="set_as">Nustatyti kaip</string>
-    <string name="set_picture_as">Naudokite šį paveiksliuką</string>
+    <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
     <string name="setup_btn_connect">Prisijungti</string>
     <string name="share_add_user_or_group">Pridėti vartotoją ar grupę</string>
     <string name="share_dialog_title">Bendrinimas</string>
@@ -442,6 +443,7 @@
     <string name="share_privilege_can_share">gali dalintis</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
+    <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
     <string name="share_via_link_password_label">Apsaugoti slaptažodžiu</string>
     <string name="share_via_link_section_title">Dalintis nuoroda</string>
@@ -479,7 +481,6 @@
     <string name="ssl_validator_reason_hostname_not_verified">- URL neatitinka adreso, kuris yra nurodytas liudijime</string>
     <string name="storage_description_default">Numatytasis</string>
     <string name="storage_pictures">Paveikslėliai</string>
-    <string name="store_short_desc">Nextcloud Android programėlė suteikia jums mobiliąją prieigą prie jūsų visų Nextcloud esančių failų.</string>
     <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
     <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
@@ -548,7 +549,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Įkeliama…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s įkelta</string>
-    <string name="uploader_upload_succeeded_ticker">Įkelta</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Išeiti</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Sąranka</string>
     <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra %1$s paskyrų. Iš pradžių, nusistatykite paskyrą.</string>

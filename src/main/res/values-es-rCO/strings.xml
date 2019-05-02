@@ -482,9 +482,6 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- Las fechas del certificado del servidor están en el futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no corresponde con el nombre del servidor en el certificado</string>
     <string name="storage_description_default">Predeterminado</string>
-    <string name="store_full_dev_desc">La aplicación de Nextcloud de copyleft libre para Android te da libertad móvil.\nEsta es la versión oficial de desarrollo que incluye una muestra diaria de funcionalidades nuevas aún no probadas que pueden generar inestabilidad y pérdidad de datos. Esta aplicación está diseñada para usuarios que están dispuestos a realizar pruebas y reportar fallas en caso de que ocurran. ¡No uses esta versión para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la versión normal están disponibles en F-Droid y pueden ser instaladas simultáneamente. </string>
-    <string name="store_short_desc">La aplicación de Nextcloud para Android te da acceso móvil a todos los archivos en tu Nextcloud</string>
-    <string name="store_short_dev_desc">La app de Nextcloud Dev es una foto de desarrollo y puede instalarse en paralelo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
@@ -553,7 +550,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Cargando</string>
     <string name="uploader_upload_succeeded_content_single">%1$s cargado</string>
-    <string name="uploader_upload_succeeded_ticker">Cargado</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ajustes</string>
     <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>

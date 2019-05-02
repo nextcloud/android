@@ -7,11 +7,8 @@
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
-    <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
     <string name="action_empty_trashbin">Άδειασμα κάδου</string>
-    <string name="action_force_rescan">Επιβολή σάρωσης</string>
-    <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
@@ -648,7 +645,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Μεταφορτώνονται %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση…</string>
     <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε</string>
-    <string name="uploader_upload_succeeded_ticker">Μεταφορτώθηκε</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Έξοδος</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>

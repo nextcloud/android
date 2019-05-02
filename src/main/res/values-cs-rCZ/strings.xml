@@ -7,11 +7,8 @@
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet nenalezen!</string>
     <string name="action_clear_failed_uploads">Vyčistit nezdařené nahrávání</string>
-    <string name="action_clear_successful_uploads">Vyčistit úspěšná nahrání</string>
     <string name="action_empty_notifications">Vyčistit všechna oznámení</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
-    <string name="action_force_rescan">Vynutit indexaci</string>
-    <string name="action_retry_uploads">Zkusit znovu nezdařená nahrání</string>
     <string name="action_send_share">Poslat/sdílet</string>
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>
     <string name="storage_pictures">Obrázky</string>
-    <string name="store_full_desc">Svobodně licencovaná Nexcloud Android aplikace, dávající vám mobilní svobodu.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, přizpůsobené vzhledu, používaném na vašem serveru\n* Nahrávejte soubory na svůj Nextcloud server\n* Sdílejte je s ostatními\n* Udržujte své oblíbené soubory a složky synchronizované\n* Hledejte napříč všemi složkami na svém serveru\n* Automaticky nahrávejte své fotky a videa, pořízená zařízením\n* Udržujte si přehled pomocí oznámení\n* Podporuje vícero účtů\n* Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu\n* Napojení na DAVx5 (dříve známé pod názvem DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů\n\n Veškeré nalezené problémy hlaste na https://github.com/nextcloud/android/issues a diskutujte o aplikaci na https://help.nextcloud.com/c/clients/android\n\nNoví v Nextcloud? Nextcloud je soukromý server pro synchronizaci souborů a jejich sdílení, dále pro komunikaci. Jedná se o svobodný software a můžete ho hostovat svými silami nebo za to zaplatit nějaké společnosti. Tím máte pod kontrolou své fotky, kalendář a kontakty, dokumenty a vše ostatní.\n\nPodívejte se na Nextcloud na https://nextcloud.com</string>
-    <string name="store_full_dev_desc">Svobodná (copyleft) aplikace Nexcloud pro Android, dává vám mobilní svobodu.\nToto je oficiální vývojová verze, obsahující denní vzorek všech nových nevyzkoušených funkcí, které mohou způsobovat nestabilitu a vést ke ztrátě dat. Aplikace v tomto stádiu vývoje je určena uživatelům, kteří jsou ochotní zkoušet a hlásit chyby, které se vyskytnou. Nepoužívejte pro svou produkční práci!\n\nObě oficiální verze, jak vývojová tak ostrá jsou k dispozici na F-droid a je možné je mít nainstalované souběžně.</string>
-    <string name="store_short_desc">Aplikace Nextcloud pro Android poskytuje přístup ke všem souborům na vašem Nextcloud.</string>
-    <string name="store_short_dev_desc">Aplikace Nextcloud Dev je ukázkou stavu vývoje a může být nainstalována paralelně.</string>
     <string name="stream">Proudově vysílat s…</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílání %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávání…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>
-    <string name="uploader_upload_succeeded_ticker">Nahráno</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Ukončit</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavení</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve zadejte účet.</string>

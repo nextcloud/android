@@ -7,11 +7,8 @@
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
-    <string name="action_clear_successful_uploads">Wis gelukte uploads</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
     <string name="action_empty_trashbin">Legen prullebak</string>
-    <string name="action_force_rescan">Indexering forceren</string>
-    <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
     <string name="action_send_share">Versturen/Delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
@@ -626,10 +623,6 @@
     <string name="storage_movies">Films</string>
     <string name="storage_music">Muziek</string>
     <string name="storage_pictures">Afbeeldingen</string>
-    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVx5 (vroeger bekend als DAVdroid) voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is een privé bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
-    <string name="store_full_dev_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar is in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
-    <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
-    <string name="store_short_dev_desc">De Nextcloud Dev app is een ontwikkelversie. Kan parallel worden geïnstalleerd.</string>
     <string name="stream">Streamen met…</string>
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
@@ -724,7 +717,6 @@
     <string name="uploader_upload_in_progress_content">%1$d%% Uploaden van %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Uploaden…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
-    <string name="uploader_upload_succeeded_ticker">Geüpload</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
     <string name="uploader_wrn_no_account_text">Er zijn geen %1$s-accounts op dit apparaat. Stel eerst een account in.</string>
