@@ -30,10 +30,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -56,7 +54,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RichDocumentsCreateAssetOperation;
-import com.owncloud.android.operations.RichDocumentsUrlOperation;
+import com.owncloud.android.ui.asynctasks.LoadUrlTask;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -64,14 +62,14 @@ import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import org.parceler.Parcels;
 
-import java.lang.ref.WeakReference;
-
 import javax.inject.Inject;
 
 import androidx.annotation.RequiresApi;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Opens document for editing via Richdocuments app in a web view
@@ -88,6 +86,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
     private Unbinder unbinder;
     private OCFile file;
+    @Getter @Setter private Snackbar loadingSnackbar;
 
     public ValueCallback<Uri[]> uploadMessage;
 
@@ -182,7 +181,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         // load url in background
         url = getIntent().getStringExtra(EXTRA_URL);
         if (TextUtils.isEmpty(url)) {
-            new LoadUrl(this, getAccount()).execute(file.getLocalId());
+            new LoadUrlTask(this, getAccount()).execute(file.getLocalId());
         } else {
             webview.loadUrl(url);
         }
@@ -334,7 +333,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         super.onDestroy();
     }
 
-    private void closeView() {
+    public void closeView() {
         webview.destroy();
         finish();
     }
@@ -344,6 +343,10 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         fileName.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         webview.setVisibility(View.VISIBLE);
+
+        if (loadingSnackbar != null) {
+            loadingSnackbar.dismiss();
+        }
     }
 
     private class RichDocumentsMobileInterface {
@@ -368,56 +371,5 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         }
     }
 
-    private static class LoadUrl extends AsyncTask<String, Void, String> {
 
-        private Account account;
-        private WeakReference<RichDocumentsWebView> richDocumentsWebViewWeakReference;
-
-        LoadUrl(RichDocumentsWebView richDocumentsWebView, Account account) {
-            this.account = account;
-            this.richDocumentsWebViewWeakReference = new WeakReference<>(richDocumentsWebView);
-        }
-
-        @Override
-        protected String doInBackground(String... fileId) {
-            if (richDocumentsWebViewWeakReference.get() == null) {
-                return "";
-            }
-            RichDocumentsUrlOperation richDocumentsUrlOperation = new RichDocumentsUrlOperation(fileId[0]);
-            RemoteOperationResult result = richDocumentsUrlOperation.execute(account,
-                richDocumentsWebViewWeakReference.get());
-
-            if (!result.isSuccess()) {
-                return "";
-            }
-
-            return (String) result.getData().get(0);
-        }
-
-        @Override
-        protected void onPostExecute(String url) {
-            RichDocumentsWebView richDocumentsWebView = richDocumentsWebViewWeakReference.get();
-
-            if (richDocumentsWebView == null) {
-                return;
-            }
-
-            if (!url.isEmpty()) {
-                richDocumentsWebView.webview.loadUrl(url);
-
-                new Handler().postDelayed(() -> {
-                    if (richDocumentsWebView.webview.getVisibility() != View.VISIBLE) {
-                        DisplayUtils.createSnackbar(richDocumentsWebView.findViewById(android.R.id.content),
-                                                    R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                            .setActionTextColor(richDocumentsWebView.getResources().getColor(R.color.white))
-                            .setAction(R.string.fallback_weblogin_back, v -> richDocumentsWebView.closeView()).show();
-                    }
-                }, 10 * 1000);
-            } else {
-                Toast.makeText(richDocumentsWebView.getApplicationContext(),
-                               R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
-                richDocumentsWebView.finish();
-            }
-        }
-    }
 }

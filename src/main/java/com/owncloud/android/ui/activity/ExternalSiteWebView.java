@@ -42,6 +42,7 @@ import java.io.InputStream;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import lombok.Getter;
 
 /**
  * This activity shows an URL as a web view
@@ -55,11 +56,11 @@ public class ExternalSiteWebView extends FileActivity {
 
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
-    private boolean showSidebar;
     protected boolean showToolbar = true;
-    private int menuItemId;
-    protected WebView webview;
     protected int webViewLayout = R.layout.externalsite_webview;
+    private int menuItemId;
+    @Getter protected WebView webview;
+    private boolean showSidebar;
     String url;
 
     @SuppressLint("SetJavaScriptEnabled")
