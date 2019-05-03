@@ -1,18 +1,19 @@
-Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.
+Sizin kontrolunuz altında barındırılan üretkenlik platformu.
 
-Özellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz
-* Dosyalarınızı Nextcloud sunucunuza yükleme
-* Dosyalarınızı başkalarıyla paylaşma
-* Sık kullandığınız dosya ve klasörleri eşitleme
-* Sunucunuzdaki tüm klasörlerde arama yapma
-* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme
-* Bildirimler ile güncel kalma
+Özellikleri:
+* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz
+* Dosyaları Nextcloud sunucunuza yükleme
+* Başkaları ile paylaşma
+* İstediğiniz dosya ve klasörleri eşitleme
+* Sunucunuzdaki tüm klasörlerde arama
+* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme
+* Güncelleme bildirimleri
 * Birden çok hesap desteği
-*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme
-* DAVx5 (eski adı DAVdroid) bütünleştirmesi ile takvim ve kişileri eşitleme
+* Verilere parmak izi y ada pin kodu ile güvenli erişim
+* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)
 
-Kullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz
+Lütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın
 
-Nextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. 
+Nextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.
 
-Ayrıntılı bilgi almak için https://nextcloud.com adresinden web sitemize bakabilirsiniz.
+Nextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.
