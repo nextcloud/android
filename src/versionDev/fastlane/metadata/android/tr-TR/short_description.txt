@@ -1,1 +1,1 @@
-Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.
+Sizin kontrolunuz altında barındırılan üretkenlik platformu (geliştirici ön izle
