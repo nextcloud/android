@@ -1,19 +1,18 @@
-O aplicativo de código aberto Nextcloud para Android oferece liberdade móvel.
+A plataforma de produtividade auto-hospedada que mantém você no controle.
 
 Características:
 * Interface fácil e moderna, adequada ao tema do seu servidor
-* Envia arquivos para o servidor Nextcloud
-* Compartilha com outras pessoas
-* Mantém seus arquivos e pastas favoritas sincronizados
-* Pesquisa em todas as pastas do servidor
-* Envio automático de fotos e vídeos feitos pelo seu dispositivo
-* Atualiza-se com as notificações
+* Fazer upload de arquivos para o servidor Nextcloud
+* Compartilhá-los com outras pessoas
+* Mantenha seus arquivos e pastas favoritos sincronizados
+* Pesquise em todas as pastas do seu servidor
+* Upload automático de fotos e vídeos feitos pelo seu dispositivo
+* Mantenha-se atualizado com as notificações
 * Suporte a várias contas
 * Acesso seguro aos seus dados com impressão digital ou PIN
-* Integração com o DAVx5 (conhecido como DAVdroid) para facilitar a sincronização do calendário & contatos
+* Integração com o DAVx5 (anteriormente conhecido como DAVdroid) para facilitar a configuração do calendário & sincronização de contatos
 
-Reporte qualquer problema em https://github.com/nextcloud/android/issues e fale sobre este aplicativo em https://help.nextcloud.com/c/clients/android
+Favor informar todos os problemas em https://github.com/nextcloud/android/issues e discutir este aplicativo em https://help.nextcloud.com/c/clients/android
 
-É novo para o Nextcloud? Nextcloud é um servidor privado de comunicação & compartilhamento. É software livre e você pode auto-hospedá-lo ou pagar uma empresa para fazer isso. Dessa forma, você está no controle de suas fotos, calendário, dados de contato, documentos e tudo mais.
-
-Saiba mais em https://nextcloud.com
+Novo no Nextcloud? Nextcloud é uma sincronização de arquivos privada para compartilhamento & comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, dados de calendário e de contato, documentos e tudo mais.
+\ nConsulte Nextcloud em https://nextcloud.com

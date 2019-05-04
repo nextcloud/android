@@ -1,4 +1,4 @@
-O aplicativo de código aberto Nextcloud, lhe dá liberdade móvel.
-Esta é a versão oficial de desenvolvimento, com uma amostra diária de qualquer nova funcionalidade não testada, o que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e informar erros se eles ocorrerem. Não o use em ambiente de produção!
+A plataforma de produtividade auto-hospedada que mantém você no controle.
+Esta é a versão oficial de desenvolvimento, apresentando uma amostra diária de qualquer nova funcionalidade não testada e que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e relatar erros caso eles ocorram. Não o use para o seu trabalho produtivo!
 
-Ambas as versões de desenvolvimento e regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.
+Os aplicativos oficiais e a versão regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.
