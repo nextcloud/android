@@ -50,7 +50,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/textColor"
+        android:textColor="@color/fg_default"
         android:textSize="@dimen/file_details_username_text_size"
         tools:text="DCIM" />
 </LinearLayout>

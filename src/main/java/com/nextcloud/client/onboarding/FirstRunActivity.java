@@ -81,7 +81,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
         Button loginButton = findViewById(R.id.login);
         loginButton.setBackgroundColor(getResources().getColor(R.color.bg_default));
-        loginButton.setTextColor(getResources().getColor(R.color.fg_default));
+        loginButton.setTextColor(getResources().getColor(R.color.primary));
 
         loginButton.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
