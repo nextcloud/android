@@ -65,8 +65,6 @@
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
 
-    <color name="action_edit_text">#888888</color>
-
     <!-- special transparent action bar colors for image preview -->
     <color name="color_transparent">#201D2D44</color>
     <color name="color_dark_transparent">#40162233</color>
@@ -78,9 +76,6 @@
 
     <!--<color name="background_material_light">#555555</color>-->
     <color name="drawer_menu_icon">#ffffff</color>
-    <color name="date_picker_header_text">#616161</color>
     <color name="bg_fallback_highlight">#737373</color>
-    <color name="switchpref_track">#4DFFFFFF</color>
 
-    <color name="bg_fallback_activated">#525252</color>
 </resources>
