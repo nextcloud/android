@@ -17,6 +17,31 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- General ownCloud app style -->
+    <style name="Theme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+    </style>
+
+    <style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+    </style>
+
+    <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/bg_default</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:windowBackground">@color/bg_default</item>
+        <item name="android:textColor">@color/fg_inverse</item>
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+        <item name="colorControlHighlight">@color/bg_fallback_highlight</item>
+        <item name="colorControlActivated">@color/bg_fallback_highlight</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="">
+        <item name="android:headerBackground">@color/bg_fallback_highlight</item>
+        <!-- TODO for < API21 -->
+        <item name="android:datePickerMode">calendar</item>
+    </style>
+
     <style name="Theme.ownCloud.Toolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="windowNoTitle">true</item>
