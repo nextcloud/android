@@ -70,8 +70,6 @@
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
 
-    <color name="action_edit_text">#888888</color>
-
     <!-- special transparent action bar colors for image preview -->
     <color name="color_transparent">#201D2D44</color>
     <color name="color_dark_transparent">#40162233</color>
@@ -83,14 +81,10 @@
 
     <!--<color name="background_material_light">#ef4</color>-->
     <color name="drawer_menu_icon">#757575</color>
-    <color name="date_picker_header_text">#ffffff</color>
     <color name="bg_fallback_highlight">#616161</color>
-    <color name="switchpref_track">#4D000000</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
     <color name="themed_fg_inverse">#000000</color>
-
-    <color name="bg_fallback_activated">#737373</color>
 
 </resources>
