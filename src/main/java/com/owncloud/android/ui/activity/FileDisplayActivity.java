@@ -27,6 +27,7 @@ package com.owncloud.android.ui.activity;
 
 import android.Manifest;
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -99,6 +100,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
+import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
@@ -268,6 +270,10 @@ public class FileDisplayActivity extends FileActivity
             fm.beginTransaction()
                     .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
+
+        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            handleOpenFileViaIntent(getIntent());
+        }
     }
 
     @Override
@@ -498,30 +504,34 @@ public class FileDisplayActivity extends FileActivity
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-                listOfFiles.listDirectory(getCurrentDir(), MainApp.isOnlyOnDevice(), false);
+                listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
             } else {
-                Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+                Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(");
             }
 
             /// Second fragment
-            OCFile file = getFile();
+            if (mDualPane) {
+                OCFile file = getFile();
 
-            Fragment secondFragment = getSecondFragment();
-            if (secondFragment == null) {
-                secondFragment = chooseInitialSecondFragment(file);
-            }
+                Fragment secondFragment = getSecondFragment();
+                if (secondFragment == null) {
+                    secondFragment = chooseInitialSecondFragment(file);
+                }
 
-            if (secondFragment != null) {
-                setSecondFragment(secondFragment);
-                updateFragmentsVisibility(true);
-                updateActionBarTitleAndHomeButton(file);
+                if (secondFragment != null) {
+                    setSecondFragment(secondFragment);
+                    updateFragmentsVisibility(true);
+                    updateActionBarTitleAndHomeButton(file);
+                } else {
+                    cleanSecondFragment();
+                    if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
+                        startContactListFragment(file);
+                    } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
+                        startTextPreview(file, false);
+                    }
+                }
             } else {
                 cleanSecondFragment();
-                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
-                    startContactListFragment(file);
-                } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
-                    startTextPreview(file, false);
-                }
             }
 
         } else {
@@ -543,6 +553,8 @@ public class FileDisplayActivity extends FileActivity
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+        } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
@@ -665,7 +677,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
 
-    private OCFileListFragment getListOfFilesFragment() {
+    public OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
                 FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles != null) {
@@ -1692,7 +1704,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+    public void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         if (chosenFile == null) {
             chosenFile = getFile();     // if no file is passed, current file decides
         }
@@ -2595,4 +2607,43 @@ public class FileDisplayActivity extends FileActivity
         searchQuery = query;
     }
 
+    private void handleOpenFileViaIntent(Intent intent) {
+        showLoadingDialog("Retrieving file…");
+
+        String accountName = intent.getStringExtra("KEY_ACCOUNT");
+
+        Account newAccount = getUserAccountManager().getAccountByName(accountName);
+
+        if (newAccount == null) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, "Associated account not found!");
+            return;
+        }
+
+        setAccount(newAccount);
+
+        String fileId = String.valueOf(intent.getStringExtra("KEY_FILE_ID"));
+
+        if ("null".equals(fileId)) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, "Error retrieving file");
+            return;
+        }
+
+        AccountManager am = AccountManager.get(this);
+        String userId = am.getUserData(getAccount(), AccountUtils.Constants.KEY_USER_ID);
+
+        FileDataStorageManager storageManager = getStorageManager();
+
+        if (storageManager == null) {
+            storageManager = new FileDataStorageManager(newAccount, getContentResolver());
+        }
+
+        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(newAccount,
+                                                                          fileId,
+                                                                          userId,
+                                                                          storageManager,
+                                                                          this);
+        fetchRemoteFileTask.execute();
+    }
 }
