@@ -695,22 +695,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 if (!getAccount().name.equals(account.name)) {
                     MenuItem accountMenuItem = mNavigationView.getMenu().add(
-                            R.id.drawer_menu_accounts,
-                            Menu.NONE,
-                            MENU_ORDER_ACCOUNT,
-                            account.name)
-                            .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
+                        R.id.drawer_menu_accounts,
+                        Menu.NONE,
+                        MENU_ORDER_ACCOUNT,
+                        DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
+                        .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
                     DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
-                            accountMenuItem, this);
+                                           accountMenuItem, this);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
-                        R.id.drawer_menu_accounts,
-                        Menu.NONE,
-                        MENU_ORDER_ACCOUNT,
-                        account.name)
-                        .setIcon(R.drawable.ic_user);
+                    R.id.drawer_menu_accounts,
+                    Menu.NONE,
+                    MENU_ORDER_ACCOUNT,
+                    DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
+                    .setIcon(R.drawable.ic_user);
             }
         }
 
@@ -758,8 +758,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         if (mDrawerLayout != null && account != null) {
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
-            usernameFull.setText(account.name);
+
+            usernameFull.setText(DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name));
             usernameFull.setTextColor(ThemeUtils.fontColor(this));
+
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
                 username.setText(oca.getDisplayName());
