@@ -72,14 +72,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     private List<OCShare> shares;
     private float avatarRadiusDimension;
     private OCFile file;
+    private String userId;
 
     public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
-                           OCFile file, ShareeListAdapterListener listener) {
+                           OCFile file, ShareeListAdapterListener listener, String userId) {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.shares = shares;
         this.listener = listener;
         this.file = file;
+        this.userId = userId;
 
         accentColor = ThemeUtils.primaryAccentColor(context);
         capabilities = new FileDataStorageManager(account, context.getContentResolver()).getCapability(account.name);
@@ -120,12 +122,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
             holder.name.setText(name);
 
-            ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
-            holder.allowEditing.setChecked(canEdit(share));
-            holder.allowEditing.setOnClickListener(v -> allowEditClick(holder.allowEditing, share));
+            if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
+                holder.allowEditing.setVisibility(View.VISIBLE);
+                holder.editShareButton.setVisibility(View.VISIBLE);
 
-            // bind listener to edit privileges
-            holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
+                ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
+                holder.allowEditing.setChecked(canEdit(share));
+                holder.allowEditing.setOnClickListener(v -> allowEditClick(holder.allowEditing, share));
+
+                // bind listener to edit privileges
+                holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
+            } else {
+                holder.allowEditing.setVisibility(View.GONE);
+                holder.editShareButton.setVisibility(View.GONE);
+            }
         }
     }
 
