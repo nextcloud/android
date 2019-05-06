@@ -1125,6 +1125,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
+    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
+        listDirectory(directory, null, onlyOnDevice, fromSearch);
+    }
+
     /**
      * Lists the given directory on the view. When the input parameter is null,
      * it will either refresh the last known directory. list the root
@@ -1132,7 +1136,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
+    public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice, boolean fromSearch) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager != null) {
@@ -1184,12 +1188,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     onlyOnDevice,
                     mLimitToMimeType
                 );
-                if (mFile == null || !mFile.equals(directory)) {
-                    getRecyclerView().scrollToPosition(0);
-                }
                 mFile = directory;
 
                 updateLayout();
+
+                mAdapter.setHighlightedItem(file);
+                int position = mAdapter.getItemPosition(file);
+                if (position == -1) {
+                    getRecyclerView().scrollToPosition(0);
+                } else {
+                    getRecyclerView().scrollToPosition(position);
+                }
             }
         }
     }

@@ -92,6 +92,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.Setter;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -128,6 +129,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
     private boolean showShareAvatar;
+    @Setter private OCFile highlightedItem;
 
     public OCFileListAdapter(
         Context context,
@@ -185,6 +187,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void addCheckedFile(OCFile file) {
         checkedFiles.add(file);
+        highlightedItem = null;
     }
 
     public void addAllFilesToCheckedFiles() {
@@ -314,7 +317,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             gridViewHolder.thumbnail.setTag(file.getFileId());
             setThumbnail(file, gridViewHolder.thumbnail);
 
-            if (isCheckedFile(file)) {
+            if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
+                gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
+                                                                 .getColor(R.color.selected_item_background));
+            } else if (isCheckedFile(file)) {
                 gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
                                                                  .getColor(R.color.selected_item_background));
                 gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
@@ -708,15 +714,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    private void searchForLocalFileInDefaultPath(OCFile file) {
-        if (file.getStoragePath() == null && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
-            if (f.exists()) {
-                file.setStoragePath(f.getAbsolutePath());
-                file.setLastSyncDateForData(f.lastModified());
-            }
-        }
-    }
+
 
     public void setData(List<Object> objects, ExtendedListFragment.SearchType searchType,
                         FileDataStorageManager storageManager, OCFile folder) {
@@ -766,7 +764,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    searchForLocalFileInDefaultPath(file);
+                    FileStorageUtils.searchForLocalFileInDefaultPath(file, account);
                     file = mStorageManager.saveFileWithParent(file, mContext);
 
                     ShareType newShareType = ocShare.getShareType();
@@ -812,7 +810,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         for (Object remoteFile : objects) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
-            searchForLocalFileInDefaultPath(ocFile);
+            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);
 
             try {
                 ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
