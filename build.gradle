@@ -60,8 +60,8 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 3
 def versionMinor = 6
-def versionPatch = 0
-def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionPatch = 1
+def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {

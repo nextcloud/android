@@ -1,0 +1,9 @@
+3.6.1 RC1 (May, 06, 2019)
+
+- show reshares correctly
+- allow open files from Talk
+- collabora: hide loading delay warning if document is loaded
+- correctly show idn string in drawer
+- bugfixes
+
+For a full list, please see https://github.com/nextcloud/android/milestone/33
