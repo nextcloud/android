@@ -574,7 +574,8 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("PRAGMA case_sensitive_like = true");
 
         // only file list is accessible via content provider, so only this has to be protected with projectionMap
-        if (mUriMatcher.match(uri) == ROOT_DIRECTORY && projectionArray != null) {
+        if ((mUriMatcher.match(uri) == ROOT_DIRECTORY || mUriMatcher.match(uri) == SINGLE_FILE ||
+            mUriMatcher.match(uri) == DIRECTORY) && projectionArray != null) {
             HashMap<String, String> projectionMap = new HashMap<>();
 
             for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
