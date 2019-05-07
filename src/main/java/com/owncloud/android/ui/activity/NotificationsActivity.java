@@ -374,17 +374,21 @@ public class NotificationsActivity extends FileActivity implements Notifications
     }
 
     @Override
-    public void onRemovedNotification(boolean isSuccess, NotificationListAdapter.NotificationViewHolder holder) {
-        if (isSuccess) {
-            adapter.removeNotification(holder);
-
-            if (adapter.getItemCount() == 0) {
-                setEmptyContent(noResultsHeadline, noResultsMessage);
-                swipeListRefreshLayout.setVisibility(View.GONE);
-                swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-            }
-        } else {
+    public void onRemovedNotification(boolean isSuccess) {
+        if (!isSuccess) {
             DisplayUtils.showSnackMessage(this, getString(R.string.remove_notification_failed));
+            fetchAndSetData();
+        }
+    }
+
+    @Override
+    public void removeNotification(NotificationListAdapter.NotificationViewHolder holder) {
+        adapter.removeNotification(holder);
+
+        if (adapter.getItemCount() == 0) {
+            setEmptyContent(noResultsHeadline, noResultsMessage);
+            swipeListRefreshLayout.setVisibility(View.GONE);
+            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
         }
     }
 

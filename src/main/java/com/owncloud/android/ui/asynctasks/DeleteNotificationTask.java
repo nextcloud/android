@@ -48,8 +48,12 @@ public class DeleteNotificationTask extends AsyncTask<Action, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Action... actions) {
+    protected void onPreExecute() {
+        notificationsActivity.removeNotification(holder);
+    }
 
+    @Override
+    protected Boolean doInBackground(Action... actions) {
         RemoteOperationResult result = new DeleteNotificationRemoteOperation(notification.notificationId)
             .execute(client);
 
@@ -58,6 +62,6 @@ public class DeleteNotificationTask extends AsyncTask<Action, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean success) {
-        notificationsActivity.onRemovedNotification(success, holder);
+        notificationsActivity.onRemovedNotification(success);
     }
 }
