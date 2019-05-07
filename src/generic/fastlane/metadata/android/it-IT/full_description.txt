@@ -1,4 +1,5 @@
-L'applicazione libera e priva di copyright per Android di Nextcloud ti offre libertà in mobilità.
+La piattaforma di produttività auto-gestita che ti lascia al comando.
+
 * Interfaccia semplice e moderna, allineata al tema del tuo server
 * Carica i file sul tuo server Nextcloud
 * Condividi i tuoi file con altri
