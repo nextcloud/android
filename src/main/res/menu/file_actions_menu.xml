@@ -86,7 +86,7 @@
 
     <item
         android:id="@+id/action_open_file_as_richdocument"
-        android:title="@string/actionbar_open_as_richdocument"
+        android:title="@string/actionbar_open_as_richdocument_parameter"
         app:showAsAction="never"
         android:showAsAction="never"/>
 
