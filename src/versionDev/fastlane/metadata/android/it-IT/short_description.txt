@@ -1,1 +1,1 @@
-Nextcloud Dev è un'istantanea di sviluppo, installabile parallelamente.
+La piattaforma di produttività auto-gestita che ti lascia al comando (versione i
