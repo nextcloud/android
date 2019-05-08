@@ -31,6 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.utils.ThemeUtils;
 
 import butterknife.BindView;
@@ -91,6 +92,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue() &&
+            android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
             capability.getRichDocumentsTemplatesAvailable().isTrue()) {
             templates.setVisibility(View.VISIBLE);
         }
