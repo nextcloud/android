@@ -23,10 +23,8 @@
 package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -40,6 +38,7 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.PreferenceManager;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
@@ -238,6 +237,7 @@ public class PassCodeActivity extends AppCompatActivity {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode()) {
                 /// pass code accepted in request, user is allowed to access the app
+                PreferenceManager.fromContext(this).setLockTimestamp(System.currentTimeMillis());
                 hideSoftKeyboard();
                 finish();
 
@@ -247,6 +247,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
+                PreferenceManager.fromContext(this).setLockTimestamp(System.currentTimeMillis());
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);

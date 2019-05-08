@@ -88,6 +88,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
@@ -986,6 +987,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
             super.finish();
         }
+
+        // Passcode
+        AppPreferences preferences = com.nextcloud.client.preferences.PreferenceManager.fromContext(this);
+        PassCodeManager passCodeManager = new PassCodeManager(preferences);
+        passCodeManager.onActivityStarted(this);
 
         Uri data = intent.getData();
         if (data != null && data.toString().startsWith(getString(R.string.oauth2_redirect_uri))) {
