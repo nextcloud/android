@@ -157,6 +157,7 @@
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
     <string name="filename_empty">لا يجوز أن يُترك إسم الملف فارغًا</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_hint">اسم الملف</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_icon">أيقونة المجلد</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
