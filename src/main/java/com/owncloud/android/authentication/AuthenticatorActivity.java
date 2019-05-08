@@ -89,6 +89,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -250,6 +251,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Inject
     protected UserAccountManager accountManager;
+
+    @Inject
+    protected AppPreferences preferences;
 
     /**
      * {@inheritDoc}
@@ -844,6 +848,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
             super.finish();
         }
+
+        // Passcode
+        PassCodeManager passCodeManager = new PassCodeManager(preferences);
+        passCodeManager.onActivityStarted(this);
 
         Uri data = intent.getData();
 

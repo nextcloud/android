@@ -221,10 +221,10 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
+        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
-        // is valid
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
