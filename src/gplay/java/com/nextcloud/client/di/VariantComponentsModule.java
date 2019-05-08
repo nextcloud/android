@@ -28,5 +28,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract class VariantComponentsModule {
     @ContributesAndroidInjector abstract NCFirebaseInstanceIDService ncFirebaseInstanceIDService();
-    @ContributesAndroidInjector abstract ModifiedAuthenticatorActivity modifiedAuthenticatorActivity();
+
+    @ContributesAndroidInjector
+    abstract ModifiedAuthenticatorActivity modifiedAuthenticatorActivity();
 }
