@@ -248,8 +248,10 @@ public class FileMenuFilter {
     }
 
     private void filterOpenAsRichDocument(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
+        String mimeType = mFiles.iterator().next().getMimeType();
         if (isSingleFile() && android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
-            capability.getRichDocumentsMimeTypeList().contains(mFiles.iterator().next().getMimeType()) &&
+            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
+                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
             capability.getRichDocumentsDirectEditing().isTrue()) {
             toShow.add(R.id.action_open_file_as_richdocument);
         } else {

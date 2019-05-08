@@ -1961,6 +1961,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
                 TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST,
+               TextUtils.join(",", capability.getRichDocumentsOptionalMimeTypeList()));
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
             .getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
@@ -2132,6 +2134,13 @@ public class FileDataStorageManager {
                 mimetypes = "";
             }
             capability.setRichDocumentsMimeTypeList(Arrays.asList(mimetypes.split(",")));
+
+            String optionalMimetypes = c.getString(c.getColumnIndex(
+                ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST));
+            if (optionalMimetypes == null) {
+                optionalMimetypes = "";
+            }
+            capability.setRichDocumentsOptionalMimeTypeList(Arrays.asList(optionalMimetypes.split(",")));
         }
         return capability;
     }
