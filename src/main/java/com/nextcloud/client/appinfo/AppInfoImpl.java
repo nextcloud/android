@@ -17,36 +17,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.appinfo;
 
-package com.nextcloud.client.di;
+import com.owncloud.android.BuildConfig;
 
-import android.app.Application;
+class AppInfoImpl implements AppInfo {
 
-import com.nextcloud.client.appinfo.AppInfoModule;
-import com.nextcloud.client.whatsnew.WhatsNewModule;
-import com.owncloud.android.MainApp;
-
-import javax.inject.Singleton;
-
-import dagger.BindsInstance;
-import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
-
-@Component(modules = {
-    AndroidSupportInjectionModule.class,
-    AppModule.class,
-    AppInfoModule.class,
-    WhatsNewModule.class,
-})
-@Singleton
-public interface AppComponent {
-    void inject(MainApp app);
-
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        Builder application(Application application);
-
-        AppComponent build();
+    @Override
+    public String getFormattedVersionCode() {
+        return Integer.toString(BuildConfig.VERSION_CODE);
     }
 }

@@ -1,5 +1,4 @@
-/*
- * Nextcloud Android client application
+/* Nextcloud Android client application
  *
  * @author Chris Narkiewicz
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -17,36 +16,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.whatsnew;
 
-package com.nextcloud.client.di;
+import android.content.res.Resources;
 
-import android.app.Application;
-
-import com.nextcloud.client.appinfo.AppInfoModule;
-import com.nextcloud.client.whatsnew.WhatsNewModule;
-import com.owncloud.android.MainApp;
+import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.preferences.AppPreferences;
 
 import javax.inject.Singleton;
 
-import dagger.BindsInstance;
-import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
+import dagger.Module;
+import dagger.Provides;
 
-@Component(modules = {
-    AndroidSupportInjectionModule.class,
-    AppModule.class,
-    AppInfoModule.class,
-    WhatsNewModule.class,
-})
-@Singleton
-public interface AppComponent {
-    void inject(MainApp app);
+@Module
+public class WhatsNewModule {
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        Builder application(Application application);
-
-        AppComponent build();
+    @Provides
+    @Singleton
+    WhatsNewService whatsNewService(Resources resources,
+                                    AppPreferences preferences,
+                                    CurrentAccountProvider accountProvider) {
+        return new WhatsNewService(resources, preferences, accountProvider);
     }
 }

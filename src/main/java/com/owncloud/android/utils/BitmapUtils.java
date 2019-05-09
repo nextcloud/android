@@ -31,6 +31,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.codec.binary.Hex;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -362,7 +363,7 @@ public final class BitmapUtils {
 
     public static String md5(String string) throws NoSuchAlgorithmException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        md5.update(string.getBytes());
+        md5.update(string.getBytes(Charset.defaultCharset()));
 
         return new String(Hex.encodeHex(md5.digest()));
     }

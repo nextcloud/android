@@ -314,7 +314,7 @@
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
-        <activity android:name=".ui.activity.WhatsNewActivity"
+        <activity android:name="com.nextcloud.client.whatsnew.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
         <activity
             android:name=".ui.activity.FirstRunActivity"
