@@ -250,7 +250,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean forceOldLoginMethod;
 
     @Inject
-    protected UserAccountManager accountManager;
+    UserAccountManager accountManager;
 
     @Inject
     protected AppPreferences preferences;

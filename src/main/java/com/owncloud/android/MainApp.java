@@ -45,10 +45,12 @@ import android.view.WindowManager;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.whatsnew.WhatsNewService;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -67,7 +69,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
-import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -149,6 +150,12 @@ public class MainApp extends MultiDexApplication implements
 
     @Inject
     protected UploadsStorageManager uploadsStorageManager;
+
+    @Inject
+    protected AppInfo appInfo;
+
+    @Inject
+    protected WhatsNewService whatsNew;
 
     private PassCodeManager passCodeManager;
 
@@ -241,7 +248,7 @@ public class MainApp extends MultiDexApplication implements
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
-                WhatsNewActivity.runIfNeeded(activity, preferences);
+                whatsNew.launchActivityIfNeeded(activity);
             }
 
             @Override
@@ -306,8 +313,8 @@ public class MainApp extends MultiDexApplication implements
                         // find internal storage path that's indexable
                         boolean set = false;
                         for (StoragePoint storagePoint : storagePoints) {
-                            if (storagePoint.getStorageType().equals(StoragePoint.StorageType.INTERNAL) &&
-                                    storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                            if (storagePoint.getStorageType() == StoragePoint.StorageType.INTERNAL &&
+                                    storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
                                 preferences.setStoragePath(storagePoint.getPath());
                                 preferences.removeKeysMigrationPreference();
                                 set = true;
@@ -317,7 +324,7 @@ public class MainApp extends MultiDexApplication implements
 
                         if (!set) {
                             for (StoragePoint storagePoint : storagePoints) {
-                                if (storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                                if (storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
                                     preferences.setStoragePath(storagePoint.getPath());
                                     preferences.removeKeysMigrationPreference();
                                     set = true;
@@ -466,28 +473,6 @@ public class MainApp extends MultiDexApplication implements
         return context.getResources().getString(R.string.account_type);
     }
 
-    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
-    // so we must fallback to this method :(
-    public static int getVersionCode() {
-        try {
-            String thisPackageName = getAppContext().getPackageName();
-            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            return 0;
-        }
-    }
-
-    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
-    // so we must fallback to this method :(
-    public static String getVersionName() {
-        try {
-            String thisPackageName = getAppContext().getPackageName();
-            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            return "";
-        }
-    }
-
     //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
@@ -517,11 +502,6 @@ public class MainApp extends MultiDexApplication implements
      */
     public static String getDataFolder() {
         return getAppContext().getResources().getString(R.string.data_folder);
-    }
-
-    // log_name
-    public static String getLogName() {
-        return getAppContext().getResources().getString(R.string.log_name);
     }
 
     public static void showOnlyFilesOnDevice(boolean state) {
