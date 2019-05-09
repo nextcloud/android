@@ -26,7 +26,9 @@ import com.owncloud.android.ui.adapter.NotificationListAdapter;
 public interface NotificationsContract {
 
     interface View {
-        void onRemovedNotification(boolean isSuccess, NotificationListAdapter.NotificationViewHolder holder);
+        void onRemovedNotification(boolean isSuccess);
+
+        void removeNotification(NotificationListAdapter.NotificationViewHolder holder);
 
         void onRemovedAllNotifications(boolean isSuccess);
 
