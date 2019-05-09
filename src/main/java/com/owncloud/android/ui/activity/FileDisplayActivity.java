@@ -2016,10 +2016,13 @@ public class FileDisplayActivity extends FileActivity
                 // Was tried without password, but not sure that it's optional.
 
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
-                if (fileDetailFragment != null
-                        && fileDetailFragment.isAdded()) {   // only if added to the view hierarchy!!
+                if (fileDetailFragment != null && fileDetailFragment.isAdded()) { // only if added to the view hierarchy
 
-                    fileDetailFragment.getFileDetailSharingFragment().requestPasswordForShareViaLink(true);
+                    fileDetailFragment
+                        .getFileDetailSharingFragment()
+                        .requestPasswordForShareViaLink(true,
+                                                        getCapabilities().getFilesSharingPublicAskForPassword()
+                                                            .isTrue());
                 }
 
             } else {

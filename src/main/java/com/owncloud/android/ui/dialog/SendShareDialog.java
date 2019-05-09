@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
@@ -25,6 +26,8 @@ import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
     private static final String KEY_OCFILE = "KEY_OCFILE";
     private static final String KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED";
+    private static final String KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD = "KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD";
     private static final String KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS";
     private static final String TAG = SendShareDialog.class.getSimpleName();
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
@@ -69,16 +73,20 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private OCFile file;
     private boolean hideNcSharingOptions;
     private boolean sharingPublicPasswordEnforced;
+    private boolean sharingPublicAskForPassword;
     private FileOperationsHelper fileOperationsHelper;
 
-    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, boolean sharingPublicPasswordEnforced) {
+    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
 
         SendShareDialog dialogFragment = new SendShareDialog();
 
         Bundle args = new Bundle();
         args.putParcelable(KEY_OCFILE, file);
         args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions);
-        args.putBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, sharingPublicPasswordEnforced);
+        args.putBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
+                        capability.getFilesSharingPublicPasswordEnforced().isTrue());
+        args.putBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
+                        capability.getFilesSharingPublicAskForPassword().isTrue());
         dialogFragment.setArguments(args);
 
         return dialogFragment;
@@ -93,11 +101,14 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         file = getArguments().getParcelable(KEY_OCFILE);
         hideNcSharingOptions = getArguments().getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false);
         sharingPublicPasswordEnforced = getArguments().getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false);
+        sharingPublicAskForPassword = getArguments().getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.send_share_fragment, container, false);
 
@@ -178,7 +189,9 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void requestPasswordForShareViaLink() {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file, true);
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file,
+                                                                                     true,
+                                                                                     sharingPublicAskForPassword);
         dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 

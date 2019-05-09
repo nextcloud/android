@@ -355,10 +355,11 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
 
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
                 ShareFileFragment shareFileFragment = getShareFileFragment();
-                if (shareFileFragment != null
-                    && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+                if (shareFileFragment != null && shareFileFragment.isAdded()) { // only if added to the view hierarchy!!
 
-                    shareFileFragment.requestPasswordForShareViaLink(true);
+                    boolean askForPassword = getCapabilities().getFilesSharingPublicAskForPassword().isTrue();
+
+                    shareFileFragment.requestPasswordForShareViaLink(true, askForPassword);
                 }
 
             } else {
