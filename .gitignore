@@ -33,3 +33,5 @@ tests/proguard-project.txt
 build
 /gradle.properties
 
+fastlane/Fastfile
+
