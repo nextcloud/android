@@ -55,11 +55,13 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private static final String ARG_FILE = "FILE";
     private static final String ARG_SHARE = "SHARE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
+    private static final String ARG_ASK_FOR_PASSWORD = "ASK_FOR_PASSWORD";
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     private OCFile file;
     private OCShare share;
     private boolean createShare;
+    private boolean askForPassword;
 
     @Override
     public void onStart() {
@@ -81,11 +83,12 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
      *                    is bound to it.
      * @return Dialog ready to show.
      */
-    public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
+    public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare, boolean askForPassword) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
         args.putBoolean(ARG_CREATE_SHARE, createShare);
+        args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword);
         frag.setArguments(args);
         return frag;
     }
@@ -116,6 +119,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         file = getArguments().getParcelable(ARG_FILE);
         share = getArguments().getParcelable(ARG_SHARE);
         createShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
+        askForPassword = getArguments().getBoolean(ARG_ASK_FOR_PASSWORD, false);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -130,6 +134,13 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         inputText.setText("");
         inputText.requestFocus();
 
+        int title;
+        if (askForPassword) {
+            title = R.string.share_link_optional_password_title;
+        } else {
+            title = R.string.share_link_password_title;
+        }
+
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                 R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
@@ -137,7 +148,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
                 .setPositiveButton(R.string.common_ok, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setNeutralButton(R.string.common_delete, this)
-                .setTitle(R.string.share_link_password_title);
+            .setTitle(title);
         Dialog d = builder.create();
 
         Window window = d.getWindow();
@@ -153,11 +164,9 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String password = ((TextView) (getDialog().findViewById(R.id.share_password))).getText().toString();
 
-            if (TextUtils.isEmpty(password)) {
-                DisplayUtils.showSnackMessage(
-                        getActivity().findViewById(android.R.id.content),
-                        R.string.share_link_empty_password
-                );
+            if (!askForPassword && TextUtils.isEmpty(password)) {
+                DisplayUtils.showSnackMessage(getActivity().findViewById(android.R.id.content),
+                                              R.string.share_link_empty_password);
                 return;
             }
 
@@ -171,6 +180,14 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
                 setPassword(createShare, file, null);
             } else {
                 setPassword(share, null);
+            }
+        } else if (which == AlertDialog.BUTTON_NEGATIVE) {
+            if (askForPassword) {
+                if (share == null) {
+                    setPassword(createShare, file, null);
+                } else {
+                    setPassword(share, null);
+                }
             }
         }
     }

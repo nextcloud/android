@@ -1924,6 +1924,8 @@ public class FileDataStorageManager {
                 capability.getFilesSharingPublicEnabled().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED,
                 capability.getFilesSharingPublicPasswordEnforced().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_PASSWORD,
+               capability.getFilesSharingPublicAskForPassword().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED,
                 capability.getFilesSharingPublicExpireDateEnabled().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS,
@@ -2078,6 +2080,8 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED))));
             capability.setFilesSharingPublicPasswordEnforced(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED))));
+            capability.setFilesSharingPublicAskForPassword(CapabilityBooleanType.fromValue(c.getInt(c
+                                                                                                        .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_PASSWORD))));
             capability.setFilesSharingPublicExpireDateEnabled(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED))));
             capability.setFilesSharingPublicExpireDateDays(c.getInt(c

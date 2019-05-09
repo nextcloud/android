@@ -350,6 +350,7 @@
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists</string>
     <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
+    <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_empty_password">You must enter a password</string>
 
     <string name="activity_chooser_send_file_title">Send</string>
