@@ -14,8 +14,6 @@ trigger:
     - pull_request
     - push
 
-node:
-  memory: high
 ---
 kind: pipeline
 name: gplay
@@ -55,9 +53,6 @@ trigger:
   event:
    - push
    - pull_request
-
-node:
-  memory: high
 ---
 kind: pipeline
 name: analysis
@@ -111,6 +106,3 @@ trigger:
   event:
     - push
     - pull_request
-
-node:
-  memory: high
