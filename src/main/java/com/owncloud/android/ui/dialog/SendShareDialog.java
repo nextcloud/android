@@ -86,7 +86,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         args.putBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
                         capability.getFilesSharingPublicPasswordEnforced().isTrue());
         args.putBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
-                        capability.getFilesSharingPublicAskForPassword().isTrue());
+                        capability.getFilesSharingPublicAskForOptionalPassword().isTrue());
         dialogFragment.setArguments(args);
 
         return dialogFragment;

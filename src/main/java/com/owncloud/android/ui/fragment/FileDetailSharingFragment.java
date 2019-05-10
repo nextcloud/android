@@ -321,9 +321,10 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     private void createShareLink() {
         if (capabilities != null && (capabilities.getFilesSharingPublicPasswordEnforced().isTrue() ||
-            capabilities.getFilesSharingPublicAskForPassword().isTrue())) {
+            capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue())) {
             // password enforced by server, request to the user before trying to create
-            requestPasswordForShareViaLink(true, capabilities.getFilesSharingPublicAskForPassword().isTrue());
+            requestPasswordForShareViaLink(true,
+                                           capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
 
         } else {
             // create without password if not enforced by server or we don't know if enforced;
@@ -417,7 +418,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
                 return true;
             case R.id.action_password: {
-                requestPasswordForShareViaLink(false, capabilities.getFilesSharingPublicAskForPassword().isTrue());
+                requestPasswordForShareViaLink(false,
+                                               capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 return true;
             }
             case R.id.action_share_expiration_date: {
