@@ -2021,7 +2021,7 @@ public class FileDisplayActivity extends FileActivity
                     fileDetailFragment
                         .getFileDetailSharingFragment()
                         .requestPasswordForShareViaLink(true,
-                                                        getCapabilities().getFilesSharingPublicAskForPassword()
+                                                        getCapabilities().getFilesSharingPublicAskForOptionalPassword()
                                                             .isTrue());
                 }
 

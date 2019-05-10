@@ -286,9 +286,10 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             }
             if (isChecked) {
                 if (mCapabilities != null && (mCapabilities.getFilesSharingPublicPasswordEnforced().isTrue() ||
-                    mCapabilities.getFilesSharingPublicAskForPassword().isTrue())) {
+                    mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue())) {
                     // password enforced by server, request to the user before trying to create
-                    requestPasswordForShareViaLink(true, mCapabilities.getFilesSharingPublicAskForPassword().isTrue());
+                    requestPasswordForShareViaLink(true,
+                                                   mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 } else {
                     // create without password if not enforced by server or we don't know if enforced;
                     ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(mFile, null);
@@ -426,7 +427,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 return;
             }
             if (isChecked) {
-                requestPasswordForShareViaLink(false, mCapabilities.getFilesSharingPublicAskForPassword().isTrue());
+                requestPasswordForShareViaLink(false,
+                                               mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
             } else {
                 ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShareViaLink(mFile, ""); // clears
             }
@@ -446,7 +448,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         @Override
         public void onClick(View passwordView) {
             if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
-                requestPasswordForShareViaLink(false, mCapabilities.getFilesSharingPublicAskForPassword().isTrue());
+                requestPasswordForShareViaLink(false,
+                                               mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
             }
         }
     }
