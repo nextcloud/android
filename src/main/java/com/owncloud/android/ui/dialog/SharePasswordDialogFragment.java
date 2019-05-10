@@ -181,13 +181,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
             } else {
                 setPassword(share, null);
             }
-        } else if (which == AlertDialog.BUTTON_NEGATIVE) {
-            if (askForPassword) {
-                if (share == null) {
-                    setPassword(createShare, file, null);
-                } else {
-                    setPassword(share, null);
-                }
+        } else if (which == AlertDialog.BUTTON_NEGATIVE && askForPassword) {
+            if (share == null) {
+                setPassword(createShare, file, null);
+            } else {
+                setPassword(share, null);
             }
         }
     }
