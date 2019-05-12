@@ -623,6 +623,7 @@
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Fotos</string>
+    <string name="store_short_desc">La plataforma auto-allotjada de productivitat que us manté sota control</string>
     <string name="stream">Seqüència amb...</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
