@@ -379,10 +379,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         @Override
         public void onClick(View expirationView) {
             if (mPublicShare != null && mPublicShare.getExpirationDate() > 0) {
-                long chosenDateInMillis = -1;
-                if (mPublicShare != null) {
-                    chosenDateInMillis = mPublicShare.getExpirationDate();
-                }
+                long chosenDateInMillis = mPublicShare.getExpirationDate();
                 ExpirationDatePickerDialogFragment dialog =
                         ExpirationDatePickerDialogFragment.newInstance(mFile, chosenDateInMillis);
                 dialog.show(
