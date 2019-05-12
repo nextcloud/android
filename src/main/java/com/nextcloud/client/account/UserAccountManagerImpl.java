@@ -83,8 +83,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     public void migrateUserId() {
-        boolean success = false;
-
         AppPreferences appPreferences = AppPreferencesImpl.fromContext(context);
 
         if (appPreferences.isUserIdMigrated()) {
@@ -92,7 +90,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
             return;
         }
 
-
+        boolean success = false;
         Account[] ocAccounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
         String userId;
         String displayName;
