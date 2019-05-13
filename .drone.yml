@@ -7,6 +7,33 @@ steps:
   commands:
     - ./gradlew assembleGeneric
 
+- name: notify
+  image: drillster/drone-email
+  host: $EMAIL_HOST
+  port: 587
+  username: $EMAIL_USERNAME
+  password: $EMAIL_PASSWORD
+  from: nextcloud-drone@kaminsky.me
+  skip_verify: true
+  recipients_only: true
+  recipients: [ $EMAIL_RECIPIENTS ]
+  environment:
+      EMAIL_USERNAME:
+          from_secret: EMAIL_USERNAME
+      EMAIL_PASSWORD:
+          from_secret: EMAIL_PASSWORD
+      EMAIL_RECIPIENTS:
+          from_secret: EMAIL_RECIPIENTS
+      EMAIL_HOST:
+          from_secret: EMAIL_HOST
+  when:
+      event:
+          - push
+      status:
+          - failure
+      branch:
+          - master
+
 trigger:
   branch:
     - master
@@ -42,6 +69,33 @@ steps:
     - ./gradlew combinedTestReport
     - curl -o codecov.sh https://codecov.io/bash
     - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+
+- name: notify
+  image: drillster/drone-email
+  host: $EMAIL_HOST
+  port: 587
+  username: $EMAIL_USERNAME
+  password: $EMAIL_PASSWORD
+  from: nextcloud-drone@kaminsky.me
+  skip_verify: true
+  recipients_only: true
+  recipients: [ $EMAIL_RECIPIENTS ]
+  environment:
+      EMAIL_USERNAME:
+          from_secret: EMAIL_USERNAME
+      EMAIL_PASSWORD:
+          from_secret: EMAIL_PASSWORD
+      EMAIL_RECIPIENTS:
+          from_secret: EMAIL_RECIPIENTS
+      EMAIL_HOST:
+          from_secret: EMAIL_HOST
+  when:
+      event:
+          - push
+      status:
+          - failure
+      branch:
+          - master
 
 services:
 - name: server
