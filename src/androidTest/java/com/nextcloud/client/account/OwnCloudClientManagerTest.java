@@ -76,5 +76,9 @@ public class OwnCloudClientManagerTest extends AbstractIT {
         OwnCloudClient client = manager.getClientFor(account, targetContext);
 
         assertEquals(loginName, client.getUserId());
+
+        accountManager.removeAccountExplicitly(newAccount);
+
+        assertEquals(1, accountManager.getAccounts().length);
     }
 }

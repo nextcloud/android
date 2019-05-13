@@ -25,25 +25,6 @@ public class UserAccountManagerImplTest extends AbstractIT {
     public void setUp() {
         accountManager = AccountManager.get(targetContext);
     }
-//        UserAccountManagerImpl sut = new UserAccountManagerImpl(targetContext, accountManager);
-//
-//        for (Account account : sut.getAccounts()) {
-//            accountManager.removeAccountExplicitly(account);
-//        }
-//
-//        assertEquals(0, sut.getAccounts().length);
-//    }
-
-//    @After
-//    public void tearDown() {
-//        UserAccountManagerImpl sut = new UserAccountManagerImpl(targetContext, accountManager);
-//
-//        for (Account account : sut.getAccounts()) {
-//            accountManager.removeAccountExplicitly(account);
-//        }
-//
-//        assertEquals(0, sut.getAccounts().length);
-//    }
 
     @Test
     public void updateOneAccount() {
