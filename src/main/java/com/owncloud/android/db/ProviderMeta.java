@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 45;
+    public static final int DB_VERSION = 46;
 
     private ProviderMeta() {
         // No instance
@@ -184,6 +184,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_ACTIVITY = "activity";
         public static final String CAPABILITIES_RICHDOCUMENT = "richdocument";
         public static final String CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST = "richdocument_mimetype_list";
+        public static final String CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST =
+            "richdocument_optional_mimetype_list";
         public static final String CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING = "richdocument_direct_editing";
         public static final String CAPABILITIES_RICHDOCUMENT_TEMPLATES = "richdocument_direct_templates";
 
