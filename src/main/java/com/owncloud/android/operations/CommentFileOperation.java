@@ -35,18 +35,15 @@ public class CommentFileOperation extends SyncOperation {
 
     private String message;
     private String fileId;
-    private String userId;
 
     /**
      * Constructor
      *
      * @param message Comment to store
-     * @param userId  userId to access correct dav endpoint
      */
-    public CommentFileOperation(String message, String fileId, String userId) {
+    public CommentFileOperation(String message, String fileId) {
         this.message = message;
         this.fileId = fileId;
-        this.userId = userId;
     }
 
     /**
@@ -56,7 +53,7 @@ public class CommentFileOperation extends SyncOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId, userId).execute(client);
+        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId).execute(client);
 
         if (!result.isSuccess()) {
             Log_OC.e(this, "File with Id " + fileId + " could not be commented");

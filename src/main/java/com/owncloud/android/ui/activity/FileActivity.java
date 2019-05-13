@@ -177,12 +177,6 @@ public abstract class FileActivity extends DrawerActivity
                     false);
         }
 
-        Thread t = new Thread(() -> {
-            // best place, before any access to AccountManager or database
-            accountManager.updateAccountVersion();
-        });
-        t.start();
-
         setAccount(account, savedInstanceState != null);
 
         mOperationsServiceConnection = new OperationsServiceConnection();

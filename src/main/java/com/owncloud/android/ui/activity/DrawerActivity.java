@@ -982,29 +982,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 final Context context = MainApp.getAppContext();
-                AccountManager mAccountMgr = AccountManager.get(context);
-                String userId = mAccountMgr.getUserData(currentAccount,
-                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-                RemoteOperation getQuotaInfoOperation;
-                if (TextUtils.isEmpty(userId)) {
-                    getQuotaInfoOperation = new GetRemoteUserInfoOperation();
-                } else {
-                    getQuotaInfoOperation = new GetRemoteUserInfoOperation(userId);
-                }
-
-                RemoteOperationResult result = getQuotaInfoOperation.execute(currentAccount, context);
+                RemoteOperationResult result = new GetRemoteUserInfoOperation().execute(currentAccount, context);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
                     final Quota quota = userInfo.getQuota();
-
-                    // Since we always call this method, might as well put it here
-                    if (userInfo.getId() != null) {
-                        mAccountMgr.setUserData(currentAccount,
-                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
-                                userInfo.getId());
-                    }
 
                     if (quota != null) {
                         final long used = quota.getUsed();

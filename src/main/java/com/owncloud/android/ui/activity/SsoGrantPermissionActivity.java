@@ -42,10 +42,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -56,6 +53,11 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.UUID;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_ACCESS_DECLINED;
@@ -201,7 +203,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
         result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(this));
         result.putString(AccountManager.KEY_AUTHTOKEN, NEXTCLOUD_SSO);
-        result.putString(Constants.SSO_USERNAME, userId);
+        result.putString(Constants.SSO_USER_ID, userId);
         result.putString(Constants.SSO_TOKEN, token);
         result.putString(Constants.SSO_SERVER_URL, serverUrl);
 

@@ -60,17 +60,7 @@ public class GetUserProfileOperation extends SyncOperation {
             AccountManager accountManager = AccountManager.get(MainApp.getAppContext());
             UserInfo userInfo = (UserInfo) result.getData().get(0);
             Account storedAccount = getStorageManager().getAccount();
-            accountManager.setUserData(
-                storedAccount,
-                AccountUtils.Constants.KEY_DISPLAY_NAME,
-                userInfo.getDisplayName()
-            );
-
-            accountManager.setUserData(
-                    storedAccount,
-                    AccountUtils.Constants.KEY_USER_ID,
-                    userInfo.getId()
-            );
+            accountManager.setUserData(storedAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
         }
         return result;
     }

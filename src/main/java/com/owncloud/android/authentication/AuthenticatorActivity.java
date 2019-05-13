@@ -130,6 +130,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -367,7 +368,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setDomStorageEnabled(true);
 
         if (useGenericUserAgent) {
-            mLoginWebView.getSettings().setUserAgentString(MainApp.getNextcloudUserAgent());
+            mLoginWebView.getSettings().setUserAgentString(MainApp.getUserAgent());
         } else {
             mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
         }
@@ -1634,7 +1635,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @SuppressFBWarnings("DMI")
     @SuppressLint("TrulyRandom")
-    private boolean createAccount(RemoteOperationResult authResult) {
+    protected boolean createAccount(RemoteOperationResult authResult) {
         String accountType = MainApp.getAccountType(this);
 
         // create and save new ownCloud account
@@ -1644,14 +1645,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         Uri uri = Uri.parse(mServerInfo.mBaseUrl);
-        String username;
+        // used for authenticate on every login/network connection, determined by first login (weblogin/old login)
+        // can be anything: email, name, name with whitespaces
+        String loginName;
         if (!webViewLoginMethod) {
-            username = mUsernameInput.getText().toString().trim();
+            loginName = mUsernameInput.getText().toString().trim();
         } else {
-            username = webViewUser;
+            loginName = webViewUser;
         }
 
-        String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, username);
+        String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, loginName);
         Account newAccount = new Account(accountName, accountType);
         if (AccountUtils.exists(newAccount, getApplicationContext())) {
             // fail - not a new account, but an existing one; disallow
@@ -1686,31 +1689,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             final Intent intent = new Intent();
             intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, accountType);
             intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
-            intent.putExtra(AccountManager.KEY_USERDATA, username);
+            intent.putExtra(AccountManager.KEY_USERDATA, loginName);
 
             /// add user data to the new account; TODO probably can be done in the last parameter
             //      addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
 
-            if (authResult.getData() != null) {
-                try {
-                    UserInfo userInfo = (UserInfo) authResult.getData().get(0);
-                    mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
-                    mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
-                    mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                                            Integer.toString(AccountUtils.ACCOUNT_VERSION_WITH_PROPER_ID));
-
-                } catch (ClassCastException c) {
-                    mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                                            Integer.toString(AccountUtils.ACCOUNT_VERSION));
-                    Log_OC.w(TAG, "Couldn't get display name and user id for " + username);
-                }
-            } else {
-                mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                                        Integer.toString(AccountUtils.ACCOUNT_VERSION));
-                Log_OC.w(TAG, "Couldn't get display name and user id for " + username);
+            ArrayList<Object> authResultData = authResult.getData();
+            if (authResultData == null || authResultData.size() == 0) {
+                Log_OC.e(this, "Could not read user data!");
+                return false;
             }
+
+            UserInfo userInfo = (UserInfo) authResultData.get(0);
+            mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
+            mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
+            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
+                                    Integer.toString(AccountUtils.ACCOUNT_VERSION_WITH_PROPER_ID));
+
 
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
