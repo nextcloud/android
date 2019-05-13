@@ -36,6 +36,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 
 import javax.inject.Inject;
@@ -72,6 +73,17 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     @Nullable
+    public OwnCloudAccount getCurrentOwnCloudAccount() {
+        try {
+            Account currentPlatformAccount = getCurrentAccount();
+            return new OwnCloudAccount(currentPlatformAccount, context);
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    @Nullable
     public Account getAccountByName(String name) {
         for (Account account : getAccounts()) {
             if (account.name.equals(name)) {
@@ -82,9 +94,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return null;
     }
 
+    @Override
+    public OwnCloudVersion getServerVersion(Account account) {
+        return AccountUtils.getServerVersion(account);
+    }
+
     public void migrateUserId() {
         AppPreferences appPreferences = AppPreferencesImpl.fromContext(context);
-
         if (appPreferences.isUserIdMigrated()) {
             // migration done
             return;

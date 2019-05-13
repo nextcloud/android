@@ -29,6 +29,7 @@ import android.content.Context;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
@@ -44,17 +45,20 @@ public class NCJobCreator implements JobCreator {
     private final UserAccountManager accountManager;
     private final AppPreferences preferences;
     private final UploadsStorageManager uploadsStorageManager;
+    private final ConnectivityService connectivityService;
 
     public NCJobCreator(
         Context context,
         UserAccountManager accountManager,
         AppPreferences preferences,
-        UploadsStorageManager uploadsStorageManager
+        UploadsStorageManager uploadsStorageManager,
+        ConnectivityService connectivityServices
     ) {
         this.context = context;
         this.accountManager = accountManager;
         this.preferences = preferences;
         this.uploadsStorageManager = uploadsStorageManager;
+        this.connectivityService = connectivityServices;
     }
 
     @Override
@@ -67,9 +71,9 @@ public class NCJobCreator implements JobCreator {
             case AccountRemovalJob.TAG:
                 return new AccountRemovalJob(uploadsStorageManager);
             case FilesSyncJob.TAG:
-                return new FilesSyncJob(accountManager, preferences, uploadsStorageManager);
+                return new FilesSyncJob(accountManager, preferences, uploadsStorageManager, connectivityService);
             case OfflineSyncJob.TAG:
-                return new OfflineSyncJob(accountManager);
+                return new OfflineSyncJob(accountManager, connectivityService);
             case NotificationJob.TAG:
                 return new NotificationJob(context, accountManager);
             case MediaFoldersDetectionJob.TAG:

@@ -70,8 +70,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(publicShare.getRemoteId());
         updateOp.setPassword(password);
         updateOp.setExpirationDate(expirationDateInMillis);
-        updateOp.setPublicUploadOnFolder(publicUploadOnFolder);
-        updateOp.setPublicUploadOnFile(publicUploadOnFile);
+//        updateOp.setPublicUploadOnFolder(publicUploadOnFolder);
+//        updateOp.setPublicUploadOnFile(publicUploadOnFile);
         updateOp.setHideFileDownload(hideFileDownload);
         RemoteOperationResult result = updateOp.execute(client);
 

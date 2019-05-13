@@ -40,6 +40,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -72,6 +73,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private ProgressListener progressListener;
     private FileActivity parentActivity;
     private UploadsStorageManager uploadsStorageManager;
+    private ConnectivityService connectivityService;
     private UploadGroup[] uploadGroups;
 
     @Override
@@ -128,6 +130,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             parentActivity,
                             null,
                             uploadsStorageManager,
+                            connectivityService,
                             null))
                         .start();
                     break;
@@ -146,10 +149,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // not needed
     }
 
-    public UploadListAdapter(final FileActivity fileActivity, final UploadsStorageManager uploadsStorageManager) {
+    public UploadListAdapter(final FileActivity fileActivity,
+                             final UploadsStorageManager uploadsStorageManager,
+                             final ConnectivityService connectivityService) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
+        this.connectivityService = connectivityService;
         uploadGroups = new UploadGroup[3];
 
         shouldShowHeadersForEmptySections(false);

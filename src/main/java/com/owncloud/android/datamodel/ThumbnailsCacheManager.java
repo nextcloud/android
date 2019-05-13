@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -59,7 +60,6 @@ import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -232,14 +232,19 @@ public final class ThumbnailsCacheManager {
         private Account account;
         private WeakReference<ImageView> imageViewReference;
         private OCFile file;
+        private ConnectivityService connectivityService;
 
 
-        public ResizedImageGenerationTask(FileFragment fileFragment, ImageView imageView,
-                                          FileDataStorageManager storageManager, Account account)
+        public ResizedImageGenerationTask(FileFragment fileFragment,
+                                          ImageView imageView,
+                                          FileDataStorageManager storageManager,
+                                          ConnectivityService connectivityService,
+                                          Account account)
                 throws IllegalArgumentException {
             this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
             this.storageManager = storageManager;
+            this.connectivityService = connectivityService;
             this.account = account;
         }
 
@@ -361,7 +366,7 @@ public final class ThumbnailsCacheManager {
                     }
                 } else {
                     new Thread(() -> {
-                        if (ConnectivityUtils.isInternetWalled(MainApp.getAppContext())) {
+                        if (connectivityService.isInternetWalled()) {
                             if (fileFragment instanceof PreviewImageFragment) {
                                 ((PreviewImageFragment) fileFragment).setNoConnectionErrorMessage();
                             }

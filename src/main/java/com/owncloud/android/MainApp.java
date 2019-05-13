@@ -48,6 +48,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.whatsnew.WhatsNewService;
@@ -157,6 +158,9 @@ public class MainApp extends MultiDexApplication implements
     @Inject
     protected WhatsNewService whatsNew;
 
+    @Inject
+    ConnectivityService connectivityService;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -197,7 +201,8 @@ public class MainApp extends MultiDexApplication implements
                 getApplicationContext(),
                 accountManager,
                 preferences,
-                uploadsStorageManager
+                uploadsStorageManager,
+                connectivityService
             )
         );
 
@@ -230,7 +235,7 @@ public class MainApp extends MultiDexApplication implements
             }
         }
 
-        initSyncOperations(uploadsStorageManager, accountManager);
+        initSyncOperations(uploadsStorageManager, accountManager, connectivityService);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -356,7 +361,8 @@ public class MainApp extends MultiDexApplication implements
 
     public static void initSyncOperations(
         final UploadsStorageManager uploadsStorageManager,
-        final UserAccountManager accountManager
+        final UserAccountManager accountManager,
+        final ConnectivityService connectivityService
     ) {
         updateToAutoUpload();
         cleanOldEntries();
@@ -375,17 +381,17 @@ public class MainApp extends MultiDexApplication implements
         initiateExistingAutoUploadEntries();
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
-        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager);
+        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager, connectivityService);
         FilesSyncHelper.scheduleOfflineSyncIfNeeded();
 
-        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager, accountManager);
+        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager, accountManager);
+            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager, accountManager);
+            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager, accountManager, connectivityService);
         }
     }
 
