@@ -274,7 +274,7 @@ public class ManageAccountsActivity extends FileActivity
                                   String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                   AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
                                   mAccountListAdapter = new AccountListAdapter(
-                                          ManageAccountsActivity.this,
+                                          this,
                                           getUserAccountManager(),
                                           getAccountListItems(),
                                           mTintedCheck
