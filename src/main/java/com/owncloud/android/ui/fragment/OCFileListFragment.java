@@ -1454,15 +1454,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getClientFor(ocAccount, MainApp.getAppContext());
 
-            String userId = mAccountMgr.getUserData(currentAccount,
-                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-            if (TextUtils.isEmpty(userId)) {
-                userId = mClient.getCredentials().getUsername();
-            }
-
             ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
-                event.shouldFavorite, event.remotePath, userId);
+                event.shouldFavorite, event.remotePath);
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(mClient);
 
             if (remoteOperationResult.isSuccess()) {
@@ -1532,11 +1525,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 searchOnlyFolders = true;
             }
 
-            String userId = AccountManager.get(MainApp.getAppContext()).getUserData(currentAccount,
-                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
-                searchOnlyFolders, userId);
+                                                        searchOnlyFolders);
         } else {
             remoteOperation = new GetRemoteSharesOperation();
         }

@@ -22,7 +22,6 @@
 package com.owncloud.android.operations;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
@@ -43,7 +42,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransfer;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
@@ -582,15 +580,12 @@ public class UploadFileOperation extends SyncOperation {
             /// perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
 
-                String userId = AccountManager.get(getContext()).getUserData(getAccount(),
-                                                                             AccountUtils.Constants.KEY_USER_ID);
-
                 boolean onWifiConnection = ConnectivityUtils.isOnlineWithWifi(mContext);
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                         mFile.getParentRemotePath() + encryptedFileName,
                                                                         mFile.getMimeType(), mFile.getEtagInConflict(),
-                                                                        timeStamp, userId, onWifiConnection);
+                                                                        timeStamp, onWifiConnection);
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
@@ -831,15 +826,12 @@ public class UploadFileOperation extends SyncOperation {
 
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                String userId = AccountManager.get(getContext()).getUserData(getAccount(),
-                                                                             AccountUtils.Constants.KEY_USER_ID);
-
                 boolean onWifiConnection = ConnectivityUtils.isOnlineWithWifi(mContext);
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
                                                                         mFile.getRemotePath(), mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
-                                                                        timeStamp, userId, onWifiConnection);
+                                                                        timeStamp, onWifiConnection);
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);

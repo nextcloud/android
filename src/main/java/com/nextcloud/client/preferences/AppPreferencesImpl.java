@@ -70,6 +70,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
+    private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -434,6 +435,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setCurrentAccountName(String accountName) {
         preferences.edit().putString(PREF__SELECTED_ACCOUNT_NAME, accountName).apply();
+    }
+
+    @Override
+    public boolean isUserIdMigrated() {
+        return preferences.getBoolean(PREF__MIGRATED_USER_ID, false);
+    }
+
+    @Override
+    public void setMigratedUserId(boolean value) {
+        preferences.edit().putBoolean(PREF__MIGRATED_USER_ID, value).apply();
     }
 
     /**

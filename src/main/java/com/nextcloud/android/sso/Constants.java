@@ -26,7 +26,7 @@ package com.nextcloud.android.sso;
 
 public final class Constants {
     // Authenticator related constants
-    public static final String SSO_USERNAME = "username";
+    public static final String SSO_USER_ID = "user_id";
     public static final String SSO_TOKEN = "token";
     public static final String SSO_SERVER_URL = "server_url";
     public static final String SSO_SHARED_PREFERENCE = "single-sign-on";
