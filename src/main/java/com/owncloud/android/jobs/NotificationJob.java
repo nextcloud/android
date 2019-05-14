@@ -57,6 +57,8 @@ import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemote
 import com.owncloud.android.lib.resources.notifications.GetNotificationRemoteOperation;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
+import com.owncloud.android.lib.resources.notifications.models.RichObject;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -150,9 +152,19 @@ public class NotificationJob extends Job {
     }
 
     private void sendNotification(Notification notification, Account account) {
-        Intent intent = new Intent(context, NotificationsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        RichObject file = notification.subjectRichParameters.get("file");
+
+        Intent intent;
+        if (file == null) {
+            intent = new Intent(context, NotificationsActivity.class);
+        } else {
+            intent = new Intent(context, FileDisplayActivity.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id);
+        }
         intent.putExtra(KEY_NOTIFICATION_ACCOUNT, account.name);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         int pushNotificationId = randomId.nextInt();
 
