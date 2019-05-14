@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 46;
+    public static final int DB_VERSION = 47;
 
     private ProviderMeta() {
         // No instance
@@ -155,6 +155,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SHARING_API_ENABLED = "sharing_api_enabled";
         public static final String CAPABILITIES_SHARING_PUBLIC_ENABLED = "sharing_public_enabled";
         public static final String CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED = "sharing_public_password_enforced";
+        public static final String CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD =
+            "sharing_public_ask_for_optional_password";
         public static final String CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED =
                 "sharing_public_expire_date_enabled";
         public static final String CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS =
