@@ -41,6 +41,7 @@ import android.widget.TextView;
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -75,6 +76,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private UploadsStorageManager uploadsStorageManager;
     private ConnectivityService connectivityService;
     private UserAccountManager accountManager;
+    private PowerManagementService powerManagementService;
     private UploadGroup[] uploadGroups;
 
     @Override
@@ -133,7 +135,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             uploadsStorageManager,
                             connectivityService,
                             accountManager,
-                            null))
+                            null,
+                            powerManagementService))
                         .start();
                     break;
 
@@ -154,12 +157,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public UploadListAdapter(final FileActivity fileActivity,
                              final UploadsStorageManager uploadsStorageManager,
                              final UserAccountManager accountManager,
-                             final ConnectivityService connectivityService) {
+                             final ConnectivityService connectivityService,
+                             final PowerManagementService powerManagementService) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
         this.accountManager = accountManager;
         this.connectivityService = connectivityService;
+        this.powerManagementService = powerManagementService;
         uploadGroups = new UploadGroup[3];
 
         shouldShowHeadersForEmptySections(false);

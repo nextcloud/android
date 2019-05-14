@@ -23,14 +23,20 @@ package com.owncloud.android.jobs;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.Context;
 import android.os.Build;
+import android.os.PowerManager;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.device.PowerManagementServiceImpl;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.PowerUtils;
 
 import androidx.annotation.RequiresApi;
 
@@ -65,9 +71,22 @@ public class NContentObserverJob extends JobService {
     }
 
     private void checkAndStartFileSyncJob() {
-        if (!PowerUtils.isPowerSaveMode(getApplicationContext()) &&
-                new SyncedFolderProvider(getContentResolver(),
-                                         AppPreferencesImpl.fromContext(getApplicationContext())).countEnabledSyncedFolders() > 0) {
+        Context context = getApplicationContext();
+        AppPreferences appPreferences = AppPreferencesImpl.fromContext(context);
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+        if (powerManager == null) {
+            Log_OC.e(this, "PowerManager is null, aborting job");
+            return;
+        }
+
+        PowerManagementService powerManagementService = new PowerManagementServiceImpl(context,
+                                                                                       powerManager,
+                                                                                       appPreferences,
+                                                                                       new DeviceInfo());
+
+        if (!powerManagementService.isPowerSavingEnabled() &&
+            new SyncedFolderProvider(getContentResolver(), appPreferences).countEnabledSyncedFolders() > 0) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 

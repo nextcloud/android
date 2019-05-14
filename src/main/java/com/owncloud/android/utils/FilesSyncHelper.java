@@ -39,6 +39,7 @@ import android.util.Log;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -218,7 +219,8 @@ public final class FilesSyncHelper {
 
     public static void restartJobsIfNeeded(final UploadsStorageManager uploadsStorageManager,
                                            final UserAccountManager accountManager,
-                                           final ConnectivityService connectivityService) {
+                                           final ConnectivityService connectivityService,
+                                           final PowerManagementService powerManagementService) {
         final Context context = MainApp.getAppContext();
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
@@ -251,7 +253,8 @@ public final class FilesSyncHelper {
                                                    uploadsStorageManager,
                                                    connectivityService,
                                                    accountManager,
-                                                   null);
+                                                   null,
+                                                   powerManagementService);
             }
         }).start();
     }

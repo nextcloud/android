@@ -32,6 +32,7 @@ import android.util.Log;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -65,7 +66,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -147,6 +147,7 @@ public class UploadFileOperation extends SyncOperation {
     final private OCUpload mUpload;
     final private UploadsStorageManager uploadsStorageManager;
     final private ConnectivityService connectivityService;
+    final private PowerManagementService powerManagementService;
 
     private boolean encryptedAncestor;
 
@@ -178,6 +179,7 @@ public class UploadFileOperation extends SyncOperation {
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
                                ConnectivityService connectivityService,
+                               PowerManagementService powerManagementService,
                                Account account,
                                OCFile file,
                                OCUpload upload,
@@ -201,6 +203,7 @@ public class UploadFileOperation extends SyncOperation {
 
         this.uploadsStorageManager = uploadsStorageManager;
         this.connectivityService = connectivityService;
+        this.powerManagementService = powerManagementService;
         mAccount = account;
         mUpload = upload;
         if (file == null) {
@@ -742,7 +745,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         // check that device is not in power save mode
-        if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
+        if (!mIgnoringPowerSaveMode && powerManagementService.isPowerSavingEnabled()) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
         }

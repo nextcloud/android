@@ -30,6 +30,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -39,7 +40,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.PowerUtils;
 
 import java.io.File;
 import java.util.Set;
@@ -55,10 +55,14 @@ public class OfflineSyncJob extends Job {
     private static final String WAKELOCK_TAG_SEPARATION = ":";
     private final UserAccountManager userAccountManager;
     private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
 
-    public OfflineSyncJob(UserAccountManager userAccountManager, ConnectivityService connectivityService) {
+    public OfflineSyncJob(UserAccountManager userAccountManager,
+                          ConnectivityService connectivityService,
+                          PowerManagementService powerManagementService) {
         this.userAccountManager = userAccountManager;
         this.connectivityService = connectivityService;
+        this.powerManagementService = powerManagementService;
     }
 
     @NonNull
@@ -67,7 +71,7 @@ public class OfflineSyncJob extends Job {
         final Context context = getContext();
 
         PowerManager.WakeLock wakeLock = null;
-        if (!PowerUtils.isPowerSaveMode(context) &&
+        if (!powerManagementService.isPowerSavingEnabled() &&
                 connectivityService.getActiveNetworkType() == JobRequest.NetworkType.UNMETERED &&
                 !connectivityService.isInternetWalled()) {
             Set<Job> jobs = JobManager.instance().getAllJobsForTag(TAG);

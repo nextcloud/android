@@ -19,23 +19,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.device
+package com.nextcloud.client.device;
 
-import android.content.Context
-import android.os.PowerManager
-import dagger.Module
-import dagger.Provides
+import android.content.Context;
+import android.os.PowerManager;
+
+import com.nextcloud.client.preferences.AppPreferences;
+
+import dagger.Module;
+import dagger.Provides;
 
 @Module
-class DeviceModule {
-
+public class DeviceModule {
     @Provides
-    fun powerManagementService(context: Context): PowerManagementService {
-        val platformPowerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-        return PowerManagementServiceImpl(
-            context = context,
-            powerManager = platformPowerManager,
-            deviceInfo = DeviceInfo()
-        )
+    PowerManagementService powerManagementService(Context context, AppPreferences preferences) {
+        PowerManager platformPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+        return new PowerManagementServiceImpl(context, platformPowerManager, preferences, new DeviceInfo());
     }
 }

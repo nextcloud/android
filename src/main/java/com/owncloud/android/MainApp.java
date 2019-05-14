@@ -46,6 +46,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.network.ConnectivityService;
@@ -161,6 +162,9 @@ public class MainApp extends MultiDexApplication implements
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject
+    PowerManagementService powerManagementService;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -202,7 +206,8 @@ public class MainApp extends MultiDexApplication implements
                 accountManager,
                 preferences,
                 uploadsStorageManager,
-                connectivityService
+                connectivityService,
+                powerManagementService
             )
         );
 
@@ -235,7 +240,7 @@ public class MainApp extends MultiDexApplication implements
             }
         }
 
-        initSyncOperations(uploadsStorageManager, accountManager, connectivityService);
+        initSyncOperations(uploadsStorageManager, accountManager, connectivityService, powerManagementService);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -362,7 +367,8 @@ public class MainApp extends MultiDexApplication implements
     public static void initSyncOperations(
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
-        final ConnectivityService connectivityService
+        final ConnectivityService connectivityService,
+        final PowerManagementService powerManagementService
     ) {
         updateToAutoUpload();
         cleanOldEntries();
@@ -381,17 +387,29 @@ public class MainApp extends MultiDexApplication implements
         initiateExistingAutoUploadEntries();
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
-        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager, connectivityService);
+        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
+                                            accountManager,
+                                            connectivityService,
+                                            powerManagementService);
         FilesSyncHelper.scheduleOfflineSyncIfNeeded();
 
-        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
+        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
+                                                      accountManager,
+                                                      connectivityService,
+                                                      powerManagementService);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
+            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
+                                                        accountManager,
+                                                        connectivityService,
+                                                        powerManagementService);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager, accountManager, connectivityService);
+            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager,
+                                                      accountManager,
+                                                      connectivityService,
+                                                      powerManagementService);
         }
     }
 
