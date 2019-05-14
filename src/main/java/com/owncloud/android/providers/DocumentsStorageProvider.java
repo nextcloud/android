@@ -110,6 +110,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     UserAccountManager accountManager;
 
     private static final String DOCUMENTID_SEPARATOR = "/";
+    private static final int DOCUMENTID_PARTS = 2;
     private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
@@ -699,8 +700,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private Document toDocument(String documentId) {
-        String[] separated = documentId.split(DOCUMENTID_SEPARATOR, 2);
-        if (separated.length != 2) {
+        String[] separated = documentId.split(DOCUMENTID_SEPARATOR, DOCUMENTID_PARTS);
+        if (separated.length != DOCUMENTID_PARTS) {
             return null;
         }
 
