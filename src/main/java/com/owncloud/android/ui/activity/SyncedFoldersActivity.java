@@ -41,6 +41,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
@@ -96,7 +97,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener, Injectable {
 
     private static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
-    private static final List<String> SPECIAL_MANUFACTURER = Arrays.asList("Samsung", "Huawei", "Xiaomi");
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
@@ -112,6 +112,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private String path;
     private int type;
     @Inject AppPreferences preferences;
+    @Inject PowerManagementService powerManagementService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +176,40 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.synced_folders_menu, menu);
+
+        if (powerManagementService.isPowerSavingExclusionAvailable()) {
+            MenuItem item = menu.findItem(R.id.action_disable_power_save_check);
+            item.setVisible(true);
+
+            item.setChecked(preferences.isPowerCheckDisabled());
+
+            item.setOnMenuItemClickListener(this::onDisablePowerSaveCheckClicked);
+        }
+
         return true;
+    }
+
+    private boolean onDisablePowerSaveCheckClicked(MenuItem powerCheck) {
+        if (!powerCheck.isChecked()) {
+            showPowerCheckDialog();
+        }
+
+        preferences.setPowerCheckDisabled(!powerCheck.isChecked());
+        powerCheck.setChecked(!powerCheck.isChecked());
+
+        return true;
+    }
+
+    private void showPowerCheckDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+            .setView(findViewById(R.id.root_layout))
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
+            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.autoupload_disable_power_save_check),
+                                                 ThemeUtils.primaryAccentColor(this)))
+            .setMessage(getString(R.string.power_save_check_dialog_message))
+            .show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
     }
 
     /**
@@ -691,10 +725,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     private void showBatteryOptimizationInfo() {
-
-        boolean isSpecialManufacturer = SPECIAL_MANUFACTURER.contains(Build.MANUFACTURER.toLowerCase(Locale.ROOT));
-
-        if (isSpecialManufacturer && checkIfBatteryOptimizationEnabled() || checkIfBatteryOptimizationEnabled()) {
+        if (powerManagementService.isPowerSavingExclusionAvailable() || checkIfBatteryOptimizationEnabled()) {
             AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
