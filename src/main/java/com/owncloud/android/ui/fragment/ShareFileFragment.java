@@ -285,15 +285,14 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 return;
             }
             if (isChecked) {
-                if (mCapabilities != null &&
-                        mCapabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
+                if (mCapabilities != null && (mCapabilities.getFilesSharingPublicPasswordEnforced().isTrue() ||
+                    mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue())) {
                     // password enforced by server, request to the user before trying to create
-                    requestPasswordForShareViaLink(true);
-
+                    requestPasswordForShareViaLink(true,
+                                                   mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 } else {
                     // create without password if not enforced by server or we don't know if enforced;
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            shareFileViaLink(mFile, null);
+                    ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(mFile, null);
 
                     // ShareActivity#onCreateShareViaLinkOperationFinish will take care if password
                     // is enforced by the server but app doesn't know, or if server version is
@@ -301,8 +300,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 }
 
             } else {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        unshareFileViaLink(mFile);
+                ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(mFile);
             }
 
             // undo the toggle to grant the view will be correct if any intermediate dialog is cancelled or
@@ -429,10 +427,10 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 return;
             }
             if (isChecked) {
-                requestPasswordForShareViaLink(false);
+                requestPasswordForShareViaLink(false,
+                                               mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
             } else {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPasswordToShareViaLink(mFile, "");   // "" clears
+                ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShareViaLink(mFile, ""); // clears
             }
 
             // undo the toggle to grant the view will be correct if the dialog is cancelled
@@ -450,7 +448,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         @Override
         public void onClick(View passwordView) {
             if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
-                requestPasswordForShareViaLink(false);
+                requestPasswordForShareViaLink(false,
+                                               mCapabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
             }
         }
     }
@@ -890,12 +889,14 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Starts a dialog that requests a password to the user to protect a share link.
      *
-     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
-     *                          public link; when 'false', a public share is assumed to exist, and the password
-     *                          is bound to it.
+     * @param createShare    When 'true', the request for password will be followed by the creation of a new public
+     *                       link; when 'false', a public share is assumed to exist, and the password is bound to it.
+     * @param askForPassword if true, password is optional
      */
-    public void requestPasswordForShareViaLink(boolean createShare) {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile, createShare);
+    public void requestPasswordForShareViaLink(boolean createShare, boolean askForPassword) {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile,
+                                                                                     createShare,
+                                                                                     askForPassword);
         dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 

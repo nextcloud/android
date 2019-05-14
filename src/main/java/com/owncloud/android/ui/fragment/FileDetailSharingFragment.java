@@ -320,10 +320,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void createShareLink() {
-        if (capabilities != null &&
-                capabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
+        if (capabilities != null && (capabilities.getFilesSharingPublicPasswordEnforced().isTrue() ||
+            capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue())) {
             // password enforced by server, request to the user before trying to create
-            requestPasswordForShareViaLink(true);
+            requestPasswordForShareViaLink(true,
+                                           capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
 
         } else {
             // create without password if not enforced by server or we don't know if enforced;
@@ -417,7 +418,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
                 return true;
             case R.id.action_password: {
-                requestPasswordForShareViaLink(false);
+                requestPasswordForShareViaLink(false,
+                                               capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 return true;
             }
             case R.id.action_share_expiration_date: {
@@ -527,12 +529,14 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     /**
      * Starts a dialog that requests a password to the user to protect a share link.
      *
-     * @param createShare When 'true', the request for password will be followed by the creation of a new
-     *                    public link; when 'false', a public share is assumed to exist, and the password
-     *                    is bound to it.
+     * @param createShare    When 'true', the request for password will be followed by the creation of a new public
+     *                       link; when 'false', a public share is assumed to exist, and the password is bound to it.
+     * @param askForPassword if true, password is optional
      */
-    public void requestPasswordForShareViaLink(boolean createShare) {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file, createShare);
+    public void requestPasswordForShareViaLink(boolean createShare, boolean askForPassword) {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file,
+                                                                                     createShare,
+                                                                                     askForPassword);
         dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 
