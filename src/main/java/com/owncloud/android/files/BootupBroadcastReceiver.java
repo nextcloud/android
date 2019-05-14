@@ -40,7 +40,7 @@ import dagger.android.AndroidInjection;
 
 
 /**
- * App-registered receiver catching the broadcast intent reporting that the system was 
+ * App-registered receiver catching the broadcast intent reporting that the system was
  * just boot up.
  */
 public class BootupBroadcastReceiver extends BroadcastReceiver {
