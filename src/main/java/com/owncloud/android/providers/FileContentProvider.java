@@ -771,7 +771,6 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING + INTEGER
                        + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES + INTEGER
                        + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST + TEXT
-                       + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_PASSWORD + INTEGER
                        + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD + " INTEGER );");
     }
 
@@ -1954,7 +1953,7 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
-                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_PASSWORD +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD +
                                    " INTEGER ");
 
                     upgraded = true;
