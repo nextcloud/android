@@ -23,6 +23,7 @@ package com.nextcloud.client.device
 
 import android.os.Build
 import android.os.PowerManager
+import com.nextcloud.client.preferences.AppPreferences
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -44,15 +45,32 @@ class TestPowerManagementService {
     @Mock
     lateinit var deviceInfo: DeviceInfo
 
+    @Mock
+    lateinit var preferences: AppPreferences
+
     private lateinit var powerManagementService: PowerManagementServiceImpl
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        powerManagementService = PowerManagementServiceImpl(
-            powerManager = platformPowerManager,
-            deviceInfo = deviceInfo
-        )
+        powerManagementService = PowerManagementServiceImpl(platformPowerManager, deviceInfo, preferences)
+    }
+
+    @Test
+    fun `power saving check is disabled`() {
+        // GIVEN
+        // a device which falsely returns power save mode enabled
+        // power check is overridden by user
+        whenever(preferences.isPowerCheckDisabled).thenReturn(true)
+        whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
+
+        // WHEN
+        //      power save mode is checked
+        // THEN
+        //      power save mode is enabled
+        //      power saving is disabled
+        assertTrue(platformPowerManager.isPowerSaveMode)
+        assertFalse(powerManagementService.isPowerSavingEnabled)
     }
 
     @Test
@@ -100,5 +118,21 @@ class TestPowerManagementService {
     fun `power save exclusion is not available for other vendors`() {
         whenever(deviceInfo.vendor).thenReturn("some_other_nice_vendor")
         assertFalse(powerManagementService.isPowerSavingExclusionAvailable)
+    }
+
+    @Test
+    fun isPowerSaveMode_assertCorrectlyReportsTrue() {
+        whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.O)
+        whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
+        assertTrue("Incorrectly reported power saving mode on",
+            powerManagementService.isPowerSavingEnabled)
+    }
+
+    @Test
+    fun isPowerSaveMode_assertCorrectlyReportsFalse() {
+        whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.O)
+        whenever(powerManagementService.isPowerSavingEnabled).thenReturn(false)
+        assertFalse("Incorrectly reported power saving mode off",
+            powerManagementService.isPowerSavingEnabled)
     }
 }

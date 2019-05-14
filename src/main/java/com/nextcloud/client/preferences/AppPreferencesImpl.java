@@ -71,6 +71,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
+    private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -500,5 +501,15 @@ public final class AppPreferencesImpl implements AppPreferences {
             FileDataStorageManager.ROOT_PARENT_ID);
 
         return preferenceName + "_" + folderIdString;
+    }
+
+    @Override
+    public boolean isPowerCheckDisabled() {
+        return preferences.getBoolean(PREF__POWER_CHECK_DISABLED, false);
+    }
+
+    @Override
+    public void setPowerCheckDisabled(boolean value) {
+        preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply();
     }
 }
