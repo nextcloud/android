@@ -178,7 +178,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         boolean isLoading = false;
         if (parentFolder.isExpired()) {
-            final LoadChildrenTask task = new LoadChildrenTask(parentFolder, getContext(), loadChildrenCallback);
+            final LoadChildrenTask task = new LoadChildrenTask(parentFolder, loadChildrenCallback);
             task.executeOnExecutor(executor);
             resultCursor.setLoadingTask(task);
             isLoading = true;
@@ -729,12 +729,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     static class LoadChildrenTask extends AsyncTask<Void, Void, RemoteOperationResult> {
 
         private final Document document;
-        private final Context context;
         private final OnTaskFinishedCallback<Document> callback;
 
-        LoadChildrenTask(Document document, Context context, OnTaskFinishedCallback<Document> callback) {
+        LoadChildrenTask(Document document, OnTaskFinishedCallback<Document> callback) {
             this.document = document;
-            this.context = context;
             this.callback = callback;
         }
 
@@ -743,7 +741,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Log.d(TAG, "run RefreshDocumentTask(), id=" + document.getDocumentId());
             return new RefreshFolderOperation(document.getFile(), System.currentTimeMillis(), false,
                                               false, true, document.getStorageManager(), document.getAccount(),
-                                              context).execute(document.getClient());
+                                              MainApp.getAppContext()).execute(document.getClient());
         }
 
         @Override
@@ -762,9 +760,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     public class Document {
         private final FileDataStorageManager storageManager;
-        private final Long fileId;
+        private final long fileId;
 
-        Document(FileDataStorageManager storageManager, Long fileId) {
+        Document(FileDataStorageManager storageManager, long fileId) {
             this.storageManager = storageManager;
             this.fileId = fileId;
         }

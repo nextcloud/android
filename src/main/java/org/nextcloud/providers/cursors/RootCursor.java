@@ -25,6 +25,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.MatrixCursor;
 import android.os.Build;
+import android.provider.DocumentsContract;
 import android.provider.DocumentsContract.Root;
 
 import com.owncloud.android.R;
@@ -50,12 +51,17 @@ public class RootCursor extends MatrixCursor {
 
     public void addRoot(DocumentsStorageProvider.Document document, Context context) {
         Account account = document.getAccount();
+
+        int rootFlags = Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_RECENTS | Root.FLAG_SUPPORTS_SEARCH;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            rootFlags = rootFlags | Root.FLAG_SUPPORTS_IS_CHILD;
+        }
+
         newRow().add(Root.COLUMN_ROOT_ID, account.name)
             .add(Root.COLUMN_DOCUMENT_ID, document.getDocumentId())
             .add(Root.COLUMN_SUMMARY, account.name)
             .add(Root.COLUMN_TITLE, context.getString(R.string.app_name))
             .add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
-            .add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_IS_CHILD |
-                Root.FLAG_SUPPORTS_RECENTS | Root.FLAG_SUPPORTS_SEARCH);
+            .add(Root.COLUMN_FLAGS, rootFlags);
     }
 }
