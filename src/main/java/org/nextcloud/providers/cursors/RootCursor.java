@@ -25,15 +25,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.MatrixCursor;
 import android.os.Build;
-import android.provider.DocumentsContract;
 import android.provider.DocumentsContract.Root;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.providers.DocumentsStorageProvider;
-
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
