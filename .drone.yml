@@ -138,21 +138,21 @@ steps:
   recipients_only: true
   recipients: [ $EMAIL_RECIPIENTS ]
   environment:
-    EMAIL_USERNAME:
+      EMAIL_USERNAME:
       from_secret: EMAIL_USERNAME
-    EMAIL_PASSWORD:
+      EMAIL_PASSWORD:
       from_secret: EMAIL_PASSWORD
-    EMAIL_RECIPIENTS:
-      from_secret: EMAIL_RECIPIENTS
-    EMAIL_HOST:
-      from_secret: EMAIL_HOST
+      EMAIL_RECIPIENTS:
+          from_secret: EMAIL_RECIPIENTS
+      EMAIL_HOST:
+          from_secret: EMAIL_HOST
   when:
-    event:
-      - push
-    status:
-      - failure
-    branch:
-      - master
+      event:
+          - push
+      status:
+          - failure
+      branch:
+          - master
 
 trigger:
   branch:
