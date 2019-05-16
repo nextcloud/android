@@ -404,6 +404,34 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         setDrawerMenuItemChecked(menuItem.getItemId());
 
+        if (menuItem.getGroupId() == R.id.drawer_menu_accounts) {
+            switch (menuItem.getItemId()) {
+                case R.id.drawer_menu_account_add:
+                    boolean isProviderOrOwnInstallationVisible = getResources()
+                        .getBoolean(R.bool.show_provider_or_own_installation);
+
+                    if (isProviderOrOwnInstallationVisible) {
+                        Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
+                        firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
+                        startActivity(firstRunIntent);
+                    } else {
+                        createAccount(false);
+                    }
+                    break;
+
+                case R.id.drawer_menu_account_manage:
+                    Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
+                    startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
+                    break;
+
+                default:
+                    accountClicked(menuItem.getItemId());
+                    break;
+            }
+
+            return;
+        }
+
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
                 showFiles(false);
@@ -461,22 +489,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 menuItem.setChecked(false);
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager(), true);
                 break;
-            case R.id.drawer_menu_account_add:
-                boolean isProviderOrOwnInstallationVisible = getResources()
-                        .getBoolean(R.bool.show_provider_or_own_installation);
-
-                if (isProviderOrOwnInstallationVisible) {
-                    Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
-                    firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
-                    startActivity(firstRunIntent);
-                } else {
-                    createAccount(false);
-                }
-                break;
-            case R.id.drawer_menu_account_manage:
-                Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
-                startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
-                break;
             case R.id.nav_recently_added:
                 handleSearchEvents(new SearchEvent("%", SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
@@ -492,10 +504,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_videos:
                 handleSearchEvents(new SearchEvent("video/%", SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
-                break;
-            case Menu.NONE:
-                // account clicked
-                accountClicked(menuItem.getTitle().toString());
                 break;
             default:
                 if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
@@ -534,12 +542,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * sets the new/current account and restarts. In case the given account equals the actual/current account the
      * call will be ignored.
      *
-     * @param accountName The account name to be set
+     * @param hashCode HashCode of account to be set
      */
-    private void accountClicked(String accountName) {
-        if (!AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name.equals(accountName)) {
-            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), accountName);
-
+    private void accountClicked(int hashCode) {
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        if (currentAccount != null && currentAccount.hashCode() != hashCode &&
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), hashCode)) {
             fetchExternalLinks(true);
 
             restart();
@@ -570,7 +578,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @param view the clicked ImageView
      */
     public void onAccountDrawerClick(View view) {
-        accountClicked(view.getContentDescription().toString());
+        accountClicked(Integer.parseInt(view.getContentDescription().toString()));
     }
 
     /**
@@ -696,7 +704,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 if (!getAccount().name.equals(account.name)) {
                     MenuItem accountMenuItem = mNavigationView.getMenu().add(
                         R.id.drawer_menu_accounts,
-                        Menu.NONE,
+                        account.hashCode(),
                         MENU_ORDER_ACCOUNT,
                         DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
                         .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
@@ -707,7 +715,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
                     R.id.drawer_menu_accounts,
-                    Menu.NONE,
+                    account.hashCode(),
                     MENU_ORDER_ACCOUNT,
                     DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
                     .setIcon(R.drawable.ic_user);

@@ -460,7 +460,7 @@ public final class DisplayUtils {
     public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
         if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(account.name);
+            ((View) callContext).setContentDescription(String.valueOf(account.hashCode()));
         }
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
