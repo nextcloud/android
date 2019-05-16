@@ -20,6 +20,7 @@
 
 package com.nextcloud.client.di;
 
+import com.nextcloud.client.whatsnew.WhatsNewActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
@@ -56,7 +57,6 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
-import com.nextcloud.client.whatsnew.WhatsNewActivity;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.errorhandling.ErrorShowActivity;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -64,6 +64,7 @@ import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
@@ -120,6 +121,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract ContactListFragment chooseContactListFragment();
 
     @ContributesAndroidInjector abstract FileUploader fileUploader();
 

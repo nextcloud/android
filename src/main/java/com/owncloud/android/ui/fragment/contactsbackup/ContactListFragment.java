@@ -59,6 +59,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -77,6 +79,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,6 +89,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -104,7 +109,7 @@ import static com.owncloud.android.ui.fragment.contactsbackup.ContactListFragmen
 /**
  * This fragment shows all contacts from a file and allows to import them.
  */
-public class ContactListFragment extends FileFragment {
+public class ContactListFragment extends FileFragment implements Injectable {
     public static final String TAG = ContactListFragment.class.getSimpleName();
 
     public static final String FILE_NAME = "FILE_NAME";
@@ -142,6 +147,7 @@ public class ContactListFragment extends FileFragment {
     private Account account;
     private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
+    @Inject UserAccountManager accountManager;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -184,7 +190,7 @@ public class ContactListFragment extends FileFragment {
         recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(getContext(), vCards);
+            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards);
         } else {
             Set<Integer> checkedItems = new HashSet<>();
             int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
@@ -196,7 +202,7 @@ public class ContactListFragment extends FileFragment {
             if (checkedItems.size() > 0) {
                 onMessageEvent(new VCardToggleEvent(true));
             }
-            contactListAdapter = new ContactListAdapter(getContext(), vCards, checkedItems);
+            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards, checkedItems);
         }
         recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -489,6 +495,7 @@ public class ContactListFragment extends FileFragment {
             }
         }
 
+        @NotNull
         @Override
         public String toString() {
             return displayName;
@@ -575,17 +582,23 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
     private Context context;
 
-    ContactListAdapter(Context context, List<VCard> vCards) {
+    private UserAccountManager accountManager;
+
+    ContactListAdapter(UserAccountManager accountManager, Context context, List<VCard> vCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = new HashSet<>();
+        this.accountManager = accountManager;
     }
 
-    ContactListAdapter(Context context, List<VCard> vCards,
+    ContactListAdapter(UserAccountManager accountManager,
+                       Context context,
+                       List<VCard> vCards,
                        Set<Integer> checkedVCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = checkedVCards;
+        this.accountManager = accountManager;
     }
 
     public int getCheckedCount() {
@@ -679,8 +692,13 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     imageView.setImageDrawable(errorDrawable);
                 }
             };
-            DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user, imageView.getWidth(),
-                    imageView.getHeight());
+            DisplayUtils.downloadIcon(accountManager,
+                                      context,
+                                      url,
+                                      target,
+                                      R.drawable.ic_user,
+                                      imageView.getWidth(),
+                                      imageView.getHeight());
         }
     }
 
