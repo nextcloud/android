@@ -2619,7 +2619,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void handleOpenFileViaIntent(Intent intent) {
-        showLoadingDialog("Retrieving file…");
+        showLoadingDialog(getString(R.string.retrieving_file));
 
         String accountName = intent.getStringExtra("KEY_ACCOUNT");
 
@@ -2631,7 +2631,7 @@ public class FileDisplayActivity extends FileActivity
 
             if (newAccount == null) {
                 dismissLoadingDialog();
-                DisplayUtils.showSnackMessage(this, "Associated account not found!");
+                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
                 return;
             }
 
@@ -2642,7 +2642,7 @@ public class FileDisplayActivity extends FileActivity
 
         if ("null".equals(fileId)) {
             dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, "Error retrieving file");
+            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
             return;
         }
 
