@@ -75,6 +75,7 @@ import butterknife.ButterKnife;
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
+    private static final String FILE = "file";
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
     private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
@@ -107,7 +108,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
                 notification.getDatetime().getTime()));
 
-        RichObject file = notification.subjectRichParameters.get("file");
+        RichObject file = notification.subjectRichParameters.get(FILE);
         String subject = notification.getSubject();
         if (file == null && !TextUtils.isEmpty(notification.getLink())) {
             subject = subject + " ↗";
