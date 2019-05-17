@@ -35,9 +35,9 @@ mv latest.apk ~/apks/
 lastBuildTime=$(date --date="$(git log -1 --format=%ai $(git tag | grep dev | tail -n1))" +%s)
 changelog=$(git log --after=$lastBuildTime --pretty=oneline --abbrev-commit)
 
-echo $changelog > fastlane/metadata/android/en-US/changelogs/$date.txt
+echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
 git add build.gradle
-git add fastlane/metadata/android/en-US/changelogs/$date.txt
+git add src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
 git commit -m "daily dev $date" -m "$changelog"
 git push
 
