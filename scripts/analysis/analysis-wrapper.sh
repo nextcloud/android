@@ -46,8 +46,8 @@ else
     echo "New findbugs results at https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html"
     curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$6.html --upload-file build/reports/spotbugs/spotbugs.html
 
-    # delete all old comments
-    oldComments=$(curl 2>/dev/null -u $1:$2 -X GET https://api.github.com/repos/nextcloud/android/issues/$7/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) ' | grep true | tr -d "\"" | cut -f1 -d"|")
+    # delete all old comments, starting with Codacy
+    oldComments=$(curl 2>/dev/null -u $1:$2 -X GET https://api.github.com/repos/nextcloud/android/issues/$7/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test("<h1>Codacy.*") | tostring)'  | grep "true|true" | tr -d "\"" | cut -f1 -d"|")
 
     echo $oldComments | while read comment ; do
         curl 2>/dev/null -u $1:$2 -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
@@ -55,7 +55,7 @@ else
 
     # check library, only if base branch is master
     baseBranch=$(scripts/analysis/getBranchBase.sh $1 $2 $7 | tr -d "\"")
-    if [ $baseBranch = "master" -a $(grep "android-library:master" build.gradle -c) -ne 3 ]; then
+    if [ $baseBranch = "master" -a $(grep "android-library:master" build.gradle -c) -ne 4 ]; then
         checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
         checkLibrary=1
     elif [ $baseBranch != "master" -a $baseBranch = $stableBranch -a $(grep "android-library:.*SNAPSHOT" build.gradle -c) -ne 0 ]; then
