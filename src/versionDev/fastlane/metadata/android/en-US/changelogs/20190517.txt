@@ -1,0 +1,7 @@
+e394748bd Merge pull request #4028 from nextcloud/externalIcon
+b9698f949 Merge pull request #4034 from nextcloud/addChangelogToFdroid
+0bc6e5362 add changelog to fdroid via fastlane
+aa8fc2e5c use authenticated glide loader for svg
+d16d2979d Merge pull request #4029 from nextcloud/dependabot/gradle/com.android.tools.build-gradle-3.4.1
+2dd4c3041 Bump gradle from 3.4.0 to 3.4.1
+eba0a9852 daily dev 20190515
