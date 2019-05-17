@@ -272,6 +272,7 @@
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">IO klaida</string>
     <string name="learn_more">Sužinoti daugiau</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
@@ -405,11 +406,13 @@
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
+    <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>
     <string name="remove_push_notification">Šalinti</string>
     <string name="remove_success_msg">Ištrinta</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
+    <string name="reshare_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="resharing_is_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="restore">Atkurti failą</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
