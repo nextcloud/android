@@ -546,6 +546,7 @@
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
     <string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
+    <string name="share_link_optional_password_title">Passwort eingeben (optional)</string>
     <string name="share_link_password_title">Passwort eingeben</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>

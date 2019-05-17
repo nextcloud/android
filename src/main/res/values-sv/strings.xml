@@ -545,6 +545,7 @@
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
     <string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen existerar</string>
     <string name="share_link_forbidden_permissions">att dela denna fil</string>
+    <string name="share_link_optional_password_title">Ange ett valfritt lösenord</string>
     <string name="share_link_password_title">Ange ett lösenord</string>
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>

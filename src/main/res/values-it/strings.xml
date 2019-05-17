@@ -546,6 +546,7 @@
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
     <string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
     <string name="share_link_forbidden_permissions">per condividere questo file</string>
+    <string name="share_link_optional_password_title">Digita una password facoltativa</string>
     <string name="share_link_password_title">Digita una password</string>
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_no_password_title">Imposta password</string>
