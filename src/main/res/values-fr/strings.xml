@@ -548,6 +548,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
     <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
     <string name="share_link_forbidden_permissions">de partager ce fichier</string>
+    <string name="share_link_optional_password_title">Saisissez un mot de passe optionnel</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
