@@ -486,7 +486,7 @@
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
-    <string name="prefs_show_hidden_files">Amosar ficheiros agachados</string>
+    <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_storage_path">Ruta de almacenamento</string>
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
@@ -547,6 +547,7 @@
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol</string>
     <string name="share_link_file_no_exist">Non se puido actualizar. Comprobe que o ficheiro existe</string>
     <string name="share_link_forbidden_permissions">para compartir este ficheiro</string>
+    <string name="share_link_optional_password_title">Escriba un contrasinal opcional</string>
     <string name="share_link_password_title">Introduza un contrasinal</string>
     <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
@@ -564,8 +565,8 @@
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_via_link_edit_permission_label">Permitir a edición</string>
     <string name="share_via_link_expiration_date_label">Definir a data de caducidade</string>
-    <string name="share_via_link_hide_download">Agachar a descarga</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Agachar a lista de ficheiros</string>
+    <string name="share_via_link_hide_download">Agochar a descarga</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Agochar a lista de ficheiros</string>
     <string name="share_via_link_menu_password_label">Protexido con contrasinal (%1$s)</string>
     <string name="share_via_link_password_label">Protexer con contrasinal</string>
     <string name="share_via_link_password_title">Asegurado</string>
@@ -590,7 +591,7 @@
     <string name="sort_by_name_descending">Z - A</string>
     <string name="sort_by_size_ascending">Primeiro o máis pequeno</string>
     <string name="sort_by_size_descending">Primeiro o máis grande</string>
-    <string name="ssl_validator_btn_details_hide">Agachar</string>
+    <string name="ssl_validator_btn_details_hide">Agochar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>
     <string name="ssl_validator_label_C">País</string>
