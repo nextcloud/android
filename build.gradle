@@ -34,7 +34,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'findbugs'
 apply plugin: 'jacoco-android'
 apply plugin: "com.github.spotbugs"
 
@@ -74,7 +73,7 @@ def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
-if (taskRequest.contains("Gplay") || taskRequest.contains("findbugs") || taskRequest.contains("lint")) {
+if (taskRequest.contains("Gplay") || taskRequest.contains("lint")) {
     apply from: 'gplay.gradle'
 }
 
@@ -200,27 +199,6 @@ android {
         }
     }
 
-    tasks.register("findbugs", FindBugs) {
-        ignoreFailures = false
-        effort = "max"
-        reportLevel = "medium"
-        classes = fileTree("$project.buildDir/intermediates/javac/gplayDebug/compileGplayDebugJavaWithJavac/classes/")
-        excludeFilter = file("${project.rootDir}/findbugs-filter.xml")
-        source = fileTree('src/main/java')
-        pluginClasspath = project.configurations.findbugsPlugins
-        classpath = files()
-        include '**/*.java'
-        exclude '**/gen/**'
-
-        reports {
-            xml.enabled = false
-            html.enabled = true
-            html {
-                destination = file("$project.buildDir/reports/findbugs/findbugs.html")
-            }
-        }
-    }
-
     android.applicationVariants.all { variant ->
         String variantName = variant.name
         String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
@@ -229,7 +207,7 @@ android {
             effort = "max"
             reportLevel = "medium"
             classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${capVariantName}JavaWithJavac/classes/")
-            excludeFilter = file("${project.rootDir}/findbugs-filter.xml")
+            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
             pluginClasspath = project.configurations.spotbugsPlugins
             source = fileTree('src/main/java')
             classpath = files()
@@ -246,7 +224,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+    check.dependsOn 'checkstyle', 'spotbugs', 'pmd', 'lint'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
