@@ -546,6 +546,7 @@
     <string name="share_link_file_error">共享文件或目录出错</string>
     <string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
     <string name="share_link_forbidden_permissions">共享该文件</string>
+    <string name="share_link_optional_password_title">输入一个可选密码</string>
     <string name="share_link_password_title">输入密码</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
