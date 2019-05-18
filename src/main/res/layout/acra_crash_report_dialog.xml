@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NextCloud crashed :("
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We crashed, but we know Why. Why is in the file we captured. It would be nice to send Why to us, if you don't mind, so we can help. Why does not contain any personal data. We promise to be nice and not use Why for anything dodgy. Etc, etc..."/>
+
+    <Button
+        android:id="@+id/acra_crash_report_dialog_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send e-mail to cause Tobi a headache"/>
+
+    <Button
+        android:id="@+id/acra_crash_report_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No! My precious!!!"/>
+
+</LinearLayout>
