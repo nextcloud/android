@@ -341,6 +341,10 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
 //    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+
+    // ACRA crash reporter
+    implementation "ch.acra:acra-mail:5.3.0"
+    implementation "ch.acra:acra-dialog:5.3.0"
 }
 
 configurations.all {

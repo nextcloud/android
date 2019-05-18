@@ -140,6 +140,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         emptyContentMessage.setVisibility(View.INVISIBLE);
         emptyContentHeadline.setVisibility(View.INVISIBLE);
 
+        String z = null;
+        int x = z.length();
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
