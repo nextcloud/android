@@ -1,19 +1,19 @@
-La app (copyleft y software libre) Nextcloud para Android te da libertad móvil.
+La plataforma autoalojada de productividad que te entrega el control.
 
-Características
-* Interfaz sencilla y moderna, adaptada al tema de tu servidor
-* Sube tus archivos a tu servidor Nextcloud
-* Comparte tus archivos con otros
-* Mantén sincronizados tus archivos y carpetas favoritos
-* Busca en todas las carpetas del servidor
-* Subida automática de fotos y vídeos realizados con tu dispositivo
-* Mantente al tanto de todo mediante las notificaciones
-* Soporte de múltiples cuentas
+Características:
+* Interfaz sencilla y modernal, adaptada al tema de tu servidor
+* Subida de archivos a tu servidor Nextcloud
+*Compártelos con otros
+*Mantén sincronizados tus archivos y carpetas favoritos
+*Búsqueda en todas las carpetas de tu servidor
+*Subida autoática para fotos y vídeos hechos con tu dispositivo
+*Manténte informado con notificaciones
+*Soporte de múltiples cuentas
 * Acceso seguro a tus datos con huella dactilar o PIN
-* Integración con  DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos
+*Integración con DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos
 
-Por favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y discute la app en https://help.nextcloud.com/c/clients/android
+Por favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y habla de esta app en https://help.nextcloud.com/c/clients/android
 
-¿Eres nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar, compartir y comunicarte. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tienes el control de tus fotos, tus calendarios y los datos de contactos, tus documentos y todo lo demás.
+¿Nuevo en Nextcloud? Nextcloud es un servidor privado de sincronización de archivos, para compartir y comunicarse. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tú controlas tus fotos, tus datos de calendario y contactos, tus documentos y todo lo demás.
 
-Conoce Nextcloud en https://nextcloud.com
+Descubre Nextcloud en https://nextcloud.com
