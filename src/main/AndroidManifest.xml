@@ -314,10 +314,10 @@
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
-        <activity android:name="com.nextcloud.client.whatsnew.WhatsNewActivity"
+        <activity android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
         <activity
-            android:name=".ui.activity.FirstRunActivity"
+            android:name="com.nextcloud.client.onboarding.FirstRunActivity"
             android:theme="@style/Theme.ownCloud.noActionBar.Login"
             android:configChanges="orientation|screenSize"/>
 

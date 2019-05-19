@@ -16,26 +16,16 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.whatsnew;
+package com.nextcloud.client.onboarding
 
-import android.content.res.Resources;
+import android.app.Activity
+import android.content.Context
+import com.owncloud.android.features.FeatureItem
 
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.preferences.AppPreferences;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-
-@Module
-public class WhatsNewModule {
-
-    @Provides
-    @Singleton
-    WhatsNewService whatsNewService(Resources resources,
-                                    AppPreferences preferences,
-                                    CurrentAccountProvider accountProvider) {
-        return new WhatsNewService(resources, preferences, accountProvider);
-    }
+interface OnboardingService {
+    val whatsNew: Array<FeatureItem>
+    val isFirstRun: Boolean
+    fun launchActivityIfNeeded(activity: Activity)
+    fun launchFirstRunIfNeeded(activity: Activity): Boolean
+    fun shouldShowWhatsNew(callingContext: Context): Boolean
 }
