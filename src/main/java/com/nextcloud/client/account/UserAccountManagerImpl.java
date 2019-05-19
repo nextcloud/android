@@ -61,6 +61,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
+    public void removeAllAccounts() {
+        for (Account account : accountManager.getAccounts()) {
+            accountManager.removeAccount(account, null, null);
+        }
+    }
+
+    @Override
     @NonNull
     public Account[] getAccounts() {
         return accountManager.getAccountsByType(getAccountType());

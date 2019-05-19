@@ -89,6 +89,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -113,7 +114,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FirstRunActivity;
+import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.ui.components.CustomEditText;
 import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
@@ -250,11 +251,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextInputLayout mPasswordInputLayout;
     private boolean forceOldLoginMethod;
 
-    @Inject
-    UserAccountManager accountManager;
-
-    @Inject
-    protected AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
+    @Inject AppPreferences preferences;
+    @Inject OnboardingService onboarding;
 
     /**
      * {@inheritDoc}
@@ -269,7 +268,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
         if (savedInstanceState == null && !directLogin) {
-            FirstRunActivity.runIfNeeded(this);
+            onboarding.launchFirstRunIfNeeded(this);
         }
 
         // delete cookies for webView

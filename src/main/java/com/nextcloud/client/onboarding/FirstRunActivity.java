@@ -22,7 +22,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.activity;
+package com.nextcloud.client.onboarding;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -43,13 +43,13 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.whatsnew.WhatsNewService;
 import com.owncloud.android.BuildConfig;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.features.FeatureItem;
+import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.DisplayUtils;
@@ -70,7 +70,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Inject UserAccountManager userAccountManager;
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
-    @Inject WhatsNewService whatsNew;
+    @Inject OnboardingService onboarding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,13 +119,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         ViewPager viewPager = findViewById(R.id.contentPanel);
 
         // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
-        if (whatsNew.isFirstRun()) {
-            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-            if (am != null) {
-                for (Account account : userAccountManager.getAccounts()) {
-                    am.removeAccount(account, null, null);
-                }
-            }
+        if (onboarding.isFirstRun()) {
+            userAccountManager.removeAllAccounts();
         }
 
         FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(), getFirstRun());
@@ -188,31 +183,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         onFinish();
 
         super.onStop();
-    }
-
-    private static boolean isFirstRun(Context context) {
-        return AccountUtils.getCurrentOwnCloudAccount(context) == null;
-    }
-
-    public static boolean runIfNeeded(Context context) {
-        boolean isProviderOrOwnInstallationVisible = context.getResources()
-                .getBoolean(R.bool.show_provider_or_own_installation);
-
-        if (!isProviderOrOwnInstallationVisible) {
-            return false;
-        }
-
-        if (context instanceof FirstRunActivity) {
-            return false;
-        }
-
-        if (isFirstRun(context) && context instanceof AuthenticatorActivity) {
-            ((AuthenticatorActivity) context).startActivityForResult(new Intent(context, FirstRunActivity.class),
-                                                                     AuthenticatorActivity.REQUEST_CODE_FIRST_RUN);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override
