@@ -46,6 +46,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -107,6 +108,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final String userId;
     private Context mContext;
     private AppPreferences preferences;
+    private UserAccountManager accountManager;
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
@@ -135,6 +137,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Context context,
         Account account,
         AppPreferences preferences,
+        UserAccountManager accountManager,
         ComponentsGetter transferServiceGetter,
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
@@ -144,6 +147,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         mContext = context;
         this.preferences = preferences;
+        this.accountManager = accountManager;
         this.account = account;
         mHideItemOptions = argHideItemOptions;
         this.gridView = gridView;
@@ -154,8 +158,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
 
         if (account != null) {
-            AccountManager accountManager = AccountManager.get(mContext);
-            userId = accountManager.getUserData(account,
+            AccountManager platformAccountManager = AccountManager.get(mContext);
+            userId = platformAccountManager.getUserData(account,
                                                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
         } else {
             userId = "";
@@ -662,7 +666,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
             }
-            if (AccountUtils.accountOwnsFile(file, account)) {
+            if (accountManager.accountOwnsFile(file, account)) {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
             } else {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));

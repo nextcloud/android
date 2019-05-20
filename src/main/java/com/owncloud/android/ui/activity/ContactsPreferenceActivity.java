@@ -113,6 +113,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 getUserAccountManager().getCurrentAccount(),
                 bottomNavigationView,
                 getResources(),
+                accountManager,
                 this,
                 -1
             );

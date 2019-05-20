@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -60,6 +61,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -79,15 +82,16 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     private SearchView mSearchView;
     private RelativeLayout mMultiView;
 
-    protected LinearLayout mMultiListContainer;
-    protected TextView mMultiListMessage;
-    protected TextView mMultiListHeadline;
-    protected ImageView mMultiListIcon;
-    protected ProgressBar mMultiListProgress;
+    private TextView mMultiListMessage;
+    private TextView mMultiListHeadline;
+    private ImageView mMultiListIcon;
+    private ProgressBar mMultiListProgress;
 
 
     private String mSearchQuery = "";
     private boolean mSearchOpen;
+
+    @Inject UserAccountManager accountManager;
 
     /**
      * Creates an empty fragment for previews.
@@ -126,8 +130,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         return ret;
     }
 
-    protected void setupMultiView(View view) {
-        mMultiListContainer = view.findViewById(R.id.empty_list_view);
+    private void setupMultiView(View view) {
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mMultiListIcon = view.findViewById(R.id.empty_list_icon);
@@ -365,14 +368,17 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         super.onPrepareOptionsMenu(menu);
 
         if (containerActivity.getStorageManager() != null) {
+            Account currentAccount = containerActivity.getStorageManager().getAccount();
             FileMenuFilter mf = new FileMenuFilter(
                     getFile(),
-                    containerActivity.getStorageManager().getAccount(),
+                    currentAccount,
                 containerActivity,
                     getActivity(),
                     false
             );
-            mf.filter(menu, true);
+            mf.filter(menu,
+                      true,
+                      accountManager.isMediaStreamingSupported(currentAccount));
         }
 
         // additional restriction for this fragment

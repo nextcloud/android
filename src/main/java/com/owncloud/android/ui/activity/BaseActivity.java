@@ -79,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = mCurrentAccount != null && AccountUtils.exists(mCurrentAccount, this);
+        boolean validAccount = mCurrentAccount != null && accountManager.exists(mCurrentAccount);
         if (!validAccount) {
             swapToDefaultAccount();
         }
@@ -99,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mCurrentAccount;
         boolean validAccount =
-                account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name);
+                account != null && accountManager.setCurrentOwnCloudAccount(account.name);
         if (validAccount) {
             mCurrentAccount = account;
             mAccountWasSet = true;
@@ -239,7 +239,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
                     result = future.getResult();
                     String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                     String type = result.getString(AccountManager.KEY_ACCOUNT_TYPE);
-                    if (AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name)) {
+                    if (accountManager.setCurrentOwnCloudAccount(name)) {
                         setAccount(new Account(name, type), false);
                         accountWasSet = true;
                     }

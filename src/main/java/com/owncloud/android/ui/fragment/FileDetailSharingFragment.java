@@ -39,6 +39,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -64,6 +66,8 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -77,7 +81,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener,
-    DisplayUtils.AvatarGenerationListener {
+    DisplayUtils.AvatarGenerationListener, Injectable {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
@@ -131,6 +135,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @BindView(R.id.shared_with_you_note)
     TextView sharedWithYouNote;
+
+    @Inject UserAccountManager accountManager;
 
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -268,7 +274,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void setShareWithYou() {
-        if (AccountUtils.accountOwnsFile(file, account)) {
+        if (accountManager.accountOwnsFile(file, account)) {
             sharedWithYouContainer.setVisibility(View.GONE);
         } else {
             sharedWithYouUsername.setText(

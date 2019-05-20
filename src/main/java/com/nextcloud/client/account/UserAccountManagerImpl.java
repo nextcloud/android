@@ -23,6 +23,8 @@ package com.nextcloud.client.account;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.nextcloud.client.preferences.AppPreferences;
@@ -30,6 +32,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -47,9 +50,15 @@ import androidx.annotation.Nullable;
 public class UserAccountManagerImpl implements UserAccountManager {
 
     private static final String TAG = AccountUtils.class.getSimpleName();
+    private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     private Context context;
     private AccountManager accountManager;
+
+    public static UserAccountManagerImpl fromContext(Context context) {
+        AccountManager am = (AccountManager)context.getSystemService(Context.ACCOUNT_SERVICE);
+        return new UserAccountManagerImpl(context, am);
+    }
 
     @Inject
     public UserAccountManagerImpl(
@@ -64,6 +73,29 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @NonNull
     public Account[] getAccounts() {
         return accountManager.getAccountsByType(getAccountType());
+    }
+
+    @Override
+    public boolean exists(Account account) {
+        Account[] nextcloudAccounts = getAccounts();
+
+        if (account != null && account.name != null) {
+            int lastAtPos = account.name.lastIndexOf('@');
+            String hostAndPort = account.name.substring(lastAtPos + 1);
+            String username = account.name.substring(0, lastAtPos);
+            String otherHostAndPort;
+            String otherUsername;
+            for (Account otherAccount : nextcloudAccounts) {
+                lastAtPos = otherAccount.name.lastIndexOf('@');
+                otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
+                otherUsername = otherAccount.name.substring(0, lastAtPos);
+                if (otherHostAndPort.equals(hostAndPort) &&
+                    otherUsername.equalsIgnoreCase(username)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Nullable
@@ -95,8 +127,76 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
+    public boolean setCurrentOwnCloudAccount(String accountName) {
+        boolean result = false;
+        if (accountName != null) {
+            for (final Account account : getAccounts()) {
+                if (accountName.equals(account.name)) {
+                    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
+                    appPrefs.apply();
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean setCurrentOwnCloudAccount(int hashCode) {
+        boolean result = false;
+        if (hashCode != 0) {
+            for (final Account account : getAccounts()) {
+                if (hashCode == account.hashCode()) {
+                    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
+                    appPrefs.apply();
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    @NonNull
     public OwnCloudVersion getServerVersion(Account account) {
-        return AccountUtils.getServerVersion(account);
+        OwnCloudVersion serverVersion = MainApp.MINIMUM_SUPPORTED_SERVER_VERSION;
+
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_VERSION);
+
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+
+        return serverVersion;
+    }
+
+    @Override
+    public boolean isSearchSupported(Account account) {
+        return account != null && getServerVersion(account).isSearchSupported();
+    }
+
+    @Override
+    public boolean isMediaStreamingSupported(Account account) {
+        return account != null && getServerVersion(account).isMediaStreamingSupported();
+    }
+
+    @Override
+    public void resetOwnCloudAccount() {
+        SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        appPrefs.putString(PREF_SELECT_OC_ACCOUNT, null);
+        appPrefs.apply();
+    }
+
+    @Override
+    public  boolean accountOwnsFile(OCFile file, Account account) {
+        return !TextUtils.isEmpty(file.getOwnerId()) && account.name.split("@")[0].equals(file.getOwnerId());
     }
 
     public void migrateUserId() {

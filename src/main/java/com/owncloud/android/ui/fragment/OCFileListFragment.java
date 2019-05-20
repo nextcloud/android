@@ -287,6 +287,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             DisplayUtils.setupBottomBar(
                 accountManager.getCurrentAccount(),
                 bottomNavigationView, getResources(),
+                accountManager,
                 getActivity(),
                 R.id.nav_bar_files
             );
@@ -359,6 +360,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getCurrentAccount(),
             preferences,
+            accountManager,
             mContainerActivity,
             this,
             hideItemOptions,
@@ -484,9 +486,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.file_actions_menu);
-        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(), Collections.singleton(file),
-                ((FileActivity) getActivity()).getAccount(), mContainerActivity, getActivity(), true);
-        mf.filter(popup.getMenu(), true);
+        Account currentAccount = ((FileActivity) getActivity()).getAccount();
+        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
+                                               Collections.singleton(file),
+                                               currentAccount,
+                                               mContainerActivity, getActivity(),
+                                               true);
+        mf.filter(popup.getMenu(),
+                  true,
+                  accountManager.isMediaStreamingSupported(currentAccount));
         popup.setOnMenuItemClickListener(item -> {
             Set<OCFile> checkedFiles = new HashSet<>();
             checkedFiles.add(file);
@@ -620,15 +628,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final int checkedCount = mAdapter.getCheckedItems().size();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
+            Account currentAccount = ((FileActivity) getActivity()).getAccount();
             FileMenuFilter mf = new FileMenuFilter(
                     mAdapter.getFiles().size(),
                     checkedFiles,
-                    ((FileActivity) getActivity()).getAccount(),
+                    currentAccount,
                     mContainerActivity,
                     getActivity(),
                     false
             );
-            mf.filter(menu, false);
+
+            mf.filter(menu,
+                      false,
+                      accountManager.isMediaStreamingSupported(currentAccount));
             return true;
         }
 
@@ -949,7 +961,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         Account account = accountManager.getCurrentAccount();
                         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.name);
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && AccountUtils.getServerVersion(account)
+                        if (PreviewMediaFragment.canBePreviewed(file) && accountManager.getServerVersion(account)
                                 .isMediaStreamingSupported()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
