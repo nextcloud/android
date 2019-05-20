@@ -101,7 +101,7 @@ public final class PassCodeManager {
             i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         } else {
-            if (preferences.getLockTimestamp() != 0) {
+            if (!askedForPin && preferences.getLockTimestamp() != 0) {
                 preferences.setLockTimestamp(System.currentTimeMillis());
             }
         }
