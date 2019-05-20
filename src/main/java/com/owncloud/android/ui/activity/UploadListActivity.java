@@ -159,6 +159,7 @@ public class UploadListActivity extends FileActivity {
                 getUserAccountManager().getCurrentAccount(),
                 bottomNavigationView,
                 getResources(),
+                accountManager,
                 this,
                 -1
             );
@@ -176,7 +177,10 @@ public class UploadListActivity extends FileActivity {
         emptyContentHeadline.setText(noResultsHeadline);
         emptyContentMessage.setText(noResultsMessage);
 
-        uploadListAdapter = new UploadListAdapter(this, uploadsStorageManager, connectivityService);
+        uploadListAdapter = new UploadListAdapter(this,
+                                                  uploadsStorageManager,
+                                                  userAccountManager,
+                                                  connectivityService);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
         uploadListAdapter.setLayoutManager(lm);
@@ -224,6 +228,7 @@ public class UploadListActivity extends FileActivity {
                                                       null,
                                                       uploadsStorageManager,
                                                       connectivityService,
+                                                      userAccountManager,
                                                       null)).start();
 
         // update UI

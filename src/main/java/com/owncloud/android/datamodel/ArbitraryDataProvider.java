@@ -31,6 +31,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 /**
  * Database provider for handling the persistence aspects of arbitrary data table.
  */
@@ -155,8 +157,9 @@ public class ArbitraryDataProvider {
      * Returns stored value as string or empty string
      * @return string if value found or empty string
      */
+    @NonNull
     public String getValue(Account account, String key) {
-        return getValue(account.name, key);
+        return account != null ? getValue(account.name, key) : "";
     }
 
     public String getValue(String accountName, String key) {

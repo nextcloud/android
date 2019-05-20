@@ -41,6 +41,7 @@ import android.widget.ListView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -67,6 +68,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -100,6 +103,8 @@ public class ManageAccountsActivity extends FileActivity
     private Drawable mTintedCheck;
 
     private ArbitraryDataProvider arbitraryDataProvider;
+
+    @Inject UserAccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,7 +301,7 @@ public class ManageAccountsActivity extends FileActivity
                             try {
                                 Bundle result = future.getResult();
                                 String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
+                                accountManager.setCurrentOwnCloudAccount(name);
                                 mAccountListAdapter = new AccountListAdapter(
                                         ManageAccountsActivity.this,
                                         getUserAccountManager(),
@@ -333,7 +338,7 @@ public class ManageAccountsActivity extends FileActivity
         if (future.isDone()) {
             // after remove account
             Account account = new Account(mAccountName, MainApp.getAccountType(this));
-            if (!AccountUtils.exists(account, MainApp.getAppContext())) {
+            if (!accountManager.exists(account)) {
                 // Cancel transfers of the removed account
                 if (mUploaderBinder != null) {
                     mUploaderBinder.cancel(account);
@@ -349,7 +354,7 @@ public class ManageAccountsActivity extends FileActivity
                 if (accounts.length != 0) {
                     accountName = accounts[0].name;
                 }
-                AccountUtils.setCurrentOwnCloudAccount(this, accountName);
+                accountManager.setCurrentOwnCloudAccount(accountName);
             }
 
             List<AccountListItem> accountListItemArray = getAccountListItems();
@@ -451,10 +456,10 @@ public class ManageAccountsActivity extends FileActivity
 
         if (newAccountName.isEmpty()) {
             Log_OC.d(TAG, "new account set to null");
-            AccountUtils.resetOwnCloudAccount(this);
+            accountManager.resetOwnCloudAccount();
         } else {
             Log_OC.d(TAG, "new account set to: " + newAccountName);
-            AccountUtils.setCurrentOwnCloudAccount(this, newAccountName);
+            accountManager.setCurrentOwnCloudAccount(newAccountName);
         }
 
         // only one to be (deleted) account remaining

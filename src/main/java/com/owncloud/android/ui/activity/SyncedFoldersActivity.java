@@ -132,7 +132,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             currentAccount = getAccount();
 
             if (account != null && currentAccount != null && !account.equalsIgnoreCase(currentAccount.name)) {
-                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
+                accountManager.setCurrentOwnCloudAccount(account);
                 setAccount(getUserAccountManager().getCurrentAccount());
             }
 
@@ -209,6 +209,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 getUserAccountManager().getCurrentAccount(),
                 bottomNavigationView,
                 getResources(),
+                accountManager,
                 this,
                 -1
             );
