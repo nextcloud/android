@@ -297,7 +297,7 @@
     <string name="filename_hint">Nome de arquivo</string>
     <string name="files_drop_not_supported">Isso é um recurso do Nextcloud, faça um upgrade.</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
-    <string name="first_run_2_text">Colaboração segura &amp; troca de arquivo</string>
+    <string name="first_run_2_text">Colaboração segura &amp; troca de arquivos</string>
     <string name="first_run_3_text">Webmail fácil de usar, calendário &amp; contatos</string>
     <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
     <string name="folder_already_exists">Pasta já existe</string>
