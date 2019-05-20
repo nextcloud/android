@@ -138,7 +138,6 @@ public final class AccountUtils {
         return null;
     }
 
-
     public static boolean setCurrentOwnCloudAccount(final Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
@@ -146,6 +145,22 @@ public final class AccountUtils {
                 if (accountName.equals(account.name)) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
                     appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
+                    appPrefs.apply();
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static boolean setCurrentOwnCloudAccount(final Context context, int hashCode) {
+        boolean result = false;
+        if (hashCode != 0) {
+            for (final Account account : getAccounts(context)) {
+                if (hashCode == account.hashCode()) {
+                    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
                     appPrefs.apply();
                     result = true;
                     break;
