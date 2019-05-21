@@ -1,0 +1,7 @@
+3.6.2 RC1 (May, 21, 2019)
+
+- fix bug when creating preview
+- fix crash on opening app
+- fix account switch
+
+For a full list, please see https://github.com/nextcloud/android/milestone/34
