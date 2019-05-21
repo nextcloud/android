@@ -841,10 +841,11 @@ public final class ThumbnailsCacheManager {
         protected void onPostExecute(Drawable drawable) {
             if (drawable != null) {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
-                AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
-
-                if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
-                    listener.avatarGenerated(drawable, mCallContext);
+                if (listener != null) {
+                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
+                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
+                        listener.avatarGenerated(drawable, mCallContext);
+                    }
                 }
             }
         }
