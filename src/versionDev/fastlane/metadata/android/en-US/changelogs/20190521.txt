@@ -1,0 +1,8 @@
+bd4bc646c Merge pull request #4044 from nextcloud/fixToolbar
+5d4a966b4 add fix for app protection
+759558c46 Use account.hashCode instead of name as account switching value (#4031)
+c16622dd9 Fix IllegalStateException on Toolbar while activity recreation
+0bb4e72e9 Add test for IllegalStateException of FileDisplayActivity
+28c7e7469 use account.hashCode instead of name as account switching value
+d65ce6de5 [tx-robot] updated from transifex
+740aff425 daily dev 20190520
