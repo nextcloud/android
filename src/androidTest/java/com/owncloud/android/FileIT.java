@@ -49,7 +49,6 @@ public class FileIT extends AbstractIT {
         int CONNECTION_TIMEOUT = 5000;
 
         MkColMethod mkCol1 = new MkColMethod(client.getWebdavUri() + WebdavUtils.encodePath("/mkcol"));
-        client.setUseNextcloudUserAgent(true);
         client.executeMethod(mkCol1, READ_TIMEOUT, CONNECTION_TIMEOUT);
         mkCol1.releaseConnection();
 
@@ -57,7 +56,6 @@ public class FileIT extends AbstractIT {
             long start = System.currentTimeMillis();
             System.out.println("mkcol start: " + i);
             MkColMethod mkCol = new MkColMethod(client.getWebdavUri() + WebdavUtils.encodePath("/mkcol/" + i));
-            client.setUseNextcloudUserAgent(true);
             client.executeMethod(mkCol, READ_TIMEOUT, CONNECTION_TIMEOUT);
 
             mkCol.releaseConnection();
