@@ -85,7 +85,7 @@
     <string name="uploader_upload_files_behaviour">Upload option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder.</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
@@ -96,10 +96,10 @@
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
-    <string name="file_list_empty_headline_search">No results in this folder.</string>
+    <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
-    <string name="file_list_empty_favorite_headline">Nothing favorited yet.</string>
-    <string name="file_list_empty_shared_headline">Nothing shared yet.</string>
+    <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
+    <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
@@ -112,7 +112,7 @@
     <string name="file_list_empty_text_photos_filter">No photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
-    <string name="trashbin_empty_headline">No deleted files.</string>
+    <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
