@@ -3,7 +3,7 @@
 # see http://EditorConfig.org
 
 # This is the file in the root of the project.
-# For sub folders you can have other files that override only some settings. 
+# For sub folders you can have other files that override only some settings.
 # For these, this settings should be false.
 root=true
 
@@ -22,7 +22,7 @@ trim_trailing_whitespace=true
 insert_final_newline=true
 
 [*.properties]
-# Exception for Java properties files should be encoded latin1 (aka iso8859-1) 
+# Exception for Java properties files should be encoded latin1 (aka iso8859-1)
 charset=latin1
 
 [*.{cmd,bat}]
@@ -31,3 +31,6 @@ end_of_line=crlf
 
 [*.md]
 trim_trailing_whitespace=false
+
+[.drone.yml]
+indent_size=2
