@@ -1,41 +1,35 @@
 /*
  * Nextcloud Android client application
  *
- * @author Mario Danic
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2017 Nextcloud GmbH.
+ * @author Chris Narkiewicz
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Inspired by: https://stackoverflow.com/questions/6493517/detect-if-android-device-has-internet-connection
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.utils;
+package com.nextcloud.client.network;
 
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
-import com.owncloud.android.authentication.AccountUtils;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -45,21 +39,43 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public final class ConnectivityUtils {
+import androidx.core.net.ConnectivityManagerCompat;
+import kotlin.jvm.functions.Function1;
 
-    private final static String TAG = ConnectivityUtils.class.getName();
+class ConnectivityServiceImpl implements ConnectivityService {
 
-    private ConnectivityUtils() {
-        // utility class -> private constructor
+    private final static String TAG = ConnectivityServiceImpl.class.getName();
+
+    private ConnectivityManager connectivityManager;
+    private UserAccountManager accountManager;
+    private ClientFactory clientFactory;
+    private GetRequestBuilder requestBuilder;
+
+    static class GetRequestBuilder implements Function1<String, GetMethod> {
+        @Override
+        public GetMethod invoke(String url) {
+            return new GetMethod(url);
+        }
     }
 
-    public static boolean isInternetWalled(Context context) {
-        if (isOnlineWithWifi(context)) {
+    ConnectivityServiceImpl(ConnectivityManager connectivityManager,
+                            UserAccountManager accountManager,
+                            ClientFactory clientFactory,
+                            GetRequestBuilder requestBuilder) {
+        this.connectivityManager = connectivityManager;
+        this.accountManager = accountManager;
+        this.clientFactory = clientFactory;
+        this.requestBuilder = requestBuilder;
+    }
+
+    @Override
+    public boolean isInternetWalled() {
+        if (isOnlineWithWifi()) {
             try {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+                Account account = accountManager.getCurrentAccount();
                 if (account != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                    OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
+                    OwnCloudAccount ocAccount = accountManager.getCurrentOwnCloudAccount();
+                    OwnCloudVersion serverVersion = accountManager.getServerVersion(account);
 
                     String url;
                     if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
@@ -68,8 +84,8 @@ public final class ConnectivityUtils {
                         url = ocAccount.getBaseUri() + "/status.php";
                     }
 
-                    GetMethod get = new GetMethod(url);
-                    OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(account, context);
+                    GetMethod get = requestBuilder.invoke(url);
+                    OwnCloudClient client = clientFactory.create(account);
 
                     int status = client.executeMethod(get);
 
@@ -100,24 +116,24 @@ public final class ConnectivityUtils {
                 Log_OC.e(TAG, e.getMessage());
             }
         } else {
-            return Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY);
+            return getActiveNetworkType() == JobRequest.NetworkType.ANY;
         }
 
         return true;
     }
 
-    public static boolean isOnlineWithWifi(Context context) {
+    @Override
+    public boolean isOnlineWithWifi() {
         try {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 
             if (activeNetwork.isConnectedOrConnecting()) {
                 switch (activeNetwork.getType()) {
                     case ConnectivityManager.TYPE_VPN:
                         // check if any other network is wifi
-                        for (NetworkInfo networkInfo : cm.getAllNetworkInfo()) {
+                        for (NetworkInfo networkInfo : connectivityManager.getAllNetworkInfo()) {
                             if (networkInfo.isConnectedOrConnecting() &&
-                                    networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                                networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                                 return true;
                             }
                         }
@@ -134,6 +150,31 @@ public final class ConnectivityUtils {
             }
         } catch (NullPointerException exception) {
             return false;
+        }
+    }
+
+    @Override
+    public JobRequest.NetworkType getActiveNetworkType() {
+        NetworkInfo networkInfo;
+        try {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
+        } catch (Throwable t) {
+            return JobRequest.NetworkType.ANY;
+        }
+
+        if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
+            return JobRequest.NetworkType.ANY;
+        }
+
+        boolean metered = ConnectivityManagerCompat.isActiveNetworkMetered(connectivityManager);
+        if (!metered) {
+            return JobRequest.NetworkType.UNMETERED;
+        }
+
+        if (networkInfo.isRoaming()) {
+            return JobRequest.NetworkType.CONNECTED;
+        } else {
+            return JobRequest.NetworkType.NOT_ROAMING;
         }
     }
 }

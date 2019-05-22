@@ -40,6 +40,7 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -141,7 +142,10 @@ public abstract class FileActivity extends DrawerActivity
     private ServiceConnection mUploadServiceConnection;
 
     @Inject
-    protected UserAccountManager accountManager;
+    UserAccountManager accountManager;
+
+    @Inject
+    ConnectivityService connectivityService;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -160,7 +164,7 @@ public abstract class FileActivity extends DrawerActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
-        mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager());
+        mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService);
         Account account = null;
 
         if (savedInstanceState != null) {
