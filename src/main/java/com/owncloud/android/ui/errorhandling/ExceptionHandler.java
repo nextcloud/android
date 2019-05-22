@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
@@ -28,55 +28,55 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
-	private final Activity mContext;
+    private final Activity mContext;
 
-	private static final String TAG = ExceptionHandler.class.getSimpleName();
+    private static final String TAG = ExceptionHandler.class.getSimpleName();
 
-	public ExceptionHandler(Activity context) {
-		mContext = context;
-	}
+    public ExceptionHandler(Activity context) {
+        mContext = context;
+    }
 
-	public void uncaughtException(Thread thread, Throwable exception) {
-	    Log.e(TAG, "ExceptionHandler caught UncaughtException", exception);
-		StringWriter stackTrace = new StringWriter();
-		exception.printStackTrace(new PrintWriter(stackTrace));
-		final StringBuilder errorReport = new StringBuilder(192);
-		final String LINE_SEPARATOR = "\n";
-		errorReport.append("************ CAUSE OF ERROR ************\n\n")
-				.append(stackTrace.toString())
-				.append("\n************ DEVICE INFORMATION ***********\nBrand: ")
-				.append(Build.BRAND)
-				.append(LINE_SEPARATOR)
-				.append("Device: ")
-				.append(Build.DEVICE)
-				.append(LINE_SEPARATOR)
-				.append("Model: ")
-				.append(Build.MODEL)
-				.append(LINE_SEPARATOR)
-				.append("Id: ")
-				.append(Build.ID)
-				.append(LINE_SEPARATOR)
-				.append("Product: ")
-				.append(Build.PRODUCT)
-				.append(LINE_SEPARATOR)
-				.append("\n************ FIRMWARE ************\nSDK: ")
-				.append(Build.VERSION.SDK_INT)
-				.append(LINE_SEPARATOR)
-				.append("Release: ")
-				.append(Build.VERSION.RELEASE)
-				.append(LINE_SEPARATOR)
-				.append("Incremental: ")
-				.append(Build.VERSION.INCREMENTAL)
-				.append(LINE_SEPARATOR);
+    public void uncaughtException(Thread thread, Throwable exception) {
+        Log.e(TAG, "ExceptionHandler caught UncaughtException", exception);
+        StringWriter stackTrace = new StringWriter();
+        exception.printStackTrace(new PrintWriter(stackTrace));
+        final String LINE_SEPARATOR = "\n";
 
-		Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
+        String errorReport = "************ CAUSE OF ERROR ************\n\n" +
+            stackTrace.toString() +
+            "\n************ DEVICE INFORMATION ***********\nBrand: " +
+            Build.BRAND +
+            LINE_SEPARATOR +
+            "Device: " +
+            Build.DEVICE +
+            LINE_SEPARATOR +
+            "Model: " +
+            Build.MODEL +
+            LINE_SEPARATOR +
+            "Id: " +
+            Build.ID +
+            LINE_SEPARATOR +
+            "Product: " +
+            Build.PRODUCT +
+            LINE_SEPARATOR +
+            "\n************ FIRMWARE ************\nSDK: " +
+            Build.VERSION.SDK_INT +
+            LINE_SEPARATOR +
+            "Release: " +
+            Build.VERSION.RELEASE +
+            LINE_SEPARATOR +
+            "Incremental: " +
+            Build.VERSION.INCREMENTAL +
+            LINE_SEPARATOR;
 
-		Intent intent = new Intent(mContext, ErrorShowActivity.class);
-		intent.putExtra("error", errorReport.toString());
-		mContext.startActivity(intent);
+        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
 
-		android.os.Process.killProcess(android.os.Process.myPid());
-		System.exit(1000);
-	}
+        Intent intent = new Intent(mContext, ErrorShowActivity.class);
+        intent.putExtra("error", errorReport);
+        mContext.startActivity(intent);
+
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1000);
+    }
 
 }

@@ -134,7 +134,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         emptyContentProgressBar.setVisibility(View.GONE);
         emptyContentMessage.setVisibility(View.INVISIBLE);
         emptyContentHeadline.setVisibility(View.INVISIBLE);
-
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
