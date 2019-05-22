@@ -49,6 +49,7 @@ import android.util.Pair;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -72,7 +73,6 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -186,6 +186,7 @@ public class FileUploader extends Service
     private FileDataStorageManager mStorageManager;
     //since there can be only one instance of an Android service, there also just one db connection.
     @Inject UploadsStorageManager mUploadsStorageManager;
+    @Inject ConnectivityService connectivityService;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
@@ -401,6 +402,7 @@ public class FileUploader extends Service
             @NonNull final Context context,
             @Nullable Account account,
             @NotNull final UploadsStorageManager uploadsStorageManager,
+            @NotNull final ConnectivityService connectivityService,
             @Nullable final UploadResult uploadResult
         ) {
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
@@ -408,8 +410,8 @@ public class FileUploader extends Service
             boolean resultMatch;
             boolean accountMatch;
 
-            boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
-                    !ConnectivityUtils.isInternetWalled(context);
+            boolean gotNetwork = connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
+                    !connectivityService.isInternetWalled();
             boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
             boolean charging = Device.getBatteryStatus(context).isCharging();
             boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
@@ -642,6 +644,7 @@ public class FileUploader extends Service
 
                     newUpload = new UploadFileOperation(
                         mUploadsStorageManager,
+                            connectivityService,
                             account,
                             file,
                             ocUpload,
@@ -701,6 +704,7 @@ public class FileUploader extends Service
 
             UploadFileOperation newUpload = new UploadFileOperation(
                     mUploadsStorageManager,
+                    connectivityService,
                     account,
                     null,
                     upload,

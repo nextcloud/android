@@ -298,7 +298,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         OCFile file = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES);
 
         new Thread(() -> {
-            Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+            Account account = currentAccountProvider.getCurrentAccount();
             RichDocumentsCreateAssetOperation operation = new RichDocumentsCreateAssetOperation(file.getRemotePath());
             RemoteOperationResult result = operation.execute(account, this);
 

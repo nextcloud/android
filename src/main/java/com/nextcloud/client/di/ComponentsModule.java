@@ -66,6 +66,7 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
@@ -121,6 +122,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+    @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
 
     @ContributesAndroidInjector
     abstract ContactListFragment chooseContactListFragment();
