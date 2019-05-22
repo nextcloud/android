@@ -546,6 +546,7 @@
     <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub katalogu</string>
     <string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje</string>
     <string name="share_link_forbidden_permissions">do udostępniania tego pliku</string>
+    <string name="share_link_optional_password_title">Wprowadź opcjonalne hasło</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
