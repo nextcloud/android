@@ -176,6 +176,7 @@ public class FileDisplayActivity extends FileActivity
 
     public static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
     public static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
+    public static final String KEY_FILE_ID = "KEY_FILE_ID";
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -2622,25 +2623,30 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void handleOpenFileViaIntent(Intent intent) {
-        showLoadingDialog("Retrieving file…");
+        showLoadingDialog(getString(R.string.retrieving_file));
 
         String accountName = intent.getStringExtra("KEY_ACCOUNT");
 
-        Account newAccount = getUserAccountManager().getAccountByName(accountName);
+        Account newAccount;
+        if (accountName == null) {
+            newAccount = getAccount();
+        } else {
+            newAccount = getUserAccountManager().getAccountByName(accountName);
 
-        if (newAccount == null) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, "Associated account not found!");
-            return;
+            if (newAccount == null) {
+                dismissLoadingDialog();
+                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
+                return;
+            }
+
+            setAccount(newAccount);
         }
 
-        setAccount(newAccount);
-
-        String fileId = String.valueOf(intent.getStringExtra("KEY_FILE_ID"));
+        String fileId = String.valueOf(intent.getStringExtra(KEY_FILE_ID));
 
         if ("null".equals(fileId)) {
             dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, "Error retrieving file");
+            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
             return;
         }
 

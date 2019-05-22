@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.lib.resources.notifications.models.RichObject;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
@@ -74,6 +75,7 @@ import butterknife.ButterKnife;
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
+    private static final String FILE = "file";
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
     private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
 
@@ -106,8 +108,9 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
                 notification.getDatetime().getTime()));
 
+        RichObject file = notification.subjectRichParameters.get(FILE);
         String subject = notification.getSubject();
-        if (!TextUtils.isEmpty(notification.getLink())) {
+        if (file == null && !TextUtils.isEmpty(notification.getLink())) {
             subject = subject + " ↗";
             holder.subject.setTypeface(holder.subject.getTypeface(), Typeface.BOLD);
             holder.subject.setOnClickListener(v -> openLink(notification.getLink()));
@@ -117,6 +120,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 holder.subject.setText(makeSpecialPartsBold(notification));
             } else {
                 holder.subject.setText(subject);
+            }
+
+            if (file != null && !TextUtils.isEmpty(file.id)) {
+                holder.subject.setOnClickListener(v -> {
+                    Intent intent = new Intent(notificationsActivity, FileDisplayActivity.class);
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id);
+
+                    notificationsActivity.startActivity(intent);
+                });
             }
         }
 
@@ -136,7 +149,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
-        
+
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
