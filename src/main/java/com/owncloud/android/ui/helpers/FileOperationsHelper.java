@@ -781,7 +781,8 @@ public class FileOperationsHelper {
 
                 intent.setDataAndType(uri, file.getMimeType());
                 fileActivity.startActivityForResult(Intent.createChooser(intent,
-                                                                         fileActivity.getString(R.string.set_as)), 200);
+                                                                         fileActivity.getString(R.string.set_as)),
+                                                    200);
 
                 intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {

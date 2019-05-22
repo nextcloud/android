@@ -43,13 +43,15 @@ class ClientFactoryImpl implements ClientFactory {
 
     @Override
     public OwnCloudClient create(Account account)
-        throws OperationCanceledException, AuthenticatorException, IOException, AccountUtils.AccountNotFoundException {
+        throws OperationCanceledException, AuthenticatorException, IOException,
+        AccountUtils.AccountNotFoundException {
         return OwnCloudClientFactory.createOwnCloudClient(account, context);
     }
 
     @Override
     public OwnCloudClient create(Account account, Activity currentActivity)
-        throws OperationCanceledException, AuthenticatorException, IOException, AccountUtils.AccountNotFoundException {
+        throws OperationCanceledException, AuthenticatorException, IOException,
+        AccountUtils.AccountNotFoundException {
         return OwnCloudClientFactory.createOwnCloudClient(account, context, currentActivity);
     }
 

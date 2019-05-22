@@ -34,7 +34,8 @@ import java.io.IOException;
 public interface ClientFactory {
 
     OwnCloudClient create(Account account)
-        throws OperationCanceledException, AuthenticatorException, IOException, AccountUtils.AccountNotFoundException;
+        throws OperationCanceledException, AuthenticatorException, IOException,
+        AccountUtils.AccountNotFoundException;
 
     OwnCloudClient create(Account account, Activity currentActivity)
         throws OperationCanceledException, AuthenticatorException, IOException,
