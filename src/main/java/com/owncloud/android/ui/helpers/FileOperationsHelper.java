@@ -45,8 +45,8 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 
 import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -72,7 +72,6 @@ import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -113,15 +112,20 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_URL = "url";
     private static final String FILE_EXTENSION_DESKTOP = "desktop";
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
-    private FileActivity mFileActivity;
+
+    private FileActivity fileActivity;
     private CurrentAccountProvider currentAccount;
+    private ConnectivityService connectivityService;
+
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-    public FileOperationsHelper(FileActivity fileActivity, CurrentAccountProvider currentAccount) {
-        mFileActivity = fileActivity;
+    public FileOperationsHelper(FileActivity fileActivity,
+                                CurrentAccountProvider currentAccount,
+                                ConnectivityService connectivityService) {
+        this.fileActivity = fileActivity;
         this.currentAccount = currentAccount;
-
+        this.connectivityService = connectivityService;
     }
 
     @Nullable
@@ -188,9 +192,9 @@ public class FileOperationsHelper {
 
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
-            Account account = mFileActivity.getAccount();
-            FileDataStorageManager storageManager = new FileDataStorageManager(mFileActivity.getAccount(),
-                    mFileActivity.getContentResolver());
+            Account account = fileActivity.getAccount();
+            FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
+                                                                               fileActivity.getContentResolver());
 
             // check if file is in conflict (this is known due to latest folder refresh)
             if (file.isInConflict()) {
@@ -209,9 +213,9 @@ public class FileOperationsHelper {
             }
 
             // if offline or walled garden, show old version with warning
-            if (Device.getNetworkType(mFileActivity).equals(JobRequest.NetworkType.ANY) ||
-                    ConnectivityUtils.isInternetWalled(mFileActivity)) {
-                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+            if (connectivityService.getActiveNetworkType() == JobRequest.NetworkType.ANY ||
+                    connectivityService.isInternetWalled()) {
+                DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -220,7 +224,7 @@ public class FileOperationsHelper {
             // check for changed eTag
             CheckEtagRemoteOperation checkEtagOperation = new CheckEtagRemoteOperation(file.getRemotePath(),
                 file.getEtag());
-            RemoteOperationResult result = checkEtagOperation.execute(account, mFileActivity);
+            RemoteOperationResult result = checkEtagOperation.execute(account, fileActivity);
 
             // eTag changed, sync file
             if (result.getCode() == RemoteOperationResult.ResultCode.ETAG_CHANGED) {
@@ -232,25 +236,25 @@ public class FileOperationsHelper {
     }
 
     private void syncFile(OCFile file, Account account, FileDataStorageManager storageManager) {
-        mFileActivity.runOnUiThread(() -> mFileActivity.showLoadingDialog(mFileActivity.getResources()
+        fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
                 .getString(R.string.sync_in_progress)));
 
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, account, true, mFileActivity);
-        RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, account, true, fileActivity);
+        RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
 
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!),
             // this can be very intrusive; a notification should be preferred
-            Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
+            Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
             i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
             i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
-            mFileActivity.startActivity(i);
+            fileActivity.startActivity(i);
         } else {
             if (file.isDown()) {
                 FileStorageUtils.checkIfFileFinishedSaving(file);
                 if (!result.isSuccess()) {
-                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -259,57 +263,57 @@ public class FileOperationsHelper {
                 }
             }
         }
-        mFileActivity.dismissLoadingDialog();
+        fileActivity.dismissLoadingDialog();
     }
 
     public void openFile(OCFile file) {
         if (file != null) {
             final Intent openFileWithIntent = createOpenFileIntent(file);
 
-            List<ResolveInfo> launchables = mFileActivity.getPackageManager().
+            List<ResolveInfo> launchables = fileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
             if (launchables.isEmpty()) {
-                Account account = mFileActivity.getAccount();
-                OCCapability capability = mFileActivity.getStorageManager().getCapability(account.name);
+                Account account = fileActivity.getAccount();
+                OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
                 if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                     android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
                     capability.getRichDocumentsDirectEditing().isTrue()) {
-                    openFileAsRichDocument(file, mFileActivity);
+                    openFileAsRichDocument(file, fileActivity);
                     return;
                 } else {
-                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                     return;
                 }
             }
 
-            mFileActivity.showLoadingDialog(mFileActivity.getResources().getString(R.string.sync_in_progress));
+            fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     Account account = currentAccount.getCurrentAccount();
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(account, mFileActivity.getContentResolver());
+                            new FileDataStorageManager(account, fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
                     SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, account, true, mFileActivity);
-                    RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
-                    mFileActivity.dismissLoadingDialog();
+                            new SynchronizeFileOperation(file, null, account, true, fileActivity);
+                    RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+                    fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
-                        Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
+                        Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
                         i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
                         i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
-                        mFileActivity.startActivity(i);
+                        fileActivity.startActivity(i);
                     } else {
                         if (!launchables.isEmpty()) {
                             try {
                                 if (!result.isSuccess()) {
-                                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
                                     try {
                                         Thread.sleep(3000);
                                     } catch (InterruptedException e) {
@@ -319,17 +323,17 @@ public class FileOperationsHelper {
 
                                 openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
                                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mFileActivity.startActivity(
+                                fileActivity.startActivity(
                                         Intent.createChooser(
-                                                openFileWithIntent,
-                                                mFileActivity.getString(R.string.actionbar_open_with)
+                                            openFileWithIntent,
+                                            fileActivity.getString(R.string.actionbar_open_with)
                                         )
                                 );
                             } catch (ActivityNotFoundException exception) {
-                                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+                                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                             }
                         } else {
-                            DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+                            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                         }
                     }
 
@@ -392,21 +396,21 @@ public class FileOperationsHelper {
                 !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
             return file.getLegacyExposedFileUri();
         } else {
-            return file.getExposedFileUri(mFileActivity);
+            return file.getExposedFileUri(fileActivity);
         }
     }
 
     public void streamMediaFile(OCFile file) {
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final Account account = currentAccount.getCurrentAccount();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(account, mFileActivity);
+            RemoteOperationResult result = sfo.execute(account, fileActivity);
 
-            mFileActivity.dismissLoadingDialog();
+            fileActivity.dismissLoadingDialog();
 
             if (!result.isSuccess()) {
-                DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
+                DisplayUtils.showSnackMessage(fileActivity, R.string.stream_not_possible_headline);
                 return;
             }
 
@@ -415,8 +419,8 @@ public class FileOperationsHelper {
 
             openFileWithIntent.setDataAndType(uri, file.getMimeType());
 
-            mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
-                    mFileActivity.getString(R.string.stream)));
+            fileActivity.startActivity(Intent.createChooser(openFileWithIntent,
+                                                            fileActivity.getString(R.string.stream)));
         }).start();
     }
 
@@ -428,15 +432,15 @@ public class FileOperationsHelper {
      */
     public void shareFileViaLink(OCFile file, String password) {
         if (file != null) {
-            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             if (!TextUtils.isEmpty(password)) {
                 service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
             }
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
             Log_OC.e(TAG, "Trying to share a NULL OCFile");
@@ -446,14 +450,14 @@ public class FileOperationsHelper {
 
     public void getFileWithLink(OCFile file) {
         if (file != null) {
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
 
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
             Log_OC.e(TAG, "Trying to share a NULL OCFile");
@@ -471,17 +475,17 @@ public class FileOperationsHelper {
     public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
         if (file != null) {
             // TODO check capability?
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
 
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
             service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
             service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
             Log_OC.e(TAG, "Trying to share a NULL OCFile");
@@ -495,14 +499,14 @@ public class FileOperationsHelper {
      */
     public void restoreFileVersion(FileVersion fileVersion) {
         if (fileVersion != null) {
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
 
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_RESTORE_VERSION);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_FILE_VERSION, fileVersion);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         } else {
             Log_OC.e(TAG, "Trying to restore a NULL FileVersion");
         }
@@ -517,9 +521,9 @@ public class FileOperationsHelper {
     public void unshareFileViaLink(OCFile file) {
 
         // Unshare the file: Create the intent
-        Intent unshareService = new Intent(mFileActivity, OperationsService.class);
+        Intent unshareService = new Intent(fileActivity, OperationsService.class);
         unshareService.setAction(OperationsService.ACTION_UNSHARE);
-        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
         unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
@@ -530,9 +534,9 @@ public class FileOperationsHelper {
     public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup) {
 
         // Unshare the file: Create the intent
-        Intent unshareService = new Intent(mFileActivity, OperationsService.class);
+        Intent unshareService = new Intent(fileActivity, OperationsService.class);
         unshareService.setAction(OperationsService.ACTION_UNSHARE);
-        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
         unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, userOrGroup);
@@ -542,9 +546,9 @@ public class FileOperationsHelper {
 
     private void queueShareIntent(Intent shareIntent) {
         // Unshare the file
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
 
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
     }
 
     /**
@@ -553,10 +557,10 @@ public class FileOperationsHelper {
      * @param file File to share or unshare.
      */
     public void showShareFile(OCFile file) {
-        Intent intent = new Intent(mFileActivity, ShareActivity.class);
+        Intent intent = new Intent(fileActivity, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mFileActivity.startActivity(intent);
+        intent.putExtra(FileActivity.EXTRA_ACCOUNT, fileActivity.getAccount());
+        fileActivity.startActivity(intent);
     }
 
 
@@ -570,9 +574,9 @@ public class FileOperationsHelper {
      */
     public void setPasswordToShareViaLink(OCFile file, String password) {
         // Set password updating share
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
 
@@ -588,9 +592,9 @@ public class FileOperationsHelper {
      *                 the current password
      */
     public void setPasswordToShare(OCShare share, String password) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_PASSWORD,
@@ -609,9 +613,9 @@ public class FileOperationsHelper {
      *                               date, leaving the link unrestricted. Zero makes no change.
      */
     public void setExpirationDateToShareViaLink(OCFile file, long expirationTimeInMillis) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         queueShareIntent(updateShareIntent);
@@ -626,9 +630,9 @@ public class FileOperationsHelper {
      *                               date, leaving the link unrestricted. Zero makes no change.
      */
     public void setExpirationDateToShare(OCShare share, long expirationTimeInMillis) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, 0);
@@ -643,9 +647,9 @@ public class FileOperationsHelper {
      * @param permissions New permissions to set. A value <= 0 makes no update.
      */
     public void setPermissionsToShare(OCShare share, int permissions) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         queueShareIntent(updateShareIntent);
@@ -659,9 +663,9 @@ public class FileOperationsHelper {
      * @param uploadPermission New state of the permission for editing the folder shared via link.
      */
     public void setUploadPermissionsToShare(OCFile folder, boolean uploadPermission) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, folder.getRemotePath());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_UPLOAD, uploadPermission);
         queueShareIntent(updateShareIntent);
@@ -675,9 +679,9 @@ public class FileOperationsHelper {
      * @param hideFileListing New state of the permission for editing the folder shared via link.
      */
     public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
 
         if (hideFileListing) {
@@ -691,9 +695,9 @@ public class FileOperationsHelper {
     }
 
     public void setHideFileDownloadPermissionsToShare(OCFile file, boolean hideFileDownload) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
 
@@ -701,9 +705,9 @@ public class FileOperationsHelper {
     }
 
     public void updateNoteToShare(OCShare share, String note) {
-        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_NOTE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
 
@@ -712,11 +716,11 @@ public class FileOperationsHelper {
 
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog
-        FragmentManager fm = mFileActivity.getSupportFragmentManager();
+        FragmentManager fm = fileActivity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        OCCapability capability = mFileActivity.getStorageManager().getCapability(mFileActivity.getAccount().name);
+        OCCapability capability = fileActivity.getStorageManager().getCapability(fileActivity.getAccount().name);
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, capability);
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
@@ -745,8 +749,8 @@ public class FileOperationsHelper {
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
             sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            mFileActivity.startActivity(Intent.createChooser(sendIntent,
-                    context.getString(R.string.actionbar_send_file)));
+            fileActivity.startActivity(Intent.createChooser(sendIntent,
+                                                            context.getString(R.string.actionbar_send_file)));
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
@@ -776,8 +780,9 @@ public class FileOperationsHelper {
                 }
 
                 intent.setDataAndType(uri, file.getMimeType());
-                mFileActivity.startActivityForResult(Intent.createChooser(intent,
-                        mFileActivity.getString(R.string.set_as)), 200);
+                fileActivity.startActivityForResult(Intent.createChooser(intent,
+                                                                         fileActivity.getString(R.string.set_as)),
+                                                    200);
 
                 intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {
@@ -795,21 +800,21 @@ public class FileOperationsHelper {
      */
     public void syncFile(OCFile file) {
         if (!file.isFolder()) {
-            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            Intent intent = new Intent(fileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FILE);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
 
         } else {
-            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            Intent intent = new Intent(fileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mFileActivity.startService(intent);
+            fileActivity.startService(intent);
         }
     }
 
@@ -843,14 +848,14 @@ public class FileOperationsHelper {
 
     public void renameFile(OCFile file, String newFilename) {
         // RenameFile
-        Intent service = new Intent(mFileActivity, OperationsService.class);
+        Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_RENAME);
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
 
@@ -865,31 +870,31 @@ public class FileOperationsHelper {
     public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy, boolean inBackground) {
         for (OCFile file : files) {
             // RemoveFile
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_REMOVE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
             service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
 
         if (!inBackground) {
-            mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+            fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         }
     }
 
 
     public void createFolder(String remotePath, boolean createFullPath) {
         // Create Folder
-        Intent service = new Intent(mFileActivity, OperationsService.class);
+        Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CREATE_FOLDER);
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
         service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
     /**
@@ -898,21 +903,21 @@ public class FileOperationsHelper {
      * @param file OCFile
      */
     public void cancelTransference(OCFile file) {
-        Account account = mFileActivity.getAccount();
+        Account account = fileActivity.getAccount();
         if (file.isFolder()) {
             OperationsService.OperationsServiceBinder opsBinder =
-                    mFileActivity.getOperationsServiceBinder();
+                    fileActivity.getOperationsServiceBinder();
             if (opsBinder != null) {
                 opsBinder.cancel(account, file);
             }
         }
 
         // for both files and folders
-        FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
+        FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
             downloaderBinder.cancel(account, file);
         }
-        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+        FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
         if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
             uploaderBinder.cancel(account, file);
         }
@@ -926,14 +931,14 @@ public class FileOperationsHelper {
      */
     public void moveFiles(Collection<OCFile> files, OCFile targetFolder) {
         for (OCFile file : files) {
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_MOVE_FILE);
             service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
     /**
@@ -944,14 +949,14 @@ public class FileOperationsHelper {
      */
     public void copyFiles(Collection<OCFile> files, OCFile targetFolder) {
         for (OCFile file : files) {
-            Intent service = new Intent(mFileActivity, OperationsService.class);
+            Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_COPY_FILE);
             service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
     public long getOpIdWaitingFor() {
@@ -969,12 +974,12 @@ public class FileOperationsHelper {
      * @param account OC account which credentials will be checked.
      */
     public void checkCurrentCredentials(Account account) {
-        Intent service = new Intent(mFileActivity, OperationsService.class);
+        Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CHECK_CURRENT_CREDENTIALS);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_checking_credentials));
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
     public void uploadFromCamera(Activity activity, int requestCode) {

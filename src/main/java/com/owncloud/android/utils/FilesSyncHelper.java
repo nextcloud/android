@@ -40,6 +40,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -216,7 +217,9 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void restartJobsIfNeeded(UploadsStorageManager uploadsStorageManager, UserAccountManager accountManager) {
+    public static void restartJobsIfNeeded(final UploadsStorageManager uploadsStorageManager,
+                                           final UserAccountManager accountManager,
+                                           final ConnectivityService connectivityService) {
         final Context context = MainApp.getAppContext();
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
@@ -242,9 +245,13 @@ public final class FilesSyncHelper {
         }
 
         new Thread(() -> {
-            if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
-                    !ConnectivityUtils.isInternetWalled(context)) {
-                uploadRequester.retryFailedUploads(context, null, uploadsStorageManager, null);
+            if (connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
+                    !connectivityService.isInternetWalled()) {
+                uploadRequester.retryFailedUploads(context,
+                                                   null,
+                                                   uploadsStorageManager,
+                                                   connectivityService,
+                                                   null);
             }
         }).start();
     }

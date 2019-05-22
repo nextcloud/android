@@ -2,7 +2,10 @@
  * ownCloud Android client application
  *
  * @author David A. Velasco
+ * @author Chris Narkiewicz
+ *
  * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -50,6 +53,8 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -69,6 +74,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import javax.inject.Inject;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -86,7 +93,7 @@ import pl.droidsonroids.gif.GifDrawable;
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
-public class PreviewImageFragment extends FileFragment {
+public class PreviewImageFragment extends FileFragment implements Injectable {
 
     private static final String EXTRA_FILE = "FILE";
 
@@ -115,6 +122,8 @@ public class PreviewImageFragment extends FileFragment {
     private boolean mIgnoreFirstSavedState;
 
     private LoadBitmapTask mLoadBitmapTask;
+
+    @Inject ConnectivityService connectivityService;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -256,6 +265,7 @@ public class PreviewImageFragment extends FileFragment {
                                 new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
                                         mImageView,
                                         containerActivity.getStorageManager(),
+                                        connectivityService,
                                         containerActivity.getStorageManager().getAccount());
                         if (resizedImage == null) {
                             resizedImage = thumbnail;

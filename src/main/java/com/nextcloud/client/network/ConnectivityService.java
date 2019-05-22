@@ -18,37 +18,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.di;
+package com.nextcloud.client.network;
 
-import android.app.Application;
+import com.evernote.android.job.JobRequest;
 
-import com.nextcloud.client.appinfo.AppInfoModule;
-import com.nextcloud.client.network.NetworkModule;
-import com.nextcloud.client.whatsnew.WhatsNewModule;
-import com.owncloud.android.MainApp;
-
-import javax.inject.Singleton;
-
-import dagger.BindsInstance;
-import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
-
-@Component(modules = {
-    AndroidSupportInjectionModule.class,
-    AppModule.class,
-    AppInfoModule.class,
-    WhatsNewModule.class,
-    NetworkModule.class,
-})
-@Singleton
-public interface AppComponent {
-    void inject(MainApp app);
-
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        Builder application(Application application);
-
-        AppComponent build();
-    }
+public interface ConnectivityService {
+    boolean isInternetWalled();
+    boolean isOnlineWithWifi();
+    JobRequest.NetworkType getActiveNetworkType();
 }
