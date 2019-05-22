@@ -1,0 +1,8 @@
+2146d808b Merge pull request #4032 from nextcloud/emailOnError
+762a80666 Merge pull request #4046 from nextcloud/fix-issues-sso-ocs-header
+4d90477cc Merge pull request #4049 from nextcloud/followup4044
+faaca8691 throw exception if sso users try to set the OCS-APIREQUEST header themselves
+889d0669b email on failure
+c635e2e49 Close WhatsNewActivity if open
+5c686ef31 Merge pull request #4041 from nextcloud/ezaquarii/fix-weak-ref-dereference-npe-in-thumbnails-cache-manager
+f88239b67 daily dev 20190521
