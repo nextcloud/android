@@ -16,9 +16,11 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -56,6 +58,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     public UserAccountManager getUserAccountManager() {
         return accountManager;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }
 
     @Override
