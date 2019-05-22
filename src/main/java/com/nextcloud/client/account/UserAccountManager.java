@@ -21,10 +21,17 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public interface UserAccountManager extends CurrentAccountProvider {
+
+    @Nullable
+    OwnCloudAccount getCurrentOwnCloudAccount();
+
     /**
      * Get configured NextCloud's user accounts.
      *
@@ -41,6 +48,8 @@ public interface UserAccountManager extends CurrentAccountProvider {
     @Nullable
     Account getAccountByName(String name);
 
+    OwnCloudVersion getServerVersion(Account account);
+
     /**
      * Extract username from account.
      *
@@ -56,4 +65,5 @@ public interface UserAccountManager extends CurrentAccountProvider {
             return null;
         }
     }
+
 }

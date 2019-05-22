@@ -32,6 +32,7 @@ import android.util.Log;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
@@ -60,7 +61,6 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -146,6 +146,7 @@ public class UploadFileOperation extends SyncOperation {
     final private Account mAccount;
     final private OCUpload mUpload;
     final private UploadsStorageManager uploadsStorageManager;
+    final private ConnectivityService connectivityService;
 
     private boolean encryptedAncestor;
 
@@ -176,6 +177,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
+                               ConnectivityService connectivityService,
                                Account account,
                                OCFile file,
                                OCUpload upload,
@@ -198,6 +200,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         this.uploadsStorageManager = uploadsStorageManager;
+        this.connectivityService = connectivityService;
         mAccount = account;
         mUpload = upload;
         if (file == null) {
@@ -579,8 +582,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-
-                boolean onWifiConnection = ConnectivityUtils.isOnlineWithWifi(mContext);
+                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                         mFile.getParentRemotePath() + encryptedFileName,
@@ -722,7 +724,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // check that internet is not behind walled garden
         if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
-                ConnectivityUtils.isInternetWalled(mContext)) {
+                connectivityService.isInternetWalled()) {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
@@ -826,7 +828,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = ConnectivityUtils.isOnlineWithWifi(mContext);
+                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
                                                                         mFile.getRemotePath(), mFile.getMimeType(),
