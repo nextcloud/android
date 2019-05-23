@@ -26,6 +26,7 @@ buildscript {
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0-RC14"
     }
 }
 
@@ -40,6 +41,7 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco-android'
 apply plugin: "com.github.spotbugs"
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 configurations.all {
     exclude group: 'com.google.firebase', module: 'firebase-core'
@@ -381,4 +383,12 @@ tasks.register("combinedTestReport", JacocoReport) {
     executionData = fileTree(dir: project.buildDir, includes: [
         'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
     ])
+}
+
+detekt {
+    reports {
+        xml {
+            enabled = false
+        }
+    }
 }
