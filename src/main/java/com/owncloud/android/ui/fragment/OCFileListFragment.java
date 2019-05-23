@@ -118,7 +118,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.core.util.ObjectsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -1169,7 +1168,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     mLimitToMimeType
                 );
 
-                boolean changedDirectory = !ObjectsCompat.equals(mFile, directory);
+                OCFile previousDirectory = mFile;
                 mFile = directory;
 
                 updateLayout();
@@ -1177,7 +1176,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mAdapter.setHighlightedItem(file);
                 int position = mAdapter.getItemPosition(file);
                 if (position == -1) {
-                    if (changedDirectory) {
+                    if (previousDirectory == null || !previousDirectory.equals(directory)) {
                         getRecyclerView().scrollToPosition(0);
                     }
                 } else {
