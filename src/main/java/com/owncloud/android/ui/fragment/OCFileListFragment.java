@@ -1167,6 +1167,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     onlyOnDevice,
                     mLimitToMimeType
                 );
+
+                OCFile previousDirectory = mFile;
                 mFile = directory;
 
                 updateLayout();
@@ -1174,7 +1176,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mAdapter.setHighlightedItem(file);
                 int position = mAdapter.getItemPosition(file);
                 if (position == -1) {
-                    getRecyclerView().scrollToPosition(0);
+                    if (previousDirectory == null || !previousDirectory.equals(directory)) {
+                        getRecyclerView().scrollToPosition(0);
+                    }
                 } else {
                     getRecyclerView().scrollToPosition(position);
                 }
