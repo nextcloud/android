@@ -240,7 +240,7 @@ dependencies {
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
-    qaImplementation 'com.github.nextcloud:android-library:$androidLibraryVersion'
+    qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
