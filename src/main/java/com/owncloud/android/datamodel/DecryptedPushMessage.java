@@ -20,6 +20,8 @@
 
 package com.owncloud.android.datamodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.parceler.Parcel;
 
 import lombok.AllArgsConstructor;
@@ -41,4 +43,7 @@ public class DecryptedPushMessage {
     public String subject;
     public String id;
     public int nid;
+    public boolean delete;
+    @SerializedName("delete-all")
+    public boolean deleteAll;
 }
