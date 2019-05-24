@@ -32,6 +32,7 @@
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
+    <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
     <string name="auth_account_not_new">Šiame įrenginyje jau yra paskyra šiam naudotojui ir serveriui</string>
     <string name="auth_account_not_the_same">Įvestas naudotojas neatitinka šios paskyros naudotojo</string>

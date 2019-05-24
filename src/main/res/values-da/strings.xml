@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Send link til...</string>
     <string name="activity_icon">Aktivitet</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
+    <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
     <string name="auth_access_failed">Adgang fejlede: %1$s</string>
     <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
     <string name="auth_account_not_new">En konto for den samme bruger og server eksisterer allerede på enheden</string>
@@ -224,6 +225,7 @@
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
     <string name="error_cant_bind_to_operations_service">Kritisk fejl: Ude af stand til at udføre handlingerne</string>
     <string name="error_comment_file">kommentering af fil fejlet</string>
+    <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
     <string name="fab_label">Tilføj eller send</string>
@@ -516,6 +518,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_button_description">Genskab slettet fil</string>
+    <string name="retrieving_file">Modtager fil...</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
     <string name="saml_authentication_required_text">Password påkrævet</string>
     <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
@@ -548,6 +551,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
     <string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
     <string name="share_link_forbidden_permissions">til at dele denne fil</string>
+    <string name="share_link_optional_password_title">Angiv et valgfrit kodeord</string>
     <string name="share_link_password_title">Angiv et kodeord</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
