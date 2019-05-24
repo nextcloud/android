@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="activity_icon">Activité</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="associated_account_not_found">Compte associé introuvable !</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
     <string name="auth_account_not_new">Un compte existe déjà pour cet utilisateur et ce serveur</string>
@@ -226,6 +227,7 @@ Attention la suppression est irréversible.</string>
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
+    <string name="error_retrieving_file">Erreur de téléchargement</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="fab_label">Ajouter ou téléverser</string>
@@ -516,6 +518,7 @@ Attention la suppression est irréversible.</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
+    <string name="retrieving_file">Téléchargement en cours...</string>
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="saml_authentication_required_text">Mot de passe requis</string>
     <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
@@ -626,6 +629,7 @@ Attention la suppression est irréversible.</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>
     <string name="storage_pictures">Images</string>
+    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre serveur Nextcloud\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Envoi automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec DAVx5 (ancien nom : DAVdroid) pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez ce cette application sur https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
