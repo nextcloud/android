@@ -17,6 +17,7 @@
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Преместване</string>
     <string name="actionbar_open_as_richdocument">Отвори с Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Отвори с %1$s</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>

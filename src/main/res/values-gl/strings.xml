@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_as_richdocument">Abrir con Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>

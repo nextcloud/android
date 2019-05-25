@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
     <string name="actionbar_open_as_richdocument">פתיחה עם Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">פתיחה עם %1$s</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_search">חיפוש</string>
     <string name="actionbar_see_details">פרטים</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">שליחת קישור אל…</string>
     <string name="activity_icon">פעילות</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
+    <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
     <string name="auth_account_does_not_exist">החשבון לא נוסף למכשיר הזה עדיין</string>
     <string name="auth_account_not_new">חשבון לאותו משתמש ושרת כבר קיים במכשיר זה</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
     <string name="error_cant_bind_to_operations_service">שגיאה משמעותית: לא ניתן לבצע פעולות</string>
     <string name="error_comment_file">שגיאה בהוספת הערות לקובץ</string>
+    <string name="error_retrieving_file">קבלת הקובץ נכשלה</string>
     <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
     <string name="error_starting_direct_camera_upload">הפעלת המצלמה נכשלה</string>
     <string name="fab_label">הוספה או העלאה</string>
@@ -514,6 +517,7 @@
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
     <string name="restore">שחזור קובץ</string>
     <string name="restore_button_description">שחזור קובץ שנמחק</string>
+    <string name="retrieving_file">הקובץ מתקבל…</string>
     <string name="richdocuments_failed_to_load_document">טעינת המסמך נכשלה!</string>
     <string name="saml_authentication_required_text">נדרשת ססמה</string>
     <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
@@ -546,6 +550,7 @@
     <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
     <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
     <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
+    <string name="share_link_optional_password_title">ניתן להקליד ססמה</string>
     <string name="share_link_password_title">הכנסת סיסמא</string>
     <string name="share_no_expiration_date_label">הגדרת תאריך תפוגה</string>
     <string name="share_no_password_title">הגדרת ססמה</string>
@@ -623,6 +628,8 @@
     <string name="storage_movies">סרטים</string>
     <string name="storage_music">מוזיקה</string>
     <string name="storage_pictures">תמונות</string>
+    <string name="store_short_desc">פלטפורמת כלי ההפקה באירוח עצמי שמעניקה לך שליטה מלאה</string>
+    <string name="store_short_dev_desc">פלטפורמת כלי ההפקה באירוח עצמי שמעניקה לך שליטה מלאה (מהדורת המפתחים)</string>
     <string name="stream">הזרמה עם…</string>
     <string name="stream_not_possible_headline">אין תמיכה בהזרמה פנימית</string>
     <string name="stream_not_possible_message">נא להוריד את המדיה במקום או להשתמש ביישומון חיצוני.</string>

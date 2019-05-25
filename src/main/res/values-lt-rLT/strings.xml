@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_move">Perkelti</string>
     <string name="actionbar_open_as_richdocument">Atverti naudojant Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Atverti naudojant %1$s</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
