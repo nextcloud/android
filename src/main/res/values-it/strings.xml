@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move">Sposta</string>
     <string name="actionbar_open_as_richdocument">Apri con Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Apri con %1$s</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Dettagli</string>

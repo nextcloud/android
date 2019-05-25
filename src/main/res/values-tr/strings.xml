@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
     <string name="actionbar_open_as_richdocument">Collabora ile aç</string>
+    <string name="actionbar_open_as_richdocument_parameter">%1$s ile aç</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
     <string name="actionbar_see_details">Ayrıntılar</string>

@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
     <string name="actionbar_open_as_richdocument">Ouvrir dans Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Ouvrir avec %1$s</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
