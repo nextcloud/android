@@ -516,7 +516,7 @@
     <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
     <string name="restore">Herstellen bestand</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
-    <string name="retrieving_file">Bestand ophalen...</string>
+    <string name="retrieving_file">Bestand ophalen…</string>
     <string name="richdocuments_failed_to_load_document">Kon document niet laden!</string>
     <string name="saml_authentication_required_text">Wachtwoord vereist</string>
     <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
