@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_open_as_richdocument">Otevřít pomocí Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Otevřít pomocí %1$s</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>

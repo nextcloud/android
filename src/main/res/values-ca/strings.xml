@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Crea una carpeta</string>
     <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_as_richdocument">Obre amb Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Obre amb %1$s</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
+    <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
     <string name="auth_access_failed">No s\'ha pogut accedir: %1$s</string>
     <string name="auth_account_does_not_exist">Encara no s\'ha afegit el compte en aquest dispositiu</string>
     <string name="auth_account_not_new">Ja existeix un compte per al mateix usuari i servidor al dispositiu</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crític: no es poden realitzar operacions</string>
     <string name="error_comment_file">S\'ha produït un error comentant un fitxer</string>
+    <string name="error_retrieving_file">S\'ha produït un error mentre res recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="fab_label">Afegeix o puja</string>
@@ -514,6 +517,7 @@
     <string name="resized_image_not_possible_download">No hi ha cap imatge redimensionada. Voleu descarregar la imatge a la resolució original?</string>
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_button_description">Restaura el fitxer esborrat</string>
+    <string name="retrieving_file">S\'està recuperant el fitxer...</string>
     <string name="richdocuments_failed_to_load_document">Ha fallat la càrrega del document!</string>
     <string name="saml_authentication_required_text">Es necessita una contrasenya</string>
     <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
@@ -546,6 +550,7 @@
     <string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
     <string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
     <string name="share_link_forbidden_permissions">per compartir aquest fitxer</string>
+    <string name="share_link_optional_password_title">Introduïu una contrasenya opcional</string>
     <string name="share_link_password_title">Escriviu una contrasenya</string>
     <string name="share_no_expiration_date_label">Definiu data de caducitat</string>
     <string name="share_no_password_title">Definir contrasenya</string>
