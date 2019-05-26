@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
     <string name="actionbar_open_as_richdocument">Open with Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">Send link to…</string>
     <string name="activity_icon">Activity</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="associated_account_not_found">Associated account not found!</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
     <string name="error_comment_file">Error commenting file</string>
+    <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="fab_label">Add or upload</string>
@@ -514,6 +517,7 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>
     <string name="restore_button_description">Restore deleted file</string>
+    <string name="retrieving_file">Retrieving file…</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="saml_authentication_required_text">Password required</string>
     <string name="saml_authentication_wrong_pass">Incorrect password</string>
@@ -546,6 +550,7 @@
     <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
     <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
     <string name="share_link_forbidden_permissions">to share this file</string>
+    <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
@@ -623,6 +628,10 @@
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>
     <string name="storage_pictures">Pictures</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
+    <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
+    <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
