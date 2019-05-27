@@ -27,7 +27,7 @@ import android.util.Log;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandler {
+public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 	private final Activity mContext;
 
 	private static final String TAG = ExceptionHandler.class.getSimpleName();

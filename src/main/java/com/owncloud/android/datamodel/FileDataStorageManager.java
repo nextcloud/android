@@ -67,7 +67,6 @@ import androidx.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 @Getter
 public class FileDataStorageManager {
@@ -266,7 +265,7 @@ public class FileDataStorageManager {
      * @return the parent file
      */
     public OCFile saveFileWithParent(OCFile file, Context context) {
-        if (file.getParentId() == 0 && !ROOT_PATH.equals(file.getRemotePath())) {
+        if (file.getParentId() == 0 && !OCFile.ROOT_PATH.equals(file.getRemotePath())) {
             String remotePath = file.getRemotePath();
             String parentPath = remotePath.substring(0, remotePath.lastIndexOf(file.getFileName()));
 
