@@ -1450,7 +1450,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Account currentAccount = accountManager.getCurrentAccount();
 
         OwnCloudAccount ocAccount;
-        AccountManager mAccountMgr = AccountManager.get(getActivity());
 
         try {
             ocAccount = new OwnCloudAccount(currentAccount, MainApp.getAppContext());
