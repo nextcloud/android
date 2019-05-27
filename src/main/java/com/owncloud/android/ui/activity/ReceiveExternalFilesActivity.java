@@ -62,19 +62,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -124,8 +111,19 @@ import java.util.Vector;
 
 import javax.inject.Inject;
 
-import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -178,7 +176,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             String parentPath = savedInstanceState.getString(KEY_PARENTS);
 
             if (parentPath != null) {
-                mParents.addAll(Arrays.asList(parentPath.split(PATH_SEPARATOR)));
+                mParents.addAll(Arrays.asList(parentPath.split(OCFile.PATH_SEPARATOR)));
             }
 
             mFile = savedInstanceState.getParcelable(KEY_FILE);
@@ -888,7 +886,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         String full_path = "";
 
         for (String a : dirs) {
-            full_path += a + PATH_SEPARATOR;
+            full_path += a + OCFile.PATH_SEPARATOR;
         }
         return full_path;
     }
@@ -1038,10 +1036,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mParents.empty()) {
             String lastPath = preferences.getLastUploadPath();
             // "/" equals root-directory
-            if (ROOT_PATH.equals(lastPath)) {
+            if (OCFile.ROOT_PATH.equals(lastPath)) {
                 mParents.add("");
             } else {
-                String[] dir_names = lastPath.split(PATH_SEPARATOR);
+                String[] dir_names = lastPath.split(OCFile.PATH_SEPARATOR);
                 mParents.clear();
                 mParents.addAll(Arrays.asList(dir_names));
             }
