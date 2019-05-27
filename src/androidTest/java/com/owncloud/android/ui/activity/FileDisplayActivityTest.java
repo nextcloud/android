@@ -23,6 +23,7 @@ public class FileDisplayActivityTest extends AbstractIT {
     @Test
     public void testSetupToolbar() {
         try (ActivityScenario<FileDisplayActivity> scenario = ActivityScenario.launch(FileDisplayActivity.class)) {
+            InstrumentationRegistry.getInstrumentation().waitForIdleSync();
             InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
                 Activity activity =
                     ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED).iterator().next();
