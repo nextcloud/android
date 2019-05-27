@@ -59,7 +59,8 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private MediaPlayerControl mPlayer;
     private View mRoot;
     private ProgressBar mProgress;
-    private TextView mEndTime, mCurrentTime;
+    private TextView mEndTime;
+    private TextView mCurrentTime;
     private boolean mDragging;
     private static final int SHOW_PROGRESS = 1;
     private ImageButton mPauseButton;
