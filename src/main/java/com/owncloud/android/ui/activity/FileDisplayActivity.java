@@ -2673,7 +2673,6 @@ public class FileDisplayActivity extends FileActivity
 
         FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(newAccount,
                                                                           fileId,
-                                                                          userId,
                                                                           storageManager,
                                                                           this);
         fetchRemoteFileTask.execute();
