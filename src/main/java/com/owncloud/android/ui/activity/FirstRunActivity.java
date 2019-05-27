@@ -37,7 +37,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -45,7 +44,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.whatsnew.WhatsNewService;
 import com.owncloud.android.BuildConfig;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -55,6 +53,8 @@ import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.DisplayUtils;
 
 import javax.inject.Inject;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Activity displaying general feature after a fresh install.
