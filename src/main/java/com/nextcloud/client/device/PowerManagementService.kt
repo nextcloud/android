@@ -43,5 +43,4 @@ interface PowerManagementService {
      * @return true if workaround is required, false otherwise
      */
     val isPowerSavingExclusionAvailable: Boolean
-
 }
