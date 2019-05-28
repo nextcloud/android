@@ -37,13 +37,17 @@ apply plugin: 'pmd'
 apply plugin: 'jacoco-android'
 apply plugin: "com.github.spotbugs"
 
-configurations.all {
-    exclude group: 'com.google.firebase', module: 'firebase-core'
-    exclude group: 'com.google.firebase', module: 'firebase-analytics'
-    exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+configurations {
+    ktlint
 
-    // check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    all {
+        exclude group: 'com.google.firebase', module: 'firebase-core'
+        exclude group: 'com.google.firebase', module: 'firebase-analytics'
+        exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+
+        // check for updates every build
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
 }
 
 ext {
@@ -225,7 +229,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugs', 'pmd', 'lint'
+    check.dependsOn 'checkstyle', 'spotbugs', 'pmd', 'lint', 'ktlint'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -285,6 +289,8 @@ dependencies {
 
     compileOnly "org.projectlombok:lombok:1.18.8"
     annotationProcessor "org.projectlombok:lombok:1.18.8"
+
+    ktlint "com.pinterest:ktlint:0.32.0"
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
@@ -356,4 +362,18 @@ tasks.register("combinedTestReport", JacocoReport) {
     executionData = fileTree(dir: project.buildDir, includes: [
         'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
     ])
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "--reporter=plain,output=${buildDir}/ktlint.txt,src/**/*.kt"
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt"
 }

@@ -17,6 +17,9 @@ lintValue=$?
 ruby scripts/analysis/findbugs-up.rb $1 $2 $3
 findbugsValue=$?
 
+./gradlew ktlint
+ktlintValue=$?
+
 # exit codes:
 # 0: count was reduced
 # 1: count was increased
@@ -120,6 +123,12 @@ else
         findbugsMessage="<h1>SpotBugs increased!</h1>"
     fi
 
+    if ( [ $ktlintValue -eq 1 ] ) ; then
+        sed -i ':a;N;$!ba;s#\n#<br />#g;s#^<br />##g' build/ktlint.txt
+        curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/android-ktlint/$6.html --upload-file build/ktlint.txt
+        ktlintMessage="<h1>Kotlin lint found errors</h1><a href='https://www.kaminsky.me/nc-dev/android-ktlint/$6.html'>Lint</a>"
+    fi
+
     # check gplay limitation: all changelog files must only have 500 chars
     gplayLimitation=$(scripts/checkGplayLimitation.sh)
 
@@ -127,7 +136,7 @@ else
         gplayLimitation="<h1>Following files are beyond 500 char limit:</h1><br><br>"$gplayLimitation
     fi
 
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$codacyResult $lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation \" }"
+    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$codacyResult $lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $ktlintMessage $gplayLimitation \" }"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1
@@ -139,6 +148,10 @@ else
 
     if [ ! $lintValue -eq 2 ]; then
         exit $lintValue
+    fi
+
+    if [ $ktlintValue -eq 1 ]; then
+        exit 1
     fi
 
     if [ $findbugsValue -eq 2 ]; then
