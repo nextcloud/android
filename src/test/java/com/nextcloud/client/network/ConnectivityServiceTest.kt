@@ -33,7 +33,8 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
-import org.junit.Assert.*
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -194,7 +195,6 @@ class ConnectivityServiceTest {
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/status.php"))
         }
-
     }
 
     internal class WifiConnectionWalledStatus : Base() {
@@ -234,5 +234,4 @@ class ConnectivityServiceTest {
             assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/index.php/204"))
         }
     }
-
 }
