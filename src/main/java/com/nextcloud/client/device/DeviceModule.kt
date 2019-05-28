@@ -33,6 +33,7 @@ class DeviceModule {
     fun powerManagementService(context: Context): PowerManagementService {
         val platformPowerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         return PowerManagementServiceImpl(
+            context = context,
             powerManager = platformPowerManager,
             deviceInfo = DeviceInfo()
         )

@@ -22,10 +22,15 @@
 package com.nextcloud.client.device
 
 import android.annotation.TargetApi
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
 
 internal class PowerManagementServiceImpl(
+    private val context: Context,
     private val powerManager: PowerManager,
     private val deviceInfo: DeviceInfo = DeviceInfo()
 ) : PowerManagementService {
@@ -50,4 +55,17 @@ internal class PowerManagementServiceImpl(
 
     override val isPowerSavingExclusionAvailable: Boolean
         get() = deviceInfo.vendor in OVERLY_AGGRESSIVE_POWER_SAVING_VENDORS
+
+    override val isBatteryCharging: Boolean
+        get() {
+            val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val plugged = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) ?: 0
+            return when {
+                plugged == BatteryManager.BATTERY_PLUGGED_USB -> true
+                plugged == BatteryManager.BATTERY_PLUGGED_AC -> true
+                deviceInfo.apiLevel >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
+                    plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
+                else -> false
+            }
+        }
 }
