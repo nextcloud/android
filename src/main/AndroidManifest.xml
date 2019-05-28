@@ -74,6 +74,16 @@
 
     <uses-sdk tools:overrideLibrary="com.blikoon.qrcodescanner" />
 
+    <!-- Some Chromebooks don't support touch. Although not essential,
+         it's a good idea to explicitly include this declaration. -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
