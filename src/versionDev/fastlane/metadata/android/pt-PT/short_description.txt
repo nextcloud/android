@@ -1,1 +1,1 @@
-A aplicação Nextcloud Dev é um snapshot de desenvolvimento e pode estar instalad
+A plataforma de produtividade auto alojada que o mantém em controle (versão \"pr
