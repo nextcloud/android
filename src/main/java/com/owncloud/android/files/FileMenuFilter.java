@@ -27,7 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -98,15 +97,16 @@ public class FileMenuFilter {
      *
      * @param menu                  Options or context menu to filter.
      * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
+     * @param isMediaSupported      True is media playback is supported for this user
      */
-    public void filter(Menu menu, boolean inSingleFileFragment) {
+    public void filter(Menu menu, boolean inSingleFileFragment, boolean isMediaSupported) {
         if (mFiles == null || mFiles.isEmpty()) {
             hideAll(menu);
         } else {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
 
-            filter(toShow, toHide, inSingleFileFragment, menu);
+            filter(toShow, toHide, inSingleFileFragment, isMediaSupported, menu);
 
             for (int i : toShow) {
                 showMenuItem(menu.findItem(i));
@@ -161,8 +161,13 @@ public class FileMenuFilter {
      * @param toShow                List to save the options that must be shown in the menu.
      * @param toHide                List to save the options that must be shown in the menu.
      * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
+     * @param isMediaSupported      True is media playback is supported for this user
      */
-    private void filter(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment, Menu menu) {
+    private void filter(List<Integer> toShow,
+                        List<Integer> toHide,
+                        boolean inSingleFileFragment,
+                        boolean isMediaSupported,
+                        Menu menu) {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
@@ -183,7 +188,7 @@ public class FileMenuFilter {
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
-        filterStream(toShow, toHide);
+        filterStream(toShow, toHide, isMediaSupported);
         filterOpenAsRichDocument(toShow, toHide, capability, menu);
     }
 
@@ -358,9 +363,8 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterStream(List<Integer> toShow, List<Integer> toHide) {
-        if (mFiles.isEmpty() || !isSingleFile() || !isSingleMedia() ||
-                !AccountUtils.getServerVersion(mAccount).isMediaStreamingSupported()) {
+    private void filterStream(List<Integer> toShow, List<Integer> toHide, boolean isMediaSupported) {
+        if (mFiles.isEmpty() || !isSingleFile() || !isSingleMedia() || !isMediaSupported) {
             toHide.add(R.id.action_stream_media);
         } else {
             toShow.add(R.id.action_stream_media);

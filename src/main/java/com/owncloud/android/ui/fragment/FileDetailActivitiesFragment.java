@@ -42,6 +42,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -148,8 +149,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
 
-    @Inject
-    protected CurrentAccountProvider accountManager;
+    @Inject UserAccountManager accountManager;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -251,7 +251,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(account.name);
-        OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
+        OwnCloudVersion serverVersion = accountManager.getServerVersion(account);
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
                 serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
 
@@ -307,7 +307,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 ocAccount = new OwnCloudAccount(currentAccount, context);
                 ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
                 isLoadingActivities = true;
 
                 GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation(

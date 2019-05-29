@@ -65,11 +65,11 @@ public class NCJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case ContactsBackupJob.TAG:
-                return new ContactsBackupJob();
+                return new ContactsBackupJob(accountManager);
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
-                return new AccountRemovalJob(uploadsStorageManager);
+                return new AccountRemovalJob(uploadsStorageManager, accountManager);
             case FilesSyncJob.TAG:
                 return new FilesSyncJob(accountManager, preferences, uploadsStorageManager, connectivityService);
             case OfflineSyncJob.TAG:

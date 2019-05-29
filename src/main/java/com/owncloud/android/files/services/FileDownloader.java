@@ -38,6 +38,7 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Pair;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -69,7 +70,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.inject.Inject;
+
 import androidx.core.app.NotificationCompat;
+import dagger.android.AndroidInjection;
 
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
@@ -106,6 +110,8 @@ public class FileDownloader extends Service
 
     private Notification mNotification;
 
+    @Inject UserAccountManager accountManager;
+
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
     }
@@ -120,6 +126,7 @@ public class FileDownloader extends Service
     @Override
     public void onCreate() {
         super.onCreate();
+        AndroidInjection.inject(this);
         Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileDownloaderThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -243,8 +250,7 @@ public class FileDownloader extends Service
     @Override
     public void onAccountsUpdated(Account[] accounts) {
          //review the current download and cancel it if its account doesn't exist
-        if (mCurrentDownload != null &&
-                !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
+        if (mCurrentDownload != null && !accountManager.exists(mCurrentDownload.getAccount())) {
             mCurrentDownload.cancel();
         }
         // The rest of downloads are cancelled when they try to start
@@ -422,7 +428,7 @@ public class FileDownloader extends Service
 
         if (mCurrentDownload != null) {
             // Detect if the account exists
-            if (AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
+            if (accountManager.exists(mCurrentDownload.getAccount())) {
                 Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().name + " exists");
 
                 notifyDownloadStart(mCurrentDownload);

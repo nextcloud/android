@@ -127,7 +127,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
             String account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
 
             if (account != null && (currentAccount == null || !account.equalsIgnoreCase(currentAccount.name))) {
-                AccountUtils.setCurrentOwnCloudAccount(this, account);
+                accountManager.setCurrentOwnCloudAccount(account);
                 setAccount(getUserAccountManager().getCurrentAccount());
                 currentAccount = getAccount();
             }
@@ -250,6 +250,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
                 getUserAccountManager().getCurrentAccount(),
                 bottomNavigationView,
                 getResources(),
+                accountManager,
                 this,
                 -1);
         }
@@ -267,7 +268,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
                 try {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, this);
                     client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
-                    client.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                    client.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
                 } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
                     IOException | OperationCanceledException | AuthenticatorException e) {
                     Log_OC.e(TAG, "Error initializing client", e);

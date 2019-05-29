@@ -32,6 +32,7 @@ import android.content.Context;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -67,10 +68,11 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
     public static final String ACCOUNT = "account";
 
     private UploadsStorageManager uploadsStorageManager;
+    private UserAccountManager accountManager;
 
-    public AccountRemovalJob(UploadsStorageManager uploadStorageManager) {
+    public AccountRemovalJob(UploadsStorageManager uploadStorageManager, UserAccountManager accountManager) {
         this.uploadsStorageManager = uploadStorageManager;
-
+        this.accountManager = accountManager;
     }
 
     @NonNull
@@ -78,7 +80,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
     protected Result onRunJob(Params params) {
         Context context = MainApp.getAppContext();
         PersistableBundleCompat bundle = params.getExtras();
-        Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
+        Account account = accountManager.getAccountByName(bundle.getString(ACCOUNT, ""));
         AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
 
         if (account != null && am != null) {

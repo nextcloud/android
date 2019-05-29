@@ -205,6 +205,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
                 getUserAccountManager().getCurrentAccount(),
                 bottomNavigationView,
                 getResources(),
+                getUserAccountManager(),
                 this,
                 -1
             );

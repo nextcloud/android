@@ -36,7 +36,7 @@ import android.util.Log;
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
 import com.nextcloud.android.sso.aidl.ParcelFileDescriptorUtil;
-import com.owncloud.android.authentication.AccountUtils;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManager;
@@ -95,9 +95,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
     private static final char PATH_SEPARATOR = '/';
     private Context context;
+    private UserAccountManager accountManager;
 
-    public InputStreamBinder(Context context) {
+    public InputStreamBinder(Context context, UserAccountManager accountManager) {
         this.context = context;
+        this.accountManager = accountManager;
     }
 
     private NameValuePair[] convertMapToNVP(Map<String, String> map) {
@@ -252,7 +254,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         throws UnsupportedOperationException,
         com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
         OperationCanceledException, AuthenticatorException, IOException {
-        Account account = AccountUtils.getOwnCloudAccountByName(context, request.getAccountName());
+        Account account = accountManager.getAccountByName(request.getAccountName());
         if (account == null) {
             throw new IllegalStateException(EXCEPTION_ACCOUNT_NOT_FOUND);
         }

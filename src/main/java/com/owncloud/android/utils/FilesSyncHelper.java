@@ -251,6 +251,7 @@ public final class FilesSyncHelper {
                                                    null,
                                                    uploadsStorageManager,
                                                    connectivityService,
+                                                   accountManager,
                                                    null);
             }
         }).start();

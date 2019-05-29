@@ -54,6 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -75,6 +76,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 
+import javax.inject.Inject;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -89,14 +92,20 @@ import androidx.annotation.StringRes;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
  * generated on instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements
-        OnTouchListener {
+public class PreviewMediaFragment extends FileFragment implements OnTouchListener {
+
+    private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
     private static final double MIN_DENSITY_RATIO = 24.0;
+
+    private static final String FILE = "FILE";
+    private static final String ACCOUNT = "ACCOUNT";
+    private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
+    private static final String AUTOPLAY = "AUTOPLAY";
 
     private Account mAccount;
     private ImageView mImagePreview;
@@ -106,27 +115,22 @@ public class PreviewMediaFragment extends FileFragment implements
     private RelativeLayout mMultiView;
     private RelativeLayout mPreviewContainer;
 
-    protected LinearLayout mMultiListContainer;
-    protected TextView mMultiListMessage;
-    protected TextView mMultiListHeadline;
-    protected ImageView mMultiListIcon;
-    protected ProgressBar mMultiListProgress;
+    private LinearLayout mMultiListContainer;
+    private TextView mMultiListMessage;
+    private TextView mMultiListHeadline;
+    private ImageView mMultiListIcon;
+    private ProgressBar mMultiListProgress;
 
     private MediaServiceBinder mMediaServiceBinder;
     private MediaControlView mMediaController;
     private MediaServiceConnection mMediaServiceConnection;
     private boolean mAutoplay;
     private static boolean mOnResume;
-    public boolean mPrepared;
+    private boolean mPrepared;
 
     private Uri mVideoUri;
+    @Inject UserAccountManager accountManager;
 
-    private static final String TAG = PreviewMediaFragment.class.getSimpleName();
-
-    private static final String FILE = "FILE";
-    private static final String ACCOUNT = "ACCOUNT";
-    private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
-    private static final String AUTOPLAY = "AUTOPLAY";
 
     /**
      * Creates a fragment to preview a file.
@@ -373,14 +377,18 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onPrepareOptionsMenu(menu);
 
         if (containerActivity.getStorageManager() != null) {
+            Account currentAccount = containerActivity.getStorageManager().getAccount();
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
-                containerActivity.getStorageManager().getAccount(),
+                currentAccount,
                 containerActivity,
                 getActivity(),
                 false
             );
-            mf.filter(menu, true);
+
+            mf.filter(menu,
+                      true,
+                      accountManager.isMediaStreamingSupported(currentAccount));
         }
 
         // additional restriction for this fragment

@@ -39,6 +39,7 @@ import androidx.annotation.Nullable;
 /**
  * Helper class for dealing with accounts.
  */
+@Deprecated
 public final class AccountUtils {
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
@@ -99,29 +100,6 @@ public final class AccountUtils {
         return accountManager.getAccountsByType(MainApp.getAccountType(context));
     }
 
-
-    public static boolean exists(Account account, Context context) {
-        Account[] ocAccounts = getAccounts(context);
-
-        if (account != null && account.name != null) {
-            int lastAtPos = account.name.lastIndexOf('@');
-            String hostAndPort = account.name.substring(lastAtPos + 1);
-            String username = account.name.substring(0, lastAtPos);
-            String otherHostAndPort;
-            String otherUsername;
-            for (Account otherAccount : ocAccounts) {
-                lastAtPos = otherAccount.name.lastIndexOf('@');
-                otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
-                otherUsername = otherAccount.name.substring(0, lastAtPos);
-                if (otherHostAndPort.equals(hostAndPort) &&
-                        otherUsername.equalsIgnoreCase(username)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     /**
      * Returns owncloud account identified by accountName or null if it does not exist.
      * @param context the context
@@ -136,81 +114,5 @@ public final class AccountUtils {
             }
         }
         return null;
-    }
-
-    public static boolean setCurrentOwnCloudAccount(final Context context, String accountName) {
-        boolean result = false;
-        if (accountName != null) {
-            for (final Account account : getAccounts(context)) {
-                if (accountName.equals(account.name)) {
-                    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, accountName);
-                    appPrefs.apply();
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static boolean setCurrentOwnCloudAccount(final Context context, int hashCode) {
-        boolean result = false;
-        if (hashCode != 0) {
-            for (final Account account : getAccounts(context)) {
-                if (hashCode == account.hashCode()) {
-                    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
-                    appPrefs.apply();
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static void resetOwnCloudAccount(Context context) {
-        SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        appPrefs.putString(PREF_SELECT_OC_ACCOUNT, null);
-
-        appPrefs.apply();
-    }
-
-    /**
-     * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER
-     *
-     * @param account ownCloud account
-     * @return Version of the OC server corresponding to account, according to the data saved
-     * in the system AccountManager
-     */
-    public static @NonNull
-    OwnCloudVersion getServerVersion(Account account) {
-        OwnCloudVersion serverVersion = MainApp.MINIMUM_SUPPORTED_SERVER_VERSION;
-
-        if (account != null) {
-            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
-            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
-
-            if (serverVersionStr != null) {
-                serverVersion = new OwnCloudVersion(serverVersionStr);
-            }
-        }
-
-        return serverVersion;
-    }
-
-    public static boolean hasSearchSupport(Account account) {
-        return getServerVersion(account).isSearchSupported();
-    }
-
-    /**
-     * Checks if an account owns the file (file's ownerId is the same as account name)
-     * @param file File to check
-     * @param account account to compare
-     * @return false if ownerId is not set or owner is a different account
-     */
-    public static boolean accountOwnsFile(OCFile file, Account account) {
-        return !TextUtils.isEmpty(file.getOwnerId()) && account.name.split("@")[0].equals(file.getOwnerId());
     }
 }

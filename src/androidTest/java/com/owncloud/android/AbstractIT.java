@@ -9,6 +9,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -51,15 +53,15 @@ public abstract class AbstractIT {
             String password = arguments.getString("TEST_SERVER_PASSWORD");
 
             Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-
-            if (!com.owncloud.android.authentication.AccountUtils.exists(temp, targetContext)) {
-                AccountManager accountManager = AccountManager.get(targetContext);
-                accountManager.addAccountExplicitly(temp, password, null);
-                accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+            UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
+            if (!accountManager.exists(temp)) {
+                AccountManager platformAccountManager = AccountManager.get(targetContext);
+                platformAccountManager.addAccountExplicitly(temp, password, null);
+                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
                         Integer.toString(com.owncloud.android.authentication.AccountUtils.ACCOUNT_VERSION));
-                accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-                accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-                accountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
+                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
             }
 
             account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(targetContext,
