@@ -24,7 +24,6 @@
 package com.owncloud.android.ui.trashbin;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.os.AsyncTask;
 
