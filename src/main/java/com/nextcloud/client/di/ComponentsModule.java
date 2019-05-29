@@ -24,10 +24,14 @@ import com.nextcloud.client.whatsnew.WhatsNewActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
+import com.owncloud.android.services.AccountManagerService;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
@@ -62,11 +66,14 @@ import com.owncloud.android.ui.errorhandling.ErrorShowActivity;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
@@ -121,17 +128,23 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
+    @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
     @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
-
-    @ContributesAndroidInjector
-    abstract ContactListFragment chooseContactListFragment();
+    @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
+    @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
+    @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
 
     @ContributesAndroidInjector abstract FileUploader fileUploader();
+    @ContributesAndroidInjector abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
+    @ContributesAndroidInjector abstract NotificationJob.NotificationReceiver notificationJobBroadcastReceiver();
 
     @ContributesAndroidInjector abstract DocumentsStorageProvider documentsStorageProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
     @ContributesAndroidInjector abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
+
+    @ContributesAndroidInjector abstract AccountManagerService accountManagerService();
+    @ContributesAndroidInjector abstract OperationsService operationsService();
 }

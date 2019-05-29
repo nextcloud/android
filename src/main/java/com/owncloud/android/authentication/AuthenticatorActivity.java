@@ -250,11 +250,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextInputLayout mPasswordInputLayout;
     private boolean forceOldLoginMethod;
 
-    @Inject
-    UserAccountManager accountManager;
-
-    @Inject
-    protected AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
+    @Inject AppPreferences preferences;
 
     /**
      * {@inheritDoc}
@@ -624,7 +621,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
                 // TODO do next in a setter for mBaseUrl
                 mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
-                mServerInfo.mVersion = AccountUtils.getServerVersion(mAccount);
+                mServerInfo.mVersion = accountManager.getServerVersion(mAccount);
             } else {
                 if (!webViewLoginMethod) {
                     mServerInfo.mBaseUrl = getString(R.string.server_url).trim();
@@ -1503,7 +1500,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (success) {
                 finish();
 
-                AccountUtils.setCurrentOwnCloudAccount(this, mAccount.name);
+                accountManager.setCurrentOwnCloudAccount(mAccount.name);
 
                 Intent i = new Intent(this, FileDisplayActivity.class);
                 i.setAction(FileDisplayActivity.RESTART);
@@ -1656,7 +1653,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, loginName);
         Account newAccount = new Account(accountName, accountType);
-        if (AccountUtils.exists(newAccount, getApplicationContext())) {
+        if (accountManager.exists(newAccount)) {
             // fail - not a new account, but an existing one; disallow
             RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_NEW);
 

@@ -24,15 +24,27 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.nextcloud.android.sso.InputStreamBinder;
+import com.nextcloud.client.account.UserAccountManager;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class AccountManagerService extends Service {
 
     private InputStreamBinder mBinder;
+    @Inject UserAccountManager accountManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AndroidInjection.inject(this);
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
         if(mBinder == null) {
-            mBinder = new InputStreamBinder(this);
+            mBinder = new InputStreamBinder(this, accountManager);
         }
         return mBinder;
     }

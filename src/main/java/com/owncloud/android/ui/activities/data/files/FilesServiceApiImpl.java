@@ -63,7 +63,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
     @Override
     public void readRemoteFile(String fileUrl, BaseActivity activity, FilesServiceCallback<OCFile> callback) {
         ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(
-            accountManager.getCurrentAccount(),
+            accountManager,
             fileUrl,
             activity,
             callback
@@ -79,12 +79,17 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         private final BaseActivity baseActivity;
         private final String fileUrl;
         private final Account account;
+        private final UserAccountManager accountManager;
 
-        private ReadRemoteFileTask(Account account, String fileUrl, BaseActivity baseActivity, FilesServiceCallback<OCFile> callback) {
+        private ReadRemoteFileTask(UserAccountManager accountManager,
+                                   String fileUrl,
+                                   BaseActivity baseActivity,
+                                   FilesServiceCallback<OCFile> callback) {
             this.callback = callback;
             this.baseActivity = baseActivity;
             this.fileUrl = fileUrl;
-            this.account = account;
+            this.account = accountManager.getCurrentAccount();
+            this.accountManager = accountManager;
         }
 
         @Override
@@ -96,7 +101,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                 ocAccount = new OwnCloudAccount(account, context);
                 ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(account));
+                ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(account));
                 // always update file as it could be an old state saved in database
                 RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
 

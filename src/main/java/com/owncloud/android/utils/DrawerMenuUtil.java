@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.content.res.Resources;
 import android.view.Menu;
 
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -44,8 +45,10 @@ public final class DrawerMenuUtil {
         }
     }
 
-    public static void filterSearchMenuItems(Menu menu, Account account, Resources resources) {
-        boolean hasSearchSupport = AccountUtils.hasSearchSupport(account);
+    public static void filterSearchMenuItems(Menu menu,
+                                             Account account,
+                                             Resources resources,
+                                             boolean hasSearchSupport) {
         if (account != null && !hasSearchSupport) {
             filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
         }
@@ -67,9 +70,12 @@ public final class DrawerMenuUtil {
         }
     }
 
-    public static void filterTrashbinMenuItem(Menu menu, @Nullable Account account, @Nullable OCCapability capability) {
+    public static void filterTrashbinMenuItem(Menu menu,
+                                              @Nullable Account account,
+                                              @Nullable OCCapability capability,
+                                              UserAccountManager accountManager) {
         if (account != null && capability != null &&
-                (AccountUtils.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
+                (accountManager.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
                         capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown())) {
             filterMenuItems(menu, R.id.nav_trashbin);
         }

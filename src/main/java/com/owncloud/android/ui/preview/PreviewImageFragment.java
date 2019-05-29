@@ -53,6 +53,7 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -124,6 +125,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private LoadBitmapTask mLoadBitmapTask;
 
     @Inject ConnectivityService connectivityService;
+    @Inject UserAccountManager accountManager;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -323,14 +325,18 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             // Update the file
             setFile(containerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
+            Account currentAccount = containerActivity.getStorageManager().getAccount();
             FileMenuFilter mf = new FileMenuFilter(
                     getFile(),
-                    containerActivity.getStorageManager().getAccount(),
+                    currentAccount,
                 containerActivity,
                     getActivity(),
                     false
             );
-            mf.filter(menu, true);
+
+            mf.filter(menu,
+                      true,
+                      accountManager.isMediaStreamingSupported(currentAccount));
         }
 
         // additional restriction for this fragment
