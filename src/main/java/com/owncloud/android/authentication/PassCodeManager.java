@@ -123,10 +123,6 @@ public final class PassCodeManager {
         }
     }
 
-    private void setUnlockTimestamp(Activity activity) {
-        AppPreferencesImpl.fromContext(activity).setLockTimestamp(System.currentTimeMillis());
-    }
-
     private boolean passCodeShouldBeRequested(Long timestamp) {
         return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT &&
             visibleActivitiesCounter <= 0 && isPassCodeEnabled();

@@ -270,7 +270,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         }
 
         @Override
-        protected StringWriter doInBackground(java.lang.Object... params) {
+        protected StringWriter doInBackground(Object... params) {
             if (params.length != PARAMS_LENGTH) {
                 throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName()
                         + " must be (1) the file location");

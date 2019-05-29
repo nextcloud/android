@@ -44,18 +44,15 @@ import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.Sea
 public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     private Account account;
     private String fileId;
-    private String userId;
     private FileDataStorageManager storageManager;
     private FileDisplayActivity fileDisplayActivity;
 
     public FetchRemoteFileTask(Account account,
                                String fileId,
-                               String userId,
                                FileDataStorageManager storageManager,
                                FileDisplayActivity fileDisplayActivity) {
         this.account = account;
         this.fileId = fileId;
-        this.userId = userId;
         this.storageManager = storageManager;
         this.fileDisplayActivity = fileDisplayActivity;
     }
