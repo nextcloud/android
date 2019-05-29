@@ -1,0 +1,8 @@
+1b3cc0f78 Add funding support (#4077)
+3c16d8bb4 add funding support
+df3ac186b Move PowerUtils to dedicated power management service (#4073)
+9cdc9269a ktlint
+3d7b14386 added gpl license header
+8116bfd79 Merge pull request #4063 from nextcloud/ktLint
+90d960041 add ktlint
+537b30494 daily dev 20190528
