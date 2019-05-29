@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_as_richdocument">Abrir com Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Abrir com %1$s</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Procura</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">Enviar ligação para…</string>
     <string name="activity_icon">Actividade</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
+    <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">O acesso falhou: %1$s</string>
     <string name="auth_account_does_not_exist">A conta ainda não foi adicionada a este dispositivo</string>
     <string name="auth_account_not_new">Já existe uma conta para o mesmo utilizador e servidor no dispositivo</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erro crítico: impossível concluir a operação</string>
     <string name="error_comment_file">Erro ao comentar ficheiro</string>
+    <string name="error_retrieving_file">Erro ao obter o ficheiro</string>
     <string name="error_retrieving_templates">Erro ao obter modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
     <string name="fab_label">Adicionar ou enviar</string>
@@ -475,9 +478,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Guardar em sub-pastas de acordo com o ano e o mês</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar Subpastas</string>
     <string name="prefs_license">Licença</string>
+    <string name="prefs_lock">Código da aplicação</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Não foram configuradas credenciais de dispositivo.</string>
     <string name="prefs_lock_none">nenhum</string>
+    <string name="prefs_lock_title">Proteger a aplicação, usando</string>
     <string name="prefs_lock_using_device_credentials">Credenciais de dispositivo</string>
     <string name="prefs_lock_using_passcode">Código</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
@@ -506,11 +511,13 @@
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
+    <string name="reshare_not_allowed">Voltar a partilhar não é permitido</string>
     <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="resized_image_not_possible">Nenhuma imagem redimensionada disponível.</string>
     <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
+    <string name="retrieving_file">A obter o ficheiro...</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="saml_authentication_required_text">Necessário palavra-passe</string>
     <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
@@ -543,6 +550,7 @@
     <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
     <string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
     <string name="share_link_forbidden_permissions">para partilhar este ficheiro</string>
+    <string name="share_link_optional_password_title">Insira uma palavra-passe opcional</string>
     <string name="share_link_password_title">Introduza uma palavra-passe</string>
     <string name="share_no_expiration_date_label">Definir a data de expiração</string>
     <string name="share_no_password_title">Defina a senha</string>
@@ -620,6 +628,7 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>
     <string name="stream">Transmita com…</string>
     <string name="stream_not_possible_headline">Transmissão interna não é possível</string>
     <string name="stream_not_possible_message">Por favor, como opção, transfira media ou utilize uma aplicação externa.</string>
