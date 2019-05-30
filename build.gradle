@@ -295,7 +295,7 @@ dependencies {
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.28.2'
-    testImplementation 'androidx.test:core:1.1.0'
+    testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.powermock:powermock-core:2.0.2'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.2'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.2'
@@ -305,9 +305,9 @@ dependencies {
     // dependencies for instrumented tests
     // JUnit4 Rules
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
     // Android JUnit Runner
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
 
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
