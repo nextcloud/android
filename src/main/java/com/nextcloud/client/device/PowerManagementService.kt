@@ -43,4 +43,9 @@ interface PowerManagementService {
      * @return true if workaround is required, false otherwise
      */
     val isPowerSavingExclusionAvailable: Boolean
+
+    /**
+     * Checks if battery is charging using any hardware supported means.
+     */
+    val isBatteryCharging: Boolean
 }
