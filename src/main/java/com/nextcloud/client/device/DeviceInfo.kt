@@ -21,9 +21,15 @@
 
 package com.nextcloud.client.device
 
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 
 class DeviceInfo {
     val vendor: String = Build.MANUFACTURER.toLowerCase()
     val apiLevel: Int = Build.VERSION.SDK_INT
+
+    fun hasCamera(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+    }
 }
