@@ -348,6 +348,14 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        webview.evaluateJavascript("if (typeof OCA.RichDocuments.documentsMain.postGrabFocus !== 'undefined') " +
+                                       "{ OCA.RichDocuments.documentsMain.postGrabFocus(); }", null);
+    }
+
     private class RichDocumentsMobileInterface {
         @JavascriptInterface
         public void close() {
