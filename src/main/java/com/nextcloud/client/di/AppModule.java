@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -104,5 +105,10 @@ class AppModule {
 
     @Provides CurrentAccountProvider currentAccountProvider(UserAccountManager accountManager) {
         return accountManager;
+    }
+
+    @Provides
+    DeviceInfo deviceInfo() {
+        return new DeviceInfo();
     }
 }

@@ -51,6 +51,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -195,6 +196,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private SearchEvent searchEvent;
     private AsyncTask remoteOperationAsyncTask;
     private String mLimitToMimeType;
+
+    @Inject DeviceInfo deviceInfo;
 
     private enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
@@ -418,7 +421,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
         getFabMain().setOnClickListener(v -> {
-            new OCFileListBottomSheetDialog(activity, this).show();
+            new OCFileListBottomSheetDialog(activity, this, deviceInfo).show();
         });
     }
 
