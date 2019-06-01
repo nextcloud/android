@@ -363,12 +363,12 @@ Attention la suppression est irréversible.</string>
     <string name="media_rewind_description">Bouton de retour arrière</string>
     <string name="media_state_loading">%1$s (chargement)</string>
     <string name="media_state_playing">%1$s (lecture)</string>
-    <string name="menu_item_sort_by_date_newest_first">Date : Récent d\'abord</string>
-    <string name="menu_item_sort_by_date_oldest_first">Date : Ancien d\'abord</string>
+    <string name="menu_item_sort_by_date_newest_first">Date : Récent en premier</string>
+    <string name="menu_item_sort_by_date_oldest_first">Date : Ancien en premier</string>
     <string name="menu_item_sort_by_name_a_z">Nom : de A à Z</string>
     <string name="menu_item_sort_by_name_z_a">Nom : de Z à A</string>
-    <string name="menu_item_sort_by_size_biggest_first">Taille : Grand d\'abord</string>
-    <string name="menu_item_sort_by_size_smallest_first">Taille : Petit d\'abord</string>
+    <string name="menu_item_sort_by_size_biggest_first">Taille : Grand en premier</string>
+    <string name="menu_item_sort_by_size_smallest_first">Taille : Petit en premier</string>
     <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
@@ -688,7 +688,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Envoyer depuis…</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
-    <string name="upload_direct_camera_upload">Téléverser depuis un appareil photo</string>
+    <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>

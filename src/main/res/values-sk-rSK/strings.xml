@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move">Presunúť</string>
     <string name="actionbar_open_as_richdocument">Otvoriť s Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Otvoriť pomocou %1$s</string>
     <string name="actionbar_open_with">Otvoriť pomocou</string>
     <string name="actionbar_search">Hľadať</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">Odoslať odkaz…</string>
     <string name="activity_icon">Aktivita</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
+    <string name="associated_account_not_found">Priradený účet sa nenašiel</string>
     <string name="auth_access_failed">Prístup zamietnutý: %1$s</string>
     <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
     <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operáciu nemožno vykonať</string>
     <string name="error_comment_file">Chyba pri pridaní komentáru k súboru</string>
+    <string name="error_retrieving_file">Chyba pri získavaní súboru</string>
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
     <string name="fab_label">Pridať alebo nahrať</string>
@@ -514,6 +517,7 @@
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_button_description">Obnovenie zmazaného súboru</string>
+    <string name="retrieving_file">Získava sa súbor...</string>
     <string name="richdocuments_failed_to_load_document">Nepodarilo sa načítať dokument!</string>
     <string name="saml_authentication_required_text">Vyžaduje sa heslo</string>
     <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
@@ -546,6 +550,7 @@
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
     <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje</string>
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
+    <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
     <string name="share_link_password_title">Vložte heslo</string>
     <string name="share_no_expiration_date_label">Nastaviť dátum expirácie</string>
     <string name="share_no_password_title">Nastaviť heslo</string>
@@ -623,6 +628,10 @@
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
     <string name="storage_pictures">Obrázky</string>
+    <string name="store_full_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\n\nFunkcie:\n* Jednoducho použiteľné moderné rozhranie, hodiace sa k vzhľadu vášho servera\n* Nahrávanie súborov na Nextcloud server\n* Ich sprístupnenie s inými ľudmi\n* Synchronizácia vašich obľúbených súborov a priečinkov\n* Vyhľadávanie naprieč všetkými zložkami na serveri\n* Automatické nahrávanie fotiek a videí nasnímaných vašim zariadením\n* Doručovanie notifikácií\n* Podpora viac účtov naraz\n* Zabezpečený prístup k vašim dátam pomocou odtlačku prstu alebo kódom PIN\n* Začlenenie DAVx5 (predtým známy ako DAVdroid) pre jednoduchý prístup ku kalendáru &amp; synchronizácii kontaktov\n\nAkékoľvek problémy prosím hláste na https://github.com/nextcloud/android/issues a o aplikácii môžete diskutovať na https://help.nextcloud.com/c/clients/android\n\nNepoznáte ešte Nextcloud? Nextcloud je server pre súkromnú synchronizáciu súborov &amp;, zdieľanie a komunikáciu. Je to slobodný softvér a môžete si ho prevádzkovať buď sami alebo si ho prenajímať od nejakej spoločnosti. Týmto spôsobom získate plnú vládu nad svojimi fotkami, údajom v kalendári a kontaktoch, dokumentom a všetkým ostatným.\n\nViac zistíte na https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
+    <string name="store_short_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.</string>
+    <string name="store_short_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou (vývojová verzia)</string>
     <string name="stream">Streamovať s...</string>
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
