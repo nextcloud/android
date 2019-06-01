@@ -27,8 +27,7 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
 import com.nhaarman.mockitokotlin2.*
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,7 +38,8 @@ import org.mockito.MockitoAnnotations
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     TestPowerManagementService.PowerSaveMode::class,
-    TestPowerManagementService.BatteryCharging::class
+    TestPowerManagementService.BatteryCharging::class,
+    TestPowerManagementService.WakeLock::class
 )
 class TestPowerManagementService {
 
@@ -202,6 +202,56 @@ class TestPowerManagementService {
             //     charging flag is false
             assertFalse(powerManagementService.isBatteryCharging)
             verify(context).registerReceiver(anyOrNull(), any())
+        }
+    }
+
+    class WakeLock : Base() {
+
+        @Test
+        fun `wakelock is not acquired on API level 21+`() {
+            // GIVEN
+            //      API level is 21+
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.LOLLIPOP)
+            val platformWakeLock: PowerManager.WakeLock = mock()
+            whenever(platformPowerManager.newWakeLock(any(), any())).thenReturn(platformWakeLock)
+
+            // WHEN
+            //      wake lock is acquired
+            val lock = powerManagementService.acquirePartialWakeLock(60000, "TAG") as WakeLockWrapper
+
+            // THEN
+            //      power manager is not called to obtain lock
+            //      returned wake lock is disabled
+            verify(platformPowerManager, never()).newWakeLock(any(), any())
+            assertNull(lock.lock)
+            assertFalse(lock.isHeld)
+        }
+
+        @Test
+        fun `wakelock is acquired on API level 16-20`() {
+            val platformWakeLock: PowerManager.WakeLock = mock()
+            whenever(platformPowerManager.newWakeLock(any(), any())).thenReturn(platformWakeLock)
+
+            // GIVEN
+            //      API level is 20 or below
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.KITKAT)
+
+            // WHEN
+            //      wake lock is acquired for time T
+            val timeout: Long = 60000
+            val tag = "TAG"
+            val lock = powerManagementService.acquirePartialWakeLock(timeout, tag) as WakeLockWrapper
+
+            // THEN
+            //      power manager is called to obtain lock
+            //      wake lock is requested for time T and has a tag
+            //      returned lock is acquired
+            verify(platformPowerManager).newWakeLock(
+                eq(PowerManager.PARTIAL_WAKE_LOCK),
+                argWhere { it.endsWith(tag) }
+            )
+            assertSame(platformWakeLock, lock.lock)
+            verify(lock.lock!!).acquire(eq(timeout))
         }
     }
 }

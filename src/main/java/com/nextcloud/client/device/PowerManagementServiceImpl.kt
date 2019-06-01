@@ -28,6 +28,7 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
+import com.owncloud.android.R
 
 internal class PowerManagementServiceImpl(
     private val context: Context,
@@ -68,4 +69,15 @@ internal class PowerManagementServiceImpl(
                 else -> false
             }
         }
+
+    override fun acquirePartialWakeLock(timeout: Long, tag: String): WakeLock {
+        if (deviceInfo.apiLevel < Build.VERSION_CODES.LOLLIPOP) {
+            val wakeLockTag = "${context.getString(R.string.authority)}.WAKE_LOCK.${tag}"
+            val lock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, wakeLockTag)
+            lock.acquire(timeout)
+            return WakeLockWrapper(lock)
+        } else {
+            return WakeLockWrapper(null)
+        }
+    }
 }

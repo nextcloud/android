@@ -48,4 +48,14 @@ interface PowerManagementService {
      * Checks if battery is charging using any hardware supported means.
      */
     val isBatteryCharging: Boolean
+
+    /**
+     * Try acquiring partial WakeLock. If wake lock could not be acquired,
+     * the returned lock is disabled and [WakeLock.isHeld] will evaluate to false.
+     *
+     * On API <21 (Lollipop) returned wake lock is always disabled.
+     *
+     * @return Wake lock. Caller should check [WakeLock.isHeld] to evaluate lock state.
+     */
+    fun acquirePartialWakeLock(timeout: Long, tag: String): WakeLock
 }
