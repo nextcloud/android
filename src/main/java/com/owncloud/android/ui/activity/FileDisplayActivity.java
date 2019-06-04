@@ -141,6 +141,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -703,7 +704,8 @@ public class FileDisplayActivity extends FileActivity
         return null;
     }
 
-    public FileFragment getSecondFragment() {
+    public @Nullable
+    FileFragment getSecondFragment() {
         Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
         if (second != null) {
             return (FileFragment) second;
@@ -2066,7 +2068,7 @@ public class FileDisplayActivity extends FileActivity
         if (result.isSuccess()) {
             updateFileFromDB();
             refreshListOfFilesFragment(false);
-        } else if (fileDetailFragment.getView() != null) {
+        } else if (fileDetailFragment != null && fileDetailFragment.getView() != null) {
             String errorResponse;
 
             if (result.getData() != null && result.getData().size() > 0) {
