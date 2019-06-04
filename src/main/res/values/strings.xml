@@ -875,4 +875,5 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_check_dialog_title">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
+    <string name="failed_to_download">Failed to pass file to download manager</string>
 </resources>
