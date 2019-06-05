@@ -49,9 +49,9 @@ import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.nextcloud.client.whatsnew.WhatsNewService;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -156,7 +156,7 @@ public class MainApp extends MultiDexApplication implements
     protected AppInfo appInfo;
 
     @Inject
-    protected WhatsNewService whatsNew;
+    protected OnboardingService onboarding;
 
     @Inject
     ConnectivityService connectivityService;
@@ -258,7 +258,7 @@ public class MainApp extends MultiDexApplication implements
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
-                whatsNew.launchActivityIfNeeded(activity);
+                onboarding.launchActivityIfNeeded(activity);
             }
 
             @Override

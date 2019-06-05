@@ -21,7 +21,7 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.whatsnew;
+package com.nextcloud.client.onboarding;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +56,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private ViewPager mPager;
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
-    @Inject WhatsNewService whatsNew;
+    @Inject OnboardingService onboarding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                                                                              whatsNew.getWhatsNew());
+                                                                              onboarding.getWhatsNew());
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
