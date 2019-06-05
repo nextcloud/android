@@ -23,22 +23,21 @@ package com.owncloud.android.jobs;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.content.Context;
 import android.os.Build;
-import android.os.PowerManager;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
-import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.device.PowerManagementServiceImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FilesSyncHelper;
 
+import javax.inject.Inject;
+
 import androidx.annotation.RequiresApi;
+import dagger.android.AndroidInjection;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected
@@ -46,6 +45,18 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NContentObserverJob extends JobService {
+    @Inject PowerManagementService powerManagementService;
+
+    /**
+     * Service initialization
+     */
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AndroidInjection.inject(this);
+        Log_OC.d(this, "Creating service");
+    }
+
     @Override
     public boolean onStartJob(JobParameters params) {
 
@@ -71,19 +82,7 @@ public class NContentObserverJob extends JobService {
     }
 
     private void checkAndStartFileSyncJob() {
-        Context context = getApplicationContext();
-        AppPreferences appPreferences = AppPreferencesImpl.fromContext(context);
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-        if (powerManager == null) {
-            Log_OC.e(this, "PowerManager is null, aborting job");
-            return;
-        }
-
-        PowerManagementService powerManagementService = new PowerManagementServiceImpl(context,
-                                                                                       powerManager,
-                                                                                       appPreferences,
-                                                                                       new DeviceInfo());
+        AppPreferences appPreferences = AppPreferencesImpl.fromContext(getApplicationContext());
 
         if (!powerManagementService.isPowerSavingEnabled() &&
             new SyncedFolderProvider(getContentResolver(), appPreferences).countEnabledSyncedFolders() > 0) {
