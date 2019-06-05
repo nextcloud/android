@@ -517,7 +517,7 @@
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_button_description">Obnovenie zmazaného súboru</string>
-    <string name="retrieving_file">Získava sa súbor...</string>
+    <string name="retrieving_file">Získava sa súbor…</string>
     <string name="richdocuments_failed_to_load_document">Nepodarilo sa načítať dokument!</string>
     <string name="saml_authentication_required_text">Vyžaduje sa heslo</string>
     <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
@@ -632,7 +632,7 @@
     <string name="store_full_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
     <string name="store_short_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.</string>
     <string name="store_short_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou (vývojová verzia)</string>
-    <string name="stream">Streamovať s...</string>
+    <string name="stream">Streamovať s…</string>
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
@@ -663,7 +663,7 @@
     <string name="tags">Štítky</string>
     <string name="test_server_button">Test serverového pripojenia</string>
     <string name="thumbnail">Náhľad</string>
-    <string name="timeout_richDocuments">Načítanie trvá veľmi dlho...</string>
+    <string name="timeout_richDocuments">Načítanie trvá veľmi dlho…</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory</string>

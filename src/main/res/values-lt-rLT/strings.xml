@@ -40,6 +40,7 @@
     <string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
     <string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
     <string name="auth_check_server">Patikrinti serverį</string>
+    <string name="auth_connecting_auth_server">Jungiamasi prie tapatybės nustatymo serverio…</string>
     <string name="auth_connection_established">Ryšys užmegztas</string>
     <string name="auth_expired_basic_auth_toast">Prašome įvesti dabartinį slaptažodį</string>
     <string name="auth_expired_oauth_token_toast">Autorizacijos laikas baigėsi. Prašome autorizuotis iš naujo</string>
@@ -107,6 +108,7 @@
     <string name="configure_new_media_folder_detection_notifications">Konfigūruoti</string>
     <string name="confirmation_remove_file_alert">Ar tikrai norite ištrinti %1$s?</string>
     <string name="confirmation_remove_files_alert">Ar tikrai norite ištrinti pažymėtus elementus?</string>
+    <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="conflict_keep_both">Palikti abu</string>
