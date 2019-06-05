@@ -45,6 +45,7 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -117,6 +118,8 @@ public class UploadListActivity extends FileActivity {
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject PowerManagementService powerManagementService;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
@@ -180,7 +183,8 @@ public class UploadListActivity extends FileActivity {
         uploadListAdapter = new UploadListAdapter(this,
                                                   uploadsStorageManager,
                                                   userAccountManager,
-                                                  connectivityService);
+                                                  connectivityService,
+                                                  powerManagementService);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
         uploadListAdapter.setLayoutManager(lm);
@@ -229,7 +233,8 @@ public class UploadListActivity extends FileActivity {
                                                       uploadsStorageManager,
                                                       connectivityService,
                                                       userAccountManager,
-                                                      null)).start();
+                                                      null,
+                                                      powerManagementService)).start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
@@ -301,7 +306,10 @@ public class UploadListActivity extends FileActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager, connectivityService);
+            FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
+                                                userAccountManager,
+                                                connectivityService,
+                                                powerManagementService);
         }
     }
 
@@ -321,7 +329,10 @@ public class UploadListActivity extends FileActivity {
 
             } else {
                 // already updated -> just retry!
-                FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager, connectivityService);
+                FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
+                                                    userAccountManager,
+                                                    connectivityService,
+                                                    powerManagementService);
             }
 
         } else {

@@ -26,6 +26,7 @@ import android.content.Intent
 import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
+import com.nextcloud.client.preferences.AppPreferences
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -55,13 +56,17 @@ class TestPowerManagementService {
 
         internal lateinit var powerManagementService: PowerManagementServiceImpl
 
+        @Mock
+        lateinit var preferences: AppPreferences
+
         @Before
         fun setUpBase() {
             MockitoAnnotations.initMocks(this)
             powerManagementService = PowerManagementServiceImpl(
-                context = context,
-                powerManager = platformPowerManager,
-                deviceInfo = deviceInfo
+                context,
+                platformPowerManager,
+                preferences,
+                deviceInfo
             )
         }
     }
@@ -113,6 +118,23 @@ class TestPowerManagementService {
         fun `power save exclusion is not available for other vendors`() {
             whenever(deviceInfo.vendor).thenReturn("some_other_nice_vendor")
             assertFalse(powerManagementService.isPowerSavingExclusionAvailable)
+        }
+
+        @Test
+        fun `power saving check is disabled`() {
+            // GIVEN
+            //      a device which falsely returns power save mode enabled
+            //      power check is overridden by user
+            whenever(preferences.isPowerCheckDisabled).thenReturn(true)
+            whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
+
+            // WHEN
+            //      power save mode is checked
+            // THEN
+            //      power save mode is enabled
+            //      power saving is disabled
+            assertTrue(platformPowerManager.isPowerSaveMode)
+            assertFalse(powerManagementService.isPowerSavingEnabled)
         }
     }
 

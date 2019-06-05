@@ -34,6 +34,7 @@ import android.text.TextUtils;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -52,7 +53,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.PowerUtils;
 
 import java.io.File;
 import java.text.ParsePosition;
@@ -82,17 +82,20 @@ public class FilesSyncJob extends Job {
     private AppPreferences preferences;
     private UploadsStorageManager uploadsStorageManager;
     private ConnectivityService connectivityService;
+    private PowerManagementService powerManagementService;
 
     public FilesSyncJob(
         final UserAccountManager userAccountManager,
         final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
-        final ConnectivityService connectivityService
+        final ConnectivityService connectivityService,
+        final PowerManagementService powerManagementService
     ) {
         this.userAccountManager = userAccountManager;
         this.preferences = preferences;
         this.uploadsStorageManager = uploadsStorageManager;
         this.connectivityService = connectivityService;
+        this.powerManagementService = powerManagementService;
     }
 
     @NonNull
@@ -112,7 +115,7 @@ public class FilesSyncJob extends Job {
         final boolean overridePowerSaving = bundle.getBoolean(OVERRIDE_POWER_SAVING, false);
 
         // If we are in power save mode, better to postpone upload
-        if (PowerUtils.isPowerSaveMode(context) && !overridePowerSaving) {
+        if (!overridePowerSaving && powerManagementService.isPowerSavingEnabled()) {
             wakeLock.release();
             return Result.SUCCESS;
         }
@@ -121,7 +124,10 @@ public class FilesSyncJob extends Job {
         boolean lightVersion = resources.getBoolean(R.bool.syncedFolder_light);
 
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
-        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, userAccountManager, connectivityService);
+        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
+                                            userAccountManager,
+                                            connectivityService,
+                                            powerManagementService);
         FilesSyncHelper.insertAllDBEntries(preferences, skipCustom);
 
         // Create all the providers we'll need
