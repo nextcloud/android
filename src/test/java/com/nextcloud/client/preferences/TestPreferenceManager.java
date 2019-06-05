@@ -3,6 +3,8 @@ package com.nextcloud.client.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.nextcloud.client.account.CurrentAccountProvider;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +25,16 @@ public class TestPreferenceManager {
     @Mock
     private SharedPreferences.Editor editor;
 
+    @Mock
+    private CurrentAccountProvider accountProvider;
+
     private AppPreferencesImpl appPreferences;
 
     @Before
     public void setUp() {
         when(editor.remove(anyString())).thenReturn(editor);
         when(sharedPreferences.edit()).thenReturn(editor);
-        appPreferences = new AppPreferencesImpl(testContext, sharedPreferences);
+        appPreferences = new AppPreferencesImpl(testContext, sharedPreferences, accountProvider);
     }
 
     @Test
