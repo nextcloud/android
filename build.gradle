@@ -134,7 +134,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled (project.hasProperty('coverage') ? true : false)
+                testCoverageEnabled (project.hasProperty('coverage'))
             }
         }
 
@@ -286,7 +286,7 @@ dependencies {
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.5'
-    
+
     implementation 'com.google.dagger:dagger:2.23.1'
     implementation 'com.google.dagger:dagger-android:2.23.1'
     implementation 'com.google.dagger:dagger-android-support:2.23.1'
