@@ -52,7 +52,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "1.5.0-rc1"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -75,7 +75,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 7
 def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
 if (taskRequest.contains("Gplay") || taskRequest.contains("lint")) {
@@ -129,7 +129,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled (project.hasProperty('coverage') ? true : false)
+                testCoverageEnabled (project.hasProperty('coverage'))
             }
         }
 

@@ -1,0 +1,9 @@
+3.7.0 RC1 (June, 06, 2019)
+
+- Collabora enhancements
+- Chromebook support
+- delete push notifications if read on other device
+- open file from notification
+- open file from Talk app
+
+For a full list, please see https://github.com/nextcloud/android/milestone/32
