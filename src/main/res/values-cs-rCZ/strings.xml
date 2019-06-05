@@ -547,6 +547,7 @@
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
     <string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte zda soubor existuje</string>
     <string name="share_link_forbidden_permissions">pro sdílení tohoto souboru</string>
+    <string name="share_link_optional_password_title">Zadejte nepovinné heslo</string>
     <string name="share_link_password_title">Zadejte heslo</string>
     <string name="share_no_expiration_date_label">Nastavit datum skončení platnosti</string>
     <string name="share_no_password_title">Nastavit heslo</string>

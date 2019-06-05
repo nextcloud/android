@@ -517,7 +517,7 @@
     <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
-    <string name="retrieving_file">A obter o ficheiro...</string>
+    <string name="retrieving_file">A obter o ficheiro…</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="saml_authentication_required_text">Necessário palavra-passe</string>
     <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
