@@ -23,7 +23,6 @@ package com.owncloud.android.jobs;
 
 import android.accounts.Account;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
@@ -35,9 +34,7 @@ import android.text.format.DateFormat;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;

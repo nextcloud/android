@@ -40,8 +40,8 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -178,8 +178,8 @@ public class NotificationsActivity extends FileActivity implements Notifications
             } else {
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-                    boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(currentAccount.name,
-                            AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
+                boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(currentAccount.name,
+                                                                     UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);
 
                 if (usesOldLogin) {
                     snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,

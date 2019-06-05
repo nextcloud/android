@@ -1719,7 +1719,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
             mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_ACCOUNT_VERSION,
-                                    Integer.toString(AccountUtils.ACCOUNT_VERSION_WITH_PROPER_ID));
+                                    Integer.toString(UserAccountManager.ACCOUNT_VERSION_WITH_PROPER_ID));
 
 
             setAccountAuthenticatorResult(intent.getExtras());
