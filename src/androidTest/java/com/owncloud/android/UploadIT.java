@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -45,6 +46,23 @@ public class UploadIT extends AbstractIT {
         @Override
         public JobRequest.NetworkType getActiveNetworkType() {
             return JobRequest.NetworkType.ANY;
+        }
+    };
+
+    private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+        @Override
+        public boolean isPowerSavingEnabled() {
+            return false;
+        }
+
+        @Override
+        public boolean isPowerSavingExclusionAvailable() {
+            return false;
+        }
+
+        @Override
+        public boolean isBatteryCharging() {
+            return false;
         }
     };
 
@@ -98,6 +116,7 @@ public class UploadIT extends AbstractIT {
         UploadFileOperation newUpload = new UploadFileOperation(
             storageManager,
             connectivityServiceMock,
+            powerManagementServiceMock,
             account,
             null,
             ocUpload,
@@ -123,6 +142,7 @@ public class UploadIT extends AbstractIT {
         UploadFileOperation newUpload = new UploadFileOperation(
                 storageManager,
                 connectivityServiceMock,
+                powerManagementServiceMock,
                 account,
                 null,
                 ocUpload,

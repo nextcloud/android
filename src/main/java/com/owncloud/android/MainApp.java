@@ -46,6 +46,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.network.ConnectivityService;
@@ -106,9 +107,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 /**
  * Main Application of the project
- *
- * Contains methods to build the "static" strings. These strings were before constants in different
- * classes
+ * <p>
+ * Contains methods to build the "static" strings. These strings were before constants in different classes
  */
 public class MainApp extends MultiDexApplication implements
     HasActivityInjector,
@@ -161,6 +161,8 @@ public class MainApp extends MultiDexApplication implements
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject PowerManagementService powerManagementService;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -202,7 +204,8 @@ public class MainApp extends MultiDexApplication implements
                 accountManager,
                 preferences,
                 uploadsStorageManager,
-                connectivityService
+                connectivityService,
+                powerManagementService
             )
         );
 
@@ -235,22 +238,22 @@ public class MainApp extends MultiDexApplication implements
             }
         }
 
-        initSyncOperations(uploadsStorageManager, accountManager, connectivityService);
+        initSyncOperations(uploadsStorageManager, accountManager, connectivityService, powerManagementService);
         initContactsBackup(accountManager);
         notificationChannels();
 
 
         new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
+            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
+            .setUpdateCurrent(true)
+            .build()
+            .schedule();
 
         new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-                .startNow()
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
+            .startNow()
+            .setUpdateCurrent(false)
+            .build()
+            .schedule();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -324,7 +327,7 @@ public class MainApp extends MultiDexApplication implements
                         boolean set = false;
                         for (StoragePoint storagePoint : storagePoints) {
                             if (storagePoint.getStorageType() == StoragePoint.StorageType.INTERNAL &&
-                                    storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
+                                storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
                                 preferences.setStoragePath(storagePoint.getPath());
                                 preferences.removeKeysMigrationPreference();
                                 set = true;
@@ -362,7 +365,8 @@ public class MainApp extends MultiDexApplication implements
     public static void initSyncOperations(
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
-        final ConnectivityService connectivityService
+        final ConnectivityService connectivityService,
+        final PowerManagementService powerManagementService
     ) {
         updateToAutoUpload();
         cleanOldEntries();
@@ -370,7 +374,7 @@ public class MainApp extends MultiDexApplication implements
 
         if (getAppContext() != null) {
             if (PermissionUtil.checkSelfPermission(getAppContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                   Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries();
             } else {
                 AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
@@ -381,17 +385,30 @@ public class MainApp extends MultiDexApplication implements
         initiateExistingAutoUploadEntries();
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
-        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager, accountManager, connectivityService);
+        FilesSyncHelper.restartJobsIfNeeded(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService);
         FilesSyncHelper.scheduleOfflineSyncIfNeeded();
 
-        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
+        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
+                                                      accountManager,
+                                                      connectivityService,
+                                                      powerManagementService);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager, accountManager, connectivityService);
+            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
+                                                        accountManager,
+                                                        connectivityService,
+                                                        powerManagementService);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager, accountManager, connectivityService);
+            ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager,
+                                                      accountManager,
+                                                      connectivityService,
+                                                      powerManagementService);
         }
     }
 
@@ -399,36 +416,36 @@ public class MainApp extends MultiDexApplication implements
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getAppContext() != null) {
             Context context = getAppContext();
             NotificationManager notificationManager = (NotificationManager)
-                    context.getSystemService(Context.NOTIFICATION_SERVICE);
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
 
             if (notificationManager != null) {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
-                        R.string.notification_channel_download_name,
-                        R.string.notification_channel_download_description, context);
+                              R.string.notification_channel_download_name,
+                              R.string.notification_channel_download_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
-                        R.string.notification_channel_upload_name,
-                        R.string.notification_channel_upload_description, context);
+                              R.string.notification_channel_upload_name,
+                              R.string.notification_channel_upload_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
-                        R.string.notification_channel_media_name,
-                        R.string.notification_channel_media_description, context);
+                              R.string.notification_channel_media_name,
+                              R.string.notification_channel_media_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC,
-                        R.string.notification_channel_file_sync_name,
-                        R.string.notification_channel_file_sync_description, context);
+                              R.string.notification_channel_file_sync_name,
+                              R.string.notification_channel_file_sync_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
-                        R.string.notification_channel_file_observer_name, R.string
-                                .notification_channel_file_observer_description, context);
+                              R.string.notification_channel_file_observer_name, R.string
+                                  .notification_channel_file_observer_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
-                        R.string.notification_channel_push_name, R.string
-                                .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+                              R.string.notification_channel_push_name, R.string
+                                  .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
-                        .notification_channel_general_name, R.string.notification_channel_general_description,
-                        context, NotificationManager.IMPORTANCE_DEFAULT);
+                                  .notification_channel_general_name, R.string.notification_channel_general_description,
+                              context, NotificationManager.IMPORTANCE_DEFAULT);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }
@@ -440,15 +457,15 @@ public class MainApp extends MultiDexApplication implements
                                       String channelId, int channelName,
                                       int channelDescription, Context context) {
         createChannel(notificationManager, channelId, channelName, channelDescription, context,
-                NotificationManager.IMPORTANCE_LOW);
+                      NotificationManager.IMPORTANCE_LOW);
     }
 
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
                                       int channelDescription, Context context, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
-                && getAppContext() != null
-                && notificationManager.getNotificationChannel(channelId) == null) {
+            && getAppContext() != null
+            && notificationManager.getNotificationChannel(channelId) == null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
@@ -547,29 +564,29 @@ public class MainApp extends MultiDexApplication implements
     }
 
     private static void updateToAutoUpload() {
-            Context context = getAppContext();
-            AppPreferences preferences = AppPreferencesImpl.fromContext(context);
-            if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()){
-                preferences.removeLegacyPreferences();
+        Context context = getAppContext();
+        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
+        if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
+            preferences.removeLegacyPreferences();
 
-                // show info pop-up
-                try {
-                    new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
-                            .setTitle(R.string.drawer_synced_folders)
-                            .setMessage(R.string.synced_folders_new_info)
-                            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                                // show Auto Upload
-                                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
-                                dialog.dismiss();
-                                context.startActivity(folderSyncIntent);
-                            })
-                            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-                            .setIcon(R.drawable.nav_synced_folders)
-                            .show();
-                } catch (WindowManager.BadTokenException e) {
-                    Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
-                }
+            // show info pop-up
+            try {
+                new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.drawer_synced_folders)
+                    .setMessage(R.string.synced_folders_new_info)
+                    .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                        // show Auto Upload
+                        Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
+                        dialog.dismiss();
+                        context.startActivity(folderSyncIntent);
+                    })
+                    .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
+                    .setIcon(R.drawable.nav_synced_folders)
+                    .show();
+            } catch (WindowManager.BadTokenException e) {
+                Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
             }
+        }
     }
 
     private static void updateAutoUploadEntries() {
@@ -578,7 +595,7 @@ public class MainApp extends MultiDexApplication implements
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
@@ -604,7 +621,7 @@ public class MainApp extends MultiDexApplication implements
             for (SyncedFolder syncedFolder : syncedFolders) {
                 idsToDelete.add(syncedFolder.getId());
                 Log_OC.i(TAG, "Migration check for synced_folders record: "
-                        + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
+                    + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
 
                 for (MediaFolder imageMediaFolder : imageMediaFolders) {
                     if (imageMediaFolder.absolutePath.equals(syncedFolder.getLocalPath())) {
@@ -612,7 +629,7 @@ public class MainApp extends MultiDexApplication implements
                         newSyncedFolder.setType(MediaFolderType.IMAGE);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
                         Log_OC.i(TAG, "Migrated image synced_folders record: "
-                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                            + primaryKey + " - " + newSyncedFolder.getLocalPath());
                         break;
                     }
                 }
@@ -623,7 +640,7 @@ public class MainApp extends MultiDexApplication implements
                         newSyncedFolder.setType(MediaFolderType.VIDEO);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
                         Log_OC.i(TAG, "Migrated video synced_folders record: "
-                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                            + primaryKey + " - " + newSyncedFolder.getLocalPath());
                         break;
                     }
                 }
@@ -643,7 +660,7 @@ public class MainApp extends MultiDexApplication implements
             AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
-                        new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
@@ -666,7 +683,7 @@ public class MainApp extends MultiDexApplication implements
 
         if (!preferences.isLegacyClean()) {
             SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(context.getContentResolver(), preferences);
+                new SyncedFolderProvider(context.getContentResolver(), preferences);
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
@@ -686,7 +703,7 @@ public class MainApp extends MultiDexApplication implements
 
             if (ids.size() > 0) {
                 int deletedCount = syncedFolderProvider.deleteSyncedFoldersNotInList(ids);
-                if(deletedCount > 0) {
+                if (deletedCount > 0) {
                     preferences.setLegacyClean(true);
                 }
             } else {
