@@ -153,13 +153,14 @@
                 android:src="@drawable/ic_dots_vertical"/>
         </LinearLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shareUsersList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:divider="@drawable/divider"
-            android:dividerHeight="1dp"/>
+            android:dividerHeight="1dp" />
 
         <TextView
             android:id="@+id/shareNoUsers"
@@ -169,7 +170,56 @@
             android:paddingTop="@dimen/standard_half_padding"
             android:paddingRight="@dimen/standard_padding"
             android:text="@string/share_no_users"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/copy_internal_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/copy_internal_link_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/share"
+                android:src="@drawable/ic_external"
+                android:paddingTop="@dimen/copy_internal_link_padding"
+                android:paddingRight="@dimen/copy_internal_link_padding"
+                android:paddingEnd="@dimen/copy_internal_link_padding"
+                android:paddingBottom="@dimen/copy_internal_link_padding"
+                android:paddingLeft="@dimen/copy_internal_link_padding"
+                android:paddingStart="@dimen/copy_internal_link_padding"
+                android:layout_marginBottom="@dimen/standard_half_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:background="@drawable/round_bgnd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/copyInternalLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/copy_internal_link" />
+
+                <TextView
+                    android:id="@+id/copyInternalLinkSubline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy_internal_link_subline" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
