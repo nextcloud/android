@@ -49,10 +49,10 @@ import android.util.Pair;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -74,7 +74,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -186,6 +185,7 @@ public class FileUploader extends Service
     //since there can be only one instance of an Android service, there also just one db connection.
     @Inject UploadsStorageManager mUploadsStorageManager;
     @Inject ConnectivityService connectivityService;
+    @Inject PowerManagementService powerManagementService;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
@@ -399,6 +399,7 @@ public class FileUploader extends Service
             @NotNull final UploadsStorageManager uploadsStorageManager,
             @NotNull final ConnectivityService connectivityService,
             @NotNull final UserAccountManager accountManager,
+            @NotNull final PowerManagementService powerManagementService,
             @Nullable final UploadResult uploadResult
         ) {
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
@@ -410,7 +411,7 @@ public class FileUploader extends Service
                     !connectivityService.isInternetWalled();
             boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
             boolean charging = Device.getBatteryStatus(context).isCharging();
-            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
+            boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
 
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
@@ -641,6 +642,7 @@ public class FileUploader extends Service
                     newUpload = new UploadFileOperation(
                         mUploadsStorageManager,
                             connectivityService,
+                            powerManagementService,
                             account,
                             file,
                             ocUpload,
@@ -701,6 +703,7 @@ public class FileUploader extends Service
             UploadFileOperation newUpload = new UploadFileOperation(
                     mUploadsStorageManager,
                     connectivityService,
+                    powerManagementService,
                     account,
                     null,
                     upload,
@@ -986,7 +989,7 @@ public class FileUploader extends Service
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
                     } else if (!mCurrentUpload.isIgnoringPowerSaveMode() &&
-                            PowerUtils.isPowerSaveMode(MainApp.getAppContext())) {
+                            powerManagementService.isPowerSavingEnabled()) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
                     }
