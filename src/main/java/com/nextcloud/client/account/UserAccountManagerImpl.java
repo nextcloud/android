@@ -71,7 +71,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public void removeAllAccounts() {
-        for (Account account : accountManager.getAccounts()) {
+        for (Account account : getAccounts()) {
             accountManager.removeAccount(account, null, null);
         }
     }
