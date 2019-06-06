@@ -202,13 +202,15 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     private void showPowerCheckDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(findViewById(R.id.root_layout))
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+            .setView(findViewById(R.id.root_layout))
             .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.power_check_dialog_title),
                                                  ThemeUtils.primaryAccentColor(this)))
-            .setMessage(getString(R.string.power_save_check_dialog_message));
-        builder.show();
+            .setMessage(getString(R.string.power_save_check_dialog_message))
+            .show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
     }
 
     /**
@@ -738,8 +740,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     private void showBatteryOptimizationInfo() {
-        if (powerManagementService.isPowerSavingExclusionAvailable()
-            && checkIfBatteryOptimizationEnabled() || checkIfBatteryOptimizationEnabled()) {
+        if (powerManagementService.isPowerSavingExclusionAvailable() || checkIfBatteryOptimizationEnabled()) {
             AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
