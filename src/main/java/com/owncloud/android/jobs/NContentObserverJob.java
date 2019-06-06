@@ -27,12 +27,17 @@ import android.os.Build;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.PowerUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.RequiresApi;
+import dagger.android.AndroidInjection;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected
@@ -40,6 +45,18 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NContentObserverJob extends JobService {
+    @Inject PowerManagementService powerManagementService;
+
+    /**
+     * Service initialization
+     */
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AndroidInjection.inject(this);
+        Log_OC.d(this, "Creating service");
+    }
+
     @Override
     public boolean onStartJob(JobParameters params) {
 
@@ -65,9 +82,10 @@ public class NContentObserverJob extends JobService {
     }
 
     private void checkAndStartFileSyncJob() {
-        if (!PowerUtils.isPowerSaveMode(getApplicationContext()) &&
-                new SyncedFolderProvider(getContentResolver(),
-                                         AppPreferencesImpl.fromContext(getApplicationContext())).countEnabledSyncedFolders() > 0) {
+        AppPreferences appPreferences = AppPreferencesImpl.fromContext(getApplicationContext());
+
+        if (!powerManagementService.isPowerSavingEnabled() &&
+            new SyncedFolderProvider(getContentResolver(), appPreferences).countEnabledSyncedFolders() > 0) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 

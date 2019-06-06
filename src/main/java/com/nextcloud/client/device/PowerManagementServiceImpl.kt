@@ -28,10 +28,13 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
 
 internal class PowerManagementServiceImpl(
     private val context: Context,
     private val powerManager: PowerManager,
+    private val preferences: AppPreferences,
     private val deviceInfo: DeviceInfo = DeviceInfo()
 ) : PowerManagementService {
 
@@ -41,10 +44,22 @@ internal class PowerManagementServiceImpl(
          * break application experience.
          */
         val OVERLY_AGGRESSIVE_POWER_SAVING_VENDORS = setOf("samsung", "huawei", "xiaomi")
+
+        @JvmStatic
+        fun fromContext(context: Context): PowerManagementServiceImpl {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            val preferences = AppPreferencesImpl.fromContext(context)
+
+            return PowerManagementServiceImpl(context, powerManager, preferences, DeviceInfo())
+        }
     }
 
     override val isPowerSavingEnabled: Boolean
         get() {
+            if (preferences.isPowerCheckDisabled) {
+                return false
+            }
+
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             if (deviceInfo.apiLevel >= Build.VERSION_CODES.LOLLIPOP) {
                 return powerManager.isPowerSaveMode

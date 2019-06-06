@@ -292,4 +292,8 @@ public interface AppPreferences {
     boolean isUserIdMigrated();
 
     void setMigratedUserId(boolean value);
+
+    boolean isPowerCheckDisabled();
+
+    void setPowerCheckDisabled(boolean value);
 }

@@ -26,16 +26,21 @@ buildscript {
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0-RC14"
     }
 }
 
 apply plugin: 'com.android.application'
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'jacoco-android'
 apply plugin: "com.github.spotbugs"
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 configurations {
     ktlint
@@ -257,7 +262,8 @@ dependencies {
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
     implementation 'org.lukhnos:nnio:0.2'
@@ -280,12 +286,12 @@ dependencies {
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.5'
-
+    
     implementation 'com.google.dagger:dagger:2.23.1'
     implementation 'com.google.dagger:dagger-android:2.23.1'
     implementation 'com.google.dagger:dagger-android-support:2.23.1'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.1'
+    kapt 'com.google.dagger:dagger-compiler:2.23.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.23.1'
 
     compileOnly "org.projectlombok:lombok:1.18.8"
     annotationProcessor "org.projectlombok:lombok:1.18.8"
@@ -368,7 +374,7 @@ task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
-    args "--reporter=plain,output=${buildDir}/ktlint.txt,src/**/*.kt"
+    args "--reporter=plain", "--reporter=plain,output=${buildDir}/ktlint.txt,src/**/*.kt"
 }
 
 task ktlintFormat(type: JavaExec, group: "formatting") {
@@ -376,4 +382,14 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
     args "-F", "src/**/*.kt"
+}
+
+detekt {
+    reports {
+        xml {
+            enabled = false
+        }
+    }
+    config = files("detekt.yml")
+    input = files("src/")
 }
