@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
     <string name="copy_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+    <string name="copy_internal_link">İç bağlantıyı kopyala</string>
+    <string name="copy_internal_link_subline">Yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya Kopyala…</string>
+    <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_file_from_template">Kalıptan dosya oluşturuluyor…</string>
     <string name="create_new_document">Yeni belge</string>

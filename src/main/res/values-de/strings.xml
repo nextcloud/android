@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
+    <string name="copy_internal_link">Internen Link kopieren</string>
+    <string name="copy_internal_link_subline">Funktioniert nur für Nutzer mit Zugriff auf dieses Verzeichnis</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="copy_to">Kopieren nach…</string>
+    <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_file_from_template">Erzeuge Datei aus Vorlage…</string>
     <string name="create_new_document">Neues Dokument erstellen</string>

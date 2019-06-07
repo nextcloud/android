@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
     <string name="copy_file_not_found">No se puede copiar. Revisa si existe el archivo</string>
+    <string name="copy_internal_link">Copiar enlace interno</string>
+    <string name="copy_internal_link_subline">Sólo funciona para usuarios con acceso a esta carpeta</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
+    <string name="could_not_retrieve_url">No se ha podido encontrar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_file_from_template">Creando archivo desde la plantilla…</string>
     <string name="create_new_document">Crear nuevo documento</string>

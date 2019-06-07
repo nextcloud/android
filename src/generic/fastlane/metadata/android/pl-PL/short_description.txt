@@ -1,1 +1,1 @@
-Aplikacja Nextcloud dla Androida zapewnia mobilny dostęp do plików na serwerze.
+Samo-hostująca platforma produkcyjna, która zapewnia kontrolę

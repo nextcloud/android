@@ -1,4 +1,4 @@
-Aplikacja Nextcloud na Android jest wolnym oprogramowaniem na licencji copyleft, co zapewnia pełną mobilną wolność.
-To jest oficjalna wersja rozwojowa (development version), w której można zapoznać się z codzienną porcją nowych i nieprzetestowanych funkcji, co może powodować niestabilne działanie i utratę danych. Ta aplikacja jest dla osób, które chcą ją testować i zgłaszać ewentualne błędy. Nie używaj tej aplikacji do pracy produkcyjnej!
+Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.
+Jest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!
 
-W serwisie F-droid dostępna jest zarówno wersja deweloperska, jak i zwykła wersja tej aplikacji i można zainstalować obie z nich równocześnie.
+Zarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.

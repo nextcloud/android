@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
     <string name="copy_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
     <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
+    <string name="copy_internal_link">Copier le lien interne</string>
+    <string name="copy_internal_link_subline">Fonctionne uniquement pour les utilisateurs ayant accès à ce dossier</string>
     <string name="copy_link">Copier le lien</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="copy_to">Copier vers…</string>
+    <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_file_from_template">Création du fichier à partir du modèle…</string>
     <string name="create_new_document">Créer une nouveau document</string>
