@@ -1,19 +1,19 @@
-Rozpowszechniana bez ograniczeń aplikacja Nextcloud na Androida, zapewniająca mobilną swobodę.
+Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.
 
 Funkcje:
-* Łatwy, nowoczesny interfejs, dostosowany do motywu serwera
+* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera
 * Wysyłanie plików na serwer Nextcloud
-* Udostępnianie ich innym użytkownikom
+* Udostępnianie ich innym
 * Synchronizacja ulubionych plików i katalogów
 * Przeszukiwanie wszystkich katalogów na serwerze
-* Automatyczne wysyłanie na serwer zdjęć i filmów
+* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie
 * Otrzymywanie na bieżąco powiadomień
 * Obsługa wielu kont
-* Bezpieczny dostęp do danych za pomocą odcisku palca lub PIN
-* Integracja z DAVx5 (dawniej DAVdroid) dla łatwiejszej konfiguracji kalendarza & i synchronizacji kontaktów
+* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN
+* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza & Synchronizacja kontaktów
 
-Wszelkie problemy z aplikacją proszę zgłaszać na Nextcloud https://github.com/nextcloud/android/issues, jeśli chcesz porozmawiać na jej temat odwiedź https://help.nextcloud.com/c/clients/android
+Zgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android
 
-Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji udostępnianych plików & oraz komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i pozostałymi poufnymi danymi.
+Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików & i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.
 
 Sprawdź Nextcloud na https://nextcloud.com

@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>
     <string name="copy_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista</string>
+    <string name="copy_internal_link">Copia collegamento interno</string>
+    <string name="copy_internal_link_subline">Funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
+    <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_file_from_template">Crea file da modello…</string>
     <string name="create_new_document">Crea nuovo documento</string>

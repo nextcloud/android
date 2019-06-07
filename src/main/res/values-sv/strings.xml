@@ -146,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
     <string name="copy_file_invalid_overwrite">Filen finns redan i målmappen</string>
     <string name="copy_file_not_found">Kunde inte kopiera. Var god kontrollera om filen existerar.</string>
+    <string name="copy_internal_link">Kopiera intern länk</string>
+    <string name="copy_internal_link_subline">Fungerar bara för användare med tillgång till den här mappen</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="copy_to">Kopiera till…</string>
+    <string name="could_not_retrieve_url">Det gick inte att hämta url</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_file_from_template">Skapar fil från mall...</string>
     <string name="create_new_document">Skapa nytt dokument</string>
