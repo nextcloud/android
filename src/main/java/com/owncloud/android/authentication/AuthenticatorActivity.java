@@ -88,7 +88,9 @@ import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -114,7 +116,6 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.ui.components.CustomEditText;
 import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
@@ -254,6 +255,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
     @Inject OnboardingService onboarding;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * {@inheritDoc}
@@ -585,7 +587,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOkButton = findViewById(R.id.buttonOK);
         mOkButton.setOnClickListener(v -> onOkClick());
 
-        findViewById(R.id.scanQR).setOnClickListener(v -> onScan());
+        ImageButton scanQR = findViewById(R.id.scanQR);
+        if (deviceInfo.hasCamera(this)) {
+            scanQR.setOnClickListener(v -> onScan());
+        } else {
+            scanQR.setVisibility(View.GONE);
+        }
 
         setupInstructionMessage();
 
