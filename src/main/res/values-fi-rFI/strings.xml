@@ -522,7 +522,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
     <string name="restore">Palauta tiedosto</string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>
-    <string name="retrieving_file">Noudetaan tiedostoa...</string>
+    <string name="retrieving_file">Noudetaan tiedostoa…</string>
     <string name="richdocuments_failed_to_load_document">Asiakirjaa ei voitu lataa!</string>
     <string name="saml_authentication_required_text">Salasana vaaditaan</string>
     <string name="saml_authentication_wrong_pass">Väärä salasana</string>

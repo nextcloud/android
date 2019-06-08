@@ -522,7 +522,7 @@ Attention la suppression est irréversible.</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
-    <string name="retrieving_file">Téléchargement en cours...</string>
+    <string name="retrieving_file">Téléchargement en cours…</string>
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="saml_authentication_required_text">Mot de passe requis</string>
     <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
