@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_open_as_richdocument">Hape me Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Hapeni me %1$s</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="actionbar_see_details">Hollësi</string>

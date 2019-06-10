@@ -517,7 +517,7 @@
     <string name="resized_image_not_possible_download">No hi ha cap imatge redimensionada. Voleu descarregar la imatge a la resolució original?</string>
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_button_description">Restaura el fitxer esborrat</string>
-    <string name="retrieving_file">S\'està recuperant el fitxer...</string>
+    <string name="retrieving_file">S\'està recuperant el fitxer…</string>
     <string name="richdocuments_failed_to_load_document">Ha fallat la càrrega del document!</string>
     <string name="saml_authentication_required_text">Es necessita una contrasenya</string>
     <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
