@@ -4,6 +4,7 @@
 
   Copyright (C) 2012  Bartek Przybylski
   Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -95,6 +96,10 @@
 		<Preference android:id="@+id/changelog_link"
 					android:title="Changelog dev version"
 					android:key="changelog_link" />
+
+        <Preference android:id="@+id/etm"
+                    android:title="@string/etm_title"
+                    android:key="etm" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

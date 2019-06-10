@@ -42,10 +42,12 @@ import dagger.android.support.AndroidSupportInjectionModule;
     AppInfoModule.class,
     NetworkModule.class,
     DeviceModule.class,
-    OnboardingModule.class
+    OnboardingModule.class,
+    ViewModelModule.class
 })
 @Singleton
 public interface AppComponent {
+
     void inject(MainApp app);
 
     @Component.Builder

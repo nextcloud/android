@@ -55,6 +55,7 @@ import android.webkit.URLUtil;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.BuildConfig;
@@ -204,6 +205,15 @@ public class SettingsActivity extends PreferenceActivity
             if (pChangelogLink != null) {
                 pChangelogLink.setOnPreferenceClickListener(preference -> {
                     DisplayUtils.startLinkIntent(this, R.string.dev_changelog);
+                    return true;
+                });
+            }
+
+            /* Engineering Test Mode */
+            Preference pEtm = findPreference("etm");
+            if (pEtm != null) {
+                pEtm.setOnPreferenceClickListener(preference -> {
+                    EtmActivity.launch(this);
                     return true;
                 });
             }
