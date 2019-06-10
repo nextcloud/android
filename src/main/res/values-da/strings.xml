@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flyt</string>
     <string name="actionbar_open_as_richdocument">Åbn med Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Åbn med %1$s</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -518,7 +519,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_button_description">Genskab slettet fil</string>
-    <string name="retrieving_file">Modtager fil...</string>
+    <string name="retrieving_file">Modtager fil…</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
     <string name="saml_authentication_required_text">Password påkrævet</string>
     <string name="saml_authentication_wrong_pass">Forkert kodeord</string>

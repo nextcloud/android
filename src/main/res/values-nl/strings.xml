@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_open_as_richdocument">Openen met Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Openen met %1$s</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="actionbar_see_details">Details</string>
