@@ -386,6 +386,10 @@
             android:name=".ui.activity.SsoGrantPermissionActivity"
             android:exported="true"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle" />
+
+        <activity
+            android:name="com.nextcloud.client.etm.EtmActivity"
+            android:theme="@style/Theme.ownCloud.Toolbar"/>
     </application>
 
 </manifest>

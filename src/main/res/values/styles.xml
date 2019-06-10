@@ -4,6 +4,7 @@
 
   Copyright (C) 2012  Bartek Przybylski
   Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -284,4 +285,33 @@
 		<item name="android:textSize">16sp</item>
 		<item name="textAllCaps">false</item>
 	</style>
+
+    <style name="MaterialListItemSingleLine">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="MaterialListItemPrimaryAction">
+        <item name="tint">?android:attr/textColorSecondary</item>
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="MaterialListItemSecondaryAction">
+        <item name="tint">?android:attr/textColorSecondary</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
 </resources>
