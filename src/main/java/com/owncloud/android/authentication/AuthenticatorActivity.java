@@ -292,7 +292,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// get input values
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE);
-        mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            mAccount = extras.getParcelable(EXTRA_ACCOUNT);
+        }
+
         if (savedInstanceState != null) {
             mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
