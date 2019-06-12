@@ -27,9 +27,9 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.shares.GetRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import lombok.Getter;
@@ -72,14 +72,14 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         path = share.getPath();
 
         // Update remote share with password
-        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(share.getRemoteId());
+        UpdateShareRemoteOperation updateOp = new UpdateShareRemoteOperation(share.getRemoteId());
         updateOp.setPassword(password);
         updateOp.setPermissions(permissions);
         updateOp.setExpirationDate(expirationDateInMillis);
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetRemoteShareOperation(share.getRemoteId());
+            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
             result = getShareOp.execute(client);
             if (result.isSuccess()) {
                 share = (OCShare) result.getData().get(0);

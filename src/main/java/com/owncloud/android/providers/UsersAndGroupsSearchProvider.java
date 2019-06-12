@@ -39,7 +39,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
@@ -189,7 +189,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         String userQuery = lastPathSegment.toLowerCase(Locale.ROOT);
 
         // request to the OC server about users and groups matching userQuery
-        GetRemoteShareesOperation searchRequest = new GetRemoteShareesOperation(userQuery, REQUESTED_PAGE,
+        GetShareesRemoteOperation searchRequest = new GetShareesRemoteOperation(userQuery, REQUESTED_PAGE,
                                                                                 RESULTS_PER_PAGE);
         RemoteOperationResult result = searchRequest.execute(account, getContext());
         List<JSONObject> names = new ArrayList<>();
@@ -232,10 +232,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                     item = namesIt.next();
                     dataUri = null;
                     displayName = null;
-                    String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
-                    JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
-                    ShareType type = ShareType.fromValue(value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE));
-                    String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
+                    String userName = item.getString(GetShareesRemoteOperation.PROPERTY_LABEL);
+                    JSONObject value = item.getJSONObject(GetShareesRemoteOperation.NODE_VALUE);
+                    ShareType type = ShareType.fromValue(value.getInt(GetShareesRemoteOperation.PROPERTY_SHARE_TYPE));
+                    String shareWith = value.getString(GetShareesRemoteOperation.PROPERTY_SHARE_WITH);
 
                     switch (type) {
                         case GROUP:
