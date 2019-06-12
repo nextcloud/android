@@ -3,9 +3,12 @@
     <string name="about_android">%1$s aplicación Android</string>
     <string name="about_title">Acerca de</string>
     <string name="about_version">versión %1$s</string>
+    <string name="account_creation_failed">Falló la creación de la cuenta</string>
     <string name="account_icon">Ícono de la cuenta</string>
     <string name="account_not_found">¡No se encontró la cuenta!</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
+    <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
+    <string name="action_empty_trashbin">Vaciar contenedor de basura</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -16,6 +19,7 @@
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_as_richdocument">Abrir con Collabora </string>
+    <string name="actionbar_open_as_richdocument_parameter">%1$sAbrir con</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -25,10 +29,13 @@
     <string name="actionbar_sync">Actualizar cuenta</string>
     <string name="active_user">Usuario activo</string>
     <string name="activities_no_results_headline">Aún no hay actividades</string>
+    <string name="activities_no_results_message">Todavía sin eventos como adiciones, cambios ni compartidos</string>
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar liga a…</string>
     <string name="activity_icon">Actividad</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="associated_account_not_found">¡No se encontró la cuenta asociada!</string>
+    <string name="auth_access_failed">Acceso fallido:%1$s</string>
     <string name="auth_account_does_not_exist">La cuenta aún no ha sido agregada a este dispositivo </string>
     <string name="auth_account_not_new">Ya existe una cuenta en el dispositivo para el mismo usuario y servidor </string>
     <string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
