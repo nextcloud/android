@@ -44,6 +44,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -220,7 +221,16 @@ public class SettingsActivity extends PreferenceActivity
         Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-            pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+
+            String buildNumber = getResources().getString(R.string.buildNumber);
+
+            if (TextUtils.isEmpty(buildNumber)) {
+                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+            } else {
+                pAboutApp.setSummary(String.format(getString(R.string.about_version_with_build),
+                                                   appVersion,
+                                                   buildNumber));
+            }
         }
 
         // license
