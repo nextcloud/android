@@ -783,9 +783,9 @@ public final class DisplayUtils {
         return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    static public void showServerOutdatedSnackbar(Activity activity) {
+    static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
-                R.string.outdated_server, Snackbar.LENGTH_INDEFINITE)
+                      R.string.outdated_server, length)
                 .setAction(R.string.dismiss, v -> {
                 })
                 .show();
