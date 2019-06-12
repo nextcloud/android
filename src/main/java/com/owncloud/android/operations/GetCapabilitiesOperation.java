@@ -21,7 +21,7 @@ package com.owncloud.android.operations;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.resources.status.GetRemoteCapabilitiesOperation;
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 
@@ -32,7 +32,7 @@ public class GetCapabilitiesOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteCapabilitiesOperation getCapabilities = new GetRemoteCapabilitiesOperation();
+        GetCapabilitiesRemoteOperation getCapabilities = new GetCapabilitiesRemoteOperation();
         RemoteOperationResult result = getCapabilities.execute(client);
 
         if (result.isSuccess()

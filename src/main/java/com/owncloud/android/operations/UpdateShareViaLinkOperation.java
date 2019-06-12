@@ -25,10 +25,10 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.shares.GetRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import lombok.Getter;
@@ -67,7 +67,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
             return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
-        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(publicShare.getRemoteId());
+        UpdateShareRemoteOperation updateOp = new UpdateShareRemoteOperation(publicShare.getRemoteId());
         updateOp.setPassword(password);
         updateOp.setExpirationDate(expirationDateInMillis);
         updateOp.setPublicUploadOnFolder(publicUploadOnFolder);
@@ -77,7 +77,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             // Retrieve updated share / save directly with password? -> no; the password is not to be saved
-            RemoteOperation getShareOp = new GetRemoteShareOperation(publicShare.getRemoteId());
+            RemoteOperation getShareOp = new GetShareRemoteOperation(publicShare.getRemoteId());
             result = getShareOp.execute(client);
             if (result.isSuccess()) {
                 OCShare share = (OCShare) result.getData().get(0);

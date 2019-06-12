@@ -110,7 +110,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.services.OperationsService;
@@ -1172,7 +1172,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }   // else nothing ; only the last check operation is considered;
             // multiple can be started if the user amends a URL quickly
 
-        } else if (operation instanceof GetRemoteUserInfoOperation) {
+        } else if (operation instanceof GetUserInfoRemoteOperation) {
             onGetUserNameFinish(result);
         }
     }
