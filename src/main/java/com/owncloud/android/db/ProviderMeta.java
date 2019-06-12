@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 48;
+    public static final int DB_VERSION = 49;
 
     private ProviderMeta() {
         // No instance
@@ -151,6 +151,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_VERSION_MICRO = "version_micro";
         public static final String CAPABILITIES_VERSION_STRING = "version_string";
         public static final String CAPABILITIES_VERSION_EDITION = "version_edition";
+        public static final String CAPABILITIES_EXTENDED_SUPPORT = "extended_support";
         public static final String CAPABILITIES_CORE_POLLINTERVAL = "core_pollinterval";
         public static final String CAPABILITIES_SHARING_API_ENABLED = "sharing_api_enabled";
         public static final String CAPABILITIES_SHARING_PUBLIC_ENABLED = "sharing_public_enabled";

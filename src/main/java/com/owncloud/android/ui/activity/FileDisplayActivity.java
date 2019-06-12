@@ -63,11 +63,8 @@ import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -373,27 +370,17 @@ public class FileDisplayActivity extends FileActivity
         Account account = getAccount();
 
         if (getResources().getBoolean(R.bool.show_outdated_server_warning) && account != null) {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
 
-            int lastSeenVersion = arbitraryDataProvider.getIntegerValue(account,
-                                                                        AppPreferencesImpl.AUTO_PREF__LAST_SEEN_VERSION_CODE);
+            if (serverVersion == null) {
+                serverVersion = getCapabilities().getVersion();
+            }
 
-            if (BuildConfig.VERSION_CODE > lastSeenVersion) {
-                OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
-
-                if (serverVersion == null) {
-                    serverVersion = getCapabilities().getVersion();
-                }
-
-                if (MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0) {
-                    DisplayUtils.showServerOutdatedSnackbar(this);
-                }
-
-                arbitraryDataProvider.storeOrUpdateKeyValue(
-                    account.name,
-                    AppPreferencesImpl.AUTO_PREF__LAST_SEEN_VERSION_CODE,
-                    appInfo.getFormattedVersionCode()
-                );
+            // show outdated warning
+            if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
+                MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0 &&
+                getCapabilities().getExtendedSupport().isFalse()) {
+                DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
             }
         }
     }
