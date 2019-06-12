@@ -44,7 +44,6 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DecryptedPushMessage;
 import com.owncloud.android.datamodel.SignatureVerification;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -277,7 +276,6 @@ public class NotificationJob extends Job {
         public void onReceive(Context context, Intent intent) {
             AndroidInjection.inject(this, context);
             int numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0);
-            int pushNotificationId = intent.getIntExtra(PUSH_NOTIFICATION_ID, 0);
             String accountName = intent.getStringExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
 
             if (numericNotificationId != 0) {
@@ -288,13 +286,13 @@ public class NotificationJob extends Job {
                     android.app.Notification oldNotification = null;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
                         for (StatusBarNotification statusBarNotification : notificationManager.getActiveNotifications()) {
-                            if (pushNotificationId == statusBarNotification.getId()) {
+                            if (numericNotificationId == statusBarNotification.getId()) {
                                 oldNotification = statusBarNotification.getNotification();
                                 break;
                             }
                         }
 
-                        cancel(context, pushNotificationId);
+                        cancel(context, numericNotificationId);
                     }
 
                     try {
@@ -324,10 +322,10 @@ public class NotificationJob extends Job {
 
                         if (success) {
                             if (oldNotification == null) {
-                                cancel(context, pushNotificationId);
+                                cancel(context, numericNotificationId);
                             }
                         } else if (notificationManager != null) {
-                            notificationManager.notify(pushNotificationId, oldNotification);
+                            notificationManager.notify(numericNotificationId, oldNotification);
                         }
                     } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
                         IOException | OperationCanceledException | AuthenticatorException e) {
