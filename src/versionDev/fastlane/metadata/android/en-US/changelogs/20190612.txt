@@ -1,0 +1,20 @@
+6f70ebd3a [tx-robot] updated from transifex
+b184f603e [tx-robot] updated from transifex
+8536138c4 [tx-robot] updated from transifex
+0913334f3 [tx-robot] updated from transifex
+a82f9188a Merge pull request #4125 from nextcloud/noQR
+2f770b2ad Do not show QR scan if Chromebook without camera
+0f562ec02 Merge pull request #4122 from nextcloud/getAccounts
+32fcf21f2 use own getAccounts() instead of AccountManager from AndroidSDK
+21a54921b Merge pull request #4119 from nextcloud/dependabot/gradle/androidx.annotation-annotation-1.1.0
+7ede5f40a [tx-robot] updated from transifex
+c5d79ec60 Bump annotation from 1.0.2 to 1.1.0
+a4a0a2820 Merge pull request #4086 from nextcloud/ezaquarii/remove-legacy-power-utils
+69d0c15c6 Merge pull request #4085 from nextcloud/internalLink
+bf6b3e959 Merge pull request #4115 from nextcloud/simplify
+efb74e0b3 simplify
+49d858ea9 Migrate PowerUtils calls to PowerManagementService
+c9f11d4c2 Merge pull request #4042 from nextcloud/ezaquarii/move-whatsnew-and-firstrun-to-onboarding
+6bc9484db Copy internal link
+a69d2b7d3 [tx-robot] updated from transifex
+39a93f2c3 daily dev 20190605
