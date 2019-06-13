@@ -20,6 +20,7 @@
 
 package com.nextcloud.client.di;
 
+import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
@@ -43,7 +44,6 @@ import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FilePickerActivity;
-import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.LogHistoryActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
@@ -135,6 +135,12 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
+
+    @ContributesAndroidInjector
+    abstract ReceiveExternalFilesActivity.DialogMultipleAccount dialogMultipleAccount();
+
+    @ContributesAndroidInjector
+    abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
 
     @ContributesAndroidInjector abstract FileUploader fileUploader();
     @ContributesAndroidInjector abstract FileDownloader fileDownloader();
