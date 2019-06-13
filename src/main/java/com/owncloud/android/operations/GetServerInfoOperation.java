@@ -38,58 +38,58 @@ import java.util.Locale;
 
 /**
  * Get basic information from an ownCloud server given its URL.
- * 
- * Checks the existence of a configured ownCloud server in the URL, gets its version 
+ *
+ * Checks the existence of a configured ownCloud server in the URL, gets its version
  * and finds out what authentication method is needed to access files in it.
  */
 
 public class GetServerInfoOperation extends RemoteOperation {
-    
+
     private static final String TAG = GetServerInfoOperation.class.getSimpleName();
-    
+
     private String mUrl;
     private Context mContext;
     private ServerInfo mResultData;
 
-    /** 
+    /**
      * Constructor.
-     * 
+     *
      * @param url               URL to an ownCloud server.
      * @param context           Android context; needed to check network state
-     *                          TODO ugly dependency, get rid of it. 
+     *                          TODO ugly dependency, get rid of it.
      */
     public GetServerInfoOperation(String url, Context context) {
         mUrl = trimWebdavSuffix(url);
         mContext = context;
         mResultData = new ServerInfo();
     }
-    
+
     /**
      * Performs the operation
-     * 
-     * @return      Result of the operation. If successful, includes an instance of 
-     *              {@link ServerInfo} with the information retrieved from the server. 
+     *
+     * @return Result of the operation. If successful, includes an instance of
+     *              {@link ServerInfo} with the information retrieved from the server.
      *              Call {@link RemoteOperationResult#getData()}.get(0) to get it.
      */
 	@Override
 	protected RemoteOperationResult run(OwnCloudClient client) {
-	    
+
 	    // first: check the status of the server (including its version)
 	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mContext);
 
 	    RemoteOperationResult result = getStatus.execute(client);
-	    
+
         if (result.isSuccess()) {
             // second: get authentication method required by the server
-            mResultData.mVersion = (OwnCloudVersion)(result.getData().get(0));
+            mResultData.mVersion = (OwnCloudVersion) result.getData().get(0);
+            mResultData.hasExtendedSupport = (boolean) result.getData().get(1);
             mResultData.mIsSslConn = result.getCode() == ResultCode.OK_SSL;
             mResultData.mBaseUrl = normalizeProtocolPrefix(mUrl, mResultData.mIsSslConn);
             RemoteOperationResult detectAuthResult = detectAuthorizationMethod(client);
-            
+
             // third: merge results
             if (detectAuthResult.isSuccess()) {
-                mResultData.mAuthMethod = 
-                        (AuthenticationMethod)detectAuthResult.getData().get(0);
+                mResultData.mAuthMethod = (AuthenticationMethod) detectAuthResult.getData().get(0);
                 ArrayList<Object> data = new ArrayList<Object>();
                 data.add(mResultData);
                 result.setData(data);
@@ -100,10 +100,10 @@ public class GetServerInfoOperation extends RemoteOperation {
         return result;
 	}
 
-	
+
     private RemoteOperationResult detectAuthorizationMethod(OwnCloudClient client) {
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
-        DetectAuthenticationMethodOperation operation = 
+        DetectAuthenticationMethodOperation operation =
                 new DetectAuthenticationMethodOperation(mContext);
         return operation.execute(client);
     }
@@ -125,7 +125,7 @@ public class GetServerInfoOperation extends RemoteOperation {
         return trimmedUrl;
     }
 
-    
+
     private String normalizeProtocolPrefix(String url, boolean isSslConn) {
         if (!url.toLowerCase(Locale.ROOT).startsWith("http://") &&
                 !url.toLowerCase(Locale.ROOT).startsWith("https://")) {
@@ -137,13 +137,14 @@ public class GetServerInfoOperation extends RemoteOperation {
         }
         return url;
     }
-    
-    
+
+
     public static class ServerInfo {
         public OwnCloudVersion mVersion;
+        public boolean hasExtendedSupport;
         public String mBaseUrl = "";
         public AuthenticationMethod mAuthMethod = AuthenticationMethod.UNKNOWN;
         public boolean mIsSslConn;
     }
-	
+
 }
