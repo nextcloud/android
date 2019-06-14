@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_title">About</string>
     <string name="about_version">version %1$s</string>
+    <string name="about_version_with_build">version %1$s, build #%2$s</string>
     <string name="account_creation_failed">Account creation failed</string>
     <string name="account_icon">Account icon</string>
     <string name="account_not_found">Account not found!</string>
