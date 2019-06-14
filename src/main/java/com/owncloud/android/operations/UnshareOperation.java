@@ -30,7 +30,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.RemoveRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.RemoveShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
@@ -68,8 +68,8 @@ public class UnshareOperation extends SyncOperation {
 
         if (share != null) {
             OCFile file = getStorageManager().getFileByPath(mRemotePath);
-            RemoveRemoteShareOperation operation =
-                    new RemoveRemoteShareOperation((int) share.getRemoteId());
+            RemoveShareRemoteOperation operation =
+                new RemoveShareRemoteOperation((int) share.getRemoteId());
             result = operation.execute(client);
 
             if (result.isSuccess()) {

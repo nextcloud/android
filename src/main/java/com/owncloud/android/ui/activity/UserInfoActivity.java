@@ -62,7 +62,7 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -415,7 +415,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            RemoteOperation getRemoteUserInfoOperation = new GetRemoteUserInfoOperation();
+            RemoteOperation getRemoteUserInfoOperation = new GetUserInfoRemoteOperation();
             RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, this);
 
             if (result.isSuccess() && result.getData() != null) {
