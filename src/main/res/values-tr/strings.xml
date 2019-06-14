@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android uygulaması</string>
     <string name="about_title">Hakkında</string>
     <string name="about_version">sürüm %1$s</string>
+    <string name="about_version_with_build">Sürüm: %1$s, Yapım: #%2$s</string>
     <string name="account_creation_failed">Hesap oluşturulamadı</string>
     <string name="account_icon">Hesap simgesi</string>
     <string name="account_not_found">Hesap bulunamadı!</string>

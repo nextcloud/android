@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android App</string>
     <string name="about_title">Über</string>
     <string name="about_version">Version %1$s</string>
+    <string name="about_version_with_build">Version %1$s, Build #%2$s</string>
     <string name="account_creation_failed">Kontoerstellung fehlgeschlagen</string>
     <string name="account_icon">Konto-Icon</string>
     <string name="account_not_found">Kein Konto gefunden</string>
