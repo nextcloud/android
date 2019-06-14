@@ -27,7 +27,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
@@ -52,7 +52,7 @@ public class GetUserProfileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         // get display name
-        GetRemoteUserInfoOperation getDisplayName = new GetRemoteUserInfoOperation();
+        GetUserInfoRemoteOperation getDisplayName = new GetUserInfoRemoteOperation();
         RemoteOperationResult result = getDisplayName.execute(client);
 
         if (result.isSuccess()) {

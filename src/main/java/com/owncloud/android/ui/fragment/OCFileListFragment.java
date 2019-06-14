@@ -25,7 +25,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
@@ -56,7 +55,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -71,7 +69,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
+import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -1546,7 +1544,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
                                                         searchOnlyFolders);
         } else {
-            remoteOperation = new GetRemoteSharesOperation();
+            remoteOperation = new GetSharesRemoteOperation();
         }
 
         remoteOperationAsyncTask = new AsyncTask() {

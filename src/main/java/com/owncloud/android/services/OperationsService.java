@@ -54,7 +54,7 @@ import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperatio
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -641,7 +641,7 @@ public class OperationsService extends Service {
                         break;
 
                     case ACTION_GET_USER_NAME:
-                        operation = new GetRemoteUserInfoOperation();
+                        operation = new GetUserInfoRemoteOperation();
                         break;
 
                     case ACTION_RENAME:

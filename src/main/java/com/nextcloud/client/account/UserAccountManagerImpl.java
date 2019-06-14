@@ -40,7 +40,7 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 
 import javax.inject.Inject;
 
@@ -217,7 +217,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         Account[] ocAccounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
         String userId;
         String displayName;
-        GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
+        GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
 
         for (Account account : ocAccounts) {
             String storedUserId = accountManager.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
