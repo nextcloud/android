@@ -95,6 +95,7 @@
         android:supportsRtl="true"
         android:installLocation="internalOnly"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity"
+        android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
 
         <uses-library
