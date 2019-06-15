@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android应用</string>
     <string name="about_title">关于</string>
     <string name="about_version">版本 %1$s</string>
+    <string name="about_version_with_build">版本 %1$s，构建 #%2$s</string>
     <string name="account_creation_failed"> 帐户创建已失败</string>
     <string name="account_icon">账户图标</string>
     <string name="account_not_found">账户未找到</string>
