@@ -135,6 +135,8 @@
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>
     <string name="copy_file_invalid_overwrite">Failas aplanke jau egzistuoja</string>
     <string name="copy_file_not_found">Nepavyko nukopijuoti. Patikrinkite ar failas egzistuoja</string>
+    <string name="copy_internal_link">Kopijuoti vidinę nuorodą</string>
+    <string name="copy_internal_link_subline">Veikia tik naudotojams, kurie turi prieigą prie šio aplanko</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
@@ -192,6 +194,7 @@
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_dialog_close">Užverti</string>
+    <string name="end_to_end_encryption_enter_password">Norėdami iššifruoti privatųjį raktą, įveskite slaptažodį.</string>
     <string name="end_to_end_encryption_folder_not_empty">Šis aplankas nėra tuščias.</string>
     <string name="end_to_end_encryption_generating_keys">Generuojami nauji raktai…</string>
     <string name="end_to_end_encryption_not_enabled">Ištisinis šifravimas yra išjungtas serveryje.</string>
