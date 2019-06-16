@@ -1047,8 +1047,8 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap addVideoOverlay(Bitmap thumbnail){
-        Bitmap playButton = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
-                R.drawable.view_play);
+        Drawable playButtonDrawable = MainApp.getAppContext().getResources().getDrawable(R.drawable.view_play);
+        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
 
         Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
                 (int) (thumbnail.getWidth() * 0.3),
