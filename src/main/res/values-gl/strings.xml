@@ -234,6 +234,7 @@
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="fab_label">Engadir ou enviar</string>
+    <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="fallback_weblogin_back">Atras</string>
     <string name="fallback_weblogin_text">Volver ao método de acceso antigo</string>
     <string name="favorite">Engadir a favoritos</string>
