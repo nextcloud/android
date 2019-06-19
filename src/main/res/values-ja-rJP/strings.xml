@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Androidアプリ</string>
     <string name="about_title">について</string>
     <string name="about_version">バージョン %1$s</string>
+    <string name="about_version_with_build">バージョン %1$s, ビルド #%2$s</string>
     <string name="account_creation_failed">アカウントの作成に失敗しました</string>
     <string name="account_icon">アカウントアイコン</string>
     <string name="account_not_found">アカウントが見つかりません！</string>
@@ -19,6 +20,7 @@
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
     <string name="actionbar_open_as_richdocument">次で開く Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">%1$s で開く</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_search">検索</string>
     <string name="actionbar_see_details">詳細</string>
@@ -33,6 +35,7 @@
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
     <string name="add_to_cloud">%1$s に追加</string>
+    <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
     <string name="auth_account_does_not_exist">このアカウントはまだこのデバイスに追加されていません</string>
     <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがすでににデバイスにあります</string>
@@ -144,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
     <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
+    <string name="copy_internal_link">内部リンクをコピー</string>
+    <string name="copy_internal_link_subline">このフォルダーにアクセスできるユーザーにのみ機能します</string>
     <string name="copy_link">リンクをコピー</string>
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
+    <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="create_new_document">新しい文書を作成する</string>
@@ -224,9 +230,11 @@
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
     <string name="error_comment_file">コメントファイルのエラー</string>
+    <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="fab_label">追加またはアップロード</string>
+    <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="fallback_weblogin_back">戻る</string>
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
@@ -514,6 +522,7 @@
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
     <string name="restore">ファイルを復元</string>
     <string name="restore_button_description">選択したファイルを復元する</string>
+    <string name="retrieving_file">ファイルを取得中...</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="saml_authentication_required_text">パスワードが必要です</string>
     <string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
@@ -546,6 +555,7 @@
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
     <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
+    <string name="share_link_optional_password_title">オプションのパスワードを入力</string>
     <string name="share_link_password_title">パスワードを入力</string>
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
