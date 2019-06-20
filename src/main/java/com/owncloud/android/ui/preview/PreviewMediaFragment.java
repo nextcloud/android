@@ -55,6 +55,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -92,7 +93,7 @@ import androidx.annotation.StringRes;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
  * generated on instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements OnTouchListener {
+public class PreviewMediaFragment extends FileFragment implements OnTouchListener, Injectable {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
