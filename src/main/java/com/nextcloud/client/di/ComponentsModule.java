@@ -136,11 +136,8 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
 
-    @ContributesAndroidInjector
-    abstract ReceiveExternalFilesActivity.DialogMultipleAccount dialogMultipleAccount();
-
-    @ContributesAndroidInjector
-    abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
+    @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogMultipleAccount dialogMultipleAccount();
+    @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
 
     @ContributesAndroidInjector abstract FileUploader fileUploader();
     @ContributesAndroidInjector abstract FileDownloader fileDownloader();
