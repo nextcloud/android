@@ -234,6 +234,7 @@
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="fab_label">Add or upload</string>
+    <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
     <string name="favorite">Add to favorites</string>

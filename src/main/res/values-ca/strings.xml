@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Aplicació d\'Android</string>
+    <string name="about_android">%1$s Aplicació per a Android</string>
     <string name="about_title">Quant a</string>
     <string name="about_version">versió %1$s</string>
+    <string name="about_version_with_build">versió %1$s, compilació #%2$s</string>
     <string name="account_creation_failed">Ha fallat la creació del compte</string>
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>

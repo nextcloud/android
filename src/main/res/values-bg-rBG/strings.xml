@@ -3,9 +3,12 @@
     <string name="about_android">Android приложение за %1$s</string>
     <string name="about_title">Относно</string>
     <string name="about_version">версия %1$s</string>
+    <string name="about_version_with_build">версия %1$s, билд # %2$s</string>
     <string name="account_creation_failed">Създаването на профила се провали</string>
+    <string name="account_icon">Профил</string>
     <string name="account_not_found">Няма намерен профил!</string>
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
+    <string name="action_empty_notifications">Премахнете известията</string>
     <string name="action_empty_trashbin">Изпразни кошчето</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
@@ -109,6 +112,7 @@
     <string name="common_switch_account">Смяна на профил</string>
     <string name="common_unknown">неясна</string>
     <string name="common_yes">Да</string>
+    <string name="configure_new_media_folder_detection_notifications">Настройки</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде изтрит?</string>
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
