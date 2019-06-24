@@ -29,9 +29,9 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FilesSyncHelper;
 
 import androidx.annotation.RequiresApi;
@@ -44,7 +44,6 @@ import androidx.annotation.RequiresApi;
 public class NContentObserverJob extends JobService {
 
     private PowerManagementService powerManagementService;
-    private AppPreferences preferences;
 
     /**
      * Service initialization
@@ -57,7 +56,6 @@ public class NContentObserverJob extends JobService {
         // TODO: this must be fixed properly
         MainApp app = (MainApp) getApplication();
         powerManagementService = app.getPowerManagementService();
-        preferences = app.getPreferences();
     }
 
     @Override
