@@ -1,18 +1,18 @@
-La versió lliure i llicenciada com a \"copyleft\" de l'app de Nextcloud per a Android us dona llibertat de moviment.
+La plataforma de productivitat privada (auto-hostatjada) que et dona el control sobre les teves dades.
+ Característiques:
+ Interfície fàcil i moderna, adaptada al tema emprat al teu servidor.
+ Puja fitxers al teu servidor Nextcloud.
+ Comparteix-los amb d'altres.
+ Manté sincronitzades les teves carpetes i fitxers favorits.
+ Cerca a dintre de totes les teves carpetes al servidor.
+ Pujada automatitzada de les teves fotos i vídeos presos al teus dispositius.
+ Mantén-te al dia amb notificacions.
+ Suport multi-comptes.
+ Accés segur a les teves dades amb empremta digital o PIN.
+ Integració amb la app DAVx5 (formalment coneguda per DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris a Android.
 
-Característiques:\* Fàcil, interfície moderna, associada a l'aspecte del vostre servidor
-* Pugeu fitxers al vostre servidor Nextcloud
-* Compartiu-los amb d'altres
-* Mantingueu els vostres fitxers i carpetes preferits sincronitzats
-* Cerqueu a través de totes les carpetes del vostre servidor
-* Pujada automàtica de les fotos i vídeos fets des del vostre dispositiu
-* Mantingueu les notificacions actualitzades
-* Suport per a multi-usuari
-* Accés segur a les vostres dades a través d'empremta digital o PIN
-* Integració amb DAVx5 (anteriorment conegut com a DAVdroid) per una configuració senzilla del calendari i sincronització de contactes
+ Si us plau, informa de qualsevol falla a https://github.com/nextcloud/android/issues i intercanvia opinions i suggeriments a https://help.nextcloud.com/c/clients/android
 
-Si us plau informeu de totes les incidències a https://github.com/nextcloud/android/issues i debateu sobre aquesta app a https://help.nextcloud.com/c/clients/android
+ Ets nou a Nextcloud? Nextcloud és un programari de servidor per a emmagatzemament sincronitzat de fitxers, compartició dels mateixos i comunicacions de xat i video-conferència (fins i tot compartint pantalla). És programari lliure, i per tant pots hostatjar-ho tu mateix o pagar els serveis d'algú que t'ho faci. D'aquesta manera tindràs sota el teu control les teves fotos, calendari, contactes, documents i tota la resta.
 
-Nou a Nextcloud? Nextcloud és un servidor de comunicacions per mantenir fitxers privats sincronitzats i compartir . És programari lliure i podeu allotjar-los vos mateix o pagar a una empresa perquè ho faci per a vos. D'aquesta manera, teniu el control de les vostres fotos, calendaris i dades dels contactes, els vostres documents i tota la resta.
-
-Proveu Nextcloud a https://nextcloud.com 
+ Si vols saber més fes una ullada al portal web oficial: https://nextcloud.com
