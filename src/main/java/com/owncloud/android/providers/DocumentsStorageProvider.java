@@ -46,6 +46,7 @@ import android.widget.Toast;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
@@ -84,10 +85,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
-
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
@@ -100,9 +97,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private Map<Long, FileDataStorageManager> rootIdToStorageManager;
     private OwnCloudClient client;
 
-    @Inject UserAccountManager accountManager;
-
-
+    UserAccountManager accountManager;
 
     @Override
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
@@ -301,7 +296,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
-        AndroidInjection.inject(this);
+        accountManager = UserAccountManagerImpl.fromContext(getContext());
         return true;
     }
 
