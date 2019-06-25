@@ -3,6 +3,7 @@
     <string name="about_android">%1$s aplikace pro Android</string>
     <string name="about_title">O aplikaci</string>
     <string name="about_version">verze %1$s</string>
+    <string name="about_version_with_build">verze %1$s, sestavení č. %2$s</string>
     <string name="account_creation_failed">Vytvoření účtu se nezdařilo</string>
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet nenalezen!</string>
@@ -230,6 +231,7 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="fab_label">Přidat nebo nahrát</string>
+    <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>

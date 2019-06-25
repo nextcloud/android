@@ -3,6 +3,7 @@
     <string name="about_android">%1$s aplikácie pre Android</string>
     <string name="about_title">O</string>
     <string name="about_version">verzia %1$s</string>
+    <string name="about_version_with_build">verzia %1$s, zostavenie #%2$s</string>
     <string name="account_creation_failed">Vytvorenie účtu sa nepodarilo</string>
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet sa nenašiel!</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>
     <string name="copy_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
     <string name="copy_file_not_found">Nemožno kopírovať. Overte či súbor ešte existuje</string>
+    <string name="copy_internal_link">Kopírovať interný odkaz</string>
+    <string name="copy_internal_link_subline">Funguje len pre používateľov s prístupom k tomuto priečinku</string>
     <string name="copy_link">Kopíruj odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
     <string name="copy_to">Kopírovať do…</string>
+    <string name="could_not_retrieve_url">Nie je možné získať URL</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="create_file_from_template">Vytvára sa súbor podľa šablóny</string>
     <string name="create_new_document">Vytvoriť nový dokument</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
     <string name="fab_label">Pridať alebo nahrať</string>
+    <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="fallback_weblogin_back">Späť</string>
     <string name="fallback_weblogin_text">Vrátiť sa k pôvodnému spôsobu prihlásenia</string>
     <string name="favorite">Pridať do obľúbených</string>
