@@ -405,6 +405,19 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
             downloadmanager.enqueue(request);
         }
+
+        @JavascriptInterface
+        public void fileRename(String renameString) {
+            // when shared file is renamed in another instance, we will get notified about it
+            // need to change filename for sharing
+            try {
+                JSONObject renameJson = new JSONObject(renameString);
+                String newName = renameJson.getString("NewName");
+                file.setFileName(newName);
+            } catch (JSONException e) {
+                Log_OC.e(this, "Failed to parse rename json message: " + e);
+            }
+        }
     }
 
 
