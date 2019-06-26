@@ -29,13 +29,11 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.utils.FilesSyncHelper;
 
-import javax.inject.Inject;
-
 import androidx.annotation.RequiresApi;
-import dagger.android.AndroidInjection;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected
@@ -44,13 +42,18 @@ import dagger.android.AndroidInjection;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NContentObserverJob extends JobService {
 
-    @Inject PowerManagementService powerManagementService;
-    @Inject AppPreferences preferences;
+    private PowerManagementService powerManagementService;
+    private AppPreferences preferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidInjection.inject(this);
+
+        // Temporary workaround for https://github.com/nextcloud/android/issues/4147
+        // TODO: this must be fixed properly
+        MainApp app = (MainApp) getApplication();
+        powerManagementService = app.getPowerManagementService();
+        preferences = app.getPreferences();
     }
 
     @Override
