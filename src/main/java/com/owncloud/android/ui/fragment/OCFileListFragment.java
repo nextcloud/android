@@ -25,7 +25,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
@@ -56,7 +55,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -916,7 +914,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     } else {
                         // update state and view of this fragment
                         searchFragment = false;
-                        mHideFab = false;
                         listDirectory(file, MainApp.isOnlyOnDevice(), false);
                         // then, notify parent activity to let it update its state and view
                         mContainerActivity.onBrowsedDownTo(file);
