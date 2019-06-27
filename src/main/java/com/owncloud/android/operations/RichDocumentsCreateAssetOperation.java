@@ -37,7 +37,7 @@ public class RichDocumentsCreateAssetOperation extends RemoteOperation {
     private static final String TAG = RichDocumentsCreateAssetOperation.class.getSimpleName();
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
-    private static final String ASSET_URL = "/apps/richdocuments/assets";
+    private static final String ASSET_URL = "/index.php/apps/richdocuments/assets";
 
     private static final String NODE_URL = "url";
     private static final String PARAMETER_PATH = "path";
