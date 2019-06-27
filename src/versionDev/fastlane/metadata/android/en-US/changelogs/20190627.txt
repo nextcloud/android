@@ -1,0 +1,5 @@
+908ce747a Merge pull request #4171 from ezaquarii/fix-broken-di-on-older-devices
+2e6f09d46 Merge pull request #4178 from nextcloud/kapt
+6f2a994a5 fix parcelable with using kapt
+f83b58491 [tx-robot] updated from transifex
+752d55fc6 daily dev 20190625
