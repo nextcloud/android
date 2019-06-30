@@ -20,9 +20,10 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <include
         layout="@layout/toolbar_standard"/>
@@ -53,15 +54,17 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/folder_picker_btn_cancel"
+            android:theme="@style/OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_weight="1"
-            android:text="@string/common_cancel"
-            android:theme="@style/Button"/>
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/button_corner_radius"
+            android:text="@string/common_cancel" />
     </LinearLayout>
 
 </LinearLayout>
