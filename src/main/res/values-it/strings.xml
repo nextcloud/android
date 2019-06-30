@@ -432,7 +432,7 @@
     <string name="participate_rc_fdroid">Ottieni la candidata al rilascio dall\'applicazione F-Droid</string>
     <string name="participate_rc_play_store">Ottieni la candidata al rilascio da Google Play</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
-    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserene sicuri. Registrati per la fase test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
+    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserne sicuri. Registrati per la fase di test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
     <string name="participate_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="participate_testing_headline">Aiutaci nella fase di test</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
