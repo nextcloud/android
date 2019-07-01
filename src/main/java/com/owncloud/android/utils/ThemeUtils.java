@@ -30,8 +30,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -219,15 +221,24 @@ public final class ThemeUtils {
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
                 actionBar.setTitle(title);
             } else {
-                String colorHex = colorToHexString(fontColor(context));
-                actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+                Spannable text = new SpannableString(title);
+                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                             0,
+                             text.length(),
+                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                actionBar.setTitle(text);
             }
         }
     }
 
     public static Spanned getColoredTitle(String title, int color) {
-        String colorHex = colorToHexString(color);
-        return Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>");
+        Spannable text = new SpannableString(title);
+        text.setSpan(new ForegroundColorSpan(color),
+                     0,
+                     text.length(),
+                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        return text;
     }
 
     /**
@@ -241,9 +252,13 @@ public final class ThemeUtils {
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
                 actionBar.setTitle(titleId);
             } else {
-                String colorHex = colorToHexString(fontColor(context));
                 String title = context.getString(titleId);
-                actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+                Spannable text = new SpannableString(title);
+                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                             0,
+                             text.length(),
+                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                actionBar.setTitle(text);
             }
         }
     }
