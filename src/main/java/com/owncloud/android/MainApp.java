@@ -177,6 +177,22 @@ public class MainApp extends MultiDexApplication implements
         mContext = context;
     }
 
+    /**
+     * Temporary getter replacing Dagger DI
+     * TODO: remove when cleaning DI in NContentObserverJob
+     */
+    public AppPreferences getPreferences() {
+        return preferences;
+    }
+
+    /**
+     * Temporary getter replacing Dagger DI
+     * TODO: remove when cleaning DI in NContentObserverJob
+     */
+    public PowerManagementService getPowerManagementService() {
+        return powerManagementService;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
