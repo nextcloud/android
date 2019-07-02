@@ -26,7 +26,6 @@ package com.nextcloud.client.onboarding;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -44,7 +43,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.activity.BaseActivity;
@@ -211,7 +209,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         if (FIRST_RUN_RESULT_CODE == requestCode && RESULT_OK == resultCode) {
 
             String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-            Account account = AccountUtils.getOwnCloudAccountByName(this, accountName);
+            Account account = userAccountManager.getAccountByName(accountName);
+
 
             if (account == null) {
                 DisplayUtils.showSnackMessage(this, R.string.account_creation_failed);

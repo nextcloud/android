@@ -26,6 +26,7 @@ import com.nextcloud.client.appinfo.AppInfoModule;
 import com.nextcloud.client.device.DeviceModule;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
+import com.nextcloud.client.preferences.PreferencesModule;
 import com.owncloud.android.MainApp;
 
 import javax.inject.Singleton;
@@ -37,6 +38,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
     AndroidSupportInjectionModule.class,
     AppModule.class,
+    PreferencesModule.class,
     AppInfoModule.class,
     NetworkModule.class,
     DeviceModule.class,

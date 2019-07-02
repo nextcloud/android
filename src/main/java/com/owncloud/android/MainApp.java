@@ -210,7 +210,10 @@ public class MainApp extends MultiDexApplication implements
 
         Thread t = new Thread(() -> {
             // best place, before any access to AccountManager or database
-            accountManager.migrateUserId();
+            if (!preferences.isUserIdMigrated()) {
+                final boolean migrated = accountManager.migrateUserId();
+                preferences.setMigratedUserId(migrated);
+            }
         });
         t.start();
 

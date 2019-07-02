@@ -3,10 +3,10 @@ package com.owncloud.android;
 import android.content.ContentResolver;
 
 import com.evernote.android.job.JobRequest;
-import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -69,8 +69,8 @@ public class UploadIT extends AbstractIT {
     @Before
     public void setUp() {
         final ContentResolver contentResolver = targetContext.getContentResolver();
-        final CurrentAccountProvider currentAccountProvider = () -> AccountUtils.getCurrentOwnCloudAccount(targetContext);
-        storageManager = new UploadsStorageManager(currentAccountProvider, contentResolver);
+        final UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
+        storageManager = new UploadsStorageManager(accountManager, contentResolver);
     }
 
     @Test

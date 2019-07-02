@@ -64,11 +64,6 @@ class AppModule {
     }
 
     @Provides
-    AppPreferences preferences(Application application) {
-        return AppPreferencesImpl.fromContext(application);
-    }
-
-    @Provides
     UserAccountManager userAccountManager(
         Context context,
         AccountManager accountManager
