@@ -58,14 +58,14 @@ public abstract class AbstractIT {
                 AccountManager platformAccountManager = AccountManager.get(targetContext);
                 platformAccountManager.addAccountExplicitly(temp, password, null);
                 platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                        Integer.toString(com.owncloud.android.authentication.AccountUtils.ACCOUNT_VERSION));
+                        Integer.toString(UserAccountManager.ACCOUNT_VERSION));
                 platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
                 platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
                 platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
             }
 
-            account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(targetContext,
-                                                                                                loginName + "@" + baseUrl);
+            final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
+            account = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
 
             if (account == null) {
                 throw new ActivityNotFoundException();

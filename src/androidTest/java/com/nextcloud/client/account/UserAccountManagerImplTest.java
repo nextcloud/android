@@ -39,13 +39,13 @@ public class UserAccountManagerImplTest extends AbstractIT {
         accountManager.setUserData(account, AccountUtils.Constants.KEY_USER_ID, null);
         assertNull(accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID));
 
-        sut.migrateUserId();
-
+        boolean success = sut.migrateUserId();
+        assertTrue(success);
+        
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
         String userId = arguments.getString("TEST_SERVER_USERNAME");
 
         // assume that userId == loginname (as we manually set it)
         assertEquals(userId, accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID));
-        assertTrue(appPreferences.isUserIdMigrated());
     }
 }

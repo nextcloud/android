@@ -30,6 +30,11 @@ import androidx.annotation.Nullable;
 
 public interface UserAccountManager extends CurrentAccountProvider {
 
+    int ACCOUNT_VERSION = 1;
+    int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
+    String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
+    String PENDING_FOR_REMOVAL = "PENDING_FOR_REMOVAL";
+
     @Nullable
     OwnCloudAccount getCurrentOwnCloudAccount();
 
@@ -55,9 +60,9 @@ public interface UserAccountManager extends CurrentAccountProvider {
     boolean exists(Account account);
 
     /**
-     * Verifies that every account has userId set.
+     * Verifies that every account has userId set
      */
-    void migrateUserId();
+    boolean migrateUserId();
 
     @Nullable
     Account getAccountByName(String name);
