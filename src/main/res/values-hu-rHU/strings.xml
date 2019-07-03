@@ -2,7 +2,8 @@
   <resources>
     <string name="about_android">%1$s androidos alkalmazás</string>
     <string name="about_title">Névjegy</string>
-    <string name="about_version">verzió %1$s</string>
+    <string name="about_version">verzió: %1$s</string>
+    <string name="about_version_with_build">verzió: %1$s, összeállítás: #%2$s</string>
     <string name="account_creation_failed">A fiók létrehozása sikertelen</string>
     <string name="account_icon">Fiók ikon</string>
     <string name="account_not_found">A fiók nem található!</string>
@@ -19,6 +20,7 @@
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_open_as_richdocument">Megnyitás a Collaborával</string>
+    <string name="actionbar_open_as_richdocument_parameter">Megnyitás ezzel %1$s</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -33,6 +35,7 @@
     <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="activity_icon">Tevékenység</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
+    <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
     <string name="auth_account_does_not_exist">Az eszközön még nem létezik a fiók</string>
     <string name="auth_account_not_new">Ezzel a felhasználóval és kiszolgálóval már létezik egy fiók az eszközön</string>
@@ -144,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>
     <string name="copy_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl</string>
+    <string name="copy_internal_link">Belső hivatkozás másolása</string>
+    <string name="copy_internal_link_subline">Csak azoknál a felhasználóknál működik, akiknek hozzáférése van ehhez a mappához</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="copy_to">Másolás ide…</string>
+    <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
     <string name="create_file_from_template">Fájl készítése sablonból…</string>
     <string name="create_new_document">Új dokumentum létrehozása</string>
@@ -224,9 +230,11 @@
     <string name="error__upload__local_file_not_copied">a(z) %1$s nem másolható a(z) %2$s helyi mappába</string>
     <string name="error_cant_bind_to_operations_service">Kritikus hiba: A művelet nem hajtható végre</string>
     <string name="error_comment_file">Hiba a fájlhoz hozzászóláskor</string>
+    <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
+    <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
     <string name="fallback_weblogin_back">Vissza</string>
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
@@ -387,7 +395,7 @@
     <string name="notification_channel_download_description">Megjeleníti a letöltési folyamatokat</string>
     <string name="notification_channel_download_name">Letöltési értesítési csatorna</string>
     <string name="notification_channel_file_observer_description">Figyeli a fájlok változásait</string>
-    <string name="notification_channel_file_observer_name">Fájlmegfigyelő</string>
+    <string name="notification_channel_file_observer_name">Fájlfigyelő</string>
     <string name="notification_channel_file_sync_description">Megjeleníti a fájlszinkronizálás folyamatát és az eredményeket</string>
     <string name="notification_channel_file_sync_name">Fájl szinkronizálás</string>
     <string name="notification_channel_general_description">Értesítések megjelenítése az új médiamappák és hasonlók esetén</string>
@@ -479,6 +487,7 @@
     <string name="prefs_lock_device_credentials_enabled">Eszközhitelesítő-adatok engedélyezve</string>
     <string name="prefs_lock_device_credentials_not_setup">Nincsenek eszközhitelesítő-adatok beállítva.</string>
     <string name="prefs_lock_none">Nincs</string>
+    <string name="prefs_lock_title">Az alkalmazás megvédése ezzel:</string>
     <string name="prefs_lock_using_device_credentials">Eszközhitelesítő-adatok</string>
     <string name="prefs_lock_using_passcode">Számkód</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
@@ -513,10 +522,11 @@
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
+    <string name="retrieving_file">Fájl lekérése…</string>
     <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>
     <string name="saml_authentication_required_text">Jelszó szükséges</string>
     <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
-    <string name="scanQR_description">Belépés QR kóddal</string>
+    <string name="scanQR_description">Belépés QR-kóddal</string>
     <string name="screenshot_01_gridView">Egy biztonságos hely az összes adatának</string>
     <string name="screenshot_02_listView">Böngésszen és keressen a fájljai között könnyedén</string>
     <string name="screenshot_03_drawer">Férjen hozzá gyorsan a tevékenységekhez, megosztásokhoz, offline fájlokhoz és egyebekhez</string>
@@ -545,16 +555,17 @@
     <string name="share_link_file_error">Hiba történt a fájl vagy mappa megosztásakor</string>
     <string name="share_link_file_no_exist">A megosztás sikertelen. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="share_link_forbidden_permissions">fájl megosztása</string>
+    <string name="share_link_optional_password_title">Adjon meg egy jelszót (nem kötelező)</string>
     <string name="share_link_password_title">Adja meg a jelszót</string>
     <string name="share_no_expiration_date_label">Lejárati idő beállítása</string>
     <string name="share_no_password_title">Jelszó beállítása</string>
     <string name="share_no_users">Még nincsenek felhasználókkal megosztott adatok</string>
     <string name="share_password_title">Jelszóval védett</string>
-    <string name="share_privilege_can_edit">módosíthat</string>
-    <string name="share_privilege_can_edit_change">módosíthat</string>
-    <string name="share_privilege_can_edit_create">létrehozhat</string>
-    <string name="share_privilege_can_edit_delete">törölhet</string>
-    <string name="share_privilege_can_share">megosztható</string>
+    <string name="share_privilege_can_edit">módosíthat </string>
+    <string name="share_privilege_can_edit_change">módosíthat </string>
+    <string name="share_privilege_can_edit_create">létrehozhat </string>
+    <string name="share_privilege_can_edit_delete">törölhet </string>
+    <string name="share_privilege_can_share">megoszthat </string>
     <string name="share_privilege_unshare">Megosztás visszavonása</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
@@ -605,14 +616,14 @@
     <string name="ssl_validator_label_validity">Érvényesség:</string>
     <string name="ssl_validator_label_validity_from">Ettől a dátumtól:</string>
     <string name="ssl_validator_label_validity_to">Eddig a dátumig:</string>
-    <string name="ssl_validator_no_info_about_error">- Nincs információ a hibáról</string>
+    <string name="ssl_validator_no_info_about_error">– Nincs információ a hibáról</string>
     <string name="ssl_validator_not_saved">A tanúsítvány nem menthető</string>
     <string name="ssl_validator_null_cert">A tanúsítvány nem jeleníthető meg.</string>
     <string name="ssl_validator_question">Mégis megbízik ebben a tanúsítványban?</string>
-    <string name="ssl_validator_reason_cert_expired">- A kiszolgáló tanúsítványa lejárt</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa még nem érvényes</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
+    <string name="ssl_validator_reason_cert_expired">– A kiszolgáló tanúsítványa lejárt</string>
+    <string name="ssl_validator_reason_cert_not_trusted">– A kiszolgáló tanúsítványa nem megbízható</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">– A kiszolgáló tanúsítványa még nem érvényes</string>
+    <string name="ssl_validator_reason_hostname_not_verified">– Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Háttértároló helyének kiválasztása</string>
     <string name="storage_description_default">Alapértelmezett</string>
@@ -622,11 +633,14 @@
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
     <string name="storage_pictures">Képek</string>
+    <string name="store_full_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.\nEz a hivatalos fejlesztői változat, amely napi mintát ad a nem tesztelt, új funkciókról, melyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
+    <string name="store_short_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást</string>
+    <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
     <string name="stream">Közvetítés…</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
-    <string name="subject_shared_with_you">megosztották veled: „%1$s”</string>
-    <string name="subject_user_shared_with_you">%1$s megosztotta veled: „%2$s”</string>
+    <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
+    <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
     <string name="sync_fail_content">A(z) %1$s szinkronizálása sikertelen</string>
@@ -636,7 +650,7 @@
     <string name="sync_fail_ticker_unauthorized">Szinkronizálás sikertelen, jelentkezzen be újra</string>
     <string name="sync_file_nothing_to_do_msg">A fájlok már szinkronizálva vannak</string>
     <string name="sync_folder_failed_content">A(z) %1$s mappa szinkronizálásának végrehajtása sikertelen</string>
-    <string name="sync_foreign_files_forgotten_explanation">A 1.3.16 verziótól kezdve, az erről az eszközről feltöltött fájlok a következő mappába kerülnek az adatvesztés elkerülésére érdekében, ha több fiókkal is szinkronizál egy fájlt: %1$s.\n\nEmiatt a változás miatt, minden a korábbi verzió által feltöltött verzió ebbe a mappába került: %2$s. Viszont egy hiba megakadályozta a művelet befejezését a fiók szinkronizálása során. Vagy úgy hagyhatja a fájlokat, vagy törölheti a következő hivatkozást: %3$s, vagy áthelyezheti a fájlokat ebbe a mappába: %1$s, és meghagyhatja a hivatkozást itt: %4$s.\n\nLent láthatja a helyi fájlok és mappák listáját itt: %5$s, ahova hivatkozva voltak.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verziótól kezdve, az erről az eszközről feltöltött fájlok a következő mappába kerülnek az adatvesztés elkerülésére érdekében, ha több fiókkal is szinkronizál egy fájlt: %1$s.\n\nEzen változás miatt, minden a korábbi verzió által feltöltött verzió ebbe a mappába került: %2$s. Viszont egy a fiók szinkronizálásakor történt hiba megakadályozta a művelet befejezését. Úgy hagyhatja a fájlokat, vagy törölheti a következő hivatkozást: %3$s, vagy áthelyezheti a fájlokat ebbe a mappába: %1$s, és meghagyhatja a hivatkozást itt: %4$s.\n\nLent láthatja a helyi fájlok és mappák listáját itt: %5$s, ahova hivatkozva voltak.</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájl figyelmen kívül lett hagyva</string>
     <string name="sync_in_progress">A fájl legfrissebb verziójának lekérése.</string>
     <string name="sync_status_button">Szinkronizálás állapota gomb</string>
@@ -728,11 +742,11 @@
     <string name="uploads_view_upload_status_cancelled">Megszakítva</string>
     <string name="uploads_view_upload_status_conflict">Ütközés</string>
     <string name="uploads_view_upload_status_failed_connection_error">Kapcsolódási hiba</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">Hitelesítési adat hiba</string>
-    <string name="uploads_view_upload_status_failed_file_error">Fájl hiba</string>
-    <string name="uploads_view_upload_status_failed_folder_error">Mappa hiba</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Hitelesítési hiba</string>
+    <string name="uploads_view_upload_status_failed_file_error">Fájlhiba</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Mappahiba</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Helyi fájl nem található</string>
-    <string name="uploads_view_upload_status_failed_permission_error">Jogosultság hiba</string>
+    <string name="uploads_view_upload_status_failed_permission_error">Jogosultsághiba</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">A kiszolgáló tanúsítványa nem megbízható</string>
     <string name="uploads_view_upload_status_service_interrupted">Az alkalmazás leállt</string>
     <string name="uploads_view_upload_status_succeeded">Befejezve</string>
@@ -770,14 +784,14 @@
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>
-        <item quantity="other">%1$d mappák</item>
+        <item quantity="other">%1$d mappa</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fájl</item>
-        <item quantity="other">%1$d fájlok</item>
+        <item quantity="other">%1$d fájl</item>
     </plurals>
     <plurals name="items_selected_count">
-        <item quantity="one">%d kiválasztott</item>
-        <item quantity="other">%d kiválasztott</item>
+        <item quantity="one">%d kiválasztva</item>
+        <item quantity="other">%d kiválasztva</item>
     </plurals>
 </resources>

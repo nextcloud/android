@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_title">Over</string>
     <string name="about_version">versie %1$s</string>
+    <string name="about_version_with_build">versie %1$s, build #%2$s</string>
     <string name="account_creation_failed">Account aanmaken mislukt</string>
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
@@ -19,6 +20,7 @@
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_open_as_richdocument">Openen met Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Openen met %1$s</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="actionbar_see_details">Details</string>
@@ -145,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Een map kan niet naar een onderliggende map worden gekopieerd</string>
     <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
     <string name="copy_file_not_found">Kan niet kopiëren. Ga na of het bestand wel bestaat</string>
+    <string name="copy_internal_link">Kopieer interne link</string>
+    <string name="copy_internal_link_subline">Werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="copy_link">Link kopiëren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
+    <string name="could_not_retrieve_url">Kon url niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_file_from_template">Creëren bestand vanaf sjabloon…</string>
     <string name="create_new_document">Creëer nieuw document</string>
@@ -229,6 +234,7 @@
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
     <string name="fab_label">Toevoegen of uploaden</string>
+    <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>

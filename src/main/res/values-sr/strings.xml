@@ -3,6 +3,8 @@
     <string name="about_android">%1$s Андроид апликација</string>
     <string name="about_title">О програму</string>
     <string name="about_version">верзија %1$s</string>
+    <string name="about_version_with_build">верзија %1$s, израда #%2$s
+</string>
     <string name="account_creation_failed">Прављење налога није успело</string>
     <string name="account_icon">Икона налога</string>
     <string name="account_not_found">Налог није нађен!</string>
@@ -19,6 +21,7 @@
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_as_richdocument">Отвори помоћу Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Отвори помоћу %1$s</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -33,6 +36,7 @@
     <string name="activity_chooser_title">Пошаљи везу…</string>
     <string name="activity_icon">Активност</string>
     <string name="add_to_cloud">Додај у %1$s</string>
+    <string name="associated_account_not_found">Придружени налог није нађен!</string>
     <string name="auth_access_failed">Неуспео приступ: %1$s</string>
     <string name="auth_account_does_not_exist">Налог још није додат на овај уређај</string>
     <string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
@@ -144,9 +148,12 @@
     <string name="copy_file_invalid_into_descendent">Не може да се ископира фасцикла у неку од својих подфасцикли.</string>
     <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји</string>
+    <string name="copy_internal_link">Копирај интерну везу</string>
+    <string name="copy_internal_link_subline">Радиће само за кориснике са приступом овој фасцикли</string>
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="copy_to">Копирај у…</string>
+    <string name="could_not_retrieve_url">Не могу да добавим адресу</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="create_file_from_template">Направите фајл из шаблона…</string>
     <string name="create_new_document">Направи нови документ</string>
@@ -224,9 +231,11 @@
     <string name="error__upload__local_file_not_copied">%1$s се не може копирати у локалну фасциклу %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да обавим операцију</string>
     <string name="error_comment_file">Грешка приликом коментарисања фајла</string>
+    <string name="error_retrieving_file">Грешка при добављању фајла</string>
     <string name="error_retrieving_templates">Грешка при учитавању шаблона</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартовању камере</string>
     <string name="fab_label">Додај или отпреми</string>
+    <string name="failed_to_download">Грешка при давању фајла менаџеру преузимања</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
@@ -514,6 +523,7 @@
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скини оригиналну слику?</string>
     <string name="restore">Поврати фајл</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
+    <string name="retrieving_file">Добављам фајл…</string>
     <string name="richdocuments_failed_to_load_document">Грешка приликом учитавања документа!</string>
     <string name="saml_authentication_required_text">Потребна је лозинка</string>
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
@@ -546,6 +556,7 @@
     <string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
     <string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
     <string name="share_link_forbidden_permissions">да делите овај фајл</string>
+    <string name="share_link_optional_password_title">Унесите опциону лозинку</string>
     <string name="share_link_password_title">Унесите лозинку</string>
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_no_password_title">Постави лозинку</string>
@@ -623,6 +634,10 @@
     <string name="storage_movies">Филмови</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Слике</string>
+    <string name="store_full_desc">Платформа за продуктивност коју и Ви можете да хостујете и која Вам даје контролу.\nОсобине:\n* Лако и модерно сучеље, потпуно усклађено са темом са сервера\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx5-ом (раније знаном и као ДАВдроид) за брзо подешавање синхронизације календара &amp; контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова &amp; комуникацију. Потпуно је отвореног кода и можете да га сами хостовати или платити компанији да то ради за Вас. На овај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Платформа за продуктивност коју и Ви можете да хостујете и која Вам даје контролу.\nОво је званична развојна верзија која има узорак нетестираних функција на дневном нивоу, а који могу да изазову нестабилности или губитак података. Ова апликација је за кориснике које жете да тестирају и пријављују грешке уколико се десе. Не користите је за продукцију!\n\nИ званична и развојна верзија су доступне са Ф-Дроид-а и могу бити инсталиране заједно.</string>
+    <string name="store_short_desc">Платформа за продуктивност коју и Ви можете да хостујете и која Вам даје контролу</string>
+    <string name="store_short_dev_desc">Платформа за продуктивност коју и Ви можете да хостујете и која Вам даје контролу (развојна верзија)</string>
     <string name="stream">Стримуј са…</string>
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите мултимедију или користите неку екстерну апликацију.</string>

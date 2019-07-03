@@ -1,1 +1,1 @@
-L'app Nextcloud Dev és una instantània de desenvolupament que es pot instal·lar 
+La plataforma de productivitat privada (auto-hostatjada) que et dona el control 

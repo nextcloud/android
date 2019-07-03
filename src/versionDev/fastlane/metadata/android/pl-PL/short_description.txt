@@ -1,2 +1,1 @@
-
-Aplikacja Nextcloud Dev jest wersją developerską i można ją zainstalować równol
+Samo-hostująca platforma produkcyjna, która zapewnia kontrolę (wersja dewelopers

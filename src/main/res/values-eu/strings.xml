@@ -358,6 +358,7 @@ Mesedez, baimendu berriz</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="oauth_check_onoff">izena emanda OAuth 2.0 erabiliz</string>
     <string name="offline_mode">Internet konexiorik ez</string>
+    <string name="overflow_menu">Gehiago menua</string>
     <string name="participate_beta_headline">Dev bertsioa probatu</string>
     <string name="participate_beta_text">Ezaugarri berri guztiak datoz eta punta-puntakoa da. Bug/erroreak gerta daitezke, eta gertatzen direnean, mesedez bidaliguzu topatutakoa</string>
     <string name="participate_contribute_forum_forum">foroa</string>
@@ -421,6 +422,8 @@ Mesedez, baimendu berriz</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Biltegiratze helbidea</string>
+    <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
+    <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
     <string name="preview_image_description">Irudi aurreikuspena</string>
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
     <string name="preview_sorry">Barkatu</string>
@@ -447,6 +450,7 @@ Mesedez, baimendu berriz</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_template">Aukeratu txantiloia</string>
     <string name="send">Bidali</string>
+    <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
     <string name="set_picture_as">Erabili argazkia</string>
     <string name="setup_btn_connect">Konektatu</string>
@@ -471,6 +475,7 @@ Mesedez, baimendu berriz</string>
     <string name="share_privilege_can_edit_create">sortu dezake</string>
     <string name="share_privilege_can_edit_delete">ezabatu dezake</string>
     <string name="share_privilege_can_share">elkarbana dezake</string>
+    <string name="share_privilege_unshare">Ez partekatu</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_via_link_edit_permission_label">Baimendu editatzea</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fitxategi zerrenda ezkutatu</string>
@@ -562,6 +567,8 @@ Mesedez, baimendu berriz</string>
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
+    <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
+    <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
     <string name="uploader_btn_alternative_text">Aukeratu</string>

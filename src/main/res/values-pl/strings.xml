@@ -3,6 +3,7 @@
     <string name="about_android">%1$s na Android</string>
     <string name="about_title">O aplikacji</string>
     <string name="about_version">wersja %1$s</string>
+    <string name="about_version_with_build">wersja %1$s, kompilacja #%2$s</string>
     <string name="account_creation_failed">Błąd tworzenia konta</string>
     <string name="account_icon">Ikona konta</string>
     <string name="account_not_found">Nie znaleziono konta</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
     <string name="copy_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje</string>
+    <string name="copy_internal_link">Skopiuj link wewnętrzny</string>
+    <string name="copy_internal_link_subline">Działa tylko dla użytkowników mających dostęp do tego katalogu</string>
     <string name="copy_link">Skopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
     <string name="copy_to">Skopiuj do…</string>
+    <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_file_from_template">Tworzenie pliku z szablonu…</string>
     <string name="create_new_document">Stwórz nowy dokument</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
     <string name="fab_label">Dodaj lub wyślij</string>
+    <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>
@@ -628,6 +633,10 @@
     <string name="storage_movies">Filmy</string>
     <string name="storage_music">Muzyka</string>
     <string name="storage_pictures">Obrazy</string>
+    <string name="store_full_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza &amp; Synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików &amp; i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
+    <string name="store_short_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę</string>
+    <string name="store_short_dev_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę (wersja deweloperska)</string>
     <string name="stream">Przesyłaj strumieniowo...</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>

@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android应用</string>
     <string name="about_title">关于</string>
     <string name="about_version">版本 %1$s</string>
+    <string name="about_version_with_build">版本 %1$s，构建 #%2$s</string>
     <string name="account_creation_failed"> 帐户创建已失败</string>
     <string name="account_icon">账户图标</string>
     <string name="account_not_found">账户未找到</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
     <string name="copy_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="copy_file_not_found">无法复制文件。请检查文件是否存在</string>
+    <string name="copy_internal_link">复制内部链接</string>
+    <string name="copy_internal_link_subline">仅适用于有权限访问此文件夹的用户</string>
     <string name="copy_link">复制链接</string>
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="copy_to">复制到…</string>
+    <string name="could_not_retrieve_url">无法获取url</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_file_from_template">使用模板创建文件中...</string>
     <string name="create_new_document">新建文档</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="fab_label">添加或上传</string>
+    <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
     <string name="favorite">添加到收藏列表</string>

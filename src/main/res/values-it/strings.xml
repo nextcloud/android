@@ -3,6 +3,7 @@
     <string name="about_android">Applicazione per Android di %1$s</string>
     <string name="about_title">Informazioni</string>
     <string name="about_version">versione %1$s</string>
+    <string name="about_version_with_build">versione %1$s, build #%2$s</string>
     <string name="account_creation_failed">Creazione dell\'account non riuscita</string>
     <string name="account_icon">Icona dell\'account</string>
     <string name="account_not_found">Account non trovato</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>
     <string name="copy_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista</string>
+    <string name="copy_internal_link">Copia collegamento interno</string>
+    <string name="copy_internal_link_subline">Funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
+    <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_file_from_template">Crea file da modello…</string>
     <string name="create_new_document">Crea nuovo documento</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="fab_label">Aggiungi o carica</string>
+    <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="fallback_weblogin_back">Indietro</string>
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
     <string name="favorite">Aggiungi ai preferiti</string>
@@ -427,7 +432,7 @@
     <string name="participate_rc_fdroid">Ottieni la candidata al rilascio dall\'applicazione F-Droid</string>
     <string name="participate_rc_play_store">Ottieni la candidata al rilascio da Google Play</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
-    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserene sicuri. Registrati per la fase test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
+    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserne sicuri. Registrati per la fase di test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
     <string name="participate_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="participate_testing_headline">Aiutaci nella fase di test</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Aplicació d\'Android</string>
+    <string name="about_android">%1$s Aplicació per a Android</string>
     <string name="about_title">Quant a</string>
     <string name="about_version">versió %1$s</string>
+    <string name="about_version_with_build">versió %1$s, compilació #%2$s</string>
     <string name="account_creation_failed">Ha fallat la creació del compte</string>
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destí</string>
     <string name="copy_file_not_found">No es pot copiar. Assegureu-vos que el fitxer existeix</string>
+    <string name="copy_internal_link">Copiar l\'enllaç intern</string>
+    <string name="copy_internal_link_subline">Només funciona per a usuaris amb accés a aquesta carpeta</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
     <string name="copy_to">Copia a…</string>
+    <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="create_file_from_template">S\'està creant el fitxer des d\'una plantilla...</string>
     <string name="create_new_document">Crea un nou document</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="fab_label">Afegeix o puja</string>
+    <string name="failed_to_download">Ha fallat l\'entrega del fitxer al gestor de baixades</string>
     <string name="fallback_weblogin_back">Enrere</string>
     <string name="fallback_weblogin_text">Revertiu l\'antic mètode d\'inici de sessió</string>
     <string name="favorite">Afegix a preferits</string>
@@ -517,7 +522,7 @@
     <string name="resized_image_not_possible_download">No hi ha cap imatge redimensionada. Voleu descarregar la imatge a la resolució original?</string>
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_button_description">Restaura el fitxer esborrat</string>
-    <string name="retrieving_file">S\'està recuperant el fitxer...</string>
+    <string name="retrieving_file">S\'està recuperant el fitxer…</string>
     <string name="richdocuments_failed_to_load_document">Ha fallat la càrrega del document!</string>
     <string name="saml_authentication_required_text">Es necessita una contrasenya</string>
     <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
@@ -628,7 +633,10 @@
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Fotos</string>
+    <string name="store_full_desc">La plataforma de productivitat privada (auto-hostatjada) que et dona el control sobre les teves dades.\n Característiques:\n Interfície fàcil i moderna, adaptada al tema emprat al teu servidor.\n Puja fitxers al teu servidor Nextcloud.\n Comparteix-los amb d\'altres.\n Manté sincronitzades les teves carpetes i fitxers favorits.\n Cerca a dintre de totes les teves carpetes al servidor.\n Pujada automatitzada de les teves fotos i vídeos presos al teus dispositius.\n Mantén-te al dia amb notificacions.\n Suport multi-comptes.\n Accés segur a les teves dades amb empremta digital o PIN.\n Integració amb la app DAVx5 (formalment coneguda per DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris a Android.\n\n Si us plau, informa de qualsevol falla a https://github.com/nextcloud/android/issues i intercanvia opinions i suggeriments a https://help.nextcloud.com/c/clients/android\n\n Ets nou a Nextcloud? Nextcloud és un programari de servidor per a emmagatzemament sincronitzat de fitxers, compartició dels mateixos i comunicacions de xat i video-conferència (fins i tot compartint pantalla). És programari lliure, i per tant pots hostatjar-ho tu mateix o pagar els serveis d\'algú que t\'ho faci. D\'aquesta manera tindràs sota el teu control les teves fotos, calendari, contactes, documents i tota la resta.\n\n Si vols saber més fes una ullada al portal web oficial: https://nextcloud.com</string>
+    <string name="store_full_dev_desc">La plataforma de productivitat privada (auto-hostatjada) que et dona el control sobre les teves dades.\n Aquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris desitjant provar i informar de falles. No empris aquesta versió de l\'aplicació en el teu entorn de feina!\n\n Ambdues versions, desenvolupament i regular, són disponibles a F-droid, i poden ser instal·lades al mateix temps.</string>
     <string name="store_short_desc">La plataforma auto-allotjada de productivitat que us manté sota control</string>
+    <string name="store_short_dev_desc">La plataforma de productivitat privada (auto-hostatjada) que et dona el control sobre les teves dades (versió de proves de desenvolupament).</string>
     <string name="stream">Seqüència amb...</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>

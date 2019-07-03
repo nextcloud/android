@@ -19,6 +19,7 @@
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
     <string name="actionbar_open_as_richdocument">Открыть при помощи Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Открыть с помощью %1$s</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -33,6 +34,7 @@
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
+    <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
     <string name="auth_account_does_not_exist">Учётная запись ещё не создана на этом устройстве</string>
     <string name="auth_account_not_new">Аккаунт такого пользователя и сервера уже существует на устройстве</string>
@@ -144,9 +146,12 @@
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
     <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="copy_file_not_found">Не удалось произвести копирование. Проверьте что файл существует</string>
+    <string name="copy_internal_link">Копировать внутреннюю ссылку</string>
+    <string name="copy_internal_link_subline">Работает только для пользователей с доступом к этой папке</string>
     <string name="copy_link">Копировать ссылку</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
+    <string name="could_not_retrieve_url">Не удалось получить URL-адрес</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_file_from_template">Создание файла на основе шаблона…</string>
     <string name="create_new_document">Создать документ</string>
@@ -224,6 +229,7 @@
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
     <string name="error_comment_file">Ошибка комментирования файла</string>
+    <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="fab_label">Добавить или выгрузить</string>
@@ -546,6 +552,7 @@
     <string name="share_link_file_error">При попытке поделиться этим файлом или каталогом произошла ошибка</string>
     <string name="share_link_file_no_exist">Невозможно поделиться. Убедитесь, что файл существует</string>
     <string name="share_link_forbidden_permissions">для открытия общего доступа к этому файлу</string>
+    <string name="share_link_optional_password_title">Введите дополнительный пароль</string>
     <string name="share_link_password_title">Введите пароль</string>
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>

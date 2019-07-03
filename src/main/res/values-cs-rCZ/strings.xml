@@ -3,6 +3,7 @@
     <string name="about_android">%1$s aplikace pro Android</string>
     <string name="about_title">O aplikaci</string>
     <string name="about_version">verze %1$s</string>
+    <string name="about_version_with_build">verze %1$s, sestavení č. %2$s</string>
     <string name="account_creation_failed">Vytvoření účtu se nezdařilo</string>
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet nenalezen!</string>
@@ -34,6 +35,7 @@
     <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="activity_icon">Aktivita</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
+    <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
     <string name="auth_account_does_not_exist">Účet zatím není na tomto zařízení přidán</string>
     <string name="auth_account_not_new">Účet pro stejného uživatele a server už v zařízení existuje</string>
@@ -225,9 +227,11 @@
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místní složky %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
+    <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="fab_label">Přidat nebo nahrát</string>
+    <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>
@@ -515,6 +519,7 @@
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
+    <string name="retrieving_file">Získávání souboru…</string>
     <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
     <string name="saml_authentication_required_text">Je třeba hesla</string>
     <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>

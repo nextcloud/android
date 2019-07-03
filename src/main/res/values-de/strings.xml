@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android App</string>
     <string name="about_title">Über</string>
     <string name="about_version">Version %1$s</string>
+    <string name="about_version_with_build">Version %1$s, Build #%2$s</string>
     <string name="account_creation_failed">Kontoerstellung fehlgeschlagen</string>
     <string name="account_icon">Konto-Icon</string>
     <string name="account_not_found">Kein Konto gefunden</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
+    <string name="copy_internal_link">Internen Link kopieren</string>
+    <string name="copy_internal_link_subline">Funktioniert nur für Nutzer mit Zugriff auf dieses Verzeichnis</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="copy_to">Kopieren nach…</string>
+    <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_file_from_template">Erzeuge Datei aus Vorlage…</string>
     <string name="create_new_document">Neues Dokument erstellen</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
+    <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="fallback_weblogin_back">Zurück</string>
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>

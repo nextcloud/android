@@ -3,6 +3,7 @@
     <string name="about_android">Aplicativo Android %1$s</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versão %1$s</string>
+    <string name="about_version_with_build">versão %1$s, build #%2$s</string>
     <string name="account_creation_failed">Falha ao criar conta</string>
     <string name="account_icon">Ícone da conta</string>
     <string name="account_not_found">Conta não encontrada!</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="copy_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
     <string name="copy_file_not_found">Não foi possível copiar. Por favor, verifique se o arquivo existe</string>
+    <string name="copy_internal_link">Copiar link interno</string>
+    <string name="copy_internal_link_subline">Funciona apenas para usuários com acesso a esta pasta</string>
     <string name="copy_link">Copiar link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
     <string name="copy_to">Copiar para…</string>
+    <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_file_from_template">Criando arquivo a partir do modelo…</string>
     <string name="create_new_document">Criar novo documento</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="fab_label">Adicionar ou enviar</string>
+    <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="fallback_weblogin_back">Voltar</string>
     <string name="fallback_weblogin_text">Voltar ao antigo método de login</string>
     <string name="favorite">Adicionar aos favoritos</string>

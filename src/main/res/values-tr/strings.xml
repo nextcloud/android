@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android uygulaması</string>
     <string name="about_title">Hakkında</string>
     <string name="about_version">sürüm %1$s</string>
+    <string name="about_version_with_build">Sürüm: %1$s, Yapım: #%2$s</string>
     <string name="account_creation_failed">Hesap oluşturulamadı</string>
     <string name="account_icon">Hesap simgesi</string>
     <string name="account_not_found">Hesap bulunamadı!</string>
@@ -146,9 +147,12 @@
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
     <string name="copy_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+    <string name="copy_internal_link">İç bağlantıyı kopyala</string>
+    <string name="copy_internal_link_subline">Yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya Kopyala…</string>
+    <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_file_from_template">Kalıptan dosya oluşturuluyor…</string>
     <string name="create_new_document">Yeni belge</string>
@@ -230,6 +234,7 @@
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="fab_label">Ekle ya da yükle</string>
+    <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="fallback_weblogin_back">Geri</string>
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
     <string name="favorite">Sık Kullanılanlara Ekle</string>
@@ -493,8 +498,8 @@
     <string name="prefs_storage_path">Depolama yolu</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
-    <string name="preview_image_description">Görsel önizleme</string>
-    <string name="preview_image_error_no_local_file">Önizlenebilecek bir yerel dosya yok</string>
+    <string name="preview_image_description">Görsel ön izleme</string>
+    <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
     <string name="preview_sorry">Maalesef</string>
     <string name="privacy">Gizlilik</string>
@@ -631,7 +636,7 @@
     <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi y ada pin kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu</string>
-    <string name="store_short_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
+    <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
     <string name="stream">Şununla akıt…</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
