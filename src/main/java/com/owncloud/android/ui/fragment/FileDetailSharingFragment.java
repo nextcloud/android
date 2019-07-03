@@ -346,7 +346,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             return;
         }
 
-        FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, createInternalLink(account, file));
+        FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, createInternalLink(account, file));
     }
 
     private String createInternalLink(OwnCloudAccount account, OCFile file) {
@@ -371,7 +371,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             if (TextUtils.isEmpty(file.getPublicLink())) {
                 fileOperationsHelper.getFileWithLink(file);
             } else {
-                FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file.getPublicLink());
+                FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, file.getPublicLink());
             }
         }
     }
@@ -466,7 +466,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             }
             case R.id.action_share_send_link: {
                 if(shareByLink.isChecked() && file.isSharedViaLink() && !TextUtils.isEmpty(file.getPublicLink())) {
-                    FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file.getPublicLink());
+                    FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, file.getPublicLink());
                 } else {
                     showSendLinkTo();
                 }

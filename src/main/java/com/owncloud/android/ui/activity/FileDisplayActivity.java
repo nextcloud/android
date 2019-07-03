@@ -1987,15 +1987,17 @@ public class FileDisplayActivity extends FileActivity
             // if share to user and share via link multiple ocshares are returned,
             // therefore filtering for public_link
             String link = "";
+            OCFile file = null;
             for (Object object : result.getData()) {
                 OCShare shareLink = (OCShare) object;
                 if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
                     link = shareLink.getShareLink();
+                    file = getStorageManager().getFileByPath(shareLink.getPath());
                     break;
                 }
             }
 
-            copyAndShareFileLink(this, link);
+            copyAndShareFileLink(this, file, link);
 
             if (fileDetailFragment != null && fileDetailFragment.getFileDetailSharingFragment() != null) {
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();

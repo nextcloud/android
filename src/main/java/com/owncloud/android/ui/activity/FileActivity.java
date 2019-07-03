@@ -656,16 +656,16 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-    public static void copyAndShareFileLink(FileActivity activity, String link) {
+    public static void copyAndShareFileLink(FileActivity activity, OCFile file, String link) {
         ClipboardUtil.copyToClipboard(activity, link, false);
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                           Snackbar.LENGTH_LONG)
-            .setAction(R.string.share, v -> showShareLinkDialog(activity, link));
+            .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
         ThemeUtils.colorSnackbar(activity, snackbar);
         snackbar.show();
     }
 
-    public static void showShareLinkDialog(FileActivity activity, String link) {
+    public static void showShareLinkDialog(FileActivity activity, OCFile file, String link) {
         // Create dialog to allow the user choose an app to send the link
         Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
 
@@ -689,11 +689,11 @@ public abstract class FileActivity extends DrawerActivity
         if (username != null) {
             intentToShareLink.putExtra(Intent.EXTRA_SUBJECT,
                                        activity.getString(R.string.subject_user_shared_with_you, username,
-                                                          activity.getFile().getFileName()));
+                                                          file.getFileName()));
         } else {
             intentToShareLink.putExtra(Intent.EXTRA_SUBJECT,
                                        activity.getString(R.string.subject_shared_with_you,
-                                                          activity.getFile().getFileName()));
+                                                          file.getFileName()));
         }
 
         String[] packagesToExclude = new String[]{activity.getPackageName()};
