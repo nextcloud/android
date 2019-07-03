@@ -59,7 +59,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -210,15 +209,17 @@ public class PreviewImageActivity extends FileActivity implements
                 // if share to user and share via link multiple ocshares are returned,
                 // therefore filtering for public_link
                 String link = "";
+                OCFile file = null;
                 for (Object object : result.getData()) {
                     OCShare shareLink = (OCShare) object;
                     if (FileDisplayActivity.TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
                         link = shareLink.getShareLink();
+                        file = getStorageManager().getFileByPath(shareLink.getPath());
                         break;
                     }
                 }
 
-                copyAndShareFileLink(link);
+                copyAndShareFileLink(this, file, link);
             } else {
                 // Detect Failure (403) --> maybe needs password
                 String password = op.getPassword();
@@ -237,15 +238,6 @@ public class PreviewImageActivity extends FileActivity implements
                 }
             }
         }
-    }
-
-    private void copyAndShareFileLink(String link) {
-        ClipboardUtil.copyToClipboard(this, link, false);
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.clipboard_text_copied,
-                                          Snackbar.LENGTH_LONG)
-            .setAction(R.string.share, v -> showShareLinkDialog(this, link));
-        ThemeUtils.colorSnackbar(this, snackbar);
-        snackbar.show();
     }
 
     private void onSynchronizeFileOperationFinish(RemoteOperationResult result) {
