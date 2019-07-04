@@ -4,6 +4,8 @@ package com.owncloud.android.operations;
  * RuntimeException for throwing errors of remote operation calls.
  */
 public class RemoteOperationFailedException extends RuntimeException {
+    private static final long serialVersionUID = 5429778514835938713L;
+
     /**
      * Constructs a new runtime exception with the specified detail message and
      * cause.
