@@ -30,6 +30,8 @@ import java.util.Vector;
  * @author Bartosz Przybylski
  */
 public class UniqueStorageList extends Vector<StoragePoint> {
+    private static final long serialVersionUID = -6504937852826767050L;
+
     @Override
     public boolean add(StoragePoint sp) {
         try {
