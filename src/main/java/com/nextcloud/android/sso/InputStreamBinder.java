@@ -311,7 +311,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             }
             throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
                                             new IllegalStateException(String.valueOf(status),
-                                                                      new Throwable(total.toString())));
+                                                                      new IllegalStateException(total.toString())));
         }
     }
 

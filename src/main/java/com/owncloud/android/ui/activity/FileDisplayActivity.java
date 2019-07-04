@@ -2653,9 +2653,6 @@ public class FileDisplayActivity extends FileActivity
             return;
         }
 
-        AccountManager am = AccountManager.get(this);
-        String userId = am.getUserData(getAccount(), AccountUtils.Constants.KEY_USER_ID);
-
         FileDataStorageManager storageManager = getStorageManager();
 
         if (storageManager == null) {

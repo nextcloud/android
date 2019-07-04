@@ -317,6 +317,7 @@ public class StorageMigration {
 
     static private class FileMigrationTask extends FileMigrationTaskBase {
         private class MigrationException extends Exception {
+            private static final long serialVersionUID = -4575848188034992066L;
             private int mResId;
 
             MigrationException(int resId) {

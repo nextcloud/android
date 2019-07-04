@@ -21,6 +21,8 @@
 package com.nextcloud.client.di;
 
 class InjectorNotFoundException extends RuntimeException {
+    private static final long serialVersionUID = 2026042918255104421L;
+
     InjectorNotFoundException(Object object, Throwable cause) {
         super(
             String.format(
