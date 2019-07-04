@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Aplicação Android</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versão %1$s</string>
+    <string name="about_version_with_build">Versão %1$s, montagem #%2$s</string>
     <string name="account_creation_failed">Criação de conta falhou</string>
     <string name="account_icon">Ícone de conta</string>
     <string name="account_not_found">Conta não encontrada!</string>
@@ -83,6 +84,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Criar nova estrutura de pasta personalizada</string>
     <string name="autoupload_custom_folder">Definir uma pasta personalizada</string>
+    <string name="autoupload_disable_power_save_check">Desabilitar a verificação de poupança de energia</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
@@ -146,9 +148,12 @@
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
     <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
+    <string name="copy_internal_link">Copiar ligação interna</string>
+    <string name="copy_internal_link_subline">Apenas funciona para utilizadores com acesso a esta pasta</string>
     <string name="copy_link">Copiar hiperligação</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
     <string name="copy_to">Copiar para…</string>
+    <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_file_from_template">A criar ficheiro a partir de modelo...</string>
     <string name="create_new_document">Criar novo documento</string>
@@ -230,6 +235,7 @@
     <string name="error_retrieving_templates">Erro ao obter modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
     <string name="fab_label">Adicionar ou enviar</string>
+    <string name="failed_to_download">Falhou a passagem do ficheiro ao gestor de transferências</string>
     <string name="fallback_weblogin_back">Anterior</string>
     <string name="fallback_weblogin_text">Reverter para método de início de sessão anterior</string>
     <string name="favorite">Adicionar aos favoritos</string>
@@ -450,6 +456,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é uma variável</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
+    <string name="power_check_dialog_title">Desabilitar a verificação de poupança de energia</string>
+    <string name="power_save_check_dialog_message">Desabilitar a verificação de poupança de energia pode resultar no envio de ficheiros quando a carga da bateria está baixa!</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
@@ -628,6 +636,9 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_full_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\n\Características:\n* Interface simples e moderna, adequada ao tema do seu servidor\n* Envie ficheiros para o seu servidor Nextcloud\n* Partilhe-os com outros\n* Mantenha os seus ficheiros e pastas favoritos sincronizados\n* Pesquise em todas as pastas no seu servidor\n* Envie automaticamente fotografias e vídeos gravados pelo seu dispositivo\n* Mantenha-se informado/a com as notificações\n* Suporte para contas múltiplas\n* Proteja o acesso aos seus dados com impressão digital ou PIN\n* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &amp;contactos\n\nPor favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? Nextcloud é um servidor privado de sincronização, partilha e comunicação. É software livre e pode alojá-lo você mesmo/a ou pagar uma companhia para o fazer por si. Desta forma você controla as suas fotografias, os seus dados de calendários e contactos, os seus documentos e tudo o resto.\n\nConheça o Nextcloud em https://nextcloud.com</string>
+    <string name="store_full_dev_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\nEsta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!\n\nTanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.</string>
+    <string name="store_short_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>
     <string name="stream">Transmita com…</string>
     <string name="stream_not_possible_headline">Transmissão interna não é possível</string>

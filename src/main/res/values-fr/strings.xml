@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/EnvoiAuto</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
+    <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
@@ -457,6 +458,8 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="power_check_dialog_title">Désactiver l\'économie de batterie</string>
+    <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner l\'envoi de fichiers même avec un niveau de batterie faible !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>

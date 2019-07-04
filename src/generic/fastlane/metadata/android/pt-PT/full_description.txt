@@ -1,19 +1,18 @@
-A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
-
-Funcionalidades:
-* Fácil, interface moderna, adaptado ao tema do seu servidor
+A plataforma de produtividade auto-alojada que o/a mantém no controlo.
+\Características:
+* Interface simples e moderna, adequada ao tema do seu servidor
 * Envie ficheiros para o seu servidor Nextcloud
-* Partilhe-os com outras pessoas
+* Partilhe-os com outros
 * Mantenha os seus ficheiros e pastas favoritos sincronizados
-* Pesquise através de todas as pastas no seu servidor
-* Envio automático de fotos e vídeos capturados pelo seu dispositivo
-* Mantenha-se actualizado com notificações
-* Suporte para várias contas
-* Aceda aos seus dados de forma segura usando a impressão digital ou PIN
-* Integração com DAVx5 (anteriormente conhecido como DAVdroid) para configuração fácil do Calendário & sincronização de Contactos
+* Pesquise em todas as pastas no seu servidor
+* Envie automaticamente fotografias e vídeos gravados pelo seu dispositivo
+* Mantenha-se informado/a com as notificações
+* Suporte para contas múltiplas
+* Proteja o acesso aos seus dados com impressão digital ou PIN
+* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &contactos
 
-Por favor, reporte todos os problemas em https://github.com/nextcloud/android/issues e discuta sobre esta aplicação em https://help.nextcloud.com/c/clients/android
+Por favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android
 
-A Nextcloud é um servidor privado de comunicação, sincronização & partilha de ficheiros. É Open Source, e pode ser hospedado por si ou pagar a uma empresa para o fazer. Assim, está sob o controlo das suas fotos, calendário e dados de contacto, dos seus documentos e de tudo o resto.
+Novo no Nextcloud? Nextcloud é um servidor privado de sincronização, partilha e comunicação. É software livre e pode alojá-lo você mesmo/a ou pagar uma companhia para o fazer por si. Desta forma você controla as suas fotografias, os seus dados de calendários e contactos, os seus documentos e tudo o resto.
 
-Dê uma vista de olhos no Nextcloud em: https://nextcloud.com
+Conheça o Nextcloud em https://nextcloud.com

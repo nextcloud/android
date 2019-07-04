@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
+    <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
@@ -233,6 +234,7 @@
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
+    <string name="failed_to_download">Misslyckades skicka filen till nedladdningshanteraren</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
     <string name="favorite">Lägg till favoriter</string>
@@ -453,6 +455,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Detta är en platshållare</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_check_dialog_title">Inaktivera strömsparingskontrollen</string>
+    <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
