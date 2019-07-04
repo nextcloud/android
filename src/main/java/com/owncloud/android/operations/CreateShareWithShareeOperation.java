@@ -42,8 +42,6 @@ import lombok.Getter;
  */
 public class CreateShareWithShareeOperation extends SyncOperation {
 
-    protected FileDataStorageManager mStorageManager;
-
     @Getter private String path;
     private String shareeName;
     private ShareType shareType;
