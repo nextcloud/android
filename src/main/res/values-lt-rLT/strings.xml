@@ -268,6 +268,7 @@
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Failo pavadinime yra bent vienas neteisingas simbolis</string>
     <string name="filename_hint">Failo pavadinimas</string>
+    <string name="files_drop_not_supported">Tai yra Nextcloud ypatybė, prašome atsinaujinti.</string>
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_icon">Aplanko piktograma</string>

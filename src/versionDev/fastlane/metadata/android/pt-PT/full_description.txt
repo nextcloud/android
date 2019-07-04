@@ -1,4 +1,4 @@
-A aplicação Open Source Nextcloud para Android, dá-lhe liberdade móvel.
-Esta é a versão de desenvolvimento oficial, e contem uma amostra diária das novas funcionalidades, ainda não testadas, o que pode causar instabilidade e perda de dados. Esta aplicação é destinada a utilizadores dispostos a tester e reportar erros caso estes ocorram. Não utilize esta aplicação em ambiente de produção!
+A plataforma de produtividade auto-alojada que o/a mantém no controlo.
+Esta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!
 
-Tanto a versão oficial dev como a versão regular estão disponíveis no F-droid, e podem estar instaladas em simultâneo.
+Tanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.
