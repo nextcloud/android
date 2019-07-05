@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
+    <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
@@ -455,6 +456,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
+    <string name="power_check_dialog_title">Energiesparmodus deaktivieren</string>
+    <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
