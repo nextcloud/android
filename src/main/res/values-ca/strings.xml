@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/ Carrega automàtica</string>
     <string name="autoupload_create_new_custom_folder">Creeu la configuració per la nova carpeta personalitzada</string>
     <string name="autoupload_custom_folder">Configureu una carpeta personalitzada</string>
+    <string name="autoupload_disable_power_save_check">Desactivar la comprovació d\'estalvi energètic</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
@@ -455,6 +456,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Això és un text variable</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_check_dialog_title">Desactivar la comprovació d\'estalvi energètic</string>
+    <string name="power_save_check_dialog_message">Si es desactiva la comprovació d\'estalvi energètic, podria ser que es pugessin fitxers amb nivells baixos de bateria!!</string>
     <string name="pref_behaviour_entries_delete_file">eliminat</string>
     <string name="pref_behaviour_entries_keep_file">mantingut a la carpeta original</string>
     <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>

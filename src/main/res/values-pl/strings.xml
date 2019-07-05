@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
+    <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
     <string name="avatar">Awatar</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
@@ -455,6 +456,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tekst zastępczy</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_check_dialog_title">Wyłącz kontrolę oszczędzania energii</string>
+    <string name="power_save_check_dialog_message">Wyłączenie kontroli oszczędzania energii może spowodować przesłanie plików w stanie niskiego poziomu naładowania baterii!</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym katalogu</string>
     <string name="pref_behaviour_entries_move">przeniesiony do katalogu aplikacji</string>
