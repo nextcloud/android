@@ -84,6 +84,7 @@
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
+    <string name="autoupload_disable_power_save_check">Desactivar comprobación de ahorro de energía</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Desactivar</string>
@@ -234,6 +235,7 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="fab_label">Añadir o subir</string>
+    <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
     <string name="favorite">Añadir a favoritos</string>
@@ -454,6 +456,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Esto es un marcador de posición</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="power_check_dialog_title">Desactivar comprobación de ahorro de energía</string>
+    <string name="power_save_check_dialog_message">Desactivar la comprobación de ahorro de energía puede causar que se suban ficheros aun estando en modo de baja batería</string>
     <string name="pref_behaviour_entries_delete_file">borrado</string>
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta de la app</string>
