@@ -56,7 +56,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "sameMajor-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
