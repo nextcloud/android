@@ -27,7 +27,6 @@ package com.owncloud.android.ui.activity;
 
 import android.Manifest;
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -378,7 +377,7 @@ public class FileDisplayActivity extends FileActivity
 
             // show outdated warning
             if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
-                MainApp.OUTDATED_SERVER_VERSION.compareTo(serverVersion) >= 0 &&
+                MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(serverVersion) &&
                 getCapabilities().getExtendedSupport().isFalse()) {
                 DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
             }
