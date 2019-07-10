@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.madgag.spongycastle:core:1.54.0.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/core/1.54.0.0/de79c5f8c67234f0d0073e00ed1f3bab0e5d1e67/core-1.54.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/core/1.54.0.0/db48985e717651dbcb462f14ab29cb64e7cdb002/core-1.54.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

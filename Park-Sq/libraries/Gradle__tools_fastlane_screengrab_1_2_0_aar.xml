@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: tools.fastlane:screengrab:1.2.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/55a5cc97d4e3119f302a588a09a5961d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/55a5cc97d4e3119f302a588a09a5961d/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/tools.fastlane/screengrab/1.2.0/2b885edfdbd8ae04c1c9e4f9210781915652e031/screengrab-1.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

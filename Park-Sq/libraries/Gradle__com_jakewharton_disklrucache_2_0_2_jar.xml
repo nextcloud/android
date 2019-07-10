@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.jakewharton:disklrucache:2.0.2@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/disklrucache/2.0.2/93b399470e72c0bc8cb52379943b63c9aa586cd8/disklrucache-2.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/disklrucache/2.0.2/a8b600c9a1d9f75cdc45bb1b24b4731845a7658b/disklrucache-2.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

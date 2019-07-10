@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: commons-codec:commons-codec:1.2@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.2/397f4731a9f9b6eb1907e224911c77ea3aa27a8b/commons-codec-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.2/60cbb4687a254280985a93a4da584266d05d7c85/commons-codec-1.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

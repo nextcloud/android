@@ -78,19 +78,6 @@
                 android:padding="@dimen/standard_padding"
                 app:cornerRadius="@dimen/button_corner_radius" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/signup"
-                android:theme="@style/OutlineLogindButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:maxWidth="500dp"
-                android:minWidth="300dp"
-                android:textStyle="bold"
-                android:padding="@dimen/standard_padding"
-                android:text="@string/signup_with_provider"
-                app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
         <TextView
@@ -100,7 +87,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:onClick="onHostYourOwnServerClick"
             android:text="@string/host_your_own_server"/>
     </LinearLayout>
 

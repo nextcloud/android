@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.tobiaskaminsky:android-job:v1.2.6.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1eb77bd01dd4e0645bb1e190af542c77/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1eb77bd01dd4e0645bb1e190af542c77/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.tobiaskaminsky/android-job/v1.2.6.1/cd3d6f87c7df7e0ad8b9942a9b2ec81522b0a5e6/android-job-v1.2.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

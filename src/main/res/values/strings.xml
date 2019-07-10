@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--<string name="app_name">Park-Sq</string>-->
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
@@ -65,7 +66,7 @@
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Check server</string>
-    <string name="auth_host_url">Server address https://…</string>
+    <string name="auth_host_url">Server address https://abcd.park-sq.com (type the address provided by your management team and .park-sq.com) e.g. 6204west90210.park-sq.com</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
     <string name="sync_string_files">Files</string>
@@ -762,11 +763,11 @@
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="login">Log in</string>
     <string name="signup_with_provider">Sign up with provider</string>
-    <string name="host_your_own_server">Host your own server</string>
-    <string name="first_run_1_text">Keep your data secure and under your control</string>
+    <string name="host_your_own_server">Modernizing HOA Management</string>
+    <string name="first_run_1_text">Modernizing the management of the HOA</string>
     <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
-    <string name="first_run_3_text">Easy-to-use web mail, calendering &amp; contacts</string>
-    <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
+    <string name="first_run_3_text">Manage institutional knowledge with enterprise-grade role based access control</string>
+    <string name="first_run_4_text">Search your secure cloud using powerful OCR!</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
