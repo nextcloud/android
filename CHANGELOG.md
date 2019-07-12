@@ -1,3 +1,16 @@
+## 3.7.0 (July, 09, 2019)
+
+- Collabora enhancements
+- Chromebook support
+- delete push notifications if read on other device (NC 18 and newer)
+- open file from notification
+- open file from Talk app
+- minimum supported server: NC12
+- end of life warning: NC13 and older
+- lots of bugfixes and refinements under the hood to provide an even more stable app
+
+For a full list, please see https://github.com/nextcloud/android/milestone/32
+
 ## 3.6.2 (May, 23, 2019)
 - fix bug when creating preview
 - fix crash on opening app
