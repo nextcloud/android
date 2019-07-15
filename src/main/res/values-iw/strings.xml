@@ -18,7 +18,6 @@
     <string name="actionbar_logger">לוגים</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
-    <string name="actionbar_open_as_richdocument">פתיחה עם Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">פתיחה עם %1$s</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_search">חיפוש</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
     <string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
     <string name="auth_check_server">בדיקת שרת</string>
-    <string name="auth_connecting_auth_server">מתחבר לשרת אימות…</string>
     <string name="auth_connection_established">החיבור נוצר</string>
     <string name="auth_expired_basic_auth_toast">יש להכניס את הסיסמא הנוכחית</string>
-    <string name="auth_expired_oauth_token_toast">האישור שלך פג. נא לבצע אישור מחדש</string>
-    <string name="auth_expired_saml_sso_token_toast">זמן ההתקשרות שלך הסתיים. יש להתחבר מחדש</string>
     <string name="auth_fail_get_user_name">השרת שלך אינו מחזיר מזהה משתמש נכון, נא ליצור קשר עם מנהל המערכת</string>
-    <string name="auth_getting_authorization">מקבל אימות…</string>
     <string name="auth_host_address">כתובת שרת</string>
     <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_illegal_login_used">נעשה שימוש בכתובת נתוני כניסה שגויה</string>
@@ -405,10 +400,6 @@
     <string name="notifications_loading_activity">ההתרעות נטענות…</string>
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">כתובת נקודת קצה  לגישה</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">כתובת נקודת קצה לאימות</string>
-    <string name="oauth_check_onoff">כניסה עם OAuth 2.0</string>
-    <string name="oauth_login_connection">התחברות אל שרת oAuth2…</string>
     <string name="offline_mode">אין חיבור לאינטרנט</string>
     <string name="operation_canceled">הפעולה בוטלה.</string>
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
@@ -764,8 +755,6 @@
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
-    <string name="whats_new_device_credentials_content">להשתמש בכל דבר כגון תבנית נעילה, ססמה, קוד או טביעת אצבע כדי לאבטח את המידע שלך.</string>
-    <string name="whats_new_device_credentials_title">שימוש בהגנה הפנימית של מכשיר ה־Android שלך</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>
     <plurals name="sync_fail_in_favourites_content">

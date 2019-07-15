@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Logs</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move">Verplaatsen</string>
-    <string name="actionbar_open_as_richdocument">Openen met Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Openen met %1$s</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Niet-herkende serverversie</string>
     <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_check_server">Controleer server</string>
-    <string name="auth_connecting_auth_server">Verbinden met authenticatie server…</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
     <string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
-    <string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
-    <string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
     <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
-    <string name="auth_getting_authorization">Autorisatie verkrijgen…</string>
     <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Notificaties laden…</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Toegang end point adres</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Auth end point adres</string>
-    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
-    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>
     <string name="offline_mode">Geen internet verbinding</string>
     <string name="operation_canceled">De bewerking werd geannuleerd</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
@@ -774,8 +765,6 @@
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
-    <string name="whats_new_device_credentials_content">Gebruik een patroon, wachtwoord, pin of je vingerafdruk om je gegevens te beveiligen.</string>
-    <string name="whats_new_device_credentials_title">Gebruik de interne Android\'s apparaatbeveiliging</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

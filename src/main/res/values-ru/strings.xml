@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Журналы</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
-    <string name="actionbar_open_as_richdocument">Открыть при помощи Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Открыть с помощью %1$s</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Неизвестная версия сервера</string>
     <string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
     <string name="auth_check_server">Проверить сервер</string>
-    <string name="auth_connecting_auth_server">Подключение к серверу аутентификации…</string>
     <string name="auth_connection_established">Соединение установлено</string>
     <string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
-    <string name="auth_expired_oauth_token_toast">Время авторизации истекло, повторите вход в систему</string>
-    <string name="auth_expired_saml_sso_token_toast">Время сессии истекло, повторите подключение</string>
     <string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор, свяжитесь с вашим администратором</string>
-    <string name="auth_getting_authorization">Авторизация…</string>
     <string name="auth_host_address">Адрес сервера</string>
     <string name="auth_host_url">Адрес сервера https://…</string>
     <string name="auth_illegal_login_used">Неверный URL входа в систему</string>
@@ -408,10 +403,6 @@
     <string name="notifications_loading_activity">Получение уведомлений…</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Адрес конечной точки доступа</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Адрес конечной точки аутентификации</string>
-    <string name="oauth_check_onoff">Войти через OAuth 2.0</string>
-    <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
     <string name="operation_canceled">Операция отменена</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
@@ -764,8 +755,6 @@
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
-    <string name="whats_new_device_credentials_content">Для защиты данных могут быть использованы пароль, ПИН, защитный узор или отпечаток пальца.</string>
-    <string name="whats_new_device_credentials_title">Использовать системные средства защиты</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

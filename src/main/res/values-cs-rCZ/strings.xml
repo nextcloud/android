@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Záznamy událostí</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
-    <string name="actionbar_open_as_richdocument">Otevřít pomocí Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Otevřít pomocí %1$s</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Nerozpoznaná verze serveru</string>
     <string name="auth_can_not_auth_against_server">Nedaří se ověřit vůči tomuto serveru</string>
     <string name="auth_check_server">Zkontrolovat server</string>
-    <string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru…</string>
     <string name="auth_connection_established">Spojení navázáno</string>
     <string name="auth_expired_basic_auth_toast">Zadejte stávající heslo</string>
-    <string name="auth_expired_oauth_token_toast">Platnost vašeho přihlášení skončila. Přihlaste se znovu</string>
-    <string name="auth_expired_saml_sso_token_toast">Platnost vaší relace skončila. Přihlaste se znovu</string>
     <string name="auth_fail_get_user_name">Váš server nevrací správný přihlašovací identifikátor, obraťte se na svého správce systému</string>
-    <string name="auth_getting_authorization">Získávání pověření…</string>
     <string name="auth_host_address">Adresa serveru</string>
     <string name="auth_host_url">Adresa serveru https://…</string>
     <string name="auth_illegal_login_used">Byla použita neplatná přihlašovací URL</string>
@@ -407,10 +402,6 @@
     <string name="notifications_loading_activity">Načítání oznámení…</string>
     <string name="notifications_no_results_headline">Žádná oznámení</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adresa koncového bodu přístupu</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresa koncového bodu ověřování</string>
-    <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string>
-    <string name="oauth_login_connection">Připojování k OAuth 2.0 serveru…</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
     <string name="operation_canceled">Operace byla zrušena</string>
     <string name="outdated_server">Verze aplikace na straně serveru dosáhla konce své životnosti – přejděte na novou!</string>
@@ -766,8 +757,6 @@
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
     <string name="what_s_new_image">Obrázek Co je nového</string>
-    <string name="whats_new_device_credentials_content">Pro zabezpečení svých dat použijte cokoli – ať už odemykací obrazec, heslo, pin kód nebo otisk prstu.</string>
-    <string name="whats_new_device_credentials_title">Použít vnitřní ochranu Android zařízení</string>
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>
     <plurals name="sync_fail_in_favourites_content">

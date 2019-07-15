@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Žurnalai</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_move">Perkelti</string>
-    <string name="actionbar_open_as_richdocument">Atverti naudojant Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Atverti naudojant %1$s</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
     <string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
     <string name="auth_check_server">Patikrinti serverį</string>
-    <string name="auth_connecting_auth_server">Jungiamasi prie tapatybės nustatymo serverio…</string>
     <string name="auth_connection_established">Ryšys užmegztas</string>
     <string name="auth_expired_basic_auth_toast">Prašome įvesti dabartinį slaptažodį</string>
-    <string name="auth_expired_oauth_token_toast">Autorizacijos laikas baigėsi. Prašome autorizuotis iš naujo</string>
-    <string name="auth_expired_saml_sso_token_toast">Jūsų seanso laikas baigėsi. Prašome prisijungti iš naujo</string>
     <string name="auth_fail_get_user_name">Jūsų serveris negrąžina teisingo naudotojo ID, susisiekite su administratoriumi</string>
-    <string name="auth_getting_authorization">Gaunamos prieigos teisės…</string>
     <string name="auth_host_address">Serverio adresas</string>
     <string name="auth_host_url">Serverio adresas https://…</string>
     <string name="auth_incorrect_address_title">Neteisingas serverio adreso formatas</string>
@@ -353,8 +348,6 @@
     <string name="notifications_loading_activity">Įkeliami pranešimai…</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau</string>
-    <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string>
-    <string name="oauth_login_connection">Jungiamasi prie OAuth 2.0 serverio…</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
     <string name="operation_canceled">Operacijos atsisakyta</string>
     <string name="overflow_menu">Daugiau meniu</string>

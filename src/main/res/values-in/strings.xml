@@ -15,7 +15,6 @@
     <string name="actionbar_logger">Log</string>
     <string name="actionbar_mkdir">Folder baru</string>
     <string name="actionbar_move">Pindah</string>
-    <string name="actionbar_open_as_richdocument">Buka dengan Collabora</string>
     <string name="actionbar_open_with">Buka dengan</string>
     <string name="actionbar_search">Cari</string>
     <string name="actionbar_see_details">Rincian</string>
@@ -33,12 +32,8 @@
     <string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
     <string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
     <string name="auth_check_server">Periksa peladen</string>
-    <string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi…</string>
     <string name="auth_connection_established">Sambungan dibuat</string>
     <string name="auth_expired_basic_auth_toast">Masukkan kata sandi saat ini</string>
-    <string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
-    <string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
-    <string name="auth_getting_authorization">Mendapatkan otorisasi…</string>
     <string name="auth_host_address">Alamat server</string>
     <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_incorrect_address_title">Format alamat server salah</string>
@@ -310,8 +305,6 @@
     <string name="notifications_loading_activity">Memuat notifikasi…</string>
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
     <string name="notifications_no_results_message">Cek ulang nanti.</string>
-    <string name="oauth_check_onoff">Masuk dengan 2.0</string>
-    <string name="oauth_login_connection">Menyambungkan ke server OAuth 2.0…</string>
     <string name="offline_mode">Tidak ada koneksi ke internet</string>
     <string name="outdated_server">Server telah mencapai batas hidupnya, tolong ditingkatkan!</string>
     <string name="participate_beta_headline">Uji versi dev</string>

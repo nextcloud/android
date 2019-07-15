@@ -30,8 +30,6 @@
     <string name="auth_check_server">فحص الخادم</string>
     <string name="auth_connection_established">تم الاتصال</string>
     <string name="auth_expired_basic_auth_toast">إدخل كلمة المرور الخاصة بك من فضلك</string>
-    <string name="auth_expired_oauth_token_toast">مدة التحقق انتهت , يرجى اعادة التحقق </string>
-    <string name="auth_expired_saml_sso_token_toast">مدة الجلسة انتهت , يرجى اعادة الاتصال</string>
     <string name="auth_host_address">عنوان الخادم</string>
     <string name="auth_host_url">عنوان الخادوم https://…</string>
     <string name="auth_incorrect_path_title">لم يتم العثور على الخادم</string>
@@ -83,6 +81,7 @@
     <string name="contacts_last_backup">أخر نسخة احتياطية</string>
     <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
+    <string name="copy_internal_link">انسخ الرابط الداخلي</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="date_unknown">مجهول</string>
@@ -206,7 +205,6 @@
     <string name="notification_channel_media_name">مشغل وسائط </string>
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
-    <string name="oauth_login_connection">الاتصال مع خادم oAuth2.0…</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
     <string name="participate_beta_headline">جرّب تطبيق المطورين</string>
     <string name="participate_contribute_forum_forum">المنتدى</string>

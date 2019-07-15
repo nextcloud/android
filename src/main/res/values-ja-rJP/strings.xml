@@ -19,7 +19,6 @@
     <string name="actionbar_logger">ログ</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
-    <string name="actionbar_open_as_richdocument">次で開く Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">%1$s で開く</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_search">検索</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
     <string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="auth_check_server">サーバーをチェック</string>
-    <string name="auth_connecting_auth_server">認証サーバーに接続しています…</string>
     <string name="auth_connection_established">接続が確立しました</string>
     <string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
-    <string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
-    <string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
     <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返さない場合は、管理者に連絡してください</string>
-    <string name="auth_getting_authorization">承認を受ける…</string>
     <string name="auth_host_address">サーバーアドレス</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_illegal_login_used">不正なログインデータURLを使用しています</string>
@@ -410,10 +405,6 @@
     <string name="notifications_loading_activity">通知の読み込み中…</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
-    <string name="oauth_2_0_access_end_point_address_hint">アクセスエンドポイントアドレス</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">認証エンドポイントアドレス</string>
-    <string name="oauth_check_onoff">OAuth 2.0でログインする</string>
-    <string name="oauth_login_connection">OAuth 2.0サーバーに接続中…</string>
     <string name="offline_mode">インターネットに接続されていません</string>
     <string name="operation_canceled">処理がキャンセルされました</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
@@ -767,8 +758,6 @@
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     <string name="what_s_new_image">新しいイメージとは</string>
-    <string name="whats_new_device_credentials_content">データを安全に保つために、パターン、パスワード、ピン、または指紋などを使用してください。</string>
-    <string name="whats_new_device_credentials_title">Androidのデバイス内部保護を使用する</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -34,8 +34,6 @@
     <string name="auth_check_server">Kontrolli serverit</string>
     <string name="auth_connection_established">Saadi ühendus</string>
     <string name="auth_expired_basic_auth_toast">Palun sisesta praegune parool</string>
-    <string name="auth_expired_oauth_token_toast">Sinu autoriseerimine aegus. Palun autoriseeri uuesti</string>
-    <string name="auth_expired_saml_sso_token_toast">Sinu sessioon aegus. Palun ühenda uuesti</string>
     <string name="auth_host_address">Serveri aadress</string>
     <string name="auth_host_url">Serveri aadress https://…</string>
     <string name="auth_incorrect_address_title">Vale serveriaadressi formaat</string>
@@ -224,8 +222,6 @@
     <string name="notification_channel_push_name">Süsteemiteavitused</string>
     <string name="notifications_loading_activity">Teavituste laadimine…</string>
     <string name="notifications_no_results_headline">Märguandeid pole</string>
-    <string name="oauth_check_onoff">OAuth 2.0 sisselogimine</string>
-    <string name="oauth_login_connection">OAuth 2.0 serveriga ühendumine…</string>
     <string name="offline_mode">Internetiühendus puudub</string>
     <string name="participate_beta_headline">Testi arendusversiooni</string>
     <string name="participate_beta_text">See sisaldab kõiki tulevasi funktsioona. Bugisid/vigu võib esineda ja kui nii juhtub, siis palun andke sellest teada.</string>

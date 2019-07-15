@@ -29,13 +29,9 @@
     <string name="auth_bad_oc_version_title">Versiune necunoscuta a serverului </string>
     <string name="auth_can_not_auth_against_server">Nu se poate autentifica la acest server</string>
     <string name="auth_check_server">Verifică serverul</string>
-    <string name="auth_connecting_auth_server">Se conecteaza la serverul de autentificare…</string>
     <string name="auth_connection_established">Conexiune stabilită</string>
     <string name="auth_expired_basic_auth_toast">Va rugăm să introduceți parola actuală</string>
-    <string name="auth_expired_oauth_token_toast">Autorizarea dvs. a expirat. Vă rugăm să autorizați din nou.</string>
-    <string name="auth_expired_saml_sso_token_toast">Sesiunea a expirat .Va rugam conectati-va din nou </string>
     <string name="auth_fail_get_user_name">Server-ul dvs. nu întoarce un ID de utilizator corect, contactați un administrator</string>
-    <string name="auth_getting_authorization">Se obține autorizația…</string>
     <string name="auth_host_address">Adresa server-ului</string>
     <string name="auth_host_url">Adresa serverului https://…</string>
     <string name="auth_illegal_login_used">Adresă URL de date de autentificare ilegală</string>
@@ -297,8 +293,6 @@
     <string name="note_confirm">Trimitere</string>
     <string name="notifications_loading_activity">Se încarcă notificările…</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
-    <string name="oauth_check_onoff">Întră în cont cu OAuth 2.0</string>
-    <string name="oauth_login_connection">Se conectează la serverul OAuth2.0…</string>
     <string name="offline_mode">Nu există conexiune la internet</string>
     <string name="participate_beta_headline">Testează versiunea în dezvoltare</string>
     <string name="participate_contribute_forum_forum">forum</string>

@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Naplók</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
-    <string name="actionbar_open_as_richdocument">Megnyitás a Collaborával</string>
     <string name="actionbar_open_as_richdocument_parameter">Megnyitás ezzel %1$s</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Ismeretlen kiszolgálóverzió</string>
     <string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a kiszolgáló felé</string>
     <string name="auth_check_server">Kiszolgáló-ellenőrzés</string>
-    <string name="auth_connecting_auth_server">Csatlakozás a hitelesítési kiszolgálóhoz…</string>
     <string name="auth_connection_established">A kapcsolat létrejött</string>
     <string name="auth_expired_basic_auth_toast">Adja meg a jelenlegi jelszavát</string>
-    <string name="auth_expired_oauth_token_toast">A jogosultsága lejárt. Jelentkezzen be újra</string>
-    <string name="auth_expired_saml_sso_token_toast">A munkamenete érvényessége lejárt. Jelentkezzen be újra</string>
     <string name="auth_fail_get_user_name">A kiszolgálója nem megfelelő felhasználói azonosítót ad vissza, lépjen kapcsolatba egy rendszergazdával</string>
-    <string name="auth_getting_authorization">Hozzáférés kérése…</string>
     <string name="auth_host_address">Kiszolgálócím</string>
     <string name="auth_host_url">Kiszolgáló cím https://…</string>
     <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
@@ -410,10 +405,6 @@
     <string name="notifications_loading_activity">Értesítések betöltése…</string>
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Hozzáférési végpont címe</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Hitelesítési végpont címe</string>
-    <string name="oauth_check_onoff">Bejelentkezés OAuth 2.0-val</string>
-    <string name="oauth_login_connection">Csatlakozás az OAuth 2.0 kiszolgálóhoz…</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
     <string name="operation_canceled">Művelet megszakítva</string>
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
@@ -770,8 +761,6 @@
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
     <string name="what_s_new_image">Újdonságok kép</string>
-    <string name="whats_new_device_credentials_content">Használjon mintát, jelszót, PIN-kódot vagy az ujjlenyomatát annak érdekében, hogy az adataidat biztonságban tartsa.</string>
-    <string name="whats_new_device_credentials_title">Használja az androidos eszköz belső védelmét</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

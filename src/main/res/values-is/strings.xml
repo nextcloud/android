@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Atvikaskrár</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_move">Færa</string>
-    <string name="actionbar_open_as_richdocument">Opna með Collabora</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_search">Leita</string>
     <string name="actionbar_see_details">Nánar</string>
@@ -40,13 +39,9 @@
     <string name="auth_bad_oc_version_title">Óþekkjanleg útgáfa af þjóni</string>
     <string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_check_server">Athuga með þjón</string>
-    <string name="auth_connecting_auth_server">Tengist við auðkenningarþjón …</string>
     <string name="auth_connection_established">Tengingu komið á</string>
     <string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
-    <string name="auth_expired_oauth_token_toast">Heimild þín er útrunnin. Skráðu þig aftur inn.</string>
-    <string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
     <string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
-    <string name="auth_getting_authorization">Fæ heimild…</string>
     <string name="auth_host_address">Vistfang þjóns</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_illegal_login_used">Notaði óleyfileg slóð á innskráningargögn</string>
@@ -402,10 +397,6 @@
     <string name="notifications_loading_activity">Hleð inn tilkynningum…</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Endavistfang aðgangs</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Endavistfang auðkenningar</string>
-    <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string>
-    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>
     <string name="offline_mode">Engin internettenging</string>
     <string name="operation_canceled">Hætt hefur verið við aðgerð</string>
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
@@ -757,8 +748,6 @@
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
-    <string name="whats_new_device_credentials_content">Notaðu tækni á borð við mynstur, lykilorð eða fingraför til að halda gögnunum þínum öruggum.</string>
-    <string name="whats_new_device_credentials_title">Nota innri varnir Android tækis</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">Nýtt í %1$s?</string>
     <plurals name="sync_fail_in_favourites_content">
