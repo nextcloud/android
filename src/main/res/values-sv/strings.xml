@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Loggar</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move">Flytta</string>
-    <string name="actionbar_open_as_richdocument">Öppna med Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Öppna med %1$s</string>
     <string name="actionbar_open_with">Öppna med</string>
     <string name="actionbar_search">Sök</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
     <string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_check_server">Testa servern</string>
-    <string name="auth_connecting_auth_server">Ansluter till autentiseringsserver…</string>
     <string name="auth_connection_established">Anslutning etablerad</string>
     <string name="auth_expired_basic_auth_toast">Var god ange ditt nuvarande lösenord</string>
-    <string name="auth_expired_oauth_token_toast">Din inloggning har gått ut. Var god logga in igen</string>
-    <string name="auth_expired_saml_sso_token_toast">Din session har upphört att gälla. Vänligen anslut igen</string>
     <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, vänligen kontakta en administratör</string>
-    <string name="auth_getting_authorization">Hämtar auktorisation…</string>
     <string name="auth_host_address">Serveradress</string>
     <string name="auth_host_url">Serveradress https://…</string>
     <string name="auth_illegal_login_used">Illegal URL för inloggningsdata användes</string>
@@ -410,10 +405,6 @@
     <string name="notifications_loading_activity">Laddnings notifieringar…</string>
     <string name="notifications_no_results_headline">Inga notifieringar</string>
     <string name="notifications_no_results_message">Var god kolla igen senare.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Åtkomst slutpunktsadress</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Auth slutpunktsadress</string>
-    <string name="oauth_check_onoff">Logga in med OAuth 2.0</string>
-    <string name="oauth_login_connection">Ansluter till OAuth 2.0 server…</string>
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="operation_canceled">Operationen har avbrutits</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
@@ -773,8 +764,6 @@
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     <string name="what_s_new_image">Vad är nytt-bild</string>
-    <string name="whats_new_device_credentials_content">Använd något som ett mönster, lösenord, pin-kod eller fingeravtryck för att hålla din data säker.</string>
-    <string name="whats_new_device_credentials_title">Använd Android-enhetens interna skydd</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

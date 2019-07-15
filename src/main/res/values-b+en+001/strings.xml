@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Logs</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
-    <string name="actionbar_open_as_richdocument">Open with Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Unrecognised server version</string>
     <string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_check_server">Check server</string>
-    <string name="auth_connecting_auth_server">Connecting to authentication server…</string>
     <string name="auth_connection_established">Connection established</string>
     <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
-    <string name="auth_expired_oauth_token_toast">Your authorisation expired. Please, authorise again</string>
-    <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
     <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
-    <string name="auth_getting_authorization">Getting authorisation…</string>
     <string name="auth_host_address">Server address</string>
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_illegal_login_used">Illegal login data URL used</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Loading notifications…</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Auth end point address</string>
-    <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
-    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
     <string name="offline_mode">No internet connection</string>
     <string name="operation_canceled">Operation has been canceled</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
@@ -774,8 +765,6 @@
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     <string name="what_s_new_image">What\'s new image</string>
-    <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
-    <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

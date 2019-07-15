@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Lokit</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
     <string name="actionbar_move">Siirrä</string>
-    <string name="actionbar_open_as_richdocument">Avaa Collaboralla</string>
     <string name="actionbar_open_as_richdocument_parameter">Avaa käyttäen %1$s</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
     <string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_check_server">Tarkista palvelin</string>
-    <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
     <string name="auth_connection_established">Yhteys muodostettu</string>
     <string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
-    <string name="auth_expired_oauth_token_toast">Valtuutus vanhentui. Valtuuta uudelleen</string>
-    <string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
     <string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
-    <string name="auth_getting_authorization">Haetaan valtuutusta…</string>
     <string name="auth_host_address">Palvelimen osoite</string>
     <string name="auth_host_url">Palvelimen osoite https://…</string>
     <string name="auth_illegal_login_used">Laiton Kirjautmistietojen URL:iä on käytetty</string>
@@ -409,10 +404,6 @@
     <string name="notifications_loading_activity">Ladataan ilmoituksia…</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Pääsypisteen osoite</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Kirjautumisen pääsypisteen osoite</string>
-    <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string>
-    <string name="oauth_login_connection">Yhdistetään OAuth 2.0 -palvelimeen…</string>
     <string name="offline_mode">Ei internetyhteyttä</string>
     <string name="operation_canceled">Toiminto on peruttu</string>
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
@@ -767,8 +758,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
-    <string name="whats_new_device_credentials_content">Käytä mitä tahansa kuten kuviota, salasanaa, pin-koodia tai sormenjälkeäsi pitääksesi tiedostosi turvassa. </string>
-    <string name="whats_new_device_credentials_title">Käytä Android-laitteen sisäistä suojausta.</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
     <plurals name="file_list__footer__folder">

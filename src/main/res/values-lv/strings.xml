@@ -32,12 +32,8 @@
     <string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
     <string name="auth_can_not_auth_against_server">Nevar autentificēt serveri</string>
     <string name="auth_check_server">Pārbaudīt serveri</string>
-    <string name="auth_connecting_auth_server">Savienojas ar autentifikācijas serveri…</string>
     <string name="auth_connection_established">Savienojums ir izveidots</string>
     <string name="auth_expired_basic_auth_toast">Lūdzu, ievadiet pašreizējo paroli</string>
-    <string name="auth_expired_oauth_token_toast">Jūsu pieteikšanās sesija noilgusi. Lūdzu piesakieties no jauna.</string>
-    <string name="auth_expired_saml_sso_token_toast">Jūsu sesija ir beigusies. Lūdzu, izveidojiet savienojumu vēlreiz</string>
-    <string name="auth_getting_authorization">Iegūst pieeju…</string>
     <string name="auth_host_address">Servera adrese</string>
     <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_illegal_login_used">Nepareizs pierakstīšanās datu URL izmantots</string>
@@ -296,8 +292,6 @@
     <string name="new_version_was_created">Jauna versija izveidota</string>
     <string name="notifications_loading_activity">Ielādē paziņojumus…</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
-    <string name="oauth_check_onoff">Pieteikties izmantojot OAuth 2.0</string>
-    <string name="oauth_login_connection">Savienojas ar OAuth 2.0 serveri…</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
     <string name="participate_beta_headline">Testēt dev versiju</string>
     <string name="participate_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>

@@ -3,6 +3,7 @@
     <string name="about_android">Εφαρμογή Android %1$s</string>
     <string name="about_title">Περί</string>
     <string name="about_version">έκδοση %1$s</string>
+    <string name="about_version_with_build">έκδοση %1$s, build #%2$s</string>
     <string name="account_creation_failed">Αποτυχία δημιουργίας λογαριασμού</string>
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
@@ -18,7 +19,7 @@
     <string name="actionbar_logger">Αρχεία καταγραφών</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
     <string name="actionbar_move">Μετακίνηση</string>
-    <string name="actionbar_open_as_richdocument">Άνοιγμα με Collabora</string>
+    <string name="actionbar_open_as_richdocument_parameter">Άνοιγμα με %1$s</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -40,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Μη αναγνωρίσιμη έκδοση διακομιστή</string>
     <string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
-    <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
     <string name="auth_connection_established">Εδραίωση σύνδεσης</string>
     <string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
-    <string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλούμε εξουσιοδοτήστε ξανά</string>
-    <string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
     <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
-    <string name="auth_getting_authorization">Λήψη πιστοποίησης…</string>
     <string name="auth_host_address">Διεύθυνση διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
@@ -86,6 +83,7 @@
     <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
+    <string name="checkbox">Πλαίσιο ελέγχου</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
     <string name="clear_notifications_failed">Αποτυχία εκκαθάρισης όλων των ειδοποιήσεων</string>
@@ -141,8 +139,11 @@
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει</string>
+    <string name="copy_internal_link">Αντιγραφή εσωτερικού συνδέσμου</string>
+    <string name="copy_internal_link_subline">Δουλεύει μόνο για χρήστες με πρόσβαση σε αυτό το φάκελο</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_to">Αντιγραφή σε…</string>
+    <string name="could_not_retrieve_url">Αδυναμία ανάκτησης url</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο...</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
@@ -205,6 +206,8 @@
     <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
+    <string name="end_to_end_encryption_not_enabled">Η κρυπτογράφηση από άκρο σε άκρο είναι απενεργοποιημένη στον διακομιστή.</string>
+    <string name="end_to_end_encryption_not_supported">Η κρυπτογράφηση δουλεύει μόνο σε έκδοση KitKat(4.4) και πάνω.</string>
     <string name="end_to_end_encryption_passphrase_title">Σημειώστε το συνθηματικό κρυπτογράφησης 12 λέξεων</string>
     <string name="end_to_end_encryption_password">Συνθηματικό…</string>
     <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>
@@ -216,6 +219,7 @@
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
+    <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
@@ -310,9 +314,11 @@
     <string name="hint_name">Όνομα</string>
     <string name="hint_note">Σημείωση</string>
     <string name="hint_password">Συνθηματικό</string>
+    <string name="host_not_available">Μη διαθέσιμος διακομιστής</string>
     <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="io_error">Σφάλμα IO</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <string name="link">Σύνδεσμος</string>
     <string name="list_layout">Διάταξη λίστας</string>
@@ -368,8 +374,10 @@
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="note_confirm">Αποστολή</string>
     <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
+    <string name="notification_action_failed">Αποτυχία εκτέλεσης ενέργειας</string>
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
     <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
+    <string name="notification_channel_file_observer_description">Παρακολουθεί αρχεία για αλλαγές</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="notification_channel_media_description">Πρόοδος αναπαραγωγής μουσικής</string>
@@ -379,8 +387,6 @@
     <string name="notifications_loading_activity">Φόρτωση ενημερώσεων…</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
-    <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string>
-    <string name="oauth_login_connection">Σύνδεση στον διακομιστή OAuth 2.0…</string>
     <string name="offline_mode">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
     <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
     <string name="overflow_menu">Περισσότερο μενού</string>
@@ -465,6 +471,7 @@
     <string name="recommend_urls">%1$s ή %2$s</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
     <string name="remove_notification_failed">Αποτυχία αφαίρεσης της ειδοποίησης.</string>
+    <string name="remove_push_notification">Αφαίρεση</string>
     <string name="remove_success_msg">Διαγράφηκε</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
@@ -473,6 +480,7 @@
     <string name="resized_image_not_possible">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος.</string>
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
+    <string name="retrieving_file">Ανάκτηση αρχείου…</string>
     <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
     <string name="saml_authentication_required_text">Απαιτείται συνθηματικό</string>
     <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
@@ -501,6 +509,7 @@
     <string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
     <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Παρακαλούμε ελέγξτε αν υπάρχει ο φάκελος</string>
     <string name="share_link_forbidden_permissions">για να διαμοιραστείτε αυτό το αρχείο</string>
+    <string name="share_link_optional_password_title">Εισάγετε προαιρετικό συνθηματικό</string>
     <string name="share_link_password_title">Εισάγετε ένα συνθηματικό</string>
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
@@ -532,6 +541,7 @@
     <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
+    <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
@@ -565,7 +575,15 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Οι έγκυρες ημερομηνίες του πιστοποιητικού του διακομιστή είναι στο μέλλον</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Η URL δεν ταιριάζει με το όνομα του συστήματος στο πιστοποιητικό</string>
+    <string name="storage_camera">Κάμερα</string>
+    <string name="storage_choose_location">Επιλογή τοποθεσίας αποθήκευσης</string>
     <string name="storage_description_default">Προεπιλογή</string>
+    <string name="storage_documents">Έγγραφα</string>
+    <string name="storage_downloads">Λήψεις</string>
+    <string name="storage_internal_storage">Εσωτερικός αποθηκευτικός χώρος</string>
+    <string name="storage_movies">Βίντεο</string>
+    <string name="storage_music">Μουσική</string>
+    <string name="storage_pictures">Φωτογραφίες</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
@@ -593,9 +611,12 @@
     <string name="tags">Ετικέτες</string>
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="thumbnail">Μικρογραφία</string>
+    <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ...</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
     <string name="trashbin_empty_message">Από εδώ θα μπορείτε να ανακτήσετε τα διαγραμμένα αρχεία</string>
+    <string name="trashbin_file_not_deleted">Το αρχείο %1$s δεν μπορεί να διαγραφεί!</string>
+    <string name="trashbin_file_not_restored">Το αρχείο %1$s δεν μπορεί να ανακτηθεί!</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
@@ -683,7 +704,18 @@
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
-    <string name="whats_new_device_credentials_content">Χρησιμοποιήστε οποιοδήποτε μοτίβο, συνθηματικό, pin ή δακτυλικό αποτύπωμα για να διατηρήσετε ασφαλή τα δεδομένα σας.</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
-    </resources>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d φάκελος</item>
+        <item quantity="other">%1$d φάκελοι</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d αρχείο</item>
+        <item quantity="other">%1$d αρχεία</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d επιλεγμένο</item>
+        <item quantity="other">%d επιλεγμένα</item>
+    </plurals>
+</resources>

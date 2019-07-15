@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Journaux</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
-    <string name="actionbar_open_as_richdocument">Ouvrir dans Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Ouvrir avec %1$s</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
     <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_check_server">Vérifier le serveur</string>
-    <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification…</string>
     <string name="auth_connection_established">Connexion établie</string>
     <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
-    <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
-    <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
     <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
-    <string name="auth_getting_authorization">Contrôle d\'autorisation…</string>
     <string name="auth_host_address">Adresse du serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_illegal_login_used">Utilisation d\'une URL d\'identification non autorisée</string>
@@ -413,10 +408,6 @@ Attention la suppression est irréversible.</string>
     <string name="notifications_loading_activity">Chargement des notifications…</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adresse du point de terminaison d\'accès</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresse du point de terminaison d\'authentification</string>
-    <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string>
-    <string name="oauth_login_connection">Connexion au serveur OAuth 2.0…</string>
     <string name="offline_mode">Aucune connexion Internet</string>
     <string name="operation_canceled">L\'opération a été annulée</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
@@ -776,8 +767,6 @@ Attention la suppression est irréversible.</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
-    <string name="whats_new_device_credentials_content">Utiliser un schéma, un mot de passe, un code d\'accès ou vos empreintes digitales pour sécuriser vos données</string>
-    <string name="whats_new_device_credentials_title">Utiliser la protection interne du terminal Android</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

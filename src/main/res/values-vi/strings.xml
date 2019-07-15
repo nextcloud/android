@@ -27,11 +27,8 @@
     <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ</string>
     <string name="auth_can_not_auth_against_server">Không thể chứng thực với máy chủ này</string>
     <string name="auth_check_server">Kiểm tra máy chủ</string>
-    <string name="auth_connecting_auth_server">Đang kết nối đến máy chủ chứng thực</string>
     <string name="auth_connection_established">Kết nối đã thiết lập</string>
     <string name="auth_expired_basic_auth_toast">Hãy nhập mật khẩu hiện tại</string>
-    <string name="auth_expired_oauth_token_toast">Hạn xác nhận của bạn đã hết. Vui lòng, xác nhận lại</string>
-    <string name="auth_expired_saml_sso_token_toast">Phiên làm việc của bạn đã kết thúc. Vui lòng kết nối lại</string>
     <string name="auth_host_address">Địa chỉ máy chủ</string>
     <string name="auth_host_url">Địa chỉ máy chủ https://…</string>
     <string name="auth_incorrect_address_title">Sai định dạng địa chỉ máy chủ</string>
@@ -444,6 +441,5 @@
     <string name="username">Tài khoản</string>
     <string name="version_dev_download">Tải về</string>
     <string name="wait_a_moment">Đợi một chút…</string>
-    <string name="whats_new_device_credentials_title">Dùng bảo vệ nội bộ của thiết bị Android</string>
     <string name="whats_new_skip">Bỏ qua</string>
     </resources>

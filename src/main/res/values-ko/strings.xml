@@ -18,7 +18,6 @@
     <string name="actionbar_logger">로그</string>
     <string name="actionbar_mkdir">새 폴더</string>
     <string name="actionbar_move">이동</string>
-    <string name="actionbar_open_as_richdocument">콜래보라로 열기</string>
     <string name="actionbar_open_with">다음으로 열기</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_see_details">자세한 정보</string>
@@ -39,13 +38,9 @@
     <string name="auth_bad_oc_version_title">서버 버전을 확인할 수 없음</string>
     <string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_check_server">서버 확인</string>
-    <string name="auth_connecting_auth_server">인증 서버에 연결…</string>
     <string name="auth_connection_established">연결됨</string>
     <string name="auth_expired_basic_auth_toast">현재 암호를 입력하십시오</string>
-    <string name="auth_expired_oauth_token_toast">인증이 만료되었습니다. 다시 인증하십시오</string>
-    <string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속하십시오</string>
     <string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
-    <string name="auth_getting_authorization">인증 중…</string>
     <string name="auth_host_address">서버 주소</string>
     <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_incorrect_address_title">서버 주소 형식이 잘못됨</string>
@@ -375,9 +370,6 @@
     <string name="notifications_loading_activity">알림 불러오는 중…</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
-    <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string>
-    <string name="oauth_login_connection">OAuth 2.0 서버에 연결 중…</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
     <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
     <string name="overflow_menu">메뉴 더 보기</string>
@@ -689,7 +681,6 @@
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
-    <string name="whats_new_device_credentials_content">데이터를 보호하기 위해 패턴, 비밀번호, PIN 또는 지문을 사용합니다</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
     </resources>
