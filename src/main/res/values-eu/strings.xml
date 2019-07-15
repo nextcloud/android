@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Egunkariak</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move">Mugitu</string>
-    <string name="actionbar_open_as_richdocument">Ireki Collabora-rekin</string>
     <string name="actionbar_open_with">Ireki honekin</string>
     <string name="actionbar_search">Bilatu</string>
     <string name="actionbar_see_details">Xehetasunak</string>
@@ -40,14 +39,9 @@
     <string name="auth_bad_oc_version_title">server zerbitzari bertsio ezezaguna</string>
     <string name="auth_can_not_auth_against_server">Ezin da zerbitzariekin kautotu</string>
     <string name="auth_check_server">Egiaztatu zerbitzaria</string>
-    <string name="auth_connecting_auth_server">Autentifikazio zerbitzarira konektatzen...</string>
     <string name="auth_connection_established">Konexioa ezarri da</string>
     <string name="auth_expired_basic_auth_toast">Oraingo pasahitza sartu mesedez</string>
-    <string name="auth_expired_oauth_token_toast">Zure baimena iraungitu da.
-Mesedez, baimendu berriz</string>
-    <string name="auth_expired_saml_sso_token_toast">Zure saioa iraungitu da. Mesdez konektatu berriro</string>
     <string name="auth_fail_get_user_name">Zure zerbitzariak ez du erabiltzaile ID zuzena itzultzen, jarri administratzailearekin harremanetan</string>
-    <string name="auth_getting_authorization">Baimena eskuratzen…</string>
     <string name="auth_host_address">Zerbitzariaren helbidea</string>
     <string name="auth_host_url">Zerbitzariaren helbidea https://…</string>
     <string name="auth_incorrect_address_title">Zerbitzariaren helbidea gaizki dago</string>
@@ -356,7 +350,6 @@ Mesedez, baimendu berriz</string>
     <string name="notification_icon">Jakinarazpen ikonoa</string>
     <string name="notifications_loading_activity">Jakinarazpenak kargatzen…</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
-    <string name="oauth_check_onoff">izena emanda OAuth 2.0 erabiliz</string>
     <string name="offline_mode">Internet konexiorik ez</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="participate_beta_headline">Dev bertsioa probatu</string>

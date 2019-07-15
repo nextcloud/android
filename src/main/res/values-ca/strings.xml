@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Registres</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
     <string name="actionbar_move">Mou</string>
-    <string name="actionbar_open_as_richdocument">Obre amb Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Obre amb %1$s</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
     <string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="auth_check_server">Comprova el servidor</string>
-    <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
     <string name="auth_connection_established">S\'ha establert la connexió</string>
     <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
-    <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
-    <string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
     <string name="auth_fail_get_user_name">El vostre servidor no està retornant un ID d\'usuari correcte, si us plau contacteu amb un administrador</string>
-    <string name="auth_getting_authorization">Aconseguint autorització…</string>
     <string name="auth_host_address">Adreça del servidor</string>
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_illegal_login_used">S\'ha usat una dada d\'entrada d\'url il·legal</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Carregant notificacions…</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Accedeix a adreces de punt final</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Autoritza adreces de punt final</string>
-    <string name="oauth_check_onoff">Inicieu sessió amb OAuth 2.0</string>
-    <string name="oauth_login_connection">Connectant al servidor OAuth 2.0…</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="operation_canceled">L\'operació s\'ha canceŀlat</string>
     <string name="outdated_server">El servidor ha arribat al final de la seva visa, si us plau actualitzeu!</string>
@@ -774,8 +765,6 @@
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>
     <string name="what_s_new_image">Imatge de novetats</string>
-    <string name="whats_new_device_credentials_content">Useu un patró, contrasenya, pin o la vostra empremta digital per mantenir segures les vostres dades.</string>
-    <string name="whats_new_device_credentials_title">Useu la protecció interna del dispositiu Android</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

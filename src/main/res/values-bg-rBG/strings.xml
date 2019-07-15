@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Журнали</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Преместване</string>
-    <string name="actionbar_open_as_richdocument">Отвори с Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Отвори с %1$s</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
     <string name="auth_can_not_auth_against_server">Неуспешно удостоверяване към сървъра</string>
     <string name="auth_check_server">Проверяване на сървъра</string>
-    <string name="auth_connecting_auth_server">Свързване към сървър за удостоверяване</string>
     <string name="auth_connection_established">Осъществена е връзка</string>
     <string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
-    <string name="auth_expired_oauth_token_toast">Пълномощното ви изтече. Моля, упълномощете се отново.</string>
-    <string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
     <string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
-    <string name="auth_getting_authorization">Получаване на оторизация…</string>
     <string name="auth_host_address">Адрес на сървъра</string>
     <string name="auth_host_url">Адрес на сървъра https://…</string>
     <string name="auth_illegal_login_used">Използван е невалиден URL с данни за вход</string>
@@ -78,6 +73,7 @@
     <string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
     <string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
     <string name="authentication_exception">Грешка при удостоверяването</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">Запази в оригиналната папка със статус \"само за четене\"</string>
     <string name="auto_upload_on_wifi">Качване само от Wi-Fi мрежа</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Създаване на нова папка</string>
@@ -356,8 +352,6 @@
     <string name="notifications_loading_activity">Зареждане на известията…</string>
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно.</string>
-    <string name="oauth_check_onoff">Вписване с OAuto 2.0</string>
-    <string name="oauth_login_connection">Свързване към OAuth 2.0 сървър...</string>
     <string name="offline_mode">Няма връзка с Интернет</string>
     <string name="overflow_menu">Повече</string>
     <string name="participate_beta_headline">Тестване на бета версия</string>
@@ -452,8 +446,11 @@
     <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible">Няма наличнo оразмеренo изображение.</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
+    <string name="restore">Възстанови файл</string>
+    <string name="restore_button_description">Възстанови изтрития файл</string>
     <string name="saml_authentication_required_text">Паролата е задължителна</string>
     <string name="saml_authentication_wrong_pass">Грешна парола</string>
+    <string name="scanQR_description">Логване с QR код</string>
     <string name="screenshot_01_gridView">Сигурен дом за всички ваши данни</string>
     <string name="screenshot_04_accounts">Свързване към други профили</string>
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
@@ -477,6 +474,7 @@
     <string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
     <string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
     <string name="share_link_forbidden_permissions">за споделяне на файла</string>
+    <string name="share_link_optional_password_title">Въведи опционална парола</string>
     <string name="share_link_password_title">Въведете парола</string>
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
@@ -545,6 +543,7 @@
     <string name="storage_description_default">Стандартно</string>
     <string name="storage_documents">Документи</string>
     <string name="storage_downloads">Сваляне</string>
+    <string name="storage_internal_storage">Вътрешна памет</string>
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Снимки</string>
@@ -595,6 +594,7 @@
     <string name="update_link_file_error">Възникна грешка при опита за обновяване на споделянето</string>
     <string name="update_link_file_no_exist">Актуализирането беше неуспешно. Моля, проверете дали файлът съществува</string>
     <string name="update_link_forbidden_permissions">за обновяване на споделянето</string>
+    <string name="upload_cannot_create_file">Не е възможно създаването на локален файл</string>
     <string name="upload_chooser_title">Качи от...</string>
     <string name="upload_content_from_other_apps">Качи от други приложения</string>
     <string name="upload_file_dialog_filename">Име на файла</string>
@@ -606,6 +606,7 @@
     <string name="upload_files">Качи файлове</string>
     <string name="upload_list_empty_headline">Няма файлове</string>
     <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматичното качване.</string>
+    <string name="upload_local_storage_full">Локалното място за съхранение е пълно</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     <string name="upload_unknown_error">Неизвестна грешка</string>
@@ -651,6 +652,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>
+    <string name="uploads_view_upload_status_virus_detected">Засечен е вирус. Качването не може да бъде завършено!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Изчакване да излезете от режима за икономия на енергия</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на Wi-Fi връзка</string>

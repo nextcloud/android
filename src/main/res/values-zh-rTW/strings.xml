@@ -18,7 +18,6 @@
     <string name="actionbar_logger">紀錄檔</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
-    <string name="actionbar_open_as_richdocument">使用 Collabora 開啟</string>
     <string name="actionbar_open_as_richdocument_parameter">使用%1$s開啟</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
     <string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
     <string name="auth_check_server">檢查伺服器</string>
-    <string name="auth_connecting_auth_server">連接到驗證伺服器中…</string>
     <string name="auth_connection_established">連線已建立</string>
     <string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
-    <string name="auth_expired_oauth_token_toast">你的登入授權已過期，請再次登入</string>
-    <string name="auth_expired_saml_sso_token_toast">您的工作階段已失效，請重新連線</string>
     <string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者 ID，請聯繫管理人員</string>
-    <string name="auth_getting_authorization">取得驗證中…</string>
     <string name="auth_host_address">伺服器位址</string>
     <string name="auth_host_url">伺服器位址 https://…</string>
     <string name="auth_illegal_login_used">使用了不合法的登入資料URL</string>
@@ -400,10 +395,6 @@
     <string name="notifications_loading_activity">載入通知…</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
-    <string name="oauth_2_0_access_end_point_address_hint">存取終點位址</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">認證終點位址</string>
-    <string name="oauth_check_onoff">透過OAuth 2.0登入</string>
-    <string name="oauth_login_connection">連接到OAuth 2.0伺服器…</string>
     <string name="offline_mode">沒有網路連線</string>
     <string name="operation_canceled">操作取消</string>
     <string name="outdated_server">伺服器已過期，請升級！</string>
@@ -751,8 +742,6 @@
     <string name="wait_checking_credentials">檢查儲存的帳號密碼</string>
     <string name="wait_for_tmp_copy_from_private_storage">由私有儲存空間複製檔案中</string>
     <string name="what_s_new_image">有什麼新圖片？</string>
-    <string name="whats_new_device_credentials_content">請使用 圖形密碼, 密碼或者指紋 以保護您的資料安全</string>
-    <string name="whats_new_device_credentials_title">使用裝置的內部保護</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <plurals name="sync_fail_in_favourites_content">

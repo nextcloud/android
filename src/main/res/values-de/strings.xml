@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Protokolle</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move">Verschieben</string>
-    <string name="actionbar_open_as_richdocument">Mit Collabora öffnen</string>
     <string name="actionbar_open_as_richdocument_parameter">Öffnen mit %1$s</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Unbekannte Serverversion</string>
     <string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_check_server">Server überprüfen</string>
-    <string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server…</string>
     <string name="auth_connection_established">Verbindung hergestellt</string>
     <string name="auth_expired_basic_auth_toast">Bitte geben Sie das aktuelle Passwort ein</string>
-    <string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
-    <string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
     <string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
-    <string name="auth_getting_authorization">Genehmigung erhalten…</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Lade Benachrichtigungen…</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adresse  Zugriffsendpunkt</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresse Autorisierungsendpunkt</string>
-    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
-    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server…</string>
     <string name="offline_mode">Keine Internetverbindung</string>
     <string name="operation_canceled">Vorgang abgebrochen</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
@@ -775,8 +766,6 @@
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
-    <string name="whats_new_device_credentials_content">Verwenden Sie ein Muster, ein Passwort, eine Pin oder Ihren Fingerabdruck um den Zugriff auf Ihre Daten abzusichern.</string>
-    <string name="whats_new_device_credentials_title">Androids internen Geräteschutz verwenden</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

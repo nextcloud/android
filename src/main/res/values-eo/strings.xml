@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Protokoloj</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
     <string name="actionbar_move">Movi</string>
-    <string name="actionbar_open_as_richdocument">Malfermi per „Collabora“</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
     <string name="actionbar_see_details">Detaloj</string>
@@ -40,13 +39,9 @@
     <string name="auth_bad_oc_version_title">Nerekonita versio de servilo</string>
     <string name="auth_can_not_auth_against_server">Ne eblas aŭtentigi kun tiu ĉi servilo</string>
     <string name="auth_check_server">Kontroli servilon</string>
-    <string name="auth_connecting_auth_server">Konektante al rajtigo-servilo...</string>
     <string name="auth_connection_established">Konekto stariĝis</string>
     <string name="auth_expired_basic_auth_toast">Bonvolu entajpi la nunan pasvorton</string>
-    <string name="auth_expired_oauth_token_toast">Via rajtigo senvalidiĝis. Bonvolu rerajtigi.</string>
-    <string name="auth_expired_saml_sso_token_toast">Via seanco senvalidiĝis. Bonvolu re-ensaluti.</string>
     <string name="auth_fail_get_user_name">Via servilo ne liveras ĝustan identigilon de uzanto. Bonvolu kontakti vian administranton.</string>
-    <string name="auth_getting_authorization">Ekhavante rajtigon...</string>
     <string name="auth_host_address">Servila adreso</string>
     <string name="auth_host_url">Servila adreso https://…</string>
     <string name="auth_illegal_login_used">Nepermesita adreso de aŭtentigo</string>
@@ -402,10 +397,6 @@
     <string name="notifications_loading_activity">Ŝargante sciigojn...</string>
     <string name="notifications_no_results_headline">Neniu sciigo</string>
     <string name="notifications_no_results_message">Bonvolu rekontroli poste.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adreso de la finpunkto pri atingo</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adreso de la finpunkto pri aŭtentigo</string>
-    <string name="oauth_check_onoff">Ensaluti per OAuth 2.0</string>
-    <string name="oauth_login_connection">Konektante al OAuth-2.0-servilo...</string>
     <string name="offline_mode">Neniu reta konekto</string>
     <string name="operation_canceled">La funkcio estis nuligita</string>
     <string name="outdated_server">La servilo nun malaktualas, bonvolu ĝisdatigi ĝin!</string>
@@ -757,8 +748,6 @@
     <string name="wait_checking_credentials">Kontrolante konservitajn akreditilojn</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiante dosieron el malpublika konservejo</string>
     <string name="what_s_new_image">Bildo pri Kio nova</string>
-    <string name="whats_new_device_credentials_content">Por sekurigi viajn datumojn, uzu pasvorton, personan identigan numeron (PIN) aŭ vian fingropremaĵon.</string>
-    <string name="whats_new_device_credentials_title">Uzi la Androidan internan protekton de la aparato</string>
     <string name="whats_new_skip">Preterpasi</string>
     <string name="whats_new_title">Novaĵoj en %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

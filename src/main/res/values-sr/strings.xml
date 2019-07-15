@@ -20,7 +20,6 @@
     <string name="actionbar_logger">Записници</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
-    <string name="actionbar_open_as_richdocument">Отвори помоћу Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Отвори помоћу %1$s</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
@@ -44,13 +43,9 @@
     <string name="auth_bad_oc_version_title">Непозната верзија сервера</string>
     <string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
     <string name="auth_check_server">Провери сервер</string>
-    <string name="auth_connecting_auth_server">Повезивање на идентификациони сервер…</string>
     <string name="auth_connection_established">Веза успостављена</string>
     <string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
-    <string name="auth_expired_oauth_token_toast">Ауторизација је истекла. Урадите је поново</string>
-    <string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
     <string name="auth_fail_get_user_name">Сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
-    <string name="auth_getting_authorization">Тражим ауторизацију…</string>
     <string name="auth_host_address">Адреса сервера</string>
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_illegal_login_used">Искоришћена неисправна адреса за податке пријаве</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Учитавам обавештења…</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Молимо проверите касније.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Крајња адреса приступа</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Крајња адреса пријаве</string>
-    <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string>
-    <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером…</string>
     <string name="offline_mode">Нема интернет конекције</string>
     <string name="operation_canceled">Операција је отказана</string>
     <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
@@ -772,8 +763,6 @@
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
     <string name="what_s_new_image">Слика шта је ново</string>
-    <string name="whats_new_device_credentials_content">Користите било шта попут шаблона, лозинке, пина или отиска Вашег прста да заштитите Ваше податке.</string>
-    <string name="whats_new_device_credentials_title">Користи Андроидову интерну заштиту уређаја</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

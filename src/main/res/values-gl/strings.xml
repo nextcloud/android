@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Rexistros</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument">Abrir con Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
     <string name="auth_can_not_auth_against_server">Non é posíbel autenticarse neste servidor</string>
     <string name="auth_check_server">Comprobar o servidor</string>
-    <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
     <string name="auth_connection_established">Estabeleceuse a conexión</string>
     <string name="auth_expired_basic_auth_toast">Introduza o seu contrasinal actual</string>
-    <string name="auth_expired_oauth_token_toast">A súa autorización caducou. Autorícese de novo</string>
-    <string name="auth_expired_saml_sso_token_toast">A súa sesión caducou. Acceda de novo</string>
     <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte cun administrador</string>
-    <string name="auth_getting_authorization">Obtendo autorización…</string>
     <string name="auth_host_address">Enderezo do servidor</string>
     <string name="auth_host_url">Enderezo do servidor https://…</string>
     <string name="auth_illegal_login_used">Usouse un URL de datos de acceso ilegal</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Cargando notificacións…</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis tarde.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Enderezo do punto final de acceso</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Enderezo do punto final de autenticación</string>
-    <string name="oauth_check_onoff">Acceder con OAuth 2.0</string>
-    <string name="oauth_login_connection">Conectando co servidor OAuth 2.0…</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
     <string name="operation_canceled">A operación foi cancelada</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
@@ -775,8 +766,6 @@
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro dende o almacenamento privado</string>
     <string name="what_s_new_image">Imaxe de Que hai de novo</string>
-    <string name="whats_new_device_credentials_content">Use calquera cousa, como un patrón, un contrasinal, un pin ou a súa pegada dactilar para manter os seus datos a seguros.</string>
-    <string name="whats_new_device_credentials_title">Use a protección interna do dispositivo Android</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Logy</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move">Presunúť</string>
-    <string name="actionbar_open_as_richdocument">Otvoriť s Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Otvoriť pomocou %1$s</string>
     <string name="actionbar_open_with">Otvoriť pomocou</string>
     <string name="actionbar_search">Hľadať</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
     <string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="auth_check_server">Skontrolovať server</string>
-    <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server…</string>
     <string name="auth_connection_established">Pripojenie vytvorené</string>
     <string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
-    <string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
-    <string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
     <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské ID, kontaktujte prosím správcu systému </string>
-    <string name="auth_getting_authorization">Získavam autorizáciu…</string>
     <string name="auth_host_address">Adresa servera</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_illegal_login_used">Použitá nedovolená prihlasovacia URL</string>
@@ -410,10 +405,6 @@
     <string name="notifications_loading_activity">Nahrávanie notifikácií…</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adresa end-pointu prístupu</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresa end-pointu overovania</string>
-    <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
-    <string name="oauth_login_connection">Pripájam sa na OAuth 2.0 server…</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="operation_canceled">Operácia bola zrušená</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
@@ -771,8 +762,6 @@
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
-    <string name="whats_new_device_credentials_content">Použi vzor, heslo, PIN alebo odtlačok prsta na zabezpečenie svojich dát.</string>
-    <string name="whats_new_device_credentials_title">Použiť vnútornú ochranu zariadenia Android</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

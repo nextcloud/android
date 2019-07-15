@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Regjistra</string>
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_move">Zhvendose</string>
-    <string name="actionbar_open_as_richdocument">Hape me Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Hapeni me %1$s</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
@@ -41,13 +40,9 @@
     <string name="auth_bad_oc_version_title">Version i papranuar serveri</string>
     <string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_check_server">Kontrollo serverin</string>
-    <string name="auth_connecting_auth_server">Duke u lidhur me serverin e autentifikimit…</string>
     <string name="auth_connection_established">Lidhja u vendos</string>
     <string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
-    <string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
-    <string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
     <string name="auth_fail_get_user_name">Serveri juaj nuk kthen ID e saktë të përdoruesit, ju lutemi kontaktoni nje administrator</string>
-    <string name="auth_getting_authorization">Po merret autorizim…</string>
     <string name="auth_host_address">Adresë serveri</string>
     <string name="auth_host_url">Adresa e serverit https://…</string>
     <string name="auth_illegal_login_used">URL e të dhënave të përdorur për t\'u identifikimit e paligjshme </string>
@@ -404,10 +399,6 @@
     <string name="notifications_loading_activity">Duke ngarkuar njoftimet…</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adresa e qasjes së pikës fundore</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresa e autentifikimit të pikës fundore</string>
-    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
-    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>
     <string name="offline_mode">Asnjë lidhje interneti</string>
     <string name="operation_canceled">Operacioni është anuluar</string>
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
@@ -759,8 +750,6 @@
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>
-    <string name="whats_new_device_credentials_content">Përdorni diçka si një model, fjalëkalim, pin ose gjurmë gishtash për të mbajtur të dhënat tuaja të sigurta.</string>
-    <string name="whats_new_device_credentials_title">Përdorni mbrojtjen e brendshme të pajisjes Android</string>
     <string name="whats_new_skip">Kalo</string>
     <string name="whats_new_title">I ri në %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

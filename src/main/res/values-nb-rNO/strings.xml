@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Logger</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flytt</string>
-    <string name="actionbar_open_as_richdocument">Åpne med Collabora</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -40,13 +39,9 @@
     <string name="auth_bad_oc_version_title">Ukjent serverversjon</string>
     <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
     <string name="auth_check_server">Sjekk server</string>
-    <string name="auth_connecting_auth_server">Kobler til autentiseringsserver…</string>
     <string name="auth_connection_established">Tilkobling opprettet</string>
     <string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
-    <string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Autoriser enheten på nytt</string>
-    <string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
     <string name="auth_fail_get_user_name">Serveren svarer ikke med korrekt bruker-ID. Kontakt administrator</string>
-    <string name="auth_getting_authorization">Henter autorisasjon…</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ugyldig påloggingsdata for URL er brukt</string>
@@ -402,10 +397,6 @@
     <string name="notifications_loading_activity">Laster inn merknader…</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Gå til endepunkt adresse</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adresse til endepunkt for autentisering</string>
-    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
-    <string name="oauth_login_connection">Kobler til OAuth 2.0-server…</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
     <string name="operation_canceled">Operasjonen har blitt avbrutt</string>
     <string name="outdated_server">Server er ikke lengre supportert, ver vennlig å oppgradere!</string>
@@ -753,8 +744,6 @@
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
-    <string name="whats_new_device_credentials_content">Bruk et mønster, passord, pin eller fingeravtrykk for å holde dine data sikret.</string>
-    <string name="whats_new_device_credentials_title">Bruk Android\'s interne enhets beskyttelse</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <plurals name="file_list__footer__folder">

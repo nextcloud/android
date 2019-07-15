@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Logi</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move">Przenieś</string>
-    <string name="actionbar_open_as_richdocument">Otwórz z Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Otwórz za pomocą %1$s</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Nie rozpoznano wersji serwera</string>
     <string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_check_server">Sprawdź serwer</string>
-    <string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania…</string>
     <string name="auth_connection_established">Połączenie nawiązane</string>
     <string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
-    <string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Autoryzuj ponownie</string>
-    <string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Połącz się ponownie</string>
     <string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Skontaktuj się z administratorem</string>
-    <string name="auth_getting_authorization">Autoryzowanie…</string>
     <string name="auth_host_address">Adres serwera</string>
     <string name="auth_host_url">Adres serwera https://…</string>
     <string name="auth_illegal_login_used">Nieprawidłowe dane logowania w użytym adresie URL</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Odczytywanie powiadomień…</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adres dostępu</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Adres autoryzacji</string>
-    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0…</string>
     <string name="offline_mode">Brak połączenia z Internetem…</string>
     <string name="operation_canceled">Operacja została anulowana</string>
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
@@ -774,8 +765,6 @@
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
-    <string name="whats_new_device_credentials_content">Użyj gestu, hasła, pinu lub odcisku palca, aby przechowywać bezpiecznie dane.</string>
-    <string name="whats_new_device_credentials_title">Korzystaj z wbudowanego zabezpieczenia systemu Android</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

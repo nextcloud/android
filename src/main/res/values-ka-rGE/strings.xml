@@ -33,8 +33,6 @@
     <string name="auth_check_server">სერვერის შემოწმება</string>
     <string name="auth_connection_established">კავშირი დამყარდა</string>
     <string name="auth_expired_basic_auth_toast">გთხოვთ შეიყვანოთ ამჟამინდელი პაროლი</string>
-    <string name="auth_expired_oauth_token_toast">თქვენს ავტორიზაციას გაუვიდა ვადა. გთხოვთ ახლიდან გაიაროთ ავტორიზაცია</string>
-    <string name="auth_expired_saml_sso_token_toast">თქვენს სესიას ვადა გაუვიდა. გთხოვთ დაკავშირდდეთ ახლიდან</string>
     <string name="auth_fail_get_user_name">თქვენი სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
     <string name="auth_host_address">სერვერის მისამართი</string>
     <string name="auth_incorrect_address_title">სერვერისთვის არასწორი მისამსამართის ფორმატი</string>
@@ -286,7 +284,6 @@
     <string name="notification_channel_upload_name">შეტყობინებების არხის ატვირთვა</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
-    <string name="oauth_check_onoff">გაიარეთ ავტორიზაცია OAuth 2.0-ით</string>
     <string name="participate_beta_headline">დევ. ვერსიის შემოწმება</string>
     <string name="participate_beta_text">იმყოფება სისხლდენის ზღვარზე და მოიცავს ყველა დამდეგ ფუნქციას. შეიძლება გამოჩნდეს შეცდომები, ასეთი შემთხვევისას გთხოვთ გვამცნობოთ რეპორტით.</string>
     <string name="participate_contribute_forum_forum">ფურუმი</string>

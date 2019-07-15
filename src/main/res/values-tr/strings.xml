@@ -19,7 +19,6 @@
     <string name="actionbar_logger">Günlükler</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
-    <string name="actionbar_open_as_richdocument">Collabora ile aç</string>
     <string name="actionbar_open_as_richdocument_parameter">%1$s ile aç</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">Sunucu sürümü anlaşılamadı</string>
     <string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
     <string name="auth_check_server">Sunucuyu denetle</string>
-    <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor…</string>
     <string name="auth_connection_established">Bağlantı kuruldu</string>
     <string name="auth_expired_basic_auth_toast">Lütfen geçerli parolanızı yazın</string>
-    <string name="auth_expired_oauth_token_toast">Kimlik doğrulama süresi doldu. Lütfen kimliğinizi yeniden doğrulayın</string>
-    <string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
     <string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
-    <string name="auth_getting_authorization">Kimlik doğrulaması alınıyor…</string>
     <string name="auth_host_address">Sunucu adresi</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_illegal_login_used">Kullanılan veri adresi geçersiz</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">Bildirimler yükleniyor…</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Erişim noktası adresi</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Kimlik doğrulama noktası adresi</string>
-    <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string>
-    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
     <string name="operation_canceled">İşlem iptal edildi</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
@@ -774,8 +765,6 @@
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
-    <string name="whats_new_device_credentials_content">Verilerinizin güvenliğini sağlamak için bir şekil, parola, pin ya da parmak izi kullanabilirsiniz.</string>
-    <string name="whats_new_device_credentials_title">Android iç aygıt koruması kullanılsın</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <plurals name="sync_fail_in_favourites_content">

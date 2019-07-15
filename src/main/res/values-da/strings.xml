@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Logge</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flyt</string>
-    <string name="actionbar_open_as_richdocument">Åbn med Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Åbn med %1$s</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Ikke genkendt serverversion</string>
     <string name="auth_can_not_auth_against_server">Kan ikke autorisere forbindelse til denne server</string>
     <string name="auth_check_server">Tjek server</string>
-    <string name="auth_connecting_auth_server">Forbinder til identifikationssserver...</string>
     <string name="auth_connection_established">Forbindelse oprettet</string>
     <string name="auth_expired_basic_auth_toast">Indtast venligst din nuværende adgangskode</string>
-    <string name="auth_expired_oauth_token_toast">Din godkendelse udløb. Gentag godkendelse</string>
-    <string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
     <string name="auth_fail_get_user_name">Din server giver ikke et korrekt bruger id, kontakt venligst en administrator</string>
-    <string name="auth_getting_authorization">Henter autorisering</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ugyldig login data URL benyttet</string>
@@ -405,10 +400,6 @@
     <string name="notifications_loading_activity">Indlæser notifikationer...</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
-    <string name="oauth_2_0_access_end_point_address_hint">Adgangsendepunkt adresse</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">Auth end point adresse</string>
-    <string name="oauth_check_onoff">Log ind med OAuth 2.0</string>
-    <string name="oauth_login_connection">Forbinder til OAuth 2.0 server...</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
     <string name="operation_canceled">Operation annulleret.</string>
     <string name="outdated_server">Serveren har nået sit livs ende, opgrader venligst!</string>
@@ -764,8 +755,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     <string name="what_s_new_image">Hvad nyt billede</string>
-    <string name="whats_new_device_credentials_content">Benyt alt mellem mønster; kodeord, pin eller fingeraftryk til at beskytte dine data.</string>
-    <string name="whats_new_device_credentials_title">Brug Android enhedens interne beskyttelse</string>
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <plurals name="sync_fail_in_favourites_content">

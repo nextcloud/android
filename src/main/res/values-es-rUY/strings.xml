@@ -29,8 +29,6 @@
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_connection_established">Conexión establecida</string>
     <string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
-    <string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
-    <string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
     <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_incorrect_address_title">El formato de dirección para el servidor es erróneo</string>
     <string name="auth_incorrect_path_title">El servidor no se encontró </string>
@@ -227,7 +225,6 @@
     <string name="network_host_not_available">La operación no pudo ser completada. El servidor no está disponible</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
-    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
     <string name="participate_contribute_forum_forum">foro</string>

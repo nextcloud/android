@@ -18,7 +18,6 @@
     <string name="actionbar_logger">Dnevniki</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premakni</string>
-    <string name="actionbar_open_as_richdocument">Odpri s Collabora</string>
     <string name="actionbar_open_as_richdocument_parameter">Odpri s programom %1$s</string>
     <string name="actionbar_open_with">Odpri s programom</string>
     <string name="actionbar_search">Iskanje</string>
@@ -42,13 +41,9 @@
     <string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
     <string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
     <string name="auth_check_server">Preveri strežnik</string>
-    <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom…</string>
     <string name="auth_connection_established">Povezava je vzpostavljena</string>
     <string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
-    <string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
-    <string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
     <string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
-    <string name="auth_getting_authorization">Poteka pridobivanje podatkov overitve…</string>
     <string name="auth_host_address">Naslov strežnika</string>
     <string name="auth_host_url">Naslov strežnika https:// …</string>
     <string name="auth_illegal_login_used">Uporabljen je neveljaven naslov s prijavnimi podatki</string>
@@ -341,8 +336,6 @@
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
-    <string name="oauth_check_onoff">Prijava z OAuth2.0</string>
-    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth2.0…</string>
     <string name="participate_beta_headline">Preizkušanje razvojne različice</string>
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_forum_text">Pomoč uporabnikom na</string>

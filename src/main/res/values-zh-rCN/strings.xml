@@ -19,7 +19,6 @@
     <string name="actionbar_logger">日志</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move">移动</string>
-    <string name="actionbar_open_as_richdocument">使用Collabora打开</string>
     <string name="actionbar_open_as_richdocument_parameter">用%1$s打开</string>
     <string name="actionbar_open_with">打开方式</string>
     <string name="actionbar_search">搜索</string>
@@ -43,13 +42,9 @@
     <string name="auth_bad_oc_version_title">无法识别的服务器版本</string>
     <string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_check_server">检查服务器</string>
-    <string name="auth_connecting_auth_server">正在连接认证服务器…</string>
     <string name="auth_connection_established">连接已建立</string>
     <string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
-    <string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权</string>
-    <string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
     <string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
-    <string name="auth_getting_authorization">认证中…</string>
     <string name="auth_host_address">服务器地址</string>
     <string name="auth_host_url">服务器地址 https://…</string>
     <string name="auth_illegal_login_used">非法登录地址</string>
@@ -411,10 +406,6 @@
     <string name="notifications_loading_activity">通知加载中…</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
-    <string name="oauth_2_0_access_end_point_address_hint">访问端点地址</string>
-    <string name="oauth_2_0_auth_end_point_address_hint">验证端点地址</string>
-    <string name="oauth_check_onoff">使用OAuth 2.0登录</string>
-    <string name="oauth_login_connection">正在连接至 OAuth 2.0 服务器…</string>
     <string name="offline_mode">无网络连接</string>
     <string name="operation_canceled">操作已取消</string>
     <string name="outdated_server">服务器即将寿命终止，请升级！</string>
@@ -777,8 +768,6 @@
     <string name="wait_checking_credentials">检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     <string name="what_s_new_image">有什么新图片</string>
-    <string name="whats_new_device_credentials_content">通过使用图案，密码，PIN 或指纹等方式来确保您的数据安全。</string>
-    <string name="whats_new_device_credentials_title">使用 Android 设备内部保护</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <plurals name="sync_fail_in_favourites_content">
