@@ -56,7 +56,6 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
@@ -1177,16 +1176,6 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void revertBottomNavigationBarToAllFiles() {
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            BottomNavigationView bottomNavigationView = getListOfFilesFragment().getView()
-                    .findViewById(R.id.bottom_navigation_view);
-            if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
-                bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
-            }
-        }
-    }
-
     @Override
     public void onBackPressed() {
         boolean isDrawerOpen = isDrawerOpen();
@@ -1264,8 +1253,6 @@ public class FileDisplayActivity extends FileActivity
             startFile = getIntent().getParcelableExtra(EXTRA_FILE);
             setFile(startFile);
         }
-
-        revertBottomNavigationBarToAllFiles();
 
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {

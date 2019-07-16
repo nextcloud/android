@@ -368,7 +368,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         boolean hasSearchSupport = accountManager.getServerVersion(account).isSearchSupported();
 
-        DrawerMenuUtil.filterForBottomToolbarMenuItems(menu, getResources());
         DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources(), hasSearchSupport);
         DrawerMenuUtil.filterTrashbinMenuItem(menu, account, capability, accountManager);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);

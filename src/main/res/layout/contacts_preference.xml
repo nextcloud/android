@@ -19,12 +19,11 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        android:id="@+id/drawer_layout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:clickable="true"
-                                        android:fitsSystemWindows="true">
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:fitsSystemWindows="true">
 
     <!-- The main content view -->
     <RelativeLayout
@@ -40,23 +39,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_navigation_view"
             android:layout_below="@+id/navigation_bar"
             android:id="@+id/frame_container">
 
         </FrameLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            app:itemBackground="@color/primary_button_background_color"
-            app:itemIconTint="@color/primary_button_text_color"
-            app:itemTextColor="@color/primary_button_text_color"
-            app:menu="@menu/navigation_bar_menu"/>
-
     </RelativeLayout>
 
     <include
