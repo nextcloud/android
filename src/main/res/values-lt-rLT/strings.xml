@@ -400,6 +400,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Išsaugoti poaplankyje pagal metus ir mėnesį</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Naudoti poaplankius</string>
     <string name="prefs_license">Licencija</string>
+    <string name="prefs_lock_none">Nėra</string>
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_recommend">Rekomenduok draugui</string>
@@ -431,6 +432,7 @@
     <string name="resized_image_not_possible_download">Nėra prieinamas pakeisto dydžio paveikslas. Atsisiųsti pilno dydžio paveikslą?</string>
     <string name="restore">Atkurti failą</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
+    <string name="retrieving_file">Gaunamas failas…</string>
     <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
     <string name="saml_authentication_required_text">Reikalingas slaptažodis</string>
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
@@ -618,4 +620,16 @@
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
     <string name="whats_new_skip">Praleisti</string>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d aplankas</item>
+        <item quantity="few">%1$d aplankai</item>
+        <item quantity="many">%1$d aplankų</item>
+        <item quantity="other">%1$d aplankas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d failas</item>
+        <item quantity="few">%1$d failai</item>
+        <item quantity="many">%1$d failų</item>
+        <item quantity="other">%1$d failas</item>
+    </plurals>
     </resources>
