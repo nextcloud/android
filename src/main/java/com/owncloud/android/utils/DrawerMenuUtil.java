@@ -38,12 +38,6 @@ public final class DrawerMenuUtil {
     private DrawerMenuUtil() {
     }
 
-    public static void filterForBottomToolbarMenuItems(Menu menu, Resources resources) {
-        if (resources.getBoolean(R.bool.bottom_toolbar_enabled)) {
-            filterMenuItems(menu, R.id.nav_all_files, R.id.nav_settings, R.id.nav_favorites, R.id.nav_photos);
-        }
-    }
-
     public static void filterSearchMenuItems(Menu menu,
                                              Account account,
                                              Resources resources,

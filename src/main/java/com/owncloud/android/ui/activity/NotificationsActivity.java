@@ -38,7 +38,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
@@ -241,19 +240,6 @@ public class NotificationsActivity extends FileActivity implements Notifications
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(
-                getUserAccountManager().getCurrentAccount(),
-                bottomNavigationView,
-                getResources(),
-                accountManager,
-                this,
-                -1);
-        }
 
         fetchAndSetData();
     }
