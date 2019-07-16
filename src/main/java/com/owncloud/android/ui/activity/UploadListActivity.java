@@ -43,7 +43,6 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
@@ -59,7 +58,6 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -153,20 +151,6 @@ public class UploadListActivity extends FileActivity {
 
         if (getSupportActionBar() != null) {
             ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
-        }
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(
-                getUserAccountManager().getCurrentAccount(),
-                bottomNavigationView,
-                getResources(),
-                accountManager,
-                this,
-                -1
-            );
         }
     }
 

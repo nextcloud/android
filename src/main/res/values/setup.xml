@@ -80,9 +80,6 @@
     <!-- Various other options -->
     <bool name="allow_profile_click">true</bool>
 
-    <!-- Bottom toolbar -->
-    <bool name="bottom_toolbar_enabled">false</bool>
-
     <!-- Help, imprint and feedback, and other things -->
     <bool name="passcode_enabled">true</bool>
     <bool name="device_credentials_enabled">true</bool>

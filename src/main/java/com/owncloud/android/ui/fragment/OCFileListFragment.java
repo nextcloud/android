@@ -47,7 +47,6 @@ import android.widget.AbsListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
@@ -187,8 +186,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private ActionMode mActiveActionMode;
     private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
-    private BottomNavigationView bottomNavigationView;
-
     private SearchType currentSearchType;
     private boolean searchFragment;
     private SearchEvent searchEvent;
@@ -271,7 +268,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
         if (savedInstanceState != null
                 && Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE)) != null &&
@@ -283,30 +279,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
             currentSearchType = SearchType.NO_SEARCH;
         }
 
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            DisplayUtils.setupBottomBar(
-                accountManager.getCurrentAccount(),
-                bottomNavigationView, getResources(),
-                accountManager,
-                getActivity(),
-                R.id.nav_bar_files
-            );
-        }
-
-        if (!getResources().getBoolean(R.bool.bottom_toolbar_enabled) || savedInstanceState != null) {
-
+        if (savedInstanceState != null) {
             final View fabView = v.findViewById(R.id.fab_main);
             final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                     fabView.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    fabView.setLayoutParams(layoutParams);
-                    fabView.invalidate();
-                }
+            new Handler().post(() -> {
+                fabView.setLayoutParams(layoutParams);
+                fabView.invalidate();
             });
         }
 
@@ -1337,16 +1317,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void unsetAllMenuItems(final boolean unsetDrawer) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                if (unsetDrawer) {
-                    EventBus.getDefault().post(new DummyDrawerEvent());
-                } else {
-                    if (bottomNavigationView != null) {
-                        bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
-                    }
-                }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (unsetDrawer) {
+                EventBus.getDefault().post(new DummyDrawerEvent());
             }
         });
 
@@ -1498,30 +1471,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             unsetAllMenuItems(true);
         }
 
-
-        if (bottomNavigationView != null && isSearchEventSet(searchEvent)) {
-            switch (currentSearchType) {
-                case FAVORITE_SEARCH:
-                    DisplayUtils.setBottomBarItem(bottomNavigationView, R.id.nav_bar_favorites);
-                    break;
-                case PHOTO_SEARCH:
-                    DisplayUtils.setBottomBarItem(bottomNavigationView, R.id.nav_bar_photos);
-                    break;
-
-                default:
-                    DisplayUtils.setBottomBarItem(bottomNavigationView, -1);
-                    break;
-            }
-        }
-
-        Runnable switchViewsRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (isGridViewPreferred(mFile) && !isGridEnabled()) {
-                    switchToGridView();
-                } else if (!isGridViewPreferred(mFile) && isGridEnabled()) {
-                    switchToListView();
-                }
+        Runnable switchViewsRunnable = () -> {
+            if (isGridViewPreferred(mFile) && !isGridEnabled()) {
+                switchToGridView();
+            } else if (!isGridViewPreferred(mFile) && isGridEnabled()) {
+                switchToListView();
             }
         };
 
