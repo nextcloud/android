@@ -47,7 +47,6 @@
             android:id="@+id/ListLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_navigation_view"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -97,17 +96,6 @@
                 android:scrollbars="vertical"
                 android:visibility="visible"/>
         </FrameLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            app:itemBackground="@color/primary_button_background_color"
-            app:itemIconTint="@color/primary_button_text_color"
-            app:itemTextColor="@color/primary_button_text_color"
-            app:menu="@menu/navigation_bar_menu"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
