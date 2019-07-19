@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
@@ -84,6 +85,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -548,6 +551,41 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         if (!result.isSuccess()) {
             throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
         }
+    }
+
+    @Override
+    public boolean isChildDocument(String parentDocumentId, String documentId) {
+        OCFile parentFile = currentStorageManager.getFileById(Long.parseLong(parentDocumentId));
+        OCFile childFile = currentStorageManager.getFileById(Long.parseLong(documentId));
+
+        if (childFile.getParentId() == parentFile.getFileId()) {
+            return true;
+        }
+
+        OCFile currentParent = currentStorageManager.getFileById(childFile.getParentId());
+
+        while (!ROOT_PATH.equals(currentParent.getRemotePath())) {
+            if (parentFile.getRemoteId().equals(currentParent.getRemoteId())) {
+                return true;
+            }
+
+            currentParent = currentStorageManager.getFileById(currentParent.getParentId());
+        }
+
+        return false;
+    }
+
+    @Override
+    public Cursor queryChildDocuments(String parentDocumentId, @Nullable String[] projection, @Nullable Bundle queryArgs) throws FileNotFoundException {
+        final FileCursor resultCursor = new FileCursor(projection);
+
+        final long folderId = Long.parseLong(parentDocumentId);
+        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
+        for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
+            resultCursor.addFile(file);
+        }
+
+        return resultCursor;
     }
 
     @SuppressLint("LongLogTag")
