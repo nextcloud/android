@@ -15,7 +15,7 @@
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>
     <string name="actionbar_contacts_restore">Przywróć kontakty</string>
-    <string name="actionbar_copy">Skopiuj</string>
+    <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_logger">Logi</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move">Przenieś</string>
@@ -147,7 +147,7 @@
     <string name="copy_internal_link_subline">Działa tylko dla użytkowników mających dostęp do tego katalogu</string>
     <string name="copy_link">Skopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
-    <string name="copy_to">Skopiuj do…</string>
+    <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_file_from_template">Tworzenie pliku z szablonu…</string>
