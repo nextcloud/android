@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.OCUploadComparator;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -59,7 +60,6 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import butterknife.BindView;
@@ -714,7 +714,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             for (OCUpload upload : array) {
                 upload.setDataFixed(binder);
             }
-            Arrays.sort(array, comparator);
+            Arrays.sort(array, new OCUploadComparator());
 
             setItems(array);
         }
@@ -722,46 +722,5 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         private int getGroupItemCount() {
             return items == null ? 0 : items.length;
         }
-
-        Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
-            @Override
-            public int compare(OCUpload upload1, OCUpload upload2) {
-                if (upload1 == null && upload2 == null) {
-                    return 0;
-                }
-                if (upload1 == null) {
-                    return -1;
-                }
-                if (upload2 == null) {
-                    return 1;
-                }
-                if (UploadStatus.UPLOAD_IN_PROGRESS == upload1.getFixedUploadStatus()) {
-                    if (UploadStatus.UPLOAD_IN_PROGRESS != upload2.getFixedUploadStatus()) {
-                        return -1;
-                    }
-                    // both are in progress
-                    if (upload1.isFixedUploadingNow()) {
-                        return -1;
-                    } else if (upload2.isFixedUploadingNow()) {
-                        return 1;
-                    }
-                } else if (upload2.getFixedUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
-                    return 1;
-                }
-                if (upload1.getFixedUploadEndTimeStamp() == 0 || upload2.getFixedUploadEndTimeStamp() == 0) {
-                    return compareUploadId(upload1, upload2);
-                } else {
-                    return compareUpdateTime(upload1, upload2);
-                }
-            }
-
-            private int compareUploadId(OCUpload upload1, OCUpload upload2) {
-                return Long.compare(upload1.getFixedUploadId(), upload2.getFixedUploadId());
-            }
-
-            private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
-                return Long.compare(upload2.getFixedUploadEndTimeStamp(), upload1.getFixedUploadEndTimeStamp());
-            }
-        };
     }
 }
