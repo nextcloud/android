@@ -3,6 +3,7 @@
     <string name="about_android">%1$s aplicație Android</string>
     <string name="about_title">Despre</string>
     <string name="about_version">versiunea %1$s</string>
+    <string name="about_version_with_build">versiunea %1$s, asamblarea #%2$s</string>
     <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
