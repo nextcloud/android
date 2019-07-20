@@ -711,8 +711,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         void fixAndSortItems(OCUpload... array) {
             FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
 
-            for (OCUpload upload : array) {
-                upload.setDataFixed(binder);
+            synchronized (binder.uploadStartLock()) {
+                for (OCUpload upload : array) {
+                    upload.setDataFixed(binder);
+                }
             }
             Arrays.sort(array, comparator);
 
