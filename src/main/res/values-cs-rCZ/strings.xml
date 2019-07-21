@@ -142,6 +142,8 @@
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
     <string name="copy_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="copy_file_not_found">Nedaří se zkopírovat. Zkontrolujte zda soubor existuje</string>
+    <string name="copy_internal_link">Zkopírovat interní odkaz</string>
+    <string name="copy_internal_link_subline">Funguje pouze pro uživatele, kteří mají přístup k této složce</string>
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
