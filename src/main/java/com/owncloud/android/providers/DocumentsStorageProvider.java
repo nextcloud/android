@@ -40,6 +40,7 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
+import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import android.util.Log;
 import android.widget.Toast;
@@ -87,6 +88,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
+import lombok.Setter;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -99,6 +101,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private FileDataStorageManager currentStorageManager;
     private Map<Long, FileDataStorageManager> rootIdToStorageManager;
     private OwnCloudClient client;
+    @Setter
+    private boolean isSyncRunning = false;
 
     UserAccountManager accountManager;
 
@@ -183,6 +187,75 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         return resultCursor;
+    }
+
+    @Override
+    public Cursor queryChildDocuments(String parentDocumentId,
+                                      @Nullable String[] projection,
+                                      @Nullable Bundle queryArgs) {
+
+        final long folderId = Long.parseLong(parentDocumentId);
+        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
+
+        String documentsAuthority = getContext().getResources().getString(R.string.document_provider_authority);
+
+        if (syncIsNeeded(browsedDir)) {
+            new DocumentStorageProviderGetContentTask(this,
+                                                      getContext(),
+                                                      browsedDir,
+                                                      currentStorageManager,
+                                                      accountManager,
+                                                      client,
+                                                      parentDocumentId).execute();
+
+            final FileCursor resultCursor = new FileCursor(projection) {
+                @Override
+                public Bundle getExtras() {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(DocumentsContract.EXTRA_LOADING, true);
+                    return bundle;
+                }
+            };
+
+            for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
+                resultCursor.addFile(file);
+            }
+
+            Uri uri = DocumentsContract.buildChildDocumentsUri(documentsAuthority, parentDocumentId);
+            resultCursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+            return resultCursor;
+
+        } else {
+            final FileCursor resultCursor = new FileCursor(projection) {
+                @Override
+                public Bundle getExtras() {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(DocumentsContract.EXTRA_LOADING, isSyncRunning);
+                    return bundle;
+                }
+            };
+
+            for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
+                resultCursor.addFile(file);
+            }
+
+            return resultCursor;
+        }
+    }
+
+    /**
+     * Checks if last sync is older than 10s
+     *
+     * @param folder folder to check if sync is needed
+     * @return true if last sync is older than 10s, else false
+     */
+    private boolean syncIsNeeded(OCFile folder) {
+        if (isSyncRunning) {
+            return false;
+        } else {
+            return (System.currentTimeMillis() - folder.getLastSyncDateForData() > 10000);
+        }
     }
 
     @SuppressLint("LongLogTag")
@@ -573,19 +646,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         return false;
-    }
-
-    @Override
-    public Cursor queryChildDocuments(String parentDocumentId, @Nullable String[] projection, @Nullable Bundle queryArgs) throws FileNotFoundException {
-        final FileCursor resultCursor = new FileCursor(projection);
-
-        final long folderId = Long.parseLong(parentDocumentId);
-        final OCFile browsedDir = currentStorageManager.getFileById(folderId);
-        for (OCFile file : currentStorageManager.getFolderContent(browsedDir, false)) {
-            resultCursor.addFile(file);
-        }
-
-        return resultCursor;
     }
 
     @SuppressLint("LongLogTag")
