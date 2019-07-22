@@ -1,4 +1,10 @@
-#!/bin/sh
+#!/bin/sh -e
 
-export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
-[ $(git diff --name-only origin/$BRANCH | grep -c "^src") -eq 0 ] && echo "No source files changed" && exit 1
+export BRANCH=$(scripts/analysis/getBranchBase.sh $1 $2 $3 | sed s'/"//'g)
+if [ $(git diff --name-only origin/$BRANCH | grep -c "^src") -eq 0 ] ; then
+    echo "No source files changed"
+    exit 1
+else
+    echo "Source files changed -> continue with CI"
+    exit 0
+fi
