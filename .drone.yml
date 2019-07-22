@@ -4,8 +4,13 @@ name: generic
 steps:
   - name: generic
     image: nextcloudci/android:android-49
+    environment:
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
     commands:
-      - scripts/checkIfRunDrone.sh || exit 0
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - ./gradlew assembleGeneric
 
   - name: notify
@@ -22,6 +27,10 @@ steps:
         from_secret: EMAIL_RECIPIENTS
       host:
         from_secret: EMAIL_HOST
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
     when:
       event:
         - push
@@ -56,7 +65,7 @@ steps:
         from_secret: GIT_TOKEN
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
-      - scripts/checkIfRunDrone.sh || exit 0
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - ./gradlew assembleGplay
       - emulator -avd android-27 -no-window -no-audio &
       - ./wait_for_emulator.sh
@@ -116,7 +125,7 @@ steps:
       LOG_PASSWORD:
         from_secret: LOG_PASSWORD
     commands:
-      - scripts/checkIfRunDrone.sh || exit 0
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
       - scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
 
@@ -170,7 +179,7 @@ steps:
       KEY_PASS:
         from_secret: KEY_PASS
     commands:
-      - scripts/checkIfRunDrone.sh || exit 0
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - sed -i "/qa/,/\}/ s/versionCode .*/versionCode $DRONE_BUILD_NUMBER/" build.gradle
       - sed -i "/qa/,/\}/ s/versionName .*/versionName \"$DRONE_BUILD_NUMBER\"/" build.gradle
       - ./gradlew assembleQaDebug
