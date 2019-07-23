@@ -372,6 +372,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
+        if (getContext() == null) {
+            return false;
+        }
+
         accountManager = UserAccountManagerImpl.fromContext(getContext());
         return true;
     }
@@ -572,17 +576,17 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         if (!tempDir.exists()) {
             if (!tempDir.mkdirs()) {
-                throw new FileNotFoundException("Temp folder could not be created");
+                throw new FileNotFoundException("Temp folder could not be created: " + tempDir.getAbsolutePath());
             }
         }
 
         File emptyFile = new File(tempDir, displayName);
         try {
             if (!emptyFile.createNewFile()) {
-                throw new FileNotFoundException("File could not be created");
+                throw new FileNotFoundException("File could not be created: " + emptyFile.getAbsolutePath());
             }
         } catch (IOException e) {
-            throw new FileNotFoundException("File could not be created");
+            throw new FileNotFoundException("File could not be created: " + emptyFile.getAbsolutePath());
         }
 
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
