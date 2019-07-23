@@ -569,6 +569,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         // create dummy file
         File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
+
+        if (!tempDir.exists()) {
+            if (!tempDir.mkdirs()) {
+                throw new FileNotFoundException("Temp folder could not be created");
+            }
+        }
+
         File emptyFile = new File(tempDir, displayName);
         try {
             if (!emptyFile.createNewFile()) {
