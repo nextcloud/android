@@ -37,7 +37,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Instrumented unit test, to be run in an Android emulator or device.
  *
  * At the moment, it's a sample to validate the automatic test environment, in the scope of instrumented unit tests.
- *
+ *vvlcvlc
  * Don't take it as an example of completeness.
  *
  * See http://developer.android.com/intl/es/training/testing/unit-testing/instrumented-unit-tests.html .
