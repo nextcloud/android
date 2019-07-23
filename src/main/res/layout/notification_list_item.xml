@@ -35,11 +35,13 @@
         android:layout_width="@dimen/notification_icon_width"
         android:layout_height="@dimen/notification_icon_height"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/notification_icon_layout_right_end_margin"
         android:layout_marginEnd="@dimen/notification_icon_layout_right_end_margin"
+        android:layout_marginRight="@dimen/notification_icon_layout_right_end_margin"
+        android:padding="2dp"
         android:alpha="0.5"
-        android:src="@drawable/ic_notification"
-        android:contentDescription="@string/notification_icon"/>
+        android:background="@drawable/round_bgnd"
+        android:contentDescription="@string/notification_icon"
+        android:src="@drawable/ic_notification" />
 
     <LinearLayout
         android:layout_width="match_parent"
