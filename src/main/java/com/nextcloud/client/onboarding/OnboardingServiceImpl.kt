@@ -22,12 +22,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
-
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
-import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.features.FeatureItem
 import com.owncloud.android.ui.activity.PassCodeActivity
 
@@ -41,9 +39,10 @@ internal class OnboardingServiceImpl constructor(
         const val ITEM_VERSION_CODE = 99999999
     }
 
-    private val notSeenYet: Boolean get() {
-        return BuildConfig.VERSION_CODE >= ITEM_VERSION_CODE && preferences.lastSeenVersionCode < ITEM_VERSION_CODE
-    }
+    private val notSeenYet: Boolean
+        get() {
+            return BuildConfig.VERSION_CODE >= ITEM_VERSION_CODE && preferences.lastSeenVersionCode < ITEM_VERSION_CODE
+        }
 
     override val whatsNew: Array<FeatureItem>
         get() = if (!isFirstRun && notSeenYet) {
