@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
@@ -277,17 +276,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
         } else {
             currentSearchType = SearchType.NO_SEARCH;
-        }
-
-        if (savedInstanceState != null) {
-            final View fabView = v.findViewById(R.id.fab_main);
-            final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
-                    fabView.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            new Handler().post(() -> {
-                fabView.setLayoutParams(layoutParams);
-                fabView.invalidate();
-            });
         }
 
         Bundle args = getArguments();
