@@ -294,7 +294,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.18.8"
     annotationProcessor "org.projectlombok:lombok:1.18.8"
 
-    ktlint "com.pinterest:ktlint:0.34.0"
+    ktlint "com.pinterest:ktlint:0.34.1"
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
