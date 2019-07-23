@@ -1676,7 +1676,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private boolean isSearchEventSet(SearchEvent event) {
-        return event != null && !TextUtils.isEmpty(event.getSearchQuery()) && event.getSearchType() != null
+        return event != null && event.getSearchType() != null &&
+            (!TextUtils.isEmpty(event.getSearchQuery()) ||
+                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH)
             && event.getUnsetType() != null;
     }
 }
