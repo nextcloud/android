@@ -529,6 +529,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
+    public void removeDocument(String documentId, String parentDocumentId) throws FileNotFoundException {
+        deleteDocument(documentId);
+    }
+
+    @Override
     public void deleteDocument(String documentId) throws FileNotFoundException {
         long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
