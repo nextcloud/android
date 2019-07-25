@@ -80,6 +80,7 @@
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="autoupload_create_new_custom_folder">Додај фасциклу која није на листи</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
+    <string name="autoupload_disable_power_save_check">Искључи проверу уштеде батерије</string>
     <string name="avatar">Аватар</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Искључи</string>
@@ -447,6 +448,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
+    <string name="power_check_dialog_title">Искључи проверу уштеде батерије</string>
+    <string name="power_save_check_dialog_message">Искључивање провере уштеде батерије може да доведе до тога да отпремате фајлове са празном батеријом!</string>
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
     <string name="pref_behaviour_entries_keep_file">остављен у изворној фасцикли</string>
     <string name="pref_behaviour_entries_move">премештен у фасциклу апликације</string>
