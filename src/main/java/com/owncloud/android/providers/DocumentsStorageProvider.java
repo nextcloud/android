@@ -595,22 +595,27 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                 FileUploader.LOCAL_BEHAVIOUR_MOVE, true, UploadFileOperation.CREATED_BY_USER, false,
                                 false);
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Log_OC.e(TAG, "Thread interruption error");
-        }
-
-        RemoteOperationResult updateParent = new RefreshFolderOperation(parent, System.currentTimeMillis(),
-                                                                        false, false, true, currentStorageManager,
-                                                                        account, getContext()).execute(client);
-
-        if (!updateParent.isSuccess()) {
-            throw new FileNotFoundException("Failed to create document with documentId " + documentId);
-        }
-
         String newFilePath = parent.getRemotePath() + displayName;
         OCFile newFile = currentStorageManager.getFileByPath(newFilePath);
+
+        for (int i = 0; newFile == null || i <= 3; i++) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Log_OC.e(TAG, "Thread interruption error");
+            }
+
+            RemoteOperationResult updateParent = new RefreshFolderOperation(parent, System.currentTimeMillis(),
+                                                                            false, false, true, currentStorageManager,
+                                                                            account, getContext()).execute(client);
+
+            if (!updateParent.isSuccess()) {
+                throw new FileNotFoundException("Failed to create document with documentId " + documentId);
+            }
+
+
+            newFile = currentStorageManager.getFileByPath(newFilePath);
+        }
 
         return String.valueOf(newFile.getFileId());
     }
