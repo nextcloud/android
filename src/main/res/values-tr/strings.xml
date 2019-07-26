@@ -563,7 +563,7 @@
     <string name="share_privilege_unshare">Paylaşımı Kaldır</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
-    <string name="share_search">Ad, birleşmiş bulut kodu ya da e-posta adresi…</string>
+    <string name="share_search">Ad, birleşik bulut kodu ya da e-posta adresi…</string>
     <string name="share_send_note">Alıcıya not</string>
     <string name="share_via_link_edit_permission_label">Düzenlenebilsin</string>
     <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
