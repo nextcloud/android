@@ -57,12 +57,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -70,7 +71,6 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -261,7 +261,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @SuppressLint("LongLogTag")
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         final long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
@@ -303,9 +303,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Thread syncThread = new Thread(() -> {
                 try {
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(account, context.getContentResolver());
+                        new FileDataStorageManager(account, context.getContentResolver());
                     SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(finalFile, null, account, true, context);
+                        new SynchronizeFileOperation(finalFile, null, account, true, context);
                     RemoteOperationResult result = sfo.execute(storageManager, context);
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
@@ -366,8 +366,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private void showToast() {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(() -> Toast.makeText(MainApp.getAppContext(),
-                R.string.file_not_synced,
-                Toast.LENGTH_SHORT).show());
+                                          R.string.file_not_synced,
+                                          Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -384,7 +384,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public AssetFileDescriptor openDocumentThumbnail(String documentId,
                                                      Point sizeHint,
                                                      CancellationSignal signal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
@@ -581,6 +581,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         File emptyFile = new File(tempDir, displayName);
+
+        // TODO check if temp file already exists, then remove it
+
         try {
             if (!emptyFile.createNewFile()) {
                 throw new FileNotFoundException("File could not be created: " + emptyFile.getAbsolutePath());
@@ -589,33 +592,42 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File could not be created: " + emptyFile.getAbsolutePath());
         }
 
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(getContext(), account, new String[]{emptyFile.getAbsolutePath()},
-                                new String[]{parent.getRemotePath() + displayName}, null,
-                                FileUploader.LOCAL_BEHAVIOUR_MOVE, true, UploadFileOperation.CREATED_BY_USER, false,
-                                false);
+        /// perform the upload
+        UploadFileRemoteOperation mUploadOperation;
+        if (emptyFile.length() > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+            mUploadOperation = new ChunkedFileUploadRemoteOperation(emptyFile.getAbsolutePath(),
+                                                                    parent.getRemotePath() + displayName,
+                                                                    null,
+                                                                    "",
+                                                                    String.valueOf(System.currentTimeMillis()),
+                                                                    false);
+        } else {
+            mUploadOperation = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+                                                             parent.getRemotePath() + displayName,
+                                                             null,
+                                                             "",
+                                                             String.valueOf(System.currentTimeMillis()));
+        }
+
+        RemoteOperationResult result = mUploadOperation.execute(client);
+
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to upload document with documentId " + documentId);
+        }
 
         String newFilePath = parent.getRemotePath() + displayName;
+
+        RemoteOperationResult updateParent = new RefreshFolderOperation(parent, System.currentTimeMillis(),
+                                                                        false, false, true, currentStorageManager,
+                                                                        account, getContext()).execute(client);
+
+        if (!updateParent.isSuccess()) {
+            throw new FileNotFoundException("Failed to create document with documentId " + documentId);
+        }
+
+
         OCFile newFile = currentStorageManager.getFileByPath(newFilePath);
 
-        for (int i = 0; newFile == null || i <= 3; i++) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Log_OC.e(TAG, "Thread interruption error");
-            }
-
-            RemoteOperationResult updateParent = new RefreshFolderOperation(parent, System.currentTimeMillis(),
-                                                                            false, false, true, currentStorageManager,
-                                                                            account, getContext()).execute(client);
-
-            if (!updateParent.isSuccess()) {
-                throw new FileNotFoundException("Failed to create document with documentId " + documentId);
-            }
-
-
-            newFile = currentStorageManager.getFileByPath(newFilePath);
-        }
 
         return String.valueOf(newFile.getFileId());
     }
