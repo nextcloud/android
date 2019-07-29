@@ -320,7 +320,7 @@
 
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
-        <activity android:name=".ui.errorhandling.ShowErrorActivity"
+        <activity android:name="com.nextcloud.client.errorhandling.ShowErrorActivity"
             android:theme="@style/Theme.ownCloud.Toolbar"/>
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity

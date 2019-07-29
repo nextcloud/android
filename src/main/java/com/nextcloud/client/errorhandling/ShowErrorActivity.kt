@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.errorhandling
+package com.nextcloud.client.errorhandling
 
 import android.content.Intent
 import android.net.Uri
