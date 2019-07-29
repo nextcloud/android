@@ -17,14 +17,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.errorhandling;
+package com.owncloud.android.ui.errorhandling
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.owncloud.android.R
 import kotlinx.android.synthetic.main.errorhandling_showerror.*
 import kotlinx.android.synthetic.main.toolbar_standard.*
@@ -35,13 +34,13 @@ class ErrorShowActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.errorhandling_showerror);
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.errorhandling_showerror)
 
-        text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT);
+        text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
-        setSupportActionBar(toolbar);
-        setTitle(R.string.common_error);
+        setSupportActionBar(toolbar)
+        setTitle(R.string.common_error)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
