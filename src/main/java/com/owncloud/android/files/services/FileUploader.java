@@ -975,24 +975,25 @@ public class FileUploader extends Service
                                        long totalToTransfer, String fileName) {
             String key = buildRemoteName(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
+
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
-                        totalToTransfer, fileName);
+                                                 totalToTransfer, fileName);
+            }
 
-                if (MainApp.getAppContext() != null) {
-                    if (mCurrentUpload.isWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
-                            equals(JobRequest.NetworkType.UNMETERED)) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_FOR_WIFI);
-                    } else if (mCurrentUpload.isChargingRequired() &&
-                            !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_FOR_CHARGING);
-                    } else if (!mCurrentUpload.isIgnoringPowerSaveMode() &&
-                            powerManagementService.isPowerSavingEnabled()) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
-                    }
+            if (MainApp.getAppContext() != null) {
+                if (mCurrentUpload.isWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
+                    equals(JobRequest.NetworkType.UNMETERED)) {
+                    cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                        , ResultCode.DELAYED_FOR_WIFI);
+                } else if (mCurrentUpload.isChargingRequired() &&
+                    !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
+                    cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                        , ResultCode.DELAYED_FOR_CHARGING);
+                } else if (!mCurrentUpload.isIgnoringPowerSaveMode() &&
+                    powerManagementService.isPowerSavingEnabled()) {
+                    cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                        , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
                 }
             }
         }
