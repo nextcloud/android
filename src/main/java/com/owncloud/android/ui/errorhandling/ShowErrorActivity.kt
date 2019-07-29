@@ -24,8 +24,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
 import com.owncloud.android.utils.ClipboardUtil
@@ -46,7 +49,6 @@ class ShowErrorActivity : AppCompatActivity() {
         text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
         setSupportActionBar(toolbar)
-        setTitle(R.string.common_error)
 
         val snackbar = DisplayUtils.createSnackbar(
             error_page_container,
@@ -56,7 +58,23 @@ class ShowErrorActivity : AppCompatActivity() {
                 reportIssue()
             }
 
+        val primaryColor = ThemeUtils.primaryColor(this)
+        val fontColor = ThemeUtils.fontColor(this)
+
         ThemeUtils.colorSnackbar(this, snackbar)
+        ThemeUtils.colorStatusBar(this, primaryColor)
+        progressBar?.visibility = View.GONE
+
+        toolbar.setBackgroundColor(primaryColor)
+        if (toolbar.overflowIcon != null) {
+            ThemeUtils.tintDrawable(toolbar.overflowIcon, fontColor)
+        }
+
+        if (toolbar.navigationIcon != null) {
+            ThemeUtils.tintDrawable(toolbar.navigationIcon, fontColor)
+        }
+
+        ThemeUtils.setColoredTitle(supportActionBar, R.string.common_error, this)
 
         snackbar.show()
     }
@@ -74,6 +92,9 @@ class ShowErrorActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_error_show, menu)
+
+        ThemeUtils.tintDrawable(menu?.findItem(R.id.error_share)?.icon, ThemeUtils.fontColor(this))
+
         return super.onCreateOptionsMenu(menu)
     }
 
