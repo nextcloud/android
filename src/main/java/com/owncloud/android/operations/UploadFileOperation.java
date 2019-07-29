@@ -361,13 +361,13 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
-//        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-//            if (ocUpload.getUploadId() == getOCUploadId()) {
-//                ocUpload.setFileSize(0);
-//                uploadsStorageManager.updateUpload(ocUpload);
-//                break;
-//            }
-//        }
+        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+            if (ocUpload.getUploadId() == getOCUploadId()) {
+                ocUpload.setFileSize(0);
+                uploadsStorageManager.updateUpload(ocUpload);
+                break;
+            }
+        }
 
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
