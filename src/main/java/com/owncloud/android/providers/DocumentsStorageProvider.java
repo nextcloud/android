@@ -91,9 +91,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -104,9 +103,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private static final String TAG = DocumentsStorageProvider.class.getSimpleName();
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
-
-    private static final String ROOT_PATH = "/";
-    public static final String PATH_SEPARATOR = "/";
 
     UserAccountManager accountManager;
 
@@ -632,12 +628,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         revokeDocumentPermission(document.getDocumentId());
-    }
-
-    @Override
-    public void removeDocument(String documentId, String parentDocumentId) throws FileNotFoundException {
-        Log.d(TAG, "removeDocument(), id=" + documentId);
-        deleteDocument(documentId);
     }
 
     @Override
