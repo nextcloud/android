@@ -505,7 +505,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (loginUrlInfo != null) {
             try {
-                mHostUrlInput.setText("");
+                if (mHostUrlInput != null) {
+                    mHostUrlInput.setText("");
+                }
                 mServerInfo.mBaseUrl = AuthenticatorUrlUtils.normalizeUrlSuffix(loginUrlInfo.serverAddress);
                 webViewUser = loginUrlInfo.username;
                 webViewPassword = loginUrlInfo.password;
