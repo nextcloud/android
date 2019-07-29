@@ -15,49 +15,41 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
-package com.owncloud.android.ui.errorhandling;
+package com.owncloud.android.ui.errorhandling
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
-import android.util.Log;
+import android.app.Activity
+import android.content.Intent
+import android.os.Build
+import android.util.Log
 
-import org.jetbrains.annotations.NotNull;
+import java.io.PrintWriter
+import java.io.StringWriter
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
-    private static final String TAG = ExceptionHandler.class.getSimpleName();
-    private static final String LINE_SEPARATOR = "\n";
-
-    private final Activity context;
-
-    public ExceptionHandler(Activity context) {
-        this.context = context;
+class ExceptionHandler(private val context: Activity) : Thread.UncaughtExceptionHandler {
+    companion object {
+        private val TAG = ExceptionHandler::class.java.simpleName
+        private val LINE_SEPARATOR = "\n"
     }
 
-    public void uncaughtException(Thread thread, Throwable exception) {
-        Log.e(TAG, "ExceptionHandler caught UncaughtException", exception);
-        StringWriter stackTrace = new StringWriter();
-        exception.printStackTrace(new PrintWriter(stackTrace));
+    override fun uncaughtException(thread: Thread, exception: Throwable) {
+        Log.e(TAG, "ExceptionHandler caught UncaughtException", exception)
+        val stackTrace = StringWriter()
+        exception.printStackTrace(PrintWriter(stackTrace))
 
-        String errorReport = generateErrorReport(stackTrace.toString());
+        val errorReport = generateErrorReport(stackTrace.toString())
 
-        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
+        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception)
 
-        Intent intent = new Intent(context, ShowErrorActivity.class);
-        intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport);
-        context.startActivity(intent);
+        val intent = Intent(context, ShowErrorActivity::class.java)
+        intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport)
+        context.startActivity(intent)
 
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1000);
+        android.os.Process.killProcess(android.os.Process.myPid())
+        System.exit(1000)
     }
 
-    @NotNull
-    private String generateErrorReport(String stackTrace) {
+    private fun generateErrorReport(stackTrace: String): String {
         return "************ CAUSE OF ERROR ************\n\n" +
             stackTrace +
             "\n************ DEVICE INFORMATION ***********" +
@@ -87,6 +79,6 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             LINE_SEPARATOR +
             "Incremental: " +
             Build.VERSION.INCREMENTAL +
-            LINE_SEPARATOR;
+            LINE_SEPARATOR
     }
 }
