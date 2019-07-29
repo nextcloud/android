@@ -139,10 +139,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document document = toDocument(documentId);
 
-        if (document == null) {
-            throw new FileNotFoundException("File " + documentId + " not found!");
-        }
-
         final FileCursor result = new FileCursor(projection);
         result.addFile(document);
 
@@ -156,9 +152,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
 
         Document parentFolder = toDocument(parentDocumentId);
-        if (parentFolder == null) {
-            throw new FileNotFoundException("File " + parentDocumentId + " not found!");
-        }
 
         Context context = getContext();
         if (context == null) {
@@ -195,12 +188,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "openDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
-        if (document == null) {
-            throw new FileNotFoundException("File not found: " + documentId);
-        }
 
         Context context = getContext();
-
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
@@ -314,12 +303,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
         Document document = toDocument(documentId);
-        if (document == null) {
-            throw new FileNotFoundException("File " + documentId + " not found!");
-        }
 
         Context context = getContext();
-
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
@@ -342,12 +327,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "renameDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
-        if (document == null) {
-            throw new FileNotFoundException("File " + documentId + " not found!");
-        }
 
         Context context = getContext();
-
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
@@ -370,17 +351,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "copyDocument(), id=" + sourceDocumentId);
 
         Document document = toDocument(sourceDocumentId);
-        if (document == null) {
-            throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
-        }
-
         Document targetFolder = toDocument(targetParentDocumentId);
-        if (targetFolder == null) {
-            throw new FileNotFoundException("File " + targetParentDocumentId + " not found!");
-        }
 
         Context context = getContext();
-
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
@@ -425,22 +398,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "moveDocument(), id=" + sourceDocumentId);
 
         Document document = toDocument(sourceDocumentId);
-        if (document == null) {
-            throw new FileNotFoundException("File " + sourceDocumentId + " not found!");
-        }
-
         Document sourceFolder = toDocument(sourceParentDocumentId);
-        if (sourceFolder == null) {
-            throw new FileNotFoundException("File " + sourceParentDocumentId + " not found!");
-        }
-
         Document targetFolder = toDocument(targetParentDocumentId);
-        if (targetFolder == null) {
-            throw new FileNotFoundException("File " + targetParentDocumentId + " not found!");
-        }
 
         Context context = getContext();
-
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
@@ -482,9 +443,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "createDocument(), id=" + documentId);
 
         Document folderDocument = toDocument(documentId);
-        if (folderDocument == null) {
-            throw new FileNotFoundException("Parent file not found");
-        }
 
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
@@ -593,9 +551,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "deleteDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
-        if (document == null) {
-            throw new FileNotFoundException("File " + documentId + " not found!");
-        }
 
         Context context = getContext();
         if (context == null) {
@@ -633,14 +588,21 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public boolean isChildDocument(String parentDocumentId, String documentId) {
         Log.d(TAG, "isChildDocument(), parent=" + parentDocumentId + ", id=" + documentId);
-        Document document = toDocument(documentId);
-        Document folderDocument = toDocument(parentDocumentId);
 
-        if (null == document || null == folderDocument) {
-            return false;
+        try {
+            Document document = toDocument(documentId);
+            Document folderDocument = toDocument(parentDocumentId);
+
+            if (null == document || null == folderDocument) {
+                return false;
+            }
+
+            return document.getFile().getParentId() == folderDocument.getFile().getFileId();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "failed to check for child document", e);
         }
 
-        return document.getFile().getParentId() == folderDocument.getFile().getFileId();
+        return false;
     }
 
     private FileDataStorageManager getStorageManager(String rootId) {
@@ -695,15 +657,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             document.getDocumentId());
     }
 
-    private Document toDocument(String documentId) {
+    private Document toDocument(String documentId) throws FileNotFoundException {
         String[] separated = documentId.split(DOCUMENTID_SEPARATOR, DOCUMENTID_PARTS);
         if (separated.length != DOCUMENTID_PARTS) {
-            return null;
+            throw new FileNotFoundException("Invalid documentID " + documentId + "!");
         }
 
         FileDataStorageManager storageManager = rootIdToStorageManager.get(Integer.parseInt(separated[0]));
         if (storageManager == null) {
-            return null;
+            throw new FileNotFoundException("No storage manager associated for " + documentId + "!");
         }
 
         return new Document(storageManager, Long.parseLong(separated[1]));
