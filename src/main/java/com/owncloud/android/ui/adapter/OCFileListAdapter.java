@@ -101,9 +101,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     implements DisplayUtils.AvatarGenerationListener {
 
     private static final int showFilenameColumnThreshold = 4;
-    private final FileDownloader.FileDownloaderBinder downloaderBinder;
-    private final FileUploader.FileUploaderBinder uploaderBinder;
-    private final OperationsService.OperationsServiceBinder operationsServiceBinder;
+    private final ComponentsGetter transferServiceGetter;
     private final String userId;
     private Context mContext;
     private AppPreferences preferences;
@@ -152,9 +150,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.gridView = gridView;
         checkedFiles = new HashSet<>();
 
-        downloaderBinder = transferServiceGetter.getFileDownloaderBinder();
-        uploaderBinder = transferServiceGetter.getFileUploaderBinder();
-        operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
+        this.transferServiceGetter = transferServiceGetter;
 
         if (account != null) {
             AccountManager platformAccountManager = AccountManager.get(mContext);
@@ -442,17 +438,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             gridViewHolder.localFileIndicator.setVisibility(View.INVISIBLE);   // default first
 
+            OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
+            FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
+            FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
             if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(account, file)) {
                 //synchronizing
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
+            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(account, file)) {
                 // downloading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
+            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(account, file)) {
                 //uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
