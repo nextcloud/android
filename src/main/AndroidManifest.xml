@@ -320,7 +320,8 @@
 
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
-        <activity android:name=".ui.errorhandling.ErrorShowActivity" />
+        <activity android:name=".ui.errorhandling.ErrorShowActivity"
+            android:theme="@style/Theme.ownCloud.Toolbar"/>
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
