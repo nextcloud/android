@@ -62,7 +62,7 @@ import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
-import com.owncloud.android.ui.errorhandling.ErrorShowActivity;
+import com.owncloud.android.ui.errorhandling.ShowErrorActivity;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -94,7 +94,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract CopyToClipboardActivity copyToClipboardActivity();
     @ContributesAndroidInjector abstract DeepLinkLoginActivity deepLinkLoginActivity();
     @ContributesAndroidInjector abstract DrawerActivity drawerActivity();
-    @ContributesAndroidInjector abstract ErrorShowActivity errorShowActivity();
+    @ContributesAndroidInjector abstract ShowErrorActivity errorShowActivity();
     @ContributesAndroidInjector abstract ErrorsWhileCopyingHandlerActivity errorsWhileCopyingHandlerActivity();
     @ContributesAndroidInjector abstract ExternalSiteWebView externalSiteWebView();
     @ContributesAndroidInjector abstract FileDisplayActivity fileDisplayActivity();

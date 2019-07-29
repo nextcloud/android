@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.errorhandling.ErrorShowActivity">
+    tools:context=".ui.errorhandling.ShowErrorActivity">
 
     <include layout="@layout/toolbar_standard" />
 
@@ -35,7 +35,10 @@
             android:id="@+id/text_view_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/standard_padding" />
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_list_item_size" />
 
     </ScrollView>
 
