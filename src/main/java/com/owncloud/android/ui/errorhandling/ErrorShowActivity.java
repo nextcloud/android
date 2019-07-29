@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
@@ -15,7 +15,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 package com.owncloud.android.ui.errorhandling;
 
@@ -27,18 +26,17 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 
 public class ErrorShowActivity extends Activity {
+    private static final String TAG = ErrorShowActivity.class.getSimpleName();
+    public static final String EXTRA_ERROR_TEXT = "error";
 
-	private static final String TAG = ErrorShowActivity.class.getSimpleName();
+    TextView error;
 
-	TextView mError;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.e(TAG, "ErrorShowActivity was called. See above for StackTrace.");
-		setContentView(R.layout.errorhandling_showerror);
-		mError = (TextView) findViewById(R.id.errorTextView);
-		mError.setText(getIntent().getStringExtra("error"));
-
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e(TAG, "ErrorShowActivity was called. See above for StackTrace.");
+        setContentView(R.layout.errorhandling_showerror);
+        error = findViewById(R.id.errorTextView);
+        error.setText(getIntent().getStringExtra(EXTRA_ERROR_TEXT));
+    }
 }

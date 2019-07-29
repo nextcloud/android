@@ -24,27 +24,45 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
-    private final Activity mContext;
-
     private static final String TAG = ExceptionHandler.class.getSimpleName();
+    private static final String LINE_SEPARATOR = "\n";
+
+    private final Activity context;
 
     public ExceptionHandler(Activity context) {
-        mContext = context;
+        this.context = context;
     }
 
     public void uncaughtException(Thread thread, Throwable exception) {
         Log.e(TAG, "ExceptionHandler caught UncaughtException", exception);
         StringWriter stackTrace = new StringWriter();
         exception.printStackTrace(new PrintWriter(stackTrace));
-        final String LINE_SEPARATOR = "\n";
 
-        String errorReport = "************ CAUSE OF ERROR ************\n\n" +
-            stackTrace.toString() +
-            "\n************ DEVICE INFORMATION ***********\nBrand: " +
+        String errorReport = generateErrorReport(stackTrace.toString());
+
+        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
+
+        Intent intent = new Intent(context, ErrorShowActivity.class);
+        intent.putExtra(ErrorShowActivity.EXTRA_ERROR_TEXT, errorReport);
+        context.startActivity(intent);
+
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1000);
+    }
+
+    @NotNull
+    private String generateErrorReport(String stackTrace) {
+        return "************ CAUSE OF ERROR ************\n\n" +
+            stackTrace +
+            "\n************ DEVICE INFORMATION ***********" +
+            LINE_SEPARATOR +
+            "Brand: " +
             Build.BRAND +
             LINE_SEPARATOR +
             "Device: " +
@@ -59,7 +77,9 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             "Product: " +
             Build.PRODUCT +
             LINE_SEPARATOR +
-            "\n************ FIRMWARE ************\nSDK: " +
+            "\n************ FIRMWARE ************" +
+            LINE_SEPARATOR +
+            "SDK: " +
             Build.VERSION.SDK_INT +
             LINE_SEPARATOR +
             "Release: " +
@@ -68,15 +88,5 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             "Incremental: " +
             Build.VERSION.INCREMENTAL +
             LINE_SEPARATOR;
-
-        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
-
-        Intent intent = new Intent(mContext, ErrorShowActivity.class);
-        intent.putExtra("error", errorReport);
-        mContext.startActivity(intent);
-
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1000);
     }
-
 }
