@@ -18,14 +18,17 @@
  */
 package com.owncloud.android.ui.errorhandling;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 
-public class ErrorShowActivity extends Activity {
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+public class ErrorShowActivity extends AppCompatActivity {
     private static final String TAG = ErrorShowActivity.class.getSimpleName();
     public static final String EXTRA_ERROR_TEXT = "error";
 
@@ -38,5 +41,10 @@ public class ErrorShowActivity extends Activity {
         setContentView(R.layout.errorhandling_showerror);
         error = findViewById(R.id.errorTextView);
         error.setText(getIntent().getStringExtra(EXTRA_ERROR_TEXT));
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle(R.string.common_error);
     }
 }
