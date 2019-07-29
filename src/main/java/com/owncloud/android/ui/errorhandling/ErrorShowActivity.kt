@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.errorhandling_showerror.*
 import kotlinx.android.synthetic.main.toolbar_standard.*
 
 class ErrorShowActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         const val EXTRA_ERROR_TEXT = "error"
     }
 
