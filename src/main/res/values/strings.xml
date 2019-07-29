@@ -876,4 +876,8 @@
 
     <string name="etm_title">Engineering Test Mode</string>
     <string name="etm_preferences">Preferences</string>
+
+    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
+    <string name="error_report_issue_action">Report</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>

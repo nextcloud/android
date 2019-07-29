@@ -20,27 +20,56 @@
 package com.owncloud.android.ui.errorhandling
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
-import kotlinx.android.synthetic.main.errorhandling_showerror.*
+import com.owncloud.android.utils.ClipboardUtil
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.ThemeUtils
+import kotlinx.android.synthetic.main.activity_show_error.*
 import kotlinx.android.synthetic.main.toolbar_standard.*
 
-class ErrorShowActivity : AppCompatActivity() {
+class ShowErrorActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ERROR_TEXT = "error"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.errorhandling_showerror)
+        setContentView(R.layout.activity_show_error)
 
         text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
         setSupportActionBar(toolbar)
         setTitle(R.string.common_error)
+
+        val snackbar = DisplayUtils.createSnackbar(
+            error_page_container,
+            R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.error_report_issue_action
+            ) { v ->
+                reportIssue()
+            }
+
+        ThemeUtils.colorSnackbar(this, snackbar)
+
+        snackbar.show()
+    }
+
+    private fun reportIssue() {
+        ClipboardUtil.copyToClipboard(this, text_view_error.text.toString(), false)
+        val issueLink = getString(R.string.report_issue_link)
+        if (!issueLink.isEmpty()) {
+            val uriUrl = Uri.parse(issueLink)
+            val intent = Intent(Intent.ACTION_VIEW, uriUrl)
+            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available)
+        }
+        Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

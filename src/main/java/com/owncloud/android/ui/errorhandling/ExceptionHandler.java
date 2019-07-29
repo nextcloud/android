@@ -48,8 +48,8 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
 
-        Intent intent = new Intent(context, ErrorShowActivity.class);
-        intent.putExtra(ErrorShowActivity.EXTRA_ERROR_TEXT, errorReport);
+        Intent intent = new Intent(context, ShowErrorActivity.class);
+        intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport);
         context.startActivity(intent);
 
         android.os.Process.killProcess(android.os.Process.myPid());
