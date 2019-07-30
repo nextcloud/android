@@ -3,9 +3,13 @@
  *
  *   @author LukeOwncloud
  *   @author AndyScherzinger
+ *   @author Tobias Kaminsky
+ *   @author Chris Narkiewicz
+ *
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2016 LukeOwncloud
  *   Copyright (C) 2019 Andy Scherzinger
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,43 +25,48 @@
  */
 package com.nextcloud.client.errorhandling
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
-import com.nextcloud.client.appinfo.AppInfoImpl
+import com.nextcloud.client.appinfo.AppInfo
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import java.io.PrintWriter
 import java.io.StringWriter
-import kotlin.system.exitProcess
+import javax.inject.Provider
 
-class ExceptionHandler(private val context: Activity) : Thread.UncaughtExceptionHandler {
+class ExceptionHandler(
+    private val context: Context,
+    private val appInfoProvider: Provider<AppInfo?>,
+    private val defaultExceptionHandler: Thread.UncaughtExceptionHandler
+) : Thread.UncaughtExceptionHandler {
+
     companion object {
-        private val TAG = ExceptionHandler::class.java.simpleName
-        private val LINE_SEPARATOR = "\n"
-        private val STATUS = 1000
+        private const val LINE_SEPARATOR = "\n"
     }
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
-        Log.e(TAG, "ExceptionHandler caught UncaughtException", exception)
-        val stackTrace = StringWriter()
-        exception.printStackTrace(PrintWriter(stackTrace))
 
-        val errorReport = generateErrorReport(stackTrace.toString())
-
-        Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception)
-
-        val intent = Intent(context, ShowErrorActivity::class.java)
-        intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport)
-        context.startActivity(intent)
-
-        android.os.Process.killProcess(android.os.Process.myPid())
-        exitProcess(STATUS)
+        @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
+        try {
+            val stackTrace = StringWriter()
+            exception.printStackTrace(PrintWriter(stackTrace))
+            val errorReport = generateErrorReport(stackTrace.toString())
+            val intent = Intent(context, ShowErrorActivity::class.java)
+            intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+            // Pass exception to OS for graceful handling - OS will report it via ADB
+            // and close all activities and services.
+            defaultExceptionHandler.uncaughtException(thread, exception)
+        } catch (fatalException: Exception) {
+            // do not recurse into custom handler if exception is thrown during
+            // exception handling. Pass this ultimate fatal exception to OS
+            defaultExceptionHandler.uncaughtException(thread, fatalException)
+        }
     }
 
     private fun generateErrorReport(stackTrace: String): String {
-        val appInfo = AppInfoImpl()
         val buildNumber = context.resources.getString(R.string.buildNumber)
 
         var buildNumberString = ""
@@ -73,7 +82,7 @@ class ExceptionHandler(private val context: Activity) : Thread.UncaughtException
             BuildConfig.APPLICATION_ID +
             LINE_SEPARATOR +
             "Version: " +
-            appInfo.formattedVersionCode +
+            (appInfoProvider.get()?.formattedVersionCode ?: "not available") +
             buildNumberString +
             LINE_SEPARATOR +
             "Build flavor: " +
