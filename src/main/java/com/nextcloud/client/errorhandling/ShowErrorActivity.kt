@@ -51,10 +51,7 @@ class ShowErrorActivity : AppCompatActivity() {
         val snackbar = DisplayUtils.createSnackbar(
             error_page_container,
             R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.error_report_issue_action
-            ) { v ->
-                reportIssue()
-            }
+            .setAction(R.string.error_report_issue_action) { reportIssue() }
 
         val primaryColor = ThemeUtils.primaryColor(this)
         val fontColor = ThemeUtils.fontColor(this)
@@ -98,9 +95,7 @@ class ShowErrorActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.error_share -> {
-                onClickedShare(); true
-            }
+            R.id.error_share -> { onClickedShare(); true }
             else -> super.onOptionsItemSelected(item)
         }
     }

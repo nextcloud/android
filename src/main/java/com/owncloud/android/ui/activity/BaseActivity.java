@@ -11,7 +11,6 @@ import android.os.Handler;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -20,7 +19,6 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -58,13 +56,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     public UserAccountManager getUserAccountManager() {
         return accountManager;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }
 
     @Override

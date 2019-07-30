@@ -321,7 +321,11 @@
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name="com.nextcloud.client.errorhandling.ShowErrorActivity"
-            android:theme="@style/Theme.ownCloud.Toolbar"/>
+            android:theme="@style/Theme.ownCloud.Toolbar"
+            android:process=":crash"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance" />
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
