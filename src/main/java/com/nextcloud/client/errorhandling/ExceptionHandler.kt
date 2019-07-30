@@ -25,6 +25,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.nextcloud.client.appinfo.AppInfoImpl
+import com.owncloud.android.BuildConfig
+import com.owncloud.android.R
 import java.io.PrintWriter
 import java.io.StringWriter
 import kotlin.system.exitProcess
@@ -54,9 +57,29 @@ class ExceptionHandler(private val context: Activity) : Thread.UncaughtException
     }
 
     private fun generateErrorReport(stackTrace: String): String {
+        val appInfo = AppInfoImpl()
+        val buildNumber = context.resources.getString(R.string.buildNumber)
+
+        var buildNumberString = ""
+        if (buildNumber.isNotEmpty()) {
+            buildNumberString = " (build #$buildNumber)"
+        }
+
         return "************ CAUSE OF ERROR ************\n\n" +
             stackTrace +
-            "\n************ DEVICE INFORMATION ***********" +
+            "\n************ APP INFORMATION ************" +
+            LINE_SEPARATOR +
+            "ID: " +
+            BuildConfig.APPLICATION_ID +
+            LINE_SEPARATOR +
+            "Version: " +
+            appInfo.formattedVersionCode +
+            buildNumberString +
+            LINE_SEPARATOR +
+            "Build flavor: " +
+            BuildConfig.FLAVOR +
+            LINE_SEPARATOR +
+            "\n************ DEVICE INFORMATION ************" +
             LINE_SEPARATOR +
             "Brand: " +
             Build.BRAND +
