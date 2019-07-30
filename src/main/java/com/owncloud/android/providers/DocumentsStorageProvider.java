@@ -57,12 +57,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -70,7 +71,6 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -498,10 +498,21 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Account account = targetFolder.getAccount();
+        OwnCloudClient client = targetFolder.getClient();
 
         // create dummy file
         File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
+
+        if (!tempDir.exists() && !tempDir.mkdirs()) {
+            throw new FileNotFoundException("Temp folder could not be created: " + tempDir.getAbsolutePath());
+        }
+
         File emptyFile = new File(tempDir, displayName);
+
+        if (emptyFile.exists() && !emptyFile.delete()) {
+            throw new FileNotFoundException("Previous file could not be deleted");
+        }
+
         try {
             if (!emptyFile.createNewFile()) {
                 throw new FileNotFoundException("File could not be created");
@@ -510,31 +521,46 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File could not be created");
         }
 
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(context, account, new String[]{emptyFile.getAbsolutePath()},
-                                new String[]{targetFolder.getRemotePath() + displayName}, null,
-                                FileUploader.LOCAL_BEHAVIOUR_MOVE, true, UploadFileOperation.CREATED_BY_USER, false,
-                                false);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Log_OC.e(TAG, "Thread interruption error");
+        // perform the upload
+        UploadFileRemoteOperation mUploadOperation;
+        if (emptyFile.length() > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+            mUploadOperation = new ChunkedFileUploadRemoteOperation(emptyFile.getAbsolutePath(),
+                                                                    targetFolder.getRemotePath() + displayName,
+                                                                    null,
+                                                                    "",
+                                                                    String.valueOf(System.currentTimeMillis()),
+                                                                    false);
+        } else {
+            mUploadOperation = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+                                                             targetFolder.getRemotePath() + displayName,
+                                                             null,
+                                                             "",
+                                                             String.valueOf(System.currentTimeMillis()));
         }
 
-        OwnCloudClient client = targetFolder.getClient();
-        FileDataStorageManager storageManager = targetFolder.getStorageManager();
+        RemoteOperationResult result = mUploadOperation.execute(client);
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
-                                                                        false, false, true, storageManager,
-                                                                        account, context).execute(client);
+        if (!result.isSuccess()) {
+            throw new FileNotFoundException("Failed to upload document with path " +
+                                                targetFolder.getRemotePath() + "/" + displayName);
+        }
+
+        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+                                                                        System.currentTimeMillis(),
+                                                                        false,
+                                                                        false,
+                                                                        true,
+                                                                        targetFolder.getStorageManager(),
+                                                                        account,
+                                                                        context)
+            .execute(client);
 
         if (!updateParent.isSuccess()) {
             throw new FileNotFoundException("Failed to create document with documentId " + targetFolder.getDocumentId());
         }
 
         String newFilePath = targetFolder.getRemotePath() + displayName;
-        Document newFile = new Document(storageManager, newFilePath);
+        Document newFile = new Document(targetFolder.getStorageManager(), newFilePath);
 
         context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
 
