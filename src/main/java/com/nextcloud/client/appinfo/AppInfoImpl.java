@@ -21,7 +21,7 @@ package com.nextcloud.client.appinfo;
 
 import com.owncloud.android.BuildConfig;
 
-class AppInfoImpl implements AppInfo {
+public class AppInfoImpl implements AppInfo {
 
     @Override
     public String getFormattedVersionCode() {
