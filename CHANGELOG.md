@@ -1,3 +1,9 @@
+## 3.7.1 (July, 30, 2019)
+
+- fix for Global Scale
+
+For a full list, please see https://github.com/nextcloud/android/milestone/36
+
 ## 3.7.0 (July, 09, 2019)
 
 - Collabora enhancements
