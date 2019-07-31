@@ -65,6 +65,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
@@ -130,7 +131,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
-    private boolean showShareAvatar;
+    private boolean showShareAvatar = false;
     @Setter private OCFile highlightedItem;
 
     public OCFileListAdapter(
@@ -143,7 +144,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView
     ) {
-
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         mContext = context;
         this.preferences = preferences;
@@ -162,9 +162,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             userId = "";
         }
-
-        // TODO change when https://github.com/nextcloud/server/pull/14429 is merged
-        showShareAvatar = false;
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -366,11 +363,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     itemViewHolder.sharedAvatars.removeAllViews();
 
                     String fileOwner = file.getOwnerId();
-                    ArrayList<String> sharees = (ArrayList<String>) file.getSharees();
+                    ArrayList<ShareeUser> sharees = file.getSharees();
 
                     // use fileOwner if not oneself, then add at first
-                    if (fileOwner != null && !fileOwner.equals(userId) && !sharees.contains(fileOwner)) {
-                        sharees.add(fileOwner);
+                    ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
+                    if (fileOwner != null && !fileOwner.equals(userId) && !sharees.contains(fileOwnerSharee)) {
+                        sharees.add(fileOwnerSharee);
                     }
 
                     Collections.reverse(sharees);
@@ -383,20 +381,33 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     int size = 60 * (shareeSize - 1) + w;
 
                     for (int i = 0; i < shareeSize; i++) {
-                        String sharee = file.getSharees().get(i);
+                        ShareeUser sharee = file.getSharees().get(i);
 
                         ImageView avatar = new ImageView(mContext);
 
                         if (i == 0 && sharees.size() > 3) {
                             avatar.setImageResource(R.drawable.ic_people);
                         } else {
-                            if (sharee.contains("@")) {
-                                showFederatedShareAvatar(sharee, avatarRadius, resources, avatar);
+                            if (sharee.getShareType().equals(ShareType.GROUP)) {
+                                try {
+                                    avatar.setImageDrawable(
+                                        TextDrawable.createAvatarByUserId(sharee.getUserId(), avatarRadius));
+                                } catch (Exception e) {
+                                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                                    avatar.setImageResource(R.drawable.ic_people);
+                                }
+                            } else if (sharee.getUserId().contains("@")) {
+                                showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {
                                 avatar.setTag(sharee);
-                                DisplayUtils.setAvatar(account, sharee, this, avatarRadius, resources,
-                                                       avatar, mContext);
-                                Log_OC.d(TAG, "avatar: " + sharee);
+                                DisplayUtils.setAvatar(account,
+                                                       sharee.getUserId(),
+                                                       sharee.getDisplayName(),
+                                                       this,
+                                                       avatarRadius,
+                                                       resources,
+                                                       avatar,
+                                                       mContext);
                             }
                         }
 
@@ -701,6 +712,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
+            showShareAvatar = mStorageManager.getCapability(account.name).getVersion().isShareesOnDavSupported();
             this.account = account;
         }
         if (mStorageManager != null) {
@@ -732,6 +744,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         FileDataStorageManager storageManager, OCFile folder, boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
+            showShareAvatar = mStorageManager.getCapability(account.name).getVersion().isShareesOnDavSupported();
         }
 
         if (clear) {
