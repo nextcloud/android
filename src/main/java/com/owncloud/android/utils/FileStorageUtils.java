@@ -47,6 +47,7 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -210,7 +211,7 @@ public final class FileStorageUtils {
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
-        file.setSharees(remote.getSharees());
+        file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
 
         return file;
     }

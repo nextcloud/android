@@ -35,6 +35,8 @@ import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -44,6 +46,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RemoteOperationFailedException;
@@ -210,7 +213,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_OWNER_ID, file.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, file.getOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_NOTE, file.getNote());
-        cv.put(ProviderTableMeta.FILE_SHAREES, TextUtils.join(",", file.getSharees()));
+        cv.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(file.getSharees()));
 
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||
@@ -454,7 +457,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_OWNER_ID, folder.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, folder.getOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_NOTE, folder.getNote());
-        cv.put(ProviderTableMeta.FILE_SHAREES, TextUtils.join(",", folder.getSharees()));
+        cv.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(folder.getSharees()));
 
         return cv;
     }
@@ -494,7 +497,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_OWNER_ID, file.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, file.getOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_NOTE, file.getNote());
-        cv.put(ProviderTableMeta.FILE_SHAREES, TextUtils.join(",", file.getSharees()));
+        cv.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(file.getSharees()));
 
         return cv;
     }
@@ -996,10 +999,17 @@ public class FileDataStorageManager {
 
             String sharees = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_SHAREES));
 
-            if (sharees == null || sharees.isEmpty()) {
+            if ("null".equals(sharees) || sharees.isEmpty()) {
                 file.setSharees(new ArrayList<>());
             } else {
-                file.setSharees(new ArrayList<>(Arrays.asList(sharees.split(","))));
+                try {
+                    ShareeUser[] shareesArray = new Gson().fromJson(sharees, ShareeUser[].class);
+
+                    file.setSharees(new ArrayList<>(Arrays.asList(shareesArray)));
+                } catch (JsonSyntaxException e) {
+                    // ignore saved value due to api change
+                    file.setSharees(new ArrayList<>());
+                }
             }
         }
 
