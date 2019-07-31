@@ -360,7 +360,7 @@ public class SettingsActivity extends PreferenceActivity
         if (pLogger != null) {
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(preference -> {
-                    Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
+                    Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
 
                     return true;
