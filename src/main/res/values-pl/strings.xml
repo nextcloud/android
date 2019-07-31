@@ -229,6 +229,9 @@
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
+    <string name="etm_preferences">Preferencje</string>
+    <string name="etm_share">Udostępnij</string>
+    <string name="etm_title">Tryb Testowy Techniczny</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="fallback_weblogin_back">Wróć</string>
@@ -256,7 +259,7 @@
     <string name="file_list_empty_recently_modified_filter">Brak plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Pliki i katalogi, które współdzielisz pokażą się tutaj.</string>
-    <string name="file_list_empty_shared_headline">Nic nie jest udostępnione</string>
+    <string name="file_list_empty_shared_headline">Jeszcze nic nie udostępniłeś</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
