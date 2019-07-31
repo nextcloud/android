@@ -229,6 +229,9 @@
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
+    <string name="etm_preferences">Einstellungen</string>
+    <string name="etm_share">Teilen</string>
+    <string name="etm_title">Technischer Testmodus</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="fallback_weblogin_back">Zurück</string>

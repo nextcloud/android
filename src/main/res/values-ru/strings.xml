@@ -3,6 +3,7 @@
     <string name="about_android">%1$s для Android</string>
     <string name="about_title">О программе</string>
     <string name="about_version">версия %1$s</string>
+    <string name="about_version_with_build">версия %1$s, сборка # %2$s</string>
     <string name="account_creation_failed">Ошибка создания учетной записи</string>
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
@@ -78,6 +79,7 @@
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
+    <string name="autoupload_disable_power_save_check">Отключить проверку энергосбережения</string>
     <string name="avatar">Аватар</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
@@ -227,7 +229,10 @@
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
+    <string name="etm_preferences">Настройки</string>
+    <string name="etm_share">Поделиться</string>
     <string name="fab_label">Добавить или выгрузить</string>
+    <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
@@ -444,6 +449,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
+    <string name="power_check_dialog_title">Отключить проверку энергосбережения</string>
+    <string name="power_save_check_dialog_message">Отключение проверки энергосбережения может привести к загрузке файлов при разряженной батарее!</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
@@ -511,6 +518,7 @@
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
     <string name="restore">Восстановить файл</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
+    <string name="retrieving_file">Получение файла...</string>
     <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
     <string name="saml_authentication_required_text">Требуется аутентификация</string>
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
