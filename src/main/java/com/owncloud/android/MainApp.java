@@ -94,6 +94,8 @@ import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
+import de.cotech.hw.SecurityKeyManager;
+import de.cotech.hw.SecurityKeyManagerConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
@@ -210,6 +212,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
+        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
+            .setEnableDebugLogging(BuildConfig.DEBUG)
+            .build();
+        securityKeyManager.init(this, config);
+
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
         Thread t = new Thread(() -> {

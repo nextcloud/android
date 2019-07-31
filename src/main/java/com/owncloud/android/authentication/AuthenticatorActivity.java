@@ -51,6 +51,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -76,6 +77,8 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -145,6 +148,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import de.cotech.hw.fido.WebViewFidoBridge;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -233,6 +237,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private ImageButton mTestServerButton;
 
     private WebView mLoginWebView;
+
+    private WebViewFidoBridge webViewFidoBridge;
 
     private String mAuthStatusText = EMPTY_STRING;
     private int mAuthStatusIcon;
@@ -382,6 +388,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
 
+        webViewFidoBridge = WebViewFidoBridge.createInstanceForWebView(this, mLoginWebView);
+
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
@@ -453,6 +461,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void setClient(ProgressBar progressBar) {
         mLoginWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                webViewFidoBridge.delegateShouldInterceptRequest(view, request);
+                return super.shouldInterceptRequest(view, request);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                webViewFidoBridge.delegateOnPageStarted(view, url, favicon);
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
