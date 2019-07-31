@@ -17,28 +17,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.di
+package com.nextcloud.client.core
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.etm.EtmViewModel
-import com.nextcloud.client.logger.ui.LogsViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
+typealias TaskBody<T> = () -> T
+typealias OnResultCallback<T> = (T) -> Unit
+typealias OnErrorCallback = (Throwable) -> Unit
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(EtmViewModel::class)
-    abstract fun etmViewModel(vm: EtmViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(LogsViewModel::class)
-    abstract fun logsViewModel(vm: LogsViewModel): ViewModel
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+/**
+ * This interface allows to post background tasks that report results via callbacks invoked on main thread.
+ *
+ * It is provided as an alternative for heavy, platform specific and virtually untestable [android.os.AsyncTask]
+ */
+interface AsyncRunner {
+    fun <T> post(block: () -> T, onResult: OnResultCallback<T>? = null, onError: OnErrorCallback? = null): Cancellable
 }

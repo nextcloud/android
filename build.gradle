@@ -57,7 +57,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.24"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "plug-custom-impl-into-legacy-logger-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -163,6 +163,10 @@ android {
                 versionCode 1
                 versionName "1"
             }
+        }
+
+        testOptions {
+            unitTests.returnDefaultValues = true
         }
     }
 

@@ -17,28 +17,35 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.di
+package com.nextcloud.client.logger
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.etm.EtmViewModel
-import com.nextcloud.client.logger.ui.LogsViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
+/**
+ * This interface provides safe, read only access to application
+ * logs stored on a device.
+ */
+interface LogsRepository {
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(EtmViewModel::class)
-    abstract fun etmViewModel(vm: EtmViewModel): ViewModel
+    @FunctionalInterface
+    interface Listener {
+        fun onLoaded(entries: List<LogEntry>)
+    }
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(LogsViewModel::class)
-    abstract fun logsViewModel(vm: LogsViewModel): ViewModel
+    /**
+     * If true, logger was unable to handle some messages, which means
+     * it cannot cope with amount of logged data.
+     *
+     * This property is thread-safe.
+     */
+    val lostEntries: Boolean
 
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    /**
+     * Asynchronously load available logs. Load can be scheduled on any thread,
+     * but the listener will be called on main thread.
+     */
+    fun load(listener: Listener)
+
+    /**
+     * Asynchronously delete logs.
+     */
+    fun deleteAll()
 }
