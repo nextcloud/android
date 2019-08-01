@@ -125,6 +125,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return new FileCursor();
         }
 
+        initiateStorageMap();
+
         final RootCursor result = new RootCursor(projection);
         for(int i = 0; i < rootIdToStorageManager.size(); i++) {
             result.addRoot(new Document(rootIdToStorageManager.valueAt(i), ROOT_PATH), getContext());
@@ -291,7 +293,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public boolean onCreate() {
         accountManager = UserAccountManagerImpl.fromContext(getContext());
-        initiateStorageMap();
         return true;
     }
 
