@@ -28,16 +28,13 @@ package com.nextcloud.client.errorhandling
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.nextcloud.client.appinfo.AppInfo
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import java.io.PrintWriter
 import java.io.StringWriter
-import javax.inject.Provider
 
 class ExceptionHandler(
     private val context: Context,
-    private val appInfoProvider: Provider<AppInfo?>,
     private val defaultExceptionHandler: Thread.UncaughtExceptionHandler
 ) : Thread.UncaughtExceptionHandler {
 
@@ -82,7 +79,7 @@ class ExceptionHandler(
             BuildConfig.APPLICATION_ID +
             LINE_SEPARATOR +
             "Version: " +
-            (appInfoProvider.get()?.formattedVersionCode ?: "not available") +
+            BuildConfig.VERSION_CODE +
             buildNumberString +
             LINE_SEPARATOR +
             "Build flavor: " +
