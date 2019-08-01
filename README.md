@@ -63,7 +63,7 @@ or
 
 ## Development version
 - [APK (direct download)](https://download.nextcloud.com/android/dev/latest.apk)
-- [F-Droid](https://f-droid.org/repository/browse/?fdfilter=nextcloud&fdid=com.nextcloud.android.beta)
+- [F-Droid](https://f-droid.org/en/packages/com.nextcloud.android.beta/)
 
 ## Support
 
