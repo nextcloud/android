@@ -24,16 +24,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.ThemeUtils
 import kotlinx.android.synthetic.main.activity_show_error.*
 import kotlinx.android.synthetic.main.toolbar_standard.*
+
 
 class ShowErrorActivity : AppCompatActivity() {
     companion object {
@@ -47,37 +46,22 @@ class ShowErrorActivity : AppCompatActivity() {
         text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
         setSupportActionBar(toolbar)
+        supportActionBar!!.title = createErrorTitle()
 
         val snackbar = DisplayUtils.createSnackbar(
             error_page_container,
             R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.error_report_issue_action) { reportIssue() }
 
-        val primaryColor = ThemeUtils.primaryColor(this)
-        val fontColor = ThemeUtils.fontColor(this)
-
-        ThemeUtils.colorSnackbar(this, snackbar)
-        ThemeUtils.colorStatusBar(this, primaryColor)
-        progressBar?.visibility = View.GONE
-
-        toolbar.setBackgroundColor(primaryColor)
-        if (toolbar.overflowIcon != null) {
-            ThemeUtils.tintDrawable(toolbar.overflowIcon, fontColor)
-        }
-
-        if (toolbar.navigationIcon != null) {
-            ThemeUtils.tintDrawable(toolbar.navigationIcon, fontColor)
-        }
-
-        ThemeUtils.setColoredTitle(supportActionBar, R.string.common_error, this)
-
         snackbar.show()
     }
+
+    private fun createErrorTitle() = String.format(getString(R.string.error_crash_title), getString(R.string.app_name))
 
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, text_view_error.text.toString(), false)
         val issueLink = getString(R.string.report_issue_link)
-        if (!issueLink.isEmpty()) {
+        if (issueLink.isNotEmpty()) {
             val uriUrl = Uri.parse(issueLink)
             val intent = Intent(Intent.ACTION_VIEW, uriUrl)
             DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available)
@@ -87,9 +71,6 @@ class ShowErrorActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_error_show, menu)
-
-        ThemeUtils.tintDrawable(menu?.findItem(R.id.error_share)?.icon, ThemeUtils.fontColor(this))
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -102,7 +83,7 @@ class ShowErrorActivity : AppCompatActivity() {
 
     private fun onClickedShare() {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Nextcloud Error")
+        intent.putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
         intent.putExtra(Intent.EXTRA_TEXT, text_view_error.text)
         intent.type = "text/plain"
         startActivity(intent)
