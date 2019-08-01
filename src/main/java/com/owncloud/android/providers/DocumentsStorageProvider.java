@@ -387,7 +387,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
         Document newFile = new Document(storageManager, newPath);
 
-        context.getContentResolver().notifyChange(toNotifyUri(newFile.getParent()), null, false);
+        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
 
         return newFile.getDocumentId();
     }
@@ -746,27 +746,27 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     public class Document {
         private final FileDataStorageManager storageManager;
-        private final long fileId;
+        private final OCFile file;
 
         Document(FileDataStorageManager storageManager, long fileId) {
             this.storageManager = storageManager;
-            this.fileId = fileId;
+            this.file = storageManager.getFileById(fileId);
         }
 
         Document(FileDataStorageManager storageManager, OCFile file) {
             this.storageManager = storageManager;
-            this.fileId = file.getFileId();
+            this.file = file;
         }
 
         Document(FileDataStorageManager storageManager, String filePath) {
             this.storageManager = storageManager;
-            this.fileId = storageManager.getFileByPath(filePath).getFileId();
+            this.file = storageManager.getFileByPath(filePath);
         }
 
         public String getDocumentId() {
             for(int i = 0; i < rootIdToStorageManager.size(); i++) {
                 if (Objects.equals(storageManager, rootIdToStorageManager.valueAt(i))) {
-                    return rootIdToStorageManager.keyAt(i) + DOCUMENTID_SEPARATOR + fileId;
+                    return rootIdToStorageManager.keyAt(i) + DOCUMENTID_SEPARATOR + file.getFileId();
                 }
             }
             return null;
@@ -781,7 +781,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         public OCFile getFile() {
-            return getStorageManager().getFileById(fileId);
+            return file;
         }
 
         public String getRemotePath() {
@@ -804,7 +804,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document getParent() {
-            long parentId = getFile().getParentId();
+            long parentId = file.getParentId();
             if (parentId <= 0) {
                 return null;
             }
