@@ -62,6 +62,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -1767,6 +1768,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
+
+            // notify Document Provider
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String authority = getResources().getString(R.string.document_provider_authority);
+                Uri rootsUri = DocumentsContract.buildRootsUri(authority);
+                getContentResolver().notifyChange(rootsUri, null);
+            }
 
             return true;
         }
