@@ -518,7 +518,7 @@
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
     <string name="restore">Восстановить файл</string>
     <string name="restore_button_description">Восстановить удаленный файл</string>
-    <string name="retrieving_file">Получение файла...</string>
+    <string name="retrieving_file">Получение файла…</string>
     <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
     <string name="saml_authentication_required_text">Требуется аутентификация</string>
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
