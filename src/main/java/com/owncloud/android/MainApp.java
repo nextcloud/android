@@ -44,7 +44,6 @@ import android.view.WindowManager;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
@@ -131,9 +130,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     protected UploadsStorageManager uploadsStorageManager;
 
     @Inject
-    protected AppInfo appInfo;
-
-    @Inject
     protected OnboardingService onboarding;
 
     @Inject
@@ -199,7 +195,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         if (!isCrashReportingProcess) {
             Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
             final ExceptionHandler crashReporter = new ExceptionHandler(this,
-                                                                        () -> appInfo,
                                                                         defaultPlatformHandler);
             Thread.setDefaultUncaughtExceptionHandler(crashReporter);
         }
