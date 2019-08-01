@@ -33,7 +33,6 @@ import com.owncloud.android.utils.DisplayUtils
 import kotlinx.android.synthetic.main.activity_show_error.*
 import kotlinx.android.synthetic.main.toolbar_standard.*
 
-
 class ShowErrorActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ERROR_TEXT = "error"
