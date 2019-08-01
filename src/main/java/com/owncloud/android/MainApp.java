@@ -25,6 +25,8 @@ import android.Manifest;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
@@ -42,11 +44,10 @@ import android.view.WindowManager;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
-import com.nextcloud.client.di.AppComponent;
 import com.nextcloud.client.di.DaggerAppComponent;
+import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -129,9 +130,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     protected UploadsStorageManager uploadsStorageManager;
 
     @Inject
-    protected AppInfo appInfo;
-
-    @Inject
     protected OnboardingService onboarding;
 
     @Inject
@@ -167,9 +165,40 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return powerManagementService;
     }
 
+    private String getAppProcessName() {
+        String processName = "";
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+            final int ownPid = android.os.Process.myPid();
+            final List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
+            if (processes != null) {
+                for (ActivityManager.RunningAppProcessInfo info : processes) {
+                    if (info.pid == ownPid) {
+                        processName = info.processName;
+                        break;
+                    }
+                }
+            }
+        } else {
+            processName = Application.getProcessName();
+        }
+        return processName;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+
+        // we don't want to handle crashes occuring inside crash reporter activity/process;
+        // let the platform deal with those
+        final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
+        if (!isCrashReportingProcess) {
+            Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
+            final ExceptionHandler crashReporter = new ExceptionHandler(this,
+                                                                        defaultPlatformHandler);
+            Thread.setDefaultUncaughtExceptionHandler(crashReporter);
+        }
+
         initGlobalContext(this);
         DaggerAppComponent.builder()
             .application(this)
@@ -181,7 +210,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
         Thread t = new Thread(() -> {

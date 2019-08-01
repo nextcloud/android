@@ -136,6 +136,7 @@
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>
+    <string name="common_share">Share</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -886,5 +887,9 @@
 
     <string name="etm_title">Engineering Test Mode</string>
     <string name="etm_preferences">Preferences</string>
-    <string name="etm_share">Share</string>
+
+    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
+    <string name="error_report_issue_action">Report</string>
+    <string name="error_crash_title">%1$s crashed</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>
