@@ -130,7 +130,7 @@ public class ManageAccountsActivity extends FileActivity
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), getAccountListItems(), mTintedCheck);
+        mAccountListAdapter = new AccountListAdapter(this, accountManager, getAccountListItems(), mTintedCheck);
 
         mRecyclerView.setAdapter(mAccountListAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -272,10 +272,10 @@ public class ManageAccountsActivity extends FileActivity
                               try {
                                   Bundle result = future.getResult();
                                   String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                                  AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
+                                  accountManager.setCurrentOwnCloudAccount(name);
                                   mAccountListAdapter = new AccountListAdapter(
                                           this,
-                                          getUserAccountManager(),
+                                          accountManager,
                                           getAccountListItems(),
                                           mTintedCheck
                                   );
@@ -324,7 +324,7 @@ public class ManageAccountsActivity extends FileActivity
 
             List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > SINGLE_ACCOUNT) {
-                mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), accountListItemArray, mTintedCheck);
+                mAccountListAdapter = new AccountListAdapter(this, accountManager, accountListItemArray, mTintedCheck);
                 mRecyclerView.setAdapter(mAccountListAdapter);
             } else {
                 onBackPressed();
