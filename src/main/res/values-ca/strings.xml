@@ -230,7 +230,6 @@
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="etm_preferences">Preferències</string>
-    <string name="etm_share">Comparteix</string>
     <string name="fab_label">Afegeix o carrega</string>
     <string name="failed_to_download">Ha fallat el lliurament del fitxer al gestor de descàrregues</string>
     <string name="fallback_weblogin_back">Enrere</string>
@@ -666,7 +665,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="timeout_richDocuments">La càrrega triga molt...</string>
     <string name="trashbin_activity_title">Fitxers suprimits</string>
-    <string name="trashbin_empty_headline">No hi ha cap fitxer eliminat</string>
+    <string name="trashbin_empty_headline">No hi ha cap fitxer suprimit</string>
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>

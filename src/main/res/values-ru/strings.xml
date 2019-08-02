@@ -230,7 +230,6 @@
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="etm_preferences">Настройки</string>
-    <string name="etm_share">Поделиться</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="fallback_weblogin_back">Назад</string>
