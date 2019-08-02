@@ -67,7 +67,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
     private static final int KEY_USER_INFO_REQUEST_CODE = 13;
 
-    public AccountListAdapter(BaseActivity context, List<AccountListItem> values, Drawable tintedCheck) {
+    public AccountListAdapter(BaseActivity context, UserAccountManager accountManager, List<AccountListItem> values, Drawable tintedCheck) {
         this.mContext = context;
         this.accountManager = accountManager;
         this.mValues = values;
