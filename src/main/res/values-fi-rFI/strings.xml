@@ -79,6 +79,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Luo uusi kansioasetus</string>
     <string name="autoupload_custom_folder">Määritä oma kansio</string>
+    <string name="autoupload_disable_power_save_check">Poista virransäästövalinta käytöstä</string>
     <string name="avatar">Profiilikuva</string>
     <string name="battery_optimization_close">Sulje</string>
     <string name="battery_optimization_disable">Poista käytöstä</string>
@@ -228,6 +229,8 @@
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
+    <string name="etm_preferences">Asetukset</string>
+    <string name="etm_title">Kehittäjän testitila</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="fallback_weblogin_back">Takaisin</string>
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
@@ -445,6 +448,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tämä on paikkamerkki</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
+    <string name="power_check_dialog_title">Poista virransäästövalinta käytöstä</string>
     <string name="pref_behaviour_entries_delete_file">Poistetaan</string>
     <string name="pref_behaviour_entries_keep_file">Pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">Siirretään sovelluskansioon</string>

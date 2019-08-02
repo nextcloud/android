@@ -230,7 +230,6 @@
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
     <string name="etm_preferences">Preferencje</string>
-    <string name="etm_share">Udostępnij</string>
     <string name="etm_title">Tryb Testowy Techniczny</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>

@@ -229,6 +229,7 @@
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
+    <string name="etm_preferences">環境設定</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="fallback_weblogin_back">戻る</string>
