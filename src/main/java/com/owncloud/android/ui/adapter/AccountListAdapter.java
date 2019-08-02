@@ -40,7 +40,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
 
 import org.parceler.Parcels;
 
@@ -53,14 +52,14 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * This Adapter populates a RecyclerView with all accounts within the app.
  */
-public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountViewHolderItem>
+public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
-    private float mAccountAvatarRadiusDimension;
-    private final BaseActivity mContext;
-    private List<AccountListItem> mValues;
-    private AccountListAdapterListener mListener;
-    private Drawable mTintedCheck;
+    private float accountAvatarRadiusDimension;
+    private final BaseActivity context;
+    private List<AccountListItem> values;
+    private AccountListAdapterListener accountListAdapterListener;
+    private Drawable tintedCheck;
     private RecyclerView mRecyclerView;
     private UserAccountManager accountManager;
 
@@ -68,14 +67,14 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     private static final int KEY_USER_INFO_REQUEST_CODE = 13;
 
     public AccountListAdapter(BaseActivity context, UserAccountManager accountManager, List<AccountListItem> values, Drawable tintedCheck) {
-        this.mContext = context;
+        this.context = context;
         this.accountManager = accountManager;
-        this.mValues = values;
+        this.values = values;
         if (context instanceof AccountListAdapterListener) {
-            this.mListener = (AccountListAdapterListener) context;
+            this.accountListAdapterListener = (AccountListAdapterListener) context;
         }
-        this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
-        this.mTintedCheck = tintedCheck;
+        this.accountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+        this.tintedCheck = tintedCheck;
     }
 
     @Override
@@ -84,35 +83,49 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         mRecyclerView = recyclerView;
     }
 
-    @NonNull
     @Override
-    public AccountViewHolderItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        AccountViewHolderItem viewHolder;
-        View view = LayoutInflater.from(mContext).inflate(R.layout.account_item, parent, false);
-        viewHolder = new AccountViewHolderItem(view);
-        viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
-        return viewHolder;
+    public int getItemViewType(int position) {
+        if (position == values.size()-1) {
+            return AccountListItem.TYPE_ACTION_ADD;
+        }
+        return AccountListItem.TYPE_ACCOUNT;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AccountViewHolderItem holder, int position) {
-        AccountListItem accountListItem = mValues.get(position);
+    public @NonNull
+    RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (AccountListItem.TYPE_ACCOUNT == viewType) {
+            view = LayoutInflater.from(context).inflate(R.layout.account_item, parent, false);
+            AccountViewHolderItem viewHolder = new AccountViewHolderItem(view);
+            viewHolder.checkViewItem.setImageDrawable(tintedCheck);
+            return viewHolder;
+        } else {
+            view = LayoutInflater.from(context).inflate(R.layout.account_action, parent, false);
+            return new AddAccountViewHolderItem(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        AccountListItem accountListItem = values.get(position);
 
         if (accountListItem != null) {
             // create account item
             if (AccountListItem.TYPE_ACCOUNT == accountListItem.getType()) {
                 Account account = accountListItem.getAccount();
-                setAccount(holder, account);
-                setUsername(holder, account);
-                setAvatar(holder, account);
-                setCurrentlyActiveState(holder, account);
+                AccountViewHolderItem item = (AccountViewHolderItem)holder;
+                setAccount(item, account);
+                setUsername(item, account);
+                setAvatar(item, account);
+                setCurrentlyActiveState(item, account);
 
-                TextView usernameView = holder.usernameViewItem;
-                TextView accountView = holder.accountViewItem;
+                TextView usernameView = item.usernameViewItem;
+                TextView accountView = item.accountViewItem;
 
                 // OnClickListener for when the user selects an account
                 holder.itemView.setOnClickListener(view -> {
-                    final Intent intent = new Intent(mContext, UserInfoActivity.class);
+                    final Intent intent = new Intent(context, UserInfoActivity.class);
                     if (accountListItem.isEnabled()) {
                         intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
                         try {
@@ -121,7 +134,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
                         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                             Log_OC.d(TAG, "Failed to find NC account");
                         }
-                        mContext.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+                        context.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
                     }
                 });
 
@@ -134,37 +147,26 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
                 }
 
             } // create add account action item
-            else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && mListener != null) {
-                setupAddAccountListItem(holder);
+            else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && accountListAdapterListener != null) {
+                setupAddAccountListItem(holder.itemView);
             }
         }
-
     }
 
     /**
      * Sets up a View to be used for adding a new account
      *
-     * @param holder the holder which contains the View to be used for the Add Account action
+     * @param actionView the action view
      */
-    private void setupAddAccountListItem(AccountViewHolderItem holder) {
-        View actionView = holder.itemView;
-
-        holder.accountViewItem.setVisibility(View.INVISIBLE);
-        holder.checkViewItem.setVisibility(View.INVISIBLE);
-        TextView userName = actionView.findViewById(R.id.user_name);
-        userName.setText(R.string.prefs_add_account);
-        userName.setTextColor(ThemeUtils.primaryColor(mContext, true));
-
-        ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
-
+    private void setupAddAccountListItem(View actionView) {
         // bind action listener
-        boolean isProviderOrOwnInstallationVisible = mContext.getResources()
+        boolean isProviderOrOwnInstallationVisible = context.getResources()
                 .getBoolean(R.bool.show_provider_or_own_installation);
 
         if (isProviderOrOwnInstallationVisible) {
-            actionView.setOnClickListener(v -> mListener.showFirstRunActivity());
+            actionView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
         } else {
-            actionView.setOnClickListener(v -> mListener.createAccount());
+            actionView.setOnClickListener(v -> accountListAdapterListener.createAccount());
         }
     }
 
@@ -205,8 +207,8 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         try {
             View viewItem = viewHolder.imageViewItem;
             viewItem.setTag(account.name);
-            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(), viewItem,
-                    mContext);
+            DisplayUtils.setAvatar(account, this, accountAvatarRadiusDimension, context.getResources(), viewItem,
+                                   context);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
             // use user icon as a fallback
@@ -222,7 +224,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
      */
     private void setUsername(AccountViewHolderItem viewHolder, Account account) {
         try {
-            OwnCloudAccount oca = new OwnCloudAccount(account, mContext);
+            OwnCloudAccount oca = new OwnCloudAccount(account, context);
             viewHolder.usernameViewItem.setText(oca.getDisplayName());
         } catch (Exception e) {
             Log_OC.w(TAG, "Account not found right after being read; using account name instead");
@@ -248,25 +250,25 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
      */
     @Override
     public int getItemCount() {
-        return this.mValues.size();
+        return this.values.size();
     }
 
     /**
-     * Returns an AccountListItem from the specified position in the mValues list
+     * Returns an AccountListItem from the specified position in the values list
      *
      * @param position of the object to be returned
      * @return An AccountListItem of the specified position
      */
     public AccountListItem getItem(int position) {
-        return mValues.get(position);
+        return values.get(position);
     }
 
     /**
-     * Deletes the elements in the mValues list and notifies the Adapter
+     * Deletes the elements in the values list and notifies the Adapter
      */
     public void clear() {
-        final int size = mValues.size();
-        mValues.clear();
+        final int size = values.size();
+        values.clear();
         notifyItemRangeRemoved(0, size);
     }
 
@@ -276,10 +278,10 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
      * @param items The item list to be added
      */
     public void addAll(List<AccountListItem> items){
-        if(mValues == null){
-            mValues = new ArrayList<>();
+        if(values == null){
+            values = new ArrayList<>();
         }
-        mValues.addAll(items);
+        values.addAll(items);
         notifyDataSetChanged();
     }
 
@@ -310,7 +312,14 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             this.usernameViewItem = view.findViewById(R.id.user_name);
             this.accountViewItem = view.findViewById(R.id.account);
         }
+    }
 
-
+    /**
+     * Account ViewHolderItem to get smooth scrolling.
+     */
+    static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
+        AddAccountViewHolderItem(@NonNull View view) {
+            super(view);
+        }
     }
 }
