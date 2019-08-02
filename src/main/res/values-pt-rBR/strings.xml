@@ -230,7 +230,6 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="etm_preferences">Preferências</string>
-    <string name="etm_share">Compartilhar</string>
     <string name="etm_title">Modo de Teste de Engenharia</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>

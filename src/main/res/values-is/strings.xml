@@ -229,7 +229,6 @@
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
     <string name="etm_preferences">Kjörstillingar</string>
-    <string name="etm_share">Deila</string>
     <string name="fab_label">Bæta við eða senda inn</string>
     <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
     <string name="fallback_weblogin_back">Til baka</string>
