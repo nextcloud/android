@@ -1051,14 +1051,7 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
-        int behaviour;
-
-        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
-            behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
-        } else {
-            behaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
-        }
-        requestUploadOfFilesFromFileSystem(filePaths, behaviour);
+        requestUploadOfFilesFromFileSystem(filePaths, resultCode);
     }
 
     private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
