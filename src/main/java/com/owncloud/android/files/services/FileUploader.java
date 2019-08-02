@@ -1034,6 +1034,13 @@ public class FileUploader extends Service
             return accountName + remotePath;
         }
 
+        /**
+         * Returns the object whose intrinsic lock is used to synchronize starting of the next upload.
+         * While the lock is held no upload can be started (starting an upload requires acquiring this lock),
+         * it can be used to ensure having a consistent view of the current upload across multiple calls.
+         *
+         * @return lock object to use in synchronize
+         */
         public Object uploadStartLock() {
             return uploadStartLock;
         }
