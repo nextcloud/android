@@ -1,23 +1,26 @@
 /*
- * ownCloud Android client application
+ *   Nextcloud Android client application
  *
- * @author Andy Scherzinger
- * @author Chris Narkiewicz
- * @author Nick Antoniou
- * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   @author Andy Scherzinger
+ *   @author Chris Narkiewicz
+ *   @author Nick Antoniou
+ *   Copyright (C) 2016 Andy Scherzinger
+ *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *   Copyright (C) 2019 Nick Antoniou
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
@@ -40,6 +43,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.parceler.Parcels;
 
@@ -55,12 +59,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
+
     private float accountAvatarRadiusDimension;
     private final BaseActivity context;
     private List<AccountListItem> values;
     private AccountListAdapterListener accountListAdapterListener;
     private Drawable tintedCheck;
-    private RecyclerView mRecyclerView;
     private UserAccountManager accountManager;
 
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
@@ -78,14 +82,8 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        mRecyclerView = recyclerView;
-    }
-
-    @Override
     public int getItemViewType(int position) {
-        if (position == values.size()-1) {
+        if (position == values.size() - 1) {
             return AccountListItem.TYPE_ACTION_ADD;
         }
         return AccountListItem.TYPE_ACCOUNT;
@@ -148,7 +146,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && accountListAdapterListener != null) {
-                setupAddAccountListItem(holder.itemView);
+                setupAddAccountListItem((AddAccountViewHolderItem)holder);
             }
         }
     }
@@ -156,9 +154,13 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     /**
      * Sets up a View to be used for adding a new account
      *
-     * @param actionView the action view
+     * @param holder the add account view holder
      */
-    private void setupAddAccountListItem(View actionView) {
+    private void setupAddAccountListItem(AddAccountViewHolderItem holder) {
+        View actionView = holder.itemView;
+
+        holder.usernameViewItem.setTextColor(ThemeUtils.primaryColor(context, true));
+
         // bind action listener
         boolean isProviderOrOwnInstallationVisible = context.getResources()
                 .getBoolean(R.bool.show_provider_or_own_installation);
@@ -318,8 +320,10 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * Account ViewHolderItem to get smooth scrolling.
      */
     static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
+        private TextView usernameViewItem;
         AddAccountViewHolderItem(@NonNull View view) {
             super(view);
+            this.usernameViewItem = view.findViewById(R.id.user_name);
         }
     }
 }
