@@ -80,6 +80,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.AbstractList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -795,7 +796,8 @@ public class FileUploader extends Service
          * Map of listeners that will be reported about progress of uploads from a
          * {@link FileUploaderBinder} instance
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
+        private final Map<String, OnDatatransferProgressListener> mBoundListeners =
+            Collections.synchronizedMap(new HashMap<>());
 
         /**
          * Cancels a pending or current upload of a remote file.
@@ -962,8 +964,10 @@ public class FileUploader extends Service
                 return;
             }
             String targetKey = buildRemoteName(account.name, file.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+            synchronized (mBoundListeners) {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -981,8 +985,10 @@ public class FileUploader extends Service
                 return;
             }
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+            synchronized (mBoundListeners) {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
