@@ -111,6 +111,7 @@
     <string name="common_rename">Renommer</string>
     <string name="common_save">Enregistrer</string>
     <string name="common_send">Envoyer</string>
+    <string name="common_share">Partager</string>
     <string name="common_switch_account">Basculer de compte</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_yes">Oui</string>
@@ -139,6 +140,7 @@
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
+    <string name="copied_to_clipboard">Copié dans le presse-papier</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
     <string name="copy_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
@@ -228,6 +230,9 @@ Attention la suppression est irréversible.</string>
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
+    <string name="error_crash_title">%1$s a planté</string>
+    <string name="error_report_issue_action">Signaler</string>
+    <string name="error_report_issue_text">Signaler l\'anomalie ? (requiert un compte Github)</string>
     <string name="error_retrieving_file">Erreur de téléchargement</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
@@ -526,8 +531,10 @@ Attention la suppression est irréversible.</string>
     <string name="scanQR_description">Connexion par code QR</string>
     <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>
     <string name="screenshot_02_listView">Consultez et partagez vos fichiers facilement</string>
+    <string name="screenshot_02_listView_heading">Parcourir et partager</string>
     <string name="screenshot_03_drawer">Accédez rapidement aux fichiers hors-connexion, partagez, consultez l\'activé et bien plus</string>
     <string name="screenshot_04_accounts">Connectez-vous avec plusieurs comptes</string>
+    <string name="screenshot_04_accounts_heading">Tous vos comptes</string>
     <string name="screenshot_05_autoUpload">Téléversez instantanément vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid">Synchronisez Agenda &amp; Contacts avec DAVx5 (autrefois connue comme DAVdroid)</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
