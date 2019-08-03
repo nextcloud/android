@@ -111,6 +111,7 @@
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
+    <string name="common_share">Compartir</string>
     <string name="common_switch_account">Cambiar de cuenta</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_yes">Sí</string>
@@ -139,6 +140,7 @@
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
     <string name="contacts_read_permission">Se necesita el permiso para leer la lista de contactos</string>
+    <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
@@ -226,6 +228,7 @@
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
     <string name="error_comment_file">Error al comentar el archivo</string>
+    <string name="error_report_issue_action">Informe</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
@@ -524,11 +527,23 @@
     <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
     <string name="scanQR_description">Entrar vía código QR</string>
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>
+    <string name="screenshot_01_gridView_heading">Protegiendo sus datos</string>
+    <string name="screenshot_01_gridView_subline">plataforma de productividad auto hospedada</string>
     <string name="screenshot_02_listView">Explora y comparte tus archivos fácilmente</string>
+    <string name="screenshot_02_listView_heading">Navegar y compartir</string>
+    <string name="screenshot_02_listView_subline">todas las acciones en la punta de sus dedos</string>
     <string name="screenshot_03_drawer">Accede rápidamente a tu actividad, recursos compartidos, archivos sin conexión y más</string>
+    <string name="screenshot_03_drawer_heading">Actividad, compartir, archivos offline</string>
+    <string name="screenshot_03_drawer_subline">todo accesible rápidamente</string>
     <string name="screenshot_04_accounts">Conectarse a cuentas diferentes</string>
+    <string name="screenshot_04_accounts_heading">Todas sus cuentas</string>
+    <string name="screenshot_04_accounts_subline">en un lugar</string>
     <string name="screenshot_05_autoUpload">Sube automáticamente tus fotos y vídeos</string>
+    <string name="screenshot_05_autoUpload_heading">Subida automática</string>
+    <string name="screenshot_05_autoUpload_subline">para sus fotos &amp; vídeos</string>
     <string name="screenshot_06_davdroid">Sincronizar calendario y contactos con DAVx5 (antes conocido como DAVdroid)</string>
+    <string name="screenshot_06_davdroid_heading">Sincronice calendario &amp; contactos</string>
+    <string name="screenshot_06_davdroid_subline">con DAVx5 (anteriormente DAVdroid)</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Escoge plantilla</string>
