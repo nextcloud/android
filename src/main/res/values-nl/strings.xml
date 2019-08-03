@@ -226,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
     <string name="error_comment_file">Fout bij plaatsen commentaar</string>
+    <string name="error_report_issue_action">Rapporteer</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
@@ -529,6 +530,7 @@
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp; video\'s uploaden</string>
     <string name="screenshot_06_davdroid">Synchroniseer kalender &amp; contactpersonen met DAVx5 (vroeger bekend als DAVdroid)</string>
+    <string name="screenshot_06_davdroid_heading">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_template">Kies sjabloon</string>
