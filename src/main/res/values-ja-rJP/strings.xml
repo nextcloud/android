@@ -111,6 +111,7 @@
     <string name="common_rename">名前を変更</string>
     <string name="common_save">保存</string>
     <string name="common_send">送信</string>
+    <string name="common_share">共有</string>
     <string name="common_switch_account">アカウント変更</string>
     <string name="common_unknown">不明</string>
     <string name="common_yes">はい</string>
@@ -226,6 +227,7 @@
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
     <string name="error_comment_file">コメントファイルのエラー</string>
+    <string name="error_report_issue_action">報告</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
