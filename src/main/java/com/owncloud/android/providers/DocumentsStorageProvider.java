@@ -118,14 +118,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public Cursor queryRoots(String[] projection) {
 
+        // always recreate storage manager collection, as it will change after account creation/removal
+        // and we need to serve document(tree)s with persist permissions
+        initiateStorageMap();
+
         Context context = MainApp.getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (SettingsActivity.LOCK_PASSCODE.equals(preferences.getLockPreference()) ||
             SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(preferences.getLockPreference())) {
             return new FileCursor();
         }
-
-        initiateStorageMap();
 
         final RootCursor result = new RootCursor(projection);
         for(int i = 0; i < rootIdToStorageManager.size(); i++) {
@@ -293,6 +295,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public boolean onCreate() {
         accountManager = UserAccountManagerImpl.fromContext(getContext());
+
+        // initiate storage manager collection, because we need to serve document(tree)s
+        // with persist permissions
+        initiateStorageMap();
+
         return true;
     }
 
