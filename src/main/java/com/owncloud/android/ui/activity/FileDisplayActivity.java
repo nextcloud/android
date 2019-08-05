@@ -1551,7 +1551,11 @@ public class FileDisplayActivity extends FileActivity
 
             } finally {
                 if (intent != null) {
-                    removeStickyBroadcast(intent);
+                    try {
+                        removeStickyBroadcast(intent);
+                    } catch (SecurityException ex) {
+                        Log_OC.e(TAG, "Cannot clear sticky intent.", ex);
+                    }
                 }
             }
 
