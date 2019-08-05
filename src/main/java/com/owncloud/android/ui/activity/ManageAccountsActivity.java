@@ -35,9 +35,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -50,7 +47,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.AccountRemovalJob;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
@@ -73,6 +69,8 @@ import javax.inject.Inject;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -85,22 +83,19 @@ public class ManageAccountsActivity extends FileActivity
     public static final String KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED";
     public static final String PENDING_FOR_REMOVAL = UserAccountManager.PENDING_FOR_REMOVAL;
 
-    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
-
-    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
     private static final int KEY_DELETE_CODE = 101;
     private static final int SINGLE_ACCOUNT = 1;
     private static final int MIN_MULTI_ACCOUNT_SIZE = 2;
 
-    private ListView mListView;
-    private final Handler mHandler = new Handler();
-    private String mAccountName;
-    private AccountListAdapter mAccountListAdapter;
-    private ServiceConnection mDownloadServiceConnection;
-    private ServiceConnection mUploadServiceConnection;
-    private Set<String> mOriginalAccounts;
-    private String mOriginalCurrentAccount;
-    private Drawable mTintedCheck;
+    private RecyclerView recyclerView;
+    private final Handler handler = new Handler();
+    private String accountName;
+    private AccountListAdapter accountListAdapter;
+    private ServiceConnection downloadServiceConnection;
+    private ServiceConnection uploadServiceConnection;
+    private Set<String> originalAccounts;
+    private String originalCurrentAccount;
+    private Drawable tintedCheck;
 
     private ArbitraryDataProvider arbitraryDataProvider;
 
@@ -110,24 +105,24 @@ public class ManageAccountsActivity extends FileActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.account_circle_white));
+        tintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.account_circle_white));
         int tint = ThemeUtils.elementColor(this);
-        DrawableCompat.setTint(mTintedCheck, tint);
+        DrawableCompat.setTint(tintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
 
-        mListView = findViewById(R.id.account_list);
+        recyclerView = findViewById(R.id.account_list);
 
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-        mOriginalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
+        originalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
 
         Account currentAccount = getUserAccountManager().getCurrentAccount();
 
         if (currentAccount != null) {
-            mOriginalCurrentAccount = currentAccount.name;
+            originalCurrentAccount = currentAccount.name;
         }
 
         setAccount(currentAccount);
@@ -135,51 +130,23 @@ public class ManageAccountsActivity extends FileActivity
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), getAccountListItems(), mTintedCheck);
+        accountListAdapter = new AccountListAdapter(this, accountManager, getAccountListItems(), tintedCheck);
 
-        mListView.setAdapter(mAccountListAdapter);
-
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AccountListItem item = mAccountListAdapter.getItem(position);
-
-                if (item != null && item.isEnabled()) {
-                    Account account = item.getAccount();
-                    intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
-                    try {
-                        OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-                        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                        Log_OC.d(TAG, "Failed to find NC account");
-                    }
-
-                    startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
-                }
-            }
-        });
-
+        recyclerView.setAdapter(accountListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initializeComponentGetters();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case KEY_DELETE_CODE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                        Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
-                        mAccountName = account.name;
-                        performAccountRemoval(account);
-                    }
-                }
-                break;
-            default:
-                break;
+        if (resultCode == KEY_DELETE_CODE && data != null) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
+                Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
+                accountName = account.name;
+                performAccountRemoval(account);
+            }
         }
     }
 
@@ -211,7 +178,7 @@ public class ManageAccountsActivity extends FileActivity
         }
 
         Set<String> actualAccounts = DisplayUtils.toAccountNameSet(newList);
-        return !mOriginalAccounts.equals(actualAccounts);
+        return !originalAccounts.equals(actualAccounts);
     }
 
     /**
@@ -224,7 +191,7 @@ public class ManageAccountsActivity extends FileActivity
         if (account == null) {
             return true;
         } else {
-            return !account.name.equals(mOriginalCurrentAccount);
+            return !account.name.equals(originalCurrentAccount);
         }
     }
 
@@ -232,15 +199,15 @@ public class ManageAccountsActivity extends FileActivity
      * Initialize ComponentsGetters.
      */
     private void initializeComponentGetters() {
-        mDownloadServiceConnection = newTransferenceServiceConnection();
-        if (mDownloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
-                    Context.BIND_AUTO_CREATE);
+        downloadServiceConnection = newTransferenceServiceConnection();
+        if (downloadServiceConnection != null) {
+            bindService(new Intent(this, FileDownloader.class), downloadServiceConnection,
+                        Context.BIND_AUTO_CREATE);
         }
-        mUploadServiceConnection = newTransferenceServiceConnection();
-        if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
-                    Context.BIND_AUTO_CREATE);
+        uploadServiceConnection = newTransferenceServiceConnection();
+        if (uploadServiceConnection != null) {
+            bindService(new Intent(this, FileUploader.class), uploadServiceConnection,
+                        Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -290,54 +257,46 @@ public class ManageAccountsActivity extends FileActivity
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(this),
-                null,
-                null,
-                null,
-                this,
-                new AccountManagerCallback<Bundle>() {
-                    @Override
-                    public void run(AccountManagerFuture<Bundle> future) {
-                        if (future != null) {
-                            try {
-                                Bundle result = future.getResult();
-                                String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                                accountManager.setCurrentOwnCloudAccount(name);
-                                mAccountListAdapter = new AccountListAdapter(
-                                        ManageAccountsActivity.this,
-                                        getUserAccountManager(),
-                                        getAccountListItems(),
-                                        mTintedCheck
-                                );
-                                mListView.setAdapter(mAccountListAdapter);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mAccountListAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            } catch (OperationCanceledException e) {
-                                Log_OC.d(TAG, "Account creation canceled");
-                            } catch (Exception e) {
-                                Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                            }
-                        }
-                    }
-                }, mHandler);
+                      null,
+                      null,
+                      null,
+                      this,
+                      future -> {
+                          if (future != null) {
+                              try {
+                                  Bundle result = future.getResult();
+                                  String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
+                                  accountManager.setCurrentOwnCloudAccount(name);
+                                  accountListAdapter = new AccountListAdapter(
+                                          this,
+                                          accountManager,
+                                          getAccountListItems(),
+                                          tintedCheck
+                                  );
+                                  recyclerView.setAdapter(accountListAdapter);
+                                  runOnUiThread(() -> accountListAdapter.notifyDataSetChanged());
+                              } catch (OperationCanceledException e) {
+                                  Log_OC.d(TAG, "Account creation canceled");
+                              } catch (Exception e) {
+                                  Log_OC.e(TAG, "Account creation finished in exception: ", e);
+                              }
+                          }
+                      }, handler);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAccountRemovedEvent(AccountRemovedEvent event) {
         List<AccountListItem> accountListItemArray = getAccountListItems();
-        mAccountListAdapter.clear();
-        mAccountListAdapter.addAll(accountListItemArray);
-        mAccountListAdapter.notifyDataSetChanged();
+        accountListAdapter.clear();
+        accountListAdapter.addAll(accountListItemArray);
+        accountListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
             // after remove account
-            Account account = new Account(mAccountName, MainApp.getAccountType(this));
+            Account account = new Account(accountName, MainApp.getAccountType(this));
             if (!accountManager.exists(account)) {
                 // Cancel transfers of the removed account
                 if (mUploaderBinder != null) {
@@ -359,8 +318,8 @@ public class ManageAccountsActivity extends FileActivity
 
             List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > SINGLE_ACCOUNT) {
-                mAccountListAdapter = new AccountListAdapter(this, getUserAccountManager(), accountListItemArray, mTintedCheck);
-                mListView.setAdapter(mAccountListAdapter);
+                accountListAdapter = new AccountListAdapter(this, accountManager, accountListItemArray, tintedCheck);
+                recyclerView.setAdapter(accountListAdapter);
             } else {
                 onBackPressed();
             }
@@ -369,19 +328,19 @@ public class ManageAccountsActivity extends FileActivity
 
     @Override
     protected void onDestroy() {
-        if (mDownloadServiceConnection != null) {
-            unbindService(mDownloadServiceConnection);
-            mDownloadServiceConnection = null;
+        if (downloadServiceConnection != null) {
+            unbindService(downloadServiceConnection);
+            downloadServiceConnection = null;
         }
-        if (mUploadServiceConnection != null) {
-            unbindService(mUploadServiceConnection);
-            mUploadServiceConnection = null;
+        if (uploadServiceConnection != null) {
+            unbindService(uploadServiceConnection);
+            uploadServiceConnection = null;
         }
 
         super.onDestroy();
     }
 
-    public Handler getHandler() { return mHandler; }
+    public Handler getHandler() { return handler; }
 
     @Override
     public FileUploader.FileUploaderBinder getFileUploaderBinder() {
@@ -408,16 +367,16 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     private void performAccountRemoval(Account account) {
-        // disable account in list view
-        for (int i = 0; i < mAccountListAdapter.getCount(); i++) {
-            AccountListItem item = mAccountListAdapter.getItem(i);
+        // disable account in recycler view
+        for (int i = 0; i < accountListAdapter.getItemCount(); i++) {
+            AccountListItem item = accountListAdapter.getItem(i);
 
             if (item != null && item.getAccount().equals(account)) {
                 item.setEnabled(false);
                 break;
             }
 
-            mAccountListAdapter.notifyDataSetChanged();
+            accountListAdapter.notifyDataSetChanged();
         }
 
         // store pending account removal
