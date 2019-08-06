@@ -4,6 +4,9 @@
     <files-path
         path="log/"
         name="log"/>
+    <cache-path
+        name="attachments"
+        path="attachments"/>
     <external-path name="external_files" path="."/>
     <root-path name="external_files" path="/storage/" />
     <!-- yes, valid for ALL external storage and not only our app folder, since we can't use @string/data_folder

@@ -17,28 +17,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.di
+package com.nextcloud.client.logger
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.etm.EtmViewModel
-import com.nextcloud.client.logger.ui.LogsViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
+interface Logger {
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(EtmViewModel::class)
-    abstract fun etmViewModel(vm: EtmViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(LogsViewModel::class)
-    abstract fun logsViewModel(vm: LogsViewModel): ViewModel
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    fun v(tag: String, message: String)
+    fun d(tag: String, message: String)
+    fun d(tag: String, message: String, t: Throwable)
+    fun i(tag: String, message: String)
+    fun w(tag: String, message: String)
+    fun e(tag: String, message: String)
+    fun e(tag: String, message: String, t: Throwable)
 }
