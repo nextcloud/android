@@ -318,7 +318,7 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
 
-        <activity android:name=".ui.activity.LogHistoryActivity"/>
+        <activity android:name=".ui.activity.LogsActivity"/>
 
         <activity android:name="com.nextcloud.client.errorhandling.ShowErrorActivity"
             android:theme="@style/Theme.ownCloud.Toolbar"
