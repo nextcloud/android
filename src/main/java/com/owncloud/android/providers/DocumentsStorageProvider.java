@@ -62,7 +62,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -82,17 +81,12 @@ import org.nextcloud.providers.cursors.RootCursor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -111,9 +105,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
-
-    private final OnTaskFinishedCallback<Document> loadChildrenCallback =
-        (status, document, exception) -> getContext().getContentResolver().notifyChange(toNotifyUri(document), null, false);
 
     @Override
     public Cursor queryRoots(String[] projection) {
@@ -172,7 +163,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         boolean isLoading = false;
         if (parentFolder.isExpired()) {
-            final LoadChildrenTask task = new LoadChildrenTask(parentFolder, loadChildrenCallback);
+            final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(parentFolder, result -> {
+                getContext().getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
+            });
             task.executeOnExecutor(executor);
             resultCursor.setLoadingTask(task);
             isLoading = true;
@@ -395,7 +388,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
         Document newFile = new Document(storageManager, newPath);
 
-        context.getContentResolver().notifyChange(toNotifyUri(newFile.getParent()), null, false);
+        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
 
         return newFile.getDocumentId();
     }
@@ -467,31 +460,26 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Context may not be null!");
         }
 
+        String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        RemoteOperationResult result = new CreateFolderOperation(targetFolder.getRemotePath() + displayName
-                                                                     + PATH_SEPARATOR, true)
+        RemoteOperationResult result = new CreateFolderOperation(newDirPath, true)
             .execute(targetFolder.getClient(), storageManager);
-
 
         if (!result.isSuccess()) {
             throw new FileNotFoundException("Failed to create document with name " +
                                                 displayName + " and documentId " + targetFolder.getDocumentId());
         }
 
-
-        Account account = targetFolder.getAccount();
-        OwnCloudClient client = targetFolder.getClient();
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
-                                                                        account, context)
-            .execute(client);
+                                                                        targetFolder.getAccount(), context)
+            .execute(targetFolder.getClient());
 
         if (!updateParent.isSuccess()) {
             throw new FileNotFoundException("Failed to create document with documentId " + targetFolder.getDocumentId());
         }
 
-        String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         Document newFolder = new Document(storageManager, newDirPath);
 
         context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
@@ -529,28 +517,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("File could not be created");
         }
 
-        // perform the upload
-        UploadFileRemoteOperation mUploadOperation;
-        if (emptyFile.length() > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-            mUploadOperation = new ChunkedFileUploadRemoteOperation(emptyFile.getAbsolutePath(),
-                                                                    targetFolder.getRemotePath() + displayName,
-                                                                    null,
-                                                                    "",
-                                                                    String.valueOf(System.currentTimeMillis()),
-                                                                    false);
-        } else {
-            mUploadOperation = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
-                                                             targetFolder.getRemotePath() + displayName,
-                                                             null,
-                                                             "",
-                                                             String.valueOf(System.currentTimeMillis()));
-        }
+        String newFilePath = targetFolder.getRemotePath() + displayName;
 
-        RemoteOperationResult result = mUploadOperation.execute(client);
+        // perform the upload, no need for chunked operation as we have a empty file
+        RemoteOperationResult result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+                                                                     newFilePath,
+                                                                     null,
+                                                                     "",
+                                                                     String.valueOf(System.currentTimeMillis()))
+            .execute(client);
 
         if (!result.isSuccess()) {
-            throw new FileNotFoundException("Failed to upload document with path " +
-                                                targetFolder.getRemotePath() + "/" + displayName);
+            throw new FileNotFoundException("Failed to upload document with path " + newFilePath);
         }
 
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
@@ -567,7 +545,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Failed to create document with documentId " + targetFolder.getDocumentId());
         }
 
-        String newFilePath = targetFolder.getRemotePath() + displayName;
         Document newFile = new Document(targetFolder.getStorageManager(), newFilePath);
 
         context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
@@ -707,47 +684,33 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return new Document(storageManager, Long.parseLong(separated[1]));
     }
 
-    public interface OnTaskFinishedCallback<T> {
-
-        int SUCCEEDED = 0;
-        int FAILED = 1;
-        int CANCELLED = 2;
-
-        @IntDef({ SUCCEEDED, FAILED, CANCELLED })
-        @Retention(RetentionPolicy.SOURCE)
-        @interface Status {}
-
-        void onTaskFinished(@Status int status, @Nullable T item, @Nullable Exception exception);
+    public interface OnTaskFinishedCallback {
+        void onTaskFinished(RemoteOperationResult result);
     }
 
-    static class LoadChildrenTask extends AsyncTask<Void, Void, RemoteOperationResult> {
+    static class ReloadFolderDocumentTask extends AsyncTask<Void, Void, RemoteOperationResult> {
 
-        private final Document document;
-        private final OnTaskFinishedCallback<Document> callback;
+        private final Document folder;
+        private final OnTaskFinishedCallback callback;
 
-        LoadChildrenTask(Document document, OnTaskFinishedCallback<Document> callback) {
-            this.document = document;
+        ReloadFolderDocumentTask(Document folder, OnTaskFinishedCallback callback) {
+            this.folder = folder;
             this.callback = callback;
         }
 
         @Override
         public final RemoteOperationResult doInBackground(Void... params) {
-            Log.d(TAG, "run RefreshDocumentTask(), id=" + document.getDocumentId());
-            return new RefreshFolderOperation(document.getFile(), System.currentTimeMillis(), false,
-                                              false, true, document.getStorageManager(), document.getAccount(),
-                                              MainApp.getAppContext()).execute(document.getClient());
+            Log.d(TAG, "run ReloadFolderDocumentTask(), id=" + folder.getDocumentId());
+            return new RefreshFolderOperation(folder.getFile(), System.currentTimeMillis(), false,
+                                              false, true, folder.getStorageManager(), folder.getAccount(),
+                                              MainApp.getAppContext())
+                .execute(folder.getClient());
         }
 
         @Override
         public final void onPostExecute(RemoteOperationResult result) {
             if (callback != null) {
-                if (result.isSuccess()) {
-                    callback.onTaskFinished(OnTaskFinishedCallback.SUCCEEDED, document, null);
-                } else if (result.isCancelled()) {
-                    callback.onTaskFinished(OnTaskFinishedCallback.CANCELLED, document, null);
-                } else {
-                    callback.onTaskFinished(OnTaskFinishedCallback.FAILED, document, result.getException());
-                }
+                callback.onTaskFinished(result);
             }
         }
     }
