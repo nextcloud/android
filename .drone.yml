@@ -67,7 +67,7 @@ steps:
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - ./gradlew assembleGplay
-      - emulator -avd android-27 -no-window -no-audio &
+      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./wait_for_emulator.sh
       - ./gradlew assembleGplayDebug
       - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
