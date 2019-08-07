@@ -164,6 +164,10 @@ android {
                 versionName "1"
             }
         }
+
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;

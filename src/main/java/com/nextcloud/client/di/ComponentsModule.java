@@ -45,7 +45,7 @@ import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FilePickerActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.LogHistoryActivity;
+import com.owncloud.android.ui.activity.LogsActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
@@ -101,7 +101,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FilePickerActivity filePickerActivity();
     @ContributesAndroidInjector abstract FirstRunActivity firstRunActivity();
     @ContributesAndroidInjector abstract FolderPickerActivity folderPickerActivity();
-    @ContributesAndroidInjector abstract LogHistoryActivity logHistoryActivity();
+    @ContributesAndroidInjector abstract LogsActivity logsActivity();
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
