@@ -17,28 +17,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.di
+package com.nextcloud.client.logger
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.etm.EtmViewModel
-import com.nextcloud.client.logger.ui.LogsViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
+enum class Level(val tag: String) {
+    UNKNOWN("U"),
+    VERBOSE("V"),
+    DEBUG("D"),
+    INFO("I"),
+    WARNING("W"),
+    ERROR("E"),
+    ASSERT("A");
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(EtmViewModel::class)
-    abstract fun etmViewModel(vm: EtmViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(LogsViewModel::class)
-    abstract fun logsViewModel(vm: LogsViewModel): ViewModel
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    companion object {
+        @JvmStatic
+        fun fromTag(tag: String): Level = when (tag) {
+            "V" -> VERBOSE
+            "D" -> DEBUG
+            "I" -> INFO
+            "W" -> WARNING
+            "E" -> ERROR
+            "A" -> ASSERT
+            else -> UNKNOWN
+        }
+    }
 }

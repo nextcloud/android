@@ -48,6 +48,8 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.errorhandling.ExceptionHandler;
+import com.nextcloud.client.logger.LegacyLoggerAdapter;
+import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -136,6 +138,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     ConnectivityService connectivityService;
 
     @Inject PowerManagementService powerManagementService;
+
+    @Inject
+    Logger logger;
 
     private PassCodeManager passCodeManager;
 
@@ -248,6 +253,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
             // use app writable dir, no permissions needed
+            Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
         }
