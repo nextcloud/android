@@ -524,7 +524,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                      newFilePath,
                                                                      null,
                                                                      "",
-                                                                     String.valueOf(System.currentTimeMillis()))
+                                                                     String.valueOf(System.currentTimeMillis() / 1000))
             .execute(client);
 
         if (!result.isSuccess()) {
