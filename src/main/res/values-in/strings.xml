@@ -74,9 +74,11 @@
     <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
     <string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
     <string name="authentication_exception">Pengecualian otentikasi</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">disimpan di folder original karena readonly</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>
+    <string name="autoupload_disable_power_save_check">Non-aktifkan pemeriksaan mode hemat daya</string>
     <string name="avatar">Avatar</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
     <string name="choose_local_folder">Pilih folder lokal…</string>
