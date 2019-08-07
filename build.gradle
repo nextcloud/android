@@ -305,7 +305,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-core:2.0.2'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.2'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.2'
-    testImplementation 'org.json:json:20180813'
+    testImplementation 'org.json:json:20190722'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     testImplementation "androidx.arch.core:core-testing:2.0.1"
 
