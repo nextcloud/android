@@ -131,6 +131,7 @@
     <string name="end_to_end_encryption_title">تنصيب التشفير</string>
     <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التعمية. هل كلمة السر صحيحة ؟</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
+    <string name="etm_preferences">الخيارات</string>
     <string name="fallback_weblogin_back">العودة</string>
     <string name="file_delete">حذف </string>
     <string name="file_icon">الملف</string>
