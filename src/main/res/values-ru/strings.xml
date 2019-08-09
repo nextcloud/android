@@ -111,6 +111,7 @@
     <string name="common_rename">Переименовать</string>
     <string name="common_save">Сохранить</string>
     <string name="common_send">Отправить</string>
+    <string name="common_share">Поделиться</string>
     <string name="common_switch_account">Переключить учётную запись</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_yes">Да</string>
@@ -139,6 +140,7 @@
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
     <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
+    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
     <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
@@ -226,6 +228,8 @@
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
     <string name="error_comment_file">Ошибка комментирования файла</string>
+    <string name="error_report_issue_action">Сообщить</string>
+    <string name="error_report_issue_text">Сообщить о проблеме? (Требуется учётная запись Github)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
@@ -526,8 +530,14 @@
     <string name="screenshot_02_listView">Простой доступ и обмен своими файлами</string>
     <string name="screenshot_03_drawer">Быстрый просмотр событий, общих ресурсов, доступных без подключения файлов и многое другое</string>
     <string name="screenshot_04_accounts">Соединение с несколькими учётными записями</string>
+    <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
+    <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload">Автоматическая передача фотографий &amp;видео</string>
+    <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
+    <string name="screenshot_05_autoUpload_subline">ваших фото &amp; видео</string>
     <string name="screenshot_06_davdroid">Синхронизация календаря и контактов с использованием приложения DAVx5 (ранее называвшемся DAVdroid )</string>
+    <string name="screenshot_06_davdroid_heading">Синхронизуйте календарь &amp; контакты</string>
+    <string name="screenshot_06_davdroid_subline">с DAVx5 (бывший DAVdroid)</string>
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_template">Выбрать шаблон</string>
