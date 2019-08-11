@@ -52,7 +52,8 @@ class LogsAdapter(context: Context) : RecyclerView.Adapter<LogsAdapter.ViewHolde
     override fun getItemCount() = entries.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entry = entries[position]
+        val reversedPosition = entries.size - position - 1
+        val entry = entries[reversedPosition]
         val header = "${timestampFormat.format(entry.timestamp)} ${entry.level.tag} ${entry.tag}"
         holder.header.text = header
         holder.message.text = entry.message

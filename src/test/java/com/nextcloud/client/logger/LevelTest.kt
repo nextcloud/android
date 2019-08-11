@@ -17,16 +17,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.core
+package com.nextcloud.client.logger
 
-typealias OnResultCallback<T> = (T) -> Unit
-typealias OnErrorCallback = (Throwable) -> Unit
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-/**
- * This interface allows to post background tasks that report results via callbacks invoked on main thread.
- *
- * It is provided as an alternative for heavy, platform specific and virtually untestable [android.os.AsyncTask]
- */
-interface AsyncRunner {
-    fun <T> post(task: () -> T, onResult: OnResultCallback<T>? = null, onError: OnErrorCallback? = null): Cancellable
+class LevelTest {
+
+    @Test
+    fun `parsing level tag`() {
+        Level.values().forEach {
+            val parsed = Level.fromTag(it.tag)
+            assertEquals(parsed, it)
+        }
+    }
+
+    @Test
+    fun `level parser handles unkown values`() {
+        assertEquals(Level.UNKNOWN, Level.fromTag("non-existing-tag"))
+    }
 }

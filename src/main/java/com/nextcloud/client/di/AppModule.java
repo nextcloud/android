@@ -31,7 +31,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.core.AsyncRunner;
-import com.nextcloud.client.core.AsyncRunnerImpl;
+import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.device.DeviceInfo;
@@ -144,6 +144,6 @@ class AppModule {
     @Singleton
     AsyncRunner asyncRunner() {
         Handler uiHandler = new Handler();
-        return new AsyncRunnerImpl(uiHandler, 4);
+        return new ThreadPoolAsyncRunner(uiHandler, 4);
     }
 }
