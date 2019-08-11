@@ -65,6 +65,7 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.ui.activities.ActivityListHeader;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -141,7 +142,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 values.add(activity);
             } else {
                 sTime = time;
-                values.add(sTime);
+                values.add(new ActivityListHeader(sTime));
                 values.add(activity);
             }
         }
@@ -173,11 +174,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (activity.getRichSubjectElement() != null &&
-                    !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
+                !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
                 activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
                 activityViewHolder.subject.setText(addClickablePart(activity.getRichSubjectElement()),
-                        TextView.BufferType.SPANNABLE);
+                                                   TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
@@ -198,7 +199,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (activity.getRichSubjectElement() != null &&
-                    activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+                activity.getRichSubjectElement().getRichObjectList().size() > 0) {
 
                 activityViewHolder.list.setVisibility(View.VISIBLE);
                 activityViewHolder.list.removeAllViews();
@@ -237,7 +238,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         } else {
             ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
-            activityViewHeaderHolder.title.setText((String) values.get(position));
+            ActivityListHeader header = (ActivityListHeader) values.get(position);
+            activityViewHeaderHolder.title.setText((String) header.getHeadline());
         }
     }
 
@@ -325,23 +327,23 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void downloadIcon(String icon, ImageView itemViewType) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_activity)
-                .error(R.drawable.ic_activity)
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<>());
+            .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
+            .from(Uri.class)
+            .as(SVG.class)
+            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .sourceEncoder(new StreamEncoder())
+            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
+            .decoder(new SvgDecoder())
+            .placeholder(R.drawable.ic_activity)
+            .error(R.drawable.ic_activity)
+            .animate(android.R.anim.fade_in)
+            .listener(new SvgSoftwareLayerSetter<>());
 
         Uri uri = Uri.parse(icon);
         requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(itemViewType);
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .load(uri)
+            .into(itemViewType);
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {
@@ -418,7 +420,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     CharSequence getHeaderDateString(Context context, long modificationTimestamp) {
         if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
             return DisplayUtils.getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
-                    DateUtils.WEEK_IN_MILLIS, 0);
+                                                          DateUtils.WEEK_IN_MILLIS, 0);
         } else {
             String pattern = "EEEE, MMMM d";
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
