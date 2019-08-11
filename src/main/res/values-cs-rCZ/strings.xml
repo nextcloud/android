@@ -110,6 +110,7 @@
     <string name="common_rename">Přejmenovat</string>
     <string name="common_save">Uložit</string>
     <string name="common_send">Odeslat</string>
+    <string name="common_share">Sdílet</string>
     <string name="common_switch_account">Přepnout účet</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_yes">Ano</string>
@@ -138,6 +139,7 @@
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši poslední zálohu!</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
+    <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
     <string name="copy_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
@@ -224,6 +226,7 @@
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místní složky %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
+    <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
@@ -520,11 +523,23 @@
     <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
     <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
     <string name="screenshot_01_gridView">Bezpečné místo pro všechna vaše data</string>
+    <string name="screenshot_01_gridView_heading">Ochrana vašich dat</string>
+    <string name="screenshot_01_gridView_subline">Platforma pro produktivitu, hostovaná u vás</string>
     <string name="screenshot_02_listView">Snadno procházejte a sdílejte své soubory</string>
+    <string name="screenshot_02_listView_heading">Procházet a sdílet</string>
+    <string name="screenshot_02_listView_subline">všechny akce na dosah ruky</string>
     <string name="screenshot_03_drawer">Rychlý přístup k aktivitě, sdílením, souborům offline a dalšímu</string>
+    <string name="screenshot_03_drawer_heading">Aktivity, sdílení, soubory offline</string>
+    <string name="screenshot_03_drawer_subline">vše pohotově přístupné</string>
     <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
+    <string name="screenshot_04_accounts_heading">Všechny vaše účty</string>
+    <string name="screenshot_04_accounts_subline">na jednom místě</string>
     <string name="screenshot_05_autoUpload">Automaticky nahrávat své fotky &amp; videa</string>
+    <string name="screenshot_05_autoUpload_heading">Automatické nahrání</string>
+    <string name="screenshot_05_autoUpload_subline">pro vaše fotky a videa</string>
     <string name="screenshot_06_davdroid">Synchronizujte kalendář a kontakty pomocí DAVx5 (dříve známo pod názvem DAVdroid)</string>
+    <string name="screenshot_06_davdroid_heading">Synchronizovat kalendář a kontakty</string>
+    <string name="screenshot_06_davdroid_subline">pomocí DAVx5 (dříve DAVdroid)</string>
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
     <string name="select_all">Vybrat vše</string>
     <string name="select_template">Vybrat šablonu</string>
