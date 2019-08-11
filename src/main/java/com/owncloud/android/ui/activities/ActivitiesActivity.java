@@ -60,7 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
+public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivityListElement, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
 
     @BindView(R.id.empty_list_view)
@@ -104,9 +104,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
-
         mActionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
 
+        setContentView(R.layout.activity_list_layout);
         setContentView(R.layout.activity_list_layout);
         unbinder = ButterKnife.bind(this);
 
@@ -165,7 +165,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
-                PorterDuff.Mode.SRC_IN);
+                                                                          PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         adapter = new ActivityListAdapter(this, getUserAccountManager(), this, storageManager, getCapabilities(), false);
@@ -174,6 +174,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new ActivityListItemDecoration());
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -186,7 +187,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
                 // synchronize loading state when item count changes
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                        && nextPageUrl != null && !nextPageUrl.isEmpty()) {
+                    && nextPageUrl != null && !nextPageUrl.isEmpty()) {
                     // Almost reached the end, continue to load new activities
                     mActionListener.loadActivities(nextPageUrl);
                 }
