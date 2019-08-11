@@ -148,7 +148,7 @@
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
     <string name="copy_to">Copia a…</string>
-    <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
+    <string name="could_not_retrieve_url">No s\'ha pogut recuperar l\'URL</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="create_file_from_template">S\'està creant el fitxer des d\'una plantilla...</string>
     <string name="create_new_document">Crea un nou document</string>
@@ -618,7 +618,7 @@
     <string name="ssl_validator_reason_cert_expired">- El certificat del servidor ha caducat</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Les dades vàlides del certificat del servidor són al futur</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincideix amb el nom del servidor en el certificat</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- L\'URL no coincideix amb el nom del servidor en el certificat</string>
     <string name="storage_camera">Càmera</string>
     <string name="storage_choose_location">Escolliu la ubicació d\'emmagatzematge</string>
     <string name="storage_description_default">Per defecte</string>
