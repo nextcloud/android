@@ -69,7 +69,7 @@
 		<Preference android:title="@string/prefs_help" android:key="help" />
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
 		<Preference android:title="@string/prefs_feedback" android:key="feedback" />
-		<Preference android:title="@string/actionbar_logger" android:key="logger" />
+		<Preference android:title="@string/logs_title" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefs_category_about" android:key="about">

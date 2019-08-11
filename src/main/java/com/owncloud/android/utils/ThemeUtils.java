@@ -485,6 +485,11 @@ public final class ThemeUtils {
         themeEditText(context, editText, themedBackground);
     }
 
+    public static void themeProgressBar(Context context, ProgressBar progressBar) {
+        int color = ThemeUtils.primaryAccentColor(context);
+        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
         CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
                 new int[][]{
