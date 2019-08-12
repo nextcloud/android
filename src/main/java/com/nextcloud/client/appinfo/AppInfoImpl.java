@@ -27,4 +27,9 @@ class AppInfoImpl implements AppInfo {
     public String getFormattedVersionCode() {
         return Integer.toString(BuildConfig.VERSION_CODE);
     }
+
+    @Override
+    public boolean isDebugBuild() {
+        return BuildConfig.DEBUG;
+    }
 }
