@@ -34,4 +34,6 @@ public interface AppInfo {
      */
     String getFormattedVersionCode();
 
+    boolean isDebugBuild();
+
 }
