@@ -44,6 +44,7 @@ import android.view.WindowManager;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
@@ -144,6 +145,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     Logger logger;
 
+    @Inject
+    AppInfo appInfo;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -196,21 +200,23 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
-        // we don't want to handle crashes occuring inside crash reporter activity/process;
-        // let the platform deal with those
-        final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
-        if (!isCrashReportingProcess) {
-            Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
-            final ExceptionHandler crashReporter = new ExceptionHandler(this,
-                                                                        defaultPlatformHandler);
-            Thread.setDefaultUncaughtExceptionHandler(crashReporter);
-        }
-
         initGlobalContext(this);
         DaggerAppComponent.builder()
             .application(this)
             .build()
             .inject(this);
+
+        // we don't want to handle crashes occurring inside crash reporter activity/process;
+        // let the platform deal with those
+        final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
+        final boolean useExceptionHandler = !appInfo.isDebugBuild();
+
+        if (!isCrashReportingProcess && useExceptionHandler) {
+            Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
+            final ExceptionHandler crashReporter = new ExceptionHandler(this,
+                                                                        defaultPlatformHandler);
+            Thread.setDefaultUncaughtExceptionHandler(crashReporter);
+        }
     }
 
     @SuppressFBWarnings("ST")
