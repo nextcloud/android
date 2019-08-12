@@ -140,6 +140,7 @@
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
     <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
     <string name="contacts_read_permission">必要な連絡先リストを読む権限</string>
+    <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
     <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
@@ -227,7 +228,9 @@
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
     <string name="error_comment_file">コメントファイルのエラー</string>
+    <string name="error_crash_title">%1$s はクラッシュしました</string>
     <string name="error_report_issue_action">報告</string>
+    <string name="error_report_issue_text">問題を報告しますか？ (GitHub のアカウントが必要です)</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>

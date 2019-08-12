@@ -436,6 +436,8 @@
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
+    <string name="prefs_enable_media_scan_notifications">  Εμφάνιση ειδοποιήσεων σάρωσης πολυμέσων</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Ειδοποιήστε για νέους φακέλους πολυμέσων</string>
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_gpl_v2">Γενική Άδεια Δημόσιας Χρήσης GNU, έκδοση 2</string>
     <string name="prefs_help">Βοήθεια</string>
@@ -660,6 +662,7 @@
     <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
     <string name="uploader_upload_files_behaviour">Επιλογή μεταφόρτωσης:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Μετακίνηση αρχείου στον φάκελο %1$s</string>
+    <string name="uploader_upload_files_behaviour_not_writable">ο φάκελος προέλευσης είναι μόνο για ανάγνωση, το αρχείο μόνο θα μεταφορτωθεί</string>
     <string name="uploader_upload_files_behaviour_only_upload">Διατήρηση του αρχείου στον πηγαίο φάκελο</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="uploader_upload_forbidden_permissions">για να μεταφορτώσετε αυτό το αρχείο</string>
