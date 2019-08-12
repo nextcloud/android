@@ -303,6 +303,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.8"
 
     ktlint "com.pinterest:ktlint:0.34.2"
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
