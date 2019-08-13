@@ -1,0 +1,6 @@
+27d360eb1 Merge pull request #4313 from nextcloud/exceptionHandler
+b7b51c1cf Use ExceptionHandler not on debug builds
+468899522 [tx-robot] updated from transifex
+5b83085aa [tx-robot] updated from transifex
+3c331aa6c [tx-robot] updated from transifex
+ac53d509a daily dev 20190810
