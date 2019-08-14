@@ -37,7 +37,7 @@ internal class LoggerImpl(
     queueCapacity: Int
 ) : Logger, LogsRepository {
 
-    data class Load(val listener: LogsRepository.Listener)
+    data class Load(val onResult: (List<LogEntry>, Long) -> Unit)
     class Delete
 
     private val looper = ThreadLoop()
@@ -92,8 +92,8 @@ internal class LoggerImpl(
         enqueue(Level.ERROR, tag, message)
     }
 
-    override fun load(listener: LogsRepository.Listener) {
-        eventQueue.put(Load(listener = listener))
+    override fun load(onLoaded: (entries: List<LogEntry>, totalLogSize: Long) -> Unit) {
+        eventQueue.put(Load(onLoaded))
     }
 
     override fun deleteAll() {
@@ -134,8 +134,11 @@ internal class LoggerImpl(
             for (event in otherEvents) {
                 when (event) {
                     is Load -> {
-                        val entries = handler.loadLogFiles().mapNotNull { LogEntry.parse(it) }
-                        mainThreadHandler.post { event.listener.onLoaded(entries) }
+                        val loaded = handler.loadLogFiles()
+                        val entries = loaded.lines.mapNotNull { LogEntry.parse(it) }
+                        mainThreadHandler.post {
+                            event.onResult(entries, loaded.logSize)
+                        }
                     }
                     is Delete -> handler.deleteAll()
                 }

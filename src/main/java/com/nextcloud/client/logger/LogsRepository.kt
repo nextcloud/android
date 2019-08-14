@@ -19,16 +19,13 @@
  */
 package com.nextcloud.client.logger
 
+typealias OnLogsLoaded = (entries: List<LogEntry>, totalLogSize: Long) -> Unit
+
 /**
  * This interface provides safe, read only access to application
  * logs stored on a device.
  */
 interface LogsRepository {
-
-    @FunctionalInterface
-    interface Listener {
-        fun onLoaded(entries: List<LogEntry>)
-    }
 
     /**
      * If true, logger was unable to handle some messages, which means
@@ -41,8 +38,10 @@ interface LogsRepository {
     /**
      * Asynchronously load available logs. Load can be scheduled on any thread,
      * but the listener will be called on main thread.
+     *
+     * @param onLoaded: Callback with loaded logs; called on main thread
      */
-    fun load(listener: Listener)
+    fun load(onLoaded: OnLogsLoaded)
 
     /**
      * Asynchronously delete logs.
