@@ -1,9 +1,7 @@
 package com.owncloud.android.ui.activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.View;
 
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
@@ -31,6 +29,7 @@ public class ActivityListItemDecoration extends RecyclerView.ItemDecoration {
 
         if (topElement instanceof ActivityListHeader) {
             currentHeader = parent.getChildAt(0);
+            currentHeader.setBackgroundColor(Color.WHITE);
         }
         drawHeader(c, currentHeader);
     }
