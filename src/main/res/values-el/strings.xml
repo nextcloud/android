@@ -46,6 +46,7 @@
     <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
     <string name="auth_host_address">Διεύθυνση διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
+    <string name="auth_illegal_login_used">Χρησιμοποιήθηκε μη έγκυρο URL σύνδεσης</string>
     <string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
     <string name="auth_incorrect_path_title">Δεν βρέθηκε διακομιστής</string>
     <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
@@ -107,6 +108,7 @@
     <string name="common_rename">Μετονομασία</string>
     <string name="common_save">Αποθήκευση</string>
     <string name="common_send">Αποστολή</string>
+    <string name="common_share">Διαμοιρασμός</string>
     <string name="common_switch_account">Αλλαγή Λογαριασμού</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_yes">Ναι</string>
@@ -135,6 +137,7 @@
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
     <string name="contacts_preferences_something_strange_happened">Αδυναμία εύρεσης του τελευταίου αντιγράφου ασφαλείας!</string>
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
+    <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
@@ -219,9 +222,11 @@
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
+    <string name="error_report_issue_action">Αναφορά</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
+    <string name="etm_preferences">Προτιμήσεις</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
     <string name="fallback_weblogin_back">Πίσω</string>
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
@@ -279,6 +284,7 @@
     <string name="file_migration_use_data_folder">Χρήση</string>
     <string name="file_migration_waiting_for_unfinished_sync">Αναμονή για τους μη ολοκληρωμένους συγχρονισμούς…</string>
     <string name="file_not_found">Το αρχείο δεν βρέθηκε</string>
+    <string name="file_not_synced">Το αρχείο δεν μπόρεσε να συγχρονιστεί. Προβολή της πιο πρόσφατης έκδοσης.</string>
     <string name="file_rename">Μετονομασία</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
@@ -378,16 +384,20 @@
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
     <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_channel_file_observer_description">Παρακολουθεί αρχεία για αλλαγές</string>
+    <string name="notification_channel_file_observer_name">Παρατηρητής αρχείων</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="notification_channel_media_description">Πρόοδος αναπαραγωγής μουσικής</string>
     <string name="notification_channel_media_name">Αναπαραγωγή πολυμέσων</string>
+    <string name="notification_channel_push_name">Ειδοποιήσεις push</string>
     <string name="notification_channel_upload_description">Εμφάνισης προόδου μεταφόρτωσης</string>
+    <string name="notification_channel_upload_name">Ανέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>
     <string name="notifications_loading_activity">Φόρτωση ενημερώσεων…</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
     <string name="offline_mode">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="operation_canceled">Η λειτουργία ακυρώθηκε</string>
     <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
     <string name="overflow_menu">Περισσότερο μενού</string>
     <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
@@ -424,6 +434,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Αυτό είναι ένα σημείο placeholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_check_dialog_title">Απενεργοποίηση ελέγχου εξοικονόμησης ενέργειας</string>
     <string name="pref_behaviour_entries_delete_file">διαγραφεί</string>
     <string name="pref_behaviour_entries_keep_file">διατηρηθεί στον αρχικό φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινηθεί στον φάκελο εφαρμογών</string>
@@ -478,8 +489,10 @@
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
     <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
+    <string name="reshare_not_allowed">Δεν επιτρέπεται ο επαναμοιρασμός</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="resized_image_not_possible">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος.</string>
+    <string name="resized_image_not_possible_download">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος. Κατέβασμα της πλήρους εικόνας;</string>
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
     <string name="retrieving_file">Ανάκτηση αρχείου…</string>
@@ -488,7 +501,10 @@
     <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
     <string name="screenshot_01_gridView">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
+    <string name="screenshot_01_gridView_heading">Προστασία των δεδομένων σας</string>
+    <string name="screenshot_02_listView_heading">Περιήγηση και διαμοιρασμός</string>
     <string name="screenshot_04_accounts">Σύνδεση σε διαφορετικούς λογαριασμούς</string>
+    <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
     <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="select_template">Επιλογή προτύπου</string>
