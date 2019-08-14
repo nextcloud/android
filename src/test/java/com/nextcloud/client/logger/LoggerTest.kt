@@ -32,9 +32,6 @@ import com.nhaarman.mockitokotlin2.spy
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import java.nio.file.Files
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -43,8 +40,11 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.MockitoAnnotations
+import java.nio.file.Files
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
-class TestLogger {
+class LoggerTest {
 
     private companion object {
         const val QUEUE_CAPACITY = 100
@@ -149,7 +149,7 @@ class TestLogger {
     fun `logs are loaded in background thread and posted to main thread`() {
         val currentThreadId = Thread.currentThread().id
         var loggerThreadId: Long = -1
-        val listener: LogsRepository.Listener = mock()
+        val listener: OnLogsLoaded = mock()
         val latch = CountDownLatch(2)
 
         // log handler will be called on bg thread
@@ -191,7 +191,8 @@ class TestLogger {
         postedCaptor.value.run()
 
         val logsCaptor = ArgumentCaptor.forClass(List::class.java) as ArgumentCaptor<List<LogEntry>>
-        verify(listener).onLoaded(capture(logsCaptor))
+        val sizeCaptor = ArgumentCaptor.forClass(Long::class.java)
+        verify(listener).invoke(capture(logsCaptor), capture(sizeCaptor))
         assertEquals(3, logsCaptor.value.size)
         assertTrue("message 1" in logsCaptor.value[0].message)
         assertTrue("message 2" in logsCaptor.value[1].message)
@@ -245,13 +246,13 @@ class TestLogger {
             true
         }
 
-        val listener: LogsRepository.Listener = mock()
+        val listener: OnLogsLoaded = mock()
         logger.load(listener)
         assertTrue("Logs not loaded", posted.await(1, TimeUnit.SECONDS))
 
-        verify(listener).onLoaded(argThat {
+        verify(listener).invoke(argThat {
             "Logger queue overflow" in last().message
-        })
+        }, any())
     }
 
     @Test
@@ -280,6 +281,8 @@ class TestLogger {
         assertTrue(latch.await(3, TimeUnit.SECONDS))
         verify(logHandler, times(3)).write(any())
         verify(logHandler).deleteAll()
-        assertEquals(0, logHandler.loadLogFiles(logHandler.maxLogFilesCount).size)
+        val loaded = logHandler.loadLogFiles(logHandler.maxLogFilesCount)
+        assertEquals(0, loaded.lines.size)
+        assertEquals(0L, loaded.logSize)
     }
 }
