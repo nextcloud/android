@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android 應用程式</string>
     <string name="about_title">關於</string>
     <string name="about_version">版本 %1$s</string>
+    <string name="about_version_with_build">版本 %1$sbuild # %2$s</string>
     <string name="account_creation_failed">帳號建立失敗</string>
     <string name="account_icon">帳號圖示</string>
     <string name="account_not_found">沒有找到任何帳戶</string>
@@ -78,6 +79,7 @@
     <string name="auto_upload_path">自動上傳</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
+    <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="avatar">頭像</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
@@ -109,6 +111,7 @@
     <string name="common_rename">重新命名</string>
     <string name="common_save">儲存</string>
     <string name="common_send">傳送</string>
+    <string name="common_share">分享</string>
     <string name="common_switch_account">使用其他帳號</string>
     <string name="common_unknown">未知</string>
     <string name="common_yes">是</string>
@@ -137,13 +140,17 @@
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
+    <string name="copied_to_clipboard">複製至剪貼簿中</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="copy_file_not_found">無法複製，請檢查檔案是否存在</string>
+    <string name="copy_internal_link">複製內部連結</string>
+    <string name="copy_internal_link_subline">只對可以存取此資料夾的使用者生效</string>
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
+    <string name="could_not_retrieve_url">無法存取網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_file_from_template">建立範本…</string>
     <string name="create_new_document">新增文件</string>
@@ -220,10 +227,16 @@
     <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地資料夾 %2$s</string>
     <string name="error_cant_bind_to_operations_service">嚴重錯誤：無法執行操作</string>
     <string name="error_comment_file">留言錯誤</string>
+    <string name="error_crash_title">%1$s失敗</string>
+    <string name="error_report_issue_action">回報</string>
+    <string name="error_report_issue_text">想回報問題？(需要Github帳號)</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
+    <string name="etm_preferences">設定</string>
+    <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
+    <string name="failed_to_download">無法下載</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
@@ -294,6 +307,8 @@
     <string name="filename_hint">檔名</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
     <string name="first_run_1_text">在您的控制下維持資料的安全</string>
+    <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
+    <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
     <string name="folder_already_exists">文件夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_icon">資料夾圖示</string>
@@ -388,6 +403,8 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
+    <string name="notification_channel_push_description">透過推送通知告知:
+在備註中被提及，收到新的分享資訊，以及管理者個公告等等</string>
     <string name="notification_channel_push_name">通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name">上傳通知頻道</string>
@@ -436,6 +453,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_check_dialog_title">停用省電功能</string>
+    <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
@@ -508,11 +527,20 @@
     <string name="saml_authentication_wrong_pass">密碼錯誤</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
     <string name="screenshot_01_gridView">您資料的安全屋</string>
+    <string name="screenshot_01_gridView_heading">保護您的資料</string>
     <string name="screenshot_02_listView">輕輕鬆鬆地瀏覽分享您的檔案</string>
+    <string name="screenshot_02_listView_heading">瀏覽與分享</string>
+    <string name="screenshot_02_listView_subline">全在您一指之間</string>
     <string name="screenshot_03_drawer">快速地存取活動、分享、離線檔案和更多</string>
     <string name="screenshot_04_accounts">連結其它帳號</string>
+    <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
+    <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload">自動上傳照片&amp;影片</string>
+    <string name="screenshot_05_autoUpload_heading">自動上傳</string>
+    <string name="screenshot_05_autoUpload_subline">您的照片&amp;影片</string>
     <string name="screenshot_06_davdroid">使用 DAVx5 (DAVdriod)日暦&amp;同步</string>
+    <string name="screenshot_06_davdroid_heading">同步行事曆&amp;聯絡人</string>
+    <string name="screenshot_06_davdroid_subline">透過DAVx5(前身為DAVdroid)</string>
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>
     <string name="select_all">全選</string>
     <string name="select_template">選擇範本</string>
@@ -535,6 +563,7 @@
     <string name="share_link_file_error">在分享檔案或資料夾時發生了錯誤</string>
     <string name="share_link_file_no_exist">無法分享，請檢查檔案是否存在</string>
     <string name="share_link_forbidden_permissions">分享這個檔案</string>
+    <string name="share_link_optional_password_title">輸入密碼(選項)</string>
     <string name="share_link_password_title">輸入密碼</string>
     <string name="share_no_expiration_date_label">設定到期日</string>
     <string name="share_no_password_title">設定密碼</string>
@@ -563,6 +592,7 @@
     <string name="share_with_edit_title">與 %1$s 分享</string>
     <string name="share_with_title">分享給</string>
     <string name="share_with_user_section_title">分享給其他使用者或群組</string>
+    <string name="shared_avatar_desc">分享者的頭像</string>
     <string name="shared_icon_share">分享</string>
     <string name="shared_icon_shared">已分享</string>
     <string name="shared_icon_shared_via_link">透過連結分享</string>
@@ -746,6 +776,9 @@
     <string name="whats_new_title">新增到 %1$s </string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案 (衝突: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d 個資料夾</item>
