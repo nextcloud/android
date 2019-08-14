@@ -243,6 +243,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    public Object getActivityAtByPosition(int pos) {
+        return values.get(pos);
+
+    }
+
     private ImageView createThumbnailNew(PreviewObject previewObject) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
         params.setMargins(10, 10, 10, 10);
