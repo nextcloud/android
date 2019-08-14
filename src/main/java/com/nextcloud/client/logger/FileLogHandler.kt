@@ -34,6 +34,8 @@ import java.nio.charset.Charset
  */
 internal class FileLogHandler(private val logDir: File, private val logFilename: String, private val maxSize: Long) {
 
+    data class RawLogs(val lines: List<String>, val logSize: Long)
+
     companion object {
         const val ROTATED_LOGS_COUNT = 3
     }
@@ -111,21 +113,23 @@ internal class FileLogHandler(private val logDir: File, private val logFilename:
         }
     }
 
-    fun loadLogFiles(rotated: Int = ROTATED_LOGS_COUNT): List<String> {
+    fun loadLogFiles(rotated: Int = ROTATED_LOGS_COUNT): RawLogs {
         if (rotated < 0) {
             throw IllegalArgumentException("Negative index")
         }
         val allLines = mutableListOf<String>()
+        var size = 0L
         for (i in 0..Math.min(rotated, rotationList.size - 1)) {
             val file = File(logDir, rotationList[i])
             if (!file.exists()) continue
             try {
-                val rotatedLines = file.readLines(charset = Charsets.UTF_8)
-                allLines.addAll(rotatedLines)
+                val lines = file.readLines(Charsets.UTF_8)
+                allLines.addAll(lines)
+                size += file.length()
             } catch (ex: IOException) {
                 // ignore failing file
             }
         }
-        return allLines
+        return RawLogs(lines = allLines, logSize = size)
     }
 }
