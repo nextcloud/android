@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 49;
+    public static final int DB_VERSION = 50;
 
     private ProviderMeta() {
         // No instance
@@ -47,6 +47,7 @@ public class ProviderMeta {
         public static final String ARBITRARY_DATA_TABLE_NAME = "arbitrary_data";
         public static final String VIRTUAL_TABLE_NAME = "virtual";
         public static final String FILESYSTEM_TABLE_NAME = "filesystem";
+        public static final String USERINFO_TABLE_NAME = "userinfo";
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -71,6 +72,7 @@ public class ProviderMeta {
         public static final Uri CONTENT_URI_VIRTUAL = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/virtual");
         public static final Uri CONTENT_URI_FILESYSTEM = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/filesystem");
+        public static final Uri CONTENT_URI_USERINFO = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/userinfo");
 
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
@@ -238,7 +240,6 @@ public class ProviderMeta {
         public static final String ARBITRARY_DATA_KEY = "key";
         public static final String ARBITRARY_DATA_VALUE = "value";
 
-
         // Columns of virtual
         public static final String VIRTUAL_TYPE = "type";
         public static final String VIRTUAL_OCFILE_ID = "ocfile_id";
@@ -251,6 +252,17 @@ public class ProviderMeta {
         public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
         public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
         public static final String FILESYSTEM_CRC32 = "crc32";
+
+        // Columns of userinfo table
+        public static final String USERINFO_ACCOUNT = "account";
+        public static final String USERINFO_DISPLAYNAME = "displayname";
+        public static final String USERINFO_EMAIL = "email";
+        public static final String USERINFO_PHONE = "phone";
+        public static final String USERINFO_ADDRESS = "address";
+        public static final String USERINFO_WEBSITE = "website";
+        public static final String USERINFO_TWITTER = "twitter";
+        public static final String USERINFO_GROUPS = "groups";
+        public static final String USERINFO_QUOTA = "quota";
 
         private ProviderTableMeta() {
             // No instance

@@ -18,34 +18,45 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_half_margin"
-        android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-        android:layout_marginRight="@dimen/standard_half_margin"
-        android:layout_marginStart="@dimen/standard_icon_list_horizontal_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:contentDescription="@string/account_icon"
-        tools:src="@drawable/ic_phone" />
+    <data>
 
-    <TextView
-        android:id="@+id/text"
+        <variable
+            name="UserInfoDetailsItem"
+            type="com.owncloud.android.ui.components.UserInfoDetailsItem"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/standard_margin"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        android:maxLines="3"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        tools:text="+49 123 456 789 12" />
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_icon_list_horizontal_margin"
+            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:contentDescription="@string/account_icon"
+            android:src="@{UserInfoDetailsItem.icon}"
+            android:tint="@{UserInfoDetailsItem.tintColor}"
+            tools:src="@drawable/ic_phone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:text="@{UserInfoDetailsItem.text}"
+            android:contentDescription="@{UserInfoDetailsItem.iconContentDescription"
+            android:maxLines="3"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            tools:text="+49 123 456 789 12"/>
+
+    </LinearLayout>
+</layout>

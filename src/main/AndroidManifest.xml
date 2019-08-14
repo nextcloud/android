@@ -119,7 +119,9 @@
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/users_and_groups_searchable"/>
         </activity>
-        <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity
+            android:name=".ui.activity.ManageAccountsActivity"
+            android:exported="true" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.NotificationsActivity"/>
         <activity android:name=".ui.activity.ParticipateActivity" />

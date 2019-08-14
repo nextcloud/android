@@ -35,8 +35,10 @@ import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -1083,7 +1085,7 @@ public class FileDataStorageManager {
 
 
     /**
-     * Checks the existance of an stored {@link OCShare} matching the given remote id (not to be confused with
+     * Checks the existence of an stored {@link OCShare} matching the given remote id (not to be confused with
      * the local id) in the current account.
      *
      * @param remoteId      Remote of the share in the server.
@@ -1095,7 +1097,7 @@ public class FileDataStorageManager {
 
 
     /**
-     * Checks the existance of an stored {@link OCShare} in the current account
+     * Checks the existence of an stored {@link OCShare} in the current account
      * matching a given column and a value for that column
      *
      * @param key           Name of the column to match.
@@ -2273,4 +2275,113 @@ public class FileDataStorageManager {
         }
     }
 
+    private boolean userInfoExists(String accountName) {
+        Cursor c = getUserInfoCursorForAccount(accountName);
+        boolean exists = false;
+        if (c != null) {
+            exists = c.moveToFirst();
+            c.close();
+        }
+        return exists;
+    }
+
+    private Cursor getUserInfoCursorForAccount(String accountName) {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                .query(ProviderTableMeta.CONTENT_URI_USERINFO,
+                       null,
+                       ProviderTableMeta.USERINFO_ACCOUNT + "=? ",
+                       new String[]{accountName}, null);
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                    ProviderTableMeta.CONTENT_URI_USERINFO,
+                    null,
+                    ProviderTableMeta.USERINFO_ACCOUNT + "=? ",
+                    new String[]{accountName}, null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Couldn't determine userinfo existence, assuming non existence: " + e.getMessage(), e);
+            }
+        }
+
+        return c;
+    }
+
+    public UserInfo saveUserInfo(UserInfo userInfo) {
+        // Prepare userInfo data
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.USERINFO_ACCOUNT, userInfo.getAccount());
+        cv.put(ProviderTableMeta.USERINFO_DISPLAYNAME, userInfo.getDisplayName());
+        cv.put(ProviderTableMeta.USERINFO_EMAIL, userInfo.getEmail());
+        cv.put(ProviderTableMeta.USERINFO_PHONE, userInfo.getPhone());
+        cv.put(ProviderTableMeta.USERINFO_ADDRESS, userInfo.getAddress());
+        cv.put(ProviderTableMeta.USERINFO_WEBSITE, userInfo.getWebsite());
+        cv.put(ProviderTableMeta.USERINFO_TWITTER, userInfo.getTwitter());
+        cv.put(ProviderTableMeta.USERINFO_GROUPS, TextUtils.join(",", userInfo.getGroups()));
+        cv.put(ProviderTableMeta.USERINFO_QUOTA, new Gson().toJson(userInfo.getQuota()));
+
+        if (userInfoExists(account.name)) {
+            if (getContentResolver() != null) {
+                getContentResolver().update(ProviderTableMeta.CONTENT_URI_USERINFO, cv,
+                                            ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=?",
+                                            new String[]{account.name});
+            } else {
+                try {
+                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_USERINFO,
+                                                      cv, ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=?",
+                                                      new String[]{account.name});
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+                }
+            }
+        } else {
+            if (getContentResolver() != null) {
+                getContentResolver().insert(ProviderTableMeta.CONTENT_URI_USERINFO, cv);
+            } else {
+                try {
+                    getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_USERINFO, cv);
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+                }
+            }
+        }
+
+        return userInfo;
+    }
+
+    @NonNull
+    public UserInfo getUserInfo(String accountName) {
+        UserInfo userInfo;
+        Cursor c = getUserInfoCursorForAccount(accountName);
+
+        if (c.moveToFirst()) {
+            userInfo = createUserInfoInstance(c);
+        } else {
+            userInfo = new UserInfo();
+        }
+        c.close();
+        return userInfo;
+    }
+
+    private UserInfo createUserInfoInstance(Cursor c) {
+        UserInfo userInfo = new UserInfo();
+
+        if (c != null) {
+            userInfo.setDisplayName(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_DISPLAYNAME)));
+            userInfo.setEmail(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_EMAIL)));
+            userInfo.setPhone(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_PHONE)));
+            userInfo.setAddress(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_ADDRESS)));
+            userInfo.setWebsite(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_WEBSITE)));
+            userInfo.setTwitter(c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_TWITTER)));
+
+            String groups = c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_GROUPS));
+            userInfo.setGroups(new ArrayList<>(Arrays.asList(groups.split(","))));
+
+            String quotaJson = c.getString(c.getColumnIndex(ProviderTableMeta.USERINFO_QUOTA));
+            userInfo.setQuota(new Gson().fromJson(quotaJson, Quota.class));
+        }
+
+        return userInfo;
+    }
 }

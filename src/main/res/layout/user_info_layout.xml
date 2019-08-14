@@ -22,7 +22,7 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                                  android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
     <include
         layout="@layout/toolbar_user_information"/>
@@ -32,8 +32,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -61,6 +61,55 @@
                     card_view:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
 
             </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/quota_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_icon_list_horizontal_margin"
+                    android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:layout_marginRight="@dimen/standard_half_margin"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:contentDescription="@string/account_icon"
+                    android:src="@drawable/ic_quota" />
+
+                <LinearLayout
+                    android:id="@+id/userinfo_quota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/white"
+                    android:clickable="false"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:paddingRight="@dimen/standard_padding"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/userinfo_quota_progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="false"
+                        android:indeterminateOnly="false"
+                        android:text="@string/drawer_quota" />
+
+                    <TextView
+                        android:id="@+id/userinfo_quota_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/alternate_half_padding"
+                        android:text="@string/drawer_quota" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

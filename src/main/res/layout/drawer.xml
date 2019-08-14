@@ -54,7 +54,7 @@
                 />
 
             <ProgressBar
-                android:id="@+id/drawer_quota_ProgressBar"
+                android:id="@+id/drawer_quota_progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
