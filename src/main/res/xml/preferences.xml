@@ -90,11 +90,11 @@
 
 	<PreferenceCategory android:title="@string/prefs_category_dev" android:key="dev_category">
 		<Preference android:id="@+id/dev_link"
-					android:title="Download latest dev version"
+            android:title="@string/download_latest_dev_version"
 					android:key="dev_link" />
 
 		<Preference android:id="@+id/changelog_link"
-					android:title="Changelog dev version"
+            android:title="@string/changelog_dev_version"
 					android:key="changelog_link" />
 
         <Preference android:id="@+id/etm"
