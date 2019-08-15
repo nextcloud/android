@@ -1074,14 +1074,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         newFolderMenuItem.setEnabled(mFile.canWrite());
 
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor(this);
-        EditText editText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        editText.setHintTextColor(fontColor);
-        editText.setTextColor(fontColor);
-        ImageView searchClose = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
-        searchClose.setColorFilter(ThemeUtils.fontColor(this));
-        ImageView searchButton = searchView.findViewById(androidx.appcompat.R.id.search_button);
-        searchButton.setColorFilter(ThemeUtils.fontColor(this));
+        ThemeUtils.themeSearchView(searchView, true, this);
 
         return true;
     }
