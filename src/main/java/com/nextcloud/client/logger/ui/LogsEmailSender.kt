@@ -23,6 +23,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.nextcloud.client.core.AsyncRunner
@@ -79,8 +80,12 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         task = null
         val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
         intent.putExtra(Intent.EXTRA_EMAIL, context.getString(R.string.mail_logger))
+
         val subject = context.getString(R.string.log_send_mail_subject).format(context.getString(R.string.app_name))
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+
+        intent.putExtra(Intent.EXTRA_TEXT, getPhoneInfo())
+
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.type = LOGS_MIME_TYPE
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayListOf(uri))
@@ -89,5 +94,14 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(context, R.string.log_send_no_mail_app, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getPhoneInfo(): String {
+        return "Model: " + Build.MODEL + "\n" +
+            "Brand: " + Build.BRAND + "\n" +
+            "Product: " + Build.PRODUCT + "\n" +
+            "Device: " + Build.DEVICE + "\n" +
+            "Version-Codename: " + Build.VERSION.CODENAME + "\n" +
+            "Version-Release: " + Build.VERSION.RELEASE
     }
 }

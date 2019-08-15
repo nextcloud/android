@@ -269,7 +269,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
             // use app writable dir, no permissions needed
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
-            Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
         }
 
