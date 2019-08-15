@@ -262,7 +262,7 @@
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_recently_modified_filter">Brak plików zmodyfikowanych w ciągu ostatnich 7 dni.</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
-    <string name="file_list_empty_shared">Pliki i katalogi, które udostępnisz pokażą się tutaj.</string>
+    <string name="file_list_empty_shared">Tutaj pokażą się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie.</string>
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
@@ -467,7 +467,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
-    <string name="prefs_category_dev">Deweloperska</string>
+    <string name="prefs_category_dev">Deweloperskie</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_daily_contacts_sync_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
