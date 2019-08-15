@@ -475,17 +475,14 @@ public final class ThemeUtils {
     public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
         if (editText == null) { return; }
 
-        int color = primaryColor(context);
-        // Don't theme the view when it is already on a theme'd background
+        int color = ContextCompat.getColor(context, R.color.fg_default);
+
+        // Theme the view when it is already on a theme'd background according to dark / light theme
         if (themedBackground) {
             if (darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
-            }
-        } else {
-            if (lightTheme(context)) {
-                color = ContextCompat.getColor(context, R.color.fg_default);
             }
         }
 
