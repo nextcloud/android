@@ -20,7 +20,6 @@
 package com.nextcloud.client.logger
 
 import com.owncloud.android.lib.common.utils.Log_OC
-import java.lang.Exception
 
 /**
  * This adapter is used by legacy [Log_OC] logger to redirect logs to custom logger implementation.
@@ -28,7 +27,7 @@ import java.lang.Exception
 class LegacyLoggerAdapter(private val logger: Logger) : Log_OC.Adapter {
 
     override fun i(tag: String, message: String) {
-        logger.d(tag, message)
+        logger.i(tag, message)
     }
 
     override fun d(tag: String, message: String) {
