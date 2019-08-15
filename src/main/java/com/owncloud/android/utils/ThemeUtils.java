@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -229,6 +230,21 @@ public final class ThemeUtils {
                 actionBar.setTitle(text);
             }
         }
+    }
+
+    /**
+     * For activities that do not use drawer, e.g. Settings, this can be used to correctly tint back button based on
+     * theme
+     *
+     * @param supportActionBar
+     */
+    public static void tintBackButton(@Nullable ActionBar supportActionBar, Context context) {
+        if (supportActionBar == null) {
+            return;
+        }
+
+        Drawable backArrow = context.getResources().getDrawable(R.drawable.ic_arrow_back);
+        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(context)));
     }
 
     public static Spanned getColoredTitle(String title, int color) {
@@ -473,16 +489,30 @@ public final class ThemeUtils {
             }
         }
 
+        editText.setHintTextColor(color);
+        editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
         setTextViewHandlesColor(context, editText, color);
     }
 
-    public static void themeSearchView(Context context, SearchView searchView, boolean themedBackground) {
-        if (searchView == null) { return; }
-
+    /**
+     * Theme search view
+     *
+     * @param searchView       searchView to be changed
+     * @param themedBackground true if background is themed, e.g. on action bar; false if background is white
+     * @param context
+     */
+    public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
+        // hacky as no default way is provided
+        int fontColor = ThemeUtils.fontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         themeEditText(context, editText, themedBackground);
+
+        ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        closeButton.setColorFilter(fontColor);
+        ImageView searchButton = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchButton.setColorFilter(fontColor);
     }
 
     public static void themeProgressBar(Context context, ProgressBar progressBar) {

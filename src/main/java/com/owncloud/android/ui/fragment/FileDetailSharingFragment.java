@@ -238,7 +238,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             FileDetailSharingFragmentHelper.setupSearchView(
                 (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
                 fileDisplayActivity.getComponentName());
-            ThemeUtils.themeSearchView(getContext(), searchView, false);
+            ThemeUtils.themeSearchView(searchView, false, requireContext());
         } else {
             searchView.setVisibility(View.GONE);
             shareByLinkContainer.setVisibility(View.GONE);
