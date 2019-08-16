@@ -170,6 +170,8 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.ic_list_encrypted_folder;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
+        } else if (WebdavEntry.MountType.GROUP == mountType) {
+            drawableId = R.drawable.ic_folder_group;
         } else {
             drawableId = R.drawable.folder;
         }
