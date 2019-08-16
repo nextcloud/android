@@ -1,0 +1,4 @@
+3.7.2 (August, 16, 2019)
+
+- Transifex update
+- bump to lib 1.5.0
