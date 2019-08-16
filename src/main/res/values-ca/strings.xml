@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">No s\'han pogut iniciar els ajustaments de bateria directament. Si us plau, ajusteu-los manualment a paràmetres.</string>
     <string name="battery_optimization_title">Optimització de la bateria</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
+    <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desactiva</string>
     <string name="dismiss">Descarta</string>
     <string name="dismiss_notification_description">Descarta la notificació</string>
+    <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
     <string name="downloader_download_failed_content">No s\'ha pogut descarregar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La descàrrega ha fallat, torneu a iniciar la sessió</string>
     <string name="downloader_download_failed_ticker">Ha fallat la baixada</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació d\'enviament de registres. Si us plau instal·leu un client de correu electrònic.</string>
     <string name="login">Inici de sessió</string>
+    <string name="logs_menu_delete">Suprimeix els registres</string>
+    <string name="logs_menu_refresh">Actualitza</string>
+    <string name="logs_menu_search">Cerca als registres</string>
+    <string name="logs_menu_send">Envia els registres per correu electrònic</string>
+    <string name="logs_status_filtered">Registres: %1$d kB, la consulta ha trobat %2$d/%3$d en %4$d ms</string>
+    <string name="logs_status_loading">S\'està carregant…</string>
+    <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>
+    <string name="logs_title">Registres</string>
     <string name="maintenance_mode">Servidor en mode de manteniment</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>

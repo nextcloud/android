@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Pil ayarları açılamadı. Lütfen ayarlar bölümünden el ile ayarlayın.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
+    <string name="changelog_dev_version">Değişiklik günlüğü geliştirici sürümü</string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin…</string>
     <string name="choose_remote_folder">Uzak klasörü seçin…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
     <string name="dismiss">Yoksay</string>
     <string name="dismiss_notification_description">Bildirimi yok say</string>
+    <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="downloader_download_failed_ticker">İndirilemedi</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
     <string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
     <string name="login">Oturum Aç</string>
+    <string name="logs_menu_delete">Günlükleri sil</string>
+    <string name="logs_menu_refresh">Yenile</string>
+    <string name="logs_menu_search">Günlük arama</string>
+    <string name="logs_menu_send">Günlükleri e-posta ile gönder</string>
+    <string name="logs_status_filtered">Günlük kayıtları: %1$d kB, Eşleşen kayıt: %2$d / %3$d, Süre: %4$d ms</string>
+    <string name="logs_status_loading">Yükleniyor…</string>
+    <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>
+    <string name="logs_title">Günlükler</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
