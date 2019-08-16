@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Não é possível iniciar as configurações da bateria diretamente. Ajuste manualmente nas configurações.</string>
     <string name="battery_optimization_title">Otimização da bateria</string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
+    <string name="changelog_dev_version">Versão dev do changelog</string>
     <string name="checkbox">Caixa de marcação</string>
     <string name="choose_local_folder">Escolher pasta local…</string>
     <string name="choose_remote_folder">Escolher pasta remota…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="dismiss">Dispensar</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="download_latest_dev_version">Baixar a última versão dev</string>
     <string name="downloader_download_failed_content">Não foi possível baixar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download falhou, logue-se novamente</string>
     <string name="downloader_download_failed_ticker">Download falhou</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
     <string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
     <string name="login">Entrar</string>
+    <string name="logs_menu_delete">Excluir logs</string>
+    <string name="logs_menu_refresh">Atualizar</string>
+    <string name="logs_menu_search">Pesquisar logs</string>
+    <string name="logs_menu_send">Enviar logs por e-mail</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, pesquisa confere %2$d / %3$d em %4$d ms</string>
+    <string name="logs_status_loading">Carregando...</string>
+    <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
+    <string name="logs_title">Logs</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
