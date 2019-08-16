@@ -101,11 +101,17 @@ internal class LoggerImpl(
     }
 
     private fun enqueue(level: Level, tag: String, message: String) {
-        val entry = LogEntry(timestamp = clock.currentDate, level = level, tag = tag, message = message)
-        val enqueued = eventQueue.offer(entry, 1, TimeUnit.SECONDS)
-        if (!enqueued) {
-            missedLogs.set(true)
-            missedLogsCount.incrementAndGet()
+        try {
+            val entry = LogEntry(timestamp = clock.currentDate, level = level, tag = tag, message = message)
+            val enqueued = eventQueue.offer(entry, 1, TimeUnit.SECONDS)
+            if (!enqueued) {
+                missedLogs.set(true)
+                missedLogsCount.incrementAndGet()
+            }
+        } catch (ex: InterruptedException) {
+            // since interrupted flag is consumed now, we need to re-set the flag so
+            // the caller can continue handling the thread interruption in it's own way
+            Thread.currentThread().interrupt()
         }
     }
 
