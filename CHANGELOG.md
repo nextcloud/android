@@ -1,3 +1,10 @@
+## 3.7.2 (August, 16, 2019)
+
+- Transifex update
+- bump to lib 1.5.0
+
+For a full list, please see https://github.com/nextcloud/android/milestone/37
+
 ## 3.7.1 (July, 30, 2019)
 
 - fix for Global Scale
