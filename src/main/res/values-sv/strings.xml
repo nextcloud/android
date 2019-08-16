@@ -348,6 +348,9 @@
     <string name="log_send_mail_subject">%1$s Android apploggar</string>
     <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
+    <string name="logs_menu_refresh">Uppdatera</string>
+    <string name="logs_status_loading">Laddar…</string>
+    <string name="logs_title">Loggar</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nNedladdade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
