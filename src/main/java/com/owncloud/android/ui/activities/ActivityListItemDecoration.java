@@ -2,12 +2,9 @@ package com.owncloud.android.ui.activities;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.owncloud.android.R;
 
 import com.owncloud.android.ui.adapter.StickyHeaderAdapter;
 

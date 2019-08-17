@@ -65,7 +65,6 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.activities.ActivityListHeader;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -80,7 +79,6 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
