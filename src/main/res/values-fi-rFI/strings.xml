@@ -345,6 +345,9 @@
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Lokien lähettämiseen soveltuvaa sovellusta ei löytynyt. Asenna sähköpostisovellus.</string>
     <string name="login">Kirjaudu sisään</string>
+    <string name="logs_menu_refresh">Päivitä</string>
+    <string name="logs_status_loading">Ladataan…</string>
+    <string name="logs_title">Lokit</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
     <string name="manage_space_description">Asetukset, tietokanta ja palvelinsertifikaatit %1$s:n tiedoista poistetaan pysyvästi. \n\nLadatut tiedostot säilyvät koskemattomina.\n\nTämä voi kestä jonkin aikaa.</string>

@@ -533,7 +533,7 @@
     <string name="resized_image_not_possible_download">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
     <string name="restore">Ripristina file</string>
     <string name="restore_button_description">Ripristina file eliminato</string>
-    <string name="retrieving_file">Recupero file...</string>
+    <string name="retrieving_file">Recupero file…</string>
     <string name="richdocuments_failed_to_load_document">Caricamento del documento non riuscito!</string>
     <string name="saml_authentication_required_text">Password richiesta</string>
     <string name="saml_authentication_wrong_pass">Password errata</string>
@@ -691,7 +691,7 @@
     <string name="tags">Etichette</string>
     <string name="test_server_button">Prova di connessione al server</string>
     <string name="thumbnail">Miniatura</string>
-    <string name="timeout_richDocuments">Il caricamento richiede molto tempo...</string>
+    <string name="timeout_richDocuments">Il caricamento richiede molto tempo…</string>
     <string name="trashbin_activity_title">File eliminati</string>
     <string name="trashbin_empty_headline">Nessun file eliminato</string>
     <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui</string>
