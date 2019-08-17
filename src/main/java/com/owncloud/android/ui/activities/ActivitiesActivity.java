@@ -41,7 +41,6 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
-import com.owncloud.android.ui.adapter.StickyHeaderAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -61,7 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivityListElement, ActivitiesContract.View {
+public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
 
     @BindView(R.id.empty_list_view)
