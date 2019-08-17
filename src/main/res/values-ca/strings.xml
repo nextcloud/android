@@ -63,7 +63,7 @@
     <string name="auth_ssl_unverified_server_title">No s\'ha pogut verificar la identitat del servidor SSL</string>
     <string name="auth_testing_connection">S\'està comprovant la connexió</string>
     <string name="auth_timeout_title">El servidor ha trigat massa a respondre</string>
-    <string name="auth_trying_to_login">S\'està intentant accedir...</string>
+    <string name="auth_trying_to_login">S\'està intentant accedir…</string>
     <string name="auth_unauthorized">Nom d\'usuari o contrasenya incorrectes</string>
     <string name="auth_unknown_error_exception_title">Error desconegut: %1$s</string>
     <string name="auth_unknown_error_http_title">Hi ha hagut un error HTTP desconegut!</string>
@@ -104,7 +104,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memòria insuficient</string>
     <string name="common_error_unknown">Error desconegut</string>
-    <string name="common_loading">S\'està carregant...</string>
+    <string name="common_loading">S\'està carregant…</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
     <string name="common_pending">Pendent</string>
@@ -153,7 +153,7 @@
     <string name="copy_to">Copia a…</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar l\'URL</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
-    <string name="create_file_from_template">S\'està creant el fitxer des d\'una plantilla...</string>
+    <string name="create_file_from_template">S\'està creant el fitxer des d\'una plantilla…</string>
     <string name="create_new_document">Crea un nou document</string>
     <string name="create_new_folder">Crea una nova carpeta</string>
     <string name="create_new_presentation">Crea una nova presentació</string>
@@ -178,7 +178,7 @@
     <string name="downloader_download_failed_ticker">Ha fallat la baixada</string>
     <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
     <string name="downloader_download_in_progress_content">%1$d%% S\'està descarregant %2$s</string>
-    <string name="downloader_download_in_progress_ticker">S\'està descarregant...</string>
+    <string name="downloader_download_in_progress_ticker">S\'està descarregant…</string>
     <string name="downloader_download_succeeded_content">%1$s descarregat</string>
     <string name="downloader_download_succeeded_ticker">Descarregat</string>
     <string name="downloader_not_downloaded_yet">Encara no s\'ha descarregat</string>
@@ -211,17 +211,17 @@
     <string name="edit_permission_label">edita</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_confirm_button">Arranja el xifrat</string>
-    <string name="end_to_end_encryption_decrypting">S\'està desxifrant...</string>
+    <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>
     <string name="end_to_end_encryption_enter_password">Si us plau, introduïu la contrasenya per desxifrar la clau privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Aquesta carpeta no és buida.</string>
-    <string name="end_to_end_encryption_generating_keys">S\'estan generant claus noves...</string>
+    <string name="end_to_end_encryption_generating_keys">S\'estan generant claus noves…</string>
     <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i deseu-la en un lloc segur.</string>
     <string name="end_to_end_encryption_not_enabled">El xifrat de punta a punta està desactivat al servidor.</string>
     <string name="end_to_end_encryption_not_supported">L\'encriptació només funciona en KitKat(4.4) o superior.</string>
     <string name="end_to_end_encryption_passphrase_title">Anoteu la vostra contrasenya de 12 paraules</string>
     <string name="end_to_end_encryption_password">Contrasenya…</string>
-    <string name="end_to_end_encryption_retrieving_keys">S\'estan recuperant les claus...</string>
+    <string name="end_to_end_encryption_retrieving_keys">S\'estan recuperant les claus…</string>
     <string name="end_to_end_encryption_storing_keys">S\'estan desant les claus</string>
     <string name="end_to_end_encryption_title">Arranjament de xifrat</string>
     <string name="end_to_end_encryption_unsuccessful">No s\'han pogut desar les claus, si us plau torneu-ho de provar.</string>
@@ -271,7 +271,7 @@
     <string name="file_list_empty_text_videos">Carregueu vídeos o activeu la càrrega automàtica.</string>
     <string name="file_list_empty_text_videos_filter">Sense vídeos.</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="file_list_loading">S\'està carregant...</string>
+    <string name="file_list_loading">S\'està carregant…</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="file_list_seconds_ago">fa uns segons</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
@@ -660,7 +660,7 @@
     <string name="store_full_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\nAquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris que estan disposats a provar i informar d\'incidències. No feu servir aquesta versió de l\'aplicació en el vostre entorn de feina!\n\nAmbdues versions, la de desenvolupament i la normal, són disponibles a F-droid, i poden ser instal·lades al mateix temps.</string>
     <string name="store_short_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades</string>
     <string name="store_short_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades (versió de desenvolupament).</string>
-    <string name="stream">Seqüència amb...</string>
+    <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
@@ -691,7 +691,7 @@
     <string name="tags">Etiquetes</string>
     <string name="test_server_button">Proveu la connexió amb el servidor</string>
     <string name="thumbnail">Miniatura</string>
-    <string name="timeout_richDocuments">La càrrega triga molt...</string>
+    <string name="timeout_richDocuments">La càrrega triga molt…</string>
     <string name="trashbin_activity_title">Fitxers suprimits</string>
     <string name="trashbin_empty_headline">No hi ha cap fitxer suprimit</string>
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits</string>
@@ -752,7 +752,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Suprimeix el fitxer de la carpeta d\'origen</string>
     <string name="uploader_upload_forbidden_permissions">per carregar fitxers en aquesta carpeta</string>
     <string name="uploader_upload_in_progress_content">%1$d%% S\'està pujant %2$s</string>
-    <string name="uploader_upload_in_progress_ticker">S\'està carregant...</string>
+    <string name="uploader_upload_in_progress_ticker">S\'està carregant…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>

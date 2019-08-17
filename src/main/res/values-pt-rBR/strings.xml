@@ -356,7 +356,7 @@
     <string name="logs_menu_search">Pesquisar logs</string>
     <string name="logs_menu_send">Enviar logs por e-mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, pesquisa confere %2$d / %3$d em %4$d ms</string>
-    <string name="logs_status_loading">Carregando...</string>
+    <string name="logs_status_loading">Carregando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
@@ -533,7 +533,7 @@
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
     <string name="restore">Restaurar arquivo</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
-    <string name="retrieving_file">Recuperando arquivo...</string>
+    <string name="retrieving_file">Recuperando arquivo…</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="saml_authentication_required_text">Senha requerida</string>
     <string name="saml_authentication_wrong_pass">Senha incorreta</string>
