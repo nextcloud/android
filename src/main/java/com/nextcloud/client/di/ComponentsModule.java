@@ -45,7 +45,7 @@ import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FilePickerActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.LogsActivity;
+import com.nextcloud.client.logger.ui.LogsActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;

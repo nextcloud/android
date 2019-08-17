@@ -403,8 +403,7 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
-    <string name="notification_channel_push_description">透過推送通知告知:
-在備註中被提及，收到新的分享資訊，以及管理者個公告等等</string>
+    <string name="notification_channel_push_description">透過推送通知告知: 在備註中被提及，收到新的分享資訊，以及管理者個公告等等</string>
     <string name="notification_channel_push_name">通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name">上傳通知頻道</string>

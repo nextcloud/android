@@ -56,6 +56,7 @@ import android.webkit.URLUtil;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.BuildConfig;

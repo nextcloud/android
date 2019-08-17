@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
+    <string name="changelog_dev_version">Änderungen in der Entwicklerversion</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
     <string name="choose_remote_folder">Wähle einen Remote-Ordner…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="dismiss">Ausblenden</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
+    <string name="download_latest_dev_version">Die nueste Entwicklerversion herunterladen</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
     <string name="log_send_no_mail_app">Es wurde keine App gefunden die Logs verschicken kann. Bitte installiere eine App die E-Mails verschicken kann.</string>
     <string name="login">Anmelden</string>
+    <string name="logs_menu_delete">Lösche Logs</string>
+    <string name="logs_menu_refresh">Aktualisieren</string>
+    <string name="logs_menu_search">Suche Logs</string>
+    <string name="logs_menu_send">Logs per E-Mail versenden</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, Abfragetreffer %2$d / %3$d in %4$d ms</string>
+    <string name="logs_status_loading">Lade…</string>
+    <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
+    <string name="logs_title">Protokolle (Logs)</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>

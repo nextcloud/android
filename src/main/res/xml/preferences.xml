@@ -69,7 +69,7 @@
 		<Preference android:title="@string/prefs_help" android:key="help" />
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
 		<Preference android:title="@string/prefs_feedback" android:key="feedback" />
-		<Preference android:title="@string/actionbar_logger" android:key="logger" />
+		<Preference android:title="@string/logs_title" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefs_category_about" android:key="about">
@@ -90,11 +90,11 @@
 
 	<PreferenceCategory android:title="@string/prefs_category_dev" android:key="dev_category">
 		<Preference android:id="@+id/dev_link"
-					android:title="Download latest dev version"
+            android:title="@string/download_latest_dev_version"
 					android:key="dev_link" />
 
 		<Preference android:id="@+id/changelog_link"
-					android:title="Changelog dev version"
+            android:title="@string/changelog_dev_version"
 					android:key="changelog_link" />
 
         <Preference android:id="@+id/etm"

@@ -19,16 +19,16 @@
  */
 package com.nextcloud.client.logger
 
-import java.io.File
-import java.nio.charset.Charset
-import java.nio.file.Files
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.io.File
+import java.nio.charset.Charset
+import java.nio.file.Files
 
-class TestFileLogHandler {
+class FileLogHandlerTest {
 
     private lateinit var logDir: File
 
@@ -38,9 +38,16 @@ class TestFileLogHandler {
         return String(raw, Charset.forName("UTF-8"))
     }
 
-    private fun writeLogFile(name: String, content: String) {
+    /**
+     * Write raw content to file in log dir.
+     *
+     * @return size of written data in bytes
+     */
+    private fun writeLogFile(name: String, content: String): Int {
         val logFile = File(logDir, name)
-        Files.write(logFile.toPath(), content.toByteArray(Charsets.UTF_8))
+        val rawContent = content.toByteArray(Charsets.UTF_8)
+        Files.write(logFile.toPath(), rawContent)
+        return rawContent.size
     }
 
     @Before
@@ -147,20 +154,22 @@ class TestFileLogHandler {
         // GIVEN
         //      multiple log files exist
         //      log files have lines
-        writeLogFile("log.txt.2", "line1\nline2\nline3")
-        writeLogFile("log.txt.1", "line4\nline5\nline6")
-        writeLogFile("log.txt.0", "line7\nline8\nline9")
-        writeLogFile("log.txt", "line10\nline11\nline12")
+        var totalLogsSize = 0L
+        totalLogsSize += writeLogFile("log.txt.2", "line1\nline2\nline3")
+        totalLogsSize += writeLogFile("log.txt.1", "line4\nline5\nline6")
+        totalLogsSize += writeLogFile("log.txt.0", "line7\nline8\nline9")
+        totalLogsSize += writeLogFile("log.txt", "line10\nline11\nline12")
 
         // WHEN
         //      log file is read including rotated content
         val writer = FileLogHandler(logDir, "log.txt", 1000)
-        val lines = writer.loadLogFiles(3)
+        val rawLogs = writer.loadLogFiles(3)
 
         // THEN
         //      all files are loaded
         //      lines are loaded in correct order
-        assertEquals(12, lines.size)
+        //      log files size is correctly reported
+        assertEquals(12, rawLogs.lines.size)
         assertEquals(
             listOf(
                 "line1", "line2", "line3",
@@ -168,8 +177,9 @@ class TestFileLogHandler {
                 "line7", "line8", "line9",
                 "line10", "line11", "line12"
             ),
-            lines
+            rawLogs.lines
         )
+        assertEquals(totalLogsSize, rawLogs.logSize)
     }
 
     @Test
@@ -188,7 +198,9 @@ class TestFileLogHandler {
 
         // THEN
         //      all files are loaded
-        assertEquals(6, lines.size)
+        //      log file size is non-zero
+        assertEquals(6, lines.lines.size)
+        assertTrue(lines.logSize > 0)
     }
 
     @Test(expected = IllegalArgumentException::class)

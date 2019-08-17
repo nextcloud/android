@@ -153,8 +153,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20190813
-                versionName "20190813"
+                versionCode 20190817
+                versionName "20190817"
             }
 
             qa {
@@ -244,6 +244,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -288,7 +292,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.jetbrains:annotations:17.0.0'
 
-    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.4.5'
+    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.4.6'
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.6'

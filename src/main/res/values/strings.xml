@@ -47,7 +47,6 @@
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
-    <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVx5 (formerly known as DAVdroid)</string>
@@ -407,11 +406,12 @@
     <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
 
-    <string name="actionbar_logger">Logs</string>
-    <string name="log_send_history_button">Send history</string>
+    <string name="logs_title">Logs</string>
+    <string name="logs_menu_refresh">Refresh</string>
+    <string name="logs_menu_send">Send logs by e-mail</string>
+    <string name="logs_menu_delete">Delete logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
-    <string name="log_progress_dialog_text">Loading data…</string>
 
     <string name="saml_authentication_required_text">Password required</string>
     <string name="saml_authentication_wrong_pass">Wrong password</string>
@@ -888,8 +888,15 @@
     <string name="etm_title">Engineering Test Mode</string>
     <string name="etm_preferences">Preferences</string>
 
+    <string name="logs_status_loading">Loading…</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
+    <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>
+    <string name="logs_menu_search">Search logs</string>
+
     <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
     <string name="error_report_issue_action">Report</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="download_latest_dev_version">Download latest dev version</string>
+    <string name="changelog_dev_version">Changelog dev version</string>
 </resources>

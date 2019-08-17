@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
     <string name="battery_optimization_title">Battery optimization</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
+    <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="dismiss">Dismiss</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
     <string name="login">Log in</string>
+    <string name="logs_menu_delete">Delete logs</string>
+    <string name="logs_menu_refresh">Refresh</string>
+    <string name="logs_menu_search">Search logs</string>
+    <string name="logs_menu_send">Send logs by e-mail</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
+    <string name="logs_status_loading">Loading…</string>
+    <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>
+    <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>

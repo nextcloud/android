@@ -19,14 +19,26 @@
  */
 package com.nextcloud.client.core
 
-typealias OnResultCallback<T> = (T) -> Unit
-typealias OnErrorCallback = (Throwable) -> Unit
+import android.os.Handler
+import java.util.concurrent.ScheduledThreadPoolExecutor
 
 /**
- * This interface allows to post background tasks that report results via callbacks invoked on main thread.
+ * This async runner uses [java.util.concurrent.ScheduledThreadPoolExecutor] to run tasks
+ * asynchronously.
  *
- * It is provided as an alternative for heavy, platform specific and virtually untestable [android.os.AsyncTask]
+ * Tasks are run on multi-threaded pool. If serialized execution is desired, set [corePoolSize] to 1.
  */
-interface AsyncRunner {
-    fun <T> post(task: () -> T, onResult: OnResultCallback<T>? = null, onError: OnErrorCallback? = null): Cancellable
+internal class ThreadPoolAsyncRunner(private val uiThreadHandler: Handler, corePoolSize: Int) : AsyncRunner {
+
+    private val executor = ScheduledThreadPoolExecutor(corePoolSize)
+
+    override fun <T> post(task: () -> T, onResult: OnResultCallback<T>?, onError: OnErrorCallback?): Cancellable {
+        val taskWrapper = Task(this::postResult, task, onResult, onError)
+        executor.execute(taskWrapper)
+        return taskWrapper
+    }
+
+    private fun postResult(r: Runnable) {
+        uiThreadHandler.post(r)
+    }
 }
