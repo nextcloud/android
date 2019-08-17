@@ -41,6 +41,7 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
+import com.owncloud.android.ui.adapter.StickyHeaderAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -174,7 +175,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new ActivityListItemDecoration());
+        recyclerView.addItemDecoration(new ActivityListItemDecoration( adapter));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override

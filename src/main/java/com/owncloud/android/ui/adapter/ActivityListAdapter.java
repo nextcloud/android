@@ -80,12 +80,13 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adapter for the activity view
  */
-public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements StickyHeaderAdapter {
 
     static final int HEADER_TYPE = 100;
     static final int ACTIVITY_TYPE = 101;
@@ -142,7 +143,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 values.add(activity);
             } else {
                 sTime = time;
-                values.add(new ActivityListHeader(sTime));
+                values.add(sTime);
                 values.add(activity);
             }
         }
@@ -238,14 +239,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         } else {
             ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
-            ActivityListHeader header = (ActivityListHeader) values.get(position);
-            activityViewHeaderHolder.title.setText((String) header.getHeadline());
+
+            activityViewHeaderHolder.title.setText((String) values.get(position));
         }
-    }
-
-    public Object getActivityAtByPosition(int pos) {
-        return values.get(pos);
-
     }
 
     private ImageView createThumbnailNew(PreviewObject previewObject) {
@@ -435,6 +431,37 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+
+    @Override
+    public int getHeaderPositionForItem(int itemPosition) {
+        int headerPosition = 0;
+        do {
+            if (this.isHeader(itemPosition)) {
+                headerPosition = itemPosition;
+                break;
+            }
+            itemPosition -= 1;
+        } while (itemPosition >= 0);
+        return headerPosition;
+    }
+
+    @Override
+    public int getHeaderLayout(int headerPosition) {
+        return R.layout.activity_list_item_header;
+    }
+
+    @Override
+    public void bindHeaderData(View header, int headerPosition) {
+        TextView textView = header.findViewById(R.id.title_header);
+        String headline = (String) values.get(headerPosition);
+        textView.setText(headline);
+    }
+
+    @Override
+    public boolean isHeader(int itemPosition) {
+        return this.getItemViewType(itemPosition) == HEADER_TYPE;
+    }
+
     protected class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView activityIcon;
@@ -453,7 +480,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    protected class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+    public class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
 
