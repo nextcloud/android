@@ -285,9 +285,10 @@ public final class DisplayUtils {
     public static String getAccountNameDisplayText(Context context, Account savedAccount, String accountName, String
             fallbackString) {
         try {
-            return new OwnCloudAccount(savedAccount, context).getDisplayName()
-                    + "@"
-                    + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
+            final OwnCloudAccount account = new OwnCloudAccount(savedAccount, context);
+            final String username = account.getCredentials().getUsername();
+            final String domain = convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
+            return String.format("%s@%s", username, domain);
         } catch (Exception e) {
             Log_OC.w(TAG, "Couldn't get display name for account, using old style");
             return fallbackString;
