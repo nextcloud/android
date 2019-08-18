@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ActivityListItemDecoration extends RecyclerView.ItemDecoration {
-    private final String TAG = this.getClass().getSimpleName();
     private final StickyHeaderAdapter adapter;
 
 
@@ -68,11 +67,9 @@ public class ActivityListItemDecoration extends RecyclerView.ItemDecoration {
         View childInContact = null;
         for (int i = 0; i < parent.getChildCount(); i++) {
             View currentChild = parent.getChildAt(i);
-            if (currentChild.getBottom() > contactPoint) {
-                if (currentChild.getTop() <= contactPoint) {
-                    childInContact = currentChild;
-                    break;
-                }
+            if (currentChild.getBottom() > contactPoint && currentChild.getTop() <= contactPoint) {
+                childInContact = currentChild;
+                break;
             }
         }
         return childInContact;
