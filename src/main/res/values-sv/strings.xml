@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Kan inte starta batterinställningarna direkt. Justera manuellt i inställningarna.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
     <string name="certificate_load_problem">Certifikatet kan inte laddas</string>
+    <string name="changelog_dev_version">Ändringslogg utvecklingsversion</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="dismiss">Avfärda</string>
     <string name="dismiss_notification_description">Avfärda notifiering</string>
+    <string name="download_latest_dev_version">Ladda ner senaste utvecklingsversionen</string>
     <string name="downloader_download_failed_content">Kunde inte ladda ner %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Misslyckad nedladdning</string>
@@ -348,8 +350,13 @@
     <string name="log_send_mail_subject">%1$s Android apploggar</string>
     <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
+    <string name="logs_menu_delete">Radera loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
+    <string name="logs_menu_search">Sök i loggar</string>
+    <string name="logs_menu_send">Skicka loggar via e-post</string>
+    <string name="logs_status_filtered">Loggar: %1$d kB, frågan matchade %2$d / %3$d på %4$d ms</string>
     <string name="logs_status_loading">Laddar…</string>
+    <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
     <string name="logs_title">Loggar</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
     <string name="manage_space_clear_data">Rensa data</string>
