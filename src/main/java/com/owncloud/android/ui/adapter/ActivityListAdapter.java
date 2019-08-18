@@ -478,7 +478,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+    protected class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
 
