@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Kan de batterin-instellingen niet direct wijzigen. Pas handmatig in bij Instellingen.</string>
     <string name="battery_optimization_title">Batterij-optimalisatie</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
+    <string name="changelog_dev_version">Changelog dev versie</string>
     <string name="checkbox">Aanvinkvakje</string>
     <string name="choose_local_folder">Kies lokale map…</string>
     <string name="choose_remote_folder">Kies externe map…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
+    <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>
     <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
     <string name="login">Inloggen</string>
+    <string name="logs_menu_delete">Verwijderen logs</string>
+    <string name="logs_menu_refresh">Verversen</string>
+    <string name="logs_menu_search">Zoeken in logs</string>
+    <string name="logs_menu_send">Versturen van logs per e-mail</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, query conform %2$d / %3$d in %4$d ms</string>
+    <string name="logs_status_loading">Laden…</string>
+    <string name="logs_status_not_filtered">Logs: %1$d kB, geen filter</string>
+    <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
