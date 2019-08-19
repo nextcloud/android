@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Nie można bezpośrednio uruchomić ustawień baterii. Dostosuj ręcznie w ustawieniach.</string>
     <string name="battery_optimization_title">Optymalizacja baterii</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
+    <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Anuluj</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
+    <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
     <string name="downloader_download_failed_ticker">Pobieranie nieudane</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">%1$s logi aplikacji Android</string>
     <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
     <string name="login">Zaloguj</string>
+    <string name="logs_menu_delete">Usuń dziennik</string>
+    <string name="logs_menu_refresh">Odśwież</string>
+    <string name="logs_menu_search">Przeszukaj dziennik</string>
+    <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
+    <string name="logs_status_filtered">Dziennik: %1$d kB, zapytanie dopasowane %2$d / %3$d w %4$d ms</string>
+    <string name="logs_status_loading">Ładowanie…</string>
+    <string name="logs_status_not_filtered">Dziennik: %1$d kB, bez filtra</string>
+    <string name="logs_title">Dziennik</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
