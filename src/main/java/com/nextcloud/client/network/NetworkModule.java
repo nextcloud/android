@@ -35,11 +35,9 @@ public class NetworkModule {
 
     @Provides
     ConnectivityService connectivityService(ConnectivityManager connectivityManager,
-                                            UserAccountManager accountManager,
-                                            ClientFactory clientFactory) {
+                                            UserAccountManager accountManager) {
         return new ConnectivityServiceImpl(connectivityManager,
                                            accountManager,
-                                           clientFactory,
                                            new ConnectivityServiceImpl.GetRequestBuilder());
     }
 
