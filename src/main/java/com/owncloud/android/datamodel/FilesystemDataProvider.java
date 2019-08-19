@@ -28,6 +28,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,11 +96,15 @@ public class FilesystemDataProvider {
                     if (value == null) {
                         Log_OC.e(TAG, "Cannot get local path");
                     } else {
-                        localPathsToUpload.add(value);
+                        if (".thumbnail".equals(new File(value).getName())) {
+                            Log_OC.d(TAG, "Ignoring file for upload: " + value);
+                        } else {
+                            localPathsToUpload.add(value);
+                        }
                     }
                 } while (cursor.moveToNext());
             }
-            
+
             cursor.close();
         }
 
