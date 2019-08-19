@@ -662,6 +662,7 @@
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="upload_local_storage_full">Η τοπική αποθήκη είναι πλήρης</string>
     <string name="upload_local_storage_not_copied">Το αρχείο δεν μπορεί να αντιγραφεί σε τοπικό αποθηκευτικό χώρο</string>
+    <string name="upload_lock_failed">Το κλείδωμα του φακέλου απέτυχε</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="upload_unknown_error">Άγνωστο σφάλμα</string>
     <string name="uploader_btn_alternative_text">Επιλογή</string>
