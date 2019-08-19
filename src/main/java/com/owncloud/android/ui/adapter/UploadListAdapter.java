@@ -78,6 +78,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private PowerManagementService powerManagementService;
     private UserAccountManager accountManager;
     private UploadGroup[] uploadGroups;
+    private boolean showUser;
 
     @Override
     public int getSectionCount() {
@@ -192,6 +193,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 fixAndSortItems(uploadsStorageManager.getFinishedUploadsForCurrentAccount());
             }
         };
+
+        showUser = accountManager.getAccounts().length > 1;
+
         loadUploadItemsFromDb();
     }
 
@@ -228,20 +232,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                          DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
         itemViewHolder.date.setText(dateString);
 
+        // account
         Account account = accountManager.getAccountByName(item.getAccountName());
-        if (account != null) {
-            itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity, account,
-                                                                                  account.name, item.getAccountName()));
+        if(showUser) {
+            itemViewHolder.account.setVisibility(View.VISIBLE);
+            if (account != null) {
+                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity, account,
+                                                                                      account.name, item.getAccountName()));
+            } else {
+                itemViewHolder.account.setText(item.getAccountName());
+            }
         } else {
-            itemViewHolder.account.setText(item.getAccountName());
+            itemViewHolder.account.setVisibility(View.GONE);
         }
 
         // Reset fields visibility
         itemViewHolder.date.setVisibility(View.VISIBLE);
         itemViewHolder.remotePath.setVisibility(View.VISIBLE);
-
         itemViewHolder.fileSize.setVisibility(View.VISIBLE);
-        itemViewHolder.account.setVisibility(View.VISIBLE);
         itemViewHolder.status.setVisibility(View.VISIBLE);
         itemViewHolder.progressBar.setVisibility(View.GONE);
 
