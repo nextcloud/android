@@ -35,6 +35,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -284,5 +285,35 @@ class LoggerTest {
         val loaded = logHandler.loadLogFiles(logHandler.maxLogFilesCount)
         assertEquals(0, loaded.lines.size)
         assertEquals(0L, loaded.logSize)
+    }
+
+    @Test
+    fun `thread interruption is handled while posting log message`() {
+        Thread {
+            val callerThread = Thread.currentThread()
+            // GIVEN
+            //      logger is running
+            //      caller thread is interrupted
+            logger.start()
+            callerThread.interrupt()
+
+            // WHEN
+            //      message is logged on interrupted thread
+            var loggerException: Throwable? = null
+            try {
+                logger.d("test", "test")
+            } catch (ex: Throwable) {
+                loggerException = ex
+            }
+
+            // THEN
+            //      message post is gracefully skipped
+            //      thread interruption flag is not cleared
+            assertNull(loggerException)
+            assertTrue("Expected current thread to stay interrupted", callerThread.isInterrupted)
+        }.apply {
+            start()
+            join(3000)
+        }
     }
 }
