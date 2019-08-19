@@ -429,13 +429,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getHeaderPositionForItem(int itemPosition) {
-        while (itemPosition >= 0) {
-            if (this.isHeader(itemPosition)) {
+        int headerPosition = itemPosition;
+        while (headerPosition >= 0) {
+            if (this.isHeader(headerPosition)) {
                 break;
             }
-            itemPosition -= 1;
+            headerPosition -= 1;
         }
-        return itemPosition;
+        return headerPosition;
     }
 
 
