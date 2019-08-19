@@ -40,8 +40,8 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        super.onDrawOver(c, parent, state);
+    public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        super.onDrawOver(canvas, parent, state);
 
         View topChild = parent.getChildAt(0);
         if (topChild == null) {
@@ -62,25 +62,25 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         if (adapter.isHeader(parent.getChildAdapterPosition(childInContact))) {
-            moveHeader(c, currentHeader, childInContact);
+            moveHeader(canvas, currentHeader, childInContact);
             return;
         }
 
-        drawHeader(c, currentHeader);
+        drawHeader(canvas, currentHeader);
     }
 
-    private void drawHeader(Canvas c, View header) {
-        c.save();
-        c.translate(0, 0);
-        header.draw(c);
-        c.restore();
+    private void drawHeader(Canvas canvas, View header) {
+        canvas.save();
+        canvas.translate(0, 0);
+        header.draw(canvas);
+        canvas.restore();
     }
 
-    private void moveHeader(Canvas c, View currentHeader, View nextHeader) {
-        c.save();
-        c.translate(0, nextHeader.getTop() - currentHeader.getHeight());
-        currentHeader.draw(c);
-        c.restore();
+    private void moveHeader(Canvas canvas, View currentHeader, View nextHeader) {
+        canvas.save();
+        canvas.translate(0, nextHeader.getTop() - currentHeader.getHeight());
+        currentHeader.draw(canvas);
+        canvas.restore();
     }
 
     private View getChildInContact(RecyclerView parent, int contactPoint) {
