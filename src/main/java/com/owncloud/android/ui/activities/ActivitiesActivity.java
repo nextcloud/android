@@ -104,9 +104,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
+
         mActionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
 
-        setContentView(R.layout.activity_list_layout);
         setContentView(R.layout.activity_list_layout);
         unbinder = ButterKnife.bind(this);
 
