@@ -31,11 +31,11 @@ import com.owncloud.android.ui.adapter.StickyHeaderAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ActivityListItemDecoration extends RecyclerView.ItemDecoration {
+public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
     private final StickyHeaderAdapter adapter;
 
 
-    public ActivityListItemDecoration(StickyHeaderAdapter stickyHeaderAdapter) {
+    public StickyHeaderItemDecoration(StickyHeaderAdapter stickyHeaderAdapter) {
         this.adapter = stickyHeaderAdapter;
     }
 
