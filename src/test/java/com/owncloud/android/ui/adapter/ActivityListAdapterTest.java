@@ -1,5 +1,7 @@
 package com.owncloud.android.ui.adapter;
 
+import com.owncloud.android.lib.resources.activities.model.Activity;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +28,7 @@ public final class ActivityListAdapterTest {
     @Test
     public void isHeader__ObjectIsHeader_ReturnTrue() {
         Object header = "Hello";
-        Object activity = Mockito.mock(com.owncloud.android.lib.resources.activities.model.Activity.class);
+        Object activity = Mockito.mock(Activity.class);
 
         Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
         Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
@@ -41,7 +43,7 @@ public final class ActivityListAdapterTest {
     @Test
     public void isHeader__ObjectIsActivity_ReturnFalse() {
         Object header = "Hello";
-        Object activity = Mockito.mock(com.owncloud.android.lib.resources.activities.model.Activity.class);
+        Object activity = Mockito.mock(Activity.class);
 
         Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
         Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
