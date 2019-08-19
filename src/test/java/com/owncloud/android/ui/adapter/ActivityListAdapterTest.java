@@ -52,4 +52,66 @@ public final class ActivityListAdapterTest {
         activityListAdapter.values.add(activity);
         Assert.assertFalse(activityListAdapter.isHeader(1));
     }
+
+    @Test
+    public void getHeaderPositionForItem__AdapterIsEmpty_ReturnZero(){
+        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
+
+        Assert.assertEquals(0,activityListAdapter.getHeaderPositionForItem(0));
+    }
+
+    @Test
+    public void getHeaderPositionForItem__ItemIsHeader_ReturnCurrentItem() {
+        Object header = "Hello";
+        Object activity = Mockito.mock(Activity.class);
+
+        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(3)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(3)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(3)).thenCallRealMethod();
+
+
+        activityListAdapter.values.add(header);
+        activityListAdapter.values.add(activity);
+        activityListAdapter.values.add(header);
+        activityListAdapter.values.add(activity);
+
+
+        Assert.assertEquals(2, activityListAdapter.getHeaderPositionForItem(2));
+
+    }
+
+    @Test
+    public void getHeaderPositionForItem__ItemIsActivity_ReturnNextHeader() {
+        Object header = "Hello";
+        Object activity = Mockito.mock(Activity.class);
+
+        Mockito.when(activityListAdapter.isHeader(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(0)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(1)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(1)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(1)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(2)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.isHeader(3)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getItemViewType(3)).thenCallRealMethod();
+        Mockito.when(activityListAdapter.getHeaderPositionForItem(3)).thenCallRealMethod();
+
+        activityListAdapter.values.add(header);
+        activityListAdapter.values.add(activity);
+        activityListAdapter.values.add(header);
+        activityListAdapter.values.add(activity);
+
+        Assert.assertEquals(2, activityListAdapter.getHeaderPositionForItem(2));
+    }
+
 }
