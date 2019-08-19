@@ -77,15 +77,18 @@ class LogsActivity : ToolbarActivity() {
         vm.load()
 
         setupToolbar()
-        title = getText(R.string.logs_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply { ThemeUtils.setColoredTitle(this, getString(R.string.logs_title), baseContext) }
+
+        ThemeUtils.tintBackButton(supportActionBar, baseContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.logs_menu, menu)
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
-            ThemeUtils.themeSearchView(context, this, true)
+
+            ThemeUtils.themeSearchView(this, true, context)
         }
         return super.onCreateOptionsMenu(menu)
     }
