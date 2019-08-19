@@ -21,18 +21,16 @@
 package com.nextcloud.client.network;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
+import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONObject;
@@ -48,7 +46,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     private ConnectivityManager connectivityManager;
     private UserAccountManager accountManager;
-    private ClientFactory clientFactory;
     private GetRequestBuilder requestBuilder;
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
@@ -60,11 +57,9 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     ConnectivityServiceImpl(ConnectivityManager connectivityManager,
                             UserAccountManager accountManager,
-                            ClientFactory clientFactory,
                             GetRequestBuilder requestBuilder) {
         this.connectivityManager = connectivityManager;
         this.accountManager = accountManager;
-        this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
     }
 
@@ -73,8 +68,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
         if (isOnlineWithWifi()) {
             try {
                 Account account = accountManager.getCurrentAccount();
-                if (account != null) {
-                    OwnCloudAccount ocAccount = accountManager.getCurrentOwnCloudAccount();
+                OwnCloudAccount ocAccount = accountManager.getCurrentOwnCloudAccount();
+                if (account != null && ocAccount != null) {
                     OwnCloudVersion serverVersion = accountManager.getServerVersion(account);
 
                     String url;
@@ -85,7 +80,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                     }
 
                     GetMethod get = requestBuilder.invoke(url);
-                    OwnCloudClient client = clientFactory.create(account);
+                    HttpClient client = new HttpClient();
 
                     int status = client.executeMethod(get);
 
@@ -110,10 +105,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 }
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error checking internet connection", e);
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(TAG, "Account not found", e);
-            } catch (OperationCanceledException | AuthenticatorException e) {
-                Log_OC.e(TAG, e.getMessage());
             }
         } else {
             return getActiveNetworkType() == JobRequest.NetworkType.ANY;
