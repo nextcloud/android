@@ -228,17 +228,21 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // upload date
         long updateTime = item.getUploadEndTimestamp();
-        CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity, updateTime,
-                                                                         DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+        CharSequence dateString = DisplayUtils.getRelativeDateTimeString(parentActivity,
+                                                                         updateTime,
+                                                                         DateUtils.SECOND_IN_MILLIS,
+                                                                         DateUtils.WEEK_IN_MILLIS, 0);
         itemViewHolder.date.setText(dateString);
 
         // account
         Account account = accountManager.getAccountByName(item.getAccountName());
-        if(showUser) {
+        if (showUser) {
             itemViewHolder.account.setVisibility(View.VISIBLE);
             if (account != null) {
-                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity, account,
-                                                                                      account.name, item.getAccountName()));
+                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity,
+                                                                                      account,
+                                                                                      account.name,
+                                                                                      item.getAccountName()));
             } else {
                 itemViewHolder.account.setText(item.getAccountName());
             }
