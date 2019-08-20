@@ -3,8 +3,10 @@
  *
  * @author Mario Danic
  * @author Chris Narkiewicz
+ * @author Tobias Kaminsky
  * Copyright (C) 2017-2018 Mario Danic
  * Copyright (C) 2019 Chris Narkiewicz
+ * Copyright (C) 2019 Tobias Kaminsky
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -149,7 +151,7 @@ public final class PushUtils {
 
     private static void deleteRegistrationForAccount(Account account) {
         Context context = MainApp.getAppContext();
-        OwnCloudAccount ocAccount = null;
+        OwnCloudAccount ocAccount;
         arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
 
         try {
@@ -169,22 +171,17 @@ public final class PushUtils {
                     Gson gson = new Gson();
                     PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
                             PushConfigurationState.class);
-                    RemoteOperation unregisterAccountDeviceForProxyOperation =
-                            new UnregisterAccountDeviceForProxyOperation(context.getResources().
-                                    getString(R.string.push_server_url),
-                                    pushArbitraryData.getDeviceIdentifier(),
-                                    pushArbitraryData.getDeviceIdentifierSignature(),
-                                    pushArbitraryData.getUserPublicKey());
+                    RemoteOperationResult unregisterResult = new UnregisterAccountDeviceForProxyOperation(
+                        context.getResources().getString(R.string.push_server_url),
+                        pushArbitraryData.getDeviceIdentifier(),
+                        pushArbitraryData.getDeviceIdentifierSignature(),
+                        pushArbitraryData.getUserPublicKey()).run();
 
-                    remoteOperationResult = unregisterAccountDeviceForProxyOperation.execute(mClient);
-
-                    if (remoteOperationResult.isSuccess()) {
+                    if (unregisterResult.isSuccess()) {
                         arbitraryDataProvider.deleteKeyForAccount(account.name, KEY_PUSH);
                     }
                 }
             }
-
-
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Log_OC.d(TAG, "Failed to find an account");
         } catch (AuthenticatorException e) {
@@ -213,7 +210,7 @@ public final class PushUtils {
 
                 Context context = MainApp.getAppContext();
                 String providerValue;
-                PushConfigurationState accountPushData = null;
+                PushConfigurationState accountPushData;
                 Gson gson = new Gson();
                 for (Account account : accountManager.getAccounts()) {
                     providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH);
@@ -229,29 +226,26 @@ public final class PushUtils {
                             TextUtils.isEmpty(providerValue)) {
                         try {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, context);
 
-                            RemoteOperation registerAccountDeviceForNotificationsOperation =
-                                    new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
-                                            publicKey,
-                                            context.getResources().getString(R.string.push_server_url));
-
                             RemoteOperationResult remoteOperationResult =
-                                    registerAccountDeviceForNotificationsOperation.execute(mClient);
+                                new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
+                                                                                   publicKey,
+                                                                                   context.getResources().getString(R.string.push_server_url))
+                                    .execute(client);
 
                             if (remoteOperationResult.isSuccess()) {
                                 PushResponse pushResponse = remoteOperationResult.getPushResponseData();
 
-                                RemoteOperation registerAccountDeviceForProxyOperation = new
-                                        RegisterAccountDeviceForProxyOperation(
-                                        context.getResources().getString(R.string.push_server_url),
-                                        token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
-                                        pushResponse.getPublicKey());
+                                RemoteOperationResult resultProxy = new RegisterAccountDeviceForProxyOperation(
+                                    context.getResources().getString(R.string.push_server_url),
+                                    token, pushResponse.getDeviceIdentifier(),
+                                    pushResponse.getSignature(),
+                                    pushResponse.getPublicKey())
+                                    .run();
 
-                                remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
-
-                                if (remoteOperationResult.isSuccess()) {
+                                if (resultProxy.isSuccess()) {
                                     PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
                                             pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
                                             pushResponse.getPublicKey(), false);
@@ -419,7 +413,7 @@ public final class PushUtils {
         final byte[] signatureBytes,
         final byte[] subjectBytes
     ) {
-        Signature signature = null;
+        Signature signature;
         PublicKey publicKey;
         SignatureVerification signatureVerification = new SignatureVerification();
         signatureVerification.setSignatureValid(false);
@@ -471,7 +465,7 @@ public final class PushUtils {
                     "").replace("-----END PRIVATE KEY-----", "");
         }
 
-        KeyFactory keyFactory = null;
+        KeyFactory keyFactory;
         try {
             keyFactory = KeyFactory.getInstance("RSA");
             if (readPublicKey) {
