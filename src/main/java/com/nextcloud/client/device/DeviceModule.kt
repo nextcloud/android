@@ -2,8 +2,11 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author Tobias Kaminsky
  *
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2019 Tobias Kaminsky
+ * Copyright (C) 2019 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,22 +22,25 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.device;
+package com.nextcloud.client.device
 
-import android.content.Context;
-import android.os.PowerManager;
-
-import com.nextcloud.client.preferences.AppPreferences;
-
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context
+import android.os.PowerManager
+import com.nextcloud.client.preferences.AppPreferences
+import dagger.Module
+import dagger.Provides
 
 @Module
-public class DeviceModule {
-    @Provides
-    PowerManagementService powerManagementService(Context context, AppPreferences preferences) {
-        PowerManager platformPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+class DeviceModule {
 
-        return new PowerManagementServiceImpl(context, platformPowerManager, preferences, new DeviceInfo());
+    @Provides
+    fun powerManagementService(context: Context, preferences: AppPreferences): PowerManagementService {
+        val platformPowerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        return PowerManagementServiceImpl(
+            context = context,
+            powerManager = platformPowerManager,
+            deviceInfo = DeviceInfo(),
+            preferences = preferences
+        )
     }
 }
