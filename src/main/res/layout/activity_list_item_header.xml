@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/title_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="@dimen/standard_list_item_size"
         android:layout_marginStart="@dimen/standard_list_item_size"
         android:layout_marginTop="10dp"

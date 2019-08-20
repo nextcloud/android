@@ -165,7 +165,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
-                PorterDuff.Mode.SRC_IN);
+                                                                          PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         adapter = new ActivityListAdapter(this, getUserAccountManager(), this, storageManager, getCapabilities(), false);
@@ -174,6 +174,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new StickyHeaderItemDecoration(adapter));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -186,7 +187,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
                 // synchronize loading state when item count changes
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                        && nextPageUrl != null && !nextPageUrl.isEmpty()) {
+                    && nextPageUrl != null && !nextPageUrl.isEmpty()) {
                     // Almost reached the end, continue to load new activities
                     mActionListener.loadActivities(nextPageUrl);
                 }
