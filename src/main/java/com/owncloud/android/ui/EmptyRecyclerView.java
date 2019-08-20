@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class EmptyRecyclerView extends RecyclerView {
     private View mEmptyView;
-    private boolean hasFooter;
+    private boolean hasFooter = false;
 
     public EmptyRecyclerView(Context context) {
         super(context);

@@ -88,6 +88,7 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
@@ -424,16 +425,32 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
-                showFiles(false);
-                EventBus.getDefault().post(new ChangeMenuEvent());
+                if (this instanceof FileDisplayActivity) {
+                    if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
+                        showFiles(false);
+                        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } else {
+                        showFiles(false);
+                        EventBus.getDefault().post(new ChangeMenuEvent());
+                    }
+                } else {
+                    showFiles(false);
+                    Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                    intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.nav_favorites:
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH,
                         SearchEvent.UnsetType.NO_UNSET), menuItem.getItemId());
                 break;
             case R.id.nav_photos:
-                handleSearchEvents(new SearchEvent("image/%", SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
-                        SearchEvent.UnsetType.NO_UNSET), menuItem.getItemId());
+                startPhotoSearch(menuItem);
                 break;
             case R.id.nav_on_device:
                 EventBus.getDefault().post(new ChangeMenuEvent());
@@ -479,20 +496,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 menuItem.setChecked(false);
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager(), true);
                 break;
-            case R.id.nav_recently_added:
-                handleSearchEvents(new SearchEvent("%", SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
-                break;
             case R.id.nav_recently_modified:
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
-                break;
-            case R.id.nav_shared:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
-                break;
-            case R.id.nav_videos:
-                handleSearchEvents(new SearchEvent("video/%", SearchRemoteOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
                 break;
             default:
@@ -507,9 +512,31 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    private void startPhotoSearch(MenuItem menuItem) {
+        SearchEvent searchEvent = new SearchEvent("image/%",
+                                                  SearchRemoteOperation.SearchType.PHOTO_SEARCH,
+                                                  SearchEvent.UnsetType.NO_UNSET);
+
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(Intent.ACTION_SEARCH);
+        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+        startActivity(intent);
+    }
+
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            EventBus.getDefault().post(searchEvent);
+            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(Intent.ACTION_SEARCH);
+                intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
+                startActivity(intent);
+            } else {
+                EventBus.getDefault().post(searchEvent);
+            }
         } else {
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

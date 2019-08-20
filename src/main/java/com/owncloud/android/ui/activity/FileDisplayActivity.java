@@ -74,6 +74,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -99,12 +100,14 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -562,7 +565,21 @@ public class FileDisplayActivity extends FileActivity
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 String query = intent.getStringExtra(SearchManager.QUERY);
                 setIntent(intent);
-                Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
+
+                SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+                if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
+                    Log_OC.d(this, "Switch to photo search fragment");
+
+                    PhotoFragment photoFragment = new PhotoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                    photoFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
+                    transaction.commit();
+                } else {
+                    Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
+                }
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
                 Uri data = intent.getData();
                 String dataString = intent.getDataString();
@@ -2546,6 +2563,25 @@ public class FileDisplayActivity extends FileActivity
             setActionBarTitle(R.string.drawer_item_on_device);
         }
         getListOfFilesFragment().refreshDirectory();
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(final SearchEvent event) {
+        Fragment fragment;
+
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+            Log_OC.d(this, "Switch to photo search fragment");
+
+            fragment = new PhotoFragment();
+        } else {
+            Log_OC.d(this, "Switch to OCFileListFragment");
+
+            fragment = new OCFileListFragment();
+        }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+        transaction.commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

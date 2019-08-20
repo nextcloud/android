@@ -44,4 +44,6 @@ public interface OCFileListFragmentInterface {
     void onItemClicked(OCFile file);
 
     boolean onLongItemClicked(OCFile file);
+
+    boolean isLoading();
 }
