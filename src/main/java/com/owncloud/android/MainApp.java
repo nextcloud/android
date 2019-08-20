@@ -80,14 +80,21 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
 
+import org.conscrypt.Conscrypt;
+
 import java.lang.reflect.Method;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
@@ -224,6 +231,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     public void onCreate() {
         super.onCreate();
 
+        insertConscrypt();
+
         SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
         SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
             .setEnableDebugLogging(BuildConfig.DEBUG)
@@ -350,7 +359,25 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 ContactsPreferenceActivity.startContactBackupJob(account);
             }
         }
+    }
 
+    private void insertConscrypt() {
+        Security.insertProviderAt(Conscrypt.newProvider(), 1);
+
+        try {
+            Conscrypt.Version version = Conscrypt.version();
+            Log_OC.i(TAG, "Using Conscrypt/"
+                + version.major()
+                + "."
+                + version.minor()
+                + "." + version.patch()
+                + " for TLS");
+            SSLEngine engine = SSLContext.getDefault().createSSLEngine();
+            Log_OC.i(TAG, "Enabled protocols: " + Arrays.toString(engine.getEnabledProtocols()) + " }");
+            Log_OC.i(TAG, "Enabled ciphers: " + Arrays.toString(engine.getEnabledCipherSuites()) + " }");
+        } catch (NoSuchAlgorithmException e) {
+            Log_OC.e(TAG, e.getMessage());
+        }
     }
 
     @SuppressLint("ApplySharedPref") // commit is done on purpose to write immediately
