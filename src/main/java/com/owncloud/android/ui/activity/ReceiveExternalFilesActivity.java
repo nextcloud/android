@@ -949,13 +949,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void uploadFiles() {
 
         UriUploader uploader = new UriUploader(
-                this,
-                mStreamsToUpload,
-                mUploadPath,
-                getAccount(),
-                FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                true, // Show waiting dialog while file is being copied from private storage
-                this  // Copy temp task listener
+            this,
+            mStreamsToUpload,
+            mUploadPath,
+            getAccount(),
+            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            true, // Show waiting dialog while file is being copied from private storage
+            this  // Copy temp task listener
         );
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
