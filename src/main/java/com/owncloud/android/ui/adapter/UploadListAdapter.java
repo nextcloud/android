@@ -174,7 +174,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                           parentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
-                fixAndSortItems(uploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
+                setItems(uploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
             }
         };
 
@@ -182,7 +182,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                           parentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                fixAndSortItems(uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
+                setItems(uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
             }
         };
 
@@ -190,7 +190,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                           parentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
-                fixAndSortItems(uploadsStorageManager.getFinishedUploadsForCurrentAccount());
+                setItems(uploadsStorageManager.getFinishedUploadsForCurrentAccount());
             }
         };
 
@@ -599,8 +599,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public void loadUploadItemsFromDb() {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
 
+        /* TODO: this fires multiple DB queries and the FileUploader can concurrently change the DB
+          * the uploadStartLock cannot help here because
+          * 1. it does not prevent the running upload from finish/failing
+          * 2. it synchronizes memory access to the FileUploader instance, not DB state
+          * 3. it is dangerous to hold locks while performing long-running operations such as DB access
+          * The uploads lists refresh should be refactored to (transactionally) read from a single source for OCUploads,
+          * it should not concurrently access DB and memory state, which cannot be easily kept consistent.
+          */
         for (UploadGroup group : uploadGroups) {
             group.refresh();
+        }
+
+        // we synchronize with the binder lock to avoid it changing the current upload and making the lists inconsistent
+        FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
+        synchronized (binder.uploadStartLock()) {
+            for (UploadGroup group : uploadGroups) {
+                group.fixAndSortItems(binder);
+            }
         }
 
         notifyDataSetChanged();
@@ -720,15 +736,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             this.items = items;
         }
 
-        void fixAndSortItems(OCUpload... array) {
-            FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-
-            for (OCUpload upload : array) {
-                upload.setDataFixed(binder);
+        void fixAndSortItems(FileUploader.FileUploaderBinder binder) {
+            for (OCUpload upload : items) {
+               upload.setDataFixed(binder);
             }
-            Arrays.sort(array, comparator);
-
-            setItems(array);
+            Arrays.sort(items, comparator);
         }
 
         private int getGroupItemCount() {
