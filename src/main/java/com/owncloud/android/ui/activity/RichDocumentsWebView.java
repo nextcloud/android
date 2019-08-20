@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -416,6 +417,15 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                 file.setFileName(newName);
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse rename json message: " + e);
+            }
+        }
+
+        @JavascriptInterface
+        public void paste() {
+           // Javascript cannot do this by itself, so help out.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
+                webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
             }
         }
     }
