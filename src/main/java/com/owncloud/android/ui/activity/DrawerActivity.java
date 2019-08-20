@@ -783,7 +783,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
 
-            usernameFull.setText(DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name));
+            usernameFull.setText(DisplayUtils.convertIdn(account.name.substring(account.name.lastIndexOf('@') + 1),
+                                                         false));
             usernameFull.setTextColor(ThemeUtils.fontColor(this));
 
             try {
