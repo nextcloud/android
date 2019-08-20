@@ -292,4 +292,8 @@ public interface AppPreferences {
     boolean isUserIdMigrated();
 
     void setMigratedUserId(boolean value);
+
+    void setPhotoSearchTimestamp(long timestamp);
+
+    long getPhotoSearchTimestamp();
 }

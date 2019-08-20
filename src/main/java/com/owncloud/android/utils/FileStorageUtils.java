@@ -234,13 +234,19 @@ public final class FileStorageUtils {
         return file;
     }
 
-    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
+    public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
         Collections.sort(files, (o1, o2) -> {
             @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
             Long obj1 = o1.getModificationTimestamp();
             return multiplier * obj1.compareTo(o2.getModificationTimestamp());
         });
+
+        return files;
+    }
+
+    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
+        files = sortOcFolderDescDateModifiedWithoutFavoritesFirst(files);
 
         return FileSortOrder.sortCloudFilesByFavourite(files);
     }
