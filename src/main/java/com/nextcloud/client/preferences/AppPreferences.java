@@ -296,4 +296,8 @@ public interface AppPreferences {
     void setPhotoSearchTimestamp(long timestamp);
 
     long getPhotoSearchTimestamp();
+
+    boolean isPowerCheckDisabled();
+
+    void setPowerCheckDisabled(boolean value);
 }
