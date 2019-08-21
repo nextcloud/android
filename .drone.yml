@@ -40,6 +40,8 @@ steps:
         - stable-3.8
 
 trigger:
+  branch:
+    - stable-3.8
   event:
     - pull_request
     - push
@@ -101,6 +103,8 @@ services:
     image: nextcloudci/server:server-3
 
 trigger:
+  branch:
+    - stable-3.8
   event:
     - push
     - pull_request
