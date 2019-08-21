@@ -1,0 +1,39 @@
+b36067d45 Merge pull request #4294 from AlexNi245/#2216-activity-data-divers-design
+962401940 activity header has now the same font size as a activity element
+fa115658b fixed issue  Avoid reassigning parameters such as 'itemPosition'
+5a3db5ef2 replace do while loop in getHeaderPositionForItem with while loop
+1dd2a5a71 change naming of Canvas c to Canvas canvas
+f4e964e46 change class name of ActivityListItemDecoration to StickyHeaderItemDecoration, which is more generic
+52a7ffe01 add license text
+6ffa9d08f remove duplicate entry of setContentView
+cdd5d38d3 add getHeaderPositionForItem unit test
+0ac5a8bce add static import for com.owncloud.android.lib.resources.activities.model.Activity;
+4ea9667c0 unit test for isHeader(int pos)
+b61f9e02a format ActivityListAdapter
+9012f43e8 set visibility from ActivityViewHeaderHolder back to protected
+7a30070be remove unnecessary TAG field and replace nested if statement with && to fix codeacy-bot issues
+a26a89504 apply changes to java doc
+c41dd38ef optimize imports
+b4764f7f6 remove unnecessary files
+792a6b95a finish implementation of sticky header implementation. This feature was created according to the this implementation : https://stackoverflow.com/questions/32949971/how-can-i-make-sticky-headers-in-recyclerview-without-external-lib
+13e7aff0a increase height of header element and set backgroundcolor to white
+a184345c1 first implementation of sticky header logic.
+cd3d8dca1 start to implement sticky header behavior
+259e10630 Merge pull request #4355 from nextcloud/drawer
+caf1842f4 drawer: show only server address
+cb7d4a38a revert to old image (#4356)
+7e44feced revert to old image
+f7c4eecf2 Merge pull request #4345 from nextcloud/push
+a3fda5aa7 no need to use owncloudClient
+9a023c649 Check if app is excluded from battery optimization (#3589)
+527c5dbc9 Use conscrypt (#4314)
+6014e90df use conscrypt
+5373660f9 Provide a banal 'paste' postmessage implementation. (#4189)
+68cebf83d revert DeviceModule back to Kotlin
+969ce78e0 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+f26095f00 Merge pull request #4245 from fogninid/fixUploadListComparator
+e72a789e6 show on special vendors "disable power check" in auto upload menu - tint button - change logic when to show battery warning
+c8173c31c Use reloading on photo view (#2250)
+c38dcf343 Delete temp file on receive external files (#4349)
+c155edf6f Merge pull request #4347 from nextcloud/blacklistThumbnail
+a03ff8479 daily dev 20190820
