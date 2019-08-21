@@ -456,6 +456,27 @@ public final class DisplayUtils {
      */
     public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
+        setAvatar(account, userId, userId, listener, avatarRadius, resources, callContext, context);
+    }
+
+    /**
+     * fetches and sets the avatar of the given account in the passed callContext
+     *
+     * @param account      the account to be used to connect to server
+     * @param userId       the userId which avatar should be set
+     * @param displayName  displayName used to generate avatar with first char, only used as fallback
+     * @param avatarRadius the avatar radius
+     * @param resources    reference for density information
+     * @param callContext  which context is called to set the generated avatar
+     */
+    public static void setAvatar(@NonNull Account account,
+                                 @NonNull String userId,
+                                 String displayName,
+                                 AvatarGenerationListener listener,
+                                 float avatarRadius,
+                                 Resources resources,
+                                 Object callContext,
+                                 Context context) {
         if (callContext instanceof View) {
             ((View) callContext).setContentDescription(String.valueOf(account.hashCode()));
         }
@@ -468,12 +489,12 @@ public final class DisplayUtils {
 
         // first show old one
         Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+                                                                     ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
 
         // if no one exists, show colored icon with initial char
         if (avatar == null) {
             try {
-                avatar = TextDrawable.createAvatarByUserId(userId, avatarRadius);
+                avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                 avatar = resources.getDrawable(R.drawable.account_circle_white);
@@ -483,11 +504,11 @@ public final class DisplayUtils {
         // check for new avatar, eTag is compared, so only new one is downloaded
         if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
             final ThumbnailsCacheManager.AvatarGenerationTask task =
-                    new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
-                            avatarRadius, userId, serverName, context);
+                new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
+                                                                avatarRadius, userId, serverName, context);
 
             final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
+                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
             listener.avatarGenerated(asyncDrawable, callContext);
             task.execute(userId);
         }
