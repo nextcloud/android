@@ -29,8 +29,8 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import org.junit.Assert.assertFalse
@@ -77,7 +77,7 @@ class ConnectivityServiceTest {
         lateinit var clientFactory: ClientFactory
 
         @Mock
-        lateinit var client: OwnCloudClient
+        lateinit var client: HttpClient
 
         @Mock
         lateinit var getRequest: GetMethod
@@ -107,7 +107,7 @@ class ConnectivityServiceTest {
             )
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)
             whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
-            whenever(clientFactory.create(any())).thenReturn(client)
+            whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(accountManager.currentOwnCloudAccount).thenReturn(ownCloudAccount)
             whenever(accountManager.currentAccount).thenReturn(platformAccount)
             whenever(baseServerUri.toString()).thenReturn(SERVER_BASE_URL)

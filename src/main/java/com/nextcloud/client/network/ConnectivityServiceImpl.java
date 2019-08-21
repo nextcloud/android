@@ -46,6 +46,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     private ConnectivityManager connectivityManager;
     private UserAccountManager accountManager;
+    private ClientFactory clientFactory;
     private GetRequestBuilder requestBuilder;
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
@@ -57,9 +58,11 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     ConnectivityServiceImpl(ConnectivityManager connectivityManager,
                             UserAccountManager accountManager,
+                            ClientFactory clientFactory,
                             GetRequestBuilder requestBuilder) {
         this.connectivityManager = connectivityManager;
         this.accountManager = accountManager;
+        this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
     }
 
@@ -80,7 +83,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                     }
 
                     GetMethod get = requestBuilder.invoke(url);
-                    HttpClient client = new HttpClient();
+                    HttpClient client = clientFactory.createPlainClient();
 
                     int status = client.executeMethod(get);
 
