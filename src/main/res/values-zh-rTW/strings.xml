@@ -171,6 +171,7 @@
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
     <string name="dismiss_notification_description">清除通知訊息。</string>
+    <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
@@ -347,6 +348,12 @@
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
     <string name="log_send_no_mail_app">無應用程式送出的紀錄，請安裝 Email 客戶端。</string>
     <string name="login">登入</string>
+    <string name="logs_menu_delete">刪除紀錄檔案</string>
+    <string name="logs_menu_refresh">重整</string>
+    <string name="logs_menu_search">搜尋紀錄檔案</string>
+    <string name="logs_menu_send">藉由e-mail傳送紀錄</string>
+    <string name="logs_status_loading">載入中...</string>
+    <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自%1$s的設定，資料庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
