@@ -29,6 +29,8 @@ import android.net.Uri;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
+import org.apache.commons.httpclient.HttpClient;
+
 import java.io.IOException;
 
 public interface ClientFactory {
@@ -46,4 +48,6 @@ public interface ClientFactory {
                           boolean useNextcloudUserAgent);
 
     OwnCloudClient create(Uri uri, boolean followRedirects);
+
+    HttpClient createPlainClient();
 }
