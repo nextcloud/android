@@ -46,6 +46,9 @@ trigger:
     - pull_request
     - push
 
+node:
+  type: android
+
 ---
 kind: pipeline
 name: gplay
@@ -108,6 +111,10 @@ trigger:
   event:
     - push
     - pull_request
+
+node:
+  type: android
+
 ---
 kind: pipeline
 name: analysis
@@ -157,6 +164,10 @@ trigger:
   event:
     - push
     - pull_request
+
+node:
+  type: android
+
 ---
 kind: pipeline
 name: qa
@@ -189,3 +200,6 @@ steps:
 trigger:
   event:
     - pull_request
+
+node:
+  type: android
