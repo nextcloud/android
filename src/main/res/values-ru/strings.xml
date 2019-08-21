@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
+    <string name="changelog_dev_version">Журнал изменений версии для разработчиков</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
+    <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
     <string name="downloader_download_failed_credentials_error">Ошибка скачивания, необходимо авторизоваться</string>
     <string name="downloader_download_failed_ticker">Сбой при скачивании</string>
@@ -228,12 +230,14 @@
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
     <string name="error_comment_file">Ошибка комментирования файла</string>
+    <string name="error_crash_title">сбой %1$s</string>
     <string name="error_report_issue_action">Сообщить</string>
     <string name="error_report_issue_text">Сообщить о проблеме? (Требуется учётная запись Github)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="etm_preferences">Настройки</string>
+    <string name="etm_title">Режим разработчика</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="fallback_weblogin_back">Назад</string>
@@ -347,6 +351,14 @@
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>
     <string name="login">Войти</string>
+    <string name="logs_menu_delete">Удалить журнал</string>
+    <string name="logs_menu_refresh">Обновить</string>
+    <string name="logs_menu_search">Искать в журнале</string>
+    <string name="logs_menu_send">Отправить журнал на электронную почту</string>
+    <string name="logs_status_filtered">Журнал: %1$d кБ, %2$d / %3$d совпадений по запросу за %4$d мс</string>
+    <string name="logs_status_loading">Загрузка…</string>
+    <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фильтра</string>
+    <string name="logs_title">Журнал</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
@@ -527,6 +539,7 @@
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
     <string name="scanQR_description">Войти с использованием QR кода</string>
     <string name="screenshot_01_gridView">Надёжный дом для всех ваших данных</string>
+    <string name="screenshot_01_gridView_heading">Защита Ваших данных</string>
     <string name="screenshot_02_listView">Простой доступ и обмен своими файлами</string>
     <string name="screenshot_03_drawer">Быстрый просмотр событий, общих ресурсов, доступных без подключения файлов и многое другое</string>
     <string name="screenshot_04_accounts">Соединение с несколькими учётными записями</string>

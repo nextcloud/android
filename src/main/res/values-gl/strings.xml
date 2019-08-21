@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="battery_optimization_title">Optimización da batería</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
+    <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
     <string name="checkbox">Caixa de verificación</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Desbotar</string>
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
+    <string name="download_latest_dev_version">Descargar a última versión de desenvolvemento</string>
     <string name="downloader_download_failed_content">Non foi posíbel descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Produciuse un fallo na descarga, acceda de novo.</string>
     <string name="downloader_download_failed_ticker">Produciuse un fallo na descarga</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">Atoparonse %1$s aplicativos de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningún aplicativo para o envío de rexistros. Instale un cliente de correo-e.</string>
     <string name="login">Acceder</string>
+    <string name="logs_menu_delete">Eliminar rexistros</string>
+    <string name="logs_menu_refresh">Actualizar</string>
+    <string name="logs_menu_search">Buscar rexistros</string>
+    <string name="logs_menu_send">Enviar rexistros por correo-e</string>
+    <string name="logs_status_filtered">Rexistros: %1$d kB, consulta coincidente %2$d / %3$d en %4$d ms</string>
+    <string name="logs_status_loading">Cargando…</string>
+    <string name="logs_status_not_filtered">Rexistros: %1$d kB, sen filtrar</string>
+    <string name="logs_title">Rexistros</string>
     <string name="maintenance_mode">Servidor en modo de mantemento</string>
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados permanentemente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
