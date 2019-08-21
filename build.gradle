@@ -20,7 +20,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
@@ -220,7 +220,7 @@ android {
             ignoreFailures = false
             effort = "max"
             reportLevel = "medium"
-            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${capVariantName}JavaWithJavac/classes/")
+            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
             excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
             pluginClasspath = project.configurations.spotbugsPlugins
             source = fileTree('src/main/java')
