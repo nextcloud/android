@@ -42,7 +42,7 @@ import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
 
-    private final static String TAG = ConnectivityServiceImpl.class.getName();
+    private final static String TAG = ConnectivityServiceImpl.class.getSimpleName();
 
     private ConnectivityManager connectivityManager;
     private UserAccountManager accountManager;
