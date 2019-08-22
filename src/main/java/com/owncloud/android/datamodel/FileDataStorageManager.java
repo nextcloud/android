@@ -999,7 +999,7 @@ public class FileDataStorageManager {
 
             String sharees = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_SHAREES));
 
-            if ("null".equals(sharees) || sharees.isEmpty()) {
+            if (sharees == null || "null".equals(sharees) || sharees.isEmpty()) {
                 file.setSharees(new ArrayList<>());
             } else {
                 try {
