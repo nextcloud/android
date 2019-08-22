@@ -63,6 +63,7 @@ import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
+import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -137,10 +138,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
 
-    @ContributesAndroidInjector
-    abstract PhotoFragment photoFragment();
+    @ContributesAndroidInjector abstract PhotoFragment photoFragment();
 
-    @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogMultipleAccount dialogMultipleAccount();
+    @ContributesAndroidInjector abstract MultipleAccountsDialog multipleAccountsDialog();
     @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
 
     @ContributesAndroidInjector abstract FileUploader fileUploader();

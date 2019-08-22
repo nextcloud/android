@@ -26,7 +26,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -36,16 +35,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
-import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +62,17 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Drawable tintedCheck;
     private UserAccountManager accountManager;
 
-    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
-    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
+    public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
+    public static final int KEY_USER_INFO_REQUEST_CODE = 13;
+    private ClickListener clickListener;
+    private boolean showAddAccount;
 
-    public AccountListAdapter(BaseActivity context, UserAccountManager accountManager, List<AccountListItem> values, Drawable tintedCheck) {
+    public AccountListAdapter(BaseActivity context,
+                              UserAccountManager accountManager,
+                              List<AccountListItem> values,
+                              Drawable tintedCheck,
+                              ClickListener clickListener,
+                              boolean showAddAccount) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
@@ -79,11 +81,13 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         this.accountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
         this.tintedCheck = tintedCheck;
+        this.clickListener = clickListener;
+        this.showAddAccount = showAddAccount;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == values.size() - 1) {
+        if (position == values.size() - 1 && showAddAccount) {
             return AccountListItem.TYPE_ACTION_ADD;
         }
         return AccountListItem.TYPE_ACCOUNT;
@@ -113,6 +117,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (AccountListItem.TYPE_ACCOUNT == accountListItem.getType()) {
                 Account account = accountListItem.getAccount();
                 AccountViewHolderItem item = (AccountViewHolderItem)holder;
+                item.setData(account);
                 setAccount(item, account);
                 setUsername(item, account);
                 setAvatar(item, account);
@@ -120,21 +125,6 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 TextView usernameView = item.usernameViewItem;
                 TextView accountView = item.accountViewItem;
-
-                // OnClickListener for when the user selects an account
-                holder.itemView.setOnClickListener(view -> {
-                    final Intent intent = new Intent(context, UserInfoActivity.class);
-                    if (accountListItem.isEnabled()) {
-                        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
-                        try {
-                            OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-                            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-                        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                            Log_OC.d(TAG, "Failed to find NC account");
-                        }
-                        context.startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
-                    }
-                });
 
                 if (!accountListItem.isEnabled()) {
                     usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -300,12 +290,14 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     /**
      * Account ViewHolderItem to get smooth scrolling.
      */
-    static class AccountViewHolderItem extends RecyclerView.ViewHolder {
+    class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView imageViewItem;
         private ImageView checkViewItem;
 
         private TextView usernameViewItem;
         private TextView accountViewItem;
+
+        private Account account;
 
         AccountViewHolderItem(@NonNull View view) {
             super(view);
@@ -313,6 +305,18 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.checkViewItem = view.findViewById(R.id.ticker);
             this.usernameViewItem = view.findViewById(R.id.user_name);
             this.accountViewItem = view.findViewById(R.id.account);
+            view.setOnClickListener(this);
+        }
+
+        public void setData(Account account) {
+            this.account = account;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null && v.isEnabled()) {
+                clickListener.onClick(account);
+            }
         }
     }
 
@@ -325,5 +329,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(view);
             this.usernameViewItem = view.findViewById(R.id.user_name);
         }
+    }
+
+    public interface ClickListener {
+        void onClick(Account account);
     }
 }

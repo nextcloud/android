@@ -233,6 +233,27 @@ public final class ThemeUtils {
     }
 
     /**
+     * Set color of subtitle to white/black depending on background color
+     *
+     * @param actionBar actionBar to be used
+     * @param title     title to be shown
+     */
+    public static void setColoredSubtitle(@Nullable ActionBar actionBar, String title, Context context) {
+        if (actionBar != null) {
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                actionBar.setSubtitle(title);
+            } else {
+                Spannable text = new SpannableString(title);
+                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                             0,
+                             text.length(),
+                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                actionBar.setSubtitle(text);
+            }
+        }
+    }
+
+    /**
      * For activities that do not use drawer, e.g. Settings, this can be used to correctly tint back button based on
      * theme
      *
