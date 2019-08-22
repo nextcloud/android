@@ -30,7 +30,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_weight="1" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/filename"
