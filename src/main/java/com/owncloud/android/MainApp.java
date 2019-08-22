@@ -113,7 +113,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 /**
  * Main Application of the project
- * <p>
+ *
  * Contains methods to build the "static" strings. These strings were before constants in different classes
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
@@ -122,6 +122,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_12;
 
     private static final String TAG = MainApp.class.getSimpleName();
+    public static final String DOT = ".";
 
     private static Context mContext;
 
@@ -233,11 +234,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         insertConscrypt();
 
-        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
-        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
-            .setEnableDebugLogging(BuildConfig.DEBUG)
-            .build();
-        securityKeyManager.init(this, config);
+        initSecurityKeyManager();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
@@ -307,7 +304,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             .build()
             .schedule();
 
-        // register global protection with pass code
+        registerGlobalPassCodeProtection();
+    }
+
+    private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
@@ -350,6 +350,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         });
     }
 
+    private void initSecurityKeyManager() {
+        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
+        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
+            .setEnableDebugLogging(BuildConfig.DEBUG)
+            .build();
+        securityKeyManager.init(this, config);
+    }
+
     public static void initContactsBackup(UserAccountManager accountManager) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
         Account[] accounts = accountManager.getAccounts();
@@ -368,9 +376,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Conscrypt.Version version = Conscrypt.version();
             Log_OC.i(TAG, "Using Conscrypt/"
                 + version.major()
-                + "."
+                + DOT
                 + version.minor()
-                + "." + version.patch()
+                + DOT + version.patch()
                 + " for TLS");
             SSLEngine engine = SSLContext.getDefault().createSSLEngine();
             Log_OC.i(TAG, "Enabled protocols: " + Arrays.toString(engine.getEnabledProtocols()) + " }");
