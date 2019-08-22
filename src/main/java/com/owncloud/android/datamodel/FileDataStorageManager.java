@@ -38,6 +38,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -53,6 +54,8 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1920,66 +1923,7 @@ public class FileDataStorageManager {
     public OCCapability saveCapabilities(OCCapability capability) {
 
         // Prepare capabilities data
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME, account.name);
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR, capability.getVersionMayor());
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MINOR, capability.getVersionMinor());
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MICRO, capability.getVersionMicro());
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_STRING, capability.getVersionString());
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_EDITION, capability.getVersionEdition());
-        cv.put(ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT, capability.getExtendedSupport().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL, capability.getCorePollInterval());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED, capability.getFilesSharingApiEnabled().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED,
-                capability.getFilesSharingPublicEnabled().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED,
-                capability.getFilesSharingPublicPasswordEnforced().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD,
-               capability.getFilesSharingPublicAskForOptionalPassword().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED,
-                capability.getFilesSharingPublicExpireDateEnabled().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS,
-                capability.getFilesSharingPublicExpireDateDays());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED,
-                capability.getFilesSharingPublicExpireDateEnforced().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL,
-                capability.getFilesSharingPublicSendMail().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD,
-                capability.getFilesSharingPublicUpload().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL,
-                capability.getFilesSharingUserSendMail().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_RESHARING, capability.getFilesSharingResharing().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING,
-                capability.getFilesSharingFederationOutgoing().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING,
-                capability.getFilesSharingFederationIncoming().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING, capability.getFilesBigFileChunking().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE, capability.getFilesUndelete().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR, capability.getServerTextColor());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR, capability.getServerElementColor());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
-        cv.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION, capability.getEndToEndEncryption().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT, capability.getServerBackgroundDefault()
-                .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN, capability.getServerBackgroundPlain()
-                .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_ACTIVITY, capability.getActivity().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
-                TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST,
-               TextUtils.join(",", capability.getRichDocumentsOptionalMimeTypeList()));
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
-            .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
-            .getValue());
-        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME, capability.getRichDocumentsProductName());
+        ContentValues cv = createContentValues(account.name, capability);
 
         if (capabilityExists(account.name)) {
             if (getContentResolver() != null) {
@@ -2017,6 +1961,71 @@ public class FileDataStorageManager {
         }
 
         return capability;
+    }
+
+    @NotNull
+    private ContentValues createContentValues(String accountName, OCCapability capability) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME, accountName);
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR, capability.getVersionMayor());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MINOR, capability.getVersionMinor());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MICRO, capability.getVersionMicro());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_STRING, capability.getVersionString());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_EDITION, capability.getVersionEdition());
+        cv.put(ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT, capability.getExtendedSupport().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL, capability.getCorePollInterval());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED, capability.getFilesSharingApiEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED,
+               capability.getFilesSharingPublicEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED,
+               capability.getFilesSharingPublicPasswordEnforced().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD,
+               capability.getFilesSharingPublicAskForOptionalPassword().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED,
+               capability.getFilesSharingPublicExpireDateEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS,
+               capability.getFilesSharingPublicExpireDateDays());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED,
+               capability.getFilesSharingPublicExpireDateEnforced().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL,
+               capability.getFilesSharingPublicSendMail().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD,
+               capability.getFilesSharingPublicUpload().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL,
+               capability.getFilesSharingUserSendMail().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_RESHARING, capability.getFilesSharingResharing().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING,
+               capability.getFilesSharingFederationOutgoing().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING,
+               capability.getFilesSharingFederationIncoming().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING, capability.getFilesBigFileChunking().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE, capability.getFilesUndelete().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR, capability.getServerTextColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR, capability.getServerElementColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
+        cv.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION, capability.getEndToEndEncryption().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT, capability.getServerBackgroundDefault()
+                .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN, capability.getServerBackgroundPlain()
+                .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_ACTIVITY, capability.getActivity().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT, capability.getRichDocuments().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST,
+               TextUtils.join(",", capability.getRichDocumentsMimeTypeList()));
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST,
+               TextUtils.join(",", capability.getRichDocumentsOptionalMimeTypeList()));
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING, capability.getRichDocumentsDirectEditing()
+            .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
+            .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME, capability.getRichDocumentsProductName());
+        return cv;
     }
 
     private boolean capabilityExists(String accountName) {
