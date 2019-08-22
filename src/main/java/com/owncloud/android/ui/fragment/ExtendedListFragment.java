@@ -134,7 +134,7 @@ public class ExtendedListFragment extends Fragment implements
     private EmptyRecyclerView mRecyclerView;
 
     protected SearchView searchView;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = -1f;
 
