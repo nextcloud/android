@@ -67,6 +67,9 @@ public class ArbitraryDataProvider {
         );
     }
 
+    public void storeOrUpdateKeyValue(String accountName, String key, long newValue) {
+        storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
+    }
 
     public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
         ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
@@ -106,15 +109,19 @@ public class ArbitraryDataProvider {
         }
     }
 
-
-    public Long getLongValue(Account account, String key) {
-        String value = getValue(account, key);
+    public Long getLongValue(String accountName, String key) {
+        String value = getValue(accountName, key);
 
         if (value.isEmpty()) {
             return -1l;
         } else {
             return Long.valueOf(value);
         }
+    }
+
+
+    public Long getLongValue(Account account, String key) {
+        return getLongValue(account.name, key);
     }
 
     public boolean getBooleanValue(String accountName, String key) {
