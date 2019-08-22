@@ -97,6 +97,7 @@ import pl.droidsonroids.gif.GifDrawable;
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
     private static final String EXTRA_FILE = "FILE";
+    private static final String EXTRA_ZOOM = "ZOOM";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
@@ -219,8 +220,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                OCFile file = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
+                OCFile file = savedInstanceState.getParcelable(EXTRA_FILE);
                 setFile(file);
+                mImageView.setScale(savedInstanceState.getFloat(EXTRA_ZOOM));
             } else {
                 mIgnoreFirstSavedState = false;
             }
@@ -230,7 +232,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
+
+        outState.putFloat(EXTRA_ZOOM, mImageView.getScale());
+        outState.putParcelable(EXTRA_FILE, getFile());
     }
 
     @Override
