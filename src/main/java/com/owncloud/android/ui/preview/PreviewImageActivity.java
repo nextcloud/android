@@ -411,7 +411,7 @@ public class PreviewImageActivity extends FileActivity implements
                 }
 
                 // Call to reset image zoom to initial state
-                ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
+                // ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
             }
         }
 

@@ -89,6 +89,7 @@ public final class ThumbnailsCacheManager {
     private static final String PNG_MIMETYPE = "image/png";
     private static final String CACHE_FOLDER = "thumbnailCache";
     public static final String AVATAR = "avatar";
+    private static final String AVATAR_TIMESTAMP = "avatarTimestamp";
     private static final String ETAG = "ETag";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
@@ -868,28 +869,29 @@ public final class ThumbnailsCacheManager {
 
         private @NotNull
         Drawable doAvatarInBackground() {
-            Bitmap avatar = null;
+            Bitmap avatar;
 
             String accountName = mUserId + "@" + mServerName;
 
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
 
             String eTag = arbitraryDataProvider.getValue(accountName, ThumbnailsCacheManager.AVATAR);
+            long timestamp = arbitraryDataProvider.getLongValue(accountName, ThumbnailsCacheManager.AVATAR_TIMESTAMP);
             String avatarKey = "a_" + mUserId + "_" + mServerName + "_" + eTag;
+            avatar = getBitmapFromDiskCache(avatarKey);
 
-            int px = getAvatarDimension();
-
-            // Download avatar from server
-            if (mClient != null) {
+            // Download avatar from server, only if older than 60 min or avatar does not exist
+            if ((System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null) && mClient != null) {
                 GetMethod get = null;
                 try {
+                    int px = getAvatarDimension();
                     String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
                     Log_OC.d("Avatar", "URI: " + uri);
                     get = new GetMethod(uri);
 
                     // only use eTag if available and corresponding avatar is still there
                     // (might be deleted from cache)
-                    if (!eTag.isEmpty() && getBitmapFromDiskCache(avatarKey) != null) {
+                    if (!eTag.isEmpty() && avatar != null) {
                         get.setRequestHeader("If-None-Match", eTag);
                     }
 
@@ -916,6 +918,9 @@ public final class ThumbnailsCacheManager {
                                 avatar = handlePNG(avatar, px, px);
                                 String newImageKey = "a_" + mUserId + "_" + mServerName + "_" + newETag;
                                 addBitmapToCache(newImageKey, avatar);
+                                arbitraryDataProvider.storeOrUpdateKeyValue(accountName,
+                                                                            ThumbnailsCacheManager.AVATAR_TIMESTAMP,
+                                                                            System.currentTimeMillis());
                             } else {
                                 return TextDrawable.createAvatar(mAccount, mAvatarRadius);
                             }
@@ -923,10 +928,11 @@ public final class ThumbnailsCacheManager {
 
                         case HttpStatus.SC_NOT_MODIFIED:
                             // old avatar
-                            avatar = getBitmapFromDiskCache(avatarKey);
                             mClient.exhaustResponse(get.getResponseBodyAsStream());
+                            arbitraryDataProvider.storeOrUpdateKeyValue(accountName,
+                                                                        ThumbnailsCacheManager.AVATAR_TIMESTAMP,
+                                                                        System.currentTimeMillis());
                             break;
-
                         default:
                             // everything else
                             mClient.exhaustResponse(get.getResponseBodyAsStream());
