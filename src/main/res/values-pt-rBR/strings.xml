@@ -25,7 +25,7 @@
     <string name="actionbar_see_details">Detalhes</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_settings">Configurações</string>
-    <string name="actionbar_sort">Classificar</string>
+    <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sync">Atualizar conta</string>
     <string name="active_user">Ativar usuário</string>
     <string name="activities_no_results_headline">Nenhuma atividade</string>
@@ -36,7 +36,7 @@
     <string name="add_to_cloud">Adicionar à %1$s</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">O acesso falhou: %1$s</string>
-    <string name="auth_account_does_not_exist">A conta não está adicionada neste dispositivo ainda</string>
+    <string name="auth_account_does_not_exist">A conta ainda não está adicionada neste dispositivo</string>
     <string name="auth_account_not_new">Uma conta para o mesmo usuário e servidor já existe no dispositivo</string>
     <string name="auth_account_not_the_same">As informações que o usuário digitou não correspondem ao usuário da conta</string>
     <string name="auth_bad_oc_version_title">Versão do servidor desconhecida</string>
@@ -69,11 +69,11 @@
     <string name="auth_unknown_error_http_title">Um erro HTTP desconhecido ocorreu!</string>
     <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
     <string name="auth_unknown_host_title">Não foi possível encontrar o host</string>
-    <string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
+    <string name="auth_unsupported_multiaccount">%1$s não tem suporte a múltiplas contas</string>
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
-    <string name="auth_wtf_reenter_URL">Estado inesperado. Entre o endereço do servidor novamente</string>
-    <string name="authentication_exception">Exceção de Autenticação</string>
+    <string name="auth_wtf_reenter_URL">Estado inesperado, informe o endereço do servidor novamente</string>
+    <string name="authentication_exception">Exceção de autenticação</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
@@ -113,7 +113,7 @@
     <string name="common_save">Salvar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartilhar</string>
-    <string name="common_switch_account">Trocar Conta</string>
+    <string name="common_switch_account">Trocar conta</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_yes">Sim</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
@@ -149,7 +149,7 @@
     <string name="copy_internal_link">Copiar link interno</string>
     <string name="copy_internal_link_subline">Funciona apenas para usuários com acesso a esta pasta</string>
     <string name="copy_link">Copiar link</string>
-    <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Ainda não há suporte para cópia/movimentação em pasta criptografada.</string>
     <string name="copy_to">Copiar para…</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
@@ -283,7 +283,7 @@
     <string name="file_migration_failed_not_readable">Não foi possível ler o arquivo fonte</string>
     <string name="file_migration_failed_not_writable">Não foi possível gravar o arquivo de destino</string>
     <string name="file_migration_failed_while_coping">Falha durante a migração</string>
-    <string name="file_migration_failed_while_updating_index">Falha ao atualizar índice</string>
+    <string name="file_migration_failed_while_updating_index">Falha ao atualizar o índice</string>
     <string name="file_migration_migrating">Movendo dados…</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_override_data_folder">Substituir</string>
@@ -306,7 +306,7 @@
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>
     <string name="filename_empty">O nome de arquivo não pode ser vazio</string>
     <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">O nome de arquivo contém um caractere inválido pelo menos</string>
+    <string name="filename_forbidden_charaters_from_server">O nome do arquivo contém pelo menos um caractere inválido  </string>
     <string name="filename_hint">Nome de arquivo</string>
     <string name="files_drop_not_supported">Isso é um recurso do Nextcloud, faça um upgrade.</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
@@ -319,10 +319,10 @@
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="forbidden_permissions">Você não tem permissão %s</string>
-    <string name="forbidden_permissions_copy">copiar este arquivo</string>
+    <string name="forbidden_permissions_copy">para copiar este arquivo</string>
     <string name="forbidden_permissions_create">para criar este arquivo</string>
     <string name="forbidden_permissions_delete">para excluir este arquivo</string>
-    <string name="forbidden_permissions_move">mover este arquivo</string>
+    <string name="forbidden_permissions_move">para mover este arquivo</string>
     <string name="forbidden_permissions_rename">para renomear este arquivo</string>
     <string name="foreground_service_download">Baixando arquivos…</string>
     <string name="foreground_service_upload">Enviando arquivos…</string>
@@ -398,7 +398,7 @@
     <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
-    <string name="new_notification">Nova Notificação</string>
+    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Nova versão criada</string>
     <string name="no_browser_available">Nenhum aplicativo disponível para lidar com links</string>
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
@@ -437,9 +437,9 @@
     <string name="participate_contribute_translate_text">o aplicativo</string>
     <string name="participate_contribute_translate_translate">Traduza</string>
     <string name="participate_dev_direct_download">Baixe a versão de desenvolvimento diretamente</string>
-    <string name="participate_dev_fdroid">Obtenha a versão de desenvolvimento do F-Droid</string>
-    <string name="participate_rc_fdroid">Obtenha a versão de teste do F-Droid</string>
-    <string name="participate_rc_play_store">Obtenha a versão de teste do Google Play</string>
+    <string name="participate_dev_fdroid">Obtenha a versão de desenvolvimento no F-Droid</string>
+    <string name="participate_rc_fdroid">Obtenha a versão de teste no F-Droid</string>
+    <string name="participate_rc_play_store">Obtenha a versão de teste no Google Play</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure na seção \"Version\" do F-Droid,</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
@@ -471,7 +471,7 @@
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor para a conta não pôde ser encontrado para DAVx5 (conhecido como  DAVdroid)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor para a conta não pôde ser encontrado para DAVx5 (conhecido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuração da sincronização de calendário &amp; contatos</string>
@@ -553,7 +553,7 @@
     <string name="screenshot_05_autoUpload">Envie suas fotos &amp; vídeos automaticamente</string>
     <string name="screenshot_05_autoUpload_heading">Envio automático</string>
     <string name="screenshot_05_autoUpload_subline">para suas fotos &amp; vídeos</string>
-    <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contatos com DAVx5 (conhecida como DAVdroid)</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contatos com DAVx5 (conhecido como DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Sincronizar calendário &amp; contatos</string>
     <string name="screenshot_06_davdroid_subline">com DAVx5 (também chamado DAVdroid)</string>
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
@@ -574,7 +574,7 @@
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
-    <string name="share_link_empty_password">Você deve digitar uma senha</string>
+    <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
     <string name="share_link_file_no_exist">Não foi possível compartilhar. Por favor verifique se o arquivo existe</string>
     <string name="share_link_forbidden_permissions">para compartilhar este arquivo</string>
@@ -615,7 +615,7 @@
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
-    <string name="sort_by">Classificado por</string>
+    <string name="sort_by">Ordenar por</string>
     <string name="sort_by_modification_date_ascending">Mais novos primeiro</string>
     <string name="sort_by_modification_date_descending">Mais antigos primeiro</string>
     <string name="sort_by_name_ascending">A - Z</string>
@@ -654,7 +654,7 @@
     <string name="storage_downloads">Baixados</string>
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
-    <string name="storage_music">Música</string>
+    <string name="storage_music">Músicas</string>
     <string name="storage_pictures">Imagens</string>
     <string name="store_full_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\n\nCaracterísticas:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Fazer upload de arquivos para o servidor Nextcloud\n* Compartilhá-los com outras pessoas\n* Mantenha seus arquivos e pastas favoritos sincronizados\n* Pesquise em todas as pastas do seu servidor\n* Upload automático de fotos e vídeos feitos pelo seu dispositivo\n* Mantenha-se atualizado com as notificações\n* Suporte a várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx5 (anteriormente conhecido como DAVdroid) para facilitar a configuração do calendário &amp; sincronização de contatos\n\nFavor informar todos os problemas em https://github.com/nextcloud/android/issues e discutir este aplicativo em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? Nextcloud é uma sincronização de arquivos privada para compartilhamento &amp; comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, dados de calendário e de contato, documentos e tudo mais.\n\ nConsulte Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\nEsta é a versão oficial de desenvolvimento, apresentando uma amostra diária de qualquer nova funcionalidade não testada e que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e relatar erros caso eles ocorram. Não o use para o seu trabalho produtivo!\n\nOs aplicativos oficiais e a versão regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
@@ -694,7 +694,7 @@
     <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
-    <string name="trashbin_empty_message">Você poderá recuperar arquivos apagados daqui</string>
+    <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui</string>
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
     <string name="trashbin_loading_failed">Falha ao abrir a lixeira!</string>
@@ -715,12 +715,12 @@
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Enviar conteúdo de outros aplicativos</string>
     <string name="upload_direct_camera_upload">Envio da câmera</string>
-    <string name="upload_file_dialog_filename">Nome do Arquivo</string>
-    <string name="upload_file_dialog_filetype">Tipo do Arquivo</string>
+    <string name="upload_file_dialog_filename">Nome do arquivo</string>
+    <string name="upload_file_dialog_filetype">Tipo de arquivo</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Arquivo de atalho do Google Maps (%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Arquivo de atalho da internet (%s) </string>
     <string name="upload_file_dialog_filetype_snippet_text">Fragmento de arquivo texto (.txt)</string>
-    <string name="upload_file_dialog_title">Entre o nome e tipo de arquivo a enviar</string>
+    <string name="upload_file_dialog_title">Indique o nome e tipo de arquivo a enviar</string>
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
@@ -729,7 +729,7 @@
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao bloquear pasta</string>
     <string name="upload_old_android"><![CDATA[Criptografia só é possível com >= Android 5.0]]></string>
-    <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Ao invés de copiá-los , gostaria de movê-los para lá?</string>
+    <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
     <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
