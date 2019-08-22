@@ -106,6 +106,7 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.NamedSearchResultFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
@@ -312,7 +313,7 @@ public class FileDisplayActivity extends FileActivity
             }
         }
 
-        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
+        if (getIntent().getParcelableExtra(NamedSearchResultFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
@@ -472,12 +473,12 @@ public class FileDisplayActivity extends FileActivity
 
     private void switchToSearchFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            OCFileListFragment listOfFiles = new OCFileListFragment();
+            NamedSearchResultFragment listOfFiles = new NamedSearchResultFragment();
             Bundle args = new Bundle();
 
-            args.putParcelable(OCFileListFragment.SEARCH_EVENT,
-                    getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            args.putParcelable(NamedSearchResultFragment.SEARCH_EVENT,
+                               getIntent().getParcelableExtra(NamedSearchResultFragment.SEARCH_EVENT));
+            args.putBoolean(NamedSearchResultFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
 
             listOfFiles.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -490,9 +491,9 @@ public class FileDisplayActivity extends FileActivity
 
     private void createMinFragments(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            OCFileListFragment listOfFiles = new OCFileListFragment();
+            NamedSearchResultFragment listOfFiles = new NamedSearchResultFragment();
             Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            args.putBoolean(NamedSearchResultFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
             listOfFiles.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
@@ -505,7 +506,7 @@ public class FileDisplayActivity extends FileActivity
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
             /// First fragment
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            NamedSearchResultFragment listOfFiles = (NamedSearchResultFragment) getListOfFilesFragment();
             if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
                 listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
             } else {
@@ -566,13 +567,13 @@ public class FileDisplayActivity extends FileActivity
                 String query = intent.getStringExtra(SearchManager.QUERY);
                 setIntent(intent);
 
-                SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+                SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(NamedSearchResultFragment.SEARCH_EVENT));
                 if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                     Log_OC.d(this, "Switch to photo search fragment");
 
                     PhotoFragment photoFragment = new PhotoFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                    bundle.putParcelable(NamedSearchResultFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                     photoFragment.setArguments(bundle);
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
@@ -725,7 +726,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void refreshListOfFilesFragment(boolean fromSearch) {
-        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        NamedSearchResultFragment fileListFragment = (NamedSearchResultFragment) getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
             setupToolbar();
@@ -733,7 +734,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void resetSearchView() {
-        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        NamedSearchResultFragment fileListFragment = (NamedSearchResultFragment) getListOfFilesFragment();
 
         if (fileListFragment != null) {
             fileListFragment.setSearchFragment(false);
@@ -1052,9 +1053,9 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void exitSelectionMode() {
-        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.exitSelectionMode();
+        NamedSearchResultFragment NamedSearchResultFragment = (com.owncloud.android.ui.fragment.NamedSearchResultFragment) getListOfFilesFragment();
+        if (NamedSearchResultFragment != null) {
+            NamedSearchResultFragment.exitSelectionMode();
         }
     }
 
@@ -1208,7 +1209,7 @@ public class FileDisplayActivity extends FileActivity
                 startImagePreview(getFile(), false);
             }
 
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            NamedSearchResultFragment listOfFiles = (NamedSearchResultFragment) getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
                 if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
@@ -1337,136 +1338,7 @@ public class FileDisplayActivity extends FileActivity
 
     @Override
     public void downloadFile(OCFile file, String packageName, String activityName) {
-        startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName);
-    }
-
-    private class SyncBroadcastReceiver extends BroadcastReceiver {
-
-        /**
-         * {@link BroadcastReceiver} to enable syncing feedback in UI
-         */
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                String event = intent.getAction();
-                Log_OC.d(TAG, "Received broadcast " + event);
-                String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
-
-                String synchFolderRemotePath =
-                        intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult)
-                        DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = getAccount() != null &&
-                        accountName.equals(getAccount().name) && getStorageManager() != null;
-
-                if (sameAccount) {
-
-                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
-                        mSyncInProgress = true;
-
-                    } else {
-                        OCFile currentFile = (getFile() == null) ? null :
-                                getStorageManager().getFileByPath(getFile().getRemotePath());
-                        OCFile currentDir = (getCurrentDir() == null) ? null :
-                                getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
-
-                        if (currentDir == null) {
-                            // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(
-                                    getActivity(),
-                                    R.string.sync_current_folder_was_removed,
-                                    synchFolderRemotePath
-                            );
-
-                            browseToRoot();
-
-                        } else {
-                            if (currentFile == null && !getFile().isFolder()) {
-                                // currently selected file was removed in the server, and now we
-                                // know it
-                                cleanSecondFragment();
-                                currentFile = currentDir;
-                            }
-
-                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
-                                OCFileListFragment fileListFragment = getListOfFilesFragment();
-                                if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
-                                }
-                            }
-                            setFile(currentFile);
-                        }
-
-                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
-
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
-                                synchResult != null) {
-
-                            if (synchResult.isSuccess()) {
-                                hideInfoBox();
-                            } else {
-                                // TODO refactor and make common
-                                if (checkForRemoteOperationError(synchResult)) {
-                                    requestCredentialsUpdate(context);
-                                } else {
-                                    switch (synchResult.getCode()) {
-                                        case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                                            showUntrustedCertDialog(synchResult);
-                                            break;
-
-                                        case MAINTENANCE_MODE:
-                                            showInfoBox(R.string.maintenance_mode);
-                                            break;
-
-                                        case NO_NETWORK_CONNECTION:
-                                            showInfoBox(R.string.offline_mode);
-                                            break;
-
-                                        case HOST_NOT_AVAILABLE:
-                                            showInfoBox(R.string.host_not_available);
-                                            break;
-
-                                        default:
-                                            // nothing to do
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                        removeStickyBroadcast(intent);
-                        DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-
-                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                        setIndeterminate(mSyncInProgress);
-
-                        setBackgroundText();
-                    }
-                }
-
-                if (synchResult != null && synchResult.getCode().equals(
-                        RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
-                    mLastSslUntrustedServerResult = synchResult;
-                }
-            } catch (RuntimeException e) {
-                // avoid app crashes after changing the serial id of RemoteOperationResult
-                // in owncloud library with broadcast notifications pending to process
-                removeStickyBroadcast(intent);
-
-                try {
-                    DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                } catch (RuntimeException re) {
-                    // we did not send this intent, so ignoring
-                    Log_OC.i(TAG, "Ignoring error deleting data");
-                }
-            }
-        }
-    }
-
-    private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
-        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
-                (syncResult.isException() && syncResult.getException()
-                        instanceof AuthenticatorException);
+        startDownloadForSending(file, NamedSearchResultFragment.DOWNLOAD_SEND, packageName, activityName);
     }
 
     /**
@@ -1474,16 +1346,33 @@ public class FileDisplayActivity extends FileActivity
      * loading or folder is empty
      */
     private void setBackgroundText() {
-        final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
+        final NamedSearchResultFragment NamedSearchResultFragment = (com.owncloud.android.ui.fragment.NamedSearchResultFragment) getListOfFilesFragment();
+        if (NamedSearchResultFragment != null) {
             if (mSyncInProgress) {
-                ocFileListFragment.setEmptyListLoadingMessage();
+                NamedSearchResultFragment.setEmptyListLoadingMessage();
             } else {
-                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                NamedSearchResultFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             }
         } else {
-            Log_OC.e(TAG, "OCFileListFragment is null");
+            Log_OC.e(TAG, "NamedSearchResultFragment is null");
         }
+    }
+
+    private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
+        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
+            (syncResult.isException() && syncResult.getException()
+                instanceof AuthenticatorException);
+    }
+
+    public void browseToRoot() {
+        NamedSearchResultFragment listOfFiles = (NamedSearchResultFragment) getListOfFilesFragment();
+        if (listOfFiles != null) {  // should never be null, indeed
+            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
+            setFile(listOfFiles.getCurrentFile());
+            startSyncFolderOperation(root, false);
+        }
+        cleanSecondFragment();
     }
 
     /**
@@ -1573,88 +1462,45 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-
     /**
-     * Class waiting for broadcast events from the {@link FileDownloader} service.
+     * Updates the view associated to the activity after the finish of an operation trying create a
+     * new folder
      *
-     * Updates the UI when a download is started or finished, provided that it is relevant for the
-     * current folder.
+     * @param operation Creation operation performed.
+     * @param result    Result of the creation.
      */
-    private class DownloadFinishReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                boolean sameAccount = isSameAccount(intent);
-                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-                String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
-                boolean isDescendant = isDescendant(downloadedRemotePath);
-
-                if (sameAccount && isDescendant) {
-                    String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
-                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        refreshListOfFilesFragment(false);
-                    }
-                    refreshSecondFragment(
-                            intent.getAction(),
-                            downloadedRemotePath,
-                            intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
-                }
-
-                if (mWaitingToSend != null) {
-                    // update file after downloading
-                    mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
-                    if (mWaitingToSend != null && mWaitingToSend.isDown() && downloadBehaviour != null) {
-                        switch (downloadBehaviour) {
-                            case OCFileListFragment.DOWNLOAD_SEND:
-                                String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
-                                String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
-
-                                sendDownloadedFile(packageName, activityName);
-                                break;
-                            default:
-                                // do nothing
-                                break;
-                        }
-                    }
-                }
-
-            } finally {
-                if (intent != null) {
-                    removeStickyBroadcast(intent);
-                }
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
+                                               RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            NamedSearchResultFragment fileListFragment = (NamedSearchResultFragment) getListOfFilesFragment();
+            if (fileListFragment != null) {
+                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
             }
-        }
-
-        private boolean isDescendant(String downloadedRemotePath) {
-            OCFile currentDir = getCurrentDir();
-            return currentDir != null &&
-                    downloadedRemotePath != null &&
-                    downloadedRemotePath.startsWith(currentDir.getRemotePath());
-        }
-
-        private boolean isAscendant(String linkedToRemotePath) {
-            OCFile currentDir = getCurrentDir();
-            return currentDir != null &&
-                    currentDir.getRemotePath().startsWith(linkedToRemotePath);
-        }
-
-        private boolean isSameAccount(Intent intent) {
-            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
+        } else {
+            try {
+                if (ResultCode.FOLDER_ALREADY_EXISTS == result.getCode()) {
+                    DisplayUtils.showSnackMessage(this, R.string.folder_already_exists);
+                } else {
+                    DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
+                                                                                                 getResources()));
+                }
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message ", e);
+            }
         }
     }
 
-
-    public void browseToRoot() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null) {  // should never be null, indeed
-            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
-            setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(root, false);
+    private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
+        Account account = getAccount();
+        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
+            Intent i = new Intent(this, FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            i.putExtra(SendShareDialog.PACKAGE_NAME, packageName);
+            i.putExtra(SendShareDialog.ACTIVITY_NAME, activityName);
+            i.putExtra(NamedSearchResultFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
+            startService(i);
         }
-        cleanSecondFragment();
     }
 
 
@@ -1721,53 +1567,12 @@ public class FileDisplayActivity extends FileActivity
         return new ListServiceConnection();
     }
 
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private class ListServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log_OC.d(TAG, "Download service connected");
-                mDownloaderBinder = (FileDownloaderBinder) service;
-                if (mWaitingToPreview != null && getStorageManager() != null) {
-                    // update the file
-                    mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                    if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
-                        requestForDownload();
-                    }
-                }
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploaderBinder) service;
-            } else {
-                return;
-            }
-            // a new chance to get the mDownloadBinder through
-            // getFileDownloadBinder() - THIS IS A MESS
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && (getIntent() == null ||
-                    (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
-                listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
-            }
-            FileFragment secondFragment = getSecondFragment();
-            if (secondFragment instanceof FileDetailFragment) {
-                FileDetailFragment detailFragment = (FileDetailFragment) secondFragment;
-                detailFragment.listenForTransferProgress();
-                detailFragment.updateFileDetails(false, false);
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log_OC.d(TAG, "Download service disconnected");
-                mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service disconnected");
-                mUploaderBinder = null;
+    private void refreshList(boolean ignoreETag) {
+        NamedSearchResultFragment listOfFiles = (NamedSearchResultFragment) getListOfFilesFragment();
+        if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
+            OCFile folder = listOfFiles.getCurrentFile();
+            if (folder != null) {
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }
@@ -2174,32 +1979,23 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    /**
-     * Updates the view associated to the activity after the finish of an operation trying create a
-     * new folder
-     *
-     * @param operation Creation operation performed.
-     * @param result    Result of the creation.
-     */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
-                                               RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            OCFileListFragment fileListFragment = getListOfFilesFragment();
-            if (fileListFragment != null) {
-                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
-            }
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(final SearchEvent event) {
+        Fragment fragment;
+
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+            Log_OC.d(this, "Switch to photo search fragment");
+
+            fragment = new PhotoFragment();
         } else {
-            try {
-                if (ResultCode.FOLDER_ALREADY_EXISTS == result.getCode()) {
-                    DisplayUtils.showSnackMessage(this, R.string.folder_already_exists);
-                } else {
-                    DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation,
-                            getResources()));
-                }
-            } catch (NotFoundException e) {
-                Log_OC.e(TAG, "Error while trying to show fail message ", e);
-            }
+            Log_OC.d(this, "Switch to NamedSearchResultFragment");
+
+            fragment = new NamedSearchResultFragment();
         }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+        transaction.commit();
     }
 
 
@@ -2316,16 +2112,126 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
-        Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
-            Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
-            i.putExtra(SendShareDialog.PACKAGE_NAME, packageName);
-            i.putExtra(SendShareDialog.ACTIVITY_NAME, activityName);
-            i.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
-            startService(i);
+    private class SyncBroadcastReceiver extends BroadcastReceiver {
+
+        /**
+         * {@link BroadcastReceiver} to enable syncing feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                String event = intent.getAction();
+                Log_OC.d(TAG, "Received broadcast " + event);
+                String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
+
+                String synchFolderRemotePath =
+                    intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult synchResult = (RemoteOperationResult)
+                    DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+                boolean sameAccount = getAccount() != null &&
+                    accountName.equals(getAccount().name) && getStorageManager() != null;
+
+                if (sameAccount) {
+
+                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                        mSyncInProgress = true;
+
+                    } else {
+                        OCFile currentFile = (getFile() == null) ? null :
+                            getStorageManager().getFileByPath(getFile().getRemotePath());
+                        OCFile currentDir = (getCurrentDir() == null) ? null :
+                            getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+
+                        if (currentDir == null) {
+                            // current folder was removed from the server
+                            DisplayUtils.showSnackMessage(
+                                getActivity(),
+                                R.string.sync_current_folder_was_removed,
+                                synchFolderRemotePath
+                            );
+
+                            browseToRoot();
+
+                        } else {
+                            if (currentFile == null && !getFile().isFolder()) {
+                                // currently selected file was removed in the server, and now we
+                                // know it
+                                cleanSecondFragment();
+                                currentFile = currentDir;
+                            }
+
+                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                                NamedSearchResultFragment fileListFragment = (NamedSearchResultFragment) getListOfFilesFragment();
+                                if (fileListFragment != null) {
+                                    fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
+                                }
+                            }
+                            setFile(currentFile);
+                        }
+
+                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
+                            !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
+
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
+                            synchResult != null) {
+
+                            if (synchResult.isSuccess()) {
+                                hideInfoBox();
+                            } else {
+                                // TODO refactor and make common
+                                if (checkForRemoteOperationError(synchResult)) {
+                                    requestCredentialsUpdate(context);
+                                } else {
+                                    switch (synchResult.getCode()) {
+                                        case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                                            showUntrustedCertDialog(synchResult);
+                                            break;
+
+                                        case MAINTENANCE_MODE:
+                                            showInfoBox(R.string.maintenance_mode);
+                                            break;
+
+                                        case NO_NETWORK_CONNECTION:
+                                            showInfoBox(R.string.offline_mode);
+                                            break;
+
+                                        case HOST_NOT_AVAILABLE:
+                                            showInfoBox(R.string.host_not_available);
+                                            break;
+
+                                        default:
+                                            // nothing to do
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        removeStickyBroadcast(intent);
+                        DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+
+                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                        setIndeterminate(mSyncInProgress);
+
+                        setBackgroundText();
+                    }
+                }
+
+                if (synchResult != null && synchResult.getCode().equals(
+                    RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
+                    mLastSslUntrustedServerResult = synchResult;
+                }
+            } catch (RuntimeException e) {
+                // avoid app crashes after changing the serial id of RemoteOperationResult
+                // in owncloud library with broadcast notifications pending to process
+                removeStickyBroadcast(intent);
+
+                try {
+                    DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+                } catch (RuntimeException re) {
+                    // we did not send this intent, so ignoring
+                    Log_OC.i(TAG, "Ignoring error deleting data");
+                }
+            }
         }
     }
 
@@ -2527,13 +2433,74 @@ public class FileDisplayActivity extends FileActivity
         refreshList(true);
     }
 
-    private void refreshList(boolean ignoreETag) {
-        OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
-            OCFile folder = listOfFiles.getCurrentFile();
-            if (folder != null) {
-                startSyncFolderOperation(folder, ignoreETag);
+    /**
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
+     * <p>
+     * Updates the UI when a download is started or finished, provided that it is relevant for the
+     * current folder.
+     */
+    private class DownloadFinishReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                boolean sameAccount = isSameAccount(intent);
+                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String downloadBehaviour = intent.getStringExtra(NamedSearchResultFragment.DOWNLOAD_BEHAVIOUR);
+                boolean isDescendant = isDescendant(downloadedRemotePath);
+
+                if (sameAccount && isDescendant) {
+                    String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
+                        refreshListOfFilesFragment(false);
+                    }
+                    refreshSecondFragment(
+                        intent.getAction(),
+                        downloadedRemotePath,
+                        intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                }
+
+                if (mWaitingToSend != null) {
+                    // update file after downloading
+                    mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
+                    if (mWaitingToSend != null && mWaitingToSend.isDown() && downloadBehaviour != null) {
+                        switch (downloadBehaviour) {
+                            case NamedSearchResultFragment.DOWNLOAD_SEND:
+                                String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
+                                String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
+
+                                sendDownloadedFile(packageName, activityName);
+                                break;
+                            default:
+                                // do nothing
+                                break;
+                        }
+                    }
+                }
+
+            } finally {
+                if (intent != null) {
+                    removeStickyBroadcast(intent);
+                }
             }
+        }
+
+        private boolean isDescendant(String downloadedRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return currentDir != null &&
+                downloadedRemotePath != null &&
+                downloadedRemotePath.startsWith(currentDir.getRemotePath());
+        }
+
+        private boolean isAscendant(String linkedToRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return currentDir != null &&
+                currentDir.getRemotePath().startsWith(linkedToRemotePath);
+        }
+
+        private boolean isSameAccount(Intent intent) {
+            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+            return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
         }
     }
 
@@ -2565,23 +2532,55 @@ public class FileDisplayActivity extends FileActivity
         getListOfFilesFragment().refreshDirectory();
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(final SearchEvent event) {
-        Fragment fragment;
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
+    private class ListServiceConnection implements ServiceConnection {
 
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
-            Log_OC.d(this, "Switch to photo search fragment");
-
-            fragment = new PhotoFragment();
-        } else {
-            Log_OC.d(this, "Switch to OCFileListFragment");
-
-            fragment = new OCFileListFragment();
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+                Log_OC.d(TAG, "Download service connected");
+                mDownloaderBinder = (FileDownloaderBinder) service;
+                if (mWaitingToPreview != null && getStorageManager() != null) {
+                    // update the file
+                    mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
+                    if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
+                        requestForDownload();
+                    }
+                }
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this,
+                                                          FileUploader.class))) {
+                Log_OC.d(TAG, "Upload service connected");
+                mUploaderBinder = (FileUploaderBinder) service;
+            } else {
+                return;
+            }
+            // a new chance to get the mDownloadBinder through
+            // getFileDownloadBinder() - THIS IS A MESS
+            NamedSearchResultFragment listOfFiles = (NamedSearchResultFragment) getListOfFilesFragment();
+            if (listOfFiles != null && (getIntent() == null ||
+                (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
+                listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
+            }
+            FileFragment secondFragment = getSecondFragment();
+            if (secondFragment instanceof FileDetailFragment) {
+                FileDetailFragment detailFragment = (FileDetailFragment) secondFragment;
+                detailFragment.listenForTransferProgress();
+                detailFragment.updateFileDetails(false, false);
+            }
         }
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-        transaction.commit();
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+                Log_OC.d(TAG, "Download service disconnected");
+                mDownloaderBinder = null;
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+                Log_OC.d(TAG, "Upload service disconnected");
+                mUploaderBinder = null;
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
