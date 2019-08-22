@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="battery_optimization_title">Optimización de batería</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
+    <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
@@ -171,6 +172,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Descartar</string>
     <string name="dismiss_notification_description">Descartar notificación</string>
+    <string name="download_latest_dev_version">Descargar la última versión de desarrollo</string>
     <string name="downloader_download_failed_content">No se ha podido descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descarga fallida, vuelve a iniciar sesión</string>
     <string name="downloader_download_failed_ticker">Fallo al descargar</string>
@@ -349,6 +351,14 @@
     <string name="log_send_mail_subject">Se han encontrado %1$s aplicaciones de registros para Android</string>
     <string name="log_send_no_mail_app">No se ha encontrado ninguna app para enviar los registros. Por favor, instala un cliente de correo electrónico.</string>
     <string name="login">Iniciar sesión</string>
+    <string name="logs_menu_delete">Eliminar registros</string>
+    <string name="logs_menu_refresh">Volver a cargar</string>
+    <string name="logs_menu_search">Buscar registros</string>
+    <string name="logs_menu_send">Enviar los registros por correo electrónico</string>
+    <string name="logs_status_filtered">Registros: %1$d kB, la búsqueda coincide con %2$d/%3$d en %4$d ms</string>
+    <string name="logs_status_loading">Cargando…</string>
+    <string name="logs_status_not_filtered">Registrós: %1$d kB, sin filtros</string>
+    <string name="logs_title">Registros</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>

@@ -1,1 +1,1 @@
-Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle
+Itse ylläpidettävä tuottavuusalusta, joka säilyttää kontrollin sinulla (kehitysv

@@ -355,6 +355,10 @@
     <string name="logs_menu_refresh">Frissítés</string>
     <string name="logs_menu_search">Naplók keresése</string>
     <string name="logs_menu_send">Naplók küldése e-mailben</string>
+    <string name="logs_status_filtered">Naplók: %1$d kB, %2$d / %3$d egyezés %4$d ms alatt</string>
+    <string name="logs_status_loading">Betöltés…</string>
+    <string name="logs_status_not_filtered">Naplók: %1$d kB, nincs szűrő</string>
+    <string name="logs_title">Naplók</string>
     <string name="maintenance_mode">A kiszolgáló karbantartási módban van</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_description">A beállítások, az adatbázisok és a kiszolgáló tanúsítványok véglegesen törlésre kerülnek %1$s adataiból. \n\nA letöltött fájlok érintetlenek maradnak.\n\nEz eltarthat egy darabig.</string>
@@ -460,6 +464,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ez egy helykitöltő</string>
     <string name="placeholder_timestamp">2012.05.18. 12:23</string>
+    <string name="power_check_dialog_title">Energiagazdálkodási ellenőrzés letiltása</string>
+    <string name="power_save_check_dialog_message">Az energiagazdálkodási ellenőrzés letiltása fájlfeltöltést eredményezhet akkor is, ha az akkumulátor töltöttsége alacsony.</string>
     <string name="pref_behaviour_entries_delete_file">törölt</string>
     <string name="pref_behaviour_entries_keep_file">megtartva az eredeti mappában</string>
     <string name="pref_behaviour_entries_move">áthelyezve az alkalmazásmappába</string>
@@ -533,11 +539,23 @@
     <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
     <string name="screenshot_01_gridView">Egy biztonságos hely az összes adatának</string>
+    <string name="screenshot_01_gridView_heading">Az adatai védelme</string>
+    <string name="screenshot_01_gridView_subline">saját üzemeltetésű irodai platform</string>
     <string name="screenshot_02_listView">Böngésszen és keressen a fájljai között könnyedén</string>
+    <string name="screenshot_02_listView_heading">Tallózás és megosztás</string>
+    <string name="screenshot_02_listView_subline">minden művelet karnyújtásnyira</string>
     <string name="screenshot_03_drawer">Férjen hozzá gyorsan a tevékenységekhez, megosztásokhoz, offline fájlokhoz és egyebekhez</string>
+    <string name="screenshot_03_drawer_heading">Tevékenységek, megosztások, offline fájlok</string>
+    <string name="screenshot_03_drawer_subline">minden gyorsan elérhető</string>
     <string name="screenshot_04_accounts">Kapcsolódás más fiókokhoz</string>
+    <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
+    <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload">Fényképek és videók automatikus feltöltése</string>
+    <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
+    <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
     <string name="screenshot_06_davdroid">Naptár és névjegyek szinkronizálása DAVx5 (régi nevén DAVdroid) segítségével</string>
+    <string name="screenshot_06_davdroid_heading">Naptár és névjegyek szinkronizálása</string>
+    <string name="screenshot_06_davdroid_subline">DAVx5 (régi nevén DAVdroid) segítségével</string>
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="select_all">Összes kiválasztása</string>
     <string name="select_template">Válasszon sablont</string>
@@ -638,6 +656,25 @@
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
     <string name="storage_pictures">Képek</string>
+    <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
+
+Szolgáltatások:
+* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
+* Fájlok feltöltése a Nextcloud kiszolgálódra
+* Fájlmegosztás másokkal
+* Kedvenc fájljaid és mappáid szinkronizálása
+* Keresés a kiszolgáló mappái között
+* Az eszközöddel készített videók és képek automatikus feltöltése
+* Értesítések fogadása
+* Több fiók támogatása
+* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
+* Kapcsolódás DAVx5-tel (régi nevén DAVdroid) a naptár és névjegy szinkronizálás megkönnyítéséhez
+
+Jelents minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
+
+Új neked a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet te magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, névjegyeidnek, fájljaidnak és minden egyebednek.
+
+A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.\nEz a hivatalos fejlesztői változat, amely napi mintát ad a nem tesztelt, új funkciókról, melyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
     <string name="store_short_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást</string>
     <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
