@@ -446,8 +446,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 break;
             case R.id.nav_favorites:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH,
-                        SearchEvent.UnsetType.NO_UNSET), menuItem.getItemId());
+                handleSearchEvents(new SearchEvent("",
+                                                   SearchRemoteOperation.SearchType.FAVORITE_SEARCH,
+                                                   SearchEvent.UnsetType.NO_UNSET),
+                                   menuItem.getItemId());
                 break;
             case R.id.nav_photos:
                 startPhotoSearch(menuItem);
@@ -496,9 +498,17 @@ public abstract class DrawerActivity extends ToolbarActivity
                 menuItem.setChecked(false);
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager(), true);
                 break;
+            case R.id.nav_shared:
+                handleSearchEvents(new SearchEvent("",
+                                                   SearchRemoteOperation.SearchType.SHARED_SEARCH,
+                                                   SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR),
+                                   menuItem.getItemId());
+                break;
             case R.id.nav_recently_modified:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem.getItemId());
+                handleSearchEvents(new SearchEvent("",
+                                                   SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
+                                                   SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR),
+                                   menuItem.getItemId());
                 break;
             default:
                 if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
