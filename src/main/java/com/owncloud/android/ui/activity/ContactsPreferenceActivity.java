@@ -126,7 +126,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
         for (JobRequest jobRequest : jobs) {
             PersistableBundleCompat extras = jobRequest.getExtras();
-            if (extras.getString(ContactsBackupJob.ACCOUNT, "").equalsIgnoreCase(account.name) &&
+            if (extras != null && extras.getString(ContactsBackupJob.ACCOUNT, "").equalsIgnoreCase(account.name) &&
                     jobRequest.isPeriodic()) {
                 jobManager.cancel(jobRequest.getJobId());
             }
