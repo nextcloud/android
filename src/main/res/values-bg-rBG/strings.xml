@@ -311,7 +311,7 @@
     <string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
     <string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
     <string name="login">Вписване</string>
-    <string name="logs_status_loading">Зареждане...</string>
+    <string name="logs_status_loading">Зареждане…</string>
     <string name="logs_title">Журнали</string>
     <string name="maintenance_mode">Режимът за поддръжка е включен</string>
     <string name="manage_space_clear_data">Изчисти данните</string>

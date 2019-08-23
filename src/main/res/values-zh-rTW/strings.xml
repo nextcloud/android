@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">轉價電池設定頁面失敗，請在系統設定中手動調整。</string>
     <string name="battery_optimization_title">電池優化</string>
     <string name="certificate_load_problem">憑證載入時發生問題</string>
+    <string name="changelog_dev_version">更新日誌開發版本</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本地資料夾…</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
@@ -352,6 +353,7 @@
     <string name="logs_menu_refresh">重整</string>
     <string name="logs_menu_search">搜尋紀錄檔案</string>
     <string name="logs_menu_send">藉由e-mail傳送紀錄</string>
+    <string name="logs_status_filtered">記錄：%1$dkB，符合查詢%2$d/%3$d，耗時%4$dms</string>
     <string name="logs_status_loading">載入中…</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
