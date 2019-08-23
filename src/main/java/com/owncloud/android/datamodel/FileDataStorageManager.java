@@ -83,6 +83,7 @@ public class FileDataStorageManager {
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
 
     public static final int ROOT_PARENT_ID = 0;
+    public static final String NULL_STRING = "null";
 
     private ContentResolver contentResolver;
     private ContentProviderClient contentProviderClient;
@@ -1001,7 +1002,7 @@ public class FileDataStorageManager {
 
             String sharees = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_SHAREES));
 
-            if (sharees == null || "null".equals(sharees) || sharees.isEmpty()) {
+            if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
                 file.setSharees(new ArrayList<>());
             } else {
                 try {
