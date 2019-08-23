@@ -1892,7 +1892,8 @@ public class FileDisplayActivity extends FileActivity
                 setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 cleanSecondFragment();
             }
-            if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
+            OCFile parentFile = getStorageManager().getFileById(removedFile.getParentId());
+            if (parentFile != null && parentFile.equals(getCurrentDir())) {
                 refreshListOfFilesFragment(false);
             }
             supportInvalidateOptionsMenu();
