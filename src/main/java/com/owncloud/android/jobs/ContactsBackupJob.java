@@ -78,8 +78,6 @@ public class ContactsBackupJob extends Job {
     protected Result onRunJob(@NonNull Params params) {
         PersistableBundleCompat bundle = params.getExtras();
 
-        boolean force = bundle.getBoolean(FORCE, false);
-
         final Account account = accountManager.getAccountByName(bundle.getString(ACCOUNT, ""));
 
         if (account == null) {
@@ -87,9 +85,9 @@ public class ContactsBackupJob extends Job {
         }
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
-        Long lastExecution = arbitraryDataProvider.getLongValue(account,
-                                                                PREFERENCE_CONTACTS_LAST_BACKUP);
+        Long lastExecution = arbitraryDataProvider.getLongValue(account, PREFERENCE_CONTACTS_LAST_BACKUP);
 
+        boolean force = bundle.getBoolean(FORCE, false);
         if (force || (lastExecution + 24 * 60 * 60 * 1000) < Calendar.getInstance().getTimeInMillis()) {
             Log_OC.d(TAG, "start contacts backup job");
 
