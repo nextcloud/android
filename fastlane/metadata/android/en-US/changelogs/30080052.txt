@@ -1,0 +1,13 @@
+3.8.0 RC2 (August, 21, 2019)
+
+- FIDO U2F support on login
+- load only 60 images on photo view, then load more on demand
+- do not auto upload .thumbnail files
+- allow to send crash report via email
+- paste clipboard into Collabora
+- use Conscrypt to support TLS1.3
+- show sharees in list view
+- bugfixes found by RC1
+- lots of bugfixes and refinements under the hood to provide an even more stable app
+
+For a full list, please see https://github.com/nextcloud/android/milestone/35
