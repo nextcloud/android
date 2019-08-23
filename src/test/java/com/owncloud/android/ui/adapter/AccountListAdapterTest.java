@@ -43,8 +43,8 @@ public class AccountListAdapterTest {
     private ManageAccountsActivity manageAccountsActivity;
 
     /**
-     * Setting up and mocking the manageAccountsActivity class, and then mocking the method calls in the construction of
-     * the object
+     * Setting up and mocking the manageAccountsActivity class, and then mocking the method calls in
+     * the construction of the object
      */
     @Before
     public void setup() {
@@ -58,8 +58,12 @@ public class AccountListAdapterTest {
      */
     @Test
     public void test_getItemCountEmptyList() {
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity, null,
-                                                    new ArrayList<>(), null);
+        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
+                                                    null,
+                                                    new ArrayList<>(),
+                                                    null,
+                                                    null,
+                                                    true);
         assertEquals(0, accountListAdapter.getItemCount());
     }
 
@@ -72,7 +76,12 @@ public class AccountListAdapterTest {
         accounts.add(new AccountListItem());
         accounts.add(new AccountListItem());
 
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity, null, accounts, null);
+        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
+                                                    null,
+                                                    accounts,
+                                                    null,
+                                                    null,
+                                                    true);
 
         assertEquals(2, accountListAdapter.getItemCount());
     }
@@ -87,7 +96,12 @@ public class AccountListAdapterTest {
             .thenReturn(new Float(0.1));
 
         List<AccountListItem> accounts = new ArrayList<>();
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity, null, accounts, null);
+        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
+                                                    null,
+                                                    accounts,
+                                                    null,
+                                                    null,
+                                                    true);
 
         AccountListItem accountListItem1 = new AccountListItem();
         AccountListItem accountListItem2 = new AccountListItem();
