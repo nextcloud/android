@@ -39,7 +39,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -57,7 +57,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private static final String TAG = OCFile.class.getSimpleName();
 
-    @Getter  @Setter private long fileId; // android internal ID of the file
+    @Getter @Setter private long fileId; // android internal ID of the file
     @Getter @Setter private long parentId;
     @Getter @Setter private long fileLength;
     @Getter @Setter private long creationTimestamp; // UNIX timestamp of the time the file was created
@@ -90,7 +90,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private String ownerId;
     @Getter @Setter private String ownerDisplayName;
     @Getter @Setter String note;
-    @Getter @Setter private ArrayList<ShareeUser> sharees;
+    @Getter @Setter private List<ShareeUser> sharees;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call

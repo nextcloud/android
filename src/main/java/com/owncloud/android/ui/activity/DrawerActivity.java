@@ -29,6 +29,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -396,30 +397,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         setDrawerMenuItemChecked(menuItem.getItemId());
 
         if (menuItem.getGroupId() == R.id.drawer_menu_accounts) {
-            switch (menuItem.getItemId()) {
-                case R.id.drawer_menu_account_add:
-                    boolean isProviderOrOwnInstallationVisible = getResources()
-                        .getBoolean(R.bool.show_provider_or_own_installation);
-
-                    if (isProviderOrOwnInstallationVisible) {
-                        Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
-                        firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
-                        startActivity(firstRunIntent);
-                    } else {
-                        createAccount(false);
-                    }
-                    break;
-
-                case R.id.drawer_menu_account_manage:
-                    Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
-                    startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
-                    break;
-
-                default:
-                    accountClicked(menuItem.getItemId());
-                    break;
-            }
-
+            handleAccountItemClick(menuItem);
             return;
         }
 
@@ -459,39 +437,28 @@ public abstract class DrawerActivity extends ToolbarActivity
                 showFiles(true);
                 break;
             case R.id.nav_uploads:
-                Intent uploadListIntent = new Intent(getApplicationContext(), UploadListActivity.class);
-                uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(uploadListIntent);
+                startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 break;
             case R.id.nav_trashbin:
-                Intent trashbinIntent = new Intent(getApplicationContext(), TrashbinActivity.class);
-                trashbinIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(trashbinIntent);
+                startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 break;
             case R.id.nav_activity:
-                Intent activityIntent = new Intent(getApplicationContext(), ActivitiesActivity.class);
-                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(activityIntent);
+                startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 break;
             case R.id.nav_notifications:
-                Intent notificationsIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
-                startActivity(notificationsIntent);
+                startActivity(NotificationsActivity.class);
                 break;
             case R.id.nav_synced_folders:
-                Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
-                startActivity(syncedFoldersIntent);
+                startActivity(SyncedFoldersActivity.class);
                 break;
             case R.id.nav_contacts:
-                Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
-                startActivity(contactsIntent);
+                startActivity(ContactsPreferenceActivity.class);
                 break;
             case R.id.nav_settings:
-                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(settingsIntent);
+                startActivity(SettingsActivity.class);
                 break;
             case R.id.nav_participate:
-                Intent participateIntent = new Intent(getApplicationContext(), ParticipateActivity.class);
-                startActivity(participateIntent);
+                startActivity(ParticipateActivity.class);
                 break;
             case R.id.nav_logout:
                 mCheckedMenuItem = -1;
@@ -518,6 +485,42 @@ public abstract class DrawerActivity extends ToolbarActivity
                 } else {
                     Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
                 }
+                break;
+        }
+    }
+
+    private void startActivity(Class<? extends Activity> activity) {
+        startActivity(new Intent(getApplicationContext(), activity));
+    }
+
+    private void startActivity(Class<? extends Activity> activity, int flags) {
+        Intent intent = new Intent(getApplicationContext(), activity);
+        intent.setFlags(flags);
+        startActivity(intent);
+    }
+
+    private void handleAccountItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.drawer_menu_account_add:
+                boolean isProviderOrOwnInstallationVisible = getResources()
+                    .getBoolean(R.bool.show_provider_or_own_installation);
+
+                if (isProviderOrOwnInstallationVisible) {
+                    Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
+                    firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
+                    startActivity(firstRunIntent);
+                } else {
+                    createAccount(false);
+                }
+                break;
+
+            case R.id.drawer_menu_account_manage:
+                Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
+                startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
+                break;
+
+            default:
+                accountClicked(menuItem.getItemId());
                 break;
         }
     }

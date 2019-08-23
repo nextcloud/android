@@ -363,7 +363,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     itemViewHolder.sharedAvatars.removeAllViews();
 
                     String fileOwner = file.getOwnerId();
-                    ArrayList<ShareeUser> sharees = file.getSharees();
+                    List<ShareeUser> sharees = file.getSharees();
 
                     // use fileOwner if not oneself, then add at first
                     ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);

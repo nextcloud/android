@@ -636,7 +636,7 @@ public final class ThemeUtils {
     public static void setEditTextCursorColor(EditText editText, int color) {
         try {
             // Get the cursor resource id
-            if (Build.VERSION.SDK_INT >= 28) {//set differently in Android P (API 28)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {//set differently in Android P (API 28)
                 Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
                 field.setAccessible(true);
                 int drawableResId = field.getInt(editText);
