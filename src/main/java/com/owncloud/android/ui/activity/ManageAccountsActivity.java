@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.AccountRemovalJob;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
@@ -72,11 +73,16 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.owncloud.android.ui.adapter.AccountListAdapter.KEY_DISPLAY_NAME;
+import static com.owncloud.android.ui.adapter.AccountListAdapter.KEY_USER_INFO_REQUEST_CODE;
+
 /**
  * An Activity that allows the user to manage accounts.
  */
-public class ManageAccountsActivity extends FileActivity
-        implements AccountListAdapter.AccountListAdapterListener, AccountManagerCallback<Boolean>, ComponentsGetter {
+public class ManageAccountsActivity extends FileActivity implements AccountListAdapter.AccountListAdapterListener,
+    AccountManagerCallback<Boolean>,
+    ComponentsGetter,
+    AccountListAdapter.ClickListener {
     private static final String TAG = ManageAccountsActivity.class.getSimpleName();
 
     public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
@@ -130,7 +136,12 @@ public class ManageAccountsActivity extends FileActivity
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        accountListAdapter = new AccountListAdapter(this, accountManager, getAccountListItems(), tintedCheck);
+        accountListAdapter = new AccountListAdapter(this,
+                                                    accountManager,
+                                                    getAccountListItems(),
+                                                    tintedCheck,
+                                                    this,
+                                                    true);
 
         recyclerView.setAdapter(accountListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -268,10 +279,12 @@ public class ManageAccountsActivity extends FileActivity
                                   String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                   accountManager.setCurrentOwnCloudAccount(name);
                                   accountListAdapter = new AccountListAdapter(
-                                          this,
-                                          accountManager,
-                                          getAccountListItems(),
-                                          tintedCheck
+                                      this,
+                                      accountManager,
+                                      getAccountListItems(),
+                                      tintedCheck,
+                                      this,
+                                      true
                                   );
                                   recyclerView.setAdapter(accountListAdapter);
                                   runOnUiThread(() -> accountListAdapter.notifyDataSetChanged());
@@ -318,7 +331,12 @@ public class ManageAccountsActivity extends FileActivity
 
             List<AccountListItem> accountListItemArray = getAccountListItems();
             if (accountListItemArray.size() > SINGLE_ACCOUNT) {
-                accountListAdapter = new AccountListAdapter(this, accountManager, accountListItemArray, tintedCheck);
+                accountListAdapter = new AccountListAdapter(this,
+                                                            accountManager,
+                                                            accountListItemArray,
+                                                            tintedCheck,
+                                                            this,
+                                                            true);
                 recyclerView.setAdapter(accountListAdapter);
             } else {
                 onBackPressed();
@@ -430,6 +448,19 @@ public class ManageAccountsActivity extends FileActivity
 
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(Account account) {
+        final Intent intent = new Intent(this, UserInfoActivity.class);
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
+        try {
+            OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
+            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Log_OC.d(TAG, "Failed to find NC account");
+        }
+        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
     }
 
     /**
