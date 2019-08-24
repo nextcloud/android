@@ -1,1 +1,1 @@
-Nextcloud Dev app er et snapshot fra udvikling og kan installeres i parallel.
+Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udv
