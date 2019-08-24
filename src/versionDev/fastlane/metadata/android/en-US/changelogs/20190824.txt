@@ -1,0 +1,20 @@
+ed75cffa5 Merge pull request #4397 from nextcloud/npeInRemove
+4d5b166fc Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+0dc71ee4a Merge pull request #4394 from nextcloud/390alpha
+35a625234 parent file can be null
+807bf462a 3.9.0 Alpha
+cf536a4ef Merge pull request #4388 from nextcloud/gridTest
+753b4591d Merge pull request #4384 from nextcloud/codacy
+783e28365 codacy: Avoid using Literals in Conditional Statements
+c0b76e33e codacy: Avoid declaring a variable if it is unreferenced before a possible exit point.
+c51db8b1c codacy: Avoid unused imports
+5a1b5ed5c codacy: Avoid really long methods.
+d2c9e3273 codacy: These nested if statements could be combined
+d445be1b5 codacy: Avoid using implementation types like 'ArrayList'; use the interface instead
+331edcb69 fix possible NPE on stopping contact backup job (#4387)
+88714c1c9 moved multiple account dialog to recyclerview (#4381)
+0a95210d7 attempt to get gridview test more reliable
+6ec0186bb moved multiple account dialog to recyclerview
+f5ca834e0 fix possible NPE on stopping contact backup job
+42d3aa928 [tx-robot] updated from transifex
+b411f0223 daily dev 20190823
