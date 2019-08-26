@@ -747,6 +747,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             showShareAvatar = mStorageManager.getCapability(account.name).getVersion().isShareesOnDavSupported();
         }
 
+        if (mStorageManager == null) {
+            mStorageManager = new FileDataStorageManager(account, mContext.getContentResolver());
+        }
+
         if (clear) {
             mFiles.clear();
             resetLastTimestamp();
