@@ -49,6 +49,13 @@ class LoggerTest {
 
     private companion object {
         const val QUEUE_CAPACITY = 100
+        const val FILE_SIZE = 1024L
+        const val LATCH_WAIT = 3L
+        const val LATCH_INIT = 3
+        const val EMPTY = 0
+        const val EMPTY_LONG = 0L
+        const val TIMEOUT = 3000L
+        const val MESSAGE_COUNT = 3
     }
 
     private lateinit var clock: Clock
@@ -61,7 +68,7 @@ class LoggerTest {
         MockitoAnnotations.initMocks(this)
         val tempDir = Files.createTempDirectory("log-test").toFile()
         clock = ClockImpl()
-        logHandler = spy(FileLogHandler(tempDir, "log.txt", 1024))
+        logHandler = spy(FileLogHandler(tempDir, "log.txt", FILE_SIZE))
         osHandler = mock()
         logger = LoggerImpl(clock, logHandler, osHandler, QUEUE_CAPACITY)
     }
@@ -70,7 +77,7 @@ class LoggerTest {
     fun `write is done on background thread`() {
         val callerThreadId = Thread.currentThread().id
         val writerThreadIds = mutableListOf<Long>()
-        val latch = CountDownLatch(3)
+        val latch = CountDownLatch(LATCH_INIT)
 
         doAnswer {
             writerThreadIds.add(Thread.currentThread().id)
@@ -102,7 +109,7 @@ class LoggerTest {
         //      message is processed on bg thread
         //      all handler invocations happen on bg thread
         //      all handler invocations happen on single thread
-        assertTrue(latch.await(3, TimeUnit.SECONDS))
+        assertTrue(latch.await(LATCH_WAIT, TimeUnit.SECONDS))
 
         writerThreadIds.forEach { writerThreadId ->
             assertNotEquals("All requests must be made on bg thread", callerThreadId, writerThreadId)
@@ -117,7 +124,7 @@ class LoggerTest {
     fun `message is written via log handler`() {
         val tag = "test tag"
         val message = "test log message"
-        val latch = CountDownLatch(3)
+        val latch = CountDownLatch(LATCH_INIT)
         doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).open()
         doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).write(any())
         doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).close()
@@ -135,7 +142,7 @@ class LoggerTest {
         //      log handler writes entry
         //      log handler closes log file
         //      no lost messages
-        val called = latch.await(3, TimeUnit.SECONDS)
+        val called = latch.await(LATCH_WAIT, TimeUnit.SECONDS)
         assertTrue("Expected open(), write() and close() calls on bg thread", called)
         val inOrder = inOrder(logHandler)
         inOrder.verify(logHandler).open()
@@ -177,7 +184,7 @@ class LoggerTest {
         logger.d("tag", "message 2")
         logger.d("tag", "message 3")
         logger.load(listener)
-        val called = latch.await(3, TimeUnit.SECONDS)
+        val called = latch.await(LATCH_WAIT, TimeUnit.SECONDS)
         assertTrue("Response not posted", called)
 
         // THEN
@@ -194,7 +201,7 @@ class LoggerTest {
         val logsCaptor = ArgumentCaptor.forClass(List::class.java) as ArgumentCaptor<List<LogEntry>>
         val sizeCaptor = ArgumentCaptor.forClass(Long::class.java)
         verify(listener).invoke(capture(logsCaptor), capture(sizeCaptor))
-        assertEquals(3, logsCaptor.value.size)
+        assertEquals(MESSAGE_COUNT, logsCaptor.value.size)
         assertTrue("message 1" in logsCaptor.value[0].message)
         assertTrue("message 2" in logsCaptor.value[1].message)
         assertTrue("message 3" in logsCaptor.value[2].message)
@@ -239,7 +246,7 @@ class LoggerTest {
         logger.start()
 
         // THEN
-        //      overflow occurence is logged
+        //      overflow occurrence is logged
         val posted = CountDownLatch(1)
         whenever(osHandler.post(any())).thenAnswer {
             (it.arguments[0] as Runnable).run()
@@ -279,15 +286,16 @@ class LoggerTest {
         // THEN
         //      handler writes files
         //      handler deletes all files
-        assertTrue(latch.await(3, TimeUnit.SECONDS))
-        verify(logHandler, times(3)).write(any())
+        assertTrue(latch.await(LATCH_WAIT, TimeUnit.SECONDS))
+        verify(logHandler, times(MESSAGE_COUNT)).write(any())
         verify(logHandler).deleteAll()
         val loaded = logHandler.loadLogFiles(logHandler.maxLogFilesCount)
-        assertEquals(0, loaded.lines.size)
-        assertEquals(0L, loaded.logSize)
+        assertEquals(EMPTY, loaded.lines.size)
+        assertEquals(EMPTY_LONG, loaded.logSize)
     }
 
     @Test
+    @Suppress("TooGenericExceptionCaught")
     fun `thread interruption is handled while posting log message`() {
         Thread {
             val callerThread = Thread.currentThread()
@@ -313,7 +321,7 @@ class LoggerTest {
             assertTrue("Expected current thread to stay interrupted", callerThread.isInterrupted)
         }.apply {
             start()
-            join(3000)
+            join(TIMEOUT)
         }
     }
 }

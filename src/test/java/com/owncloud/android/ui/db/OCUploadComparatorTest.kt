@@ -48,6 +48,10 @@ class OCUploadComparatorTest {
             val equalsNotSame = mock<OCUpload>(name = "equalsNotSame")
             val inProgress = mock<OCUpload>(name = "InProgress")
             val inProgressNow = mock<OCUpload>(name = "inProgressNow")
+            private const val FIXED_UPLOAD_END_TIMESTAMP = 42L
+            private const val FIXED_UPLOAD_END_TIMESTAMP_LATER = 43L
+            private const val UPLOAD_ID = 40L
+            private const val UPLOAD_ID2 = 43L
 
             fun uploads(): Array<OCUpload> {
                 return arrayOf(failed, failedLater, inProgress, inProgressNow, failedSameTimeOtherId)
@@ -68,14 +72,14 @@ class OCUploadComparatorTest {
                 whenever(inProgressNow.isFixedUploadingNow).thenReturn(true)
                 whenever(inProgress.isFixedUploadingNow).thenReturn(false)
 
-                whenever(failed.fixedUploadEndTimeStamp).thenReturn(42)
-                whenever(failedLater.fixedUploadEndTimeStamp).thenReturn(43)
-                whenever(failedSameTimeOtherId.fixedUploadEndTimeStamp).thenReturn(42)
-                whenever(equalsNotSame.fixedUploadEndTimeStamp).thenReturn(42)
+                whenever(failed.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
+                whenever(failedLater.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP_LATER)
+                whenever(failedSameTimeOtherId.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
+                whenever(equalsNotSame.fixedUploadEndTimeStamp).thenReturn(FIXED_UPLOAD_END_TIMESTAMP)
 
-                whenever(failedLater.uploadId).thenReturn(43)
-                whenever(failedSameTimeOtherId.uploadId).thenReturn(40)
-                whenever(equalsNotSame.uploadId).thenReturn(40)
+                whenever(failedLater.uploadId).thenReturn(UPLOAD_ID2)
+                whenever(failedSameTimeOtherId.uploadId).thenReturn(UPLOAD_ID)
+                whenever(equalsNotSame.uploadId).thenReturn(UPLOAD_ID)
             }
         }
     }

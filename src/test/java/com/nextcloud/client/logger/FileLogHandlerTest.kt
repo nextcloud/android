@@ -28,7 +28,16 @@ import java.io.File
 import java.nio.charset.Charset
 import java.nio.file.Files
 
+@Suppress("TooManyFunctions")
 class FileLogHandlerTest {
+
+    private companion object {
+        const val FILE_SIZE = 1024L
+        const val MAX_FILE_SIZE = 20L
+        const val THREE_LOG_FILES = 3
+        const val EXPECTED_LINE_COUNT_6 = 6
+        const val EXPECTED_LINE_COUNT_12 = 12
+    }
 
     private lateinit var logDir: File
 
@@ -64,7 +73,7 @@ class FileLogHandlerTest {
 
         // WHEN
         //      file is opened
-        val handler = FileLogHandler(nonexistingLogsDir, "log.txt", 1000)
+        val handler = FileLogHandler(nonexistingLogsDir, "log.txt", FILE_SIZE)
         handler.open()
 
         // THEN
@@ -90,7 +99,7 @@ class FileLogHandlerTest {
         writeLogFile("log.txt.1", "2")
         writeLogFile("log.txt.2", "3")
 
-        val writer = FileLogHandler(logDir, "log.txt", 1024)
+        val writer = FileLogHandler(logDir, "log.txt", FILE_SIZE)
 
         // WHEN
         //      files are rotated
@@ -112,7 +121,7 @@ class FileLogHandlerTest {
         //      log file limit is 20 bytes
         //      log writer is opened
         writeLogFile("log.txt", "0123456789")
-        val writer = FileLogHandler(logDir, "log.txt", 20)
+        val writer = FileLogHandler(logDir, "log.txt", MAX_FILE_SIZE)
         writer.open()
 
         // WHEN
@@ -132,7 +141,7 @@ class FileLogHandlerTest {
         //      log file limit is 20 bytes
         //      log writer is opened
         writeLogFile("log.txt", "0123456789")
-        val writer = FileLogHandler(logDir, "log.txt", 20)
+        val writer = FileLogHandler(logDir, "log.txt", MAX_FILE_SIZE)
         writer.open()
 
         // WHEN
@@ -162,14 +171,14 @@ class FileLogHandlerTest {
 
         // WHEN
         //      log file is read including rotated content
-        val writer = FileLogHandler(logDir, "log.txt", 1000)
-        val rawLogs = writer.loadLogFiles(3)
+        val writer = FileLogHandler(logDir, "log.txt", FILE_SIZE)
+        val rawLogs = writer.loadLogFiles(THREE_LOG_FILES)
 
         // THEN
         //      all files are loaded
         //      lines are loaded in correct order
         //      log files size is correctly reported
-        assertEquals(12, rawLogs.lines.size)
+        assertEquals(EXPECTED_LINE_COUNT_12, rawLogs.lines.size)
         assertEquals(
             listOf(
                 "line1", "line2", "line3",
@@ -193,13 +202,13 @@ class FileLogHandlerTest {
 
         // WHEN
         //      log file is read including rotated content
-        val writer = FileLogHandler(logDir, "log.txt", 1000)
-        val lines = writer.loadLogFiles(3)
+        val writer = FileLogHandler(logDir, "log.txt", FILE_SIZE)
+        val lines = writer.loadLogFiles(THREE_LOG_FILES)
 
         // THEN
         //      all files are loaded
         //      log file size is non-zero
-        assertEquals(6, lines.lines.size)
+        assertEquals(EXPECTED_LINE_COUNT_6, lines.lines.size)
         assertTrue(lines.logSize > 0)
     }
 
@@ -207,7 +216,7 @@ class FileLogHandlerTest {
     fun `load log lines - negative count is illegal`() {
         // WHEN
         //      requesting negative number of rotated files
-        val writer = FileLogHandler(logDir, "log.txt", 1000)
+        val writer = FileLogHandler(logDir, "log.txt", FILE_SIZE)
         val lines = writer.loadLogFiles(-1)
 
         // THEN
@@ -218,7 +227,7 @@ class FileLogHandlerTest {
     fun `all log files are deleted`() {
         // GIVEN
         //      log files exist
-        val handler = FileLogHandler(logDir, "log.txt", 100)
+        val handler = FileLogHandler(logDir, "log.txt", MAX_FILE_SIZE)
         for (i in 0 until handler.maxLogFilesCount) {
             handler.rotateLogs()
             handler.open()

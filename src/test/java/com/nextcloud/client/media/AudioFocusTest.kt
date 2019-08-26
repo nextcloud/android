@@ -25,10 +25,13 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 class AudioFocusTest {
+    private companion object {
+        const val INVALID_FOCUS = -10000
+    }
 
     @Test
     fun `invalid values result in null`() {
-        val focus = AudioFocus.fromPlatformFocus(-10000)
+        val focus = AudioFocus.fromPlatformFocus(INVALID_FOCUS)
         assertNull(focus)
     }
 
