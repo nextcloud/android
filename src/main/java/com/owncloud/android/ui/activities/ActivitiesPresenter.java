@@ -47,16 +47,15 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     }
 
     @Override
-    public void loadActivities(String pageUrl) {
+    public void loadActivities(int lastGiven) {
         activitiesView.setProgressIndicatorState(true);
-        activitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
+        activitiesRepository.getActivities(lastGiven, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
-            public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
-                                           String nextPageUrl) {
+            public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client, int lastGiven) {
 
                 if (!activityStopped) {
                     activitiesView.setProgressIndicatorState(false);
-                    activitiesView.showActivities(activities, client, nextPageUrl);
+                    activitiesView.showActivities(activities, client, lastGiven);
                 }
             }
 

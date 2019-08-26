@@ -31,10 +31,10 @@ import java.util.List;
 public interface ActivitiesServiceApi {
 
     interface ActivitiesServiceCallback<T> {
-        void onLoaded (T activities, OwnCloudClient client, String nextPageUrl);
+        void onLoaded(T activities, OwnCloudClient client, int lastGiven);
         void onError (String error);
     }
 
-    void getAllActivities(String pageUrl, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
+    void getAllActivities(int lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
 
 }

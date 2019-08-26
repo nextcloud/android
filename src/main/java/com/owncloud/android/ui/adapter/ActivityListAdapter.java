@@ -401,6 +401,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return values.size();
     }
 
+    public boolean isEmpty() {
+        return values.isEmpty();
+    }
+
     /**
      * Converts size of file icon from dp to pixel
      *

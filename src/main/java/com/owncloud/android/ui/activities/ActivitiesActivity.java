@@ -62,6 +62,7 @@ import butterknife.Unbinder;
 
 public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
+    private static final int UNDEFINED = -1;
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
@@ -92,7 +93,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
-    private String nextPageUrl;
+    private int lastGiven;
 
     private boolean isLoadingActivities;
 
@@ -123,10 +124,10 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         }
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
-            // We set the nextPageUrl variable to null here since when manually refreshing
+            // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
-            nextPageUrl = null;
-            mActionListener.loadActivities(nextPageUrl);
+            lastGiven = UNDEFINED;
+            mActionListener.loadActivities(lastGiven);
         });
 
         // Since we use swipe-to-refresh for progress indication we can hide the inherited
@@ -187,14 +188,14 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
                 // synchronize loading state when item count changes
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                    && nextPageUrl != null && !nextPageUrl.isEmpty()) {
+                    && lastGiven > 0) {
                     // Almost reached the end, continue to load new activities
-                    mActionListener.loadActivities(nextPageUrl);
+                    mActionListener.loadActivities(lastGiven);
                 }
             }
         });
 
-        mActionListener.loadActivities(null);
+        mActionListener.loadActivities(UNDEFINED);
     }
 
     @Override
@@ -237,15 +238,16 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     @Override
-    public void showActivities(List<Object> activities, OwnCloudClient client, String nextPageUrl) {
+    public void showActivities(List<Object> activities, OwnCloudClient client, int lastGiven) {
         boolean clear = false;
-        if (this.nextPageUrl == null) {
+        if (this.lastGiven == UNDEFINED) {
             clear = true;
         }
         adapter.setActivityItems(activities, client, clear);
-        this.nextPageUrl = nextPageUrl;
+        this.lastGiven = lastGiven;
+
         // Hide the recyclerView if list is empty
-        if (activities.isEmpty()) {
+        if (adapter.isEmpty()) {
             recyclerView.setVisibility(View.INVISIBLE);
 
             emptyContentMessage.setText(noResultsMessage);
