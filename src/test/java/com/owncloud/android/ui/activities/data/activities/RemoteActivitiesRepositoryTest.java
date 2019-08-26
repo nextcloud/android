@@ -60,16 +60,16 @@ public class RemoteActivitiesRepositoryTest {
 
     @Test
     public void loadActivitiesReturnSuccess() {
-        mActivitiesRepository.getActivities("null", mockedLoadActivitiesCallback);
-        verify(serviceApi).getAllActivities(eq("null"), activitiesServiceCallbackCaptor.capture());
-        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, ownCloudClient, "nextPageUrl");
-        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(ownCloudClient), eq("nextPageUrl"));
+        mActivitiesRepository.getActivities(-1, mockedLoadActivitiesCallback);
+        verify(serviceApi).getAllActivities(eq(-1), activitiesServiceCallbackCaptor.capture());
+        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, ownCloudClient, -1);
+        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(ownCloudClient), eq(-1));
     }
 
     @Test
     public void loadActivitiesReturnError() {
-        mActivitiesRepository.getActivities("null", mockedLoadActivitiesCallback);
-        verify(serviceApi).getAllActivities(eq("null"), activitiesServiceCallbackCaptor.capture());
+        mActivitiesRepository.getActivities(-1, mockedLoadActivitiesCallback);
+        verify(serviceApi).getAllActivities(eq(-1), activitiesServiceCallbackCaptor.capture());
         activitiesServiceCallbackCaptor.getValue().onError("error");
         verify(mockedLoadActivitiesCallback).onActivitiesLoadedError(eq("error"));
     }
