@@ -93,9 +93,7 @@ internal class Player(
 
         override fun onStartDownloading() {
             trace("onStartDownloading()")
-            if (playedFile == null) {
-                throw IllegalStateException("File not set.")
-            }
+            checkNotNull(playedFile) { "File not set." }
             playedFile?.let {
                 val client = buildClient()
                 val task = LoadUrlTask(client, it.remoteId, this@Player::onDownloaded)
