@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -20,7 +20,7 @@ package com.owncloud.android.ui.activities.data.activities;
 
 import androidx.annotation.NonNull;
 
-public class ActivityRepositories {
+public final class ActivityRepositories {
 
     private ActivityRepositories() {
         // No instance
@@ -29,6 +29,4 @@ public class ActivityRepositories {
     public static synchronized ActivitiesRepository getRepository(@NonNull ActivitiesServiceApi activitiesServiceApi) {
         return new RemoteActivitiesRepository(activitiesServiceApi);
     }
-
 }
-
