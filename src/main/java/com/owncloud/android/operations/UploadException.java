@@ -21,6 +21,8 @@
 package com.owncloud.android.operations;
 
 class UploadException extends Exception {
+    private static final long serialVersionUID = 5931153844211429915L;
+
     UploadException() {
         super();
     }
