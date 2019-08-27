@@ -26,7 +26,7 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_settings">Axustes</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sync">Recargar a conta</string>
+    <string name="actionbar_sync">Actualizar a conta</string>
     <string name="active_user">Usuario activo</string>
     <string name="activities_no_results_headline">Aínda non houbo actividade</string>
     <string name="activities_no_results_message">Non houbo eventos como adicións, cambios e elementos compartidos</string>
