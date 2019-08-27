@@ -57,9 +57,9 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
     }
 
     @Override
-    public void getAllActivities(String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
+    public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
         Account account = accountManager.getCurrentAccount();
-        GetActivityListTask getActivityListTask = new GetActivityListTask(account, accountManager, pageUrl, callback);
+        GetActivityListTask getActivityListTask = new GetActivityListTask(account, accountManager, lastGiven, callback);
         getActivityListTask.execute();
     }
 
@@ -69,16 +69,17 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private List<Object> activities;
         private Account account;
         private UserAccountManager accountManager;
-        private String pageUrl;
+        private int lastGiven;
         private String errorMessage;
         private OwnCloudClient ownCloudClient;
 
         private GetActivityListTask(Account account,
                                     UserAccountManager accountManager,
-                                    String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
+                                    int lastGiven,
+                                    ActivitiesServiceCallback<List<Object>> callback) {
             this.account = account;
             this.accountManager = accountManager;
-            this.pageUrl = pageUrl;
+            this.lastGiven = lastGiven;
             this.callback = callback;
             activities = new ArrayList<>();
         }
@@ -94,18 +95,20 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                         getClientFor(ocAccount, MainApp.getAppContext());
                 ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(account));
 
-                GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation();
-                if (pageUrl != null) {
-                    getRemoteNotificationOperation.setNextUrl(pageUrl);
+                GetActivitiesRemoteOperation getRemoteActivitiesOperation;
+                if (lastGiven > 0) {
+                    getRemoteActivitiesOperation = new GetActivitiesRemoteOperation(lastGiven);
+                } else {
+                    getRemoteActivitiesOperation = new GetActivitiesRemoteOperation();
                 }
 
-                final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
+                final RemoteOperationResult result = getRemoteActivitiesOperation.execute(ownCloudClient);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
                     activities = (ArrayList) data.get(0);
 
-                    pageUrl = (String) data.get(1);
+                    lastGiven = (int) data.get(1);
                     return true;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
@@ -138,7 +141,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                callback.onLoaded(activities, ownCloudClient, pageUrl);
+                callback.onLoaded(activities, ownCloudClient, lastGiven);
             } else {
                 callback.onError(errorMessage);
             }

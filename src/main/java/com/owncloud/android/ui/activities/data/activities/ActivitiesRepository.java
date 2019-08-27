@@ -29,10 +29,9 @@ import androidx.annotation.NonNull;
  */
 public interface ActivitiesRepository {
     interface LoadActivitiesCallback {
-        void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
-                                String nextPageUrl);
+        void onActivitiesLoaded(List<Object> activities, OwnCloudClient client, int lastGiven);
         void onActivitiesLoadedError(String error);
     }
 
-    void getActivities(String pageUrl, @NonNull LoadActivitiesCallback callback);
+    void getActivities(int lastGiven, @NonNull LoadActivitiesCallback callback);
 }
