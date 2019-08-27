@@ -49,22 +49,29 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RichDocumentsCreateAssetOperation;
 import com.owncloud.android.ui.asynctasks.LoadUrlTask;
+import com.owncloud.android.ui.asynctasks.PrintAsyncTask;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -81,12 +88,14 @@ import lombok.Setter;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class RichDocumentsWebView extends ExternalSiteWebView {
 
-    private static final String TAG = RichDocumentsWebView.class.getSimpleName();
-    private static final int REQUEST_REMOTE_FILE = 100;
-
-    public static final int REQUEST_LOCAL_FILE = 101;
-
     public static final int MINIMUM_API = Build.VERSION_CODES.LOLLIPOP;
+    public static final int REQUEST_LOCAL_FILE = 101;
+    private static final int REQUEST_REMOTE_FILE = 100;
+    private static final String TAG = RichDocumentsWebView.class.getSimpleName();
+    private static final String URL = "URL";
+    private static final String TYPE = "Type";
+    private static final String PRINT = "print";
+    private static final String NEW_NAME = "NewName";
 
     private Unbinder unbinder;
     private OCFile file;
@@ -105,6 +114,9 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
     @Inject
     protected CurrentAccountProvider currentAccountProvider;
+
+    @Inject
+    protected ClientFactory clientFactory;
 
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     @Override
@@ -196,8 +208,8 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType(),
-                this));
+                                                                              file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType(),
+                                                                          this));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -217,7 +229,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                    getStorageManager(), getAccount());
+                                                                                   getStorageManager(), getAccount());
 
                             if (thumbnail == null) {
                                 if (MimeTypeUtil.isVideo(file)) {
@@ -230,7 +242,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(getResources(), thumbnail, task);
                             thumbnailView.setImageDrawable(asyncDrawable);
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                file.getRemoteId()));
+                                                                                                  file.getRemoteId()));
                         } catch (IllegalArgumentException e) {
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                         }
@@ -242,7 +254,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
-                    getAccount(), this));
+                                                                            getAccount(), this));
             }
         }
     }
@@ -310,7 +322,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                 String asset = (String) result.getSingleData();
 
                 runOnUiThread(() -> webview.evaluateJavascript("OCA.RichDocuments.documentsMain.postAsset('" +
-                    file.getFileName() + "', '" + asset + "');", null));
+                                                                   file.getFileName() + "', '" + asset + "');", null));
             } else {
                 runOnUiThread(() -> DisplayUtils.showSnackMessage(this, "Inserting image failed!"));
             }
@@ -361,6 +373,34 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                                        "{ OCA.RichDocuments.documentsMain.postGrabFocus(); }", null);
     }
 
+    private void printFile(Uri url) {
+        OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
+
+        if (account == null) {
+            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_print));
+            return;
+        }
+
+        File targetFile = new File(FileStorageUtils.getTemporalPath(account.getName()) + "/print.pdf");
+
+        new PrintAsyncTask(targetFile, url.toString(), new WeakReference<>(this)).execute();
+    }
+
+    private void downloadFile(Uri url) {
+        DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+        if (downloadmanager == null) {
+            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
+            return;
+        }
+
+        DownloadManager.Request request = new DownloadManager.Request(url);
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        downloadmanager.enqueue(request);
+    }
+
     private class RichDocumentsMobileInterface {
         @JavascriptInterface
         public void close() {
@@ -384,27 +424,22 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
         @JavascriptInterface
         public void downloadAs(String json) {
-            Uri downloadUrl;
             try {
                 JSONObject downloadJson = new JSONObject(json);
-                downloadUrl = Uri.parse(downloadJson.getString("URL"));
+
+                Uri url = Uri.parse(downloadJson.getString(URL));
+
+                if (downloadJson.getString(TYPE).equalsIgnoreCase(PRINT)) {
+                    printFile(url);
+                } else {
+                    downloadFile(url);
+                }
             } catch (JSONException e) {
-                Log_OC.e(this, "Failed to parse rename json message: " + e);
+                Log_OC.e(this, "Failed to parse download json message: " + e);
                 return;
             }
 
-            DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
-            if (downloadmanager == null) {
-                DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
-                return;
-            }
-
-            DownloadManager.Request request = new DownloadManager.Request(downloadUrl);
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-            downloadmanager.enqueue(request);
         }
 
         @JavascriptInterface
@@ -413,7 +448,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
             // need to change filename for sharing
             try {
                 JSONObject renameJson = new JSONObject(renameString);
-                String newName = renameJson.getString("NewName");
+                String newName = renameJson.getString(NEW_NAME);
                 file.setFileName(newName);
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse rename json message: " + e);
@@ -422,7 +457,7 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
 
         @JavascriptInterface
         public void paste() {
-           // Javascript cannot do this by itself, so help out.
+            // Javascript cannot do this by itself, so help out.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
                 webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
