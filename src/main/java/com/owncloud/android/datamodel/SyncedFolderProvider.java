@@ -185,14 +185,13 @@ public class SyncedFolderProvider extends Observable {
     }
 
     public SyncedFolder findByLocalPathAndAccount(String localPath, Account account) {
-
         SyncedFolder result = null;
         Cursor cursor = mContentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
             null,
-            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "=? AND " +
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "LIKE ? AND " +
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
-            new String[]{localPath, account.name},
+            new String[]{localPath + "%", account.name},
             null
         );
 
