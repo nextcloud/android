@@ -205,14 +205,20 @@ public class FilesSyncJob extends Job {
                 remotePath += adaptedPath;
             }
 
+            String relativeSubfolderPath = new File(path.replace(syncedFolder.getLocalPath(), ""))
+                .getParentFile().getAbsolutePath();
+
             requester.uploadFileWithOverwrite(
                     context,
                     account,
                     file.getAbsolutePath(),
                     FileStorageUtils.getInstantUploadFilePath(
-                            currentLocale,
-                            remotePath, file.getName(),
-                            lastModificationTime, subfolderByDate),
+                        currentLocale,
+                        remotePath,
+                        relativeSubfolderPath,
+                        file.getName(),
+                        lastModificationTime,
+                        subfolderByDate),
                     uploadAction,
                     mimeType,
                     true,           // create parent folder if not existent
@@ -223,7 +229,7 @@ public class FilesSyncJob extends Job {
             );
 
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
-                    Long.toString(syncedFolder.getId()));
+                                                                       Long.toString(syncedFolder.getId()));
         }
     }
 

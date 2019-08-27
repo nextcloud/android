@@ -28,13 +28,40 @@ import java.util.Locale
 
 class FileStorageUtilsTest {
     @Test
+    fun testInstantUploadPathSubfolder() {
+        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
+            "/remotePath/",
+            "subfolder",
+            "file.pdf",
+            123123123L,
+            false)
+        val expected = "/remotePath/subfolder/file.pdf"
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun testInstantUploadPathNoSubfolder() {
+        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
+            "/remotePath/",
+            "",
+            "file.pdf",
+            123123123L,
+            false)
+        val expected = "/remotePath/file.pdf"
+
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun testInstantUploadPathNullFilename() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "subfolder",
             null,
             123123123L,
             false)
-        val expected = "/subfolder/"
+        val expected = "/remotePath/subfolder/"
 
         assertEquals(expected, result)
     }
@@ -42,11 +69,12 @@ class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPathNullEmptyDate() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "",
             "file.pdf",
             0,
             true)
-        val expected = "/subfolder/file.pdf"
+        val expected = "/remotePath/file.pdf"
 
         assertEquals(expected, result)
     }
@@ -54,11 +82,12 @@ class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPath() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "",
             "file.pdf",
             123123123L,
             false)
-        val expected = "/subfolder/file.pdf"
+        val expected = "/remotePath/file.pdf"
 
         assertEquals(expected, result)
     }
@@ -66,11 +95,12 @@ class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPathWithSubfolderByDate() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "",
             "file.pdf",
             1569918628000,
             true)
-        val expected = "/subfolder/2019/10/file.pdf"
+        val expected = "/remotePath/2019/10/file.pdf"
 
         assertEquals(expected, result)
     }
@@ -78,11 +108,12 @@ class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPathWithSubfolderFile() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "",
             "/sub/file.pdf",
             123123123L,
             false)
-        val expected = "/subfolder/sub/file.pdf"
+        val expected = "/remotePath/sub/file.pdf"
 
         assertEquals(expected, result)
     }
@@ -90,11 +121,12 @@ class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPathWithSubfolderByDateWithSubfolderFile() {
         val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/subfolder/",
+            "/remotePath/",
+            "",
             "/sub/file.pdf",
             1569918628000,
             true)
-        val expected = "/subfolder/2019/10/sub/file.pdf"
+        val expected = "/remotePath/2019/10/sub/file.pdf"
 
         assertEquals(expected, result)
     }
