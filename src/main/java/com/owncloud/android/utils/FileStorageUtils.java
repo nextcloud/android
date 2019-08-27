@@ -165,16 +165,22 @@ public final class FileStorageUtils {
      */
     public static String getInstantUploadFilePath(Locale current,
                                                   String remotePath,
+                                                  String subfolder,
                                                   @Nullable String fileName,
                                                   long dateTaken,
                                                   Boolean subfolderByDate) {
-        String subPath = "";
+        String subfolderByDatePath = "";
         if (subfolderByDate) {
-            subPath = getSubPathFromDate(dateTaken, current);
+            subfolderByDatePath = getSubPathFromDate(dateTaken, current);
         }
 
         // Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file.
-        return (remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName))
+        return (remotePath +
+            OCFile.PATH_SEPARATOR +
+            subfolderByDatePath +
+            subfolder + // starts with / so no separator is needed
+            OCFile.PATH_SEPARATOR +
+            (fileName == null ? "" : fileName))
             .replaceAll(OCFile.PATH_SEPARATOR + "+", OCFile.PATH_SEPARATOR);
     }
 
