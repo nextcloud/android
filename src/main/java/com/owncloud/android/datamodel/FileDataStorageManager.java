@@ -683,6 +683,7 @@ public class FileDataStorageManager {
             if (c.moveToFirst()) {
                 int lengthOfOldPath = file.getRemotePath().length();
                 int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
+                String[] fileId = new String[1];
                 do {
                     ContentValues cv = new ContentValues(); // keep construction in the loop
                     OCFile child = createFileInstance(c);
@@ -704,13 +705,11 @@ public class FileDataStorageManager {
                     if (child.getRemotePath().equals(file.getRemotePath())) {
                         cv.put(ProviderTableMeta.FILE_PARENT, targetParent.getFileId());
                     }
+                    fileId[0] = String.valueOf(child.getFileId());
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                                     withValues(cv).
-                                    withSelection(
-                                            ProviderTableMeta._ID + "=?",
-                                            new String[]{String.valueOf(child.getFileId())}
-                                    )
+                                    withSelection(ProviderTableMeta._ID + "=?", fileId)
                                     .build());
 
                 } while (c.moveToNext());
@@ -802,9 +801,10 @@ public class FileDataStorageManager {
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());
         if (cursor.moveToFirst()) {
+            String[] fileId = new String[1];
             do {
                 ContentValues cv = new ContentValues();
-                long fileId = cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID));
+                fileId[0] = String.valueOf(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
                 String oldFileStoragePath =
                         cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
 
@@ -815,7 +815,7 @@ public class FileDataStorageManager {
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                                     withValues(cv).
-                                    withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(fileId)})
+                                    withSelection(ProviderTableMeta._ID + "=?", fileId)
                                     .build());
                 }
 
@@ -1850,6 +1850,7 @@ public class FileDataStorageManager {
                 parentPath = parentPath.substring(0, parentPath.lastIndexOf(OCFile.PATH_SEPARATOR) + 1);
 
                 Log_OC.d(TAG, "checking parents to remove conflict; STARTING with " + parentPath);
+                String[] projection = new String[]{ProviderTableMeta._ID};
                 while (parentPath.length() > 0) {
 
                     String whereForDescencentsInConflict =
@@ -1861,7 +1862,7 @@ public class FileDataStorageManager {
                     if (getContentResolver() != null) {
                         descendentsInConflict = getContentResolver().query(
                                 ProviderTableMeta.CONTENT_URI_FILE,
-                                new String[]{ProviderTableMeta._ID},
+                                projection,
                                 whereForDescencentsInConflict,
                                 new String[]{account.name, parentPath + "%"},
                                 null
@@ -1870,7 +1871,7 @@ public class FileDataStorageManager {
                         try {
                             descendentsInConflict = getContentProviderClient().query(
                                     ProviderTableMeta.CONTENT_URI_FILE,
-                                    new String[]{ProviderTableMeta._ID},
+                                    projection,
                                     whereForDescencentsInConflict,
                                     new String[]{account.name, parentPath + "%"},
                                     null

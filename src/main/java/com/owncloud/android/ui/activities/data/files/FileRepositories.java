@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
@@ -20,7 +20,7 @@ package com.owncloud.android.ui.activities.data.files;
 
 import androidx.annotation.NonNull;
 
-public class FileRepositories {
+public final class FileRepositories {
 
     private FileRepositories() {
         // No instance

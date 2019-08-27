@@ -464,9 +464,9 @@ public class UploadFileOperation extends SyncOperation {
                 mUpload.setFolderUnlockToken(token);
                 uploadsStorageManager.updateUpload(mUpload);
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                throw new Exception("Forbidden! Please try again later.)");
+                throw new UploadException("Forbidden! Please try again later.)");
             } else {
-                throw new Exception("Unknown error!");
+                throw new UploadException("Unknown error!");
             }
 
             // Update metadata
@@ -498,10 +498,10 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
             } else {
                 // TODO error
-                throw new Exception("something wrong");
+                throw new UploadException("something wrong");
             }
 
-            /***** E2E *****/
+            /**** E2E *****/
 
             // check name collision
             checkNameCollision(client, metadata, parentFile.isEncrypted());
@@ -646,7 +646,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 if (!uploadMetadataOperationResult.isSuccess()) {
-                    throw new Exception();
+                    throw new UploadException();
                 }
             }
         } catch (FileNotFoundException e) {
