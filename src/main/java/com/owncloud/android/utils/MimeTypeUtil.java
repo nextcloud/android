@@ -622,6 +622,7 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("ldif", Collections.singletonList("text/x-ldif"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("love", Collections.singletonList("application/x-love-game"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("lwp", Collections.singletonList("application/vnd.lotus-wordpro"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m", Collections.singletonList("text/plain"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m2t", Collections.singletonList("video/mp2t"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m3u", Collections.singletonList("audio/mpegurl"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m3u8", Collections.singletonList("audio/mpegurl"));
