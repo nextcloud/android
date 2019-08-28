@@ -81,28 +81,27 @@ public class ActivitiesPresenterTest {
     @Test
     public void loadActivitiesFromRepositoryIntoView() {
         // When loading activities from repository is requested from presenter...
-        mPresenter.loadActivities(null);
+        mPresenter.loadActivities(-1);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository starts retrieving activities from server
-        verify(mActivitiesRepository).getActivities(eq(null), mLoadActivitiesCallbackCaptor.capture());
+        verify(mActivitiesRepository).getActivities(eq(-1), mLoadActivitiesCallbackCaptor.capture());
         // Repository returns data
-        mLoadActivitiesCallbackCaptor.getValue().onActivitiesLoaded(activitiesList,
-                mOwnCloudClient, null);
+        mLoadActivitiesCallbackCaptor.getValue().onActivitiesLoaded(activitiesList, mOwnCloudClient, -1);
         // Progress indicator is hidden
         verify(mView).setProgressIndicatorState(eq(false));
         // List of activities is shown in view.
-        verify(mView).showActivities(eq(activitiesList), eq(mOwnCloudClient), eq(null));
+        verify(mView).showActivities(eq(activitiesList), eq(mOwnCloudClient), eq(-1));
     }
 
     @Test
     public void loadActivitiesFromRepositoryShowError() {
         // When loading activities from repository is requested from presenter...
-        mPresenter.loadActivities(null);
+        mPresenter.loadActivities(-1);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository starts retrieving activities from server
-        verify(mActivitiesRepository).getActivities(eq(null), mLoadActivitiesCallbackCaptor.capture());
+        verify(mActivitiesRepository).getActivities(eq(-1), mLoadActivitiesCallbackCaptor.capture());
         // Repository returns data
         mLoadActivitiesCallbackCaptor.getValue().onActivitiesLoadedError("error");
         // Progress indicator is hidden

@@ -57,7 +57,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.24"
-    androidLibraryVersion = "rc-1.6.0-02"
+    androidLibraryVersion = "rc-1.6.0-03"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
