@@ -485,6 +485,7 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/x-font", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-gimp", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-gzip", R.drawable.file_zip);
+        MIMETYPE_TO_ICON_MAPPING.put("application/x-love-game", R.drawable.file);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-mobipocket-ebook", R.drawable.file_text);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-ms-dos-executable", R.drawable.file_application);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-msdos-program", R.drawable.file_application);
@@ -619,6 +620,7 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("kmz", Collections.singletonList("application/vnd.google-earth.kmz"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("kra", Collections.singletonList("application/x-krita"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("ldif", Collections.singletonList("text/x-ldif"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("love", Collections.singletonList("application/x-love-game"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("lwp", Collections.singletonList("application/vnd.lotus-wordpro"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m2t", Collections.singletonList("video/mp2t"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m3u", Collections.singletonList("audio/mpegurl"));
