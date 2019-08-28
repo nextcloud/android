@@ -107,7 +107,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private OCFile file;
     private Account account;
 
-    private String nextPageUrl;
+    private int lastGiven;
     private boolean isLoadingActivities;
 
     @BindView(R.id.empty_list_view)
@@ -179,7 +179,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
         onCreateSwipeToRefresh(swipeListRefreshLayout);
 
-        fetchAndSetData(null);
+        fetchAndSetData(-1);
 
         swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
         swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
@@ -189,7 +189,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             @Override
             public void onSuccess() {
                 commentInput.getText().clear();
-                fetchAndSetData(null);
+                fetchAndSetData(-1);
             }
 
             @Override
@@ -228,7 +228,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
-        fetchAndSetData(null);
+        fetchAndSetData(-1);
     }
 
     private void setLoadingMessage() {
@@ -275,22 +275,22 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                 // synchronize loading state when item count changes
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                        && nextPageUrl != null && !nextPageUrl.isEmpty()) {
+                    && lastGiven > 0) {
                     // Almost reached the end, continue to load new activities
-                    fetchAndSetData(nextPageUrl);
+                    fetchAndSetData(lastGiven);
                 }
             }
         });
     }
 
     public void reload() {
-        fetchAndSetData(null);
+        fetchAndSetData(-1);
     }
 
     /**
-     * @param pageUrl String
+     * @param lastGiven int; -1 to disable
      */
-    private void fetchAndSetData(String pageUrl) {
+    private void fetchAndSetData(int lastGiven) {
         final Account currentAccount = accountManager.getCurrentAccount();
         final Context context = MainApp.getAppContext();
         final FragmentActivity activity = getActivity();
@@ -308,11 +308,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
                 isLoadingActivities = true;
 
-                GetActivitiesRemoteOperation getRemoteNotificationOperation = new GetActivitiesRemoteOperation(
-                        file.getLocalId());
+                GetActivitiesRemoteOperation getRemoteNotificationOperation;
 
-                if (pageUrl != null) {
-                    getRemoteNotificationOperation.setNextUrl(pageUrl);
+                if (lastGiven > 0) {
+                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId());
+                } else {
+                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId(), lastGiven);
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
@@ -335,10 +336,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     if (restoreFileVersionSupported && versions != null) {
                         activitiesAndVersions.addAll(versions);
                     }
-                    nextPageUrl = (String) data.get(1);
+                    this.lastGiven = (int) data.get(1);
 
                     activity.runOnUiThread(() -> {
-                        populateList(activitiesAndVersions, pageUrl == null);
+                        populateList(activitiesAndVersions, lastGiven == -1);
                         if (activitiesAndVersions.isEmpty()) {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
                             list.setVisibility(View.GONE);

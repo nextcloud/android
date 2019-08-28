@@ -27,7 +27,7 @@ import java.util.List;
 public interface ActivitiesContract {
 
     interface View {
-        void showActivities(List<Object> activities, OwnCloudClient client, String nextPageUrl);
+        void showActivities(List<Object> activities, OwnCloudClient client, int lastGiven);
         void showActivitiesLoadError(String error);
         void showActivityDetailUI(OCFile ocFile);
         void showActivityDetailUIIsNull();
@@ -38,7 +38,7 @@ public interface ActivitiesContract {
     }
 
     interface ActionListener {
-        void loadActivities(String pageUrl);
+        void loadActivities(int lastGiven);
 
         void openActivity(String fileUrl, BaseActivity baseActivity);
 
