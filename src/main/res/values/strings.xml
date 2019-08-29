@@ -216,17 +216,12 @@
 
     <string name="media_notif_ticker">%1$s music player</string>
     <string name="media_state_playing">%1$s (playing)</string>
-    <string name="media_state_loading">%1$s (loading)</string>
-    <string name="media_event_done">%1$s playback finished</string>
-    <string name="media_err_nothing_to_play">No media file found</string>
-    <string name="media_err_not_in_owncloud">The file is not in a valid account</string>
     <string name="media_err_unsupported">Unsupported media codec</string>
     <string name="media_err_io">Could not read the media file</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">Attempt to play file timed out</string>
     <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
     <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_playing">Unexpected error while trying to play %1$s</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast forward button</string>
