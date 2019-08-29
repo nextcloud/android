@@ -241,6 +241,7 @@
     <string name="etm_title">Инжењерски тест режим</string>
     <string name="fab_label">Додај или отпреми</string>
     <string name="failed_to_download">Грешка при давању фајла менаџеру преузимања</string>
+    <string name="failed_to_print">Неуспело штампање фајла</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
