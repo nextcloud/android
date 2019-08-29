@@ -240,6 +240,7 @@
     <string name="etm_title">Engineering Test Mode</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
+    <string name="failed_to_print">Failed to print file</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
     <string name="favorite">Add to favorites</string>

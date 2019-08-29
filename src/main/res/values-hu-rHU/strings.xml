@@ -240,6 +240,7 @@
     <string name="etm_title">Mérnöki teszt mód</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
+    <string name="failed_to_print">A fájl nyomtatása sikertelen</string>
     <string name="fallback_weblogin_back">Vissza</string>
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>

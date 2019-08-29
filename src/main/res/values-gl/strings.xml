@@ -240,6 +240,7 @@
     <string name="etm_title">Modo de proba de enxeñería</string>
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
+    <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
     <string name="fallback_weblogin_back">Atras</string>
     <string name="fallback_weblogin_text">Volver ao método de acceso antigo</string>
     <string name="favorite">Engadir a favoritos</string>
