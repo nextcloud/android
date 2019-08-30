@@ -240,6 +240,7 @@
     <string name="etm_title">Udviklers test tilstand</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
+    <string name="failed_to_print">Fejl ved udskrivning af fil</string>
     <string name="fallback_weblogin_back">Tilbage</string>
     <string name="fallback_weblogin_text">Tilbage til foregående login metode</string>
     <string name="favorite">Tilføj til favoritter</string>
@@ -658,6 +659,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Billeder</string>
+    <string name="store_full_desc">Produktivitets platformen der giver dig fuld kontrol.\nFeatures:\n* Simpelt, moderne interface skræddersyet efter dit server tema.\n* Upload filer til din Nextcloud server\n* Del dem med andre\n* Få dine favorit filer og mapper synkroniseret\n* Søg på tværs af alle dine mapper på din server\n* Auto upload fotos og videoer taget med din device\n* Vær up to date med notifikationer\n* Supporterer flere konti\n* Sikker adgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx5 (tidligere DAVdroid) for nem opsætning af kalender &amp;Synkronisering af kontaker\n\nVenligst rapporter alle fejl og mangler på https://github.com/nextcloud/android/issues og deltag i debat om denne app på https://help.nextcloud.com/c/clients/android\n\nFørste gang du prøver Nextcloud? Nextcloud er en privat fil synkroniserings- &amp;, dele- og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.\n\n Tjek Nextcloud på https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Produktivitets platformen der giver dig fuld kontrol.\nDette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!\n\nBåde den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.</string>
     <string name="store_short_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.</string>
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
     <string name="stream">Stream med...</string>

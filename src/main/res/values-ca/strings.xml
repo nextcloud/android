@@ -240,7 +240,7 @@
     <string name="etm_title">Mode de proves d\'enginyeria</string>
     <string name="fab_label">Afegeix o carrega</string>
     <string name="failed_to_download">Ha fallat el lliurament del fitxer al gestor de descàrregues</string>
-    <string name="failed_to_print">Ha fallat imprimir el fitxer.</string>
+    <string name="failed_to_print">Ha fallat imprimir el fitxer</string>
     <string name="fallback_weblogin_back">Enrere</string>
     <string name="fallback_weblogin_text">Revertiu l\'antic mètode d\'inici de sessió</string>
     <string name="favorite">Afegix a preferits</string>
