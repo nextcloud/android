@@ -352,7 +352,7 @@
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
     <string name="logs_menu_send">Poslať záznamy e-mailom</string>
-    <string name="logs_status_loading">Načítava sa...</string>
+    <string name="logs_status_loading">Načítava sa…</string>
     <string name="logs_title">Záznamy</string>
     <string name="maintenance_mode">Server je v režime údržby</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
