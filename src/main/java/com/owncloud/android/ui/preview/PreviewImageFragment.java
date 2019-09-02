@@ -694,10 +694,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void setErrorPreviewMessage() {
         try {
             if (getActivity() != null) {
-                Snackbar.make(mMultiView, R.string.resized_image_not_possible_download, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_yes, v ->
-                                ((PreviewImageActivity) getActivity())
-                                        .requestForDownload(getFile())).show();
+                Snackbar.make(mMultiView,
+                              R.string.resized_image_not_possible_download,
+                              Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_yes, v -> {
+                                   PreviewImageActivity activity = (PreviewImageActivity) getActivity();
+                                   if (activity != null) {
+                                       activity.requestForDownload(getFile());
+                                   } else {
+                                       Snackbar.make(mMultiView,
+                                                     getResources().getString(R.string.could_not_download_image),
+                                                     Snackbar.LENGTH_INDEFINITE).show();
+                                   }
+                               }
+                    ).show();
             } else {
                 Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE).show();
             }
