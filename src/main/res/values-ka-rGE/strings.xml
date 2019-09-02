@@ -332,7 +332,6 @@
     <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_daily_contacts_sync_summary">კონტაქტების ყოველდღიური ბექაფი</string>
-    <string name="prefs_feedback">უკუკავშირი</string>
     <string name="prefs_gpl_v2">GNU ზოგადი ღია ლიცენზია, ვერსია 2</string>
     <string name="prefs_help">დახმარება</string>
     <string name="prefs_imprint">ბეჭედი</string>

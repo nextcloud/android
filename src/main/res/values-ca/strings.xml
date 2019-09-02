@@ -245,7 +245,6 @@
     <string name="fallback_weblogin_text">Revertiu l\'antic mètode d\'inici de sessió</string>
     <string name="favorite">Afegix a preferits</string>
     <string name="favorite_icon">Preferits</string>
-    <string name="feedback_no_mail_app">No hi ha cap aplicació disponible per enviar correus electrònics!</string>
     <string name="file_delete">Suprimeix</string>
     <string name="file_details_no_content">No s\'han pogut carregar els detalls</string>
     <string name="file_icon">Fitxer</string>
@@ -486,7 +485,6 @@
     <string name="prefs_e2e_no_device_credentials">Per mostrar els mnemònics, si us plau activeu les credencials del dispositiu.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notificacions de cerca de mitjans</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notifica sobre noves carpetes amb multimèdia</string>
-    <string name="prefs_feedback">Comentaris</string>
     <string name="prefs_gpl_v2">Llicència Pública General GNU, versió 2</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_imprint">Peu d\'impremta</string>

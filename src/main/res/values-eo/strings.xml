@@ -226,7 +226,6 @@
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>
     <string name="favorite">Aldoni al pliŝataĵoj</string>
     <string name="favorite_icon">Pliŝatataj</string>
-    <string name="feedback_no_mail_app">Neniu aplikaĵo disponeblas por sendi retmesaĝojn!</string>
     <string name="file_delete">Forigi</string>
     <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
     <string name="file_icon">Dosiero</string>
@@ -457,7 +456,6 @@
     <string name="prefs_e2e_no_device_credentials">Por montri memorigan helpilon, ŝalti uzon de akreditiloj sur via aparato.</string>
     <string name="prefs_enable_media_scan_notifications">Montri sciigoj pri aŭdvidaj dosierujoj</string>
     <string name="prefs_enable_media_scan_notifications_summary">Sciigi pri novaj aŭdvidaj dosierujoj trovitaj</string>
-    <string name="prefs_feedback">Prikomentado</string>
     <string name="prefs_gpl_v2">Ĝenerala Publika Permesilo, versio 2</string>
     <string name="prefs_help">Helpo</string>
     <string name="prefs_imprint">Informoj</string>

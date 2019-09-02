@@ -245,7 +245,6 @@
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
-    <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
     <string name="file_delete">Elimina</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
     <string name="file_icon">File</string>
@@ -486,7 +485,6 @@
     <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notifiche di scansione dei supporti</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notifica per le nuove cartelle multimediali trovate</string>
-    <string name="prefs_feedback">Segnalazioni</string>
     <string name="prefs_gpl_v2">GNU General Public License, versione 2</string>
     <string name="prefs_help">Aiuto</string>
     <string name="prefs_imprint">Imprint</string>

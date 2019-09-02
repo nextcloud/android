@@ -235,7 +235,6 @@
     <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
     <string name="favorite">Bæta í eftirlæti</string>
     <string name="favorite_icon">Eftirlæti</string>
-    <string name="feedback_no_mail_app">Ekkert forrit tiltækt til að senda póst!</string>
     <string name="file_delete">Eyða</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
     <string name="file_icon">Skrá</string>
@@ -466,7 +465,6 @@
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="prefs_enable_media_scan_notifications">Birta tilkynningar vegna skönnunar eftir margmiðlunarefni</string>
     <string name="prefs_enable_media_scan_notifications_summary">Láta vita um nýfundnar möppur með margmiðlunarefni</string>
-    <string name="prefs_feedback">Umsögn</string>
     <string name="prefs_gpl_v2">GNU General Public notkunarleyfið, útgáfa 2</string>
     <string name="prefs_help">Hjálp</string>
     <string name="prefs_imprint">Prenta</string>

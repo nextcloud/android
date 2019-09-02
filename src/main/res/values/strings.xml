@@ -55,7 +55,6 @@
     <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to friend</string>
-    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
 
     <string name="recommend_subject">Try %1$s on your device!</string>
@@ -527,7 +526,7 @@
     <string name="files_drop_not_supported">This is a Nextcloud feature, please upgrade.</string>
     <string name="learn_more">Learn more</string>
     <string name="drawer_synced_folders">Auto upload</string>
-    <string name="drawer_participate">Participate</string>
+    <string name="drawer_participate">Community</string>
     <string name="participate_testing_headline">Help by testing</string>
     <string name="participate_testing_bug_text">Found a bug? Oddments?</string>
     <string name="participate_testing_report_text">Report an issue on GitHub</string>
@@ -794,7 +793,6 @@
     <string name="new_media_folder_videos">video</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
-    <string name="feedback_no_mail_app">No app available to send mails!</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="action_empty_trashbin">Empty trashbin</string>

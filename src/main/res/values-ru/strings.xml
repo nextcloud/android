@@ -244,7 +244,6 @@
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
-    <string name="feedback_no_mail_app">Отсутствует приложение для работы с эл. почтой.</string>
     <string name="file_delete">Удалить</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
     <string name="file_icon">Файл</string>
@@ -485,7 +484,6 @@
     <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
     <string name="prefs_enable_media_scan_notifications">Показывать уведомления о сканировании медиафайлов</string>
     <string name="prefs_enable_media_scan_notifications_summary">Уведомлять о найденных новых каталогах с медиафайлами</string>
-    <string name="prefs_feedback">Обратная связь</string>
     <string name="prefs_gpl_v2">Открытое лицензионное соглашение GNU, версия 2</string>
     <string name="prefs_help">Помощь</string>
     <string name="prefs_imprint">Отпечаток</string>

@@ -245,7 +245,6 @@
     <string name="fallback_weblogin_text">Volver ao método de acceso antigo</string>
     <string name="favorite">Engadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="feedback_no_mail_app">Non hai ningún aplicativo para enviar correos!</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     <string name="file_icon">Ficheiro</string>
@@ -487,7 +486,6 @@
 </string>
     <string name="prefs_enable_media_scan_notifications">Amosar as notificacións de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar cando se atopen novos cartafoles de medios</string>
-    <string name="prefs_feedback">Comentarios</string>
     <string name="prefs_gpl_v2">GNU Licenza Pública Xeral, versión 2</string>
     <string name="prefs_help">Axuda</string>
     <string name="prefs_imprint">Editor</string>

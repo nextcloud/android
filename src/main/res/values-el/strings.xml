@@ -232,7 +232,6 @@
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="favorite_icon">Αγαπημένο</string>
-    <string name="feedback_no_mail_app">Δεν υπάρχει διαθέσιμη εφαρμογή για αποστολή αλληλογραφίας!</string>
     <string name="file_delete">Διαγραφή</string>
     <string name="file_details_no_content">Αποτυχία φόρτωσης λεπτομερειών</string>
     <string name="file_icon">Αρχείο</string>
@@ -449,7 +448,6 @@
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_enable_media_scan_notifications">  Εμφάνιση ειδοποιήσεων σάρωσης πολυμέσων</string>
     <string name="prefs_enable_media_scan_notifications_summary">Ειδοποιήστε για νέους φακέλους πολυμέσων</string>
-    <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_gpl_v2">Γενική Άδεια Δημόσιας Χρήσης GNU, έκδοση 2</string>
     <string name="prefs_help">Βοήθεια</string>
     <string name="prefs_imprint">Αποτύπωμα</string>

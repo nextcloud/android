@@ -243,7 +243,6 @@
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
-    <string name="feedback_no_mail_app">沒有應用程式可以傳送信件！</string>
     <string name="file_delete">刪除</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
@@ -480,7 +479,6 @@
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
-    <string name="prefs_feedback">回饋</string>
     <string name="prefs_gpl_v2">GNU產生公開授權，第2版</string>
     <string name="prefs_help">說明</string>
     <string name="prefs_imprint">法律聲明</string>

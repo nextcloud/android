@@ -261,7 +261,6 @@
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_daily_contacts_sync_summary">Igapäevane varundus sinu kontaktidest</string>
-    <string name="prefs_feedback">Tagasiside</string>
     <string name="prefs_gpl_v2">GNU General Public License, versioon 2</string>
     <string name="prefs_help">Abiinfo</string>
     <string name="prefs_imprint">Impressum</string>

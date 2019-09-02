@@ -392,7 +392,6 @@
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
-    <string name="prefs_feedback">Atsiliepimai</string>
     <string name="prefs_gpl_v2">GNU Bendroji Viešoji Licencija, versija 2</string>
     <string name="prefs_help">Pagalba</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus…</string>

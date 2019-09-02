@@ -245,7 +245,6 @@
     <string name="fallback_weblogin_text">Revert to old login method</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
-    <string name="feedback_no_mail_app">No app available to send mails!</string>
     <string name="file_delete">Delete</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="file_icon">File</string>
@@ -486,7 +485,6 @@
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
-    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_imprint">Imprint</string>

@@ -264,7 +264,6 @@
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>
-    <string name="prefs_feedback">Phản hồi</string>
     <string name="prefs_help">Giúp đỡ</string>
     <string name="prefs_imprint">Đánh dấu</string>
     <string name="prefs_lock_device_credentials_enabled">Bật chứng nhận thiết bị</string>
