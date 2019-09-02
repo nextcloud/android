@@ -99,6 +99,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final int END_REACHED = 0;
 
     private ActivityAndVersionListAdapter adapter;
     private Unbinder unbinder;
@@ -311,9 +312,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 GetActivitiesRemoteOperation getRemoteNotificationOperation;
 
                 if (lastGiven > 0) {
-                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId());
-                } else {
                     getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId(), lastGiven);
+                } else {
+                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId());
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
@@ -333,14 +334,19 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     final List<Object> data = result.getData();
                     final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
 
+                    this.lastGiven = (int) data.get(1);
+
+                    if (activitiesAndVersions.isEmpty()) {
+                        this.lastGiven = END_REACHED;
+                    }
+
                     if (restoreFileVersionSupported && versions != null) {
                         activitiesAndVersions.addAll(versions);
                     }
-                    this.lastGiven = (int) data.get(1);
 
                     activity.runOnUiThread(() -> {
                         populateList(activitiesAndVersions, lastGiven == -1);
-                        if (activitiesAndVersions.isEmpty()) {
+                        if (adapter.getItemCount() == 0) {
                             setEmptyContent(noResultsHeadline, noResultsMessage);
                             list.setVisibility(View.GONE);
                             empty.setVisibility(View.VISIBLE);
