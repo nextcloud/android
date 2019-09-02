@@ -698,7 +698,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                               R.string.resized_image_not_possible_download,
                               Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.common_yes, v -> {
-                                   PreviewImageActivity activity = ((PreviewImageActivity) getActivity());
+                                   PreviewImageActivity activity = (PreviewImageActivity) getActivity();
                                    if (activity != null) {
                                        activity.requestForDownload(getFile());
                                    } else {
