@@ -239,7 +239,6 @@
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
-    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání emailů!</string>
     <string name="file_delete">Smazat</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
@@ -470,7 +469,6 @@
     <string name="prefs_e2e_no_device_credentials">Pro zobrazení mnemotechnické, zapněte přihlašovací údaje zařízení.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazit oznámení skenování médií</string>
     <string name="prefs_enable_media_scan_notifications_summary">Oznamovat nalezení nových složek s médii</string>
-    <string name="prefs_feedback">Odezva</string>
     <string name="prefs_gpl_v2">GNU General Public License, verze 2</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_imprint">Imprint</string>

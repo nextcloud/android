@@ -246,7 +246,6 @@
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
     <string name="favorite_icon">Омиљени</string>
-    <string name="feedback_no_mail_app">Нема апликација за слање е-поште!</string>
     <string name="file_delete">Обриши</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
     <string name="file_icon">Фајл</string>
@@ -487,7 +486,6 @@
     <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
     <string name="prefs_enable_media_scan_notifications">Прикажи обавештења о скенирању мултимедије</string>
     <string name="prefs_enable_media_scan_notifications_summary">Обавештавај о новопронађеним мултимедијалним фасциклама</string>
-    <string name="prefs_feedback">Ваше мишљење</string>
     <string name="prefs_gpl_v2">ГНУ Општа Јавна Лиценца, верзија 2</string>
     <string name="prefs_help">Помоћ</string>
     <string name="prefs_imprint">Жиг</string>

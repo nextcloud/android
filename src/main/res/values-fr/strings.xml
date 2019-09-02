@@ -247,7 +247,6 @@ Attention la suppression est irréversible.</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
-    <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
@@ -488,7 +487,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="prefs_enable_media_scan_notifications">Afficher les notifications d\'analyse multimédia</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notifier les nouveaux dossiers multimédias trouvés</string>
-    <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_gpl_v2">Licence Publique Générale GNU, version 2</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_imprint">Mentions</string>

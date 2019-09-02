@@ -245,7 +245,6 @@
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
     <string name="favorite">Sık Kullanılanlara Ekle</string>
     <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
-    <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>
     <string name="file_delete">Sil</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
     <string name="file_icon">Dosya</string>
@@ -486,7 +485,6 @@
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
     <string name="prefs_enable_media_scan_notifications">Ortam tarama bildirimleri görüntülensin</string>
     <string name="prefs_enable_media_scan_notifications_summary">Yeni bulunan ortam klasörleri bildirilsin</string>
-    <string name="prefs_feedback">Geri bildirim</string>
     <string name="prefs_gpl_v2">GNU Genel Kamu Lisansı 2. Sürüm</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_imprint">İzlenim</string>

@@ -244,7 +244,6 @@
     <string name="fallback_weblogin_text">החזרה לשיטת כניסה ישנה</string>
     <string name="favorite">הוספה למועדפים</string>
     <string name="favorite_icon">סימון כמועדף</string>
-    <string name="feedback_no_mail_app">אין יישומון זמין לשליחת הודעות בדוא״ל!</string>
     <string name="file_delete">מחיקה</string>
     <string name="file_details_no_content">טעינת הפרטים נכשלה</string>
     <string name="file_icon">קובץ</string>
@@ -485,7 +484,6 @@
     <string name="prefs_e2e_no_device_credentials">על מנת להציג שינון, הפעל את אישורי המכשיר.</string>
     <string name="prefs_enable_media_scan_notifications">הצגת התראות על סריקת מדיה</string>
     <string name="prefs_enable_media_scan_notifications_summary">הצגת התראות על תיקיות מדיה חדשות שנמצאו</string>
-    <string name="prefs_feedback">משוב</string>
     <string name="prefs_gpl_v2">הרישיון הציבורי הכללי של GNU, גרסה 2</string>
     <string name="prefs_help">עזרה</string>
     <string name="prefs_imprint">חותמת</string>

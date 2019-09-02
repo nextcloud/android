@@ -339,7 +339,6 @@
     <string name="prefs_daily_contacts_sync_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_enable_media_scan_notifications">Afișează notificări despre scanarea media</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notifică despre dosare media noi găsite</string>
-    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_help">Ajutor</string>
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Fișierul original va fi…</string>

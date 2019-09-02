@@ -226,7 +226,6 @@
     <string name="fallback_weblogin_text">Volver al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="feedback_no_mail_app">No hay aplicación disponible para enviar correos!</string>
     <string name="file_delete">Borrar</string>
     <string name="file_details_no_content">Error al cargar los detalles</string>
     <string name="file_icon">Archivo</string>
@@ -457,7 +456,6 @@
     <string name="prefs_e2e_no_device_credentials">Para mostrar mnemónico por favor habilite las credenciales del dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificaciones de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre las nuevas carpetas de medios encontradas</string>
-    <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_gpl_v2">Licencia pública general de GNU, versión 2</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_imprint">Exención de responsabilidad </string>
