@@ -240,6 +240,7 @@
     <string name="etm_title">Engineering Testmodus</string>
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
+    <string name="failed_to_print">Kon bestand niet afdrukken</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>
