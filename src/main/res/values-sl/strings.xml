@@ -3,6 +3,7 @@
     <string name="about_android">%1$s za Android</string>
     <string name="about_title">O projektu</string>
     <string name="about_version">različica %1$s</string>
+    <string name="about_version_with_build">različica %1$s, izgradnja #%2$s</string>
     <string name="account_creation_failed">Ustvarjanje računa je spodletelo</string>
     <string name="account_icon">ikona računa</string>
     <string name="account_not_found">Računa ni mogoče najti!</string>
@@ -77,11 +78,13 @@
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
     <string name="autoupload_create_new_custom_folder">Ustvari novo nastavitveno mapo po meri</string>
     <string name="autoupload_custom_folder">Nastavitev mape po meri</string>
+    <string name="autoupload_disable_power_save_check">Onemogoči preverjanje porabe energije</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
+    <string name="changelog_dev_version">Dnevnik razvojne različice</string>
     <string name="choose_local_folder">Izberi krajevno mapo ...</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo ...</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
@@ -130,10 +133,12 @@
     <string name="contacts_preference_choose_date">Izberi datum</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
+    <string name="copied_to_clipboard">Kopirano v odložišče</string>
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
     <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
+    <string name="copy_internal_link">Kopiraj krajevno povezavo</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_to">Kopiraj v ...</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
@@ -205,10 +210,13 @@
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
     <string name="error_comment_file">Napaka dodajanja opombe k datoteki</string>
+    <string name="error_report_issue_action">Poročilo</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
+    <string name="etm_preferences">Nastavitve</string>
     <string name="fab_label">Dodaj ali pošlji</string>
+    <string name="fallback_weblogin_back">Nazaj</string>
     <string name="fallback_weblogin_text">Povrni na star način prijave</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
@@ -274,6 +282,7 @@
     <string name="filename_forbidden_characters">Nedovoljeni znaki: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_hint">Ime datoteke</string>
+    <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
     <string name="folder_icon">Ikona mape</string>
     <string name="folder_list_empty_headline">Ni map</string>
@@ -291,6 +300,7 @@
     <string name="foreign_files_move">Premakni vse</string>
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="foreign_files_success">Vse datoteke so premaknjene</string>
+    <string name="forward">Naprej</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Opomba</string>
     <string name="hint_password">Geslo</string>
@@ -308,6 +318,9 @@
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
     <string name="login">Prijava</string>
+    <string name="logs_menu_refresh">Osveži</string>
+    <string name="logs_status_loading">Poteka nalaganje…</string>
+    <string name="logs_title">Dnevniki</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
@@ -333,6 +346,7 @@
     <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preveri, ali obstaja.</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
     <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv</string>
+    <string name="note_confirm">Pošlji</string>
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
