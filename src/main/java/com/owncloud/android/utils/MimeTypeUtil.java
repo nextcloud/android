@@ -192,7 +192,10 @@ public final class MimeTypeUtil {
      * @return A single MIME type, "application/octet-stream" for unknown file extensions.
      */
     public static String getBestMimeTypeByFilename(String filename) {
-        List<String> candidates = determineMimeTypesByFilename(filename);
+        return getMimeTypeFromCandidates(determineMimeTypesByFilename(filename));
+    }
+
+    private static String getMimeTypeFromCandidates(List<String> candidates) {
         if (candidates == null || candidates.size() < 1) {
             return "application/octet-stream";
         }
@@ -372,15 +375,23 @@ public final class MimeTypeUtil {
      * @return list of possible mime types (ordered), empty list in case no mime types found
      */
     private static List<String> determineMimeTypesByFilename(String filename) {
-        String fileExtension = getExtension(filename);
+        return determineMimeTypesByExtension(getExtension(filename));
+    }
 
+    /**
+     * determines the list of possible mime types for the given file, based on its extension.
+     *
+     * @param extension the file extension
+     * @return list of possible mime types (ordered), empty list in case no mime types found
+     */
+    private static List<String> determineMimeTypesByExtension(String extension) {
         // try detecting the mimetype based on the web app logic equivalent
-        List<String> mimeTypeList = FILE_EXTENSION_TO_MIMETYPE_MAPPING.get(fileExtension);
+        List<String> mimeTypeList = FILE_EXTENSION_TO_MIMETYPE_MAPPING.get(extension);
         if (mimeTypeList != null && mimeTypeList.size() > 0) {
             return mimeTypeList;
         } else {
             // try detecting the mime type via android itself
-            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
             if (mimeType != null) {
                 return Collections.singletonList(mimeType);
             } else {
@@ -393,9 +404,17 @@ public final class MimeTypeUtil {
         String extension = "";
         int pos = path.lastIndexOf('.');
         if (pos >= 0) {
-            extension = path.substring(pos + 1);
+            extension = path.substring(pos + 1).toLowerCase(Locale.ROOT);
         }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
+
+        // Ask OS for mimetype
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
+        // fallback to Nc mimetype mapping
+        if (result == null) {
+            result = getMimeTypeFromCandidates(determineMimeTypesByExtension(extension));
+        }
+
         return (result != null) ? result : "";
     }
 
@@ -622,7 +641,7 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("ldif", Collections.singletonList("text/x-ldif"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("love", Collections.singletonList("application/x-love-game"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("lwp", Collections.singletonList("application/vnd.lotus-wordpro"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m", Collections.singletonList("text/plain"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m", Arrays.asList("text/x-matlab", "text/plain"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m2t", Collections.singletonList("video/mp2t"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m3u", Collections.singletonList("audio/mpegurl"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m3u8", Collections.singletonList("audio/mpegurl"));
