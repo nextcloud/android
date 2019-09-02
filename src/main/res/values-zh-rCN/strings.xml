@@ -240,6 +240,7 @@
     <string name="etm_title">工程测试模式</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
+    <string name="failed_to_print">打印文件已失败</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
     <string name="favorite">添加到收藏列表</string>
