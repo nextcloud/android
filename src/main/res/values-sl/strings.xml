@@ -594,7 +594,7 @@
     <string name="user_info_address">Naslov</string>
     <string name="user_info_email">E-pošta</string>
     <string name="user_info_phone">Telefonska številka</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">Račun Twitter</string>
     <string name="user_info_website">Spletna stran</string>
     <string name="userinfo_no_info_headline">Osebni podatki še niso vpisani</string>
     <string name="username">Uporabniško ime</string>
