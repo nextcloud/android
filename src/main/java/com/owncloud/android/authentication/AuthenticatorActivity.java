@@ -656,7 +656,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
         if (savedInstanceState == null) {
             if (mAccount != null) {
-                mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
+                String baseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
+                if (TextUtils.isEmpty(baseUrl)) {
+                    mServerInfo.mBaseUrl = "";
+                } else {
+                    mServerInfo.mBaseUrl = baseUrl;
+                }
                 // TODO do next in a setter for mBaseUrl
                 mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
                 mServerInfo.mVersion = accountManager.getServerVersion(mAccount);
