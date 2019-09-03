@@ -244,6 +244,7 @@
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
+    <string name="feedback_no_mail_app">Ingen app finns att skicka e-post!</string>
     <string name="file_delete">Radera</string>
     <string name="file_details_no_content">Kunde inte ladda detaljer</string>
     <string name="file_icon">Fil</string>
@@ -483,6 +484,7 @@
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_enable_media_scan_notifications">Visa meddelanden om mediescanning</string>
     <string name="prefs_enable_media_scan_notifications_summary">Meddela om nya media-mappar</string>
+    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">Hjälp</string>
     <string name="prefs_imprint">Imprint</string>

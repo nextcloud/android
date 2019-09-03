@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
     <string name="favorite">添加到收藏列表</string>
     <string name="favorite_icon">收藏</string>
+    <string name="feedback_no_mail_app">没有可用的用于发送邮件的应用！</string>
     <string name="file_delete">删除</string>
     <string name="file_details_no_content">加载详情失败</string>
     <string name="file_icon">文件</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="prefs_enable_media_scan_notifications">显示媒体扫描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">有关于新发现的媒体文件夹的通知</string>
+    <string name="prefs_feedback">反馈</string>
     <string name="prefs_gpl_v2">GNU 通用公共许可证，版本2</string>
     <string name="prefs_help">帮助</string>
     <string name="prefs_imprint">版本说明</string>

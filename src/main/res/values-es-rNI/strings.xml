@@ -272,6 +272,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_daily_contacts_sync_summary">Respaldo diario de tus contactos</string>
+    <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_gpl_v2">GNU Licencia Pública General, versión 2</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_imprint">Excención de responsabilidad </string>

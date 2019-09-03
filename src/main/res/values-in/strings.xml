@@ -365,6 +365,7 @@
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_daily_contacts_sync_summary">Cadangkan kontak harian</string>
+    <string name="prefs_feedback">Umpan balik</string>
     <string name="prefs_help">Bantuan</string>
     <string name="prefs_imprint">Jejak</string>
     <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi…</string>

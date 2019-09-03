@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
+    <string name="feedback_no_mail_app">Brak aplikacji do wysyłania wiadomości!</string>
     <string name="file_delete">Usuń</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="file_icon">Plik</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">Aby pokazać mnemonik włącz poświadczenia urządzenia.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaż powiadomienia o skanowaniu multimediów</string>
     <string name="prefs_enable_media_scan_notifications_summary">Powiadamiaj o nowo znalezionych katalogach multimedialnych</string>
+    <string name="prefs_feedback">Opinie</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_imprint">Stopka</string>

@@ -244,6 +244,7 @@
     <string name="fallback_weblogin_text">Vrati na stari način prijave</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="feedback_no_mail_app">Nema dostupnih aplikacija za slanje poruka e-pošte!</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_details_no_content">Učitavanje pojedinosti nije uspjelo</string>
     <string name="file_icon">Datoteka</string>
@@ -484,6 +485,7 @@
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
     <string name="prefs_enable_media_scan_notifications">Prikaži obavijesti o skeniranju medija</string>
     <string name="prefs_enable_media_scan_notifications_summary">Obavijesti o novootkrivenim medijskim mapama</string>
+    <string name="prefs_feedback">Pošalji povratnu informaciju</string>
     <string name="prefs_gpl_v2">Opća javna licenca za GNU, verzija 2.</string>
     <string name="prefs_help">Pomoć</string>
     <string name="prefs_imprint">Bilješke o izdanju</string>
