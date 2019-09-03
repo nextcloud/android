@@ -9,6 +9,6 @@
 - show sharees in list view
 - bugfixes found by RC1
 - fix reloading in activity stream
-- lots of bugfixes and refinements under the hood to provide an even more stable app
+- lots of bugfixes and refinements
 
 For a full list, please see https://github.com/nextcloud/android/milestone/35
