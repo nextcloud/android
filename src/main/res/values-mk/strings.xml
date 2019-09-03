@@ -244,6 +244,7 @@
     <string name="fallback_weblogin_text">Врти се на стариот начин на за најавување</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
+    <string name="feedback_no_mail_app">Нема достапна апликација за испраќање пораки преку е-пошта!</string>
     <string name="file_delete">Избриши</string>
     <string name="file_details_no_content">Неуспешно вчитување на деталите</string>
     <string name="file_icon">Датотека</string>
@@ -484,6 +485,7 @@
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Прикажи известување за медиуми</string>
     <string name="prefs_enable_media_scan_notifications_summary">Известува за нови пронајдени папки што содржат податоци</string>
+    <string name="prefs_feedback">Повратен одговор</string>
     <string name="prefs_gpl_v2">GNU Општа јавна лиценца, верзија 2</string>
     <string name="prefs_help">Помош</string>
     <string name="prefs_imprint">Печат</string>

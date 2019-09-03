@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">Voltar ao antigo método de login</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>
     <string name="file_delete">Excluir</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Arquivo</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Exibir notificações de varredura de mídia</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre pastas de mídia recém-encontradas</string>
+    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_gpl_v2">GNU Licença Pública Geral, version 2</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_imprint">Imprimir</string>

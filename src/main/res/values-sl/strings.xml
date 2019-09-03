@@ -220,6 +220,7 @@
     <string name="fallback_weblogin_text">Povrni na star način prijave</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
+    <string name="feedback_no_mail_app">Program za pošiljanje elektronskih sporočil ni določen!</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_details_no_content">Nalaganje podrobnosti je spodletelo.</string>
     <string name="file_icon">Datoteka</string>
@@ -389,6 +390,7 @@
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_enable_media_scan_notifications_summary">Obvesti o na novo zaznanih mapah s predstavno vsebino</string>
+    <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_gpl_v2">Splošno Javno dovoljenje GNU GPL, različice 2</string>
     <string name="prefs_help">Pomoč</string>
     <string name="prefs_imprint">Natis</string>

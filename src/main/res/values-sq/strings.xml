@@ -244,6 +244,7 @@
     <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>
     <string name="favorite_icon">E parapëlqyer</string>
+    <string name="feedback_no_mail_app">Nuk ka asnjë aplikacion në dispozicion për të dërguar mesazhe!</string>
     <string name="file_delete">Fshini</string>
     <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>
     <string name="file_icon">Skedar </string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
     <string name="prefs_enable_media_scan_notifications">Shfaqni njoftimet e skanimit të medias</string>
     <string name="prefs_enable_media_scan_notifications_summary">Njoftoni për dosjet e mediave të sapo gjetura</string>
+    <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_gpl_v2">GNU General Public License, versioni 2</string>
     <string name="prefs_help">Ndihmë</string>
     <string name="prefs_imprint">Imprint</string>

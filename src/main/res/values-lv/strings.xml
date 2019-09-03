@@ -337,6 +337,7 @@
     <string name="prefs_daily_contacts_sync_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
+    <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_help">Palīdzība</string>
     <string name="prefs_imprint">Importēt</string>
     <string name="prefs_instant_behaviour_dialogTitle">Orģinālā datne būs…</string>

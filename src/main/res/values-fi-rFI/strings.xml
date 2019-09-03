@@ -243,6 +243,7 @@
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
+    <string name="feedback_no_mail_app">Sovellusta ei löydy sähköpostin lähettämiseen!</string>
     <string name="file_delete">Poista</string>
     <string name="file_details_no_content">Lisätietoja ei voitu lataa.</string>
     <string name="file_icon">Tiedosto</string>
@@ -483,6 +484,7 @@
     <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää mnemonisen, ota käyttöön laitteen valtuudet.</string>
     <string name="prefs_enable_media_scan_notifications">Näytä mediakartoituksen ilmoitukset</string>
     <string name="prefs_enable_media_scan_notifications_summary">Ilmoita uusista löydetyistä mediakansioista</string>
+    <string name="prefs_feedback">Palaute</string>
     <string name="prefs_gpl_v2">
 GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_help">Ohje</string>

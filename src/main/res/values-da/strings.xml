@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">Tilbage til foregående login metode</string>
     <string name="favorite">Tilføj til favoritter</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="feedback_no_mail_app">Ingen app tilgængelig til afsendelse af mails!</string>
     <string name="file_delete">Slet</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
     <string name="file_icon">Fil</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificer om nyfundne media mapper</string>
+    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_gpl_v2">GNU General Public License, Version 2</string>
     <string name="prefs_help">Hjælp</string>
     <string name="prefs_imprint">Aftryk</string>

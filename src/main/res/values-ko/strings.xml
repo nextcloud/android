@@ -212,6 +212,7 @@
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
     <string name="favorite">즐겨찾기에 추가</string>
     <string name="favorite_icon">즐겨찾기</string>
+    <string name="feedback_no_mail_app">메일을 보내기 위한 앱이 없습니다!</string>
     <string name="file_delete">삭제</string>
     <string name="file_details_no_content">자세한 정보를 불러오는데 실패했습니다.</string>
     <string name="file_icon">파일</string>
@@ -423,6 +424,7 @@
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_daily_contacts_sync_summary">연락처 일간 백업</string>
     <string name="prefs_enable_media_scan_notifications_summary">새로 발견된 미디어 폴더 알림</string>
+    <string name="prefs_feedback">피드백</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">도움말</string>
     <string name="prefs_imprint">법적 고지</string>

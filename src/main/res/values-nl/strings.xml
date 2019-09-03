@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>
     <string name="favorite_icon">Favoriet</string>
+    <string name="feedback_no_mail_app">Geen app beschikbaar voor versturen mail!</string>
     <string name="file_delete">Verwijderen</string>
     <string name="file_details_no_content">Kon details niet laden</string>
     <string name="file_icon">Bestand</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">Om de mnemonic te tonen moet je apparaatinloggegevens inschakelen.</string>
     <string name="prefs_enable_media_scan_notifications">Tonen mediascan meldingen</string>
     <string name="prefs_enable_media_scan_notifications_summary">Melden van nieuw gevonden mediamappen</string>
+    <string name="prefs_feedback">Feedback</string>
     <string name="prefs_gpl_v2">GNU General Public Licence, versie 2</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_imprint">Afdruk</string>

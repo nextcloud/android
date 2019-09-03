@@ -229,6 +229,7 @@
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
     <string name="favorite">Legg til i favoritter</string>
     <string name="favorite_icon">Favoritt</string>
+    <string name="feedback_no_mail_app">Ingen app tilgjengelig for å sende e-post!</string>
     <string name="file_delete">Slett</string>
     <string name="file_details_no_content">Klarte ikke å laste inn detaljer</string>
     <string name="file_icon">Fil</string>
@@ -462,6 +463,7 @@
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
     <string name="prefs_enable_media_scan_notifications">Vis mediaskannvarsler</string>
     <string name="prefs_enable_media_scan_notifications_summary">Varsle om nye mediamapper</string>
+    <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_gpl_v2">GNU General Public Lisens, versjon 2</string>
     <string name="prefs_help">Hjelp</string>
     <string name="prefs_imprint">Avtrykk</string>

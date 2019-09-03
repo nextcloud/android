@@ -245,6 +245,7 @@
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
     <string name="favorite_icon">Kedvenc</string>
+    <string name="feedback_no_mail_app">Nincs elérhető alkalmazás e-mail küldéséhez!</string>
     <string name="file_delete">Törlés</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
     <string name="file_icon">Fájl</string>
@@ -485,6 +486,7 @@
     <string name="prefs_e2e_no_device_credentials">A mnenomikus kód megjelenítéséhez engedélyezze az eszköz hitelesítését.</string>
     <string name="prefs_enable_media_scan_notifications">Média keresési értesítések megjelenítése</string>
     <string name="prefs_enable_media_scan_notifications_summary">Értesítés az újonnan talált médiamappákról</string>
+    <string name="prefs_feedback">Visszajelzés</string>
     <string name="prefs_gpl_v2">GNU General Public License, 2-es verzió</string>
     <string name="prefs_help">Súgó</string>
     <string name="prefs_imprint">Impresszum</string>

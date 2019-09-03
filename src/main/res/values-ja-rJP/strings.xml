@@ -241,6 +241,7 @@
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
+    <string name="feedback_no_mail_app">メールを送信するアプリはありません！</string>
     <string name="file_delete">削除</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
     <string name="file_icon">ファイル</string>
@@ -473,6 +474,7 @@
     <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
     <string name="prefs_enable_media_scan_notifications">メディアのスキャン結果通知を表示する</string>
     <string name="prefs_enable_media_scan_notifications_summary">新たに見つかったメディアフォルダを通知する</string>
+    <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
     <string name="prefs_help">ヘルプ</string>
     <string name="prefs_imprint">インプリント</string>
