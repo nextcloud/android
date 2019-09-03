@@ -323,8 +323,6 @@ public class SettingsActivity extends PreferenceActivity
 
         setupRecommendPreference(preferenceCategoryMore);
 
-        setupFeedbackPreference(appVersion, preferenceCategoryMore);
-
         setupLoggingPreference(preferenceCategoryMore);
 
         setupImprintPreference(preferenceCategoryMore);
@@ -372,31 +370,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupFeedbackPreference(String appVersion, PreferenceCategory preferenceCategoryMore) {
-        boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
-        Preference pFeedback = findPreference("feedback");
-        if (pFeedback != null) {
-            if (feedbackEnabled) {
-                pFeedback.setOnPreferenceClickListener(preference -> {
-                    String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "", null));
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_feedback)});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    } else {
-                        DisplayUtils.showSnackMessage(this, R.string.feedback_no_mail_app);
-                    }
-
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pFeedback);
-            }
-        }
-    }
 
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
