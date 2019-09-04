@@ -38,62 +38,62 @@ import com.owncloud.android.utils.ThemeUtils;
 /**
  * Activity providing information about ways to participate in the app's development.
  */
-public class ParticipateActivity extends FileActivity {
+public class CommunityActivity extends FileActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.participate_layout);
+        setContentView(R.layout.community_layout);
 
         // setup toolbar
         setupToolbar();
 
         // setup drawer
-        setupDrawer(R.id.nav_participate);
+        setupDrawer(R.id.nav_community);
 
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.drawer_participate, this);
+        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.drawer_community, this);
 
         setupContent();
     }
 
     private void setupContent() {
-        TextView rcView = findViewById(R.id.participate_release_candidate_text);
+        TextView rcView = findViewById(R.id.community_release_candidate_text);
         rcView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView contributeIrcView = findViewById(R.id.participate_contribute_irc_text);
+        TextView contributeIrcView = findViewById(R.id.community_contribute_irc_text);
         contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeIrcView.setText(Html.fromHtml(getString(R.string.participate_contribute_irc_text) + " " +
-                getString(R.string.participate_contribute_irc_text_link,
+        contributeIrcView.setText(Html.fromHtml(getString(R.string.community_contribute_irc_text) + " " +
+                                                    getString(R.string.community_contribute_irc_text_link,
                         ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
                         getString(R.string.irc_weblink))));
 
-        TextView contributeForumView = findViewById(R.id.participate_contribute_forum_text);
+        TextView contributeForumView = findViewById(R.id.community_contribute_forum_text);
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeForumView.setText(Html.fromHtml(getString(R.string.participate_contribute_forum_text) + " " +
-                getString(R.string.participate_contribute_forum_text_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
-                        getString(R.string.help_link), getString(R.string.participate_contribute_forum_forum))));
+        contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
+                                                      getString(R.string.community_contribute_forum_text_link,
+                                                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                                                                getString(R.string.help_link), getString(R.string.community_contribute_forum_forum))));
 
-        TextView contributeTranslationView = findViewById(R.id.participate_contribute_translate_text);
+        TextView contributeTranslationView = findViewById(R.id.community_contribute_translate_text);
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_translate_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
-                        getString(R.string.translation_link),
-                        getString(R.string.participate_contribute_translate_translate)) + " " +
-                        getString(R.string.participate_contribute_translate_text)));
+            getString(R.string.community_contribute_translate_link,
+                      ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                      getString(R.string.translation_link),
+                      getString(R.string.community_contribute_translate_translate)) + " " +
+                getString(R.string.community_contribute_translate_text)));
 
-        TextView contributeGithubView = findViewById(R.id.participate_contribute_github_text);
+        TextView contributeGithubView = findViewById(R.id.community_contribute_github_text);
         contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeGithubView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_github_text,
-                        getString(R.string.participate_contribute_github_text_link,
+            getString(R.string.community_contribute_github_text,
+                      getString(R.string.community_contribute_github_text_link,
                                 ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
                                 getString(R.string.contributing_link)))));
 
-        MaterialButton reportButton = findViewById(R.id.participate_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
+        MaterialButton reportButton = findViewById(R.id.community_testing_report);
+        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }
 
@@ -146,6 +146,6 @@ public class ParticipateActivity extends FileActivity {
     protected void onResume() {
         super.onResume();
 
-        setDrawerMenuItemChecked(R.id.nav_participate);
+        setDrawerMenuItemChecked(R.id.nav_community);
     }
 }
