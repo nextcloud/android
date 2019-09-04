@@ -122,7 +122,7 @@
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.NotificationsActivity"/>
-        <activity android:name=".ui.activity.ParticipateActivity" />
+        <activity android:name=".ui.activity.CommunityActivity" />
         <activity android:name=".ui.activities.ActivitiesActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".ui.activity.SyncedFoldersActivity"/>
