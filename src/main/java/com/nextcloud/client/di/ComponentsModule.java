@@ -37,6 +37,7 @@ import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.CommunityActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -49,7 +50,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
-import com.owncloud.android.ui.activity.ParticipateActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -107,7 +107,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
-    @ContributesAndroidInjector abstract ParticipateActivity participateActivity();
+
+    @ContributesAndroidInjector
+    abstract CommunityActivity participateActivity();
     @ContributesAndroidInjector abstract PassCodeActivity passCodeActivity();
     @ContributesAndroidInjector abstract PreviewImageActivity previewImageActivity();
     @ContributesAndroidInjector abstract PreviewVideoActivity previewVideoActivity();
