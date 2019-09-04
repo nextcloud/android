@@ -482,7 +482,7 @@ public class FileContentProvider extends ContentProvider {
             case ROOT_DIRECTORY:
                 break;
             case DIRECTORY:
-                if (uri.getPathSegments().size() > 1) {
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
                     sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "=" + uri.getPathSegments().get(1));
                 }
                 break;
