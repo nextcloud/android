@@ -151,6 +151,7 @@
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
+    <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_url">No se ha podido encontrar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_file_from_template">Creando archivo desde la plantilla…</string>
@@ -240,6 +241,7 @@
     <string name="etm_title">Engineering Test</string>
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
+    <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
     <string name="favorite">Añadir a favoritos</string>
