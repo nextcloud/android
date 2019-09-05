@@ -151,6 +151,7 @@
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya Kopyala…</string>
+    <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_file_from_template">Kalıptan dosya oluşturuluyor…</string>
@@ -531,7 +532,7 @@
     <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok.</string>
-    <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
+    <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
     <string name="restore">Dosyayı geri yükle</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
     <string name="retrieving_file">Dosya alınıyor…</string>
