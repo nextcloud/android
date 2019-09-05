@@ -172,7 +172,8 @@ public final class FileStorageUtils {
             subPath = getSubPathFromDate(dateTaken, current);
         }
 
-        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+        /* Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file. */
+        return (remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName)).replaceAll(OCFile.PATH_SEPARATOR + "+", OCFile.PATH_SEPARATOR);
     }
 
 
