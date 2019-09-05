@@ -151,6 +151,7 @@
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
     <string name="copy_to">Copiar en…</string>
+    <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
     <string name="create_file_from_template">Creando o ficheiro dende un modelo…</string>

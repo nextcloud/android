@@ -141,6 +141,7 @@
     <string name="copy_internal_link">Kopiraj krajevno povezavo</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_to">Kopiraj v ...</string>
+    <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_file_from_template">Poteka ustvarjanje dokumenta iz predloge ...</string>
     <string name="create_new_document">Ustvari nov dokument</string>

@@ -151,6 +151,7 @@
     <string name="copy_link">Copy link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="copy_to">Copy to…</string>
+    <string name="could_not_download_image">Could not download full image</string>
     <string name="could_not_retrieve_url">Could not retrieve url</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_file_from_template">Creating file from template…</string>
