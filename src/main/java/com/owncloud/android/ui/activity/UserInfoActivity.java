@@ -26,11 +26,8 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -52,12 +49,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.gson.Gson;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.PushConfigurationState;
+import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -68,7 +65,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
@@ -100,9 +96,6 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
     private static final String KEY_USER_DATA = "USER_DATA";
-    private static final String KEY_DIRECT_REMOVE = "DIRECT_REMOVE";
-
-    private static final int KEY_DELETE_CODE = 101;
 
     @BindView(R.id.empty_list_view) protected LinearLayout emptyContentContainer;
     @BindView(R.id.empty_list_view_text) protected TextView emptyContentMessage;
@@ -179,7 +172,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
                 onBackPressed();
                 break;
             case R.id.delete_account:
-                openAccountRemovalConfirmationDialog(account, getSupportFragmentManager(), false);
+                openAccountRemovalConfirmationDialog(account, getSupportFragmentManager());
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -309,10 +302,9 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager,
-                                                            boolean removeDirectly) {
+    public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager) {
         UserInfoActivity.AccountRemovalConfirmationDialog dialog =
-                UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(account, removeDirectly);
+            UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(account);
         dialog.show(fragmentManager, "dialog");
     }
 
@@ -320,11 +312,9 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
         private Account account;
 
-        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(Account account,
-                                                                                    boolean removeDirectly) {
+        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(Account account) {
             Bundle bundle = new Bundle();
             bundle.putParcelable(KEY_ACCOUNT, account);
-            bundle.putBoolean(KEY_DIRECT_REMOVE, removeDirectly);
 
             UserInfoActivity.AccountRemovalConfirmationDialog dialog = new
                     UserInfoActivity.AccountRemovalConfirmationDialog();
@@ -354,59 +344,22 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final boolean removeDirectly = getArguments().getBoolean(KEY_DIRECT_REMOVE);
             return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
                     .setTitle(R.string.delete_account)
                     .setMessage(getResources().getString(R.string.delete_account_warning, account.name))
                     .setIcon(R.drawable.ic_warning)
                     .setPositiveButton(R.string.common_ok,
                             (dialogInterface, i) -> {
-                                // remove contact backup job
-                                ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
+                                // schedule job
+                                PersistableBundleCompat bundle = new PersistableBundleCompat();
+                                bundle.putString(AccountRemovalJob.ACCOUNT, account.name);
 
-                                ContentResolver contentResolver = getActivity().getContentResolver();
-
-                                // disable daily backup
-                                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                        contentResolver);
-
-                                arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
-                                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
-                                        "false");
-
-                                String arbitraryDataPushString;
-
-                                if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
-                                        account, PushUtils.KEY_PUSH)) &&
-                                        !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
-                                    Gson gson = new Gson();
-                                    PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
-                                            PushConfigurationState.class);
-                                    pushArbitraryData.setShouldBeDeleted(true);
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
-                                            gson.toJson(pushArbitraryData));
-                                    EventBus.getDefault().post(new TokenPushEvent());
-                                }
-
-
-                                if (getActivity() != null && !removeDirectly) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
-                                    Intent intent = new Intent();
-                                    intent.putExtras(bundle);
-                                    getActivity().setResult(KEY_DELETE_CODE, intent);
-                                    getActivity().finish();
-                                } else {
-                                    AccountManager am = (AccountManager) getActivity()
-                                            .getSystemService(ACCOUNT_SERVICE);
-
-                                    am.removeAccount(account, null, null);
-
-                                    Intent start = new Intent(getActivity(), FileDisplayActivity.class);
-                                    start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(start);
-                                }
-
+                                new JobRequest.Builder(AccountRemovalJob.TAG)
+                                    .startNow()
+                                    .setExtras(bundle)
+                                    .setUpdateCurrent(false)
+                                    .build()
+                                    .schedule();
                             })
                     .setNegativeButton(R.string.common_cancel, null)
                     .create();

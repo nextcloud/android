@@ -186,9 +186,11 @@ public class FileContentProvider extends ContentProvider {
             children.close();
         }
 
-        count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                           ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
-                               + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+        if (uri.getPathSegments().size() > 1) {
+            count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                               ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
+                                   + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+        }
 
         return count;
     }
@@ -203,9 +205,13 @@ public class FileContentProvider extends ContentProvider {
             }
             Log_OC.d(TAG, "Removing FILE " + remoteId);
 
-            count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                              ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
-                                  + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+            if (remoteId == null) {
+                return 0;
+            } else {
+                count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                                  ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
+                                      + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+            }
         } catch (Exception e) {
             Log_OC.d(TAG, "DB-Error removing file!", e);
         } finally {
@@ -476,7 +482,9 @@ public class FileContentProvider extends ContentProvider {
             case ROOT_DIRECTORY:
                 break;
             case DIRECTORY:
-                sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "=" + uri.getPathSegments().get(1));
+                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
+                    sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "=" + uri.getPathSegments().get(1));
+                }
                 break;
             case SINGLE_FILE:
                 if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {

@@ -2268,15 +2268,15 @@ public class FileDataStorageManager {
     }
 
     public void deleteAllFiles() {
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-        String[] whereArgs = new String[]{account.name};
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "= ? AND " +
+            ProviderTableMeta.FILE_PATH + "= ?";
+        String[] whereArgs = new String[]{account.name, OCFile.ROOT_PATH};
 
         if (getContentResolver() != null) {
-            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
-
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_DIR, where, whereArgs);
         } else {
             try {
-                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_DIR, where, whereArgs);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Exception in deleteAllFiles for account " + account.name + ": " + e.getMessage(), e);
             }

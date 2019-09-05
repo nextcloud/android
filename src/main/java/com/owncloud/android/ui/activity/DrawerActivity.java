@@ -496,7 +496,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             case R.id.nav_logout:
                 mCheckedMenuItem = -1;
                 menuItem.setChecked(false);
-                UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager(), true);
+                UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager());
                 break;
             case R.id.nav_shared:
                 handleSearchEvents(new SearchEvent("",
@@ -1427,6 +1427,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAccountRemovedEvent(AccountRemovedEvent event) {
         updateAccountList();
+
+        restart();
     }
 
     /**
