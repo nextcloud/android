@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +51,20 @@ public class PhotoFragment extends OCFileListFragment {
     private boolean photoSearchQueryRunning = false;
     private boolean photoSearchNoNew = false;
     private SearchRemoteOperation searchRemoteOperation;
+    private AsyncTask photoSearchTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (photoSearchTask != null) {
+            photoSearchTask.cancel(true);
+        }
     }
 
     /**
@@ -138,11 +149,11 @@ public class PhotoFragment extends OCFileListFragment {
 
     private void searchAndDisplay() {
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
-            new PhotoSearchTask(getColumnsCount(),
-                                this,
-                                accountManager.getCurrentAccount(),
-                                searchRemoteOperation,
-                                mContainerActivity.getStorageManager())
+            photoSearchTask = new PhotoSearchTask(getColumnsCount(),
+                                                  this,
+                                                  accountManager.getCurrentAccount(),
+                                                  searchRemoteOperation,
+                                                  mContainerActivity.getStorageManager())
                 .execute();
         }
     }

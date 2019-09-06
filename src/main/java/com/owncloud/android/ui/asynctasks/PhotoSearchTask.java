@@ -87,7 +87,11 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
             searchRemoteOperation.setLimit(limit);
             searchRemoteOperation.setTimestamp(timestamp);
 
-            return searchRemoteOperation.execute(account, photoFragment.requireContext());
+            if (photoFragment.getContext() != null) {
+                return searchRemoteOperation.execute(account, photoFragment.getContext());
+            } else {
+                return new RemoteOperationResult(new IllegalStateException("No context available"));
+            }
         }
     }
 
