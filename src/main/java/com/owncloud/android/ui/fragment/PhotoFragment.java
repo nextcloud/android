@@ -52,10 +52,28 @@ public class PhotoFragment extends OCFileListFragment {
     private boolean photoSearchNoNew = false;
     private SearchRemoteOperation searchRemoteOperation;
     private AsyncTask photoSearchTask;
+    private SearchEvent searchEvent;
+    private boolean refresh = false;
+
+    public PhotoFragment() {
+
+    }
+
+    public PhotoFragment(boolean refresh) {
+        this.refresh = refresh;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        searchEvent = new SearchEvent("image/%",
+                                      SearchRemoteOperation.SearchType.PHOTO_SEARCH,
+                                      SearchEvent.UnsetType.NO_UNSET);
+
+        searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
+                                                          searchEvent.getSearchType(),
+                                                          false);
     }
 
     @Override
@@ -96,14 +114,15 @@ public class PhotoFragment extends OCFileListFragment {
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
 
-        handleSearchEvent(searchEvent, false);
+        handleSearchEvent();
     }
 
     @Override
     public void onRefresh() {
         super.onRefresh();
 
-        handleSearchEvent(searchEvent, true);
+        refresh = true;
+        handleSearchEvent();
     }
 
     @Override
@@ -111,8 +130,8 @@ public class PhotoFragment extends OCFileListFragment {
         super.onMessageEvent(changeMenuEvent);
     }
 
-    private void handleSearchEvent(final SearchEvent event, boolean refresh) {
-        prepareCurrentSearch(event);
+    private void handleSearchEvent() {
+        prepareCurrentSearch(searchEvent);
         searchFragment = true;
         setEmptyListLoadingMessage();
 
@@ -124,6 +143,8 @@ public class PhotoFragment extends OCFileListFragment {
                 mContainerActivity.getStorageManager(),
                 mFile,
                 true);
+
+            refresh = false;
         } else {
             mAdapter.showVirtuals(VirtualFolderType.PHOTOS, true, mContainerActivity.getStorageManager());
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
@@ -132,17 +153,6 @@ public class PhotoFragment extends OCFileListFragment {
         }
 
         setFabVisible(false);
-
-        if (currentSearchType != SearchType.SHARED_FILTER) {
-            boolean searchOnlyFolders = false;
-            if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
-                searchOnlyFolders = true;
-            }
-
-            searchRemoteOperation = new SearchRemoteOperation(event.getSearchQuery(),
-                                                              event.getSearchType(),
-                                                              searchOnlyFolders);
-        }
 
         searchAndDisplay();
     }

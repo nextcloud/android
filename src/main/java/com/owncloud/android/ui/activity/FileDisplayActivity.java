@@ -135,7 +135,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -162,6 +161,8 @@ public class FileDisplayActivity extends FileActivity
         SendShareDialog.SendShareDialogDownloader, Injectable {
 
     public static final String RESTART = "RESTART";
+    public static final String ALL_FILES = "ALL_FILES";
+    public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -194,7 +195,7 @@ public class FileDisplayActivity extends FileActivity
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
-    private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
+    public static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
     public static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
 
     public static final String TEXT_PREVIEW = "TEXT_PREVIEW";
@@ -570,7 +571,7 @@ public class FileDisplayActivity extends FileActivity
                 if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                     Log_OC.d(this, "Switch to photo search fragment");
 
-                    PhotoFragment photoFragment = new PhotoFragment();
+                    PhotoFragment photoFragment = new PhotoFragment(true);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                     photoFragment.setArguments(bundle);
@@ -578,7 +579,15 @@ public class FileDisplayActivity extends FileActivity
                     transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
                     transaction.commit();
                 } else {
-                    Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
+                    Log_OC.d(this, "Switch to oc file search fragment");
+
+                    OCFileListFragment photoFragment = new OCFileListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                    photoFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
+                    transaction.commit();
                 }
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
                 Uri data = intent.getData();
@@ -598,8 +607,13 @@ public class FileDisplayActivity extends FileActivity
                     doShareWith(shareWith, shareType);
                 }
 
-            } else {
-                Log_OC.e(TAG, String.format(Locale.US, "Unexpected intent %s", intent));
+            } else if (ALL_FILES.equals(intent.getAction())) {
+                Log_OC.d(this, "Switch to oc file fragment");
+
+                OCFileListFragment fragment = new OCFileListFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+                transaction.commit();
             }
     }
 
@@ -2573,16 +2587,17 @@ public class FileDisplayActivity extends FileActivity
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             Log_OC.d(this, "Switch to photo search fragment");
 
-            fragment = new PhotoFragment();
-        } else {
-            Log_OC.d(this, "Switch to OCFileListFragment");
-
-            fragment = new OCFileListFragment();
+            fragment = new PhotoFragment(true);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+            transaction.commit();
         }
+//        else {
+//            Log_OC.d(this, "Switch to OCFileListFragment");
+//
+//            fragment = new OCFileListFragment();
+//        }
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-        transaction.commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
