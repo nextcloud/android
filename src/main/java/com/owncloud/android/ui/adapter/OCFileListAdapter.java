@@ -882,7 +882,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         long currentSyncTime = System.currentTimeMillis();
                         RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
                                                                                             currentSyncTime,
-                                                                                            false,
+                                                                                            true,
                                                                                             false,
                                                                                             mStorageManager,
                                                                                             account,
