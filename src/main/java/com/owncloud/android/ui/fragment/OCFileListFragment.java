@@ -363,6 +363,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle();
+
+        if (searchEvent != null) {
+            onMessageEvent(searchEvent);
+        }
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
