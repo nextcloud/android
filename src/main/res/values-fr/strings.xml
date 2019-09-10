@@ -129,6 +129,7 @@
     <string name="community_rc_fdroid">Installer la release candidate avec l\'application F-Droid</string>
     <string name="community_rc_play_store">Installer la release candidate depuis Google Play</string>
     <string name="community_release_candidate_headline">Release candidate</string>
+    <string name="community_release_candidate_text">La version candidate (RC) est un instantané de la version à venir et devrait être stable. Tester votre propre configuration pourrait vous aider à vous en assurer. Inscrivez-vous pour tester sur la boutique Play ou regardez manuellement dans la section \"Version\" de F-Droid.</string>
     <string name="community_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="community_testing_headline">Aidez en réalisant des tests</string>
     <string name="community_testing_report_text">Signaler un problème sur Github</string>
