@@ -69,6 +69,7 @@ import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.ui.fragment.NamedSearchResultFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
@@ -132,6 +133,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailFragment fileDetailFragment();
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
+
+    @ContributesAndroidInjector
+    abstract NamedSearchResultFragment namedSearchResultFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
