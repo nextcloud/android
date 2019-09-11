@@ -170,6 +170,7 @@
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
+    <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_file_from_template">Crea file da modello…</string>
@@ -202,6 +203,7 @@
     <string name="downloader_download_succeeded_ticker">Scaricati</string>
     <string name="downloader_not_downloaded_yet">Non ancora scaricato</string>
     <string name="drawer_close">Chiudi barra laterale</string>
+    <string name="drawer_community">Comunità</string>
     <string name="drawer_current_account">Account attuale</string>
     <string name="drawer_end_account">Ultimo account</string>
     <string name="drawer_header_background">Immagine di sgondo sull\'intestazione del pacchetto</string>
