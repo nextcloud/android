@@ -112,6 +112,12 @@
     <string name="common_switch_account">Αλλαγή Λογαριασμού</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_yes">Ναι</string>
+    <string name="community_beta_headline">Δοκιμή της έκδοσης προγραμματιστή</string>
+    <string name="community_contribute_forum_text">Βοήθησε άλλους στο</string>
+    <string name="community_contribute_github_text">Εξέτασε, τροποποίησε και γράψε κώδικα, δες το %1$s για πληροφορίες</string>
+    <string name="community_contribute_headline">Συνέβαλε ενεργά</string>
+    <string name="community_testing_headline">Βοήθησε δοκιμάζοντας</string>
+    <string name="community_testing_report_text">Ανέφερε ένα ζήτημα στο GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">Ρύθμιση</string>
     <string name="confirmation_remove_file_alert">Θέλετε σίγουρα να διαγράψετε το %1$s;</string>
     <string name="confirmation_remove_files_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
@@ -145,6 +151,7 @@
     <string name="copy_internal_link">Αντιγραφή εσωτερικού συνδέσμου</string>
     <string name="copy_internal_link_subline">Δουλεύει μόνο για χρήστες με πρόσβαση σε αυτό το φάκελο</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
     <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης url</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
@@ -167,6 +174,7 @@
     <string name="disable_new_media_folder_detection_notifications">Απενεργοποίηση</string>
     <string name="dismiss">Αποδέσμευση</string>
     <string name="dismiss_notification_description">Αποδέσμευση ειδοποίησης</string>
+    <string name="download_latest_dev_version">Λήψη της τελευταίας έκδοσης προγραμματιστή</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_download_failed_credentials_error">Η λήψη απέτυχε, συνδεθείτε ξανά</string>
     <string name="downloader_download_failed_ticker">Αποτυχημένη λήψη</string>
@@ -177,6 +185,7 @@
     <string name="downloader_download_succeeded_ticker">Ληφθέντα</string>
     <string name="downloader_not_downloaded_yet">Δεν έχει ληφθεί ακόμα</string>
     <string name="drawer_close">Κλείσιμο πλευρικής στήλης</string>
+    <string name="drawer_community">Κοινότητα</string>
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
     <string name="drawer_item_activities">Δραστηριότητες</string>
@@ -209,6 +218,7 @@
     <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
+    <string name="end_to_end_encryption_keywords_description">Οι 12 λέξεις μαζί φτιάχνουν έναν πολύ ισχυρό κωδικό πρόσβασης, επιτρέποντας μόνο σε εσάς την προβολή και τη χρήση των κρυπτογραφημένων αρχείων σας. Παρακαλούμε γράψτε το κάπου και κρατήστε το σε ασφαλές μεέρος.</string>
     <string name="end_to_end_encryption_not_enabled">Η κρυπτογράφηση από άκρο σε άκρο είναι απενεργοποιημένη στον διακομιστή.</string>
     <string name="end_to_end_encryption_not_supported">Η κρυπτογράφηση δουλεύει μόνο σε έκδοση KitKat(4.4) και πάνω.</string>
     <string name="end_to_end_encryption_passphrase_title">Σημειώστε το συνθηματικό κρυπτογράφησης 12 λέξεων</string>
@@ -228,6 +238,7 @@
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="etm_preferences">Προτιμήσεις</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
+    <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
     <string name="fallback_weblogin_back">Πίσω</string>
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
@@ -336,6 +347,12 @@
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής ιστορικού συστήματος. Παρακαλούμε εγκαταστήστε μια εφαρμογή ηλεκτρονικού ταχυδρομείου.</string>
     <string name="login">Είσοδος</string>
+    <string name="logs_menu_delete">Διαγραφή καταγραφών</string>
+    <string name="logs_menu_refresh">Ανανέωση</string>
+    <string name="logs_menu_search">Αναζήτηση καταγραφών</string>
+    <string name="logs_menu_send">Αποστολή καταγραφών μέσω e-mail</string>
+    <string name="logs_status_loading">Φορτώνει...</string>
+    <string name="logs_title">Καταγραφές</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
@@ -385,6 +402,7 @@
     <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_channel_file_observer_description">Παρακολουθεί αρχεία για αλλαγές</string>
     <string name="notification_channel_file_observer_name">Παρατηρητής αρχείων</string>
+    <string name="notification_channel_file_sync_description">Δείχνει την πρόοδο και το αποτέλεσμα συγχρονισμού του αρχείου</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="notification_channel_general_name">Γενικές ειδοποιήσεις</string>
     <string name="notification_channel_media_description">Πρόοδος αναπαραγωγής μουσικής</string>
