@@ -87,6 +87,7 @@
     <string name="battery_optimization_no_setting">バッテリーの設定を直接変更できません。手動で設定を調整してください。</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
+    <string name="changelog_dev_version">開発バージョンの変更履歴</string>
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
@@ -169,6 +170,7 @@
     <string name="copy_link">リンクをコピー</string>
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
+    <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_file_from_template">テンプレートからファイルを作成する</string>
@@ -190,6 +192,7 @@
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
+    <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
@@ -256,6 +259,7 @@
     <string name="etm_preferences">環境設定</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
+    <string name="failed_to_print">ファイルの印刷に失敗</string>
     <string name="fallback_weblogin_back">戻る</string>
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
@@ -367,7 +371,10 @@
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
+    <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
+    <string name="logs_menu_search">ログを検索</string>
+    <string name="logs_menu_send">ログをメールで送信</string>
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_title">ログ</string>
     <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
@@ -553,8 +560,11 @@
     <string name="screenshot_02_listView">ファイルを簡単にブラウズして共有する</string>
     <string name="screenshot_03_drawer">アクティビティ、共有、オフラインファイルなどに素早くアクセス</string>
     <string name="screenshot_04_accounts">別のアカウントに接続する</string>
+    <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_05_autoUpload">写真を自動的にアップロード &amp; ビデオ</string>
+    <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
     <string name="screenshot_06_davdroid">カレンダー&amp;連絡先をDAVx5 (旧称 DAVdroid)で同期する</string>
+    <string name="screenshot_06_davdroid_heading">コンタクト&amp;カレンダーを同期</string>
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="select_all">すべて選択</string>
     <string name="select_template">テンプレートを選択する</string>
