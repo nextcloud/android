@@ -163,16 +163,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.thumbnail.setTag(file.hashCode());
                 setThumbnail(file, gridViewHolder.thumbnail);
 
-                if (file.isDirectory()) {
-                    gridViewHolder.checkbox.setVisibility(View.GONE);
-                } else {
-                    gridViewHolder.checkbox.setVisibility(View.VISIBLE);
-                }
+                gridViewHolder.checkbox.setVisibility(View.VISIBLE);
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                         .onItemClicked(finalFile));
 
+                gridViewHolder.itemLayout.setOnLongClickListener(v -> localFileListFragmentInterface
+                    .onItemLongClicked(finalFile));
 
                 if (holder instanceof LocalFileListItemViewHolder) {
                     LocalFileListItemViewHolder itemViewHolder = (LocalFileListItemViewHolder) holder;

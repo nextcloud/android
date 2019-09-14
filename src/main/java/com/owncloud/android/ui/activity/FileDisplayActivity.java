@@ -52,6 +52,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.util.Pair;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -1070,6 +1071,25 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    /**
+     * @param basePath the path to be appended to all remote paths
+     * @param folder
+     * @return an array list of pairs containing both the local and the target remote paths for all the files in
+     * the passed folder
+     */
+    private ArrayList<Pair<String, String>> getPathsForFilesInFolder(String basePath, File folder) {
+        ArrayList<Pair<String, String>> localAndRemotePaths = new ArrayList<>();
+        File[] contents = folder.listFiles();
+        for(int i = 0; i < contents.length; i++) {
+            if (contents[i].isDirectory()) {
+                localAndRemotePaths.addAll(getPathsForFilesInFolder(basePath + contents[i].getName() + "/", contents[i]));
+            } else {
+                localAndRemotePaths.add(new Pair<>(contents[i].getPath(), basePath + contents[i].getName()));
+            }
+        }
+        return localAndRemotePaths;
+    }
+
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
         requestUploadOfFilesFromFileSystem(filePaths, resultCode);
@@ -1077,10 +1097,22 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
         if (filePaths != null) {
-            String[] remotePaths = new String[filePaths.length];
+            ArrayList<String> localFilePaths = new ArrayList<>();
+            ArrayList<String> remoteFilePaths = new ArrayList<>();
             String remotePathBase = getCurrentDir().getRemotePath();
-            for (int j = 0; j < remotePaths.length; j++) {
-                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+
+            for (int i = 0; i < filePaths.length; i++) {
+                File localFile = new File(filePaths[i]);
+                if (localFile.isDirectory()) {
+                    ArrayList<Pair<String, String>> folderContentPaths = getPathsForFilesInFolder(remotePathBase + localFile.getName() + "/", localFile);
+                    for (int j = 0; j < folderContentPaths.size(); j++) {
+                        localFilePaths.add(folderContentPaths.get(j).first);
+                        remoteFilePaths.add(folderContentPaths.get(j).second);
+                    }
+                } else {
+                    localFilePaths.add(localFile.getPath());
+                    remoteFilePaths.add(remotePathBase + localFile.getName());
+                }
             }
 
             int behaviour;
@@ -1106,11 +1138,11 @@ public class FileDisplayActivity extends FileActivity
             requester.uploadNewFile(
                 this,
                 getAccount(),
-                filePaths,
-                remotePaths,
+                localFilePaths.toArray(new String[localFilePaths.size()]),
+                remoteFilePaths.toArray(new String[remoteFilePaths.size()]),
                 null,           // MIME type will be detected from file name
                 behaviour,
-                false,          // do not create parent folder if not existent
+                true,          // do create parent folder if not existent
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false

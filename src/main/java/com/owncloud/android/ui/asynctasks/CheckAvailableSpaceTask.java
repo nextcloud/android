@@ -62,9 +62,26 @@ public class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
         for (int i = 0; paths != null && i < paths.length; i++) {
             String localPath = paths[i];
             localFile = new File(localPath);
-            total += localFile.length();
+            if (localFile.isDirectory()) {
+                total += calculateFolderSize(localFile);
+            } else {
+                total += localFile.length();
+            }
         }
         return FileStorageUtils.getUsableSpace() >= total;
+    }
+
+    private long calculateFolderSize (File folder) {
+        long total = 0;
+        File[] contents = folder.listFiles();
+        for (int i = 0; i < contents.length; i++) {
+            if (contents[i].isDirectory()) {
+                total += calculateFolderSize(contents[i]);
+            } else {
+                total += contents[i].length();
+            }
+        }
+        return total;
     }
 
     @Override

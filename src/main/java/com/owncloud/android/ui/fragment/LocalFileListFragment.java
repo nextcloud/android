@@ -185,6 +185,36 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     }
 
     /**
+     * Checks the file long clicked over. If it's a directory it checks it
+     * Notifies the container activity in any case.
+     */
+    @Override
+    public boolean onItemLongClicked(File file) {
+        Log_OC.w(TAG, "longClicked");
+        if (file != null) {
+            /// Long click on a directory
+            if (file.isDirectory()) {
+                if (mAdapter.isCheckedFile(file)) {
+                    // uncheck
+                    mAdapter.removeCheckedFile(file);
+                } else {
+                    // check
+                    mAdapter.addCheckedFile(file);
+                }
+
+                mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+
+                // notify the change to the container Activity
+                mContainerActivity.onFileClick(file);
+            }
+        } else {
+            Log_OC.w(TAG, "Null object in ListAdapter!!");
+        }
+
+        return true;
+    }
+
+    /**
      * Call this, when the user presses the up button
      */
     public void onNavigateUp() {
