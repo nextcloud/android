@@ -170,6 +170,7 @@
     <string name="copy_link">复制链接</string>
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="copy_to">复制到…</string>
+    <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_url">无法获取url</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_file_from_template">使用模板创建文件中...</string>
@@ -202,6 +203,7 @@
     <string name="downloader_download_succeeded_ticker">已下载</string>
     <string name="downloader_not_downloaded_yet">尚未下载</string>
     <string name="drawer_close">关闭侧边栏</string>
+    <string name="drawer_community">社区</string>
     <string name="drawer_current_account">当前账户</string>
     <string name="drawer_end_account">最后一个账户</string>
     <string name="drawer_header_background">抽屉标题的背景图片</string>
