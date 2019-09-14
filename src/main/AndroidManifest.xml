@@ -165,11 +165,6 @@
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
-            android:name=".jobs.NContentObserverJob"
-            android:permission="android.permission.BIND_JOB_SERVICE" >
-        </service>
-
-        <service
             android:name=".authentication.AccountAuthenticatorService"
             android:exported="true" >
             <intent-filter android:priority="100" >
@@ -271,6 +266,14 @@
             android:readPermission="android.permission.MANAGE_DOCUMENTS"
             android:exported="true">
         </provider>
+
+        <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
+        <!-- to "best before" dates in his fridge. -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities=".workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
