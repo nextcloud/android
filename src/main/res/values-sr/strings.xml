@@ -17,7 +17,6 @@
     <string name="actionbar_contacts">Направите резервну копију контаката</string>
     <string name="actionbar_contacts_restore">Повратите контакте</string>
     <string name="actionbar_copy">Копирај</string>
-    <string name="actionbar_logger">Записници</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_as_richdocument_parameter">Отвори помоћу %1$s</string>
@@ -215,7 +214,6 @@
     <string name="drawer_item_photos">Слике</string>
     <string name="drawer_item_recently_added">Недавно додато</string>
     <string name="drawer_item_recently_modified">Недавно измењено</string>
-    <string name="drawer_item_settings">Поставке</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
@@ -367,8 +365,6 @@
     <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
     <string name="local_file_not_found_message">Фајл није нађен у локалном систему фајлова</string>
     <string name="local_folder_list_empty">Нема више фасцикли</string>
-    <string name="log_progress_dialog_text">Учитавам податке…</string>
-    <string name="log_send_history_button">Пошаљи историјат</string>
     <string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
     <string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
     <string name="login">Пријава</string>
@@ -485,7 +481,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
-    <string name="power_check_dialog_title">Искључи проверу уштеде батерије</string>
     <string name="power_save_check_dialog_message">Искључивање провере уштеде батерије може да доведе до тога да отпремате фајлове са празном батеријом!</string>
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
     <string name="pref_behaviour_entries_keep_file">остављен у изворној фасцикли</string>
@@ -522,7 +517,6 @@
     <string name="prefs_lock_title">Заштитите апликацију уз помоћ</string>
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_using_passcode">Код</string>
-    <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
@@ -559,22 +553,16 @@
     <string name="saml_authentication_required_text">Потребна је лозинка</string>
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
     <string name="scanQR_description">Пријава преко QR кода</string>
-    <string name="screenshot_01_gridView">Сигурно место за све Ваше податке</string>
     <string name="screenshot_01_gridView_heading">Штити Ваше податке</string>
     <string name="screenshot_01_gridView_subline">платформа за продуктивност коју и Ви можете да хостујете</string>
-    <string name="screenshot_02_listView">Лако гледајте и чувајте Ваше фајлове</string>
     <string name="screenshot_02_listView_heading">Претражи и дели</string>
     <string name="screenshot_02_listView_subline">све радње под Вашим прстима</string>
-    <string name="screenshot_03_drawer">Брзо приступајте активностима, дељеним фајловима, фајловима ван мреже и још више</string>
     <string name="screenshot_03_drawer_heading">Активности, дељења, фајлови доступни без интернета</string>
     <string name="screenshot_03_drawer_subline">све брзо доступно</string>
-    <string name="screenshot_04_accounts">Повежите се на различите налоге</string>
     <string name="screenshot_04_accounts_heading">Сви Ваши налози</string>
     <string name="screenshot_04_accounts_subline">на једном месту</string>
-    <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
     <string name="screenshot_05_autoUpload_subline">Ваших слика &amp; видео записа</string>
-    <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте са DAVx5-ом (раније знаном и као ДАВдроид)</string>
     <string name="screenshot_06_davdroid_heading">Синхронизуј календар &amp; контакте</string>
     <string name="screenshot_06_davdroid_subline">преко DAVx5-а (бивши DAVdroid)</string>
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>

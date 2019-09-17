@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Sauvegarde des contacts</string>
     <string name="actionbar_contacts_restore">Restaurer les contacts</string>
     <string name="actionbar_copy">Copier</string>
-    <string name="actionbar_logger">Journaux</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
     <string name="actionbar_open_as_richdocument_parameter">Ouvrir avec %1$s</string>
@@ -117,6 +116,7 @@
     <string name="common_unknown">Inconnu</string>
     <string name="common_yes">Oui</string>
     <string name="community_beta_headline">Testez la version de dév</string>
+    <string name="community_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Aidez les autres sur</string>
     <string name="community_contribute_github_text">Vérifiez, améliorez ou créez du code. Consultez %1$s pour plus de détails</string>
@@ -217,7 +217,6 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_photos">Images</string>
     <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
-    <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_shared">Partagé</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Historique des envois</string>
@@ -369,8 +368,6 @@ Attention la suppression est irréversible.</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
-    <string name="log_progress_dialog_text">Chargement des données…</string>
-    <string name="log_send_history_button">Envoyer le journal</string>
     <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
     <string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
     <string name="login">Se connecter</string>
@@ -487,7 +484,6 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
-    <string name="power_check_dialog_title">Désactiver l\'économie de batterie</string>
     <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner l\'envoi de fichiers même avec un niveau de batterie faible !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
@@ -524,7 +520,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_lock_title">Verrouillage utilisé : </string>
     <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
     <string name="prefs_lock_using_passcode">Code de sécurité</string>
-    <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
@@ -561,22 +556,16 @@ Attention la suppression est irréversible.</string>
     <string name="saml_authentication_required_text">Mot de passe requis</string>
     <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
     <string name="scanQR_description">Connexion par code QR</string>
-    <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>
     <string name="screenshot_01_gridView_heading">Protection de vos données</string>
     <string name="screenshot_01_gridView_subline">plateforme de productivité auto-hébergée</string>
-    <string name="screenshot_02_listView">Consultez et partagez vos fichiers facilement</string>
     <string name="screenshot_02_listView_heading">Parcourir et partager</string>
     <string name="screenshot_02_listView_subline">toutes les actions à portée de main</string>
-    <string name="screenshot_03_drawer">Accédez rapidement aux fichiers hors-connexion, partagez, consultez l\'activé et bien plus</string>
     <string name="screenshot_03_drawer_heading">Activité, partages, fichiers hors-ligne</string>
     <string name="screenshot_03_drawer_subline">tout accessible rapidement</string>
-    <string name="screenshot_04_accounts">Connectez-vous avec plusieurs comptes</string>
     <string name="screenshot_04_accounts_heading">Tous vos comptes</string>
     <string name="screenshot_04_accounts_subline">en un seul endroit</string>
-    <string name="screenshot_05_autoUpload">Téléversez instantanément vos photos &amp; vidéos</string>
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
-    <string name="screenshot_06_davdroid">Synchronisez Agenda &amp; Contacts avec DAVx5 (autrefois connue comme DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Synchronisez votre calendrier &amp; vos contacts</string>
     <string name="screenshot_06_davdroid_subline">avec DAVx5 (anciennement DAVdroid)</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>

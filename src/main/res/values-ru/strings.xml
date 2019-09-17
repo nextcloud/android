@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Резервное копирование контактов</string>
     <string name="actionbar_contacts_restore">Восстановить контакты</string>
     <string name="actionbar_copy">Копировать</string>
-    <string name="actionbar_logger">Журналы</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
     <string name="actionbar_open_as_richdocument_parameter">Открыть с помощью %1$s</string>
@@ -215,7 +214,6 @@
     <string name="drawer_item_photos">Фотографии</string>
     <string name="drawer_item_recently_added">Недавно добавленные</string>
     <string name="drawer_item_recently_modified">Недавно изменённые</string>
-    <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
     <string name="drawer_item_uploads_list">Состояние передачи</string>
@@ -366,8 +364,6 @@
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="local_file_not_found_message">Файл не найден в локальной файловой системе</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
-    <string name="log_progress_dialog_text">Получение данных…</string>
-    <string name="log_send_history_button">Отправить историю</string>
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>
     <string name="login">Войти</string>
@@ -484,7 +480,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
-    <string name="power_check_dialog_title">Отключить проверку энергосбережения</string>
     <string name="power_save_check_dialog_message">Отключение проверки энергосбережения может привести к загрузке файлов при разряженной батарее!</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
@@ -521,7 +516,6 @@
     <string name="prefs_lock_title">Защита входа в приложение</string>
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_using_passcode">Блокировка кодом</string>
-    <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
@@ -558,17 +552,11 @@
     <string name="saml_authentication_required_text">Требуется аутентификация</string>
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
     <string name="scanQR_description">Войти с использованием QR кода</string>
-    <string name="screenshot_01_gridView">Надёжный дом для всех ваших данных</string>
     <string name="screenshot_01_gridView_heading">Защита Ваших данных</string>
-    <string name="screenshot_02_listView">Простой доступ и обмен своими файлами</string>
-    <string name="screenshot_03_drawer">Быстрый просмотр событий, общих ресурсов, доступных без подключения файлов и многое другое</string>
-    <string name="screenshot_04_accounts">Соединение с несколькими учётными записями</string>
     <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
     <string name="screenshot_04_accounts_subline">в одном месте</string>
-    <string name="screenshot_05_autoUpload">Автоматическая передача фотографий &amp;видео</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
     <string name="screenshot_05_autoUpload_subline">ваших фото &amp; видео</string>
-    <string name="screenshot_06_davdroid">Синхронизация календаря и контактов с использованием приложения DAVx5 (ранее называвшемся DAVdroid )</string>
     <string name="screenshot_06_davdroid_heading">Синхронизуйте календарь &amp; контакты</string>
     <string name="screenshot_06_davdroid_subline">с DAVx5 (бывший DAVdroid)</string>
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>

@@ -13,7 +13,6 @@
     <string name="actionbar_contacts">النسخ الإحتياطي لجهات الإتصال</string>
     <string name="actionbar_contacts_restore">استرجاع جهات الإتصال</string>
     <string name="actionbar_copy">أنسخ</string>
-    <string name="actionbar_logger">سجل</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move">أنقل</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
@@ -122,7 +121,6 @@
     <string name="drawer_item_photos">الصور</string>
     <string name="drawer_item_recently_added">اضيفت مؤخرا</string>
     <string name="drawer_item_recently_modified">تغيرت مؤخرا</string>
-    <string name="drawer_item_settings">الإعدادات</string>
     <string name="drawer_item_shared">المشاركات</string>
     <string name="drawer_item_trashbin">الملفات المحذوفة</string>
     <string name="drawer_item_uploads_list">التحميلات</string>
@@ -210,7 +208,6 @@
     <string name="learn_more">تعلم المزيد</string>
     <string name="link">الرابط</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
-    <string name="log_send_history_button">ارسال التاريخ</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logs_menu_delete">احذف السجلات</string>
     <string name="logs_menu_refresh">إنعاش</string>
@@ -291,7 +288,6 @@
     <string name="prefs_lock_none">لا شيء</string>
     <string name="prefs_lock_title">إحمِ التطبيق بواسطة</string>
     <string name="prefs_lock_using_passcode">الرمز السري</string>
-    <string name="prefs_log_delete_history_button">حذف البيانات التاريخية</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
@@ -315,14 +311,10 @@
     <string name="saml_authentication_required_text">كلمة السر مطلوبة</string>
     <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
     <string name="scanQR_description">الولوج عبر رمز الكيو آر</string>
-    <string name="screenshot_01_gridView">المكان الآمن لكافة بياناتك</string>
-    <string name="screenshot_02_listView">إطّلِع على ملفاتك و شاركها لكل سهولة</string>
     <string name="screenshot_02_listView_heading">استكشف وشارك</string>
     <string name="screenshot_02_listView_subline">كافة الإجراءات بضغطة أصبع</string>
-    <string name="screenshot_04_accounts">الاتصال بحسابات آخرى</string>
     <string name="screenshot_04_accounts_heading">كافة حساباتك</string>
     <string name="screenshot_04_accounts_subline">في مكان واحد</string>
-    <string name="screenshot_05_autoUpload">حمّل تلقائيا صورك و فيديوهاتك</string>
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
     <string name="screenshot_05_autoUpload_subline">لصوركم وفيديوهاتكم</string>
     <string name="search_users_and_groups_hint">إبحث عن مستخدمين أو مجموعات</string>

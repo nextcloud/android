@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
     <string name="actionbar_copy">Kopjoni</string>
-    <string name="actionbar_logger">Regjistra</string>
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_open_as_richdocument_parameter">Hapeni me %1$s</string>
@@ -214,7 +213,6 @@
     <string name="drawer_item_photos">Fotot</string>
     <string name="drawer_item_recently_added">Shtuar së fundmi</string>
     <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
-    <string name="drawer_item_settings">Rregullime</string>
     <string name="drawer_item_shared">U nda</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
@@ -365,8 +363,6 @@
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
-    <string name="log_progress_dialog_text">Po ngarkohen të dhëna…</string>
-    <string name="log_send_history_button">Historik dërgimesh</string>
     <string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
     <string name="log_send_no_mail_app">S’u gjet aplikacion për dërgim regjistrimesh. Ju lutemi, instaloni një aplikacion email-esh.</string>
     <string name="login">Hyni</string>
@@ -484,7 +480,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">Çaktivizo kontrollin e kursimit të energjisë</string>
     <string name="power_save_check_dialog_message">Çaktivizimi i kontrollit të ruajtjes së energjisë mund të rezultojë në ngarkimin e skedarëve kur gjendeni në gjendje të ulët të baterisë!</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
@@ -521,7 +516,6 @@
     <string name="prefs_lock_title">Mbroni aplikacionin duke përdorur</string>
     <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
     <string name="prefs_lock_using_passcode">Kodkalimi</string>
-    <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
@@ -558,22 +552,16 @@
     <string name="saml_authentication_required_text">Kërkohet fjalëkalimi</string>
     <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
     <string name="scanQR_description">Identifikohu nëpërmjet QR code</string>
-    <string name="screenshot_01_gridView">Një shtëpi e sigurt për të dhënat e tua</string>
     <string name="screenshot_01_gridView_heading">Mbrojtja e të dhënave tuaja</string>
     <string name="screenshot_01_gridView_subline">platformë e vetë-pritur e produktivitetit</string>
-    <string name="screenshot_02_listView">Shfleto dhe nda skedarët e tu lehtësisht</string>
     <string name="screenshot_02_listView_heading">Shfletoni dhe shpërndani</string>
     <string name="screenshot_02_listView_subline">të gjitha veprimet në majë të gishtave tuaj</string>
-    <string name="screenshot_03_drawer">Akseso shpejtë aktivitetin, ndarjet, skedarët offlie dhe shumë të tjera</string>
     <string name="screenshot_03_drawer_heading">Aktiviteti, aksionet, skedarët jashtë linje</string>
     <string name="screenshot_03_drawer_subline">gjithçka shpejt e arritshme</string>
-    <string name="screenshot_04_accounts">Lidhuni me llogari të ndryshme</string>
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
-    <string name="screenshot_05_autoUpload">Ngarko automatikisht fotot &amp;videot</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
     <string name="screenshot_05_autoUpload_subline">për fotot tuaja &amp; videot</string>
-    <string name="screenshot_06_davdroid">Sinkronizo kontaktet &amp;e kalendarit me DAVx5 (i njohur më parë si DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Kalendar i sinkronizuar &amp; kontaktet</string>
     <string name="screenshot_06_davdroid_subline">me DAVx5 (më parë i njohur si DAVdroid)</string>
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>

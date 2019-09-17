@@ -15,7 +15,6 @@
     <string name="actionbar_contacts">Kontaktuen babes kopia egin</string>
     <string name="actionbar_contacts_restore">Kontaktuak leheneratu</string>
     <string name="actionbar_copy">Kopiatu</string>
-    <string name="actionbar_logger">Egunkariak</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move">Mugitu</string>
     <string name="actionbar_open_as_richdocument_parameter">%1$s -rekin ireki</string>
@@ -212,7 +211,6 @@
     <string name="drawer_item_photos">Argazkiak</string>
     <string name="drawer_item_recently_added">Gehitu berriak</string>
     <string name="drawer_item_recently_modified">Aldatu berriak</string>
-    <string name="drawer_item_settings">Ezarpenak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="drawer_item_uploads_list">Kargak</string>
@@ -363,8 +361,6 @@
     <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
     <string name="local_file_not_found_message">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
     <string name="local_folder_list_empty">Ez dago karpeta gehiagorik.</string>
-    <string name="log_progress_dialog_text">Datuak kargatzen…</string>
-    <string name="log_send_history_button">Historia bidali</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunerokoak</string>
     <string name="log_send_no_mail_app">Ez da aurkitu erregistroak bidaltzeko aplikaziorik. Instalatu posta elektronikoko bezero bat.</string>
     <string name="login">Hasi saioa</string>
@@ -481,7 +477,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Hau leku-marka da</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">Desgaitu energia aurrezteko kontrola</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola ezgaitzeak fitxategiak kargatzea ekar dezake bateria baxuan dagoenean!</string>
     <string name="pref_behaviour_entries_delete_file">Borratua</string>
     <string name="pref_behaviour_entries_keep_file">Karpeta originalean gorde</string>
@@ -518,7 +513,6 @@
     <string name="prefs_lock_title">Babestu apliazioa hau erabiliz:</string>
     <string name="prefs_lock_using_device_credentials">Gailuaren egiaztagiriak</string>
     <string name="prefs_lock_using_passcode">Pasahitza</string>
-    <string name="prefs_log_delete_history_button">Ezabatu historiala</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
     <string name="prefs_recommend">Gomendatu lagun bati</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
@@ -555,22 +549,16 @@
     <string name="saml_authentication_required_text">Pasahitza beharrezkoa da</string>
     <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
     <string name="scanQR_description">Saioa hasi QR kode bidez</string>
-    <string name="screenshot_01_gridView">Toki seguru bat zure datu guztientzat</string>
     <string name="screenshot_01_gridView_heading">Zure datuak babesten</string>
     <string name="screenshot_01_gridView_subline">norberak ostatatutako produktibitate plataforma</string>
-    <string name="screenshot_02_listView">Arakatu eta partekatu zure fitxategiak modu erraz batean</string>
     <string name="screenshot_02_listView_heading">Arakatu eta partekatu</string>
     <string name="screenshot_02_listView_subline">ekintza guztiak zure atzamarretan</string>
-    <string name="screenshot_03_drawer">Sartu azkar aktibitateetan, partekatutako baliabideetan, lineaz kanpoko fitxategietan eta gehiago</string>
     <string name="screenshot_03_drawer_heading">Jarduera, partekatzeak, lineaz kanpoko fitxategiak</string>
     <string name="screenshot_03_drawer_subline">guztia azkar eskuragarri</string>
-    <string name="screenshot_04_accounts">Konektatu kontu ezberdinetara</string>
     <string name="screenshot_04_accounts_heading">Zure kontu guztiak</string>
     <string name="screenshot_04_accounts_subline">leku bakar batean</string>
-    <string name="screenshot_05_autoUpload">Automatikoki igo zure argazki &amp; bideoak</string>
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
     <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
-    <string name="screenshot_06_davdroid">Sinkronizatu egutegia &amp; kontaktuak DAVx5 bidez (DAVdroid izenez ezaguna)</string>
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak sinkronizatu</string>
     <string name="screenshot_06_davdroid_subline">DAVx5ekin (lehen DAVdroid)</string>
     <string name="search_users_and_groups_hint">Bilatu erabiltzaile eta taldeak</string>

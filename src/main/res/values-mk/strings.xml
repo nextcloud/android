@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Резервна копија на контакти</string>
     <string name="actionbar_contacts_restore">Враќање контакти</string>
     <string name="actionbar_copy">Копирај</string>
-    <string name="actionbar_logger">Логови</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_as_richdocument_parameter">Отвори со %1$s</string>
@@ -195,7 +194,6 @@
     <string name="drawer_item_photos">Слики</string>
     <string name="drawer_item_recently_added">Скоро додадени</string>
     <string name="drawer_item_recently_modified">Скоро изменети</string>
-    <string name="drawer_item_settings">Подесувања</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Избришани датотеки</string>
     <string name="drawer_item_uploads_list">Прикачувања</string>
@@ -346,8 +344,6 @@
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
     <string name="local_file_not_found_message">Датотеката не е пронајдена во локалното складиште</string>
     <string name="local_folder_list_empty">.Нема повеќе папки</string>
-    <string name="log_progress_dialog_text">Вчитување на податоци…</string>
-    <string name="log_send_history_button">Испрати историја</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
     <string name="log_send_no_mail_app">Нема пронајдено апликација за испраќање на записи. Инсталирајте клиент за е-пошта.</string>
     <string name="login">Најава</string>
@@ -464,7 +460,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ова е резервирано место</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">Оневозможи проверка за заштеда на енергија</string>
     <string name="power_save_check_dialog_message">Оневозможување на проверката за заштеда на енергијата може да овозможи прикачување на датотеки и кога батеријата е празна</string>
     <string name="pref_behaviour_entries_delete_file">избришана</string>
     <string name="pref_behaviour_entries_keep_file">зачувај во оргиналната папка</string>
@@ -501,7 +496,6 @@
     <string name="prefs_lock_title">Заштитете го користењето на апликацијата</string>
     <string name="prefs_lock_using_device_credentials">Акредитиви од уредот</string>
     <string name="prefs_lock_using_passcode">Лозинка</string>
-    <string name="prefs_log_delete_history_button">Избриши историја</string>
     <string name="prefs_manage_accounts">Управување со сметки</string>
     <string name="prefs_recommend">Препорачај на пријател</string>
     <string name="prefs_show_hidden_files">Прикажи сокриени датотеки</string>
@@ -538,22 +532,16 @@
     <string name="saml_authentication_required_text">Потреба е лозинка</string>
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
     <string name="scanQR_description">Најавете се преку QR код</string>
-    <string name="screenshot_01_gridView">Безбеден дом за сите ваши податоци</string>
     <string name="screenshot_01_gridView_heading">Заштитете ги вашите податоци</string>
     <string name="screenshot_01_gridView_subline">продуктивна платформа која можете сами да ја хостирате</string>
-    <string name="screenshot_02_listView">Едноставно прелистајте ги и споделете ги вашите датотеки</string>
     <string name="screenshot_02_listView_heading">Прелистај и сподели</string>
     <string name="screenshot_02_listView_subline">сите активности се во вашите раце</string>
-    <string name="screenshot_03_drawer">Брз пристап до активност, споделувања, офлајн датотеки и многу повеќе</string>
     <string name="screenshot_03_drawer_heading">Активности, акции, офлајн датотеки</string>
     <string name="screenshot_03_drawer_subline">сè брзо достапно</string>
-    <string name="screenshot_04_accounts">Поврзи се со друга сметка</string>
     <string name="screenshot_04_accounts_heading">Сите ваши сметки</string>
     <string name="screenshot_04_accounts_subline">на едно место</string>
-    <string name="screenshot_05_autoUpload">Автоматски прикачувајте ги вашите слики &amp; видеа</string>
     <string name="screenshot_05_autoUpload_heading">Автоматско прикачување</string>
     <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
-    <string name="screenshot_06_davdroid">Синхронизирај календар &amp; контакти со DAVx5 (поранешно познат како DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Синхронизирај календар &amp; контакти</string>
     <string name="screenshot_06_davdroid_subline">со DAVx5 (поранешен DAVdroid)</string>
     <string name="search_users_and_groups_hint">Пребарувај корисници и групи</string>

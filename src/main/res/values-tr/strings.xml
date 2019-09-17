@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Kişileri yedekle</string>
     <string name="actionbar_contacts_restore">Kişileri Geri Yükle</string>
     <string name="actionbar_copy">Kopyala</string>
-    <string name="actionbar_logger">Günlükler</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
     <string name="actionbar_open_as_richdocument_parameter">%1$s ile aç</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Fotoğraflar</string>
     <string name="drawer_item_recently_added">Son Eklenenler</string>
     <string name="drawer_item_recently_modified">Son Değiştirilenler</string>
-    <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_shared">Paylaşılan</string>
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
-    <string name="log_progress_dialog_text">Veri yükleniyor…</string>
-    <string name="log_send_history_button">Geçmişi gönder</string>
     <string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
     <string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
     <string name="login">Oturum Aç</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
-    <string name="power_check_dialog_title">Güç koruma denetimini devre dışı bırak</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin devre dışı bırakılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">Uygulama şununla korunsun</string>
     <string name="prefs_lock_using_device_credentials">Aygıt kimlik doğrulama bilgileri</string>
     <string name="prefs_lock_using_passcode">Parola</string>
-    <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">Parola gerekli</string>
     <string name="saml_authentication_wrong_pass">Parola yanlış</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
-    <string name="screenshot_01_gridView">Verileriniz için güvenli bir yer!</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
     <string name="screenshot_01_gridView_subline">sizin barındırdığınız üretkenlik platformu</string>
-    <string name="screenshot_02_listView">Dosyalarınıza kolayca erişin ve paylaşın</string>
     <string name="screenshot_02_listView_heading">Gözat ve paylaş</string>
     <string name="screenshot_02_listView_subline">tüm işlemler parmaklarınızın ucunda</string>
-    <string name="screenshot_03_drawer">İşlem, paylaşım, çevrimdışı dosyalar ve diğer özelliklere kolayca erişin</string>
     <string name="screenshot_03_drawer_heading">İşlemler, paylaşımlar, çevrimdışı dosyalar</string>
     <string name="screenshot_03_drawer_subline">her şey kolayca erişilebilir</string>
-    <string name="screenshot_04_accounts">Farklı hesaplara bağlanın</string>
     <string name="screenshot_04_accounts_heading">Tüm hesaplarınız</string>
     <string name="screenshot_04_accounts_subline">tek bir yerde</string>
-    <string name="screenshot_05_autoUpload">Fotoğraf ve görüntülerinizi otomatik olarak yükleyin</string>
     <string name="screenshot_05_autoUpload_heading">Otomatik yükleme</string>
     <string name="screenshot_05_autoUpload_subline">fotoğraf ve görüntüleriniz için</string>
-    <string name="screenshot_06_davdroid">DAVx5 (eski adı DAVdroid) ile Takvim ve Kişileri eşitlem</string>
     <string name="screenshot_06_davdroid_heading">Takvim ve kişileri eşitleme</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 (eski adı DAVdroid) ile</string>
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
