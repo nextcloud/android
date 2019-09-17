@@ -15,7 +15,6 @@
     <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>
     <string name="actionbar_contacts_restore">Gjenopprett kontakter</string>
     <string name="actionbar_copy">Kopier</string>
-    <string name="actionbar_logger">Logger</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flytt</string>
     <string name="actionbar_open_as_richdocument_parameter">Åpne med %1$s</string>
@@ -206,7 +205,6 @@
     <string name="drawer_item_photos">Bilder</string>
     <string name="drawer_item_recently_added">Nylig lagt til</string>
     <string name="drawer_item_recently_modified">Nylig endret</string>
-    <string name="drawer_item_settings">Innstillinger</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
@@ -352,8 +350,6 @@
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="local_file_not_found_message">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
-    <string name="log_progress_dialog_text">Laster data…</string>
-    <string name="log_send_history_button">Send historikk </string>
     <string name="log_send_mail_subject">%1$s Android-app-logger</string>
     <string name="log_send_no_mail_app">Fant ingen app til å sende logger med. Vennligst installer en e-post-klient.</string>
     <string name="login">Logg inn</string>
@@ -498,7 +494,6 @@
     <string name="prefs_lock_none">Ingen</string>
     <string name="prefs_lock_using_device_credentials">Enhetens legitimasjon</string>
     <string name="prefs_lock_using_passcode">Passord</string>
-    <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
@@ -533,12 +528,6 @@
     <string name="saml_authentication_required_text">Passord kreves</string>
     <string name="saml_authentication_wrong_pass">Feil passord</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
-    <string name="screenshot_01_gridView">Et trygt hjem for alle data</string>
-    <string name="screenshot_02_listView">Utforsk og del filer enkelt</string>
-    <string name="screenshot_03_drawer">Rask tilgang til aktivitet, delinger, frakoblede filer og mer</string>
-    <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
-    <string name="screenshot_05_autoUpload">Last opp bilder og videoer automatisk</string>
-    <string name="screenshot_06_davdroid">Synkroniser kalender &amp;kontakter med DAVx5 (tidligere DAVdroid)</string>
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="select_all">Velg alle</string>
     <string name="select_template">Velg mal</string>

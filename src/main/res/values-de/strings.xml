@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Kontakte sichern</string>
     <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
     <string name="actionbar_copy">Kopieren</string>
-    <string name="actionbar_logger">Protokolle</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move">Verschieben</string>
     <string name="actionbar_open_as_richdocument_parameter">Öffnen mit %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
-    <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
-    <string name="log_progress_dialog_text">Daten werden geladen…</string>
-    <string name="log_send_history_button">versende die Chronik</string>
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
     <string name="log_send_no_mail_app">Es wurde keine App gefunden die Logs verschicken kann. Bitte installiere eine App die E-Mails verschicken kann.</string>
     <string name="login">Anmelden</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
-    <string name="power_check_dialog_title">Energiesparmodus deaktivieren</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">App schützen mittels</string>
     <string name="prefs_lock_using_device_credentials">Geräte-Anmeldedaten</string>
     <string name="prefs_lock_using_passcode">PIN</string>
-    <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">Passwort erforderlich</string>
     <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
-    <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Ihre Daten</string>
     <string name="screenshot_01_gridView_heading">Schützt Ihre Daten</string>
     <string name="screenshot_01_gridView_subline">Die Selbst-Gehostete Plattform für Produktivität</string>
-    <string name="screenshot_02_listView">Durchsuchen und teilen Sie Ihre Daten</string>
     <string name="screenshot_02_listView_heading">Durchsuchen und teilen</string>
     <string name="screenshot_02_listView_subline">Alle Aktionen schnell erreichbar</string>
-    <string name="screenshot_03_drawer">Schnell auf Aktivitäten, Freigaben, Offline-Dateien und mehr zugreifen</string>
     <string name="screenshot_03_drawer_heading">Aktivitäten, Freigaben, Offline-Dateien</string>
     <string name="screenshot_03_drawer_subline">Alles schnell erreichbar</string>
-    <string name="screenshot_04_accounts">Mit verschiedenen Konten verbinden</string>
     <string name="screenshot_04_accounts_heading">All ihre Konten</string>
     <string name="screenshot_04_accounts_subline">an einem Ort</string>
-    <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
     <string name="screenshot_05_autoUpload_subline">ihrer Fotos &amp; Videos</string>
-    <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVx5 (früher: DAVdroid) synchronisieren</string>
     <string name="screenshot_06_davdroid_heading">Synchronisieren sie Kalender &amp; Kontakte</string>
     <string name="screenshot_06_davdroid_subline">mit DAVx5 (zuvor DAVdroid)</string>
     <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>

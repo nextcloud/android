@@ -9,7 +9,6 @@
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
     <string name="actionbar_copy">Copiază</string>
-    <string name="actionbar_logger">Înregistrări</string>
     <string name="actionbar_mkdir">Dosar nou</string>
     <string name="actionbar_move">Mutare</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
@@ -140,7 +139,6 @@
     <string name="drawer_item_photos">Poze</string>
     <string name="drawer_item_recently_added">Adăugate recent</string>
     <string name="drawer_item_recently_modified">Modificate recent</string>
-    <string name="drawer_item_settings">Setări</string>
     <string name="drawer_item_shared">Partajate</string>
     <string name="drawer_item_trashbin">Fișiere șterse</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
@@ -249,8 +247,6 @@
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
     <string name="local_file_not_found_message">Fișierul nu a fost găsit în sistemul local</string>
     <string name="local_folder_list_empty">Nu există dosare.</string>
-    <string name="log_progress_dialog_text">Se încarcă…</string>
-    <string name="log_send_history_button">Trimite istoricul</string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu s-a găsit nicio aplicație capabilă să trimită înregistrări. Vă rugăm să instalați o aplicație pentru mail.</string>
     <string name="login">Autentificare</string>
@@ -352,7 +348,6 @@
     <string name="prefs_lock_none">Niciuna</string>
     <string name="prefs_lock_using_device_credentials">Autentificarea dispozitivului</string>
     <string name="prefs_lock_using_passcode">Parolă</string>
-    <string name="prefs_log_delete_history_button">Șterge istoricul</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
     <string name="prefs_recommend">Recomandați unui prieten</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>

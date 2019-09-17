@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
     <string name="actionbar_contacts_restore">Endurheimta tengiliði</string>
     <string name="actionbar_copy">Afrita</string>
-    <string name="actionbar_logger">Atvikaskrár</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_move">Færa</string>
     <string name="actionbar_open_as_richdocument_parameter">Opna með %1$s</string>
@@ -211,7 +210,6 @@
     <string name="drawer_item_photos">Ljósmyndir</string>
     <string name="drawer_item_recently_added">Nýlega bætt við</string>
     <string name="drawer_item_recently_modified">Nýlega breytt</string>
-    <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_shared">Deilt</string>
     <string name="drawer_item_trashbin">Eyddar skrár</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
@@ -358,8 +356,6 @@
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
-    <string name="log_progress_dialog_text">Hleð inn gögnum…</string>
-    <string name="log_send_history_button">Ferill sendinga</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
     <string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
     <string name="login">Skrá inn</string>
@@ -506,7 +502,6 @@
     <string name="prefs_lock_title">Verja forritið með</string>
     <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
-    <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
@@ -543,12 +538,6 @@
     <string name="saml_authentication_required_text">Lykilorðs er krafist</string>
     <string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
     <string name="scanQR_description">Skrá inn með QR-kóða</string>
-    <string name="screenshot_01_gridView">Öruggur staður fyrir öll gögnin þín</string>
-    <string name="screenshot_02_listView">Skoðaðu og deildu skránum þínum á einfaldan máta</string>
-    <string name="screenshot_03_drawer">Vertu snögg(ur) að skoða sameignir, virkni, skrár án netaðgangs og fleira</string>
-    <string name="screenshot_04_accounts">Tengstu mismunandi notandaaðgöngum</string>
-    <string name="screenshot_05_autoUpload">Sjálfvirk innsending mynda &amp; myndskeiða</string>
-    <string name="screenshot_06_davdroid">Samstilltu dagatal &amp; tengiliði með DAVx5 (áður þekkt sem DAVdroid)</string>
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
     <string name="select_all">Velja allt</string>
     <string name="select_template">Veldu sniðmát</string>

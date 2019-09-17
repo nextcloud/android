@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Maak een backup van de contacten</string>
     <string name="actionbar_contacts_restore">Herstellen contactpersonen</string>
     <string name="actionbar_copy">Kopiëren</string>
-    <string name="actionbar_logger">Logs</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_open_as_richdocument_parameter">Openen met %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_recently_added">Recent toegevoegd</string>
     <string name="drawer_item_recently_modified">Recent gewijzigd</string>
-    <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_shared">Gedeeld</string>
     <string name="drawer_item_trashbin">Verwijderde bestanden</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
-    <string name="log_progress_dialog_text">Gegevens laden…</string>
-    <string name="log_send_history_button">Geschiedenis versturen</string>
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
     <string name="login">Inloggen</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dit is een plaatshouder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
-    <string name="power_check_dialog_title">Uitschakelen stroombesparingscontrole</string>
     <string name="power_save_check_dialog_message">Uitschakelen stroombesparingscontrole kan resulteren in uploaden van bestanden met lage accustand!</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
     <string name="pref_behaviour_entries_keep_file">bewaard worden in originele map</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">Bescherm app met</string>
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
-    <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">Wachtwoord vereist</string>
     <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
     <string name="scanQR_description">Inloggen via QR code</string>
-    <string name="screenshot_01_gridView">Een veilige plek voor al je data</string>
     <string name="screenshot_01_gridView_heading">Beschermt jouw gegevens</string>
     <string name="screenshot_01_gridView_subline">eigen-hosting productiviteitsplatform</string>
-    <string name="screenshot_02_listView">Doorzoek en deel je bestanden makkelijk</string>
     <string name="screenshot_02_listView_heading">Blader en deel</string>
     <string name="screenshot_02_listView_subline">alle taken onder je vindertoppen</string>
-    <string name="screenshot_03_drawer">Benader snel je activiteiten, gedeelde bestanden, off-line bestanden en meer</string>
     <string name="screenshot_03_drawer_heading">Activiteiten, delen, off-line bestanden</string>
     <string name="screenshot_03_drawer_subline">alles snel toegankelijk</string>
-    <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
-    <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp; video\'s uploaden</string>
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
     <string name="screenshot_05_autoUpload_subline">voor je foto\'s &amp; video\'s</string>
-    <string name="screenshot_06_davdroid">Synchroniseer kalender &amp; contactpersonen met DAVx5 (vroeger bekend als DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="screenshot_06_davdroid_subline">met DAVx5 (voorheen DAVdroid)</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>

@@ -15,7 +15,6 @@
     <string name="actionbar_contacts">주소록 백업</string>
     <string name="actionbar_contacts_restore">주소록 복원</string>
     <string name="actionbar_copy">복사</string>
-    <string name="actionbar_logger">로그</string>
     <string name="actionbar_mkdir">새 폴더</string>
     <string name="actionbar_move">이동</string>
     <string name="actionbar_open_as_richdocument_parameter">다음으로 열기 %1$s</string>
@@ -196,7 +195,6 @@
     <string name="drawer_item_photos">사진</string>
     <string name="drawer_item_recently_added">최근 추가됨</string>
     <string name="drawer_item_recently_modified">최근 수정됨</string>
-    <string name="drawer_item_settings">설정</string>
     <string name="drawer_item_shared">공유됨</string>
     <string name="drawer_item_trashbin">삭제된 파일</string>
     <string name="drawer_item_uploads_list">업로드</string>
@@ -328,8 +326,6 @@
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
-    <string name="log_progress_dialog_text">데이터 불러오는 중…</string>
-    <string name="log_send_history_button">기록 보내기</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
     <string name="log_send_no_mail_app">로그를 보내는 데 사용할 수 있는 앱이 없습니다. 이메일 앱을 설치하십시오.</string>
     <string name="login">로그인</string>
@@ -461,7 +457,6 @@
     <string name="prefs_lock_device_credentials_not_setup">기기 인증이 설정되지 않았습니다.</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
     <string name="prefs_lock_using_passcode">암호</string>
-    <string name="prefs_log_delete_history_button">과거 기록 삭제</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
@@ -492,11 +487,6 @@
     <string name="restore_button_description">삭제된 파일 복구</string>
     <string name="saml_authentication_required_text">암호가 필요함</string>
     <string name="saml_authentication_wrong_pass">잘못된 암호</string>
-    <string name="screenshot_01_gridView">내 모든 데이터를 위한 안전한 저장소</string>
-    <string name="screenshot_02_listView">내 파일을 쉽게 탐색하고 공유하기</string>
-    <string name="screenshot_03_drawer">활동, 공유, 오프라인 파일 및 기타 콘텐츠에 빠르게 접근</string>
-    <string name="screenshot_04_accounts">다른 계정에 연결하기</string>
-    <string name="screenshot_05_autoUpload">내 사진과 동영상 자동 업로드</string>
     <string name="search_users_and_groups_hint">사용자와 그룹 검색</string>
     <string name="select_all">모두 선택</string>
     <string name="send">보내기</string>

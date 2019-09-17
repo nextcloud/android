@@ -10,7 +10,6 @@
     <string name="actionbar_contacts">Varunda kontaktid</string>
     <string name="actionbar_contacts_restore">Taasta kontaktid</string>
     <string name="actionbar_copy">Kopeeri</string>
-    <string name="actionbar_logger">Logid</string>
     <string name="actionbar_mkdir">Uus kaust</string>
     <string name="actionbar_move">Tõsta ümber</string>
     <string name="actionbar_open_with">Ava rakendusega</string>
@@ -123,7 +122,6 @@
     <string name="drawer_item_photos">Fotod</string>
     <string name="drawer_item_recently_added">Viimati lisatud</string>
     <string name="drawer_item_recently_modified">Viimati muudetud</string>
-    <string name="drawer_item_settings">Seaded</string>
     <string name="drawer_item_shared">Jagatud</string>
     <string name="drawer_item_uploads_list">Üleslaadimised</string>
     <string name="drawer_item_videos">Videod</string>
@@ -195,7 +193,6 @@
     <string name="link">Link</string>
     <string name="local_file_list_empty">Kaustas pole faile.</string>
     <string name="local_folder_list_empty">Rohkem kaustu ei ole.</string>
-    <string name="log_send_history_button">Saada ajalugu</string>
     <string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
     <string name="maintenance_mode">Server on hooldusrežiimis</string>
     <string name="manage_space_clear_data">Tühjenda andmed</string>
@@ -267,7 +264,6 @@
     <string name="prefs_imprint">Impressum</string>
     <string name="prefs_license">Litsents</string>
     <string name="prefs_lock_using_passcode">Parooli</string>
-    <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>

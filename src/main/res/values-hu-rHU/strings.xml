@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Névjegyek biztonsági mentése</string>
     <string name="actionbar_contacts_restore">Névjegyek visszaállítása</string>
     <string name="actionbar_copy">Másolás</string>
-    <string name="actionbar_logger">Naplók</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_open_as_richdocument_parameter">Megnyitás ezzel %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Fényképek</string>
     <string name="drawer_item_recently_added">Utoljára hozzáadva</string>
     <string name="drawer_item_recently_modified">Utoljára módosítva</string>
-    <string name="drawer_item_settings">Beállítások</string>
     <string name="drawer_item_shared">Megosztott</string>
     <string name="drawer_item_trashbin">Törölt fájlok</string>
     <string name="drawer_item_uploads_list">Feltöltések</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="local_file_not_found_message">A fájl nem található a helyi fájlrendszeren</string>
     <string name="local_folder_list_empty">Nincs több mappa.</string>
-    <string name="log_progress_dialog_text">Adatok betöltése…</string>
-    <string name="log_send_history_button">Előzmények elküldése</string>
     <string name="log_send_mail_subject">%1$s androidos alkalmazás naplói</string>
     <string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Telepítsen egy levelezőprogramot.</string>
     <string name="login">Bejelentkezés</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ez egy helykitöltő</string>
     <string name="placeholder_timestamp">2012.05.18. 12:23</string>
-    <string name="power_check_dialog_title">Energiagazdálkodási ellenőrzés letiltása</string>
     <string name="power_save_check_dialog_message">Az energiagazdálkodási ellenőrzés letiltása fájlfeltöltést eredményezhet akkor is, ha az akkumulátor töltöttsége alacsony.</string>
     <string name="pref_behaviour_entries_delete_file">törölt</string>
     <string name="pref_behaviour_entries_keep_file">megtartva az eredeti mappában</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">Az alkalmazás megvédése ezzel:</string>
     <string name="prefs_lock_using_device_credentials">Eszközhitelesítő-adatok</string>
     <string name="prefs_lock_using_passcode">Számkód</string>
-    <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">Jelszó szükséges</string>
     <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
-    <string name="screenshot_01_gridView">Egy biztonságos hely az összes adatának</string>
     <string name="screenshot_01_gridView_heading">Az adatai védelme</string>
     <string name="screenshot_01_gridView_subline">saját üzemeltetésű irodai platform</string>
-    <string name="screenshot_02_listView">Böngésszen és keressen a fájljai között könnyedén</string>
     <string name="screenshot_02_listView_heading">Tallózás és megosztás</string>
     <string name="screenshot_02_listView_subline">minden művelet karnyújtásnyira</string>
-    <string name="screenshot_03_drawer">Férjen hozzá gyorsan a tevékenységekhez, megosztásokhoz, offline fájlokhoz és egyebekhez</string>
     <string name="screenshot_03_drawer_heading">Tevékenységek, megosztások, offline fájlok</string>
     <string name="screenshot_03_drawer_subline">minden gyorsan elérhető</string>
-    <string name="screenshot_04_accounts">Kapcsolódás más fiókokhoz</string>
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
-    <string name="screenshot_05_autoUpload">Fényképek és videók automatikus feltöltése</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
     <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
-    <string name="screenshot_06_davdroid">Naptár és névjegyek szinkronizálása DAVx5 (régi nevén DAVdroid) segítségével</string>
     <string name="screenshot_06_davdroid_heading">Naptár és névjegyek szinkronizálása</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 (régi nevén DAVdroid) segítségével</string>
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>

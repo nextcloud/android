@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Copia de seguranza dos contactos</string>
     <string name="actionbar_contacts_restore">Restaurar os contactos</string>
     <string name="actionbar_copy">Copiar</string>
-    <string name="actionbar_logger">Rexistros</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Engadido recentemente</string>
     <string name="drawer_item_recently_modified">Modificado recentemente</string>
-    <string name="drawer_item_settings">Axustes</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envíos</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
-    <string name="log_progress_dialog_text">Cargando datos…</string>
-    <string name="log_send_history_button">Enviar o historial</string>
     <string name="log_send_mail_subject">Atoparonse %1$s aplicativos de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningún aplicativo para o envío de rexistros. Instale un cliente de correo-e.</string>
     <string name="login">Acceder</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é un marcador de posición</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
-    <string name="power_check_dialog_title">Desactivar a verificación de aforro de enerxía</string>
     <string name="power_save_check_dialog_message">A desactivación da verificación de aforro de enerxía pode provocar a carga de ficheiros cando estea coa batería baixa.</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
@@ -524,7 +519,6 @@
     <string name="prefs_lock_title">Protexer o apli empregando</string>
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_using_passcode">Código de seguridade</string>
-    <string name="prefs_log_delete_history_button">Eliminar historial</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
@@ -561,22 +555,16 @@
     <string name="saml_authentication_required_text">Requírese o contrasinal</string>
     <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
     <string name="scanQR_description">Acceder cun código QR</string>
-    <string name="screenshot_01_gridView">Un lugar seguro para todos os seus datos</string>
     <string name="screenshot_01_gridView_heading">Protexendo os seus datos</string>
     <string name="screenshot_01_gridView_subline">plataforma de produtividade de aloxamento propio</string>
-    <string name="screenshot_02_listView">Examine e comparta os seus ficheiros doadamente</string>
     <string name="screenshot_02_listView_heading">Navegar e compartir</string>
     <string name="screenshot_02_listView_subline">todas as accións ao seu alcance</string>
-    <string name="screenshot_03_drawer">Acceda rapidamente á súa actividade, recursos compartidos, ficheiros sen conexión e máis</string>
     <string name="screenshot_03_drawer_heading">Actividade, comparticións, ficheiros sen conexión</string>
     <string name="screenshot_03_drawer_subline">todo accesíbel rapidamente</string>
-    <string name="screenshot_04_accounts">Conectarse a contas diferentes</string>
     <string name="screenshot_04_accounts_heading">Todas as súas contas</string>
     <string name="screenshot_04_accounts_subline">nun só lugar</string>
-    <string name="screenshot_05_autoUpload">Enviar automaticamente as súas  fotos e vídeos</string>
     <string name="screenshot_05_autoUpload_heading">Envío automático</string>
     <string name="screenshot_05_autoUpload_subline">para as súas fotos e vídeos</string>
-    <string name="screenshot_06_davdroid">Sincronizar o calendario e os contactos con DAVx5 (anteriormente coñecido como DAVdroid) </string>
     <string name="screenshot_06_davdroid_heading">Sincronizar o calendario e os contactos</string>
     <string name="screenshot_06_davdroid_subline">con DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="search_users_and_groups_hint">Buscar usuarios e grupos</string>

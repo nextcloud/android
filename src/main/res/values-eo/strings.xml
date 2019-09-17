@@ -15,7 +15,6 @@
     <string name="actionbar_contacts">Savkopii kontaktaron</string>
     <string name="actionbar_contacts_restore">Restaŭri kontaktaron</string>
     <string name="actionbar_copy">Kopii</string>
-    <string name="actionbar_logger">Protokoloj</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
     <string name="actionbar_move">Movi</string>
     <string name="actionbar_open_with">Malfermi per</string>
@@ -184,7 +183,6 @@
     <string name="drawer_item_photos">Fotoj</string>
     <string name="drawer_item_recently_added">Aldonitaj antaŭ nelonge</string>
     <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
-    <string name="drawer_item_settings">Agordo</string>
     <string name="drawer_item_shared">Kunhavataj</string>
     <string name="drawer_item_trashbin">Forigitaj dosieroj</string>
     <string name="drawer_item_uploads_list">Alŝutoj</string>
@@ -328,8 +326,6 @@
     <string name="local_file_list_empty">Estas neniu dosiero en ĉi tiu dosierujo.</string>
     <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo</string>
     <string name="local_folder_list_empty">Ne estas plia dosierujo.</string>
-    <string name="log_progress_dialog_text">Ŝargante datumojn...</string>
-    <string name="log_send_history_button">Sendi historion</string>
     <string name="log_send_mail_subject">Protokoloj de Android-aplikaĵo %1$s</string>
     <string name="log_send_no_mail_app">Neniu aplikaĵo troveblis por sendi protokolojn. Bonvolu instali retpoŝtilon.</string>
     <string name="login">Ensaluti</string>
@@ -473,7 +469,6 @@
     <string name="prefs_lock_title">Protekti la aplikaĵon per</string>
     <string name="prefs_lock_using_device_credentials">Aparataj akreditiloj</string>
     <string name="prefs_lock_using_passcode">Pasvorto</string>
-    <string name="prefs_log_delete_history_button">Forviŝi historion</string>
     <string name="prefs_manage_accounts">Administri kontojn</string>
     <string name="prefs_recommend">Rekomendi al amiko</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
@@ -509,12 +504,6 @@
     <string name="saml_authentication_required_text">Pasvorto bezonata</string>
     <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
     <string name="scanQR_description">Ensaluti pere de rapidresponda (QR) kodo</string>
-    <string name="screenshot_01_gridView">Sekura hejmo por ĉiuj viaj datumoj</string>
-    <string name="screenshot_02_listView">Esploru kaj kunhavigu viajn dosierojn facile</string>
-    <string name="screenshot_03_drawer">Rapide aliru al aktivaĵoj, kunhavoj, senkonekte haveblaj dosieroj kaj pli</string>
-    <string name="screenshot_04_accounts">Konektu al pluraj kontoj</string>
-    <string name="screenshot_05_autoUpload">Aŭtomate alŝutu viajn fotojn kaj videaĵojn</string>
-    <string name="screenshot_06_davdroid">Sinkronigu kalendarojn kaj kontaktaron per DAVx5 (eks-DAVdroid)</string>
     <string name="search_users_and_groups_hint">Serĉi uzantojn kaj grupojn</string>
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
