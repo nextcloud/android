@@ -12,7 +12,6 @@
     <string name="actionbar_contacts">Respaldar contactos</string>
     <string name="actionbar_contacts_restore">Restaurar contactos</string>
     <string name="actionbar_copy">Copiar</string>
-    <string name="actionbar_logger">Bitácoras</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir con</string>
@@ -154,7 +153,6 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
-    <string name="drawer_item_settings">Configuraciones</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_uploads_list">Cargas</string>
     <string name="drawer_item_videos">Videos</string>
@@ -268,8 +266,6 @@
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
-    <string name="log_progress_dialog_text">Cargando datos…</string>
-    <string name="log_send_history_button">Enviar histórico</string>
     <string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
     <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
@@ -378,7 +374,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_license">Licencia</string>
-    <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
@@ -407,11 +402,6 @@
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="saml_authentication_required_text">Se requiere contraseña</string>
     <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
-    <string name="screenshot_01_gridView">Un lugar seguro para todos tus datos</string>
-    <string name="screenshot_02_listView">Navega y comparte tus archivos fácilmente</string>
-    <string name="screenshot_03_drawer">Accede rápidamente las actividades, elementos compartidos, archivos disponibles sin conexión y más</string>
-    <string name="screenshot_04_accounts">Conectarse a diferentes cuentas</string>
-    <string name="screenshot_05_autoUpload">Carga automáticamente tus fotos &amp; videos</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="send">Enviar</string>

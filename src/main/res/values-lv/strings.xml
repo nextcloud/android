@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Dublēt kontaktus</string>
     <string name="actionbar_contacts_restore">Atjaunot kontaktus</string>
     <string name="actionbar_copy">Kopēt</string>
-    <string name="actionbar_logger">Žurnāli</string>
     <string name="actionbar_mkdir">Jauna mape</string>
     <string name="actionbar_move">Pārvietot</string>
     <string name="actionbar_open_as_richdocument_parameter">Atvērt ar %1$s</string>
@@ -158,7 +157,6 @@
     <string name="drawer_item_photos">Bildes</string>
     <string name="drawer_item_recently_added">Nesen pievienotie</string>
     <string name="drawer_item_recently_modified">Nesen mainītie</string>
-    <string name="drawer_item_settings">Iestatījumi</string>
     <string name="drawer_item_shared">Koplietots</string>
     <string name="drawer_item_trashbin">Dzēstās datnes</string>
     <string name="drawer_item_uploads_list">Augšupielādes</string>
@@ -261,8 +259,6 @@
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
     <string name="local_file_not_found_message">Datne lokālajā datņu sistēmā netika atrasta</string>
     <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
-    <string name="log_progress_dialog_text">Ielādē datus…</string>
-    <string name="log_send_history_button">Sūtīt vēsturi</string>
     <string name="log_send_mail_subject">%1$s Android lietotnes žurnāli</string>
     <string name="log_send_no_mail_app">Nav atrasta neviena lietotne notikumu žurnāla sūtīšanai. Lūdzu instalējiet e-pasta klientu.</string>
     <string name="maintenance_mode">Serveris ir uzturēšanas režīmā</string>
@@ -360,7 +356,6 @@
     <string name="prefs_lock_none">Nav</string>
     <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
     <string name="prefs_lock_using_passcode">Kods</string>
-    <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
@@ -384,7 +379,6 @@
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
     <string name="saml_authentication_required_text">Nepieciešama parole</string>
     <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
-    <string name="screenshot_01_gridView">Droša vieta visiem jūsu datiem</string>
     <string name="screenshot_03_drawer_heading">Darbības, kopīgošana, bezsaistes faili</string>
     <string name="search_users_and_groups_hint">Meklēt lietotājus un grupas</string>
     <string name="select_all">Atzīmēt visu</string>

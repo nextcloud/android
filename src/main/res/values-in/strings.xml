@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Cadangkan kontak.</string>
     <string name="actionbar_contacts_restore">Pulihkan kontak.</string>
     <string name="actionbar_copy">Salin</string>
-    <string name="actionbar_logger">Log</string>
     <string name="actionbar_mkdir">Folder baru</string>
     <string name="actionbar_move">Pindah</string>
     <string name="actionbar_open_as_richdocument_parameter">Buka dengan %1$s</string>
@@ -166,7 +165,6 @@
     <string name="drawer_item_photos">Foto</string>
     <string name="drawer_item_recently_added">Baru ditambah</string>
     <string name="drawer_item_recently_modified">Baru diubah</string>
-    <string name="drawer_item_settings">Pengaturan</string>
     <string name="drawer_item_shared">Dibagikan</string>
     <string name="drawer_item_uploads_list">Unggah</string>
     <string name="drawer_item_videos">Video</string>
@@ -271,8 +269,6 @@
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="local_folder_list_empty">Tidak ada folder lagi.</string>
-    <string name="log_progress_dialog_text">Memuat data…</string>
-    <string name="log_send_history_button">Kirim riwayat</string>
     <string name="log_send_mail_subject">%1$s Android apl log</string>
     <string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
     <string name="login">Masuk</string>
@@ -375,7 +371,6 @@
     <string name="prefs_lock_none">Tidak ada</string>
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
-    <string name="prefs_log_delete_history_button">Hapus riwayat</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>

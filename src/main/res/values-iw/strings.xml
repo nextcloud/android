@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">גיבוי אנשי קשר</string>
     <string name="actionbar_contacts_restore">שחזור אנשי קשר</string>
     <string name="actionbar_copy">העתק</string>
-    <string name="actionbar_logger">לוגים</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
     <string name="actionbar_open_as_richdocument_parameter">פתיחה עם %1$s</string>
@@ -214,7 +213,6 @@
     <string name="drawer_item_photos">תמונות</string>
     <string name="drawer_item_recently_added">נוספו לאחרונה</string>
     <string name="drawer_item_recently_modified">השתנו לאחרונה</string>
-    <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_shared">שותף</string>
     <string name="drawer_item_trashbin">קבצים שנמחקו</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -365,8 +363,6 @@
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="local_file_not_found_message">הקובץ לא נמצא במערכת הקבצים המקומית</string>
     <string name="local_folder_list_empty">אין תיקיות נוספות.</string>
-    <string name="log_progress_dialog_text">טעינת מידע…</string>
-    <string name="log_send_history_button">הסטורית שליחה</string>
     <string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
     <string name="log_send_no_mail_app">לא נמצא יישומון לשליחת רישומים. נא להתקין לקוח דוא״ל.</string>
     <string name="login">כניסה</string>
@@ -483,7 +479,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">זהו ממלא מקום</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">השבתת בדיקת חיסכון בחשמל</string>
     <string name="power_save_check_dialog_message">השבתת בדיקת חיסכון בחשמל גורמת להעלאת קבצים כשהסוללה חלשה!</string>
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
@@ -520,7 +515,6 @@
     <string name="prefs_lock_title">הגנה על היישומון באמצעות</string>
     <string name="prefs_lock_using_device_credentials">פרטי זיהוי להתקן</string>
     <string name="prefs_lock_using_passcode">צופן נעילה</string>
-    <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_manage_accounts">ניהול חשבונות</string>
     <string name="prefs_recommend">המליצו לחברים</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
@@ -557,22 +551,16 @@
     <string name="saml_authentication_required_text">נדרשת ססמה</string>
     <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
     <string name="scanQR_description">כניסה עם קוד QR</string>
-    <string name="screenshot_01_gridView">בית בטוח לכל הנתונים שלך</string>
     <string name="screenshot_01_gridView_heading">הגנה על הנתונים שלך</string>
     <string name="screenshot_01_gridView_subline">פלטפורמת כלי משרד באירוח עצמי</string>
-    <string name="screenshot_02_listView">עיון ושיתוף בקבצים שלך בקלות</string>
     <string name="screenshot_02_listView_heading">עיון ושיתוף</string>
     <string name="screenshot_02_listView_subline">כל הפעולות בהינף יד</string>
-    <string name="screenshot_03_drawer">גישה מהירה לפעילות, שיתופים, קבצים בלתי מקוונים ועוד</string>
     <string name="screenshot_03_drawer_heading">פעילות, שיתופים, קבצים בלתי מקוונים</string>
     <string name="screenshot_03_drawer_subline">הכול נגיש במהירות</string>
-    <string name="screenshot_04_accounts">התחברות לחשבונות אחרים</string>
     <string name="screenshot_04_accounts_heading">כל החשבונות שלך</string>
     <string name="screenshot_04_accounts_subline">במקום אחד</string>
-    <string name="screenshot_05_autoUpload">העלאת התמונות והסרטונים שלך אוטומטית</string>
     <string name="screenshot_05_autoUpload_heading">העלאה אוטומטית</string>
     <string name="screenshot_05_autoUpload_subline">לתמונות ולסרטונים שלך</string>
-    <string name="screenshot_06_davdroid">סנכרון לוח שנה ואנשי קשר מול DAVx5 (לשעבר DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">סנכרון לוח שנה ואנשי קשר</string>
     <string name="screenshot_06_davdroid_subline">עם DAVx5 (לשעבר DAVdroid)</string>
     <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>

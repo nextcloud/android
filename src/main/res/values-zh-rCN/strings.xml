@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">联系人备份</string>
     <string name="actionbar_contacts_restore">恢复联系人</string>
     <string name="actionbar_copy">复制</string>
-    <string name="actionbar_logger">日志</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move">移动</string>
     <string name="actionbar_open_as_richdocument_parameter">用%1$s打开</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">照片</string>
     <string name="drawer_item_recently_added">最近添加</string>
     <string name="drawer_item_recently_modified">最近修改</string>
-    <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_shared">已共享</string>
     <string name="drawer_item_trashbin">已删除的文件</string>
     <string name="drawer_item_uploads_list">上传</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
     <string name="local_file_not_found_message">本地文件系统无法找到此文件</string>
     <string name="local_folder_list_empty">没有其他文件夹。</string>
-    <string name="log_progress_dialog_text">数据加载中…</string>
-    <string name="log_send_history_button">发送历史日志</string>
     <string name="log_send_mail_subject">%1$s Android 程序日志</string>
     <string name="log_send_no_mail_app">没有应用程序发送发送日志。 请安装电子邮件客户端。</string>
     <string name="login">登录</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
-    <string name="power_check_dialog_title">禁用节能检查</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
     <string name="pref_behaviour_entries_delete_file">删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">保护应用程序</string>
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">密码</string>
-    <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">需要密码</string>
     <string name="saml_authentication_wrong_pass">错误密码</string>
     <string name="scanQR_description">通过扫描二维码登录</string>
-    <string name="screenshot_01_gridView">为你的数据找一个安全的家</string>
     <string name="screenshot_01_gridView_heading">保护您的数据</string>
     <string name="screenshot_01_gridView_subline">自托管生产力平台</string>
-    <string name="screenshot_02_listView">方便的浏览和共享你的文件</string>
     <string name="screenshot_02_listView_heading">浏览与分享</string>
     <string name="screenshot_02_listView_subline">所有操控尽在您的指尖</string>
-    <string name="screenshot_03_drawer">快速访问活动，分享，离线文件及更多</string>
     <string name="screenshot_03_drawer_heading">活动，共享，离线文件</string>
     <string name="screenshot_03_drawer_subline">快速访问所有数据</string>
-    <string name="screenshot_04_accounts">连接到不同的账户</string>
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
-    <string name="screenshot_05_autoUpload">自动上传照片&amp;/视频 </string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;视频</string>
-    <string name="screenshot_06_davdroid">通过DAVx5（原名DAVdroid） 同步日历与 &amp; 个联系人</string>
     <string name="screenshot_06_davdroid_heading">同步日历&amp;联系人</string>
     <string name="screenshot_06_davdroid_subline">通过 DAVx5（原名DAVdroid）</string>
     <string name="search_users_and_groups_hint">搜索用户和组</string>

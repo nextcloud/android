@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">連絡先のバックアップ</string>
     <string name="actionbar_contacts_restore">アドレス帳を復元</string>
     <string name="actionbar_copy">コピー</string>
-    <string name="actionbar_logger">ログ</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
     <string name="actionbar_open_as_richdocument_parameter">%1$s で開く</string>
@@ -215,7 +214,6 @@
     <string name="drawer_item_photos">写真</string>
     <string name="drawer_item_recently_added">最近追加</string>
     <string name="drawer_item_recently_modified">最近更新</string>
-    <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_shared">共有中</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
     <string name="drawer_item_uploads_list">アップロード</string>
@@ -366,8 +364,6 @@
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
-    <string name="log_progress_dialog_text">データの読み込み中…</string>
-    <string name="log_send_history_button">履歴を送信</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
@@ -482,7 +478,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
-    <string name="power_check_dialog_title">省電力チェックを無効化</string>
     <string name="power_save_check_dialog_message">省電力チェックを無効にすると、バッテリー残量が少ないときにもファイルのアップロードを行う場合があります！</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
@@ -519,7 +514,6 @@
     <string name="prefs_lock_title">アプリを保護する方法</string>
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
-    <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
@@ -556,18 +550,12 @@
     <string name="saml_authentication_required_text">パスワードが必要です</string>
     <string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
-    <string name="screenshot_01_gridView">すべてのデータの安全なホーム</string>
     <string name="screenshot_01_gridView_heading">あなたのデータを保護</string>
-    <string name="screenshot_02_listView">ファイルを簡単にブラウズして共有する</string>
     <string name="screenshot_02_listView_heading">閲覧と共有</string>
-    <string name="screenshot_03_drawer">アクティビティ、共有、オフラインファイルなどに素早くアクセス</string>
     <string name="screenshot_03_drawer_heading">アクティビティ、共有、オフラインファイル</string>
-    <string name="screenshot_04_accounts">別のアカウントに接続する</string>
     <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_04_accounts_subline">ひとつの場所に</string>
-    <string name="screenshot_05_autoUpload">写真を自動的にアップロード &amp; ビデオ</string>
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
-    <string name="screenshot_06_davdroid">カレンダー&amp;連絡先をDAVx5 (旧称 DAVdroid)で同期する</string>
     <string name="screenshot_06_davdroid_heading">コンタクト&amp;カレンダーを同期</string>
     <string name="screenshot_06_davdroid_subline">DAVx5(旧称:DAVdroid)で</string>
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>

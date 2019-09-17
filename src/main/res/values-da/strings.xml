@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Backup kontaktpersoner</string>
     <string name="actionbar_contacts_restore">Genskab kontaktpersoner</string>
     <string name="actionbar_copy">Kopiér</string>
-    <string name="actionbar_logger">Logge</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flyt</string>
     <string name="actionbar_open_as_richdocument_parameter">Åbn med %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Tilføjet for nylig</string>
     <string name="drawer_item_recently_modified">Ændret for nylig</string>
-    <string name="drawer_item_settings">Indstillinger</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Uploade filer</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="local_file_not_found_message">Fil ikke fundet i lokalt filsystem</string>
     <string name="local_folder_list_empty">Der er ikke flere mapper.</string>
-    <string name="log_progress_dialog_text">Indlæser data...</string>
-    <string name="log_send_history_button">Send historik</string>
     <string name="log_send_mail_subject">%1$s Android-app - logge</string>
     <string name="log_send_no_mail_app">Ingen app til forsendelse af logs fundet. Venligst installer en e-mail app.</string>
     <string name="login">Log ind</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dette er en pladsholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">Deaktiver strømsparecheck</string>
     <string name="power_save_check_dialog_message">Deaktiver strømsparecheck kan føre til forsendelse af filer mens der ikke resterer meget strøm på batteriet</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
     <string name="pref_behaviour_entries_keep_file">forblevet i oprindelig mappe</string>
@@ -525,7 +520,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_lock_title">Beskyt app med</string>
     <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
-    <string name="prefs_log_delete_history_button">Slet historik</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
     <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
@@ -562,22 +556,16 @@ Enheds legitimationsoplysninger er sat op
     <string name="saml_authentication_required_text">Password påkrævet</string>
     <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
     <string name="scanQR_description">Login med QR kode</string>
-    <string name="screenshot_01_gridView">Et sikket hjem til alt dit data</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
     <string name="screenshot_01_gridView_subline">Vært i eget hus produktivitets platform</string>
-    <string name="screenshot_02_listView">Defiler og del nemt dine filer</string>
     <string name="screenshot_02_listView_heading">Defiler og del</string>
     <string name="screenshot_02_listView_subline">Alle funktioner lige ved hånden</string>
-    <string name="screenshot_03_drawer">Hurtig adgang til aktiviteter, delinger, offline filer og mere</string>
     <string name="screenshot_03_drawer_heading">Aktiviteter, delinger, offline filer</string>
     <string name="screenshot_03_drawer_subline">alt hurtigt tilgængeligt</string>
-    <string name="screenshot_04_accounts">Forbind til forskellige konti</string>
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
-    <string name="screenshot_05_autoUpload">Send automatisk dine photos &amp; og videoer</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
-    <string name="screenshot_06_davdroid">Synkroniser kalender &amp; kontakter med DAVx5 (før kendt som DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Synk kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">med DAVx5 (forhenværende DAVdroid)</string>
     <string name="search_users_and_groups_hint">Søg brugere og grupper</string>

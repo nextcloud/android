@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Zálohování kontaktů</string>
     <string name="actionbar_contacts_restore">Obnovení kontaktů</string>
     <string name="actionbar_copy">Kopírovat</string>
-    <string name="actionbar_logger">Záznamy událostí</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_open_as_richdocument_parameter">Otevřít pomocí %1$s</string>
@@ -210,7 +209,6 @@
     <string name="drawer_item_photos">Fotky</string>
     <string name="drawer_item_recently_added">Nedávno přidané</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
-    <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
@@ -360,8 +358,6 @@
     <string name="local_file_list_empty">V této složce nejsou žádné soubory.</string>
     <string name="local_file_not_found_message">Soubor nenalezen na souborovém systému</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
-    <string name="log_progress_dialog_text">Načítání dat…</string>
-    <string name="log_send_history_button">Historie odesílání</string>
     <string name="log_send_mail_subject">Záznamy událostí v aplikaci %1$s pro Android</string>
     <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte emailového klienta.</string>
     <string name="login">Přihlásit</string>
@@ -508,7 +504,6 @@
     <string name="prefs_lock_title">Ochránit aplikací pomocí</string>
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
-    <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
@@ -545,22 +540,16 @@
     <string name="saml_authentication_required_text">Je třeba hesla</string>
     <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
     <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
-    <string name="screenshot_01_gridView">Bezpečné místo pro všechna vaše data</string>
     <string name="screenshot_01_gridView_heading">Ochrana vašich dat</string>
     <string name="screenshot_01_gridView_subline">Platforma pro produktivitu, hostovaná u vás</string>
-    <string name="screenshot_02_listView">Snadno procházejte a sdílejte své soubory</string>
     <string name="screenshot_02_listView_heading">Procházet a sdílet</string>
     <string name="screenshot_02_listView_subline">všechny akce na dosah ruky</string>
-    <string name="screenshot_03_drawer">Rychlý přístup k aktivitě, sdílením, souborům offline a dalšímu</string>
     <string name="screenshot_03_drawer_heading">Aktivity, sdílení, soubory offline</string>
     <string name="screenshot_03_drawer_subline">vše pohotově přístupné</string>
-    <string name="screenshot_04_accounts">Připojit k jinému účtu</string>
     <string name="screenshot_04_accounts_heading">Všechny vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom místě</string>
-    <string name="screenshot_05_autoUpload">Automaticky nahrávat své fotky &amp; videa</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrání</string>
     <string name="screenshot_05_autoUpload_subline">pro vaše fotky a videa</string>
-    <string name="screenshot_06_davdroid">Synchronizujte kalendář a kontakty pomocí DAVx5 (dříve známo pod názvem DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Synchronizovat kalendář a kontakty</string>
     <string name="screenshot_06_davdroid_subline">pomocí DAVx5 (dříve DAVdroid)</string>
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>

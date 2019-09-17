@@ -113,7 +113,6 @@
     <string name="drawer_item_photos">Ảnh</string>
     <string name="drawer_item_recently_added">Mới thêm</string>
     <string name="drawer_item_recently_modified">Mới sửa</string>
-    <string name="drawer_item_settings">Thiệt lập</string>
     <string name="drawer_item_shared">Chia sẻ</string>
     <string name="drawer_item_trashbin">File đã bị xóa</string>
     <string name="drawer_item_uploads_list">Tải lên</string>
@@ -202,7 +201,6 @@
     <string name="list_layout">Bố cục được liệt kê</string>
     <string name="local_file_list_empty">Không có tệp nào trong thư mục này.</string>
     <string name="local_folder_list_empty">Không có thư mục nào khác.</string>
-    <string name="log_progress_dialog_text">Đang tải dữ liệu…</string>
     <string name="log_send_mail_subject">%1$s nhật ký ứng dụng Android</string>
     <string name="login">Đăng nhập</string>
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
@@ -272,7 +270,6 @@
     <string name="prefs_lock_none">Không có</string>
     <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
     <string name="prefs_lock_using_passcode">Mật mã</string>
-    <string name="prefs_log_delete_history_button">Xóa lịch sử</string>
     <string name="prefs_manage_accounts">Quản lý tài khoản</string>
     <string name="prefs_recommend">Giới thiệu cho bạn bè</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
@@ -290,7 +287,6 @@
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="saml_authentication_required_text">Yêu cầu mật khẩu</string>
     <string name="saml_authentication_wrong_pass">Sai mật khẩu</string>
-    <string name="screenshot_04_accounts">Kết nối với các tài khoản khác nhau</string>
     <string name="search_users_and_groups_hint">Tìm người dùng hoặc nhóm</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="send">Gửi</string>

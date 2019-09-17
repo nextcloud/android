@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">備份聯絡人</string>
     <string name="actionbar_contacts_restore">還原聯絡人</string>
     <string name="actionbar_copy">複製</string>
-    <string name="actionbar_logger">紀錄檔</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
     <string name="actionbar_open_as_richdocument_parameter">使用%1$s開啟</string>
@@ -213,7 +212,6 @@
     <string name="drawer_item_photos">相片</string>
     <string name="drawer_item_recently_added">最近新增加的</string>
     <string name="drawer_item_recently_modified">最近修改的</string>
-    <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">回收桶</string>
     <string name="drawer_item_uploads_list">上傳</string>
@@ -363,8 +361,6 @@
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
     <string name="local_file_not_found_message">本地檔案系統中找不到檔案</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
-    <string name="log_progress_dialog_text">載入中…</string>
-    <string name="log_send_history_button">傳送歷史</string>
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
     <string name="log_send_no_mail_app">無應用程式送出的紀錄，請安裝 Email 客戶端。</string>
     <string name="login">登入</string>
@@ -480,7 +476,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">停用省電功能</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
@@ -515,7 +510,6 @@
     <string name="prefs_lock_title">保護 app 的使用</string>
     <string name="prefs_lock_using_device_credentials">設備認證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
-    <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
@@ -553,19 +547,13 @@
     <string name="saml_authentication_required_text">請輸入密碼</string>
     <string name="saml_authentication_wrong_pass">密碼錯誤</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
-    <string name="screenshot_01_gridView">您資料的安全屋</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
-    <string name="screenshot_02_listView">輕輕鬆鬆地瀏覽分享您的檔案</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>
     <string name="screenshot_02_listView_subline">全在您一指之間</string>
-    <string name="screenshot_03_drawer">快速地存取活動、分享、離線檔案和更多</string>
-    <string name="screenshot_04_accounts">連結其它帳號</string>
     <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
-    <string name="screenshot_05_autoUpload">自動上傳照片&amp;影片</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;影片</string>
-    <string name="screenshot_06_davdroid">使用 DAVx5 (DAVdriod)日暦&amp;同步</string>
     <string name="screenshot_06_davdroid_heading">同步行事曆&amp;聯絡人</string>
     <string name="screenshot_06_davdroid_subline">透過DAVx5(前身為DAVdroid)</string>
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>

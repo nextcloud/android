@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Back up contacts</string>
     <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="actionbar_copy">Copy</string>
-    <string name="actionbar_logger">Logs</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
     <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
@@ -216,7 +215,6 @@
     <string name="drawer_item_photos">Photos</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
-    <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -368,8 +366,6 @@
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
-    <string name="log_progress_dialog_text">Loading data…</string>
-    <string name="log_send_history_button">Send history</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
     <string name="login">Log in</string>
@@ -486,7 +482,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="power_check_dialog_title">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
@@ -523,7 +518,6 @@
     <string name="prefs_lock_title">Protect app using</string>
     <string name="prefs_lock_using_device_credentials">Device credentials</string>
     <string name="prefs_lock_using_passcode">Passcode</string>
-    <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
@@ -560,22 +554,16 @@
     <string name="saml_authentication_required_text">Password required</string>
     <string name="saml_authentication_wrong_pass">Incorrect password</string>
     <string name="scanQR_description">Login via QR code</string>
-    <string name="screenshot_01_gridView">A safe home for all your data</string>
     <string name="screenshot_01_gridView_heading">Protecting your data</string>
     <string name="screenshot_01_gridView_subline">self-hosted productivity platform</string>
-    <string name="screenshot_02_listView">Browse and share your files easily</string>
     <string name="screenshot_02_listView_heading">Browse and share</string>
     <string name="screenshot_02_listView_subline">all actions at your fingertips</string>
-    <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
     <string name="screenshot_03_drawer_heading">Activity, shares, offline files</string>
     <string name="screenshot_03_drawer_subline">everything quickly accessible</string>
-    <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
-    <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
     <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
-    <string name="screenshot_06_davdroid">Sync calendar &amp; contacts with DAVx5 (formerly known as DAVdroid)</string>
     <string name="screenshot_06_davdroid_heading">Sync calendar &amp; contacts</string>
     <string name="screenshot_06_davdroid_subline">with DAVx5 (formerly DAVdroid)</string>
     <string name="search_users_and_groups_hint">Search users and groups</string>

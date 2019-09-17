@@ -16,7 +16,6 @@
     <string name="actionbar_contacts">Fazer cópia de segurança dos contactos</string>
     <string name="actionbar_contacts_restore">Restaurar contactos</string>
     <string name="actionbar_copy">Copiar</string>
-    <string name="actionbar_logger">Registos de Alterações</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_as_richdocument_parameter">Abrir com %1$s</string>
@@ -191,7 +190,6 @@
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
-    <string name="drawer_item_settings">Definições</string>
     <string name="drawer_item_shared">Partilhados</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envios</string>
@@ -337,8 +335,6 @@
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="local_file_not_found_message">Ficheiros não encontrados no sistema de ficheiros local</string>
     <string name="local_folder_list_empty">Não existem mais pastas.</string>
-    <string name="log_progress_dialog_text">A carregar dados…</string>
-    <string name="log_send_history_button">Histórico de envio</string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
     <string name="log_send_no_mail_app">Nenhuma aplicação de envio de registos encontrada. Por favor, instale um cliente e-mail.</string>
     <string name="login">Iniciar Sessão</string>
@@ -447,7 +443,6 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é uma variável</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
-    <string name="power_check_dialog_title">Desabilitar a verificação de poupança de energia</string>
     <string name="power_save_check_dialog_message">Desabilitar a verificação de poupança de energia pode resultar no envio de ficheiros quando a carga da bateria está baixa!</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
@@ -484,7 +479,6 @@
     <string name="prefs_lock_title">Proteger a aplicação, usando</string>
     <string name="prefs_lock_using_device_credentials">Credenciais de dispositivo</string>
     <string name="prefs_lock_using_passcode">Código</string>
-    <string name="prefs_log_delete_history_button">Eliminar histórico</string>
     <string name="prefs_manage_accounts">Gerir contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
@@ -521,12 +515,6 @@
     <string name="saml_authentication_required_text">Necessário palavra-passe</string>
     <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
     <string name="scanQR_description">acesso através de código QR</string>
-    <string name="screenshot_01_gridView">Um local seguro para todos os seus dados</string>
-    <string name="screenshot_02_listView">Explore e partilhe ficheiros facilmente</string>
-    <string name="screenshot_03_drawer">Aceda a actividade, partilhas, ficheiros offline e mais, rapidamente</string>
-    <string name="screenshot_04_accounts">Ligue-se a contas diferentes</string>
-    <string name="screenshot_05_autoUpload">Envie automaticamente as suas fotos &amp; vídeos</string>
-    <string name="screenshot_06_davdroid">Sincronizar calendário &amp; contactos com DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="select_template">Seleccionar modelo</string>
