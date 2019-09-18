@@ -3,7 +3,10 @@
     <string name="about_android">%1$s Androidi rakendus</string>
     <string name="about_title">Info</string>
     <string name="about_version">versioon %1$s</string>
+    <string name="account_creation_failed">Konto loomine ebaõnnestus</string>
+    <string name="account_not_found">Kontot ei leitud!</string>
     <string name="action_clear_failed_uploads">Puhasta ebaõnnestunud üleslaadimised</string>
+    <string name="action_empty_trashbin">Tühjenda prügikast</string>
     <string name="action_send_share">Saada/Jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
