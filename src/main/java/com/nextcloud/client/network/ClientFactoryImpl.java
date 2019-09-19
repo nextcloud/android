@@ -31,8 +31,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
-import org.apache.commons.httpclient.HttpClient;
-
 import java.io.IOException;
 
 class ClientFactoryImpl implements ClientFactory {
@@ -68,7 +66,7 @@ class ClientFactoryImpl implements ClientFactory {
     }
 
     @Override
-    public HttpClient createPlainClient() {
-        return new HttpClient();
+    public PlainHttpClient createPlainClient() {
+        return new PlainHttpClient();
     }
 }
