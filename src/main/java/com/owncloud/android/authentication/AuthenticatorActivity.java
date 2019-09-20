@@ -407,7 +407,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             new Handler().postDelayed(() -> DisplayUtils.createSnackbar(mLoginWebView,
                                                                         R.string.fallback_weblogin_text,
                                                                         Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(R.color.fg_inverse))
+                .setActionTextColor(getResources().getColor(R.color.themed_fg))
+                .setBackgroundTint(getResources().getColor(R.color.themed_bg))
+                .setTextColor(getResources().getColor(R.color.themed_fg))
                 .setAction(R.string.fallback_weblogin_back, v -> {
                     mLoginWebView.setVisibility(View.INVISIBLE);
                     webViewLoginMethod = false;
