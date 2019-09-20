@@ -6,12 +6,14 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -19,12 +21,13 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
-public abstract class BaseActivity extends AppCompatActivity implements Injectable {
+public abstract class BaseActivity extends AppCompatActivity implements Injectable, SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
@@ -52,10 +55,51 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      */
     private FileDataStorageManager mStorageManager;
 
+    /**
+     * Tracks whether the activity should be recreate()'d after a theme change
+     */
+    private boolean mThemeChangePending;
+    private boolean mPaused;
+
     @Inject UserAccountManager accountManager;
+    @Inject SharedPreferences sharedPreferences;
 
     public UserAccountManager getUserAccountManager() {
         return accountManager;
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPaused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPaused = false;
+
+        if(mThemeChangePending) {
+//            getDelegate().applyDayNight();
+            recreate();
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
     }
 
     @Override
@@ -83,6 +127,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
             swapToDefaultAccount();
         }
         Log_OC.v(TAG, "onRestart() end");
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+       if (!getString(R.string.prefs_key_theme).equals(key)) {
+            return;
+        }
+
+        if(mPaused) {
+            mThemeChangePending = true;
+            return;
+        }
+        recreate();
     }
 
     /**

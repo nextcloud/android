@@ -95,7 +95,7 @@ import androidx.core.content.res.ResourcesCompat;
  *
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
-public class SettingsActivity extends PreferenceActivity
+public class SettingsActivity extends ThemedPreferenceActivity
     implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
     Injectable {
 
@@ -697,8 +697,7 @@ public class SettingsActivity extends PreferenceActivity
                             getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light));
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
             MainApp.setAppTheme((Boolean) newValue);
-            getDelegate().applyDayNight();
-            recreate();
+//            recreate();
 
             return true;
         });
