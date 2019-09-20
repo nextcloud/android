@@ -28,9 +28,10 @@
         android:layout_gravity="start"
         android:layout_weight="1"
         android:fitsSystemWindows="true"
+        android:background="@color/bg_default"
+        android:theme="@style/NavigationView_ItemTextAppearance"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu"
-        app:theme="@style/NavigationView_ItemTextAppearance">
+        app:menu="@menu/drawer_menu">
 
         <LinearLayout
             android:id="@+id/drawer_quota"

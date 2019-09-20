@@ -509,7 +509,7 @@ public final class ThemeUtils {
             }
         }
 
-        editText.setHintTextColor(color);
+//        editText.setHintTextColor(color);
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
