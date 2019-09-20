@@ -80,7 +80,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         Button loginButton = findViewById(R.id.login);
-        loginButton.setBackgroundColor(getResources().getColor(R.color.bg_default));
+        loginButton.setBackgroundColor(getResources().getColor(R.color.login_btn_tint));
         loginButton.setTextColor(getResources().getColor(R.color.primary));
 
         loginButton.setOnClickListener(v -> {

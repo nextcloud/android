@@ -29,7 +29,8 @@
             android:defaultValue="@string/prefs_value_theme_light"
             android:key="@string/prefs_key_theme"
             android:summary="%s"
-            android:title="@string/prefs_theme_title" />
+            android:title="@string/prefs_theme_title"
+            android:theme="@style/SwitchPreference"/>
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"
