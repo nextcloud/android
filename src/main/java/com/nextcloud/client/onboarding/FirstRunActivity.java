@@ -206,6 +206,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (FIRST_RUN_RESULT_CODE == requestCode && RESULT_OK == resultCode) {
 
             String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);

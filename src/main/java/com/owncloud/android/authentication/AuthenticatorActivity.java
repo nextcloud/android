@@ -884,6 +884,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Log_OC.d(TAG, "onNewIntent()");
 
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
@@ -2041,6 +2042,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_QR_SCAN) {
             if (data == null) {
                 return;
