@@ -103,6 +103,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
     @Override
     protected void onNewIntent(Intent intent) {
         // Verify the action and get the query
+        super.onNewIntent(intent);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
@@ -120,8 +121,8 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             if (!shareeNames.contains(shareWith)) {
 
                 doShareWith(
-                        shareWith,
-                        data.getAuthority()
+                    shareWith,
+                    data.getAuthority()
                 );
             }
 
