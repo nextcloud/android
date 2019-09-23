@@ -199,6 +199,10 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         if (TextUtils.isEmpty(url)) {
             new LoadUrlTask(this, getAccount()).execute(file.getLocalId());
         } else {
+            if (file.getFileName().equals("slideShow.svg")) {
+                hideLoading();
+            }
+
             webview.loadUrl(url);
         }
     }
@@ -274,6 +278,13 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
         intent.putExtra(FileActivity.EXTRA_ACCOUNT, getAccount());
+        startActivity(intent);
+    }
+
+    private void openWebView(String url) {
+        Intent intent = new Intent(this, RichDocumentsWebView.class);
+        intent.putExtra(EXTRA_URL, url);
+        intent.putExtra(EXTRA_FILE, new OCFile("/slideShow.svg"));
         startActivity(intent);
     }
 
@@ -463,6 +474,8 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                 webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
             }
         }
+	    @JavascriptInterface
+	    public void slideShow(String url) { openWebView(url); }
     }
 
 
