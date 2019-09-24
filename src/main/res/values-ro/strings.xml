@@ -73,6 +73,8 @@
     <string name="auth_wtf_reenter_URL">Situație neașteptată; vă rugăm să reintroduceți adresa serverului</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
+    <string name="autoupload_create_new_custom_folder">Crează un director personalizat</string>
+    <string name="autoupload_custom_folder">Configurează un director personalizat</string>
     <string name="autoupload_disable_power_save_check">Dezactivează verificarea economiei de energie</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Închidere</string>
