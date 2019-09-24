@@ -1,0 +1,6 @@
+7c1aae4c2 Merge pull request #4473 from nextcloud/dependabot/gradle/androidx.appcompat-appcompat-1.1.0
+9f6edd7f3 Merge pull request #4541 from nextcloud/dependabot/gradle/com.google.android-flexbox-1.1.1
+61d364357 Bump flexbox from 1.1.0 to 1.1.1
+8429ba3f6 [tx-robot] updated from transifex
+a2d826e31 [tx-robot] updated from transifex
+2b948f574 daily dev 20190921
