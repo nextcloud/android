@@ -125,6 +125,7 @@
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
     <string name="contacts_read_permission">Reikalingas leidimas skaityti adresatų sąrašą</string>
+    <string name="copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="copy_file_error">Klaida kopijuojant failą ar aplanką</string>
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>
     <string name="copy_file_invalid_overwrite">Failas aplanke jau egzistuoja</string>
@@ -184,6 +185,7 @@
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
     <string name="edit_permission_label">redaguoti</string>
+    <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_dialog_close">Užverti</string>
@@ -201,6 +203,7 @@
     <string name="error__upload__local_file_not_copied">%1$s negali būti nukopijuota į %2$s vietinį aplanką</string>
     <string name="error_cant_bind_to_operations_service">Kritinė klaida: negalima įvykdyti operacijos</string>
     <string name="error_comment_file">Klaida komentuojant failą</string>
+    <string name="error_crash_title">%1$s užstrigo</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
     <string name="fallback_weblogin_back">Atgal</string>
@@ -292,6 +295,8 @@
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
     <string name="log_send_mail_subject">%1$s Android žurnalai</string>
     <string name="log_send_no_mail_app">Nėra programėlės įrašams siųsti. Prašome instaliuoti el. pašto klientą.</string>
+    <string name="logs_menu_refresh">Įkelti iš naujo</string>
+    <string name="logs_status_loading">Įkeliama…</string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
@@ -450,6 +455,7 @@
     <string name="share_link_file_no_exist">Nepavyko pasidalinti. Patikrinkite ar failas egzistuoja</string>
     <string name="share_link_forbidden_permissions">dalintis failu</string>
     <string name="share_link_password_title">Įveskite slaptažodį</string>
+    <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_privilege_can_edit">gali redaguoti</string>
@@ -531,6 +537,7 @@
     <string name="trashbin_file_not_deleted">Nepavyko ištrinti failo %1$s!</string>
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
+    <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
     <string name="unset_favorite">Šalinti iš mėgstamų</string>
     <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
     <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
@@ -539,6 +546,7 @@
     <string name="update_link_file_error">Bandant atnaujinti žymes įvyko klaida</string>
     <string name="update_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
     <string name="update_link_forbidden_permissions">dalintis failu</string>
+    <string name="updating_share_failed">Viešinio atnaujinimas nepavyko</string>
     <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="upload_chooser_title">Įkelti iš…</string>
     <string name="upload_file_dialog_filename">Failo pavadinimas</string>
@@ -557,6 +565,7 @@
     <string name="upload_unknown_error">Nežinoma klaida</string>
     <string name="uploader_btn_alternative_text">Pasirinkite</string>
     <string name="uploader_btn_upload_text">Įkelti</string>
+    <string name="uploader_error_message_no_file_to_upload">Gautuose duomenyse nebuvo teisingo failo.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s neleidžiama perskaityti gauto failo</string>
     <string name="uploader_error_message_source_file_not_copied">Nepavyko nukopijuoti failo į laikiną aplanką. Pabandykite dar kartą</string>
     <string name="uploader_error_message_source_file_not_found">Nepavyko įkelti failo. Patikrinkite failą, kurį norite įkelti.</string>
