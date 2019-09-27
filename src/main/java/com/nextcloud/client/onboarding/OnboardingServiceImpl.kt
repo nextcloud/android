@@ -33,7 +33,7 @@ import com.owncloud.android.ui.activity.PassCodeActivity
 internal class OnboardingServiceImpl constructor(
     private val resources: Resources,
     private val preferences: AppPreferences,
-    accountProvider: CurrentAccountProvider
+    private val accountProvider: CurrentAccountProvider
 ) : OnboardingService {
 
     private companion object {
@@ -52,7 +52,10 @@ internal class OnboardingServiceImpl constructor(
             emptyArray()
         }
 
-    override val isFirstRun: Boolean = accountProvider.currentAccount == null
+    override val isFirstRun: Boolean
+        get() {
+            return accountProvider.currentAccount == null
+        }
 
     override fun shouldShowWhatsNew(callingContext: Context): Boolean {
         return callingContext !is PassCodeActivity && whatsNew.size > 0
