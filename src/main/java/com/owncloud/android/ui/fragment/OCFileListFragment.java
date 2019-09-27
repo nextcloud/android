@@ -643,8 +643,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mActiveActionMode = null;
 
             // reset to previous color
-            ThemeUtils.colorStatusBar(getActivity(), mSystemBarColor);
-            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
+            final FragmentActivity activity = getActivity();
+            if (activity != null) {
+                ThemeUtils.colorStatusBar(activity, mSystemBarColor);
+                ThemeUtils.colorToolbarProgressBar(activity, mProgressBarColor);
+            }
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
