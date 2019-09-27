@@ -147,7 +147,7 @@
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea fișierul</string>
-    <string name="create_file_from_template">Crează fișierul după model...</string>
+    <string name="create_file_from_template">Crează fișierul după model…</string>
     <string name="create_new_document">Crează document nou</string>
     <string name="create_new_folder">Crează director nou</string>
     <string name="create_new_presentation">Crează prezentare nouă</string>
@@ -207,7 +207,7 @@
     <string name="end_to_end_encryption_dialog_close">Închide</string>
     <string name="end_to_end_encryption_enter_password">Introduceti parola pentru decriptare cheie personală.</string>
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
-    <string name="end_to_end_encryption_generating_keys">Se generează chei noi...</string>
+    <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
