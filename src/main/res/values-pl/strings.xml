@@ -166,7 +166,7 @@
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje</string>
     <string name="copy_internal_link">Skopiuj link wewnętrzny</string>
     <string name="copy_internal_link_subline">Działa tylko dla użytkowników mających dostęp do tego katalogu</string>
-    <string name="copy_link">Skopiuj link</string>
+    <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
     <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
