@@ -187,6 +187,7 @@
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit oznámení</string>
+    <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
     <string name="downloader_download_failed_ticker">Stažení se nezdařilo</string>
@@ -197,6 +198,7 @@
     <string name="downloader_download_succeeded_ticker">Staženo</string>
     <string name="downloader_not_downloaded_yet">Ještě nestaženo</string>
     <string name="drawer_close">Zavřít postranní panel</string>
+    <string name="drawer_community">Komunita</string>
     <string name="drawer_current_account">Stávající účet</string>
     <string name="drawer_end_account">Poslední účet</string>
     <string name="drawer_header_background">Obrázek na pozadí hlavičky panelu</string>
@@ -361,7 +363,10 @@
     <string name="log_send_mail_subject">Záznamy událostí v aplikaci %1$s pro Android</string>
     <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte emailového klienta.</string>
     <string name="login">Přihlásit</string>
+    <string name="logs_menu_delete">Smazat záznamy událostí</string>
     <string name="logs_menu_refresh">Obnovit</string>
+    <string name="logs_menu_search">Prohledat záznamy událostí</string>
+    <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>
     <string name="logs_status_loading">Načítání…</string>
     <string name="logs_title">Záznamy událostí</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
