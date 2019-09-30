@@ -13,7 +13,7 @@
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
-    <string name="actionbar_contacts">Copia de seguranza dos contactos</string>
+    <string name="actionbar_contacts">Copia de seguridade dos contactos</string>
     <string name="actionbar_contacts_restore">Restaurar os contactos</string>
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
@@ -149,15 +149,15 @@
     <string name="contactlist_account_chooser_title">Escolla unha conta para importala</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
-    <string name="contacts_automatic_backup">Copia automática de seguranza</string>
-    <string name="contacts_backup_button">Facer agora a copia de seguranza</string>
-    <string name="contacts_last_backup">Última copia de seguranza</string>
+    <string name="contacts_automatic_backup">Copia automática de seguridade</string>
+    <string name="contacts_backup_button">Facer agora a copia de seguridade</string>
+    <string name="contacts_last_backup">Última copia de seguridade</string>
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preference_choose_date">Escolla a data</string>
-    <string name="contacts_preferences_backup_scheduled">A copia de seguranza está programada e comezará en breve</string>
+    <string name="contacts_preferences_backup_scheduled">A copia de seguridade está programada e comezará en breve</string>
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
-    <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
+    <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguridade!</string>
     <string name="contacts_read_permission">Necesitase permiso para ler a lista de contactos</string>
     <string name="copied_to_clipboard">Copiado no portapapeis.</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
@@ -497,7 +497,7 @@
     <string name="prefs_category_dev">Desenvolvemento</string>
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
-    <string name="prefs_daily_contacts_sync_summary">Copia de seguranza diaria dos seus contactos</string>
+    <string name="prefs_daily_contacts_sync_summary">Copia de seguridade diaria dos seus contactos</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para amosar o mnemotécnico, active as credenciais do dispositivo
 </string>
