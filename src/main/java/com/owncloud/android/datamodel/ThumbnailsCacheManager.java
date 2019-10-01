@@ -74,6 +74,7 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -142,7 +143,7 @@ public final class ThumbnailsCacheManager {
                         mThumbnailCache = new DiskLruImageCache(diskCacheDir, DISK_CACHE_SIZE, mCompressFormat,
                                                                 mCompressQuality);
                     } catch (Exception e) {
-                        Log_OC.d(TAG, e.getMessage());
+                        Log_OC.d(TAG, String.format(Locale.US, "Disk cache init failed: %s", e.getMessage()));
                         mThumbnailCache = null;
                     }
                 }
