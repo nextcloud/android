@@ -24,6 +24,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
@@ -78,8 +79,9 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
             // Operation - get display name
             if (result.isSuccess()) {
-                GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
-                result = remoteUserNameOperation.execute(client);
+                NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(uri, context, true);
+                nextcloudClient.setCredentials(credentials.toOkHttpCredentials());
+                result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
             }
 
         } else {

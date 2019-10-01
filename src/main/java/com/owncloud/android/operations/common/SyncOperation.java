@@ -66,6 +66,30 @@ public abstract class SyncOperation extends RemoteOperation {
         return super.execute(this.storageManager.getAccount(), context);
     }
 
+    /**
+     * Synchronously executes the operation on the received Nextcloud account.
+     * <p>
+     * Do not call this method from the main thread.
+     * <p>
+     * This method should be used whenever a Nextcloud account is available, instead of {@link #execute(NetxcloudClient,
+     * com.owncloud.android.datamodel.FileDataStorageManager)}.
+     *
+     * @param storageManager
+     * @param context        Android context for the component calling the method.
+     * @return Result of the operation.
+     */
+    public RemoteOperationResult executeNextcloudClient(FileDataStorageManager storageManager, Context context) {
+        if (storageManager == null) {
+            throw new IllegalArgumentException("Trying to execute a sync operation with a " +
+                                                   "NULL storage manager");
+        }
+        if (storageManager.getAccount() == null) {
+            throw new IllegalArgumentException("Trying to execute a sync operation with a " +
+                                                   "storage manager for a NULL account");
+        }
+        this.storageManager = storageManager;
+        return super.executeNextcloudClient(this.storageManager.getAccount(), context);
+    }
 
     /**
 	 * Synchronously executes the remote operation
