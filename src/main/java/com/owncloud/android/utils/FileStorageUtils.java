@@ -54,6 +54,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -164,7 +165,7 @@ public final class FileStorageUtils {
      */
     public static String getInstantUploadFilePath(Locale current,
                                                   String remotePath,
-                                                  String fileName,
+                                                  @Nullable String fileName,
                                                   long dateTaken,
                                                   Boolean subfolderByDate) {
         String subPath = "";
@@ -172,7 +173,9 @@ public final class FileStorageUtils {
             subPath = getSubPathFromDate(dateTaken, current);
         }
 
-        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+        // Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file.
+        return (remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName))
+            .replaceAll(OCFile.PATH_SEPARATOR + "+", OCFile.PATH_SEPARATOR);
     }
 
 
