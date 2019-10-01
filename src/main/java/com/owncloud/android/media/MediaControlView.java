@@ -55,17 +55,17 @@ import java.util.Locale;
  */
 public class MediaControlView extends FrameLayout implements OnClickListener, OnSeekBarChangeListener {
     private static final String TAG = MediaControlView.class.getSimpleName();
-
-    private MediaPlayerControl mPlayer;
-    private View mRoot;
-    private ProgressBar mProgress;
-    private TextView mEndTime;
-    private TextView mCurrentTime;
-    private boolean mDragging;
     private static final int SHOW_PROGRESS = 1;
-    private ImageButton mPauseButton;
-    private ImageButton mFfwdButton;
-    private ImageButton mRewButton;
+
+    private MediaPlayerControl playerControl;
+    private View root;
+    private ProgressBar progressBar;
+    private TextView endTime;
+    private TextView currentTime;
+    private boolean isDragging;
+    private ImageButton pauseButton;
+    private ImageButton forwardButton;
+    private ImageButton rewindButton;
 
     public MediaControlView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,9 +75,9 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRoot = inflate.inflate(R.layout.media_control, null);
-        initControllerView(mRoot);
-        addView(mRoot, frameParams);
+        root = inflate.inflate(R.layout.media_control, null);
+        initControllerView(root);
+        addView(root, frameParams);
 
         setFocusable(true);
         setFocusableInTouchMode(true);
@@ -91,47 +91,50 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     }
 
     public void setMediaPlayer(MediaPlayerControl player) {
-        mPlayer = player;
-        mHandler.sendEmptyMessage(SHOW_PROGRESS);
-        updatePausePlay();
+        playerControl = player;
+        handler.sendEmptyMessage(SHOW_PROGRESS);
+        handler.postDelayed(()-> {
+            updatePausePlay();
+            setProgress();
+        }, 100);
     }
 
     public void stopMediaPlayerMessages() {
-        mHandler.removeMessages(SHOW_PROGRESS);
+        handler.removeMessages(SHOW_PROGRESS);
     }
 
 
     private void initControllerView(View v) {
-        mPauseButton = v.findViewById(R.id.playBtn);
-        if (mPauseButton != null) {
-            mPauseButton.requestFocus();
-            mPauseButton.setOnClickListener(this);
+        pauseButton = v.findViewById(R.id.playBtn);
+        if (pauseButton != null) {
+            pauseButton.requestFocus();
+            pauseButton.setOnClickListener(this);
         }
 
-        mFfwdButton = v.findViewById(R.id.forwardBtn);
-        if (mFfwdButton != null) {
-            mFfwdButton.setOnClickListener(this);
+        forwardButton = v.findViewById(R.id.forwardBtn);
+        if (forwardButton != null) {
+            forwardButton.setOnClickListener(this);
         }
 
-        mRewButton = v.findViewById(R.id.rewindBtn);
-        if (mRewButton != null) {
-            mRewButton.setOnClickListener(this);
+        rewindButton = v.findViewById(R.id.rewindBtn);
+        if (rewindButton != null) {
+            rewindButton.setOnClickListener(this);
         }
 
-        mProgress = v.findViewById(R.id.progressBar);
-        if (mProgress != null) {
-            if (mProgress instanceof SeekBar) {
-                SeekBar seeker = (SeekBar) mProgress;
+        progressBar = v.findViewById(R.id.progressBar);
+        if (progressBar != null) {
+            if (progressBar instanceof SeekBar) {
+                SeekBar seeker = (SeekBar) progressBar;
                 ThemeUtils.colorHorizontalSeekBar(seeker, getContext());
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                ThemeUtils.colorHorizontalProgressBar(mProgress, ThemeUtils.primaryAccentColor(getContext()));
+                ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             }
-            mProgress.setMax(1000);
+            progressBar.setMax(1000);
         }
 
-        mEndTime = v.findViewById(R.id.totalTimeText);
-        mCurrentTime = v.findViewById(R.id.currentTimeText);
+        endTime = v.findViewById(R.id.totalTimeText);
+        currentTime = v.findViewById(R.id.currentTimeText);
     }
 
     /**
@@ -140,14 +143,14 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
      */
     private void disableUnsupportedButtons() {
         try {
-            if (mPauseButton != null && !mPlayer.canPause()) {
-                mPauseButton.setEnabled(false);
+            if (pauseButton != null && !playerControl.canPause()) {
+                pauseButton.setEnabled(false);
             }
-            if (mRewButton != null && !mPlayer.canSeekBackward()) {
-                mRewButton.setEnabled(false);
+            if (rewindButton != null && !playerControl.canSeekBackward()) {
+                rewindButton.setEnabled(false);
             }
-            if (mFfwdButton != null && !mPlayer.canSeekForward()) {
-                mFfwdButton.setEnabled(false);
+            if (forwardButton != null && !playerControl.canSeekForward()) {
+                forwardButton.setEnabled(false);
             }
         } catch (IncompatibleClassChangeError ex) {
             // We were given an old version of the interface, that doesn't have
@@ -159,13 +162,14 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     }
 
 
-    private Handler mHandler = new Handler() {
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             int pos;
             if (msg.what == SHOW_PROGRESS) {
+                updatePausePlay();
                 pos = setProgress();
-                if (!mDragging) {
+                if (!isDragging) {
                     msg = obtainMessage(SHOW_PROGRESS);
                     sendMessageDelayed(msg, 1000 - (pos % 1000));
                 }
@@ -173,7 +177,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         }
     };
 
-    private String stringForTime(int timeMs) {
+    private String formatTime(int timeMs) {
         int totalSeconds = timeMs / 1000;
 
         int seconds = totalSeconds % 60;
@@ -190,26 +194,27 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     }
 
     private int setProgress() {
-        if (mPlayer == null || mDragging) {
+        if (playerControl == null || isDragging) {
             return 0;
         }
-        int position = mPlayer.getCurrentPosition();
-        int duration = mPlayer.getDuration();
-        if (mProgress != null) {
+        int position = playerControl.getCurrentPosition();
+        int duration = playerControl.getDuration();
+        if (progressBar != null) {
             if (duration > 0) {
                 // use long to avoid overflow
                 long pos = 1000L * position / duration;
-                mProgress.setProgress((int) pos);
+                progressBar.setProgress((int) pos);
             }
-            int percent = mPlayer.getBufferPercentage();
-            mProgress.setSecondaryProgress(percent * 10);
+            int percent = playerControl.getBufferPercentage();
+            progressBar.setSecondaryProgress(percent * 10);
         }
 
-        if (mEndTime != null) {
-            mEndTime.setText(stringForTime(duration));
+        if (endTime != null) {
+            String endTime = duration > 0 ? formatTime(duration) : "--:--";
+            this.endTime.setText(endTime);
         }
-        if (mCurrentTime != null) {
-            mCurrentTime.setText(stringForTime(position));
+        if (currentTime != null) {
+            currentTime.setText(formatTime(position));
         }
         return position;
     }
@@ -226,21 +231,21 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
             if (uniqueDown) {
                 doPauseResume();
                 //show(sDefaultTimeout);
-                if (mPauseButton != null) {
-                    mPauseButton.requestFocus();
+                if (pauseButton != null) {
+                    pauseButton.requestFocus();
                 }
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
-            if (uniqueDown && !mPlayer.isPlaying()) {
-                mPlayer.start();
+            if (uniqueDown && !playerControl.isPlaying()) {
+                playerControl.start();
                 updatePausePlay();
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP
                 || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
-            if (uniqueDown && mPlayer.isPlaying()) {
-                mPlayer.pause();
+            if (uniqueDown && playerControl.isPlaying()) {
+                playerControl.pause();
                 updatePausePlay();
             }
             return true;
@@ -250,39 +255,54 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     }
 
     public void updatePausePlay() {
-        if (mRoot == null || mPauseButton == null) {
+        if (root == null || pauseButton == null) {
             return;
         }
 
-        if (mPlayer.isPlaying()) {
-            mPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+        if (playerControl.isPlaying()) {
+            pauseButton.setImageResource(android.R.drawable.ic_media_pause);
         } else {
-            mPauseButton.setImageResource(android.R.drawable.ic_media_play);
+            pauseButton.setImageResource(android.R.drawable.ic_media_play);
         }
+
+        final boolean canSeekFfd = playerControl.canSeekForward();
+        if (canSeekFfd) {
+            forwardButton.setVisibility(View.VISIBLE);
+        } else {
+            forwardButton.setVisibility(View.INVISIBLE);
+        }
+
+        final boolean canSeekBwd = playerControl.canSeekBackward();
+        if (canSeekBwd) {
+            rewindButton.setVisibility(View.VISIBLE);
+        } else {
+            rewindButton.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void doPauseResume() {
-        if (mPlayer.isPlaying()) {
-            mPlayer.pause();
+        if (playerControl.isPlaying()) {
+            playerControl.pause();
         } else {
-            mPlayer.start();
+            playerControl.start();
         }
         updatePausePlay();
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        if (mPauseButton != null) {
-            mPauseButton.setEnabled(enabled);
+        if (pauseButton != null) {
+            pauseButton.setEnabled(enabled);
         }
-        if (mFfwdButton != null) {
-            mFfwdButton.setEnabled(enabled);
+        if (forwardButton != null) {
+            forwardButton.setEnabled(enabled);
         }
-        if (mRewButton != null) {
-            mRewButton.setEnabled(enabled);
+        if (rewindButton != null) {
+            rewindButton.setEnabled(enabled);
         }
-        if (mProgress != null) {
-            mProgress.setEnabled(enabled);
+        if (progressBar != null) {
+            progressBar.setEnabled(enabled);
         }
         disableUnsupportedButtons();
         super.setEnabled(enabled);
@@ -291,7 +311,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     @Override
     public void onClick(View v) {
         int pos;
-        boolean playing = mPlayer.isPlaying();
+        boolean playing = playerControl.isPlaying();
         switch (v.getId()) {
 
             case R.id.playBtn:
@@ -299,21 +319,21 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
                 break;
 
             case R.id.rewindBtn:
-                pos = mPlayer.getCurrentPosition();
+                pos = playerControl.getCurrentPosition();
                 pos -= 5000;
-                mPlayer.seekTo(pos);
+                playerControl.seekTo(pos);
                 if (!playing) {
-                    mPlayer.pause();  // necessary in some 2.3.x devices
+                    playerControl.pause();  // necessary in some 2.3.x devices
                 }
                 setProgress();
                 break;
 
             case R.id.forwardBtn:
-                pos = mPlayer.getCurrentPosition();
+                pos = playerControl.getCurrentPosition();
                 pos += 15000;
-                mPlayer.seekTo(pos);
+                playerControl.seekTo(pos);
                 if (!playing) {
-                    mPlayer.pause(); // necessary in some 2.3.x devices
+                    playerControl.pause(); // necessary in some 2.3.x devices
                 }
                 setProgress();
                 break;
@@ -329,11 +349,11 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
             return;
         }
 
-        long duration = mPlayer.getDuration();
+        long duration = playerControl.getDuration();
         long newPosition = (duration * progress) / 1000L;
-        mPlayer.seekTo((int) newPosition);
-        if (mCurrentTime != null) {
-            mCurrentTime.setText(stringForTime((int) newPosition));
+        playerControl.seekTo((int) newPosition);
+        if (currentTime != null) {
+            currentTime.setText(formatTime((int) newPosition));
         }
     }
 
@@ -344,8 +364,8 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
      */
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        mDragging = true;                           // monitors the duration of dragging 
-        mHandler.removeMessages(SHOW_PROGRESS);     // grants no more updates with media player progress while dragging 
+        isDragging = true;                           // monitors the duration of dragging
+        handler.removeMessages(SHOW_PROGRESS);     // grants no more updates with media player progress while dragging
     }
 
 
@@ -354,10 +374,10 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
      */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        mDragging = false;
+        isDragging = false;
         setProgress();
         updatePausePlay();
-        mHandler.sendEmptyMessage(SHOW_PROGRESS);    // grants future updates with media player progress 
+        handler.sendEmptyMessage(SHOW_PROGRESS);    // grants future updates with media player progress
     }
 
     @Override
