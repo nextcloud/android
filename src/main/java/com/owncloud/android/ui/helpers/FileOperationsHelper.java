@@ -206,7 +206,7 @@ public class FileOperationsHelper {
 
             // check if latest sync is >30s ago
             OCFile parent = storageManager.getFileById(file.getParentId());
-            if (parent.getLastSyncDateForData() + 30 * 1000 > System.currentTimeMillis()) {
+            if (parent != null && parent.getLastSyncDateForData() + 30 * 1000 > System.currentTimeMillis()) {
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
