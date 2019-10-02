@@ -82,9 +82,15 @@ def versionMinor = 9
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
-def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
-if (taskRequest.contains("Gplay") || taskRequest.contains("lint")) {
-    apply from: 'gplay.gradle'
+for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
+    for (String arg : tr.args) {
+        // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
+        if (arg.contains("Gplay") || arg.contains("lint") || arg == "build") {
+            apply from: 'gplay.gradle'
+            System.console().println("Applying gplay.gradle")
+            break
+        }
+    }
 }
 
 spotbugs {
@@ -194,7 +200,7 @@ android {
 
     tasks.register("pmd", Pmd) {
         ruleSetFiles = files("${project.rootDir}/ruleset.xml")
-        ignoreFailures = false
+        ignoreFailures = true // should continue checking
         ruleSets = []
 
         source 'src'
@@ -217,7 +223,7 @@ android {
         String variantName = variant.name
         String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
         tasks.register("spotbugs${capVariantName}", SpotBugsTask) {
-            ignoreFailures = false
+            ignoreFailures = true // should continue checking
             effort = "max"
             reportLevel = "medium"
             classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
@@ -238,7 +244,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugs', 'pmd', 'lint', 'ktlint'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlint', 'detekt'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
