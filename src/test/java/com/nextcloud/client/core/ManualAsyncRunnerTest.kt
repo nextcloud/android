@@ -34,6 +34,14 @@ import org.mockito.MockitoAnnotations
 
 class ManualAsyncRunnerTest {
 
+    private companion object {
+        const val EMPTY = 0
+        const val ONE_TASK = 1
+        const val TWO_TASKS = 2
+        const val THREE_TASKS = 3
+        const val TIMEOUT = 10000L
+    }
+
     private lateinit var runner: ManualAsyncRunner
 
     @Mock
@@ -45,23 +53,23 @@ class ManualAsyncRunnerTest {
     @Mock
     private lateinit var onError: OnErrorCallback
 
-    private var taskCalls: Int = 0
+    private var taskCalls: Int = EMPTY
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         runner = ManualAsyncRunner()
-        taskCalls = 0
+        taskCalls = EMPTY
         whenever(task.invoke()).thenAnswer { taskCalls++; taskCalls }
     }
 
     @Test
     fun `tasks are queued`() {
-        assertEquals(0, runner.size)
+        assertEquals(EMPTY, runner.size)
         runner.post(task, onResult, onError)
         runner.post(task, onResult, onError)
         runner.post(task, onResult, onError)
-        assertEquals("Expected 3 tasks to be enqueued", 3, runner.size)
+        assertEquals("Expected 3 tasks to be enqueued", THREE_TASKS, runner.size)
     }
 
     @Test
@@ -70,12 +78,12 @@ class ManualAsyncRunnerTest {
         runner.post(task, onResult, onError)
         runner.post(task, onResult, onError)
 
-        assertEquals("Queue should contain all enqueued tasks", 3, runner.size)
+        assertEquals("Queue should contain all enqueued tasks", THREE_TASKS, runner.size)
         val run = runner.runOne()
         assertTrue("Executed task should be acknowledged", run)
-        assertEquals("One task should be run", 1, taskCalls)
-        verify(onResult).invoke(eq(1))
-        assertEquals("Only 1 task should be consumed", 2, runner.size)
+        assertEquals("One task should be run", ONE_TASK, taskCalls)
+        verify(onResult).invoke(eq(ONE_TASK))
+        assertEquals("Only 1 task should be consumed", TWO_TASKS, runner.size)
     }
 
     @Test
@@ -83,12 +91,12 @@ class ManualAsyncRunnerTest {
         runner.post(task, onResult, onError)
         runner.post(task, onResult, onError)
 
-        assertEquals("Queue should contain all enqueued tasks", 2, runner.size)
+        assertEquals("Queue should contain all enqueued tasks", TWO_TASKS, runner.size)
         val count = runner.runAll()
-        assertEquals("Executed tasks should be acknowledged", 2, count)
-        verify(task, times(2)).invoke()
-        verify(onResult, times(2)).invoke(any())
-        assertEquals("Entire queue should be processed", 0, runner.size)
+        assertEquals("Executed tasks should be acknowledged", TWO_TASKS, count)
+        verify(task, times(TWO_TASKS)).invoke()
+        verify(onResult, times(TWO_TASKS)).invoke(any())
+        assertEquals("Entire queue should be processed", EMPTY, runner.size)
     }
 
     @Test
@@ -98,7 +106,7 @@ class ManualAsyncRunnerTest {
 
     @Test
     fun `run all tasks when queue is empty`() {
-        assertEquals("No task should be run", 0, runner.runAll())
+        assertEquals("No task should be run", EMPTY, runner.runAll())
     }
 
     @Test
@@ -112,7 +120,7 @@ class ManualAsyncRunnerTest {
                 runner.post(task)
             })
         })
-        assertEquals(1, runner.size)
+        assertEquals(ONE_TASK, runner.size)
 
         // WHEN
         //      runs all
@@ -120,10 +128,10 @@ class ManualAsyncRunnerTest {
 
         // THEN
         //      all subsequently scheduled tasks are run too
-        assertEquals(3, count)
+        assertEquals(THREE_TASKS, count)
     }
 
-    @Test(expected = IllegalStateException::class, timeout = 10000)
+    @Test(expected = IllegalStateException::class, timeout = TIMEOUT)
     fun `runner detects infinite loops caused by scheduling tasks recusively`() {
         val recursiveTask: () -> String = object : Function0<String> {
             override fun invoke(): String {

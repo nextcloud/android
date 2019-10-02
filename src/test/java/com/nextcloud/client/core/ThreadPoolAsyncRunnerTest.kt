@@ -41,6 +41,11 @@ class ThreadPoolAsyncRunnerTest {
     private lateinit var handler: Handler
     private lateinit var r: ThreadPoolAsyncRunner
 
+    private companion object {
+        const val INIT_COUNT = 1
+        const val THREAD_SLEEP = 500L
+    }
+
     @Before
     fun setUp() {
         handler = spy(Handler())
@@ -83,7 +88,7 @@ class ThreadPoolAsyncRunnerTest {
 
     @Test
     fun `returns error via handler`() {
-        val afterPostLatch = CountDownLatch(1)
+        val afterPostLatch = CountDownLatch(INIT_COUNT)
         doAnswer {
             (it.arguments[0] as Runnable).run()
             afterPostLatch.countDown()
@@ -101,8 +106,8 @@ class ThreadPoolAsyncRunnerTest {
 
     @Test
     fun `cancelled task does not return result`() {
-        val taskIsCancelled = CountDownLatch(1)
-        val taskIsRunning = CountDownLatch(1)
+        val taskIsCancelled = CountDownLatch(INIT_COUNT)
+        val taskIsRunning = CountDownLatch(INIT_COUNT)
         val t = r.post({
             taskIsRunning.countDown()
             taskIsCancelled.await()
@@ -111,23 +116,23 @@ class ThreadPoolAsyncRunnerTest {
         assertAwait(taskIsRunning)
         t.cancel()
         taskIsCancelled.countDown()
-        Thread.sleep(500) // yuck!
+        Thread.sleep(THREAD_SLEEP) // yuck!
         verify(handler, never()).post(any())
     }
 
     @Test
     fun `cancelled task does not return error`() {
-        val taskIsCancelled = CountDownLatch(1)
-        val taskIsRunning = CountDownLatch(1)
+        val taskIsCancelled = CountDownLatch(INIT_COUNT)
+        val taskIsRunning = CountDownLatch(INIT_COUNT)
         val t = r.post({
             taskIsRunning.countDown()
             taskIsCancelled.await()
-            throw RuntimeException("whatever")
+            throw IllegalStateException("whatever")
         }, onResult = {}, onError = {})
         assertAwait(taskIsRunning)
         t.cancel()
         taskIsCancelled.countDown()
-        Thread.sleep(500) // yuck!
+        Thread.sleep(THREAD_SLEEP) // yuck!
         verify(handler, never()).post(any())
     }
 }
