@@ -68,6 +68,9 @@ public class CustomEditText extends TextInputEditText {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (canvas == null) {
+            return;
+        }
         super.onDraw(canvas);
         if (!getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
                 && !getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)
