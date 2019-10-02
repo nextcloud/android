@@ -1,0 +1,9 @@
+ea696c559 Merge pull request #4425 from nextcloud/autoUploadSubfolder
+37c6600d2 Upload files into subfolder
+a1c28f93d Merge pull request #4470 from stephanritscher/master
+9c1fedb14 add test cases
+6184fcd5a add test cases
+0f975647b Merge pull request #4208 from nextcloud/ezaquarii/new-media-player-service
+d83792ef0 [tx-robot] updated from transifex
+9a2fc28b2 [tx-robot] updated from transifex
+f10843e03 daily dev 20190928
