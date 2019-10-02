@@ -79,6 +79,7 @@ import javax.inject.Inject;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -510,9 +511,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         @Override
         protected void onPostExecute(Uri uri) {
-            PreviewMediaFragment previewMediaFragment = previewMediaFragmentWeakReference.get();
-
-            if (previewMediaFragment != null) {
+            final PreviewMediaFragment previewMediaFragment = previewMediaFragmentWeakReference.get();
+            final Context context = previewMediaFragment != null ? previewMediaFragment.getContext() : null;
+            if (previewMediaFragment != null && context != null) {
                 if (uri != null) {
                     previewMediaFragment.mVideoUri = uri;
                     previewMediaFragment.mVideoPreview.setVideoURI(uri);
