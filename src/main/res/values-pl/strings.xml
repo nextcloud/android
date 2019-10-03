@@ -356,7 +356,7 @@
     <string name="hint_note">Notatka</string>
     <string name="hint_password">Hasło</string>
     <string name="host_not_available">Serwer jest niedostępny</string>
-    <string name="host_your_own_server">Hostuj swój własny serwer</string>
+    <string name="host_your_own_server">Hostuj własny serwer</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="io_error">Błąd we/wy</string>
