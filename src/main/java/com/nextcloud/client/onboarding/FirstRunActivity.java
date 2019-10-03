@@ -81,8 +81,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         Button loginButton = findViewById(R.id.login);
-        loginButton.setBackgroundColor(Color.WHITE);
-        loginButton.setTextColor(getResources().getColor(R.color.primary));
 
         loginButton.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
@@ -230,9 +228,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
-                new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
+            new FeatureItem(R.drawable.ic_intro_step_1, R.string.intro_title_1, R.string.empty, true, false),
+            new FeatureItem(R.drawable.ic_intro_step_2, R.string.intro_title_2, R.string.empty, true, false),
+            new FeatureItem(R.drawable.ic_intro_step_3, R.string.intro_title_3, R.string.empty, true, false)};
     }
 }

@@ -402,6 +402,8 @@
     <string name="file_migration_source_not_readable_title">Source folder not readable!</string>
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
+    <string name="file_detail_activity_error">Error retrieving activities for file</string>
+    <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
@@ -884,6 +886,7 @@
     <string name="copy_internal_link">Copy internal link</string>
     <string name="copy_internal_link_subline">Only works for users with access to this folder</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
+    <string name="failed_to_print">Failed to print file</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="etm_title">Engineering Test Mode</string>
@@ -901,6 +904,11 @@
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="could_not_download_image">Could not download full image</string>
-    <string name="file_detail_activity_error">Error retrieving activities for file</string>
-    <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
+
+    <string name="intro_title_1">Welcome to the beta version of Infomaniak Drive</string>
+    <string name="intro_text_1">Be among the first to test our Drive and take part in the design of the product by sending us your comments.</string>
+    <string name="intro_title_2">Easily synchronize your files</string>
+    <string name="intro_text_2">Access your files on all your devices.</string>
+    <string name="intro_title_3">Save automatically your pictures on your Drive</string>
+    <string name="intro_text_3">Choose the folders on your phone to automatically synchronize as soon as new content is added.</string>
 </resources>

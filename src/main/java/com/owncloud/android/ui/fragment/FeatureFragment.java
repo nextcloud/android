@@ -48,7 +48,9 @@ public class FeatureFragment extends Fragment {
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            whatsNewImage.setImageDrawable(ThemeUtils.tintDrawable(item.getImage(), fontColor));
+            // Removed to avoid background tint to exist
+            // whatsNewImage.setImageDrawable(ThemeUtils.tintDrawable(item.getImage(), fontColor));
+            whatsNewImage.setImageDrawable(getResources().getDrawable(item.getImage()));
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);

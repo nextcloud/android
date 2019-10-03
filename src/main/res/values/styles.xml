@@ -115,8 +115,8 @@
 	</style>
 
 	<style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
-		<item name="android:textColor">@color/secondary_button_text_color</item>
+		<item name="colorButtonNormal">@color/primary</item>
+		<item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
 	</style>
 
@@ -139,9 +139,9 @@
 	</style>
 
 	<style name="Button.Login" parent="Button">
-		<item name="colorButtonNormal">@color/white</item>
-        <item name="colorAccent">@color/white</item>
-		<item name="android:textColor">@color/primary_dark</item>
+		<item name="colorButtonNormal">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+		<item name="android:textColor">@color/white</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Widget.MaterialComponents.Button.TextButton">
