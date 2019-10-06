@@ -151,7 +151,7 @@
     <string name="create_dir_fail_msg">Nu s-a putut crea fișierul</string>
     <string name="create_file_from_template">Crează fișierul după model…</string>
     <string name="create_new_document">Crează document nou</string>
-    <string name="create_new_folder">Crează director nou</string>
+    <string name="create_new_folder">Creează director nou</string>
     <string name="create_new_presentation">Crează prezentare nouă</string>
     <string name="create_new_spreadsheet">Crează foaie de calcul nouă</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
@@ -273,7 +273,7 @@
     <string name="filedisplay_no_file_selected">Niciun fișier selectat</string>
     <string name="filename_empty">Numele fișierului nu poate fi gol.</string>
     <string name="filename_forbidden_characters">Caractere interzise: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Numele fișierului conține măcar un caracter invalid</string>
+    <string name="filename_forbidden_charaters_from_server">Numele fișierului conține cel puțin un caracter invalid</string>
     <string name="filename_hint">Nume fișier</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
     <string name="folder_already_exists">Dosar existent</string>
