@@ -404,7 +404,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Os máis grandes primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Os máis pequenos primeiro</string>
     <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol</string>
-    <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara un dos seus propios subcartafoles</string>
+    <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="move_file_not_found">Non se puido mover o ficheiro. Comprobe que existe</string>
     <string name="move_to">Mover a…</string>
@@ -485,7 +485,7 @@
     <string name="power_save_check_dialog_message">A desactivación da verificación de aforro de enerxía pode provocar a carga de ficheiros cando estea coa batería baixa.</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
-    <string name="pref_behaviour_entries_move">movido cara o cartafol da aplicación</string>
+    <string name="pref_behaviour_entries_move">movido cara ao cartafol da aplicación</string>
     <string name="prefs_add_account">Engadir unha conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Non foi posíbel resolver o enderezo do servidor para a conta de DAVx5 (anteriormente coñecido como DAVdroid)</string>
@@ -685,7 +685,7 @@
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
     <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
     <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
+    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
     <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
     <string name="sync_status_button">Botón do estado da sincronización</string>
