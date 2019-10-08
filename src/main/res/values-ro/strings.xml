@@ -28,6 +28,7 @@
     <string name="actionbar_sync">Reîmprospătează contul</string>
     <string name="active_user">Utilizator activ</string>
     <string name="activities_no_results_headline">Momentan fără activitate</string>
+    <string name="activities_no_results_message">Nu există evenimente precum adăugări, schimbări sau partajări deocamdată</string>
     <string name="activity_chooser_send_file_title">Trimite</string>
     <string name="activity_chooser_title">Trimite link la…</string>
     <string name="activity_icon">Activitate</string>
@@ -71,6 +72,8 @@
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
     <string name="auth_wtf_reenter_URL">Situație neașteptată; vă rugăm să reintroduceți adresa serverului</string>
+    <string name="authentication_exception">Eroare de autentificare</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">pastrează în directorul original deoarece este disponibil doar pentru citire</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
     <string name="autoupload_create_new_custom_folder">Crează un director personalizat</string>
@@ -80,8 +83,11 @@
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
+    <string name="battery_optimization_no_setting">Nu am putut deschide setările bateriei. Te rog modifică manual în setări.</string>
     <string name="battery_optimization_title">Optimizare baterie</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
+    <string name="changelog_dev_version">Jurnalul de modificări pentru versiunea în curs de dezvoltare</string>
+    <string name="checkbox">Căsuța de bifat</string>
     <string name="choose_local_folder">Alege dosar local…</string>
     <string name="choose_remote_folder">Alege dosar la distanță…</string>
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
@@ -109,8 +115,11 @@
     <string name="common_switch_account">Schimbă contul</string>
     <string name="common_unknown">necunoscut</string>
     <string name="common_yes">Da</string>
+    <string name="community_beta_headline">Testează versiunea în curs de dezvoltare</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ajută pe altii la </string>
+    <string name="community_contribute_headline">Contribuie în mod activ</string>
+    <string name="community_contribute_irc_text">Alătură-te conversației pe IRC:</string>
     <string name="community_contribute_translate_text">aplicația </string>
     <string name="community_contribute_translate_translate">tradu</string>
     <string name="configure_new_media_folder_detection_notifications">Configurează</string>
