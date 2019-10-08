@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
-  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012 Bartek Przybylski
   Copyright (C) 2015-2016 ownCloud Inc.
   Copyright (C) 2016 Nextcloud
+  Copyright (C) 2019 Tobias Kaminsky
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -18,235 +18,208 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:padding="@dimen/standard_padding"
-    >
+    android:layout_alignParentTop="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/standard_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_block"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:orientation="vertical">
 
-		<ImageView
-			android:id="@+id/thumbnail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_gravity="center"
-			android:src="@drawable/logo"
-            android:contentDescription="@string/app_name"
-			/>
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_half_padding">
 
-		<ScrollView
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:id="@+id/scroll"
-		    android:fillViewport="true"
-		    android:orientation="vertical" >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/centeredRefreshButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_check_server"
+                android:text="@string/auth_check_server"
+                android:theme="@style/Button"
+                android:visibility="gone"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
-			<LinearLayout
-			    android:id="@+id/LinearLayout1"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:gravity="center"
-			    android:orientation="vertical"
-			    android:padding="@dimen/standard_half_padding" >
+            <TextView
+                android:id="@+id/instructions_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginBottom="@dimen/alternate_margin"
+                android:contentDescription="@string/auth_expired_basic_auth_toast"
+                android:text="@string/auth_expired_basic_auth_toast"
+                android:textColor="@color/login_text_color"
+                android:visibility="gone" />
 
-                <com.google.android.material.button.MaterialButton
-					android:id="@+id/centeredRefreshButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_horizontal"
-					android:layout_marginBottom="@dimen/alternate_margin"
-					android:theme="@style/Button"
-					android:text="@string/auth_check_server"
-					android:visibility="gone"
-					android:contentDescription="@string/auth_check_server"
-                    app:cornerRadius="@dimen/button_corner_radius"/>
+            <FrameLayout
+                android:id="@+id/hostUrlFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/zero">
 
-				<TextView
-                    android:id="@+id/instructions_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill_horizontal"
-                    android:text="@string/auth_expired_basic_auth_toast"
-                    android:visibility="gone"
-                    android:layout_marginBottom="@dimen/alternate_margin"
-                    android:textColor="@color/login_text_color"
-                    android:contentDescription="@string/auth_expired_basic_auth_toast"/>
-
-                <FrameLayout
-	        		android:id="@+id/hostUrlFrame"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="@dimen/zero">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_layout_hostUrl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.owncloud.android.ui.components.CustomEditText
-                            android:id="@+id/hostUrlInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:contentDescription="@string/auth_host_address"
-                            android:drawablePadding="@dimen/alternate_half_padding"
-                            android:inputType="textUri"
-                            android:paddingRight="@dimen/alternate_padding_right"
-                            android:paddingEnd="@dimen/alternate_padding_right"
-                            android:paddingStart="@dimen/zero"
-                            android:paddingLeft="@dimen/zero"
-                            android:textColor="@color/login_text_color"
-                            android:textColorHint="@color/login_text_hint_color">
-
-                            <requestFocus/>
-                        </com.owncloud.android.ui.components.CustomEditText>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-					<ImageButton
-                        android:id="@+id/testServerButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginRight="@dimen/alternate_half_padding"
-                        android:layout_marginEnd="@dimen/alternate_half_padding"
-                        android:padding="@dimen/zero"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/arrow_right"
-                        android:tint="@color/white"
-                        android:background="@android:color/transparent"
-                        android:onClick="onTestServerConnectionClick"
-                        android:contentDescription="@string/test_server_button"
-						/>
-
-					<ImageButton
-                        android:id="@+id/embeddedRefreshButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginRight="@dimen/alternate_half_margin"
-                        android:layout_marginEnd="@dimen/alternate_half_margin"
-                        android:padding="@dimen/zero"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_action_refresh"
-                        android:visibility="gone"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/auth_refresh_button"
-					    />
-				</FrameLayout>
-
-				<TextView
-					android:id="@+id/server_status_text"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="@dimen/alternate_half_margin"
-                    android:drawableLeft="@android:drawable/stat_notify_sync"
-                    android:drawableStart="@android:drawable/stat_notify_sync"
-					android:drawablePadding="@dimen/alternate_half_padding"
-					android:gravity="center_vertical"
-					android:textColor="@color/login_text_color"
-					android:text="@string/auth_testing_connection"
-					android:minHeight="@dimen/display_text_min_height"
-                    android:contentDescription="@string/auth_testing_connection"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/input_layout_account_username"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:visibility="gone">
-
-				<com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/account_username"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/auth_username"
-                    android:inputType="textNoSuggestions"
-                    android:textColor="@color/login_text_color"
-                    android:textColorHint="@color/login_text_hint_color"
-                    android:autofillHints="username"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/input_layout_account_password"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:visibility="gone"
-					app:passwordToggleDrawable="@drawable/password_visibility_selector"
-					app:passwordToggleTint="@color/white">
+                    <TextView
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="@string/auth_host_url"
+                        android:textColor="@color/login_text_color" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/account_password"
+                        android:id="@+id/hostUrlInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:contentDescription="@string/auth_host_address"
                         android:drawablePadding="@dimen/alternate_half_padding"
-                        android:ems="10"
-                        android:hint="@string/auth_password"
-                        android:inputType="textPassword"
+                        android:inputType="textUri"
+                        android:paddingStart="@dimen/zero"
+                        android:paddingLeft="@dimen/zero"
+                        android:paddingEnd="@dimen/alternate_padding_right"
+                        android:paddingRight="@dimen/alternate_padding_right"
                         android:textColor="@color/login_text_color"
-                        android:textColorHint="@color/login_text_hint_color"
-                        android:autofillHints="password"/>
+                        android:textColorHint="@color/login_text_hint_color">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <requestFocus />
 
-                <TextView
-					android:id="@+id/auth_status_text"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center_vertical"
-					android:text="@string/auth_unauthorized"
-                    android:drawableLeft="@android:drawable/stat_notify_sync"
-                    android:drawableStart="@android:drawable/stat_notify_sync"
-					android:drawablePadding="@dimen/alternate_half_padding"
-					android:textColor="@color/login_text_color"
-                    android:contentDescription="@string/auth_unauthorized"
-					/>
+                    </com.google.android.material.textfield.TextInputEditText>
 
-			</LinearLayout>
-		</ScrollView>
+                </LinearLayout>
 
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/testServerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/alternate_half_padding"
+                    android:layout_marginRight="@dimen/alternate_half_padding"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/test_server_button"
+                    android:onClick="onTestServerConnectionClick"
+                    android:padding="@dimen/zero"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/arrow_right"
+                    android:tint="@color/white" />
 
-    <LinearLayout
-        android:id="@id/bottom_block"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/standard_half_padding">
+                <ImageButton
+                    android:id="@+id/embeddedRefreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/alternate_half_margin"
+                    android:layout_marginRight="@dimen/alternate_half_margin"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/auth_refresh_button"
+                    android:padding="@dimen/zero"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_action_refresh"
+                    android:visibility="gone" />
+            </FrameLayout>
 
-        <com.google.android.material.button.MaterialButton
-			android:id="@+id/buttonOK"
-			android:theme="@style/Button.Login"
-			style="@style/Button.Login"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="@dimen/standard_padding"
-			android:layout_gravity="center_horizontal"
-			android:enabled="false"
-			android:text="@string/setup_btn_connect"
-			android:contentDescription="@string/setup_btn_connect"
-			android:visibility="visible"
-            app:cornerRadius="@dimen/button_corner_radius"/>
-	</LinearLayout>
+            <TextView
+                android:id="@+id/server_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/alternate_half_margin"
+                android:contentDescription="@string/auth_testing_connection"
+                android:drawableStart="@android:drawable/stat_notify_sync"
+                android:drawableLeft="@android:drawable/stat_notify_sync"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/display_text_min_height"
+                android:text="@string/auth_testing_connection"
+                android:textColor="@color/login_text_color" />
 
-    <ImageButton
-        android:id="@+id/scanQR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/qrcode_scan"
-        android:theme="@style/Button.Login"
-        android:background="@color/transparent"
-        android:contentDescription="@string/scanQR_description" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:ems="10"
+                android:hint="@string/auth_username"
+                android:inputType="textNoSuggestions"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                android:visibility="gone" />
 
-</RelativeLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:ems="10"
+                android:hint="@string/auth_password"
+                android:inputType="textPassword"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/auth_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/auth_unauthorized"
+                android:drawableStart="@android:drawable/stat_notify_sync"
+                android:drawableLeft="@android:drawable/stat_notify_sync"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:gravity="center_vertical"
+                android:text="@string/auth_unauthorized"
+                android:textColor="@color/login_text_color" />
+
+            <ImageButton
+                android:id="@+id/scanQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:contentDescription="@string/scanQR_description"
+                android:src="@drawable/qrcode_scan"
+                android:theme="@style/Button.Login" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonOK"
+                style="@style/Button.Login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/setup_btn_connect"
+                android:enabled="false"
+                android:padding="@dimen/standard_padding"
+                android:text="@string/setup_btn_connect"
+                android:theme="@style/Button.Login"
+                android:visibility="gone"
+                app:cornerRadius="@dimen/button_corner_radius" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
