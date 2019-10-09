@@ -104,6 +104,7 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
     private Drawable tintedCheck;
 
     private ArbitraryDataProvider arbitraryDataProvider;
+    private boolean multipleAccountsSupported;
 
     @Inject UserAccountManager accountManager;
 
@@ -136,12 +137,14 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
+        multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
+
         accountListAdapter = new AccountListAdapter(this,
                                                     accountManager,
                                                     getAccountListItems(),
                                                     tintedCheck,
                                                     this,
-                                                    true);
+                                                    multipleAccountsSupported);
 
         recyclerView.setAdapter(accountListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -284,7 +287,7 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                                       getAccountListItems(),
                                       tintedCheck,
                                       this,
-                                      true
+                                      multipleAccountsSupported
                                   );
                                   recyclerView.setAdapter(accountListAdapter);
                                   runOnUiThread(() -> accountListAdapter.notifyDataSetChanged());
@@ -336,7 +339,8 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                                                             accountListItemArray,
                                                             tintedCheck,
                                                             this,
-                                                            true);
+                                                            multipleAccountsSupported
+                );
                 recyclerView.setAdapter(accountListAdapter);
             } else {
                 onBackPressed();
