@@ -86,6 +86,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
@@ -897,7 +898,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Uri data = intent.getData();
 
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            parseAndLoginFromWebView(data.toString());
+            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                accountManager.getAccounts().length == 1) {
+                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            } else {
+                parseAndLoginFromWebView(data.toString());
+            }
         }
 
         if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
@@ -925,7 +933,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String dataString = getIntent().getDataString();
             if (dataString != null) {
                 try {
-                    populateLoginFields(dataString);
+                    if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                        accountManager.getAccounts().length == 1) {
+                        Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    } else {
+                        populateLoginFields(dataString);
+                    }
                 } catch (IllegalArgumentException e) {
                     DisplayUtils.showSnackMessage(findViewById(R.id.scroll), R.string.auth_illegal_login_used);
                     Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
@@ -2055,7 +2070,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 return;
             }
 
-            parseAndLoginFromWebView(result);
+            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                accountManager.getAccounts().length == 1) {
+                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+            } else {
+                parseAndLoginFromWebView(result);
+            }
         }
     }
 
