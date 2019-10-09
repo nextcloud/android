@@ -1,0 +1,10 @@
+3.8.1 RC2 (October, 09, 2019)
+
+- upload images into subfolder, if source folder also has subfolder
+- Fix registration of second account on first run
+- fix disappearing account list
+- fix recurring synced folder notification
+- bugfix release
+- updated translations
+
+For a full list, please see https://github.com/nextcloud/android/milestone/39
