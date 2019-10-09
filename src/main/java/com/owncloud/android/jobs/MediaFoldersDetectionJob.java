@@ -111,6 +111,19 @@ public class MediaFoldersDetectionJob extends Job {
         if (!TextUtils.isEmpty(arbitraryDataString)) {
             mediaFoldersModel = gson.fromJson(arbitraryDataString, MediaFoldersModel.class);
 
+            // merge new detected paths with already notified ones
+            for (String existingImageFolderPath : mediaFoldersModel.getImageMediaFolders()) {
+                if (!imageMediaFolderPaths.contains(existingImageFolderPath)) {
+                    imageMediaFolderPaths.add(existingImageFolderPath);
+                }
+            }
+
+            for (String existingVideoFolderPath : mediaFoldersModel.getVideoMediaFolders()) {
+                if (!videoMediaFolderPaths.contains(existingVideoFolderPath)) {
+                    videoMediaFolderPaths.add(existingVideoFolderPath);
+                }
+            }
+
             // Store updated values
             arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS, gson.toJson(new
                 MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)));
