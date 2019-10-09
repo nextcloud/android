@@ -895,4 +895,5 @@
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="could_not_download_image">Could not download full image</string>
+    <string name="file_detail_activity_error">Error retrieving activities for file</string>
 </resources>
