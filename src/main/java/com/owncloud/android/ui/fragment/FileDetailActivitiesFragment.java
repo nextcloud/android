@@ -292,13 +292,27 @@ public class FileDetailActivitiesFragment extends Fragment implements
      * @param lastGiven int; -1 to disable
      */
     private void fetchAndSetData(int lastGiven) {
-        final Account currentAccount = accountManager.getCurrentAccount();
-        final Context context = MainApp.getAppContext();
         final FragmentActivity activity = getActivity();
+
+        if (activity == null) {
+            Log_OC.e(this, "Activity is null, aborting!");
+            return;
+        }
 
         final SwipeRefreshLayout empty = swipeEmptyListRefreshLayout;
         final SwipeRefreshLayout list = swipeListRefreshLayout;
+        final Account currentAccount = accountManager.getCurrentAccount();
 
+        if (currentAccount == null) {
+            activity.runOnUiThread(() -> {
+                setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error));
+                list.setVisibility(View.GONE);
+                empty.setVisibility(View.VISIBLE);
+            });
+            return;
+        }
+
+        final Context context = MainApp.getAppContext();
 
         Thread t = new Thread(() -> {
             OwnCloudAccount ocAccount;
@@ -372,7 +386,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                 hideRefreshLayoutLoader(activity);
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | IOException |
-                    OperationCanceledException | AuthenticatorException e) {
+                OperationCanceledException | AuthenticatorException | NullPointerException e) {
                 Log_OC.e(TAG, "Error fetching file details activities", e);
             }
         });
