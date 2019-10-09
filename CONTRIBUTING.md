@@ -122,7 +122,7 @@ There are three build variants
 ### 2. Create pull request:
 * Commit your changes locally: ```git commit -a```
 * Push your changes to your GitHub repo: ```git push```
-* Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
+* Browse to <https://github.com/YOURGITHUBNAME/android/pulls> and issue pull request
 * Enter description and send pull request.
 
 
@@ -294,7 +294,7 @@ For dev the version name is in format YYYYMMDD. It is mainly as a reference for 
 * after feature freeze a public release candidate on play store and f-droid is released
 * ~2 weeks testing, bug fixing
 * release final version on f-droid and play store
-* Bugfix releases (dot releases, e.g. 3.2.1) are released on demand from the branch created with first stable release (stable-3.2.x). If changes to the library are required, we do the same: create a branch from the version used in stable release (e.g. 1.1.0) and then release a dot release (1.1.1).
+* Bugfix releases (dot releases, e.g. 3.2.1) are released 4 weeks after stable version from the branch created with first stable release (stable-3.2.x). If changes to the library are required, we do the same: create a branch from the version used in stable release (e.g. 1.1.0) and then release a dot release (1.1.1).
 
 To get an idea which PRs and issues will be part of the next release simply check our [milestone plan](https://github.com/nextcloud/android/milestones)
 
