@@ -340,10 +340,16 @@ public class FileDataStorageManager {
             ContentValues cv = createContentValueForFile(file, folder);
 
             if (fileExists(file.getFileId()) || fileExists(file.getRemotePath())) {
+                long fileId;
+                if (file.getFileId() != -1) {
+                    fileId = file.getFileId();
+                } else {
+                    fileId = getFileByPath(file.getRemotePath()).getFileId();
+                }
                 // updating an existing file
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
                         .withValues(cv)
-                        .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(file.getFileId())})
+                                   .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(fileId)})
                         .build());
             } else {
                 // adding a new file
