@@ -54,7 +54,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -159,14 +158,13 @@ public final class FileStorageUtils {
     /**
      * Returns the InstantUploadFilePath on the nextcloud instance
      *
-     * @param fileName complete file name
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
      * @return instantUpload path, eg. /Camera/2017/01/fileName
      */
-    public static String getInstantUploadFilePath(Locale current,
+    public static String getInstantUploadFilePath(File file,
+                                                  Locale current,
                                                   String remotePath,
-                                                  String subfolder,
-                                                  @Nullable String fileName,
+                                                  String syncedFolderLocalPath,
                                                   long dateTaken,
                                                   Boolean subfolderByDate) {
         String subfolderByDatePath = "";
@@ -174,13 +172,17 @@ public final class FileStorageUtils {
             subfolderByDatePath = getSubPathFromDate(dateTaken, current);
         }
 
+        String relativeSubfolderPath = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, ""))
+            .getParentFile().getAbsolutePath();
+
         // Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file.
         return (remotePath +
             OCFile.PATH_SEPARATOR +
             subfolderByDatePath +
-            subfolder + // starts with / so no separator is needed
             OCFile.PATH_SEPARATOR +
-            (fileName == null ? "" : fileName))
+            relativeSubfolderPath +
+            OCFile.PATH_SEPARATOR +
+            file.getName())
             .replaceAll(OCFile.PATH_SEPARATOR + "+", OCFile.PATH_SEPARATOR);
     }
 
