@@ -24,109 +24,139 @@ package com.nextcloud.client.utils
 import com.owncloud.android.utils.FileStorageUtils
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.io.File
 import java.util.Locale
 
 class FileStorageUtilsTest {
     @Test
     fun testInstantUploadPathSubfolder() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "subfolder",
-            "file.pdf",
-            123123123L,
-            false)
-        val expected = "/remotePath/subfolder/file.pdf"
+        val file = File("/sdcard/DCIM/subfolder/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = false
+        val dateTaken = 123123123L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/subfolder/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
     fun testInstantUploadPathNoSubfolder() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "file.pdf",
-            123123123L,
-            false)
-        val expected = "/remotePath/file.pdf"
+        val file = File("/sdcard/DCIM/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = false
+        val dateTaken = 123123123L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
-    fun testInstantUploadPathNullFilename() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "subfolder",
-            null,
-            123123123L,
-            false)
-        val expected = "/remotePath/subfolder/"
+    fun testInstantUploadPathEmptyDateZero() {
+        val file = File("/sdcard/DCIM/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = true
+        val dateTaken = 0L
 
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun testInstantUploadPathNullEmptyDate() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "file.pdf",
-            0,
-            true)
-        val expected = "/remotePath/file.pdf"
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
     fun testInstantUploadPath() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "file.pdf",
-            123123123L,
-            false)
-        val expected = "/remotePath/file.pdf"
+        val file = File("/sdcard/DCIM/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = false
+        val dateTaken = 123123123L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
     fun testInstantUploadPathWithSubfolderByDate() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "file.pdf",
-            1569918628000,
-            true)
-        val expected = "/remotePath/2019/10/file.pdf"
+        val file = File("/sdcard/DCIM/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = true
+        val dateTaken = 1569918628000L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/2019/10/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
     fun testInstantUploadPathWithSubfolderFile() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "/sub/file.pdf",
-            123123123L,
-            false)
-        val expected = "/remotePath/sub/file.pdf"
+        val file = File("/sdcard/DCIM/subfolder/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = false
+        val dateTaken = 123123123L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/subfolder/file.jpg"
 
         assertEquals(expected, result)
     }
 
     @Test
     fun testInstantUploadPathWithSubfolderByDateWithSubfolderFile() {
-        val result = FileStorageUtils.getInstantUploadFilePath(Locale.ROOT,
-            "/remotePath/",
-            "",
-            "/sub/file.pdf",
-            1569918628000,
-            true)
-        val expected = "/remotePath/2019/10/sub/file.pdf"
+        val file = File("/sdcard/DCIM/subfolder/file.jpg")
+        val syncedFolderLocalPath = "/sdcard/DCIM"
+        val syncedFolderRemotePath = "/Camera"
+        val subFolderByDate = true
+        val dateTaken = 1569918628000L
+
+        val result = FileStorageUtils.getInstantUploadFilePath(file,
+            Locale.ROOT,
+            syncedFolderRemotePath,
+            syncedFolderLocalPath,
+            dateTaken,
+            subFolderByDate)
+        val expected = "/Camera/2019/10/subfolder/file.jpg"
 
         assertEquals(expected, result)
     }
