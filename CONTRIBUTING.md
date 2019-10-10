@@ -296,6 +296,8 @@ For dev the version name is in format YYYYMMDD. It is mainly as a reference for 
 * release final version on f-droid and play store
 * Bugfix releases (dot releases, e.g. 3.2.1) are released 4 weeks after stable version from the branch created with first stable release (stable-3.2.x). If changes to the library are required, we do the same: create a branch from the version used in stable release (e.g. 1.1.0) and then release a dot release (1.1.1).
 
+> Hotfixes as well as security fixes are released via bugfix releases (dot releases) but are released on demand in contrast to regular, scheduled bugfix releases.
+
 To get an idea which PRs and issues will be part of the next release simply check our [milestone plan](https://github.com/nextcloud/android/milestones)
 
 ## Release process
