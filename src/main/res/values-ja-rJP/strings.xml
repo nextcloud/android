@@ -202,6 +202,7 @@
     <string name="downloader_download_succeeded_ticker">ダウンロード済</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
     <string name="drawer_close">サイドバーを閉じる</string>
+    <string name="drawer_community">コミュニティ</string>
     <string name="drawer_current_account">現在のアカウント</string>
     <string name="drawer_end_account">最後のアカウント</string>
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
