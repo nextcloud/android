@@ -1,3 +1,32 @@
+## 3.8.1 (October, 11, 2019)
+
+- upload images into subfolder, if source folder also has subfolder
+- Fix registration of second account on first run
+- fix disappearing account list
+- fix recurring synced folder notification
+- fix vanishing images
+- auto upload: fix relative paths
+- bugfix release
+- updated translations
+
+For a full list, please see https://github.com/nextcloud/android/milestone/39
+
+## 3.8.0 (September, 14, 2019)
+
+- FIDO U2F support on login
+- load only 60 images on photo view, then load more on demand
+- do not auto upload .thumbnail files
+- allow to send crash report via email
+- paste clipboard into Collabora
+- use Conscrypt to support TLS1.3
+- show sharees in list view
+- remote wipe
+- same mimetype as server
+- fix reloading in activity stream
+- lots of bugfixes and refinements
+
+For a full list, please see https://github.com/nextcloud/android/milestone/35
+
 ## 3.7.2 (August, 16, 2019)
 
 - Transifex update
