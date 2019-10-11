@@ -1,3 +1,16 @@
+## 3.8.1 (October, 11, 2019)
+
+- upload images into subfolder, if source folder also has subfolder
+- Fix registration of second account on first run
+- fix disappearing account list
+- fix recurring synced folder notification
+- fix vanishing images
+- auto upload: fix relative paths
+- bugfix release
+- updated translations
+
+For a full list, please see https://github.com/nextcloud/android/milestone/39
+
 ## 3.8.0 (September, 14, 2019)
 
 - FIDO U2F support on login
