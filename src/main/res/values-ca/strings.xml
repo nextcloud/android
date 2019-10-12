@@ -266,6 +266,7 @@
     <string name="favorite_icon">Preferits</string>
     <string name="feedback_no_mail_app">No hi ha cap aplicació disponible per enviar correus electrònics!</string>
     <string name="file_delete">Suprimeix</string>
+    <string name="file_detail_activity_error">Hi ha hagut un error mentre es recuperaven les activitats per al fitxer</string>
     <string name="file_details_no_content">No s\'han pogut carregar els detalls</string>
     <string name="file_icon">Fitxer</string>
     <string name="file_keep">Mantén</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Nova notificació</string>
     <string name="new_version_was_created">S\'ha creat una nova versió</string>
     <string name="no_browser_available">No hi ha cap aplicació disponible per manegar els enllaços</string>
+    <string name="no_mutliple_accounts_allowed">Només es permet un compte.</string>
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="note_confirm">Envia</string>
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
