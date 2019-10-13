@@ -424,7 +424,8 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);
-        if (getAccount() != null) {
+        final Account account = getAccount();
+        if (account != null) {
             /// Check whether the 'main' OCFile handled by the Activity is contained in the
             // current Account
             OCFile file = getFile();
@@ -450,10 +451,8 @@ public class FileDisplayActivity extends FileActivity
             }
             setFile(file);
 
-            if (mAccountWasSet) {
-                setAccountInDrawer(getAccount());
-                setupDrawer();
-            }
+            setAccountInDrawer(account);
+            setupDrawer();
 
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
