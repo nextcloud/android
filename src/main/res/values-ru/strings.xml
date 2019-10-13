@@ -106,7 +106,7 @@
     <string name="common_loading">Загрузка…</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
-    <string name="common_pending">В очереди</string>
+    <string name="common_pending">Ожидается</string>
     <string name="common_remove">Удалить</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_save">Сохранить</string>
@@ -169,6 +169,7 @@
     <string name="copy_link">Копировать ссылку</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
+    <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_url">Не удалось получить URL-адрес</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_file_from_template">Создание файла на основе шаблона…</string>
@@ -258,12 +259,14 @@
     <string name="etm_title">Режим разработчика</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
+    <string name="failed_to_print">Ошибка печати файла</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
     <string name="feedback_no_mail_app">Отсутствует приложение для работы с эл. почтой.</string>
     <string name="file_delete">Удалить</string>
+    <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
@@ -546,7 +549,7 @@
     <string name="resized_image_not_possible">Отсутствует оптимизированное изображение.</string>
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
     <string name="restore">Восстановить файл</string>
-    <string name="restore_button_description">Восстановить удаленный файл</string>
+    <string name="restore_button_description">Восстановить удалённый файл</string>
     <string name="retrieving_file">Получение файла…</string>
     <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
     <string name="saml_authentication_required_text">Требуется аутентификация</string>
