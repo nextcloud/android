@@ -119,7 +119,7 @@ public final class MediaProvider {
                                 MediaStore.MediaColumns.DATA));
 
                         // check if valid path and file exists
-                        if (filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists()) {
+                        if (isValidAndExistingFilePath(filePath)) {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
@@ -127,7 +127,7 @@ public final class MediaProvider {
                     cursorImages.close();
 
                     // only do further work if folder is not within the Nextcloud app itself
-                    if (mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath)) {
+                    if (isFolderOutsideOfAppPath(dataPath, mediaFolder)) {
 
                         // count images
                         Cursor count = contentResolver.query(
@@ -150,6 +150,14 @@ public final class MediaProvider {
         }
 
         return mediaFolders;
+    }
+
+    private static boolean isFolderOutsideOfAppPath(String dataPath, MediaFolder mediaFolder) {
+        return mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath);
+    }
+
+    private static boolean isValidAndExistingFilePath(String filePath) {
+        return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
     }
 
     private static void checkPermissions(@Nullable Activity activity) {
@@ -229,7 +237,7 @@ public final class MediaProvider {
                     cursorVideos.close();
 
                     // only do further work if folder is not within the Nextcloud app itself
-                    if (mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath)) {
+                    if (isFolderOutsideOfAppPath(dataPath, mediaFolder)) {
 
                         // count images
                         Cursor count = contentResolver.query(
