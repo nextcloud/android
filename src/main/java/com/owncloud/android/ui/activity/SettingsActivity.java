@@ -170,7 +170,7 @@ public class SettingsActivity extends PreferenceActivity
         setupDetailsCategory(accentColor, preferenceScreen);
 
         // More
-        setupMoreCategory(accentColor, appVersion);
+        setupMoreCategory(accentColor);
 
         // About
         setupAboutCategory(accentColor, appVersion);
@@ -308,7 +308,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupMoreCategory(int accentColor, String appVersion) {
+    private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
