@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android aplikazioa</string>
     <string name="about_title">Honi buruz</string>
     <string name="about_version">%1$s bertsioa</string>
+    <string name="about_version_with_build">bertsioa: %1$s, konpilazioa: #%2$s</string>
     <string name="account_creation_failed">Kontuaren sorrerak huts egin du</string>
     <string name="account_icon">Kontuaren ikonoa</string>
     <string name="account_not_found">Ez da kontua aurkitu!</string>
@@ -199,6 +200,7 @@
     <string name="downloader_download_succeeded_ticker">Jaitsita</string>
     <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
     <string name="drawer_close">Alboko barra itxi</string>
+    <string name="drawer_community">Komunitatea</string>
     <string name="drawer_current_account">Uneko kontua</string>
     <string name="drawer_end_account">Azken kontua</string>
     <string name="drawer_header_background">Goiburuko kutxaren atzeko planoaren irudia</string>
@@ -255,6 +257,7 @@
     <string name="etm_title">Ingeniaritzako froga modua </string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga kudeatzailera pasatzean</string>
+    <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="fallback_weblogin_back">Atzera</string>
     <string name="fallback_weblogin_text">Lehengoratu saioa hasteko metodo zaharrera</string>
     <string name="favorite">Gogokoenetara gehitu</string>
@@ -722,6 +725,7 @@
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
+    <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
