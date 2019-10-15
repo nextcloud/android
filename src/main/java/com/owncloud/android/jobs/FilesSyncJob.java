@@ -72,7 +72,7 @@ import androidx.exifinterface.media.ExifInterface;
  */
 public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
-    static final String SKIP_CUSTOM = "skipCustom";
+    public static final String SKIP_CUSTOM = "skipCustom";
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
     private static final String WAKELOCK_TAG_SEPARATION = ":";
 

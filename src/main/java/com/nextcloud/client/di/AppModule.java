@@ -33,9 +33,9 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.core.AsyncRunner;
-import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
+import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
@@ -69,6 +69,11 @@ class AppModule {
     @Provides
     Context context(Application application) {
         return application;
+    }
+
+    @Provides
+    ContentResolver contentResolver(Context context) {
+        return context.getContentResolver();
     }
 
     @Provides
