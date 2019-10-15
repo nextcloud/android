@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 
@@ -35,42 +34,27 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         String instantUploadPath = getIntent().getStringExtra(KEY_INSTANT_UPLOAD_PATH);
-
         // The caller activity (SettingsActivity) is not a FileActivity, so it has no OCFile, only a path.
         OCFile folder = new OCFile(instantUploadPath);
-
         setFile(folder);
     }
 
-    /**
-     * Called when the ownCloud {@link Account} associated to the Activity was
-     * just updated.
-     */
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    protected void onStart() {
+        super.onStart();
         if (getAccount() != null) {
-
             updateFileFromDB();
-
             OCFile folder = getFile();
             if (folder == null || !folder.isFolder()) {
                 // fall back to root folder
                 setFile(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
                 folder = getFile();
             }
-
             onBrowsedDownTo(folder);
-
-            if (!stateWasRecovered) {
-                OCFileListFragment listOfFolders = getListOfFilesFragment();
-                listOfFolders.listDirectory(folder, false, false);
-
-                startSyncFolderOperation(folder, false);
-            }
-
+            OCFileListFragment listOfFolders = getListOfFilesFragment();
+            listOfFolders.listDirectory(folder, false, false);
+            startSyncFolderOperation(folder, false);
             updateNavigationElementsInActionBar();
         }
     }
