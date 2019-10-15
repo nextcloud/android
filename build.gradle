@@ -272,6 +272,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "androidx.work:work-runtime:2.2.0"
+    implementation "androidx.work:work-runtime-ktx:2.2.0"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
@@ -314,6 +316,7 @@ dependencies {
 
     ktlint "com.pinterest:ktlint:0.35.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
