@@ -53,10 +53,10 @@ public class PhotoFragment extends OCFileListFragment {
     private SearchRemoteOperation searchRemoteOperation;
     private AsyncTask photoSearchTask;
     private SearchEvent searchEvent;
-    private boolean refresh = false;
+    private boolean refresh;
 
     public PhotoFragment() {
-
+        this.refresh = false;
     }
 
     public PhotoFragment(boolean refresh) {
