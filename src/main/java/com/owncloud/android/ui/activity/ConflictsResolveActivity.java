@@ -82,8 +82,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    protected void onStart() {
+        super.onStart();
         if (getAccount() != null) {
             OCFile file = getFile();
             if (getFile() == null) {
