@@ -88,8 +88,9 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
         }
     }
 
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         // Load data into the list
         Log_OC.d(TAG, "Refreshing lists on account set");
