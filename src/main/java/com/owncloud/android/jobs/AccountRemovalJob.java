@@ -60,6 +60,7 @@ import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,7 +74,6 @@ import static com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FO
 /**
  * Removes account and all local files
  */
-
 public class AccountRemovalJob extends Job implements AccountManagerCallback<Boolean> {
     public static final String TAG = "AccountRemovalJob";
     public static final String ACCOUNT = "account";
@@ -97,36 +97,17 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         boolean remoteWipe = bundle.getBoolean(REMOTE_WIPE, false);
 
         if (account != null && accountManager != null) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+
             // disable contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-            OwnCloudClient client = null;
-            try {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
-                client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
-                                                                                         MainApp.getAppContext());
-            } catch (Exception e) {
-                Log_OC.e(this, "Could not create client", e);
-            }
-
-            try {
-                AccountManagerFuture<Boolean> accountRemoval = accountManager.removeAccount(account, this, null);
-                boolean removal = accountRemoval.getResult();
-
-                if (!removal) {
-                    Log_OC.e(this, "Account removal of " + account.name + " failed!");
-                }
-            } catch (Exception e) {
-                Log_OC.e(this, "Account removal of " + account.name + " failed!", e);
-            }
+            removeAccount(account, accountManager);
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
-            File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
-            File saveDir = new File(FileStorageUtils.getSavePath(account.name));
-
-            FileStorageUtils.deleteRecursively(tempDir, storageManager);
-            FileStorageUtils.deleteRecursively(saveDir, storageManager);
+            // remove all files
+            removeFiles(account, storageManager);
 
             // delete all database entries
             storageManager.deleteAllFiles();
@@ -134,62 +115,28 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // remove contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-            ContentResolver contentResolver = context.getContentResolver();
-
             // disable daily backup
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
-
             arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                                         ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                                         "false");
 
-            String arbitraryDataPushString;
-
-            if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
-                account, PushUtils.KEY_PUSH)) &&
-                !TextUtils.isEmpty(context.getResources().getString(R.string.push_server_url))) {
-                Gson gson = new Gson();
-                PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
-                                                                         PushConfigurationState.class);
-                pushArbitraryData.setShouldBeDeleted(true);
-                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
-                                                            gson.toJson(pushArbitraryData));
-
-                PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken());
-            }
+            // unregister push notifications
+            unregisterPushNotifications(context, account, arbitraryDataProvider);
 
             // remove pending account removal
             arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
 
             // remove synced folders set for account
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver(),
-                                                                                 AppPreferencesImpl.fromContext(context));
-            List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+            remoceSyncedFolders(context, account, arbitraryDataProvider);
 
-            List<Long> syncedFolderIds = new ArrayList<>();
-
-            for (SyncedFolder syncedFolder : syncedFolders) {
-                if (syncedFolder.getAccount().equals(account.name)) {
-                    arbitraryDataProvider.deleteKeyForAccount(FilesSyncHelper.GLOBAL,
-                                                              FilesSyncHelper.SYNCEDFOLDERINITIATED + syncedFolder.getId());
-                    syncedFolderIds.add(syncedFolder.getId());
-                }
-            }
-
-            syncedFolderProvider.deleteSyncFoldersForAccount(account);
-
+            // delete all uploads for account
             uploadsStorageManager.removeAccountUploads(account);
-
-            FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(context.getContentResolver());
-
-            for (long syncedFolderId : syncedFolderIds) {
-                filesystemDataProvider.deleteAllEntriesForSyncedFolder(Long.toString(syncedFolderId));
-            }
 
             // delete stored E2E keys
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
 
+            OwnCloudClient client = createClient(account);
             if (remoteWipe && client != null) {
                 String authToken = client.getCredentials().getAuthToken();
                 new RemoteWipeSuccessRemoteOperation(authToken).execute(client);
@@ -199,6 +146,81 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         } else {
             return Result.FAILURE;
         }
+    }
+
+    private void unregisterPushNotifications(Context context, Account account, ArbitraryDataProvider arbitraryDataProvider) {
+        String arbitraryDataPushString;
+
+        if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
+            account, PushUtils.KEY_PUSH)) &&
+            !TextUtils.isEmpty(context.getResources().getString(R.string.push_server_url))) {
+            Gson gson = new Gson();
+            PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
+                                                                     PushConfigurationState.class);
+            pushArbitraryData.setShouldBeDeleted(true);
+            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
+                                                        gson.toJson(pushArbitraryData));
+
+            PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken());
+        }
+    }
+
+    private void remoceSyncedFolders(Context context, Account account, ArbitraryDataProvider arbitraryDataProvider) {
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver(),
+                                                                             AppPreferencesImpl.fromContext(context));
+        List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+
+        List<Long> syncedFolderIds = new ArrayList<>();
+
+        for (SyncedFolder syncedFolder : syncedFolders) {
+            if (syncedFolder.getAccount().equals(account.name)) {
+                arbitraryDataProvider.deleteKeyForAccount(FilesSyncHelper.GLOBAL,
+                                                          FilesSyncHelper.SYNCEDFOLDERINITIATED + syncedFolder.getId());
+                syncedFolderIds.add(syncedFolder.getId());
+            }
+        }
+
+        syncedFolderProvider.deleteSyncFoldersForAccount(account);
+
+        FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(context.getContentResolver());
+
+        for (long syncedFolderId : syncedFolderIds) {
+            filesystemDataProvider.deleteAllEntriesForSyncedFolder(Long.toString(syncedFolderId));
+        }
+    }
+
+    private void removeFiles(Account account, FileDataStorageManager storageManager) {
+        File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
+        File saveDir = new File(FileStorageUtils.getSavePath(account.name));
+
+        FileStorageUtils.deleteRecursively(tempDir, storageManager);
+        FileStorageUtils.deleteRecursively(saveDir, storageManager);
+    }
+
+    private void removeAccount(Account account, AccountManager accountManager) {
+        try {
+            AccountManagerFuture<Boolean> accountRemoval = accountManager.removeAccount(account, this, null);
+            boolean removal = accountRemoval.getResult();
+
+            if (!removal) {
+                Log_OC.e(this, "Account removal of " + account.name + " failed!");
+            }
+        } catch (Exception e) {
+            Log_OC.e(this, "Account removal of " + account.name + " failed!", e);
+        }
+    }
+
+    @Nullable
+    private OwnCloudClient createClient(Account account) {
+        OwnCloudClient client = null;
+        try {
+            OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
+                                                                                     MainApp.getAppContext());
+        } catch (Exception e) {
+            Log_OC.e(this, "Could not create client", e);
+        }
+        return client;
     }
 
     @Override

@@ -84,10 +84,12 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -499,6 +501,11 @@ public class ContactListFragment extends FileFragment implements Injectable {
         @Override
         public String toString() {
             return displayName;
+        }
+
+        @Override
+        public int hashCode() {
+            return Arrays.hashCode(new Object[] {displayName, name, type});
         }
     }
 
