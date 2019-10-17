@@ -60,7 +60,6 @@ import com.owncloud.android.ui.activity.SsoGrantPermissionActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
-import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
@@ -122,7 +121,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract TrashbinActivity trashbinActivity();
     @ContributesAndroidInjector abstract UploadFilesActivity uploadFilesActivity();
     @ContributesAndroidInjector abstract UploadListActivity uploadListActivity();
-    @ContributesAndroidInjector abstract UploadPathActivity uploadPathActivity();
     @ContributesAndroidInjector abstract UserInfoActivity userInfoActivity();
     @ContributesAndroidInjector abstract WhatsNewActivity whatsNewActivity();
     @ContributesAndroidInjector abstract EtmActivity etmActivity();
