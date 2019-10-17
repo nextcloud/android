@@ -73,7 +73,19 @@ import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
 import io.noties.markwon.ext.tables.TablePlugin;
 import io.noties.markwon.ext.tasklist.TaskListPlugin;
 import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.syntax.Prism4jTheme;
+import io.noties.markwon.syntax.Prism4jThemeDefault;
+import io.noties.markwon.syntax.SyntaxHighlightPlugin;
+import io.noties.prism4j.Prism4j;
+import io.noties.prism4j.annotations.PrismBundle;
 
+@PrismBundle(
+    include = {
+        "c", "clike", "clojure", "cpp", "csharp", "css", "dart", "git", "go", "groovy", "java", "javascript", "json",
+        "kotlin", "latex", "makefile", "markdown", "markup", "python", "scala", "sql", "swift", "yaml"
+    },
+    grammarLocatorClassName = ".MarkwonGrammarLocator"
+)
 public class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -122,7 +134,6 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         Log_OC.e(TAG, "onCreateView");
-
 
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
         mTextPreview = ret.findViewById(R.id.text_preview);
@@ -259,11 +270,14 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
     private Spanned getRenderedMarkdownText(Context context, String markdown) {
+        Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
+        Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
         final Markwon markwon = Markwon.builder(context)
             .usePlugin(TablePlugin.create(context))
             .usePlugin(TaskListPlugin.create(context))
             .usePlugin(StrikethroughPlugin.create())
             .usePlugin(HtmlPlugin.create())
+            .usePlugin(SyntaxHighlightPlugin.create(prism4j, prism4jTheme))
             .build();
 
         return markwon.toMarkdown(markdown);

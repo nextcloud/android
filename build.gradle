@@ -48,6 +48,7 @@ configurations {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
         exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+        exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitely
 
         // check for updates every build
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -57,7 +58,8 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.25.2"
-    markwonVersion =  '4.1.2'
+    markwonVersion =  "4.1.2"
+    prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -326,6 +328,10 @@ dependencies {
     implementation ("io.noties.markwon:ext-tasklist:$markwonVersion")
     implementation ("io.noties.markwon:html:$markwonVersion")
     implementation ("io.noties.markwon:linkify:$markwonVersion")
+
+    implementation ("io.noties.markwon:syntax-highlight:$markwonVersion")
+    implementation ("io.noties:prism4j:${prismVersion}")
+    kapt "io.noties:prism4j-bundler:${prismVersion}"
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
