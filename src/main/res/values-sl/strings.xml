@@ -392,8 +392,15 @@
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
     <string name="notification_channel_file_sync_name">Usklajevanje datotek</string>
     <string name="notification_channel_media_name">Predvajalnik predstavnih datotek</string>
+    <string name="notification_channel_push_name">Potisna obvestila</string>
+    <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
+    <string name="notification_channel_upload_name">Kanal obvestil pošiljanja</string>
+    <string name="notification_icon">Obvestilna ikona</string>
+    <string name="notifications_loading_activity">Nalaganje obvestil ...</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
+    <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
+    <string name="operation_canceled">Opravilo je preklicano</string>
     <string name="participate_beta_headline">Preizkušanje razvojne različice</string>
     <string name="participate_beta_text">To vključuje vse prihajajoče zmožnosti programa. Hrošči in napake se pojavljajo in ko se, je priporočljivo poslati poročilo za razhroščevanje.</string>
     <string name="participate_contribute_forum_forum">forumu</string>
@@ -482,10 +489,17 @@
     <string name="saml_authentication_required_text">Zahtevano je geslo</string>
     <string name="saml_authentication_wrong_pass">Napačno geslo</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
+    <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
+    <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
+    <string name="screenshot_05_autoUpload_subline">za vaše slike in posnetke</string>
+    <string name="screenshot_06_davdroid_heading">Usklajevalnik koledarja in stikov</string>
+    <string name="screenshot_06_davdroid_subline">z DAVx5 (prej poimenovan DAVdroid)</string>
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="select_all">Izberi vse</string>
+    <string name="select_template">IZbor predloge</string>
     <string name="send">Pošlji</string>
+    <string name="send_note">Pošlji sporočilo prejemniku</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_btn_connect">Poveži</string>
@@ -513,6 +527,7 @@
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
     <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
+    <string name="share_via_link_hide_download">Skrij prejem</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_via_link_password_label">Zaščiti z geslom</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
@@ -561,6 +576,7 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
     <string name="storage_pictures">Slike</string>
+    <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -588,6 +604,7 @@
     <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo ...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
+    <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
     <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
