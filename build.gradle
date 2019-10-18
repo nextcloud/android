@@ -302,7 +302,7 @@ dependencies {
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.5.1'
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.6'
 
     implementation "com.google.dagger:dagger:$daggerVersion"
