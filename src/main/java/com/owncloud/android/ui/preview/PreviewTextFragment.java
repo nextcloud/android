@@ -20,10 +20,12 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +68,11 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import io.noties.markwon.Markwon;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.ext.tasklist.TaskListPlugin;
+import io.noties.markwon.html.HtmlPlugin;
 
 public class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
     private static final String EXTRA_FILE = "FILE";
@@ -118,8 +125,6 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
 
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
-        mTextPreview = ret.findViewById(R.id.text_preview);
-
         mTextPreview = ret.findViewById(R.id.text_preview);
 
         mMultiView = ret.findViewById(R.id.multi_view);
@@ -243,7 +248,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    mTextPreview.setText(mOriginalText);
+                    setText(mTextPreview, mOriginalText, getFile());
                 }
             }, delay);
         }
@@ -251,6 +256,17 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         if (delay == 0 && mSearchView != null) {
             mSearchView.clearFocus();
         }
+    }
+
+    private Spanned getRenderedMarkdownText(Context context, String markdown) {
+        final Markwon markwon = Markwon.builder(context)
+            .usePlugin(TablePlugin.create(context))
+            .usePlugin(TaskListPlugin.create(context))
+            .usePlugin(StrikethroughPlugin.create())
+            .usePlugin(HtmlPlugin.create())
+            .build();
+
+        return markwon.toMarkdown(markdown);
     }
 
     /**
@@ -324,7 +340,8 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             if (textView != null) {
                 mOriginalText = stringWriter.toString();
                 mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
-                textView.setText(mOriginalText);
+
+                setText(textView, mOriginalText, getFile());
 
                 if (mSearchOpen) {
                     mSearchView.setQuery(mSearchQuery, true);
@@ -504,5 +521,14 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 getActivity().onBackPressed();
             }
         });
+    }
+
+    private void setText(TextView textView, String text, OCFile file) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
+            && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) {
+            textView.setText(getRenderedMarkdownText(getContext(), text));
+        } else {
+            textView.setText(text);
+        }
     }
 }

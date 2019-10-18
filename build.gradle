@@ -57,6 +57,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.24"
+    markwonVersion =  '4.1.2'
     androidLibraryVersion = "master-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -317,6 +318,14 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.35.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
+    // dependencies for markdown rendering
+    implementation ("io.noties.markwon:core:$markwonVersion")
+    implementation ("io.noties.markwon:ext-latex:$markwonVersion")
+    implementation ("io.noties.markwon:ext-strikethrough:$markwonVersion")
+    implementation ("io.noties.markwon:ext-tables:$markwonVersion")
+    implementation ("io.noties.markwon:ext-tasklist:$markwonVersion")
+    implementation ("io.noties.markwon:html:$markwonVersion")
+    implementation ("io.noties.markwon:linkify:$markwonVersion")
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
