@@ -220,7 +220,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
             setAccount(account);
             userAccountManager.setCurrentOwnCloudAccount(account.name);
-            onAccountSet(false);
+            onAccountSet();
 
             Intent i = new Intent(this, FileDisplayActivity.class);
             i.setAction(FileDisplayActivity.RESTART);
