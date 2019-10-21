@@ -132,7 +132,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
             if (account != null && currentAccount != null && !account.equalsIgnoreCase(currentAccount.name)) {
                 accountManager.setCurrentOwnCloudAccount(account);
-                setAccount(getUserAccountManager().getCurrentAccount());
+                setAccount(getUserAccountManager().getCurrentAccount(), false);
             }
 
             path = getIntent().getStringExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_PATH);
