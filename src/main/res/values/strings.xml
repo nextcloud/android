@@ -897,4 +897,5 @@
     <string name="could_not_download_image">Could not download full image</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
+    <string name="remote_file_fetch_failed">Failed to find file!</string>
 </resources>
