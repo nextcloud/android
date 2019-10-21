@@ -169,6 +169,7 @@
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
+    <string name="could_not_download_image">無法下載完整圖片</string>
     <string name="could_not_retrieve_url">無法存取網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_file_from_template">建立範本…</string>
@@ -256,6 +257,7 @@
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
+    <string name="failed_to_print">列印失敗</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
