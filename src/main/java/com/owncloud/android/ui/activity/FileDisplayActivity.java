@@ -2621,7 +2621,8 @@ public class FileDisplayActivity extends FileActivity
                 return;
             }
 
-            setAccount(newAccount);
+            setAccount(newAccount, false);
+            updateAccountList();
         }
 
         String fileId = String.valueOf(intent.getStringExtra(KEY_FILE_ID));

@@ -208,8 +208,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Log_OC.i(TAG, "No ownCloud account is available");
             DialogNoAccount dialog = new DialogNoAccount();
             dialog.show(getSupportFragmentManager(), null);
-        } else if (!savedAccount) {
-            setAccount(accounts[0]);
         }
 
         if (!somethingToUpload()) {
@@ -680,7 +678,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 // there is no need for checking for is there more then one
                 // account at this point
                 // since account setup can set only one account at time
-                setAccount(accounts[0]);
+                setAccount(accounts[0], false);
                 populateDirectoryList();
             }
         }
