@@ -153,6 +153,8 @@
     <string name="contacts_last_backup">Zadnje shranjevanje</string>
     <string name="contacts_preference_backup_never">nikoli</string>
     <string name="contacts_preference_choose_date">Izberi datum</string>
+    <string name="contacts_preferences_backup_scheduled">Ustvarjanje varnostne kopije je načrtovano in se bo kmalu začelo.</string>
+    <string name="contacts_preferences_import_scheduled">Uvoz je načrtovan in se bo kmalu začel.</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
     <string name="contacts_read_permission">Zahtevano je dovoljenje za branje seznama stikov</string>
@@ -166,6 +168,7 @@
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
+    <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_file_from_template">Poteka ustvarjanje dokumenta iz predloge ...</string>
@@ -177,6 +180,7 @@
     <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
     <string name="delete_account">Odstrani račun</string>
+    <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>
     <string name="delete_entries">Izbriši vnose</string>
     <string name="deselect_all">Odstrani celoten izbor</string>
     <string name="dev_version_new_version_available">Na voljo je nova različic</string>
@@ -226,6 +230,7 @@
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje ...</string>
     <string name="end_to_end_encryption_dialog_close">Zapri</string>
+    <string name="end_to_end_encryption_enter_password">Vpišite geslo za odšifriranje zasebnega ključa.</string>
     <string name="end_to_end_encryption_folder_not_empty">Mapa ni prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Poteka ustvarjanje novih ključev ...</string>
     <string name="end_to_end_encryption_password">Geslo …</string>
@@ -388,9 +393,17 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Novo obvestilo</string>
     <string name="new_version_was_created">Ustvarjena je nova različica</string>
+    <string name="no_browser_available">Ni nameščenega programa, ki upravlja s povezavami</string>
+    <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
+    <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="note_confirm">Pošlji</string>
+    <string name="notification_action_failed">Izvedba dejanja je spodletela</string>
+    <string name="notification_channel_download_description">Pokaži napredek prejemanja</string>
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
+    <string name="notification_channel_file_observer_name">Opazovalnik datotek</string>
+    <string name="notification_channel_file_sync_description">Pokaži napredek usklajevanja datotek in končana opravila</string>
     <string name="notification_channel_file_sync_name">Usklajevanje datotek</string>
+    <string name="notification_channel_general_name">Splošna obvestila</string>
     <string name="notification_channel_media_name">Predvajalnik predstavnih datotek</string>
     <string name="notification_channel_push_name">Potisna obvestila</string>
     <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
@@ -477,6 +490,7 @@
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
+    <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
     <string name="remove_success_msg">Izbrisano</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
@@ -612,6 +626,7 @@
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preveri, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
+    <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="upload_chooser_title">Pošlji iz …</string>
     <string name="upload_content_from_other_apps">Pošlji vsebino iz drugih programov</string>
     <string name="upload_file_dialog_filename">Ime datoteke</string>
