@@ -266,6 +266,7 @@
     <string name="favorite_icon">Favoriet</string>
     <string name="feedback_no_mail_app">Geen app beschikbaar voor versturen mail!</string>
     <string name="file_delete">Verwijderen</string>
+    <string name="file_detail_activity_error">Fout bij ophalen activiteiten van bestand</string>
     <string name="file_details_no_content">Kon details niet laden</string>
     <string name="file_icon">Bestand</string>
     <string name="file_keep">Behouden</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Nieuwe Melding</string>
     <string name="new_version_was_created">Nieuwe versie gecreëerd</string>
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
+    <string name="no_mutliple_accounts_allowed">Slechts één account toegestaan</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="note_confirm">Versturen</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
