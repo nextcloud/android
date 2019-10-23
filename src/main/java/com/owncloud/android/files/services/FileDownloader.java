@@ -76,6 +76,7 @@ import java.util.Vector;
 import javax.inject.Inject;
 
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
 
 public class FileDownloader extends Service
@@ -117,6 +118,7 @@ public class FileDownloader extends Service
 
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -691,7 +693,7 @@ public class FileDownloader extends Service
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
         end.setPackage(getPackageName());
-        sendStickyBroadcast(end);
+        localBroadcastManager.sendBroadcast(end);
     }
 
 
@@ -708,7 +710,7 @@ public class FileDownloader extends Service
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         added.setPackage(getPackageName());
-        sendStickyBroadcast(added);
+        localBroadcastManager.sendBroadcast(added);
     }
 
     /**
