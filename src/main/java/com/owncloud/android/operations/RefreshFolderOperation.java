@@ -57,6 +57,7 @@ import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -691,6 +692,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         intent.putExtra(FileSyncAdapter.EXTRA_RESULT, dataHolderItemId);
 
         intent.setPackage(mContext.getPackageName());
-        mContext.sendStickyBroadcast(intent);
+        LocalBroadcastManager.getInstance(mContext.getApplicationContext()).sendBroadcast(intent);
     }
 }

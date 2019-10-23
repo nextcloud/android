@@ -41,6 +41,8 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 
 import java.io.IOException;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 /**
  * SyncFolder worker. Performs the pending operations in the order they were requested.
  *
@@ -177,7 +179,7 @@ class SyncFolderHandler extends Handler {
         added.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
         added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
         added.setPackage(mService.getPackageName());
-        mService.sendStickyBroadcast(added);
+        LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(added);
     }
 
     /**
@@ -191,6 +193,6 @@ class SyncFolderHandler extends Handler {
         finished.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
         finished.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, success);
         finished.setPackage(mService.getPackageName());
-        mService.sendStickyBroadcast(finished);
+        LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(finished);
     }
 }

@@ -90,6 +90,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
 
 /**
@@ -184,6 +185,7 @@ public class FileUploader extends Service
     @Inject UploadsStorageManager mUploadsStorageManager;
     @Inject ConnectivityService connectivityService;
     @Inject PowerManagementService powerManagementService;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
@@ -823,7 +825,7 @@ public class FileUploader extends Service
         Intent start = new Intent(getUploadsAddedMessage());
         // nothing else needed right now
         start.setPackage(getPackageName());
-        sendStickyBroadcast(start);
+        localBroadcastManager.sendBroadcast(start);
     }
 
     /**
@@ -840,7 +842,7 @@ public class FileUploader extends Service
         start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
 
         start.setPackage(getPackageName());
-        sendStickyBroadcast(start);
+        localBroadcastManager.sendBroadcast(start);
     }
 
     /**
@@ -873,7 +875,7 @@ public class FileUploader extends Service
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
         end.setPackage(getPackageName());
-        sendStickyBroadcast(end);
+        localBroadcastManager.sendBroadcast(end);
     }
 
     /**
