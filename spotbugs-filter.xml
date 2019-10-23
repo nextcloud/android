@@ -33,6 +33,15 @@
             <Class name="~.*\.DataBinderMapperImpl"/>
         </Or>
     </Match>
+	
+	<!-- Third-party library code -->
+	<Match>
+	    <Or>
+	        <Package name="~io\.noties\..*" />
+			<Package name="~third_parties\.ezvcard_android\..*" />
+			<Class name="~com.owncloud.android.ui.preview.MarkwonGrammarLocator" />
+		</Or>
+	</Match>
 
     <Bug pattern="PATH_TRAVERSAL_IN" />
     <Bug pattern="ANDROID_EXTERNAL_FILE_ACCESS" />
