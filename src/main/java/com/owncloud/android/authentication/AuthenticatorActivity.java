@@ -189,7 +189,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
-    private static final String WEB_LOGIN = "/index.php/login/flow";
+    public static final String WEB_LOGIN = "/index.php/login/flow";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
     public static final String HTTPS_PROTOCOL = "https://";
