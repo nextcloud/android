@@ -33,7 +33,7 @@
             <Class name="~.*\.DataBinderMapperImpl"/>
         </Or>
     </Match>
-	
+
 	<!-- Third-party library code -->
 	<Match>
 	    <Or>
@@ -42,7 +42,7 @@
 		</Or>
 	</Match>
 	 <Match>
-        <Class name="~com\.owncloud\.android\.ui\.preview\.MarkwonGrammarLocator" />
+         <Class name="~com\.owncloud\.android\.ui\.preview\.MarkwonGrammarLocator.*" />
     </Match>
 
     <Bug pattern="PATH_TRAVERSAL_IN" />
