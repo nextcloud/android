@@ -146,12 +146,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         throws FileNotFoundException {
         Log.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
 
-        Document parentFolder = toDocument(parentDocumentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null");
         }
+
+        Document parentFolder = toDocument(parentDocumentId);
 
         FileDataStorageManager storageManager = parentFolder.getStorageManager();
 
@@ -327,12 +327,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
         Log.d(TAG, "renameDocument(), id=" + documentId);
 
-        Document document = toDocument(documentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
+
+        Document document = toDocument(documentId);
 
         RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(), displayName)
             .execute(document.getClient(), document.getStorageManager());
@@ -351,15 +351,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log.d(TAG, "copyDocument(), id=" + sourceDocumentId);
 
-        Document document = toDocument(sourceDocumentId);
-        Document targetFolder = toDocument(targetParentDocumentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
 
+        Document document = toDocument(sourceDocumentId);
+
         FileDataStorageManager storageManager = document.getStorageManager();
+        Document targetFolder = toDocument(targetParentDocumentId);
 
         RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
             .execute(document.getClient(), storageManager);
@@ -398,14 +398,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         throws FileNotFoundException {
         Log.d(TAG, "moveDocument(), id=" + sourceDocumentId);
 
-        Document document = toDocument(sourceDocumentId);
-        Document sourceFolder = toDocument(sourceParentDocumentId);
-        Document targetFolder = toDocument(targetParentDocumentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
+
+        Document document = toDocument(sourceDocumentId);
+        Document targetFolder = toDocument(targetParentDocumentId);
 
         RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
             .execute(document.getClient(), document.getStorageManager());
@@ -414,6 +413,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Failed to move document with documentId " + sourceDocumentId
                                                 + " to " + targetParentDocumentId);
         }
+
+        Document sourceFolder = toDocument(sourceParentDocumentId);
 
         getContext().getContentResolver().notifyChange(toNotifyUri(sourceFolder), null, false);
         getContext().getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
@@ -494,7 +495,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Account account = targetFolder.getAccount();
-        OwnCloudClient client = targetFolder.getClient();
 
         // create dummy file
         File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
@@ -520,6 +520,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String newFilePath = targetFolder.getRemotePath() + displayName;
 
         // perform the upload, no need for chunked operation as we have a empty file
+        OwnCloudClient client = targetFolder.getClient();
         RemoteOperationResult result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
                                                                      newFilePath,
                                                                      null,
@@ -561,16 +562,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public void deleteDocument(String documentId) throws FileNotFoundException {
         Log.d(TAG, "deleteDocument(), id=" + documentId);
 
-        Document document = toDocument(documentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
 
-        recursiveRevokePermission(document);
+        Document document = toDocument(documentId);
 
-        Document parentFolder = document.getParent();
+        recursiveRevokePermission(document);
 
         RemoteOperationResult result = new RemoveFileOperation(document.getRemotePath(), false,
                                                                document.getAccount(), true, context)
@@ -580,6 +579,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
         }
 
+        Document parentFolder = document.getParent();
         context.getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
     }
 
