@@ -30,6 +30,9 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
@@ -140,6 +143,13 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             if (remoteWipe && client != null) {
                 String authToken = client.getCredentials().getAuthToken();
                 new RemoteWipeSuccessRemoteOperation(authToken).execute(client);
+            }
+
+            // notify Document Provider
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String authority = context.getResources().getString(R.string.document_provider_authority);
+                Uri rootsUri = DocumentsContract.buildRootsUri(authority);
+                context.getContentResolver().notifyChange(rootsUri, null);
             }
 
             return Result.SUCCESS;
