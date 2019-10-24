@@ -94,6 +94,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     private static final int HTTP_STATUS_CODE_MULTIPLE_CHOICES = 300;
 
     private static final char PATH_SEPARATOR = '/';
+    private static final int ZERO_LENGTH = 0;
     private Context context;
     private UserAccountManager accountManager;
 
@@ -112,6 +113,42 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         return nvp;
     }
 
+    public ParcelFileDescriptor performNextcloudRequestV2(ParcelFileDescriptor input) {
+        return performNextcloudRequestAndBodyStreamV2(input, null);
+    }
+
+    public ParcelFileDescriptor performNextcloudRequestAndBodyStreamV2(
+        ParcelFileDescriptor input,
+        ParcelFileDescriptor requestBodyParcelFileDescriptor) {
+        // read the input
+        final InputStream is = new ParcelFileDescriptor.AutoCloseInputStream(input);
+
+        final InputStream requestBodyInputStream = requestBodyParcelFileDescriptor != null ?
+            new ParcelFileDescriptor.AutoCloseInputStream(requestBodyParcelFileDescriptor) : null;
+        Exception exception = null;
+        Response response = new Response();
+
+        try {
+            // Start request and catch exceptions
+            NextcloudRequest request = deserializeObjectAndCloseStream(is);
+            response = processRequestV2(request, requestBodyInputStream);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error during Nextcloud request", e);
+            exception = e;
+        }
+
+        try {
+            // Write exception to the stream followed by the actual network stream
+            InputStream exceptionStream = serializeObjectToInputStreamV2(exception, response.getPlainHeadersString());
+            InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, response.getBody());
+
+            return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
+        } catch (IOException e) {
+            Log_OC.e(TAG, "Error while sending response back to client app", e);
+        }
+        return null;
+    }
+
     public ParcelFileDescriptor performNextcloudRequest(ParcelFileDescriptor input) {
         return performNextcloudRequestAndBodyStream(input, null);
     }
@@ -128,7 +165,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         InputStream httpStream = new InputStream() {
             @Override
             public int read() {
-                return 0;
+                return ZERO_LENGTH;
             }
         };
 
@@ -155,6 +192,23 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             Log_OC.e(TAG, "Error while sending response back to client app", e);
         }
         return null;
+    }
+
+    private ByteArrayInputStream serializeObjectToInputStreamV2(Exception exception, String headers) {
+        byte[] baosByteArray = new byte[0];
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(exception);
+            oos.writeObject(headers);
+            oos.flush();
+            oos.close();
+
+            baosByteArray = baos.toByteArray();
+        } catch (IOException e) {
+            Log_OC.e(TAG, "Error while sending response back to client app", e);
+        }
+
+        return new ByteArrayInputStream(baosByteArray);
     }
 
     private <T extends Serializable> ByteArrayInputStream serializeObjectToInputStream(T obj) throws IOException {
@@ -296,6 +350,71 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return method.getResponseBodyAsStream();
+        } else {
+            StringBuilder total = new StringBuilder();
+            InputStream inputStream = method.getResponseBodyAsStream();
+            // If response body is available
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = reader.readLine();
+                while (line != null) {
+                    total.append(line).append('\n');
+                    line = reader.readLine();
+                }
+                Log_OC.e(TAG, total.toString());
+            }
+            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
+                                            new IllegalStateException(String.valueOf(status),
+                                                                      new IllegalStateException(total.toString())));
+        }
+    }
+
+    private Response processRequestV2(final NextcloudRequest request, final InputStream requestBodyInputStream)
+        throws UnsupportedOperationException,
+        com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
+        OperationCanceledException, AuthenticatorException, IOException {
+        Account account = accountManager.getAccountByName(request.getAccountName());
+        if (account == null) {
+            throw new IllegalStateException(EXCEPTION_ACCOUNT_NOT_FOUND);
+        }
+
+        // Validate token
+        if (!isValid(request)) {
+            throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
+        }
+
+        // Validate URL
+        if (request.getUrl().length() == 0 || request.getUrl().charAt(0) != PATH_SEPARATOR) {
+            throw new IllegalStateException(EXCEPTION_INVALID_REQUEST_URL,
+                                            new IllegalStateException("URL need to start with a /"));
+        }
+
+        OwnCloudClientManager ownCloudClientManager = OwnCloudClientManagerFactory.getDefaultSingleton();
+        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+        OwnCloudClient client = ownCloudClientManager.getClientFor(ocAccount, context);
+
+        HttpMethodBase method = buildMethod(request, client.getBaseUri(), requestBodyInputStream);
+
+        method.setQueryString(convertMapToNVP(request.getParameter()));
+        method.addRequestHeader("OCS-APIREQUEST", "true");
+
+        for (Map.Entry<String, List<String>> header : request.getHeader().entrySet()) {
+            // https://stackoverflow.com/a/3097052
+            method.addRequestHeader(header.getKey(), TextUtils.join(",", header.getValue()));
+
+            if ("OCS-APIREQUEST".equalsIgnoreCase(header.getKey())) {
+                throw new IllegalStateException(
+                    "The 'OCS-APIREQUEST' header will be automatically added by the Nextcloud SSO Library. " +
+                        "Please remove the header before making a request");
+            }
+        }
+
+        client.setFollowRedirects(request.isFollowRedirects());
+        int status = client.executeMethod(method);
+
+        // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
+        if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
+            return new Response(method.getResponseBodyAsStream(), method.getResponseHeaders());
         } else {
             StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();
