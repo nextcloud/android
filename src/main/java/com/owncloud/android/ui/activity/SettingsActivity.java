@@ -750,12 +750,12 @@ public class SettingsActivity extends PreferenceActivity
             // arguments
             if (serverBaseUri != null) {
                 davDroidLoginIntent.putExtra("url", serverBaseUri.toString() + DAV_PATH);
+
+                davDroidLoginIntent.putExtra("loginFlow", TRUE_VALUE);
+                davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
+                davDroidLoginIntent.putExtra("davPath", DAV_PATH);
             }
             davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(account));
-
-            davDroidLoginIntent.putExtra("loginFlow", TRUE_VALUE);
-            davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
-            davDroidLoginIntent.putExtra("davPath", DAV_PATH);
 
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
