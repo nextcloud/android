@@ -538,6 +538,7 @@
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>
+    <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="remove_push_notification">Entfernen</string>

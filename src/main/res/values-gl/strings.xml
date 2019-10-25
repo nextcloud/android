@@ -539,6 +539,7 @@
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
