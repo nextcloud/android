@@ -322,12 +322,10 @@ dependencies {
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
-    implementation "io.noties.markwon:ext-latex:$markwonVersion"
     implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
     implementation "io.noties.markwon:ext-tables:$markwonVersion"
     implementation "io.noties.markwon:ext-tasklist:$markwonVersion"
     implementation "io.noties.markwon:html:$markwonVersion"
-    implementation "io.noties.markwon:linkify:$markwonVersion"
 
     implementation "io.noties.markwon:syntax-highlight:$markwonVersion"
     implementation "io.noties:prism4j:$prismVersion"
