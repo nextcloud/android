@@ -140,14 +140,24 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             downloadIcon(notification.getIcon(), holder.icon);
         }
 
+        setButtons(holder, notification);
+
+        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification, holder,
+                                                                          notificationsActivity).execute());
+    }
+
+    public void setButtons(NotificationViewHolder holder, Notification notification) {
         // add action buttons
         holder.buttons.removeAllViews();
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
-        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client, holder, notificationsActivity);
+        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client,
+                                                                               holder,
+                                                                               notification,
+                                                                               notificationsActivity);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
 
         for (Action action : notification.getActions()) {
@@ -184,9 +194,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             holder.buttons.addView(button);
         }
-
-        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification, holder,
-                                                                          notificationsActivity).execute());
     }
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {

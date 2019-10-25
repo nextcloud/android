@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.notifications;
 
+import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 
 public interface NotificationsContract {
@@ -32,6 +33,8 @@ public interface NotificationsContract {
 
         void onRemovedAllNotifications(boolean isSuccess);
 
-        void onActionCallback(boolean isSuccess, NotificationListAdapter.NotificationViewHolder holder);
+        void onActionCallback(boolean isSuccess,
+                              Notification notification,
+                              NotificationListAdapter.NotificationViewHolder holder);
     }
 }
