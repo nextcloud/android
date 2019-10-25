@@ -540,6 +540,7 @@ Attention la suppression est irréversible.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>

@@ -538,6 +538,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote_file_fetch_failed">File non trovato!</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
