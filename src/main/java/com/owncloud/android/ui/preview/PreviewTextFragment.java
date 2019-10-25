@@ -21,11 +21,15 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +54,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -68,9 +73,12 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
+import io.noties.markwon.core.MarkwonTheme;
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
 import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.ext.tasklist.TaskListDrawable;
 import io.noties.markwon.ext.tasklist.TaskListPlugin;
 import io.noties.markwon.html.HtmlPlugin;
 import io.noties.markwon.syntax.Prism4jTheme;
@@ -272,9 +280,20 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     private Spanned getRenderedMarkdownText(Context context, String markdown) {
         Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
         Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
+        TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
+        drawable.setColorFilter(ThemeUtils.primaryColor(context, true), PorterDuff.Mode.SRC_ATOP);
+
         final Markwon markwon = Markwon.builder(context)
+            .usePlugin(new AbstractMarkwonPlugin() {
+                @Override
+                public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
+                    TextPaint textPaint = new TextPaint();
+                    textPaint.setColorFilter(new PorterDuffColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP));
+                    builder.linkColor(ThemeUtils.primaryColor(context, true));
+                }
+            })
             .usePlugin(TablePlugin.create(context))
-            .usePlugin(TaskListPlugin.create(context))
+            .usePlugin(TaskListPlugin.create(drawable))
             .usePlugin(StrikethroughPlugin.create())
             .usePlugin(HtmlPlugin.create())
             .usePlugin(SyntaxHighlightPlugin.create(prism4j, prism4jTheme))
