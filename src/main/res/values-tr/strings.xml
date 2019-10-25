@@ -538,6 +538,7 @@
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
+    <string name="remote_file_fetch_failed">Dosya bulunamadı!</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>

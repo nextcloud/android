@@ -537,6 +537,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nLadda ner här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
     <string name="remove_push_notification">Ta bort</string>

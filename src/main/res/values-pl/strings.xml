@@ -538,6 +538,7 @@
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
+    <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
