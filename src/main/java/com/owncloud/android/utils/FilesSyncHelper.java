@@ -64,8 +64,6 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.RequiresApi;
-
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
 /**
