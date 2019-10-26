@@ -65,7 +65,6 @@ public class ExternalSiteWebView extends FileActivity {
     private boolean showSidebar;
     String url;
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -140,6 +139,7 @@ public class ExternalSiteWebView extends FileActivity {
         webview.loadUrl(url);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void setupWebSettings(WebSettings webSettings) {
         // enable zoom
         webSettings.setSupportZoom(true);
