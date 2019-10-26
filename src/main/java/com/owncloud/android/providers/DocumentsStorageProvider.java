@@ -303,13 +303,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throws FileNotFoundException {
         Log.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
-        Document document = toDocument(documentId);
-
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
         }
 
+        Document document = toDocument(documentId);
+        
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
                                                                    + document.getFile().getRemoteId());
 
