@@ -29,6 +29,7 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="android:alertDialogTheme">@style/ownCloud.AlertDialog</item>
+        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>

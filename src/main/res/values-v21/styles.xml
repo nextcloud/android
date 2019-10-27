@@ -29,6 +29,7 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="colorSecondary">@color/secondaryTextColor</item>
+        <item name="android:alertDialogTheme">@style/FallbackTheming.Dialog</item>
     </style>
 
     <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -45,6 +46,14 @@
         <item name="android:headerBackground">@color/bg_fallback_highlight</item>
         <!-- TODO for < API21 -->
         <item name="android:datePickerMode">calendar</item>
+    </style>
+
+    <style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">#424242</item>
+        <item name="colorPrimaryDark">#212121</item>
+        <item name="colorAccent">#757575</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:windowBackground">@color/bg_default</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar">
