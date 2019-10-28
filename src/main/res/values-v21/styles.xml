@@ -79,4 +79,9 @@
         <item name="colorControlNormal">@color/login_text_color</item>
         <item name="colorControlActivated">@color/login_text_color</item>
     </style>
+
+    <style name="Nextcloud.EditText.Generic" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="colorControlNormal">@color/login_text_color</item>
+        <item name="colorControlActivated">@color/login_text_color</item>
+    </style>
 </resources>

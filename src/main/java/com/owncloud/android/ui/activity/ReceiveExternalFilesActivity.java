@@ -34,6 +34,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -63,6 +64,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -748,10 +750,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 mListView.setAdapter(sa);
             }
-            Button btnChooseFolder = findViewById(R.id.uploader_choose_folder);
-                btnChooseFolder.setOnClickListener(this);
-            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this),
-                        PorterDuff.Mode.SRC_ATOP);
+            MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
+            btnChooseFolder.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
+            btnChooseFolder.setOnClickListener(this);
             btnChooseFolder.setTextColor(ThemeUtils.fontColor(this));
 
             if (mFile.canWrite()) {
