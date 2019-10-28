@@ -43,11 +43,11 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
-    <color name="primary_dark">#006AA3</color>
-    <color name="color_accent">#007cc2</color>
-    <color name="login_text_color">@color/white</color>
-    <color name="login_text_hint_color">#7fC0E3</color>
+    <color name="primary">#0098FF</color>
+    <color name="primary_dark">#007ED3</color>
+    <color name="color_accent">#1AA2FF</color>
+    <color name="login_text_color">#333333</color>
+    <color name="login_text_hint_color">#666666</color>
     <color name="background_color">#FFFFFF</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">@color/white</color>
@@ -71,7 +71,7 @@
     <bool name="recently_modified_enabled">false</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">false</bool>
-    <bool name="show_drawer_logout">false</bool>
+    <bool name="show_drawer_logout">true</bool>
     <bool name="show_drawer_contacts_backup">false</bool> <!-- if false it will shown in settings -->
 
     <!-- Various other options -->
@@ -82,7 +82,7 @@
     <bool name="device_credentials_enabled">true</bool>
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
-    <bool name="help_enabled">true</bool>
+    <bool name="help_enabled">false</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <bool name="privacy_enabled">true</bool>
     <string name="privacy_url">https://nextcloud.com/privacy</string>
@@ -107,7 +107,7 @@
     <string name="syncedFolder_light_upload_behaviour">FileUploader.LOCAL_BEHAVIOUR_FORGET</string>
 
     <!--Destination mail for sending log files -->
-    <string name="mail_logger"></string>
+    <string name="mail_logger">support@infomaniak.com</string>
 
     <!-- Determine is participate enabled -->
     <bool name="participate_enabled">true</bool>
@@ -126,7 +126,7 @@
     <string name="login_data_own_scheme" translatable="false">nc</string>
     <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
-    <string name="webview_login_url" translatable="false"></string>
+    <string name="webview_login_url" translatable="false">https://connect.drive.infomaniak.com/index.php/login/flow</string>
 
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
