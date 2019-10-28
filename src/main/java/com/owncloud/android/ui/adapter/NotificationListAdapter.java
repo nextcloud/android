@@ -167,15 +167,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
 
             if (action.primary) {
-                button.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
+                button.setBackgroundColor(primaryColor);
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
                 button.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.grey_200)));
                 button.setStrokeWidth(3);
 
-                button.getBackground().setColorFilter(resources.getColor(R.color.transparent),
-                                                      PorterDuff.Mode.SRC_ATOP);
+                button.setBackgroundColor(resources.getColor(R.color.transparent));
                 button.setTextColor(primaryColor);
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
