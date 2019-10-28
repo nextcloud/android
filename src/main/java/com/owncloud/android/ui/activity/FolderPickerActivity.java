@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
