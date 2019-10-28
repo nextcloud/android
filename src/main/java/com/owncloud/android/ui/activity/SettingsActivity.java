@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
@@ -114,6 +115,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private static final int ACTION_CONFIRM_PASSCODE = 6;
     private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+    private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
 
@@ -170,7 +172,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         setupDetailsCategory(accentColor, preferenceScreen);
 
         // More
-        setupMoreCategory(accentColor, appVersion);
+        setupMoreCategory(accentColor);
 
         // About
         setupAboutCategory(accentColor, appVersion);
@@ -308,7 +310,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupMoreCategory(int accentColor, String appVersion) {
+    private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
@@ -759,8 +761,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
             // arguments
             if (serverBaseUri != null) {
                 davDroidLoginIntent.putExtra("url", serverBaseUri.toString() + DAV_PATH);
+
+                davDroidLoginIntent.putExtra("loginFlow", TRUE_VALUE);
+                davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
+                davDroidLoginIntent.putExtra("davPath", DAV_PATH);
             }
             davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(account));
+
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed

@@ -3,6 +3,7 @@ package com.owncloud.android.authentication;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
@@ -11,6 +12,12 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+            accountManager.getAccounts().length == 1) {
+            Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+            return;
+        }
 
         setContentView(R.layout.deep_link_login);
 

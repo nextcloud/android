@@ -24,9 +24,6 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -40,6 +37,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -52,7 +50,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.FilesSyncJob;
-import com.owncloud.android.jobs.NContentObserverJob;
 import com.owncloud.android.jobs.OfflineSyncJob;
 
 import org.lukhnos.nnio.file.FileVisitResult;
@@ -66,8 +63,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.RequiresApi;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -259,7 +254,7 @@ public final class FilesSyncHelper {
         }).start();
     }
 
-    public static void scheduleFilesSyncIfNeeded(Context context) {
+    public static void scheduleFilesSyncIfNeeded(Context context, BackgroundJobManager jobManager) {
         // always run this because it also allows us to perform retries of manual uploads
         new JobRequest.Builder(FilesSyncJob.TAG)
                 .setPeriodic(900000L, 300000L)
@@ -268,7 +263,7 @@ public final class FilesSyncHelper {
                 .schedule();
 
         if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            scheduleJobOnN();
+            jobManager.scheduleContentObserverJob();
         }
     }
 
@@ -280,30 +275,6 @@ public final class FilesSyncHelper {
                 .setUpdateCurrent(false)
                 .build()
                 .schedule();
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void scheduleJobOnN() {
-        JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
-
-        if (jobScheduler != null) {
-            JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
-                    NContentObserverJob.class.getName()));
-            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
-                    Images.Media.INTERNAL_CONTENT_URI,
-                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
-                    Images.Media.EXTERNAL_CONTENT_URI,
-                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
-                    Video.Media.INTERNAL_CONTENT_URI,
-                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
-                    Video.Media.EXTERNAL_CONTENT_URI,
-                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-            builder.setTriggerContentMaxDelay(1500);
-            jobScheduler.schedule(builder.build());
         }
     }
 }

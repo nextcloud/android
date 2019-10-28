@@ -266,6 +266,7 @@
     <string name="favorite_icon">Preferito</string>
     <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
     <string name="file_delete">Elimina</string>
+    <string name="file_detail_activity_error">Errore durante il recupero delle attività per i file</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
     <string name="file_icon">File</string>
     <string name="file_keep">Mantieni</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Nuova notifica</string>
     <string name="new_version_was_created">Una nuova versione è stata creata</string>
     <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
+    <string name="no_mutliple_accounts_allowed">Solo un account consentito</string>
     <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
     <string name="note_confirm">Invia</string>
     <string name="note_could_not_sent">Impossibile inviare la nota</string>
@@ -536,6 +538,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote_file_fetch_failed">File non trovato!</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>

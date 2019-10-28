@@ -47,6 +47,7 @@ public final class AppPreferencesImpl implements AppPreferences {
      */
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
+    public static final float DEFAULT_GRID_COLUMN = 4.0f;
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
@@ -358,7 +359,13 @@ public final class AppPreferencesImpl implements AppPreferences {
      */
     @Override
     public float getGridColumns() {
-        return preferences.getFloat(AUTO_PREF__GRID_COLUMNS, 4.0f);
+        float columns = preferences.getFloat(AUTO_PREF__GRID_COLUMNS, DEFAULT_GRID_COLUMN);
+
+        if (columns < 0) {
+            return DEFAULT_GRID_COLUMN;
+        } else {
+            return columns;
+        }
     }
 
     /**

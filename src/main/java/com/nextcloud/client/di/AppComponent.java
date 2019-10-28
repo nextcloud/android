@@ -24,6 +24,7 @@ import android.app.Application;
 
 import com.nextcloud.client.appinfo.AppInfoModule;
 import com.nextcloud.client.device.DeviceModule;
+import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
@@ -43,7 +44,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
     NetworkModule.class,
     DeviceModule.class,
     OnboardingModule.class,
-    ViewModelModule.class
+    ViewModelModule.class,
+    JobsModule.class
 })
 @Singleton
 public interface AppComponent {

@@ -169,6 +169,7 @@
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
+    <string name="could_not_download_image">無法下載完整圖片</string>
     <string name="could_not_retrieve_url">無法存取網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_file_from_template">建立範本…</string>
@@ -201,6 +202,7 @@
     <string name="downloader_download_succeeded_ticker">已下載</string>
     <string name="downloader_not_downloaded_yet">尚未下載</string>
     <string name="drawer_close">關閉側邊攔</string>
+    <string name="drawer_community">社群</string>
     <string name="drawer_current_account">目前帳戶</string>
     <string name="drawer_end_account">最後帳號</string>
     <string name="drawer_item_activities">活動</string>
@@ -256,12 +258,14 @@
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
+    <string name="failed_to_print">列印失敗</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
     <string name="feedback_no_mail_app">沒有應用程式可以傳送信件！</string>
     <string name="file_delete">刪除</string>
+    <string name="file_detail_activity_error">檢所檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
@@ -326,6 +330,7 @@
     <string name="filename_hint">檔名</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
     <string name="first_run_1_text">在您的控制下維持資料的安全</string>
+    <string name="first_run_2_text">安全地協作 &amp; 傳輸檔案</string>
     <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
     <string name="folder_already_exists">文件夾已存在</string>
@@ -370,6 +375,7 @@
     <string name="logs_menu_send">藉由e-mail傳送紀錄</string>
     <string name="logs_status_filtered">記錄：%1$dkB，符合查詢%2$d/%3$d，耗時%4$dms</string>
     <string name="logs_status_loading">載入中…</string>
+    <string name="logs_status_not_filtered">記錄檔: %1$d KB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
@@ -413,6 +419,7 @@
     <string name="new_notification">新的通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
+    <string name="no_mutliple_accounts_allowed">只可使用一個帳戶</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
@@ -492,6 +499,8 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
+    <string name="prefs_e2e_mnemonic">端到端助記碼</string>
+    <string name="prefs_e2e_no_device_credentials">裝置若要顯示註記請啟用裝置憑證</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
     <string name="prefs_feedback">回饋</string>
@@ -548,8 +557,11 @@
     <string name="saml_authentication_wrong_pass">密碼錯誤</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
+    <string name="screenshot_01_gridView_subline">自建具有生產力的平台</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>
     <string name="screenshot_02_listView_subline">全在您一指之間</string>
+    <string name="screenshot_03_drawer_heading">活動,分享,離線檔案</string>
+    <string name="screenshot_03_drawer_subline">可快速存取所有資源</string>
     <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
@@ -613,6 +625,7 @@
     <string name="shared_icon_shared_via_link">透過連結分享</string>
     <string name="shared_with_you_by">%1$s已經和你分享</string>
     <string name="sharee_add_failed">分享失敗</string>
+    <string name="signup_with_provider">使用第三方登入</string>
     <string name="single_sign_on_request_token" formatted="true">允許%1$s存取您的Nextcloud帳號%2$s？</string>
     <string name="sort_by">排列方式</string>
     <string name="sort_by_modification_date_ascending">最新先</string>

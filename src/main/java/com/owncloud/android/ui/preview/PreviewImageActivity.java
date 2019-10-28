@@ -183,6 +183,34 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        if (getAccount() != null) {
+            OCFile file = getFile();
+            /// Validate handled file (first image to preview)
+            if (file == null) {
+                throw new IllegalStateException("Instanced with a NULL OCFile");
+            }
+            if (!MimeTypeUtil.isImage(file)) {
+                throw new IllegalArgumentException("Non-image file passed as argument");
+            }
+
+            // Update file according to DB file, if it is possible
+            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
+                file = getStorageManager().getFileById(file.getFileId());
+            }
+
+            if (file != null) {
+                /// Refresh the activity according to the Account and OCFile set
+                setFile(file);  // reset after getting it fresh from storageManager
+                getSupportActionBar().setTitle(getFile().getFileName());
+                //if (!stateWasRecovered) {
+                initViewPager();
+                //}
+
+            } else {
+                // handled file not in the current Account
+                finish();
+            }
+        }
     }
 
     @Override
@@ -505,39 +533,6 @@ public class PreviewImageActivity extends FileActivity implements
 
     public void switchToFullScreen() {
         hideSystemUI(mFullScreenAnchorView);
-    }
-
-    @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
-        if (getAccount() != null) {
-            OCFile file = getFile();
-            /// Validate handled file (first image to preview)
-            if (file == null) {
-                throw new IllegalStateException("Instanced with a NULL OCFile");
-            }
-            if (!MimeTypeUtil.isImage(file)) {
-                throw new IllegalArgumentException("Non-image file passed as argument");
-            }
-
-            // Update file according to DB file, if it is possible
-            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
-                file = getStorageManager().getFileById(file.getFileId());
-            }
-
-            if (file != null) {
-                /// Refresh the activity according to the Account and OCFile set
-                setFile(file);  // reset after getting it fresh from storageManager
-                getSupportActionBar().setTitle(getFile().getFileName());
-                //if (!stateWasRecovered) {
-                    initViewPager();
-                //}
-
-            } else {
-                // handled file not in the current Account
-                finish();
-            }
-        }
     }
 
     @Override

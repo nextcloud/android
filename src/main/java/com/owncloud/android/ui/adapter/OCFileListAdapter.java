@@ -428,9 +428,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     itemViewHolder.sharedAvatars.removeAllViews();
                 }
 
-                if (onlyOnDevice) {
-                    File localFile = new File(file.getStoragePath());
-
+                // npe fix: looks like file without local storage path somehow get here
+                final String storagePath = file.getStoragePath();
+                if (onlyOnDevice && storagePath != null) {
+                    File localFile = new File(storagePath);
                     long localSize;
                     if (localFile.isDirectory()) {
                         localSize = FileStorageUtils.getFolderSize(localFile);

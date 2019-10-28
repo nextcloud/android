@@ -56,6 +56,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -136,7 +137,7 @@ public class ExtendedListFragment extends Fragment implements
     protected SearchView searchView;
     private Handler handler = new Handler(Looper.getMainLooper());
 
-    private float mScale = -1f;
+    private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
     @Parcel
     public enum SearchType {
@@ -461,8 +462,6 @@ public class ExtendedListFragment extends Fragment implements
             mTops = new ArrayList<>();
             mHeightCell = 0;
         }
-
-        mScale = preferences.getGridColumns();
     }
 
 
@@ -481,6 +480,9 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     public int getColumnsCount() {
+        if (mScale == -1) {
+            return Math.round(AppPreferencesImpl.DEFAULT_GRID_COLUMN);
+        }
         return Math.round(mScale);
     }
 

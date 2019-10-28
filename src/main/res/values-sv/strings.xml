@@ -265,6 +265,7 @@
     <string name="favorite_icon">Favoritisera</string>
     <string name="feedback_no_mail_app">Ingen app finns att skicka e-post!</string>
     <string name="file_delete">Radera</string>
+    <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte ladda detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
@@ -418,6 +419,7 @@
     <string name="new_notification">Nytt meddelande</string>
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
+    <string name="no_mutliple_accounts_allowed">Endast ett konto tillåtet</string>
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="note_confirm">Skicka</string>
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
@@ -535,6 +537,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nLadda ner här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
     <string name="remove_push_notification">Ta bort</string>
