@@ -266,6 +266,7 @@
     <string name="favorite_icon">Favoriten</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
     <string name="file_delete">Löschen</string>
+    <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
     <string name="file_icon">Datei</string>
     <string name="file_keep">Behalten</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="note_confirm">Senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
@@ -536,6 +538,7 @@
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>
+    <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="remove_push_notification">Entfernen</string>

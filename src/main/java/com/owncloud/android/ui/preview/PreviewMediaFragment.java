@@ -79,7 +79,6 @@ import javax.inject.Inject;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).

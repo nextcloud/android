@@ -81,10 +81,8 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
         try {
             int status = client.executeMethod(getMethod);
             if (status == HttpStatus.SC_OK) {
-                if (file.exists()) {
-                    if (!file.delete()) {
-                        return false;
-                    }
+                if (file.exists() && !file.delete()) {
+                    return false;
                 }
 
                 file.getParentFile().mkdirs();

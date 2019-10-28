@@ -293,7 +293,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      * initializes and sets up the drawer header.
      */
     private void setupDrawerHeader() {
-        mIsAccountChooserActive = false;
         mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 

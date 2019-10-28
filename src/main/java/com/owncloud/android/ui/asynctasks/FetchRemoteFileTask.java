@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -67,6 +68,9 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(account, fileDisplayActivity);
 
         if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
+            if (remoteOperationResult.getData().isEmpty()) {
+                return fileDisplayActivity.getString(R.string.remote_file_fetch_failed);
+            }
             String remotePath = ((RemoteFile) remoteOperationResult.getData().get(0)).getRemotePath();
 
             ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);

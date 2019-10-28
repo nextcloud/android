@@ -268,6 +268,7 @@ Attention la suppression est irréversible.</string>
     <string name="favorite_icon">Favoris</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
     <string name="file_delete">Supprimer</string>
+    <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
@@ -421,6 +422,7 @@ Attention la suppression est irréversible.</string>
     <string name="new_notification">Nouvelle notification</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
+    <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="note_confirm">Envoyer</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
@@ -538,6 +540,7 @@ Attention la suppression est irréversible.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>

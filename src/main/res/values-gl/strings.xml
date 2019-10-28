@@ -266,6 +266,7 @@
     <string name="favorite_icon">Favorito</string>
     <string name="feedback_no_mail_app">Non hai ningunha aplicación para enviar correos!</string>
     <string name="file_delete">Eliminar</string>
+    <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Manter</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Nova notificación</string>
     <string name="new_version_was_created">Creouse unha versión nova</string>
     <string name="no_browser_available">Non hai ningunha aplicación para manexar ligazóns</string>
+    <string name="no_mutliple_accounts_allowed">Só se permite unha conta</string>
     <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
@@ -537,6 +539,7 @@
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>

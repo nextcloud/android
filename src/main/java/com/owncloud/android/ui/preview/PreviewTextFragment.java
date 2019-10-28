@@ -20,10 +20,16 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +54,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -66,7 +73,27 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import io.noties.markwon.AbstractMarkwonPlugin;
+import io.noties.markwon.Markwon;
+import io.noties.markwon.core.MarkwonTheme;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.ext.tasklist.TaskListDrawable;
+import io.noties.markwon.ext.tasklist.TaskListPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.syntax.Prism4jTheme;
+import io.noties.markwon.syntax.Prism4jThemeDefault;
+import io.noties.markwon.syntax.SyntaxHighlightPlugin;
+import io.noties.prism4j.Prism4j;
+import io.noties.prism4j.annotations.PrismBundle;
 
+@PrismBundle(
+    include = {
+        "c", "clike", "clojure", "cpp", "csharp", "css", "dart", "git", "go", "groovy", "java", "javascript", "json",
+        "kotlin", "latex", "makefile", "markdown", "markup", "python", "scala", "sql", "swift", "yaml"
+    },
+    grammarLocatorClassName = ".MarkwonGrammarLocator"
+)
 public class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -116,10 +143,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         super.onCreateView(inflater, container, savedInstanceState);
         Log_OC.e(TAG, "onCreateView");
 
-
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
-        mTextPreview = ret.findViewById(R.id.text_preview);
-
         mTextPreview = ret.findViewById(R.id.text_preview);
 
         mMultiView = ret.findViewById(R.id.multi_view);
@@ -243,7 +267,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    mTextPreview.setText(mOriginalText);
+                    setText(mTextPreview, mOriginalText, getFile());
                 }
             }, delay);
         }
@@ -251,6 +275,31 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         if (delay == 0 && mSearchView != null) {
             mSearchView.clearFocus();
         }
+    }
+
+    private Spanned getRenderedMarkdownText(Context context, String markdown) {
+        Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
+        Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
+        TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
+        drawable.setColorFilter(ThemeUtils.primaryColor(context, true), PorterDuff.Mode.SRC_ATOP);
+
+        final Markwon markwon = Markwon.builder(context)
+            .usePlugin(new AbstractMarkwonPlugin() {
+                @Override
+                public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
+                    TextPaint textPaint = new TextPaint();
+                    textPaint.setColorFilter(new PorterDuffColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP));
+                    builder.linkColor(ThemeUtils.primaryColor(context, true));
+                }
+            })
+            .usePlugin(TablePlugin.create(context))
+            .usePlugin(TaskListPlugin.create(drawable))
+            .usePlugin(StrikethroughPlugin.create())
+            .usePlugin(HtmlPlugin.create())
+            .usePlugin(SyntaxHighlightPlugin.create(prism4j, prism4jTheme))
+            .build();
+
+        return markwon.toMarkdown(markdown);
     }
 
     /**
@@ -324,7 +373,8 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             if (textView != null) {
                 mOriginalText = stringWriter.toString();
                 mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
-                textView.setText(mOriginalText);
+
+                setText(textView, mOriginalText, getFile());
 
                 if (mSearchOpen) {
                     mSearchView.setQuery(mSearchQuery, true);
@@ -504,5 +554,14 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 getActivity().onBackPressed();
             }
         });
+    }
+
+    private void setText(TextView textView, String text, OCFile file) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
+            && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) {
+            textView.setText(getRenderedMarkdownText(getContext(), text));
+        } else {
+            textView.setText(text);
+        }
     }
 }

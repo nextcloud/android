@@ -227,6 +227,16 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
+        final Account account = getAccount();
+        if (account != null) {
+            setAccountInDrawer(account);
+        }
+    }
+
+    @Override
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
@@ -379,20 +389,6 @@ public class UploadListActivity extends FileActivity {
                 }
             }
 
-        }
-    }
-
-    /**
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     */
-    @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
-
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
-
-        if (mAccountWasSet) {
-            setAccountInDrawer(getAccount());
         }
     }
 

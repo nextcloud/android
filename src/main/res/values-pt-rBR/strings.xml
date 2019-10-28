@@ -266,6 +266,7 @@
     <string name="favorite_icon">Favorito</string>
     <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>
     <string name="file_delete">Excluir</string>
+    <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Arquivo</string>
     <string name="file_keep">Manter</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Nova versão criada</string>
     <string name="no_browser_available">Nenhum aplicativo disponível para lidar com links</string>
+    <string name="no_mutliple_accounts_allowed">Somente uma conta é permitida</string>
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
@@ -536,6 +538,7 @@
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>

@@ -297,14 +297,21 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             } else if (f2 == null) {
                 return 1;
             } else if (f1.isEnabled() && f2.isEnabled()) {
+                if (f1.getFolderName() == null) {
+                    return -1;
+                }
+                if (f2.getFolderName() == null) {
+                    return 1;
+                }
+
                 return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
                     f2.getFolderName().toLowerCase(Locale.getDefault()));
+            } else if (f1.getFolderName() == null && f2.getFolderName() == null) {
+                return 0;
             } else if (f1.isEnabled()) {
                 return -1;
             } else if (f2.isEnabled()) {
                 return 1;
-            } else if (f1.getFolderName() == null && f2.getFolderName() == null) {
-                return 0;
             } else if (f1.getFolderName() == null) {
                 return -1;
             } else if (f2.getFolderName() == null) {

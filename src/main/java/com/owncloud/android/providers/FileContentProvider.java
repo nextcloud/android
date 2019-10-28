@@ -89,6 +89,7 @@ public class FileContentProvider extends ContentProvider {
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
     private static final int SINGLE_PATH_SEGMENT = 1;
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
+    public static final int MINIMUM_PATH_SEGMENTS_SIZE = 1;
 
     private DataBaseHelper mDbHelper;
     private Context mContext;
@@ -186,7 +187,7 @@ public class FileContentProvider extends ContentProvider {
             children.close();
         }
 
-        if (uri.getPathSegments().size() > 1) {
+        if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
             count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                                ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
                                    + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);

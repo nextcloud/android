@@ -266,6 +266,7 @@
     <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
     <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>
     <string name="file_delete">Sil</string>
+    <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Yeni Bildirim</string>
     <string name="new_version_was_created">Yeni sürüm oluşturuldu</string>
     <string name="no_browser_available">Bağlantıları işleyecek bir uygulama bulunamadı</string>
+    <string name="no_mutliple_accounts_allowed">Yalnız bir hesap kullanılabilir</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
     <string name="note_confirm">Gönder</string>
     <string name="note_could_not_sent">Not gönderilemedi</string>
@@ -536,6 +538,7 @@
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
+    <string name="remote_file_fetch_failed">Dosya bulunamadı!</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>

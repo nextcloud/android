@@ -266,6 +266,7 @@
     <string name="favorite_icon">Favorit</string>
     <string name="feedback_no_mail_app">Ingen app tilgængelig til afsendelse af mails!</string>
     <string name="file_delete">Slet</string>
+    <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">Ny Notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
+    <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kunne ikke sende note</string>

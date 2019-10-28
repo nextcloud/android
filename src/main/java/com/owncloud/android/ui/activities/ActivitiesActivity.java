@@ -175,7 +175,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new StickyHeaderItemDecoration(adapter));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override

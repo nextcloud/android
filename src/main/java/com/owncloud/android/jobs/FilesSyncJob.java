@@ -64,8 +64,6 @@ import java.util.TimeZone;
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
 
-import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-
 /*
     Job that:
         - restarts existing jobs if required
@@ -74,7 +72,7 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
  */
 public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
-    static final String SKIP_CUSTOM = "skipCustom";
+    public static final String SKIP_CUSTOM = "skipCustom";
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
     private static final String WAKELOCK_TAG_SEPARATION = ":";
 
@@ -198,25 +196,15 @@ public class FilesSyncJob extends Job {
                 remotePath = syncedFolder.getRemotePath();
             }
 
-            if (!subfolderByDate) {
-                String adaptedPath = file.getAbsolutePath()
-                        .replace(syncedFolder.getLocalPath(), "")
-                        .replace(PATH_SEPARATOR + file.getName(), "");
-                remotePath += adaptedPath;
-            }
-
-            String relativeSubfolderPath = new File(path.replace(syncedFolder.getLocalPath(), ""))
-                .getParentFile().getAbsolutePath();
-
             requester.uploadFileWithOverwrite(
                     context,
                     account,
                     file.getAbsolutePath(),
                     FileStorageUtils.getInstantUploadFilePath(
+                        file,
                         currentLocale,
                         remotePath,
-                        relativeSubfolderPath,
-                        file.getName(),
+                        syncedFolder.getLocalPath(),
                         lastModificationTime,
                         subfolderByDate),
                     uploadAction,

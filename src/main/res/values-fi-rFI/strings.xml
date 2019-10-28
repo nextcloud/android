@@ -169,6 +169,7 @@
     <string name="copy_link">Kopioi linkki</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="copy_to">Kopio kohteeseen…</string>
+    <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_url">URL:n nouto epännistui</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="create_file_from_template">Luodaan tiedosto mallipohjasta…</string>
@@ -201,6 +202,7 @@
     <string name="downloader_download_succeeded_ticker">Ladattu</string>
     <string name="downloader_not_downloaded_yet">Ei vielä ladattu</string>
     <string name="drawer_close">Sulje valikko</string>
+    <string name="drawer_community">Yhteisö</string>
     <string name="drawer_current_account">Nykyinen tili</string>
     <string name="drawer_end_account">Viimeisin tili</string>
     <string name="drawer_header_background">Taustakuva \"Drawer\":in yläosassa</string>
@@ -256,6 +258,7 @@
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
     <string name="fab_label">Lisää tai lähetä</string>
+    <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
     <string name="fallback_weblogin_back">Takaisin</string>
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
     <string name="favorite">Lisää suosikkeihin</string>
@@ -415,6 +418,7 @@
     <string name="new_notification">Uusi Ilmoitus</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
+    <string name="no_mutliple_accounts_allowed">Vain yksi tili on sallittu</string>
     <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
     <string name="note_confirm">Lähetä</string>
     <string name="note_could_not_sent">Huomiota ei voitu lähettää</string>

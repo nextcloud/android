@@ -196,8 +196,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     }
 
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    protected void onStart() {
+        super.onStart();
         if (getAccount() != null) {
             OCFile file = getFile();
             /// Validate handled file  (first image to preview)

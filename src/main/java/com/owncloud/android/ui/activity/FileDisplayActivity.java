@@ -214,6 +214,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
+    private Account mLastDisplayedAccount;
 
     @Inject
     AppPreferences preferences;
@@ -231,7 +232,7 @@ public class FileDisplayActivity extends FileActivity
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        super.onCreate(savedInstanceState);
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
@@ -415,57 +416,6 @@ public class FileDisplayActivity extends FileActivity
             }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    /**
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     */
-    @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
-        if (getAccount() != null) {
-            /// Check whether the 'main' OCFile handled by the Activity is contained in the
-            // current Account
-            OCFile file = getFile();
-            // get parent from path
-            String parentPath = "";
-            if (file != null) {
-                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
-                    // upload in progress - right now, files are not inserted in the local
-                    // cache until the upload is successful get parent from path
-                    parentPath = file.getRemotePath().substring(0,
-                            file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (getStorageManager().getFileByPath(parentPath) == null) {
-                        file = null; // not able to know the directory where the file is uploading
-                    }
-                } else {
-                    file = getStorageManager().getFileByPath(file.getRemotePath());
-                    // currentDir = null if not in the current Account
-                }
-            }
-            if (file == null) {
-                // fall back to root folder
-                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
-            }
-            setFile(file);
-
-            if (mAccountWasSet) {
-                setAccountInDrawer(getAccount());
-                setupDrawer();
-            }
-
-            if (!stateWasRecovered) {
-                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
-                initFragmentsWithFile();
-                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
-                    startSyncFolderOperation(file, false);
-                }
-
-            } else {
-                updateFragmentsVisibility(!file.isFolder());
-                updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
-            }
         }
     }
 
@@ -2595,8 +2545,51 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().post(new TokenPushEvent());
+        final Account account = getAccount();
+        if (account != null) {
+            /// Check whether the 'main' OCFile handled by the Activity is contained in the
+            // current Account
+            OCFile file = getFile();
+            // get parent from path
+            String parentPath = "";
+            if (file != null) {
+                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
+                    // upload in progress - right now, files are not inserted in the local
+                    // cache until the upload is successful get parent from path
+                    parentPath = file.getRemotePath().substring(0,
+                                                                file.getRemotePath().lastIndexOf(file.getFileName()));
+                    if (getStorageManager().getFileByPath(parentPath) == null) {
+                        file = null; // not able to know the directory where the file is uploading
+                    }
+                } else {
+                    file = getStorageManager().getFileByPath(file.getRemotePath());
+                    // currentDir = null if not in the current Account
+                }
+            }
+            if (file == null) {
+                // fall back to root folder
+                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
+            }
+            setFile(file);
 
+            setAccountInDrawer(account);
+            setupDrawer();
+
+            final boolean accountChanged = !account.equals(mLastDisplayedAccount);
+            if (accountChanged) {
+                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
+                initFragmentsWithFile();
+                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
+                    startSyncFolderOperation(file, false);
+                }
+            } else {
+                updateFragmentsVisibility(!file.isFolder());
+                updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
+            }
+        }
+        mLastDisplayedAccount = account;
+
+        EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
     }
 

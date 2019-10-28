@@ -136,7 +136,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         unbinder = ButterKnife.bind(this);
 
         setAccount(getUserAccountManager().getCurrentAccount());
-        onAccountSet(false);
+        onAccountSet();
 
         boolean useBackgroundImage = URLUtil.isValidUrl(
                 getStorageManager().getCapability(account.name).getServerBackground());
