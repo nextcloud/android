@@ -36,3 +36,4 @@ build
 fastlane/Fastfile
 *.hprof
 
+.idea/codeStyles/Project.xml
