@@ -91,12 +91,12 @@
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
     <bool name="sourcecode_enabled">true</bool>
-    <string name="sourcecode_url" translatable="false">https://github.com/nextcloud/android</string>
+    <string name="sourcecode_url" translatable="false">https://github.com/Infomaniak/android-infomaniak-drive</string>
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>
-    <string name="mail_feedback">android@nextcloud.com</string>
-    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
+    <string name="mail_feedback">support@infomaniak.com</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.infomaniak.drive"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
 
     <!-- synced folder light; if enabled: move to setting & global upload settings -->
