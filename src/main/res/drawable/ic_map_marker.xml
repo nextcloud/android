@@ -1,23 +1,12 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+  <path
+      android:pathData="M11.514,23.7818C11.6361,23.9204 11.8135,24 12,24C12.1865,24 12.3639,23.9204 12.486,23.7818C12.8331,23.3877 21,14.0693 21,8.8422C21,3.9588 16.9706,0 12,0C7.0294,0 3,3.9588 3,8.8422C3,14.0693 11.1669,23.3877 11.514,23.7818ZM8.7857,8.8422C8.7857,7.0982 10.2248,5.6843 12,5.6843C13.7752,5.6843 15.2143,7.0982 15.2143,8.8422C15.2143,10.5863 13.7752,12.0002 12,12.0002C10.2248,12.0002 8.7857,10.5863 8.7857,8.8422L8.7857,8.8422Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

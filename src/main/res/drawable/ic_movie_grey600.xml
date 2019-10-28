@@ -1,23 +1,12 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2019 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V4H18Z" />
+  <path
+      android:pathData="M22,2C23.1046,2 24,2.8954 24,4L24,20C24,21.1046 23.1046,22 22,22L2,22C0.8954,22 0,21.1046 0,20L0,4C-0,2.8954 0.8954,2 2,2L22,2ZM21,4L3,4C2.4872,4 2.0645,4.386 2.0067,4.8834L2,5L2,19C2,19.5128 2.386,19.9355 2.8834,19.9933L3,20L21,20C21.5128,20 21.9355,19.614 21.9933,19.1166L22,19L22,5C22,4.4477 21.5523,4 21,4ZM8.7113,7.8416C9.1536,7.5682 9.7059,7.5434 10.171,7.776L10.171,7.776L15.935,10.658C16.4436,10.9119 16.7649,11.4316 16.7649,12C16.7649,12.5684 16.4436,13.0881 15.935,13.342L15.935,13.342L10.171,16.224C9.7059,16.4566 9.1536,16.4318 8.7113,16.1584C8.269,15.885 7.9998,15.402 8,14.882L8,14.882L8,9.118C7.9998,8.598 8.269,8.115 8.7113,7.8416Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

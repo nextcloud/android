@@ -1,8 +1,18 @@
-<!-- drawable/video.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="32dp"
-    android:width="32dp"
+    android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z" />
+  <path
+      android:pathData="M1.25,4.499L14.25,4.499A1,1 0,0 1,15.25 5.499L15.25,16.499A1,1 0,0 1,14.25 17.499L1.25,17.499A1,1 0,0 1,0.25 16.499L0.25,5.499A1,1 0,0 1,1.25 4.499z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M23.513,5.074C23.3655,4.9827 23.1812,4.9743 23.026,5.052L17.026,8.052C16.8565,8.1369 16.7496,8.3104 16.75,8.5L16.75,13.5C16.75,13.6892 16.8568,13.8622 17.026,13.947L23.026,16.947C23.181,17.0247 23.3652,17.0165 23.5127,16.9254C23.6602,16.8344 23.75,16.6734 23.75,16.5L23.75,5.5C23.7503,5.3265 23.6606,5.1653 23.513,5.074Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

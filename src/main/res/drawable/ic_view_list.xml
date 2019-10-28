@@ -1,23 +1,12 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#FFFFFF" android:pathData="M9,5V9H21V5M9,19H21V15H9M9,14H21V10H9M4,9H8V5H4M4,19H8V15H4M4,14H8V10H4V14Z" />
+  <path
+      android:pathData="M4,17.747C4.8284,17.747 5.5,18.4186 5.5,19.247L5.5,21.747C5.5,22.5754 4.8284,23.247 4,23.247L1.5,23.247C0.6716,23.247 0,22.5754 0,21.747L0,19.247C-0,18.4186 0.6716,17.747 1.5,17.747L4,17.747ZM22.5,17.747C23.3284,17.747 24,18.4186 24,19.247L24,21.747C24,22.5754 23.3284,23.247 22.5,23.247L10,23.247C9.1716,23.247 8.5,22.5754 8.5,21.747L8.5,19.247C8.5,18.4186 9.1716,17.747 10,17.747L22.5,17.747ZM4,9.247C4.8284,9.247 5.5,9.9186 5.5,10.747L5.5,13.247C5.5,14.0754 4.8284,14.747 4,14.747L1.5,14.747C0.6716,14.747 0,14.0754 0,13.247L0,10.747C-0,9.9186 0.6716,9.247 1.5,9.247L4,9.247ZM22.5,9.247C23.3284,9.247 24,9.9186 24,10.747L24,13.247C24,14.0754 23.3284,14.747 22.5,14.747L10,14.747C9.1716,14.747 8.5,14.0754 8.5,13.247L8.5,10.747C8.5,9.9186 9.1716,9.247 10,9.247L22.5,9.247ZM4,0.747C4.8284,0.747 5.5,1.4186 5.5,2.247L5.5,4.747C5.5,5.5754 4.8284,6.247 4,6.247L1.5,6.247C0.6716,6.247 0,5.5754 0,4.747L0,2.247C-0,1.4186 0.6716,0.747 1.5,0.747L4,0.747ZM22.5,0.747C23.3284,0.747 24,1.4186 24,2.247L24,4.747C24,5.5754 23.3284,6.247 22.5,6.247L10,6.247C9.1716,6.247 8.5,5.5754 8.5,4.747L8.5,2.247C8.5,1.4186 9.1716,0.747 10,0.747L22.5,0.747Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

@@ -1,23 +1,18 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#FFFFFF" android:pathData="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" />
+  <path
+      android:pathData="M12.457,18.0198C11.7666,18.0198 11.207,17.4601 11.207,16.7698L11.207,6.6068C11.207,6.4687 11.0951,6.3568 10.957,6.3568L8.8,6.3568C8.3969,6.3539 8.0349,6.1092 7.882,5.7362C7.729,5.3632 7.815,4.9349 8.1,4.6498L11.753,0.9978C12.1435,0.6074 12.7765,0.6074 13.167,0.9978L16.819,4.6498C17.1049,4.9358 17.1904,5.3658 17.0357,5.7394C16.8809,6.1131 16.5164,6.3567 16.112,6.3568L13.957,6.3568C13.8906,6.3565 13.8269,6.3828 13.7799,6.4297C13.733,6.4767 13.7067,6.5404 13.707,6.6068L13.707,16.7698C13.707,17.4601 13.1474,18.0198 12.457,18.0198L12.457,18.0198Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M23.75,22.043C23.75,21.3526 23.1904,20.793 22.5,20.793L1.5,20.793C0.8096,20.793 0.25,21.3526 0.25,22.043C0.25,22.7334 0.8096,23.293 1.5,23.293L22.5,23.293C23.1904,23.293 23.75,22.7334 23.75,22.043Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

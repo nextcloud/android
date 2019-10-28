@@ -1,28 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2016 Andy Scherzinger
-  Copyright (C) 2016 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:height="24dp"
-        android:width="24dp"
-        android:viewportWidth="24"
-        android:viewportHeight="24">
-    <path
-        android:fillColor="#ffffff"
-        android:pathData="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M14.3756,17.7133C14.115,17.9692 13.9753,18.2986 13.9753,18.66C13.9753,19.0215 14.115,19.3508 14.3411,19.5706C14.479,19.7254 14.65,19.8424 14.8458,19.9132C15.0047,19.9707 15.1706,20 15.3396,20C15.5085,20 15.6745,19.9707 15.8334,19.9132C16.0292,19.8424 16.2002,19.7254 16.3031,19.6072L23.5997,12.4526C23.8612,12.1957 24,11.864 24,11.5C24,11.136 23.8612,10.8043 23.5997,10.5474L16.3036,3.3932C16.0429,3.1372 15.7076,3 15.3396,3C14.9716,3 14.6362,3.1372 14.3756,3.3932C14.115,3.6492 13.9753,3.9785 13.9753,4.34C13.9753,4.7014 14.115,5.0308 14.3756,5.2867L19.3316,10.1542L1.3762,10.1542C1.0028,10.1542 0.6628,10.2896 0.4003,10.5474C0.1378,10.8052 0,11.1391 0,11.5058C0,11.8673 0.1397,12.1966 0.4003,12.4526C0.6628,12.7104 1.0028,12.8458 1.3762,12.8458L19.3316,12.8458L14.3756,17.7133Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

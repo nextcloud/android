@@ -1,23 +1,18 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2019 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+  <path
+      android:pathData="M12.457,0.705C11.7666,0.705 11.207,1.2646 11.207,1.955L11.207,12.118C11.207,12.2561 11.0951,12.368 10.957,12.368L8.8,12.368C8.3969,12.3709 8.0349,12.6156 7.882,12.9886C7.729,13.3616 7.815,13.7899 8.1,14.075L11.753,17.727C12.1435,18.1174 12.7765,18.1174 13.167,17.727L16.819,14.075C17.1049,13.789 17.1904,13.359 17.0357,12.9853C16.8809,12.6117 16.5164,12.3681 16.112,12.368L13.957,12.368C13.8906,12.3683 13.8269,12.342 13.7799,12.2951C13.733,12.2481 13.7067,12.1844 13.707,12.118L13.707,1.955C13.707,1.2646 13.1474,0.705 12.457,0.705L12.457,0.705Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M23.75,22.043C23.75,21.3526 23.1904,20.793 22.5,20.793L1.5,20.793C0.8096,20.793 0.25,21.3526 0.25,22.043C0.25,22.7334 0.8096,23.293 1.5,23.293L22.5,23.293C23.1904,23.293 23.75,22.7334 23.75,22.043Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

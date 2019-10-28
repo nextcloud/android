@@ -1,25 +1,24 @@
-<!--
-    @author Google LLC
-    @author Andy Scherzinger
-    Copyright (C) 2018 Google LLC
-    Copyright (C) 2018 Andy Scherzinger
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M23.564,22.69L14.635,22.69L14.635,20.838L23.564,20.838L23.564,22.69ZM10.412,1.805C15.122,1.81 19.145,5.333 19.773,10L17.869,10C17.257,6.376 14.087,3.697 10.412,3.695C6.262,3.695 2.846,7.11 2.846,11.26C2.846,11.26 2.846,11.26 2.846,11.261C2.846,15.411 6.261,18.826 10.411,18.826C10.412,18.826 10.412,18.826 10.412,18.826C11.301,18.822 12.182,18.661 13.016,18.352L13.016,20.338C12.17,20.586 11.293,20.714 10.412,20.719C5.224,20.719 0.955,16.45 0.955,11.262C0.955,11.261 0.955,11.26 0.955,11.26C0.956,6.073 5.225,1.805 10.412,1.805ZM20.587,18.06L14.635,18.06L14.635,16.208L20.587,16.208L20.587,18.06ZM10.412,5.588L10.412,11.26L6.402,15.27C8.191,17.058 10.881,17.4 13.016,16.297L13.016,10L15.941,10C15.712,8.993 15.207,8.036 14.42,7.252C13.313,6.136 11.859,5.588 10.412,5.588ZM17.611,13.43L14.635,13.43L14.635,11.578L17.611,11.578L17.611,13.43Z" />
+  <path
+      android:pathData="M6.493,16.5L4.743,16.5C4.6057,16.5 4.4941,16.3893 4.493,16.252L4.493,5C4.493,4.4477 4.0453,4 3.493,4C2.9407,4 2.493,4.4477 2.493,5L2.493,16.252C2.493,16.3901 2.3811,16.502 2.243,16.502L0.493,16.502C0.293,16.5048 0.1138,16.6266 0.0377,16.8116C-0.0385,16.9966 0.0029,17.2092 0.143,17.352L3.143,20.352C3.3382,20.5472 3.6547,20.5472 3.85,20.352L6.85,17.352C6.9932,17.2091 7.0363,16.994 6.959,16.807C6.8817,16.62 6.6993,16.498 6.497,16.498L6.493,16.5Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M15.4223,4C10.7708,4 7,7.7708 7,12.4223C7,17.0738 10.7708,20.8446 15.4223,20.8446C20.0738,20.8446 23.8446,17.0738 23.8446,12.4223C23.8395,7.7729 20.0717,4.005 15.4223,4ZM15.4223,19.4409C11.546,19.4409 8.4037,16.2985 8.4037,12.4223C8.4037,8.546 11.546,5.4037 15.4223,5.4037C19.2985,5.4037 22.4409,8.546 22.4409,12.4223C22.4366,16.2968 19.2968,19.4366 15.4223,19.4409L15.4223,19.4409Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M15.4223,6.8074C15.2285,6.8074 15.0714,6.9645 15.0714,7.1584L15.0714,12.0714L10.1584,12.0714C9.9645,12.0714 9.8074,12.2285 9.8074,12.4223C9.8074,15.5233 12.3213,18.0371 15.4223,18.0371C18.5233,18.0371 21.0371,15.5233 21.0371,12.4223C21.0371,9.3213 18.5233,6.8074 15.4223,6.8074Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

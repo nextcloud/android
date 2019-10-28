@@ -1,23 +1,18 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M20,18H4V8H20M20,6H12L10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6Z" />
+  <path
+      android:pathData="M23.44,9.549C23.1558,9.2006 22.7296,8.9989 22.28,9L10.42,9C10.182,9.0005 9.9766,8.8332 9.929,8.6L9.651,7.205C9.5104,6.5041 8.8948,6 8.18,6L1.72,6C1.2693,5.9996 0.8424,6.2019 0.5572,6.5508C0.272,6.8998 0.1589,7.3584 0.249,7.8L2.849,20.8C2.9917,21.4989 3.6067,22.0006 4.32,22L20.281,22C20.9939,22 21.6084,21.4985 21.751,20.8L23.751,10.8L23.751,10.8C23.8409,10.3574 23.7267,9.8979 23.44,9.549Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M3.22,5C3.6886,5.0023 4.096,4.6789 4.2,4.222C4.219,4.1002 4.32,4.0079 4.443,4L19.72,4C19.9961,4 20.22,4.2239 20.22,4.5L20.22,7C20.22,7.5523 20.6677,8 21.22,8C21.7723,8 22.22,7.5523 22.22,7L22.22,4C22.22,2.8954 21.3246,2 20.22,2L4.22,2C3.1154,2 2.22,2.8954 2.22,4C2.22,4.2652 2.3254,4.5196 2.5129,4.7071C2.7004,4.8946 2.9548,5 3.22,5Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

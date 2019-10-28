@@ -1,23 +1,12 @@
-<!--
-    @author Cody
-    Copyright (C) 2018 Cody
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#757575" android:pathData="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+  <path
+      android:pathData="M12,13.3333C17.5228,13.3333 22,17.8105 22,23.3333C22,23.7015 21.7015,24 21.3333,24L21.3333,24L2.6667,24C2.2985,24 2,23.7015 2,23.3333C2,17.8105 6.4772,13.3333 12,13.3333ZM12,0C15.4978,0 18.3333,2.8355 18.3333,6.3333C18.3333,9.8311 15.4978,12.6667 12,12.6667C8.5022,12.6667 5.6667,9.8311 5.6667,6.3333C5.6667,2.8355 8.5022,0 12,0Z"
+      android:strokeWidth="1"
+      android:fillColor="#757575"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>

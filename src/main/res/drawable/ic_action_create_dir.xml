@@ -1,23 +1,12 @@
-<!--
-    @author Austin Andrews
-    Copyright (C) 2018 Austin Andrews
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#FFF" android:pathData="M10,4L12,6H20A2,2 0 0,1 22,8V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10M15,9V12H12V14H15V17H17V14H20V12H17V9H15Z" />
+  <path
+      android:pathData="M6.5912,2C7.1065,2 7.5996,2.21 7.9579,2.5814L7.9579,2.5814L9.6518,4.3395C9.7705,4.4631 9.9342,4.533 10.1053,4.5333L10.1053,4.5333L22.1053,4.5333C23.1517,4.5333 24,5.384 24,6.4333L24,6.4333L24,19.739C23.9979,20.9873 22.9889,21.9986 21.744,22L21.744,22L2.256,22C1.0111,21.9986 0.0021,20.9873 0,19.739L0,19.739L0,4.261C0.0021,3.0127 1.0111,2.0014 2.256,2L2.256,2ZM12.5,8C11.825,8 11.2778,8.5472 11.2778,9.2222L11.2778,9.2222L11.2778,11.6667C11.2778,12.0042 11.0042,12.2778 10.6667,12.2778L10.6667,12.2778L8.2222,12.2778C7.5472,12.2778 7,12.825 7,13.5C7,14.175 7.5472,14.7222 8.2222,14.7222L8.2222,14.7222L10.6667,14.7222C11.0042,14.7222 11.2778,14.9958 11.2778,15.3333L11.2778,15.3333L11.2778,17.7778C11.2778,18.4528 11.825,19 12.5,19C13.175,19 13.7222,18.4528 13.7222,17.7778L13.7222,17.7778L13.7222,15.3333C13.7222,14.9958 13.9958,14.7222 14.3333,14.7222L14.3333,14.7222L16.7778,14.7222C17.4528,14.7222 18,14.175 18,13.5C18,12.825 17.4528,12.2778 16.7778,12.2778L16.7778,12.2778L14.3333,12.2778C13.9958,12.2778 13.7222,12.0042 13.7222,11.6667L13.7222,11.6667L13.7222,9.2222C13.7222,8.5472 13.175,8 12.5,8Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
 </vector>
