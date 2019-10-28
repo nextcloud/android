@@ -23,6 +23,7 @@
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_provider_or_own_installation">true</bool>
+    <bool name="show_first_run_slider">true</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
     <!-- Flags to enable/disable some features -->
