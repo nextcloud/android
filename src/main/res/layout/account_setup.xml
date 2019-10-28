@@ -25,8 +25,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fillViewport="true"
-    android:orientation="vertical"
-    android:background="@color/primary">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,7 +108,7 @@
                         android:paddingRight="@dimen/alternate_padding_right"
                         android:textColor="@color/login_text_color"
                         android:textColorHint="@color/login_text_color"
-                        android:theme="@style/Nextcloud.EditText.Login">>
+                        android:theme="@style/Nextcloud.EditText.Login">
 
                         <requestFocus />
 
