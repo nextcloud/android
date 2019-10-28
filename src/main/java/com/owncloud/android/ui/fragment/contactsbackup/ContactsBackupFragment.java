@@ -176,18 +176,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext());
         int fontColor = ThemeUtils.fontColor(getContext());
 
-        backupNow.setBackgroundColor(ThemeUtils.primaryColor(getActivity()));
+        backupNow.setBackgroundColor(primaryColor);
         backupNow.setTextColor(fontColor);
 
-        contactsDatePickerBtn.setBackgroundColor(ThemeUtils.primaryColor(getActivity()));
+        contactsDatePickerBtn.setBackgroundColor(primaryColor);
         contactsDatePickerBtn.setTextColor(fontColor);
-
-        MaterialButton chooseDate = view.findViewById(R.id.contacts_datepicker);
-        chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }
