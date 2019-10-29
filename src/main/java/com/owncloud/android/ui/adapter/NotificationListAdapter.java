@@ -22,8 +22,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
@@ -87,7 +85,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
-        foregroundColorSpanBlack = new ForegroundColorSpan(notificationsActivity.getResources().getColor(R.color.textColor));
+        foregroundColorSpanBlack = new ForegroundColorSpan(
+            notificationsActivity.getResources().getColor(R.color.textColor));
     }
 
     public void setNotificationItems(List<Notification> notificationItems) {

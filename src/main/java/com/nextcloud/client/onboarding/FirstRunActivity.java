@@ -94,7 +94,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         });
 
         Button providerButton = findViewById(R.id.signup);
-        providerButton.setBackgroundColor(getResources().getColor(R.color.primary));
+        providerButton.setBackgroundColor(getResources().getColor(R.color.primary_dark));
         providerButton.setTextColor(getResources().getColor(R.color.login_text_color));
         providerButton.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
         providerButton.setOnClickListener(v -> {

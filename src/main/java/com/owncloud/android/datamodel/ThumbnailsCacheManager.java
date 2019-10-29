@@ -1173,7 +1173,8 @@ public final class ThumbnailsCacheManager {
         Bitmap resultBitmap = Bitmap.createBitmap(pxW, pxH, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(resultBitmap);
 
-        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.bg_default));
+        // TODO check based on https://github.com/nextcloud/android/pull/3459#discussion_r339935975
+        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
         c.drawBitmap(bitmap, 0, 0, null);
 
         return resultBitmap;

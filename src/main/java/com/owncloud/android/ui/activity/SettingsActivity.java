@@ -39,7 +39,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -693,13 +692,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        SwitchPreference themePref = (SwitchPreference) findPreference(getString(R.string.prefs_key_theme));
+        SwitchPreference themePref = (SwitchPreference) findPreference(AppPreferencesImpl.PREF__THEME);
 
         themePref.setSummary(preferences.isDarkThemeEnabled() ?
                             getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light));
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
             MainApp.setAppTheme((Boolean) newValue);
-//            recreate();
 
             return true;
         });

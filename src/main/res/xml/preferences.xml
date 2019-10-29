@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -27,7 +28,7 @@
             android:key="storage_path"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
             android:defaultValue="@string/prefs_value_theme_light"
-            android:key="@string/prefs_key_theme"
+            android:key="darkTheme"
             android:summary="%s"
             android:title="@string/prefs_theme_title"
             android:theme="@style/SwitchPreference"/>

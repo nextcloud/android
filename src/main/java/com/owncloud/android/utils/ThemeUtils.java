@@ -126,8 +126,8 @@ public final class ThemeUtils {
     }
 
     public static int primaryColor(Account account, boolean replaceWhite, Context context) {
-        if (context==null) {
-            return 255;
+        if (context == null) {
+            return Color.GRAY;
         }
 
         try {
@@ -508,8 +508,7 @@ public final class ThemeUtils {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
             }
         }
-
-//        editText.setHintTextColor(color);
+        
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
@@ -521,7 +520,7 @@ public final class ThemeUtils {
      *
      * @param searchView       searchView to be changed
      * @param themedBackground true if background is themed, e.g. on action bar; false if background is white
-     * @param context
+     * @param context          the app's context
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided

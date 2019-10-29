@@ -30,13 +30,13 @@
 
     <ImageView
         android:id="@+id/activity_icon"
-        android:layout_width="@dimen/notification_icon_width"
-        android:layout_height="@dimen/notification_icon_height"
+        android:layout_width="@dimen/activity_icon_width"
+        android:layout_height="@dimen/activity_icon_height"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/standard_margin"
         android:alpha="0.5"
         android:padding="2dp"
-        android:background="@drawable/round_bgnd"
+        android:background="@drawable/round_bgnd_icons"
         android:contentDescription="@string/activity_icon"
         android:src="@drawable/ic_activity" />
 

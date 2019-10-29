@@ -44,7 +44,6 @@
 
     <style name="DatePickerStyle" parent="">
         <item name="android:headerBackground">@color/bg_fallback_highlight</item>
-        <!-- TODO for < API21 -->
         <item name="android:datePickerMode">calendar</item>
     </style>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
+  Nextcloud Android client application
 
-  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012 Bartek Przybylski
   Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -23,7 +23,7 @@
 
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
     <color name="black">#000000</color>
-    <!--<color name="white">#FFFFFF</color>-->
+    <color name="white">#ffffff</color>
     <color name="textColor">#000000</color>
     <color name="textColor_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
@@ -49,7 +49,6 @@
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_warning">#e9322d</color>
 
-
     <!-- Colors -->
     <color name="primary">#0082c9</color>
     <color name="primary_dark">#006AA3</color>
@@ -69,6 +68,8 @@
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
+
+    <color name="background_color_png">#FFFFFF</color>
 
     <!-- special transparent action bar colors for image preview -->
     <color name="color_transparent">#201D2D44</color>
