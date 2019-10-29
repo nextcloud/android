@@ -400,8 +400,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         setClient(progressBar);
 
+        boolean isOldMethodSnackbarShown = getResources().getBoolean(R.bool.show_use_old_connection_snackbar);
         // show snackbar after 60s to switch back to old login method
-        if (showLegacyLogin) {
+        if (showLegacyLogin && isOldMethodSnackbarShown) {
             final String finalBaseURL = baseURL;
             new Handler().postDelayed(() -> DisplayUtils.createSnackbar(mLoginWebView,
                                                                         R.string.fallback_weblogin_text,

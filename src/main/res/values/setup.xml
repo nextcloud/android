@@ -24,6 +24,7 @@
     <bool name="show_server_url_input">false</bool>
     <bool name="show_provider_or_own_installation">false</bool>
     <bool name="show_first_run_slider">true</bool>
+    <bool name="show_use_old_connection_snackbar">false</bool>
 
     <string name="provider_registration_server">https://shop.infomaniak.com/signup</string>
 
