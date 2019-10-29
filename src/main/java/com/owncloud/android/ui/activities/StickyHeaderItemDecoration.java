@@ -99,7 +99,6 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
         int headerPosition = adapter.getHeaderPositionForItem(itemPosition);
         int layoutId = adapter.getHeaderLayout(itemPosition);
         View header = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        header.setBackgroundColor(Color.WHITE);
         adapter.bindHeaderData(header, headerPosition);
         return header;
     }

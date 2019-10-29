@@ -20,7 +20,7 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout
-	android:id="@+id/upload_files_layout"
+	android:id="@+id/account_list_layout"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"

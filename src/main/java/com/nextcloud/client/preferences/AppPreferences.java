@@ -239,6 +239,8 @@ public interface AppPreferences {
      */
     int getUploaderBehaviour();
 
+    boolean isDarkThemeEnabled();
+
     /**
      * Saves the uploader behavior which the user has set last.
      *
