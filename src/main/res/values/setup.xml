@@ -109,6 +109,8 @@
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
 
+    <!-- Determine if notifications are enabled in Drawer -->
+    <bool name="notifications_enabled">false</bool>
     <!-- Push server url -->
     <string name="push_server_url" translatable="false"></string>
 
