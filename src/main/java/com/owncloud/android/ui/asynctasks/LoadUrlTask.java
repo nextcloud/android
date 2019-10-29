@@ -33,6 +33,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
 import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -80,9 +81,9 @@ public class LoadUrlTask extends AsyncTask<String, Void, String> {
                 if (richDocumentsWebView.getWebview().getVisibility() != View.VISIBLE) {
                     Snackbar snackbar = DisplayUtils.createSnackbar(richDocumentsWebView.findViewById(android.R.id.content),
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setActionTextColor(richDocumentsWebView.getResources().getColor(R.color.white))
                         .setAction(R.string.fallback_weblogin_back, v -> richDocumentsWebView.closeView());
 
+                    ThemeUtils.colorSnackbar(richDocumentsWebView.getApplicationContext(),snackbar);
                     richDocumentsWebView.setLoadingSnackbar(snackbar);
                     snackbar.show();
                 }

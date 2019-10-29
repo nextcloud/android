@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.RequiresApi;
@@ -76,12 +77,14 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 if(thumbColorStateList == null && trackColorStateList == null) {
                     int color = ThemeUtils.primaryAccentColor(getContext());
                     int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+                    int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
                     thumbColorStateList = new ColorStateList(
                             new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
                             new int[]{color, Color.WHITE});
                     trackColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{trackColor, Color.parseColor("#4D000000")});
+                            new int[][]{new int[]{android.R.attr.state_checked},
+                                new int[]{}},
+                            new int[]{trackColor, trackColorUnchecked});
                 }
 
                 // setting the thumb color

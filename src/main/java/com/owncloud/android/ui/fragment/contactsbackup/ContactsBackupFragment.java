@@ -176,18 +176,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext());
         int fontColor = ThemeUtils.fontColor(getContext());
 
-        backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        backupNow.setBackgroundColor(primaryColor);
         backupNow.setTextColor(fontColor);
 
-        contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        contactsDatePickerBtn.setBackgroundColor(primaryColor);
         contactsDatePickerBtn.setTextColor(fontColor);
-
-        MaterialButton chooseDate = view.findViewById(R.id.contacts_datepicker);
-        chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }
@@ -449,7 +445,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 }
             });
 
+            datePickerDialog.setTitle("");
             datePickerDialog.show();
+            // TODO How do we deal with primary colours that are too light or dark
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
                     R.string.contacts_preferences_something_strange_happened);

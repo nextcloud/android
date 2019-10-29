@@ -26,6 +26,12 @@
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:defaultValue="@string/prefs_value_theme_light"
+            android:key="darkTheme"
+            android:summary="%s"
+            android:title="@string/prefs_theme_title"
+            android:theme="@style/SwitchPreference"/>
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"

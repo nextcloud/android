@@ -58,7 +58,7 @@
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="@string/placeholder_filename"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/two_line_primary_text_size"/>
 
             <TextView
@@ -193,7 +193,7 @@
                         android:layout_toStartOf="@id/shareViaLinkEditPermissionSwitch"
                         android:padding="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_edit_permission_label"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="14sp"
                         />
 
@@ -227,7 +227,7 @@
                         android:layout_toStartOf="@id/shareViaLinkFileListingPermissionSwitch"
                         android:padding="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_hide_file_listing_permission_label"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/two_line_secondary_text_size"
                         />
 
@@ -261,7 +261,7 @@
                         android:paddingRight="@dimen/standard_half_padding"
                         android:paddingTop="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_password_label"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/two_line_secondary_text_size"
                         />
 
@@ -312,7 +312,7 @@
                         android:paddingRight="@dimen/standard_half_padding"
                         android:paddingTop="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_expiration_date_label"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/two_line_secondary_text_size"
                         />
 

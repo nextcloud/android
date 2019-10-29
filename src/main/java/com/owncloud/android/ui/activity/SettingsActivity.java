@@ -39,7 +39,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -96,7 +95,7 @@ import androidx.core.content.res.ResourcesCompat;
  *
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
-public class SettingsActivity extends PreferenceActivity
+public class SettingsActivity extends ThemedPreferenceActivity
     implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
     Injectable {
 
@@ -692,6 +691,16 @@ public class SettingsActivity extends PreferenceActivity
         }
 
         loadStoragePath();
+
+        SwitchPreference themePref = (SwitchPreference) findPreference(AppPreferencesImpl.PREF__THEME);
+
+        themePref.setSummary(preferences.isDarkThemeEnabled() ?
+                            getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light));
+        themePref.setOnPreferenceChangeListener((preference, newValue) -> {
+            MainApp.setAppTheme((Boolean) newValue);
+
+            return true;
+        });
     }
 
     private String getAppVersion() {
@@ -727,7 +736,7 @@ public class SettingsActivity extends PreferenceActivity
         Window window = getWindow();
         if (window != null) {
             window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                    .getColor(getResources(), R.color.background_color, null)));
+                    .getColor(getResources(), R.color.bg_default, null)));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.setStatusBarColor(ThemeUtils.primaryColor(this));
@@ -1008,5 +1017,4 @@ public class SettingsActivity extends PreferenceActivity
     public void returnVersion(Integer latestVersion) {
         FileActivity.showDevSnackbar(this, latestVersion, true);
     }
-
 }

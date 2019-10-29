@@ -210,8 +210,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
                                                                PorterDuff.Mode.SRC_IN);
 
-
-
         return view;
     }
 

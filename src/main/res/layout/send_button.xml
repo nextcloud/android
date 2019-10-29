@@ -41,5 +41,5 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/standard_half_padding"
-        android:textColor="@color/black" />
+        android:textColor="@color/textColor" />
 </LinearLayout>
