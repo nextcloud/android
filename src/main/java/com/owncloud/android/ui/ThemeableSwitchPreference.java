@@ -85,7 +85,6 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                             new int[][]{new int[]{android.R.attr.state_checked},
                                 new int[]{}},
                             new int[]{trackColor, trackColorUnchecked});
-//                            new int[]{trackColor, Color.parseColor("#4D000000")});
                 }
 
                 // setting the thumb color

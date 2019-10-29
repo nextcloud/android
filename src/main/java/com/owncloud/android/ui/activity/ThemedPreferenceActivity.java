@@ -15,7 +15,7 @@
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -28,12 +28,15 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 
-public class ThemedPreferenceActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class ThemedPreferenceActivity
+    extends PreferenceActivity
+    implements SharedPreferences.OnSharedPreferenceChangeListener {
+
     /**
      * Tracks whether the activity should be recreate()'d after a theme change
      */
-    private boolean mThemeChangePending;
-    private boolean mPaused;
+    private boolean themeChangePending;
+    private boolean paused;
 
     @Inject SharedPreferences sharedPreferences;
 
@@ -52,23 +55,23 @@ public class ThemedPreferenceActivity extends PreferenceActivity implements Shar
     @Override
     protected void onPause() {
         super.onPause();
-        mPaused = true;
+        paused = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPaused = false;
+        paused = false;
 
-        if(mThemeChangePending) {
+        if(themeChangePending) {
             recreate();
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-        if(mPaused) {
-            mThemeChangePending = true;
+        if(paused) {
+            themeChangePending = true;
             return;
         }
 

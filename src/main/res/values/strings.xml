@@ -58,7 +58,6 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_dark">Dark</string>
-    <string name="prefs_key_theme">darkTheme</string>
     <string name="prefs_theme_title">Theme</string>
 
 

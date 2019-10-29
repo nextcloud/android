@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -27,29 +28,32 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
-public abstract class BaseActivity extends AppCompatActivity implements Injectable, SharedPreferences.OnSharedPreferenceChangeListener {
+public abstract class BaseActivity
+    extends AppCompatActivity
+    implements Injectable, SharedPreferences.OnSharedPreferenceChangeListener {
+
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
      */
-    private Account mCurrentAccount;
+    private Account currentAccount;
 
     /**
-     * Capabilities of the server where {@link #mCurrentAccount} lives.
+     * Capabilities of the server where {@link #currentAccount} lives.
      */
-    private OCCapability mCapabilities;
+    private OCCapability capabilities;
 
     /**
      * Access point to the cached database for the current ownCloud {@link Account}.
      */
-    private FileDataStorageManager mStorageManager;
+    private FileDataStorageManager storageManager;
 
     /**
      * Tracks whether the activity should be recreate()'d after a theme change
      */
-    private boolean mThemeChangePending;
-    private boolean mPaused;
+    private boolean themeChangePending;
+    private boolean paused;
 
     @Inject UserAccountManager accountManager;
     @Inject SharedPreferences sharedPreferences;
@@ -73,16 +77,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onPause() {
         super.onPause();
-        mPaused = true;
+        paused = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPaused = false;
+        paused = false;
 
-        if(mThemeChangePending) {
-//            getDelegate().applyDayNight();
+        if(themeChangePending) {
             recreate();
         }
     }
@@ -98,8 +101,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
         Log_OC.v(TAG, "onNewIntent() start");
         Account current = accountManager.getCurrentAccount();
-        if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {
-            mCurrentAccount = current;
+        if (current != null && currentAccount != null && !currentAccount.name.equals(current.name)) {
+            currentAccount = current;
         }
         Log_OC.v(TAG, "onNewIntent() stop");
     }
@@ -112,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = mCurrentAccount != null && accountManager.exists(mCurrentAccount);
+        boolean validAccount = currentAccount != null && accountManager.exists(currentAccount);
         if (!validAccount) {
             swapToDefaultAccount();
         }
@@ -121,12 +124,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-       if (!getString(R.string.prefs_key_theme).equals(key)) {
+       if (!AppPreferencesImpl.PREF__THEME.equals(key)) {
             return;
         }
 
-        if(mPaused) {
-            mThemeChangePending = true;
+        if(paused) {
+            themeChangePending = true;
             return;
         }
         recreate();
@@ -144,7 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void setAccount(Account account, boolean savedAccount) {
         boolean validAccount = account != null && accountManager.setCurrentOwnCloudAccount(account.name);
         if (validAccount) {
-            mCurrentAccount = account;
+            currentAccount = account;
         } else {
             swapToDefaultAccount();
         }
@@ -163,7 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
             /// no account available: force account creation
             createAccount(true);
         } else {
-            mCurrentAccount = newAccount;
+            currentAccount = newAccount;
         }
     }
 
@@ -192,8 +195,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Deprecated
     protected void onAccountSet() {
         if (getAccount() != null) {
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            mCapabilities = mStorageManager.getCapability(mCurrentAccount.name);
+            storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+            capabilities = storageManager.getCapability(currentAccount.name);
         } else {
             Log_OC.e(TAG, "onAccountChanged was called with NULL account associated!");
         }
@@ -201,7 +204,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Deprecated
     protected void setAccount(Account account) {
-        mCurrentAccount = account;
+        currentAccount = account;
     }
 
     /**
@@ -211,7 +214,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * set yet.
      */
     public OCCapability getCapabilities() {
-        return mCapabilities;
+        return capabilities;
     }
 
     /**
@@ -222,20 +225,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * is located.
      */
     public Account getAccount() {
-        return mCurrentAccount;
+        return currentAccount;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(mCurrentAccount != null) {
+        if(currentAccount != null) {
             onAccountSet();
         }
     }
 
     public FileDataStorageManager getStorageManager() {
-        return mStorageManager;
+        return storageManager;
     }
 
     /**
