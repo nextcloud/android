@@ -323,12 +323,7 @@ public class FileOperationsHelper {
 
                                 openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
                                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                                fileActivity.startActivity(
-                                        Intent.createChooser(
-                                            openFileWithIntent,
-                                            fileActivity.getString(R.string.actionbar_open_with)
-                                        )
-                                );
+                                fileActivity.startActivity(openFileWithIntent);
                             } catch (ActivityNotFoundException exception) {
                                 DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                             }
