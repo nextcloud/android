@@ -106,7 +106,7 @@
                     android:shadowRadius="2"
                     android:maxLines="1"
                     android:text="@string/app_name"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/drawer_header_text"
                     android:textStyle="bold"/>
 
@@ -122,7 +122,7 @@
                     android:shadowDy="0"
                     android:shadowRadius="2"
                     android:text="@string/app_name"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/drawer_header_subtext"/>
 
             </LinearLayout>

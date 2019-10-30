@@ -86,7 +86,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         this.client = client;
         this.notificationsActivity = notificationsActivity;
         foregroundColorSpanBlack = new ForegroundColorSpan(
-            notificationsActivity.getResources().getColor(R.color.textColor));
+            notificationsActivity.getResources().getColor(R.color.text_color));
     }
 
     public void setNotificationItems(List<Notification> notificationItems) {

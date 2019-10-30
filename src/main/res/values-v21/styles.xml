@@ -19,16 +19,16 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- General ownCloud app style -->
     <style name="Theme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="colorSecondary">@color/secondaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="colorSecondary">@color/secondary_text_color</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="colorSecondary">@color/secondaryTextColor</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="colorSecondary">@color/secondary_text_color</item>
         <item name="android:alertDialogTheme">@style/FallbackTheming.Dialog</item>
     </style>
 

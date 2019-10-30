@@ -20,8 +20,8 @@
 -->
 <resources>
 
-    <color name="textColor">#ffffff</color>
-    <color name="textColor_inverse">#000000</color>
+    <color name="text_color">#ffffff</color>
+    <color name="text_color_inverse">#000000</color>
 
     <!-- Colors -->
     <color name="bg_default">#222222</color>

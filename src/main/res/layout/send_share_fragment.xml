@@ -70,7 +70,7 @@
                 android:drawable="@drawable/ic_share"
                 android:text="@string/share"
                 android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/text_color"/>
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +98,7 @@
                 android:drawable="@drawable/ic_share"
                 android:text="@string/link"
                 android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/text_color"/>
         </LinearLayout>
 
     </LinearLayout>
