@@ -754,7 +754,7 @@ public class SettingsActivity extends PreferenceActivity
                     .getColor(getResources(), R.color.background_color, null)));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ThemeUtils.primaryColor(this));
+                window.setStatusBarColor(ThemeUtils.primaryDarkColor(this));
             }
 
             // For adding content description tag to a title field in the action bar
