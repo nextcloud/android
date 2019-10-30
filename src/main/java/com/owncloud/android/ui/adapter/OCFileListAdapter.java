@@ -309,8 +309,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             footerViewHolder.footerText.setText(getFooterText());
             footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(mContext),
                                                                                    PorterDuff.Mode.SRC_IN);
-            footerViewHolder.progressBar.setVisibility(
-                ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
+            footerViewHolder.progressBar.setVisibility(View.GONE);
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
