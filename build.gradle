@@ -141,24 +141,24 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.infomaniak.drive'
                 dimension "default"
             }
 
             gplay {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.infomaniak.drive'
                 dimension "default"
             }
 
             versionDev {
-                applicationId "com.nextcloud.android.beta"
+                applicationId "com.infomaniak.drive.android.beta"
                 dimension "default"
                 versionCode 20190821
                 versionName "20190821"
             }
 
             qa {
-                applicationId "com.nextcloud.android.qa"
+                applicationId "com.infomaniak.drive.android.qa"
                 dimension "default"
                 versionCode 1
                 versionName "1"

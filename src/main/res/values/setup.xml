@@ -16,7 +16,7 @@
     <string name="db_file">kdrive.db</string>
     <string name="db_name">kdrive</string>
     <string name="data_folder">kdrive</string>
-    <string name="default_display_name_for_root_folder">kDrive</string>
+    <string name="default_display_name_for_root_folder">Infomaniak Drive</string>
     <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
 
     <!-- URLs and flags related -->
