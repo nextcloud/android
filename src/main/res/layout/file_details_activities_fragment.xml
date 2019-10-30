@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:hint="@string/new_comment"
             android:paddingTop="@dimen/standard_padding"
-            android:textColorHint="@color/secondaryTextColor" />
+            android:textColorHint="@color/secondary_text_color" />
 
         <ImageButton
             android:id="@+id/submitComment"

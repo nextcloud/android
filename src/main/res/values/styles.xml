@@ -31,10 +31,10 @@
         <item name="android:alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="colorSecondary">@color/secondaryTextColor</item>
-        <item name="android:textColorHint">@color/secondaryTextColor</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="colorSecondary">@color/secondary_text_color</item>
+        <item name="android:textColorHint">@color/secondary_text_color</item>
     </style>
 
 	<style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -42,11 +42,11 @@
 		<item name="colorPrimaryDark">#212121</item>
 		<item name="colorAccent">#757575</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:alertDialogTheme">@style/FallbackTheming.Dialog</item>
         <item name="dialogTheme">@style/FallbackTheming.Dialog</item>
         <item name="android:windowBackground">@color/bg_default</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
     </style>
 
 	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -196,7 +196,7 @@
 	<!-- Launch screen -->
 	<style name="Theme.ownCloud.Launcher">
 		<item name="android:windowBackground">@drawable/launch_screen</item>
-        <item name="android:textColorHint">@color/secondaryTextColor</item>
+        <item name="android:textColorHint">@color/secondary_text_color</item>
 	</style>
 
 	<!-- Progress bar -->
@@ -214,7 +214,7 @@
 		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
 		<item name="android:background">@color/primary</item>
 		<item name="background">@color/primary</item>
-    	<item name="android:textColor">@color/textColor</item>
+    	<item name="android:textColor">@color/text_color</item>
     	<item name="android:shadowColor">@color/actionbar_shadow</item>
     	<item name="android:shadowRadius">1</item>
     	<item name="android:shadowDy">1</item>
@@ -270,7 +270,7 @@
 	<!-- Text styles -->
 	<style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
 		<item name="android:textSize">26sp</item>
-		<item name="android:textColor">@color/textColor</item>
+		<item name="android:textColor">@color/text_color</item>
 	</style>
 	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
 	</style>
@@ -285,14 +285,14 @@
 	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
 		<item name="android:textSize">16sp</item>
 		<item name="textAllCaps">false</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
     <style name="ThemeOverlay.AppTheme.PopupMenu" parent="ThemeOverlay.MaterialComponents.Dark">
         <!-- popup menu background - NEVER "android:background" !!! in themes -->
         <item name="android:colorBackground">@color/bg_default</item>
         <!-- popup menu item text color -->
-        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
     </style>
 
     <style name="MaterialListItemSingleLine">
