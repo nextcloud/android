@@ -1,0 +1,9 @@
+2a43da6bd Merge pull request #4746 from nextcloud/createChooser
+f8d7ddd9d Merge pull request #4758 from nextcloud/fixDarkTheme
+bee8770ce - fix typo in styles - fix sign up with provider in dark primary color
+cc710b09c Merge pull request #3459 from nextcloud/dark_theme
+c1aa005db changes due to code review
+c801a2c7b Merge pull request #4744 from nextcloud/v3100_Alpha1
+12fe91a6d use default open chooser with "just once", "always"
+8b4481f7f [tx-robot] updated from transifex
+2ea1f4e59 daily dev 20191029
