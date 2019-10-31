@@ -180,7 +180,7 @@ class TestPowerManagementService {
             // GIVEN
             //      device has API level 16 or below
             //      battery status sticky intent is available
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.JELLY_BEAN)
             val powerSources = setOf(
                 BatteryManager.BATTERY_PLUGGED_AC,
                 BatteryManager.BATTERY_PLUGGED_USB
