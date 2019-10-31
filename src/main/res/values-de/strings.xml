@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Speicherort</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
+    <string name="prefs_theme_title">Design</string>
+    <string name="prefs_value_theme_dark">Dunkel</string>
+    <string name="prefs_value_theme_light">Hell</string>
     <string name="preview_image_description">Bildvorschau</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>

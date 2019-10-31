@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Ruta de almacenamiento</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Oscuro</string>
+    <string name="prefs_value_theme_light">Claro</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>

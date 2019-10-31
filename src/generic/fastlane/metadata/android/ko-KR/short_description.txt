@@ -1,1 +1,1 @@
-Nextcloud Android 앱으로 내 Nextcloud에 있는 모든 파일을 사용하십시오.
+컨트롤 가능한 자체 호스팅 생산성 플랫폼
