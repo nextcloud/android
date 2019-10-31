@@ -26,6 +26,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -685,11 +686,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
             }
+
+            sharedIconView.setOnClickListener(v -> {
+                DisplayUtils.showUnavailableOperationToast((Activity) mContext);
+                });
+            /*
             if (accountManager.accountOwnsFile(file, account)) {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
             } else {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
             }
+            */
         } else {
             sharedIconView.setVisibility(View.GONE);
         }

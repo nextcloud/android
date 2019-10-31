@@ -830,4 +830,6 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
+
+    <string name="unavailable_operation_beta">Esta operación no está disponible durante la fase de pruebas beta</string>
 </resources>

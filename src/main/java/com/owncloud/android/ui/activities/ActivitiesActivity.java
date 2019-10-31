@@ -42,8 +42,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
@@ -268,7 +267,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     @Override
     public void showActivityDetailUI(OCFile ocFile) {
-        Intent showDetailsIntent;
+        DisplayUtils.showUnavailableOperationToast(this);
+        /*
+         Intent showDetailsIntent;
         if (PreviewImageFragment.canBePreviewed(ocFile)) {
             showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
         } else {
@@ -277,7 +278,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
-
+         */
     }
 
     @Override

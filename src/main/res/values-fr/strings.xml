@@ -836,4 +836,7 @@ Attention la suppression est irréversible.</string>
     <string name="intro_text_2">Accédez à vos fichiers sur tous vos appareils.</string>
     <string name="intro_title_3">Sauvegardez automatiquement vos photos sur votre Drive</string>
     <string name="intro_text_3">Choisissez les dossiers sur votre téléphone à synchroniser automatiquement dès qu’un nouveau contenu.</string>
+
+    <string name="unavailable_operation_beta">Cette opération est indisponible durant la phase de beta-testing</string>
+
 </resources>

@@ -44,6 +44,7 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -743,5 +744,10 @@ public final class DisplayUtils {
         } else {
             DisplayUtils.showSnackMessage(activity, error);
         }
+    }
+
+    static public void showUnavailableOperationToast(Activity activity) {
+        Toast betaToast = Toast.makeText(activity, activity.getString(R.string.unavailable_operation_beta), Toast.LENGTH_SHORT);
+        betaToast.show();
     }
 }
