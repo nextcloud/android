@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Opslagpad</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
+    <string name="prefs_theme_title">Thema</string>
+    <string name="prefs_value_theme_dark">Donker</string>
+    <string name="prefs_value_theme_light">Licht</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
@@ -538,6 +541,7 @@
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="remote_file_fetch_failed">Het bestand is niet gevonden!</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>

@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Caminho do armazenamento</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Escuro</string>
+    <string name="prefs_value_theme_light">Claro</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
     <string name="preview_image_error_no_local_file">Não há arquivos locais para exibir</string>
     <string name="preview_image_error_unknown_format">Não foi possível exibir a imagem</string>
