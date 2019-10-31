@@ -49,7 +49,7 @@
         android:gravity="center"
         android:text=""
         android:textAppearance="@style/NextcloudTextAppearanceHeadline"
-        android:textColor="@color/textColor_inverse"
+        android:textColor="@color/text_color_inverse"
         android:textStyle="bold"/>
 
     <LinearLayout

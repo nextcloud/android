@@ -164,7 +164,7 @@ public final class ThemeUtils {
             float[] hsl = colorToHSL(primaryColor);
 
             if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
-                return context.getResources().getColor(R.color.elementFallbackColor);
+                return context.getResources().getColor(R.color.element_fallback_color);
             } else {
                 return primaryColor;
             }

@@ -19,13 +19,13 @@
 -->
 <resources>
 
-    <color name="owncloud_blue_bright">#00ddff</color>
+    <color name="list_selector_focused_pressed">#00ddff</color>
 
-    <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
+    <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="textColor">#000000</color>
-    <color name="textColor_inverse">#ffffff</color>
+    <color name="text_color">#000000</color>
+    <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
     <color name="fg_default">#000000</color>
@@ -34,12 +34,12 @@
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="secondaryTextColor">#a0a0a0</color>
+    <color name="secondary_text_color">#a0a0a0</color>
     <color name="highlight_textColor_Warning">#e53935</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
-    <color name="elementFallbackColor">#555555</color>
+    <color name="element_fallback_color">#555555</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_db">#dbdbdb</color>
     <color name="actionbar_shadow">#222222</color>
