@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
+    <string name="prefs_theme_title">Motyw</string>
+    <string name="prefs_value_theme_dark">Ciemny</string>
+    <string name="prefs_value_theme_light">Jasny</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>

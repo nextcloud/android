@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Percorso di archiviazione</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Scuro</string>
+    <string name="prefs_value_theme_light">Chiaro</string>
     <string name="preview_image_description">Anteprima dell\'immagine</string>
     <string name="preview_image_error_no_local_file">Non esiste un file locale per l\'anteprima</string>
     <string name="preview_image_error_unknown_format">Impossibile mostrare l\'immagine</string>
