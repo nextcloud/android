@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="middle"
                         android:text="@string/placeholder_filename"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/text_color"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         tools:text="@string/placeholder_filename"/>
@@ -196,7 +196,7 @@
                 android:background="@color/bg_default"
                 app:tabGravity="center"
                 app:tabMode="fixed"
-                app:tabTextColor="@color/textColor"
+                app:tabTextColor="@color/text_color"
                 app:tabTextAppearance="@style/AppTabTextAppearance" />
 
             <androidx.viewpager.widget.ViewPager
