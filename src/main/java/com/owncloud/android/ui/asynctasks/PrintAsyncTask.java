@@ -29,7 +29,7 @@ import android.print.PrintManager;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.adapter.PrintAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -55,9 +55,9 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private File file;
     private String url;
-    private WeakReference<RichDocumentsWebView> richDocumentsWebViewWeakReference;
+    private WeakReference<RichDocumentsEditorWebView> richDocumentsWebViewWeakReference;
 
-    public PrintAsyncTask(File file, String url, WeakReference<RichDocumentsWebView> richDocumentsWebViewWeakReference) {
+    public PrintAsyncTask(File file, String url, WeakReference<RichDocumentsEditorWebView> richDocumentsWebViewWeakReference) {
         this.file = file;
         this.url = url;
         this.richDocumentsWebViewWeakReference = richDocumentsWebViewWeakReference;
@@ -129,7 +129,7 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        RichDocumentsWebView richDocumentsWebView = richDocumentsWebViewWeakReference.get();
+        RichDocumentsEditorWebView richDocumentsWebView = richDocumentsWebViewWeakReference.get();
         richDocumentsWebView.dismissLoadingDialog();
 
         PrintManager printManager = (PrintManager) richDocumentsWebView.getSystemService(PRINT_SERVICE);

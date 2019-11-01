@@ -67,8 +67,9 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -278,7 +279,7 @@ public class FileOperationsHelper {
                 Account account = fileActivity.getAccount();
                 OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
                 if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                    android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+                    android.os.Build.VERSION.SDK_INT >= RichDocumentsEditorWebView.MINIMUM_API &&
                     capability.getRichDocumentsDirectEditing().isTrue()) {
                     openFileAsRichDocument(file, fileActivity);
                     return;
@@ -342,11 +343,19 @@ public class FileOperationsHelper {
     }
 
     public void openFileAsRichDocument(OCFile file, Context context) {
-        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsWebView.class);
+        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsEditorWebView.class);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
         context.startActivity(collaboraWebViewIntent);
+    }
+
+    public void openFileWithTextEditor(OCFile file, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
     }
 
     @NonNull

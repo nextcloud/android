@@ -54,11 +54,12 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.SsoGrantPermissionActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
@@ -106,15 +107,12 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
-
-    @ContributesAndroidInjector
-    abstract CommunityActivity participateActivity();
+    @ContributesAndroidInjector abstract CommunityActivity participateActivity();
     @ContributesAndroidInjector abstract PassCodeActivity passCodeActivity();
     @ContributesAndroidInjector abstract PreviewImageActivity previewImageActivity();
     @ContributesAndroidInjector abstract PreviewVideoActivity previewVideoActivity();
     @ContributesAndroidInjector abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();
     @ContributesAndroidInjector abstract RequestCredentialsActivity requestCredentialsActivity();
-    @ContributesAndroidInjector abstract RichDocumentsWebView richDocumentsWebView();
     @ContributesAndroidInjector abstract SettingsActivity settingsActivity();
     @ContributesAndroidInjector abstract ShareActivity shareActivity();
     @ContributesAndroidInjector abstract SsoGrantPermissionActivity ssoGrantPermissionActivity();
@@ -125,6 +123,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract UserInfoActivity userInfoActivity();
     @ContributesAndroidInjector abstract WhatsNewActivity whatsNewActivity();
     @ContributesAndroidInjector abstract EtmActivity etmActivity();
+
+    @ContributesAndroidInjector abstract RichDocumentsEditorWebView richDocumentsWebView();
+    @ContributesAndroidInjector abstract TextEditorWebView textEditorWebView();
 
     @ContributesAndroidInjector abstract ExtendedListFragment extendedListFragment();
     @ContributesAndroidInjector abstract FileDetailFragment fileDetailFragment();
@@ -137,7 +138,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
-
     @ContributesAndroidInjector abstract PhotoFragment photoFragment();
 
     @ContributesAndroidInjector abstract MultipleAccountsDialog multipleAccountsDialog();
