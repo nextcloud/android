@@ -39,6 +39,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -2030,6 +2031,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
             .getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME, capability.getRichDocumentsProductName());
+        cv.put(ProviderTableMeta.CAPABILITIES_DIRECT_EDITING, new Gson().toJson(capability.getDirectEditing()));
+
         return cv;
     }
 
@@ -2084,97 +2087,72 @@ public class FileDataStorageManager {
         OCCapability capability = null;
         if (c != null) {
             capability = new OCCapability();
-            capability.setId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
-            capability.setAccountName(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME)));
-            capability.setVersionMayor(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR)));
-            capability.setVersionMinor(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MINOR)));
-            capability.setVersionMicro(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MICRO)));
-            capability.setVersionString(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_STRING)));
-            capability.setVersionEdition(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_EDITION)));
-            capability.setExtendedSupport(CapabilityBooleanType.fromValue(c.getInt(c
-                                                                                       .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT))));
-            capability.setCorePollInterval(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL)));
-            capability.setFilesSharingApiEnabled(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED))));
-            capability.setFilesSharingPublicEnabled(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED))));
-            capability.setFilesSharingPublicPasswordEnforced(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED))));
+            capability.setId(getLong(c, ProviderTableMeta._ID));
+            capability.setAccountName(getString(c, ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME));
+            capability.setVersionMayor(getInt(c, ProviderTableMeta.CAPABILITIES_VERSION_MAYOR));
+            capability.setVersionMinor(getInt(c, ProviderTableMeta.CAPABILITIES_VERSION_MINOR));
+            capability.setVersionMicro(getInt(c, ProviderTableMeta.CAPABILITIES_VERSION_MICRO));
+            capability.setVersionString(getString(c, ProviderTableMeta.CAPABILITIES_VERSION_STRING));
+            capability.setVersionEdition(getString(c, ProviderTableMeta.CAPABILITIES_VERSION_EDITION));
+            capability.setExtendedSupport(getBoolean(c, ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT));
+            capability.setCorePollInterval(getInt(c, ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL));
+            capability.setFilesSharingApiEnabled(getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED));
+            capability.setFilesSharingPublicEnabled(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED));
+            capability.setFilesSharingPublicPasswordEnforced(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED));
             capability.setFilesSharingPublicAskForOptionalPassword(
-                CapabilityBooleanType.fromValue(
-                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD))));
-            capability.setFilesSharingPublicExpireDateEnabled(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED))));
-            capability.setFilesSharingPublicExpireDateDays(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS)));
-            capability.setFilesSharingPublicExpireDateEnforced(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED))));
-            capability.setFilesSharingPublicSendMail(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL))));
-            capability.setFilesSharingPublicUpload(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD))));
-            capability.setFilesSharingUserSendMail(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL))));
-            capability.setFilesSharingResharing(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_RESHARING))));
-            capability.setFilesSharingFederationOutgoing(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING))));
-            capability.setFilesSharingFederationIncoming(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING))));
-            capability.setFilesBigFileChunking(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING))));
-            capability.setFilesUndelete(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE))));
-            capability.setFilesVersioning(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING))));
-            capability.setFilesFileDrop(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_DROP))));
-            capability.setExternalLinks(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
-            capability.setServerName(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_NAME)));
-            capability.setServerColor(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_COLOR)));
-            capability.setServerTextColor(
-                    c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)));
-            capability.setServerElementColor(
-                    c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)));
-            capability.setServerBackground(c.getString(c.getColumnIndex(
-                    ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
-            capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
-            capability.setEndToEndEncryption(CapabilityBooleanType.fromValue(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION))));
-            capability.setServerBackgroundDefault(CapabilityBooleanType.fromValue(
-                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT))));
-            capability.setServerBackgroundPlain(CapabilityBooleanType.fromValue(
-                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN))));
-            capability.setActivity(CapabilityBooleanType.fromValue(
-                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_ACTIVITY))));
-            capability.setRichDocuments(CapabilityBooleanType.fromValue(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT))));
-            capability.setRichDocumentsDirectEditing(CapabilityBooleanType.fromValue(c.getInt(
-                c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING))));
-            capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.fromValue(c.getInt(
-                c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES))));
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD));
+            capability.setFilesSharingPublicExpireDateEnabled(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED));
+            capability.setFilesSharingPublicExpireDateDays(
+                getInt(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS));
+            capability.setFilesSharingPublicExpireDateEnforced(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED));
+            capability.setFilesSharingPublicSendMail(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL));
+            capability.setFilesSharingPublicUpload(getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD));
+            capability.setFilesSharingUserSendMail(getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL));
+            capability.setFilesSharingResharing(getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_RESHARING));
+            capability.setFilesSharingFederationOutgoing(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING));
+            capability.setFilesSharingFederationIncoming(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING));
+            capability.setFilesBigFileChunking(getBoolean(c, ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING));
+            capability.setFilesUndelete(getBoolean(c, ProviderTableMeta.CAPABILITIES_FILES_UNDELETE));
+            capability.setFilesVersioning(getBoolean(c, ProviderTableMeta.CAPABILITIES_FILES_VERSIONING));
+            capability.setFilesFileDrop(getBoolean(c, ProviderTableMeta.CAPABILITIES_FILES_DROP));
+            capability.setExternalLinks(getBoolean(c, ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS));
+            capability.setServerName(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_NAME));
+            capability.setServerColor(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_COLOR));
+            capability.setServerTextColor(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR));
+            capability.setServerElementColor(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR));
+            capability.setServerBackground(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL));
+            capability.setServerSlogan(getString(c, ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN));
+            capability.setEndToEndEncryption(getBoolean(c, ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION));
+            capability.setServerBackgroundDefault(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT));
+            capability.setServerBackgroundPlain(getBoolean(c, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN));
+            capability.setActivity(getBoolean(c, ProviderTableMeta.CAPABILITIES_ACTIVITY));
+            capability.setRichDocuments(getBoolean(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT));
+            capability.setRichDocumentsDirectEditing(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING));
+            capability.setRichDocumentsTemplatesAvailable(
+                getBoolean(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES));
             String mimetypes = c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST));
             if (mimetypes == null) {
                 mimetypes = "";
             }
             capability.setRichDocumentsMimeTypeList(Arrays.asList(mimetypes.split(",")));
 
-            String optionalMimetypes = c.getString(c.getColumnIndex(
-                ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST));
+            String optionalMimetypes = getString(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST);
             if (optionalMimetypes == null) {
                 optionalMimetypes = "";
             }
             capability.setRichDocumentsOptionalMimeTypeList(Arrays.asList(optionalMimetypes.split(",")));
-            capability.setRichDocumentsProductName(
-                c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME)));
+            capability.setRichDocumentsProductName(getString(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME));
+            capability.setDirectEditing(new Gson().fromJson(getString(c, ProviderTableMeta.CAPABILITIES_DIRECT_EDITING),
+                                                            DirectEditing.class));
         }
         return capability;
     }
@@ -2297,4 +2275,19 @@ public class FileDataStorageManager {
         }
     }
 
+    private String getString(Cursor cursor, String columnName) {
+        return cursor.getString(cursor.getColumnIndex(columnName));
+    }
+
+    private int getInt(Cursor cursor, String columnName) {
+        return cursor.getInt(cursor.getColumnIndex(columnName));
+    }
+
+    private long getLong(Cursor cursor, String columnName) {
+        return cursor.getLong(cursor.getColumnIndex(columnName));
+    }
+
+    private CapabilityBooleanType getBoolean(Cursor cursor, String columnName) {
+        return CapabilityBooleanType.fromValue(cursor.getInt(cursor.getColumnIndex(columnName)));
+    }
 }

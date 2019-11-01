@@ -22,42 +22,42 @@ package com.owncloud.android.ui.asynctasks;
 
 import android.accounts.Account;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.owncloud.android.R;
+import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.ui.activity.EditorWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 
 import java.lang.ref.WeakReference;
 
-import androidx.annotation.RequiresApi;
-
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class LoadUrlTask extends AsyncTask<String, Void, String> {
 
     private Account account;
-    private WeakReference<RichDocumentsWebView> richDocumentsWebViewWeakReference;
+    private WeakReference<EditorWebView> editorWebViewWeakReference;
+    private static final String TEXT = "text";
 
-    public LoadUrlTask(RichDocumentsWebView richDocumentsWebView, Account account) {
+    public LoadUrlTask(EditorWebView editorWebView, Account account) {
         this.account = account;
-        this.richDocumentsWebViewWeakReference = new WeakReference<>(richDocumentsWebView);
+        this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
     }
 
     @Override
     protected String doInBackground(String... fileId) {
-        if (richDocumentsWebViewWeakReference.get() == null) {
+        if (editorWebViewWeakReference.get() == null) {
             return "";
         }
-        RichDocumentsUrlOperation richDocumentsUrlOperation = new RichDocumentsUrlOperation(fileId[0]);
-        RemoteOperationResult result = richDocumentsUrlOperation.execute(account,
-                                                                         richDocumentsWebViewWeakReference.get());
+
+        RemoteOperationResult result = null;
+        if (editorWebViewWeakReference.get() instanceof RichDocumentsEditorWebView) {
+            result = new RichDocumentsUrlOperation(fileId[0]).execute(account, editorWebViewWeakReference.get());
+        } else if (editorWebViewWeakReference.get() instanceof TextEditorWebView) {
+            result = new DirectEditingOpenFileRemoteOperation(fileId[0], TEXT)
+                .execute(account, editorWebViewWeakReference.get());
+        } else {
+            return "";
+        }
 
         if (!result.isSuccess()) {
             return "";
@@ -68,30 +68,12 @@ public class LoadUrlTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String url) {
-        RichDocumentsWebView richDocumentsWebView = richDocumentsWebViewWeakReference.get();
+        EditorWebView editorWebView = editorWebViewWeakReference.get();
 
-        if (richDocumentsWebView == null) {
+        if (editorWebView == null) {
             return;
         }
 
-        if (!url.isEmpty()) {
-            richDocumentsWebView.getWebview().loadUrl(url);
-
-            new Handler().postDelayed(() -> {
-                if (richDocumentsWebView.getWebview().getVisibility() != View.VISIBLE) {
-                    Snackbar snackbar = DisplayUtils.createSnackbar(richDocumentsWebView.findViewById(android.R.id.content),
-                                                                    R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.fallback_weblogin_back, v -> richDocumentsWebView.closeView());
-
-                    ThemeUtils.colorSnackbar(richDocumentsWebView.getApplicationContext(),snackbar);
-                    richDocumentsWebView.setLoadingSnackbar(snackbar);
-                    snackbar.show();
-                }
-            }, 10 * 1000);
-        } else {
-            Toast.makeText(richDocumentsWebView.getApplicationContext(),
-                           R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
-            richDocumentsWebView.finish();
-        }
+        editorWebView.onUrlLoaded(url);
     }
 }
