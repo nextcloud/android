@@ -23,6 +23,12 @@
       tools:ignore="AppCompatResource">
 
     <item
+        android:id="@+id/action_edit"
+        android:title="@string/action_edit"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/action_favorite"
         android:title="@string/favorite"
         app:showAsAction="never"
@@ -83,12 +89,6 @@
         android:title="@string/actionbar_open_with"
         app:showAsAction="never"
         android:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_open_file_as_richdocument"
-        android:title="@string/actionbar_open_as_richdocument_parameter"
-        app:showAsAction="never"
-        android:showAsAction="never"/>
 
     <item
         android:id="@+id/action_sync_file"
