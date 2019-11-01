@@ -10,7 +10,7 @@ Características:
 *Manténte informado con notificaciones
 *Soporte de múltiples cuentas
 * Acceso seguro a tus datos con huella dactilar o PIN
-*Integración con DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos
+*Integración con kSync (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos
 
 Por favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y habla de esta app en https://help.nextcloud.com/c/clients/android
 

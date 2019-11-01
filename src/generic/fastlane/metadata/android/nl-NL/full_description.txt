@@ -10,7 +10,7 @@ Functies:
 * Blijf bij met meldingen
 * Multi-account ondersteuning
 * veilige toegang tot je gegevens door vingerafdruk of  PIN
-* Integratie met DAVx5 (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda& Contactpersonensynchronisatie
+* Integratie met kSync (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda& Contactpersonensynchronisatie
 
 Meld alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android
 

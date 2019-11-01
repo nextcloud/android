@@ -9,7 +9,7 @@ La piattaforma di produttività auto-gestita che ti lascia al comando.
 * Tieniti aggiornato con le notifiche
 * Supporto di più account
 * Proteggi l'accesso ai tuoi dati con impronta digitale o PIN
-* Integrazione con DAVx5 (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti
+* Integrazione con kSync (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti
 
 Segnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android
 

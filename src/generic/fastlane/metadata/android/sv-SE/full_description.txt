@@ -10,7 +10,7 @@ Funktioner:
 * Håll dig uppdaterad med aviseringar
 * Stöd för flera konton
 * Säker åtkomst till dina data med fingeravtryck eller PIN-kod
-* Integration med DAVx5 (tidigare känd som DAVdroid) för enkel installation av kalender & Kontaktsynkronisering
+* Integration med kSync (tidigare känd som DAVdroid) för enkel installation av kalender & Kontaktsynkronisering
 
 Vänligen rapportera alla problem på https://github.com/nextcloud/android/issues och diskutera denna app på https://help.nextcloud.com/c/clients/android
 

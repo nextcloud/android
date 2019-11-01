@@ -10,7 +10,7 @@ Zure datuak kontrolpean mantentzen dituen auto-ostatutako produktibitate platafo
 * Egunean egon jakinarazpenen bidez
 * Kontu anitzeko laguntza
 * Sarbide segurua zure datuetarako hatzmarka edo PINaren bidez
-* DAVx5-rekin integratua (lehenago DAVdroid izenarekin ezagutzen dena) egutegiaren konfigurazio erraza konfiguratzeko& Kontaktuen sinkronizazioa
+* kSync-rekin integratua (lehenago DAVdroid izenarekin ezagutzen dena) egutegiaren konfigurazio erraza konfiguratzeko& Kontaktuen sinkronizazioa
 
  Eman arazoen berri https://github.com/nextcloud/android/issues orrian eta eztabaidatu aplikazio hau https://help.nextcloud.com/c/clients/android orrian
 

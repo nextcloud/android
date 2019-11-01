@@ -9,7 +9,7 @@ A plataforma de produtividade auto-alojada que o/a mantém no controlo.
 * Mantenha-se informado/a com as notificações
 * Suporte para contas múltiplas
 * Proteja o acesso aos seus dados com impressão digital ou PIN
-* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &contactos
+* Integração com kSync (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &contactos
 
 Por favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android
 
