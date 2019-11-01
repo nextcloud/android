@@ -91,6 +91,7 @@ public class ExternalSiteWebView extends FileActivity {
         webview.setFocusable(true);
         webview.setFocusableInTouchMode(true);
         webview.setClickable(true);
+//        webview.addJavascriptInterface(new TestMobileInterface(), "RichDocumentsMobileInterface");
 
         // allow debugging (when building the debug version); see details in
         // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews

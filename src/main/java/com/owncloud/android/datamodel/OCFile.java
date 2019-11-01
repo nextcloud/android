@@ -91,6 +91,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Getter @Setter private String ownerDisplayName;
     @Getter @Setter String note;
     @Getter @Setter private List<ShareeUser> sharees;
+    @Getter @Setter private String richWorkspace;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
@@ -158,6 +159,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         ownerId = source.readString();
         ownerDisplayName = source.readString();
         mountType = (WebdavEntry.MountType) source.readSerializable();
+        richWorkspace = source.readString();
     }
 
     @Override
@@ -190,6 +192,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(ownerId);
         dest.writeString(ownerDisplayName);
         dest.writeSerializable(mountType);
+        dest.writeString(richWorkspace);
     }
 
     public String getDecryptedRemotePath() {
@@ -408,6 +411,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         encrypted = false;
         encryptedFileName = null;
         mountType = WebdavEntry.MountType.INTERNAL;
+        richWorkspace = "";
     }
 
     /**
