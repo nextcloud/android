@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -152,6 +153,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject AppPreferences preferences;
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -418,7 +420,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 currentAccount,
                 containerActivity,
                 getActivity(),
-                false
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,

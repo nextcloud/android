@@ -63,6 +63,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -136,6 +137,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
     @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();

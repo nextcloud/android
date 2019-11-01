@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -39,26 +40,23 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RichDocumentsCreateAssetOperation;
 import com.owncloud.android.ui.asynctasks.PrintAsyncTask;
+import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcels;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -130,48 +128,8 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         });
 
         // load url in background
-        loadUrl(getIntent().getStringExtra(EXTRA_URL), file);
+        loadUrl(getIntent().getStringExtra(EXTRA_URL));
     }
-
-    @Override
-    protected void initLoadingScreen() {
-        if (file == null) {
-            fileName.setText(R.string.create_file_from_template);
-
-            Template template = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_TEMPLATE));
-
-            int placeholder;
-
-            switch (template.getType()) {
-                case DOCUMENT:
-                    placeholder = R.drawable.file_doc;
-                    break;
-
-                case SPREADSHEET:
-                    placeholder = R.drawable.file_xls;
-                    break;
-
-                case PRESENTATION:
-                    placeholder = R.drawable.file_ppt;
-                    break;
-
-                default:
-                    placeholder = R.drawable.file;
-                    break;
-            }
-
-            Glide.with(this).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
-                .load(template.getThumbnailLink())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .into(thumbnail);
-        } else {
-            setThumbnail(file, thumbnail);
-            fileName.setText(file.getFileName());
-        }
-    }
-
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -292,6 +250,15 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         downloadmanager.enqueue(request);
     }
 
+    @Override
+    protected void loadUrl(String url) {
+        if (TextUtils.isEmpty(url)) {
+            new RichDocumentsLoadUrlTask(this, getUser().get(), getFile()).execute();
+        } else {
+            super.loadUrl(url);
+        }
+    }
+
     private class RichDocumentsMobileInterface extends MobileInterface {
         @JavascriptInterface
         public void insertGraphic() {
@@ -328,7 +295,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
             try {
                 JSONObject renameJson = new JSONObject(renameString);
                 String newName = renameJson.getString(NEW_NAME);
-                file.setFileName(newName);
+                getFile().setFileName(newName);
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse rename json message: " + e);
             }

@@ -54,6 +54,7 @@ import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -127,6 +128,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -331,11 +333,13 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
             Account currentAccount = containerActivity.getStorageManager().getAccount();
             FileMenuFilter mf = new FileMenuFilter(
-                    getFile(),
-                    currentAccount,
+                getFile(),
+                currentAccount,
                 containerActivity,
-                    getActivity(),
-                    false
+                getActivity(),
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,
