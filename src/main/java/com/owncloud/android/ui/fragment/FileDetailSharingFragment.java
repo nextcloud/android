@@ -140,6 +140,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     @BindView(R.id.copy_internal_link_icon)
     ImageView internalLinkIcon;
 
+    @BindView(R.id.shareInternalLinkText)
+    TextView internalLinkText;
+
     @Inject UserAccountManager accountManager;
 
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
@@ -209,6 +212,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                                                         PorterDuff.Mode.SRC_IN);
         internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
                                                                PorterDuff.Mode.SRC_IN);
+
+        internalLinkText.setText(getString(R.string.share_internal_link_text, file.isFolder() ?
+            getString(R.string.folder) : getString(R.string.file)));
 
         return view;
     }
