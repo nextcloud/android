@@ -422,6 +422,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update permission
         mLocalFolder.setPermissions(remoteFolder.getPermissions());
 
+        // update richWorkpace
+        mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
+
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
 
         // get current data about local contents of the folder to synchronize

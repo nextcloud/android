@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentValues;
 import android.content.Context;
@@ -73,6 +72,7 @@ import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
+import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -128,6 +128,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_FOOTER = 0;
     private static final int VIEWTYPE_ITEM = 1;
     private static final int VIEWTYPE_IMAGE = 2;
+    private static final int VIEWTYPE_HEADER = 3;
 
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
@@ -270,7 +271,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mFiles.size() + 1;
+        if (shouldShowHeader()) {
+            return mFiles.size() + 2; // for header and footer
+        } else {
+            return mFiles.size() + 1; // for footer
+        }
     }
 
     @NonNull
@@ -299,6 +304,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEWTYPE_FOOTER:
                 View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_footer, parent, false);
                 return new OCFileListFooterViewHolder(itemView);
+
+            case VIEWTYPE_HEADER:
+                View headerView = LayoutInflater.from(mContext).inflate(R.layout.list_header, parent, false);
+
+                ViewGroup.LayoutParams layoutParams = headerView.getLayoutParams();
+                layoutParams.height = (int) (parent.getHeight() * 0.3);
+                headerView.setLayoutParams(layoutParams);
+
+                return new OCFileListHeaderViewHolder(headerView);
         }
     }
 
@@ -311,10 +325,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                    PorterDuff.Mode.SRC_IN);
             footerViewHolder.progressBar.setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
+        } else if (holder instanceof OCFileListHeaderViewHolder) {
+            OCFileListHeaderViewHolder headerViewHolder = (OCFileListHeaderViewHolder) holder;
+            String text = currentDirectory.getRichWorkspace();
+
+            PreviewTextFragment.setText(headerViewHolder.headerText, text, mContext);
+            headerViewHolder.headerView.setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
-            OCFile file = mFiles.get(position);
+            OCFile file = getItem(position);
 
             boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
 
@@ -620,7 +640,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFile file;
         final boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
         for (int i = 0; i < count; i++) {
-            file = getItem(i);
+            file = mFiles.get(i);
             if (file.isFolder()) {
                 foldersCount++;
             } else {
@@ -653,19 +673,41 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public OCFile getItem(int position) {
-        return mFiles.get(position);
+        if (shouldShowHeader()) {
+            return mFiles.get(position - 1);
+        } else {
+            return mFiles.get(position);
+        }
+    }
+
+    private boolean shouldShowHeader() {
+        if (currentDirectory == null) {
+            return false;
+        }
+
+        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == mFiles.size()) {
-            return VIEWTYPE_FOOTER;
-        } else {
-            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
-                return VIEWTYPE_IMAGE;
+        if (shouldShowHeader()) {
+            if (position == 0) {
+                return VIEWTYPE_HEADER;
             } else {
-                return VIEWTYPE_ITEM;
+                if (position == mFiles.size() + 1) {
+                    return VIEWTYPE_FOOTER;
+                }
             }
+        } else {
+            if (position == mFiles.size()) {
+                return VIEWTYPE_FOOTER;
+            }
+        }
+
+        if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
+            return VIEWTYPE_IMAGE;
+        } else {
+            return VIEWTYPE_ITEM;
         }
     }
 
@@ -1131,6 +1173,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ProgressBar progressBar;
 
         private OCFileListFooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    static class OCFileListHeaderViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.headerView)
+        public View headerView;
+
+        @BindView(R.id.headerText)
+        public TextView headerText;
+
+        private OCFileListHeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

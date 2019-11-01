@@ -89,7 +89,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -100,6 +100,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.io.File;
@@ -498,6 +499,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void newPresentation() {
         ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.PRESENTATION)
                 .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+    }
+
+    @Override
+    public void onHeaderClicked() {
+        ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
     }
 
     /**
@@ -929,7 +935,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         }
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                         ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
-                    } else if (PreviewTextFragment.canBePreviewed(file)) {
+                    } else if (PreviewTextFileFragment.canBePreviewed(file)) {
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
                         if (PreviewMediaFragment.canBePreviewed(file)) {
