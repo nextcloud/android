@@ -33,7 +33,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class TextEditorWebView : EditorWebView() {
 
-    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
+    @SuppressLint("AddJavascriptInterface")
     // suppress warning as webview is only used >= Lollipop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
