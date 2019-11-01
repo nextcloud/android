@@ -50,6 +50,7 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -382,9 +383,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
                 syncedFolder.getRemotePath(),
-                syncedFolder.getWifiOnly(),
-                syncedFolder.getChargingOnly(),
-                syncedFolder.getSubfolderByDate(),
+                syncedFolder.isWifiOnly(),
+                syncedFolder.isChargingOnly(),
+                syncedFolder.isSubfolderByDate(),
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
                 syncedFolder.isEnabled(),
@@ -392,7 +393,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 filePaths,
                 localFolder.getName(),
                 files.length,
-                syncedFolder.getType());
+                syncedFolder.getType(),
+                syncedFolder.isHidden());
     }
 
     /**
@@ -408,9 +410,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
                 syncedFolder.getRemotePath(),
-                syncedFolder.getWifiOnly(),
-                syncedFolder.getChargingOnly(),
-                syncedFolder.getSubfolderByDate(),
+                syncedFolder.isWifiOnly(),
+                syncedFolder.isChargingOnly(),
+                syncedFolder.isSubfolderByDate(),
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
                 syncedFolder.isEnabled(),
@@ -418,7 +420,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 mediaFolder.filePaths,
                 mediaFolder.folderName,
                 mediaFolder.numberOfFiles,
-                mediaFolder.type);
+                mediaFolder.type,
+                syncedFolder.isHidden());
     }
 
     /**
@@ -443,7 +446,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 mediaFolder.filePaths,
                 mediaFolder.folderName,
                 mediaFolder.numberOfFiles,
-                mediaFolder.type);
+                mediaFolder.type,
+                false);
     }
 
     private File[] getFileList(File localFolder) {
@@ -523,8 +527,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 Log.d(TAG, "Show custom folder dialog");
                 SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
                     SyncedFolder.UNPERSISTED_ID, null, null, true, false,
-                    false, getAccount().name,
-                    FileUploader.LOCAL_BEHAVIOUR_FORGET, false, clock.getCurrentTime(), null, MediaFolderType.CUSTOM);
+                    false, getAccount().name, FileUploader.LOCAL_BEHAVIOUR_FORGET, false,
+                    clock.getCurrentTime(), null, MediaFolderType.CUSTOM, false);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
             }
 
@@ -582,6 +586,14 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     @Override
+    public void onVisibilityToggleClick(int section, SyncedFolderDisplayItem syncedFolder) {
+        syncedFolder.setHidden(!syncedFolder.isHidden());
+
+        saveOrUpdateSyncedFolder(syncedFolder);
+        mAdapter.setSyncFolderItem(section, syncedFolder);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER
                 && resultCode == RESULT_OK && mSyncedFolderPreferencesDialogFragment != null) {
@@ -606,45 +618,61 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
                     syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),
                     syncedFolder.getAccount(), syncedFolder.getUploadAction(), syncedFolder.getEnabled(),
-                    clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType());
-            long storedId = mSyncedFolderProvider.storeSyncedFolder(newCustomFolder);
-            if (storedId != -1) {
-                newCustomFolder.setId(storedId);
-                if (newCustomFolder.isEnabled()) {
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(newCustomFolder);
-                }
-            }
+                    clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType(), syncedFolder.getHidden());
+
+            saveOrUpdateSyncedFolder(newCustomFolder);
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
             SyncedFolderDisplayItem item = mAdapter.get(syncedFolder.getSection());
-            item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
+            updateSyncedFolderItem(item, syncedFolder.getId(), syncedFolder.getLocalPath(),
+                                   syncedFolder.getRemotePath(), syncedFolder
                     .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                     .getUploadAction(), syncedFolder.getEnabled());
 
-            if (syncedFolder.getId() == UNPERSISTED_ID) {
-                // newly set up folder sync config
-                long storedId = mSyncedFolderProvider.storeSyncedFolder(item);
-                if (storedId != -1) {
-                    item.setId(storedId);
-                    if (item.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
-                    }
-                }
-            } else {
-                // existing synced folder setup to be updated
-                mSyncedFolderProvider.updateSyncFolder(item);
-                if (item.isEnabled()) {
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
-                }
-            }
+            saveOrUpdateSyncedFolder(item);
 
-            mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
+            // TODO test if notifiyItemChanged is suffiecient (should improve performance)
+            mAdapter.notifyDataSetChanged();
         }
 
         mSyncedFolderPreferencesDialogFragment = null;
 
         if (syncedFolder.getEnabled()) {
             showBatteryOptimizationInfo();
+        }
+    }
+
+    private void saveOrUpdateSyncedFolder(SyncedFolderDisplayItem item) {
+        if (item.getId() == UNPERSISTED_ID) {
+            // newly set up folder sync config
+            storeSyncedFolder(item);
+        } else {
+            // existing synced folder setup to be updated
+            mSyncedFolderProvider.updateSyncFolder(item);
+            if (item.isEnabled()) {
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
+            } else {
+                String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
+
+                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
+                    getContentResolver());
+                arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
+            }
+        }
+    }
+
+    private void storeSyncedFolder(SyncedFolderDisplayItem item) {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
+            getContentResolver());
+        long storedId = mSyncedFolderProvider.storeSyncedFolder(item);
+        if (storedId != -1) {
+            item.setId(storedId);
+            if (item.isEnabled()) {
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
+            } else {
+                String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
+                arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
+            }
         }
     }
 
@@ -670,9 +698,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * @param subfolderByDate created sub folders
      * @param uploadAction    upload action
      * @param enabled         is sync enabled
-     * @return the updated item
      */
-    private SyncedFolderDisplayItem updateSyncedFolderItem(SyncedFolderDisplayItem item,
+    private void updateSyncedFolderItem(SyncedFolderDisplayItem item,
+                                                           long id,
                                                            String localPath,
                                                            String remotePath,
                                                            Boolean wifiOnly,
@@ -680,6 +708,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                                                            Boolean subfolderByDate,
                                                            Integer uploadAction,
                                                            Boolean enabled) {
+        item.setId(id);
         item.setLocalPath(localPath);
         item.setRemotePath(remotePath);
         item.setWifiOnly(wifiOnly);
@@ -687,7 +716,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         item.setSubfolderByDate(subfolderByDate);
         item.setUploadAction(uploadAction);
         item.setEnabled(enabled, clock.getCurrentTime());
-        return item;
     }
 
     @Override

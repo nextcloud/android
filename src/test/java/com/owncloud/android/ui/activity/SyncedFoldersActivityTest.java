@@ -181,6 +181,7 @@ public class SyncedFoldersActivityTest {
                                            new ArrayList<String>(),
                                            folderName,
                                            2,
-                                           MediaFolderType.IMAGE);
+                                           MediaFolderType.IMAGE,
+                                           false);
     }
 }

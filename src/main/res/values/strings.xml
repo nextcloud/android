@@ -627,6 +627,9 @@
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
+    <string name="autoupload_show_folder">Show folder</string>
+    <string name="autoupload_hide_folder">Hide folder</string>
+    <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
     <string name="empty" translatable="false" />
@@ -901,4 +904,7 @@
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
+    <string name="prefs_instant_upload_hide_item_summary">Hide folder in auto upload list</string>
+    <string name="prefs_instant_upload_hide_item_title">Hide folder</string>
+    <string name="show_hidden_folders">Show hidden folders</string>
 </resources>
