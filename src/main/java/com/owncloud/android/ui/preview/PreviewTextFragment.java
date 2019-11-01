@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -95,6 +96,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     private ProgressBar mMultiListProgress;
 
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * {@inheritDoc}
@@ -172,7 +174,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    setText(mTextPreview, mOriginalText, getFile(), requireActivity());
+                    setText(mTextPreview, mOriginalText, getFile(), getActivity());
                 }
             }, delay);
         }

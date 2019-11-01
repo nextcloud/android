@@ -29,8 +29,13 @@ import java.util.Locale
 class DeviceInfo {
     val vendor: String = Build.MANUFACTURER.toLowerCase(Locale.ROOT)
     val apiLevel: Int = Build.VERSION.SDK_INT
+    val androidVersion = Build.VERSION.RELEASE
 
     fun hasCamera(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+    }
+
+    fun editorSupported(): Boolean {
+        return apiLevel < Build.VERSION_CODES.LOLLIPOP
     }
 }
