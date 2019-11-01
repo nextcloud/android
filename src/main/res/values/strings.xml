@@ -878,8 +878,6 @@
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="could_not_retrieve_url">Could not retrieve url</string>
-    <string name="copy_internal_link">Copy internal link</string>
-    <string name="copy_internal_link_subline">Only works for users with access to this folder</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
@@ -902,4 +900,8 @@
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
+    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
+    <string name="folder">folder</string>
+    <string name="file">file</string>
+    <string name="share_internal_link">Share internal link</string>
 </resources>
