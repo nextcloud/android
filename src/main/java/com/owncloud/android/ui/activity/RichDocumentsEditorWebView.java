@@ -99,7 +99,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
 
         unbinder = ButterKnife.bind(this);
 
-        WebView.setWebContentsDebuggingEnabled(true);
         webview.addJavascriptInterface(new RichDocumentsMobileInterface(), "RichDocumentsMobileInterface");
 
         webview.setWebChromeClient(new WebChromeClient() {

@@ -361,6 +361,15 @@ public class FileOperationsHelper {
         context.startActivity(textEditorIntent);
     }
 
+    public void openRichWorkspaceWithTextEditor(OCFile file, String url, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
+    }
+
     @NonNull
     private Intent createOpenFileIntent(OCFile file) {
         String storagePath = file.getStoragePath();
