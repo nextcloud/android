@@ -355,7 +355,7 @@
                     android:paddingRight="@dimen/zero"
                     android:paddingEnd="@dimen/zero">
 
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_existing_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
