@@ -30,23 +30,23 @@ import lombok.Setter;
 /**
  * Synced folder entity containing all information per synced folder.
  */
-@Getter
-@Setter
 @AllArgsConstructor
 public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
+    public static final long EMPTY_ENABLED_TIMESTAMP_MS = -1;
     private static final long serialVersionUID = -793476118299906429L;
 
-    private long id = UNPERSISTED_ID;
-    private String localPath;
-    private String remotePath;
-    private Boolean wifiOnly;
-    private Boolean chargingOnly;
-    private Boolean subfolderByDate;
-    private String account;
-    private Integer uploadAction;
-    private boolean enabled;
-    private MediaFolderType type;
+    @Getter @Setter private long id;
+    @Getter @Setter private String localPath;
+    @Getter @Setter private String remotePath;
+    @Getter @Setter private Boolean wifiOnly;
+    @Getter @Setter private Boolean chargingOnly;
+    @Getter @Setter private Boolean subfolderByDate;
+    @Getter @Setter private String account;
+    @Getter @Setter private Integer uploadAction;
+    @Getter private boolean enabled;
+    @Getter private long enabledTimestampMs;
+    @Getter @Setter private MediaFolderType type;
 
     /**
      * constructor for new, to be persisted entity.
@@ -59,11 +59,25 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
      * @param enabled         flag if synced folder config is active
+     * @param timestampMs     the current timestamp in milliseconds
      * @param type            the type of the folder
      */
     public SyncedFolder(String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                         Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                        MediaFolderType type) {
+                        long timestampMs, MediaFolderType type) {
+        this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction,
+             enabled, timestampMs, type);
+    }
+
+    /**
+     * constructor for wrapping existing folders.
+     *
+     * @param id id
+     */
+    protected SyncedFolder(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
+                           Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                           long timestampMs, MediaFolderType type) {
+        this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
         this.wifiOnly = wifiOnly;
@@ -71,8 +85,16 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.subfolderByDate = subfolderByDate;
         this.account = account;
         this.uploadAction = uploadAction;
-        this.enabled = enabled;
+        this.setEnabled(enabled, timestampMs);
         this.type = type;
+    }
+
+    /**
+     * @param timestampMs the current timestamp in milliseconds
+     */
+    public void setEnabled(boolean enabled, long timestampMs) {
+        this.enabled = enabled;
+        this.enabledTimestampMs = enabled ? timestampMs : EMPTY_ENABLED_TIMESTAMP_MS;
     }
 
     public Object clone() {
