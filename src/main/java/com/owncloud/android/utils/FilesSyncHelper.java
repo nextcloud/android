@@ -30,7 +30,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -41,7 +40,6 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -73,7 +71,6 @@ public final class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
 
     public static final String GLOBAL = "global";
-    public static final String SYNCEDFOLDERINITIATED = "syncedFolderIntitiated_";
 
     public static final int ContentSyncJobId = 315;
 
@@ -84,59 +81,34 @@ public final class FilesSyncHelper {
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
-        Long currentTime = System.currentTimeMillis();
-        double currentTimeInSeconds = currentTime / 1000.0;
-        String currentTimeString = Long.toString((long) currentTimeInSeconds);
+        final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
-        String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
-        boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
-                (GLOBAL, syncedFolderInitiatedKey));
-
-        if (MediaFolderType.IMAGE == syncedFolder.getType()) {
-            if (dryRun) {
-                arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
-                        currentTimeString);
-            } else {
-                FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
-                        , syncedFolder);
+        if (syncedFolder.isEnabled() && enabledTimestampMs >= 0) {
+            MediaFolderType mediaType = syncedFolder.getType();
+            if (mediaType == MediaFolderType.IMAGE) {
+                FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                    , syncedFolder);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        syncedFolder);
-            }
-
-        } else if (MediaFolderType.VIDEO == syncedFolder.getType()) {
-
-            if (dryRun) {
-                arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
-                        currentTimeString);
-            } else {
-                FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
-                        syncedFolder);
+                                                    syncedFolder);
+            } else if (mediaType == MediaFolderType.VIDEO) {
+                FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.INTERNAL_CONTENT_URI,
+                                                    syncedFolder);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                        syncedFolder);
-            }
-
-        } else {
-            try {
-                if (dryRun) {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
-                            currentTimeString);
-                } else {
+                                                    syncedFolder);
+            } else {
+                try {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
-
-                    String dateInitiated = arbitraryDataProvider.getValue(GLOBAL,
-                            syncedFolderInitiatedKey);
 
                     Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-
                             File file = path.toFile();
-                            if (attrs.lastModifiedTime().toMillis() >= Long.parseLong(dateInitiated) * 1000) {
+                            if (attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                        attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder);
+                                                                              attrs.lastModifiedTime().toMillis(),
+                                                                              file.isDirectory(), syncedFolder);
                             }
 
                             return FileVisitResult.CONTINUE;
@@ -147,11 +119,9 @@ public final class FilesSyncHelper {
                             return FileVisitResult.CONTINUE;
                         }
                     });
-
+                } catch (IOException e) {
+                    Log.e(TAG, "Something went wrong while indexing files for auto upload " + e.getLocalizedMessage());
                 }
-
-            } catch (IOException e) {
-                Log.e(TAG, "Something went wrong while indexing files for auto upload " + e.getLocalizedMessage());
             }
         }
     }
@@ -172,7 +142,6 @@ public final class FilesSyncHelper {
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
         Cursor cursor;
         int column_index_data;
@@ -191,11 +160,10 @@ public final class FilesSyncHelper {
         }
         path = path + "%";
 
-        String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
-        String dateInitiated = arbitraryDataProvider.getValue(GLOBAL, syncedFolderInitiatedKey);
+        long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         cursor = context.getContentResolver().query(uri, projection, MediaStore.MediaColumns.DATA + " LIKE ?",
-                new String[]{path}, null);
+                                                    new String[]{path}, null);
 
         if (cursor != null) {
             column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -203,9 +171,10 @@ public final class FilesSyncHelper {
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
                 isFolder = new File(contentPath).isDirectory();
-                if (cursor.getLong(column_index_date_modified) >= Long.parseLong(dateInitiated)) {
+                if (cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000.0) {
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
-                            cursor.getLong(column_index_date_modified), isFolder, syncedFolder);
+                                                                  cursor.getLong(column_index_date_modified), isFolder,
+                                                                  syncedFolder);
                 }
             }
             cursor.close();

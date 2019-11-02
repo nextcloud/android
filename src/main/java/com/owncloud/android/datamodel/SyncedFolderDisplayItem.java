@@ -56,9 +56,11 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      */
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   List<String> filePaths, String folderName, long numberOfFiles, MediaFolderType type)
+                                   long timestampMs, List<String> filePaths, String folderName, long numberOfFiles,
+                                   MediaFolderType type)
     {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled,
+              timestampMs, type);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -66,8 +68,9 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
 
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   String folderName, MediaFolderType type) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
+                                   long timestampMs, String folderName, MediaFolderType type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled,
+              timestampMs, type);
         this.folderName = folderName;
     }
 }
