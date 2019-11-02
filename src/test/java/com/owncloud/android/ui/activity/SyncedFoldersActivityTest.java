@@ -32,8 +32,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import third_parties.daveKoeller.AlphanumComparator;
-
 import static org.junit.Assert.assertTrue;
 
 public class SyncedFoldersActivityTest {
@@ -123,14 +121,6 @@ public class SyncedFoldersActivityTest {
         return test(sortedList, SyncedFoldersActivity.sortSyncedFolderItems(unsortedList));
     }
 
-    private List<SyncedFolderDisplayItem> sort(List<SyncedFolderDisplayItem> sortedList) {
-        List<SyncedFolderDisplayItem> unsortedList = shuffle(sortedList);
-
-        Collections.sort(unsortedList, new AlphanumComparator<>());
-
-        return unsortedList;
-    }
-
     private boolean test(List<SyncedFolderDisplayItem> target, List<SyncedFolderDisplayItem> actual) {
 
         for (int i = 0; i < target.size(); i++) {
@@ -167,7 +157,7 @@ public class SyncedFoldersActivityTest {
         return true;
     }
 
-    private SyncedFolderDisplayItem create(String folderName, Boolean enabled) {
+    private SyncedFolderDisplayItem create(String folderName, boolean enabled) {
         return new SyncedFolderDisplayItem(1,
                                            "localPath",
                                            "remotePath",

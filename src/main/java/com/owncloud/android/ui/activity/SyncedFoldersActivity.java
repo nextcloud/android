@@ -95,7 +95,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
@@ -702,9 +701,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (MediaFolderType.CUSTOM == syncedFolder.getType() && syncedFolder.getId() == UNPERSISTED_ID) {
             SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
                     SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
-                    syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),
-                    syncedFolder.getAccount(), syncedFolder.getUploadAction(), syncedFolder.getEnabled(),
-                    clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType(), syncedFolder.getHidden());
+                    syncedFolder.isWifiOnly(), syncedFolder.isChargingOnly(), syncedFolder.isSubfolderByDate(),
+                    syncedFolder.getAccount(), syncedFolder.getUploadAction(), syncedFolder.isEnabled(),
+                    clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType(), syncedFolder.isHidden());
 
             saveOrUpdateSyncedFolder(newCustomFolder);
             mAdapter.addSyncFolderItem(newCustomFolder);
@@ -712,8 +711,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             SyncedFolderDisplayItem item = mAdapter.get(syncedFolder.getSection());
             updateSyncedFolderItem(item, syncedFolder.getId(), syncedFolder.getLocalPath(),
                                    syncedFolder.getRemotePath(), syncedFolder
-                    .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
-                    .getUploadAction(), syncedFolder.getEnabled());
+                    .isWifiOnly(), syncedFolder.isChargingOnly(), syncedFolder.isSubfolderByDate(), syncedFolder
+                    .getUploadAction(), syncedFolder.isEnabled());
 
             saveOrUpdateSyncedFolder(item);
 
@@ -723,7 +722,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         mSyncedFolderPreferencesDialogFragment = null;
 
-        if (syncedFolder.getEnabled()) {
+        if (syncedFolder.isEnabled()) {
             showBatteryOptimizationInfo();
         }
     }
@@ -789,11 +788,11 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                                                            long id,
                                                            String localPath,
                                                            String remotePath,
-                                                           Boolean wifiOnly,
-                                                           Boolean chargingOnly,
-                                                           Boolean subfolderByDate,
+                                                           boolean wifiOnly,
+                                                           boolean chargingOnly,
+                                                           boolean subfolderByDate,
                                                            Integer uploadAction,
-                                                           Boolean enabled) {
+                                                           boolean enabled) {
         item.setId(id);
         item.setLocalPath(localPath);
         item.setRemotePath(remotePath);
