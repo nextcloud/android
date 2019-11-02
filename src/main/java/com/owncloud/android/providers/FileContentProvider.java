@@ -2015,7 +2015,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 50 && newVersion >= 50) {
-                Log_OC.i(SQL, "Entering in the #50 add syned.existing");
+                Log_OC.i(SQL, "Entering in the #50 add synced.existing");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
