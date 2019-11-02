@@ -115,6 +115,8 @@
     <string name="common_switch_account">Промени сметка</string>
     <string name="common_unknown">непознат</string>
     <string name="common_yes">Да</string>
+    <string name="community_contribute_forum_forum">форум</string>
+    <string name="community_contribute_translate_translate">Преведи</string>
     <string name="configure_new_media_folder_detection_notifications">Конфигурирај</string>
     <string name="confirmation_remove_file_alert">Дали си сигурен дека сакаш да ја избришеш %1$s?</string>
     <string name="confirmation_remove_files_alert">Дали си сигурен дека сакаш да ја избришеш означената ставка?</string>
@@ -150,6 +152,7 @@
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
     <string name="copy_to">Копирај во…</string>
+    <string name="could_not_download_image">Неможе да се превземе целосната слика</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
     <string name="create_file_from_template">Креирање на датотека од шаблон…</string>
@@ -182,6 +185,7 @@
     <string name="downloader_download_succeeded_ticker">Превземено</string>
     <string name="downloader_not_downloaded_yet">Сеуште не е превземено</string>
     <string name="drawer_close">Затвори странична лента</string>
+    <string name="drawer_community">Заедница</string>
     <string name="drawer_current_account">Моментална сметка</string>
     <string name="drawer_end_account">Последна сметка</string>
     <string name="drawer_header_background">Background image of drawer header</string>
@@ -238,12 +242,14 @@
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="fab_label">Додади или прикачи</string>
     <string name="failed_to_download">Неуспешно поставување на датотеката во менаџерот за превземање</string>
+    <string name="failed_to_print">Неуспешно печатење не датотеката</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врти се на стариот начин на за најавување</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
     <string name="feedback_no_mail_app">Нема достапна апликација за испраќање пораки преку е-пошта!</string>
     <string name="file_delete">Избриши</string>
+    <string name="file_detail_activity_error">Грешка при превземањето на активностите за датотеката</string>
     <string name="file_details_no_content">Неуспешно вчитување на деталите</string>
     <string name="file_icon">Датотека</string>
     <string name="file_keep">Задржи</string>
@@ -397,6 +403,7 @@
     <string name="new_notification">Ново известување</string>
     <string name="new_version_was_created">Нова верзија е креирана</string>
     <string name="no_browser_available">Нема достапна апликација за линкови</string>
+    <string name="no_mutliple_accounts_allowed">Само една сметка е дозволена</string>
     <string name="no_pdf_app_available">Нема достапна апликација за PDF датотеки</string>
     <string name="note_confirm">Испрати</string>
     <string name="note_could_not_sent">Неможе да се испрати белешката</string>
@@ -503,6 +510,9 @@
     <string name="prefs_storage_path">Патека на складипте</string>
     <string name="prefs_synced_folders_local_path_title">Папка на уредот</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на серверот</string>
+    <string name="prefs_theme_title">Тема</string>
+    <string name="prefs_value_theme_dark">Темна</string>
+    <string name="prefs_value_theme_light">Светла</string>
     <string name="preview_image_description">Преглед на сликата</string>
     <string name="preview_image_error_no_local_file">Нема локална датотека за прикажување</string>
     <string name="preview_image_error_unknown_format">Неможе да се прикаже сликата</string>
@@ -514,6 +524,7 @@
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>
     <string name="recommend_text">Сакам да те поканам за да ја користиш %1$s апликацијата на твојот уред.\nПревземи ја овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="remote_file_fetch_failed">Неуспешно барање на датотеката!</string>
     <string name="remove_fail_msg">Неуспешно бришење</string>
     <string name="remove_notification_failed">Неуспешно бришење на известувањата.</string>
     <string name="remove_push_notification">Отстрани</string>
