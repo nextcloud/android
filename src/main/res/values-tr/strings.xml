@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Depolama yolu</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Koyu</string>
+    <string name="prefs_value_theme_light">Açık</string>
     <string name="preview_image_description">Görsel ön izleme</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
