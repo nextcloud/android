@@ -821,6 +821,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " TEXT, "          // remote path
                        + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "         // wifi_only
                        + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "     // charging only
+                       + ProviderTableMeta.SYNCED_FOLDER_EXISTING + " INTEGER, "          // existing
                        + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "           // enabled
                        + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, " // subfolder by date
                        + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "             // account
