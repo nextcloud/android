@@ -1,0 +1,5 @@
+62fc6fa53 Merge pull request #4782 from nextcloud/internalLinkWording
+71264e19b use file/folder in "copy internal link" description
+bd3ce6098 Merge pull request #4777 from nextcloud/v16
+327817c04 [tx-robot] updated from transifex
+a39022fbb daily dev 20191101
