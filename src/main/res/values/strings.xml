@@ -554,7 +554,15 @@
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
-    <string name="synced_folders_no_results">No media folders found.</string>
+    <string name="synced_folders_no_results">No media folders found</string>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Show %1$d hidden folder</item>
+        <item quantity="other">Show %1$d hidden folders</item>
+    </plurals>
+    <plurals name="synced_folders_hidden_folders_count">
+        <item quantity="one">%1$d hidden folder</item>
+        <item quantity="other">%1$d hidden folders</item>
+    </plurals>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>

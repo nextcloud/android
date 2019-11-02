@@ -169,6 +169,14 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         }
     }
 
+    public int getUnfilteredSectionCount() {
+        if (syncFolderItems.size() > 0) {
+            return syncFolderItems.size() + 1;
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public int getItemCount(int section) {
         if (section < filteredSyncFolderItems.size()) {
@@ -310,6 +318,13 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         if (isLastSection(section) && showFooter()) {
             FooterViewHolder footerHolder = (FooterViewHolder) holder;
             footerHolder.title.setOnClickListener(v -> toggleHiddenItemsVisibility());
+            footerHolder.title.setText(
+                context.getResources().getQuantityString(
+                    R.plurals.synced_folders_show_hidden_folders,
+                    getHiddenFolderCount(),
+                    getHiddenFolderCount()
+                )
+            );
         }
     }
 
@@ -371,6 +386,14 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
 
     private boolean isLastSection(int section) {
         return section >= getSectionCount() - 1;
+    }
+
+    public int getHiddenFolderCount() {
+        if (syncFolderItems != null && filteredSyncFolderItems != null) {
+            return syncFolderItems.size() - filteredSyncFolderItems.size();
+        } else {
+            return 0;
+        }
     }
 
     public interface ClickListener {

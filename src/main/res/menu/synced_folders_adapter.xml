@@ -20,7 +20,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_auto_upload_folder_toggle_visibility"
-        android:title="@string/autoupload_hide_item" />
+        android:title="@string/autoupload_hide_folder" />
 
     <item
         android:id="@+id/action_auto_upload_folder_settings"
