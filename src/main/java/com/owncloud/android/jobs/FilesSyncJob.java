@@ -192,10 +192,10 @@ public class FilesSyncJob extends Job {
 
                 remotePath = resources.getString(R.string.syncedFolder_remote_folder);
             } else {
-                needsCharging = syncedFolder.getChargingOnly();
-                needsWifi = syncedFolder.getWifiOnly();
+                needsCharging = syncedFolder.isChargingOnly();
+                needsWifi = syncedFolder.isWifiOnly();
                 uploadAction = syncedFolder.getUploadAction();
-                subfolderByDate = syncedFolder.getSubfolderByDate();
+                subfolderByDate = syncedFolder.isSubfolderByDate();
                 remotePath = syncedFolder.getRemotePath();
             }
 

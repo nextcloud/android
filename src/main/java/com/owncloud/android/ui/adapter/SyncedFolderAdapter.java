@@ -145,7 +145,9 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
      * @return Non-hidden items
      */
     private List<SyncedFolderDisplayItem> filterHiddenItems(List<SyncedFolderDisplayItem> items, boolean hide) {
-        if (hide) {
+        if (!hide) {
+            return items;
+        } else {
             List<SyncedFolderDisplayItem> ret = new ArrayList<>();
 
             for (SyncedFolderDisplayItem item : items) {
@@ -155,8 +157,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             }
 
             return ret;
-        } else {
-            return items;
         }
     }
 

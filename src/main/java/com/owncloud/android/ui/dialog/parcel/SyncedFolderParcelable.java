@@ -27,41 +27,43 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
 @NoArgsConstructor
 public class SyncedFolderParcelable implements Parcelable {
-    private String folderName;
-    private String localPath;
-    private String remotePath;
-    private Boolean wifiOnly = false;
-    private Boolean chargingOnly = false;
-    private Boolean enabled = false;
-    private Boolean subfolderByDate = false;
-    private Integer uploadAction;
-    private MediaFolderType type;
-    private Boolean hidden = false;
-    private long id;
-    private String account;
-    private int section;
+    @Getter @Setter private String folderName;
+    @Getter @Setter private String localPath;
+    @Getter @Setter private String remotePath;
+    @Getter @Setter private boolean wifiOnly = false;
+    @Getter @Setter private boolean chargingOnly = false;
+    @Getter @Setter private boolean enabled = false;
+    @Getter @Setter private boolean subfolderByDate = false;
+    @Getter private Integer uploadAction;
+    @Getter @Setter private MediaFolderType type;
+    @Getter @Setter private boolean hidden = false;
+    @Getter @Setter private long id;
+    @Getter @Setter private String account;
+    @Getter @Setter private int section;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
         folderName = syncedFolderDisplayItem.getFolderName();
         localPath = syncedFolderDisplayItem.getLocalPath();
         remotePath = syncedFolderDisplayItem.getRemotePath();
-        wifiOnly = syncedFolderDisplayItem.getWifiOnly();
-        chargingOnly = syncedFolderDisplayItem.getChargingOnly();
+        wifiOnly = syncedFolderDisplayItem.isWifiOnly();
+        chargingOnly = syncedFolderDisplayItem.isChargingOnly();
         enabled = syncedFolderDisplayItem.isEnabled();
-        subfolderByDate = syncedFolderDisplayItem.getSubfolderByDate();
+        subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         this.section = section;
-        hidden = syncedFolderDisplayItem.getHidden();
+        hidden = syncedFolderDisplayItem.isHidden();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -116,82 +118,6 @@ public class SyncedFolderParcelable implements Parcelable {
         return 0;
     }
 
-    public String getFolderName() {
-        return folderName;
-    }
-
-    public void setFolderName(String mFolderName) {
-        this.folderName = mFolderName;
-    }
-
-    public String getLocalPath() {
-        return localPath;
-    }
-
-    public void setLocalPath(String mLocalPath) {
-        this.localPath = mLocalPath;
-    }
-
-    public String getRemotePath() {
-        return remotePath;
-    }
-
-    public void setRemotePath(String mRemotePath) {
-        this.remotePath = mRemotePath;
-    }
-
-    public Boolean getWifiOnly() {
-        return wifiOnly;
-    }
-
-    public void setWifiOnly(Boolean mWifiOnly) {
-        this.wifiOnly = mWifiOnly;
-    }
-
-    public Boolean getChargingOnly() {
-        return chargingOnly;
-    }
-
-    public void setChargingOnly(Boolean mChargingOnly) {
-        this.chargingOnly = mChargingOnly;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean mEnabled) {
-        this.enabled = mEnabled;
-    }
-
-    public Boolean getSubfolderByDate() {
-        return subfolderByDate;
-    }
-
-    public void setSubfolderByDate(Boolean mSubfolderByDate) {
-        this.subfolderByDate = mSubfolderByDate;
-    }
-
-    public MediaFolderType getType() {
-        return type;
-    }
-
-    public void setType(MediaFolderType mType) {
-        this.type = mType;
-    }
-
-    public Boolean getHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean mHidden) {
-        this.hidden = mHidden;
-    }
-
-    public Integer getUploadAction() {
-        return uploadAction;
-    }
-
     public Integer getUploadActionInteger() {
         switch (uploadAction) {
             case FileUploader.LOCAL_BEHAVIOUR_FORGET:
@@ -204,8 +130,8 @@ public class SyncedFolderParcelable implements Parcelable {
         return 0;
     }
 
-    public void setUploadAction(String mUploadAction) {
-        switch (mUploadAction) {
+    public void setUploadAction(String uploadAction) {
+        switch (uploadAction) {
             case "LOCAL_BEHAVIOUR_FORGET":
                 this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_FORGET;
                 break;
@@ -216,29 +142,5 @@ public class SyncedFolderParcelable implements Parcelable {
                 this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
                 break;
         }
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public int getSection() {
-        return section;
-    }
-
-    public void setSection(int section) {
-        this.section = section;
     }
 }
