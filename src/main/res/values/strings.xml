@@ -912,7 +912,4 @@
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
-    <string name="prefs_instant_upload_hide_item_summary">Hide folder in auto upload list</string>
-    <string name="prefs_instant_upload_hide_item_title">Hide folder</string>
-    <string name="show_hidden_folders">Show hidden folders</string>
 </resources>
