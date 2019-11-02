@@ -38,9 +38,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
@@ -89,6 +92,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
@@ -104,10 +111,28 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.empty_list_view)
+    public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.empty_list_icon)
+    public ImageView emptyContentIcon;
+
+    @BindView(R.id.empty_list_progress)
+    public ProgressBar emptyContentProgressBar;
+
+    @BindView(R.id.empty_list_view_headline)
+    public TextView emptyContentHeadline;
+
+    @BindView(R.id.empty_list_view_text)
+    public TextView emptyContentMessage;
+
+    @BindView(R.id.empty_list_view_action)
+    public MaterialButton emptyContentActionButton;
+
+    @BindView(android.R.id.list)
+    public RecyclerView mRecyclerView;
+
     private SyncedFolderAdapter mAdapter;
-    private LinearLayout mProgress;
-    private TextView mEmpty;
     private SyncedFolderProvider mSyncedFolderProvider;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
     private boolean showSidebar = true;
@@ -127,6 +152,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         setContentView(R.layout.synced_folders_layout);
+        ButterKnife.bind(this);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
             final String accountName = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
@@ -220,15 +246,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * sets up the UI elements and loads all media/synced folders.
      */
     private void setupContent() {
-        mRecyclerView = findViewById(android.R.id.list);
-
-        mProgress = findViewById(android.R.id.progress);
-        mEmpty = findViewById(android.R.id.empty);
-
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         mAdapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
+        emptyContentIcon.setImageResource(R.drawable.nav_synced_folders);
+        emptyContentActionButton.setBackgroundColor(ThemeUtils.primaryColor(this));
+        emptyContentActionButton.setTextColor(ThemeUtils.fontColor(this));
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
@@ -240,6 +264,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         load(gridWidth * 2, false);
     }
 
+    @OnClick(R.id.empty_list_view_action)
+    public void showHiddenItems() {
+        mAdapter.toggleHiddenItemsVisibility();
+        emptyContentContainer.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
     /**
      * loads all media/synced folders, adds them to the recycler view adapter and shows the list.
      *
@@ -249,7 +280,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (mAdapter.getItemCount() > 0 && !force) {
             return;
         }
-        setListShown(false);
+        showLoadingContent();
         final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
                 perFolderMediaItemLimit, this, false);
         mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit,
@@ -274,7 +305,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         mAdapter.setSyncFolderItems(syncFolderItems);
         mAdapter.notifyDataSetChanged();
-        setListShown(true);
+        showList();
 
         if (!TextUtils.isEmpty(path)) {
             int section = mAdapter.getSectionByLocalPathAndType(path, type);
@@ -493,15 +524,31 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     /**
-     * show/hide recycler view list or the empty message / progress info.
-     *
-     * @param shown flag if list should be shown
+     * show recycler view list or the empty message info (in case list is empty).
      */
-    private void setListShown(boolean shown) {
+    private void showList() {
         if (mRecyclerView != null) {
-            mRecyclerView.setVisibility(shown ? View.VISIBLE : View.GONE);
-            mProgress.setVisibility(shown ? View.GONE : View.VISIBLE);
-            mEmpty.setVisibility(shown && mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE );
+            emptyContentProgressBar.setVisibility(View.GONE);
+
+            if (mAdapter.getSectionCount() == 0 && mAdapter.getUnfilteredSectionCount() > mAdapter.getSectionCount()) {
+                emptyContentContainer.setVisibility(View.VISIBLE);
+                int hiddenFoldersCount = mAdapter.getHiddenFolderCount();
+
+                showEmptyContent(getString(R.string.drawer_synced_folders),
+                                 getResources().getQuantityString(R.plurals.synced_folders_hidden_folders_count,
+                                                                  hiddenFoldersCount,
+                                                                  hiddenFoldersCount),
+                                 getResources().getQuantityString(R.plurals.synced_folders_show_hidden_folders,
+                                                                  hiddenFoldersCount,
+                                                                  hiddenFoldersCount));
+            } else if (mAdapter.getSectionCount() == 0 && mAdapter.getUnfilteredSectionCount() == 0) {
+                emptyContentContainer.setVisibility(View.VISIBLE);
+                showEmptyContent(getString(R.string.drawer_synced_folders),
+                                 getString(R.string.synced_folders_no_results));
+            } else {
+                emptyContentContainer.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -591,6 +638,45 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         saveOrUpdateSyncedFolder(syncedFolder);
         mAdapter.setSyncFolderItem(section, syncedFolder);
+    }
+
+    private void showEmptyContent(String headline, String message) {
+        showEmptyContent(headline, message, false);
+        emptyContentActionButton.setVisibility(View.GONE);
+    }
+
+    private void showEmptyContent(String headline, String message, String action) {
+        showEmptyContent(headline, message, false);
+        emptyContentActionButton.setText(action);
+        emptyContentActionButton.setVisibility(View.VISIBLE);
+    }
+
+    private void showLoadingContent() {
+        showEmptyContent(
+            getString(R.string.drawer_synced_folders),
+            getString(R.string.synced_folders_loading_folders),
+            true
+        );
+        emptyContentActionButton.setVisibility(View.GONE);
+    }
+
+    private void showEmptyContent(String headline, String message, boolean loading) {
+        if (emptyContentContainer != null) {
+            emptyContentContainer.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+
+            emptyContentHeadline.setText(headline);
+            emptyContentMessage.setText(message);
+            emptyContentMessage.setVisibility(View.VISIBLE);
+
+            if (loading) {
+                emptyContentProgressBar.setVisibility(View.VISIBLE);
+                emptyContentIcon.setVisibility(View.GONE);
+            } else {
+                emptyContentProgressBar.setVisibility(View.GONE);
+                emptyContentIcon.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -742,7 +828,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Override
     protected void onResume() {
         super.onResume();
-
         setDrawerMenuItemChecked(R.id.nav_synced_folders);
     }
 
