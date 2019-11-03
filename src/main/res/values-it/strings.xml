@@ -265,6 +265,7 @@
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
     <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
+    <string name="file">file</string>
     <string name="file_delete">Elimina</string>
     <string name="file_detail_activity_error">Errore durante il recupero delle attività per i file</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
     <string name="first_run_3_text">Web mail, calendari e contatti di semplice utilizzo</string>
     <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
+    <string name="folder">cartella</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_icon">Icona delle cartelle</string>
@@ -589,6 +591,8 @@
     <string name="share_file">Condividi %1$s</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
+    <string name="share_internal_link">Condividi collegamento interno</string>
+    <string name="share_internal_link_text">Funziona solo per gli utenti con accesso a questo/a %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>

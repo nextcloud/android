@@ -267,6 +267,7 @@ Attention la suppression est irréversible.</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
+    <string name="file">fichier</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
@@ -336,6 +337,7 @@ Attention la suppression est irréversible.</string>
     <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
     <string name="first_run_3_text">Messagerie web, Agenda et Contacts faciles d\'utilisation</string>
     <string name="first_run_4_text">Partage d\'écran et réunion en ligne</string>
+    <string name="folder">dossier</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_icon">Icône de dossier</string>
@@ -591,6 +593,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
+    <string name="share_internal_link">Partager le lien interne</string>
+    <string name="share_internal_link_text">Fonctionne uniquement pour les utilisateurs ayant accès à ce %1$s</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
