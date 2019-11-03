@@ -265,6 +265,7 @@
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
+    <string name="file">Datei</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
     <string name="first_run_3_text">Leicht verwendbares Web-Mail, Kalender &amp; Kontakte</string>
     <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
+    <string name="folder">Ordner</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_icon">Ordnersymbol</string>
@@ -589,6 +591,8 @@
     <string name="share_file">Teile %1$s</string>
     <string name="share_get_public_link_button">Link erhalten</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
+    <string name="share_internal_link">Internen Link teilen</string>
+    <string name="share_internal_link_text">Funktioniert nur für Benutzer, die Zugriff auf diese(n) %1$s haben</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
