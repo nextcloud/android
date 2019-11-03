@@ -166,7 +166,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.contactlist_menu, menu);
+        inflater.inflate(R.menu.fragment_contact_list, menu);
     }
 
     @Override

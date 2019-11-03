@@ -396,7 +396,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.file_actions_menu, menu);
+        inflater.inflate(R.menu.item_file, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);

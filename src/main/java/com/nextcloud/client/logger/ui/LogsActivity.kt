@@ -84,7 +84,7 @@ class LogsActivity : ToolbarActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.logs_menu, menu)
+        menuInflater.inflate(R.menu.activity_logs, menu)
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
 

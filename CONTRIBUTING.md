@@ -23,6 +23,8 @@
         1. Backport pull request
         1. Pull requests that also need changes on library
         1. Adding new files
+	1. File naming
+        1. Menu files
     1. Translations
 1. Releases
     1. Types
@@ -235,6 +237,24 @@ Source code of app:
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 ```
+
+## File naming
+
+The file naming patterns are inspired and based on [Ribot's Android Project And Code Guidelines](https://github.com/ribot/android-guidelines/blob/c1d8c9c904eb31bf01fe24aadb963b74281fe79a/project_and_code_guidelines.md).
+
+### Menu files
+
+Similar to layout files, menu files should match the name of the component. For example, if we are defining a menu file that is going to be used in the `UserProfileActivity`, then the name of the file should be `activity_user_profile.xml`. Same pattern applies for menus used in adapter view items, dialogs, etc.
+
+| Component        | Class Name             | Menu Name                   |
+| ---------------- | ---------------------- | ----------------------------- |
+| Activity         | `UserProfileActivity`  | `activity_user_profile.xml`   |
+| Fragment         | `SignUpFragment`       | `fragment_sign_up.xml`        |
+| Dialog           | `ChangePasswordDialog` | `dialog_change_password.xml`  |
+| AdapterView item | ---                    | `item_person.xml`             |
+| Partial layout   | ---                    | `partial_stats_bar.xml`       | 
+
+A good practice is to not include the word `menu` as part of the name because these files are already located in the `menu` directory. In case a component uses several menus in different places (via popup menus) then the resource name would be extended. For example, if the user profile activity has two popup menus for configuring the users settings and one for the handling group assignments then the file names for the menus would be: `activity_user_profile_user_settings.xml` and `activity_user_profile_group_assignments.xml`.
 
 ## Translations
 We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/). So just request joining the translation team for Android on the site and start translating. All translations will then be automatically pushed to this repository, there is no need for any pull request for translations.

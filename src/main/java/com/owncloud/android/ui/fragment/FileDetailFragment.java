@@ -300,7 +300,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.file_details_actions_menu);
+        popup.inflate(R.menu.fragment_file_detail);
         prepareOptionsMenu(popup.getMenu());
 
         popup.setOnMenuItemClickListener(this::optionsItemSelected);

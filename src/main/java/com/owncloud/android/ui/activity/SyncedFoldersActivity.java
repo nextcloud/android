@@ -175,7 +175,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.synced_folders_menu, menu);
+        inflater.inflate(R.menu.activity_synced_folders, menu);
 
         if (powerManagementService.isPowerSavingExclusionAvailable()) {
             MenuItem item = menu.findItem(R.id.action_disable_power_save_check);
