@@ -303,7 +303,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.notifications_actions_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_notifications, menu);
 
         return true;
     }

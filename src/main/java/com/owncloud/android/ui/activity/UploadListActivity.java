@@ -269,7 +269,7 @@ public class UploadListActivity extends FileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.upload_list_menu, menu);
+        inflater.inflate(R.menu.activity_upload_list, menu);
 
         return true;
     }

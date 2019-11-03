@@ -31,7 +31,7 @@
         android:background="@color/bg_default"
         android:theme="@style/NavigationView_ItemTextAppearance"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu">
+        app:menu="@menu/partial_drawer_entries">
 
         <LinearLayout
             android:id="@+id/drawer_quota"

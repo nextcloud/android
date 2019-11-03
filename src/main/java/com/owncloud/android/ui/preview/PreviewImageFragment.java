@@ -315,7 +315,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.file_actions_menu, menu);
+        inflater.inflate(R.menu.item_file, menu);
     }
 
     /**
