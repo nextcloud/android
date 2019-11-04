@@ -204,6 +204,7 @@
     <string name="drawer_community">Skupnost</string>
     <string name="drawer_current_account">Trenutni račun</string>
     <string name="drawer_end_account">Zadnji račun</string>
+    <string name="drawer_header_background">Slika ozadja glave bočnega okna</string>
     <string name="drawer_item_activities">Dejavnosti</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_favorites">Priljubljene</string>
@@ -256,7 +257,9 @@
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
     <string name="feedback_no_mail_app">Program za pošiljanje elektronskih sporočil ni določen!</string>
+    <string name="file">datoteka</string>
     <string name="file_delete">Izbriši</string>
+    <string name="file_detail_activity_error">Napaka pridobivanja dejavnosti za datoteko</string>
     <string name="file_details_no_content">Nalaganje podrobnosti je spodletelo.</string>
     <string name="file_icon">Datoteka</string>
     <string name="file_keep">Ohrani</string>
@@ -307,6 +310,7 @@
     <string name="file_migration_use_data_folder">Uporabi</string>
     <string name="file_migration_waiting_for_unfinished_sync">V čakanju na polno uskladitev …</string>
     <string name="file_not_found">Datoteke ni mogoče najti</string>
+    <string name="file_not_synced">Datoteke ni mogoče uskladiti. Prikazana je zadnja razpoložljiva različica.</string>
     <string name="file_rename">Preimenuj</string>
     <string name="file_version_restored_error">Prišlo je do napake med obnavljanjem različice datoteke!</string>
     <string name="file_version_restored_successfully">Različica datoteke je uspešno obnovljena.</string>
@@ -318,6 +322,7 @@
     <string name="filename_forbidden_characters">Nedovoljeni znaki: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_hint">Ime datoteke</string>
+    <string name="folder">mapa</string>
     <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
     <string name="folder_icon">Ikona mape</string>
@@ -480,8 +485,11 @@
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mesto shrambe</string>
-    <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
+    <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Temna</string>
+    <string name="prefs_value_theme_light">Svetla</string>
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
@@ -489,6 +497,7 @@
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
+    <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
@@ -496,6 +505,8 @@
     <string name="rename_dialog_title">Vnesite novo ime</string>
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
+    <string name="reshare_not_allowed">Osveževanje ni dovoljena</string>
+    <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke ...</string>
@@ -503,6 +514,7 @@
     <string name="saml_authentication_required_text">Zahtevano je geslo</string>
     <string name="saml_authentication_wrong_pass">Napačno geslo</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
+    <string name="screenshot_02_listView_heading">Brskanje in souporaba</string>
     <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
@@ -533,12 +545,14 @@
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_no_users">Ni datotek, ki bi jih omogočili za souporabo z drugimi</string>
+    <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
     <string name="share_privilege_can_edit_change">lahko spremeni</string>
     <string name="share_privilege_can_edit_create">lahko ustvari</string>
     <string name="share_privilege_can_edit_delete">lahko izbriše</string>
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
+    <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
     <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
@@ -549,6 +563,7 @@
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="share_with_title">Omogoči souporabo …</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
+    <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="sort_by">Razvrsti</string>
     <string name="sort_by_modification_date_ascending">najprej najnovejše</string>
     <string name="sort_by_modification_date_descending">najprej najstarejše</string>
@@ -590,6 +605,7 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
     <string name="storage_pictures">Slike</string>
+    <string name="stream">Pretakaj s programom ...</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
@@ -619,7 +635,9 @@
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
+    <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
+    <string name="unset_favorite">Odstrani iz priljubljenih</string>
     <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
     <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
