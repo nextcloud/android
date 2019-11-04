@@ -692,13 +692,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        SwitchPreference themePref = (SwitchPreference) findPreference(AppPreferencesImpl.PREF__THEME);
-
-        themePref.setSummary(preferences.isDarkThemeEnabled() ?
-                            getString(R.string.prefs_value_theme_dark) : getString(R.string.prefs_value_theme_light));
+        SwitchPreference themePref = (SwitchPreference) findPreference("dark_theme_enabled");
+        boolean darkThemeEnabled = preferences.isDarkThemeEnabled();
+        int summaryResId = darkThemeEnabled ? R.string.prefs_value_theme_dark : R.string.prefs_value_theme_light;
+        themePref.setSummary(summaryResId);
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
-            MainApp.setAppTheme((Boolean) newValue);
-
+            boolean enabled = (Boolean)newValue;
+            MainApp.setAppTheme(enabled);
             return true;
         });
     }

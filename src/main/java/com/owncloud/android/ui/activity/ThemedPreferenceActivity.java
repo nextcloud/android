@@ -20,17 +20,16 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.nextcloud.client.preferences.AppPreferences;
 
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 
-public class ThemedPreferenceActivity
-    extends PreferenceActivity
-    implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class ThemedPreferenceActivity extends PreferenceActivity {
 
     /**
      * Tracks whether the activity should be recreate()'d after a theme change
@@ -38,18 +37,29 @@ public class ThemedPreferenceActivity
     private boolean themeChangePending;
     private boolean paused;
 
-    @Inject SharedPreferences sharedPreferences;
+    @Inject AppPreferences preferences;
+
+    private AppPreferences.Listener onThemeChangedListener = new AppPreferences.Listener() {
+        @Override
+        public void onDarkThemeEnabledChanged(boolean enabled) {
+            if(paused) {
+                themeChangePending = true;
+                return;
+            }
+            recreate();
+        }
+    };
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        preferences.addListener(onThemeChangedListener);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        preferences.removeListener(onThemeChangedListener);
     }
 
     @Override
@@ -66,15 +76,5 @@ public class ThemedPreferenceActivity
         if(themeChangePending) {
             recreate();
         }
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-        if(paused) {
-            themeChangePending = true;
-            return;
-        }
-
-        recreate();
     }
 }

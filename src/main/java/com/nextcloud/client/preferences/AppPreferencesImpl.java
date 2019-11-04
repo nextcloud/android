@@ -35,12 +35,21 @@ import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import androidx.annotation.Nullable;
+
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
 
 /**
- * Helper to simplify reading of Preferences all around the app
+ * Implementation of application-wide preferences using {@link SharedPreferences}.
+ *
+ * Users should not use this class directly. Please use {@link AppPreferences} interafce
+ * instead.
  */
 public final class AppPreferencesImpl implements AppPreferences {
+
     /**
      * Constant to access value of last path selected by the user to upload a file shared from other app.
      * Value handled by the app without direct access in the UI.
@@ -48,6 +57,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
     public static final float DEFAULT_GRID_COLUMN = 4.0f;
+
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
@@ -68,7 +78,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
-    public static final String PREF__THEME = "darkTheme";
+    static final String PREF__DARK_THEME_ENABLED = "dark_theme_enabled";
 
     private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
@@ -81,7 +91,54 @@ public final class AppPreferencesImpl implements AppPreferences {
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
+    private final ListenerRegistry listeners;
 
+    /**
+     * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls
+     * with key-value pairs to respective {@link com.nextcloud.client.preferences.AppPreferences.Listener} method.
+     */
+    static class ListenerRegistry implements SharedPreferences.OnSharedPreferenceChangeListener {
+        private final AppPreferences preferences;
+        private final Set<Listener> listeners;
+
+        ListenerRegistry(AppPreferences preferences) {
+            this.preferences = preferences;
+            this.listeners = new CopyOnWriteArraySet<>();
+        }
+
+        void add(@Nullable final Listener listener) {
+            if (listener != null) {
+                listeners.add(listener);
+            }
+        }
+
+        void remove(@Nullable  final Listener listener) {
+            if (listener != null) {
+                listeners.remove(listener);
+            }
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(PREF__DARK_THEME_ENABLED.equals(key)) {
+                boolean enabled = preferences.isDarkThemeEnabled();
+                for(Listener l : listeners) {
+                    l.onDarkThemeEnabledChanged(enabled);
+                }
+            }
+        }
+    }
+
+    /**
+     * This is a temporary workaround to access app preferences in places that cannot use
+     * dependency injection yet. Use injected component via {@link AppPreferences} interface.
+     *
+     * WARNING: this creates new instance! it does not return app-wide singleton
+     *
+     * @param context Context used to create shared preferences
+     * @return New instance of app preferences component
+     */
+    @Deprecated
     public static AppPreferences fromContext(Context context) {
         final CurrentAccountProvider currentAccountProvider = UserAccountManagerImpl.fromContext(context);
         final SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
@@ -92,6 +149,18 @@ public final class AppPreferencesImpl implements AppPreferences {
         this.context = appContext;
         this.preferences = preferences;
         this.currentAccountProvider = currentAccountProvider;
+        this.listeners = new ListenerRegistry(this);
+        this.preferences.registerOnSharedPreferenceChangeListener(listeners);
+    }
+
+    @Override
+    public void addListener(@Nullable AppPreferences.Listener listener) {
+        this.listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(@Nullable AppPreferences.Listener listener) {
+        this.listeners.remove(listener);
     }
 
     @Override
@@ -343,8 +412,13 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
+    public void setDarkThemeEnabled(boolean enabled) {
+        preferences.edit().putBoolean(PREF__DARK_THEME_ENABLED, enabled).apply();
+    }
+
+    @Override
     public boolean isDarkThemeEnabled() {
-        return preferences.getBoolean(PREF__THEME, false);
+        return preferences.getBoolean(PREF__DARK_THEME_ENABLED, false);
     }
 
     @Override
