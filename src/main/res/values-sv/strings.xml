@@ -408,7 +408,7 @@
     <string name="move_file_error">Ett fel uppstod vid försök att flytta denna fil eller mapp</string>
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>
-    <string name="move_file_not_found">Kunde inte flytta fil. Vänligen kolla om den finns</string>
+    <string name="move_file_not_found">Kan inte flytta fil. Vänligen kontrollera om det finns</string>
     <string name="move_to">Flytta till…</string>
     <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen</string>
     <string name="network_error_socket_exception">Ett fel uppstod under anslutningen till servern</string>
@@ -443,7 +443,7 @@
     <string name="notification_icon">Meddelandeikon</string>
     <string name="notifications_loading_activity">Läser in aviseringar…</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
-    <string name="notifications_no_results_message">Vänligen kolla igen senare.</string>
+    <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="operation_canceled">Operationen har avbrutits</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
@@ -728,7 +728,7 @@
     <string name="unsharing_failed">Sluta dela misslyckades</string>
     <string name="untrusted_domain">Åtkomst via opålitlig domän. Se dokumentation för ytterligare information.</string>
     <string name="update_link_file_error">Ett fel inträffade när delningen skulle uppdateras</string>
-    <string name="update_link_file_no_exist">Kunde inte uppdatera. Vänligen kolla om filen existerar.</string>
+    <string name="update_link_file_no_exist">Det går inte att uppdatera. Vänligen kontrollera om filen finns</string>
     <string name="update_link_forbidden_permissions">att uppdatera denna delning</string>
     <string name="updating_share_failed">Uppdatera delning misslyckades</string>
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
@@ -757,7 +757,7 @@
     <string name="uploader_error_message_no_file_to_upload">Mottagen data innehåller ingen giltig fil.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
-    <string name="uploader_error_message_source_file_not_found">Filen som valdes för uppladdning kan inte hittas. Vänligen dubbelkolla att den existerar.</string>
+    <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
     <string name="uploader_info_dirname">Mappnamn</string>
