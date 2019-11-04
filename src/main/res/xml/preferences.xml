@@ -27,8 +27,9 @@
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:id="@+id/dark_theme_preference"
             android:defaultValue="@string/prefs_value_theme_light"
-            android:key="darkTheme"
+            android:key="dark_theme_enabled"
             android:summary="%s"
             android:title="@string/prefs_theme_title"
             android:theme="@style/SwitchPreference"/>

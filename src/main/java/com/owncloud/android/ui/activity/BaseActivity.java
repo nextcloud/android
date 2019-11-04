@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -28,9 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
-public abstract class BaseActivity
-    extends AppCompatActivity
-    implements Injectable, SharedPreferences.OnSharedPreferenceChangeListener {
+public abstract class BaseActivity extends AppCompatActivity implements Injectable {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -56,7 +55,14 @@ public abstract class BaseActivity
     private boolean paused;
 
     @Inject UserAccountManager accountManager;
-    @Inject SharedPreferences sharedPreferences;
+    @Inject AppPreferences preferences;
+
+    private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
+        @Override
+        public void onDarkThemeEnabledChanged(boolean enabled) {
+            BaseActivity.this.onThemeSettingsChanged();
+        }
+    };
 
     public UserAccountManager getUserAccountManager() {
         return accountManager;
@@ -65,13 +71,13 @@ public abstract class BaseActivity
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        preferences.addListener(onPreferencesChanged);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        preferences.removeListener(onPreferencesChanged);
     }
 
     @Override
@@ -122,17 +128,12 @@ public abstract class BaseActivity
         Log_OC.v(TAG, "onRestart() end");
     }
 
-    @Override
-    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
-       if (!AppPreferencesImpl.PREF__THEME.equals(key)) {
-            return;
-        }
-
+    private void onThemeSettingsChanged() {
         if(paused) {
             themeChangePending = true;
-            return;
+        } else {
+            recreate();
         }
-        recreate();
     }
 
     /**
