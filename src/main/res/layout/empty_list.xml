@@ -19,7 +19,6 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:id="@+id/empty_list_view"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -64,17 +63,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:paddingTop="@dimen/standard_half_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
         android:text="@string/file_list_empty"
-        android:visibility="gone"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/empty_list_view_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/Button.Primary"
-        app:cornerRadius="@dimen/button_corner_radius"
-        android:layout_marginTop="@dimen/standard_double_margin"
         android:visibility="gone"/>
 
 </LinearLayout>

@@ -559,10 +559,6 @@
         <item quantity="one">Show %1$d hidden folder</item>
         <item quantity="other">Show %1$d hidden folders</item>
     </plurals>
-    <plurals name="synced_folders_hidden_folders_count">
-        <item quantity="one">%1$d hidden folder</item>
-        <item quantity="other">%1$d hidden folders</item>
-    </plurals>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
@@ -635,7 +631,6 @@
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
-    <string name="autoupload_show_folder">Show folder</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>

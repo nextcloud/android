@@ -289,17 +289,11 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private void onOverflowIconClicked(int section, SyncedFolderDisplayItem item, View view) {
         PopupMenu popup = new PopupMenu(context, view);
         popup.inflate(R.menu.synced_folders_adapter);
-        popup.setOnMenuItemClickListener(i -> optionsItemSelected(i,section,item));
+        popup.setOnMenuItemClickListener(i -> optionsItemSelected(i, section, item));
+        popup.getMenu()
+            .findItem(R.id.action_auto_upload_folder_toggle_visibility)
+            .setChecked(item.isHidden());
 
-        if (item.isHidden()) {
-            popup.getMenu()
-                .findItem(R.id.action_auto_upload_folder_toggle_visibility)
-                .setTitle(R.string.autoupload_show_folder);
-        } else {
-            popup.getMenu()
-                .findItem(R.id.action_auto_upload_folder_toggle_visibility)
-                .setTitle(R.string.autoupload_hide_folder);
-        }
         popup.show();
     }
 
