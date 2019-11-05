@@ -39,7 +39,7 @@ public interface AppPreferences {
      * events.
      */
     interface Listener {
-        default void onDarkThemeEnabledChanged(boolean enabled) {
+        default void onDarkThemeModeChanged(DarkMode mode) {
             /* default empty implementation */
         };
     }
@@ -274,18 +274,18 @@ public interface AppPreferences {
     int getUploaderBehaviour();
 
     /**
-     * Enable dark theme.
+     * Changes dark theme mode
      *
      * This is reactive property. Listeners will be invoked if registered.
      *
-     * @param enabled true to turn dark theme on, false to turn it off
+     * @param mode dark mode setting: on, off, system
      */
-    void setDarkThemeEnabled(boolean enabled);
+    void setDarkThemeMode(DarkMode mode);
 
     /**
-     * @return true if application uses dark UI theme, false otherwise
+     * @return dark mode setting: on, off, system
      */
-    boolean isDarkThemeEnabled();
+    DarkMode getDarkThemeMode();
 
     /**
      * Saves the uploader behavior which the user has set last.

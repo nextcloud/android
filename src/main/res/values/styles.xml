@@ -322,7 +322,4 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
-    <style name="SwitchPreference" parent="Widget.AppCompat.CompoundButton.Switch">
-        <item name="android:colorForeground">@color/fg_default</item>
-    </style>
 </resources>
