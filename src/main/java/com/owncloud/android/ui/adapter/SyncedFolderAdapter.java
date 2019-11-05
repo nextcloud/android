@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.nextcloud.client.core.Clock;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -43,6 +44,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import butterknife.BindView;
@@ -59,6 +62,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private final ClickListener mListener;
     private final List<SyncedFolderDisplayItem> mSyncFolderItems;
     private final boolean mLight;
+
+    @Inject protected Clock clock;
 
     public SyncedFolderAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
         mContext = context;
@@ -148,7 +153,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(v -> {
-            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled(), clock.getCurrentTime());
             setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
             mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
         });
@@ -157,7 +162,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(v -> {
-            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled(), clock.getCurrentTime());
             setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
             mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
         });
