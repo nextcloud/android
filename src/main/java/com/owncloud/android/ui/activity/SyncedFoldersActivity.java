@@ -43,7 +43,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
@@ -124,9 +123,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_action)
-    public MaterialButton emptyContentActionButton;
 
     @BindView(android.R.id.list)
     public RecyclerView mRecyclerView;
@@ -250,8 +246,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         mAdapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         emptyContentIcon.setImageResource(R.drawable.nav_synced_folders);
-        emptyContentActionButton.setBackgroundColor(ThemeUtils.primaryColor(this));
-        emptyContentActionButton.setTextColor(ThemeUtils.fontColor(this));
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
@@ -263,11 +257,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         load(gridWidth * 2, false);
     }
 
-    @OnClick(R.id.empty_list_view_action)
+    @OnClick(R.id.empty_list_view_text)
     public void showHiddenItems() {
-        mAdapter.toggleHiddenItemsVisibility();
-        emptyContentContainer.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        if (mAdapter.getSectionCount() == 0 && mAdapter.getUnfilteredSectionCount() > mAdapter.getSectionCount()) {
+            mAdapter.toggleHiddenItemsVisibility();
+            emptyContentContainer.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -535,9 +531,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 int hiddenFoldersCount = mAdapter.getHiddenFolderCount();
 
                 showEmptyContent(getString(R.string.drawer_synced_folders),
-                                 getResources().getQuantityString(R.plurals.synced_folders_hidden_folders_count,
-                                                                  hiddenFoldersCount,
-                                                                  hiddenFoldersCount),
                                  getResources().getQuantityString(R.plurals.synced_folders_show_hidden_folders,
                                                                   hiddenFoldersCount,
                                                                   hiddenFoldersCount));
@@ -641,13 +634,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private void showEmptyContent(String headline, String message) {
         showEmptyContent(headline, message, false);
-        emptyContentActionButton.setVisibility(View.GONE);
-    }
-
-    private void showEmptyContent(String headline, String message, String action) {
-        showEmptyContent(headline, message, false);
-        emptyContentActionButton.setText(action);
-        emptyContentActionButton.setVisibility(View.VISIBLE);
     }
 
     private void showLoadingContent() {
@@ -656,7 +642,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             getString(R.string.synced_folders_loading_folders),
             true
         );
-        emptyContentActionButton.setVisibility(View.GONE);
     }
 
     private void showEmptyContent(String headline, String message, boolean loading) {
