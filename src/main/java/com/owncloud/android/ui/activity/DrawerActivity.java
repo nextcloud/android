@@ -62,6 +62,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -1274,9 +1275,12 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        getDelegate().setLocalNightMode(preferences.isDarkThemeEnabled() ?
-                                        AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+
+            getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
+                                                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().applyDayNight();
+        }
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
