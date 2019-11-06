@@ -23,7 +23,41 @@ package com.nextcloud.client.preferences;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
+import androidx.annotation.Nullable;
+
+/**
+ * This interface provides single point of entry for access to all application
+ * preferences and allows clients to subscribe for specific configuration
+ * changes.
+ */
 public interface AppPreferences {
+
+    /**
+     * Preferences listener. Callbacks should be invoked on main thread.
+     *
+     * Miantainers should extend this interface with callbacks for specific
+     * events.
+     */
+    interface Listener {
+        default void onDarkThemeEnabledChanged(boolean enabled) {
+            /* default empty implementation */
+        };
+    }
+
+    /**
+     * Registers preferences listener. It no-ops if listener
+     * is already registered.
+     *
+     * @param listener application preferences listener
+     */
+    void addListener(@Nullable Listener listener);
+
+    /**
+     * Unregister listener. It no-ops if listener is not registered.
+     *
+     * @param listener application preferences listener
+     */
+    void removeListener(@Nullable Listener listener);
 
     void setKeysReInitEnabled();
     boolean isKeysReInitEnabled();
@@ -239,6 +273,18 @@ public interface AppPreferences {
      */
     int getUploaderBehaviour();
 
+    /**
+     * Enable dark theme.
+     *
+     * This is reactive property. Listeners will be invoked if registered.
+     *
+     * @param enabled true to turn dark theme on, false to turn it off
+     */
+    void setDarkThemeEnabled(boolean enabled);
+
+    /**
+     * @return true if application uses dark UI theme, false otherwise
+     */
     boolean isDarkThemeEnabled();
 
     /**
