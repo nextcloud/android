@@ -265,6 +265,7 @@
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>
+    <string name="file">archivo</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Colaboración segura e intercambio de archivos</string>
     <string name="first_run_3_text">Correo web, calendario y contactos fáciles de usar</string>
     <string name="first_run_4_text">Compartir pantalla, reuniones online y conferencias web</string>
+    <string name="folder">carpeta</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Icono de carpeta</string>
@@ -589,6 +591,8 @@
     <string name="share_file">Compartir %1$s</string>
     <string name="share_get_public_link_button">Obtener enlace</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
+    <string name="share_internal_link">Compartir enlace interno</string>
+    <string name="share_internal_link_text">Sólo funciona para usuarios con acceso a esto %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Debes introducir una contraseña</string>
     <string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
