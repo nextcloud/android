@@ -38,8 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -50,22 +48,22 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 public class SyncedFolderProvider extends Observable {
     static private final String TAG = SyncedFolderProvider.class.getSimpleName();
 
-    private ContentResolver mContentResolver;
-    private AppPreferences preferences;
-
-    @Inject protected Clock clock;
+    private final ContentResolver mContentResolver;
+    private final AppPreferences preferences;
+    private final Clock clock;
 
     /**
      * constructor.
      *
      * @param contentResolver the ContentResolver to work with.
      */
-    public SyncedFolderProvider(ContentResolver contentResolver, AppPreferences preferences) {
+    public SyncedFolderProvider(ContentResolver contentResolver, AppPreferences preferences, Clock clock) {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
         mContentResolver = contentResolver;
         this.preferences = preferences;
+        this.clock = clock;
     }
 
     /**

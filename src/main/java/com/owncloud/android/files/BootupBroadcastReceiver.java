@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
@@ -53,6 +54,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Inject ConnectivityService connectivityService;
     @Inject PowerManagementService powerManagementService;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject Clock clock;
 
     /**
      * Receives broadcast intent reporting that the system was just boot up.
@@ -69,7 +71,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        accountManager,
                                        connectivityService,
                                        powerManagementService,
-                                       backgroundJobManager);
+                                       backgroundJobManager,
+                                       clock);
             MainApp.initContactsBackup(accountManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
