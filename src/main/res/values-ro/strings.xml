@@ -219,9 +219,17 @@
     <string name="end_to_end_encryption_enter_password">Introduceti parola pentru decriptare cheie personală.</string>
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
     <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
+    <string name="end_to_end_encryption_not_enabled">Criptarea end-to-end este dezactivată pe server.</string>
+    <string name="end_to_end_encryption_not_supported">Criptarea funcționează începând cu versiunea KitKat(4.4) sau mai mare.</string>
+    <string name="end_to_end_encryption_passphrase_title">Te rog salvează parola de criptare formată din cele 12 cuvinte</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
+    <string name="end_to_end_encryption_title">Setează criptarea</string>
+    <string name="end_to_end_encryption_unsuccessful">Nu s-au putut salva cheile de criptare, te rog încearcă din nou.</string>
+    <string name="end_to_end_encryption_wrong_password">Eroare la decriptare. Parola greșită?</string>
+    <string name="enter_filename">Te rog sa introduci un nume de fișier</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
+    <string name="error_report_issue_action">Raport</string>
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
