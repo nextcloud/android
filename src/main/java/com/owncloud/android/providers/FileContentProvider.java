@@ -63,6 +63,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import dagger.android.AndroidInjection;
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -419,6 +420,7 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        AndroidInjection.inject(this);
         mDbHelper = new DataBaseHelper(getContext());
         mContext = getContext();
 
