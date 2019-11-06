@@ -225,7 +225,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         mAdapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
-        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences);
+        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);

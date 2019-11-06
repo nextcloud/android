@@ -38,6 +38,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -80,12 +81,14 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
     public static final String ACCOUNT = "account";
     public static final String REMOTE_WIPE = "remote_wipe";
 
-    private UploadsStorageManager uploadsStorageManager;
-    private UserAccountManager userAccountManager;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final UserAccountManager userAccountManager;
+    private final Clock clock;
 
-    public AccountRemovalJob(UploadsStorageManager uploadStorageManager, UserAccountManager accountManager) {
+    public AccountRemovalJob(UploadsStorageManager uploadStorageManager, UserAccountManager accountManager, Clock clock) {
         this.uploadsStorageManager = uploadStorageManager;
         this.userAccountManager = accountManager;
+        this.clock = clock;
     }
 
     @NonNull
@@ -128,7 +131,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
 
             // remove synced folders set for account
-            remoceSyncedFolders(context, account);
+            remoceSyncedFolders(context, account, clock);
 
             // delete all uploads for account
             uploadsStorageManager.removeAccountUploads(account);
@@ -173,9 +176,10 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         }
     }
 
-    private void remoceSyncedFolders(Context context, Account account) {
+    private void remoceSyncedFolders(Context context, Account account, Clock clock) {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver(),
-                                                                             AppPreferencesImpl.fromContext(context));
+                                                                             AppPreferencesImpl.fromContext(context),
+                                                                             clock);
         List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
 
         List<Long> syncedFolderIds = new ArrayList<>();

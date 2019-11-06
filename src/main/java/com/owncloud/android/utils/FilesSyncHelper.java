@@ -35,6 +35,7 @@ import android.util.Log;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
@@ -126,11 +127,10 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries(AppPreferences preferences, boolean skipCustom) {
+    public static void insertAllDBEntries(AppPreferences preferences, Clock clock, boolean skipCustom) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
-                                                                             preferences);
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (MediaFolderType.CUSTOM != syncedFolder.getType() || !skipCustom)) {

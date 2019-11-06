@@ -24,6 +24,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.os.Build
 import androidx.work.WorkerParameters
+import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.preferences.AppPreferences
@@ -59,6 +60,9 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var deviceInfo: DeviceInfo
 
+    @Mock
+    private lateinit var clock: Clock
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -67,6 +71,7 @@ class BackgroundJobFactoryTest {
         factory = BackgroundJobFactory(
             preferences,
             contentResolver,
+            clock,
             powerManagementService,
             Provider { backgroundJobManager },
             deviceInfo
