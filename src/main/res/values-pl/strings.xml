@@ -612,9 +612,9 @@
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (konwersacja)</string>
-    <string name="share_search">Nazwa, ID chmury federalnej lub adres e-mail…</string>
+    <string name="share_search">Nazwa, ID chmury federacyjnej lub adres e-mail…</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
-    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
+    <string name="share_via_link_edit_permission_label">Zezwalaj na edycję</string>
     <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
@@ -725,7 +725,7 @@
     <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub katalogu.</string>
     <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje</string>
     <string name="unshare_link_forbidden_permissions">aby anulować udostępnianie tego pliku</string>
-    <string name="unsharing_failed">Usuwanie udostępnienia nie powiodło się</string>
+    <string name="unsharing_failed">Zatrzymywanie udostępnienia nie powiodło się</string>
     <string name="untrusted_domain">Dostęp przez niezaufaną domenę. Więcej informacji można znaleźć w dokumentacji.</string>
     <string name="update_link_file_error">Wystąpił błąd podczas próby aktualizacji udostępniania</string>
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
