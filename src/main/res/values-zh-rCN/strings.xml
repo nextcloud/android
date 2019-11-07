@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">存储路径</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
+    <string name="prefs_theme_title">主题</string>
+    <string name="prefs_value_theme_dark">深色</string>
+    <string name="prefs_value_theme_light">浅色</string>
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_no_local_file">没有可预览的本地文件</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
