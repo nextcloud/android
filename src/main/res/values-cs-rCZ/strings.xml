@@ -86,6 +86,7 @@
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
+    <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
     <string name="choose_remote_folder">Zvolte složku na protějšku…</string>
