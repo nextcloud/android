@@ -301,7 +301,7 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.jetbrains:annotations:17.0.0'
+    implementation 'org.jetbrains:annotations:18.0.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.5.1'
 
