@@ -51,4 +51,27 @@
 
     <!-- This is unmanageable for now due to large amount of interconnected static state -->
     <Bug pattern="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
+
+    <!-- Those classes use low lever interfaces either because they are abstractions or -->
+    <!-- there is other important technical reason to use it.                           -->
+    <Match>
+        <And>
+            <Bug pattern="NEXTCLOUD_RESTRICTED_API_CALL"/>
+            <Or>
+                <Class name="com.nextcloud.client.preferences.AppPreferencesImpl"/>
+                <Class name="com.nextcloud.client.account.UserAccountManagerImpl"/>
+                <Class name="com.owncloud.android.authentication.AuthenticatorActivity"/>
+            </Or>
+        </And>
+    </Match>
+
+    <Match>
+        <And>
+            <Bug pattern="NEXTCLOUD_PRIVATE_IMPL_CALL"/>
+            <Or>
+                <Class name="com.nextcloud.client.preferences.AppPreferencesImpl"/>
+                <Class name="com.nextcloud.client.account.UserAccountManagerImpl"/>
+            </Or>
+        </And>
+    </Match>
 </FindBugsFilter>

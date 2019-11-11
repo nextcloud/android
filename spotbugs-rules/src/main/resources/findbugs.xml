@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nextcloud Android SpotBugs Plugin
+
+  @author Chris Narkiewicz <hello@ezaquarii.com>
+  Copyright (C) 2019 Chris Narkiewicz
+  Copyright (C) 2019 Nextcloud GmbH
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+<FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
+        pluginid="com.nextcloud.spotbugs.android">
+
+        <Detector class="com.nextcloud.spotbugs.restricted.RestrictedApiCall" reports="NEXTCLOUD_RESTRICTED_API_CALL" speed="fast"/>
+        <Detector class="com.nextcloud.spotbugs.impl.PrivateImplementationCall" reports="NEXTCLOUD_PRIVATE_IMPL_CALL" speed="fast"/>
+        <BugPattern abbrev="NXRAC" type="NEXTCLOUD_RESTRICTED_API_CALL" category="CORRECTNESS"/>
+        <BugPattern abbrev="NXPIC" type="NEXTCLOUD_PRIVATE_IMPL_CALL" category="CORRECTNESS"/>
+</FindbugsPlugin>

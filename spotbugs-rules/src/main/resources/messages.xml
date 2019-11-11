@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nextcloud Android SpotBugs Plugin
+
+  @author Chris Narkiewicz <hello@ezaquarii.com>
+  Copyright (C) 2019 Chris Narkiewicz
+  Copyright (C) 2019 Nextcloud GmbH
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+
+    <Plugin>
+        <ShortDescription>Nextcloud SpotBugs Plugin</ShortDescription>
+        <Details>This plugin provides rules to detect Nextcloud coding and design rules violations</Details>
+    </Plugin>
+
+    <Detector class="com.nextcloud.spotbugs.restricted.RestrictedApiCall">
+        <Details>
+            This detector checks for use of restricted, low-lever platform APIs.
+        </Details>
+    </Detector>
+
+    <Detector class="com.nextcloud.spotbugs.impl.PrivateImplementationCall">
+        <Details>
+            This detector checks for direct calls to private implementation, bypassing class interface.
+        </Details>
+    </Detector>
+
+    <BugPattern type="NEXTCLOUD_RESTRICTED_API_CALL">
+        <ShortDescription>Use of restricted platform API</ShortDescription>
+        <LongDescription>
+            Use of restricted API in {1}. Consider using Nextcloud equivalent.
+        </LongDescription>
+        <Details>
+            <![CDATA[
+                <p>
+                    Certain low-level interfaces have high-level equivalents implementing Nextcloud-specific
+                    business logic. Developer should use high-level interface instead of low-level, generic
+                    platform APIs.
+                </p>
+                <p>
+                    Those high-level application APIs provide more structured, manageable and safer equivalents,
+                    tailored for specific Nextcloud application logic, often addressing platform shortcomings.
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Native API</th>
+                            <th>Nextcloud API</th>
+                            <th>Comments</th>
+                        </tr>
+
+                        <tr>
+                            <td><pre>SharedPreferences</pre></td>
+                            <td><pre>AppPreferences</pre></td>
+                            <td>
+                                Use getters to read application preferences. Asynchronous updates
+                                are available via dedicated listener.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><pre>SharedPreference.Editor</pre></td>
+                            <td><pre>AppPreferences</pre></td>
+                            <td>Use setters for synchronous preferences updates</td>
+                        </tr>
+
+                        <tr>
+                            <td><pre>AccountManager</pre></td>
+                            <td><pre>UserAccountManager</pre></td>
+                            <td>Work in progress</td>
+                        </tr>
+                    </table>
+                </p>
+            ]]>
+        </Details>
+    </BugPattern>
+
+    <BugPattern type="NEXTCLOUD_PRIVATE_IMPL_CALL">
+        <ShortDescription>Use of private implementation instead of interface</ShortDescription>
+        <LongDescription>
+            Call to Impl in {1}. Consider using interface instead calling to private implementation.
+        </LongDescription>
+        <Details>
+            <![CDATA[
+                <p>
+                    Implementation classes, such as <code>FooImpl</code>, are private and should not be accessible
+                    directly outside some specific contexts. The class should have corresponding interface
+                    <code>Foo</code> without <code>Impl</code>), which should be used instead.
+                </p>
+            ]]>
+        </Details>
+    </BugPattern>
+
+    <BugCode abbrev="NXRAC">Restricted API Call</BugCode>
+    <BugCode abbrev="NXPIC">Private Implementation Call</BugCode>
+
+</MessageCollection>
