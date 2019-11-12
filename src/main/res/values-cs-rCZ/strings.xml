@@ -264,7 +264,7 @@
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
-    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání emailů!</string>
+    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání e-mailů!</string>
     <string name="file">soubor</string>
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
@@ -333,7 +333,7 @@
     <string name="files_drop_not_supported">Toto je funkce Nextcloud, přejděte na něj.</string>
     <string name="first_run_1_text">Mějte svá data zabezpečená a pod svou správou</string>
     <string name="first_run_2_text">Zabezpečená spolupráce &amp; výměna souborů</string>
-    <string name="first_run_3_text">Snadno použitelný webový emailový klient, kalendáře &amp; kontakty</string>
+    <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendáře &amp; kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, online schůzky &amp; webové konference</string>
     <string name="folder">složka</string>
     <string name="folder_already_exists">Složka už existuje</string>
@@ -370,7 +370,7 @@
     <string name="local_file_not_found_message">Soubor nenalezen na souborovém systému</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
     <string name="log_send_mail_subject">Záznamy událostí v aplikaci %1$s pro Android</string>
-    <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte emailového klienta.</string>
+    <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte e-mailového klienta.</string>
     <string name="login">Přihlásit</string>
     <string name="logs_menu_delete">Smazat záznamy událostí</string>
     <string name="logs_menu_refresh">Obnovit</string>
@@ -612,7 +612,7 @@
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
-    <string name="share_search">Jméno, sdružené cloud ID, nebo emailová adresa…</string>
+    <string name="share_search">Jméno, sdružené cloud ID, nebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
     <string name="share_via_link_expiration_date_label">Nastavit datum skončení platnosti</string>
@@ -799,7 +799,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čeká se na Wi-Fi</string>
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webové stránky</string>
