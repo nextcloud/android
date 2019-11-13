@@ -127,6 +127,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
+
+    private static final String AT_CHAR = "@";
     /**
      * menu account avatar radius.
      */
@@ -794,9 +796,11 @@ public abstract class DrawerActivity extends ToolbarActivity
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
 
-            usernameFull.setText(DisplayUtils.convertIdn(account.name.substring(account.name.lastIndexOf('@') + 1),
-                                                         false));
-            usernameFull.setTextColor(ThemeUtils.fontColor(this));
+            if (usernameFull != null) {
+                String[] splitEmail = account.name.split(AT_CHAR);
+                usernameFull.setText(new StringBuilder().append(splitEmail[0]).append(AT_CHAR).append(splitEmail[1]).toString());
+                usernameFull.setTextColor(ThemeUtils.fontColor(this));
+            }
 
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
