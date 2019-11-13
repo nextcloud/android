@@ -127,7 +127,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
             if (account != null && (currentAccount == null || !account.equalsIgnoreCase(currentAccount.name))) {
                 accountManager.setCurrentOwnCloudAccount(account);
-                setAccount(getUserAccountManager().getCurrentAccount());
+                setAccount(getUserAccountManager().getCurrentAccount(), false);
                 currentAccount = getAccount();
             }
         }

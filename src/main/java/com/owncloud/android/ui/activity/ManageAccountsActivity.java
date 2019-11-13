@@ -126,14 +126,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         originalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
 
-        Account currentAccount = getUserAccountManager().getCurrentAccount();
+        Account currentAccount = getAccount();
 
         if (currentAccount != null) {
             originalCurrentAccount = currentAccount.name;
         }
-
-        setAccount(currentAccount);
-        onAccountSet();
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 

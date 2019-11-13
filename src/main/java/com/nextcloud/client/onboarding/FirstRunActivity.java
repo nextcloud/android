@@ -217,16 +217,18 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
                 return;
             }
 
-            setAccount(account);
             userAccountManager.setCurrentOwnCloudAccount(account.name);
-            onAccountSet();
 
             Intent i = new Intent(this, FileDisplayActivity.class);
             i.setAction(FileDisplayActivity.RESTART);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+
+            finish();
         }
     }
+
+
 
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
