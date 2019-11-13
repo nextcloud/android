@@ -1293,7 +1293,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
-                setAccount(accountManager.getCurrentAccount());
+                setAccount(accountManager.getCurrentAccount(), false);
                 updateAccountList();
                 restart();
             } else {

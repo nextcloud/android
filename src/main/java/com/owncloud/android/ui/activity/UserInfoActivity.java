@@ -135,9 +135,6 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-        setAccount(getUserAccountManager().getCurrentAccount());
-        onAccountSet();
-
         boolean useBackgroundImage = URLUtil.isValidUrl(
                 getStorageManager().getCapability(account.name).getServerBackground());
 
