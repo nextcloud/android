@@ -510,7 +510,6 @@ public final class DisplayUtils {
 
             final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                 new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
-            listener.avatarGenerated(asyncDrawable, callContext);
             task.execute(userId);
         }
     }
