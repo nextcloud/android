@@ -503,8 +503,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
     private void seeDetails() {
-        DisplayUtils.showUnavailableOperationToast(this.getActivity());
-        // containerActivity.showDetails(getFile());
+        containerActivity.showDetails(getFile());
     }
 
     @Override

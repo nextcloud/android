@@ -1650,14 +1650,11 @@ public class FileDisplayActivity extends FileActivity
      * @param activeTab the active tab in the details view
      */
     public void showDetails(OCFile file, int activeTab) {
-        DisplayUtils.showUnavailableOperationToast(this);
-        /*
         Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
-        */
     }
 
     @Override
