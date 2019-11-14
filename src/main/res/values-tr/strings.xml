@@ -265,6 +265,7 @@
     <string name="favorite">Sık Kullanılanlara Ekle</string>
     <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
     <string name="feedback_no_mail_app">E-posta göndermek için kullanılabilecek bir uygulama yok!</string>
+    <string name="file">dosya</string>
     <string name="file_delete">Sil</string>
     <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Güvenli iş birliği ve dosya değiş tokuşu</string>
     <string name="first_run_3_text">Kolay kullanılan web e-posta, takvim ve kişiler</string>
     <string name="first_run_4_text">Ekran paylaşımı, çevrimiçi görüşmeler ve web toplantıları</string>
+    <string name="folder">klasör</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_icon">Klasör Simgesi</string>
@@ -527,6 +529,9 @@
     <string name="prefs_storage_path">Depolama yolu</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Koyu</string>
+    <string name="prefs_value_theme_light">Açık</string>
     <string name="preview_image_description">Görsel ön izleme</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
@@ -586,6 +591,8 @@
     <string name="share_file">%1$s paylaş</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
     <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_internal_link">İç bağlantıyı paylaş</string>
+    <string name="share_internal_link_text">Yalnız bu %1$s ögesine erişebilen kullanıcılar için geçerlidir</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
     <string name="share_link_empty_password">Bir parola yazmalısınız</string>
     <string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı</string>

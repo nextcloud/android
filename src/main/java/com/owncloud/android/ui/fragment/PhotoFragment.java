@@ -53,10 +53,10 @@ public class PhotoFragment extends OCFileListFragment {
     private SearchRemoteOperation searchRemoteOperation;
     private AsyncTask photoSearchTask;
     private SearchEvent searchEvent;
-    private boolean refresh = false;
+    private boolean refresh;
 
     public PhotoFragment() {
-
+        this.refresh = false;
     }
 
     public PhotoFragment(boolean refresh) {
@@ -191,11 +191,10 @@ public class PhotoFragment extends OCFileListFragment {
                 int totalItemCount = gridLayoutManager.getItemCount();
                 int firstVisibleItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
 
-                if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + MAX_ITEMS_PER_ROW)) {
+                if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + MAX_ITEMS_PER_ROW)
+                    && (totalItemCount - visibleItemCount) > 0) {
                     // Almost reached the end, continue to load new photos
-                    if ((totalItemCount - visibleItemCount) > 0) {
-                        searchAndDisplay();
-                    }
+                    searchAndDisplay();
                 }
             }
         }

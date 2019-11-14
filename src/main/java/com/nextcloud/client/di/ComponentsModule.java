@@ -20,9 +20,9 @@
 
 package com.nextcloud.client.di;
 
-import com.nextcloud.client.errorhandling.ShowErrorActivity;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
+import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -37,6 +37,7 @@ import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.CommunityActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -49,7 +50,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.ui.activity.ManageSpaceActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
-import com.owncloud.android.ui.activity.ParticipateActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -60,7 +60,6 @@ import com.owncloud.android.ui.activity.SsoGrantPermissionActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
-import com.owncloud.android.ui.activity.UploadPathActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
@@ -96,7 +95,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract CopyToClipboardActivity copyToClipboardActivity();
     @ContributesAndroidInjector abstract DeepLinkLoginActivity deepLinkLoginActivity();
     @ContributesAndroidInjector abstract DrawerActivity drawerActivity();
-    @ContributesAndroidInjector abstract ShowErrorActivity errorShowActivity();
     @ContributesAndroidInjector abstract ErrorsWhileCopyingHandlerActivity errorsWhileCopyingHandlerActivity();
     @ContributesAndroidInjector abstract ExternalSiteWebView externalSiteWebView();
     @ContributesAndroidInjector abstract FileDisplayActivity fileDisplayActivity();
@@ -107,7 +105,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
-    @ContributesAndroidInjector abstract ParticipateActivity participateActivity();
+
+    @ContributesAndroidInjector
+    abstract CommunityActivity participateActivity();
     @ContributesAndroidInjector abstract PassCodeActivity passCodeActivity();
     @ContributesAndroidInjector abstract PreviewImageActivity previewImageActivity();
     @ContributesAndroidInjector abstract PreviewVideoActivity previewVideoActivity();
@@ -121,7 +121,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract TrashbinActivity trashbinActivity();
     @ContributesAndroidInjector abstract UploadFilesActivity uploadFilesActivity();
     @ContributesAndroidInjector abstract UploadListActivity uploadListActivity();
-    @ContributesAndroidInjector abstract UploadPathActivity uploadPathActivity();
     @ContributesAndroidInjector abstract UserInfoActivity userInfoActivity();
     @ContributesAndroidInjector abstract WhatsNewActivity whatsNewActivity();
     @ContributesAndroidInjector abstract EtmActivity etmActivity();
@@ -154,4 +153,5 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector abstract AccountManagerService accountManagerService();
     @ContributesAndroidInjector abstract OperationsService operationsService();
+    @ContributesAndroidInjector abstract PlayerService playerService();
 }

@@ -32,10 +32,10 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.nextcloud.client.media.ErrorFormat;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -180,7 +180,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         }
 
         if (mVideoPlayer.getWindowToken() != null) {
-            String message = MediaService.getMessageForMediaError(this, what, extra);
+            String message = ErrorFormat.toString(this, what, extra);
             new AlertDialog.Builder(this)
                     .setMessage(message)
                     .setPositiveButton(android.R.string.VideoView_error_button,
@@ -196,8 +196,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     }
 
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    protected void onStart() {
+        super.onStart();
         if (getAccount() != null) {
             OCFile file = getFile();
             /// Validate handled file  (first image to preview)

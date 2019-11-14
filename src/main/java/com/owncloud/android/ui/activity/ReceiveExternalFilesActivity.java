@@ -231,12 +231,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public void changeAccount(Account account) {
         setAccount(account, false);
-        onAccountSet(mAccountWasRestored);
+        initTargetFolder();
+        populateDirectoryList();
     }
 
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(mAccountWasRestored);
+    protected void onStart() {
+        super.onStart();
         initTargetFolder();
         populateDirectoryList();
     }
@@ -767,7 +768,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount(), this));
+            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 

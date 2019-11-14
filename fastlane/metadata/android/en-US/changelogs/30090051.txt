@@ -1,0 +1,12 @@
+3.9.0 RC1 (October, 28, 2019)
+
+- preview Markdown with syntax highlighting @AndyScherzinger
+- improved DavX5 integration @bitfireAT
+- AutoUpload: allow files to upload into subfolder
+- new media player service @ezaquarii
+- Remote wipe integration
+- Print from within Collabora
+- enhanced SingleSignOn
+- outdated server warning set to NC14
+
+For a full list, please see https://github.com/nextcloud/android/milestone/38

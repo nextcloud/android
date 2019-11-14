@@ -19,9 +19,6 @@
  */
 package com.nextcloud.client.logger
 
-import java.util.Date
-import java.util.SimpleTimeZone
-import java.util.concurrent.TimeUnit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -29,6 +26,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
+import java.util.Date
+import java.util.SimpleTimeZone
+import java.util.concurrent.TimeUnit
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
@@ -36,6 +36,9 @@ import org.junit.runners.Suite
     LogEntryTest.Parse::class
 )
 class LogEntryTest {
+    private companion object {
+        const val SEVEN_HOUR = 7L
+    }
 
     class ToString {
         @Test
@@ -57,7 +60,7 @@ class LogEntryTest {
                 tag = "tag",
                 message = "some message"
             )
-            val sevenHours = TimeUnit.HOURS.toMillis(7).toInt()
+            val sevenHours = TimeUnit.HOURS.toMillis(SEVEN_HOUR).toInt()
             val tz = SimpleTimeZone(sevenHours, "+0700")
             assertEquals("1970-01-01T07:00:00.000+0700;D;tag;some message", entry.toString(tz))
         }

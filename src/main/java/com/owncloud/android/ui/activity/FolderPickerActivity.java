@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -32,6 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -155,16 +155,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    /**
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     */
-    @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    public void onActionModeStarted(ActionMode mode) {
+        super.onActionModeStarted(mode);
         if (getAccount() != null) {
 
             updateFileFromDB();
@@ -176,12 +168,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 folder = getFile();
             }
 
-            if (!stateWasRecovered) {
-                OCFileListFragment listOfFolders = getListOfFilesFragment();
-                listOfFolders.listDirectory(folder, false, false);
-
-                startSyncFolderOperation(folder, false);
-            }
+            OCFileListFragment listOfFolders = getListOfFilesFragment();
+            listOfFolders.listDirectory(folder, false, false);
+            startSyncFolderOperation(folder, false);
 
             updateNavigationElementsInActionBar();
         }

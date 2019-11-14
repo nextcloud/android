@@ -88,8 +88,9 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
         }
     }
 
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         // Load data into the list
         Log_OC.d(TAG, "Refreshing lists on account set");
@@ -103,6 +104,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
     @Override
     protected void onNewIntent(Intent intent) {
         // Verify the action and get the query
+        super.onNewIntent(intent);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
@@ -120,8 +122,8 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             if (!shareeNames.contains(shareWith)) {
 
                 doShareWith(
-                        shareWith,
-                        data.getAuthority()
+                    shareWith,
+                    data.getAuthority()
                 );
             }
 

@@ -26,7 +26,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -310,7 +309,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             footerViewHolder.footerText.setText(getFooterText());
             footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(mContext),
                                                                                    PorterDuff.Mode.SRC_IN);
-            footerViewHolder.progressBar.setVisibility(View.GONE);
+            footerViewHolder.progressBar.setVisibility(
+                ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
@@ -363,7 +363,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     itemViewHolder.sharedAvatars.removeAllViews();
 
                     String fileOwner = file.getOwnerId();
-                    ArrayList<ShareeUser> sharees = file.getSharees();
+                    List<ShareeUser> sharees = file.getSharees();
 
                     // use fileOwner if not oneself, then add at first
                     ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
@@ -686,17 +686,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
             }
-
-            sharedIconView.setOnClickListener(v -> {
-                DisplayUtils.showUnavailableOperationToast((Activity) mContext);
-                });
-            /*
             if (accountManager.accountOwnsFile(file, account)) {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
             } else {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
             }
-            */
         } else {
             sharedIconView.setVisibility(View.GONE);
         }

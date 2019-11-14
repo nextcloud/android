@@ -392,11 +392,13 @@ public class NotificationsActivity extends FileActivity implements Notifications
     }
 
     @Override
-    public void onActionCallback(boolean isSuccess, NotificationListAdapter.NotificationViewHolder holder) {
+    public void onActionCallback(boolean isSuccess,
+                                 Notification notification,
+                                 NotificationListAdapter.NotificationViewHolder holder) {
         if (isSuccess) {
             adapter.removeNotification(holder);
         } else {
-            adapter.setButtonEnabled(holder, true);
+            adapter.setButtons(holder, notification);
             DisplayUtils.showSnackMessage(this, getString(R.string.notification_action_failed));
         }
     }

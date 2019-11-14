@@ -6,6 +6,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
+import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 
@@ -22,12 +23,16 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
 
     private NotificationListAdapter.NotificationViewHolder holder;
     private OwnCloudClient client;
+    private Notification notification;
     private NotificationsActivity notificationsActivity;
 
-    public NotificationExecuteActionTask(OwnCloudClient client, NotificationListAdapter.NotificationViewHolder holder,
+    public NotificationExecuteActionTask(OwnCloudClient client,
+                                         NotificationListAdapter.NotificationViewHolder holder,
+                                         Notification notification,
                                          NotificationsActivity notificationsActivity) {
         this.client = client;
         this.holder = holder;
+        this.notification = notification;
         this.notificationsActivity = notificationsActivity;
     }
 
@@ -73,6 +78,6 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
 
     @Override
     protected void onPostExecute(Boolean isSuccess) {
-        notificationsActivity.onActionCallback(isSuccess, holder);
+        notificationsActivity.onActionCallback(isSuccess, notification, holder);
     }
 }

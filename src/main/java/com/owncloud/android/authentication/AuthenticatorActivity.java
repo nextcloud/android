@@ -62,6 +62,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -189,7 +190,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
-    private static final String WEB_LOGIN = "/index.php/login/flow";
+    public static final String WEB_LOGIN = "/index.php/login/flow";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
     public static final String HTTPS_PROTOCOL = "https://";
@@ -879,6 +880,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Log_OC.d(TAG, "onNewIntent()");
 
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
@@ -1768,6 +1770,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
 
+            // notify Document Provider
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String authority = getResources().getString(R.string.document_provider_authority);
+                Uri rootsUri = DocumentsContract.buildRootsUri(authority);
+                getContentResolver().notifyChange(rootsUri, null);
+            }
+
             return true;
         }
     }
@@ -2056,6 +2065,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_QR_SCAN) {
             if (data == null) {
                 return;

@@ -28,10 +28,7 @@ import android.os.Build;
 import android.provider.DocumentsContract.Root;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import com.owncloud.android.providers.DocumentsStorageProvider;
 
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -47,16 +44,19 @@ public class RootCursor extends MatrixCursor {
         super(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
     }
 
-    public void addRoot(Account account, Context context) {
-        final FileDataStorageManager manager = new FileDataStorageManager(account, context.getContentResolver());
-        final OCFile mainDir = manager.getFileByPath(ROOT_PATH);
+    public void addRoot(DocumentsStorageProvider.Document document, Context context) {
+        Account account = document.getAccount();
+
+        int rootFlags = Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_RECENTS | Root.FLAG_SUPPORTS_SEARCH;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            rootFlags = rootFlags | Root.FLAG_SUPPORTS_IS_CHILD;
+        }
 
         newRow().add(Root.COLUMN_ROOT_ID, account.name)
-            .add(Root.COLUMN_DOCUMENT_ID, mainDir.getFileId())
+            .add(Root.COLUMN_DOCUMENT_ID, document.getDocumentId())
             .add(Root.COLUMN_SUMMARY, account.name)
             .add(Root.COLUMN_TITLE, context.getString(R.string.app_name))
             .add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
-            .add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_RECENTS |
-                Root.FLAG_SUPPORTS_SEARCH);
+            .add(Root.COLUMN_FLAGS, rootFlags);
     }
 }

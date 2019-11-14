@@ -72,6 +72,7 @@ public final class MimeTypeUtil {
     private static final Map<String, Integer> MAIN_MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: mime type for file extension. */
     private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING = new HashMap<>();
+    public static final String MIMETYPE_TEXT_MARKDOWN = "text/markdown";
 
     static {
         populateFileExtensionMimeTypeMapping();
@@ -648,12 +649,12 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m4a", Collections.singletonList("audio/mp4"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m4b", Collections.singletonList("audio/m4b"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("m4v", Collections.singletonList("video/mp4"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("markdown", Collections.singletonList("text/markdown"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mdown", Collections.singletonList("text/markdown"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("md", Collections.singletonList("text/markdown"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("markdown", Collections.singletonList(MIMETYPE_TEXT_MARKDOWN));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mdown", Collections.singletonList(MIMETYPE_TEXT_MARKDOWN));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("md", Collections.singletonList(MIMETYPE_TEXT_MARKDOWN));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mdb", Collections.singletonList("application/msaccess"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mdwn", Collections.singletonList("text/markdown"));
-        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mkd", Collections.singletonList("text/markdown"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mdwn", Collections.singletonList(MIMETYPE_TEXT_MARKDOWN));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mkd", Collections.singletonList(MIMETYPE_TEXT_MARKDOWN));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mef", Collections.singletonList("image/x-dcraw"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mkv", Collections.singletonList("video/x-matroska"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("mobi", Collections.singletonList("application/x-mobipocket-ebook"));

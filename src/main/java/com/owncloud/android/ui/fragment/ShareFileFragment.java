@@ -67,13 +67,12 @@ import androidx.fragment.app.Fragment;
 /**
  * Fragment for Sharing a file with sharees (users or groups) or creating
  * a public link.
- * <p/>
+ *
  * A simple {@link Fragment} subclass.
- * <p/>
+ *
  * Activities that contain this fragment must implement the
- * {@link ShareFragmentListener} interface
- * to handle interaction events.
- * <p/>
+ * {@link ShareFragmentListener} interface to handle interaction events.
+ *
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -694,16 +693,9 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      */
     private void updatePublicShareSection() {
         if (mPublicShare != null && ShareType.PUBLIC_LINK.equals(mPublicShare.getShareType())) {
-            /// public share bound -> expand section
-            SwitchCompat shareViaLinkSwitch = getShareViaLinkSwitch();
-            if (!shareViaLinkSwitch.isChecked()) {
-                // set null listener before setChecked() to prevent infinite loop of calls
-                shareViaLinkSwitch.setOnCheckedChangeListener(null);
-                shareViaLinkSwitch.setChecked(true);
-                shareViaLinkSwitch.setOnCheckedChangeListener(
-                        mOnShareViaLinkSwitchCheckedChangeListener
-                );
-            }
+            // public share bound -> expand section
+            updateShareViaLinkSwitch(mOnShareViaLinkSwitchCheckedChangeListener);
+
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
             if (mFile.isFolder() && !mCapabilities.getFilesSharingPublicUpload().isFalse()) {
@@ -713,114 +705,159 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 getEditPermissionSection().setVisibility(View.GONE);
             }
 
-            // GetLink button
-            MaterialButton getLinkButton = getGetLinkButton();
-            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()),
-                    PorterDuff.Mode.SRC_ATOP);
-            getLinkButton.setVisibility(View.VISIBLE);
-            getLinkButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //GetLink from the server and show ShareLinkToDialog
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            getFileWithLink(mFile);
+            // init link button
+            initLinkButton();
 
-                }
-            });
+            /// update state of expiration date switch
+            updateExpirationDateSwitch(mPublicShare.getExpirationDate(), mOnExpirationDateInteractionListener);
 
-            /// update state of expiration date switch and message depending on expiration date
-            SwitchCompat expirationDateSwitch = getExpirationDateSwitch();
-            // set null listener before setChecked() to prevent infinite loop of calls
-            expirationDateSwitch.setOnCheckedChangeListener(null);
-            long expirationDate = mPublicShare.getExpirationDate();
-            if (expirationDate > 0) {
-                if (!expirationDateSwitch.isChecked()) {
-                    expirationDateSwitch.toggle();
-                }
-                String formattedDate =
-                        SimpleDateFormat.getDateInstance().format(
-                                new Date(expirationDate)
-                        );
-                getExpirationDateValue().setText(formattedDate);
-            } else {
-                if (expirationDateSwitch.isChecked()) {
-                    expirationDateSwitch.toggle();
-                }
-                getExpirationDateValue().setText(R.string.empty);
-            }
-
-            // recover listener
-            expirationDateSwitch.setOnCheckedChangeListener(mOnExpirationDateInteractionListener);
-
-            /// update state of password switch and message depending on password protection
-            SwitchCompat passwordSwitch = getPasswordSwitch();
-            // set null listener before setChecked() to prevent infinite loop of calls
-            passwordSwitch.setOnCheckedChangeListener(null);
-            if (mPublicShare.isPasswordProtected()) {
-                if (!passwordSwitch.isChecked()) {
-                    passwordSwitch.toggle();
-                }
-                getPasswordValue().setVisibility(View.VISIBLE);
-            } else {
-                if (passwordSwitch.isChecked()) {
-                    passwordSwitch.toggle();
-                }
-                getPasswordValue().setVisibility(View.INVISIBLE);
-            }
-
-            // recover listener
-            passwordSwitch.setOnCheckedChangeListener(mOnPasswordInteractionListener);
+            /// update state of password switch
+            updatePasswordSwitch(mPublicShare.isPasswordProtected(), mOnPasswordInteractionListener);
 
             /// update state of the edit permission switch
-            SwitchCompat editPermissionSwitch = getEditPermissionSwitch();
-
-            // set null listener before setChecked() to prevent infinite loop of calls
-            editPermissionSwitch.setOnCheckedChangeListener(null);
-            if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
-                if (!editPermissionSwitch.isChecked()) {
-                    editPermissionSwitch.toggle();
-                }
-                getHideFileListingPermissionSection().setVisibility(View.VISIBLE);
-            } else {
-                if (editPermissionSwitch.isChecked()) {
-                    editPermissionSwitch.toggle();
-                }
-                getHideFileListingPermissionSection().setVisibility(View.GONE);
-            }
-
-            // recover listener
-            editPermissionSwitch.setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
+            updatePermissionSwitch(mPublicShare.getPermissions(), mOnEditPermissionInteractionListener);
 
             /// update state of the hide file listing permission switch
-            SwitchCompat hideFileListingPermissionSwitch = getHideFileListingPermissionSwitch();
-
-            // set null listener before setChecked() to prevent infinite loop of calls
-            hideFileListingPermissionSwitch.setOnCheckedChangeListener(null);
-
-            boolean readOnly = (mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
-            hideFileListingPermissionSwitch.setChecked(!readOnly);
-
-            // recover listener
-            hideFileListingPermissionSwitch.setOnCheckedChangeListener(
-                    mOnHideFileListingPermissionInteractionListener
-            );
+            updateHideFileListingPermissionSwitch(mPublicShare.getPermissions(),
+                                                  mOnHideFileListingPermissionInteractionListener);
 
         } else {
-            /// no public share -> collapse section
-            SwitchCompat shareViaLinkSwitch = getShareViaLinkSwitch();
-            if (shareViaLinkSwitch.isChecked()) {
-                shareViaLinkSwitch.setOnCheckedChangeListener(null);
-                getShareViaLinkSwitch().setChecked(false);
-                shareViaLinkSwitch.setOnCheckedChangeListener(
-                        mOnShareViaLinkSwitchCheckedChangeListener
-                );
-            }
-            getExpirationDateSection().setVisibility(View.GONE);
-            getPasswordSection().setVisibility(View.GONE);
-            getEditPermissionSection().setVisibility(View.GONE);
-            getHideFileListingPermissionSection().setVisibility(View.GONE);
-            getGetLinkButton().setVisibility(View.GONE);
+            // no public share -> collapse section
+            collapsePublicShareSection();
         }
+    }
+
+    private void updateShareViaLinkSwitch(
+        CompoundButton.OnCheckedChangeListener onShareViaLinkSwitchCheckedChangeListener) {
+        SwitchCompat shareViaLinkSwitch = getShareViaLinkSwitch();
+        if (!shareViaLinkSwitch.isChecked()) {
+            // set null listener before setChecked() to prevent infinite loop of calls
+            shareViaLinkSwitch.setOnCheckedChangeListener(null);
+            shareViaLinkSwitch.setChecked(true);
+            shareViaLinkSwitch.setOnCheckedChangeListener(onShareViaLinkSwitchCheckedChangeListener);
+        }
+    }
+
+    private void updateHideFileListingPermissionSwitch(
+        int permissions,
+        OnHideFileListingPermissionInteractionListener onHideFileListingPermissionInteractionListener)
+    {
+        SwitchCompat hideFileListingPermissionSwitch = getHideFileListingPermissionSwitch();
+
+        // set null listener before setChecked() to prevent infinite loop of calls
+        hideFileListingPermissionSwitch.setOnCheckedChangeListener(null);
+
+        boolean readOnly = (permissions & OCShare.READ_PERMISSION_FLAG) != 0;
+        hideFileListingPermissionSwitch.setChecked(!readOnly);
+
+        // recover listener
+        hideFileListingPermissionSwitch.setOnCheckedChangeListener(onHideFileListingPermissionInteractionListener);
+    }
+
+    private void updatePermissionSwitch(
+        int permissions,
+        OnEditPermissionInteractionListener onEditPermissionInteractionListener)
+    {
+        SwitchCompat editPermissionSwitch = getEditPermissionSwitch();
+
+        // set null listener before setChecked() to prevent infinite loop of calls
+        editPermissionSwitch.setOnCheckedChangeListener(null);
+
+        if (permissions > OCShare.READ_PERMISSION_FLAG) {
+            if (!editPermissionSwitch.isChecked()) {
+                editPermissionSwitch.toggle();
+            }
+            getHideFileListingPermissionSection().setVisibility(View.VISIBLE);
+        } else {
+            if (editPermissionSwitch.isChecked()) {
+                editPermissionSwitch.toggle();
+            }
+            getHideFileListingPermissionSection().setVisibility(View.GONE);
+        }
+
+        // recover listener
+        editPermissionSwitch.setOnCheckedChangeListener(onEditPermissionInteractionListener);
+    }
+
+    private void updatePasswordSwitch(
+        boolean isPasswordProtected,
+        OnPasswordInteractionListener onPasswordInteractionListener)
+    {
+        SwitchCompat passwordSwitch = getPasswordSwitch();
+        // set null listener before setChecked() to prevent infinite loop of calls
+        passwordSwitch.setOnCheckedChangeListener(null);
+
+        if (isPasswordProtected) {
+            if (!passwordSwitch.isChecked()) {
+                passwordSwitch.toggle();
+            }
+            getPasswordValue().setVisibility(View.VISIBLE);
+        } else {
+            if (passwordSwitch.isChecked()) {
+                passwordSwitch.toggle();
+            }
+            getPasswordValue().setVisibility(View.INVISIBLE);
+        }
+
+        // recover listener
+        passwordSwitch.setOnCheckedChangeListener(onPasswordInteractionListener);
+    }
+
+    private void updateExpirationDateSwitch(
+        long expirationDate,
+        OnExpirationDateInteractionListener onExpirationDateInteractionListener)
+    {
+        SwitchCompat expirationDateSwitch = getExpirationDateSwitch();
+        // set null listener before setChecked() to prevent infinite loop of calls
+        expirationDateSwitch.setOnCheckedChangeListener(null);
+
+        if (expirationDate > 0) {
+            if (!expirationDateSwitch.isChecked()) {
+                expirationDateSwitch.toggle();
+            }
+            String formattedDate = SimpleDateFormat.getDateInstance().format(new Date(expirationDate));
+            getExpirationDateValue().setText(formattedDate);
+        } else {
+            if (expirationDateSwitch.isChecked()) {
+                expirationDateSwitch.toggle();
+            }
+            getExpirationDateValue().setText(R.string.empty);
+        }
+
+        // recover listener
+        expirationDateSwitch.setOnCheckedChangeListener(onExpirationDateInteractionListener);
+    }
+
+    private void initLinkButton() {
+        MaterialButton getLinkButton = getGetLinkButton();
+        getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()),
+                                                     PorterDuff.Mode.SRC_ATOP);
+        getLinkButton.setVisibility(View.VISIBLE);
+        getLinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //GetLink from the server and show ShareLinkToDialog
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        getFileWithLink(mFile);
+
+            }
+        });
+    }
+
+    private void collapsePublicShareSection() {
+        SwitchCompat shareViaLinkSwitch = getShareViaLinkSwitch();
+        if (shareViaLinkSwitch.isChecked()) {
+            shareViaLinkSwitch.setOnCheckedChangeListener(null);
+            getShareViaLinkSwitch().setChecked(false);
+            shareViaLinkSwitch.setOnCheckedChangeListener(
+                    mOnShareViaLinkSwitchCheckedChangeListener
+            );
+        }
+        getExpirationDateSection().setVisibility(View.GONE);
+        getPasswordSection().setVisibility(View.GONE);
+        getEditPermissionSection().setVisibility(View.GONE);
+        getHideFileListingPermissionSection().setVisibility(View.GONE);
+        getGetLinkButton().setVisibility(View.GONE);
     }
 
 

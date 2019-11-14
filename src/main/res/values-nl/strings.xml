@@ -265,6 +265,7 @@
     <string name="favorite">Toevoegen aan favorieten</string>
     <string name="favorite_icon">Favoriet</string>
     <string name="feedback_no_mail_app">Geen app beschikbaar voor versturen mail!</string>
+    <string name="file">bestand</string>
     <string name="file_delete">Verwijderen</string>
     <string name="file_detail_activity_error">Fout bij ophalen activiteiten van bestand</string>
     <string name="file_details_no_content">Kon details niet laden</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Beveiligde samenwerking &amp; bestand uitwisseling</string>
     <string name="first_run_3_text">Eenvoudige webmail, agenda &amp; contacten</string>
     <string name="first_run_4_text">Schermdelen, online afspraken &amp; web conferenties</string>
+    <string name="folder">map</string>
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_icon">Map pictogram</string>
@@ -527,6 +529,9 @@
     <string name="prefs_storage_path">Opslagpad</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
+    <string name="prefs_theme_title">Thema</string>
+    <string name="prefs_value_theme_dark">Donker</string>
+    <string name="prefs_value_theme_light">Licht</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
@@ -538,6 +543,7 @@
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="remote_file_fetch_failed">Het bestand is niet gevonden!</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>
@@ -585,6 +591,8 @@
     <string name="share_file">Deel %1$s</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_group_clarification">%1$s (groep)</string>
+    <string name="share_internal_link">Deel interne link</string>
+    <string name="share_internal_link_text">Dit werkt enkel voor gebruikers met toegang tot %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
     <string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>

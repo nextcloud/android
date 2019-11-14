@@ -63,6 +63,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
@@ -115,6 +116,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_CONFIRM_PASSCODE = 6;
     private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+    private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
 
@@ -171,7 +173,7 @@ public class SettingsActivity extends PreferenceActivity
         setupDetailsCategory(accentColor, preferenceScreen);
 
         // More
-        setupMoreCategory(accentColor, appVersion);
+        setupMoreCategory(accentColor);
 
         // About
         setupAboutCategory(accentColor, appVersion);
@@ -309,7 +311,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupMoreCategory(int accentColor, String appVersion) {
+    private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
@@ -323,8 +325,6 @@ public class SettingsActivity extends PreferenceActivity
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
-
-        setupFeedbackPreference(appVersion, preferenceCategoryMore);
 
         setupLoggingPreference(preferenceCategoryMore);
 
@@ -373,31 +373,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupFeedbackPreference(String appVersion, PreferenceCategory preferenceCategoryMore) {
-        boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
-        Preference pFeedback = findPreference("feedback");
-        if (pFeedback != null) {
-            if (feedbackEnabled) {
-                pFeedback.setOnPreferenceClickListener(preference -> {
-                    String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "", null));
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_feedback)});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    } else {
-                        DisplayUtils.showSnackMessage(this, R.string.feedback_no_mail_app);
-                    }
-
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pFeedback);
-            }
-        }
-    }
 
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);

@@ -2,7 +2,9 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author Chris Narkiewicz
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,10 +23,8 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -37,7 +37,6 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,11 +50,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.media.ErrorFormat;
+import com.nextcloud.client.media.PlayerServiceConnection;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -66,10 +66,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
-import com.owncloud.android.media.MediaService;
-import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -121,16 +118,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private ImageView mMultiListIcon;
     private ProgressBar mMultiListProgress;
 
-    private MediaServiceBinder mMediaServiceBinder;
     private MediaControlView mMediaController;
-    private MediaServiceConnection mMediaServiceConnection;
     private boolean mAutoplay;
-    private static boolean mOnResume;
     private boolean mPrepared;
+    private PlayerServiceConnection mMediaPlayerServiceConnection;
 
     private Uri mVideoUri;
     @Inject UserAccountManager accountManager;
-
 
     /**
      * Creates a fragment to preview a file.
@@ -171,10 +165,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mAutoplay = true;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,12 +176,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mAccount = bundle.getParcelable(ACCOUNT);
         mSavedPlaybackPosition = bundle.getInt(PLAYBACK_POSITION);
         mAutoplay = bundle.getBoolean(AUTOPLAY);
+        mMediaPlayerServiceConnection = new PlayerServiceConnection(getContext());
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -213,8 +200,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         return view;
     }
 
-
-    protected void setupMultiView(View view) {
+    private void setupMultiView(View view) {
         mMultiListContainer = view.findViewById(R.id.empty_list_view);
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
@@ -232,7 +218,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
     }
 
-    public void setMessageForMultiList(String headline, @StringRes int message, @DrawableRes int icon) {
+    private void setMessageForMultiList(String headline, @StringRes int message, @DrawableRes int icon) {
         if (mMultiListContainer != null && mMultiListMessage != null) {
             mMultiListHeadline.setText(headline);
             mMultiListMessage.setText(message);
@@ -244,13 +230,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        mOnResume = true;
         super.onActivityCreated(savedInstanceState);
         Log_OC.v(TAG, "onActivityCreated");
 
@@ -306,10 +287,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -325,25 +302,24 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
                 outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
             }
-        }
-        else {
-            if (mMediaServiceBinder != null) {
-                outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mMediaServiceBinder.getCurrentPosition());
-                outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
-            }
+        } else if(mMediaPlayerServiceConnection.isConnected()) {
+            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mMediaPlayerServiceConnection.getCurrentPosition());
+            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mMediaPlayerServiceConnection.isPlaying());
         }
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
         Log_OC.v(TAG, "onStart");
-
         OCFile file = getFile();
         if (file != null) {
             if (MimeTypeUtil.isAudio(file)) {
-                bindMediaService();
+                mMediaController.setMediaPlayer(mMediaPlayerServiceConnection);
+                mMediaPlayerServiceConnection.bind();
+                mMediaPlayerServiceConnection.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
+                mMultiView.setVisibility(View.GONE);
+                mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
                 stopAudio();
                 playVideo();
@@ -351,27 +327,16 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
     }
 
-
     private void stopAudio() {
-        Intent i = new Intent(getActivity(), MediaService.class);
-        i.setAction(MediaService.ACTION_STOP_ALL);
-        getActivity().startService(i);
+        mMediaPlayerServiceConnection.stop();
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -442,13 +407,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 item.setEnabled(false);
             }
         }
-
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -477,7 +437,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     /**
      * Update the file of the fragment with file value
@@ -609,7 +568,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             mMediaController.updatePausePlay();
         }
 
-
         /**
          * Called when an error in playback occurs.
          *
@@ -621,9 +579,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         public boolean onError(MediaPlayer mp, int what, int extra) {
             Log_OC.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
             mPreviewContainer.setVisibility(View.GONE);
-            if (mVideoPreview.getWindowToken() != null) {
-                String message = MediaService.getMessageForMediaError(
-                        getActivity(), what, extra);
+            final Context context = getActivity();
+            if (mVideoPreview.getWindowToken() != null && context != null) {
+                String message = ErrorFormat.toString(context, what, extra);
                 mMultiView.setVisibility(View.VISIBLE);
                 setMessageForMultiList(message, R.string.preview_sorry, R.drawable.file_movie);
             }
@@ -631,7 +589,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
 
     }
-
 
     @Override
     public void onPause() {
@@ -642,8 +599,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onResume() {
         super.onResume();
-        mOnResume = !mOnResume;
-
         Log_OC.v(TAG, "onResume");
     }
 
@@ -656,19 +611,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
-
-        mPrepared = false;
-        if (mMediaServiceConnection != null) {
-            Log_OC.d(TAG, "Unbinding from MediaService ...");
-            if (mMediaServiceBinder != null && mMediaController != null) {
-                mMediaController.stopMediaPlayerMessages();
-                mMediaServiceBinder.unregisterMediaController(mMediaController);
-            }
-            getActivity().unbindService(mMediaServiceConnection);
-            mMediaServiceConnection = null;
-            mMediaServiceBinder = null;
-        }
-
+        mMediaPlayerServiceConnection.unbind();
         super.onStop();
     }
 
@@ -706,95 +649,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Log_OC.v(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            mSavedPlaybackPosition = data.getExtras().getInt(
-                    PreviewVideoActivity.EXTRA_START_POSITION);
-            mAutoplay = data.getExtras().getBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY);
+            mSavedPlaybackPosition = data.getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+            mAutoplay = data.getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, false);
         }
     }
-
-
-    private void playAudio() {
-        OCFile file = getFile();
-        if (!mMediaServiceBinder.isPlaying(file) && !mOnResume) {
-            Log_OC.d(TAG, "starting playback of " + file.getStoragePath());
-            mMediaServiceBinder.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
-        }
-        else {
-            if (!mMediaServiceBinder.isPlaying() && mAutoplay) {
-                mMediaServiceBinder.start();
-                mMediaController.updatePausePlay();
-            }
-        }
-
-        mOnResume = false;
-    }
-
-
-    private void bindMediaService() {
-        Log_OC.d(TAG, "Binding to MediaService...");
-        if (mMediaServiceConnection == null) {
-            mMediaServiceConnection = new MediaServiceConnection();
-        }
-        getActivity().bindService(  new Intent(getActivity(),
-                                    MediaService.class),
-                                    mMediaServiceConnection,
-                                    Context.BIND_AUTO_CREATE);
-            // follow the flow in MediaServiceConnection#onServiceConnected(...)
-
-        ((FileDisplayActivity) getActivity()).setMediaServiceConnection();
-    }
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private class MediaServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (getActivity() != null
-                    && component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log_OC.d(TAG, "Media service connected");
-                mMediaServiceBinder = (MediaServiceBinder) service;
-                if (mMediaServiceBinder != null) {
-                    prepareMediaController();
-                    playAudio();    // do not wait for the touch of nobody to play audio
-
-                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
-
-                } else {
-                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
-                }
-            }
-        }
-
-        private void prepareMediaController() {
-            mMultiView.setVisibility(View.GONE);
-            mPreviewContainer.setVisibility(View.VISIBLE);
-            mMediaServiceBinder.registerMediaController(mMediaController);
-            if (mMediaController != null) {
-                mMediaController.setMediaPlayer(mMediaServiceBinder);
-                mMediaController.setEnabled(true);
-                mMediaController.updatePausePlay();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log_OC.w(TAG, "Media service suddenly disconnected");
-                if (mMediaController != null) {
-                    mMediaController.setMediaPlayer(null);
-                }
-                else {
-                    Toast.makeText(
-                            getActivity(),
-                            "No media controller to release when disconnected from media service",
-                            Toast.LENGTH_SHORT).show();
-                }
-                mMediaServiceBinder = null;
-                mMediaServiceConnection = null;
-            }
-        }
-    }
-
 
     /**
      * Opens the previewed file with an external application.
@@ -802,7 +660,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void openFile() {
         stopPreview(true);
         containerActivity.getFileOperationsHelper().openFile(getFile());
-        finish();
+        finishPreview();
     }
 
     /**
@@ -816,28 +674,24 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file));
     }
 
-
     public void stopPreview(boolean stopAudio) {
         OCFile file = getFile();
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
-            mMediaServiceBinder.pause();
-
-        }
-        else {
-            if (MimeTypeUtil.isVideo(file)) {
-                mVideoPreview.stopPlayback();
-            }
+            mMediaPlayerServiceConnection.pause();
+        } else if (MimeTypeUtil.isVideo(file)) {
+            mVideoPreview.stopPlayback();
         }
     }
-
 
     /**
      * Finishes the preview
      */
-    private void finish() {
-        getActivity().onBackPressed();
+    private void finishPreview() {
+        final Activity activity = getActivity();
+        if (activity != null) {
+            activity.onBackPressed();
+        }
     }
-
 
     public int getPosition() {
         if (mPrepared) {

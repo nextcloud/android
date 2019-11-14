@@ -464,9 +464,9 @@ public class UploadFileOperation extends SyncOperation {
                 mUpload.setFolderUnlockToken(token);
                 uploadsStorageManager.updateUpload(mUpload);
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                throw new Exception("Forbidden! Please try again later.)");
+                throw new UploadException("Forbidden! Please try again later.)");
             } else {
-                throw new Exception("Unknown error!");
+                throw new UploadException("Unknown error!");
             }
 
             // Update metadata
@@ -498,10 +498,10 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
             } else {
                 // TODO error
-                throw new Exception("something wrong");
+                throw new UploadException("something wrong");
             }
 
-            /***** E2E *****/
+            /**** E2E *****/
 
             // check name collision
             checkNameCollision(client, metadata, parentFile.isEncrypted());
@@ -646,7 +646,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 if (!uploadMetadataOperationResult.isSuccess()) {
-                    throw new Exception();
+                    throw new UploadException();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -675,24 +675,7 @@ public class UploadFileOperation extends SyncOperation {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() + ": " +
-                        result.getLogMessage());
-            } else {
-                if (result.getException() != null) {
-                    if (result.isCancelled()) {
-                        Log_OC.w(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
-                                ": " + result.getLogMessage());
-                    } else {
-                        Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
-                                ": " + result.getLogMessage(), result.getException());
-                    }
-
-                } else {
-                    Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
-                            ": " + result.getLogMessage());
-                }
-            }
+            logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
         }
 
         if (result.isSuccess()) {
@@ -886,23 +869,7 @@ public class UploadFileOperation extends SyncOperation {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " +
-                        result.getLogMessage());
-            } else {
-                if (result.getException() != null) {
-                    if (result.isCancelled()) {
-                        Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                                ": " + result.getLogMessage());
-                    } else {
-                        Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                                ": " + result.getLogMessage(), result.getException());
-                    }
-                } else {
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                            ": " + result.getLogMessage());
-                }
-            }
+            logResult(result, mOriginalStoragePath, mRemotePath);
         }
 
         if (result.isSuccess()) {
@@ -917,6 +884,24 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
+        if (result.isSuccess()) {
+            Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
+        } else {
+            if (result.getException() != null) {
+                if (result.isCancelled()) {
+                    Log_OC.w(TAG, "Upload of " + sourcePath + " to " + targetPath + ": "
+                        + result.getLogMessage());
+                } else {
+                    Log_OC.e(TAG, "Upload of " + sourcePath + " to " + targetPath + ": "
+                        + result.getLogMessage(), result.getException());
+                }
+            } else {
+                Log_OC.e(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
+            }
+        }
     }
 
     private RemoteOperationResult copyFile(File originalFile, String expectedPath) throws OperationCancelledException,

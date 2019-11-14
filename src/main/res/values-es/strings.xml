@@ -265,6 +265,7 @@
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="feedback_no_mail_app">¡No hay ninguna app disponible para mandar correos!</string>
+    <string name="file">archivo</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Colaboración segura e intercambio de archivos</string>
     <string name="first_run_3_text">Correo web, calendario y contactos fáciles de usar</string>
     <string name="first_run_4_text">Compartir pantalla, reuniones online y conferencias web</string>
+    <string name="folder">carpeta</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Icono de carpeta</string>
@@ -490,9 +492,7 @@
     <string name="pref_behaviour_entries_move">movido a la carpeta de la app</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">kSync no ha podido resolver la dirección del servidor para la cuenta.</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
-    <string name="prefs_calendar_contacts_summary">Configurar kSync (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Ruta de almacenamiento</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Oscuro</string>
+    <string name="prefs_value_theme_light">Claro</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
@@ -568,7 +571,6 @@
     <string name="screenshot_05_autoUpload_heading">Subida automática</string>
     <string name="screenshot_05_autoUpload_subline">para sus fotos &amp; vídeos</string>
     <string name="screenshot_06_davdroid_heading">Sincronice calendario &amp; contactos</string>
-    <string name="screenshot_06_davdroid_subline">con kSync (anteriormente DAVdroid)</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Escoge plantilla</string>
@@ -586,6 +588,8 @@
     <string name="share_file">Compartir %1$s</string>
     <string name="share_get_public_link_button">Obtener enlace</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
+    <string name="share_internal_link">Compartir enlace interno</string>
+    <string name="share_internal_link_text">Sólo funciona para usuarios con acceso a esto %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Debes introducir una contraseña</string>
     <string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
@@ -669,7 +673,6 @@
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imágenes</string>
-    <string name="store_full_desc">La plataforma autoalojada de productividad que te entrega el control.\n\nCaracterísticas:\n* Interfaz sencilla y modernal, adaptada al tema de tu servidor\n* Subida de archivos a tu servidor Nextcloud\n*Compártelos con otros\n*Mantén sincronizados tus archivos y carpetas favoritos\n*Búsqueda en todas las carpetas de tu servidor\n*Subida autoática para fotos y vídeos hechos con tu dispositivo\n*Manténte informado con notificaciones\n*Soporte de múltiples cuentas\n* Acceso seguro a tus datos con huella dactilar o PIN\n*Integración con kSync (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos\n\nPor favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y habla de esta app en https://help.nextcloud.com/c/clients/android\n\n¿Nuevo en Nextcloud? Nextcloud es un servidor privado de sincronización de archivos, para compartir y comunicarse. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tú controlas tus fotos, tus datos de calendario y contactos, tus documentos y todo lo demás.\n\nDescubre Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
     <string name="store_short_desc">La plataforma de productividad autoalojada que te mantiene al mando</string>
     <string name="store_short_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando (versión de prueba para desarrolladores)</string>

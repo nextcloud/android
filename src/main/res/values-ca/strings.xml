@@ -265,6 +265,7 @@
     <string name="favorite">Afegix a preferits</string>
     <string name="favorite_icon">Preferits</string>
     <string name="feedback_no_mail_app">No hi ha cap aplicació disponible per enviar correus electrònics!</string>
+    <string name="file">arxiu</string>
     <string name="file_delete">Suprimeix</string>
     <string name="file_detail_activity_error">Hi ha hagut un error mentre es recuperaven les activitats per al fitxer</string>
     <string name="file_details_no_content">No s\'han pogut carregar els detalls</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Intercanvi de fitxers &amp; amb coŀlaboració segura</string>
     <string name="first_run_3_text">Correu web, agenda i contactes fàcils de fer servir</string>
     <string name="first_run_4_text">Compartició de pantalles, reunions en línia i conferències web</string>
+    <string name="folder">carpeta</string>
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_icon">Icona de la carpeta</string>
@@ -527,6 +529,9 @@
     <string name="prefs_storage_path">Ruta d\'emmagatzematge</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Fosc</string>
+    <string name="prefs_value_theme_light">Clar</string>
     <string name="preview_image_description">Visualització prèvia d\'imatge</string>
     <string name="preview_image_error_no_local_file">No hi ha cap fitxer local per fer una vista prèvia</string>
     <string name="preview_image_error_unknown_format">No es pot mostrar la imatge</string>
@@ -538,6 +543,7 @@
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote_file_fetch_failed">No s\'ha pogut trobar l\'arxiu!</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
     <string name="remove_notification_failed">Ha fallat la supressió de la notificació.</string>
     <string name="remove_push_notification">Suprimeix</string>
@@ -585,6 +591,8 @@
     <string name="share_file">Comparteix %1$s</string>
     <string name="share_get_public_link_button">Obtén l\'enllaç</string>
     <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_internal_link">Compartir l\'enllaç intern</string>
+    <string name="share_internal_link_text">Només funciona amb els usuaris que poden accedir a %1$s</string>
     <string name="share_known_remote_clarification">%1$s (a %2$s)</string>
     <string name="share_link_empty_password">Heu d\'escriure una contrasenya</string>
     <string name="share_link_file_error">S\'ha produït un error mentre s\'intentava compartir aquest fitxer o carpeta</string>

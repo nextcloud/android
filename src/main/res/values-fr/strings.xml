@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources>
+<resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_title">À propos de</string>
     <string name="about_version">version %1$s</string>
@@ -267,6 +267,7 @@ Attention la suppression est irréversible.</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
     <string name="feedback_no_mail_app">Aucune application disponible pour envoyer des mails !</string>
+    <string name="file">fichier</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
@@ -336,6 +337,7 @@ Attention la suppression est irréversible.</string>
     <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
     <string name="first_run_3_text">Messagerie web, Agenda et Contacts faciles d\'utilisation</string>
     <string name="first_run_4_text">Partage d\'écran et réunion en ligne</string>
+    <string name="folder">dossier</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_icon">Icône de dossier</string>
@@ -492,9 +494,7 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour kSync (autrefois connu comme DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
-    <string name="prefs_calendar_contacts_summary">Configurer kSync</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
@@ -529,6 +529,9 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_storage_path">Chemin de stockage</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
+    <string name="prefs_theme_title">Thème</string>
+    <string name="prefs_value_theme_dark">Sombre</string>
+    <string name="prefs_value_theme_light">Clair</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
@@ -540,6 +543,7 @@ Attention la suppression est irréversible.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
@@ -569,7 +573,6 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid_heading">Synchronisez votre calendrier &amp; vos contacts</string>
-    <string name="screenshot_06_davdroid_subline">avec kSync (anciennement DAVdroid)</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_template">Sélectionnez un modèle</string>
@@ -587,6 +590,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
+    <string name="share_internal_link">Partager le lien interne</string>
+    <string name="share_internal_link_text">Fonctionne uniquement pour les utilisateurs ayant accès à ce %1$s</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
@@ -670,7 +675,6 @@ Attention la suppression est irréversible.</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>
     <string name="storage_pictures">Images</string>
-    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre serveur Nextcloud\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Envoi automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec kSync (ancien nom : DAVdroid) pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez ce cette application sur https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
@@ -830,13 +834,5 @@ Attention la suppression est irréversible.</string>
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
-    <string name="intro_title_1">Bienvenue dans la version bêta du Drive Infomaniak</string>
-    <string name="intro_text_1">Faites partie des premières personnes à tester notre Drive et prenez part à la conception du produit en nous transmettant vos commentaires.</string>
-    <string name="intro_title_2">Synchronisez facilement vos fichiers</string>
-    <string name="intro_text_2">Accédez à vos fichiers sur tous vos appareils.</string>
-    <string name="intro_title_3">Sauvegardez automatiquement vos photos sur votre Drive</string>
-    <string name="intro_text_3">Choisissez les dossiers sur votre téléphone à synchroniser automatiquement dès qu’un nouveau contenu.</string>
-
-    <string name="unavailable_operation_beta">Cette opération est indisponible durant la phase de beta-testing</string>
 
 </resources>

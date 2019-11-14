@@ -7,7 +7,7 @@
 import com.github.spotbugs.SpotBugsTask
 
 buildscript {
-    ext.kotlin_version = '1.3.41'
+    ext.kotlin_version = '1.3.50'
     repositories {
         google()
         jcenter()
@@ -20,13 +20,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0-RC14"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.1.1"
     }
 }
 
@@ -48,6 +48,7 @@ configurations {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
         exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
+        exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitely
 
         // check for updates every build
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -56,8 +57,10 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.24"
-    androidLibraryVersion = "rc-1.6.1-02"
+    daggerVersion = "2.25.2"
+    markwonVersion =  "4.1.2"
+    prismVersion = "2.0.0"
+    androidLibraryVersion = "1.7.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -78,13 +81,19 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 8
-def versionPatch = 1
+def versionMinor = 9
+def versionPatch = 0
 def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
-def taskRequest = getGradle().getStartParameter().getTaskRequests().toString()
-if (taskRequest.contains("Gplay") || taskRequest.contains("lint")) {
-    apply from: 'gplay.gradle'
+for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
+    for (String arg : tr.args) {
+        // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
+        if (arg.contains("Gplay") || arg.contains("lint") || arg == "build") {
+            apply from: 'gplay.gradle'
+            System.console().println("Applying gplay.gradle")
+            break
+        }
+    }
 }
 
 spotbugs {
@@ -153,8 +162,8 @@ android {
             versionDev {
                 applicationId "com.infomaniak.drive.android.beta"
                 dimension "default"
-                versionCode 20190821
-                versionName "20190821"
+                versionCode 20191026
+                versionName "20191026"
             }
 
             qa {
@@ -194,7 +203,7 @@ android {
 
     tasks.register("pmd", Pmd) {
         ruleSetFiles = files("${project.rootDir}/ruleset.xml")
-        ignoreFailures = false
+        ignoreFailures = true // should continue checking
         ruleSets = []
 
         source 'src'
@@ -217,10 +226,10 @@ android {
         String variantName = variant.name
         String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
         tasks.register("spotbugs${capVariantName}", SpotBugsTask) {
-            ignoreFailures = false
+            ignoreFailures = true // should continue checking
             effort = "max"
             reportLevel = "medium"
-            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${capVariantName}JavaWithJavac/classes/")
+            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
             excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
             pluginClasspath = project.configurations.spotbugsPlugins
             source = fileTree('src/main/java')
@@ -238,7 +247,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugs', 'pmd', 'lint', 'ktlint'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlint', 'detekt'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -262,40 +271,42 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "androidx.work:work-runtime:2.2.0"
+    implementation "androidx.work:work-runtime-ktx:2.2.0"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
-    implementation 'com.google.android:flexbox:1.1.0'
+    implementation 'com.google.android:flexbox:1.1.1'
     implementation 'org.parceler:parceler-api:1.1.12'
     kapt 'org.parceler:parceler:1.1.12'
-    implementation('com.github.bumptech.glide:glide:3.7.0') {
+    implementation('com.github.bumptech.glide:glide:3.8.0') {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.jetbrains:annotations:17.0.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.5.1'
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
-    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.6'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.0'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
@@ -303,22 +314,33 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    compileOnly "org.projectlombok:lombok:1.18.8"
-    annotationProcessor "org.projectlombok:lombok:1.18.8"
+    compileOnly "org.projectlombok:lombok:1.18.10"
+    annotationProcessor "org.projectlombok:lombok:1.18.10"
 
-    ktlint "com.pinterest:ktlint:0.34.2"
+    ktlint "com.pinterest:ktlint:0.35.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
+    // dependencies for markdown rendering
+    implementation "io.noties.markwon:core:$markwonVersion"
+    implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
+    implementation "io.noties.markwon:ext-tables:$markwonVersion"
+    implementation "io.noties.markwon:ext-tasklist:$markwonVersion"
+    implementation "io.noties.markwon:html:$markwonVersion"
+
+    implementation "io.noties.markwon:syntax-highlight:$markwonVersion"
+    implementation "io.noties:prism4j:$prismVersion"
+    kapt "io.noties:prism4j-bundler:$prismVersion"
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:3.0.0'
+    testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'androidx.test:core:1.2.0'
-    testImplementation 'org.powermock:powermock-core:2.0.2'
-    testImplementation 'org.powermock:powermock-module-junit4:2.0.2'
-    testImplementation 'org.powermock:powermock-api-mockito2:2.0.2'
+    testImplementation 'org.powermock:powermock-core:2.0.4'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.4'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.4'
     testImplementation 'org.json:json:20190722'
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-    testImplementation "androidx.arch.core:core-testing:2.0.1"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // dependencies for instrumented tests
     // JUnit4 Rules
@@ -330,7 +352,7 @@ dependencies {
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
-    androidTestImplementation 'org.mockito:mockito-core:2.28.2'
+    androidTestImplementation 'org.mockito:mockito-core:3.1.0'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
@@ -345,6 +367,8 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
 //    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+
+    implementation "com.github.stateless4j:stateless4j:2.6.0"
 }
 
 configurations.all {

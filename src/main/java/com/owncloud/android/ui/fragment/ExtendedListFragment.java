@@ -219,11 +219,10 @@ public class ExtendedListFragment extends Fragment implements
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
+                        if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
+                            && !(getActivity() instanceof UploadFilesActivity)) {
+                            setFabVisible(!hasFocus);
 
-                            if (!(getActivity() instanceof UploadFilesActivity)) {
-                                setFabVisible(!hasFocus);
-                            }
                         }
                     }
                 }, 100);

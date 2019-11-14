@@ -266,6 +266,7 @@
     <string name="favorite_icon">收藏</string>
     <string name="feedback_no_mail_app">没有可用的用于发送邮件的应用！</string>
     <string name="file_delete">删除</string>
+    <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
@@ -419,6 +420,7 @@
     <string name="new_notification">新通知</string>
     <string name="new_version_was_created">已创建新的版本</string>
     <string name="no_browser_available">没有可用来打开链接的应用</string>
+    <string name="no_mutliple_accounts_allowed">只允许一个账号</string>
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="note_confirm">发送</string>
     <string name="note_could_not_sent">无法发送笔记</string>
@@ -525,6 +527,9 @@
     <string name="prefs_storage_path">存储路径</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
+    <string name="prefs_theme_title">主题</string>
+    <string name="prefs_value_theme_dark">深色</string>
+    <string name="prefs_value_theme_light">浅色</string>
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_no_local_file">没有可预览的本地文件</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
@@ -536,6 +541,7 @@
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用%1$s。\n这里下载：%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
+    <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>

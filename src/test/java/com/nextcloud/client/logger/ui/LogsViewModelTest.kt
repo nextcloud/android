@@ -59,6 +59,8 @@ class LogsViewModelTest {
         )
         val TEST_LOG_SIZE_KILOBYTES = 42L
         val TEST_LOG_SIZE_BYTES = TEST_LOG_SIZE_KILOBYTES * 1024L
+        const val TOTAL_ENTRY_COUNT = 3
+        const val QUERY_TIME = 4
     }
 
     class TestLogRepository : LogsRepository {
@@ -67,7 +69,8 @@ class LogsViewModelTest {
 
         override val lostEntries: Boolean = false
         override fun load(onLoaded: OnLogsLoaded) { this.onLoadedCallback = onLoaded; loadRequestCount++ }
-        override fun deleteAll() {}
+        override fun deleteAll() { /* no implementation neeeded */
+        }
     }
 
     abstract class Fixture {
@@ -233,8 +236,10 @@ class LogsViewModelTest {
 
             assertEquals("Status should contain size in kB", TEST_LOG_SIZE_KILOBYTES, statusArgs[1])
             assertEquals("Status should show matched entries count", vm.entries.value?.size, statusArgs[2])
-            assertEquals("Status should contain total entries count", TEST_LOG_ENTRIES.size, statusArgs[3])
-            assertTrue("Status should contain query time in ms", statusArgs[4] is Long)
+            assertEquals("Status should contain total entries count",
+                TEST_LOG_ENTRIES.size,
+                statusArgs[TOTAL_ENTRY_COUNT])
+            assertTrue("Status should contain query time in ms", statusArgs[QUERY_TIME] is Long)
         }
     }
 }

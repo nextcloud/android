@@ -265,6 +265,7 @@
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
     <string name="feedback_no_mail_app">Brak aplikacji do wysyłania wiadomości!</string>
+    <string name="file">plik</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
     <string name="first_run_3_text">Łatwy w użyciu klient poczty, kalendarz i kontakty</string>
     <string name="first_run_4_text">Udostępnianie ekranu, spotkania i konferencje online</string>
+    <string name="folder">katalog</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_icon">Ikona katalogu</string>
@@ -527,6 +529,9 @@
     <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
+    <string name="prefs_theme_title">Motyw</string>
+    <string name="prefs_value_theme_dark">Ciemny</string>
+    <string name="prefs_value_theme_light">Jasny</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
@@ -586,6 +591,8 @@
     <string name="share_file">Udostępnij %1$s</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
+    <string name="share_internal_link">Udostępnij link wewnętrzny</string>
+    <string name="share_internal_link_text">Działa tylko dla użytkowników mających dostęp do %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub katalogu</string>
@@ -605,9 +612,9 @@
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (konwersacja)</string>
-    <string name="share_search">Nazwa, ID chmury federalnej lub adres e-mail…</string>
+    <string name="share_search">Nazwa, ID chmury federacyjnej lub adres e-mail…</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
-    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
+    <string name="share_via_link_edit_permission_label">Zezwalaj na edycję</string>
     <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
@@ -718,7 +725,7 @@
     <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub katalogu.</string>
     <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje</string>
     <string name="unshare_link_forbidden_permissions">aby anulować udostępnianie tego pliku</string>
-    <string name="unsharing_failed">Usuwanie udostępnienia nie powiodło się</string>
+    <string name="unsharing_failed">Zatrzymywanie udostępnienia nie powiodło się</string>
     <string name="untrusted_domain">Dostęp przez niezaufaną domenę. Więcej informacji można znaleźć w dokumentacji.</string>
     <string name="update_link_file_error">Wystąpił błąd podczas próby aktualizacji udostępniania</string>
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>

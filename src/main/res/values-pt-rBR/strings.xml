@@ -265,6 +265,7 @@
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="feedback_no_mail_app">Sem aplicativo para enviar e-mails!</string>
+    <string name="file">arquivo</string>
     <string name="file_delete">Excluir</string>
     <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Colaboração segura &amp; troca de arquivos</string>
     <string name="first_run_3_text">Webmail fácil de usar, calendário &amp; contatos</string>
     <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
+    <string name="folder">pasta</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_icon">Ícone de pasta</string>
@@ -527,6 +529,9 @@
     <string name="prefs_storage_path">Caminho do armazenamento</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Escuro</string>
+    <string name="prefs_value_theme_light">Claro</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
     <string name="preview_image_error_no_local_file">Não há arquivos locais para exibir</string>
     <string name="preview_image_error_unknown_format">Não foi possível exibir a imagem</string>
@@ -586,6 +591,8 @@
     <string name="share_file">Compartilhar %1$s</string>
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
+    <string name="share_internal_link">Compartilhar o link interno</string>
+    <string name="share_internal_link_text">Funciona apenas para usuários com acesso a esta %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
     <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>

@@ -265,6 +265,7 @@
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
     <string name="feedback_no_mail_app">Keine App verfügbar für den E-Mailversand!</string>
+    <string name="file">Datei</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
     <string name="first_run_3_text">Leicht verwendbares Web-Mail, Kalender &amp; Kontakte</string>
     <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
+    <string name="folder">Ordner</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_icon">Ordnersymbol</string>
@@ -490,9 +492,7 @@
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die kSync-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
-    <string name="prefs_calendar_contacts_summary">kSync (zuvor bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Speicherort</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
+    <string name="prefs_theme_title">Design</string>
+    <string name="prefs_value_theme_dark">Dunkel</string>
+    <string name="prefs_value_theme_light">Hell</string>
     <string name="preview_image_description">Bildvorschau</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
@@ -568,7 +571,6 @@
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
     <string name="screenshot_05_autoUpload_subline">ihrer Fotos &amp; Videos</string>
     <string name="screenshot_06_davdroid_heading">Synchronisieren sie Kalender &amp; Kontakte</string>
-    <string name="screenshot_06_davdroid_subline">mit kSync (zuvor DAVdroid)</string>
     <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>
     <string name="select_all">Alle auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
@@ -586,6 +588,8 @@
     <string name="share_file">Teile %1$s</string>
     <string name="share_get_public_link_button">Link erhalten</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
+    <string name="share_internal_link">Internen Link teilen</string>
+    <string name="share_internal_link_text">Funktioniert nur für Benutzer, die Zugriff auf diese(n) %1$s haben</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
@@ -669,8 +673,6 @@
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\n\nFunktionen:\n* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers\n*
-.\n\nEigenschaften:\n* Einfache, moderne an Ihr Design angepasste Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Halten Sie Ihre favorisierten Dateien und Ordner synchron\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit kSync (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisation\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud an unter https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
@@ -830,6 +832,4 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-
-    <string name="unavailable_operation_beta">Dieser Vorgang ist während der Beta-Testphase nicht verfügbar.</string>
 </resources>

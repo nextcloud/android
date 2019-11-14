@@ -78,6 +78,7 @@
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
     <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
+    <string name="autoupload_disable_power_save_check">Zakázat kontrolu úspory energie</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_disable">Vypnout</string>
@@ -85,6 +86,7 @@
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
+    <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
     <string name="choose_remote_folder">Zvolte složku na protějšku…</string>
@@ -167,6 +169,8 @@
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
+    <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
+    <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
@@ -246,6 +250,8 @@
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
+    <string name="error_report_issue_action">Report</string>
+    <string name="error_report_issue_text">Nahlásit problém? (vyžaduje Github účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
@@ -258,8 +264,10 @@
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
-    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání emailů!</string>
+    <string name="feedback_no_mail_app">Není k dispozici aplikace pro posílání e-mailů!</string>
+    <string name="file">soubor</string>
     <string name="file_delete">Smazat</string>
+    <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
@@ -325,8 +333,9 @@
     <string name="files_drop_not_supported">Toto je funkce Nextcloud, přejděte na něj.</string>
     <string name="first_run_1_text">Mějte svá data zabezpečená a pod svou správou</string>
     <string name="first_run_2_text">Zabezpečená spolupráce &amp; výměna souborů</string>
-    <string name="first_run_3_text">Snadno použitelný webový emailový klient, kalendáře &amp; kontakty</string>
+    <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendáře &amp; kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, online schůzky &amp; webové konference</string>
+    <string name="folder">složka</string>
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_icon">Ikona složky</string>
@@ -361,13 +370,15 @@
     <string name="local_file_not_found_message">Soubor nenalezen na souborovém systému</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
     <string name="log_send_mail_subject">Záznamy událostí v aplikaci %1$s pro Android</string>
-    <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte emailového klienta.</string>
+    <string name="log_send_no_mail_app">Nebyla nalezena aplikace k odesílání záznamů událostí. Nainstalujte e-mailového klienta.</string>
     <string name="login">Přihlásit</string>
     <string name="logs_menu_delete">Smazat záznamy událostí</string>
     <string name="logs_menu_refresh">Obnovit</string>
     <string name="logs_menu_search">Prohledat záznamy událostí</string>
     <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>
+    <string name="logs_status_filtered">Logy: %1$d kB, dotaz nalezl %2$d / %3$d v %4$d ms</string>
     <string name="logs_status_loading">Načítání…</string>
+    <string name="logs_status_not_filtered">Logy: %1$d kB, žádný filtr</string>
     <string name="logs_title">Záznamy událostí</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
     <string name="manage_space_clear_data">Vyčistit data</string>
@@ -411,6 +422,7 @@
     <string name="new_notification">Nové oznámení</string>
     <string name="new_version_was_created">Byla vytvořena nová verze</string>
     <string name="no_browser_available">Není k dispozici aplikace pro práci s odkazy</string>
+    <string name="no_mutliple_accounts_allowed">Povolen je pouze jeden účet</string>
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
     <string name="note_confirm">Poslat</string>
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>
@@ -474,6 +486,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Toto je zástupný text</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 odp.</string>
+    <string name="power_save_check_dialog_message">Zákaz kontroly úspory energie může způsobit nahrávání souborů i v případě nízkého stavu baterie!</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
     <string name="pref_behaviour_entries_keep_file">ponechán v původní složce</string>
     <string name="pref_behaviour_entries_move">přesunut do složky aplikace</string>
@@ -516,6 +529,9 @@
     <string name="prefs_storage_path">Popis umístění úložiště</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdálená složka</string>
+    <string name="prefs_theme_title">Motiv</string>
+    <string name="prefs_value_theme_dark">Tmavý</string>
+    <string name="prefs_value_theme_light">Světlý</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_no_local_file">K náhledu není žádný místní soubor</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
@@ -527,6 +543,7 @@
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém telefonu!</string>
     <string name="recommend_text">Rád bych vás pozval(a) k používání %1$s ve vašem telefonu.\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
+    <string name="remote_file_fetch_failed">Nepodařilo se najít soubor!</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
     <string name="remove_notification_failed">Oznámení se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
@@ -574,6 +591,8 @@
     <string name="share_file">Sdílet %1$s</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
+    <string name="share_internal_link">Sdílet vnitřní odkaz</string>
+    <string name="share_internal_link_text">Bude fungovat pouze pro uživatele s přístupem do tohoto %1$s</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>
     <string name="share_link_empty_password">Je třeba zadat heslo</string>
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
@@ -593,7 +612,7 @@
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
-    <string name="share_search">Jméno, sdružené cloud ID, nebo emailová adresa…</string>
+    <string name="share_search">Jméno, sdružené cloud ID, nebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
     <string name="share_via_link_expiration_date_label">Nastavit datum skončení platnosti</string>
@@ -780,7 +799,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čeká se na Wi-Fi</string>
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webové stránky</string>

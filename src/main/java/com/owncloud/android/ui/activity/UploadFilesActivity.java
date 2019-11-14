@@ -677,8 +677,8 @@ public class UploadFilesActivity extends FileActivity implements
     }
 
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
+    protected void onStart() {
+        super.onStart();
         if (getAccount() != null) {
             if (!mAccountOnCreation.equals(getAccount())) {
                 setResult(RESULT_CANCELED);

@@ -1,0 +1,12 @@
+07d0abe87 Merge pull request #4644 from nextcloud/detectAuth
+9be019ce4 Merge pull request #4637 from nextcloud/fixSingleAccountMode
+140eb3b66 Allow broader check on CheckAuth
+babcbec38 Merge pull request #4640 from nextcloud/accountListDisappears
+3d6d396ba fix disappearing account list on resume
+baefe67ea enhance single account mode
+bb81d2349 Merge pull request #4632 from nextcloud/npeInDetail
+ad9daacb2 Merge pull request #4629 from nextcloud/ezaquarii/remove-sticky-headers-code
+832e525f0 hardening on possible NPE due to null account/activity
+f321cedb2 Merge pull request #4623 from nextcloud/fixSyncedFolderNofications
+eb5f8e017 [tx-robot] updated from transifex
+ff1d95008 daily dev 20191009

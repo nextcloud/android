@@ -38,16 +38,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private OCCapability mCapabilities;
 
     /**
-     * Flag to signal when the value of mAccount was set.
-     */
-    protected boolean mAccountWasSet;
-
-    /**
-     * Flag to signal when the value of mAccount was restored from a saved state.
-     */
-    protected boolean mAccountWasRestored;
-
-    /**
      * Access point to the cached database for the current ownCloud {@link Account}.
      */
     private FileDataStorageManager mStorageManager;
@@ -90,20 +80,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      *
      * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
      *
-     * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     *
      * @param account      New {@link Account} to set.
      * @param savedAccount When 'true', account was retrieved from a saved instance state.
      */
+    @Deprecated
     protected void setAccount(Account account, boolean savedAccount) {
-        Account oldAccount = mCurrentAccount;
-        boolean validAccount =
-                account != null && accountManager.setCurrentOwnCloudAccount(account.name);
+        boolean validAccount = account != null && accountManager.setCurrentOwnCloudAccount(account.name);
         if (validAccount) {
             mCurrentAccount = account;
-            mAccountWasSet = true;
-            mAccountWasRestored = savedAccount || mCurrentAccount.equals(oldAccount);
-
         } else {
             swapToDefaultAccount();
         }
@@ -114,8 +98,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      *
      * If no valid ownCloud {@link Account} exists, then the user is requested
      * to create a new ownCloud {@link Account}.
-     *
-     * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     protected void swapToDefaultAccount() {
         // default to the most recently used account
@@ -123,12 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
-            mAccountWasSet = false;
-            mAccountWasRestored = false;
-
         } else {
-            mAccountWasSet = true;
-            mAccountWasRestored = newAccount.equals(mCurrentAccount);
             mCurrentAccount = newAccount;
         }
     }
@@ -155,7 +132,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      *
      * Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected void onAccountSet(boolean stateWasRecovered) {
+    @Deprecated
+    protected void onAccountSet() {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             mCapabilities = mStorageManager.getCapability(mCurrentAccount.name);
@@ -164,6 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         }
     }
 
+    @Deprecated
     protected void setAccount(Account account) {
         mCurrentAccount = account;
     }
@@ -193,8 +172,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void onStart() {
         super.onStart();
 
-        if (mAccountWasSet) {
-            onAccountSet(mAccountWasRestored);
+        if(mCurrentAccount != null) {
+            onAccountSet();
         }
     }
 

@@ -133,7 +133,7 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         }
 
         setAccount(currentAccount);
-        onAccountSet(false);
+        onAccountSet();
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 

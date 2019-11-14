@@ -22,18 +22,20 @@ package com.nextcloud.client.di;
 
 import android.accounts.AccountManager;
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.media.AudioManager;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.core.AsyncRunner;
-import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
+import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
@@ -67,6 +69,11 @@ class AppModule {
     @Provides
     Context context(Application application) {
         return application;
+    }
+
+    @Provides
+    ContentResolver contentResolver(Context context) {
+        return context.getContentResolver();
     }
 
     @Provides
@@ -145,5 +152,15 @@ class AppModule {
     AsyncRunner asyncRunner() {
         Handler uiHandler = new Handler();
         return new ThreadPoolAsyncRunner(uiHandler, 4);
+    }
+
+    @Provides
+    NotificationManager notificationManager(Context context) {
+        return (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    @Provides
+    AudioManager audioManager(Context context) {
+        return (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
     }
 }

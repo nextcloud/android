@@ -265,6 +265,7 @@
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
     <string name="feedback_no_mail_app">Nessun applicazione disponibile per inviare email!</string>
+    <string name="file">file</string>
     <string name="file_delete">Elimina</string>
     <string name="file_detail_activity_error">Errore durante il recupero delle attività per i file</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
     <string name="first_run_3_text">Web mail, calendari e contatti di semplice utilizzo</string>
     <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
+    <string name="folder">cartella</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_icon">Icona delle cartelle</string>
@@ -490,9 +492,7 @@
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto per kSync</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
-    <string name="prefs_calendar_contacts_summary">Configura kSync (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
@@ -527,6 +527,9 @@
     <string name="prefs_storage_path">Percorso di archiviazione</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Scuro</string>
+    <string name="prefs_value_theme_light">Chiaro</string>
     <string name="preview_image_description">Anteprima dell\'immagine</string>
     <string name="preview_image_error_no_local_file">Non esiste un file locale per l\'anteprima</string>
     <string name="preview_image_error_unknown_format">Impossibile mostrare l\'immagine</string>
@@ -568,7 +571,6 @@
     <string name="screenshot_05_autoUpload_heading">Caricamento automatico</string>
     <string name="screenshot_05_autoUpload_subline">per e tue foto e i video</string>
     <string name="screenshot_06_davdroid_heading">Sincronizza calendario e contatti</string>
-    <string name="screenshot_06_davdroid_subline">con kSync (originariamente DAVdroid)</string>
     <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="select_template">Seleziona modello</string>
@@ -586,6 +588,8 @@
     <string name="share_file">Condividi %1$s</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
+    <string name="share_internal_link">Condividi collegamento interno</string>
+    <string name="share_internal_link_text">Funziona solo per gli utenti con accesso a questo/a %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
@@ -669,7 +673,6 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Musica</string>
     <string name="storage_pictures">Immagini</string>
-    <string name="store_full_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\n\n* Interfaccia semplice e moderna, allineata al tema del tuo server\n* Carica i file sul tuo server Nextcloud\n* Condividi i tuoi file con altri\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con impronta digitale o PIN\n* Integrazione con kSync (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
     <string name="store_short_desc">La piattaforma di produttività auto-gestita che ti lascia al comando</string>
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
@@ -829,6 +832,4 @@
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
-
-    <string name="unavailable_operation_beta">Questa operazione non è disponibile durante la fase di beta-testing.</string>
 </resources>

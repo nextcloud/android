@@ -30,6 +30,7 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("MagicNumber") // numbers are used for testing sort
 class AsyncFilterTest {
 
     class OnResult<T> : (List<T>, Long) -> Unit {

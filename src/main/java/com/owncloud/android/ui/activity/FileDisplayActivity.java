@@ -56,6 +56,7 @@ import android.view.ViewTreeObserver;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -77,8 +78,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.media.MediaService;
-import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -207,9 +206,6 @@ public class FileDisplayActivity extends FileActivity
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
-    private MediaServiceBinder mMediaServiceBinder;
-    private MediaServiceConnection mMediaServiceConnection;
-
     public static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
     public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
@@ -217,6 +213,8 @@ public class FileDisplayActivity extends FileActivity
     private boolean searchOpen;
 
     private SearchView searchView;
+    private PlayerServiceConnection mPlayerConnection;
+    private Account mLastDisplayedAccount;
 
     @Inject
     AppPreferences preferences;
@@ -234,7 +232,7 @@ public class FileDisplayActivity extends FileActivity
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        super.onCreate(savedInstanceState);
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
@@ -284,6 +282,8 @@ public class FileDisplayActivity extends FileActivity
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             handleOpenFileViaIntent(getIntent());
         }
+
+        mPlayerConnection = new PlayerServiceConnection(this);
     }
 
     @Override
@@ -416,57 +416,6 @@ public class FileDisplayActivity extends FileActivity
             }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    /**
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     */
-    @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
-        if (getAccount() != null) {
-            /// Check whether the 'main' OCFile handled by the Activity is contained in the
-            // current Account
-            OCFile file = getFile();
-            // get parent from path
-            String parentPath = "";
-            if (file != null) {
-                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
-                    // upload in progress - right now, files are not inserted in the local
-                    // cache until the upload is successful get parent from path
-                    parentPath = file.getRemotePath().substring(0,
-                            file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (getStorageManager().getFileByPath(parentPath) == null) {
-                        file = null; // not able to know the directory where the file is uploading
-                    }
-                } else {
-                    file = getStorageManager().getFileByPath(file.getRemotePath());
-                    // currentDir = null if not in the current Account
-                }
-            }
-            if (file == null) {
-                // fall back to root folder
-                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
-            }
-            setFile(file);
-
-            if (mAccountWasSet) {
-                setAccountInDrawer(getAccount());
-                setupDrawer();
-            }
-
-            if (!stateWasRecovered) {
-                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
-                initFragmentsWithFile();
-                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
-                    startSyncFolderOperation(file, false);
-                }
-
-            } else {
-                updateFragmentsVisibility(!file.isFolder());
-                updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
-            }
         }
     }
 
@@ -1787,36 +1736,6 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private MediaServiceConnection newMediaConnection(){
-        return new MediaServiceConnection();
-    }
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private class MediaServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-
-            if (component.equals(new ComponentName(FileDisplayActivity.this, MediaService.class))) {
-                Log_OC.d(TAG, "Media service connected");
-                mMediaServiceBinder = (MediaServiceBinder) service;
-
-            }else {
-                return;
-            }
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    MediaService.class))) {
-                Log_OC.e(TAG, "Media service disconnected");
-                mMediaServiceBinder = null;
-            }
-        }
-    }
-
     /**
      * Updates the view associated to the activity after the finish of some operation over files
      * in the current account.
@@ -1948,14 +1867,10 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    public void setMediaServiceConnection() {
-        mMediaServiceConnection = newMediaConnection();// mediaServiceConnection;
-        bindService(new Intent(this, MediaService.class), mMediaServiceConnection, Context.BIND_AUTO_CREATE);
-    }
-
     private void tryStopPlaying(OCFile file) {
-        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file) && mMediaServiceBinder.isPlaying(file)) {
-            mMediaServiceBinder.pause();
+        // placeholder for stop-on-delete future code
+        if(mPlayerConnection != null) {
+            mPlayerConnection.stop(file);
         }
     }
 
@@ -2633,8 +2548,51 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().post(new TokenPushEvent());
+        final Account account = getAccount();
+        if (account != null) {
+            /// Check whether the 'main' OCFile handled by the Activity is contained in the
+            // current Account
+            OCFile file = getFile();
+            // get parent from path
+            String parentPath = "";
+            if (file != null) {
+                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
+                    // upload in progress - right now, files are not inserted in the local
+                    // cache until the upload is successful get parent from path
+                    parentPath = file.getRemotePath().substring(0,
+                                                                file.getRemotePath().lastIndexOf(file.getFileName()));
+                    if (getStorageManager().getFileByPath(parentPath) == null) {
+                        file = null; // not able to know the directory where the file is uploading
+                    }
+                } else {
+                    file = getStorageManager().getFileByPath(file.getRemotePath());
+                    // currentDir = null if not in the current Account
+                }
+            }
+            if (file == null) {
+                // fall back to root folder
+                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
+            }
+            setFile(file);
 
+            setAccountInDrawer(account);
+            setupDrawer();
+
+            final boolean accountChanged = !account.equals(mLastDisplayedAccount);
+            if (accountChanged) {
+                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
+                initFragmentsWithFile();
+                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
+                    startSyncFolderOperation(file, false);
+                }
+            } else {
+                updateFragmentsVisibility(!file.isFolder());
+                updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
+            }
+        }
+        mLastDisplayedAccount = account;
+
+        EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
     }
 

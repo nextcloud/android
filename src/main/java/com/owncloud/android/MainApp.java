@@ -49,6 +49,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.errorhandling.ExceptionHandler;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.network.ConnectivityService;
@@ -113,15 +114,16 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 /**
  * Main Application of the project
- * <p>
+ *
  * Contains methods to build the "static" strings. These strings were before constants in different classes
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_13;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_14;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_12;
 
     private static final String TAG = MainApp.class.getSimpleName();
+    public static final String DOT = ".";
 
     private static Context mContext;
 
@@ -155,6 +157,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     AppInfo appInfo;
 
+    @Inject
+    BackgroundJobManager backgroundJobManager;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -181,6 +186,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
+    }
+
+    /**
+     * Temporary getter enabling intermediate refactoring.
+     * TODO: remove when FileSyncHelper is refactored/removed
+     */
+    public BackgroundJobManager getBackgroundJobManager() {
+        return backgroundJobManager;
     }
 
     private String getAppProcessName() {
@@ -233,11 +246,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         insertConscrypt();
 
-        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
-        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
-            .setEnableDebugLogging(BuildConfig.DEBUG)
-            .build();
-        securityKeyManager.init(this, config);
+        initSecurityKeyManager();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
@@ -289,8 +298,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 Log_OC.d("Debug", "Failed to disable uri exposure");
             }
         }
-
-        initSyncOperations(uploadsStorageManager, accountManager, connectivityService, powerManagementService);
+        initSyncOperations(uploadsStorageManager,
+                           accountManager,
+                           connectivityService,
+                           powerManagementService,
+                           backgroundJobManager);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -307,7 +319,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             .build()
             .schedule();
 
-        // register global protection with pass code
+        registerGlobalPassCodeProtection();
+    }
+
+    private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
@@ -350,6 +365,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         });
     }
 
+    private void initSecurityKeyManager() {
+        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
+        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
+            .setEnableDebugLogging(BuildConfig.DEBUG)
+            .build();
+        securityKeyManager.init(this, config);
+    }
+
     public static void initContactsBackup(UserAccountManager accountManager) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
         Account[] accounts = accountManager.getAccounts();
@@ -368,9 +391,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Conscrypt.Version version = Conscrypt.version();
             Log_OC.i(TAG, "Using Conscrypt/"
                 + version.major()
-                + "."
+                + DOT
                 + version.minor()
-                + "." + version.patch()
+                + DOT + version.patch()
                 + " for TLS");
             SSLEngine engine = SSLContext.getDefault().createSSLEngine();
             Log_OC.i(TAG, "Enabled protocols: " + Arrays.toString(engine.getEnabledProtocols()) + " }");
@@ -436,7 +459,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
-        final PowerManagementService powerManagementService
+        final PowerManagementService powerManagementService,
+        final BackgroundJobManager jobManager
     ) {
         updateToAutoUpload();
         cleanOldEntries();
@@ -454,7 +478,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         initiateExistingAutoUploadEntries();
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
+        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, jobManager);
         FilesSyncHelper.restartJobsIfNeeded(
             uploadsStorageManager,
             accountManager,
