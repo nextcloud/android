@@ -169,6 +169,7 @@
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="copy_to">Kopjojeni tek…</string>
+    <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Url nuk mund të merrej</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="create_file_from_template">Duke krijuar skedar nga shablloni...</string>
@@ -201,6 +202,7 @@
     <string name="downloader_download_succeeded_ticker">U shkarkua</string>
     <string name="downloader_not_downloaded_yet">Ende e pashkarkuar</string>
     <string name="drawer_close">Mbyllni sidebar-in</string>
+    <string name="drawer_community">Komuniteti</string>
     <string name="drawer_current_account">Llogaria e tanishme</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
     <string name="drawer_header_background">Imazhi në background i drawer header</string>
@@ -257,12 +259,15 @@
     <string name="etm_title">Provë e mënyrës inxhinierike</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>
     <string name="failed_to_download">Kalimi i skedarit për të shkarkuar menaxherin dështoi</string>
+    <string name="failed_to_print">Printimi i skedarit dështoi</string>
     <string name="fallback_weblogin_back">Prapa</string>
     <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>
     <string name="favorite_icon">E parapëlqyer</string>
     <string name="feedback_no_mail_app">Nuk ka asnjë aplikacion në dispozicion për të dërguar mesazhe!</string>
+    <string name="file">skedari</string>
     <string name="file_delete">Fshini</string>
+    <string name="file_detail_activity_error">Gabim gjatë marrjes së aktiviteteve të skedarit</string>
     <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>
     <string name="file_icon">Skedar </string>
     <string name="file_keep">Mbaje</string>
@@ -330,6 +335,7 @@
     <string name="first_run_2_text">Bashkëpunim i sigurtë &amp;skedar i ndryshuar</string>
     <string name="first_run_3_text">E-mail i thjeshtë për t\'u përdorur në web, kalendari &amp;i kontakteve</string>
     <string name="first_run_4_text">Ndarja e ekranit, takime në internet &amp; konferenca në web</string>
+    <string name="folder">dosja</string>
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_icon">Ikona e dosjes</string>
@@ -417,6 +423,7 @@
     <string name="new_notification">Njoftim i ri</string>
     <string name="new_version_was_created">U krijua versioni i ri</string>
     <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
+    <string name="no_mutliple_accounts_allowed">Vetëm një llogari e lejuar</string>
     <string name="no_pdf_app_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar PDF</string>
     <string name="note_confirm">Dërgo</string>
     <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
@@ -523,6 +530,9 @@
     <string name="prefs_storage_path">Rruga e hapsirës ruajtëse</string>
     <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>
     <string name="prefs_synced_folders_remote_path_title">Dosje remote</string>
+    <string name="prefs_theme_title">Shabllon</string>
+    <string name="prefs_value_theme_dark">E errët</string>
+    <string name="prefs_value_theme_light">E çelët</string>
     <string name="preview_image_description">Parapamje figure</string>
     <string name="preview_image_error_no_local_file">Nuk ka skedar lokal për të shfaqur</string>
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
@@ -534,6 +544,7 @@
     <string name="recommend_subject">Provojeni %1$s në pajisjen tuaj!</string>
     <string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni këtu: %2$s</string>
     <string name="recommend_urls">%1$s ose %2$s</string>
+    <string name="remote_file_fetch_failed">Nuk u gjet asnjë skedar!</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="remove_notification_failed">Dështoi heqja e njoftimit.</string>
     <string name="remove_push_notification">Hiq</string>
@@ -581,6 +592,8 @@
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
+    <string name="share_internal_link_text">Punon vetëm për përdoruesit që kanë akses në %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
     <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
     <string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
