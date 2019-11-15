@@ -49,8 +49,7 @@
         android:gravity="center"
         android:text=""
         android:textAppearance="@style/NextcloudTextAppearanceHeadline"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:id="@+id/whatsNewTextLayout"
