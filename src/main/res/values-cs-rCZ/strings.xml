@@ -676,6 +676,26 @@
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>
     <string name="storage_pictures">Obrázky</string>
+    <string name="store_full_desc">Software, který můžete nasadit na vlastní server a ten organizuje ukládání a synchronizaci souborů. Díky doplňkům jde o kompletní groupwarové řešení.
+Funkce:
+* Soubory nahrané do nexcloudu lze snadno sdílet s ostatními.
+* Přístup odkudkoli přes webové a mobilní rozhraní.
+* Synchronizace s počítačem umožňující offline práci.
+* Vaše data jsou na vašem serveru a máte nad nimi plnou kontrolu.
+* Jde o svobodný software, který snadno můžete sami hostovat a volně si ho přizplsobit.  V případě potřeby je ale k dispozici komerční podpora.
+* Vyhledávání napříč soubory.
+* Synchronizace kontaktů a zpráv.
+* Sdílení kalendářů do mobilu (DAVx5/DAVdroid)
+* Neomezený počet uživatelů, autoupload fotek přímo z mobilu, oznámení, 
+* Klienti pro WIndows, MacOS, iOS, Android, web.
+* Mnoho dalších doplňků s dalšími funkcemi.
+
+Díky Nextcloudu budete mít kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
+
+Připomínky  zasílejte na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients a vše ostatní najdete na  https://nextcloud.com </string>
+    <string name="store_full_dev_desc">Kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
+Toto je oficiální vývojová verze aktualizovaná denně. Obsahuje nejnovější fukcionaliti, ale může být nestabilní a ohrozit vaše data. Je pro uživatele, kteří jsou ochotni testovat a hlásit chyby na které narazí. Nepoužívejte ji pro svoje produkční prostředí.
+Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nainstalovány souběžně.</string>
     <string name="store_short_desc">Produktivní platforma hostovaná u vás, kde vaše data jsou opravdu vaše</string>
     <string name="store_short_dev_desc">Produktivní platforma hostovaná u vás, kde vaše data jsou opravdu vaše (vývojová verze)</string>
     <string name="stream">Proudově vysílat s…</string>
