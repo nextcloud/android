@@ -30,7 +30,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -50,6 +49,7 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.jobs.OfflineSyncJob;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -121,7 +121,7 @@ public final class FilesSyncHelper {
                         }
                     });
                 } catch (IOException e) {
-                    Log.e(TAG, "Something went wrong while indexing files for auto upload " + e.getLocalizedMessage());
+                    Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
                 }
             }
         }
