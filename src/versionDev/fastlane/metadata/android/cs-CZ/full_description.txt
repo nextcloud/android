@@ -1,4 +1,3 @@
-Svobodná (copyleft) aplikace Nexcloud pro Android, dává vám mobilní svobodu.
-Toto je oficiální vývojová verze, obsahující denní vzorek všech nových nevyzkoušených funkcí, které mohou způsobovat nestabilitu a vést ke ztrátě dat. Aplikace v tomto stádiu vývoje je určena uživatelům, kteří jsou ochotní zkoušet a hlásit chyby, které se vyskytnou. Nepoužívejte pro svou produkční práci!
-
-Obě oficiální verze, jak vývojová tak ostrá jsou k dispozici na F-droid a je možné je mít nainstalované souběžně.
+Kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
+Toto je oficiální vývojová verze aktualizovaná denně. Obsahuje nejnovější fukcionaliti, ale může být nestabilní a ohrozit vaše data. Je pro uživatele, kteří jsou ochotni testovat a hlásit chyby na které narazí. Nepoužívejte ji pro svoje produkční prostředí.
+Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nainstalovány souběžně.

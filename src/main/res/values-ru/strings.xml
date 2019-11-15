@@ -476,7 +476,7 @@
     <string name="pass_code_wrong">Некорректный код</string>
     <string name="permission_allow">Разрешить</string>
     <string name="permission_deny">Запретить</string>
-    <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права доступа.</string>
+    <string name="permission_storage_access">Для отправки и скачивания файлов требуются дополнительные права доступа.</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="placeholder_fileSize">389 Кбайт</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -677,7 +677,7 @@
     <string name="sync_fail_ticker_unauthorized">Ошибка синхронизации, необходимо авторизоваться</string>
     <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
     <string name="sync_folder_failed_content">Синхронизация %1$s папки(-ок) не может быть завершена.</string>
-    <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, c которыми они связаны.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, отправляемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, отправленные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, c которыми они связаны.</string>
     <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>
     <string name="sync_in_progress">Дождитесь получения новой версии файла.</string>
     <string name="sync_status_button">Кнопка статуса синхронизации</string>
@@ -753,7 +753,7 @@
     <string name="uploader_upload_files_behaviour_not_writable">исходный каталог доступен только для чтения, файл будет только передан на сервер</string>
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
-    <string name="uploader_upload_forbidden_permissions">для загрузки в этот каталог</string>
+    <string name="uploader_upload_forbidden_permissions">для отправки в этот каталог</string>
     <string name="uploader_upload_in_progress_content">%1$d%% «%2$s»</string>
     <string name="uploader_upload_in_progress_ticker">Передача…</string>
     <string name="uploader_upload_succeeded_content_single">Передача файла «%1$s» завершена</string>
