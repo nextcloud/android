@@ -222,7 +222,6 @@
     <string name="drawer_manage_accounts">Uredi račune</string>
     <string name="drawer_middle_account">Srednji račun</string>
     <string name="drawer_open">Odpri bočno okno</string>
-    <string name="drawer_participate">Možnosti sodelovanja</string>
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
@@ -256,7 +255,6 @@
     <string name="fallback_weblogin_text">Povrni na star način prijave</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
-    <string name="feedback_no_mail_app">Program za pošiljanje elektronskih sporočil ni določen!</string>
     <string name="file">datoteka</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Napaka pridobivanja dejavnosti za datoteko</string>
@@ -372,8 +370,6 @@
     <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče prikazati v pretoku</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
-    <string name="media_err_not_in_owncloud">Dokument ni shranjen v veljavnem računu.</string>
-    <string name="media_err_nothing_to_play">Predstavnih datotek ni mogoče najti</string>
     <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
     <string name="media_err_unsupported">Nepodprt predstavni kodek</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
@@ -419,24 +415,6 @@
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
     <string name="operation_canceled">Opravilo je preklicano</string>
-    <string name="participate_beta_headline">Preizkušanje razvojne različice</string>
-    <string name="participate_beta_text">To vključuje vse prihajajoče zmožnosti programa. Hrošči in napake se pojavljajo in ko se, je priporočljivo poslati poročilo za razhroščevanje.</string>
-    <string name="participate_contribute_forum_forum">forumu</string>
-    <string name="participate_contribute_forum_text">Pomoč uporabnikom na</string>
-    <string name="participate_contribute_github_text">Preglejte, razvijajte in dopolnite kodo ... več o tem na %1$s</string>
-    <string name="participate_contribute_headline">Dejaven doprinos</string>
-    <string name="participate_contribute_irc_text">Pridružite se klepetu na kanalu IRC:</string>
-    <string name="participate_contribute_translate_text">programa</string>
-    <string name="participate_contribute_translate_translate">Pomoč pri prevajanju</string>
-    <string name="participate_dev_fdroid">Pridobite razvojno različico s programom F-Droid</string>
-    <string name="participate_rc_fdroid">Pridobite različico predogleda s programom F-Droid</string>
-    <string name="participate_rc_play_store">Pridobite različico predogleda v trgovini Google Play</string>
-    <string name="participate_release_candidate_headline">Različica za objavo</string>
-    <string name="participate_release_candidate_text">Različica preizkusne objave (RC) predstvlja zadnji predogled naslednje stabilne različice. Preizkušanje pomaga zagotoviti stabilnost. Sodelovanje je mogoče s prijavo v PlayStore oziroma ročno nastavitvijo »različice« med nastavitvami programa F-Droid.</string>
-    <string name="participate_testing_bug_text">Ali ste našli hrošča, neustrezno delovanje?</string>
-    <string name="participate_testing_headline">Pomoč s preizkušanjem</string>
-    <string name="participate_testing_report_text">Prijava težave na GitHub</string>
-    <string name="participate_testing_version_text">Ali bi morda želeli sodelovati pri preizkušanju razvojne različice?</string>
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
@@ -467,7 +445,6 @@
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_enable_media_scan_notifications_summary">Obvesti o na novo zaznanih mapah s predstavno vsebino</string>
-    <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_gpl_v2">Splošno Javno dovoljenje GNU GPL, različice 2</string>
     <string name="prefs_help">Pomoč</string>
     <string name="prefs_imprint">Natis</string>

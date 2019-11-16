@@ -180,7 +180,6 @@
     <string name="drawer_logout">Atsijungti</string>
     <string name="drawer_manage_accounts">Tvarkyti paskyras</string>
     <string name="drawer_open">Atverti šoninę juostą</string>
-    <string name="drawer_participate">Dalyvauti</string>
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
@@ -307,18 +306,13 @@
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
     <string name="media_err_malformed">Media failas yra nepalaikomos koduotės.</string>
-    <string name="media_err_not_in_owncloud">Failas nėra galiojančioje paskyroje (profilyje)</string>
-    <string name="media_err_nothing_to_play">Nerasta medija failų</string>
-    <string name="media_err_playing">Netikėta klaida bandant atkurti %1$s</string>
     <string name="media_err_timeout">Baigėsi laukimo laikas bandant paleisti</string>
     <string name="media_err_unknown">Įtaisytąjai medijos leistuvei nepavyko atkurti medijos failo</string>
     <string name="media_err_unsupported">Nepalaikomas kodekas</string>
-    <string name="media_event_done">%1$s atkūrimas užbaigtas</string>
     <string name="media_forward_description">Prasukimo mygtukas</string>
     <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
     <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
     <string name="media_rewind_description">Atsukimo mygtukas</string>
-    <string name="media_state_loading">%1$s (įkeliama)</string>
     <string name="media_state_playing">%1$s (atkuriama)</string>
     <string name="menu_item_sort_by_date_newest_first">Naujausi pirma</string>
     <string name="menu_item_sort_by_date_oldest_first">Seniausi pirma</string>
@@ -354,20 +348,6 @@
     <string name="offline_mode">Nėra interneto ryšio</string>
     <string name="operation_canceled">Operacijos atsisakyta</string>
     <string name="overflow_menu">Daugiau meniu</string>
-    <string name="participate_beta_headline">Testuoti dev versiją</string>
-    <string name="participate_beta_text">Tai yra ateities funkcijos ir jos yra nepatikrintos. Klaidos ar netikslumai gali pasitaikyti, tuo atveju, informuokite apie savo pastebėjimus.</string>
-    <string name="participate_contribute_forum_forum">Diskusijos</string>
-    <string name="participate_contribute_forum_text">Padėti kitiems</string>
-    <string name="participate_contribute_github_text">Peržiūrėti, pataisyti ir įrašyti kodą, žr. %1$s</string>
-    <string name="participate_contribute_headline">Aktyviai prisidėti</string>
-    <string name="participate_contribute_irc_text">Prisijungti prie diskusijų IRC</string>
-    <string name="participate_contribute_translate_text">Programėlė</string>
-    <string name="participate_contribute_translate_translate">Išversti</string>
-    <string name="participate_release_candidate_headline">Kandidatas kitam leidimui</string>
-    <string name="participate_release_candidate_text">Kandidatas kitam leidimui (Releace Candidate - RC) yra fragmentas kito stabilaus leidimo. Individualus testavimas gali tam pagelbėti. Prisijunkite testavimui per Play Store arba ieškokite \"Version\" sekcijos F-Droid.</string>
-    <string name="participate_testing_bug_text">Radote klaidą? Netikslumą?</string>
-    <string name="participate_testing_headline">Pagalba testuojant</string>
-    <string name="participate_testing_report_text">Pranešti problemą GitHub?</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
     <string name="pass_code_configure_your_pass_code_explanation">Užrakto kodas bus reikalaujamas kiekvieną kartą paleidžiant programėlę</string>
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
@@ -395,7 +375,6 @@
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
-    <string name="prefs_feedback">Atsiliepimai</string>
     <string name="prefs_gpl_v2">GNU Bendroji Viešoji Licencija, versija 2</string>
     <string name="prefs_help">Pagalba</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus…</string>
