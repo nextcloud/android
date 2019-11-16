@@ -20,14 +20,13 @@
 
 package com.nextcloud.client.network;
 
-import android.accounts.Account;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.evernote.android.job.JobRequest;
+import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.utils.Log_OC;
+import com.nextcloud.client.logger.Logger;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -44,10 +43,11 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     private final static String TAG = ConnectivityServiceImpl.class.getName();
 
-    private ConnectivityManager connectivityManager;
-    private UserAccountManager accountManager;
-    private ClientFactory clientFactory;
-    private GetRequestBuilder requestBuilder;
+    private final ConnectivityManager connectivityManager;
+    private final UserAccountManager accountManager;
+    private final ClientFactory clientFactory;
+    private final GetRequestBuilder requestBuilder;
+    private final Logger logger;
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
@@ -59,55 +59,55 @@ class ConnectivityServiceImpl implements ConnectivityService {
     ConnectivityServiceImpl(ConnectivityManager connectivityManager,
                             UserAccountManager accountManager,
                             ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder) {
+                            GetRequestBuilder requestBuilder,
+                            Logger logger) {
         this.connectivityManager = connectivityManager;
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
+        this.logger = logger;
     }
 
     @Override
     public boolean isInternetWalled() {
         if (isOnlineWithWifi()) {
             try {
-                Account account = accountManager.getCurrentAccount();
-                OwnCloudAccount ocAccount = accountManager.getCurrentOwnCloudAccount();
-                if (account != null && ocAccount != null) {
-                    OwnCloudVersion serverVersion = accountManager.getServerVersion(account);
+                Server server = accountManager.getUser().getServer();
+                String baseServerAddress = server.getUri().toString();
+                if (baseServerAddress.isEmpty()) {
+                    return true;
+                }
+                String url;
+                if (server.getVersion().compareTo(OwnCloudVersion.nextcloud_13) > 0) {
+                    url = baseServerAddress + "/index.php/204";
+                } else {
+                    url = baseServerAddress + "/status.php";
+                }
 
-                    String url;
-                    if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                        url = ocAccount.getBaseUri() + "/index.php/204";
-                    } else {
-                        url = ocAccount.getBaseUri() + "/status.php";
-                    }
+                GetMethod get = requestBuilder.invoke(url);
+                HttpClient client = clientFactory.createPlainClient();
 
-                    GetMethod get = requestBuilder.invoke(url);
-                    HttpClient client = clientFactory.createPlainClient();
+                int status = client.executeMethod(get);
 
-                    int status = client.executeMethod(get);
-
-                    if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                        return !(status == HttpStatus.SC_NO_CONTENT &&
-                            (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
-                    } else {
-                        if (status == HttpStatus.SC_OK) {
-                            try {
-                                // try parsing json to verify response
-                                // check if json contains maintenance and it should be false
-
-                                String json = get.getResponseBodyAsString();
-                                return new JSONObject(json).getBoolean("maintenance");
-                            } catch (Exception e) {
-                                return true;
-                            }
-                        } else {
+                if (server.getVersion().compareTo(OwnCloudVersion.nextcloud_13) > 0) {
+                    return !(status == HttpStatus.SC_NO_CONTENT &&
+                        (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
+                } else {
+                    if (status == HttpStatus.SC_OK) {
+                        try {
+                            // try parsing json to verify response
+                            // check if json contains maintenance and it should be false
+                            String json = get.getResponseBodyAsString();
+                            return new JSONObject(json).getBoolean("maintenance");
+                        } catch (Exception e) {
                             return true;
                         }
+                    } else {
+                        return true;
                     }
                 }
             } catch (IOException e) {
-                Log_OC.e(TAG, "Error checking internet connection", e);
+                logger.e(TAG, "Error checking internet connection", e);
             }
         } else {
             return getActiveNetworkType() == JobRequest.NetworkType.ANY;
