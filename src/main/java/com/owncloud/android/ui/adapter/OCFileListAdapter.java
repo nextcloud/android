@@ -47,6 +47,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -117,7 +118,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Set<OCFile> checkedFiles;
 
     private FileDataStorageManager mStorageManager;
-    private Account account;
+    private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
 
     private FilesFilter mFilesFilter;
@@ -135,7 +136,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public OCFileListAdapter(
         Context context,
-        Account account,
+        User user,
         AppPreferences preferences,
         UserAccountManager accountManager,
         ComponentsGetter transferServiceGetter,
@@ -147,16 +148,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mContext = context;
         this.preferences = preferences;
         this.accountManager = accountManager;
-        this.account = account;
+        this.user = user;
         mHideItemOptions = argHideItemOptions;
         this.gridView = gridView;
         checkedFiles = new HashSet<>();
 
         this.transferServiceGetter = transferServiceGetter;
 
-        if (account != null) {
+        if (this.user != null) {
             AccountManager platformAccountManager = AccountManager.get(mContext);
-            userId = platformAccountManager.getUserData(account,
+            userId = platformAccountManager.getUserData(this.user.toPlatformAccount(),
                                                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
         } else {
             userId = "";
@@ -399,7 +400,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {
                                 avatar.setTag(sharee);
-                                DisplayUtils.setAvatar(account,
+                                DisplayUtils.setAvatar(user.toPlatformAccount(),
                                                        sharee.getUserId(),
                                                        sharee.getDisplayName(),
                                                        this,
@@ -460,17 +461,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
             FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
             FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
-            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(account, file)) {
+            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user.toPlatformAccount(), file)) {
                 //synchronizing
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(account, file)) {
+            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user.toPlatformAccount(), file)) {
                 // downloading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(account, file)) {
+            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user.toPlatformAccount(), file)) {
                 //uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
@@ -575,13 +576,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, mStorageManager,
-                                                                                   account, asyncTasks);
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                   mStorageManager,
+                                                                                   user.toPlatformAccount(),
+                                                                                   asyncTasks);
 
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
-                                    MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
-                                                                 account, mContext));
+                                    MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                 file.getFileName(),
+                                                                 user.toPlatformAccount(),
+                                                                 mContext));
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(mContext.getResources(),
@@ -602,7 +607,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            account,
+                                                                            user.toPlatformAccount(),
                                                                             mContext));
             }
         }
@@ -685,7 +690,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(mContext.getString(R.string.shared_icon_share));
             }
-            if (accountManager.accountOwnsFile(file, account)) {
+            if (accountManager.accountOwnsFile(file, user.toPlatformAccount())) {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
             } else {
                 sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
@@ -703,7 +708,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param limitToMimeType       show only files of this mimeType
      */
     public void swapDirectory(
-        Account account,
+        User account,
         OCFile directory,
         FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice, String limitToMimeType
@@ -712,8 +717,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
-            showShareAvatar = mStorageManager.getCapability(account.name).getVersion().isShareesOnDavSupported();
-            this.account = account;
+            showShareAvatar = mStorageManager.getCapability(account.getAccountName()).getVersion().isShareesOnDavSupported();
+            this.user = account;
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
@@ -744,11 +749,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         FileDataStorageManager storageManager, OCFile folder, boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
-            showShareAvatar = mStorageManager.getCapability(account.name).getVersion().isShareesOnDavSupported();
+            showShareAvatar = mStorageManager.getCapability(user.getAccountName()).getVersion().isShareesOnDavSupported();
         }
 
         if (mStorageManager == null) {
-            mStorageManager = new FileDataStorageManager(account, mContext.getContentResolver());
+            mStorageManager = new FileDataStorageManager(user.toPlatformAccount(), mContext.getContentResolver());
         }
 
         if (clear) {
@@ -808,12 +813,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 shares.add(ocShare);
 
                 // get ocFile from Server to have an up-to-date copy
-                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(account,
+                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(user.toPlatformAccount(),
                                                                                                       mContext);
 
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    FileStorageUtils.searchForLocalFileInDefaultPath(file, account);
+                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
                     file = mStorageManager.saveFileWithParent(file, mContext);
 
                     ShareType newShareType = ocShare.getShareType();
@@ -868,7 +873,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         for (Object remoteFile : objects) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);
+            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.toPlatformAccount());
 
             try {
                 if (ExtendedListFragment.SearchType.PHOTO_SEARCH == searchType) {
@@ -885,9 +890,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                             true,
                                                                                             false,
                                                                                             mStorageManager,
-                                                                                            account,
+                                                                                            user.toPlatformAccount(),
                                                                                             mContext);
-                        refreshFolderOperation.execute(account, mContext);
+                        refreshFolderOperation.execute(user.toPlatformAccount(), mContext);
                     }
                 }
 

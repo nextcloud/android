@@ -21,9 +21,12 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +53,22 @@ public interface UserAccountManager extends CurrentAccountProvider {
      */
     @NonNull
     Account[] getAccounts();
+
+    /**
+     * Get configured nextcloud user accounts
+     * @return List of users or empty list, if users are not registered.
+     */
+    @NonNull
+    List<User> getAllUsers();
+
+    /**
+     * Get user with a specific account name.
+     *
+     * @param accountName Account name of the requested user
+     * @return User or empty optional if user does not exist.
+     */
+    @NonNull
+    Optional<User> getUser(CharSequence accountName);
 
     /**
      * Check if Nextcloud account is registered in {@link android.accounts.AccountManager}
