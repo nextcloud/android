@@ -210,7 +210,6 @@
     <string name="drawer_logout">الخروج</string>
     <string name="drawer_manage_accounts">إدارة الحسابات</string>
     <string name="drawer_middle_account">الحساب الوسيط</string>
-    <string name="drawer_participate">شارك معنا</string>
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="edit_permission_label">تعديل</string>
@@ -300,12 +299,10 @@
     <string name="manage_space_clear_data">مسح البيانات</string>
     <string name="manage_space_title">إدارة المساحة</string>
     <string name="media_err_invalid_progressive_playback">ملف الوسائط ﻻ يمكن عرضه</string>
-    <string name="media_err_nothing_to_play">لا يوجد ملف وسائط</string>
     <string name="media_err_unsupported">ترميز غير مدعّم</string>
     <string name="media_forward_description">زر التقدم للأمام</string>
     <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
     <string name="media_rewind_description">زر الترجيع</string>
-    <string name="media_state_loading">(جارٍ تحميل) %1$s</string>
     <string name="menu_item_sort_by_date_newest_first">الأحدث أولا</string>
     <string name="menu_item_sort_by_date_oldest_first">الأقدم أولا</string>
     <string name="menu_item_sort_by_name_a_z">أ - ى</string>
@@ -327,15 +324,6 @@
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
-    <string name="participate_beta_headline">جرّب تطبيق المطورين</string>
-    <string name="participate_contribute_forum_forum">المنتدى</string>
-    <string name="participate_contribute_forum_text">قم بمساعدة الآخرين على</string>
-    <string name="participate_contribute_headline">ساهم بفعالية</string>
-    <string name="participate_contribute_irc_text">إنضم إلى الدردشة على :</string>
-    <string name="participate_contribute_translate_text">التطبيق</string>
-    <string name="participate_contribute_translate_translate">ترجمة</string>
-    <string name="participate_testing_headline">ساعدنا بالتجريب</string>
-    <string name="participate_testing_report_text">إرسل تقرير أخطاء على جيت هب</string>
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
     <string name="pass_code_enter_pass_code">إدخل رمزك السري من فضلك</string>
     <string name="pass_code_mismatch">الجملتين السريتين لا تتطابقان</string>
@@ -361,7 +349,6 @@
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_daily_contacts_sync_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
-    <string name="prefs_feedback">ملاحظات</string>
     <string name="prefs_help">المساعدة</string>
     <string name="prefs_imprint">الدمغة.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">إستخدم المجلدات الفرعية</string>
